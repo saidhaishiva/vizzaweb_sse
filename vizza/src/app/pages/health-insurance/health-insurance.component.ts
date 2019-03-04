@@ -406,143 +406,6 @@ export class HealthInsuranceComponent implements OnInit {
         }
 
     }
-    // this function will get the policy quotation lists
-    // getPolicyQuotationList() {
-    //     this.selectedAmount = ''
-    //     // if (this.selectedAmount == '' || this.selectedAmount == undefined) {
-    //     //     this.sumerror = true;
-    //     // } else {
-    //     //     this.sumerror = false;
-    //     // }
-    //     if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
-    //         this.pinerror = true;
-    //     } else {
-    //         this.pinerror = false;
-    //     }
-    //     this.finalData = [];
-    //     let memberValid = false;
-    //
-    //         for (let i = 0; i < this.setArray.length; i++) {
-    //             if (this.setArray[i].checked) {
-    //                 if (this.setArray[i].age == '') {
-    //                     this.setArray[i].error = 'Required';
-    //                     memberValid = true;
-    //                     break;
-    //                 } else {
-    //                     this.setArray[i].error = '';
-    //                     memberValid = false;
-    //                     this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
-    //                 }
-    //             }
-    //         }
-    //
-    //     if (this.pincoce != '' && this.pincoce != undefined) {
-    //         if (!memberValid) {
-    //             if (this.finalData != '') {
-    //                 const data = {
-    //                     'platform': 'web',
-    //                     'postalcode': this.pincoce ? this.pincoce : '',
-    //                     'created_by': '0',
-    //                     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-    //                     'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-    //                     'sum_insured': this.selectedAmount,
-    //                     'family_details': this.finalData,
-    //                     'insurance_type': '1',
-    //                     'annual_salary': '',
-    //                     'occupation_code': '',
-    //                 };
-    //                 this.settings.loadingSpinner = true;
-    //                 this.common.getPolicyQuotation(data).subscribe(
-    //                     (successData) => {
-    //                         this.PolicyQuotationSuccess(successData, 0);
-    //
-    //                     },
-    //                     (error) => {
-    //                         this.PolicyQuotationFailure(error);
-    //                     }
-    //                 );
-    //
-    //             } else {
-    //             }
-    //         }
-    //     }
-    // }
-    //
-    // public PolicyQuotationSuccess(successData, index) {
-    //     this.settings.loadingSpinner = false;
-    //     if (successData.IsSuccess) {
-    //         this.insuranceLists = successData.ResponseObject;
-    //         sessionStorage.allGroupDetails = JSON.stringify(this.insuranceLists);
-    //         if(this.insuranceLists.length > 1) {
-    //             let dialogRef = this.dialog.open(GrouppopupComponent, {
-    //                 width: '1500px', data: {comparedata: successData.ResponseObject}});
-    //             dialogRef.disableClose = true;
-    //
-    //             dialogRef.afterClosed().subscribe(result => {
-    //             });
-    //         }
-    //
-    //         this.firstPage = false;
-    //         this.secondPage = true;
-    //         this.changedTabIndex = 0;
-    //         sessionStorage.changedTabIndex = 0;
-    //         this.enquiryId = this.insuranceLists[index].enquiry_id;
-    //         sessionStorage.enquiryId = this.insuranceLists[index].enquiry_id;
-    //
-    //         this.changedTabDetails = this.insuranceLists[index];
-    //         this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
-    //         sessionStorage.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
-    //         this.currentGroupName = this.insuranceLists[index].name;
-    //         sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
-    //
-    //         sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
-    //         if (sessionStorage.setPage != 1) {
-    //             this.settings.HomeSidenavUserBlock = false;
-    //             this.settings.sidenavIsOpened = false;
-    //             this.settings.sidenavIsPinned = false;
-    //
-    //         }
-    //         if (this.insuranceLists[index].enquiry_id != '') {
-    //             sessionStorage.sideMenu = true;
-    //         }
-    //         this.allCompanyList = [];
-    //         let all_products = [];
-    //         for (let i = 0; i < this.insuranceLists.length; i++) {
-    //
-    //             for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-    //                 if(this.allCompanyList.indexOf(this.insuranceLists[i].product_lists[j].company_name) == -1) {
-    //                     this.allCompanyList.push(this.insuranceLists[i].product_lists[j].company_name);
-    //                 }
-    //                 this.insuranceLists[i].product_lists[j].compare = false;
-    //                 this.insuranceLists[i].product_lists[j].shortlist = false;
-    //                 this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
-    //                 this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
-    //             }
-    //
-    //             this.insuranceLists[sessionStorage.changedTabIndex].all_product_list = this.insuranceLists[i].product_lists;
-    //         }
-    //
-    //         this.getArray = this.insuranceLists[index].family_members;
-    //         for (let i = 0; i < this.setArray.length; i++) {
-    //             for (let j = 0; j < this.getArray.length; j++) {
-    //                 if (this.setArray[i].name == this.getArray[j].type) {
-    //                     this.setArray[i].auto = true;
-    //                 }
-    //             }
-    //         }
-    //         this.filterCompany = this.allCompanyList;
-    //         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
-    //         sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
-    //         sessionStorage.allCompanyList = JSON.stringify(this.allCompanyList);
-    //     } else {
-    //         this.toast.error(successData.ErrorObject);
-    //     }
-    // }
-    //
-    // public  numberWithCommas(x) {
-    //     return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
-    // }
-
 
     // new policy lists
     getPolicyQuotationList() {
@@ -663,20 +526,20 @@ export class HealthInsuranceComponent implements OnInit {
                     this.settings.sidenavIsOpened = false;
                     this.settings.sidenavIsPinned = false;
                 }
-                for (let i = 0; i < policylists.length; i++) {
-                    for (let j = 0; j < policylists[i].product_lists.length; j++) {
-                        policylists[i].product_lists[j].compare = false;
-                        policylists[i].product_lists[j].shortlist = false;
-                        policylists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(policylists[i].product_lists[j].premium_amount);
-                        policylists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(policylists[i].product_lists[j].suminsured_amount);
-                    }
-                }
                 this.productListArray.push(policylists[0].product_lists);
                 this.allProductLists = [].concat.apply([], this.productListArray);
+                this.allPolicyDetails = policylists;
 
-                console.log(this.allProductLists, 'this.myNewArraymyNewArraymyNewArraymyNewArray');
-                 sessionStorage.allPolicyDetails = JSON.stringify(policylists);
-                 sessionStorage.changedTabDetails = JSON.stringify(this.allProductLists[0]);
+                for (let i = 0; i < this.allProductLists.length; i++) {
+                    this.allProductLists[i].compare = false;
+                    this.allProductLists[i].shortlist = false;
+                    this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
+                    this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
+                }
+                console.log(this.allProductLists, 'this.allProductListsallProductLists');
+
+                 // sessionStorage.allPolicyDetails = JSON.stringify(policylists);
+                 sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
                  sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
 
             } else {
@@ -689,10 +552,6 @@ export class HealthInsuranceComponent implements OnInit {
         return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
     }
     // end
-
-
-
-
     // second page
     // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
@@ -717,199 +576,165 @@ export class HealthInsuranceComponent implements OnInit {
     }
     public getSumInsuredAmountFailure(error) {
     }
-
-
-
-
-
-
-
-
     onSelectedIndexChange(index) {
-        if (this.insuranceLists.length == index) {
-            // this.getShortListDetails(this.enquiryId, index, name);
-            this.compareArray = [];
-        } else {
-            this.updateFlag = false;
-            this.ageUpdateFlag = false;
             this.settings.loadingSpinner = true;
-            this.changedTabDetails = this.insuranceLists[index];
-            console.log(this.changedTabDetails, 'this.changedTabDetailsthis.changedTabDetails7777');
-            sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
-            this.currentGroupName = this.insuranceLists[index].name;
-            this.changedTabIndex = index;
             sessionStorage.changedTabIndex = index;
-            this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
-            sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
-            this.updateTabPolicy(this.insuranceLists[index], index);
+            this.updateTabPolicy(this.allPolicyDetails[0], index);
+    }
+    updateTabPolicy(value, index) {
+        this.finalData = [];
+        for (let i = 0; i < this.setArray.length; i++) {
+            if (this.setArray[i].checked) {
+                if (this.setArray[i].age == '') {
+                    this.setArray[i].error = 'Required';
+                } else {
+                    this.setArray[i].error = '';
+                    this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
+                }
+            }
+        }
+        for (let i = 0; i < this.setArray.length; i++) {
+            this.setArray[i].auto = false;
+        }
+        const data = {
+            'platform': 'web',
+            'postalcode': this.pincoce,
+            'sum_insured': this.changeSuminsuredFunction,
+            'family_details': this.finalData,
+            'family_group_name': value.name,
+            'enquiry_id': value.enquiry_id,
+            'created_by': '0',
+            'insurance_type' : '1',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        this.settings.loadingSpinner = true;
+        this.common.updateTabPolicyQuotation(data).subscribe(
+            (successData) => {
+                this.updateTabPolicyQuotationSuccess(successData, index);
+            },
+            (error) => {
+                this.updateTabPolicyQuotationFailure(error);
+            }
+        );
+    }
+    public updateTabPolicyQuotationSuccess(successData, index) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            let policylists = successData.ResponseObject;
+            for (let i = 0; i < policylists.length; i++) {
+                for (let j = 0; j < policylists[i].product_lists.length; j++) {
+                    policylists[i].product_lists[j].compare = false;
+                    policylists[i].product_lists[j].shortlist = false;
+                    policylists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(policylists[i].product_lists[j].premium_amount);
+                    policylists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(policylists[i].product_lists[j].suminsured_amount);
+                }
+            }
+            this.productListArray.push(policylists[0].product_lists);
+            this.allProductLists = [].concat.apply([], this.productListArray);
+            this.allPolicyDetails = policylists;
+            console.log(this.allPolicyDetails, 'this.allPolicyDetails222');
+            sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
+            sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
+
+        } else {
+            this.toast.error(successData.ErrorObject, 'Failed');
         }
     }
-    addCompare(value, pi, index, equiryId, name) {
+    public updateTabPolicyQuotationFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
+    addCompare(value,index) {
+        console.log(index, 'index');
+        console.log(this.allProductLists, 'compyy');
         const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
-        this.equiryId = equiryId;
-        this.goupName = name;
-        this.insuranceLists[pi].product_lists[index].compare = true;
+        this.allProductLists[index].compare = true;
         this.compareArray.push(data);
         if (this.compareArray.length >= 3) {
-            for (let i = 0; i < this.insuranceLists[pi].product_lists.length; i++) {
-                this.insuranceLists[pi].product_lists[i].compare = true;
+            for (let i = 0; i < this.allProductLists.length; i++) {
+                this.allProductLists[i].compare = true;
             }
         }
 
     }
-    removeCompare(index , pindex, tabIndex) {
-       // this.insuranceLists[tabIndex].product_lists[pindex].compare = false;
+    removeCompare(index , pindex) {
         this.compareArray.splice(index, 1);
         let getCount;
-        for (let i = 0; i < this.insuranceLists[tabIndex].product_lists.length; i++) {
+        for (let i = 0; i < this.allProductLists.length; i++) {
             getCount = false;
             for (let j = 0; j < this.compareArray.length; j++) {
-                if (this.compareArray[j].premium_id == this.insuranceLists[tabIndex].product_lists[i].premium_id) {
+                if (this.compareArray[j].premium_id == this.allProductLists[i].premium_id) {
                     getCount = true;
-                    this.insuranceLists[tabIndex].product_lists[i].compare = true;
+                    this.allProductLists[i].compare = true;
                 }
             }
             if (!getCount) {
-                this.insuranceLists[tabIndex].product_lists[i].compare = false;
+                this.allProductLists[i].compare = false;
             }
         }
 
     }
-    removeAllCompare(index, tabIndex) {
-        for (let i = 0; i < this.insuranceLists[tabIndex].product_lists.length; i++) {
-            this.insuranceLists[tabIndex].product_lists[i].compare = false;
+    removeAllCompare(index) {
+        for (let i = 0; i < this.allProductLists.length; i++) {
+            this.allProductLists[i].compare = false;
         }
         this.compareArray = [];
     }
-    addShortlist(value, pi, index, enqId, name) {
-        this.nonEditable = true;
+    compareList(value) {
+        this.productLists = [];
+        let scheme = value[0].scheme;
+        for (let i = 0; i < value.length; i++) {
+            this.productLists.push({product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
+        }
         const data = {
             'platform': 'web',
-            'scheme': value.scheme,
-            'group_name': name,
-            'product_id': value.product_id,
-            'suminsured_amount': value.suminsured_amount,
-            'premium_amount': value.premium_amount,
-            'enquiry_id': enqId,
-            'shortlisted_by': '0',
+            'scheme': scheme,
+            'group_name': this.groupDetails.family_groups[0].name,
+            'enquiry_id': this.groupDetails.enquiry_id,
+            'product_lists': this.productLists,
+            'created_by': 0,
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
 
         };
         this.settings.loadingSpinner = true;
-        this.common.addShortList(data).subscribe(
+        this.common.addtoCompare(data).subscribe(
             (successData) => {
-                this.shortListSuccess(successData, pi, index);
+                this.compareSuccess(successData);
             },
             (error) => {
-                this.shortListFailure(error);
+                this.compareFailure(error);
             }
         );
     }
-    public shortListSuccess(successData, pi, index) {
+    public compareSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.shortlistArray = successData.ResponseObject;
-            this.shortListCount = this.shortlistArray.length;
-            sessionStorage.shortListCount = this.shortListCount;
-            for (let i = 0; i < this.insuranceLists.length; i++) {
-                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                    for (let k = 0; k < this.shortlistArray.length; k++) {
-                        this.insuranceLists[pi].product_lists[j].shortlist_id = this.shortlistArray[k].shortlist_id;
-                        this.insuranceLists[pi].product_lists[j].shortlist = this.shortlistArray[k].shortlist_id == '' ? false : true;
-                        this.insuranceLists[pi].product_lists[j].currentBtn = this.shortlistArray[k].shortlist_id == '' ? false : true;
-                    }
-                }
-            }
+            let dialogRef = this.dialog.open(ComparelistComponent, {
+                width: '1500px', data: {comparedata: successData.ResponseObject}});
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+            });
         }
-        this.insuranceLists[pi].product_lists[index].currentBtn = false;
-        this.insuranceLists[pi].product_lists[index].removebtn = true;
-        this.indexList.push({pi: pi, index: index});
-        // sessionStorage.shorListTab = JSON.stringify({pi: pi, index: index});
-        sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
-
-
-
     }
-    public shortListFailure(error) {
-
-    }
-    removeShortlist(value, pi, index, enqId, shortId) {
-        const data = {
-            'platform': 'web',
-            'shortlist_id': shortId,
-            'enquiry_id': enqId,
-            'shortlisted_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        };
-        this.settings.loadingSpinner = true;
-        this.common.removeShortList(data).subscribe(
-            (successData) => {
-                this.removeShortListSuccess(successData, pi, index, enqId, value.group_name);
-            },
-            (error) => {
-                this.removeShortListFailure(error);
-            }
-        );
-    }
-    public removeShortListSuccess(successData, pi, index, enqId, name) {
+    public compareFailure(error) {
         this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            this.shortlistArray.splice(index, 1);
-            this.shortListCount = this.shortlistArray.length;
-            sessionStorage.shortListCount = this.shortListCount;
-            if (this.shortListCount > 0) {
-                this.nonEditable = true;
-            } else {
-                this.nonEditable = false;
-
-            }
-            for (let i = 0; i < this.insuranceLists.length; i++) {
-                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                    this.insuranceLists[pi].product_lists[j].removebtn = false;
-                    this.insuranceLists[pi].product_lists[j].shortlist = false;
-
-                }
-            }
-        }
     }
-    public removeShortListFailure(successData) {
+    // view key features details
+    viewKeyList(value) {
+        let dialogRef = this.dialog.open(ViewdetailsComponent, {
+            width: '1500px', data: {productId : value.product_id, productName: value.product_name}
+        });
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
 
     }
-    removeShortlistPage(value, pi, index, enqId, shortId) {
-        const data = {
-            'platform': 'web',
-            'shortlist_id': shortId,
-            'enquiry_id': enqId,
-            'shortlisted_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        };
-        this.common.removeShortList(data).subscribe(
-            (successData) => {
-                this.removeShortlistPageSuccess(successData, pi, index, enqId, value.group_name);
-            },
-            (error) => {
-                this.removeShortListPageFailure(error);
-            }
-        );
-    }
-    public removeShortlistPageSuccess(successData, pi, index, enqId, name) {
-        if (successData.IsSuccess) {
-            this.shortlistArray.splice(index, 1);
-            this.shortListCount = this.shortlistArray.length;
-            sessionStorage.shortListCount = this.shortListCount;
-            if (this.shortListCount > 0) {
-                this.nonEditable = true;
-            } else {
-                this.nonEditable = false;
-            }
-        }
-    }
-    public removeShortListPageFailure(successData) {
 
-    }
+
+
 
     // filter by product
     filterByProducts() {
@@ -946,102 +771,6 @@ export class HealthInsuranceComponent implements OnInit {
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
         sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
 
-
-    }
-
-    updateTabPolicy(value, index) {
-        this.finalData = [];
-        for (let i = 0; i < this.setArray.length; i++) {
-            if (this.setArray[i].checked) {
-                if (this.setArray[i].age == '') {
-                    this.setArray[i].error = 'Required';
-                } else {
-                    this.setArray[i].error = '';
-                    this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
-                }
-            }
-        }
-        for (let i = 0; i < this.setArray.length; i++) {
-            this.setArray[i].auto = false;
-        }
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pincoce,
-            'sum_insured': this.selectedAmount,
-            'family_details': this.finalData,
-            'family_group_name': value.name,
-            'enquiry_id': value.enquiry_id,
-            'created_by': '0',
-            'insurance_type' : '1',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        };
-        this.settings.loadingSpinner = true;
-        this.common.updateTabPolicyQuotation(data).subscribe(
-            (successData) => {
-                this.updateTabPolicyQuotationSuccess(successData, index, value.enquiry_id, value.name);
-            },
-            (error) => {
-                this.updateTabPolicyQuotationFailure(error);
-            }
-        );
-    }
-    public updateTabPolicyQuotationSuccess(successData, index, enqId, name) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            // if (successData.ResponseObject) {
-            this.insuranceLists = successData.ResponseObject;
-            // let remainingGroups = JSON.parse(sessionStorage.policyLists).value;
-            // console.log(remainingGroups, 'remainingGroups');
-            //
-            // if(remainingGroups[0].product_lists.length == 0) {
-            //     for (let i = 0; i < this.insuranceLists.length; i++) {
-            //         if(this.insuranceLists[i].name != remainingGroups[0].name) {
-            //          console.log('iny');
-            //             this.insuranceLists.splice(i, 1);
-            //         }
-            //     }
-            // }
-            console.log(this.insuranceLists, 'this.insuranceListsthis.insuranceLists909909099909');
-            // this.getShortListDetails(enqId, index, name);
-            this.allCompanyList = [];
-            for (let i = 0; i < this.insuranceLists.length; i++) {
-                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                    if(this.allCompanyList.indexOf(this.insuranceLists[i].product_lists[j].company_name) == -1) {
-                        this.allCompanyList.push(this.insuranceLists[i].product_lists[j].company_name);
-                    }
-                    this.insuranceLists[index].product_lists[j].shortlist =  this.insuranceLists[index].product_lists[j].shortlist_status;
-                    this.insuranceLists[index].product_lists[j].currentBtn =  this.insuranceLists[index].product_lists[j].shortlist_status;
-                    if (this.insuranceLists[index].product_lists[j].indiv_shortlist_status == true) {
-                        this.insuranceLists[index].product_lists[j].removebtn = this.insuranceLists[index].product_lists[j].indiv_shortlist_status;
-                        this.insuranceLists[index].product_lists[j].currentBtn = false;
-                    }
-
-                    this.insuranceLists[index].product_lists[j].premium_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].premium_amount);
-                    this.insuranceLists[index].product_lists[j].suminsured_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].suminsured_amount);
-                }
-            }
-            for (let i = 0; i < this.setArray.length; i++) {
-                this.setArray[i].auto = false;
-            }
-            this.getArray = this.insuranceLists[index].family_members;
-            for (let i = 0; i < this.setArray.length; i++) {
-                for (let j = 0; j < this.getArray.length; j++) {
-                    if (this.setArray[i].name == this.getArray[j].type) {
-                        this.setArray[i].auto = true;
-                    }
-                }
-            }
-            // }
-           sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
-            this.filterCompany = this.allCompanyList;
-        } else {
-            this.toast.error(successData.ErrorObject, 'Failed');
-        }
-    }
-
-    public updateTabPolicyQuotationFailure(error) {
-        this.settings.loadingSpinner = false;
     }
     ageChange() {
         this.ageUpdateFlag = true;
@@ -1054,7 +783,6 @@ export class HealthInsuranceComponent implements OnInit {
             this.updateFlag = false;
         }
         sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
-
     }
     // this function will change the sum insured amount
     changeSuminsuredFunction() {
@@ -1065,8 +793,8 @@ export class HealthInsuranceComponent implements OnInit {
             'platform': 'web',
             'postalcode': this.pincoce,
             'sum_insured': this.changeSuninsuredAmount,
-            'family_group_name': this.changedTabDetails.name,
-            'enquiry_id': this.changedTabDetails.enquiry_id,
+            'family_group_name': this.allPolicyDetails[0].name,
+            'enquiry_id': this.allPolicyDetails[0].enquiry_id,
             'created_by': '0',
             'insurance_type' : '1',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -1128,202 +856,6 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     public changeAmountPolicyQuotationFailure(error) {
-        this.settings.loadingSpinner = false;
-    }
-
-    getShortListDetails(enqId, index, name) {
-        const data = {
-            'platform': 'web',
-            'enquiry_id': enqId,
-            'shortlisted_by': '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        };
-        this.changedTabIndex = sessionStorage.changedTabIndex;
-        this.common.getShortLists(data).subscribe(
-            (successData) => {
-                this.getShortListsSuccess(successData, index, name);
-            },
-            (error) => {
-                this.getShortListsFailure(error);
-            }
-        );
-    }
-    public getShortListsSuccess(successData, index, name) {
-        this.shortlistArray = successData.ResponseObject;
-        this.shortListCount = this.shortlistArray.length;
-        if (this.shortListCount > 0) {
-            this.nonEditable = true;
-            let length = this.shortlistArray.length - 1;
-            this.totalSuminsured = this.shortlistArray[length].total_suminsured;
-        } else {
-            this.nonEditable = false;
-
-        }
-        for (let i = 0; i < this.shortlistArray.length; i++) {
-            this.shortlistArray[i].removebtn = true;
-        }
-        for (let i = 0; i < this.insuranceLists.length; i++) {
-            for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                for (let k = 0; k < this.shortlistArray.length; k++) {
-                    if (this.shortlistArray[k].group_name == name) {
-                        this.insuranceLists[index].product_lists[j].shortlist_id = this.shortlistArray[k].shortlist_id;
-                    }
-
-                }
-            }
-        }
-    }
-    public getShortListsFailure(error) {
-    }
-
-    updateFunction() {
-        if (!this.updateFlag && !this.ageUpdateFlag || this.updateFlag && this.ageUpdateFlag || !this.updateFlag && this.ageUpdateFlag) {
-            let dialogRef = this.dialog.open(GroupmembersAlert, {
-                width: '700px',
-            });
-            dialogRef.disableClose = true;
-            dialogRef.afterClosed().subscribe(result => {
-                if (result) {
-                    this.updateDetails();
-                }
-            });
-        } else {
-            this.changeSuminsuredFunction();
-        }
-    }
-
-    // this function will update base details
-    updateDetails() {
-        this.getArray = this.changedTabDetails.family_members;
-        for (let i = 0; i < this.setArray.length; i++) {
-            for (let j = 0; j < this.getArray.length; j++) {
-                if (this.setArray[i].name == this.getArray[j].type) {
-                    this.setArray[i].auto = true;
-                }
-            }
-        }
-        this.finalData = [];
-        for (let i = 0; i < this.setArray.length; i++) {
-            if (this.setArray[i].checked) {
-                if (this.setArray[i].age == '') {
-                    this.setArray[i].error = 'Required';
-                } else {
-                    this.setArray[i].error = '';
-                    this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
-                }
-            }
-        }
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pincoce,
-            'sum_insured': sessionStorage.changeSuninsuredAmount,
-            'family_details': this.finalData,
-            'family_group_name': this.changedTabDetails.name,
-            'enquiry_id': this.changedTabDetails.enquiry_id,
-            'created_by': '0',
-            'insurance_type': '1',
-            'annual_salary': '',
-            'occupation_code': '',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        };
-        let index = this.changedTabIndex;
-        // this.settings.loadingSpinner = true;
-        this.common.updatePolicyQuotation(data).subscribe(
-            (successData) => {
-                this.updatePolicyQuotationSuccess(successData, index);
-            },
-            (error) => {
-                this.updatePolicyQuotationFailure(error);
-            }
-        );
-    }
-    public updatePolicyQuotationSuccess(successData, index) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            if (this.ageUpdateFlag) {
-                let dialogRef = this.dialog.open(GrouppopupComponent, {
-                    width: '1500px', data: {comparedata: successData.ResponseObject}});
-                dialogRef.disableClose = true;
-                dialogRef.afterClosed().subscribe(result => {
-                });
-                this.insuranceLists = successData.ResponseObject;
-                for (let i = 0; i < this.insuranceLists.length; i++) {
-                    for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                        this.insuranceLists[i].product_lists[j].compare = false;
-                        this.insuranceLists[i].product_lists[j].shortlist = false;
-                        this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
-                        this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
-                    }
-                }
-                sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
-
-            }
-
-        } else {
-
-            this.toast.error(successData.ErrorObject, 'Failed');
-        }
-    }
-
-    public updatePolicyQuotationFailure(error) {
-        this.settings.loadingSpinner = false;
-    }
-    // view key features details
-    viewKeyList(value) {
-        let dialogRef = this.dialog.open(ViewdetailsComponent, {
-            width: '1500px', data: {productId : value.product_id, productName: value.product_name}
-        });
-        dialogRef.disableClose = true;
-
-        dialogRef.afterClosed().subscribe(result => {
-        });
-
-    }
-
-
-
-
-    compareList(value) {
-        this.productLists = [];
-        let scheme = value[0].scheme;
-        for (let i = 0; i < value.length; i++) {
-            this.productLists.push({product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
-        }
-        const data = {
-            'platform': 'web',
-            'scheme': scheme,
-            'group_name': this.goupName,
-            'enquiry_id': this.equiryId,
-            'product_lists': this.productLists,
-            'created_by': 0,
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-
-        };
-        this.settings.loadingSpinner = true;
-        this.common.addtoCompare(data).subscribe(
-            (successData) => {
-                this.compareSuccess(successData);
-            },
-            (error) => {
-                this.compareFailure(error);
-            }
-        );
-    }
-    public compareSuccess(successData) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            let dialogRef = this.dialog.open(ComparelistComponent, {
-                width: '1500px', data: {comparedata: successData.ResponseObject}});
-            dialogRef.disableClose = true;
-
-            dialogRef.afterClosed().subscribe(result => {
-            });
-        }
-    }
-    public compareFailure(error) {
         this.settings.loadingSpinner = false;
     }
 
@@ -1777,3 +1309,426 @@ export class AgeValidate {
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// old
+// this function will get the policy quotation lists
+// getPolicyQuotationList() {
+//     this.selectedAmount = ''
+//     // if (this.selectedAmount == '' || this.selectedAmount == undefined) {
+//     //     this.sumerror = true;
+//     // } else {
+//     //     this.sumerror = false;
+//     // }
+//     if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
+//         this.pinerror = true;
+//     } else {
+//         this.pinerror = false;
+//     }
+//     this.finalData = [];
+//     let memberValid = false;
+//
+//         for (let i = 0; i < this.setArray.length; i++) {
+//             if (this.setArray[i].checked) {
+//                 if (this.setArray[i].age == '') {
+//                     this.setArray[i].error = 'Required';
+//                     memberValid = true;
+//                     break;
+//                 } else {
+//                     this.setArray[i].error = '';
+//                     memberValid = false;
+//                     this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
+//                 }
+//             }
+//         }
+//
+//     if (this.pincoce != '' && this.pincoce != undefined) {
+//         if (!memberValid) {
+//             if (this.finalData != '') {
+//                 const data = {
+//                     'platform': 'web',
+//                     'postalcode': this.pincoce ? this.pincoce : '',
+//                     'created_by': '0',
+//                     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+//                     'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+//                     'sum_insured': this.selectedAmount,
+//                     'family_details': this.finalData,
+//                     'insurance_type': '1',
+//                     'annual_salary': '',
+//                     'occupation_code': '',
+//                 };
+//                 this.settings.loadingSpinner = true;
+//                 this.common.getPolicyQuotation(data).subscribe(
+//                     (successData) => {
+//                         this.PolicyQuotationSuccess(successData, 0);
+//
+//                     },
+//                     (error) => {
+//                         this.PolicyQuotationFailure(error);
+//                     }
+//                 );
+//
+//             } else {
+//             }
+//         }
+//     }
+// }
+//
+// public PolicyQuotationSuccess(successData, index) {
+//     this.settings.loadingSpinner = false;
+//     if (successData.IsSuccess) {
+//         this.insuranceLists = successData.ResponseObject;
+//         sessionStorage.allGroupDetails = JSON.stringify(this.insuranceLists);
+//         if(this.insuranceLists.length > 1) {
+//             let dialogRef = this.dialog.open(GrouppopupComponent, {
+//                 width: '1500px', data: {comparedata: successData.ResponseObject}});
+//             dialogRef.disableClose = true;
+//
+//             dialogRef.afterClosed().subscribe(result => {
+//             });
+//         }
+//
+//         this.firstPage = false;
+//         this.secondPage = true;
+//         this.changedTabIndex = 0;
+//         sessionStorage.changedTabIndex = 0;
+//         this.enquiryId = this.insuranceLists[index].enquiry_id;
+//         sessionStorage.enquiryId = this.insuranceLists[index].enquiry_id;
+//
+//         this.changedTabDetails = this.insuranceLists[index];
+//         this.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
+//         sessionStorage.changeSuninsuredAmount = this.insuranceLists[index].group_suminsured_id;
+//         this.currentGroupName = this.insuranceLists[index].name;
+//         sessionStorage.changedTabDetails = JSON.stringify(this.insuranceLists[index]);
+//
+//         sessionStorage.setPage = (this.insuranceLists[index].enquiry_id == '' ) ? 1 : 2;
+//         if (sessionStorage.setPage != 1) {
+//             this.settings.HomeSidenavUserBlock = false;
+//             this.settings.sidenavIsOpened = false;
+//             this.settings.sidenavIsPinned = false;
+//
+//         }
+//         if (this.insuranceLists[index].enquiry_id != '') {
+//             sessionStorage.sideMenu = true;
+//         }
+//         this.allCompanyList = [];
+//         let all_products = [];
+//         for (let i = 0; i < this.insuranceLists.length; i++) {
+//
+//             for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+//                 if(this.allCompanyList.indexOf(this.insuranceLists[i].product_lists[j].company_name) == -1) {
+//                     this.allCompanyList.push(this.insuranceLists[i].product_lists[j].company_name);
+//                 }
+//                 this.insuranceLists[i].product_lists[j].compare = false;
+//                 this.insuranceLists[i].product_lists[j].shortlist = false;
+//                 this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
+//                 this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
+//             }
+//
+//             this.insuranceLists[sessionStorage.changedTabIndex].all_product_list = this.insuranceLists[i].product_lists;
+//         }
+//
+//         this.getArray = this.insuranceLists[index].family_members;
+//         for (let i = 0; i < this.setArray.length; i++) {
+//             for (let j = 0; j < this.getArray.length; j++) {
+//                 if (this.setArray[i].name == this.getArray[j].type) {
+//                     this.setArray[i].auto = true;
+//                 }
+//             }
+//         }
+//         this.filterCompany = this.allCompanyList;
+//         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
+//         sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
+//         sessionStorage.allCompanyList = JSON.stringify(this.allCompanyList);
+//     } else {
+//         this.toast.error(successData.ErrorObject);
+//     }
+// }
+//
+// public  numberWithCommas(x) {
+//     return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
+// }
+
+// updateFunction() {
+//     if (!this.updateFlag && !this.ageUpdateFlag || this.updateFlag && this.ageUpdateFlag || !this.updateFlag && this.ageUpdateFlag) {
+//         let dialogRef = this.dialog.open(GroupmembersAlert, {
+//             width: '700px',
+//         });
+//         dialogRef.disableClose = true;
+//         dialogRef.afterClosed().subscribe(result => {
+//             if (result) {
+//                 this.updateDetails();
+//             }
+//         });
+//     } else {
+//         this.changeSuminsuredFunction();
+//     }
+// }
+//
+// // this function will update base details
+// updateDetails() {
+//     this.getArray = this.changedTabDetails.family_members;
+//     for (let i = 0; i < this.setArray.length; i++) {
+//         for (let j = 0; j < this.getArray.length; j++) {
+//             if (this.setArray[i].name == this.getArray[j].type) {
+//                 this.setArray[i].auto = true;
+//             }
+//         }
+//     }
+//     this.finalData = [];
+//     for (let i = 0; i < this.setArray.length; i++) {
+//         if (this.setArray[i].checked) {
+//             if (this.setArray[i].age == '') {
+//                 this.setArray[i].error = 'Required';
+//             } else {
+//                 this.setArray[i].error = '';
+//                 this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
+//             }
+//         }
+//     }
+//     const data = {
+//         'platform': 'web',
+//         'postalcode': this.pincoce,
+//         'sum_insured': sessionStorage.changeSuninsuredAmount,
+//         'family_details': this.finalData,
+//         'family_group_name': this.changedTabDetails.name,
+//         'enquiry_id': this.changedTabDetails.enquiry_id,
+//         'created_by': '0',
+//         'insurance_type': '1',
+//         'annual_salary': '',
+//         'occupation_code': '',
+//         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+//         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+//     };
+//     let index = this.changedTabIndex;
+//     // this.settings.loadingSpinner = true;
+//     this.common.updatePolicyQuotation(data).subscribe(
+//         (successData) => {
+//             this.updatePolicyQuotationSuccess(successData, index);
+//         },
+//         (error) => {
+//             this.updatePolicyQuotationFailure(error);
+//         }
+//     );
+// }
+// public updatePolicyQuotationSuccess(successData, index) {
+//     this.settings.loadingSpinner = false;
+//     if (successData.IsSuccess) {
+//         if (this.ageUpdateFlag) {
+//             let dialogRef = this.dialog.open(GrouppopupComponent, {
+//                 width: '1500px', data: {comparedata: successData.ResponseObject}});
+//             dialogRef.disableClose = true;
+//             dialogRef.afterClosed().subscribe(result => {
+//             });
+//             this.insuranceLists = successData.ResponseObject;
+//             for (let i = 0; i < this.insuranceLists.length; i++) {
+//                 for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+//                     this.insuranceLists[i].product_lists[j].compare = false;
+//                     this.insuranceLists[i].product_lists[j].shortlist = false;
+//                     this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].premium_amount);
+//                     this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
+//                 }
+//             }
+//             sessionStorage.policyLists = JSON.stringify({index: index, value: successData.ResponseObject});
+//
+//         }
+//
+//     } else {
+//
+//         this.toast.error(successData.ErrorObject, 'Failed');
+//     }
+// }
+//
+// public updatePolicyQuotationFailure(error) {
+//     this.settings.loadingSpinner = false;
+// }
+
+// addShortlist(value, pi, index, enqId, name) {
+//     this.nonEditable = true;
+//     const data = {
+//         'platform': 'web',
+//         'scheme': value.scheme,
+//         'group_name': name,
+//         'product_id': value.product_id,
+//         'suminsured_amount': value.suminsured_amount,
+//         'premium_amount': value.premium_amount,
+//         'enquiry_id': enqId,
+//         'shortlisted_by': '0',
+//         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+//         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+//
+//     };
+//     this.settings.loadingSpinner = true;
+//     this.common.addShortList(data).subscribe(
+//         (successData) => {
+//             this.shortListSuccess(successData, pi, index);
+//         },
+//         (error) => {
+//             this.shortListFailure(error);
+//         }
+//     );
+// }
+// public shortListSuccess(successData, pi, index) {
+//     this.settings.loadingSpinner = false;
+//     if (successData.IsSuccess) {
+//         this.shortlistArray = successData.ResponseObject;
+//         this.shortListCount = this.shortlistArray.length;
+//         sessionStorage.shortListCount = this.shortListCount;
+//         for (let i = 0; i < this.insuranceLists.length; i++) {
+//             for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+//                 for (let k = 0; k < this.shortlistArray.length; k++) {
+//                     this.insuranceLists[pi].product_lists[j].shortlist_id = this.shortlistArray[k].shortlist_id;
+//                     this.insuranceLists[pi].product_lists[j].shortlist = this.shortlistArray[k].shortlist_id == '' ? false : true;
+//                     this.insuranceLists[pi].product_lists[j].currentBtn = this.shortlistArray[k].shortlist_id == '' ? false : true;
+//                 }
+//             }
+//         }
+//     }
+//     this.insuranceLists[pi].product_lists[index].currentBtn = false;
+//     this.insuranceLists[pi].product_lists[index].removebtn = true;
+//     this.indexList.push({pi: pi, index: index});
+//     // sessionStorage.shorListTab = JSON.stringify({pi: pi, index: index});
+//     sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
+//
+//
+//
+// }
+// public shortListFailure(error) {
+//
+// }
+// removeShortlist(value, pi, index, enqId, shortId) {
+//     const data = {
+//         'platform': 'web',
+//         'shortlist_id': shortId,
+//         'enquiry_id': enqId,
+//         'shortlisted_by': '0',
+//         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+//         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+//     };
+//     this.settings.loadingSpinner = true;
+//     this.common.removeShortList(data).subscribe(
+//         (successData) => {
+//             this.removeShortListSuccess(successData, pi, index, enqId, value.group_name);
+//         },
+//         (error) => {
+//             this.removeShortListFailure(error);
+//         }
+//     );
+// }
+// public removeShortListSuccess(successData, pi, index, enqId, name) {
+//     this.settings.loadingSpinner = false;
+//     if (successData.IsSuccess) {
+//         this.shortlistArray.splice(index, 1);
+//         this.shortListCount = this.shortlistArray.length;
+//         sessionStorage.shortListCount = this.shortListCount;
+//         if (this.shortListCount > 0) {
+//             this.nonEditable = true;
+//         } else {
+//             this.nonEditable = false;
+//
+//         }
+//         for (let i = 0; i < this.insuranceLists.length; i++) {
+//             for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+//                 this.insuranceLists[pi].product_lists[j].removebtn = false;
+//                 this.insuranceLists[pi].product_lists[j].shortlist = false;
+//
+//             }
+//         }
+//     }
+// }
+// public removeShortListFailure(successData) {
+//
+// }
+// removeShortlistPage(value, pi, index, enqId, shortId) {
+//     const data = {
+//         'platform': 'web',
+//         'shortlist_id': shortId,
+//         'enquiry_id': enqId,
+//         'shortlisted_by': '0',
+//         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+//         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+//     };
+//     this.common.removeShortList(data).subscribe(
+//         (successData) => {
+//             this.removeShortlistPageSuccess(successData, pi, index, enqId, value.group_name);
+//         },
+//         (error) => {
+//             this.removeShortListPageFailure(error);
+//         }
+//     );
+// }
+// public removeShortlistPageSuccess(successData, pi, index, enqId, name) {
+//     if (successData.IsSuccess) {
+//         this.shortlistArray.splice(index, 1);
+//         this.shortListCount = this.shortlistArray.length;
+//         sessionStorage.shortListCount = this.shortListCount;
+//         if (this.shortListCount > 0) {
+//             this.nonEditable = true;
+//         } else {
+//             this.nonEditable = false;
+//         }
+//     }
+// }
+// public removeShortListPageFailure(successData) {
+//
+// }
+
+// getShortListDetails(enqId, index, name) {
+//     const data = {
+//         'platform': 'web',
+//         'enquiry_id': enqId,
+//         'shortlisted_by': '0',
+//         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+//         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+//     };
+//     this.changedTabIndex = sessionStorage.changedTabIndex;
+//     this.common.getShortLists(data).subscribe(
+//         (successData) => {
+//             this.getShortListsSuccess(successData, index, name);
+//         },
+//         (error) => {
+//             this.getShortListsFailure(error);
+//         }
+//     );
+// }
+// public getShortListsSuccess(successData, index, name) {
+//     this.shortlistArray = successData.ResponseObject;
+//     this.shortListCount = this.shortlistArray.length;
+//     if (this.shortListCount > 0) {
+//         this.nonEditable = true;
+//         let length = this.shortlistArray.length - 1;
+//         this.totalSuminsured = this.shortlistArray[length].total_suminsured;
+//     } else {
+//         this.nonEditable = false;
+//
+//     }
+//     for (let i = 0; i < this.shortlistArray.length; i++) {
+//         this.shortlistArray[i].removebtn = true;
+//     }
+//     for (let i = 0; i < this.insuranceLists.length; i++) {
+//         for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
+//             for (let k = 0; k < this.shortlistArray.length; k++) {
+//                 if (this.shortlistArray[k].group_name == name) {
+//                     this.insuranceLists[index].product_lists[j].shortlist_id = this.shortlistArray[k].shortlist_id;
+//                 }
+//
+//             }
+//         }
+//     }
+// }
+// public getShortListsFailure(error) {
+// }

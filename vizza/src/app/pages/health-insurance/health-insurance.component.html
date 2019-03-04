@@ -103,28 +103,24 @@
           </div>
         </div>
 
-
-
-
-            <div>
-              <div class="flex-p" >
-               <table class="table health-table table-scroll">
-                <thead>
-                <tr>
-                  <th class="col-md-3">
-                    <mat-form-field class="w-100">
-                      <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
-                      <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                        <!--<mat-option value="all" (click)="selectAll($event)">Select All</mat-option>-->
-                        <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}">{{lists.company_name}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </th>
-                  <th class="sun-insured col-md-1">
-                    <mat-form-field >
-                      <mat-placeholder class="myclass" matTooltip="Lacs">SUM INSURED(Lacs)</mat-placeholder>
-                      <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="changeSuminsuredFunction()">
-                        <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}</mat-option>
+        <div class="flex-p" >
+           <table class="table health-table table-scroll">
+            <thead>
+            <tr>
+              <th class="col-md-3">
+                <mat-form-field class="w-100">
+                  <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
+                  <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
+                    <!--<mat-option value="all" (click)="selectAll($event)">Select All</mat-option>-->
+                    <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}">{{lists.company_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th class="sun-insured col-md-1">
+                <mat-form-field >
+                  <mat-placeholder class="myclass" matTooltip="Lacs">SUM INSURED(Lacs)</mat-placeholder>
+                  <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="changeSuminsuredFunction()">
+                    <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}</mat-option>
 
                       </mat-select>
                     </mat-form-field>
@@ -150,7 +146,7 @@
                     <p class="text-center">{{keys.key_features_value}}</p>
                   </td>
                   <td class="col-md-2">
-                    <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
+                    <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)">Add to Compare</button></p>
                     <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                   </td>
@@ -169,80 +165,15 @@
       </div>
     </div>
   </div>
-  <!--<div class="col-md-3 product-choose"  [ngClass]="{'non-editable': nonEditable}">-->
-
-  <!--<div  *ngIf="secondPage">-->
-  <!--<div fxLayoutAlign="left center">-->
-  <!--<div class="col-md-12">-->
-  <!--<mat-card class="custom-card">-->
-  <!--<mat-card-header class="p-2" >-->
-  <!--<mat-card-title class="m-0">-->
-  <!--<h6>Your Selections</h6>-->
-  <!--</mat-card-title>-->
-  <!--</mat-card-header>-->
-  <!--<mat-card-content>-->
-  <!--<div class="row" fxLayoutAlign="left center">-->
-  <!--<mat-radio-group><br>-->
-  <!--<mat-radio-button [checked]="true" value="1">{{currentGroupName}}</mat-radio-button>-->
-  <!--</mat-radio-group>-->
-  <!--</div>-->
-
-  <!--<div class="row" fxLayoutAlign="left center">-->
-  <!--<div class="col-md-6">-->
-  <!--<span style="font-size: 12px;">S.I</span>-->
-  <!--</div>-->
-  <!--<div class="col-md-6">-->
-  <!--<mat-form-field class="w-100">-->
-  <!--<mat-select [(ngModel)]="changeSuninsuredAmount" name="suminsure" (change)="changeSuminsured($event)">-->
-  <!--<mat-option  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">-->
-  <!--{{amounts.si_amount}}-->
-  <!--</mat-option>-->
-  <!--</mat-select>-->
-  <!--</mat-form-field>-->
-  <!--</div>-->
-  <!--</div>-->
-
-  <!--<div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">-->
-  <!--<div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" *ngIf="item.auto" [disabled]="true" (change)="ckeckedUser(item.checked, i, item.name)" ></mat-checkbox></div>-->
-  <!--<div class="col-md-4" *ngIf="item.auto">{{item.name}}</div>-->
-  <!--<div class="col-md-6" *ngIf="item.auto"> <mat-form-field class="w-100" >-->
-  <!--<input matInput placeholder="age" name="age" [(ngModel)]="item.age" (change)="ageChange()">-->
-  <!--</mat-form-field>-->
-  <!--</div>-->
-
-  <!--</div>-->
-  <!--<div class="row" fxLayoutAlign="left center">-->
-  <!--<div class="col-md-6">-->
-  <!--<span>Pincode</span>-->
-  <!--</div>-->
-  <!--<div class="col-md-6">-->
-  <!--<mat-form-field class="w-100">-->
-  <!--<input matInput name="pin" name="pin" [disabled]="true"  [(ngModel)]="pincoce">-->
-  <!--</mat-form-field>-->
-  <!--</div>-->
-  <!--</div>-->
-  <!--<div fxLayoutAlign="center center" class="son">-->
-  <!--<button mat-raised-button color="accent" type="button" (click)="updateFunction()">Update</button>-->
-  <!--</div>-->
-
-  <!--</mat-card-content>-->
-  <!--</mat-card>-->
-  <!--</div>-->
-  <!--</div>-->
-
-
-  <!--</div>-->
-  <!--</div>-->
-</div>
 <div class="row compar-fix" *ngIf="compareArray != ''">
   <div class="text-right closeBtnClass">
-    <mat-icon (click)="removeAllCompare(i, tabIndex)">close</mat-icon>
+    <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
   </div>
   <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">
       <mat-card class="custom-card compare-icon text-center">
         <div class="text-right closeBtnClass">
-          <mat-icon (click)="removeCompare(i, clists.index, tabIndex)">close</mat-icon>
+          <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
         </div>
         <mat-card-content class="p-0">
           <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
@@ -256,14 +187,13 @@
   </div>
 </div>
 
-<form action="http://localhost:4203/#/paymentSuccess"  method='POST' enctype='text/plain' #form>
-
-  <div>
-    <input type='hidden' name='csrf' value="test"/>
-    <input type='hidden' name='policyNumber' value="india"/>
-  </div>
-  <!--<button mat-raised-button color="primary"  (click)="form.submit()">Pay Now</button>-->
-</form>
+<!--<form action="http://localhost:4203/#/paymentSuccess"  method='POST' enctype='text/plain' #form>-->
+  <!--<div>-->
+    <!--<input type='hidden' name='csrf' value="test"/>-->
+    <!--<input type='hidden' name='policyNumber' value="india"/>-->
+  <!--</div>-->
+  <!--&lt;!&ndash;<button mat-raised-button color="primary"  (click)="form.submit()">Pay Now</button>&ndash;&gt;-->
+<!--</form>-->
 
 
 
