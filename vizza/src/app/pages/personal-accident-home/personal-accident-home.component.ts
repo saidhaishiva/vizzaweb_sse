@@ -115,7 +115,6 @@ export class PersonalaccidentComponent implements OnInit {
 
     ngOnInit() {
         this.show = this.config.getpaAccident();
-        alert(this.show);
         this.firstPage = true;
         this.secondPage = false;
         // this.closeIcon = true;
