@@ -84,10 +84,11 @@ export class HealthInsuranceComponent implements OnInit {
 
     allCompanyList : any;
     groupDetails : any;
+    groupList : any;
     allProductLists : any;
     productListArray : any;
 
-    allPolicyLists : any;
+    allPolicyDetails : any;
 
 
     private keyUp = new Subject<string>();
@@ -209,6 +210,16 @@ export class HealthInsuranceComponent implements OnInit {
         if (sessionStorage.changedTabIndex != undefined && sessionStorage.changedTabIndex != '') {
             this.changedTabIndex = sessionStorage.changedTabIndex;
         }
+
+        // second page
+        if (sessionStorage.groupDetails != undefined && sessionStorage.groupDetails != '') {
+            this.groupDetails = JSON.parse(sessionStorage.groupDetails);
+            this.groupList = this.groupDetails.family_groups;
+        }
+        if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
+            this.allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
+        }
+
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
             this.allProductLists = JSON.parse(sessionStorage.policyLists).value;
                 // this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
@@ -593,7 +604,9 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.groupDetails = successData.ResponseObject;
-            console.log(this.groupDetails, 'groupDetails');
+            this.groupList = successData.ResponseObject.family_groups;
+            sessionStorage.groupDetails = JSON.stringify(successData.ResponseObject);
+            console.log(this.groupList, 'groupDetails');
             if(this.groupDetails.length > 1) {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
                     width: '1500px', data: {comparedata: successData.ResponseObject}});
@@ -650,7 +663,7 @@ export class HealthInsuranceComponent implements OnInit {
                     this.settings.sidenavIsOpened = false;
                     this.settings.sidenavIsPinned = false;
                 }
-                for (let i = 0; i < policylists; i++) {
+                for (let i = 0; i < policylists.length; i++) {
                     for (let j = 0; j < policylists[i].product_lists.length; j++) {
                         policylists[i].product_lists[j].compare = false;
                         policylists[i].product_lists[j].shortlist = false;
@@ -658,50 +671,13 @@ export class HealthInsuranceComponent implements OnInit {
                         policylists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(policylists[i].product_lists[j].suminsured_amount);
                     }
                 }
-                //let productListArray = [];
-
-                // console.log(productListArray, 'productListArray');
-
-                // this.allProductLists.push(policylists[0].product_lists);
-
-
                 this.productListArray.push(policylists[0].product_lists);
                 this.allProductLists = [].concat.apply([], this.productListArray);
 
                 console.log(this.allProductLists, 'this.myNewArraymyNewArraymyNewArraymyNewArray');
+                 sessionStorage.allPolicyDetails = JSON.stringify(policylists);
                  sessionStorage.changedTabDetails = JSON.stringify(this.allProductLists[0]);
                  sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
-
-
-                // this.productLists.push(productListArray);
-
-
-
-                // policylists[0].productLists = productListArray;
-
-               // console.log(policylists[0], 'this. policylists[0]');
-
-
-
-                // this.allPolicyLists.push(policylists[0].productLists);
-
-
-               // console.log(this.allPolicyLists, 'this.allPolicyLists1');
-               //
-               //  sessionStorage.allGroupDetails = JSON.stringify(this.allPolicyLists);
-               //  sessionStorage.changedTabDetails = JSON.stringify(this.allPolicyLists[0]);
-               //  sessionStorage.policyLists = JSON.stringify({index: 0, value: successData.ResponseObject});
-
-
-                // this.getArray = this.insuranceLists[0].family_members;
-                // for (let i = 0; i < this.setArray.length; i++) {
-                //     for (let j = 0; j < this.getArray.length; j++) {
-                //         if (this.setArray[i].name == this.getArray[j].type) {
-                //             this.setArray[i].auto = true;
-                //         }
-                //     }
-                // }
-                // this.filterCompany = this.allCompanyList;
 
             } else {
                 this.toast.error(successData.ErrorObject);
@@ -712,7 +688,6 @@ export class HealthInsuranceComponent implements OnInit {
     public  numberWithCommas(x) {
         return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
     }
-
     // end
 
 
@@ -1271,9 +1246,7 @@ export class HealthInsuranceComponent implements OnInit {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
                     width: '1500px', data: {comparedata: successData.ResponseObject}});
                 dialogRef.disableClose = true;
-
                 dialogRef.afterClosed().subscribe(result => {
-
                 });
                 this.insuranceLists = successData.ResponseObject;
                 for (let i = 0; i < this.insuranceLists.length; i++) {
@@ -1354,11 +1327,11 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
 
-    buyProduct(value, enqId, gname) {
+    buyProduct(value) {
         let ages = [];
-        for (let i = 0; i < this.insuranceLists.length; i++) {
-            for (let j = 0; j < this.insuranceLists[i].family_members.length; j++) {
-                ages.push(this.insuranceLists[i].family_members[j].age);
+        for (let i = 0; i < this.allPolicyDetails.length; i++) {
+            for (let j = 0; j < this.allPolicyDetails[i].family_members.length; j++) {
+                ages.push(this.allPolicyDetails[i].family_members[j].age);
             }
         }
         this.checkAge = Math.max.apply(null, ages);
@@ -1370,7 +1343,6 @@ export class HealthInsuranceComponent implements OnInit {
                 dialogRef.afterClosed().subscribe(result => {
                     if (result) {
                         sessionStorage.buyProductdetails = JSON.stringify(value);
-                        sessionStorage.groupName = gname;
                         if (value.product_id <= 5) {
                             this.router.navigate(['/religare-health-proposal' + '/' + false]);
                         } else if (value.product_id == 11) {
@@ -1412,7 +1384,6 @@ export class HealthInsuranceComponent implements OnInit {
                 });
             } else {
                 sessionStorage.buyProductdetails = JSON.stringify(value);
-                sessionStorage.groupName = gname;
                 if (value.product_id <= 5) {
                     let ageValid = true;
                     for(let i=0; i < this.changedTabDetails.family_members.length; i++){
