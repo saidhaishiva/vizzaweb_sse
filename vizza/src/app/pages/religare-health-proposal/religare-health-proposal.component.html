@@ -67,7 +67,7 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST Number" (keypress)="idValidate($event)"  minlength="15"  maxlength="15" formControlName="personalGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
+                        <input matInput placeholder="GST Number" class="text-uppercase" (keypress)="idValidate($event)"  minlength="15"  maxlength="15" formControlName="personalGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalGst.hasError('pattern')">Enter valid GST</mat-error>
 
@@ -284,11 +284,11 @@
                                  <mat-error *ngIf="insureArray.invalid">Enter valid GST</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail" autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                              <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail"  autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && this.insureArray['controls'].items['controls'][i]['controls'].type == 'Son'|| this.insureArray['controls'].items['controls'][i]['controls'].type == 'Daughter'" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                               <mat-error *ngIf="insureArray.invalid">Email Id is required</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)" maxlength="10" formControlName="personalMobile" autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                              <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)" maxlength="10"  formControlName="personalMobile" autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && this.insureArray['controls'].items['controls'][i]['controls'].type == 'Son'|| this.insureArray['controls'].items['controls'][i]['controls'].type == 'Daughter'" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                               <mat-error *ngIf="insureArray.invalid">Mobile number is required</mat-error>
                             </mat-form-field>
                             </div>
@@ -820,7 +820,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="nomineeFormData.religareNomineeName !=''">{{nomineeFormData.religareNomineeName}}</span> <span *ngIf="nomineeFormData.religareNomineeName ==''"> Nill</span></li>
+                        <li class="list-group-item"><strong>Nominee name:</strong> <span *ngIf="nomineeFormData.religareNomineeName !=''">{{nomineeFormData.religareNomineeName}}</span> <span *ngIf="nomineeFormData.religareNomineeName ==''"> Nil</span></li>
                       </ul>
                     </div>
 
@@ -833,7 +833,7 @@
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Relationship with insured:</strong>
-                          <span *ngIf="nomineeFormData.religareRelationship !=''">{{nomineeFormData.religareRelationship}}</span> <span *ngIf="nomineeFormData.religareRelationship == null || nomineeFormData.religareRelationship == undefined"> Nill</span>
+                          <span *ngIf="nomineeFormData.religareRelationship !=''">{{nomineeFormData.religareRelationship}}</span> <span *ngIf="nomineeFormData.religareRelationship == null || nomineeFormData.religareRelationship == undefined"> Nil</span>
                          </li>
                       </ul>
                     </div>

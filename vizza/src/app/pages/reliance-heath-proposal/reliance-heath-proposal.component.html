@@ -432,7 +432,7 @@
                                         </div>
 
                                         <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
-                                            <button mat-button matStepperPrevious>Back</button>
+                                            <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                                             <button mat-raised-button color="primaryBlue"  (click)="relianceInsureDetails(stepper, i, insureArray.value)">Next</button>
                                         </div>
                                     </div>
@@ -491,7 +491,7 @@
 
                                 </div>
                                 <div class="proposal-buttom mt-3 text-right w-100">
-                                    <button mat-button matStepperPrevious>Back</button>
+                                    <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                                     <button mat-raised-button color="primaryBlue"  (click)="previousInsureDetails(stepper,previousInsuranceFrom.value)">Next</button>
                                 </div>
                             </mat-expansion-panel>
@@ -710,7 +710,7 @@
 
                                         </div>
                                         <div class="proposal-buttom mb-3 text-right w-100">
-                                            <button mat-button matStepperPrevious>Back</button>
+                                            <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                                             <button mat-raised-button color="primaryBlue"   (click)="religareNomineeDetails(stepper, nomineeDetails.value)">Next</button>
                                         </div>
                                     </form>
@@ -916,7 +916,7 @@
                     </section>
                     <div class="row" *ngIf="summaryData">
                         <div class="col-md-6 text-right">
-                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                         </div>
                         <div class="col-md-6 text-left">
                             <form action={{summaryData.RediretUrlLink}} method='post' #form>
@@ -927,5 +927,5 @@
                 </mat-step>
             </mat-horizontal-stepper>
         </div>
+        </div>
     </div>
-</div>
