@@ -164,6 +164,9 @@ export class AppolloMunichComponent implements OnInit {
     public appolloQuestionsList: any;
     public medicalquestion: any;
     public sameRelationship : any;
+    public proposerFormData : any;
+    public insuredFormData : any;
+    public nomineeFormData : any;
     currentStep: any;
     proofValid: any;
     public idlistValid: boolean;
@@ -230,6 +233,7 @@ export class AppolloMunichComponent implements OnInit {
           maritalStatus: ['', Validators.required],
           proposerrelationship: '1',
           proposerIdProof: '',
+            proposerIdProofname: '',
           proposerIdProofIdP: '',
           proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
           proposerDriving: '',
@@ -242,9 +246,11 @@ export class AppolloMunichComponent implements OnInit {
           nationality: 'IN',
           proposerPincode: ['', Validators.required],
           proposerCity: ['', Validators.required],
+          proposerCityName: '',
           proposerCountry: 'IN',
           proposerState: ['', Validators.required],
           proposerDistrict: '',
+          proposerDistrictName: '',
           proposerCityIdP: '',
           proposerStateIdP: '',
           proposerCountryIdP: '',
@@ -263,6 +269,7 @@ export class AppolloMunichComponent implements OnInit {
           nomineeAddress3: '',
           nomineePincode: '',
           nomineeCity: '',
+          nomineeCityName: '',
           nomineeCityId: '',
           nomineeState: '',
           nomineeStateId: '',
@@ -270,6 +277,7 @@ export class AppolloMunichComponent implements OnInit {
           nomineeCountry: 'IN',
           nationality: 'IN',
           nomineeDistrict: '',
+          nomineeDistrictName: '',
           nomineeDistrictId: '',
           nomineeRelationship: '',
           sameAsProposerAddress: ''
@@ -330,6 +338,7 @@ export class AppolloMunichComponent implements OnInit {
                 nationality: this.getStepper1.nationality,
                 proposerPincode: this.getStepper1.proposerPincode,
                 proposerIdProof: this.getStepper1.proposerIdProof,
+                proposerIdProofName: this.getStepper1.proposerIdProofName,
                 proposerIdProofIdP: this.getStepper1.proposerIdProofIdP,
                 proposerPan: this.getStepper1.proposerPan,
                 proposerPassport: this.getStepper1.proposerPassport,
@@ -338,6 +347,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerDriving: this.getStepper1.proposerDriving,
                 MedicalInformations: this.getStepper1.MedicalInformations,
                 proposerCity: this.getStepper1.proposerCity,
+                proposerCityName: this.getStepper1.proposerCityName,
                 proposerState: this.getStepper1.proposerState,
                 proposerCountry: this.getStepper1.proposerCountry,
                 proposerCityIdP: this.getStepper1.proposerCityIdP,
@@ -348,6 +358,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerCountryIdR: this.getStepper1.proposerCountryIdR,
                 proposerDistrictIdP: this.getStepper1.proposerDistrictIdP,
                 proposerDistrict: this.getStepper1.proposerDistrict,
+                proposerDistrictName: this.getStepper1.proposerDistrictName,
                 proposerEmail: this.getStepper1.proposerEmail,
                 proposerMobile: this.getStepper1.proposerMobile,
                 rolecd: this.getStepper1.rolecd,
@@ -373,6 +384,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerMobile.patchValue(this.getStepper2.items[i].proposerMobile);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.patchValue(this.getStepper2.items[i].proposerDob);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerrelationship.patchValue(this.getStepper2.items[i].proposerrelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerrelationshipName.patchValue(this.getStepper2.items[i].proposerrelationshipName);
                 this.insureArray['controls'].items['controls'][i]['controls'].maritalStatus.patchValue(this.getStepper2.items[i].maritalStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
@@ -384,6 +396,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerWeight.patchValue(this.getStepper2.items[i].proposerWeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerEmail.patchValue(this.getStepper2.items[i].proposerEmail);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProof.patchValue(this.getStepper2.items[i].proposerIdProof);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofName.patchValue(this.getStepper2.items[i].proposerIdProofName);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.getStepper2.items[i].proposerIdProofIdP);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerPan.patchValue(this.getStepper2.items[i].proposerPan);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.patchValue(this.getStepper2.items[i].proposerDriving);
@@ -423,6 +436,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].WaivePeriod.patchValue(this.getStepper2.items[i].WaivePeriod);
                 this.insureArray['controls'].items['controls'][i]['controls'].Remarks.patchValue(this.getStepper2.items[i].Remarks);
                 this.insureArray['controls'].items['controls'][i]['controls'].Proposeroccupation.patchValue(this.getStepper2.items[i].Proposeroccupation);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProposeroccupationName.patchValue(this.getStepper2.items[i].ProposeroccupationName);
                 this.insureArray['controls'].items['controls'][i]['controls'].SmokingStatus.patchValue(this.getStepper2.items[i].SmokingStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].LiquorPegStatus.patchValue(this.getStepper2.items[i].LiquorPegStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].WineGlassStatus.patchValue(this.getStepper2.items[i].WineGlassStatus);
@@ -430,6 +444,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].BeerBottleStatus.patchValue(this.getStepper2.items[i].BeerBottleStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].previousInsurerStatus.patchValue(this.getStepper2.items[i].previousInsurerStatus);
                 this.insureArray['controls'].items['controls'][i]['controls'].ProffessionList.patchValue(this.getStepper2.items[i].ProffessionList);
+                this.insureArray['controls'].items['controls'][i]['controls'].ProffessionListName.patchValue(this.getStepper2.items[i].ProffessionListName);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
                 this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
@@ -481,12 +496,14 @@ export class AppolloMunichComponent implements OnInit {
                 nomineePincode: this.getNomineeData.nomineePincode,
                 nomineeCountry: this.getNomineeData.nomineeCountry,
                 nomineeCity: this.getNomineeData.nomineeCity,
+                nomineeCityName: this.getNomineeData.nomineeCityName,
                 nomineeState: this.getNomineeData.nomineeState,
                 nomineeCountryId: this.getNomineeData.nomineeCountryId,
                 nomineeDistrictId: this.getNomineeData.nomineeDistrictId,
                 nomineeCityId: this.getNomineeData.nomineeCityId,
                 nomineeStateId: this.getNomineeData.nomineeStateId,
                 nomineeDistrict: this.getNomineeData.nomineeDistrict,
+                nomineeDistrictName: this.getNomineeData.nomineeDistrictName,
                 nomineeTitle: this.getNomineeData.nomineeTitle,
                 nomineeDob: this.getNomineeData.nomineeDob,
             });
@@ -523,6 +540,7 @@ export class AppolloMunichComponent implements OnInit {
         } else {
             this.proposer.controls['proposerGender'].patchValue('Female');
         }
+
     }
     insureChangeGender(index) {
 
@@ -574,6 +592,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerAge: '',
                 maritalStatus: '',
                 proposerIdProof: '',
+                proposerIdProofName: '',
                 proposerIdProofIdP: '',
                 proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
                 proposerDriving: '',
@@ -586,9 +605,11 @@ export class AppolloMunichComponent implements OnInit {
                 nationality: 'IN',
                 proposerPincode: '',
                 proposerCity: '',
+                proposerCityName: '',
                 proposerCountry: 'IN',
                 proposerState: '',
                 proposerDistrict: '',
+                proposerDistrictName: '',
                 proposerCityIdP: '',
                 proposerStateIdP: '',
                 proposerCountryIdP: '',
@@ -615,10 +636,13 @@ export class AppolloMunichComponent implements OnInit {
                 SumInsured: '',
                 QualifyingAmount: '',
                 ProffessionList: '',
+                ProffessionListName: '',
                 WaivePeriod: '',
                 Remarks: '',
                 Proposeroccupation: '',
+                ProposeroccupationName: '',
                 proposerrelationship: '',
+                proposerrelationshipName: '',
                 sameAsProposer: false,
                 sameas: false,
                 type: '',
@@ -773,7 +797,25 @@ export class AppolloMunichComponent implements OnInit {
 
         }
     }
-
+    // insured page
+    changeinsuredidList(index){
+    this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProofName.patchValue(this.IdProofListss[(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value)]);
+    }
+    changeProffessionList(index){
+    this.insureArray['controls'].items['controls'][index]['controls'].ProffessionListName.patchValue(this.proffessionList[(this.insureArray['controls'].items['controls'][index]['controls'].ProffessionList.value)]);
+    }
+    changeRelationShipList(index){
+        this.insureArray['controls'].items['controls'][index]['controls'].proposerrelationshipName.patchValue(this.relationshipList[(this.insureArray['controls'].items['controls'][index]['controls'].proposerrelationship.value)]);
+    }
+    changeOccupationList(index){
+        this.insureArray['controls'].items['controls'][index]['controls'].ProposeroccupationName.patchValue(this.occupationList[(this.insureArray['controls'].items['controls'][index]['controls'].Proposeroccupation.value)]);
+    }
+    changeInsuredStateList(index){
+        this.insureArray['controls'].items['controls'][index]['controls'].proposerDistrictName.patchValue(this.iAppolloDistrictList[(this.insureArray['controls'].items['controls'][index]['controls'].proposerDistrict.value)]);
+    }
+    changeInsuredCityList(index){
+        this.insureArray['controls'].items['controls'][index]['controls'].proposerCityName.patchValue(this.iAppolloCityList[(this.insureArray['controls'].items['controls'][index]['controls'].proposerCity.value)]);
+    }
     validateProof(index){
             if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO2') {
                 if(this.insureArray['controls'].items['controls'][index]['controls'].proposerPan.value == '') {
@@ -2242,6 +2284,10 @@ export class AppolloMunichComponent implements OnInit {
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.ProposalId;
+            this.proposerFormData = this.proposer.value;
+            this.nomineeFormData = this.nomineeDetails.value;
+            this.insuredFormData = this.totalInsureDetails.items;
+            console.log(this.proposerFormData, ' this.proposerFormData ');
             sessionStorage.appollo_health_proposal_id = this.proposalId;
             // this.lastStepper.next();
         }
@@ -2255,5 +2301,23 @@ export class AppolloMunichComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
 
+    changeid(){
+        this.proposer.controls['proposerIdProofname'].patchValue(this.IdProofListss[this.proposer.controls['proposerIdProof'].value]);
+    }
+    changeDistrict(){
+        this.proposer.controls['proposerDistrictName'].patchValue(this.AppolloDistrictList[this.proposer.controls['proposerDistrict'].value]);
 
+    }
+    changeCity(){
+        this.proposer.controls['proposerCityName'].patchValue(this.AppolloCityList[this.proposer.controls['proposerCity'].value]);
+
+    }
+    changeNomineeDistrict(){
+        this.proposer.controls['nomineeDistrictName'].patchValue(this.nomineeAppolloDistrictList[this.proposer.controls['nomineeDistrict'].value]);
+
+    }
+    changeNomineeCity(){
+        this.proposer.controls['nomineeCityName'].patchValue(this.nomineeAppolloCityLis[this.proposer.controls['nomineeCity'].value]);
+
+    }
 }
