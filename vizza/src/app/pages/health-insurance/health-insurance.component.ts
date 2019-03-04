@@ -1311,7 +1311,8 @@ export class HealthInsuranceComponent implements OnInit {
 
     }
 
-//
+
+
 
     compareList(value) {
         this.productLists = [];
