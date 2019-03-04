@@ -111,15 +111,15 @@
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
                   <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                    <!--<mat-option value="all" (click)="selectAll($event)">Select All</mat-option>-->
-                    <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}">{{lists.company_name}}</mat-option>
+                    <mat-option value="all" >Select All</mat-option>
+                    <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </th>
               <th class="sun-insured col-md-1">
                 <mat-form-field >
                   <mat-placeholder class="myclass" matTooltip="Lacs">SUM INSURED(Lacs)</mat-placeholder>
-                  <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="changeSuminsuredFunction()">
+                  <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}</mat-option>
 
                       </mat-select>
