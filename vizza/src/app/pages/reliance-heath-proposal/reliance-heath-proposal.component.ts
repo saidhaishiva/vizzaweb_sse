@@ -303,8 +303,6 @@ export class RelianceHeathProposalComponent implements OnInit {
     }
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
         this.setOccupationList();
@@ -1650,7 +1648,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'PrevYearPolicyStartDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyStartDate'].value, 'y-MM-dd')  == null ? '' : this.previousInsuranceFrom.controls['PolicyStartDate'].value,
                     'PrevYearPolicyEndDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyEndDate'].value, 'y-MM-dd') == null ? '' : this.previousInsuranceFrom.controls['PolicyEndDate'].value
                 },
-                'enquiry_id': this.enquiryId,
+                'enquiry_id': this.getFamilyDetails.enquiry_id,
                 'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString() : this.proposalId.toString(),
                 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
