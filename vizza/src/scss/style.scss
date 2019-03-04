@@ -2975,7 +2975,7 @@ fieldset {
   width: 100%;
 
   tbody{
-    height:400px;
+    height: calc(100vh - 250px);
     overflow-y:auto;
     width: 100%;
   }
