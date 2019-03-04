@@ -112,7 +112,7 @@
                                                             <div class="col-md-3" *ngIf="i != 0">
                                                                 <mat-form-field class="w-100">
                                                                     <mat-select placeholder="Relationship with Insured"  formControlName="insurerelationship" required >
-                                                                        <mat-option *ngFor="let relation of insureRelation | keys" value="{{relation.value}}" >{{relation.value}}</mat-option>
+                                                                        <mat-option *ngFor="let relation of relationshipList | keys" value="{{relation.value}}" >{{relation.value}}</mat-option>
                                                                     </mat-select>
                                                                     <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                                                                 </mat-form-field>
@@ -336,7 +336,9 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="item.insurePhone !='' && i == 0"><strong>Alternate Number:</strong> {{item.insurePhone}}</li>
                                             <li class="list-group-item"><strong>Relationship:</strong> {{item.insurerelationship}}</li>
-                                            <li class="list-group-item" *ngIf="item.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{item.polcovvolntrycp}} %</li>
+                                            <!--<li class="list-group-item" *ngIf="item.polcovvolntrycp !='' && i == 0"><strong>Co-Payment:</strong> {{item.polcovvolntrycp}} %</li>-->
+                                            <li class="list-group-item" *ngIf="item.insureCoPayment !=''  && i == 0"><strong>Voluntary Co-Payment:</strong> {{item.insureCoPayment}}</li>
+
                                             <li class="list-group-item"><strong>Height:</strong> {{item.insureHeight}}</li>
                                             <li class="list-group-item"><strong>Weight:</strong> {{item.insureWeight}}</li>
                                             <li class="list-group-item"><strong>Occupation:</strong> {{item.insureoccupationName}}</li>
@@ -401,7 +403,6 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name of Nominee:</strong> {{item.bajajNomineeName}}</li>
                                             <li class="list-group-item"><strong>Relationship with Insured:</strong> {{item.bajajRelationship}}</li>
-                                            <li class="list-group-item" *ngIf="item.insureCoPayment !=''"><strong>Voluntary Co-Payment:</strong> {{item.insureCoPayment}}</li>
                                         </ul>
                                     </div>
                                 </div>

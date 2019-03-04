@@ -1231,7 +1231,6 @@ export class AppolloMunichComponent implements OnInit {
             }
             else {
                 this.toastr.error(successData.ErrorObject);
-
             }
         } else if (successData.IsSuccess != true) {
             this.toastr.error('Invalid Pincode');
@@ -2122,7 +2121,7 @@ export class AppolloMunichComponent implements OnInit {
     proposal(stepper) {
         let clientData = this.totalInsureDetails.slice(1);
       const data  = {
-            'enquiry_id': this.enquiryId,
+            'enquiry_id': this.getFamilyDetails.enquiry_id,
             'proposal_id': sessionStorage.appollo_health_proposal_id == '' || sessionStorage.appollo_health_proposal_id == undefined ? '' : sessionStorage.appollo_health_proposal_id,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',

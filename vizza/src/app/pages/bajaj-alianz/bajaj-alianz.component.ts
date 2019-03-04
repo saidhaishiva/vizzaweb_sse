@@ -799,9 +799,7 @@ export class BajajAlianzComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.insuredFormData = this.insureArray.value.items;
-
-
-            // this.RediretUrlLink = this.summaryData.payment_url;
+            this.RediretUrlLink = this.summaryData.payment_url;
           //  this.proposalId = this.summaryData.proposal_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;
         } else{

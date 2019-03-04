@@ -20,8 +20,8 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()" required>
-                            <mat-option *ngFor="let list of titleCodeList" [value]="list.tittle_code" [hidden]="list.tittle_code == 'MASTER' || list.tittle_code == 'BABY'">
-                              {{list.tittle}}
+                            <mat-option *ngFor="let list of titleCodeList | keys" [value]="list.key" [hidden]="list.key == 'MASTER' || list.key == 'BABY'">
+                              {{list.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerTitle.errors?.required">Title is required</mat-error>
@@ -79,7 +79,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Marital Status" formControlName="maritalStatus" required  class="w-100">
-                            <mat-option *ngFor="let status of maritalDetail" [value]= 'status.marital_code'> {{status.marital_status}} </mat-option>
+                            <mat-option *ngFor="let status of maritalDetail| keys" [value]= 'status.key'> {{status.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
                         </mat-form-field>
@@ -87,7 +87,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Select ID Proof" (change)="changeIdproof('proposer', 0); changeid()"  formControlName="proposerIdProof" >
-                            <mat-option *ngFor="let IdProof of IdProofListss" value="{{IdProof.proof_code}}"> {{IdProof.proof_name}} </mat-option>
+                            <mat-option *ngFor="let IdProof of IdProofListss | keys" value="{{IdProof.key}}"> {{IdProof.value}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="proposer.controls.proposerIdProof.errors?.required">Id Proof is required</mat-error>-->
                         </mat-form-field>
@@ -180,7 +180,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="changeDistrict()">
-                            <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList" value="{{AppolloDistrict.district_name}}" > {{AppolloDistrict.district_name}} </mat-option>
+                            <mat-option *ngFor="let AppolloDistrict of AppolloDistrictList | keys" value="{{AppolloDistrict.key}}" > {{AppolloDistrict.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
@@ -188,7 +188,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="City"  formControlName="proposerCity" (change)="changeCity()" required>
-                            <mat-option *ngFor="let AppolloCity of AppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
+                            <mat-option *ngFor="let AppolloCity of AppolloCityList | keys" value="{{AppolloCity.key}}" > {{AppolloCity.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
@@ -231,7 +231,7 @@
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
                             <mat-select placeholder="Title"  formControlName="proposerTitle" (change)="insureChangeGender(i)" required >
-                              <mat-option *ngFor="let titleCode of titleCodeList" value="{{titleCode.tittle_code}}"  [hidden]="insureArray['controls'].items['controls'][i]['controls'].type.value =='Self' && (titleCode.tittle_code == 'MASTER' || titleCode.tittle_code == 'BABY') ||
+                              <mat-option *ngFor="let titleCode of titleCodeList | keys" value="{{titleCode.key}}"  [hidden]="insureArray['controls'].items['controls'][i]['controls'].type.value =='Self' && (titleCode.key == 'MASTER' || titleCode.key == 'BABY') ||
                               insureArray['controls'].items['controls'][i]['controls'].type.value =='Spouse' && (titleCode.tittle_code == 'MASTER' || titleCode.tittle_code == 'BABY')
                               ">{{titleCode.tittle}}</mat-option>
                             </mat-select>
@@ -294,7 +294,7 @@
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select  placeholder="Marital Status" formControlName="maritalStatus" class="w-100" autocomplete="off" required >
-                              <mat-option *ngFor="let status of maritalDetail" [value]= 'status.marital_code'> {{status.marital_status}} </mat-option>
+                              <mat-option *ngFor="let status of maritalDetail | keys" [value]= 'status.key'> {{status.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Marital Status is required</mat-error>
                           </mat-form-field>
@@ -314,7 +314,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                             <mat-select placeholder="Relationship with Proposer" (change)="changeRelationShipList(i)" formControlName="proposerrelationship"   required >
-                              <mat-option *ngFor="let relationship of relationshipList" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
+                              <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                           </mat-form-field>
@@ -322,7 +322,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100" >
                             <mat-select  placeholder="Occupation" formControlName="Proposeroccupation" (change)="changeOccupationList(i)" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
-                              <mat-option *ngFor="let list of occupationList" value= "{{list.occupation_code}}" > {{list.occupation}} </mat-option>
+                              <mat-option *ngFor="let list of occupationList | keys" value= "{{list.key}}" > {{list.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                           </mat-form-field>
@@ -330,7 +330,7 @@
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Profession Type"  formControlName="ProffessionList"  required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
-                            <mat-option *ngFor="let proffession of proffessionList" value="{{proffession.code}}" > {{proffession.profession}} </mat-option>
+                            <mat-option *ngFor="let proffession of proffessionList |keys" value="{{proffession.key}}" > {{proffession.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureArray.invalid">Proffession Type is required</mat-error>
                         </mat-form-field>
@@ -339,7 +339,7 @@
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                         <mat-form-field class="w-100" >
                         <mat-select placeholder="Select ID Proof" (change)="changeIdproof('insurer', i); changeinsuredidList(i);"  formControlName="proposerIdProof">
-                        <mat-option *ngFor="let IdProof of IdProofListss" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
+                        <mat-option *ngFor="let IdProof of IdProofListss | keys" value="{{IdProof.key}}" > {{IdProof.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureArray.invalid">Id Proof is required</mat-error>
                         </mat-form-field>
@@ -441,7 +441,7 @@
                           <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].stateHide.value && i == 0" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="District"  formControlName="proposerDistrict" (change)="storeDname(i, 'district'); changeInsuredStateList(i)" >
-                                      <mat-option *ngFor="let AppolloDistrict of iAppolloDistrictList" value="{{AppolloDistrict.district_name}}" > {{AppolloDistrict.district_name}} </mat-option>
+                                      <mat-option *ngFor="let AppolloDistrict of iAppolloDistrictList | keys" value="{{AppolloDistrict.key}}" > {{AppolloDistrict.value}} </mat-option>
                                   </mat-select>
                                   <!--<mat-error *ngIf="insureArray.invalid">District is required</mat-error>-->
                               </mat-form-field>
@@ -455,7 +455,7 @@
                           <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].cityHide.value && i== 0"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                               <mat-form-field class="w-100">
                                   <mat-select placeholder="City"  formControlName="proposerCity" (change)="storeDname(i, 'city'); changeInsuredCityList(i)" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}" >
-                                      <mat-option *ngFor="let AppolloCity of iAppolloCityList" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
+                                      <mat-option *ngFor="let AppolloCity of iAppolloCityList | keys" value="{{AppolloCity.key}}" > {{AppolloCity.value}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
                               </mat-form-field>
@@ -681,9 +681,9 @@
                     <!--</mat-expansion-panel>-->
                   <!--</mat-accordion>-->
                   <!--<div class="row">-->
-                    <div class="row col-md-12" *ngFor="let item of appolloQuestionsList; let i = index">
+                    <div class="row col-md-12" *ngFor="let item of appolloQuestionsList | keys; let i = index">
                       <div class="col-md-10">
-                        {{i+1}}. {{item.question}}
+                        {{i+1}}. {{item.value}}
                       </div>
                       <div class="col-md-2 text-right">
                         <mat-slide-toggle  (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
@@ -719,7 +719,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="nomineeTitle" required>
-                            <mat-option *ngFor="let titleCode of titleCodeList" [value]="titleCode.tittle_code">{{titleCode.tittle}}</mat-option>
+                            <mat-option *ngFor="let titleCode of titleCodeList | keys" [value]="titleCode.key">{{titleCode.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
@@ -733,7 +733,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" required >
-                            <mat-option *ngFor="let relationship of relationshipList" [hidden]="sameRelationship == relationship.relationship_code" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
+                            <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
                         </mat-form-field>
@@ -775,7 +775,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="nomineeDistrict" (Change)="changeNomineeDistrict()"  [disabled]="nomineesame" >
-                            <mat-option *ngFor="let AppolloDistrict of nomineeAppolloDistrictList" value="{{AppolloDistrict.district_name}}" > {{AppolloDistrict.district_name}} </mat-option>
+                            <mat-option *ngFor="let AppolloDistrict of nomineeAppolloDistrictList | keys" value="{{AppolloDistrict.key}}" > {{AppolloDistrict.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
@@ -783,7 +783,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100" >
                           <mat-select placeholder="City"  formControlName="nomineeCity" (Change)="changeNomineeCity()"   [disabled]="nomineesame" required>
-                            <mat-option *ngFor="let AppolloCity of nomineeAppolloCityLis" value="{{AppolloCity.city_code}}" > {{AppolloCity.city_name}} </mat-option>
+                            <mat-option *ngFor="let AppolloCity of nomineeAppolloCityLis | keys" value="{{AppolloCity.key}}" > {{AppolloCity.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
@@ -846,8 +846,8 @@
                                       <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_address2 != ''"><strong>Address 2:</strong> {{proposerFormData.proposerAddress2}}</li>
                                       <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_address3 != ''"><strong>Address 3:</strong> {{proposerFormData.proposerAddress3}}</li>
                                       <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.ProposalDetails.proposerPincode}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_towncode !=''"><strong>City:</strong> {{proposerFormData.proposerCity}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_district != ''"><strong>District:</strong> {{proposerFormData.proposerDistrict}}</li>
+                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_towncode !=''"><strong>City:</strong> {{proposerFormData.proposerCityName}}</li>
+                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_district != ''"><strong>District:</strong> {{proposerFormData.proposerDistrictName}}</li>
                                       <li class="list-group-item" *ngIf="summaryData.ProposalDetails.state !=''"><strong>State:</strong> {{proposerFormData.proposerState}}</li>
                                       <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_country "><strong>Country:</strong>INDIA</li>
                                   </ul>
@@ -888,7 +888,7 @@
                               <li class="list-group-item" *ngIf="item.GstinNumber != '' && item.GstinNumber != null"><strong>GST:</strong> {{item.GstinNumber | uppercase}}</li>
                               <li class="list-group-item" *ngIf="item.AnnualIncome != '' && item.AnnualIncome != null"><strong>Annual Income:</strong> {{item.AnnualIncome}}</li>
                               <li class="list-group-item" *ngIf="item.FamilySize != '' && item.FamilySize != null"><strong>Family Size:</strong> {{item.FamilySize}}</li>
-                              <li class="list-group-item" *ngIf="item.ProfessionCode != '' && item.ProfessionCode != null"><strong>Profession:</strong> {{item.ProfessionCode}}</li>
+                              <li class="list-group-item" *ngIf="item.ProfessionCode != '' && item.ProfessionCode != null"><strong>Profession:</strong> {{item.ProfessionCodeName}}</li>
                             </ul>
                           </div>
                         </div>
@@ -908,7 +908,7 @@
                           <div class="p-3">
                             <h6 class="mt-4"></h6>
                             <ul class="m-0 list-group">
-                              <li class="list-group-item" *ngIf="item.District !='' && item.District !=null"><strong>District:</strong> {{item.District}}</li>
+                              <li class="list-group-item" *ngIf="item.District !='' && item.District !=null"><strong>District:</strong> {{item.DistrictName}}</li>
                               <li class="list-group-item" *ngIf="item.StateCode !='' && item.StateCode !=null"><strong>State:</strong> {{item.StateCode}}</li>
                               <li class="list-group-item" *ngIf="item.CountryCode"><strong>Country:</strong> INDIA</li>
                               <li class="list-group-item" *ngIf="item.PinCode !='' && item.PinCode !=null"><strong>PIN code:</strong> {{item.PinCode}}</li>
