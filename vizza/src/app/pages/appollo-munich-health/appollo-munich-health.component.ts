@@ -2126,6 +2126,7 @@ export class AppolloMunichComponent implements OnInit {
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'group_name': this.getFamilyDetails.name,
             'ProposalCaptureServiceRequest': {
                 'Prospect': {
                     'Application': {
