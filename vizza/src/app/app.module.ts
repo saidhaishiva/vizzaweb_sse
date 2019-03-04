@@ -71,7 +71,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 
 import { FixappointmentComponent } from './pages/fixappointment/fixappointment.component';
 import { NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
-import { AmazingTimePickerModule } from 'amazing-time-picker';
+// import { AmazingTimePickerModule } from 'amazing-time-picker';
 import { PosComponent } from './pages/pos/pos.component';
 import { PosInsurer} from './pages/pos/pos.component';
 
@@ -269,7 +269,7 @@ import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-p
     SharedModule,
     PipesModule,
       NgxMaterialTimepickerModule.forRoot(),
-      AmazingTimePickerModule,
+      // AmazingTimePickerModule,
     routing
   ],
   declarations: [
