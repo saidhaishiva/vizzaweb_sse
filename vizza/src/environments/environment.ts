@@ -5,7 +5,6 @@
 
 export const environment = {
     production: false,
-    //apiHost: 'http://13.127.24.123/vizza/api/index.php/v1/',
     apiHostTravel: 'http://13.127.24.123/vizza/api/index.php/travel/',
     apiHostPa: 'http://13.127.24.123/vizza/api/index.php/pa/',
     apiHostHealth: 'http://13.127.24.123/vizza/api/index.php/health/',
@@ -13,5 +12,8 @@ export const environment = {
     apiHostPos: 'http://13.127.24.123/vizza/api/index.php/pos/',
     apiHostDm: 'http://13.127.24.123/vizza/api/index.php/dm/',
     webHost: 'http://13.127.24.123',
-    imgUrl:  'http://13.127.24.123/vizza'
+    imgUrl:  'http://13.127.24.123/vizza',
+    travelInsurance: false,
+    healthInsurance: true,
+    paAccident: false
 };

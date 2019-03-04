@@ -183,7 +183,7 @@ export class LifeInsuranceComponent implements OnInit {
     public getInsurerDetailsSuccess(successData) {
         this.listAll.push(successData.ResponseObject);
         console.log(this.listAll);
-        let all= [];
+        // let all= [];
         if (successData.IsSuccess) {
             for (let i = 0; i < successData.ResponseObject.length; i++) {
                 let keyfeatureArray = [];

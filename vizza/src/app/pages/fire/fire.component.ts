@@ -22,7 +22,7 @@ export class FireComponent implements OnInit {
     public response: any;
     public pincodeErrors: any;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog) {
       this.fireapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,

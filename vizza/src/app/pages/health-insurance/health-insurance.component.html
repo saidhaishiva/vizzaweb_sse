@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <div  *ngIf="show" class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
           <mat-card class="p-5" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
@@ -72,6 +72,114 @@
         </div>
       </div>
     </div>
+  <!--fire    -->
+
+    <div *ngIf="!show" class="col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-block">
+          <mat-card style="background:#F44D00 !important; color: #fff;">
+            <h2 class="w-100 text-center" >Let us assist you</h2>
+            <form [formGroup]="fireapp">
+
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-select  placeholder="Insurance Type" formControlName ="insurance" required>
+                      <mat-option value="shopkeepers">Shopkeepers</mat-option>
+                      <mat-option value="marine">Marine Cargo Policy</mat-option>
+                      <mat-option value="money">Money Insurance</mat-option>
+                      <mat-option value="fire">Fire Policy</mat-option>
+                      <mat-option value="burglary">Burglary Policy</mat-option>
+                      <mat-option value="machinery">Machinery Breakdown Policy</mat-option>
+                      <mat-option value="electronics">Electronics Equiptment Policy</mat-option>
+                      <mat-option value="contractors">Contractors All Risk Policy</mat-option>
+                      <mat-option value="house-holders">House Holders Policy</mat-option>
+                      <mat-option value="public-liability">Public Liability</mat-option>
+                      <mat-option value="professional">Professional Indemnity Policy</mat-option>
+                      <mat-option value="workmen-compensation">Workmen Compensation</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="fireapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Company Name" formControlName="name" required>
+                    <mat-error *ngIf="fireapp.controls.name.errors?.required">Company Name is required</mat-error>
+                    <mat-error *ngIf="fireapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>
+
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>
+                    <mat-error *ngIf="fireapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
+                    <mat-error *ngIf="fireapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                    <mat-error *ngIf="fireapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
+                    <mat-error *ngIf="fireapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
+                    <mat-error *ngIf="fireapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
+                    <mat-icon matSuffix>call</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Email" formControlName="email" required>
+                    <mat-error *ngIf="fireapp.controls.email.errors?.required">Email is required</mat-error>
+                    <mat-error *ngIf="fireapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
+                    <mat-error *ngIf="fireapp.controls.pincode.errors?.required">Pincode is required</mat-error>
+                    <mat-error *ngIf="fireapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                    <mat-error *ngIf="fireapp.controls.pincode.hasError('required')">Pincode required</mat-error>
+                    <mat-error *ngIf="fireapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                    <mat-icon matSuffix>place</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
+                      <mat-option value="call">Call</mat-option>
+                      <mat-option value="meetinperson">Meet in Person</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="fireapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker" placeholder="Appintment Date(DD/MM/YYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                    <mat-error *ngIf="fireapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <input matInput type="time" atp-time-picker  formControlName="apptime" required />
+                    <mat-error *ngIf="fireapp.controls.apptime.errors?.required">Appintment Time is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12 text-right mt-3">
+                  <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                  <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!fireapp.valid ) || (!pincodeErrors)" (click)="fireKeeper(fireapp.value)">Submit</button>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+
+
   </div>
 </div>
 
@@ -89,7 +197,7 @@
               <h5 class="color-pink" style="cursor: pointer" (click)="headinghealthinsurance()"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h5>
             </div>
               <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event, 'purchase')">
-                <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index"  (click)="changeTab()">
+                <mat-tab class="headerColor" *ngFor="let lists of groupList;let pi = index"  (click)="changeTab()">
                     <!--<ng-template matTabLabel *ngIf="lists.purchase_status == '1'">-->
                         <!--Purchased-->
                     <!--</ng-template>-->
@@ -108,8 +216,8 @@
 
 
 
-            <div *ngFor="let lists of insuranceLists;let pi = index" >
-              <div class="flex-p" *ngIf="lists.product_lists !=''">
+            <div>
+              <div class="flex-p" >
                <table class="table health-table table-scroll">
                 <thead>
                 <tr>
@@ -122,7 +230,7 @@
                       </mat-select>
                     </mat-form-field>
                   </th>
-                  <th class="sun-insured col-md-2">
+                  <th class="sun-insured col-md-1">
                     <mat-form-field >
                       <mat-placeholder class="myclass" matTooltip="Lacs">SUM INSURED(Lacs)</mat-placeholder>
                       <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="changeSuminsuredFunction()">
@@ -141,17 +249,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'premium_amount';let i = index">
+                <tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index">
                   <td align="left"  class="col-md-3">
                     <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.product_name | titlecase}}
                   </td>
-                  <td  class="col-md-2">
+                  <td  class="col-md-1">
                     <p>&#8377; {{plists.suminsured_amount_format}}</p>
                   </td>
                   <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
                     <p class="text-center">{{keys.key_features_value}}</p>
                   </td>
-                  <td class="col-md-1">
+                  <td class="col-md-2">
                     <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
                     <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
