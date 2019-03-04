@@ -620,7 +620,7 @@ export class HealthInsuranceComponent implements OnInit {
             "platform": "web",
             "postalcode": this.pincoce ? this.pincoce : '',
             "sum_insured": this.groupDetails.group_suminsured_id,
-            "family_group_name": this.groupDetails[0].name,
+            "family_group_name": this.groupDetails.family_groups[0].name,
             "enquiry_id": this.groupDetails.enquiry_id,
             "created_by": "0",
             "company_id": company_id,

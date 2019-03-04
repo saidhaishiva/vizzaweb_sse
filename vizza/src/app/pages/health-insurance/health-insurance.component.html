@@ -89,7 +89,7 @@
               <h5 class="color-pink" style="cursor: pointer" (click)="headinghealthinsurance()"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h5>
             </div>
               <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex" (selectedIndexChange)="onSelectedIndexChange($event, 'purchase')">
-                <mat-tab class="headerColor" *ngFor="let lists of insuranceLists;let pi = index"  (click)="changeTab()">
+                <mat-tab class="headerColor" *ngFor="let lists of groupDetails.family_groups;let pi = index"  (click)="changeTab()">
                     <!--<ng-template matTabLabel *ngIf="lists.purchase_status == '1'">-->
                         <!--Purchased-->
                     <!--</ng-template>-->
@@ -108,8 +108,8 @@
 
 
 
-            <div *ngFor="let lists of insuranceLists;let pi = index" >
-              <div class="flex-p" *ngIf="lists.product_lists !=''">
+            <div>
+              <div class="flex-p" >
                <table class="table health-table table-scroll">
                 <thead>
                 <tr>
@@ -141,7 +141,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'premium_amount';let i = index">
+                <tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index">
                   <td align="left"  class="col-md-3">
                     <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.product_name | titlecase}}
                   </td>
