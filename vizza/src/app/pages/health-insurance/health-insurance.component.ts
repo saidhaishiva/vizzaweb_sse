@@ -526,18 +526,17 @@ export class HealthInsuranceComponent implements OnInit {
                     this.settings.sidenavIsOpened = false;
                     this.settings.sidenavIsPinned = false;
                 }
-                for (let i = 0; i < policylists.length; i++) {
-                    for (let j = 0; j < policylists[i].product_lists.length; j++) {
-                        policylists[i].product_lists[j].compare = false;
-                        policylists[i].product_lists[j].shortlist = false;
-                        policylists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(policylists[i].product_lists[j].premium_amount);
-                        policylists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(policylists[i].product_lists[j].suminsured_amount);
-                    }
-                }
                 this.productListArray.push(policylists[0].product_lists);
                 this.allProductLists = [].concat.apply([], this.productListArray);
                 this.allPolicyDetails = policylists;
-                console.log(this.allPolicyDetails, 'this.allPolicyDetails');
+
+                for (let i = 0; i < this.allProductLists.length; i++) {
+                    this.allProductLists[i].compare = false;
+                    this.allProductLists[i].shortlist = false;
+                    this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
+                    this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
+                }
+                console.log(this.allProductLists, 'this.allProductListsallProductLists');
 
                  // sessionStorage.allPolicyDetails = JSON.stringify(policylists);
                  sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
@@ -647,12 +646,14 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     addCompare(value,index) {
+        console.log(index, 'index');
+        console.log(this.allProductLists, 'compyy');
         const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
-        this.allPolicyDetails[0].product_lists[index].compare = true;
+        this.allProductLists[index].compare = true;
         this.compareArray.push(data);
         if (this.compareArray.length >= 3) {
-            for (let i = 0; i < this.allPolicyDetails[0].product_lists.length; i++) {
-                this.allPolicyDetails[0].product_lists[i].compare = true;
+            for (let i = 0; i < this.allProductLists.length; i++) {
+                this.allProductLists[i].compare = true;
             }
         }
 
@@ -660,23 +661,23 @@ export class HealthInsuranceComponent implements OnInit {
     removeCompare(index , pindex) {
         this.compareArray.splice(index, 1);
         let getCount;
-        for (let i = 0; i < this.allPolicyDetails[0].product_lists.length; i++) {
+        for (let i = 0; i < this.allProductLists.length; i++) {
             getCount = false;
             for (let j = 0; j < this.compareArray.length; j++) {
-                if (this.compareArray[j].premium_id == this.allPolicyDetails[0].product_lists[i].premium_id) {
+                if (this.compareArray[j].premium_id == this.allProductLists[i].premium_id) {
                     getCount = true;
-                    this.allPolicyDetails[0].product_lists[i].compare = true;
+                    this.allProductLists[i].compare = true;
                 }
             }
             if (!getCount) {
-                this.allPolicyDetails[0].product_lists[i].compare = false;
+                this.allProductLists[i].compare = false;
             }
         }
 
     }
     removeAllCompare(index) {
-        for (let i = 0; i < this.allPolicyDetails[0].product_lists.length; i++) {
-            this.allPolicyDetails[0].product_lists[i].compare = false;
+        for (let i = 0; i < this.allProductLists.length; i++) {
+            this.allProductLists[i].compare = false;
         }
         this.compareArray = [];
     }
