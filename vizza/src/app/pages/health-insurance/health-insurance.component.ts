@@ -84,6 +84,7 @@ export class HealthInsuranceComponent implements OnInit {
 
     allCompanyList : any;
     groupDetails : any;
+    groupList : any;
     allProductLists : any;
     productListArray : any;
 
@@ -593,7 +594,8 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.groupDetails = successData.ResponseObject;
-            console.log(this.groupDetails, 'groupDetails');
+            this.groupList = successData.ResponseObject.family_groups;
+            console.log(this.groupList, 'groupDetails');
             if(this.groupDetails.length > 1) {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
                     width: '1500px', data: {comparedata: successData.ResponseObject}});
@@ -650,7 +652,7 @@ export class HealthInsuranceComponent implements OnInit {
                     this.settings.sidenavIsOpened = false;
                     this.settings.sidenavIsPinned = false;
                 }
-                for (let i = 0; i < policylists; i++) {
+                for (let i = 0; i < policylists.length; i++) {
                     for (let j = 0; j < policylists[i].product_lists.length; j++) {
                         policylists[i].product_lists[j].compare = false;
                         policylists[i].product_lists[j].shortlist = false;
