@@ -232,8 +232,8 @@
                           <mat-form-field class="w-100" >
                             <mat-select placeholder="Title"  formControlName="proposerTitle" (change)="insureChangeGender(i)" required >
                               <mat-option *ngFor="let titleCode of titleCodeList | keys" value="{{titleCode.key}}"  [hidden]="insureArray['controls'].items['controls'][i]['controls'].type.value =='Self' && (titleCode.key == 'MASTER' || titleCode.key == 'BABY') ||
-                              insureArray['controls'].items['controls'][i]['controls'].type.value =='Spouse' && (titleCode.tittle_code == 'MASTER' || titleCode.tittle_code == 'BABY')
-                              ">{{titleCode.tittle}}</mat-option>
+                              insureArray['controls'].items['controls'][i]['controls'].type.value =='Spouse' && (titleCode.key == 'MASTER' || titleCode.key == 'BABY')
+                              ">{{titleCode.value}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                           </mat-form-field>
