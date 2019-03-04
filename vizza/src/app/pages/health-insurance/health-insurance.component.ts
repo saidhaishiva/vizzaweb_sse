@@ -794,7 +794,7 @@ export class HealthInsuranceComponent implements OnInit {
             'postalcode': this.pincoce,
             'sum_insured': this.changeSuninsuredAmount,
             'family_group_name': this.allPolicyDetails[0].name,
-            'enquiry_id': this.changedTabDetails[0].enquiry_id,
+            'enquiry_id': this.allPolicyDetails[0].enquiry_id,
             'created_by': '0',
             'insurance_type' : '1',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,

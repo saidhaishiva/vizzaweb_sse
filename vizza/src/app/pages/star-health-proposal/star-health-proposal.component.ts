@@ -777,12 +777,16 @@ export class StarHealthProposalComponent implements OnInit {
     }
     selectProposerRelation(index) {
         this.familyMembers[index].ins_relationship_name = this.relationshipList[this.familyMembers[index].ins_relationship];
-        let nominee = JSON.parse(sessionStorage.nomineeDate);
-        if(nominee[0].nominee[0].nrelationship !='') {
-            this.nomineeDate[0].nominee[0].nrelationship = '';
-        } else if(nominee[1].nominee[1].arelationship !='') {
-            this.nomineeDate[1].nominee[1].arelationship = '';
+        if(sessionStorage.nomineeDate != '' && sessionStorage.nomineeDate !=undefined) {
+            let nominee = JSON.parse(sessionStorage.nomineeDate);
+            if(nominee[0].nominee[0].nrelationship !='') {
+                this.nomineeDate[0].nominee[0].nrelationship = '';
+            }
+            if(nominee[0].nominee.length > 1 && nominee[1].nominee[1].arelationship !='') {
+                this.nomineeDate[1].nominee[1].arelationship = '';
+            }
         }
+
     }
 
 
