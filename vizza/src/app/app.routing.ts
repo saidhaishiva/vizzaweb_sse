@@ -115,6 +115,7 @@ import {ReligareHealthDeactivateGuardService} from './shared/religare-health-dea
 import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivate-guard.service';
 import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
 import { TravelRelianceProposalComponent} from './pages/travel-reliance-proposal/travel-reliance-proposal.component';
+import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -175,7 +176,7 @@ export const routes: Routes = [
             { path: 'erection', component: ErectionComponent, data: {breadcrumb: 'Erection All rick Policy'}},
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
             { path: 'proposal/:stepper"', component: StarHealthProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
-            { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }},
+            { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }, resolve: { companyDetails: HealthInsuranceResolver}},
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
