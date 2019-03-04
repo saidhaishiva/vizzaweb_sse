@@ -150,7 +150,7 @@
                     <p class="text-center">{{keys.key_features_value}}</p>
                   </td>
                   <td class="col-md-2">
-                    <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
+                    <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)">Add to Compare</button></p>
                     <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                   </td>
@@ -237,13 +237,13 @@
 </div>
 <div class="row compar-fix" *ngIf="compareArray != ''">
   <div class="text-right closeBtnClass">
-    <mat-icon (click)="removeAllCompare(i, tabIndex)">close</mat-icon>
+    <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
   </div>
   <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">
       <mat-card class="custom-card compare-icon text-center">
         <div class="text-right closeBtnClass">
-          <mat-icon (click)="removeCompare(i, clists.index, tabIndex)">close</mat-icon>
+          <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
         </div>
         <mat-card-content class="p-0">
           <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
