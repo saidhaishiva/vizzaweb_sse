@@ -215,7 +215,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[('I')]);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList('I'));
 
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.ageData(dobAge, 'insurer');
@@ -485,6 +485,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     checkAccepted() {
+        console.log(this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value, 'ss');
          if (this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value) {
              // this.IsCustomerAcceptedPPCPED = true;
             this.IsCustomerAccepted = false;
@@ -844,6 +845,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         }
 
         if(checkValid) {
+            this.IsCustomerAccepted = false;
             let validData = false;
             for (let i = 0; i < value.items.length; i++) {
                 if (value.items[i].insurerDobError != '') {
@@ -861,7 +863,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 //  this.toastr.error('Insured age should be 18 or above');
             }
 
+        } else {
+            this.IsCustomerAccepted = true;
         }
+
 
 
 
