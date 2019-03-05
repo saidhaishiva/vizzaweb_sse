@@ -209,7 +209,7 @@ import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.co
 // import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
 import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
-import { DownloadMessageBajaj} from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
+import {DownloadMessageBajaj} from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
 import { HdfcPersonalaccidentComponent } from './pages/hdfc-personalaccident/hdfc-personalaccident.component';
 import { TravelShriramProposalComponent } from './pages/travel-shriram-proposal/travel-shriram-proposal.component';
 import { TravelHdfcProposalComponent } from './pages/travel-hdfc-proposal/travel-hdfc-proposal.component';
@@ -244,6 +244,7 @@ import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposa
 import {IffcoProposalGuardService} from './shared/iffco-proposal-guard.service';
 import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
 import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
+import { BajajDownloadPolicyComponent } from './pages/bajaj-download-policy/bajaj-download-policy.component';
 
 @NgModule({
   imports: [
@@ -449,7 +450,8 @@ import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance
       DownloadMessageReligareTravel,
       DisclaimerDialog,
       TravelRelianceProposalComponent,
-      TravelReliancePaymentSuccessComponent
+      TravelReliancePaymentSuccessComponent,
+      BajajDownloadPolicyComponent
   ],
   providers: [
       AppSettings,
@@ -489,7 +491,6 @@ import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance
   ],
     bootstrap: [AppComponent],
     entryComponents: [
-       // ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, DownloadMessageReligarePersonal,ViewProductDetailsComponent
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage,DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer,
