@@ -2106,6 +2106,8 @@ export class AppolloMunichComponent implements OnInit {
                     // }
                 } else if (this.titleValidation == false) {
                     stepper.next();
+                    console.log(this.totalInsureDetails, ' this.totalInsureDetails ');
+
                     this.topScroll();
                 }
             }
@@ -2286,8 +2288,9 @@ export class AppolloMunichComponent implements OnInit {
             this.proposalId = this.summaryData.ProposalId;
             this.proposerFormData = this.proposer.value;
             this.nomineeFormData = this.nomineeDetails.value;
-            this.insuredFormData = this.totalInsureDetails.items;
+            this.insuredFormData = this.totalInsureDetails;
             console.log(this.proposerFormData, ' this.proposerFormData ');
+            console.log(this.insuredFormData, ' this.insuredFormData ');
             sessionStorage.appollo_health_proposal_id = this.proposalId;
             // this.lastStepper.next();
         }

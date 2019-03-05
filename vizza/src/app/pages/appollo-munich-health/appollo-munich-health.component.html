@@ -825,16 +825,16 @@
                               <div class="p-3">
                                 <h6>PROPOSER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{summaryData.ProposalDetails.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
+                                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_email != ''"><strong>Email Id:</strong> {{proposerFormData.proposerEmail}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_mobilenumber != ''"><strong>Mobile Number:</strong> {{proposerFormData.proposerMobile}}</li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.proposerGender == 1"><strong>Gender:</strong> MALE </li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.proposerGender == 2"><strong>Gender:</strong> FEMALE </li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.proposerEmail!= ''"><strong>Email Id:</strong> {{proposerFormData.proposerEmail}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.proposerMobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.proposerMobile}}</li>
+                                    <li class="list-group-item" *ngIf="proposerFormData.proposerGender == 1"><strong>Gender:</strong> MALE </li>
+                                    <li class="list-group-item" *ngIf="proposerFormData.proposerGender == 2"><strong>Gender:</strong> FEMALE </li>
                                     <li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ProposalDetails.maritalStatus}}</li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.proposerIdProofIdP != ''"><strong>Select ID Proof:</strong> {{proposerFormData.proposerIdProofIdP  | uppercase}}</li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.proposerIdProof != ''"><strong>ID Proof Number:</strong> {{proposerFormData.proposerIdProof  | uppercase }}</li>
-                                    <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_gstno != ''"><strong>GST:</strong> {{proposerFormData.proposerGst | uppercase}}</li>
+                                    <li class="list-group-item" *ngIf="proposerFormData.proposerIdProofIdP != ''"><strong>Select ID Proof:</strong> {{proposerFormData.proposerIdProofIdP  | uppercase}}</li>
+                                    <li class="list-group-item" *ngIf="proposerFormData.proposerIdProof != ''"><strong>ID Proof Number:</strong> {{proposerFormData.proposerIdProof  | uppercase }}</li>
+                                    <li class="list-group-item" *ngIf="proposerFormData.proposerGst != ''"><strong>GST:</strong> {{proposerFormData.proposerGst | uppercase}}</li>
                                   </ul>
                               </div>
                           </div>
@@ -842,14 +842,14 @@
                               <div class="p-3">
                                   <h6>COMMUNICATION DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Address 1:</strong> {{summaryData.ProposalDetails.proposerAddress}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_address2 != ''"><strong>Address 2:</strong> {{proposerFormData.proposerAddress2}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_address3 != ''"><strong>Address 3:</strong> {{proposerFormData.proposerAddress3}}</li>
-                                      <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.ProposalDetails.proposerPincode}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_towncode !=''"><strong>City:</strong> {{proposerFormData.proposerCityName}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_district != ''"><strong>District:</strong> {{proposerFormData.proposerDistrictName}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.state !=''"><strong>State:</strong> {{proposerFormData.proposerState}}</li>
-                                      <li class="list-group-item" *ngIf="summaryData.ProposalDetails.p_country "><strong>Country:</strong>INDIA</li>
+                                      <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.proposerAddress}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.proposerAddress2 != ''"><strong>Address 2:</strong> {{proposerFormData.proposerAddress2}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.proposerAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.proposerAddress3}}</li>
+                                      <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.proposerPincode}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.proposerCityName !=''"><strong>City:</strong> {{proposerFormData.proposerCityName}}</li>
+                                      <li class="list-group-item" *ngIf="proposerFormData.proposerDistrictName!= ''"><strong>District:</strong> {{proposerFormData.proposerDistrictName}}</li>
+                                      <li class="list-group-item"><strong>State:</strong> {{proposerFormData.proposerState}}</li>
+                                      <li class="list-group-item"><strong>Country:</strong>INDIA</li>
                                   </ul>
                               </div>
                           </div>
