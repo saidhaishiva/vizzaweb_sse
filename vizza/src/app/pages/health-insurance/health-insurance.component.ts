@@ -551,6 +551,7 @@ export class HealthInsuranceComponent implements OnInit {
 
                  sessionStorage.allPolicyDetails = JSON.stringify(policylists);
                  sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
+                 this.changedTabDetails = policylists[0];
                  sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
                  sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
 
@@ -649,6 +650,7 @@ export class HealthInsuranceComponent implements OnInit {
             this.allPolicyDetails = policylists;
             console.log(this.allPolicyDetails, 'this.allPolicyDetails33');
             sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
+            this.changedTabDetails = policylists[0];
             sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
 
         } else {
@@ -873,6 +875,7 @@ export class HealthInsuranceComponent implements OnInit {
                 this.allPolicyDetails = policylists;
                 console.log(this.allPolicyDetails, 'this.allPolicyDetails222');
                 sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
+                this.changedTabDetails = policylists[0];
                 sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
 
 
@@ -966,6 +969,7 @@ export class HealthInsuranceComponent implements OnInit {
                 });
             } else {
                 sessionStorage.buyProductdetails = JSON.stringify(value);
+                console.log(this.changedTabDetails, 'this.changedTabDetails555');
                 if (value.product_id <= 5) {
                     let ageValid = true;
                     for(let i=0; i < this.changedTabDetails.family_members.length; i++){

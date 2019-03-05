@@ -244,6 +244,7 @@ import { TravelRelianceProposalComponent } from './pages/travel-reliance-proposa
 import {IffcoProposalGuardService} from './shared/iffco-proposal-guard.service';
 import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
 import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
+import { BajajDownloadPolicyComponent } from './pages/bajaj-download-policy/bajaj-download-policy.component';
 
 @NgModule({
   imports: [
@@ -449,7 +450,8 @@ import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance
       DownloadMessageReligareTravel,
       DisclaimerDialog,
       TravelRelianceProposalComponent,
-      TravelReliancePaymentSuccessComponent
+      TravelReliancePaymentSuccessComponent,
+      BajajDownloadPolicyComponent
   ],
   providers: [
       AppSettings,

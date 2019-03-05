@@ -28,12 +28,13 @@ export class ReliancePaymentSuccessComponent implements OnInit {
 
     constructor(public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
-
-        let allDetails = JSON.parse(sessionStorage.allGroupDetails);
         this.remainingStatus = false;
-        if(allDetails.length > 1) {
-            this.remainingStatus = true;
-        }
+
+        // let allDetails = JSON.parse(sessionStorage.allGroupDetails);
+        // this.remainingStatus = false;
+        // if(allDetails.length > 1) {
+        //     this.remainingStatus = true;
+        // }
 
         this.route.params.forEach((params) => {
             console.log(params.id);
@@ -81,6 +82,7 @@ export class ReliancePaymentSuccessComponent implements OnInit {
         }
     }
     public downloadPdfFailure(error) {
+        this.settings.loadingSpinner = false;
         console.log(error);
     }
     retry() {

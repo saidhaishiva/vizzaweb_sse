@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import {HealthService} from '../../shared/services/health.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -5,38 +6,37 @@ import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import { AppSettings } from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import {ToastrService} from 'ngx-toastr';
 
 @Component({
-  selector: 'app-download-policy',
-  templateUrl: './download-policy.component.html',
-  styleUrls: ['./download-policy.component.scss']
+    selector: 'app-bajaj-download-policy',
+    templateUrl: './bajaj-download-policy.component.html',
+    styleUrls: ['./bajaj-download-policy.component.scss']
 })
-export class DownloadPolicyComponent implements OnInit {
+export class BajajDownloadPolicyComponent implements OnInit {
     public settings: Settings;
     public proposalId: any;
+    public paymentStatus: any;
     type: any;
     currenturl: any;
     path: any;
-  constructor(public config: ConfigurationService, public toast: ToastrService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
-      this.route.params.forEach((params) => {
-          this.proposalId = params.id;
-      });
+    constructor(public config: ConfigurationService, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService) {
+        this.route.params.forEach((params) => {
+            this.proposalId = params.proId;
+        });
 
-  }
-  ngOnInit() {
-    this.DownloadPdf();
-  }
+    }
+    ngOnInit() {
+        this.DownloadPdf();
+    }
     DownloadPdf() {
         const data = {
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'mail_status': '0',
             'proposal_id' : this.proposalId,
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
         }
-        this.proposalservice.getDownloadPdf(data).subscribe(
+        this.proposalservice.getDownloadPdfBajaj(data).subscribe(
             (successData) => {
                 this.downloadPdfSuccess(successData);
             },
@@ -46,18 +46,23 @@ export class DownloadPolicyComponent implements OnInit {
         );
     }
     public downloadPdfSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
         if (successData.IsSuccess == true) {
             this.type = successData.ResponseObject.type;
+            this.path = successData.ResponseObject.path;
             this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
+                console.log(this.currenturl);
+                console.log(successData.ResponseObject.path, 'path');
                 this.path = successData.ResponseObject.path;
                 window.open(this.currenturl + '/' + this.path, '_blank');
             }
-        } else {
-            this.toast.error(successData.ErrorObject);
         }
     }
     public downloadPdfFailure(error) {
+        this.settings.loadingSpinner = false;
+        console.log(error);
     }
 
 }

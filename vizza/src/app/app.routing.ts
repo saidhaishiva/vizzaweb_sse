@@ -116,6 +116,7 @@ import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivat
 import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
 import { TravelRelianceProposalComponent} from './pages/travel-reliance-proposal/travel-reliance-proposal.component';
 import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
+import {BajajDownloadPolicyComponent} from './pages/bajaj-download-policy/bajaj-download-policy.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -211,6 +212,7 @@ export const routes: Routes = [
             { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj/:stepper', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'}, canDeactivate: [BajajHealthDeactivateGuardService]},
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
+            { path: 'bajaj-download-policy/:proId', component: BajajDownloadPolicyComponent, data: { breadcrumb: 'Bajaj Alianz Download Policy'} },
             { path: 'appollopa/:stepper',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'},canDeactivate: [AppolloPaproposaldeactivateGuardService]},
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},

@@ -34,16 +34,17 @@ export class PaymentSuccessComponent implements OnInit {
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
-      let allDetails;
-      if (sessionStorage.allGroupDetails != undefined && sessionStorage.allGroupDetails != '') {
-          allDetails = JSON.parse(sessionStorage.allGroupDetails);
-      } else {
-          allDetails = [];
-      }
       this.remainingStatus = false;
-      if(allDetails.length > 1) {
-          this.remainingStatus = true;
-      }
+
+      // let allDetails;
+      // if (sessionStorage.allGroupDetails != undefined && sessionStorage.allGroupDetails != '') {
+      //     allDetails = JSON.parse(sessionStorage.allGroupDetails);
+      // } else {
+      //     allDetails = [];
+      // }
+      // if(allDetails.length > 1) {
+      //     this.remainingStatus = true;
+      // }
 
   }
 
@@ -122,17 +123,22 @@ export class PaymentSuccessComponent implements OnInit {
         // if (successData.ResponseObject.Note == 'Your policy is being prepared. Kindly try after few minutes.' ) {
         //     this.downloadMessage();
         // }
-        this.type = successData.ResponseObject.type;
-        this.path = successData.ResponseObject.path;
-        this.currenturl = this.config.getimgUrl();
-        if (this.type == 'pdf') {
-            window.open(this.currenturl + '/' +  this.path,'_blank');
-            // window.location.href = this.fileName + '/' +  this.path  ;
-        } else {
-            this.downloadMessage();
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess == true) {
+
+            this.type = successData.ResponseObject.type;
+            this.path = successData.ResponseObject.path;
+            this.currenturl = this.config.getimgUrl();
+            if (this.type == 'pdf') {
+                window.open(this.currenturl + '/' + this.path, '_blank');
+                // window.location.href = this.fileName + '/' +  this.path  ;
+            } else {
+                this.downloadMessage();
+            }
         }
     }
     public downloadPdfFailure(error) {
+        this.settings.loadingSpinner = false;
     }
 
     downloadMessage() {
