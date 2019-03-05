@@ -397,19 +397,19 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         // }
 
 
-         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8400 && type == 'Son')  {
+         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8034 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 8401 && type == 'Son')  {
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 8035 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
-         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8400 && type == 'Daughter')  {
+         if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 90 && this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 8034 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 8401 && type == 'Daughter')  {
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 8035 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 

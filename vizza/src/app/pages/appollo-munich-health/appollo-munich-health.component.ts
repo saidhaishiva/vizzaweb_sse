@@ -280,6 +280,7 @@ export class AppolloMunichComponent implements OnInit {
           nomineeDistrictName: '',
           nomineeDistrictId: '',
           nomineeRelationship: '',
+          nomineeRelationshipName: '',
           sameAsProposerAddress: ''
 
       });
@@ -386,6 +387,7 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerrelationship.patchValue(this.getStepper2.items[i].proposerrelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].proposerrelationshipName.patchValue(this.getStepper2.items[i].proposerrelationshipName);
                 this.insureArray['controls'].items['controls'][i]['controls'].maritalStatus.patchValue(this.getStepper2.items[i].maritalStatus);
+                this.insureArray['controls'].items['controls'][i]['controls'].maritalStatusName.patchValue(this.getStepper2.items[i].maritalStatusName);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
@@ -504,6 +506,7 @@ export class AppolloMunichComponent implements OnInit {
                 nomineeStateId: this.getNomineeData.nomineeStateId,
                 nomineeDistrict: this.getNomineeData.nomineeDistrict,
                 nomineeDistrictName: this.getNomineeData.nomineeDistrictName,
+                nomineeRelationshipName: this.getNomineeData.nomineeRelationshipName,
                 nomineeTitle: this.getNomineeData.nomineeTitle,
                 nomineeDob: this.getNomineeData.nomineeDob,
             });
@@ -591,6 +594,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
                 proposerAge: '',
                 maritalStatus: '',
+                maritalStatusName: '',
                 proposerIdProof: '',
                 proposerIdProofName: '',
                 proposerIdProofIdP: '',
@@ -815,6 +819,9 @@ export class AppolloMunichComponent implements OnInit {
     }
     changeInsuredCityList(index){
         this.insureArray['controls'].items['controls'][index]['controls'].proposerCityName.patchValue(this.iAppolloCityList[(this.insureArray['controls'].items['controls'][index]['controls'].proposerCity.value)]);
+    }
+    changeMaritalList(index){
+        this.insureArray['controls'].items['controls'][index]['controls'].maritalStatusName.patchValue(this.maritalDetail[(this.insureArray['controls'].items['controls'][index]['controls'].maritalStatus.value)]);
     }
     validateProof(index){
             if(this.insureArray['controls'].items['controls'][index]['controls'].proposerIdProof.value == 'IDNO2') {
@@ -1711,6 +1718,7 @@ export class AppolloMunichComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(this.proposer.controls['proposerDob'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].maritalStatus.patchValue(this.proposer.controls['maritalStatus'].value);
+            this.insureArray['controls'].items['controls'][0]['controls'].maritalStatusName.patchValue(this.proposer.controls['maritalStatus'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerEmail.patchValue(this.proposer.controls['proposerEmail'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerMobile.patchValue(this.proposer.controls['proposerMobile'].value);
@@ -1722,9 +1730,8 @@ export class AppolloMunichComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].proposerState.patchValue(this.proposer.controls['proposerState'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationship.patchValue('1');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProof.patchValue(this.proposer.controls['proposerIdProof'].value);
-
             this.insureArray['controls'].items['controls'][0]['controls'].proposerIdProofIdP.patchValue(this.proposer.controls['proposerIdProofIdP'].value);
-
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationshipName.patchValue('1');
 
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDistrict.patchValue(this.proposer.controls['proposerDistrict'].value);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerPan.patchValue(this.proposer.controls['proposerPan'].value);
@@ -1792,6 +1799,7 @@ export class AppolloMunichComponent implements OnInit {
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDriving.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerPassport.patchValue('');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerVoter.patchValue('');
+            this.insureArray['controls'].items['controls'][0]['controls'].proposerrelationshipName.patchValue('');
 
             this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = '';
 
@@ -1918,6 +1926,7 @@ export class AppolloMunichComponent implements OnInit {
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.insureArray.valid) {
             this.insurerData = value.items;
+            console.log(this.insurerData,'this.insurerData');
             for(let i = 0; i < this.insurerData.length; i++) {
                 if (this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value != "") {
                     this.insureArray['controls'].items['controls'][i]['controls'].proposerIdProofIdP.patchValue(this.insureArray['controls'].items['controls'][i]['controls'].proposerDriving.value);
@@ -2289,7 +2298,7 @@ export class AppolloMunichComponent implements OnInit {
             this.proposalId = this.summaryData.ProposalId;
             this.proposerFormData = this.proposer.value;
             this.nomineeFormData = this.nomineeDetails.value;
-            this.insuredFormData = this.totalInsureDetails;
+            this.insuredFormData = this.insurerData;
             console.log(this.proposerFormData, ' this.proposerFormData ');
             console.log(this.insuredFormData, ' this.insuredFormData ');
             sessionStorage.appollo_health_proposal_id = this.proposalId;
@@ -2317,11 +2326,15 @@ export class AppolloMunichComponent implements OnInit {
 
     }
     changeNomineeDistrict(){
-        this.proposer.controls['nomineeDistrictName'].patchValue(this.nomineeAppolloDistrictList[this.proposer.controls['nomineeDistrict'].value]);
+        this.nomineeDetails.controls['nomineeDistrictName'].patchValue(this.nomineeAppolloDistrictList[this.nomineeDetails.controls['nomineeDistrict'].value]);
 
     }
     changeNomineeCity(){
-        this.proposer.controls['nomineeCityName'].patchValue(this.nomineeAppolloCityLis[this.proposer.controls['nomineeCity'].value]);
+        this.nomineeDetails.controls['nomineeCityName'].patchValue(this.nomineeAppolloCityLis[this.nomineeDetails.controls['nomineeCity'].value]);
+
+    }
+    changeNomineeRelation(){
+        this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.relationshipList[this.nomineeDetails.controls['nomineeDistrict'].value]);
 
     }
 }

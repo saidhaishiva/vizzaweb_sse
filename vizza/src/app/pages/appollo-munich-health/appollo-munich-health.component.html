@@ -293,7 +293,7 @@
                         </div>
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" class="w-100" autocomplete="off" required >
+                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" class="w-100" (change)="changeMaritalList(i)" autocomplete="off" required >
                               <mat-option *ngFor="let status of maritalDetail | keys" [value]= 'status.key'> {{status.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Marital Status is required</mat-error>
@@ -329,7 +329,7 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Profession Type"  formControlName="ProffessionList"  required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
+                          <mat-select placeholder="Profession Type"  formControlName="ProffessionList" (change)="changeProffessionList(i)" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                             <mat-option *ngFor="let proffession of proffessionList |keys" value="{{proffession.key}}" > {{proffession.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureArray.invalid">Proffession Type is required</mat-error>
@@ -454,7 +454,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="!insureArray['controls'].items['controls'][i]['controls'].cityHide.value && i== 0"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="City"  formControlName="proposerCity" (change)="storeDname(i, 'city'); changeInsuredCityList(i)" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}" >
+                                  <mat-select placeholder="City"  formControlName="proposerCity" (change)="storeDname(i, 'city'); changeInsuredCityList(i);" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}" >
                                       <mat-option *ngFor="let AppolloCity of iAppolloCityList | keys" value="{{AppolloCity.key}}" > {{AppolloCity.value}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insureArray.invalid">City is required</mat-error>
@@ -607,7 +607,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Previous Insurer"    formControlName="PreviousInsurer" [required]="validateprvious" >
-                              <mat-option *ngFor="let previousInsure of previousInsureList" value="{{previousInsure.insure_code}}" > {{previousInsure.insure_name}} </mat-option>
+                              <mat-option *ngFor="let previousInsure of previousInsureList | keys" value="{{previousInsure.key}}" > {{previousInsure.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Previous Insurer is required</mat-error>
                           </mat-form-field>
@@ -732,7 +732,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" required >
+                          <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship" (change)="changeNomineeRelation()" required >
                             <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
@@ -832,8 +832,8 @@
                                     <li class="list-group-item" *ngIf="proposerFormData.proposerGender == 1"><strong>Gender:</strong> MALE </li>
                                     <li class="list-group-item" *ngIf="proposerFormData.proposerGender == 2"><strong>Gender:</strong> FEMALE </li>
                                     <!--<li class="list-group-item"><strong>Marital Status:</strong> {{summaryData.ProposalDetails.maritalStatus}}</li>-->
-                                    <li class="list-group-item" *ngIf="proposerFormData.proposerIdProofIdP != ''"><strong>Select ID Proof:</strong> {{proposerFormData.proposerIdProofIdP  | uppercase}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.proposerIdProof != ''"><strong>ID Proof Number:</strong> {{proposerFormData.proposerIdProof  | uppercase }}</li>
+                                    <li class="list-group-item" *ngIf="proposerFormData.proposerIdProof != ''"><strong> Select ID Proof :</strong> {{proposerFormData.proposerIdProof  | uppercase }}</li>
+                                    <li class="list-group-item" *ngIf="proposerFormData.proposerIdProofIdP != ''"><strong>Select ID Proof Number:</strong> {{proposerFormData.proposerIdProofIdP  | uppercase}}</li>
                                     <li class="list-group-item" *ngIf="proposerFormData.proposerGst != ''"><strong>GST:</strong> {{proposerFormData.proposerGst | uppercase}}</li>
                                   </ul>
                               </div>
@@ -863,14 +863,14 @@
                               <div class="p-3">
                                   <h6>INSURED DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                  <li class="list-group-item"><strong>Name:</strong> {{item.TitleCode}}. {{item.FirstName}} {{item.MiddleName}} {{item.LastName}}</li>
-                                  <li class="list-group-item"><strong>D.O.B:</strong> {{item.BirthDate | date: 'dd/MM/yyyy'}}</li>
-                                  <li class="list-group-item" *ngIf="item.Email != '' && item.Email != null && item.Email != undefined"><strong>Email Id:</strong> {{item.Email}}</li>
-                                  <li class="list-group-item" *ngIf="item.Number != '' && item.Number != null && item.Number != undefined"><strong>Mobile Number:</strong> {{item.Number}}</li>
+                                  <li class="list-group-item"><strong>Name:</strong> {{item.proposerTitle}}. {{item.proposerFirstname}} {{item.proposerMidname}} {{item.proposerLastname}}</li>
+                                  <li class="list-group-item"><strong>D.O.B:</strong> {{item.proposerDob | date: 'dd/MM/yyyy'}}</li>
+                                  <li class="list-group-item"><strong>Email Id:</strong> {{item.proposerEmail}}</li>
+                                  <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.proposerMobile}}</li>
                                   <li class="list-group-item" *ngIf="item.GenderCode == 1"><strong>Gender:</strong> MALE </li>
                                   <li class="list-group-item" *ngIf="item.GenderCode == 2"><strong>Gender:</strong> FEMALE </li>
-                                  <!--<li class="list-group-item"><strong>Marital Status:</strong> {{item.i_maritalstatus}}</li>-->
-                                  <li class="list-group-item" *ngIf="item.OccuptionCode !='' && item.OccuptionCode !=null"><strong>Occupation:</strong> {{item.OccuptionCode}}</li>
+                                  <li class="list-group-item"><strong>Marital Status:</strong> {{item.maritalStatusName}}</li>
+                                  <li class="list-group-item" *ngIf="item.ProposeroccupationName !='' && item.ProposeroccupationName !=null"><strong>Occupation:</strong> {{item.ProposeroccupationName}}</li>
 
                                 </ul>
                               </div>
@@ -880,15 +880,15 @@
                           <div class="p-3">
                             <h6 class="mt-4" ></h6>
                             <ul class="m-0 list-group">
-                              <li class="list-group-item"><strong>Relationship:</strong> {{item.RelationshipCode}}</li>
-                              <li class="list-group-item"><strong>Height:</strong> {{item.Height}}</li>
-                              <li class="list-group-item"><strong>Weight:</strong> {{item.Weight}}</li>
-                              <li class="list-group-item" *ngIf="item.IDProofTypeCode != '' && item.IDProofTypeCode != null"><strong>Select ID Proof:</strong> {{item.IDProofTypeCode  | uppercase}}</li>
-                              <li class="list-group-item" *ngIf="item.IDProofNumber != '' && item.IDProofNumber != null"><strong>ID Proof Number:</strong> {{item.IDProofNumber  | uppercase}}</li>
+                              <li class="list-group-item"><strong>Relationship:</strong> {{item.proposerrelationshipName}}</li>
+                              <li class="list-group-item"><strong>Height:</strong> {{item.proposerHeight}}</li>
+                              <li class="list-group-item"><strong>Weight:</strong> {{item.proposerWeight}}</li>
+                              <li class="list-group-item" *ngIf="item.proposerIdProofName != '' && item.proposerIdProofName != null"><strong>Select ID Proof:</strong> {{item.proposerIdProofName  | uppercase}}</li>
+                              <li class="list-group-item" *ngIf="item.proposerIdProof != '' && item.proposerIdProof != null"><strong>ID Proof Number:</strong> {{item.proposerIdProof  | uppercase}}</li>
                               <li class="list-group-item" *ngIf="item.GstinNumber != '' && item.GstinNumber != null"><strong>GST:</strong> {{item.GstinNumber | uppercase}}</li>
-                              <li class="list-group-item" *ngIf="item.AnnualIncome != '' && item.AnnualIncome != null"><strong>Annual Income:</strong> {{item.AnnualIncome}}</li>
-                              <li class="list-group-item" *ngIf="item.FamilySize != '' && item.FamilySize != null"><strong>Family Size:</strong> {{item.FamilySize}}</li>
-                              <li class="list-group-item" *ngIf="item.ProfessionCode != '' && item.ProfessionCode != null"><strong>Profession:</strong> {{item.ProfessionCodeName}}</li>
+                              <li class="list-group-item" *ngIf="item.proposerAnnualIncome != '' && item.proposerAnnualIncome != null"><strong>Annual Income:</strong> {{item.proposerAnnualIncome}}</li>
+                              <li class="list-group-item" *ngIf="item.proposerFamilySize != '' && item.proposerFamilySize != null"><strong>Family Size:</strong> {{item.proposerFamilySize}}</li>
+                              <li class="list-group-item" *ngIf="item.ProffessionListName != '' && item.ProffessionListName != null"><strong>Profession:</strong> {{item.ProffessionListName}}</li>
                             </ul>
                           </div>
                         </div>
@@ -897,10 +897,10 @@
                           <div class="p-3">
                               <h6>COMMUNICATION DETAILS</h6>
                             <ul class="m-0 list-group">
-                            <li class="list-group-item" *ngIf="item.AddressLine1 != '' && item.i_address1 != null"><strong>Address 1:</strong> {{item.AddressLine1}}</li>
-                            <li class="list-group-item" *ngIf="item.AddressLine2 != ''"><strong>Address 2:</strong> {{item.AddressLine2}}</li>
-                            <li class="list-group-item"  *ngIf="item.AddressLine3 != ''"><strong>Address 3:</strong> {{item.AddressLine3}}</li>
-                            <li class="list-group-item" *ngIf="item.TownCode !='' && item.TownCode !=null"><strong>City:</strong> {{item.TownCode}}</li>
+                            <li class="list-group-item"><strong>Address 1:</strong> {{item.proposerAddress}}</li>
+                            <li class="list-group-item" *ngIf="item.proposerAddress2 != ''"><strong>Address 2:</strong> {{item.proposerAddress2}}</li>
+                            <li class="list-group-item"  *ngIf="item.proposerAddress3 != ''"><strong>Address 3:</strong> {{item.proposerAddress3}}</li>
+                            <li class="list-group-item" ><strong>City:</strong> {{item.proposerCityName}}</li>
                             </ul>
                           </div>
                         </div>
@@ -908,10 +908,10 @@
                           <div class="p-3">
                             <h6 class="mt-4"></h6>
                             <ul class="m-0 list-group">
-                              <li class="list-group-item" *ngIf="item.District !='' && item.District !=null"><strong>District:</strong> {{item.DistrictName}}</li>
-                              <li class="list-group-item" *ngIf="item.StateCode !='' && item.StateCode !=null"><strong>State:</strong> {{item.StateCode}}</li>
-                              <li class="list-group-item" *ngIf="item.CountryCode"><strong>Country:</strong> INDIA</li>
-                              <li class="list-group-item" *ngIf="item.PinCode !='' && item.PinCode !=null"><strong>PIN code:</strong> {{item.PinCode}}</li>
+                              <li class="list-group-item" *ngIf="item.proposerDistrict !='' && item.proposerDistrict !=null"><strong>District:</strong> {{item.proposerDistrict}}</li>
+                              <li class="list-group-item" *ngIf="item.proposerState !='' && item.proposerState !=null"><strong>State:</strong> {{item.proposerState}}</li>
+                              <li class="list-group-item" ><strong>Country:</strong> INDIA</li>
+                              <li class="list-group-item" *ngIf="item.proposerPincode !='' && item.proposerPincode!=null"><strong>PIN code:</strong> {{item.proposerPincode}}</li>
                             </ul>
                           </div>
                         </div>
@@ -931,9 +931,9 @@
                               <div class="p-3">
                                   <h6>PREVIOUS INSURER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item" *ngIf="item.InceptionDate != ''"><strong>Policy Start Date:</strong> {{item.InceptionDate  | date: 'dd/MM/yyyy'}}</li>
-                                      <li class="list-group-item" *ngIf="item.EndDate != ''"><strong>Policy End Date:</strong> {{item.EndDate  | date: 'dd/MM/yyyy'}}</li>
-                                      <li class="list-group-item" *ngIf="item.PreviousInsurerCode != ''"><strong>Previous Insurer:</strong> {{item.PreviousInsurerCode}}</li>
+                                      <li class="list-group-item" *ngIf="item.InceptionDate != ''"><strong>Policy Start Date:</strong> {{item.PolicyStartDate  | date: 'dd/MM/yyyy'}}</li>
+                                      <li class="list-group-item" *ngIf="item.EndDate != ''"><strong>Policy End Date:</strong> {{item.PolicyEndDate  | date: 'dd/MM/yyyy'}}</li>
+                                      <li class="list-group-item" *ngIf="item.PreviousInsurer != ''"><strong>Previous Insurer:</strong> {{item.PreviousInsurer}}</li>
                                       <li class="list-group-item" ><strong>Previous Policy No:</strong> {{item.PreviousPolicyNumber}}</li>
                                       <li class="list-group-item"><strong>Sum Insured:</strong> {{item.SumInsured}}</li>
                                       <li class="list-group-item"  *ngIf="item.QualifyingAmount != '' && item.QualifyingAmount != 0 "><strong>Qualifying Amount:</strong> {{item.QualifyingAmount}}</li>
@@ -953,7 +953,7 @@
                               <div class="col-md-12">
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeFormData.nomineeTitle}}.{{nomineeFormData.nomineeName}}</li>
-                                  <li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.n_relation}}</li>
+                                  <li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationshipName}}</li>
                                   <li class="list-group-item"><strong>Address1:</strong> {{nomineeFormData.nomineeAddress}}</li>
                                   <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress2 != ''"><strong>Address2:</strong> {{nomineeFormData.nomineeAddress2}}</li>
                                   <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress3 != ''"><strong>Address3:</strong> {{nomineeFormData.nomineeAddress3}}</li>
@@ -970,7 +970,7 @@
                                               <li class="list-group-item"><strong>Pin Code:</strong> {{nomineeFormData.nomineePincode}}</li>
                                               <li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nomineeState}}</li>
                                               <li class="list-group-item" *ngIf="nomineeFormData.nomineeDistrict != ''"><strong>District:</strong> {{nomineeFormData.nomineeDistrict}}</li>
-                                              <li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nomineeCity}}</li>
+                                              <li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nomineeCityName}}</li>
                                           </ul>
                                       </div>
                                   </div>
