@@ -284,11 +284,11 @@
                                  <mat-error *ngIf="insureArray.invalid">Enter valid GST</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail"  autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && this.insureArray['controls'].items['controls'][i]['controls'].type == 'Son'|| this.insureArray['controls'].items['controls'][i]['controls'].type == 'Daughter'" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                              <input matInput placeholder="Email ID"  pattern="[^ @]*@[^ @]*" formControlName="personalEmail"  autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && this.insureArray['controls'].items['controls'][i]['controls'].type != 'Son'|| this.insureArray['controls'].items['controls'][i]['controls'].type != 'Daughter'" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                               <mat-error *ngIf="insureArray.invalid">Email Id is required</mat-error>
                             </mat-form-field></div>
                             <div class="col-md-3"><mat-form-field class="w-100">
-                              <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)" maxlength="10"  formControlName="personalMobile" autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && this.insureArray['controls'].items['controls'][i]['controls'].type == 'Son'|| this.insureArray['controls'].items['controls'][i]['controls'].type == 'Daughter'" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
+                              <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)" maxlength="10"  formControlName="personalMobile" autocomplete="off" [required]="this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 18 && this.insureArray['controls'].items['controls'][i]['controls'].type != 'Son'|| this.insureArray['controls'].items['controls'][i]['controls'].type != 'Daughter'" [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value">
                               <mat-error *ngIf="insureArray.invalid">Mobile number is required</mat-error>
                             </mat-form-field>
                             </div>
