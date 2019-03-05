@@ -8,7 +8,7 @@ import {Observable} from 'rxjs/Rx';
 @Injectable()
 export class HealthService {
 
-    constructor(private http: HttpClient, private configurationService: ConfigurationService, private authService: AuthService) {
+    constructor(private http: HttpClient, private configurationService: ConfigurationService, private authService: AuthService, public auth: AuthService ) {
 
     }
 // health insurance home page
@@ -24,7 +24,7 @@ export class HealthService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-        // list details
+    // group details
     getPolicyQuotation(data) {
         console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
@@ -37,6 +37,44 @@ export class HealthService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+
+
+
+
+
+    // new policy lists
+    // group details
+    getFamilyLists(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'healthproduct/family_classification' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // policy details
+    getPolicyLists(data) {
+        console.log(data, 'ssssssssssss');
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'healthproduct/productList' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    // end
+
+
+
+
 // update familygroup suminsured
      changeAmountPolicyQuotation(data) {
         console.log(data, 'ssssssssssss');
@@ -336,6 +374,24 @@ export class HealthService {
             .catch(this.handleError);
     }
     // proposal creation
+    //comapny list resolver
+    companyDetails() {
+        console.log('testyinnn');
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'healthproduct/companyCode' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     getProposal(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -644,7 +700,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'apollomunich/create_proposal_details';
+        const url = this.configurationService.getHostHealth() + 'apollomunich/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

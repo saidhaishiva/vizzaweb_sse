@@ -8,13 +8,15 @@ import {ToastrService} from 'ngx-toastr';
 import {HealthService} from '../../shared/services/health.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
-import {Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import {GrouppopupComponent} from '../health-insurance/grouppopup/grouppopup.component';
 import {CompareDetailsComponent} from './compare-details/compare-details.component';
 import {ComparelistComponent} from '../health-insurance/comparelist/comparelist.component';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.component';
 import {ViewProductDetailsComponent} from './view-product-details/view-product-details.component';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-personal-accident-home',
@@ -61,7 +63,17 @@ export class PersonalaccidentComponent implements OnInit {
     annualerror: any;
     ageerror: any;
     productData: any;
-    constructor(public appSettings: AppSettings,public personalService: PersonalAccidentService, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
+    //fire
+    public show: boolean;
+    public fireapp: FormGroup;
+    public setDate: any;
+    public selectDate: any;
+    public productName: any;
+    public pin: any;
+    public title: any;
+    public response: any;
+    public pincodeErrors: any;
+    constructor(public appSettings: AppSettings, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -72,6 +84,18 @@ export class PersonalaccidentComponent implements OnInit {
             this.settings.sidenavIsOpened = true;
             this.settings.sidenavIsPinned = true;
         }
+
+        this.fireapp = this.fb.group({
+            'appdate': ['', Validators.required],
+            'apptime': null,
+            'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+            'contactperson':  ['', Validators.compose([Validators.required])],
+            'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
+            'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            'pincode': ['', Validators.compose([Validators.required])],
+            'insurance': ['',Validators.compose([Validators.required])],
+            'appointmentwith': ['',Validators.compose([Validators.required])]
+        });
         this.tabIndex = 0;
         this.pageSettings = 0;
         this.sumerror = false;
@@ -90,6 +114,7 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.show = this.config.getpaAccident();
         this.firstPage = true;
         this.secondPage = false;
         // this.closeIcon = true;
@@ -100,9 +125,18 @@ export class PersonalaccidentComponent implements OnInit {
             this.firstPage = false;
             this.secondPage = true;
         }
+
+        //fire
+        this.setDate = Date.now();
+        this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
+        this.route.params.forEach((params) => {
+            this.productName = params.id;
+
+        });
+
     }
 
-reset(){
+reset() {
     this.selectedAmountP = [];
     this.pincoceP = '';
     this.occupationP = '';
@@ -110,10 +144,10 @@ reset(){
     this.AnnualIncomeP = '';
 }
 
-public annualIncome(){
+public annualIncome() {
     if (this.AnnualIncomeP == '0') {
         this.annualErrorMessage = true;
-    }else{
+    } else {
         this.annualErrorMessage = false;
         this.annualerror = false;
     }
@@ -132,7 +166,7 @@ public annualIncome(){
             }
         }
     }
-    painsurance(){
+    painsurance() {
         this.firstPage = true;
         this.secondPage = false;
     }
@@ -201,7 +235,7 @@ public annualIncome(){
 
     checkNetwork() {
         if (this.sumInsuredAmountLists == 0) {
-            this.toast.error("Unable to connect to the network");
+            this.toast.error('Unable to connect to the network');
         }
     }
 
@@ -210,7 +244,7 @@ public annualIncome(){
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
+        };
         this.personalService.getOccupationCodeList(data).subscribe(
             (successData) => {
                 this.occupationCodeSuccess(successData);
@@ -292,7 +326,7 @@ public annualIncome(){
                     "type": "self",
                     "age": this.Age
                 }]
-            }
+            };
             this.personalService.personalAccident(data).subscribe(
                 (successData) => {
                     //this.settings.loadingSpinner = true;
@@ -493,13 +527,91 @@ public annualIncome(){
         }
 
 
+        // fire functions
+
+    addEvent(event) {
+        this.selectDate = event.value;
+        this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+    }
+    fireKeeper(values) {
+
+        if (this.fireapp.valid) {
+            const data = {
+                'platform': 'web',
+                'product_type': 'offline',
+                'appointment_date': this.setDate,
+                'appointment_time': this.fireapp.controls['apptime'].value,
+                'company_name': this.fireapp.controls['name'].value,
+                'customer_mobile': this.fireapp.controls['mobile'].value,
+                'customer_email': this.fireapp.controls['email'].value,
+                'contact_person' : this.fireapp.controls['contactperson'].value,
+                'pincode': this.fireapp.controls['pincode'].value,
+                'product_name': this.fireapp.controls['insurance'].value,
+                'appointment_with': this.fireapp.controls['appointmentwith'].value,
+
+            };
+
+            this.commonservices.setFixAppointment(data).subscribe(
+                (successData) => {
+                    this.fixAppointmentSuccess(successData);
+                },
+                (error) => {
+                    this.fixAppointmentFailure(error);
+                }
+            );
+        }
+    }
+    fixAppointmentSuccess(successData) {
+    }
+    fixAppointmentFailure(error) {
+    }
+    getPincodeDetails(pin, title) {
+        this.pin = pin;
+        this.title = title;
+        const data = {
+            'platform': 'web',
+            'postalcode': this.pin
+        };
+        if (this.pin.length == 6) {
+            this.commonservices.getPincodeDetails(data).subscribe(
+                (successData) => {
+                    this.getPincodeDetailsSuccess(successData);
+                },
+                (error) => {
+                    this.getPincodeDetailsFailure(error);
+                }
+            );
+        }
+    }
+    public getPincodeDetailsSuccess(successData) {
+        if (successData.ErrorObject) {
+            this.toastr.error(successData.ErrorObject);
+            this.pincodeErrors = false;
+        } else {
+            this.pincodeErrors = true;
+        }
+    }
+
+    public getPincodeDetailsFailure(error) {
+    }
+
+    public data(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
 
     // buy details
-    buyDetails(value){
+    buyDetails(value) {
         sessionStorage.pAccidentProposalList =  JSON.stringify(value);
-        if (value.product_id == 14 || value.product_id == 15){
+        if (value.product_id == 14 || value.product_id == 15) {
             this.router.navigate(['/appollopa' + '/' + false]);
-        } else if(value.product_id == 3){
+        } else if (value.product_id == 3) {
                 this.router.navigate(['/personal-accident-religare' +'/' + false]);
             } else {
             if (value.product_id == 23) {
@@ -520,13 +632,16 @@ public annualIncome(){
         });
 
     }
-    personalInsurer(){
+    personalInsurer() {
         const dialogRef = this.dialog.open(PersonalInsurer, {
             width: '1200px',
         });
         dialogRef.disableClose = true;
     }
 }
+
+
+
 
 @Component({
     selector: 'personalinsurer',
@@ -564,3 +679,4 @@ export class PersonalInsurer {
     }
 
 }
+

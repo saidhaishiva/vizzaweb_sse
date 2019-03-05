@@ -9,7 +9,10 @@ export const environment = {
     apiHostPos: 'http://13.127.24.123/vizza/api/index.php/pos/',
     apiHostDm: 'http://13.127.24.123/vizza/api/index.php/dm/',
     webHost: 'http://13.127.24.123',
-    imgUrl: 'http://13.127.24.123/vizza'
+    imgUrl: 'http://13.127.24.123/vizza',
+    travelInsurance: true,
+    healthInsurance: true,
+    paAccident: true
 
    // apiHost: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
    //  apiHostTravel: 'https://vizzainsurance.com/vizza/api/index.php/travel/',

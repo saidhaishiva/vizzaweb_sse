@@ -22,10 +22,10 @@
         </div>
 
         <div class="flex-p " *ngFor="let lists of premiumLists;let pi = index" >
-          <table class="table health-table" *ngIf="lists.product_lists !='' ">
+          <table class="table health-table table-scroll" *ngIf="lists.product_lists !='' ">
             <thead>
             <tr>
-              <th >
+              <th class="col-md-3">
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
                   <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
@@ -33,7 +33,7 @@
                   </mat-select>
                 </mat-form-field>
               </th>
-              <th class="sun-insured">
+              <th class="sun-insured col-md-1">
                 <mat-form-field >
                   <mat-placeholder class="myclass">SUM INSURED ( &#8377; )</mat-placeholder>
                   <mat-select>
@@ -51,37 +51,37 @@
                   </mat-select>
                 </mat-form-field>
               </th>
-              <th>EMERGENCY MEDICAL EXPENSES</th>
-              <th>EMERGENCY MEDICAL TRANSPORTATION</th>
-              <th>TRANSPORTATION OF MORTAL REMAINS</th>
-              <th>DAILY ALLOWANCE</th>
-              <th>PRE EXISTING DISEASES</th>
-              <th>COMPARE</th>
-              <th>PREMIUM ( &#8377; )</th>
-              <th>BUY ( &#8377; )</th>
+              <th class="col-md-1">EMERGENCY MEDICAL EXPENSES</th>
+              <th class="col-md-1">EMERGENCY MEDICAL TRANSPORTATION</th>
+              <th class="col-md-1">TRANSPORTATION OF MORTAL REMAINS</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">DAILY ALLOWANCE</th>
+              <!--<th class="col-md-1">PRE EXISTING DISEASES</th>-->
+              <th class="col-md-2" style="padding: 15px 5px !important;">COMPARE</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">PREMIUM ( &#8377; )</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">BUY ( &#8377; )</th>
             </tr>
             </thead>
             <tbody>
-            <tr class="" *ngFor="let plists of lists.product_lists | orderBy : 'suminsured_amount';let i = index">
-              <td align="left">
+            <tr  *ngFor="let plists of lists.product_lists | orderBy : 'suminsured_amount';let i = index">
+              <td align="left" class="col-md-3">
                 <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.plan_name | titlecase}}
               </td>
-              <td >
+              <td class="col-md-1">
                 <p>&#8377; {{plists.suminsured_amount_format}}</p>
               </td>
-              <td *ngFor="let keys of plists.key_features; let i = index;" >
+              <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
                 <p class="text-center">{{keys.key_features_value}}</p>
               </td>
-              <td>
+              <td class="col-md-2">
                 <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primaryBlue" [hidden]="plists.compare"  (click)="addCompare(plists, pi, i, lists.enquiry_id, lists.name)">Add to Compare</button></p>
                 <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
-              <td >
+              <td class="col-md-1">
                 <p class="text-center change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
                 <p class="text-center change-p">(Excluding.GST)</p>
               </td>
-              <td >
+              <td class="col-md-1">
                 <p><button mat-raised-button color="accent" (click)="booking(plists, lists.enquiry_id,lists.name)">Buy</button></p>
               </td>
             </tr>
@@ -91,7 +91,7 @@
           <!--<th class="text-center" class="color-pink"> No product matched your selection </th>-->
           <!--</table>-->
         </div>
-        <mat-divider></mat-divider>
+
       </div>
     </div>
   </div>
