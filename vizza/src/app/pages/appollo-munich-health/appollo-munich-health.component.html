@@ -782,7 +782,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100" >
-                          <mat-select placeholder="City"  formControlName="nomineeCity" (Change)="changeNomineeCity()"   [disabled]="nomineesame" required>
+                          <mat-select placeholder="City"  formControlName="nomineeCity" (change)="changeNomineeCity()"   [disabled]="nomineesame" required>
                             <mat-option *ngFor="let AppolloCity of nomineeAppolloCityLis | keys" value="{{AppolloCity.key}}" > {{AppolloCity.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>
