@@ -1999,6 +1999,7 @@ export class AppolloMunichComponent implements OnInit {
                     'Weight': this.insurerData[i].proposerWeight
                 });
             }
+            console.log(this.totalInsureDetails,'kjhgfhj');
             if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
                 this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = 'Age between 18 to 55';
             } else {
