@@ -590,7 +590,7 @@
                               <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"   formControlName="PolicyStartDate" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'startDate')" (dateChange)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'startDate')" (keypress)="dobValidate($event)" maxlength="10" autocomplete="off">
+                            <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date (DD/MM/YYYY)"  [max]="minDate" formControlName="PolicyStartDate" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'startDate')" (dateChange)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'startDate')" (keypress)="dobValidate($event)" maxlength="10" autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                           </mat-form-field>
@@ -599,7 +599,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker3"  [min]="minDate" placeholder="Policy End Date"   formControlName="PolicyEndDate"  (keypress)="dobValidate($event)" maxlength="10"  autocomplete="off">
+                            <input matInput [matDatepicker]="picker3"   placeholder="Policy End Date"   formControlName="PolicyEndDate"  (keypress)="dobValidate($event)" maxlength="10"  autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                             <mat-datepicker #picker3></mat-datepicker>
                           </mat-form-field>
