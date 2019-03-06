@@ -147,9 +147,9 @@
                 <td><p *ngFor="let key of list.keyfeature">
                   {{key.key_name}}-{{key.key_value}}</p>
                 </td>
-                <td><button type="button" class="btn pink-color" (click)="compareNow()">compare Now</button></td>
+                <td><button type="button" class="btn pink-color" (click)="compareNow(List)">compare Now</button></td>
                 <td><button type="button" class="btn yellow-color" (click)="viewDetails(list)">View Details/<br> Product Documents</button></td>
-                <td><button type="button" class="btn pink-color" (click)="callBack()">Call Back</button></td>
+                <td><button type="button" class="btn pink-color" (click)="callBack(List)">Call Back</button></td>
               </tr>
               </tbody>
             </table>

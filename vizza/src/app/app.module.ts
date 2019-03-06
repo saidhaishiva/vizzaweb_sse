@@ -205,7 +205,6 @@ import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
 import { ReliagretravelproposalComponent } from './pages/travel-religare-proposal/travel-religare-proposal.component';
 import { TermLifeInsuranceComponent } from './pages/term-life-insurance/term-life-insurance.component';
 import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.component';
-import { LifeInsuranceComponent } from './pages/life-insurance/life-insurance.component';
 // import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
 import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 import { BajajalianzPaymentSuccessComponent } from './pages/bajajalianz-payment-success/bajajalianz-payment-success.component';
@@ -246,9 +245,10 @@ import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-p
 import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
 import { BajajDownloadPolicyComponent } from './pages/bajaj-download-policy/bajaj-download-policy.component';
 import {LifeService} from './shared/services/life.service';
-import {LifeCompareNowComponent} from './pages/life-insurance/life-compare-now/life-compare-now.component';
-import {LifeCallBackComponent} from './pages/life-insurance/life-call-back/life-call-back.component';
-import {LifeViewDetailsComponent} from './pages/life-insurance/life-view-details/life-view-details.component';
+import {EndowmentLifeInsuranceComponent} from './pages/endowment-life-insurance/endowment-life-insurance.component';
+import {LifeCompareNowComponent} from './pages/endowment-life-insurance/life-compare-now/life-compare-now.component';
+import {LifeCallBackComponent} from './pages/endowment-life-insurance/life-call-back/life-call-back.component';
+import {LifeViewDetailsComponent} from './pages/endowment-life-insurance/life-view-details/life-view-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
@@ -432,7 +432,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
       TermLifeInsuranceComponent,
       TermLifeInsurer,
       ReliagretravelproposalComponent,
-      LifeInsuranceComponent,
+      // LifeInsuranceComponent,
       // LifeInsurer,
       HdfcHealthInsuranceComponent,
       BajajalianzPaymentSuccessComponent,
@@ -459,6 +459,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
       TravelReliancePaymentSuccessComponent,
       BajajDownloadPolicyComponent,
       TravelReliancePaymentSuccessComponent,
+      EndowmentLifeInsuranceComponent,
       LifeCompareNowComponent,
       LifeCallBackComponent,
       LifeViewDetailsComponent,
