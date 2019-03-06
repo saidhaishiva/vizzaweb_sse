@@ -68,7 +68,7 @@ export const horizontalMenuItems = [
     new Menu (5, 'Term Life Insurance', '/term-life-insurance', null, null, null, true, 2),
     new Menu (9, 'Life Insurance', '/fix-appointment/offline', null, null, null, true, 0),
     new Menu (4, 'Term Life Insurance', '/term-life-insurance', null, null, null, false, 9),
-    new Menu (21, 'Endowment Life Insurance', '/life-insurance', null, null, null, false, 9),
+    new Menu (21, 'Endowment Life Insurance', '/endowment-life-insurance', null, null, null, false, 9),
     new Menu (28, 'ULIP', '/', null, null, null, false, 9),
     new Menu (22, 'Other General Insurance', '/fix-appointment/corporate-insurance', null, null, null, true, 0),
     new Menu (24, 'Commercial Insurance', '/', null, null, null, true, 22),
