@@ -636,7 +636,7 @@ export class AppolloMunichComponent implements OnInit {
                 proposerCountryIdP: '',
                 proposerDistrictIdP: '',
                 proposerAnnualIncome: '',
-                proposerFamilySize: ['', Validators.compose([Validators.maxLength(2)])],
+                proposerFamilySize: ['', Validators.required],
                 proposerHeight: '',
                 proposerWeight: '',
                 LiquorPeg: 0,

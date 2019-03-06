@@ -307,7 +307,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Family Members"  (keypress)="numberValidate($event)" formControlName="proposerFamilySize" autocomplete="off" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
+                            <input matInput placeholder="Family Members"  (keypress)="numberValidate($event)" maxlength="2" minlength="2" formControlName="proposerFamilySize" autocomplete="off" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                             <mat-error *ngIf="insureArray.invalid">Family Members Detail is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -319,7 +319,7 @@
                             <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}  lkklklkl
+                        <div class="col-md-3">
                           <mat-form-field class="w-100" >
                             <mat-select  placeholder="Occupation" formControlName="Proposeroccupation" (change)="changeOccupationList(i)" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                               <mat-option *ngFor="let list of occupationList | keys" value= "{{list.key}}" > {{list.value}} </mat-option>
