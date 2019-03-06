@@ -319,7 +319,7 @@
                             <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3">{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}  lkklklkl
                           <mat-form-field class="w-100" >
                             <mat-select  placeholder="Occupation" formControlName="Proposeroccupation" (change)="changeOccupationList(i)" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                               <mat-option *ngFor="let list of occupationList | keys" value= "{{list.key}}" > {{list.value}} </mat-option>
@@ -884,7 +884,7 @@
                               <li class="list-group-item"><strong>Height:</strong> {{item.proposerHeight}}</li>
                               <li class="list-group-item"><strong>Weight:</strong> {{item.proposerWeight}}</li>
                               <li class="list-group-item" *ngIf="item.proposerIdProofName != '' && item.proposerIdProofName != null"><strong>Select ID Proof:</strong> {{item.proposerIdProofName  | uppercase}}</li>
-                              <li class="list-group-item" *ngIf="item.proposerIdProof != '' && item.proposerIdProof != null"><strong>ID Proof Number:</strong> {{item.proposerIdProof  | uppercase}}</li>
+                              <li class="list-group-item" *ngIf="item.proposerIdProofIdP != '' && item.proposerIdProofIdP != null"><strong>ID Proof Number:</strong> {{item.proposerIdProofIdP  | uppercase}}</li>
                               <li class="list-group-item" *ngIf="item.proposerGst != '' && item.proposerGst != null"><strong>GST:</strong> {{item.proposerGst | uppercase}}</li>
                               <li class="list-group-item" *ngIf="item.proposerAnnualIncome != '' && item.proposerAnnualIncome != null"><strong>Annual Income:</strong> {{item.proposerAnnualIncome}}</li>
                               <li class="list-group-item" *ngIf="item.proposerFamilySize != '' && item.proposerFamilySize != null"><strong>Family Size:</strong> {{item.proposerFamilySize}}</li>
@@ -915,7 +915,7 @@
                             </ul>
                           </div>
                         </div>
-                          <div class="col-md-6" *ngIf="personalhabit">
+                          <div class="col-md-6" *ngIf="item.personalhabit">
                               <!--<div class="p-3" *ngIf="(item.Smoking != '' && item.Smoking != 0) || (item.Pouches != '' && item.Pouches != 0) || (item.LiquorPeg != '' && item.LiquorPeg != 0 && item.LiquorPeg != undefined || && item.LiquorPeg != null) || (item.WineGlass != '' && item.WineGlass != 0 && item.WineGlass != undefined && item.WineGlass != null) || (item.BeerBottle != ''  && item.BeerBottle != 0 && item.BeerBottle != undefined && item.BeerBottle != null)">-->
                               <div class="p-3">
                                 <h6>PERSONAL HABITS</h6>
