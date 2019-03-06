@@ -25,11 +25,12 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
     public settings: Settings;
   constructor(public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
       this.settings = this.appSettings.settings;
-      let allDetails = JSON.parse(sessionStorage.allGroupDetails);
       this.remainingStatus = false;
-      if(allDetails.length > 1) {
-          this.remainingStatus = true;
-      }
+
+      // let allDetails = JSON.parse(sessionStorage.allGroupDetails);
+      // if(allDetails.length > 1) {
+      //     this.remainingStatus = true;
+      // }
       this.route.params.forEach((params) => {
           console.log(params.id);
           this.paymentStatus = params.status;
@@ -68,14 +69,10 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
 
     }
     public downloadPdfSuccess(successData) {
-        this.type = successData.ResponseObject.type;
-        this.path = successData.ResponseObject.path;
         this.settings.loadingSpinner = false;
-        console.log(this.path, 'this.paththis.paththis.path');
-
         if (successData.IsSuccess == true) {
-            console.log(this.type, 'ww22');
-
+            this.type = successData.ResponseObject.type;
+            this.path = successData.ResponseObject.path;
             this.currenturl = this.config.getimgUrl();
             if (this.type == 'pdf') {
                 console.log(successData.ResponseObject, 'www333');
@@ -91,6 +88,7 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
         }
     }
     public downloadPdfFailure(error) {
+        this.settings.loadingSpinner = false;
         console.log(error);
     }
     retry() {

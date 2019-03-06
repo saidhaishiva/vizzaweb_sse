@@ -56,14 +56,10 @@ DownloadPdf() {
 
 }
 public downloadPdfSuccess(successData) {
-    console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
-    this.type = successData.ResponseObject.type;
-    this.path = successData.ResponseObject.path;
     this.settings.loadingSpinner = false;
-
     if (successData.IsSuccess == true) {
-        console.log(this.type, 'ww22');
-
+        this.type = successData.ResponseObject.type;
+        this.path = successData.ResponseObject.path;
         this.currenturl = this.config.getimgUrl();
         if (this.type == 'pdf') {
             console.log(successData.ResponseObject, 'www333');
@@ -76,7 +72,6 @@ public downloadPdfSuccess(successData) {
         }
     } else {
         this.toast.error(successData.ErrorObject);
-
     }
 
 }

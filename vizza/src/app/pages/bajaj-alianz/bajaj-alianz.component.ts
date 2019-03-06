@@ -246,11 +246,20 @@ export class BajajAlianzComponent implements OnInit {
     idValidate(event: any){
         this.validation.idValidate(event);
     }
+    // onlynumValidate(event: any){
+    //     this.validation.onlynumValidate(event);
+    // }
     canDeactivate() {
         return this.proposalId;
     }
 
-
+    grossValid(event,i){
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.value,'oooo');
+      if(this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.value == '0' && this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.value.length ==  1){
+          this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.patchValue('');
+          event.preventDefault();
+      }
+    }
     //Insure Details
     bajajInsureDetails(stepper: MatStepper, id, value, key) {
         sessionStorage.stepper1Details = '';
@@ -273,7 +282,7 @@ export class BajajAlianzComponent implements OnInit {
                     'memnomineerelation': this.insurerData[i].bajajRelationship,
                     'memcompname': this.insurerData[i].insureCName,
                     'memprvpolno': this.insurerData[i].insurePINumber,
-                    'memprvexpdate': this.insurerData[i].insurePItDate,
+                    'memprvexpdate': this.datepipe.transform(this.insurerData[i].insurePItDate, 'y-MM-dd'),
                     'memprvsi': this.insurerData[i].insureSInsurance,
                     'noofclaims': this.insurerData[i].insurePIClaims == '' ? "0" : this.insurerData[i].insurePIClaims || this.insurerData[i].insurePIClaims == null ? "0" : this.insurerData[i].insurePIClaims,
                     'membmi': '',
