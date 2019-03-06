@@ -86,7 +86,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Select ID Proof" (change)="changeIdproof('proposer', 0); changeid()"  formControlName="proposerIdProof" >
+                          <mat-select placeholder="Select ID Proof" (change)="changeIdproof('proposer', 0); changeid();"  formControlName="proposerIdProof" >
                             <mat-option *ngFor="let IdProof of IdProofListss | keys" value="{{IdProof.key}}"> {{IdProof.value}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="proposer.controls.proposerIdProof.errors?.required">Id Proof is required</mat-error>-->
@@ -832,7 +832,7 @@
                                     <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.proposerGender}}</li>
                                     <!--<li class="list-group-item" *ngIf="proposerFormData.proposerGender == 2"><strong>Gender:</strong> FEMALE </li>-->
                                     <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
-                                    <li class="list-group-item" *ngIf="proposerFormData.proposerIdProof != ''"><strong> Select ID Proof :</strong> {{proposerFormData.proposerIdProof  | uppercase }}</li>
+                                    <li class="list-group-item" *ngIf="proposerFormData.proposerIdProofname != ''"><strong> Select ID Proof :</strong> {{proposerFormData.proposerIdProofname  | uppercase }}</li>
                                     <li class="list-group-item" *ngIf="proposerFormData.proposerIdProofIdP != ''"><strong>Select ID Proof Number:</strong> {{proposerFormData.proposerIdProofIdP  | uppercase}}</li>
                                     <li class="list-group-item" *ngIf="proposerFormData.proposerGst != ''"><strong>GST:</strong> {{proposerFormData.proposerGst | uppercase}}</li>
                                   </ul>

@@ -45,8 +45,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public hdfcHealthProposerAge: any;
     public pin: any;
     public title: any;
-    public personalHdfcHealthCitys: any;
-    public insuredHdfcHealthCitys: any;
     public declaration: any;
     public hdfcpersonalValues: any;
     public AcceptDeclaration: any;
@@ -667,7 +665,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     pincodevalidationHdfc(pin) {
-        this.pin = pin;
         if (pin == '') {
             this.pincodeValid = true;
         }
@@ -675,9 +672,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             'platform': 'web',
             'user_id': '0',
             'role_id': '4',
-            'Pincode': this.pin
+            'Pincode': pin
         };
-        if (this.pin.length == 6) {
+        if (pin.length == 6) {
             this.proposalservice.getHdfcPincodeLists(data).subscribe(
                 (successData) => {
                     this.pincodeSuccess(successData);
@@ -946,19 +943,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.personlData = this.hdfcPersonal.value;
             this.insuredFormData = this.insurerData.items;
             this.nomineeFromData = this.nomineeDetails.value;
-                      // this.hdfcPersonal.controls['cityName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['city'].value]);
-            // this.hdfcPersonal.controls['titleName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['title'].value]);
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
-            // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].nomineeRelationshipName.patchValue(this.hdfcInsureArray['controls'].items['controls'][0]['controls'].nomineeRelationship.value);
-    console.log(this.personlData,' this.personlData');
-    console.log(this.insuredFormData,' this.personlData');
-    console.log(this.nomineeFromData,' this.personlData');
-            //
-            // this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
-            // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
-            // this.proposalDtails = successData.ResponseObject.ProposalDetails;
-            //
-
+        console.log(this.personlData,' this.personlData');
+        console.log(this.insuredFormData,' this.personlData');
+        console.log(this.nomineeFromData,' this.personlData');
             this.fullName = this.personlData.firstname +' '+ this.personlData.lastname;
             this.totalAmount = parseFloat(this.summaryData.totalPremium);
 
