@@ -457,7 +457,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
       DisclaimerDialog,
       TravelRelianceProposalComponent,
       TravelReliancePaymentSuccessComponent,
-      BajajDownloadPolicyComponent
+      BajajDownloadPolicyComponent,
       TravelReliancePaymentSuccessComponent,
       LifeCompareNowComponent,
       LifeCallBackComponent,

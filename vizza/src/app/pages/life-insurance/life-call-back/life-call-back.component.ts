@@ -71,35 +71,35 @@ export class LifeCallBackComponent implements OnInit {
 
     public getPincodeDetailsFailure(error) {
     }
-    LifeKeeper(value) {
-        if (this.Lifeapp.valid) {
-            const data = {
-                'platform': 'web',
-                'product_type': 'offline',
-                'appointment_date': this.setDate,
-                'appointment_time': "10.00 PM",
-                'company_name': this.Lifeapp.controls['name'].value,
-                'customer_mobile': this.Lifeapp.controls['mobile'].value,
-                'customer_email': this.Lifeapp.controls['email'].value,
-                'contact_person' : this.Lifeapp.controls['contactperson'].value,
-                'pincode': this.Lifeapp.controls['pincode'].value,
-                'product_name': this.Lifeapp.controls['insurance'].value,
-                'appointment_with': this.Lifeapp.controls['appointmentwith'].value,
-
-            };
-
-            this.lifeservices.getLifeAssistDetails(data).subscribe(
-                (successData) => {
-                    this.fixAppointmentSuccess(successData);
-                },
-                (error) => {
-                    this.fixAppointmentFailure(error);
-                }
-            );
-        }
-    }
-    fixAppointmentSuccess(successData) {
-    }
-    fixAppointmentFailure(error) {
-    }
+    // LifeKeeper(value) {
+    //     if (this.Lifeapp.valid) {
+    //         const data = {
+    //             'platform': 'web',
+    //             'product_type': 'offline',
+    //             'appointment_date': this.setDate,
+    //             'appointment_time': "10.00 PM",
+    //             'company_name': this.Lifeapp.controls['name'].value,
+    //             'customer_mobile': this.Lifeapp.controls['mobile'].value,
+    //             'customer_email': this.Lifeapp.controls['email'].value,
+    //             'contact_person' : this.Lifeapp.controls['contactperson'].value,
+    //             'pincode': this.Lifeapp.controls['pincode'].value,
+    //             'product_name': this.Lifeapp.controls['insurance'].value,
+    //             'appointment_with': this.Lifeapp.controls['appointmentwith'].value,
+    //
+    //         };
+    //
+    //         this.lifeservices.getLifeAssistDetails(data).subscribe(
+    //             (successData) => {
+    //                 this.fixAppointmentSuccess(successData);
+    //             },
+    //             (error) => {
+    //                 this.fixAppointmentFailure(error);
+    //             }
+    //         );
+    //     }
+    // }
+    // fixAppointmentSuccess(successData) {
+    // }
+    // fixAppointmentFailure(error) {
+    // }
 }
