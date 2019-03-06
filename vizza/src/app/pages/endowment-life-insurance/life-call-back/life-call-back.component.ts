@@ -50,6 +50,9 @@ export class LifeCallBackComponent implements OnInit {
   onNoClick(): void {
     this.dialogRef.close()
   }
+    addEvent(ecccc){
+
+    }
     getPincodeDetails(pin, title) {
         this.pin = pin;
         this.title = title;
