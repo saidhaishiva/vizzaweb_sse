@@ -934,31 +934,31 @@ export class AppolloMunichComponent implements OnInit {
     selectHabitat(value: any, id, key){
       if(key == 'Smoking' && value.checked) {
           this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue('');
-          this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(true);
+          this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(true);
       } else if(key == 'Smoking' && !value.checked){
-          this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(false);
+          this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(false);
           this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue(0);
       }
       if (key == 'Pouches' && value.checked) {
-          this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(true);
+          this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(true);
           this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue('');
         } else if(key == 'Pouches' && !value.checked){
-          this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(false);
+          this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(false);
           this.insureArray['controls'].items['controls'][id]['controls'].Pouches.patchValue(0);
         }
         if (key == 'Liquor' && value.checked) {
-            this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(true);
+            this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(true);
             this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.patchValue('');
         } else if(key == 'Liquor' && !value.checked){
-            this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(false);
+            this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(false);
             this.insureArray['controls'].items['controls'][id]['controls'].LiquorPeg.patchValue(0);
         }
 
         if (key == 'Wine' && value.checked) {
-            this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(true);
+            this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(true);
             this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.patchValue('');
         } else if(key == 'Wine' && !value.checked){
-            this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(false);
+            this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(false);
             this.insureArray['controls'].items['controls'][id]['controls'].WineGlass.patchValue(0);
         }
 
