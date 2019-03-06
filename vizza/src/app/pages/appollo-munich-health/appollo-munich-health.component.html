@@ -319,7 +319,7 @@
                             <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3">{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}  lkklklkl
                           <mat-form-field class="w-100" >
                             <mat-select  placeholder="Occupation" formControlName="Proposeroccupation" (change)="changeOccupationList(i)" required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                               <mat-option *ngFor="let list of occupationList | keys" value= "{{list.key}}" > {{list.value}} </mat-option>
@@ -915,7 +915,7 @@
                             </ul>
                           </div>
                         </div>
-                          <div class="col-md-6" *ngIf="personalhabit">
+                          <div class="col-md-6" *ngIf="insureArray['controls'].items['controls'][i]['controls'].personalhabit.value">
                               <!--<div class="p-3" *ngIf="(item.Smoking != '' && item.Smoking != 0) || (item.Pouches != '' && item.Pouches != 0) || (item.LiquorPeg != '' && item.LiquorPeg != 0 && item.LiquorPeg != undefined || && item.LiquorPeg != null) || (item.WineGlass != '' && item.WineGlass != 0 && item.WineGlass != undefined && item.WineGlass != null) || (item.BeerBottle != ''  && item.BeerBottle != 0 && item.BeerBottle != undefined && item.BeerBottle != null)">-->
                               <div class="p-3">
                                 <h6>PERSONAL HABITS</h6>
