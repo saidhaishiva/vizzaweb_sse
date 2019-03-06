@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>
+                    <input matInput placeholder="Contact Person" formControlName="contactperson"  required>
                     <mat-error *ngIf="Lifeapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
                     <mat-icon matSuffix>person</mat-icon>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                    <input matInput placeholder="Mobile" formControlName="mobile"  required minlength="10"  maxlength="10">
                     <mat-error *ngIf="Lifeapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
+                    <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
                     <mat-error *ngIf="Lifeapp.controls.pincode.errors?.required">Pincode is required</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.pincode.hasError('required')">Pincode required</mat-error>

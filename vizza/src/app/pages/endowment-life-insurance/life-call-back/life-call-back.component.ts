@@ -20,6 +20,7 @@ export class LifeCallBackComponent implements OnInit {
   public pincodeErrors : any;
   public setDate: any;
   public productId : any;
+  public time : any;
 
   meridian = true;
 
