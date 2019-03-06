@@ -1,11 +1,16 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {CommonService} from '../../shared/services/common.service';
+import {LifeService} from '../../shared/services/life.service';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {TravelViewKeyFeaturesComponent} from '../travel-premium-list/travel-view-key-features/travel-view-key-features.component';
+import {LifeViewDetailsComponent} from './life-view-details/life-view-details.component';
+import {LifeCompareNowComponent} from './life-compare-now/life-compare-now.component';
+import {LifeCallBackComponent} from './life-call-back/life-call-back.component';
+import {AppSettings} from '../../app.settings';
 
 @Component({
   selector: 'app-life-insurance',
@@ -21,14 +26,20 @@ export class LifeInsuranceComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
+    public settings: any;
 
     public insurerLists: any;
+    public LifeProductlistAll: any;
+    public LifeKeyFeature: any;
     public listAll: any;
     // firstPage: any;
     //     // secondPage: any;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
-  //     this.Lifeapp = this.fb.group({
+    constructor(public fb: FormBuilder, public lifeservices: LifeService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog,public appSettings : AppSettings) {
+      this.settings = this.appSettings.settings;
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      //     this.Lifeapp = this.fb.group({
   //         'insurance': ['', Validators.compose([Validators.required])],
   //         'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
   //         'contactperson': ['', Validators.compose([Validators.required])],
@@ -100,35 +111,7 @@ export class LifeInsuranceComponent implements OnInit {
     // }
     // fixAppointmentFailure(error) {
     // }
-    getPincodeDetails(pin, title) {
-        this.pin = pin;
-        this.title = title;
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.commonservices.getPincodeDetails(data).subscribe(
-                (successData) => {
-                    this.getPincodeDetailsSuccess(successData);
-                },
-                (error) => {
-                    this.getPincodeDetailsFailure(error);
-                }
-            );
-        }
-    }
-    public getPincodeDetailsSuccess(successData) {
-        if (successData.ErrorObject) {
-            this.toastr.error(successData.ErrorObject);
-            this.pincodeErrors = false;
-        } else {
-            this.pincodeErrors = true;
-        }
-    }
 
-    public getPincodeDetailsFailure(error) {
-    }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
@@ -159,18 +142,13 @@ export class LifeInsuranceComponent implements OnInit {
     //     }
     // }
 
-    public tab() {
-        console.log(this.listAll);
-        return this.listAll;
-    }
-
     public getDetails() {
         const data = {
           'platform': 'web',
           'userid': '0',
           'roleid': '4'
       };
-        this.commonservices.getInsurerDetails(data).subscribe(
+        this.lifeservices.getInsurerDetails(data).subscribe(
             (successData) => {
                 this.getInsurerDetailsSuccess(successData);
             },
@@ -181,34 +159,66 @@ export class LifeInsuranceComponent implements OnInit {
     }
 
     public getInsurerDetailsSuccess(successData) {
-        this.listAll.push(successData.ResponseObject);
-        console.log(this.listAll);
-        // let all= [];
         if (successData.IsSuccess) {
-            for (let i = 0; i < successData.ResponseObject.length; i++) {
+            // this.LifeProductlistAll =[];
+            this.LifeProductlistAll = successData.ResponseObject;
+            for (let i = 0; i < this.LifeProductlistAll.length; i++) {
                 let keyfeatureArray = [];
-                for ( let j = 0; j < successData.ResponseObject[i].keyfeature.length; j++) {
-                    if (successData.ResponseObject[i].keyfeature[j]['primary_key'] == 1) {
+                for (let j = 0; j < this.LifeProductlistAll[i].keyfeature.length; j++) {
+                    if (this.LifeProductlistAll[i].keyfeature[j]['this_primary'] == 1) {
                         keyfeatureArray.push({
-                                                key_name: successData.ResponseObject[i].keyfeature[j].key_name,
-                                                key_value: successData.ResponseObject[i].keyfeature[j].key_value,
-                                                primary_key: successData.ResponseObject[i].keyfeature[j].primary_key
+                            key_name: this.LifeProductlistAll[i].keyfeature[j].key_name,
+                            key_value: this.LifeProductlistAll[i].keyfeature[j].key_value,
+                            primary_key: this.LifeProductlistAll[i].keyfeature[j].primary_key
                         });
+                        // this.LifeKeyFeature = this.LifeProductlistAll[i].keyfeature;
                     }
                 }
-                if ( keyfeatureArray.length > 0) {
-                    this.insurerLists.push({product_name: successData.ResponseObject[i].product_name,
-                        company_name: successData.ResponseObject[i].company_name, keyfeature: keyfeatureArray});
-                }
-
+                // if ( keyfeatureArray.length > 0) {
+                    this.insurerLists.push({product_id: this.LifeProductlistAll[i].product_id, product_name: this.LifeProductlistAll[i].product_name,
+                        company_name: this.LifeProductlistAll[i].company_name, keyfeature: keyfeatureArray});
+                // }
             }
-            console.log(this.insurerLists);
-            // let id = 1;
+            console.log(this.LifeProductlistAll, 'LifeProductlistAll');
+            console.log(this.insurerLists, 'insurerListsinsurerLists');
         }
     }
-
     public getInsurerDetailsFailure(error) {
     }
+
+    // view key features details
+    viewDetails(value) {
+        let dialogRef = this.dialog.open(LifeViewDetailsComponent, {
+            width: '1500px',data: {productId : value.product_id, productName: value.product_name}
+        });
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
+    }
+    //compare Now Function
+    public compareNow() {
+        let dialogRef = this.dialog.open(LifeCompareNowComponent, {
+            width: '1500px'
+        });
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
+        console.log(this.LifeProductlistAll);
+        return this.LifeProductlistAll
+    }
+    //call Back Function
+    callBack(){
+        let dialogRef = this.dialog.open(LifeCallBackComponent, {
+            width: '800px',
+        });
+        dialogRef.disableClose = true;
+
+        dialogRef.afterClosed().subscribe(result => {
+        });
+    }
+
     // lifeInsurance(){
     //     this.firstPage = true;
     //     this.secondPage = false;

@@ -246,11 +246,20 @@ export class BajajAlianzComponent implements OnInit {
     idValidate(event: any){
         this.validation.idValidate(event);
     }
+    // onlynumValidate(event: any){
+    //     this.validation.onlynumValidate(event);
+    // }
     canDeactivate() {
         return this.proposalId;
     }
 
-
+    grossValid(event,i){
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.value,'oooo');
+      if(this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.value == '0' && this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.value.length ==  1){
+          this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.patchValue('');
+          event.preventDefault();
+      }
+    }
     //Insure Details
     bajajInsureDetails(stepper: MatStepper, id, value, key) {
         sessionStorage.stepper1Details = '';

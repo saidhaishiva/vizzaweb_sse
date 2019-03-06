@@ -119,7 +119,7 @@
         <!--</div>-->
       <!--</div>-->
     <!--</div>-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
   <!--</div>-->
 <!--</div>-->
 
@@ -143,19 +143,18 @@
               </thead>
               <tbody>
               <tr *ngFor = "let list of insurerLists">
-                <td>{{list.company_name}}-{{list.product_name}}</td>
+                <td><p>{{list.company_name}}-{{list.product_name}}</p></td>
                 <td><p *ngFor="let key of list.keyfeature">
                   {{key.key_name}}-{{key.key_value}}</p>
                 </td>
-                <td><button type="button" class="btn btn-primary" (click)="tab()">compare name</button></td>
-                <td></td>
-                <td ></td>
+                <td><button type="button" class="btn pink-color" (click)="compareNow(List)">compare Now</button></td>
+                <td><button type="button" class="btn yellow-color" (click)="viewDetails(list)">View Details/<br> Product Documents</button></td>
+                <td><button type="button" class="btn pink-color" (click)="callBack(List)">Call Back</button></td>
               </tr>
               </tbody>
             </table>
           </div>
         </div>
-        <mat-divider></mat-divider>
       </div>
     </div>
   </div>

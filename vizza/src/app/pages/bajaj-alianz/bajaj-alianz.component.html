@@ -119,7 +119,7 @@
                                                             </div>
                                                             <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18">
                                                                 <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Gross Monthly Income"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insureGMIncome" autocomplete="off" [required] = "insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18">
+                                                                    <input matInput placeholder="Gross Monthly Income"  (keypress)="numberValidate($event)" (keyup)="grossValid($event,i)"   maxlength="10" formControlName="insureGMIncome" autocomplete="off"  [required] = "insureArray['controls'].items['controls'][i]['controls'].insureAge.value >= 18">
                                                                     <mat-error *ngIf="insureArray.invalid">Gross Monthly Income is required</mat-error>
                                                                 </mat-form-field>
                                                             </div>
@@ -315,7 +315,7 @@
                                     <div class="p-3">
                                         <h6 class="color-blue mt-2"></h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong> Name :</strong><span *ngIf="item.insureTitle == 'MRS'">Ms</span><span *ngIf="item.insureTitle == 'MR'">Mr</span> {{item.insureTitle}}.{{item.insureName}}</li>
+                                            <li class="list-group-item"><strong> Name :</strong><span *ngIf="item.insureTitle == 'MRS'">Ms</span><span *ngIf="item.insureTitle == 'MR'">Mr</span> .{{item.insureName}}</li>
                                             <!--<li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong> Name :</strong>Mr. {{item.ins_name}}</li>-->
                                             <li class="list-group-item"><strong>Gender :</strong> {{item.insureGender}}</li>
                                             <li class="list-group-item" *ngIf="item.insureGender == 'F'"><strong>Gender :</strong> Female</li>

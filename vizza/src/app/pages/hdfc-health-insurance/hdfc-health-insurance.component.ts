@@ -45,8 +45,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public hdfcHealthProposerAge: any;
     public pin: any;
     public title: any;
-    public personalHdfcHealthCitys: any;
-    public insuredHdfcHealthCitys: any;
     public declaration: any;
     public hdfcpersonalValues: any;
     public AcceptDeclaration: any;
@@ -215,7 +213,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[('I')]);
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList('I'));
 
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.ageData(dobAge, 'insurer');
@@ -401,7 +399,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 8035 && type == 'Son')  {
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 8034 && type == 'Son')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
@@ -409,7 +407,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
          } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value < 91 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
-         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 8035 && type == 'Daughter')  {
+         } else if(this.hdfcInsureArray['controls'].items['controls'][i]['controls'].ins_age.value > 8034 && type == 'Daughter')  {
              this.hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 22 years');
          }
 
@@ -485,6 +483,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     checkAccepted() {
+        console.log(this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value, 'ss');
          if (this.hdfcInsureArray['controls'].items['controls'][0]['controls']['accepted'].value) {
              // this.IsCustomerAcceptedPPCPED = true;
             this.IsCustomerAccepted = false;
@@ -666,7 +665,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     pincodevalidationHdfc(pin) {
-        this.pin = pin;
         if (pin == '') {
             this.pincodeValid = true;
         }
@@ -674,9 +672,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             'platform': 'web',
             'user_id': '0',
             'role_id': '4',
-            'Pincode': this.pin
+            'Pincode': pin
         };
-        if (this.pin.length == 6) {
+        if (pin.length == 6) {
             this.proposalservice.getHdfcPincodeLists(data).subscribe(
                 (successData) => {
                     this.pincodeSuccess(successData);
@@ -844,6 +842,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         }
 
         if(checkValid) {
+            this.IsCustomerAccepted = false;
             let validData = false;
             for (let i = 0; i < value.items.length; i++) {
                 if (value.items[i].insurerDobError != '') {
@@ -861,7 +860,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 //  this.toastr.error('Insured age should be 18 or above');
             }
 
+        } else {
+            this.IsCustomerAccepted = true;
         }
+
 
 
 
@@ -941,19 +943,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.personlData = this.hdfcPersonal.value;
             this.insuredFormData = this.insurerData.items;
             this.nomineeFromData = this.nomineeDetails.value;
-                      // this.hdfcPersonal.controls['cityName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['city'].value]);
-            // this.hdfcPersonal.controls['titleName'].patchValue(this.hdfcHealthCitys[this.hdfcPersonal.controls['title'].value]);
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
-            // this.hdfcInsureArray['controls'].items['controls'][0]['controls'].nomineeRelationshipName.patchValue(this.hdfcInsureArray['controls'].items['controls'][0]['controls'].nomineeRelationship.value);
-    console.log(this.personlData,' this.personlData');
-    console.log(this.insuredFormData,' this.personlData');
-    console.log(this.nomineeFromData,' this.personlData');
-            //
-            // this.insurerDtails = successData.ResponseObject.InsurePolicyholderDetails;
-            // this.nomineeDtails = successData.ResponseObject.InsurePolicyholderDetails[0];
-            // this.proposalDtails = successData.ResponseObject.ProposalDetails;
-            //
-
+        console.log(this.personlData,' this.personlData');
+        console.log(this.insuredFormData,' this.personlData');
+        console.log(this.nomineeFromData,' this.personlData');
             this.fullName = this.personlData.firstname +' '+ this.personlData.lastname;
             this.totalAmount = parseFloat(this.summaryData.totalPremium);
 

@@ -46,7 +46,6 @@ import {ApollomunichPaymentSuccessComponent} from './pages/apollomunich-payment-
 import {CarInsuranceComponent} from './pages/car-insurance/car-insurance.component';
 import {BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import {TermLifeInsuranceComponent} from './pages/term-life-insurance/term-life-insurance.component';
-import {LifeInsuranceComponent} from './pages/life-insurance/life-insurance.component';
 import {HdfcHealthInsuranceComponent} from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 import {RenewalReminderComponent} from './pages/renewal-reminder/renewal-reminder.component';
 import {RenewExistingPolicyComponent} from './pages/renew-existing-policy/renew-existing-policy.component';
@@ -116,6 +115,8 @@ import {BajajHealthDeactivateGuardService} from './shared/bajaj-health-deactivat
 import {RelianceHealthDeactivateGuardService} from './shared/reliance-health-deactivate-guard.service';
 import { TravelRelianceProposalComponent} from './pages/travel-reliance-proposal/travel-reliance-proposal.component';
 import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
+import {BajajDownloadPolicyComponent} from './pages/bajaj-download-policy/bajaj-download-policy.component';
+import {EndowmentLifeInsuranceComponent} from './pages/endowment-life-insurance/endowment-life-insurance.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -211,13 +212,14 @@ export const routes: Routes = [
             { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj/:stepper', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'}, canDeactivate: [BajajHealthDeactivateGuardService]},
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
+            { path: 'bajaj-download-policy/:proId', component: BajajDownloadPolicyComponent, data: { breadcrumb: 'Bajaj Alianz Download Policy'} },
             { path: 'appollopa/:stepper',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'},canDeactivate: [AppolloPaproposaldeactivateGuardService]},
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
             { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
             { path: 'reliancetravel', component: TravelRelianceProposalComponent, data:{breadcrumb: 'Reliance Travel Proposal'}},
             { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}},
-            { path: 'life-insurance', component: LifeInsuranceComponent, data:{breadcrumb: 'Life Insurance'}},
+            { path: 'endowment-life-insurance', component: EndowmentLifeInsuranceComponent, data:{breadcrumb: 'Endowment Life Insurance'}},
             { path: 'hdfc-insurance/:stepper', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}, canDeactivate: [HdfcproposaldeactivateGuardService]},
             { path: 'hdfc-personalAccident/:stepper', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}, canDeactivate: [HdfcPaproposaldeactivateGuardService]},
             { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
