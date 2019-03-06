@@ -963,10 +963,10 @@ export class AppolloMunichComponent implements OnInit {
         }
 
         if (key == 'Beer' && value.checked) {
-            this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(true);
+            this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(true);
             this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue('');
         } else if(key == 'Beer' && !value.checked){
-            this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(false);
+            this.insureArray['controls'].items['controls'][id]['controls'].personalHabit.patchValue(false);
             this.insureArray['controls'].items['controls'][id]['controls'].BeerBottle.patchValue(0);
         }
     }
