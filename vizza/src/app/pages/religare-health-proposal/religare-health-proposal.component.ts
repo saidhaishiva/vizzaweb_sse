@@ -1841,7 +1841,15 @@ export class ReligareHealthProposalComponent implements OnInit {
     // }
     // public occupationCodeFailure(error) {
     // }
-
+    nameTry(event){
+        if (event.charCode !== 0) {
+            const pattern = /^/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
 
 
 

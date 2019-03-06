@@ -730,17 +730,32 @@ a:hover {
   }
 }
 #life-list{
-  .health-table{
-    thead th{
-      border: 2px solid #fff;
-      vertical-align: text-bottom;
-      border-bottom: 2px solid #dee2e6;
-      background: #731C77;
-      color: #fff;
-      font-weight: normal;
-      font-size: 12px;
-    }
+.health-table {
+   td {
+    border: 2px solid #dee2e6;
+    text-align: center;
   }
+
+  th {
+    background: #731C77;
+    color: #fff;
+    border: 2px solid #dee2e6;
+    font-weight: normal;
+    font-size: 12px;
+    text-align: center;
+
+  }
+
+  .pink-color {
+    background: #731C77;
+    color: #fff;
+  }
+
+  .yellow-color {
+    background: #FFFF00;
+    color: #000;
+  }
+}
 }
 .closeBtnClass {
   position: absolute;
@@ -2998,7 +3013,17 @@ fieldset {
   }
 }
 
+.life-callback{
+  /* When the input is not focused */
+  md-input-container label {
+    color: white;
+  }
 
+  /* When the input is focused */
+  md-input-container.md-input-focused label {
+    color: white;
+  }
+}
 
 
 

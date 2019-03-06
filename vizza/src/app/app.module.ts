@@ -245,6 +245,11 @@ import {IffcoProposalGuardService} from './shared/iffco-proposal-guard.service';
 import { TravelReliancePaymentSuccessComponent } from './pages/travel-reliance-payment-success/travel-reliance-payment-success.component';
 import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
 import { BajajDownloadPolicyComponent } from './pages/bajaj-download-policy/bajaj-download-policy.component';
+import {LifeService} from './shared/services/life.service';
+import {LifeCompareNowComponent} from './pages/life-insurance/life-compare-now/life-compare-now.component';
+import {LifeCallBackComponent} from './pages/life-insurance/life-call-back/life-call-back.component';
+import {LifeViewDetailsComponent} from './pages/life-insurance/life-view-details/life-view-details.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -253,6 +258,7 @@ import { BajajDownloadPolicyComponent } from './pages/bajaj-download-policy/baja
     BrowserAnimationsModule,
       ToastrModule.forRoot(),
       FormsModule,
+      NgbModule.forRoot(),
       ReactiveFormsModule,
       HttpClientModule,
       HttpModule,
@@ -451,7 +457,12 @@ import { BajajDownloadPolicyComponent } from './pages/bajaj-download-policy/baja
       DisclaimerDialog,
       TravelRelianceProposalComponent,
       TravelReliancePaymentSuccessComponent,
-      BajajDownloadPolicyComponent
+      BajajDownloadPolicyComponent,
+      TravelReliancePaymentSuccessComponent,
+      LifeCompareNowComponent,
+      LifeCallBackComponent,
+      LifeViewDetailsComponent,
+
   ],
   providers: [
       AppSettings,
@@ -486,6 +497,8 @@ import { BajajDownloadPolicyComponent } from './pages/bajaj-download-policy/baja
       ClearSessionService,
       IffcoProposalGuardService,
       HealthInsuranceResolver,
+      LifeService,
+
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
   ],
@@ -494,7 +507,7 @@ import { BajajDownloadPolicyComponent } from './pages/bajaj-download-policy/baja
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage,DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer,
-        DownloadMessageRelianceTravel
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent
     ]
 })
 export class AppModule { }
