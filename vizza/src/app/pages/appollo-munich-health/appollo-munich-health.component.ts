@@ -146,7 +146,6 @@ export class AppolloMunichComponent implements OnInit {
     public iAppolloDistrictName: any;
     public iAppolloCityName: any;
     public insurerAge: any;
-    public personalhabit: boolean;
     public previousDetails: boolean;
     public dobErrorInsure: any;
     public dobErrorStartDate: any;
@@ -212,7 +211,6 @@ export class AppolloMunichComponent implements OnInit {
       this.sameField = false;
       this.isDisable = false;
       this.insureCity = false;
-      this.personalhabit = false;
       this.previousDetails = false;
       this.titleValidation = true;
       this.proposerInsureData = [];
@@ -678,7 +676,7 @@ export class AppolloMunichComponent implements OnInit {
                 ins_age: '',
                 sameasreadonly:false,
                 set_validator: false,
-                personalHabit:''
+                personalHabit: false
             }
         );
     }
@@ -935,10 +933,10 @@ export class AppolloMunichComponent implements OnInit {
 
     selectHabitat(value: any, id, key){
       if(key == 'Smoking' && value.checked) {
-          this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(true);
           this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue('');
+          this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(true);
       } else if(key == 'Smoking' && !value.checked){
-          this.personalhabit = false;
+          this.insureArray['controls'].items['controls'][id]['controls'].personalhabit.patchValue(false);
           this.insureArray['controls'].items['controls'][id]['controls'].Smoking.patchValue(0);
       }
       if (key == 'Pouches' && value.checked) {
