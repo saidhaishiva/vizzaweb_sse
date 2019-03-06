@@ -165,7 +165,7 @@ export class LifeInsuranceComponent implements OnInit {
             for (let i = 0; i < this.LifeProductlistAll.length; i++) {
                 let keyfeatureArray = [];
                 for (let j = 0; j < this.LifeProductlistAll[i].keyfeature.length; j++) {
-                    if (this.LifeProductlistAll[i].keyfeature[j]['primary_key'] == 1) {
+                    if (this.LifeProductlistAll[i].keyfeature[j]['this_primary'] == 1) {
                         keyfeatureArray.push({
                             key_name: this.LifeProductlistAll[i].keyfeature[j].key_name,
                             key_value: this.LifeProductlistAll[i].keyfeature[j].key_value,
@@ -174,10 +174,10 @@ export class LifeInsuranceComponent implements OnInit {
                         // this.LifeKeyFeature = this.LifeProductlistAll[i].keyfeature;
                     }
                 }
-                if ( keyfeatureArray.length > 0) {
+                // if ( keyfeatureArray.length > 0) {
                     this.insurerLists.push({product_id: this.LifeProductlistAll[i].product_id, product_name: this.LifeProductlistAll[i].product_name,
                         company_name: this.LifeProductlistAll[i].company_name, keyfeature: keyfeatureArray});
-                }
+                // }
             }
             console.log(this.LifeProductlistAll, 'LifeProductlistAll');
             console.log(this.insurerLists, 'insurerListsinsurerLists');
