@@ -213,10 +213,15 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList('I'));
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList['I']);
 
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
-            this.ageData(dobAge, 'insurer');
+            console.log(dobAge,'dobAge');
+            if (dobAge > 45) {
+                this.IsCustomerAcceptedPPCPED = true;
+            } else {
+                this.IsCustomerAcceptedPPCPED = false;
+            }
 
 
 
@@ -461,7 +466,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     relationshipchange(index){
-        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[(this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationship.value)]);
+        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationship.value]);
 
     }
     // nomineeRelationship
