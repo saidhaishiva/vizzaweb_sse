@@ -19,7 +19,7 @@
                     <div class="row mt-1">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender()" required>
+                          <mat-select placeholder="Title" formControlName="proposerTitle" (change)="changeGender();changegenderId()" required>
                             <mat-option *ngFor="let list of titleCodeList | keys" [value]="list.key" [hidden]="list.key == 'MASTER' || list.key == 'BABY'">
                               {{list.value}}
                             </mat-option>
@@ -230,7 +230,7 @@
                         </div>
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100" >
-                            <mat-select placeholder="Title"  formControlName="proposerTitle" (change)="insureChangeGender(i)" required >
+                            <mat-select placeholder="Title"  formControlName="proposerTitle" (change)="insureChangeGender(i);changetitleiList(i)" required >
                               <mat-option *ngFor="let titleCode of titleCodeList | keys" value="{{titleCode.key}}"  [hidden]="insureArray['controls'].items['controls'][i]['controls'].type.value =='Self' && (titleCode.key == 'MASTER' || titleCode.key == 'BABY') ||
                               insureArray['controls'].items['controls'][i]['controls'].type.value =='Spouse' && (titleCode.key == 'MASTER' || titleCode.key == 'BABY')
                               ">{{titleCode.value}}</mat-option>
@@ -718,7 +718,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="nomineeTitle" required>
+                          <mat-select placeholder="Title" formControlName="nomineeTitle" (change)="changeNomineegenderId()" required>
                             <mat-option *ngFor="let titleCode of titleCodeList | keys" [value]="titleCode.key">{{titleCode.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeTitle.errors?.required">Title is required</mat-error>
@@ -825,7 +825,7 @@
                               <div class="p-3">
                                 <h6>PROPOSER DETAILS</h6>
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
+                                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitleName}} {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.proposerEmail!= ''"><strong>Email Id:</strong> {{proposerFormData.proposerEmail}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.proposerMobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.proposerMobile}}</li>
@@ -863,7 +863,7 @@
                               <div class="p-3">
                                   <h6>INSURED DETAILS</h6>
                                 <ul class="m-0 list-group">
-                                  <li class="list-group-item"><strong>Name:</strong> {{item.proposerTitle}}. {{item.proposerFirstname}} {{item.proposerMidname}} {{item.proposerLastname}}</li>
+                                  <li class="list-group-item"><strong>Name:</strong> {{item.proposerTitleName}} {{item.proposerFirstname}} {{item.proposerMidname}} {{item.proposerLastname}}</li>
                                   <li class="list-group-item"><strong>D.O.B:</strong> {{item.proposerDob | date: 'dd/MM/yyyy'}}</li>
                                   <li class="list-group-item"><strong>Age:</strong> {{item.proposerAge}}</li>
                                   <li class="list-group-item" *ngIf="item.proposerEmail != ''"><strong>Email Id:</strong> {{item.proposerEmail}}</li>
@@ -953,7 +953,7 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <ul class="m-0 list-group">
-                                  <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeFormData.nomineeTitle}}.{{nomineeFormData.nomineeName}}</li>
+                                  <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeFormData.nomineeTitleName}} {{nomineeFormData.nomineeName}}</li>
                                   <li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationshipName}}</li>
                                   <li class="list-group-item"><strong>Address1:</strong> {{nomineeFormData.nomineeAddress}}</li>
                                   <li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress2 != ''"><strong>Address2:</strong> {{nomineeFormData.nomineeAddress2}}</li>
