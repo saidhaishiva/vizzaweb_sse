@@ -434,7 +434,7 @@
                           </div>
                         <div class="col-md-3" *ngIf="i == 0">
                               <mat-form-field class="w-100" >
-                                  <input matInput placeholder="State" formControlName="proposerState" readonly required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}"readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                                  <input matInput placeholder="State" formControlName="proposerState" readonly required="{{insureArray['controls'].items['controls'][i]['controls'].set_validator.value}}">
                                   <mat-error *ngIf="insureArray.invalid">State is required</mat-error>
                               </mat-form-field>
                           </div>
