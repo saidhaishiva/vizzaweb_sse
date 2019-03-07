@@ -106,9 +106,11 @@
                           <mat-error *ngIf="shopapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-12 text-right mt-3">
-                        <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                      <div class="col-md-12 text-center mt-3">
                         <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!shopapp.valid ) || (!pincodeErrors)" (click)="shopKeeper(shopapp.value)" >Submit</button>
+                      </div>
+                      <div class="col-md-12 text-right mt-3">
+                        <button mat-button type="reset"><i class="material-icons">refresh</i> Reset</button>
                       </div>
                     </div>
                   </form>
