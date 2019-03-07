@@ -23,6 +23,9 @@ export class ClearSessionService {
         sessionStorage.proposalId = '';
         sessionStorage.personalAge = '';
         sessionStorage.summaryData = '';
+        sessionStorage.proposerFormData = '';
+        sessionStorage.insuredFormData = '';
+        sessionStorage.nomineeFormData = '';
 
         // religare health
         sessionStorage.stepper1Details = '';
@@ -50,6 +53,10 @@ export class ClearSessionService {
         sessionStorage.proposalID = '';
         sessionStorage.mobileNumber = '';
         sessionStorage.summaryData = '';
+        sessionStorage.proposerFormData = '';
+        sessionStorage.insuredFormData = '';
+        sessionStorage.previousInsuranceFromData = '';
+        sessionStorage.nomineeFormData = '';
 
         // appollo munich health
         sessionStorage.stepper1Details = '';
@@ -63,14 +70,17 @@ export class ClearSessionService {
         sessionStorage.apollomedical = '';
 
         sessionStorage.summaryData = '';
+        sessionStorage.proposerFormData = '';
+        sessionStorage.nomineeFormData = '';
+        sessionStorage.insuredFormData = '';
 
       // bajaj health
         sessionStorage.bajaj_health_proposalid = '';
         sessionStorage.stepper1Details = '';
         sessionStorage.copaymentShow = '';
 
-
         sessionStorage.summaryData = '';
+        sessionStorage.insuredFormData = '';
 
 
 
@@ -84,6 +94,10 @@ export class ClearSessionService {
         sessionStorage.hdfcHealthProposerAge = '';
         sessionStorage.hdfcHealthInsurerAge = '';
         sessionStorage.summaryData = '';
+        sessionStorage.personlData = '';
+        sessionStorage.insuredFormData = '';
+        sessionStorage.nomineeFromData = '';
+
 
     }
 

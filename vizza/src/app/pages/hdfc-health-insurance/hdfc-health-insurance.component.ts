@@ -95,13 +95,15 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
-                this.summaryData = JSON.parse(sessionStorage.summaryData);
-                sessionStorage.hdfc_health_proposal_id = this.summaryData.ProposalId;
-                this.insurerDtails = this.summaryData.InsurePolicyholderDetails;
-                this.nomineeDtails = this.summaryData.InsurePolicyholderDetails[0];
-                this.proposalDtails = this.summaryData.ProposalDetails;
-                this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
-                this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.personlData = JSON.parse(sessionStorage.personlData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    this.nomineeFromData = JSON.parse(sessionStorage.nomineeFromData);
+                    sessionStorage.hdfc_health_proposal_id = this.summaryData.ProposalId;
+                    this.fullName = this.personlData.firstname + ' ' + this.personlData.lastname;
+                    this.totalAmount = parseFloat(this.summaryData.totalPremium);
+                }
             }
         });
         this.currentStep = stepperindex;
@@ -948,10 +950,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.personlData = this.hdfcPersonal.value;
             this.insuredFormData = this.insurerData.items;
             this.nomineeFromData = this.nomineeDetails.value;
+            sessionStorage.personlData = JSON.stringify(this.personlData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+            sessionStorage.nomineeFromData = JSON.stringify(this.nomineeFromData);
+
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
-        console.log(this.personlData,' this.personlData');
-        console.log(this.insuredFormData,' this.personlData');
-        console.log(this.nomineeFromData,' this.personlData');
             this.fullName = this.personlData.firstname +' '+ this.personlData.lastname;
             this.totalAmount = parseFloat(this.summaryData.totalPremium);
 

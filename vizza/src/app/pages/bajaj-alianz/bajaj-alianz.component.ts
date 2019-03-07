@@ -105,10 +105,13 @@ export class BajajAlianzComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true) {
                 stepperindex = 1;
-                this.summaryData = JSON.parse(sessionStorage.summaryData);
-                this.RediretUrlLink = this.summaryData.payment_url;
-                this.proposalId = this.summaryData.proposal_id;
-                sessionStorage.bajaj_health_proposalid = this.proposalId;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    this.RediretUrlLink = this.summaryData.payment_url;
+                    this.proposalId = this.summaryData.proposal_id;
+                    sessionStorage.bajaj_health_proposalid = this.proposalId;
+                }
             }
         });
         this.currentStep = stepperindex;
@@ -807,9 +810,10 @@ export class BajajAlianzComponent implements OnInit {
             this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             this.insuredFormData = this.insureArray.value.items;
             this.RediretUrlLink = this.summaryData.payment_url;
-          //  this.proposalId = this.summaryData.proposal_id;
+            this.proposalId = this.summaryData.proposal_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;
         } else{
             this.toastr.error(successData.ErrorObject);
