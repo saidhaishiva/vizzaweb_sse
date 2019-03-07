@@ -1319,7 +1319,7 @@ export class RelainceAgeMin {
             <div class="row">
                 <div class="col-sm-12">
                 <h3 class="text-center">Health Check Up</h3>
-                <p>Any Eligible Person above the age of 46 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 1234567890 or Email: <a href="mailto:abc@gmail.com">abc@gmail.com</a></p>
+                <p>Any Eligible Person above the age of 46 Years will have to under-go Compulsory Health / Medical Check up at the authorized Health center. For any Assistance contact : 9047078809 or Email: <a href="mailto:online@vizzainsurance.com">online@vizzainsurance.com</a></p>
                 </div>
             </div>
         </div>
