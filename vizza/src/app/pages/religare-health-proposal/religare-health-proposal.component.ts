@@ -135,9 +135,15 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 4;
-                this.summaryData = JSON.parse(sessionStorage.summaryData);
-                this.proposalId = this.summaryData.proposal_id;
-                sessionStorage.proposalID = this.proposalId;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    this.proposalId = this.summaryData.policy_id;
+                    sessionStorage.proposalID = this.proposalId;
+
+                }
             }
         });
         this.currentStep = stepperindex;
@@ -1610,6 +1616,10 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.proposerFormData = this.personal.value;
             this.insuredFormData = this.insureArray.value;
             this.nomineeFormData = this.nomineeDetails.value;
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+            sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+
             stepper.next();
             this.topScroll();
 

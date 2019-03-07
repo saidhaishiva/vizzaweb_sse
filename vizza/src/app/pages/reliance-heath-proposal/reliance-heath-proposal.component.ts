@@ -121,7 +121,6 @@ export class RelianceHeathProposalComponent implements OnInit {
     public dob: any;
     public minDate: any;
     public maxDate: any;
-    public RediretUrlLink: any;
     public getAge: any;
     public arr: any;
     public getDays: any;
@@ -149,10 +148,13 @@ export class RelianceHeathProposalComponent implements OnInit {
                 stepperindex = 4;
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
-                    this.RediretUrlLink = this.summaryData.RediretUrlLink;
-                    this.proposalId = this.summaryData.ResponseObject.proposal_id;
+                    this.proposalId = this.summaryData.policy_id;
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    this.previousInsuranceFromData = JSON.parse(sessionStorage.previousInsuranceFromData);
+                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    sessionStorage.proposalID = this.proposalId;
                 }
-                sessionStorage.proposalID = this.proposalId;
             }
         });
         this.currentStep = stepperindex;
@@ -1677,15 +1679,15 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             this.proposerFormData = this.personal.value;
             this.insuredFormData = this.insureArray.value.items;
-            console.log(this.insureArray, 'this.insureArray');
-            console.log(this.insureArray.value.items, 'this.bbbb');
-            console.log(this.insuredFormData, 'this.fhfhhffh');
-
             this.previousInsuranceFromData = this.previousInsuranceFrom.value;
             this.nomineeFormData = this.nomineeDetails.value;
             this.proposalId = this.summaryData.policy_id;
             sessionStorage.proposalID = this.proposalId;
-            sessionStorage.summaryData = JSON.stringify(successData);
+            sessionStorage.summaryData = JSON.stringify(successData.ResponseObject);
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+            sessionStorage.previousInsuranceFromData = JSON.stringify(this.previousInsuranceFromData);
+            sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             stepper.next();
 
         } else {

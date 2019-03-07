@@ -122,9 +122,14 @@ export class StarHealthProposalComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
-                this.summaryData = JSON.parse(sessionStorage.summaryData);
-                this.proposalId = this.summaryData.proposal_id;
-                sessionStorage.proposalID = this.proposalId;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    this.proposalId = this.summaryData.policy_id;
+                    sessionStorage.proposalID = this.proposalId;
+                }
 
             }
         });
@@ -1459,7 +1464,6 @@ export class StarHealthProposalComponent implements OnInit {
             this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
             this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
             this.personal.controls['personalAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
-
             if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined && !this.personal.controls['sameas'].value) {
                 this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
                 this.personal.controls['residenceAreaName'].patchValue(this.rAreaNames[this.personal.controls['residenceArea'].value]);
@@ -1468,9 +1472,12 @@ export class StarHealthProposalComponent implements OnInit {
                 this.personal.controls['residenceAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
             }
             this.proposerFormData = this.personal.value;
-            console.log(this.proposerFormData, 'proposerFormDataproposerFormData');
             this.insuredFormData = this.familyMembers;
             this.nomineeFormData = this.nomineeDate;
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+            sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+
 
             stepper.next();
             this.topScroll();
