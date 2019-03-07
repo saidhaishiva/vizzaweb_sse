@@ -2318,9 +2318,9 @@ export class AppolloMunichComponent implements OnInit {
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
     }
-
     changeid(){
         this.proposer.controls['proposerIdProofName'].patchValue(this.IdProofListss[this.proposer.controls['proposerIdProof'].value]);
+        console.log( this.proposer.controls['proposerIdProofName'].value,'lllllll');
     }
     changeDistrict(){
         this.proposer.controls['proposerDistrictName'].patchValue(this.AppolloDistrictList[this.proposer.controls['proposerDistrict'].value]);
@@ -2338,10 +2338,7 @@ export class AppolloMunichComponent implements OnInit {
         this.nomineeDetails.controls['nomineeDistrictName'].patchValue(this.nomineeAppolloDistrictList[this.nomineeDetails.controls['nomineeDistrict'].value]);
     }
     changeNomineeCity(){
-        alert();
-        console.log(this.nomineeDetails.controls['nomineeCity'].value,'popopop');
         this.nomineeDetails.controls['nomineeCityName'].patchValue(this.nomineeAppolloCityLis[this.nomineeDetails.controls['nomineeCity'].value]);
-        console.log(this.nomineeDetails.controls['nomineeCityName'].value,'uuuuu');
     }
     changeNomineeRelation(){
         this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.relationshipList[this.nomineeDetails.controls['nomineeRelationship'].value]);
