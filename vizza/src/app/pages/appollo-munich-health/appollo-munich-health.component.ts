@@ -177,10 +177,15 @@ export class AppolloMunichComponent implements OnInit {
       this.route.params.forEach((params) => {
           if(params.stepper == true || params.stepper == 'true') {
               stepperindex = 4;
-              this.summaryData = JSON.parse(sessionStorage.summaryData);
-              this.RediretUrlLink = this.summaryData.PaymentURL;
-              this.proposalId = this.summaryData.ProposalId;
-              sessionStorage.appollo_health_proposal_id = this.proposalId;
+              if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                  this.summaryData = JSON.parse(sessionStorage.summaryData);
+                  this.RediretUrlLink = this.summaryData.PaymentURL;
+                  this.proposalId = this.summaryData.ProposalId;
+                  this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                  this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                  this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                  sessionStorage.appollo_health_proposal_id = this.proposalId;
+              }
           }
       });
       this.currentStep = stepperindex;
@@ -2315,11 +2320,11 @@ export class AppolloMunichComponent implements OnInit {
             this.proposerFormData = this.proposer.value;
             this.nomineeFormData = this.nomineeDetails.value;
             this.insuredFormData = this.insurerData;
-            console.log(this.proposerFormData, ' this.proposerFormData ');
-            console.log(this.insuredFormData, ' this.insuredFormData ');
-            console.log(this.nomineeFormData, ' this.nomineeFormData ');
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+            sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+
             sessionStorage.appollo_health_proposal_id = this.proposalId;
-            // this.lastStepper.next();
         }
         else{
             this.toastr.error(successData.ErrorObject);
