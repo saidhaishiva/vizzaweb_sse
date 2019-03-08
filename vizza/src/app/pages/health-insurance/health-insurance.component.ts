@@ -89,6 +89,7 @@ export class HealthInsuranceComponent implements OnInit {
     allPolicyDetails : any;
     setAllProductLists : any;
     checkAllStatus : any;
+    getSumInsureId : any;
 
 
     private keyUp = new Subject<string>();
@@ -253,6 +254,8 @@ export class HealthInsuranceComponent implements OnInit {
         if (sessionStorage.changedTabDetails != undefined && sessionStorage.changedTabDetails != '') {
             this.changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
             this.currentGroupName = JSON.parse(sessionStorage.changedTabDetails).name;
+            this.getSumInsureId = this.changedTabDetails.group_suminsured_id;
+
         }
         if (sessionStorage.changeSuninsuredAmount != undefined && sessionStorage.changeSuninsuredAmount != '') {
             this.changeSuninsuredAmount = sessionStorage.changeSuninsuredAmount;
@@ -491,6 +494,7 @@ export class HealthInsuranceComponent implements OnInit {
                 });
             }
             this.productListArray = [];
+            this.allProductLists = [];
             for(let i = 0; i < this.allCompanyList.length; i++) {
                 this.policyLists(this.allCompanyList[i].company_id);
             }
@@ -528,6 +532,7 @@ export class HealthInsuranceComponent implements OnInit {
                 this.firstPage = false;
                 this.secondPage = true;
                 let policylists = successData.ResponseObject;
+                this.getSumInsureId = policylists[0].group_suminsured_id;
                 if (policylists[0].enquiry_id != '') {
                     sessionStorage.sideMenu = true;
                 }
@@ -537,6 +542,7 @@ export class HealthInsuranceComponent implements OnInit {
                     this.settings.sidenavIsOpened = false;
                     this.settings.sidenavIsPinned = false;
                 }
+                this.changeSuninsuredAmount = "4";
                 this.productListArray.push(policylists[0].product_lists);
                 this.allProductLists = [].concat.apply([], this.productListArray);
                 this.allPolicyDetails = policylists;
@@ -592,6 +598,7 @@ export class HealthInsuranceComponent implements OnInit {
     onSelectedIndexChange(index) {
             sessionStorage.changedTabIndex = index;
             this.productListArray = [];
+            this.allProductLists = [];
             for(let i = 0; i < this.allCompanyList.length; i++) {
                 this.updateTabPolicy(this.allCompanyList[i].company_id, this.allPolicyDetails[0], index);
             }
@@ -637,6 +644,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             let policylists = successData.ResponseObject;
+            this.getSumInsureId = policylists[0].group_suminsured_id;
             for (let i = 0; i < policylists.length; i++) {
                 for (let j = 0; j < policylists[i].product_lists.length; j++) {
                     policylists[i].product_lists[j].compare = false;
@@ -815,6 +823,7 @@ export class HealthInsuranceComponent implements OnInit {
     // this function will change the sum insured amount
     updateSumInsured(){
         this.productListArray = [];
+        this.allProductLists = [];
         for(let i = 0; i < this.allCompanyList.length; i++) {
             this.changeSuminsuredFunction(this.allCompanyList[i].company_id);
         }
@@ -855,14 +864,14 @@ export class HealthInsuranceComponent implements OnInit {
                     found = false;
                 }
             }
-
             // if (found) {
             //     alert('No products were found matching your selection');
             //     this.changeSuninsuredAmount = '';
             // } else {
 
-                let policylists = successData.ResponseObject;
-                for (let i = 0; i < policylists.length; i++) {
+            let policylists = successData.ResponseObject;
+            this.getSumInsureId = policylists[0].group_suminsured_id;
+            for (let i = 0; i < policylists.length; i++) {
                     for (let j = 0; j < policylists[i].product_lists.length; j++) {
                         policylists[i].product_lists[j].compare = false;
                         policylists[i].product_lists[j].shortlist = false;

@@ -203,51 +203,52 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-12 box-card pt-3">
-                                                        <h6 class="color-blue"> PREVIOUS INSURANCE DETAILS</h6>
-                                                        <div class="row">
-                                                            <div class="col-md-3" *ngIf="i == 0">
-                                                                <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Previous Insured Name" formControlName="insurePIName"  (keypress)="nameValidate($event)"  autocomplete="off">
-                                                                </mat-form-field>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Company Name" formControlName="insureCName"  (keypress)="nameValidate($event)" autocomplete="off">
-                                                                </mat-form-field>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Previous Policy Number"  (keypress)="numberValidate($event)"  formControlName="insurePINumber" autocomplete="off">
-                                                                </mat-form-field>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <mat-form-field class="w-100">
-                                                                    <input matInput [matDatepicker]="picker3"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)" maxlength="10"  formControlName="insurePItDate"  (dateInput)="addEvent($event, 'expiry', i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEvent( $event, 'expiry',i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  autocomplete="off" autocomplete="off">
-                                                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                                                    <mat-datepicker #picker3></mat-datepicker>
-                                                                    <mat-error *ngIf="insureArray.invalid">Previous Policy Expiry Date is required</mat-error>
-                                                                </mat-form-field>
-                                                                <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.value}}</p>
+                                                    <!--<div class="col-md-12 box-card pt-3">-->
+                                                        <!--<h6 class="color-blue"> PREVIOUS INSURANCE DETAILS</h6>-->
+                                                        <!--<div class="row">-->
+                                                            <!--<div class="col-md-3" *ngIf="i == 0">-->
+                                                                <!--<mat-form-field class="w-100">-->
+                                                                    <!--<input matInput placeholder="Previous Insured Name" formControlName="insurePIName"  (keypress)="nameValidate($event)"  autocomplete="off">-->
+                                                                <!--</mat-form-field>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="col-md-3">-->
+                                                                <!--<mat-form-field class="w-100">-->
+                                                                    <!--<input matInput placeholder="Company Name" formControlName="insureCName"  (keypress)="nameValidate($event)" autocomplete="off">-->
+                                                                <!--</mat-form-field>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="col-md-3">-->
+                                                                <!--<mat-form-field class="w-100">-->
+                                                                    <!--<input matInput placeholder="Previous Policy Number"  (keypress)="numberValidate($event)"  formControlName="insurePINumber" autocomplete="off">-->
+                                                                <!--</mat-form-field>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="col-md-3">-->
+                                                                <!--<mat-form-field class="w-100">-->
+                                                                    <!--<input matInput [matDatepicker]="picker3"  placeholder="Previous Policy Expiry Date(DD/MM/YYYY)" maxlength="10"  formControlName="insurePItDate"  (dateInput)="addEvent($event, 'expiry', i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEvent( $event, 'expiry',i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  autocomplete="off" autocomplete="off">-->
+                                                                    <!--<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
+                                                                    <!--<mat-datepicker #picker3></mat-datepicker>-->
+                                                                    <!--<mat-error *ngIf="insureArray.invalid">Previous Policy Expiry Date is required</mat-error>-->
+                                                                <!--</mat-form-field>-->
+                                                                <!--<p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.value}}</p>-->
 
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Previous Sum Insurance"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insureSInsurance" autocomplete="off">
-                                                                </mat-form-field>
-                                                            </div>
-                                                            <div class="col-md-3">
-                                                                <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Number Of Claims"  maxlength="2" (keypress)="numberValidate($event)"  formControlName="insurePIClaims" autocomplete="off">
-                                                                </mat-form-field>
-                                                            </div>
-                                                            <div class="col-md-6" *ngIf="i == 0">
-                                                                <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Previous Insured Address" formControlName="insurePIAddress" autocomplete="off">
-                                                                </mat-form-field>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                            <!--</div>-->
+                                                            <!--<div class="col-md-3">-->
+                                                                <!--<mat-form-field class="w-100">-->
+                                                                    <!--<input matInput placeholder="Previous Sum Insurance"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insureSInsurance" autocomplete="off">-->
+                                                                <!--</mat-form-field>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="col-md-3">-->
+                                                                <!--<mat-form-field class="w-100">-->
+                                                                    <!--<input matInput placeholder="Number Of Claims"  maxlength="2" (keypress)="numberValidate($event)"  formControlName="insurePIClaims" autocomplete="off">-->
+                                                                <!--</mat-form-field>-->
+                                                            <!--</div>-->
+                                                            <!--<div class="col-md-6" *ngIf="i == 0">-->
+                                                                <!--<mat-form-field class="w-100">-->
+                                                                    <!--<input matInput placeholder="Previous Insured Address" formControlName="insurePIAddress" autocomplete="off">-->
+                                                                <!--</mat-form-field>-->
+                                                            <!--</div>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+
                                                     <div class="col-md-12 box-card pt-3">
                                                         <h6 class="color-blue">NOMINEE DETAILS</h6>
                                                         <div class="row">
@@ -368,32 +369,32 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6" *ngIf="item.insurePIName !='' || item.insureCName !='' || item.insurePINumber !='' || (item.insurePItDate !='' && item.insurePItDate != null) || (item.insureSInsurance !='' && item.insureSInsurance != 0.00) || (item.insurePIClaims !='' && item.insurePIClaims !='0') || item.insurePIAddress !=''">
-                                    <div class="p-3">
-                                        <h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>
-                                        <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="item.insurePIName !='' && i == 0"><strong>Previous Insured Name:</strong> {{item.insurePIName}}</li>
-                                            <li class="list-group-item" *ngIf="item.insureCName !=''"><strong>Company Name:</strong> {{item.insureCName}}</li>
-                                            <li class="list-group-item" *ngIf="item.insurePINumber !='' "><strong>Previous Policy Number:</strong> {{item.insurePINumber}}</li>
-                                            <li class="list-group-item" *ngIf="item.insurePItDate !='' && item.insurePItDate != null"><strong>Previous Policy Expiry Date:</strong> {{item.insurePItDate | date: 'dd/MM/yyyy'}}</li>
-                                            <li class="list-group-item" *ngIf="item.insureSInsurance !='' && item.insureSInsurance != 0.00"><strong>Previous Sum Insurance:</strong> {{item.insureSInsurance}}</li>
-                                            <li class="list-group-item" *ngIf="item.insurePIClaims !='' && i == 0 && item.insurePIClaims != 0"><strong>Number Of Claims:</strong> {{item.insurePIClaims}}</li>
-                                            <li class="list-group-item" *ngIf="item.insurePIAddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{item.insurePIAddress}}</li>
-                                        </ul>
-                                    </div>
-                                    <!--<div class="p-3" *ngIf="i != 0">-->
+                                <!--<div class="col-md-6" *ngIf="item.insurePIName !='' || item.insureCName !='' || item.insurePINumber !='' || (item.insurePItDate !='' && item.insurePItDate != null) || (item.insureSInsurance !='' && item.insureSInsurance != 0.00) || (item.insurePIClaims !='' && item.insurePIClaims !='0') || item.insurePIAddress !=''">-->
+                                    <!--<div class="p-3">-->
                                         <!--<h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>-->
                                         <!--<ul class="m-0 list-group">-->
-                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvpolno !='' "><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd/MM/yyyy'}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="item.ins_memprvsi !='' && item.ins_memprvsi != 0.00"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0 && summaryData.prop_noofclaims != 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>-->
-                                            <!--<li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePIName !='' && i == 0"><strong>Previous Insured Name:</strong> {{item.insurePIName}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insureCName !=''"><strong>Company Name:</strong> {{item.insureCName}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePINumber !='' "><strong>Previous Policy Number:</strong> {{item.insurePINumber}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePItDate !='' && item.insurePItDate != null"><strong>Previous Policy Expiry Date:</strong> {{item.insurePItDate | date: 'dd/MM/yyyy'}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insureSInsurance !='' && item.insureSInsurance != 0.00"><strong>Previous Sum Insurance:</strong> {{item.insureSInsurance}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePIClaims !='' && i == 0 && item.insurePIClaims != 0"><strong>Number Of Claims:</strong> {{item.insurePIClaims}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="item.insurePIAddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{item.insurePIAddress}}</li>-->
                                         <!--</ul>-->
                                     <!--</div>-->
-                                </div>
+                                    <!--&lt;!&ndash;<div class="p-3" *ngIf="i != 0">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<h6 class="color-blue">PREVIOUS INSURANCE DETAILS</h6>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<li class="list-group-item" *ngIf="summaryData.prop_previnsname !='' && i == 0"><strong>Previous Insured Name:</strong> {{summaryData.prop_previnsname}}</li>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.ins_memcompname !=''"><strong>Company Name:</strong> {{item.ins_memcompname}}</li>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.ins_memprvpolno !='' "><strong>Previous Policy Number:</strong> {{item.ins_memprvpolno}}</li>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.ins_memprvexpdate !='' && item.ins_memprvexpdate != null"><strong>Previous Policy Expiry Date:</strong> {{item.ins_memprvexpdate | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.ins_memprvsi !='' && item.ins_memprvsi != 0.00"><strong>Previous Sum Insurance:</strong> {{item.ins_memprvsi}}</li>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<li class="list-group-item" *ngIf="summaryData.prop_noofclaims !='' && i == 0 && summaryData.prop_noofclaims != 0"><strong>Number Of Claims:</strong> {{summaryData.prop_noofclaims}}</li>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<li class="list-group-item" *ngIf="summaryData.prop_previnsaddress !='' && i == 0"><strong>Previous Insured Address:</strong> {{summaryData.prop_previnsaddress}}</li>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--</div>-->
 
 
                                 <div class="col-md-6">

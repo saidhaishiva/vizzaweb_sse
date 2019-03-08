@@ -106,6 +106,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 }
             }
         });
+        console.log(stepperindex, 'stepperindex');
         this.currentStep = stepperindex;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -215,8 +216,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList['I']);
-
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             console.log(dobAge,'dobAge');
             if (dobAge > 45) {
@@ -225,7 +224,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 this.IsCustomerAcceptedPPCPED = false;
             }
 
-
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.value]);
 
         } else if(this.sameAsinsure == 'false' || this.sameAsinsure == false) {
             this.sameAsinsure = false;
