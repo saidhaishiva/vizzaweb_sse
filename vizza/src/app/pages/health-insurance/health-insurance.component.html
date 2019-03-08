@@ -119,10 +119,9 @@
               </th>
               <th class="sun-insured col-md-1">
                 <mat-form-field >
-                  <mat-placeholder class="myclass" matTooltip="Lacs">SUM INSURED(Lacs)</mat-placeholder>
+                  <mat-placeholder class="myclass" matTooltip="Lacs">SUM INSURED</mat-placeholder>
                   <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">{{amounts.si_amount_shortform}}</mat-option>
-
                       </mat-select>
                     </mat-form-field>
                   </th>
@@ -135,27 +134,27 @@
                   <th class="col-md-1" style="padding: 15px 5px !important;">BUY ( &#8377; )</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index">
-                  <td align="left"  class="col-md-3">
+                <tbody class="" >
+                <tr *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index" >
+                  <td align="left"  class="col-md-3" >
                     <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 70px;"> {{plists.product_name | titlecase}}
                   </td>
-                  <td  class="col-md-1">
+                  <td  class="col-md-1" >
                     <p>&#8377; {{plists.suminsured_amount_format}}</p>
                   </td>
-                  <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
+                  <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1" >
                     <p class="text-center">{{keys.key_features_value}}</p>
                   </td>
-                  <td class="col-md-2">
+                  <td class="col-md-2" >
                     <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)">Add to Compare</button></p>
                     <p style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                     <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                   </td>
-                  <td class="col-md-1">
+                  <td class="col-md-1" >
                     <p class="text-center change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
                     <p class="text-center change-p">(Including.GST)</p>
                   </td>
-                  <td class="col-md-1">
+                  <td class="col-md-1" >
                     <p><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>
                   </td>
                 </tr>

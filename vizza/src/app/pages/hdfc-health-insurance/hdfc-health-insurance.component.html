@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row hdfcHealthProposal">
     <div class="col-md-12">
-      <mat-horizontal-stepper  #stepper>
+      <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="hdfcPersonal">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
