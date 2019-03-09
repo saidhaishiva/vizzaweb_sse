@@ -93,6 +93,7 @@ export class LifeCallBackComponent implements OnInit {
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    alert('jjjj');
                     if(type == 'endomentdate'){
                         this.dobError = '';
                     }else {
@@ -206,6 +207,7 @@ export class LifeCallBackComponent implements OnInit {
     lifeAppointmentSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.dialogRef.close()
             this.toastr.success('Endowment Life created successfully!!');
         }else{
             this.toastr.error(successData.ErrorObject);
