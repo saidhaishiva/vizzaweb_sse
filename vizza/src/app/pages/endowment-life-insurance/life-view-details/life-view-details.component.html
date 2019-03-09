@@ -186,6 +186,7 @@
                                   <mat-form-field class="w-100">
                                     <input matInput placeholder="Email" formControlName="email">
                                     <mat-error *ngIf="form.controls.email.errors?.required">email is required</mat-error>
+                                    <mat-error *ngIf="form.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                                   </mat-form-field>
                                 </div>
                               </div>

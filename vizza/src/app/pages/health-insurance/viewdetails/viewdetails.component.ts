@@ -55,7 +55,7 @@ export class ViewdetailsComponent implements OnInit {
 
         this.form = this.fb.group({
             'name': ['', Validators.compose([Validators.required])],
-            'email': ['', Validators.compose([Validators.required])],
+            'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             'subject': ['', Validators.compose([Validators.required])],
             'message': ['', Validators.compose([Validators.required])],
             'profile': ['',Validators.compose( [Validators.required])]
@@ -200,7 +200,7 @@ export class ViewdetailsComponent implements OnInit {
     }
     public contactDetails(): void {
         if (this.form.valid) {
-            const data1 = {
+            const data = {
                 'name': this.form.controls['name'].value,
                 'email': this.form.controls['email'].value,
                 'subject': this.form.controls['subject'].value,
@@ -210,8 +210,7 @@ export class ViewdetailsComponent implements OnInit {
                 'platform': 'web',
                 'uploaded_doc': this.fileUploadPath
             };
-            console.log(data1);
-            this.common.contactDetails(data1).subscribe(
+            this.common.contactDetails(data).subscribe(
                 (successData) => {
                     this.getDetailsSuccess(successData);
                 },
