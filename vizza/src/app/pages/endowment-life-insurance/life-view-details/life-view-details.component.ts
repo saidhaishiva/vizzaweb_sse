@@ -195,18 +195,18 @@ export class LifeViewDetailsComponent implements OnInit {
   }
   public getDetailsSuccess(successData) {
     this.settings.loadingSpinner = false;
-    if (successData.IsSuccess) {
-      console.log(successData.ResponseObject, 'successData.ResponseObject');
+    if (successData.IsSuccess == true) {
+      this.toastr.success('Endowment Life Claim is created successfully!!');
+
       this.data1 = successData.ResponseObject;
     } else {
-      this.toastr.success('Contact details added successfully');
+      this.toastr.error(successData.ErrorObject);
     }
   }
 
   // handle error data
 
   public getDetailsFailure(error) {
-    console.log(error);
     this.settings.loadingSpinner = false;
   }
 
