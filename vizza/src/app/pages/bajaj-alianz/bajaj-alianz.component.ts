@@ -255,6 +255,10 @@ export class BajajAlianzComponent implements OnInit {
     canDeactivate() {
         return this.proposalId;
     }
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
+
 
     grossValid(event,i){
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].insureGMIncome.value,'oooo');

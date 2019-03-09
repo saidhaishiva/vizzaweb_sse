@@ -1502,8 +1502,10 @@ a:hover {
     margin-right: 10px;
 
     strong{
-      width: 200px;
-      float: left;
+      //width: 200px;
+      //float: left;
+      margin-right: 8px !important;
+
     }
   }
   .summary-head{

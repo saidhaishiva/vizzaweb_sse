@@ -116,7 +116,7 @@ export class StarHealthProposalComponent implements OnInit {
     relationshipListNomine: any;
     total: number;
 
-    constructor(public proposalservice: HealthService,public route:ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -133,6 +133,7 @@ export class StarHealthProposalComponent implements OnInit {
 
             }
         });
+        console.log(stepperindex, 'stepperindex');
         this.currentStep = stepperindex;
         let today  = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
