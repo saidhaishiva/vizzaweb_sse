@@ -780,9 +780,6 @@ a:hover {
 }
 //life View Component
 .lifeView{
-  mat-select{
-    color: #ffffff !important;
-  }
   .mat-select-value {
     color: #ffffff !important;
   }
@@ -794,6 +791,15 @@ a:hover {
     color: #ffffff !important;
   }
   .chevron::before{
+    color: #ffffff !important;
+  }
+  .mat-input-infix .mat-form-field-infix{
+    background-color : #ffffff !important;
+  }
+  .mat-form-field-underline{
+    background-color : #ffffff !important;
+  }
+  .mat-form-field-empty.mat-form-field-label {
     color: #ffffff !important;
   }
 }
@@ -2495,7 +2501,7 @@ app-horizontal-menu{
 }
 
 fieldset {
-  border-top: 1px solid #a9a4a4 !important;
+  //border-top: 1px solid #a9a4a4 !important;
   legend{
     width: auto;
     text-align: center;

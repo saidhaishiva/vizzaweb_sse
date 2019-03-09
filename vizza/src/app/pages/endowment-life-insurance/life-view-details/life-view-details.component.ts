@@ -196,8 +196,8 @@ export class LifeViewDetailsComponent implements OnInit {
   public getDetailsSuccess(successData) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess == true) {
+      this.dialogRef.close()
       this.toastr.success('Endowment Life Claim is created successfully!!');
-
       this.data1 = successData.ResponseObject;
     } else {
       this.toastr.error(successData.ErrorObject);
