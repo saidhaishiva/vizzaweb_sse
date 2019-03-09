@@ -29,7 +29,8 @@ export class LifeViewDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.viewKeyFeatures(this.productId);
+    this.viewKeyFeatures();
+    console.log(this.productId,'this.productIdthis.productId');
   }
   onNoClick(): void {
     this.dialogRef.close()
@@ -58,13 +59,13 @@ export class LifeViewDetailsComponent implements OnInit {
     }
   }
 
-  viewKeyFeatures(value) {
-    console.log(value,'valuevalue');
+  viewKeyFeatures() {
+    console.log(this.productId,'valuevalue');
     const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'product_id': value
+      'product_id': this.productId
 
     };
     this.settings.loadingSpinner = true;
@@ -80,9 +81,10 @@ export class LifeViewDetailsComponent implements OnInit {
   public viewKeySuccess(successData) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
+      console.log(successData.ResponseObject,'successData.ResponseObject');
       this.getKeyList = successData.ResponseObject.key_features;
-      // this.getKeyList = successData.ResponseObject.key_features;
-      this.productDocLists = successData.ResponseObject.product_docs;
+      console.log(this.getKeyList,'this.getKeyList');
+      this.productDocLists = successData.ResponseObject.productDocument;
       const getIndex = this.getKeyList.findIndex( list => list.type == 1);
       this.id = getIndex;
       this.bgColor = 'true';

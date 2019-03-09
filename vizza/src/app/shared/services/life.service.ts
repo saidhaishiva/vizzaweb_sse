@@ -16,7 +16,7 @@ export class LifeService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getHostLife() + 'Lifeendowment/lists' ;
+    const url = this.configurationService.getHostLife() + 'lifeendowment/lists' ;
     return this.http.post(url, json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -28,7 +28,7 @@ export class LifeService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getHostLife() + 'Lifeendowment/keyfeature_details' ;
+    const url = this.configurationService.getHostLife() + 'lifeendowment/keyFeatures' ;
     return this.http.post(url, json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
@@ -53,7 +53,7 @@ export class LifeService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getHostHealth() + 'Lifeendowment/insert_assist_details\'' ;
+    const url = this.configurationService.getHostLife() + 'Lifeendowment/insert_assist_details\'' ;
     return this.http.post(url, json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
