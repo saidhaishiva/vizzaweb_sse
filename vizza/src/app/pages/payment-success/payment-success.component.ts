@@ -64,7 +64,7 @@ export class PaymentSuccessComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'purchase_token' : this.purchasetoken,
-            'proposal_id' : 2
+            'proposal_id' : this.proposalid
         }
         this.proposalservice.getPurchaceStatus(data).subscribe(
             (successData) => {

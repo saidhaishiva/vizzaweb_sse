@@ -811,6 +811,7 @@ export class BajajAlianzComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
             stepper.next();
+            this.topScroll();
             this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);

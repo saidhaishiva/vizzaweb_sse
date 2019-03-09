@@ -64,9 +64,9 @@ export class ViewdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-      if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
-          let allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
-          this.sumInsuredAmount = allPolicyDetails[0].suminsured_amount;
+      if (sessionStorage.setAllProductLists != undefined && sessionStorage.setAllProductLists != '') {
+          let setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
+          this.sumInsuredAmount = setAllProductLists[0].suminsured_amount;
       }
       this.viewKeyFeatures(this.productId);
   }
