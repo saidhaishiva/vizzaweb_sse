@@ -109,9 +109,7 @@
                   </div>
                   <div class="col-md-12 text-center mt-3">
                     <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!houapp.valid ) || (!pincodeErrors)" (click)="houseKeeper(houapp.value)">Submit</button>
-                  </div>
-                  <div class="col-md-12 text-right mt-3">
-                    <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
+                    <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                   </div>
                 </div>
               </form>

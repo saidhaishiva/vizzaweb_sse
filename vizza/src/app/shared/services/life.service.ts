@@ -53,13 +53,35 @@ export class LifeService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getHostLife() + 'Lifeendowment/insert_assist_details\'' ;
+    const url = this.configurationService.getHostLife() + 'lifeendowment/insert_assist_details' ;
     return this.http.post(url, json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
   }
 
+  contactDetails(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getHostHome() + 'contact/addContactDetails' ;
+    return this.http.post(url, json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
 
+  fileUpload(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getHostHealth() + 'common/webupload' ;
+    return this.http.post(url, json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
 
   private extractData(res: Response) {
     const body = res;

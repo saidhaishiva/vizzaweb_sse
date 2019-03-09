@@ -153,7 +153,6 @@ export class LifeCallBackComponent implements OnInit {
     }
     LifeKeeper(value) {
         if (this.Lifeapp.valid) {
-            alert('haii');
             //date
             let date = this.datepipe.transform(this.Lifeapp.controls['appdate'].value, 'yyyy-MM-dd');
             //time
@@ -183,8 +182,8 @@ export class LifeCallBackComponent implements OnInit {
                 'role_id':this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'product_id': this.productId,
                 // 'inurance_type': this.Lifeapp.controls['insurance'].value,
-                'appointment_date': date,
-                'appointment_time': this.setFtime,
+                'appoinment_date': date,
+                'time': this.setFtime,
                 'mobile': this.Lifeapp.controls['mobile'].value,
                 'email': this.Lifeapp.controls['email'].value,
                 'contact_person' : this.Lifeapp.controls['contactperson'].value,
@@ -207,7 +206,7 @@ export class LifeCallBackComponent implements OnInit {
     lifeAppointmentSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
+            this.toastr.success('Endowment Life created successfully!!');
         }else{
             this.toastr.error(successData.ErrorObject);
         }

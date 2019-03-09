@@ -60,9 +60,10 @@ button:focus{
 }
 
 .dashboard{
-  //.mat-card{
-  //  background: rgba(243, 240, 240, 0.87) !important;
-  //}
+  .mat-card{
+    background: rgba(243, 240, 240, 0.87) !important;
+    height: 100%;
+  }
   mat-card.mat-radius{
     background: #faf3f3 !important;
   }
@@ -777,6 +778,26 @@ a:hover {
       }
   }
 }
+//life View Component
+.lifeView{
+  mat-select{
+    color: #ffffff !important;
+  }
+  .mat-select-value {
+    color: #ffffff !important;
+  }
+  .btn-outline-primary {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+  }
+  .mat-select-arrow{
+    color: #ffffff !important;
+  }
+  .chevron::before{
+    color: #ffffff !important;
+  }
+}
+
 .closeBtnClass {
   position: absolute;
   right: 0;
@@ -2630,6 +2651,7 @@ fieldset {
   }
   .travel-box {
     border: 1px solid gray !important;
+    height: 100%;
   }
   .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
     background-color: #3f51b5;
@@ -2707,6 +2729,7 @@ fieldset {
   top:0px;
   left:0px;
   padding: 10px 0px 0px 22px;
+  width:100%;
 }
 
 .my-flex-card > div > div.card {
@@ -2929,7 +2952,6 @@ fieldset {
       strong{
         width: 190px;
         float: left;
-        // margin-right: 8px !important;
       }
     }
   }
@@ -3047,7 +3069,12 @@ fieldset {
     color: white;
   }
 }
-
+.card-block{
+  height:100%;
+}
+.horizontal-menu-item .horizontal-sub-menu a.mat-button {
+  border-bottom: 1px solid;
+}
 
 
 
