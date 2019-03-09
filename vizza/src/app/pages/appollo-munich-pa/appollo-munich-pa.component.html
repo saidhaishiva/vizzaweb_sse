@@ -294,8 +294,8 @@
 
                       <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" required  class="w-100">
-                            <mat-option *ngFor="let status of paMaritalList" [value]= status.marital_code> {{status.marital_status}} </mat-option>
+                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
+                            <mat-option *ngFor="let status of paMaritalList | keys" [value]= status.key> {{status.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
                         </mat-form-field>
@@ -303,8 +303,8 @@
 
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                            <mat-select placeholder="Profession" formControlName="insuredProfessionList" required>
-                                <mat-option *ngFor="let professioncode of professionList" [value]="professioncode.code">{{professioncode.profession}}</mat-option>
+                            <mat-select placeholder="Profession" formControlName="insuredProfessionList" (change)="professionListCode()" required>
+                                <mat-option *ngFor="let professioncode of professionList | keys" [value]="professioncode.key">{{professioncode.value}}</mat-option>
                             </mat-select>
                               <mat-error *ngIf="insured.controls.insuredProfessionList.errors?.required">Profession is required</mat-error>
 
@@ -312,8 +312,8 @@
                         </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationList" required>
-                            <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation}}</mat-option>
+                          <mat-select placeholder="OCCUPATION" name="occupation" formControlName="insuredOccupationList" (change)="occupationListCode()"required>
+                            <mat-option *ngFor="let occupation of occupationCode | keys" [value]="occupation.key">{{occupation.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredOccupationList.errors?.required">Occupation is required</mat-error>
                         </mat-form-field>
@@ -329,8 +329,8 @@
                       <!--</div>-->
                       <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof" (change)="insureidList()" >
-                            <mat-option *ngFor="let IdProof of paIdProofList" value="{{IdProof.proof_code}}" > {{IdProof.proof_name}} </mat-option>
+                          <mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof" (change)="insureidList(); changeidName()" >
+                            <mat-option *ngFor="let IdProof of paIdProofList | keys" value="{{IdProof.key}}" > {{IdProof.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaIdProof.errors?.required">Id Proof is required</mat-error>
                         </mat-form-field>
@@ -419,16 +419,16 @@
                       </div>
                       <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListInsuredPa()">
-                            <mat-option *ngFor="let paDistrict of paInsureddistrictList" value="{{paDistrict.district_name}}" > {{paDistrict.district_name}} </mat-option>
+                          <mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListInsuredPa(); changeDistrictname()">
+                            <mat-option *ngFor="let paDistrict of paInsureddistrictList | keys" value="{{paDistrict.key}}" > {{paDistrict.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="City"  formControlName="insuredPaCity" required>
-                            <mat-option *ngFor="let paCity of paCityInsuredList" value="{{paCity.city_code}}" > {{paCity.city_name}} </mat-option>
+                          <mat-select placeholder="City"  formControlName="insuredPaCity" (change)="changeCity()" required>
+                            <mat-option *ngFor="let paCity of paCityInsuredList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
@@ -562,8 +562,8 @@
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Previous Insurance List" (keypress)="numberValidate($event)" [required]="prevList" formControlName="insuredPrevList" (change)="preInsureList()" >
-                                <mat-option *ngFor="let previous of preinsure" value="{{previous.insure_code}}" > {{previous.insure_name}} </mat-option>
+                              <mat-select placeholder="Previous Insurance List" (keypress)="numberValidate($event)" [required]="prevList" formControlName="insuredPrevList" (change)="preInsureList(); changePrevName()" >
+                                <mat-option *ngFor="let previous of preinsure | keys" value="{{previous.key}}" > {{previous.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="insured.controls.insuredPrevList.errors?.required">Previous Insurance List is required</mat-error>
                             </mat-form-field>
@@ -652,8 +652,8 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                              <mat-select placeholder="Relationship with Proposer"  formControlName="paRelationship" required >
-                                  <mat-option *ngFor="let relationship of relationshipListPa" [hidden]="sameRelationship == relationship.relationship" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>
+                              <mat-select placeholder="Relationship with Proposer"  formControlName="paRelationship" (change)="changeRelationship()" required >
+                                  <mat-option *ngFor="let relationship of relationshipListPa | keys" [hidden]="sameRelationship == relationship.relationship" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                               </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>
                       </mat-form-field></div>
@@ -695,16 +695,16 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa()">
-                            <mat-option *ngFor="let paDistrict of paNomineedistrictList" value="{{paDistrict.district_name}}"> {{paDistrict.district_name}} </mat-option>
+                          <mat-select placeholder="District"  formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa(); nomineeDistrict()">
+                            <mat-option *ngFor="let paDistrict of paNomineedistrictList | keys" value="{{paDistrict.key}}"> {{paDistrict.value}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="City"  formControlName="paNomineeCity" required>
-                            <mat-option *ngFor="let paCity of paCityNomineeList" value="{{paCity.city_code}}"> {{paCity.city_name}} </mat-option>
+                          <mat-select placeholder="City"  formControlName="paNomineeCity" (change)="nomineeCity()" required>
+                            <mat-option *ngFor="let paCity of paCityNomineeList | keys" value="{{paCity.key}}"> {{paCity.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
@@ -792,6 +792,7 @@
 
                 <!--</div>-->
               <!--</section>-->
+
           <section>
             <h5 class="mt-3 sub-title">PROPOSER DETAILS / INSURED DETAILS </h5>
             <div class="row box-card">
@@ -799,14 +800,14 @@
                 <div class="p-3">
                   <h6>PERSONAL DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Name:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_tittlecode}}.{{appollosummaryData.InsurePolicyholderDetails.i_fname}} {{appollosummaryData.InsurePolicyholderDetails.i_mname}} {{appollosummaryData.InsurePolicyholderDetails.i_lname}} </li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gender == 1"><strong>Gender:</strong> MALE </li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gender == 2"><strong>Gender:</strong> FEMALE</li>
-                    <li class="list-group-item"><strong>Mobile Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_mobilenumber}}</li>
-                    <li class="list-group-item"><strong>D.O.B:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_dob  | date: 'dd/MM/yyyy'}}</li>
-                    <li class="list-group-item"><strong>Email:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_email}}</li>
-                    <li class="list-group-item"><strong>Occupation:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_occuption}}</li>
-                    <li class="list-group-item"><strong>Medical Information:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_occuption}}</li>
+                    <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.insuredPaTitle}}.{{proposerFormData.insuredPaFirstname}} {{proposerFormData.insuredPaMidname}} {{proposerFormData.insuredPaLastname}} </li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaGender == 1"><strong>Gender:</strong> MALE </li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaGender == 2"><strong>Gender:</strong> FEMALE</li>
+                    <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.insuredPaMobile}}</li>
+                    <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.insuredPaDob  | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.insuredPaEmail}}</li>
+                    <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.insuredOccupationListName}}</li>
+                    <li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>
                   </ul>
                 </div>
               </div>
@@ -814,15 +815,15 @@
                 <div class="p-3">
                   <h6 class="mb-4"></h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Relationship:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_relation}}</li>
-                    <li class="list-group-item"><strong>Height:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_Height}}</li>
-                    <li class="list-group-item"><strong>Weight:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_weight}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_procode !='' && appollosummaryData.InsurePolicyholderDetails.i_procode != null"><strong>Profession:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_procode}}</li>
-                    <li class="list-group-item"><strong>Marital Status:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_maritalstatus}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idprooftype != '' && appollosummaryData.InsurePolicyholderDetails.i_idprooftype != null"><strong>Select ID Proof:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idprooftype}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_idproofno != '' && appollosummaryData.InsurePolicyholderDetails.i_idproofno != null"><strong>Select ID Proof Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_idproofno | uppercase}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_anualincome != '' && appollosummaryData.InsurePolicyholderDetails.i_anualincome != null"><strong>Annual Income:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_anualincome}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_gstno != '' && appollosummaryData.InsurePolicyholderDetails.i_gstno != null"><strong>Gst Number:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_gstno | uppercase}}</li>
+                    <!--<li class="list-group-item"><strong>Relationship:</strong> {{proposerFormData.insuredParelationshipName}}</li>-->
+                    <li class="list-group-item"><strong>Height:</strong> {{proposerFormData.insuredHeight}}</li>
+                    <li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.insuredWeight}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredProfessionListName !='' && proposerFormData.insuredProfessionListName != null"><strong>Profession:</strong> {{proposerFormData.insuredProfessionListName}}</li>
+                    <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaIdProofName != '' && proposerFormData.insuredPaIdProof != null"><strong>Select ID Proof:</strong> {{proposerFormData.insuredPaIdProofName}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaIdProofIdP != '' && proposerFormData.insuredPaIdProofIdP != null"><strong>Select ID Proof Number:</strong> {{proposerFormData.insuredPaIdProofIdP | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.i_anualincome != '' && proposerFormData.i_anualincome != null"><strong>Annual Income:</strong> {{proposerFormData.i_anualincome}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaGst != '' && proposerFormData.insuredPaGst != null"><strong>Gst Number:</strong> {{proposerFormData.insuredPaGst | uppercase}}</li>
                   </ul>
                 </div>
               </div>
@@ -831,13 +832,13 @@
                 <div class="p-3">
                   <h6>COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Address 1:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_address2 !=''"><strong>Address 2:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address2}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_address3 != ''"><strong>Address 3:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_address1}}</li>
-                    <li class="list-group-item"><strong>PIN code:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_towncode}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_district !='' && appollosummaryData.InsurePolicyholderDetails.i_district != null"><strong>District:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_district}}</li>
-                    <li class="list-group-item"><strong>State:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_statecode}}</li>
+                    <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.insuredPaAddress}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.i_address2 !=''"><strong>Address 2:</strong> {{proposerFormData.insuredPaAddress2}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormDatai_address3 != ''"><strong>Address 3:</strong> {{proposerFormData.insuredPaAddress3}}</li>
+                    <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.insuredPaPincode}}</li>
+                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.insuredPaCityName}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaDistrictName !='' && proposerFormData.insuredPaDistrictName != null"><strong>District:</strong> {{proposerFormData.insuredPaDistrictName}}</li>
+                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.insuredPaState}}</li>
                   </ul>
                 </div>
               </div>
@@ -846,11 +847,11 @@
                 <div class="p-3">
                   <h6>PERSONAL HABITS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_smoking != '' && appollosummaryData.InsurePolicyholderDetails.i_smoking != 0"><strong>Smoking:</strong>{{appollosummaryData.InsurePolicyholderDetails.i_smoking}}</li>
-                    <li class="list-group-item"  *ngIf="appollosummaryData.InsurePolicyholderDetails.i_pouches != '' && appollosummaryData.InsurePolicyholderDetails.i_pouches != 0" ><strong>Pouches:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_pouches}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_liquorpeg != '' && appollosummaryData.InsurePolicyholderDetails.i_liquorpeg != 0"><strong>Liquor Peg:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_liquorpeg}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_wineglass != '' && appollosummaryData.InsurePolicyholderDetails.i_wineglass != 0"><strong>Wine Glass:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_wineglass}}</li>
-                    <li class="list-group-item" *ngIf="appollosummaryData.InsurePolicyholderDetails.i_beerbottle != '' && appollosummaryData.InsurePolicyholderDetails.i_beerbottle != 0"><strong>Beer Bottle:</strong> {{appollosummaryData.InsurePolicyholderDetails.i_beerbottle}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredSmokeList != '' && proposerFormData.insuredSmokeList != 0"><strong>Smoking:</strong>{{proposerFormData.insuredSmokeList}}</li>
+                    <li class="list-group-item"  *ngIf="proposerFormData.insuredPouchesList != '' && proposerFormData.insuredPouchesList != 0" ><strong>Pouches:</strong> {{proposerFormData.insuredPouchesList}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredLiquor != '' && proposerFormData.insuredLiquor != 0"><strong>Liquor Peg:</strong> {{proposerFormData.insuredLiquor}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredWine != '' && proposerFormData.insuredWine != 0"><strong>Wine Glass:</strong> {{proposerFormData.insuredWine}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredBeer != '' && proposerFormData.insuredBeer != 0"><strong>Beer Bottle:</strong> {{proposerFormData.insuredBeer}}</li>
                   </ul>
                 </div>
               </div>
@@ -858,14 +859,14 @@
                 <div class="p-3">
                   <h6>PREVIOUS INSURED DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Policy Start Date:</strong>{{appollosummaryData.InsurePolicyholderDetails.InceptionDate}}</li>
-                    <li class="list-group-item"><strong>Policy End Date:</strong> {{appollosummaryData.InsurePolicyholderDetails.EndDate}}</li>
-                    <li class="list-group-item"><strong>Previous Insurer:</strong> {{appollosummaryData.InsurePolicyholderDetails.PreviousInsurerCode}}</li>
-                    <li class="list-group-item"><strong>Previous Policy No:</strong> {{appollosummaryData.InsurePolicyholderDetails.PreviousPolicyNumber}}</li>
-                    <li class="list-group-item"><strong>Sum Insured:</strong>{{appollosummaryData.InsurePolicyholderDetails.SumInsured}}</li>
-                    <li class="list-group-item"><strong>Qualifying Amount:</strong> {{appollosummaryData.InsurePolicyholderDetails.QualifyingAmount}}</li>
-                    <li class="list-group-item"><strong>Waive Period:</strong> {{appollosummaryData.InsurePolicyholderDetails.WaivePeriod}}</li>
-                    <li class="list-group-item"><strong>Remark Details:</strong>{{appollosummaryData.InsurePolicyholderDetails.Remarks}}</li>
+                    <li class="list-group-item"><strong>Policy Start Date:</strong>{{proposerFormData.policyStartDate}}</li>
+                    <li class="list-group-item"><strong>Policy End Date:</strong> {{proposerFormData.policyEndDate}}</li>
+                    <li class="list-group-item"><strong>Previous Insurer:</strong> {{proposerFormData.insuredPrevListName}}</li>
+                    <li class="list-group-item"><strong>Previous Policy No:</strong> {{proposerFormData.insuredPrevious}}</li>
+                    <li class="list-group-item"><strong>Sum Insured:</strong>{{proposerFormData.insureSumInsured}}</li>
+                    <li class="list-group-item"><strong>Qualifying Amount:</strong> {{proposerFormData.insuredQualify}}</li>
+                    <li class="list-group-item"><strong>Waive Period:</strong> {{proposerFormData.insuredWaive}}</li>
+                    <li class="list-group-item"><strong>Remark Details:</strong>{{proposerFormData.insuredremark}}</li>
                   </ul>
                 </div>
               </div>
@@ -879,7 +880,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong>{{appollosummaryData.ProposalDetails.n_tittlecode}}.{{appollosummaryData.ProposalDetails.n_name}}</li>
+                        <li class="list-group-item"><strong>Nominee name:</strong>{{nomineeDataForm.paNomineeTitle}}.{{nomineeDataForm.paNomineeName}}</li>
                       </ul>
                     </div>
 
@@ -891,14 +892,13 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{appollosummaryData.ProposalDetails.n_relation}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{nomineeDataForm.paRelationshipName}}</li>
                       </ul>
                     </div>
 
                   </div>
                 </div>
               </div>
-
               <!--<div class="col-md-12" class="text-center">-->
                 <!--<h6 class="text-center">Nominee Address</h6>-->
                 <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
@@ -912,10 +912,10 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee Address1:</strong> {{appollosummaryData.ProposalDetails.n_address}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_address2 !=''"><strong>Nominee Address2:</strong> {{appollosummaryData.ProposalDetails.n_address2}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_address3 !=''"><strong>Nominee Address3:</strong> {{appollosummaryData.ProposalDetails.n_address3}}</li>
-                        <li class="list-group-item"><strong>Nominee Pincode:</strong> {{appollosummaryData.ProposalDetails.n_pinCode}}</li>
+                        <li class="list-group-item"><strong>Nominee Address1:</strong> {{nomineeDataForm.paNomineeAddress}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress2 !=''"><strong>Nominee Address2:</strong> {{nomineeDataForm.paNomineeAddress2}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress3 !=''"><strong>Nominee Address3:</strong> {{nomineeDataForm.paNomineeAddress3}}</li>
+                        <li class="list-group-item"><strong>Nominee Pincode:</strong> {{nomineeDataForm.paNomineePincode}}</li>
                       </ul>
                     </div>
                   </div>
@@ -927,9 +927,9 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee State:</strong> {{appollosummaryData.ProposalDetails.n_stateCode}}</li>
-                        <li class="list-group-item"><strong>Nominee City:</strong> {{appollosummaryData.ProposalDetails.n_townCode}}</li>
-                        <li class="list-group-item" *ngIf="appollosummaryData.ProposalDetails.n_district != '' && appollosummaryData.ProposalDetails.n_district != null"><strong>Nominee District:</strong> {{appollosummaryData.ProposalDetails.n_district}}</li>
+                        <li class="list-group-item"><strong>Nominee State:</strong> {{nomineeDataForm.paNomineeState}}</li>
+                        <li class="list-group-item"><strong>Nominee City:</strong> {{nomineeDataForm.paNomineeCityName}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeDistrict != '' && nomineeDataForm.paNomineeDistrict != null"><strong>Nominee District:</strong> {{nomineeDataForm.paNomineeDistrict}}</li>
                       </ul>
                     </div>
 

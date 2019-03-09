@@ -103,6 +103,8 @@ public insuredage: any;
 public maxStartdate:any;
 public currentStep:any;
 public sameRelationship:any;
+public proposerFormData:any;
+public nomineeDataForm:any;
 public sameaddress:boolean;
     CheckHabits : boolean;
     readonlyProposer : boolean;
@@ -178,7 +180,10 @@ public sameaddress:boolean;
           insuredPaMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
           maritalStatus: ['', Validators.required],
           insuredParelationship: '',
+          maritalStatusName: '',
+          insuredParelationshipName: '',
           insuredPaIdProof: '',
+          insuredPaIdProofName: '',
           insuredPaIdProofIdP: '',
           insuredPaPan: ['', Validators.compose([ Validators.minLength(10)])],
           insuredPaDriving: '',
@@ -191,13 +196,16 @@ public sameaddress:boolean;
           nationality: 'IN',
           insuredPaPincode: ['', Validators.required],
           insuredPaCity: ['', Validators.required],
+          insuredPaCityName: '',
           insuredPaCountry: 'IN',
           insuredPaState: ['', Validators.required],
           insuredPaDistrict: '',
+          insuredPaDistrictName: '',
           insuredPaCityIdP: '',
           insuredPaStateIdP: '',
           insuredPaCountryIdP: '',
           insuredPrevList: '',
+          insuredPrevListName: '',
           insuredPrevious:'',
           insureSumInsured:'',
           insuredQualify:'',
@@ -215,7 +223,9 @@ public sameaddress:boolean;
           insuredPouchesList:'',
           insuredPaDistrictIdP: '',
           insuredOccupationList: ['', Validators.required],
+          insuredOccupationListName: '',
           insuredProfessionList:['', Validators.required],
+          insuredProfessionListName:'',
           PolicyStartDate:'',
           PolicyEndDate:'',
           MedicalInformations: '',
@@ -232,15 +242,18 @@ public sameaddress:boolean;
           paNomineeTitle: ['', Validators.required],
           paNomineeName: ['', Validators.required],
           paRelationship: ['', Validators.required],
+          paRelationshipName: '',
           paNomineeAddress: ['', Validators.required],
           paNomineeAddress2:'',
           paNomineeAddress3: '',
           nationality: 'IN',
           paNomineePincode: ['', Validators.required],
           paNomineeCity:'',
+          paNomineeCityName:'',
           paNomineeCountry: 'IN',
           paNomineeState: ['', Validators.required],
           paNomineeDistrict: '',
+          paNomineeDistrictName: '',
           paNomineeCityIdP: '',
           paNomineeStateIdP: '',
           paNomineeCountryIdP: '',
@@ -353,8 +366,10 @@ public sameaddress:boolean;
                 insuredPaMidname: this.appollo2.insuredPaMidname,
                 insuredPaAge: this.appollo2.insuredPaAge,
                 maritalStatus: this.appollo2.maritalStatus,
+                maritalStatusName: this.appollo2.maritalStatusName,
                 insuredPaDob: new FormControl(new Date(this.appollo2.insuredPaDob)),
                 insuredParelationship: this.appollo2.insuredParelationship,
+                insuredParelationshipName: this.appollo2.insuredParelationshipName,
                 sameAsProposer: this.appollo2.sameAsProposer,
                 insuredPaGender: this.appollo2.insuredPaGender,
                 insuredPaAddress: this.appollo2.insuredPaAddress,
@@ -363,6 +378,7 @@ public sameaddress:boolean;
                 nationality: this.appollo2.nationality,
                 insuredPaPincode: this.appollo2.insuredPaPincode,
                 insuredPaIdProof: this.appollo2.insuredPaIdProof,
+                insuredPaIdProofName: this.appollo2.insuredPaIdProofName,
                 insuredAnnual: this.appollo2.insuredAnnual,
                 insuredPaIdProofIdP: this.appollo2.insuredPaIdProofIdP,
                 insuredPaPan: this.appollo2.insuredPaPan,
@@ -372,9 +388,11 @@ public sameaddress:boolean;
                 insuredPaDriving: this.appollo2.insuredPaDriving,
                 MedicalInformations: this.appollo2.MedicalInformations,
                 insuredPaCity: this.appollo2.insuredPaCity,
+                insuredPaCityName: this.appollo2.insuredPaCityName,
                 insuredPaState: this.appollo2.insuredPaState,
                 insuredPaCountry: this.appollo2.insuredPaCountry,
                 insuredPaDistrict: this.appollo2.insuredPaDistrict,
+                insuredPaDistrictName: this.appollo2.insuredPaDistrictName,
                 insuredPaStateIdP: this.appollo2.insuredPaStateIdP,
                 insuredPaCountryIdP: this.appollo2.insuredPaCountryIdP,
                 insuredPaCityIdP: this.appollo2.insuredPaCityIdP,
@@ -393,13 +411,16 @@ public sameaddress:boolean;
                 insuredCheck1: false,
                 insuredCheck2: false,
                 insuredOccupationList: this.appollo2.insuredOccupationList,
+                insuredOccupationListName: this.appollo2.insuredOccupationListName,
                 insuredProfessionList: this.appollo2.insuredProfessionList,
+                insuredProfessionListName: this.appollo2.insuredProfessionListName,
                 insuredBeer: this.appollo2.insuredBeer,
                 previousradio: this.appollo2.previousradio,
                 PolicyStartDate: this.appollo2.PolicyStartDate,
                 PolicyEndDate: this.appollo2.PolicyEndDate,
                 rolecd: this.appollo2.rolecd,
                 insuredPrevList: this.appollo2.insuredPrevList,
+                insuredPrevListName: this.appollo2.insuredPrevListName,
                 insuredPrevious: this.appollo2.insuredPrevious,
                 insureSumInsured: this.appollo2.insureSumInsured,
                 insuredQualify: this.appollo2.insuredQualify,
@@ -499,15 +520,18 @@ public sameaddress:boolean;
             this.nomineeDetail = this.proposerpa.group({
                 paNomineeName: this.getpanomineeData.paNomineeName,
                 paRelationship: this.getpanomineeData.paRelationship,
+                paRelationshipName: this.getpanomineeData.paRelationshipName,
                 paNomineeAddress: this.getpanomineeData.paNomineeAddress,
                 paNomineeAddress2: this.getpanomineeData.paNomineeAddress2,
                 paNomineeAddress3: this.getpanomineeData.paNomineeAddress3,
                 paNomineePincode: this.getpanomineeData.paNomineePincode,
                 paNomineeCountry: this.getpanomineeData.paNomineeCountry,
                 paNomineeCity: this.getpanomineeData.paNomineeCity,
+                paNomineeCityName: this.getpanomineeData.paNomineeCityName,
                 paNomineeState: this.getpanomineeData.paNomineeState,
                 paNomineeCountryIdP: this.getpanomineeData.paNomineeCountryIdP,
                 paNomineeDistrict: this.getpanomineeData.paNomineeDistrict,
+                paNomineeDistrictName: this.getpanomineeData.paNomineeDistrictName,
                 paNomineeCityIdP: this.getpanomineeData.paNomineeCityIdP,
                 paNomineeStateIdP: this.getpanomineeData.paNomineeStateIdP,
                 paNomineeDistrictIdP: this.getpanomineeData.paNomineeDistrictIdP,
@@ -1281,18 +1305,20 @@ preInsureList() {
 
     public pinPanomineeListFailure(error){
     }
+
     sameasProposer(){
       if(this.nomineeDetail.controls['sameAsProposer'].value){
           this.sameaddress = true;
-          this.insured.controls['paNomineeAddress'].patchValue(this.ProposerPa.controls['proposerPaAddress'].value);
-          this.insured.controls['paNomineeAddress2'].patchValue(this.ProposerPa.controls['proposerPaAddress2'].value);
-          this.insured.controls['paNomineeAddress3'].patchValue(this.ProposerPa.controls['proposerPaAddress3'].value);
-          this.insured.controls['paNomineeCity'].patchValue(this.ProposerPa.controls['proposerPaCity'].value);
-          this.insured.controls['paNomineeState'].patchValue(this.ProposerPa.controls['proposerPaState'].value);
-          this.insured.controls['paNomineeDistrict'].patchValue(this.ProposerPa.controls['proposerPaDistrict'].value);
-          this.insured.controls['paNomineeStateIdP'].patchValue(this.ProposerPa.controls['proposerPaStateIdP'].value);
-          this.insured.controls['paNomineeCityIdP'].patchValue(this.ProposerPa.controls['proposerPaCityIdP'].value);
-          this.insured.controls['paNomineeDistrictIdP'].patchValue(this.ProposerPa.controls['proposerPaDistrictIdP'].value);
+          this.insured.controls['paNomineeAddress'].patchValue(this.ProposerPa.controls['insuredPaAddress'].value);
+          this.insured.controls['paNomineeAddress2'].patchValue(this.ProposerPa.controls['insuredPaAddress2'].value);
+          this.insured.controls['paNomineeAddress3'].patchValue(this.ProposerPa.controls['insuredPaAddress3'].value);
+          this.insured.controls['paNomineePincode'].patchValue(this.ProposerPa.controls['insuredPaPincode'].value);
+          this.insured.controls['paNomineeCity'].patchValue(this.ProposerPa.controls['insuredPaCity'].value);
+          this.insured.controls['paNomineeState'].patchValue(this.ProposerPa.controls['insuredPaState'].value);
+          this.insured.controls['paNomineeDistrict'].patchValue(this.ProposerPa.controls['insuredPaDistrict'].value);
+          this.insured.controls['paNomineeStateIdP'].patchValue(this.ProposerPa.controls['insuredPaStateIdP'].value);
+          this.insured.controls['paNomineeCityIdP'].patchValue(this.ProposerPa.controls['insuredPaCityIdP'].value);
+          this.insured.controls['paNomineeDistrictIdP'].patchValue(this.ProposerPa.controls['insuredPaDistrictIdP'].value);
 
       } else {
           this.sameaddress = false;
@@ -1300,6 +1326,7 @@ preInsureList() {
           this.insured.controls['paNomineeAddress'].patchValue('');
           this.insured.controls['paNomineeAddress2'].patchValue('');
           this.insured.controls['paNomineeAddress3'].patchValue('');
+          this.insured.controls['paNomineePincode'].patchValue('');
           this.insured.controls['paNomineeCity'].patchValue('');
           this.insured.controls['paNomineeState'].patchValue('');
           this.insured.controls['paNomineeDistrict'].patchValue('');
@@ -1591,7 +1618,11 @@ preInsureList() {
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
             this.appolloPA = this.appollosummaryData.ProposalId;
+            this.proposerFormData = this.insured.value;
+            this.nomineeDataForm = this.nomineeDetail.value;
+            console.log(this.nomineeDataForm,'this.nomineeDataForm');
             sessionStorage.appolloPAproposalID = this.appolloPA ;
+            console.log(this.nomineeDetail.controls['paRelationship'].value,'khkjhlk');
 
         } else {
             this.toastr.error(successData.ErrorObject);
@@ -1601,7 +1632,41 @@ preInsureList() {
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
     }
+    nomineeCity(){
+      this.nomineeDetail.controls['paNomineeCityName'].patchValue(this.paCityNomineeList[this.nomineeDetail.controls['paNomineeCity'].value])
+    }
+    nomineeDistrict(){
+        this.nomineeDetail.controls['paNomineeDistrictName'].patchValue(this.paNomineedistrictList[this.nomineeDetail.controls['paNomineeDistrict'].value])
+    }
+    changeRelationship(){
+        this.nomineeDetail.controls['paRelationshipName'].patchValue(this.relationshipListPa[this.nomineeDetail.controls['paRelationship'].value])
 
+    }
+    professionListCode() {
+        this.insured.controls['insuredProfessionListName'].patchValue(this.professionList[this.insured.controls['insuredProfessionList'].value])
+     }
+    occupationListCode() {
+        this.insured.controls['insuredOccupationListName'].patchValue(this.occupationCode[this.insured.controls['insuredOccupationList'].value])
 
+    }
+    changeidName(){
+        this.insured.controls['insuredPaIdProofName'].patchValue(this.paIdProofList[this.insured.controls['insuredPaIdProof'].value])
+
+  }
+    changeDistrictname(){
+        this.insured.controls['insuredPaDistrictName'].patchValue(this.paInsureddistrictList[this.insured.controls['insuredPaDistrict'].value])
+
+    }
+    changeCity() {
+      this.insured.controls['insuredPaCityName'].patchValue(this.paCityInsuredList[this.insured.controls['insuredPaCity'].value])
+
+    }
+    changePrevName(){
+        this.insured.controls['insuredPrevListName'].patchValue(this.preinsure[this.insured.controls['insuredPrevList'].value])
+  }
+    changeMarital(){
+        this.insured.controls['maritalStatusName'].patchValue(this.paMaritalList[this.insured.controls['maritalStatus'].value])
+
+    }
 }
 
