@@ -4,10 +4,9 @@
     <mat-card class="text-center">
       <div *ngIf="paymentStatus == 'success'">
         <img src="assets/img/success.gif" alt="">
-        <h2 style="color:#298126">Payment Successfully</h2>
-        <p>Thank you! Your payment was processed successfully.</p>
-        <h6 *ngIf="remainingStatus">If you want to purchase remaining groups.<span (click)="pay()" class="retryClass"> Please click here... </span></h6>
-        <p *ngIf="policyStatus == 1">under progress....</p>
+        <h5>Thank you! Your payment is processed successfully.</h5>
+        <h6 *ngIf="remainingStatus">If you want to purchase for other groups.<span (click)="pay()" class="retryClass"> Please click here... </span></h6>
+        <p *ngIf="policyStatus == 1">You policy is under process.HDFC will contact you shortly.</p>
         <p *ngIf="policyStatus == 0">Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
         <button mat-raised-button color="primary" routerLink="/home"> Done</button>
       </div>
@@ -15,14 +14,16 @@
         <img src="assets/img/error-icon.png" alt="">
         <h2 style="color:#f44336">Oh no, Your payment failed</h2>
         <p>The transaction has failed due to one of the following reasons:</p>
-        <ul><li>Payment was declined by your bank or credit card provider</li>
-          <li>Credit/Debit card provided has expired</li>
-          <li>Credit/Debit card has insufficient funds</li>
-          <li>Credit/Debit card number provided is invalid</li>
-          <li>Credit/Debit card provided has not been approved for recurring payments</li></ul>
-        <p>If you want to Retry a payment.<span (click)="retry()" class="retryClass"> Please click here... </span></p>
-        <!--<button mat-raised-button color="primary" style="background-color:#f44336 !important;" routerLink="/home"> Done</button>-->
+        <div class="text-left w-100">
+          <p>1. Payment was declined by your bank or credit card provider</p>
+          <p>2. Credit/Debit card provided has expired</p>
+          <p>3. Credit/Debit card has insufficient funds</p>
+          <p>4. Credit/Debit card number provided is invalid</p>
+          <p>5. Credit/Debit card provided has not been approved for recurring payments</p>
+          <p>If you want to retry payment.<span (click)="retry()" class="retryClass"> Please click here... </span></p>
+        </div>
       </div>
+
     </mat-card>
   </div>
 </div>

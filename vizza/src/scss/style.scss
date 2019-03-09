@@ -60,9 +60,9 @@ button:focus{
 }
 
 .dashboard{
-  .mat-card{
-    background: rgba(243, 240, 240, 0.87) !important;
-  }
+  //.mat-card{
+  //  background: rgba(243, 240, 240, 0.87) !important;
+  //}
   mat-card.mat-radius{
     background: #faf3f3 !important;
   }
@@ -1480,8 +1480,10 @@ a:hover {
     margin-right: 10px;
 
     strong{
-      width: 200px;
-      float: left;
+      //width: 200px;
+      //float: left;
+      margin-right: 8px !important;
+
     }
   }
   .summary-head{
@@ -2907,6 +2909,7 @@ fieldset {
       strong{
         width: 190px;
         float: left;
+        // margin-right: 8px !important;
       }
     }
   }

@@ -25,6 +25,7 @@ export class PaymentSuccessComponent implements OnInit {
  public purchaseStatus: any;
  type: any;
  path: any;
+ status: any;
  currenturl: any;
     remainingStatus: any;
 
@@ -51,7 +52,7 @@ export class PaymentSuccessComponent implements OnInit {
   ngOnInit() {
       console.log(this.purchasetoken, ' this.purchasetoken');
       this.proposalid = sessionStorage.proposalID;
-      if ( this.purchasetoken != undefined) {
+      if (this.purchasetoken != undefined) {
           this.setPurchaseStatus();
       }
   }
@@ -63,7 +64,7 @@ export class PaymentSuccessComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'purchase_token' : this.purchasetoken,
-            'proposal_id' : this.proposalid
+            'proposal_id' : 2
         }
         this.proposalservice.getPurchaceStatus(data).subscribe(
             (successData) => {
@@ -78,10 +79,10 @@ export class PaymentSuccessComponent implements OnInit {
     public purchaseStatusSuccess(successData) {
        if (successData.IsSuccess) {
            this.purchaseStatus = successData.ResponseObject;
+           this.status = true;
        } else {
-           this.purchaseStatus = successData.ResponseObject;
+           this.status = false;
        }
-       console.log(this.purchaseStatus, 'this.purchaseStatusthis.purchaseStatus');
     }
     public purchaseStatusFailure(error) {
     }
