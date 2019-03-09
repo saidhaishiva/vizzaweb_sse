@@ -39,6 +39,7 @@ export class ViewdetailsComponent implements OnInit {
     url: any;
     fileUploadPath: any;
     productName: any;
+    sumInsuredAmount: any;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
@@ -63,8 +64,10 @@ export class ViewdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
+      if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
+          let allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
+          this.sumInsuredAmount = allPolicyDetails[0].suminsured_amount;
+      }
       this.viewKeyFeatures(this.productId);
   }
     onNoClick(): void {
@@ -117,7 +120,8 @@ export class ViewdetailsComponent implements OnInit {
             'userid': 1,
             'roleid': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'productid': value
+            'productid': value,
+            'si_amount': this.sumInsuredAmount
 
         };
         this.settings.loadingSpinner = true;
@@ -138,13 +142,7 @@ export class ViewdetailsComponent implements OnInit {
             const getIndex = this.getKeyList.findIndex( list => list.type == 1);
             this.id = getIndex;
             this.bgColor = 'true';
-            // for (let i = 0; i < this.getKeyList.length; i++) {
-            //     if(this.getKeyList[i].kf_type == 2) {
-            //         this.id = i;
-            //     }
-            // }
         }
-       // console.log(this.id, 'this.id');
     }
     public viewKeyFailure(error) {
         this.settings.loadingSpinner = false;
