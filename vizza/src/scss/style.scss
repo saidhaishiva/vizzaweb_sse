@@ -743,7 +743,6 @@ a:hover {
     font-weight: normal;
     font-size: 12px;
     text-align: center;
-
   }
 
   .pink-color {
@@ -756,6 +755,28 @@ a:hover {
     color: #000;
   }
 }
+  .life-table{
+    td {
+      border: 2px solid #dee2e6;
+      text-align: center;
+    }
+
+    th {
+      background: #FFB6C1;
+      border: 2px solid #dee2e6;
+      font-weight: normal;
+      font-size: 12px;
+      text-align: center;
+    }
+    .pink-color {
+      background: #731C77;
+      color: #fff;
+    }
+    td:first-child{
+        background: #731C77;
+        color: #fff;
+      }
+  }
 }
 .closeBtnClass {
   position: absolute;
