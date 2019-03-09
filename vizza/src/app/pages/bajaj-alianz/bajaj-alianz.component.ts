@@ -103,12 +103,15 @@ export class BajajAlianzComponent implements OnInit {
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
-            if(params.stepper == true) {
+            if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 1;
-                this.summaryData = JSON.parse(sessionStorage.summaryData);
-                this.RediretUrlLink = this.summaryData.payment_url;
-                this.proposalId = this.summaryData.proposal_id;
-                sessionStorage.bajaj_health_proposalid = this.proposalId;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    this.RediretUrlLink = this.summaryData.payment_url;
+                    this.proposalId = this.summaryData.policy_id;
+                    sessionStorage.bajaj_health_proposalid = this.proposalId;
+                }
             }
         });
         this.currentStep = stepperindex;
@@ -204,7 +207,7 @@ export class BajajAlianzComponent implements OnInit {
                 insurePIAddress:'',
                 insureCName:'',
                 insurePINumber:'',
-                insurePItDate: ['', Validators.compose([Validators.minLength(10)])],
+                insurePItDate: '',
                 insureSInsurance:'',
                 insurePIClaims:'',
                 bajajNomineeName: ['', Validators.required],
@@ -807,9 +810,10 @@ export class BajajAlianzComponent implements OnInit {
             this.toastr.success('proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             this.insuredFormData = this.insureArray.value.items;
             this.RediretUrlLink = this.summaryData.payment_url;
-          //  this.proposalId = this.summaryData.proposal_id;
+            this.proposalId = this.summaryData.policy_id;
             sessionStorage.bajaj_health_proposalid = this.proposalId;
         } else{
             this.toastr.error(successData.ErrorObject);

@@ -8,8 +8,8 @@
           <div class="aboutImg">
             <img src="assets/img/Term-Life-Inner.png" class="w-100">
             <div class="aboutContent">
-              <h4>About Term Life Insurance</h4>
-              <p>For those who live for you, and after you..… <button mat-button color="accent" (click)="TermLifeInsurer()" style="border: 1px solid #000;"> Know More</button></p>
+              <h4 style="text-align: right">About Term Life Insurance</h4>
+              <p>For those who live for you, and after you..… <button class="btn btn-sm" (click)="TermLifeInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -109,9 +109,11 @@
                     <mat-error *ngIf="TermLifeapp.controls.apptime.errors?.required">Appintment Time is required</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12 text-right mt-3">
-                  <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                <div class="col-md-12 text-center mt-3">
                   <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!TermLifeapp.valid ) || (!pincodeErrors)" (click)="TermLifeKeeper(TermLifeapp.value)">Submit</button>
+                </div>
+                <div class="col-md-12 text-right mt-3">
+                  <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
             </form>

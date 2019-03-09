@@ -1,6 +1,6 @@
 <div class="container dashboard h-100" fxLayoutAlign="start start">
   <div class="row my-flex-card">
-    <h2 class="w-100 text-center" style="color:#DF6600;"><img src="assets/img/bike-insurance.png" class="logo-size">&nbsp;Motor Car Insurance</h2>
+    <h2 class="w-100 text-center" style="color:#DF6600;"><img src="assets/img/bike-insurance.png" class="logo-size">&nbsp;Motor Bike Insurance</h2>
     <!--<div fxLayout="row" fxLayoutAlign="center stretch">-->
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
@@ -9,7 +9,7 @@
             <img src="assets/img/Motor-Two-wheeler-inner-banner.png" class="w-100">
             <div class="aboutContent">
               <h4>About Bike Insurance</h4>
-              <p>There is no time to explain, Don’t let accidents..… <button mat-button color="accent" (click)="BikeInsurer()" style="border: 1px solid #000;"> Know More</button></p>
+              <p>There is no time to explain, Don’t let accidents..… <button class="btn btn-sm" (click)="BikeInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -109,9 +109,11 @@
                     <mat-error *ngIf="bikeapp.controls.apptime.errors?.required">Appintment Time is required</mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12 text-right mt-3">
-                  <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                <div class="col-md-12 text-center mt-3">
                   <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!bikeapp.valid ) || (!pincodeErrors)" (click)="bikeKeeper(bikeapp.value)">Submit</button>
+                </div>
+                <div class="col-md-12 text-right mt-3">
+                  <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
             </form>
@@ -122,4 +124,5 @@
     <!--</div>-->
   </div>
 </div>
+
 

@@ -1,14 +1,14 @@
 <div class="container dashboard h-100" fxLayoutAlign="start start">
     <div class="row my-flex-card">
-        <h2 class="w-100 text-center" style="color: #FC028A;"><img src="assets/img/Shop-Keepers-Policy.png" class="logo-size">&nbsp;Shopkeppers Policy</h2>
+        <h2 class="w-100 text-center" style="color: #FC028A;"><img src="assets/img/Shop-Keepers-Policy.png" class="logo-size">&nbsp;Shopkeepers Policy</h2>
       <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="card">
           <div class="card-block">
             <div class="aboutImg">
               <img src="assets/img/Shopkeppers-Policy-Final_2019.jpg" style="height:605px;" class="w-100">
               <div class="aboutContent">
-                <h4>About Shopkeppers Policy</h4>
-                <p>If you’re insured, your shop is always “open”...… <button mat-button color="accent" (click)="ShopkepperInsurer()" style="border: 1px solid #000;"> Know More</button></p>
+                <h4 style="text-align: right">About Shopkeepers Policy</h4>
+                <p>If you’re insured, your shop is always “open”...… <button class="btn btn-sm" (click)="ShopkepperInsurer()" style="border: 1px solid #000; background-color: inherit"> Know More</button></p>
               </div>
             </div>
           </div>
@@ -106,9 +106,11 @@
                           <mat-error *ngIf="shopapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-12 text-right mt-3">
-                        <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                      <div class="col-md-12 text-center mt-3">
                         <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!shopapp.valid ) || (!pincodeErrors)" (click)="shopKeeper(shopapp.value)" >Submit</button>
+                      </div>
+                      <div class="col-md-12 text-right mt-3">
+                        <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
                       </div>
                     </div>
                   </form>

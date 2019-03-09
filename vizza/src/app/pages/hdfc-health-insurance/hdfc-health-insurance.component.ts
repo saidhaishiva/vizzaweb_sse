@@ -95,15 +95,18 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
-                this.summaryData = JSON.parse(sessionStorage.summaryData);
-                sessionStorage.hdfc_health_proposal_id = this.summaryData.ProposalId;
-                this.insurerDtails = this.summaryData.InsurePolicyholderDetails;
-                this.nomineeDtails = this.summaryData.InsurePolicyholderDetails[0];
-                this.proposalDtails = this.summaryData.ProposalDetails;
-                this.fullName = this.proposalDtails.fname +' '+ this.proposalDtails.lname;
-                this.totalAmount = parseFloat(this.proposalDtails.totalPremium);
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.personlData = JSON.parse(sessionStorage.personlData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                    this.nomineeFromData = JSON.parse(sessionStorage.nomineeFromData);
+                    sessionStorage.hdfc_health_proposal_id = this.summaryData.ProposalId;
+                    this.fullName = this.personlData.firstname + ' ' + this.personlData.lastname;
+                    this.totalAmount = parseFloat(this.summaryData.totalPremium);
+                }
             }
         });
+        console.log(stepperindex, 'stepperindex');
         this.currentStep = stepperindex;
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -213,12 +216,15 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].genderStatus.patchValue(this.hdfcPersonal.controls['gender'].value == 'M' ? 'Male' : 'Female');
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].dob.patchValue(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
             this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.patchValue('I');
-            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList('I'));
-
             let dobAge = this.ageCalculate(this.datepipe.transform(this.hdfcPersonal.controls['dob'].value, 'y-MM-dd'));
-            this.ageData(dobAge, 'insurer');
+            console.log(dobAge,'dobAge');
+            if (dobAge > 45) {
+                this.IsCustomerAcceptedPPCPED = true;
+            } else {
+                this.IsCustomerAcceptedPPCPED = false;
+            }
 
-
+            this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[this.hdfcInsureArray['controls'].items['controls'][0]['controls'].relationship.value]);
 
         } else if(this.sameAsinsure == 'false' || this.sameAsinsure == false) {
             this.sameAsinsure = false;
@@ -461,7 +467,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     }
 
     relationshipchange(index){
-        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[(this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationship.value)]);
+        this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationshipName.patchValue(this.insuredHdfcRelationList[this.hdfcInsureArray['controls'].items['controls'][index]['controls'].relationship.value]);
 
     }
     // nomineeRelationship
@@ -943,10 +949,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.personlData = this.hdfcPersonal.value;
             this.insuredFormData = this.insurerData.items;
             this.nomineeFromData = this.nomineeDetails.value;
+            sessionStorage.personlData = JSON.stringify(this.personlData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+            sessionStorage.nomineeFromData = JSON.stringify(this.nomineeFromData);
+
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
-        console.log(this.personlData,' this.personlData');
-        console.log(this.insuredFormData,' this.personlData');
-        console.log(this.nomineeFromData,' this.personlData');
             this.fullName = this.personlData.firstname +' '+ this.personlData.lastname;
             this.totalAmount = parseFloat(this.summaryData.totalPremium);
 

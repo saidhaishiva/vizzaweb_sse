@@ -5,10 +5,10 @@
       <div class="card">
         <div class="card-block">
           <div class="aboutImg">
-            <!--<img src="assets/img/Motor-Two-wheeler-inner-banner.png" class="w-100">-->
+            <img src="assets/img/Group-Term-Life-Insurance-1.jpg" class="w-100">
             <div class="aboutContent">
-              <h4>About Group Term Life Insurance</h4>
-              <p>Let your workplace benefit your future...… <button mat-button color="accent" (click)="GroupTermLifeInsurer()" style="border: 1px solid #000;"> Know More</button></p>
+              <h4 style="text-align:right;">About Group Term Life Insurance</h4>
+              <p>Let your workplace benefit your future...… <button class="btn btn-sm" (click)="GroupTermLifeInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -107,9 +107,11 @@
                       <mat-error *ngIf="terapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-12 text-right mt-3">
-                    <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                  <div class="col-md-12 text-center mt-3">
                     <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!terapp.valid ) || (!pincodeErrors)" (click)="terKeeper(terapp.value)">Submit</button>
+                  </div>
+                  <div class="col-md-12 text-right mt-3">
+                    <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
                   </div>
                 </div>
               </form>
