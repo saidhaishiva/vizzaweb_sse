@@ -1,7 +1,7 @@
 <!--new-->
 <div class="container dashboard h-100" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">
-    <h3 class="w-100 text-center color-pink mb-2"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
+    <h3 class="w-100 text-center color-pink mb-4"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
@@ -16,12 +16,12 @@
       </div>
     </div>
 
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <div class="col-md-6 col-sm-12 col-xs-12" >
       <!--<div class="card">-->
         <!--<div class="card-block">-->
-          <mat-card class="p-4" >
-          <h4 class=" text-center">Get Instance Quotes</h4>
-          <div class="w-100 mb-2 son" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
+          <mat-card class="p-4" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
+          <h4 class=" text-center">Get Instant Quotes</h4>
+          <div class="w-100 mb-2 son" >
               <div id="clonehead">
                 <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
                   <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>

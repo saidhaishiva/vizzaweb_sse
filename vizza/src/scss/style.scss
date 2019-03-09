@@ -566,10 +566,9 @@ a:hover {
   .mat-tab-label {
     height: 44px !important;
   }
-
-  //.mat-tab-group.mat-primary .mat-tab-label:not(.mat-tab-disabled):focus{
-  //  background-color: rgba(24, 204, 180, 0.35);
-  //}
+  .mat-select-value-text {
+    color: #ffffff !important;
+  }
   .mat-tab-label:hover{
     background-color: rgba(24, 204, 180, 0.35);
   }
@@ -582,7 +581,7 @@ a:hover {
   }
   .mat-tab-labels {
     float: right;
-    background: #efe9e9 !important;
+    background: #ada4a4 !important;
 
   }
 
@@ -610,7 +609,7 @@ a:hover {
         position: relative;
         flex: auto;
         min-width: 0;
-        width: 119px !important;
+        width: 105px !important;
       }
     }
 
@@ -945,7 +944,7 @@ a:hover {
   }
   .mat-tab-labels {
     float: right;
-    background: #efe9e9 !important;
+    background: #3c393942 !important;
 
   }
   .mat-raised-button.mat-primaryBlue {

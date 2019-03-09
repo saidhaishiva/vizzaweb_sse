@@ -224,10 +224,10 @@ export class HealthInsuranceComponent implements OnInit {
         }
         if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
             this.allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
-            this.sumInsuredAmount = this.allPolicyDetails[0].suminsured_amount;
         }
         if (sessionStorage.setAllProductLists != undefined && sessionStorage.setAllProductLists != '') {
             this.setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
+            this.sumInsuredAmount = this.setAllProductLists[0].suminsured_amount;
         }
         if (sessionStorage.changedTabDetails != undefined && sessionStorage.changedTabDetails != '') {
             this.changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
@@ -492,9 +492,9 @@ export class HealthInsuranceComponent implements OnInit {
             this.groupList = successData.ResponseObject.family_groups;
             sessionStorage.groupDetails = JSON.stringify(successData.ResponseObject);
             console.log(this.groupList, 'groupDetails');
-            if(this.groupDetails.length > 1) {
+            if(this.groupList.length > 1) {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
-                    width: '1500px', data: {comparedata: successData.ResponseObject}});
+                    width: '1500px', data: {comparedata: successData.ResponseObject.family_groups}});
                 dialogRef.disableClose = true;
                 dialogRef.afterClosed().subscribe(result => {
                 });
@@ -559,7 +559,9 @@ export class HealthInsuranceComponent implements OnInit {
                     this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
                     this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
                 }
-                 sessionStorage.allPolicyDetails = JSON.stringify(policylists);
+
+                sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
+                sessionStorage.allPolicyDetails = JSON.stringify(policylists);
                  sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
                  this.changedTabDetails = policylists[0];
                  sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
