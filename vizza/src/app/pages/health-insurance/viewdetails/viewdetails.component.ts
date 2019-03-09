@@ -173,6 +173,7 @@ export class ViewdetailsComponent implements OnInit {
         this.getUrl = event[1];
         const data1 = {
             'platform': 'web',
+            'flag':'healthInsurance',
             'uploadtype': 'single',
             'images': this.getUrl,
         };

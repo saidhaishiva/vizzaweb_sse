@@ -145,6 +145,7 @@ export class LifeViewDetailsComponent implements OnInit {
     this.getUrl = event[1];
     const data1 = {
       'platform': 'web',
+      'flag':'EndowmentLifeInsurance',
       'uploadtype': 'single',
       'images': this.getUrl,
     };

@@ -153,7 +153,6 @@ export class LifeCallBackComponent implements OnInit {
     }
     LifeKeeper(value) {
         if (this.Lifeapp.valid) {
-            alert('haii');
             //date
             let date = this.datepipe.transform(this.Lifeapp.controls['appdate'].value, 'yyyy-MM-dd');
             //time
