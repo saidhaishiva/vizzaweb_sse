@@ -778,6 +778,26 @@ a:hover {
       }
   }
 }
+//life View Component
+.lifeView{
+  mat-select{
+    color: #ffffff !important;
+  }
+  .mat-select-value {
+    color: #ffffff !important;
+  }
+  .btn-outline-primary {
+    color: #ffffff !important;
+    border-color: #ffffff !important;
+  }
+  .mat-select-arrow{
+    color: #ffffff !important;
+  }
+  .chevron::before{
+    color: #ffffff !important;
+  }
+}
+
 .closeBtnClass {
   position: absolute;
   right: 0;
