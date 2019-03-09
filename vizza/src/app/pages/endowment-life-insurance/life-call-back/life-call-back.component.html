@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="col-md-6" >
                   <mat-form-field class="w-100">
-                    <mat-select  placeholder="Insurance Type" formControlName ="insurance" required>
+                    <mat-select  placeholder="Insurance Type" formControlName ="insurance" autocomplete="off" required>
                       <mat-option value="shopkeepers">Shopkeepers</mat-option>
                       <mat-option value="marine">Marine Cargo Policy</mat-option>
                       <mat-option value="money">Money Insurance</mat-option>
@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Contact Person" formControlName="contactperson"  required>
+                    <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="nameValidate($event)" autocomplete="off" required>
                     <mat-error *ngIf="Lifeapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
                     <mat-icon matSuffix>person</mat-icon>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Mobile" formControlName="mobile"  required minlength="10"  maxlength="10">
+                    <input matInput placeholder="Mobile" formControlName="mobile"  required minlength="10"  maxlength="10" (keypress)="numberValidate($event)" autocomplete="off">
                     <mat-error *ngIf="Lifeapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
@@ -53,7 +53,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Email" formControlName="email" required>
+                    <input matInput placeholder="Email" formControlName="email" autocomplete="off" required>
                     <mat-error *ngIf="Lifeapp.controls.email.errors?.required">Email is required</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                     <mat-icon matSuffix>email</mat-icon>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
+                    <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}"  minlength="6" (keypress)="numberValidate($event)"  maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
                     <mat-error *ngIf="Lifeapp.controls.pincode.errors?.required">Pincode is required</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                     <mat-error *ngIf="Lifeapp.controls.pincode.hasError('required')">Pincode required</mat-error>
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
+                    <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" autocomplete="off" required>
                       <mat-option value="call">Call</mat-option>
                       <mat-option value="meetinperson">Meet in Person</mat-option>
                     </mat-select>
@@ -80,21 +80,16 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date(DD/MM/YYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
-                    <mat-error *ngIf="Lifeapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>
+                    <input matInput [min]="today" [matDatepicker]="picker" placeholder="Appointment Date(DD/MM/YYY)" formControlName="appdate" (dateInput)="addEvent($event)" (keypress)="dobValidate($event,'endomentdate')" (dateChange)="addEvent($event,'endomentdate')" autocomplete="off" required>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="Lifeapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>
                   </mat-form-field>
+                  <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
                 </div>
                 <div class="col-md-6">
                     <ngb-timepicker [(ngModel)]="time" [meridian]="meridian" formControlName="apptime" required></ngb-timepicker>
                 </div>
-                <!--<div class="col-md-6">-->
-                  <!--<mat-form-field class="w-100">-->
-                    <!--<input matInput type="time" atp-time-picker  formControlName="apptime" required />-->
-                      <!--<mat-error *ngIf="Lifeapp.controls.apptime.errors?.required">Appintment Time is required</mat-error>-->
-                  <!--</mat-form-field>-->
-                <!--</div>-->
                 <div class="col-md-12 text-right mt-3">
                   <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
                   <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!Lifeapp.valid ) || (!pincodeErrors)" (click)="LifeKeeper(Lifeapp.value)">Submit</button>

@@ -39,26 +39,11 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
-      //     this.Lifeapp = this.fb.group({
-  //         'insurance': ['', Validators.compose([Validators.required])],
-  //         'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-  //         'contactperson': ['', Validators.compose([Validators.required])],
-  //         'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-  //         'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-  //         'pincode': ['', Validators.compose([Validators.required])],
-  //         'appointmentwith': ['', Validators.compose([Validators.required])],
-  //         'appdate': ['', Validators.required],
-  //         'apptime': null
-  //     });
-  //     this.productName = '';
   }
 
   ngOnInit() {
 
-      // this.firstPage = true;
-      // this.secondPage = false;
       this.insurerLists = [];
-      this.listAll = [];
 
       this.getDetails();
       this.setDate = Date.now();
@@ -75,72 +60,7 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
     //     this.selectDate = event.value;
     //     this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     // }
-    // LifeKeeper(value) {
-    //     if (this.Lifeapp.valid) {
-    //             this.firstPage = false;
-    //             this.secondPage = true;
-    //
-    //         // const data = {
-    //         //     'platform': 'web',
-    //         //     'product_type': 'offline',
-    //         //     'appointment_date': this.setDate,
-    //         //     'appointment_time': "10.00 PM",
-    //         //     'company_name': this.Lifeapp.controls['name'].value,
-    //         //     'customer_mobile': this.Lifeapp.controls['mobile'].value,
-    //         //     'customer_email': this.Lifeapp.controls['email'].value,
-    //         //     'contact_person' : this.Lifeapp.controls['contactperson'].value,
-    //         //     'pincode': this.Lifeapp.controls['pincode'].value,
-    //         //     'product_name': this.Lifeapp.controls['insurance'].value,
-    //         //     'appointment_with': this.Lifeapp.controls['appointmentwith'].value,
-    //
-    //     //     };
-    //     //
-    //     //     this.commonservices.setFixAppointment(data).subscribe(
-    //     //         (successData) => {
-    //     //             this.fixAppointmentSuccess(successData);
-    //     //         },
-    //     //         (error) => {
-    //     //             this.fixAppointmentFailure(error);
-    //     //         }
-    //     //     );
-    //     }
-    // }
-    // fixAppointmentSuccess(successData) {
-    //     this.firstPage = false;
-    //     this.secondPage = true;
-    // }
-    // fixAppointmentFailure(error) {
-    // }
 
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    public data(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    // public keyPress(event: any) {
-    //     if (event.charCode !== 0) {
-    //         const pattern = /[0-9\\ ]/;
-    //         const inputChar = String.fromCharCode(event.charCode);
-    //
-    //         if (!pattern.test(inputChar)) {
-    //             event.preventDefault();
-    //         }
-    //     }
-    // }
 
     public getDetails() {
         const data = {
@@ -171,16 +91,17 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
                             key_value: this.LifeProductlistAll[i].keyfeature[j].key_value,
                             primary_key: this.LifeProductlistAll[i].keyfeature[j].primary_key
                         });
-                        // this.LifeKeyFeature = this.LifeProductlistAll[i].keyfeature;
                     }
                 }
-                // if ( keyfeatureArray.length > 0) {
+                // if ( keyfeatureArray.length) {
                     this.insurerLists.push({product_id: this.LifeProductlistAll[i].product_id, product_name: this.LifeProductlistAll[i].product_name,
                         company_name: this.LifeProductlistAll[i].company_name, keyfeature: keyfeatureArray});
                 // }
+                console.log(keyfeatureArray, 'keyfeatureArray');
             }
             console.log(this.LifeProductlistAll, 'LifeProductlistAll');
             console.log(this.insurerLists, 'insurerListsinsurerLists');
+
         }
     }
     public getInsurerDetailsFailure(error) {
@@ -197,13 +118,18 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
         });
     }
     //compare Now Function
-    public compareNow(value) {
+    compareNow(value) {
+        console.log(value, 'value');
         let dialogRef = this.dialog.open(LifeCompareNowComponent, {
-            width: '1500px',data: {productId : value.product_id, productName: value.product_name}
+            width: '2500px',data: this.LifeProductlistAll
         });
         dialogRef.disableClose = true;
 
         dialogRef.afterClosed().subscribe(result => {
+            if(result.product_id > 0){
+            this.callBack(result);
+            console.log(result,'resulttt');
+            }else{}
         });
         console.log(this.LifeProductlistAll);
         return this.LifeProductlistAll

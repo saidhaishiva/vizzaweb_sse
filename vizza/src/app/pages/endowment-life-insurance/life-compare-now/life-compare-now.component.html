@@ -6,49 +6,27 @@
 <div class="row " id="life-list" fxLayoutAlign="center start">
   <div class="col-sm-12">
     <div fxLayout="column">
-      <div class="col-md-12">
-        <table class="table health-table">
-          <thead>
-          <tr>
-            <th >Endowment Policies</th>
+      <div class="row" style="height:350px; overflow:auto;">
+          <table class="table col-md-12 life-table w-100" >
+            <thead>
+            <th><small>Endowment Policies</small></th>
+            <th><small>Entry Age (Min/Max)</small></th>
+            <th><small>Maturity Age (Min/Max)</small></th>
+            <th><small>Policy Term</small></th>
+            <th><small>Premium Paying Term</small></th>
+            <th><small>Minimum Sum Assured</small></th>
+            <th><small>Maximum Sum Assured</small></th>
+            <th><small>Policy Paying Mode</small></th>
             <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>Entry Age(Min/Max)</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Maturity Age(Min/Max)</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Policy Term</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Premium Paying Term</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Minimum Sum Assured</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Maximum Sum Assured</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Policy Paying Mode</td>
-            <td></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><button type="button" class="btn pink-color">Call Back</button></td>
-          </tr>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            <tr *ngFor="let list of compareDetails">
+              <td><small class="pinck-back">{{list.company_name}}<br/>{{list.product_name}}</small></td>
+              <td *ngFor="let key of list.keyfeature"><small>{{key.key_value}}</small></td>
+              <td><button type="button" class="btn pink-color btn-sm" (click)="callBack(list)">Call Back</button></td>
+            </tr>
+            </tbody>
+          </table>
       </div>
     </div>
   </div>
