@@ -206,7 +206,7 @@ export class LifeCallBackComponent implements OnInit {
     lifeAppointmentSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
+            this.toastr.success('Endowment Life created successfully!!');
         }else{
             this.toastr.error(successData.ErrorObject);
         }
