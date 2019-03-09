@@ -142,7 +142,11 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     insuredate: any;
     personaldateError: any;
     insurerdateError: any;
+    nomineeDataForm: any;
     currentStep: any;
+    city: any;
+    personalcity: any;
+    proposerDataForm: any;
     personalDescriptionclassPA: boolean;
     Address2: boolean;
     personalAddress2: boolean;
@@ -246,9 +250,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             insuredrelationship: '',
             insuredAnnualIncome: '',
             insuredOccupationCode: '',
+            insuredOccupationCodeName: '',
             insuredDescription: '',
             insuredDescriptionCode: '',
+            insuredDescriptionCodeName: '',
             insuredClassDescriptionCode: '',
+            insuredClassDescriptionCodeName: '',
             insuredPan: '',
             insuredPassPort: '',
             insuredAddress: ['', Validators.required],
@@ -271,12 +278,15 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             insuredWeight:['', Validators.required],
             insuredrolecd: 'PRIMARY',
             type: '',
+            insuredrCityName: '',
+            insuredCityName: '',
             medical_status: 'No'
 
         });
         this.nomineeDetails = this.fb.group({
             'religareNomineeName': ['', Validators.required],
-            'religareRelationship': ['', Validators.required]
+            'religareRelationship': ['', Validators.required],
+            'religareRelationshipName': ''
         });
 
 
@@ -421,8 +431,11 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 sameAsinsureProposer: this.getStepper2.sameAsinsureProposer,
                 sameasInsuredAddress: this.getStepper2.sameasInsuredAddress,
                 insuredOccupationCode: this.getStepper2.insuredOccupationCode,
+                insuredOccupationCodeName: this.getStepper2.insuredOccupationCodeName,
                 insuredDescriptionCode: this.getStepper2.insuredDescriptionCode,
+                insuredDescriptionCodeName: this.getStepper2.insuredDescriptionCodeName,
                 insuredClassDescriptionCode: this.getStepper2.insuredClassDescriptionCode,
+                insuredClassDescriptionCodeName: this.getStepper2.insuredClassDescriptionCodeName,
                 insuredDescription: this.getStepper2.insuredDescription,
                 insuredGender: this.getStepper2.insuredGender,
                 insuredPan: this.getStepper2.insuredPan.toUpperCase(),
@@ -431,6 +444,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 insuredAddress2: this.getStepper2.insuredAddress2,
                 insuredPincode: this.getStepper2.insuredPincode,
                 insuredCity: this.getStepper2.insuredCity,
+                insuredCityName: this.getStepper2.insuredCityName,
                 insuredState: this.getStepper2.insuredState,
                 insuredEmail: this.getStepper2.insuredEmail,
                 insuredEmail2: this.getStepper2.insuredEmail2,
@@ -442,6 +456,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 insuredrAddress2: this.getStepper2.insuredrAddress2,
                 insuredrPincode: this.getStepper2.insuredrPincode,
                 insuredrCity: this.getStepper2.insuredrCity,
+                insuredrCityName: this.getStepper2.insuredrCityName,
                 insuredrState: this.getStepper2.insuredrState,
                 relationshipcd: this.getStepper2.relationshipcd
             });
@@ -485,7 +500,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.getpersonalNomineeData = JSON.parse(sessionStorage.personalnomineeData);
             this.nomineeDetails = this.fb.group({
                 religareNomineeName: this.getpersonalNomineeData.religareNomineeName,
-                religareRelationship: this.getpersonalNomineeData.religareRelationship
+                religareRelationship: this.getpersonalNomineeData.religareRelationship,
+                religareRelationshipName: this.getpersonalNomineeData.religareRelationshipName
             });
         }
         if (sessionStorage.pa_religare_proposal_id != '' && sessionStorage.pa_religare_proposal_id != undefined) {
@@ -578,6 +594,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.insured.controls['insuredrAddress'].patchValue(this.insured.controls['insuredAddress'].value);
             this.insured.controls['insuredrAddress2'].patchValue(this.insured.controls['insuredAddress2'].value);
             this.insured.controls['insuredrCity'].patchValue(this.insured.controls['insuredCity'].value);
+            this.insured.controls['insuredrCityName'].patchValue(this.insured.controls['insuredCity'].value);
             this.insured.controls['insuredrPincode'].patchValue(this.insured.controls['insuredPincode'].value);
             this.insured.controls['insuredrState'].patchValue(this.insured.controls['insuredState'].value);
 
@@ -586,6 +603,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.insured.controls['insuredrAddress'].patchValue('');
             this.insured.controls['insuredrAddress2'].patchValue('');
             this.insured.controls['insuredrCity'].patchValue('');
+            this.insured.controls['insuredrCityName'].patchValue('');
             this.insured.controls['insuredrPincode'].patchValue('');
             this.insured.controls['insuredrState'].patchValue('');
 
@@ -937,35 +955,40 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         if (this.title == 'personal') {
             this.insurepersonalCitys = [];
             this.iresponse = successData.ResponseObject;
+            this.personalcity = this.iresponse.city;
 
+            console.log(this.iresponse,' this.iresponse');
+        console.log(this.insured.controls['insuredState'].value,'opuipo');
             if (successData.IsSuccess) {
-
-                this.insured.controls['insuredState'].setValue(this.iresponse[0].state);
-                for (let i = 0; i < this.iresponse.length; i++) {
-                    this.insurepersonalCitys.push({city: this.iresponse[i].city});
-                }
+                this.insured.controls['insuredState'].setValue(this.iresponse.state);
+                // for (let i = 0; i < this.iresponse.length; i++) {
+                    this.insurepersonalCitys.push({city: this.iresponse.city});
+                // }
             } else if (successData.IsSuccess != true) {
 
                 this.insured.controls['insuredState'].setValue('');
-                for (let i = 0; i < this.iresponse.length; i++) {
-                    this.insurepersonalCitys.push({city: this.iresponse[i].city = ''});
-                }
+                // for (let i = 0; i < this.iresponse.length; i++) {
+                    this.insurepersonalCitys.push({city: this.iresponse.city = ''});
+                // }
                 this.toastr.error('In valid Pincode');
             }
         }
         if (this.title == 'residence') {
             this.insuredresidenceCitys = [];
             this.rinsuredResponse = successData.ResponseObject;
+            this.city =   this.rinsuredResponse.city;
             if (successData.IsSuccess) {
-                this.insured.controls['insuredrState'].setValue(this.rinsuredResponse[0].state);
-                for (let i = 0; i < this.rinsuredResponse.length; i++) {
-                    this.insuredresidenceCitys.push({city: this.rinsuredResponse[i].city});
-                }
+                this.insured.controls['insuredrState'].setValue(this.rinsuredResponse.state);
+                // for (let i = 0; i < this.rinsuredResponse.length; i++) {
+                    this.insuredresidenceCitys.push({city: this.rinsuredResponse.city});
+                // }
+                console.log( this.insuredresidenceCitys,'city');
+
             } else if (successData.IsSuccess != true) {
                 this.insured.controls['insuredrState'].setValue('');
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.insuredresidenceCitys.push({city: this.rinsuredResponse[i].city = ''});
-                }
+                // for (let i = 0; i < this.rResponse.length; i++) {
+                    this.insuredresidenceCitys.push({city: this.rinsuredResponse.city = ''});
+                // }
                 this.toastr.error('In valid Pincode');
             }
         }
@@ -1554,6 +1577,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposer_details.proposal_id;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
+            this.proposerDataForm = this.insured.value;
+            this.nomineeDataForm = this.nomineeDetails.value;
+            console.log( this.proposerDataForm,'proposerDataForm');
+            console.log( this.nomineeDataForm,'proposerDataForm');
             // for( let i=0; i < this.occupationCode.length; i++) {
             //     if(this.summaryData.proposer_details.p_occupation_code == this.occupationCode[i].occupation_code) {
             //         this.summaryData.proposer_details.occupation_description =  this.occupationCode[i].occupation_description;
@@ -1592,4 +1619,22 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
     }
+    changeRCity(){
+        this.insured.controls['insuredrCityName'].patchValue(this.insuredresidenceCitys[this.insured.controls['insuredrCity'].value]);
     }
+    changeCity() {
+        this.insured.controls['insuredCityName'].patchValue(this.insuredresidenceCitys[this.insured.controls['insuredCity'].value]);
+    }
+    changeOccupationDescription(){
+        this.insured.controls['insuredClassDescriptionCodeName'].patchValue(this.insureClassDescription[this.insured.controls['insuredClassDescriptionCode'].value]);
+    }
+    changeDescription(){
+        this.insured.controls['insuredDescriptionCodeName'].patchValue(this.insureoccupationdescriptionList[this.insured.controls['insuredDescriptionCode'].value]);
+    }
+    changeOccupation(){
+        this.insured.controls['insuredOccupationCodeName'].patchValue(this.occupationCode[this.insured.controls['insuredOccupationCode'].value]);
+    }
+    changeRelationShip(){
+        this.nomineeDetails.controls['religareRelationshipName'].patchValue(this.relationshipList[this.nomineeDetails.controls['religareRelationship'].value]);
+    }
+}
