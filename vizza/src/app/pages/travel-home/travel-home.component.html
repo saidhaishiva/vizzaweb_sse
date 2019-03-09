@@ -8,7 +8,7 @@
             <img src="assets/img/Travel-Inner-banner.png" class="w-100">
             <div class="aboutContent">
               <h4>About Travel Insurance</h4>
-              <p>Sometimes, things don’t go as planned. Wherever you go, we protect you.… <button mat-button color="accent" (click)="travelInsurer()" style="border: 1px solid #000;"> Know More</button></p>
+              <p style="text-align: left;">Sometimes, things don’t go as planned. Wherever you go, we protect you.… <button class="btn btn-sm" (click)="travelInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -144,13 +144,18 @@
                     </mat-radio-group>
                     <div *ngIf="medicalerror" class="ngError">Required</div>
                     <div fxLayoutAlign="center center" class="mt-3">
-                      <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed <i class="material-icons">play_arrow</i></button>
+                      <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed</button>
+                      <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
+                      <!--<i class="material-icons" style="position: absolute; right: 10px;" (click)="refresh()">refresh</i> Reset-->
                     </div>
-                    <div fxLayoutAlign="end center" class="text-right refreshBtn" >
-                      <i class="material-icons" (click)="refresh()">refresh</i> Reset
-                    </div>
+                    <!--<div fxLayoutAlign="end center" class="text-right refreshBtn" >-->
+                      <!--<i class="material-icons" (click)="refresh()">refresh</i> Reset-->
+                    <!--</div>-->
 
-
+                    <!--<div class="col-md-12 text-center mt-3">-->
+                      <!--<button mat-raised-button color="accent" type="button" class="btn-color"  (click)="submit('self')">Proceed</button>-->
+                      <!--<button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons" click)="refresh()">refresh</i> Reset</button>-->
+                    <!--</div>-->
                   </div>
 
                 </div>

@@ -8,7 +8,7 @@
             <img src="assets/img/Fire-Insurance-new.jpg" style="height:605px;" class="w-100">
             <div class="aboutContent">
               <h4 class="w-100 text-center">About Fire Insurance</h4>
-              <p class="text-justify">Think of fire before it starts, whatever burns never returns..… <button mat-button color="accent" (click)="FireInsurer()" style="border: 1px solid #000;"> Know More</button></p>
+              <p class="text-justify">Think of fire before it starts, whatever burns never returns..… <button class="btn btn-sm" (click)="FireInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -110,9 +110,7 @@
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!fireapp.valid ) || (!pincodeErrors)" (click)="fireKeeper(fireapp.value)">Submit</button>
-                </div>
-                <div class="col-md-12 text-right mt-3">
-                  <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
+                  <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
             </form>

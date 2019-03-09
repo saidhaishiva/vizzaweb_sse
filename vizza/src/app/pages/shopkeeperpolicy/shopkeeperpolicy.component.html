@@ -7,8 +7,8 @@
             <div class="aboutImg">
               <img src="assets/img/Shopkeppers-Policy-Final_2019.jpg" style="height:605px;" class="w-100">
               <div class="aboutContent">
-                <h4>About Shopkeepers Policy</h4>
-                <p>If you’re insured, your shop is always “open”...… <button mat-button color="accent" (click)="ShopkepperInsurer()" style="border: 1px solid #000;"> Know More</button></p>
+                <h4 style="text-align: right">About Shopkeepers Policy</h4>
+                <p>If you’re insured, your shop is always “open”...… <button class="btn btn-sm" (click)="ShopkepperInsurer()" style="border: 1px solid #000; background-color: inherit"> Know More</button></p>
               </div>
             </div>
           </div>
@@ -108,9 +108,7 @@
                       </div>
                       <div class="col-md-12 text-center mt-3">
                         <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!shopapp.valid ) || (!pincodeErrors)" (click)="shopKeeper(shopapp.value)" >Submit</button>
-                      </div>
-                      <div class="col-md-12 text-right mt-3">
-                        <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
+                        <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                       </div>
                     </div>
                   </form>

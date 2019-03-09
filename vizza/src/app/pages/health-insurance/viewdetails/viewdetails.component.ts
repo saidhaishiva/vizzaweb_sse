@@ -39,6 +39,7 @@ export class ViewdetailsComponent implements OnInit {
     url: any;
     fileUploadPath: any;
     productName: any;
+    sumInsuredAmount: any;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
@@ -54,7 +55,7 @@ export class ViewdetailsComponent implements OnInit {
 
         this.form = this.fb.group({
             'name': ['', Validators.compose([Validators.required])],
-            'email': ['', Validators.compose([Validators.required])],
+            'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             'subject': ['', Validators.compose([Validators.required])],
             'message': ['', Validators.compose([Validators.required])],
             'profile': ['',Validators.compose( [Validators.required])]
@@ -63,8 +64,10 @@ export class ViewdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-
-
+      if (sessionStorage.setAllProductLists != undefined && sessionStorage.setAllProductLists != '') {
+          let setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
+          this.sumInsuredAmount = setAllProductLists[0].suminsured_amount;
+      }
       this.viewKeyFeatures(this.productId);
   }
     onNoClick(): void {
@@ -117,7 +120,8 @@ export class ViewdetailsComponent implements OnInit {
             'userid': 1,
             'roleid': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'productid': value
+            'productid': value,
+            'si_amount': this.sumInsuredAmount
 
         };
         this.settings.loadingSpinner = true;
@@ -138,13 +142,7 @@ export class ViewdetailsComponent implements OnInit {
             const getIndex = this.getKeyList.findIndex( list => list.type == 1);
             this.id = getIndex;
             this.bgColor = 'true';
-            // for (let i = 0; i < this.getKeyList.length; i++) {
-            //     if(this.getKeyList[i].kf_type == 2) {
-            //         this.id = i;
-            //     }
-            // }
         }
-       // console.log(this.id, 'this.id');
     }
     public viewKeyFailure(error) {
         this.settings.loadingSpinner = false;
@@ -175,6 +173,7 @@ export class ViewdetailsComponent implements OnInit {
         this.getUrl = event[1];
         const data1 = {
             'platform': 'web',
+            'flag':'healthInsurance',
             'uploadtype': 'single',
             'images': this.getUrl,
         };
@@ -202,7 +201,7 @@ export class ViewdetailsComponent implements OnInit {
     }
     public contactDetails(): void {
         if (this.form.valid) {
-            const data1 = {
+            const data = {
                 'name': this.form.controls['name'].value,
                 'email': this.form.controls['email'].value,
                 'subject': this.form.controls['subject'].value,
@@ -212,8 +211,7 @@ export class ViewdetailsComponent implements OnInit {
                 'platform': 'web',
                 'uploaded_doc': this.fileUploadPath
             };
-            console.log(data1);
-            this.common.contactDetails(data1).subscribe(
+            this.common.contactDetails(data).subscribe(
                 (successData) => {
                     this.getDetailsSuccess(successData);
                 },
@@ -225,18 +223,18 @@ export class ViewdetailsComponent implements OnInit {
     }
     public getDetailsSuccess(successData) {
         this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            console.log(successData.ResponseObject, 'successData.ResponseObject');
+        if (successData.IsSuccess == true) {
+            this.toastr.success('Health Claim is created successfully!!');
+
             this.data1 = successData.ResponseObject;
         } else {
-            this.toastr.success('Contact details added successfully');
+            this.toastr.error(successData.ErrorObject);
         }
     }
 
     // handle error data
 
     public getDetailsFailure(error) {
-        console.log(error);
         this.settings.loadingSpinner = false;
     }
 }

@@ -9,7 +9,7 @@
             <img src="assets/img/Personal-Accident-Inner-banner.png" class="w-100">
             <div class="aboutContent">
               <h4>About Personal Accident</h4>
-              <p>Being safe is in your own hands. We can help you .… <button mat-button color="accent" (click)="personalInsurer()" style="border: 1px solid #000;"> Know More</button></p>
+              <p>Being safe is in your own hands. We can help you .… <button class="btn btn-sm" (click)="personalInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -51,10 +51,16 @@
 
             <div fxLayoutAlign="center center" class="mt-3">
               <button mat-raised-button color="accent" type="button" (click)="getPersonalAccident()">Submit</button>
+              <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons" (click)="reset()">refresh</i> Reset</button>
             </div>
-            <div fxLayoutAlign="end center" class="text-right" >
-              <i class="material-icons ml-3" style="cursor: pointer" (click)="reset()">refresh</i> Reset
-            </div>
+            <!--<div fxLayoutAlign="end center" class="text-right" >-->
+              <!--<i class="material-icons ml-3" style="cursor: pointer" (click)="reset()">refresh</i> Reset-->
+            <!--</div>-->
+
+            <!--<div fxLayoutAlign="center center" class="mt-3">-->
+              <!--<button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList()">Proceed</button>-->
+              <!--<button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons" (click)="reset()">refresh</i> Reset</button>-->
+            <!--</div>-->
 
             <!--</form>-->
           </mat-card>

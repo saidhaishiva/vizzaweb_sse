@@ -176,7 +176,7 @@ export const routes: Routes = [
             { path: 'bankers', component: BankersComponent, data: {breadcrumb: 'Bankers Identity Policy'}},
             { path: 'erection', component: ErectionComponent, data: {breadcrumb: 'Erection All rick Policy'}},
             { path: 'register', component: RegisterComponent, data: { breadcrumb: 'Register' } },
-            { path: 'proposal/:stepper"', component: StarHealthProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
+            { path: 'proposal/:stepper', component: StarHealthProposalComponent, data: { breadcrumb: 'Proposal' }, canDeactivate: [DeactivateGuard] },
             { path: 'healthinsurance', component: HealthInsuranceComponent, data: { breadcrumb: 'Health' }, resolve: { companyDetails: HealthInsuranceResolver}},
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },

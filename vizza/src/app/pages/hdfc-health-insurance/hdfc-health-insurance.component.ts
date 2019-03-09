@@ -957,7 +957,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             this.fullName = this.personlData.firstname +' '+ this.personlData.lastname;
             this.totalAmount = parseFloat(this.summaryData.totalPremium);
 
-
+            this.topScroll();
         } else {
             this.toastr.error(successData.ErrorObject);
         }
