@@ -2155,6 +2155,7 @@ export class AppolloMunichComponent implements OnInit {
         let clientData = this.totalInsureDetails.slice(1);
       const data  = {
             'enquiry_id': this.getFamilyDetails.enquiry_id,
+            'product_id': this.buyProductdetails.product_id,
             'proposal_id': sessionStorage.appollo_health_proposal_id == '' || sessionStorage.appollo_health_proposal_id == undefined ? '' : sessionStorage.appollo_health_proposal_id,
             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',

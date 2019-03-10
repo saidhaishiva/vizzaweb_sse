@@ -490,8 +490,11 @@ export class HealthInsuranceComponent implements OnInit {
         if (successData.IsSuccess) {
             this.groupDetails = successData.ResponseObject;
             this.groupList = successData.ResponseObject.family_groups;
-            sessionStorage.groupDetails = JSON.stringify(successData.ResponseObject);
-            console.log(this.groupList, 'groupDetails');
+            sessionStorage.changedTabIndex = 0;
+            for(let i = 0; i < this.groupDetails.family_groups.length; i++) {
+                this.groupDetails.family_groups[i].status = 0;
+            }
+            sessionStorage.groupDetails = JSON.stringify(this.groupDetails);
             if(this.groupList.length > 1) {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
                     width: '1500px', data: {comparedata: successData.ResponseObject.family_groups}});
@@ -608,11 +611,13 @@ export class HealthInsuranceComponent implements OnInit {
             sessionStorage.changedTabIndex = index;
             this.productListArray = [];
             this.allProductLists = [];
-            for(let i = 0; i < this.allCompanyList.length; i++) {
-                this.updateTabPolicy(this.allCompanyList[i].company_id, this.allPolicyDetails[0], index);
+            if(this.groupDetails.family_groups[index].status == 0) {
+                for(let i = 0; i < this.allCompanyList.length; i++) {
+                    this.updateTabPolicy(this.allCompanyList[i].company_id, this.groupDetails.family_groups[index].name, this.groupDetails, index);
+                }
             }
     }
-    updateTabPolicy(company_id, value, index) {
+    updateTabPolicy(company_id, gName, value, index) {
         this.finalData = [];
         for (let i = 0; i < this.setArray.length; i++) {
             if (this.setArray[i].checked) {
@@ -632,7 +637,7 @@ export class HealthInsuranceComponent implements OnInit {
             'postalcode': this.pincoce ? this.pincoce : '',
             'sum_insured': '',
             'family_details': this.finalData,
-            'family_group_name': value.name,
+            'family_group_name': gName,
             'enquiry_id': value.enquiry_id,
             'created_by': '0',
             "company_id": company_id,
@@ -858,7 +863,7 @@ export class HealthInsuranceComponent implements OnInit {
             'platform': 'web',
             'postalcode': this.pincoce ? this.pincoce : '',
             'sum_insured': this.changeSuninsuredAmount,
-            'family_group_name': this.allPolicyDetails[0].name,
+            'family_group_name': this.groupDetails.family_groups[sessionStorage.changedTabIndex].name,
             'enquiry_id': this.allPolicyDetails[0].enquiry_id,
             'created_by': '0',
             "company_id": company_id,
@@ -1033,7 +1038,7 @@ export class HealthInsuranceComponent implements OnInit {
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
                     let ageValid = true;
                         for(let i=0; i < this.changedTabDetails.family_members.length; i++){
-                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 22) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 22)){
+                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age < 22) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age < 22)){
                                 ageValid = false;
                             }
                          }

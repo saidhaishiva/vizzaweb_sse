@@ -596,7 +596,7 @@ a:hover {
   .health-table{
     button{
       font-size: 12px;
-      padding: 0 10px;
+      padding: 0 4px;
       line-height: 1.6;
 
     }
@@ -657,14 +657,14 @@ a:hover {
     th {
       text-align: center;
       border-collapse: collapse;
-      border: 1px solid #ccc !important;
+      border: 1px solid #efecec !important;
       padding: 5px !important;
     }
     td{
       vertical-align: middle;
       color: rgba(4, 78, 67, 0.87);
       font-size: 13px;
-      border: 1px solid #ccc;
+      border: 1px solid #efecec;
       text-align: left;
 
     }
@@ -3045,7 +3045,7 @@ fieldset {
   tbody{
     td{
       float:left;
-      height:70px;
+      height:84px;
     }
   }
   thead {
