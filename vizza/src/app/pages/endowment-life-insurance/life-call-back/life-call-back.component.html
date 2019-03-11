@@ -50,7 +50,6 @@
                   <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}"  minlength="6" (keypress)="numberValidate($event)"  maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
                   <mat-error *ngIf="Lifeapp.controls.pincode.errors?.required">Pincode is required</mat-error>
                   <mat-error *ngIf="Lifeapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                  <mat-error *ngIf="Lifeapp.controls.pincode.hasError('required')">Pincode required</mat-error>
                   <mat-error *ngIf="Lifeapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                   <mat-icon matSuffix>place</mat-icon>
                 </mat-form-field>
