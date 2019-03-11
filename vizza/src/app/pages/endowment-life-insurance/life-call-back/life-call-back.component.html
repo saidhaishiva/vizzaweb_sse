@@ -16,21 +16,8 @@
             <div class="row">
               <div class="col-md-6" >
                 <mat-form-field class="w-100">
-                  <mat-select  placeholder="Insurance Type" formControlName ="insurance" autocomplete="off" required>
-                    <mat-option value="shopkeepers">Shopkeepers</mat-option>
-                    <mat-option value="marine">Marine Cargo Policy</mat-option>
-                    <mat-option value="money">Money Insurance</mat-option>
-                    <mat-option value="fire">Fire Policy</mat-option>
-                    <mat-option value="burglary">Burglary Policy</mat-option>
-                    <mat-option value="machinery">Machinery Breakdown Policy</mat-option>
-                    <mat-option value="electronics">Electronics Equiptment Policy</mat-option>
-                    <mat-option value="contractors">Contractors All Risk Policy</mat-option>
-                    <mat-option value="house-holders">House Holders Policy</mat-option>
-                    <mat-option value="public-liability">Public Liability</mat-option>
-                    <mat-option value="professional">Professional Indemnity Policy</mat-option>
-                    <mat-option value="workmen-compensation">Workmen Compensation</mat-option>
-                  </mat-select>
-                  <mat-error *ngIf="Lifeapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>
+                  <input matInput placeholder="Company Name" formControlName="CompanyName"  (keypress)="nameValidate($event)"  autocomplete="off" maxlength="30" required >
+                  <mat-error *ngIf="Lifeapp.controls.CompanyName.errors?.required">Insurance Type is required</mat-error>
                 </mat-form-field>
               </div>
               <div class="col-md-6">

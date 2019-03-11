@@ -54,7 +54,7 @@ export class LifeCallBackComponent implements OnInit {
         this.settings = this.appSettings.settings;
 
         this.Lifeapp = this.fb.group({
-            'insurance': ['', Validators.compose([Validators.required])],
+            'CompanyName': ['', Validators.compose([Validators.required])],
             'contactperson': ['', Validators.compose([Validators.required])],
             'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
             'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -182,7 +182,6 @@ export class LifeCallBackComponent implements OnInit {
                 'user_id':this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                 'role_id':this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'product_id': this.productId,
-                // 'inurance_type': this.Lifeapp.controls['insurance'].value,
                 'appoinment_date': date,
                 'time': this.setFtime,
                 'mobile': this.Lifeapp.controls['mobile'].value,
@@ -190,7 +189,7 @@ export class LifeCallBackComponent implements OnInit {
                 'contact_person' : this.Lifeapp.controls['contactperson'].value,
                 'pincode': this.Lifeapp.controls['pincode'].value,
                 'call_or_meetperson': this.Lifeapp.controls['appointmentwith'].value,
-                'company_name': this.Lifeapp.controls['insurance'].value
+                'company_name': this.Lifeapp.controls['CompanyName'].value
 
             };
             this.settings.loadingSpinner = true;
