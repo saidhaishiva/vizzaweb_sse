@@ -294,8 +294,8 @@
                       </mat-form-field></div>
                         <div class="col-md-3" >
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode()"   required>
-                                    <mat-option *ngFor="let occupation of occupationCode" value="{{occupation.occupation_code}}">{{occupation.occupation_description}}</mat-option>
+                                <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationCode" (change)="setinsureOccupationListCode(); changeOccupation()"   required>
+                                    <mat-option *ngFor="let occupation of occupationCode | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredOccupationCode.errors?.required">Occupation is required</mat-error>
 
@@ -303,8 +303,8 @@
                         </div>
                         <div class="col-md-3" >
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Occupation List" name="occupation" formControlName="insuredDescriptionCode"   (change)="setinsureDescriptionListCode()" required>
-                                    <mat-option *ngFor="let occupation of insureoccupationdescriptionList " value="{{occupation.occupation_class}}">{{occupation.description}}</mat-option>
+                                <mat-select placeholder="Occupation List" name="occupation" formControlName="insuredDescriptionCode"   (change)="setinsureDescriptionListCode(); changeDescription()" required>
+                                    <mat-option *ngFor="let occupation of insureoccupationdescriptionList | keys " value="{{occupation.key}}">{{occupation.value}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredDescriptionCode.errors?.required">Occupation List is required</mat-error>
 
@@ -318,8 +318,8 @@
                         </div>
                         <div class="col-md-3" *ngIf="insureoccupationClass">
                             <mat-form-field class="w-100" >
-                                <mat-select placeholder="Occupation Description" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode()"  >
-                                    <mat-option *ngFor="let classOccupation of insureClassDescription"  value="{{classOccupation.occupation_class_description}}">{{classOccupation.occ_name}}</mat-option>
+                                <mat-select placeholder="Occupation Description" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode(); changeOccupationDescription()"  >
+                                    <mat-option *ngFor="let classOccupation of insureClassDescription | keys"  value="{{classOccupation.key}}">{{classOccupation.value}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -360,20 +360,20 @@
                         <mat-error *ngIf="insured.controls.insuredEmail2.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                       </mat-form-field></div>
-                      <div class="col-md-3; pt-1"><mat-form-field class="w-100">
+                      <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insuredMobile" autocomplete="off"   [readonly]="readonlyproposer" required>
                         <mat-error *ngIf="insured.controls.insuredMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                       </mat-form-field></div>
-                      <div class="col-md-3; pt-1"><mat-form-field class="w-100">
+                      <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Residential Number" formControlName="insuredAltnumber" maxlength="10" minlength="10"  [readonly]="readonlyproposer" (keyup)="alternateChange($event, 'insurer')" (keypress)="numberValidate($event)" autocomplete="off">
 
                       </mat-form-field>
                         <div class="error" *ngIf="insuremobileNumber != '' && insuremobileNumber != 'true'">{{insuremobileNumber}}</div>
 
                       </div>
-                       <div class="col-md-3 ; pt-1">
+                       <div class="col-md-3 ">
                          <mat-form-field class="w-100" >
                            <input matInput placeholder="Height"  formControlName="insuredHeight" (keypress)="numberValidate($event)"  maxlength="3"   required autocomplete="off">
                            <mat-error *ngIf="insured.controls.insuredHeight.errors?.required">Height is required</mat-error>
@@ -381,7 +381,8 @@
 
                          </mat-form-field>
                        </div>
-                       <div class="col-md-3; pt-1">
+                       <!--<div class="col-md-3; pt-1">-->
+                       <div class="col-md-3">
                          <mat-form-field class="w-100" >
                            <input matInput placeholder="Weight"  formControlName="insuredWeight" (keypress)="numberValidate($event)"   maxlength="3" required autocomplete="off">
                            <mat-error *ngIf="insured.controls.insuredWeight.errors?.required">Weight is required</mat-error>
@@ -416,9 +417,9 @@
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4" *ngIf="sameFieldsInsure != true"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off"  required>
-                          <mat-option *ngFor="let city of insurepersonalCitys" [value]= 'city.city'>
-                            {{city.city}}
+                        <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" (change)="changeCity()" required>
+                          <mat-option *ngFor="let city of personalcity | keys" [value]= 'city.key'>
+                            {{city.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insured.controls.insuredCity.errors?.required">City is required</mat-error>
@@ -465,9 +466,9 @@
 
                       </mat-form-field></div>
                       <div class="col-md-4" *ngIf="sameinsure != true" ><mat-form-field class="w-100">
-                        <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off"  [disabled]="inputReadonly" required>
-                          <mat-option *ngFor="let citys of insuredresidenceCitys" [value]= 'citys.city'>
-                            {{citys.city}}
+                        <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (change)="changeRCity()" [disabled]="inputReadonly" required>
+                          <mat-option *ngFor="let citys of city | keys" [value]= 'citys.key'>
+                            {{citys.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insured.controls.insuredrCity.errors?.required">City is required</mat-error>
@@ -564,8 +565,8 @@
                       <!--</mat-form-field></div>-->
                         <div class="col-md-4">
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (change)="setRelationship()" required  >
-                                    <mat-option *ngFor="let relation of relationshipList" [hidden]="sameRelationship == relation.relationship_name" value="{{relation.relationship_name}}">{{relation.relationship_name}}</mat-option>
+                                <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (change)="setRelationship(); changeRelationShip()" required  >
+                                    <mat-option *ngFor="let relation of relationshipList | keys" [hidden]="sameRelationship == relation.key" value="{{relation.key}}">{{relation.value}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredrelationship.errors?.required">Relationship With Insured is required</mat-error>
 
@@ -607,30 +608,31 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_details.p_titlecd}}. {{summaryData.proposer_details.p_fname}} {{summaryData.proposer_details.p_lname}} </li>
-                        <li class="list-group-item"><strong>Gender:</strong>{{summaryData.proposer_details.p_gender}} </li>
-                        <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_details.p_dob  | date: 'dd/MM/yyyy'}}</li>
-                      <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_details.p_mob_contactnum}} </li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_details.p_res_contactnum != ''"><strong>Residence Number:</strong>{{summaryData.proposer_details.p_res_contactnum}} </li>
-                      <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_details.p_per_email}}</li>
-                      <li class="list-group-item"><strong>Relationship With Insured:</strong>  {{summaryData.proposer_details.p_relationcd}}</li>
-                      <li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_details.p_occupation_code}}</li>
+                      <li class="list-group-item"><strong>Name:</strong> {{proposerDataForm.insuredTitle}}. {{proposerDataForm.insuredFirstname}} {{proposerDataForm.insuredLastname}} </li>
+                        <li class="list-group-item"><strong>Gender:</strong>{{proposerDataForm.insuredGender}} </li>
+                        <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerDataForm.insuredDob  | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerDataForm.insuredMobile}} </li>
+                      <!--<li class="list-group-item" *ngIf="summaryData.proposer_details.p_res_contactnum != ''"><strong>Residence Number:</strong>{{proposerDataForm.proposer_details.p_res_contactnum}} </li>-->
+                      <li class="list-group-item"><strong>Personal Email Id:</strong>  {{proposerDataForm.insuredEmail}}</li>
+                      <!--<li class="list-group-item"><strong>Relationship With Insured:</strong>  {{proposerDataForm.proposer_details.p_relationcd}}</li>-->
+                      <li class="list-group-item"><strong>Occupation:</strong>  {{proposerDataForm.insuredOccupationCodeName}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <!--<li class="list-group-item"><strong>Relationship With Insured:</strong>  {{summaryData.proposer_details.p_relationcd}}</li>-->
-                      <!--<li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_details.occupation_description}}</li>-->
-                      <li class="list-group-item" *ngIf="summaryData.proposer_details.p_occupation_class_description != '' && summaryData.proposer_details.p_occupation_class_description != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.p_occupation_class_description}}</li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredDescriptionCodeName != '' && proposerDataForm.insuredDescriptionCodeName != null"><strong>Occupation Description:</strong>  {{proposerDataForm.insuredDescriptionCodeName}}</li>
 
-                      <li class="list-group-item"><strong>Occupation List:</strong>  {{summaryData.proposer_details.p_occupation_class_description}}</li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_details.occ_name != '' && summaryData.proposer_details.occ_name != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_details.occ_name}}</li>
-                      <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_details.p_pan_idnum}}</li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_details.p_pass_idnum != ''"><strong>Passport Number:</strong> {{summaryData.proposer_details.p_pass_idnum}}</li>
-                      <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_details.p_annual_salary}} </li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_details.p_off_email != ''"><strong>Official Email Id:</strong>  {{summaryData.proposer_details.p_off_email}}</li>
+                      <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerDataForm.insuredClassDescriptionCodeName}}</li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredDescriptionName != '' && proposerDataForm.insuredDescriptionName != null"><strong>Occupation Description:</strong>  {{proposerDataForm.insuredDescriptionName}}</li>
+                      <li class="list-group-item"><strong>PAN Number:</strong> {{proposerDataForm.insuredPan}}</li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredPassPort != ''"><strong>Passport Number:</strong> {{proposerDataForm.insuredPassPort}}</li>
+                      <li class="list-group-item"><strong>Annual Income:</strong>{{proposerDataForm.insuredAnnualIncome}} </li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredEmail2 != ''"><strong>Official Email Id:</strong>  {{proposerDataForm.insuredEmail2}}</li>
+
+                      <li class="list-group-item"><strong>Height:</strong>  {{proposerDataForm.insuredHeight}}</li>
+                      <li class="list-group-item"><strong>Weight:</strong>  {{proposerDataForm.insuredWeight}}</li>
 
                     </ul>
                   </div>
@@ -639,11 +641,11 @@
                   <div class="p-3">
                     <h6>COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_details.p_address1_p}}</li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_details.p_address2_p != ''"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_p}}</li>
-                      <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_details.p_pincode_p}}</li>
-                      <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_details.p_citycd_p}}</li>
-                      <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_details.p_statecd_p}}</li>
+                      <li class="list-group-item"><strong>Address 1:</strong>{{proposerDataForm.insuredAddress}}</li>
+                      <li class="list-group-item"><strong>Address 2:</strong>{{proposerDataForm.insuredAddress2}}</li>
+                      <li class="list-group-item"><strong>PIN code:</strong> {{proposerDataForm.insuredPincode}}</li>
+                      <li class="list-group-item"><strong>City:</strong>{{proposerDataForm.insuredCityName}}</li>
+                      <li class="list-group-item"><strong>State:</strong>{{proposerDataForm.insuredState}}</li>
 
 
                     </ul>
@@ -653,76 +655,11 @@
                   <div class=" p-3">
                     <h6 class="color-blue">RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_details.p_address1_c}} </li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_details.p_address2_c != ''"><strong>Address 2:</strong>{{summaryData.proposer_details.p_address2_c}}</li>
-                      <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_details.p_pincode_c}} </li>
-                      <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_details.p_areacd_c}}</li>
-                      <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_details.p_statecd_c}}</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section>
-              <h5 class="mt-3 ">INSURED DETAILS </h5>
-              <div class="row box-card">
-                <div class="col-md-12">
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{summaryData.proposer_insurer_details.i_titlecd}}. {{summaryData.proposer_insurer_details.i_fname}} {{summaryData.proposer_insurer_details.i_lname}} </li>
-                      <li class="list-group-item"><strong>Gender:</strong>  {{summaryData.proposer_insurer_details.i_gender }}</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong>  {{summaryData.proposer_insurer_details.i_dob | date: 'dd/MM/yyyy'}}</li>
-                      <li class="list-group-item"><strong>Personal Email Id:</strong>  {{summaryData.proposer_insurer_details.i_per_email}}</li>
-                      <li class="list-group-item"><strong>Mobile Number:</strong>{{summaryData.proposer_insurer_details.i_mob_contactnum}} </li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_res_contactnum!= ''"><strong>Residence Number:</strong>{{summaryData.proposer_insurer_details.i_res_contactnum}} </li>
-
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Occupation:</strong>  {{summaryData.proposer_insurer_details.occupation_description}}</li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.occ_name != '' && summaryData.proposer_insurer_details.occ_name != null"><strong>Occupation Description:</strong>  {{summaryData.proposer_insurer_details.occ_name}}</li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.description != '' && summaryData.proposer_insurer_details.description != null"><strong>Occupation List:</strong>  {{summaryData.proposer_insurer_details.description}}</li>
-
-                      <li class="list-group-item"><strong>Height:</strong>  {{summaryData.proposer_insurer_details.i_height}}</li>
-                      <li class="list-group-item"><strong>Weight:</strong>  {{summaryData.proposer_insurer_details.i_weight}}</li>
-
-                      <li class="list-group-item"><strong>PAN Number:</strong> {{summaryData.proposer_insurer_details.i_pan_idnum}}</li>
-                      <!--<li class="list-group-item"><strong>RelationShip with Proposer:</strong> {{summaryData.proposer_insurer_details.i_relationcd}}</li>-->
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_pass_idnum!= ''"><strong>Passport Number:</strong> {{summaryData.proposer_insurer_details.i_pass_idnum}}</li>
-                      <li class="list-group-item"><strong>Annual Income:</strong>{{summaryData.proposer_insurer_details.i_annual_salary}} </li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_off_email != ''"><strong>Official Email Id:</strong>  {{summaryData.proposer_insurer_details.i_off_email}}</li>
-
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_p}}</li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_address1_p != ''"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address1_p}}</li>
-                      <li class="list-group-item"><strong>PIN code:</strong> {{summaryData.proposer_insurer_details.i_pincode_c}}</li>
-                      <li class="list-group-item"><strong>City:</strong>{{summaryData.proposer_insurer_details.i_citycd_c}}</li>
-                      <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
-
-
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class=" p-3">
-                    <h6 class="color-blue">RESIDENCE DETAILS</h6>
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address 1:</strong>{{summaryData.proposer_insurer_details.i_address1_c}} </li>
-                      <li class="list-group-item" *ngIf="summaryData.proposer_insurer_details.i_address1_c != ''"><strong>Address 2:</strong>{{summaryData.proposer_insurer_details.i_address1_c}} </li>
-                      <li class="list-group-item"><strong>PIN code:</strong>{{summaryData.proposer_insurer_details.i_pincode_c}} </li>
-                      <li class="list-group-item"><strong>City:</strong> {{summaryData.proposer_insurer_details.i_citycd_c}}</li>
-                      <li class="list-group-item"><strong>State:</strong>{{summaryData.proposer_insurer_details.i_statecd_c}}</li>
+                      <li class="list-group-item"><strong>Address 1:</strong>{{proposerDataForm.insuredrAddress}} </li>
+                      <li class="list-group-item"><strong>Address 2:</strong>{{proposerDataForm.insuredrAddress2}}</li>
+                      <li class="list-group-item"><strong>PIN code:</strong>{{proposerDataForm.insuredrPincode}} </li>
+                      <li class="list-group-item"><strong>City:</strong> {{proposerDataForm.insuredrCityName}}</li>
+                      <li class="list-group-item"><strong>State:</strong>{{proposerDataForm.insuredrState}}</li>
                     </ul>
                   </div>
                 </div>
@@ -778,7 +715,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong> {{summaryData.proposer_details.nominee_name}}</li>
+                        <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeDataForm.religareNomineeName}}</li>
                       </ul>
                     </div>
 
@@ -790,7 +727,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{summaryData.proposer_details.nominee_relationship}}</li>
+                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{nomineeDataForm.religareRelationshipName}}</li>
                       </ul>
                     </div>
 

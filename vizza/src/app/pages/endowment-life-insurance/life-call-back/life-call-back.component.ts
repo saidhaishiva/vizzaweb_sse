@@ -54,7 +54,7 @@ export class LifeCallBackComponent implements OnInit {
         this.settings = this.appSettings.settings;
 
         this.Lifeapp = this.fb.group({
-            'insurance': ['', Validators.compose([Validators.required])],
+            'CompanyName': ['', Validators.compose([Validators.required])],
             'contactperson': ['', Validators.compose([Validators.required])],
             'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
             'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
@@ -68,7 +68,6 @@ export class LifeCallBackComponent implements OnInit {
   ngOnInit() {
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
-      console.log(this.productId,'this.productIdthis.productId');
   }
 
   onNoClick(): void {
@@ -93,6 +92,7 @@ export class LifeCallBackComponent implements OnInit {
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    alert('jjjj');
                     if(type == 'endomentdate'){
                         this.dobError = '';
                     }else {
@@ -112,16 +112,16 @@ export class LifeCallBackComponent implements OnInit {
 
         }
     }
-    ageCalculate(dob) {
-        let today = new Date();
-        let birthDate = new Date(dob);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        let m = today.getMonth() - birthDate.getMonth();
-        let dd = today.getDate()- birthDate.getDate();
-        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
-            age = age-1;
-        }
-    }
+    // ageCalculate(dob) {
+    //     let today = new Date();
+    //     let birthDate = new Date(dob);
+    //     let age = today.getFullYear() - birthDate.getFullYear();
+    //     let m = today.getMonth() - birthDate.getMonth();
+    //     let dd = today.getDate()- birthDate.getDate();
+    //     if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+    //         age = age-1;
+    //     }
+    // }
     getPincodeDetails(pin, title) {
         this.pin = pin;
         this.title = title;
@@ -173,15 +173,11 @@ export class LifeCallBackComponent implements OnInit {
             } else {
                 this.setFtime = hours + ':' + min + ' PM';
             }
-            console.log(this.setFtime,'setFtimesetFtime');
-            console.log(date,'datedatedate');
-            console.log(this.productId,'productIddddddddd');
             const data = {
                 'platform': 'web',
                 'user_id':this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                 'role_id':this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'product_id': this.productId,
-                // 'inurance_type': this.Lifeapp.controls['insurance'].value,
                 'appoinment_date': date,
                 'time': this.setFtime,
                 'mobile': this.Lifeapp.controls['mobile'].value,
@@ -189,7 +185,7 @@ export class LifeCallBackComponent implements OnInit {
                 'contact_person' : this.Lifeapp.controls['contactperson'].value,
                 'pincode': this.Lifeapp.controls['pincode'].value,
                 'call_or_meetperson': this.Lifeapp.controls['appointmentwith'].value,
-                'company_name': this.Lifeapp.controls['insurance'].value
+                'company_name': this.Lifeapp.controls['CompanyName'].value
 
             };
             this.settings.loadingSpinner = true;
@@ -206,6 +202,7 @@ export class LifeCallBackComponent implements OnInit {
     lifeAppointmentSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.dialogRef.close()
             this.toastr.success('Endowment Life created successfully!!');
         }else{
             this.toastr.error(successData.ErrorObject);
