@@ -9,6 +9,7 @@ import {AuthService} from '../../../shared/services/auth.service';
 import { ToastrService} from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {HealthService} from '../../../shared/services/health.service';
+import {ValidationService} from '../../../shared/services/validation.service';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class ViewdetailsComponent implements OnInit {
     sumInsuredAmount: any;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.productId = data.productId;
         this.productName = data.productName;
@@ -92,6 +93,17 @@ export class ViewdetailsComponent implements OnInit {
             this.bgColor = 'false';
 
         }
+    }
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
     }
     onSelectedIndexChange(index) {
         console.log(index, 'ind');
