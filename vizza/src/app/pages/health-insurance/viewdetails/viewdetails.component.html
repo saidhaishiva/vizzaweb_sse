@@ -183,13 +183,13 @@
                               <div class="row">
                                 <div class="col-md-6">
                                   <mat-form-field class="w-100">
-                                    <input matInput placeholder="Name" formControlName="name">
+                                    <input matInput placeholder="Name" formControlName="name" (keypress)="nameValidate($event)" required>
                                     <mat-error *ngIf="form.controls.name.errors?.required">name is required</mat-error>
                                   </mat-form-field>
                                 </div>
                                 <div class="col-md-6">
                                   <mat-form-field class="w-100">
-                                    <input matInput placeholder="Email" formControlName="email">
+                                    <input matInput placeholder="Email" formControlName="email" required>
                                     <mat-error *ngIf="form.controls.email.errors?.required">email is required</mat-error>
                                     <mat-error *ngIf="form.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                                   </mat-form-field>
@@ -198,7 +198,7 @@
                               <div class="row">
                                 <div class="col-md-12">
                                   <mat-form-field  class="w-100">
-                                    <input matInput placeholder="Subject" formControlName="subject">
+                                    <input matInput placeholder="Subject" formControlName="subject" (keypress)="idValidate($event)" required>
                                     <mat-error *ngIf="form.controls.subject.errors?.required">subject is required</mat-error>
                                   </mat-form-field>
                                 </div>
@@ -206,7 +206,7 @@
                               <div class="row">
                                 <div class="col-md-12" >
                                   <mat-form-field class="w-100">
-                                    <textarea cols="20" rows="5" matInput placeholder="Your Message *" formControlName="message"></textarea>
+                                    <textarea cols="20" rows="5" matInput placeholder="Your Message *" formControlName="message"  (keypress)="idValidate($event)"></textarea>
                                     <mat-error *ngIf="form.controls.message.errors?.required">message is required</mat-error>
                                   </mat-form-field>
                                 </div>
