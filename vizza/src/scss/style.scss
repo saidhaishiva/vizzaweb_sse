@@ -619,6 +619,12 @@ a:hover {
         min-width: 0;
         width: 105px !important;
       }
+      ::-webkit-scrollbar-thumb:vertical {
+        background-color: #00b39b !important;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #cfcfcf !important;
+      }
     }
 
     //tbody{

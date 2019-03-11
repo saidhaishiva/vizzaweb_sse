@@ -55,7 +55,7 @@
             <div *ngIf="pinerror" class="ngError">Required</div>
             <div fxLayoutAlign="center center" class="mt-1">
               <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList()">Proceed</button>
-              <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons" (click)="reset()">refresh</i> Reset</button>
+              <button mat-button (click)="reset()" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
             </div>
             <!--<div fxLayoutAlign="end center" class="text-right" style="cursor: pointer">-->
               <!--<mat-icon (click)="reset()" >refresh</mat-icon> <span (click)="reset()"> Reset </span>-->
@@ -111,7 +111,15 @@
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
                   <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                    <mat-option value="all" >Select All</mat-option>
+                    <mat-option value="All" >Select All</mat-option>
+
+                    <mat-select-trigger>
+                      {{filterCompany ? filterCompany[0] : ''}}
+                      <span *ngIf="filterCompany.length > 1" class="example-additional-selection">
+                        (+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})
+                      </span>
+                    </mat-select-trigger>
+
                     <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>

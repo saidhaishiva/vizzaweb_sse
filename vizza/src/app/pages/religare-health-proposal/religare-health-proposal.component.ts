@@ -580,6 +580,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.addon = successData.ResponseObject.addons_list[0];
             this.objectKeys = Object.keys(this.addon).map(k => ({key: k, value:  this.addon[k]}));
+           console.log(this.objectKeys, 'this.objectKeys8');
             for (let i=0; i < this.objectKeys.length; i++) {
                 this.objectKeys[i].checked = false;
             }

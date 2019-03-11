@@ -126,7 +126,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.route.data.forEach((data) => {
             if(data.companyDetails.IsSuccess) {
                 this.allCompanyList = data.companyDetails.ResponseObject;
-                let all = ['all'];
+                let all = ['All'];
                 for (let i = 0; i < this.allCompanyList.length; i++) {
                     all.push(this.allCompanyList[i].company_name);
                 }
@@ -277,16 +277,13 @@ export class HealthInsuranceComponent implements OnInit {
         }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);
-            if(this.filterCompany.includes('all')) {
+            if(this.filterCompany.includes('All')) {
                 this.checkAllStatus = true;
             } else {
                 this.checkAllStatus = false;
             }
         }
 
-
-        console.log(this.getSumInsureId, 'f');
-        console.log(this.changeSuninsuredAmount, 'seee');
 
     }
     ckeckedUser(value, index, name) {
@@ -680,7 +677,6 @@ export class HealthInsuranceComponent implements OnInit {
             this.productListArray.push(policylists[0].product_lists);
             this.allProductLists = [].concat.apply([], this.productListArray);
             this.allPolicyDetails = policylists;
-            console.log(this.allProductLists, 'this.allProductLists');
             sessionStorage.allPolicyDetails = JSON.stringify(policylists);
             sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
             sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
@@ -699,7 +695,6 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     addCompare(value,index) {
-        console.log(index, 'index');
         const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.allProductLists[index].compare = true;
         this.compareArray.push(data);
@@ -792,21 +787,19 @@ export class HealthInsuranceComponent implements OnInit {
     filterByProducts() {
        // this.insuranceLists = [];
         let index = sessionStorage.changedTabIndex;
-        console.log(this.filterCompany.includes('all'), 'this.hhhjjjj');
-
-        if(this.filterCompany.includes('all')){
+        if(this.filterCompany.includes('All')){
             this.checkAllStatus = true;
             this.allProductLists = this.setAllProductLists;
-            let all = ['all'];
+            let all = ['All'];
             for (let i = 0; i < this.allCompanyList.length; i++) {
                 all.push(this.allCompanyList[i].company_name);
             }
             this.filterCompany = all;
-        } else if(!this.filterCompany.includes('all') && this.filterCompany.length == this.allCompanyList.length){
+        } else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
             this.checkAllStatus = false;
             this.allProductLists = [];
             this.filterCompany = [];
-        }  else if(!this.filterCompany.includes('all') && this.filterCompany.length > 0){
+        }  else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
             this.checkAllStatus = false;
             let cmpy = [];
             for (let k = 0; k < this.filterCompany.length; k++) {
@@ -819,10 +812,6 @@ export class HealthInsuranceComponent implements OnInit {
             this.allProductLists = cmpy;
 
         }
-
-        console.log(this.filterCompany, 'this.filterCompany');
-
-        console.log(this.allProductLists, ' this.allProductListsallProductLists');
 
 
         // if (this.filterCompany.length < 1) {
@@ -919,7 +908,6 @@ export class HealthInsuranceComponent implements OnInit {
                 this.productListArray.push(policylists[0].product_lists);
                 this.allProductLists = [].concat.apply([], this.productListArray);
                 this.allPolicyDetails = policylists;
-                console.log(this.allProductLists, 'this.allProductLists');
                 sessionStorage.allPolicyDetails = JSON.stringify(policylists);
                 sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
                 sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
@@ -995,7 +983,6 @@ export class HealthInsuranceComponent implements OnInit {
                 });
             } else {
                 sessionStorage.buyProductdetails = JSON.stringify(value);
-                console.log(this.changedTabDetails, 'this.changedTabDetails555');
                 if (value.product_id <= 5) {
                     let ageValid = true;
                     for(let i=0; i < this.changedTabDetails.family_members.length; i++){
