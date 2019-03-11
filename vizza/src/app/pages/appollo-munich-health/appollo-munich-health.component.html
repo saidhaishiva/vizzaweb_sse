@@ -52,8 +52,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent( $event, 'proposer')" (dateChange)="addEvent( $event, 'proposer')" (keypress)="dobValidate($event)"  maxlength="10"
-                            minlength="10"     autocomplete="off"   required>
+                          <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)"   formControlName="proposerDob" (dateInput)="addEvent( $event, 'proposer')" (dateChange)="addEvent( $event, 'proposer')" (keypress)="dobValidate($event)"  maxlength="10" minlength="10" autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="proposer.controls.proposerDob.errors?.required">DOB is required</mat-error>

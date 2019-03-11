@@ -112,16 +112,16 @@ export class LifeCallBackComponent implements OnInit {
 
         }
     }
-    ageCalculate(dob) {
-        let today = new Date();
-        let birthDate = new Date(dob);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        let m = today.getMonth() - birthDate.getMonth();
-        let dd = today.getDate()- birthDate.getDate();
-        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
-            age = age-1;
-        }
-    }
+    // ageCalculate(dob) {
+    //     let today = new Date();
+    //     let birthDate = new Date(dob);
+    //     let age = today.getFullYear() - birthDate.getFullYear();
+    //     let m = today.getMonth() - birthDate.getMonth();
+    //     let dd = today.getDate()- birthDate.getDate();
+    //     if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+    //         age = age-1;
+    //     }
+    // }
     getPincodeDetails(pin, title) {
         this.pin = pin;
         this.title = title;

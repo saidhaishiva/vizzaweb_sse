@@ -66,7 +66,7 @@
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100">
-                  <input matInput [min]="today" [matDatepicker]="picker" placeholder="Appointment Date(DD/MM/YYY)" formControlName="appdate" (dateInput)="addEvent($event,'endomentdate')" (keypress)="dobValidate($event)" (dateChange)="addEvent($event,'endomentdate')" autocomplete="off" required>
+                  <input matInput [min]="today" [matDatepicker]="picker" placeholder="Appointment Date(DD/MM/YYY)" formControlName="appdate" maxlength="10" minlength="10" (dateInput)="addEvent($event,'endomentdate')" (keypress)="dobValidate($event)" (dateChange)="addEvent($event,'endomentdate')" autocomplete="off" required>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="Lifeapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>
