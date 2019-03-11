@@ -68,7 +68,6 @@ export class LifeCallBackComponent implements OnInit {
   ngOnInit() {
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
-      console.log(this.productId,'this.productIdthis.productId');
   }
 
   onNoClick(): void {
@@ -174,9 +173,6 @@ export class LifeCallBackComponent implements OnInit {
             } else {
                 this.setFtime = hours + ':' + min + ' PM';
             }
-            console.log(this.setFtime,'setFtimesetFtime');
-            console.log(date,'datedatedate');
-            console.log(this.productId,'productIddddddddd');
             const data = {
                 'platform': 'web',
                 'user_id':this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',

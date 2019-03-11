@@ -56,11 +56,6 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
     lifeInsurance(){
 
     }
-    // addEvent(event) {
-    //     this.selectDate = event.value;
-    //     this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-    // }
-
 
     public getDetails() {
         const data = {
@@ -93,15 +88,9 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
                         });
                     }
                 }
-                // if ( keyfeatureArray.length) {
                     this.insurerLists.push({product_id: this.LifeProductlistAll[i].product_id, product_name: this.LifeProductlistAll[i].product_name,
                         company_name: this.LifeProductlistAll[i].company_name, keyfeature: keyfeatureArray});
-                // }
-                console.log(keyfeatureArray, 'keyfeatureArray');
             }
-            console.log(this.LifeProductlistAll, 'LifeProductlistAll');
-            console.log(this.insurerLists, 'insurerListsinsurerLists');
-
         }
     }
     public getInsurerDetailsFailure(error) {
@@ -119,7 +108,6 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
     }
     //compare Now Function
     compareNow(value) {
-        console.log(value, 'value');
         let dialogRef = this.dialog.open(LifeCompareNowComponent, {
             width: '2500px',data: this.LifeProductlistAll
         });
@@ -128,10 +116,8 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             if(result.product_id > 0){
             this.callBack(result);
-            console.log(result,'resulttt');
             }else{}
         });
-        console.log(this.LifeProductlistAll);
         return this.LifeProductlistAll
     }
     //call Back Function
@@ -144,47 +130,5 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
         });
     }
-
-    // lifeInsurance(){
-    //     this.firstPage = true;
-    //     this.secondPage = false;
-    // }
-
-    // LifeInsurer(){
-    //     const dialogRef = this.dialog.open(LifeInsurer, {
-    //         width: '1200px',
-    //     });
-    //     dialogRef.disableClose = true;
-    // }
-
 }
-// @Component({
-//     selector: 'lifeinsurer',
-//     template: `
-//         <div class="container">
-//         <div  class="row text-justify">
-//
-//             <div class="col-sm-2">
-//             </div>
-//             <div class="col-sm-8">
-//                 <h4 class="text-center" style="color: #A521B3 "><img src="assets/img/life-insurances.png" class="logo-size"> About Life Insurance</h4>
-//             </div>
-//             <div class="col-sm-2 text-right">
-//                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
-//             </div>
-//             <p>Life insurance is a must for every individual as it provides financial succour through a lump sum payment when the untimely death of the bread winner happens. There are a wide range of products which ensure the financial safety amongst which the endowment plans are considered as the best. It serves the purpose of liquidity, investment, collateral security and savings in tax. Endowment policies are the best when lump sum money is required. The policies can be taken with bonus or without bonus.</p>
-//             <p>Additional sum insured can be opted for death due to accidents and additional cover is available for major diseases. Nomination and assignments can be done and loans are available on the policy. Lapsed policies can be revived.</p>
-//          </div>
-//         </div>`,
-// })
-// export class LifeInsurer {
-//
-//     constructor(
-//         public dialogRef: MatDialogRef<LifeInsurer>,
-//         @Inject(MAT_DIALOG_DATA) public data: any) {}
-//
-//     onNoClick(): void {
-//         this.dialogRef.close();
-//     }
-//
-// }
+
