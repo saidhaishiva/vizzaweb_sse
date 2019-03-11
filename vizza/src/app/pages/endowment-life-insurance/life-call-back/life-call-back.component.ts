@@ -85,26 +85,19 @@ export class LifeCallBackComponent implements OnInit {
     numberValidate(event: any){
         this.validation.numberValidate(event);
     }
-    addEvent(event,type) {
+    addEvent(event) {
+        console.log(event,'eventevent');
+        console.log(event.value,'eventevent1');
+
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    alert('jjjj');
-                    if(type == 'endomentdate'){
-                        this.dobError = '';
-                    }else {
-                        this.dobError = '';
-                    }
-
+                    this.dobError = '';
                 } else {
-                    if(type == 'endomentdate'){
-                        this.dobError = 'Enter Valid Date';
-                    }else{
-                        this.dobError = 'Enter Valid Date';
-                    }
+                    this.dobError = 'Enter Valid Date';
                 }
             } else {
                 this.dobError = '';
@@ -203,7 +196,7 @@ export class LifeCallBackComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.dialogRef.close()
-            this.toastr.success('Endowment Life created successfully!!');
+            this.toastr.success('Your Endowment life insurance appointment has been fixed successfully');
         }else{
             this.toastr.error(successData.ErrorObject);
         }

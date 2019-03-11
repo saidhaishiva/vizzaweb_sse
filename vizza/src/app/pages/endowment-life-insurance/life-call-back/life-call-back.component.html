@@ -64,19 +64,19 @@
                   <mat-error *ngIf="Lifeapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 mt-3">
                 <mat-form-field class="w-100">
-                  <input matInput [min]="today" [matDatepicker]="picker" placeholder="Appointment Date(DD/MM/YYY)" formControlName="appdate" maxlength="10" minlength="10" (dateInput)="addEvent($event,'endomentdate')" (keypress)="dobValidate($event)" (dateChange)="addEvent($event,'endomentdate')" autocomplete="off" required>
+                  <input matInput [min]="today" [matDatepicker]="picker" placeholder="Appointment Date(DD/MM/YYY)" formControlName="appdate" maxlength="10" minlength="10" (dateInput)="addEvent($event)" (keypress)="dobValidate($event)" (dateChange)="addEvent($event)" autocomplete="off" required>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                   <mat-error *ngIf="Lifeapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>
                 </mat-form-field>
                 <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
               </div>
-              <div class="col-md-6">
-                    <ngb-timepicker placeholder="Appointment Time" [(ngModel)]="time" [meridian]="meridian" formControlName="apptime" required></ngb-timepicker>
+              <div class="col-md-6 mt-3">
+                    <ngb-timepicker placeholder="Appointment Time" [(ngModel)]="time" [meridian]="meridian" formControlName="apptime" (keypress)="numberValidate($event)" required></ngb-timepicker>
               </div>
-              <div class="col-md-12 text-right mt-3">
+              <div class="col-md-12 text-right mt-1">
                 <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
                 <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!Lifeapp.valid ) || (!pincodeErrors)" (click)="LifeKeeper(Lifeapp.value)">Submit</button>
               </div>

@@ -6,24 +6,24 @@
 <div class="row " id="life-list" fxLayoutAlign="center start">
   <div class="col-sm-12">
     <div fxLayout="column">
-      <div class="row" style="height:350px; overflow:auto;">
-          <table class="table col-md-12 life-table w-100" >
+      <div class="row" style="height:550px; overflow:auto;">
+          <table class="table  life-table w-100" >
             <thead>
-            <th><small>Endowment Policies</small></th>
-            <th><small>Entry Age (Min/Max)</small></th>
-            <th><small>Maturity Age (Min/Max)</small></th>
-            <th><small>Policy Term</small></th>
-            <th><small>Premium Paying Term</small></th>
-            <th><small>Minimum Sum Assured</small></th>
-            <th><small>Maximum Sum Assured</small></th>
-            <th><small>Policy Paying Mode</small></th>
-            <th></th>
+            <th class="col-md-2"><small>Endowment Policies</small></th>
+            <th class="col-md-2"><small>Entry Age (Min/Max)</small></th>
+            <th class="col-md-1"><small>Maturity Age (Min/Max)</small></th>
+            <th class="col-md-1"><small>Policy Term</small></th>
+            <th class="col-md-1"><small>Premium Paying Term</small></th>
+            <th class="col-md-1"><small>Minimum Sum Assured</small></th>
+            <th class="col-md-1"><small>Maximum Sum Assured</small></th>
+            <th class="col-md-2"><small>Policy Paying Mode</small></th>
+            <th class="col-md-1"></th>
             </thead>
             <tbody>
             <tr *ngFor="let list of compareDetails">
-              <td><small class="pinck-back">{{list.company_name}}<br/>{{list.product_name}}</small></td>
-              <td *ngFor="let key of list.keyfeature"><small>{{key.key_value}}</small></td>
-              <td><button type="button" class="btn pink-color btn-sm" (click)="callBack(list)">Call Back</button></td>
+              <td class="col-md-2"><small class="pinck-back">{{list.company_name}}<br/>{{list.product_name}}</small></td>
+              <td *ngFor="let key of list.keyfeature; let i = index;" [ngClass] = "i == 1||i==7 ?'col-md-2': 'col-md-1'"><small>{{key.key_value}}</small></td>
+              <td class="col-md-1"><button type="button" class="btn pink-color btn-sm" (click)="callBack(list)">Call Back</button></td>
             </tr>
             </tbody>
           </table>
