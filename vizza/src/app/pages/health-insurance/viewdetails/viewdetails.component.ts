@@ -224,6 +224,7 @@ export class ViewdetailsComponent implements OnInit {
     public getDetailsSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
+            this.dialogRef.close()
             this.toastr.success('Health Claim is created successfully!!');
 
             this.data1 = successData.ResponseObject;
