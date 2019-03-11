@@ -556,6 +556,14 @@ a:hover {
   //  top:50px;
   //  z-index:2;
   //}
+
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #00b39b;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
+
   .mat-tab-header, .mat-tab-nav-bar {
     border-bottom: 0px solid rgba(0,0,0,.12) !important;
   }

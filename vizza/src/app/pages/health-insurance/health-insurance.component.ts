@@ -233,14 +233,24 @@ export class HealthInsuranceComponent implements OnInit {
             this.changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
             this.currentGroupName = JSON.parse(sessionStorage.changedTabDetails).name;
             this.getSumInsureId = this.changedTabDetails.group_suminsured_id;
-            console.log('fty');
         }
         if (sessionStorage.changeSuninsuredAmount != undefined && sessionStorage.changeSuninsuredAmount != '') {
             this.changeSuninsuredAmount = sessionStorage.changeSuninsuredAmount;
         }
 
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
-            this.allProductLists = JSON.parse(sessionStorage.policyLists).value;
+            let lists = JSON.parse(sessionStorage.policyLists).value;
+            if(lists.length > 0) {
+                this.allProductLists = JSON.parse(sessionStorage.policyLists).value;
+            } else {
+                this.productListArray = [];
+                this.allProductLists = [];
+                if(this.groupDetails.family_groups[sessionStorage.changedTabIndex].status == 0) {
+                    for(let i = 0; i < this.allCompanyList.length; i++) {
+                        this.updateTabPolicy(this.allCompanyList[i].company_id, this.groupDetails.family_groups[sessionStorage.changedTabIndex].name, this.groupDetails, sessionStorage.changedTabIndex);
+                    }
+                }
+            }
                 // this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
                 // let index = sessionStorage.changedTabIndex;
                 // for (let i = 0; i < this.setArray.length; i++) {
@@ -673,6 +683,7 @@ export class HealthInsuranceComponent implements OnInit {
             console.log(this.allProductLists, 'this.allProductLists');
             sessionStorage.allPolicyDetails = JSON.stringify(policylists);
             sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
+            sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
             this.changedTabDetails = policylists[0];
             sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
             if(this.allProductLists.length > 1) {
@@ -911,6 +922,7 @@ export class HealthInsuranceComponent implements OnInit {
                 console.log(this.allProductLists, 'this.allProductLists');
                 sessionStorage.allPolicyDetails = JSON.stringify(policylists);
                 sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
+                sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
                 this.changedTabDetails = policylists[0];
                 sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
                 if(this.allProductLists.length > 1) {
