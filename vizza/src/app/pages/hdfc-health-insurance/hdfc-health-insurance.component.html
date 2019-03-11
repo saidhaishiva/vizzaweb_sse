@@ -467,14 +467,14 @@
                            name="__EVENTVALIDATION">
                     <input id="CustomerId" type="hidden" value={{summaryData.ProposalNumber}} name="CustomerId"><br/>
                     <input id="TxnAmount" type="hidden" value="{{totalAmount}}" name="TxnAmount"><br/>
-                    <input id="AdditionalInfo1" type="hidden" value="NB" name="AdditionalInfo1"><br/>
-                    <input id="AdditionalInfo2" type="hidden" value="HSP" name="AdditionalInfo2"><br/>
-                    <input id="AdditionalInfo3" type="hidden" value="1" name="AdditionalInfo3"><br/>
+                    <input id="AdditionalInfo1" type="hidden" value={{summaryData.AdditionalInfo1}} name="AdditionalInfo1"><br/>
+                    <input id="AdditionalInfo2" type="hidden" value={{summaryData.AdditionalInfo2}} name="AdditionalInfo2"><br/>
+                    <input id="AdditionalInfo3" type="hidden" value={{summaryData.AdditionalInfo3}} name="AdditionalInfo3"><br/>
                     <input id="hdnPayMode" type="hidden" value="{{personlData.paymentmode}}" name="hdnPayMode"><br/>
                     <input id="UserName" type="hidden" value="{{fullName}}" name="UserName"><br/>
                     <input id="UserMailId" type="hidden" value="{{personlData.email}}" name="UserMailId"><br/>
-                    <input id="ProductCd" type="hidden" value="HSP" name="ProductCd"><br/>
-                    <input id="ProducerCd" type="hidden" value="HSC00056" name="ProducerCd"><br/>
+                    <input id="ProductCd" type="hidden" value={{summaryData.ProductCd}} name="ProductCd"><br/>
+                    <input id="ProducerCd" type="hidden" value={{summaryData.productcode}} name="ProducerCd"><br/>
 
                     <!--<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>-->
                   <button mat-button matStepperPrevious (click)="topScroll()">Back</button>

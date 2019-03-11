@@ -1651,6 +1651,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                     'PrevYearPolicyEndDate': this.datepipe.transform(this.previousInsuranceFrom.controls['PolicyEndDate'].value, 'y-MM-dd') == null ? '' : this.previousInsuranceFrom.controls['PolicyEndDate'].value
                 },
                 'enquiry_id': this.getFamilyDetails.enquiry_id,
+                'product_id': this.buyProductdetails.product_id,
                 'proposal_id': sessionStorage.proposalID ? sessionStorage.proposalID.toString() : this.proposalId.toString(),
                 'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',

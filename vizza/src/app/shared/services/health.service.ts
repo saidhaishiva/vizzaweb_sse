@@ -19,7 +19,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/suminsured_amount' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/suminsured_amount';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

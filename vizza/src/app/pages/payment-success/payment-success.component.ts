@@ -36,16 +36,20 @@ export class PaymentSuccessComponent implements OnInit {
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
       this.remainingStatus = false;
-
-      // let allDetails;
-      // if (sessionStorage.allGroupDetails != undefined && sessionStorage.allGroupDetails != '') {
-      //     allDetails = JSON.parse(sessionStorage.allGroupDetails);
-      // } else {
-      //     allDetails = [];
-      // }
-      // if(allDetails.length > 1) {
-      //     this.remainingStatus = true;
-      // }
+      let groupDetails = JSON.parse(sessionStorage.groupDetails);
+      for(let i = 0; i < groupDetails.length; i++) {
+          if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+              groupDetails.family_groups[i].status = 1;
+          }
+           // if(groupDetails.family_groups[i].indexOf(data => data.status == 0) != -1) {
+           //     status.push('true');
+           // }
+      }
+      let status = groupDetails.family_groups.filter(data => data.status == 0);
+      console.log(status, 'status11');
+      if(status.length > 0) {
+          this.remainingStatus = true;
+      }
 
   }
 
@@ -57,7 +61,7 @@ export class PaymentSuccessComponent implements OnInit {
       }
   }
 
-    setPurchaseStatus() {
+  setPurchaseStatus() {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
@@ -90,14 +94,7 @@ export class PaymentSuccessComponent implements OnInit {
         this.router.navigate(['/proposal'  + '/' + true]);
     }
     pay(){
-        let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
-        let allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
-        for (let i = 0; i < allGroupDetails.length; i++) {
-            if(allGroupDetails[i].name == changedTabDetails.name) {
-                allGroupDetails.splice(i, 1);
-            }
-        }
-        sessionStorage.policyLists = JSON.stringify({index: 0, value: allGroupDetails});
+        sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
         this.router.navigate(['/healthinsurance']);
     }
 

@@ -126,7 +126,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.route.data.forEach((data) => {
             if(data.companyDetails.IsSuccess) {
                 this.allCompanyList = data.companyDetails.ResponseObject;
-                let all = ['all'];
+                let all = ['All'];
                 for (let i = 0; i < this.allCompanyList.length; i++) {
                     all.push(this.allCompanyList[i].company_name);
                 }
@@ -233,14 +233,24 @@ export class HealthInsuranceComponent implements OnInit {
             this.changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
             this.currentGroupName = JSON.parse(sessionStorage.changedTabDetails).name;
             this.getSumInsureId = this.changedTabDetails.group_suminsured_id;
-            console.log('fty');
         }
         if (sessionStorage.changeSuninsuredAmount != undefined && sessionStorage.changeSuninsuredAmount != '') {
             this.changeSuninsuredAmount = sessionStorage.changeSuninsuredAmount;
         }
 
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
-            this.allProductLists = JSON.parse(sessionStorage.policyLists).value;
+            let lists = JSON.parse(sessionStorage.policyLists).value;
+            if(lists.length > 0) {
+                this.allProductLists = JSON.parse(sessionStorage.policyLists).value;
+            } else {
+                this.productListArray = [];
+                this.allProductLists = [];
+                if(this.groupDetails.family_groups[sessionStorage.changedTabIndex].status == 0) {
+                    for(let i = 0; i < this.allCompanyList.length; i++) {
+                        this.updateTabPolicy(this.allCompanyList[i].company_id, this.groupDetails.family_groups[sessionStorage.changedTabIndex].name, this.groupDetails, sessionStorage.changedTabIndex);
+                    }
+                }
+            }
                 // this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
                 // let index = sessionStorage.changedTabIndex;
                 // for (let i = 0; i < this.setArray.length; i++) {
@@ -267,16 +277,13 @@ export class HealthInsuranceComponent implements OnInit {
         }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);
-            if(this.filterCompany.includes('all')) {
+            if(this.filterCompany.includes('All')) {
                 this.checkAllStatus = true;
             } else {
                 this.checkAllStatus = false;
             }
         }
 
-
-        console.log(this.getSumInsureId, 'f');
-        console.log(this.changeSuninsuredAmount, 'seee');
 
     }
     ckeckedUser(value, index, name) {
@@ -490,8 +497,11 @@ export class HealthInsuranceComponent implements OnInit {
         if (successData.IsSuccess) {
             this.groupDetails = successData.ResponseObject;
             this.groupList = successData.ResponseObject.family_groups;
-            sessionStorage.groupDetails = JSON.stringify(successData.ResponseObject);
-            console.log(this.groupList, 'groupDetails');
+            sessionStorage.changedTabIndex = 0;
+            for(let i = 0; i < this.groupDetails.family_groups.length; i++) {
+                this.groupDetails.family_groups[i].status = 0;
+            }
+            sessionStorage.groupDetails = JSON.stringify(this.groupDetails);
             if(this.groupList.length > 1) {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
                     width: '1500px', data: {comparedata: successData.ResponseObject.family_groups}});
@@ -608,11 +618,13 @@ export class HealthInsuranceComponent implements OnInit {
             sessionStorage.changedTabIndex = index;
             this.productListArray = [];
             this.allProductLists = [];
-            for(let i = 0; i < this.allCompanyList.length; i++) {
-                this.updateTabPolicy(this.allCompanyList[i].company_id, this.allPolicyDetails[0], index);
+            if(this.groupDetails.family_groups[index].status == 0) {
+                for(let i = 0; i < this.allCompanyList.length; i++) {
+                    this.updateTabPolicy(this.allCompanyList[i].company_id, this.groupDetails.family_groups[index].name, this.groupDetails, index);
+                }
             }
     }
-    updateTabPolicy(company_id, value, index) {
+    updateTabPolicy(company_id, gName, value, index) {
         this.finalData = [];
         for (let i = 0; i < this.setArray.length; i++) {
             if (this.setArray[i].checked) {
@@ -632,7 +644,7 @@ export class HealthInsuranceComponent implements OnInit {
             'postalcode': this.pincoce ? this.pincoce : '',
             'sum_insured': '',
             'family_details': this.finalData,
-            'family_group_name': value.name,
+            'family_group_name': gName,
             'enquiry_id': value.enquiry_id,
             'created_by': '0',
             "company_id": company_id,
@@ -665,9 +677,9 @@ export class HealthInsuranceComponent implements OnInit {
             this.productListArray.push(policylists[0].product_lists);
             this.allProductLists = [].concat.apply([], this.productListArray);
             this.allPolicyDetails = policylists;
-            console.log(this.allProductLists, 'this.allProductLists');
             sessionStorage.allPolicyDetails = JSON.stringify(policylists);
             sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
+            sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
             this.changedTabDetails = policylists[0];
             sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
             if(this.allProductLists.length > 1) {
@@ -683,7 +695,6 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     addCompare(value,index) {
-        console.log(index, 'index');
         const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.allProductLists[index].compare = true;
         this.compareArray.push(data);
@@ -776,21 +787,19 @@ export class HealthInsuranceComponent implements OnInit {
     filterByProducts() {
        // this.insuranceLists = [];
         let index = sessionStorage.changedTabIndex;
-        console.log(this.filterCompany.includes('all'), 'this.hhhjjjj');
-
-        if(this.filterCompany.includes('all')){
+        if(this.filterCompany.includes('All')){
             this.checkAllStatus = true;
             this.allProductLists = this.setAllProductLists;
-            let all = ['all'];
+            let all = ['All'];
             for (let i = 0; i < this.allCompanyList.length; i++) {
                 all.push(this.allCompanyList[i].company_name);
             }
             this.filterCompany = all;
-        } else if(!this.filterCompany.includes('all') && this.filterCompany.length == this.allCompanyList.length){
+        } else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
             this.checkAllStatus = false;
             this.allProductLists = [];
             this.filterCompany = [];
-        }  else if(!this.filterCompany.includes('all') && this.filterCompany.length > 0){
+        }  else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
             this.checkAllStatus = false;
             let cmpy = [];
             for (let k = 0; k < this.filterCompany.length; k++) {
@@ -803,10 +812,6 @@ export class HealthInsuranceComponent implements OnInit {
             this.allProductLists = cmpy;
 
         }
-
-        console.log(this.filterCompany, 'this.filterCompany');
-
-        console.log(this.allProductLists, ' this.allProductListsallProductLists');
 
 
         // if (this.filterCompany.length < 1) {
@@ -858,7 +863,7 @@ export class HealthInsuranceComponent implements OnInit {
             'platform': 'web',
             'postalcode': this.pincoce ? this.pincoce : '',
             'sum_insured': this.changeSuninsuredAmount,
-            'family_group_name': this.allPolicyDetails[0].name,
+            'family_group_name': this.groupDetails.family_groups[sessionStorage.changedTabIndex].name,
             'enquiry_id': this.allPolicyDetails[0].enquiry_id,
             'created_by': '0',
             "company_id": company_id,
@@ -903,9 +908,9 @@ export class HealthInsuranceComponent implements OnInit {
                 this.productListArray.push(policylists[0].product_lists);
                 this.allProductLists = [].concat.apply([], this.productListArray);
                 this.allPolicyDetails = policylists;
-                console.log(this.allProductLists, 'this.allProductLists');
                 sessionStorage.allPolicyDetails = JSON.stringify(policylists);
                 sessionStorage.changedTabDetails = JSON.stringify(policylists[0]);
+                sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
                 this.changedTabDetails = policylists[0];
                 sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
                 if(this.allProductLists.length > 1) {
@@ -978,7 +983,6 @@ export class HealthInsuranceComponent implements OnInit {
                 });
             } else {
                 sessionStorage.buyProductdetails = JSON.stringify(value);
-                console.log(this.changedTabDetails, 'this.changedTabDetails555');
                 if (value.product_id <= 5) {
                     let ageValid = true;
                     for(let i=0; i < this.changedTabDetails.family_members.length; i++){
@@ -1033,7 +1037,7 @@ export class HealthInsuranceComponent implements OnInit {
                 } else if (value.product_id >= 17 && value.product_id <= 20) {
                     let ageValid = true;
                         for(let i=0; i < this.changedTabDetails.family_members.length; i++){
-                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age <= 22) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age <= 22)){
+                            if((this.changedTabDetails.family_members[i].type == 'Son' && this.changedTabDetails.family_members[i].age < 22) || (this.changedTabDetails.family_members[i].type == 'Daughter'&& this.changedTabDetails.family_members[i].age < 22)){
                                 ageValid = false;
                             }
                          }

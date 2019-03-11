@@ -9,6 +9,7 @@ import {AuthService} from '../../../shared/services/auth.service';
 import { ToastrService} from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {HealthService} from '../../../shared/services/health.service';
+import {ValidationService} from '../../../shared/services/validation.service';
 
 
 @Component({
@@ -42,7 +43,7 @@ export class ViewdetailsComponent implements OnInit {
     sumInsuredAmount: any;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
+    @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.productId = data.productId;
         this.productName = data.productName;
@@ -64,11 +65,22 @@ export class ViewdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+      let maxAge = '';
       if (sessionStorage.setAllProductLists != undefined && sessionStorage.setAllProductLists != '') {
           let setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
           this.sumInsuredAmount = setAllProductLists[0].suminsured_amount;
       }
-      this.viewKeyFeatures(this.productId);
+      if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
+          let allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
+          let ages = [];
+          for (let i = 0; i < allPolicyDetails.length; i++) {
+              for (let j = 0; j < allPolicyDetails[i].family_members.length; j++) {
+                  ages.push(allPolicyDetails[i].family_members[j].age);
+              }
+          }
+        maxAge = Math.max.apply(null, ages);
+      }
+      this.viewKeyFeatures(this.productId, maxAge);
   }
     onNoClick(): void {
         this.dialogRef.close()
@@ -93,6 +105,17 @@ export class ViewdetailsComponent implements OnInit {
 
         }
     }
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
     onSelectedIndexChange(index) {
         console.log(index, 'ind');
         if (index == 0) {
@@ -114,14 +137,15 @@ export class ViewdetailsComponent implements OnInit {
         }
 
     }
-    viewKeyFeatures(value) {
+    viewKeyFeatures(value, maxAge) {
         const data = {
             'platform': 'web',
             'userid': 1,
             'roleid': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'productid': value,
-            'si_amount': this.sumInsuredAmount
+            'si_amount': this.sumInsuredAmount,
+            'age': maxAge
 
         };
         this.settings.loadingSpinner = true;
