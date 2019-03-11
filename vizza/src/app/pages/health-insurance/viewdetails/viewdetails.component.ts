@@ -65,11 +65,22 @@ export class ViewdetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+      let maxAge = '';
       if (sessionStorage.setAllProductLists != undefined && sessionStorage.setAllProductLists != '') {
           let setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
           this.sumInsuredAmount = setAllProductLists[0].suminsured_amount;
       }
-      this.viewKeyFeatures(this.productId);
+      if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
+          let allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
+          let ages = [];
+          for (let i = 0; i < allPolicyDetails.length; i++) {
+              for (let j = 0; j < allPolicyDetails[i].family_members.length; j++) {
+                  ages.push(allPolicyDetails[i].family_members[j].age);
+              }
+          }
+        maxAge = Math.max.apply(null, ages);
+      }
+      this.viewKeyFeatures(this.productId, maxAge);
   }
     onNoClick(): void {
         this.dialogRef.close()
@@ -126,14 +137,15 @@ export class ViewdetailsComponent implements OnInit {
         }
 
     }
-    viewKeyFeatures(value) {
+    viewKeyFeatures(value, maxAge) {
         const data = {
             'platform': 'web',
             'userid': 1,
             'roleid': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'productid': value,
-            'si_amount': this.sumInsuredAmount
+            'si_amount': this.sumInsuredAmount,
+            'age': maxAge
 
         };
         this.settings.loadingSpinner = true;
