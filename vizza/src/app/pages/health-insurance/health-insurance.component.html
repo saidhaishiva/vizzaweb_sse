@@ -1,80 +1,148 @@
 <!--new-->
-<div class="container dashboard h-100" fxLayoutAlign="start start" *ngIf="firstPage">
-  <div class="row my-flex-card">
+
+
+<div class="container dashboard h-100" *ngIf="firstPage">
+  <div class="row ">
     <h3 class="w-100 text-center color-pink mb-4"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
-    <div class="col-md-6 col-sm-12 col-xs-12">
-      <div class="card">
-        <div class="card-block">
-          <div class="aboutImg">
-            <img src="assets/img/health-Insurance-inner.png" style="height: 482px;width: 508px;">
-            <div class="aboutContent">
-              <h4>About Health Insurance</h4>
-              <p>Illness is expensive, Better protect your savings..… <button class="btn btn-sm" (click)="healthInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
-            </div>
+    <div class="col-md-6 col-sm-12 col-xs-12 bgImg">
+      <div class="card-block">
+        <div class="aboutImg">
+          <!--<img src="assets/img/health-Insurance-inner.png" style="height: 482px;width: 508px;">-->
+          <div class="aboutContent">
+            <h4>About Health Insurance</h4>
+            <p>Illness is expensive, Better protect your savings..… <button class="btn btn-sm" (click)="healthInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
           </div>
         </div>
       </div>
     </div>
 
     <div class="col-md-6 col-sm-12 col-xs-12" >
-      <!--<div class="card">-->
-        <!--<div class="card-block">-->
-          <mat-card class="p-4" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
-          <h4 class=" text-center">Get Instant Quotes</h4>
-          <div class="w-100 mb-2 son" >
-              <div id="clonehead">
-                <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
-                  <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
-                  <div class="col-md-3">{{item.name}}</div>
-                  <div class="col-md-5"> <mat-form-field class="w-100">
-                    <input matInput placeholder="Age" [(ngModel)]="item.age" autocomplete="off" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)"  alt="{{i}}" (keyup)="typeAge(item.checked, item.name, i, item.age)" max="{{item.name}}" >
-                  </mat-form-field>
-                    <div *ngIf="item.error != ''" class="ngError">Required</div>
-                  </div>
-                </div>
-              </div>
-              <div class="mt-3 text-center">
-                <button mat-raised-button color="primary" type="button" [disabled]="sonBTn" (click)="addUser('Son', 2)"><i class="material-icons">add_circle_outline</i> Son</button>
-                <button mat-raised-button color="accent" class="accentDaughter" type="button" [disabled]="daughterBTn" (click)="addUser('Daughter', 3)"><i class="material-icons">add_circle_outline</i> Daughter</button>
-                <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> RELATIVES</button>
-                <mat-menu #menu="matMenu">
-                  <button mat-menu-item (click)="addOthers('Father')" [disabled]="fatherBTn">Father</button>
-                  <button mat-menu-item (click)="addOthers('Mother')" [disabled]="motherBtn">Mother</button>
-                  <button mat-menu-item (click)="addOthers('Father In Law')" [disabled]="fatherInLawBTn">Father-In-Law</button>
-                  <button mat-menu-item (click)="addOthers('Mother In Law')" [disabled]="motherInLawBtn">Mother-In-Law</button>
-                  <button mat-menu-item (click)="addOthers('Brother')">Brother</button>
-                  <button mat-menu-item (click)="addOthers('Sister')">Sister</button>
-                </mat-menu>
+      <mat-card class="p-4" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
+        <h4 class=" text-center">Get Instant Quotes</h4>
+        <div class="w-100 mb-2 son" >
+          <div id="clonehead">
+            <div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">
+              <div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>
+              <div class="col-md-3">{{item.name}}</div>
+              <div class="col-md-5"> <mat-form-field class="w-100">
+                <input matInput placeholder="Age" [(ngModel)]="item.age" autocomplete="off" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)"  alt="{{i}}" (keyup)="typeAge(item.checked, item.name, i, item.age)" max="{{item.name}}" >
+              </mat-form-field>
+                <div *ngIf="item.error != ''" class="ngError">Required</div>
               </div>
             </div>
-          <!--<div class="container">-->
-            <mat-form-field class="w-100">
-              <input matInput maxlength="6" [(ngModel)]="pincoce"  placeholder="PIN CODE" (keypress)="numberOnly($event)" (keyup)="selectPincode()">
-              <mat-icon matSuffix>place</mat-icon>
-            </mat-form-field>
-            <div *ngIf="pinerror" class="ngError">Required</div>
-            <div fxLayoutAlign="center center" class="mt-1">
-              <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList()">Proceed</button>
-              <button mat-button (click)="reset()" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
-            </div>
-            <!--<div fxLayoutAlign="end center" class="text-right" style="cursor: pointer">-->
-              <!--<mat-icon (click)="reset()" >refresh</mat-icon> <span (click)="reset()"> Reset </span>-->
-            <!--</div>-->
-
-            <!--<div fxLayoutAlign="center center" class="mt-3">-->
-              <!--<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed</button>-->
-              <!--<button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>-->
-              <!--&lt;!&ndash;<i class="material-icons" style="position: absolute; right: 10px;" (click)="refresh()">refresh</i> Reset&ndash;&gt;-->
-            <!--</div>-->
-
-          <!--</div>-->
-          </mat-card>
-        <!--</div>-->
-      <!--</div>-->
+          </div>
+          <div class="mt-3 text-center">
+            <button mat-raised-button color="primary" type="button" [disabled]="sonBTn" (click)="addUser('Son', 2)"><i class="material-icons">add_circle_outline</i> Son</button>
+            <button mat-raised-button color="accent" class="accentDaughter" type="button" [disabled]="daughterBTn" (click)="addUser('Daughter', 3)"><i class="material-icons">add_circle_outline</i> Daughter</button>
+            <button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> RELATIVES</button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="addOthers('Father')" [disabled]="fatherBTn">Father</button>
+              <button mat-menu-item (click)="addOthers('Mother')" [disabled]="motherBtn">Mother</button>
+              <button mat-menu-item (click)="addOthers('Father In Law')" [disabled]="fatherInLawBTn">Father-In-Law</button>
+              <button mat-menu-item (click)="addOthers('Mother In Law')" [disabled]="motherInLawBtn">Mother-In-Law</button>
+              <button mat-menu-item (click)="addOthers('Brother')">Brother</button>
+              <button mat-menu-item (click)="addOthers('Sister')">Sister</button>
+            </mat-menu>
+          </div>
+        </div>
+        <!--<div class="container">-->
+        <mat-form-field class="w-100">
+          <input matInput maxlength="6" [(ngModel)]="pincoce"  placeholder="PIN CODE" (keypress)="numberOnly($event)" (keyup)="selectPincode()">
+          <mat-icon matSuffix>place</mat-icon>
+        </mat-form-field>
+        <div *ngIf="pinerror" class="ngError">Required</div>
+        <div fxLayoutAlign="center center" class="mt-1">
+          <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList()">Proceed</button>
+          <button mat-button (click)="reset()" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
+        </div>
+      </mat-card>
     </div>
 
   </div>
 </div>
+
+
+
+
+
+
+
+<!--<div class="container dashboard h-100" *ngIf="firstPage">-->
+  <!--<div class="row ">-->
+    <!--<h3 class="w-100 text-center color-pink mb-4"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>-->
+    <!--<div class="col-md-6 col-sm-12 col-xs-12 bgImg">-->
+      <!--&lt;!&ndash;<div class="card">&ndash;&gt;-->
+        <!--<div class="card-block">-->
+          <!--<div class="aboutImg">-->
+            <!--&lt;!&ndash;<img src="assets/img/health-Insurance-inner.png" style="height: 482px;width: 508px;">&ndash;&gt;-->
+            <!--<div class="aboutContent">-->
+              <!--<h4>About Health Insurance</h4>-->
+              <!--<p>Illness is expensive, Better protect your savings..… <button class="btn btn-sm" (click)="healthInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+
+    <!--<div class="col-md-6 col-sm-12 col-xs-12" >-->
+      <!--&lt;!&ndash;<div class="card">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="card-block">&ndash;&gt;-->
+          <!--<mat-card class="p-4" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">-->
+          <!--<h4 class=" text-center">Get Instant Quotes</h4>-->
+          <!--<div class="w-100 mb-2 son" >-->
+              <!--<div id="clonehead">-->
+                <!--<div class="row" fxLayoutAlign="center center" *ngFor="let item of setArray; let i = index">-->
+                  <!--<div class="col-md-2"><mat-checkbox [(ngModel)]="item.checked" [disabled]="item.disabled" (change)="ckeckedUser(item.checked, i, item.name)"></mat-checkbox></div>-->
+                  <!--<div class="col-md-3">{{item.name}}</div>-->
+                  <!--<div class="col-md-5"> <mat-form-field class="w-100">-->
+                    <!--<input matInput placeholder="Age" [(ngModel)]="item.age" autocomplete="off" [disabled]="item.disabled" maxlength="3" (keypress)="numberOnly($event)"  alt="{{i}}" (keyup)="typeAge(item.checked, item.name, i, item.age)" max="{{item.name}}" >-->
+                  <!--</mat-form-field>-->
+                    <!--<div *ngIf="item.error != ''" class="ngError">Required</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div class="mt-3 text-center">-->
+                <!--<button mat-raised-button color="primary" type="button" [disabled]="sonBTn" (click)="addUser('Son', 2)"><i class="material-icons">add_circle_outline</i> Son</button>-->
+                <!--<button mat-raised-button color="accent" class="accentDaughter" type="button" [disabled]="daughterBTn" (click)="addUser('Daughter', 3)"><i class="material-icons">add_circle_outline</i> Daughter</button>-->
+                <!--<button mat-raised-button color="accent" type="button" [matMenuTriggerFor]="menu"><i class="material-icons">add_circle_outline</i> RELATIVES</button>-->
+                <!--<mat-menu #menu="matMenu">-->
+                  <!--<button mat-menu-item (click)="addOthers('Father')" [disabled]="fatherBTn">Father</button>-->
+                  <!--<button mat-menu-item (click)="addOthers('Mother')" [disabled]="motherBtn">Mother</button>-->
+                  <!--<button mat-menu-item (click)="addOthers('Father In Law')" [disabled]="fatherInLawBTn">Father-In-Law</button>-->
+                  <!--<button mat-menu-item (click)="addOthers('Mother In Law')" [disabled]="motherInLawBtn">Mother-In-Law</button>-->
+                  <!--<button mat-menu-item (click)="addOthers('Brother')">Brother</button>-->
+                  <!--<button mat-menu-item (click)="addOthers('Sister')">Sister</button>-->
+                <!--</mat-menu>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--&lt;!&ndash;<div class="container">&ndash;&gt;-->
+            <!--<mat-form-field class="w-100">-->
+              <!--<input matInput maxlength="6" [(ngModel)]="pincoce"  placeholder="PIN CODE" (keypress)="numberOnly($event)" (keyup)="selectPincode()">-->
+              <!--<mat-icon matSuffix>place</mat-icon>-->
+            <!--</mat-form-field>-->
+            <!--<div *ngIf="pinerror" class="ngError">Required</div>-->
+            <!--<div fxLayoutAlign="center center" class="mt-1">-->
+              <!--<button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList()">Proceed</button>-->
+              <!--<button mat-button (click)="reset()" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div fxLayoutAlign="end center" class="text-right" style="cursor: pointer">&ndash;&gt;-->
+              <!--&lt;!&ndash;<mat-icon (click)="reset()" >refresh</mat-icon> <span (click)="reset()"> Reset </span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+            <!--&lt;!&ndash;<div fxLayoutAlign="center center" class="mt-3">&ndash;&gt;-->
+              <!--&lt;!&ndash;<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed</button>&ndash;&gt;-->
+              <!--&lt;!&ndash;<button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>&ndash;&gt;-->
+              <!--&lt;!&ndash;&lt;!&ndash;<i class="material-icons" style="position: absolute; right: 10px;" (click)="refresh()">refresh</i> Reset&ndash;&gt;&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--</mat-card>-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+
+  <!--</div>-->
+<!--</div>-->
 
 <!--second page-->
 
@@ -213,7 +281,13 @@
   <!--&lt;!&ndash;<button mat-raised-button color="primary"  (click)="form.submit()">Pay Now</button>&ndash;&gt;-->
 <!--</form>-->
 
-
+<style>
+  .bgImg{
+    background-image: url("assets/img/health-Insurance-inner.png");
+    background-size: auto;
+    background-repeat: no-repeat;
+  }
+</style>
 
 
 
