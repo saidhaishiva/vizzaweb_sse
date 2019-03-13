@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material';
 import {AuthService} from '../../../shared/services/auth.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {LifeService} from '../../../shared/services/life.service';
@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import {ValidationService} from '../../../shared/services/validation.service';
 import {Settings} from '../../../app.settings.model';
 import {AppSettings} from '../../../app.settings';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
 export const MY_FORMATS = {
     parse: {
@@ -25,7 +26,11 @@ export const MY_FORMATS = {
 @Component({
   selector: 'app-life-call-back',
   templateUrl: './life-call-back.component.html',
-  styleUrls: ['./life-call-back.component.scss']
+  styleUrls: ['./life-call-back.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ],
 })
 export class LifeCallBackComponent implements OnInit {
   public Lifeapp: FormGroup;
