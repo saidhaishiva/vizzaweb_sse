@@ -36,20 +36,20 @@ export class PaymentSuccessComponent implements OnInit {
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
       this.remainingStatus = false;
-      let groupDetails = JSON.parse(sessionStorage.groupDetails);
-      for(let i = 0; i < groupDetails.length; i++) {
-          if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
-              groupDetails.family_groups[i].status = 1;
-          }
-           // if(groupDetails.family_groups[i].indexOf(data => data.status == 0) != -1) {
-           //     status.push('true');
-           // }
-      }
-      let status = groupDetails.family_groups.filter(data => data.status == 0);
-      console.log(status, 'status11');
-      if(status.length > 0) {
-          this.remainingStatus = true;
-      }
+      // let groupDetails = JSON.parse(sessionStorage.groupDetails);
+      // for(let i = 0; i < groupDetails.length; i++) {
+      //     if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+      //         groupDetails.family_groups[i].status = 1;
+      //     }
+      //      // if(groupDetails.family_groups[i].indexOf(data => data.status == 0) != -1) {
+      //      //     status.push('true');
+      //      // }
+      // }
+      // let status = groupDetails.family_groups.filter(data => data.status == 0);
+      // console.log(status, 'status11');
+      // if(status.length > 0) {
+      //     this.remainingStatus = true;
+      // }
 
   }
 
@@ -94,7 +94,7 @@ export class PaymentSuccessComponent implements OnInit {
         this.router.navigate(['/proposal'  + '/' + true]);
     }
     pay(){
-        sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
+        // sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
         this.router.navigate(['/healthinsurance']);
     }
 
