@@ -21,74 +21,93 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="row">
-      <input type="file"  (change)="readUrl($event)" formControlName="upload">
-      <!--<label class="custom-file-label"><span class="error">*</span>-->
-         <!--upoload </label>-->
+    <!--<div class="row">-->
+      <!--<input type="file"  (change)="readUrl($event)" formControlName="upload">-->
+      <!--&lt;!&ndash;<label class="custom-file-label"><span class="error">*</span>&ndash;&gt;-->
+         <!--&lt;!&ndash;upoload </label>&ndash;&gt;-->
+      <!--<label ><span class="error">*</span>-->
+        <!--Attach Your Photo</label>-->
+    <!--</div>-->
+    <div class="w-25 mt-2">
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" (change)="readUrl($event)" >
+        <label class="custom-file-label"><span class="error">*</span>
+          Attach Your Photo</label>
+      </div>
     </div>
-    <div style="text-align: center">
+      <!--<div class="row w-100">-->
+          <!--<div class="col-md-12">-->
+              <!--<div *ngIf="profile != ''">-->
+                  <!--<span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>-->
+              <!--</div>-->
+          <!--</div>-->
+      <!--</div>-->
+
+    <div style="text-align: center" class="mt-4">
       <button mat-raised-button color="primary" (click)="update()"> Sumbit</button>
     </div>
 
-    <strong>OR</strong>
+    <strong class="text-center; mt-4">OR</strong>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-3">
         <mat-form-field class="w-100">
           <input matInput placeholder="Name" formControlName="name"  autocomplete="off" required >
           <!--<mat-error *ngIf="form.controls.personalFirstname.errors?.required">First Name is required</mat-error>-->
         </mat-form-field>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <mat-form-field class="w-100">
           <input matInput placeholder="Father's Name" formControlName="fathername" autocomplete="off" required >
           <!--<mat-error *ngIf="form.controls.personalLastname.errors?.required">Email is required</mat-error>-->
         </mat-form-field>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-3">
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" required>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <!--<mat-error *ngIf="form.controls.personalDob.errors?.required">DOB is required</mat-error>-->
+        </mat-form-field>
+      </div>
+      <!--<div class="col-md-4">-->
+        <!--<mat-form-field>-->
+          <!--<input matInput placeholder="age" formControlName="age">-->
+        <!--</mat-form-field>-->
+      <!--</div>-->
+      <!--<div class="row">-->
+
+     <div class="col-md-3">
         <mat-form-field class="w-100">
-          <input matInput placeholder="Mobile No" formControlName="mobileno"  autocomplete="off" required >
+          <input matInput placeholder="Mobile No" formControlName="mobileno" maxlength="10" autocomplete="off" required >
           <!--<mat-error *ngIf="form.controls.personalFirstname.errors?.required">First Name is required</mat-error>-->
         </mat-form-field>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <mat-form-field class="w-100">
           <input matInput placeholder="Email" formControlName="email" autocomplete="off" required >
           <!--<mat-error *ngIf="form.controls.personalLastname.errors?.required">Email is required</mat-error>-->
         </mat-form-field>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-3">
         <mat-form-field class="w-50">
-        <textarea matInput col="50" row="5"  placeholder="Address" formControlName="address" ></textarea>
+        <input matInput  placeholder="Address" formControlName="address" >
           <!--<input matInput placeholder="area">-->
         </mat-form-field>
       </div>
-
-        <div class="col-md-3">
-          <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" required>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <!--<mat-error *ngIf="form.controls.personalDob.errors?.required">DOB is required</mat-error>-->
-          </mat-form-field>
+      <div class="col-md-12">
+        <h6 class="mt-3">Previous Insurer details:</h6>
       </div>
-      <div class="col-md-3">
-        <mat-form-field>
-          <input matInput placeholder="age" formControlName="age">
-        </mat-form-field>
-      </div>
-    </div>
-    <div class="row">
-      <mat-radio-group formControlName="gender">
+      <div class="col-md-12">
+        <mat-radio-group formControlName="gender">
         <mat-radio-button value="male">Male</mat-radio-button>
         <mat-radio-button value="female">Female</mat-radio-button>
       </mat-radio-group>
-
+      </div>
     </div>
+
+
+    <!--</div>-->
     <h3>Educational Qualification</h3>
     <div>
       <mat-form-field class="w-100">
@@ -113,13 +132,13 @@
       <input matInput formControlName="experience3" placeholder="3 ( Name of the Organisation , Designation , years of expierience )*"><br>
       </mat-form-field>
     </div>
-    <div class="row">
+    <!--<div class="row">-->
       <mat-form-field class="w-100">
       <!--<div class="col-md-12">-->
       <textarea matInput col="30" rows="5"formControlName="applicantskills" placeholder="Your Skills"></textarea>
       <!--</div>-->
       </mat-form-field>
-    </div>
+    <!--</div>-->
     <div style="text-align: center">
       <button mat-raised-button color="primary" (click)="onsubmit()"> Sumbit</button>
     </div>
