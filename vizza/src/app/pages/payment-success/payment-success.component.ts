@@ -37,8 +37,12 @@ export class PaymentSuccessComponent implements OnInit {
       this.settings.sidenavIsPinned = false;
       this.remainingStatus = false;
       let groupDetails = JSON.parse(sessionStorage.groupDetails);
+
+      console.log(groupDetails.family_groups[sessionStorage.changedTabIndex].name, 'name');
+      console.log(sessionStorage.changedTabIndex, 'indx');
       for(let i = 0; i < groupDetails.family_groups.length; i++) {
           if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+              console.log('in');
               groupDetails.family_groups[i].status = 1;
           }
       }
@@ -46,6 +50,8 @@ export class PaymentSuccessComponent implements OnInit {
       if(status.length > 0) {
           this.remainingStatus = true;
       }
+      sessionStorage.groupDetails = JSON.stringify(groupDetails);
+
 
   }
 
