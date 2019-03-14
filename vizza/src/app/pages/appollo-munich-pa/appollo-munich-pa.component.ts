@@ -1331,6 +1331,7 @@ preInsureList() {
     sameasProposer(){
       if(this.nomineeDetail.controls['sameAsProposer'].value){
           this.sameaddress = true;
+          this.readonlyProposer = true;
           this.nomineeDetail.controls['paNomineePincode'].patchValue(this.insured.controls['insuredPaPincode'].value);
           this.getnomineePostalCode(this.nomineeDetail.controls['paNomineePincode'].value);
           this.nomineeDetail.controls['paNomineeAddress'].patchValue(this.insured.controls['insuredPaAddress'].value);
@@ -1347,6 +1348,7 @@ preInsureList() {
 
       } else {
           this.sameaddress = false;
+          this.readonlyProposer = false;
           this.nomineeDetail.controls['paNomineeAddress'].patchValue('');
           this.nomineeDetail.controls['paNomineeAddress2'].patchValue('');
           this.nomineeDetail.controls['paNomineeAddress3'].patchValue('');
