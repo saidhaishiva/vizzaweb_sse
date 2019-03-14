@@ -777,7 +777,7 @@ a:hover {
   }
 .health-table {
   ::-webkit-scrollbar-thumb:vertical {
-    background-color: #731C77;
+    background-color: #821646;
   }
   ::-webkit-scrollbar-track {
     background-color: #cfcfcf !important;
@@ -794,7 +794,7 @@ a:hover {
   }
 
   th {
-    background: #731C77;
+    background: #821646;
     text-align: center;
     border : 1px solid #dee2e6;
     color: #fff;
@@ -804,8 +804,9 @@ a:hover {
   }
 
   .pink-color {
-    background: #731C77;
-    color: #fff;
+    background: #E6D0DA;
+    border: 1px solid #821646;
+    color: #821646;
   }
 }
   .life-table{
@@ -822,11 +823,11 @@ a:hover {
       text-align: center;
     }
     .pink-color {
-      background: #731C77;
+      background: #821646;
       color: #fff;
     }
     td:first-child{
-        background: #731C77;
+        background: #821646;
         color: #fff;
       }
   }
