@@ -1090,7 +1090,7 @@ preInsureList() {
             this.pannumberP = false;
         }
         else {
-            if(this.insured.controls['insuredPaIdProof'].value == 'None'){
+            if(this.insured.controls['insuredPaIdProof'].value == 'None' || this.insured.controls['insuredPaIdProof'].value == ''){
                 this.drivinglicenseP= false;
                 this.voterP = false;
                 this.passportP = false;
