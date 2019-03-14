@@ -1120,6 +1120,19 @@ preInsureList() {
             this.passportP = false;
             this.pannumberP = false;
         }
+        else {
+            if(this.insured.controls['insuredPaIdProof'].value == 'None'){
+                this.drivinglicenseP= false;
+                this.voterP = false;
+                this.passportP = false;
+                this.pannumberP = false;
+                this.idListDetailsProposal = '';
+                this.ProposerPa.controls['proposerPaPan'].patchValue('');
+                this.ProposerPa.controls['proposerPaPassport'].patchValue('');
+                this.ProposerPa.controls['proposerPaVoter'].patchValue('');
+                this.ProposerPa.controls['proposerPaDriving'].patchValue('');
+            }
+        }
     }
     panType(type) {
       if (type == 'personal') {
