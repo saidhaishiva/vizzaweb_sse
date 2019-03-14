@@ -436,7 +436,7 @@
 
                       <mat-expansion-panel-header>
                         <mat-panel-title>
-                          {{item.main_question}}
+                          {{i+1}}. {{item.main_question}}
                         </mat-panel-title>
                         <mat-panel-description>
                           <mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
@@ -609,7 +609,7 @@
 
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngFor="let items of religareQuestionsList;let i = index;"> {{i+1}}{{items.main_question}} :
+                        <li class="list-group-item" *ngFor="let items of religareQuestionsList;let i = index;"> {{i+1}}. {{items.main_question}} :
                           <b *ngIf="items.answer_status == false"> No</b>
                           <b *ngIf="items.answer_status != false"> Yes</b>
                         </li>

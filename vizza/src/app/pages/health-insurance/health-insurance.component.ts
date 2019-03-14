@@ -28,7 +28,6 @@ export class HealthInsuranceComponent implements OnInit {
     public form: FormGroup;
     public settings: Settings;
     setArray: any;
-    setArray1: any;
     getArray: any;
     fatherBTn: boolean;
     motherBtn: boolean;
