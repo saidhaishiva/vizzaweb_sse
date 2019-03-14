@@ -163,7 +163,7 @@
                       </div>
 
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="insuredPaGst" [readonly]="readonlyProposer"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
+                        <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="insuredPaGst" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPaGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPaGst.hasError('pattern')">Enter valid GST</mat-error>
                       </mat-form-field>
@@ -531,7 +531,8 @@
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.FinalPremium}}</span> /</li>
+                  <li><span>Base Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.BasePremium}}</span> /</li>
+                  <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.Tax}}</span> </li>
                   <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.FinalPremium}}</span> </li>
                   <li></li>
                 </ul>
