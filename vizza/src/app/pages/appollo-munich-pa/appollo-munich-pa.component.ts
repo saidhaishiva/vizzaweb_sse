@@ -1309,12 +1309,13 @@ preInsureList() {
     sameasProposer(){
       if(this.nomineeDetail.controls['sameAsProposer'].value){
           this.sameaddress = true;
-          this.getnomineePostalCode( this.nomineeDetail.controls['paNomineePincode'].value);
+          this.nomineeDetail.controls['paNomineePincode'].patchValue(this.insured.controls['insuredPaPincode'].value);
+          this.getnomineePostalCode(this.nomineeDetail.controls['paNomineePincode'].value);
           this.nomineeDetail.controls['paNomineeAddress'].patchValue(this.insured.controls['insuredPaAddress'].value);
           this.nomineeDetail.controls['paNomineeAddress2'].patchValue(this.insured.controls['insuredPaAddress2'].value);
           this.nomineeDetail.controls['paNomineeAddress3'].patchValue(this.insured.controls['insuredPaAddress3'].value);
-          this.nomineeDetail.controls['paNomineePincode'].patchValue(this.insured.controls['insuredPaPincode'].value);
           this.nomineeDetail.controls['paNomineeCity'].patchValue(this.insured.controls['insuredPaCity'].value);
+          this.nomineeDetail.controls['paNomineeCityName'].patchValue(this.insured.controls['insuredPaCityName'].value);
           this.nomineeDetail.controls['paNomineeState'].patchValue(this.insured.controls['insuredPaState'].value);
           this.nomineeDetail.controls['paNomineeDistrict'].patchValue(this.insured.controls['insuredPaDistrict'].value);
           this.nomineeDetail.controls['paNomineeStateIdP'].patchValue(this.insured.controls['insuredPaStateIdP'].value);
