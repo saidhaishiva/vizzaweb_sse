@@ -241,8 +241,6 @@ export class IffcoTokioComponent implements OnInit {
         console.log(this.insuredFormData,'2');
         console.log(this.nomineeFormData,'3');
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-        this.enquiryId = sessionStorage.enquiryId;
-        this.groupName = sessionStorage.groupName;
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
 
@@ -768,14 +766,14 @@ export class IffcoTokioComponent implements OnInit {
     proposal(stepper) {
         // IHP FHP
         const data = {
-            'enquiry_id': this.enquiryId,
-            'proposal_id': 0,
+            'enquiry_id':this.getFamilyDetails.enquiry_id,
+            'proposal_id': sessionStorage.iffco_health_proposal_id == '' || sessionStorage.iffco_health_proposal_id == undefined ? '' : sessionStorage.iffco_health_proposal_id,
             'product_id': this.buyProductdetails.product_id,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'platform': "web",
-            'group_name': "Group A",
+            'group_name':this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
             'Policy': {
                 'Product': this.buyProductdetails.product_name == 'IFFCO-TOKIO(FAMILY HEALTH PROTECTOR) Individual' ? 'FHP' : 'IHP',
@@ -872,18 +870,43 @@ export class IffcoTokioComponent implements OnInit {
             this.toastr.error(successData.ErrorObject);
         }
     }
-     public objectToXml(xmlData){
+    //  public objectToXml(xmlData){
+    //     var xml = '';
+    //
+    //     for (var prop in xmlData) {
+    //
+    //         xml += "<" + prop + ">";
+    //         if (typeof xmlData[prop] == "object")
+    //             xml += this.objectToXml(new Object(xmlData[prop]));
+    //         else
+    //             xml += xmlData[prop];
+    //
+    //         xml +="</" + prop + ">";
+    //     }
+    //
+    //     return xml;
+    // }
+    public objectToXml(xmlData){
         var xml = '';
+        let prop: any;
+        for (prop in xmlData) {
+            //console.log(parseInt(prop), 'typeof parseInt(prop)');
+            if(isNaN(parseInt(prop))) {
+                console.log('inside');
+                xml += "<" + prop + ">";
 
-        for (var prop in xmlData) {
+                if (typeof xmlData[prop] == "object")
+                    xml += this.objectToXml(new Object(xmlData[prop]));
+                else
+                    xml += xmlData[prop];
 
-            xml += "<" + prop + ">";
-            if (typeof xmlData[prop] == "object")
-                xml += this.objectToXml(new Object(xmlData[prop]));
-            else
-                xml += xmlData[prop];
-
-            xml +="</" + prop + ">";
+                xml += "</" + prop + ">";
+            }else{
+                if (typeof xmlData[prop] == "object")
+                    xml += this.objectToXml(new Object(xmlData[prop]));
+                else
+                    xml += xmlData[prop];
+            }
         }
 
         return xml;

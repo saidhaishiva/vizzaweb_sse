@@ -509,19 +509,23 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     insuredsameAddress(values: any) {
         this.sameinsure = values.checked;
         if (values.checked) {
+            this.residenceCitys = this.personalCitys;
+            sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
             this.inputReadonly = true;
             this.insured.controls['insuredrAddress'].patchValue(this.insured.controls['insuredAddress'].value);
             this.insured.controls['insuredrAddress2'].patchValue(this.insured.controls['insuredAddress2'].value);
             this.insured.controls['insuredrCity'].patchValue(this.insured.controls['insuredCity'].value);
-            // this.insured.controls['insuredrCityName'].patchValue(this.insured.controls['insuredCityName'].value);
+            this.insured.controls['insuredrCityName'].patchValue(this.insured.controls['insuredCityName'].value);
             this.insured.controls['insuredrPincode'].patchValue(this.insured.controls['insuredPincode'].value);
             this.insured.controls['insuredrState'].patchValue(this.insured.controls['insuredState'].value);
 
         } else {
+            this.residenceCitys= {};
+            sessionStorage.residenceCitys = '';
             this.inputReadonly = false;
             this.insured.controls['insuredrAddress'].patchValue('');
             this.insured.controls['insuredrAddress2'].patchValue('');
-            // this.insured.controls['insuredrCity'].patchValue('');
+            this.insured.controls['insuredrCity'].patchValue('');
             this.insured.controls['insuredrCityName'].patchValue('');
             this.insured.controls['insuredrPincode'].patchValue('');
             this.insured.controls['insuredrState'].patchValue('');
@@ -1220,45 +1224,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.lastStepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            console.log(this.summaryData,'this.summaryData');
             this.religarePAProposal = this.summaryData.proposal_id;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
             this.proposerDataForm = this.insured.value;
-            console.log( this.religarePAProposal,'religarePAProposal');
-
-            // console.log( this.proposerDataForm ,);
             this.nomineeDataForm = this.nomineeDetails.value;
-            console.log( this.nomineeDataForm,'proposerDataForm');
-            // for( let i=0; i < this.occupationCode.length; i++) {
-            //     if(this.summaryData.proposer_details.p_occupation_code == this.occupationCode[i].occupation_code) {
-            //         this.summaryData.proposer_details.occupation_description =  this.occupationCode[i].occupation_description;
-            //     }
-            // }
-            // get reliagre insure occupation code
-            for( let i=0; i < this.occupationCode.length; i++) {
-                if(this.summaryData.proposer_insurer_details.i_occupation_code == this.occupationCode[i].occupation_code) {
-                    this.summaryData.proposer_insurer_details.occupation_description =  this.occupationCode[i].occupation_description;
-                }
-            }
-            // occupation class in proposer
-            for( let i=0; i < this.occupationdescriptionList.length; i++) {
-                if(this.summaryData.proposer_details.p_occupation_class == this.occupationdescriptionList[i].occupation_class) {
-                    this.summaryData.proposer_details.insureoccupationdescriptionList =  this.occupationdescriptionList[i].description;
-                }
-            }
-            // occupation class in insured
-            for( let i=0; i < this.insureoccupationdescriptionList.length; i++) {
-                if(this.summaryData.proposer_insurer_details.i_occupation_class_description == this.occupationdescriptionList[i].occupation_class) {
-                    this.summaryData.proposer_insurer_details.description =  this.occupationdescriptionList[i].description;
-                }
-            }
-            for( let i=0; i < this.insureClassDescription.length; i++) {
-                if(this.summaryData.proposer_insurer_details.i_occupation_class == this.occupationdescriptionList[i].occupation_class_description) {
-                    this.summaryData.proposer_insurer_details.occ_name =  this.occupationdescriptionList[i].occ_name;
-                }
-            }
-
-
         } else {
             this.toastr.error(successData.ErrorObject);
         }
