@@ -663,19 +663,19 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.response = successData.ResponseObject;
             if (title == 'personal') {
                 if (Object.keys(this.response).length === 0) {
-                    this.personal.controls['insuredState'].setValue('');
+                    this.insured.controls['insuredState'].patchValue('');
                     this.personalCitys = {};
                 } else {
-                    this.personal.controls['insuredState'].setValue(this.response.state);
+                    this.insured.controls['insuredState'].patchValue(this.response.state);
                     this.personalCitys = this.response.city;
                 }
                 sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
             } else if (title == 'residence') {
                 if (Object.keys(this.response).length === 0) {
-                    this.personal.controls['insuredrState'].setValue('');
+                    this.insured.controls['insuredrState'].patchValue('');
                     this.residenceCitys = {};
                 } else {
-                    this.personal.controls['insuredrState'].setValue(this.response.state);
+                    this.insured.controls['insuredrState'].patchValue(this.response.state);
                     this.residenceCitys = this.response.city;
                 }
                 sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
@@ -685,11 +685,11 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             if (title == 'personal') {
                 sessionStorage.personalCitys = '';
                 this.personalCitys = {};
-                this.personal.controls['insuredState'].setValue('');
+                this.insured.controls['insuredState'].patchValue('');
             } else if (title == 'residence') {
                 sessionStorage.residenceCitys = '';
                 this.residenceCitys = {};
-                this.personal.controls['insuredrState'].setValue('');
+                this.insured.controls['insuredrState'].patchValue('');
             }
 
         }
@@ -1268,10 +1268,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
     }
     changeRCity(){
-        this.insured.controls['insuredrCityName'].patchValue(this.insuredresidenceCitys[this.insured.controls['insuredrCity'].value]);
+        this.insured.controls['insuredrCityName'].patchValue(this.residenceCitys[this.insured.controls['insuredrCity'].value]);
     }
     changeCity() {
-        this.insured.controls['insuredCityName'].patchValue(this.insuredresidenceCitys[this.insured.controls['insuredCity'].value]);
+        this.insured.controls['insuredCityName'].patchValue(this.personalCitys[this.insured.controls['insuredCity'].value]);
     }
     changeOccupationDescription(){
         this.insured.controls['insuredClassDescriptionCodeName'].patchValue(this.insureClassDescription[this.insured.controls['insuredClassDescriptionCode'].value]);
