@@ -230,7 +230,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="space($event)" [readonly]="readonlyProposer"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="nameValidate($event)" [readonly]="readonlyProposer"  autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -833,8 +833,8 @@
                   <h6>COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.insuredPaAddress}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.i_address2 !=''"><strong>Address 2:</strong> {{proposerFormData.insuredPaAddress2}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormDatai_address3 != ''"><strong>Address 3:</strong> {{proposerFormData.insuredPaAddress3}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress2 !=''"><strong>Address 2:</strong> {{proposerFormData.insuredPaAddress2}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress3!= ''"><strong>Address 3:</strong> {{proposerFormData.insuredPaAddress3}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.insuredPaPincode}}</li>
                     <li class="list-group-item"><strong>City:</strong> {{proposerFormData.insuredPaCityName}}</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaDistrictName !='' && proposerFormData.insuredPaDistrictName != null"><strong>District:</strong> {{proposerFormData.insuredPaDistrictName}}</li>
@@ -859,8 +859,8 @@
                 <div class="p-3">
                   <h6>PREVIOUS INSURED DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Policy Start Date:</strong>{{proposerFormData.policyStartDate}}</li>
-                    <li class="list-group-item"><strong>Policy End Date:</strong> {{proposerFormData.policyEndDate}}</li>
+                    <li class="list-group-item"><strong>Policy Start Date:</strong>{{proposerFormData.PolicyStartDate | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item"><strong>Policy End Date:</strong> {{proposerFormData.PolicyEndDate | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Previous Insurer:</strong> {{proposerFormData.insuredPrevListName}}</li>
                     <li class="list-group-item"><strong>Previous Policy No:</strong> {{proposerFormData.insuredPrevious}}</li>
                     <li class="list-group-item"><strong>Sum Insured:</strong>{{proposerFormData.insureSumInsured}}</li>
@@ -899,13 +899,6 @@
                   </div>
                 </div>
               </div>
-              <!--<div class="col-md-12" class="text-center">-->
-                <!--<h6 class="text-center">Nominee Address</h6>-->
-                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<h6 class="text-center">Nominee Address</h6>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-              <!--</div>-->
               <div class="col-md-6">
                 <div class="p-3">
                   <h6 >NOMINEE ADDRESS</h6>

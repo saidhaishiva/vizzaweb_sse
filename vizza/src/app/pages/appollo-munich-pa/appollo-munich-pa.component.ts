@@ -1309,30 +1309,31 @@ preInsureList() {
     sameasProposer(){
       if(this.nomineeDetail.controls['sameAsProposer'].value){
           this.sameaddress = true;
-          this.insured.controls['paNomineeAddress'].patchValue(this.ProposerPa.controls['insuredPaAddress'].value);
-          this.insured.controls['paNomineeAddress2'].patchValue(this.ProposerPa.controls['insuredPaAddress2'].value);
-          this.insured.controls['paNomineeAddress3'].patchValue(this.ProposerPa.controls['insuredPaAddress3'].value);
-          this.insured.controls['paNomineePincode'].patchValue(this.ProposerPa.controls['insuredPaPincode'].value);
-          this.insured.controls['paNomineeCity'].patchValue(this.ProposerPa.controls['insuredPaCity'].value);
-          this.insured.controls['paNomineeState'].patchValue(this.ProposerPa.controls['insuredPaState'].value);
-          this.insured.controls['paNomineeDistrict'].patchValue(this.ProposerPa.controls['insuredPaDistrict'].value);
-          this.insured.controls['paNomineeStateIdP'].patchValue(this.ProposerPa.controls['insuredPaStateIdP'].value);
-          this.insured.controls['paNomineeCityIdP'].patchValue(this.ProposerPa.controls['insuredPaCityIdP'].value);
-          this.insured.controls['paNomineeDistrictIdP'].patchValue(this.ProposerPa.controls['insuredPaDistrictIdP'].value);
+          this.nomineeDetail.controls['paNomineePincode'].patchValue(this.insured.controls['insuredPaPincode'].value);
+          this.getnomineePostalCode(this.nomineeDetail.controls['paNomineePincode'].value);
+          this.nomineeDetail.controls['paNomineeAddress'].patchValue(this.insured.controls['insuredPaAddress'].value);
+          this.nomineeDetail.controls['paNomineeAddress2'].patchValue(this.insured.controls['insuredPaAddress2'].value);
+          this.nomineeDetail.controls['paNomineeAddress3'].patchValue(this.insured.controls['insuredPaAddress3'].value);
+          this.nomineeDetail.controls['paNomineeCity'].patchValue(this.insured.controls['insuredPaCity'].value);
+          this.nomineeDetail.controls['paNomineeCityName'].patchValue(this.insured.controls['insuredPaCityName'].value);
+          this.nomineeDetail.controls['paNomineeState'].patchValue(this.insured.controls['insuredPaState'].value);
+          this.nomineeDetail.controls['paNomineeDistrict'].patchValue(this.insured.controls['insuredPaDistrict'].value);
+          this.nomineeDetail.controls['paNomineeStateIdP'].patchValue(this.insured.controls['insuredPaStateIdP'].value);
+          this.nomineeDetail.controls['paNomineeCityIdP'].patchValue(this.insured.controls['insuredPaCityIdP'].value);
+          this.nomineeDetail.controls['paNomineeDistrictIdP'].patchValue(this.insured.controls['insuredPaDistrictIdP'].value);
 
       } else {
           this.sameaddress = false;
-
-          this.insured.controls['paNomineeAddress'].patchValue('');
-          this.insured.controls['paNomineeAddress2'].patchValue('');
-          this.insured.controls['paNomineeAddress3'].patchValue('');
-          this.insured.controls['paNomineePincode'].patchValue('');
-          this.insured.controls['paNomineeCity'].patchValue('');
-          this.insured.controls['paNomineeState'].patchValue('');
-          this.insured.controls['paNomineeDistrict'].patchValue('');
-          this.insured.controls['paNomineeStateIdP'].patchValue('');
-          this.insured.controls['paNomineeCityIdP'].patchValue('');
-          this.insured.controls['paNomineeDistrictIdP'].patchValue('');
+          this.nomineeDetail.controls['paNomineeAddress'].patchValue('');
+          this.nomineeDetail.controls['paNomineeAddress2'].patchValue('');
+          this.nomineeDetail.controls['paNomineeAddress3'].patchValue('');
+          this.nomineeDetail.controls['paNomineePincode'].patchValue('');
+          this.nomineeDetail.controls['paNomineeCity'].patchValue('');
+          this.nomineeDetail.controls['paNomineeState'].patchValue('');
+          this.nomineeDetail.controls['paNomineeDistrict'].patchValue('');
+          this.nomineeDetail.controls['paNomineeStateIdP'].patchValue('');
+          this.nomineeDetail.controls['paNomineeCityIdP'].patchValue('');
+          this.nomineeDetail.controls['paNomineeDistrictIdP'].patchValue('');
 
       }
     }
