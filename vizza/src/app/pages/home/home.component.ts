@@ -148,7 +148,7 @@ export class HomeComponent implements OnInit {
 
 
     slides = [
-        {img: "./assets/img/partner/General Insurance/apollo munich.png"},
+        {img: "./assets/img/partner/General Insurance/apolloMunich.png"},
         {img: "./assets/img/partner/General Insurance/bajaj-allianz.png"},
         {img: "./assets/img/partner/General Insurance/bharti-axa.png"},
         {img: "./assets/img/partner/General Insurance/cholamandalam-ms.png"},
@@ -165,19 +165,19 @@ export class HomeComponent implements OnInit {
         {img: "./assets/img/partner/General Insurance/national-insurance.png"},
         {img: "./assets/img/partner/General Insurance/new-india-insurance.png"},
         {img: "./assets/img/partner/General Insurance/oriental.png"},
-        // {img: "./assets/img/partner/General Insurance/reliance-heath-proposal-general.png"},
-        // {img: "./assets/img/partner/General Insurance/religare-health-proposal.png"},
+        {img: "./assets/img/partner/General Insurance/reliance-general.png"},
+        {img: "./assets/img/partner/General Insurance/religare.png"},
         {img: "./assets/img/partner/General Insurance/royal-sundaram.png"},
         {img: "./assets/img/partner/General Insurance/sbi-general.png"},
         {img: "./assets/img/partner/General Insurance/shriram.png"},
         {img: "./assets/img/partner/General Insurance/star-health.png"},
         {img: "./assets/img/partner/General Insurance/tata-aig.png"},
-        {img: "./assets/img/partner/General Insurance/United-INdia-insurance.png"},
+        {img: "./assets/img/partner/General Insurance/united-india-insurance.png"},
         {img: "./assets/img/partner/General Insurance/universal-sampo.png"}
     ];
     slideConfig = {"slidesToShow": 8, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0};
     slides2 = [
-        {img: "./assets/img/partner/life insurance/Aditya-birla.png"},
+        {img: "./assets/img/partner/life insurance/aditya-birla.png"},
         {img: "./assets/img/partner/life insurance/aegon.png"},
         {img: "./assets/img/partner/life insurance/aviva-life.png"},
         {img: "./assets/img/partner/life insurance/bajaj-allianz.png"},
@@ -193,7 +193,7 @@ export class HomeComponent implements OnInit {
         {img: "./assets/img/partner/life insurance/lic.png"},
         {img: "./assets/img/partner/life insurance/max-life.png"},
         {img: "./assets/img/partner/life insurance/pnb-metlife.png"},
-        // {img: "./assets/img/partner/life insurance/reliance-heath-proposal-nippon.png"},
+        {img: "./assets/img/partner/life insurance/reliance-nippon.png"},
         {img: "./assets/img/partner/life insurance/sbi-life.png"},
         {img: "./assets/img/partner/life insurance/shriram.png"},
         {img: "./assets/img/partner/life insurance/tata-aia.png"}

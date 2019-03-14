@@ -130,29 +130,70 @@
     <div fxLayout="column">
         <div class="col-md-12">
           <div class="flex-p">
-            <h4 style="cursor: pointer; color:#A521B3;" (click)="lifeInsurance()"><img src="assets/img/life-insurances.png" class="logo-size">&nbsp;Life Insurance</h4>
+            <h4 style="color:#A521B3;"><img src="assets/img/life-insurances.png" class="logo-size">&nbsp;Life Insurance - Endowment</h4>
             <div class="row">
-              <table class="table health-table">
+              <table class="table health-table table-scroll">
                 <thead>
                 <tr>
-                  <th >INSURER</th>
-                  <th>KEY FEATURES</th>
-                  <th >COMPARE</th>
-                  <th>POLICY DOCUMENTS</th>
-                  <th>FIX AN APPOINTMENT</th>
+                  <th class="col-md-2 font-weight-bold mt-3">Endowment Policies</th>
+                  <th class="col-md-2 font-weight-bold mt-3">Entry Age (Min/Max)</th>
+                  <th class="col-md-2 font-weight-bold mt-3">Maturity Age (Min/Max)</th>
+                  <th class="col-md-2 font-weight-bold mt-3">Policy Term</th>
+                  <th class="col-md-2 font-weight-bold mt-3">Premium Paying Term</th>
+                  <th class="col-md-1 font-weight-bold mt-3">Compare</th>
+                  <th class="col-md-1 font-weight-bold mt-3">Fix An Appointment</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr *ngFor = "let list of insurerLists">
-                  <td class="pt-4"><p>{{list.company_name}}-{{list.product_name}}</p></td>
-                  <td><div class="row"><p class="col-md-6 text-primary" *ngFor="let key of list.keyfeature">
-                    {{key.key_name}}-{{key.key_value}}</p></div></td>
-                  <td class="pt-4"><button type="button" class="btn pink-color" (click)="compareNow(insurerLists)">Compare Now</button></td>
-                  <td class="pt-3"><button type="button" class="btn yellow-color" (click)="viewDetails(list)">View Details/<br> Product Documents</button></td>
-                  <td class="pt-4"><button type="button" class="btn pink-color" (click)="callBack(list)">Call Back</button></td>
+                <tr *ngFor = "let list of insurerLists; let i = index" >
+                  <td align="center" class="col-md-2">
+                    <!--<img src="{{webhost + '/' + plists.company_logo}}" style="width: 65px;">-->
+                    <p>{{list.company_name | titlecase}} - {{list.product_name | titlecase}}</p>
+                  </td>
+                  <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3">
+                    <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
+                  </td>
+                  <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3">
+                    <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
+                  </td>
+                  <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3">
+                    <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
+                  </td>
+                  <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0">
+                    <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
+                  </td>
+                  <td class="col-md-1">
+                    <p class="mt-1" style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="compareNow(list)">Compare All</button></p>
+                    <p class="linkClor change-p" style="cursor: pointer;" (click)="viewDetails(list)"><strong>View Details</strong></p>
+                  </td>
+                  <td class="col-md-1">
+                    <p class="mt-1" style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="callBack(list)">Call Back</button></p>
+                  </td>
                 </tr>
                 </tbody>
               </table>
+
+              <!--<table class="health-table">-->
+                <!--<thead>-->
+                <!--<tr>-->
+                  <!--<th>INSURER</th>-->
+                  <!--<th>KEY FEATURES</th>-->
+                  <!--<th>COMPARE</th>-->
+                  <!--<th>POLICY DOCUMENTS</th>-->
+                  <!--<th>FIX AN APPOINTMENT</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr *ngFor = "let list of insurerLists">-->
+                  <!--<td><p>{{list.company_name}}-{{list.product_name}}</p></td>-->
+                  <!--<td><div class="row"><p class="col-md-6 text-primary" *ngFor="let key of list.keyfeature">-->
+                    <!--{{key.key_name}} : {{key.key_value}}</p></div></td>-->
+                  <!--<td><button mat-raised-button class="btn pink-color" (click)="compareNow(list)">Compare Now</button></td>-->
+                  <!--<td><button mat-raised-button class="btn yellow-color" (click)="viewDetails(list)">View Details/<br> Product Documents</button></td>-->
+                  <!--<td><button mat-raised-button class="btn pink-color" (click)="callBack(list)">Call Back</button></td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+              <!--</table>-->
             </div>
           </div>
         </div>
