@@ -41,12 +41,8 @@ export class PaymentSuccessComponent implements OnInit {
           if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
               groupDetails.family_groups[i].status = 1;
           }
-           // if(groupDetails.family_groups[i].indexOf(data => data.status == 0) != -1) {
-           //     status.push('true');
-           // }
       }
       let status = groupDetails.family_groups.filter(data => data.status == 0);
-      console.log(status, 'status11');
       if(status.length > 0) {
           this.remainingStatus = true;
       }

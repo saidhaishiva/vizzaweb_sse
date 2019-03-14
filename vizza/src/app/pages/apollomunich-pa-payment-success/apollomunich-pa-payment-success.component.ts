@@ -30,17 +30,6 @@ export class ApollomunichPaPaymentSuccessComponent  implements OnInit {
         });
     }
     ngOnInit() {
-        // sessionStorage.AnnualIncomeP= '';
-        // sessionStorage.occupationP='';
-        // sessionStorage.personalPremiumLists = '';
-        // sessionStorage.pincoceP= '';
-        // sessionStorage.selectedAmountP= '';
-        // sessionStorage.setAge= '';
-        // sessionStorage.pAccidentProposalList= '';
-        // sessionStorage.proposal1Detail= '';
-        // sessionStorage.proposal2Detail= '';
-        // sessionStorage.panomineeData= '';
-
     }
     retry() {
         this.router.navigate(['/appollopa'  + '/' + true]);

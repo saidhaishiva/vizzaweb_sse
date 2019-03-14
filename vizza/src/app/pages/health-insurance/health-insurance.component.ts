@@ -28,7 +28,6 @@ export class HealthInsuranceComponent implements OnInit {
     public form: FormGroup;
     public settings: Settings;
     setArray: any;
-    setArray1: any;
     getArray: any;
     fatherBTn: boolean;
     motherBtn: boolean;
@@ -239,18 +238,22 @@ export class HealthInsuranceComponent implements OnInit {
         }
 
         if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
-            let lists = JSON.parse(sessionStorage.policyLists).value;
-            if(lists.length > 0) {
-                this.allProductLists = JSON.parse(sessionStorage.policyLists).value;
-            } else {
-                this.productListArray = [];
-                this.allProductLists = [];
-                if(this.groupDetails.family_groups[sessionStorage.changedTabIndex].status == 0) {
-                    for(let i = 0; i < this.allCompanyList.length; i++) {
-                        this.updateTabPolicy(this.allCompanyList[i].company_id, this.groupDetails.family_groups[sessionStorage.changedTabIndex].name, this.groupDetails, sessionStorage.changedTabIndex);
-                    }
-                }
-            }
+            this.allProductLists = JSON.parse(sessionStorage.policyLists).value;
+
+            // let lists = JSON.parse(sessionStorage.policyLists).value;
+            // if(lists.length > 0) {
+            //     this.allProductLists = JSON.parse(sessionStorage.policyLists).value;
+            // } else {
+            //     this.productListArray = [];
+            //     this.allProductLists = [];
+            //     if(this.groupDetails.family_groups[sessionStorage.changedTabIndex].status == 0) {
+            //         for(let i = 0; i < this.allCompanyList.length; i++) {
+            //             this.updateTabPolicy(this.allCompanyList[i].company_id, this.groupDetails.family_groups[sessionStorage.changedTabIndex].name, this.groupDetails, sessionStorage.changedTabIndex);
+            //         }
+            //     }
+            // }
+
+
                 // this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
                 // let index = sessionStorage.changedTabIndex;
                 // for (let i = 0; i < this.setArray.length; i++) {

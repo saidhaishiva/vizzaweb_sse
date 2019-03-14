@@ -38,25 +38,23 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     constructor(public config: ConfigurationService, public router: Router,public healthService: HealthService ,public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
         this.remainingStatus = false;
-
-        // let allDetails = [];
-        // if (sessionStorage.allGroupDetails != undefined && sessionStorage.allGroupDetails != '') {
-        //     allDetails = JSON.parse(sessionStorage.allGroupDetails);
-        // }
-        // if(allDetails.length > 1) {
-        //     console.log('in');
-        //     this.remainingStatus = true;
-        // }
-
-        // console.log(this.remainingStatus, 'pppp');
         this.route.params.forEach((params) => {
-          console.log(params.id);
-          this.paymentStatus = params.status;
-          this.policyStatus = params.policyStatus;
-          this.proposalId = params.proId;
-          this.policyNo = params.policyNo;
-
+            this.paymentStatus = params.status;
+            this.policyStatus = params.policyStatus;
+            this.proposalId = params.proId;
+            this.policyNo = params.policyNo;
         });
+        let groupDetails = JSON.parse(sessionStorage.groupDetails);
+        for(let i = 0; i < groupDetails.length; i++) {
+            if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+                groupDetails.family_groups[i].status = 1;
+            }
+        }
+        let status = groupDetails.family_groups.filter(data => data.status == 0);
+        if(status.length > 0) {
+            this.remainingStatus = true;
+        }
+
   }
   ngOnInit() {
       if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
@@ -146,15 +144,8 @@ export class ReligarePaymentSuccessComponent implements OnInit {
         this.router.navigate(['/religare-health-proposal'  + '/' + true]);
     }
     pay() {
-        let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
-        this.allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
-        for (let i = 0; i < this.allGroupDetails.length; i++) {
-            if (this.allGroupDetails[i].name == changedTabDetails.name) {
-                this.allGroupDetails.splice(i, 1);
-            }
-        }
-        console.log(this.allGroupDetails, 'this.allGroupDetails');
-        this.updateTabPolicy(this.allGroupDetails[0], 0);
+        sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
+        this.router.navigate(['/healthinsurance']);
     }
 
 

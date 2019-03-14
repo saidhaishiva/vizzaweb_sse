@@ -97,8 +97,9 @@ update() {
             'platform': 'web',
             'uploadtype': 'single',
             'images': this.getUrl,
+            'flag': 'careers'
         };
-        this.common.fileUpload(data).subscribe(
+        this.common.fileUploadCareer(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
             },
@@ -110,6 +111,7 @@ update() {
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.fileUploadPath = successData.ResponseObject.imagePath;
+            console.log( this.fileUploadPath,' this.fileUploadPath');
 
 
         } else {

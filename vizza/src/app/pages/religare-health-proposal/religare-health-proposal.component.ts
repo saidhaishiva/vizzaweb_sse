@@ -774,24 +774,26 @@ export class ReligareHealthProposalComponent implements OnInit {
                     this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
                     this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+
+                    // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
+                    //
                 } else if(this. personal['controls'].personalTitle.value == 'MS'){
                     this.insureSingle = true;
                 }
@@ -1274,6 +1276,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 }
             }
         }
+        sessionStorage.religareQuestionsList = JSON.stringify(this.religareQuestionsList);
     }
     public religareQuestionsFailure(error) {
     }
@@ -1493,65 +1496,92 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
+                // if(this.buyProductdetails.product_name != 'Care Freedom' && this.insureSingle) {
+                //      this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(false);
+                // }
                 this.insureArray['controls'].items['controls'][i]['controls'].personalTitle.patchValue(this.getStepper2.items[i].personalTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalFirstname.patchValue(this.getStepper2.items[i].personalFirstname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalDob.patchValue(this.datepipe.transform(this.getStepper2.items[i].personalDob, 'y-MM-dd'));
-                this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
-                this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAadhar.patchValue(this.getStepper2.items[i].personalAadhar);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.getStepper2.items[i].personalrelationshipName);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalPan.patchValue(this.getStepper2.items[i].personalPan.toUpperCase());
                 this.insureArray['controls'].items['controls'][i]['controls'].personalGst.patchValue(this.getStepper2.items[i].personalGst);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAddress.patchValue(this.getStepper2.items[i].personalAddress);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalAddress2.patchValue(this.getStepper2.items[i].personalAddress2);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
+
+                this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
                 this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameInsureAltMobileNumber.patchValue(this.getStepper2.items[i].sameInsureAltMobileNumber);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
-                this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress.patchValue(this.getStepper2.items[i].residenceAddress);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress2.patchValue(this.getStepper2.items[i].residenceAddress2);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-                this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-                this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
                 this.insureArray['controls'].items['controls'][i]['controls'].rolecd.patchValue(this.getStepper2.items[i].rolecd);
+                this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer == undefined ? false : this.getStepper2.items[i].sameAsProposer);
+                this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
+                this.insureArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getStepper2.items[i].ins_age);
+
             }
-            for (let i = 0; i < this.getStepper2.items.length; i++) {
-                if (this.getStepper2.items[i].personalPincode != '') {
-                    this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
-                    this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
-                    if (this.getStepper2.items[0].sameAsProposer) {
-                        this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-                        this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
-                    }
-                    if (this.getStepper2.items[i].sameas) {
-                        this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
-                        this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
-                        this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
-                        this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
-                    }
-                    if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
-                        this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
-                        this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
-                        this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
-                        this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
-                    }
-                }
-            }
+            console.log(this.insureArray.value, ' this.insureArray');
+
         }
+
+                // if(this.buyProductdetails.product_name != 'Care Freedom' && this.insureSingle) {
+                //     // this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(false);
+                // }
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalAddress.patchValue(this.getStepper2.items[i].personalAddress);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalAddress2.patchValue(this.getStepper2.items[i].personalAddress2);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalAltnumber.patchValue(this.getStepper2.items[i].personalAltnumber);
+                // this.insureArray['controls'].items['controls'][i]['controls'].sameInsureAltMobileNumber.patchValue(this.getStepper2.items[i].sameInsureAltMobileNumber);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalHeight.patchValue(this.getStepper2.items[i].personalHeight);
+                // this.insureArray['controls'].items['controls'][i]['controls'].personalWeight.patchValue(this.getStepper2.items[i].personalWeight);
+                // this.insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.patchValue(this.getStepper2.items[i].sameAsProposer);
+                //
+                // this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress.patchValue(this.getStepper2.items[i].residenceAddress);
+                // this.insureArray['controls'].items['controls'][i]['controls'].residenceAddress2.patchValue(this.getStepper2.items[i].residenceAddress2);
+                // this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
+                // this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
+                // this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
+
+               // this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
+
+
+
+
+
+            // for (let i = 0; i < this.getStepper2.items.length; i++) {
+            //     if (this.getStepper2.items[i].personalPincode != '') {
+            //         this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(true);
+            //         this.insureArray['controls'].items['controls'][i]['controls'].personalCity.patchValue(this.getStepper2.items[i].personalCity);
+            //         this.insureArray['controls'].items['controls'][i]['controls'].personalPincode.patchValue(this.getStepper2.items[i].personalPincode);
+            //         this.insureArray['controls'].items['controls'][i]['controls'].personalState.patchValue(this.getStepper2.items[i].personalState);
+            //         if (this.getStepper2.items[0].sameAsProposer) {
+            //             this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
+            //             this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(true);
+            //         }
+            //         if (this.getStepper2.items[i].sameas) {
+            //             this.insureArray['controls'].items['controls'][i]['controls'].pCityHide.patchValue(this.getStepper2.items[i].sameas);
+            //             this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].personalPincode);
+            //             this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].personalState);
+            //             this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].personalCity);
+            //         }
+            //         if (this.getStepper2.items[i].sameas == false && this.getStepper2.items[i].residencePincode != '') {
+            //             this.insureArray['controls'].items['controls'][i]['controls'].cityHide.patchValue(true);
+            //             this.insureArray['controls'].items['controls'][i]['controls'].residencePincode.patchValue(this.getStepper2.items[i].residencePincode);
+            //             this.insureArray['controls'].items['controls'][i]['controls'].residenceState.patchValue(this.getStepper2.items[i].residenceState);
+            //             this.insureArray['controls'].items['controls'][i]['controls'].residenceCity.patchValue(this.getStepper2.items[i].residenceCity);
+            //         }
+            //     }
+            // }
+
+
+
         if (sessionStorage.nomineeData != '' && sessionStorage.nomineeData != undefined) {
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData);
             this.nomineeDetails = this.fb.group({
@@ -1560,11 +1590,9 @@ export class ReligareHealthProposalComponent implements OnInit {
                 nomineRelationshipName: this.getNomineeData.nomineRelationshipName
             });
         }
-        if (sessionStorage.proposal3Detail != '' && sessionStorage.proposal3Detail != undefined) {
-            this.religareListQuestions = JSON.parse(sessionStorage.proposal3Detail);
-        } else {
-            this.religareQuestions();
-        }
+        if (sessionStorage.religareQuestionsList != '' && sessionStorage.religareQuestionsList != undefined) {
+            this.religareQuestionsList = JSON.parse(sessionStorage.religareQuestionsList);
+        } else
         if (sessionStorage.proposalID != '' && sessionStorage.proposalID != undefined) {
             this.proposalId = sessionStorage.proposalID;
         }

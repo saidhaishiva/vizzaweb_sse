@@ -230,7 +230,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="space($event)" [readonly]="readonlyProposer"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="nameValidate($event)" [readonly]="readonlyProposer"  autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -338,26 +338,26 @@
 
                       <div class="col-md-3" *ngIf="pannumberP">
                         <mat-form-field class="w-100"  >
-                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase" [readonly]="readonlyProposer"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPaPan" (input)="panType('insurer')" (keypress)="idValidate($event)" autocomplete="off">
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPaPan" (input)="panType('insurer')" (keypress)="idValidate($event)" autocomplete="off">
                           <mat-error *ngIf="insured.controls.insuredPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="drivinglicenseP" >
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Driving License" formControlName="insuredPaDriving"[readonly]="readonlyProposer" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="idValidate($event)" (input)="panType('insurer')">
+                          <input matInput placeholder="Driving License" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="idValidate($event)" maxlength="15" (input)="panType('insurer')">
                           <mat-error *ngIf="insured.controls.insuredPaDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="passportP">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Passport" formControlName="insuredPaPassport" [readonly]="readonlyProposer" (keypress)="idValidate($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                          <input matInput placeholder="Passport" formControlName="insuredPaPassport" (keypress)="idValidate($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
                           <mat-error *ngIf="insured.controls.insuredPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="voterP" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Voter Id" formControlName="insuredPaVoter"  [readonly]="readonlyProposer" (keypress)="idValidate($event)" (input)="panType('insurer')" >
+                          <input matInput placeholder="Voter Id" formControlName="insuredPaVoter" maxlength="10" (keypress)="idValidate($event)" (input)="panType('insurer')" >
                         </mat-form-field>
                       </div>
 
@@ -613,7 +613,7 @@
                     </div>
 
                     <div class="proposal-buttom mt-3 text-right w-100">
-                      <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                      <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
                       <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, insured.value)" >Next</button>
                     </div>
                     </div>
@@ -652,7 +652,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                              <mat-select placeholder="Relationship with Proposer"  formControlName="paRelationship" (change)="changeRelationship()" required >
+                              <mat-select placeholder="Relationship with Insured"  formControlName="paRelationship" (change)="changeRelationship()" required >
                                   <mat-option *ngFor="let relationship of relationshipListPa | keys" [hidden]="sameRelationship == relationship.relationship" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                               </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>
@@ -833,8 +833,8 @@
                   <h6>COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.insuredPaAddress}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.i_address2 !=''"><strong>Address 2:</strong> {{proposerFormData.insuredPaAddress2}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormDatai_address3 != ''"><strong>Address 3:</strong> {{proposerFormData.insuredPaAddress3}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress2 !=''"><strong>Address 2:</strong> {{proposerFormData.insuredPaAddress2}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress3!= ''"><strong>Address 3:</strong> {{proposerFormData.insuredPaAddress3}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.insuredPaPincode}}</li>
                     <li class="list-group-item"><strong>City:</strong> {{proposerFormData.insuredPaCityName}}</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaDistrictName !='' && proposerFormData.insuredPaDistrictName != null"><strong>District:</strong> {{proposerFormData.insuredPaDistrictName}}</li>
@@ -851,7 +851,7 @@
                     <li class="list-group-item"  *ngIf="proposerFormData.insuredPouchesList != '' && proposerFormData.insuredPouchesList != 0" ><strong>Pouches:</strong> {{proposerFormData.insuredPouchesList}}</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredLiquor != '' && proposerFormData.insuredLiquor != 0"><strong>Liquor Peg:</strong> {{proposerFormData.insuredLiquor}}</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredWine != '' && proposerFormData.insuredWine != 0"><strong>Wine Glass:</strong> {{proposerFormData.insuredWine}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredBeer != '' && proposerFormData.insuredBeer != 0"><strong>Beer Bottle:</strong> {{proposerFormData.insuredBeer}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredBeer != ''"><strong>Beer Bottle:</strong> {{proposerFormData.insuredBeer}}</li>
                   </ul>
                 </div>
               </div>
@@ -859,8 +859,8 @@
                 <div class="p-3">
                   <h6>PREVIOUS INSURED DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Policy Start Date:</strong>{{proposerFormData.policyStartDate}}</li>
-                    <li class="list-group-item"><strong>Policy End Date:</strong> {{proposerFormData.policyEndDate}}</li>
+                    <li class="list-group-item"><strong>Policy Start Date:</strong>{{proposerFormData.PolicyStartDate | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item"><strong>Policy End Date:</strong> {{proposerFormData.PolicyEndDate | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Previous Insurer:</strong> {{proposerFormData.insuredPrevListName}}</li>
                     <li class="list-group-item"><strong>Previous Policy No:</strong> {{proposerFormData.insuredPrevious}}</li>
                     <li class="list-group-item"><strong>Sum Insured:</strong>{{proposerFormData.insureSumInsured}}</li>
@@ -899,13 +899,6 @@
                   </div>
                 </div>
               </div>
-              <!--<div class="col-md-12" class="text-center">-->
-                <!--<h6 class="text-center">Nominee Address</h6>-->
-                <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<h6 class="text-center">Nominee Address</h6>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-              <!--</div>-->
               <div class="col-md-6">
                 <div class="p-3">
                   <h6 >NOMINEE ADDRESS</h6>
@@ -929,7 +922,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Nominee State:</strong> {{nomineeDataForm.paNomineeState}}</li>
                         <li class="list-group-item"><strong>Nominee City:</strong> {{nomineeDataForm.paNomineeCityName}}</li>
-                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeDistrict != '' && nomineeDataForm.paNomineeDistrict != null"><strong>Nominee District:</strong> {{nomineeDataForm.paNomineeDistrict}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeDistrictName != '' && nomineeDataForm.paNomineeDistrictName != null"><strong>Nominee District:</strong> {{nomineeDataForm.paNomineeDistrictName}}</li>
                       </ul>
                     </div>
 

@@ -327,6 +327,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.setOccupationListCode();
         this.setpersonalOccupationListCode();
         this.setinsureOccupationListCode();
+        this.religareQuestions();
+
         this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
         this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
         if(this.getAllPremiumDetails.product_id == 1) {
@@ -492,7 +494,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.personalAccidentQuestionsList = JSON.parse(sessionStorage.proposal3Detail);
 
         } else {
-            this. religareQuestions();
+            this.religareQuestions();
         }
 
 // nominee
@@ -594,7 +596,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.insured.controls['insuredrAddress'].patchValue(this.insured.controls['insuredAddress'].value);
             this.insured.controls['insuredrAddress2'].patchValue(this.insured.controls['insuredAddress2'].value);
             this.insured.controls['insuredrCity'].patchValue(this.insured.controls['insuredCity'].value);
-            this.insured.controls['insuredrCityName'].patchValue(this.insured.controls['insuredCity'].value);
+            // this.insured.controls['insuredrCityName'].patchValue(this.insured.controls['insuredCity'].value);
             this.insured.controls['insuredrPincode'].patchValue(this.insured.controls['insuredPincode'].value);
             this.insured.controls['insuredrState'].patchValue(this.insured.controls['insuredState'].value);
 
@@ -603,7 +605,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.insured.controls['insuredrAddress'].patchValue('');
             this.insured.controls['insuredrAddress2'].patchValue('');
             this.insured.controls['insuredrCity'].patchValue('');
-            this.insured.controls['insuredrCityName'].patchValue('');
+            // this.insured.controls['insuredrCityName'].patchValue('');
             this.insured.controls['insuredrPincode'].patchValue('');
             this.insured.controls['insuredrState'].patchValue('');
 
@@ -1575,11 +1577,14 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.lastStepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
-            this.religarePAProposal = this.summaryData.proposer_details.proposal_id;
+            console.log(this.summaryData,'this.summaryData');
+            this.religarePAProposal = this.summaryData.proposal_id;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
             this.proposerDataForm = this.insured.value;
+            console.log( this.religarePAProposal,'religarePAProposal');
+
+            // console.log( this.proposerDataForm ,);
             this.nomineeDataForm = this.nomineeDetails.value;
-            console.log( this.proposerDataForm,'proposerDataForm');
             console.log( this.nomineeDataForm,'proposerDataForm');
             // for( let i=0; i < this.occupationCode.length; i++) {
             //     if(this.summaryData.proposer_details.p_occupation_code == this.occupationCode[i].occupation_code) {

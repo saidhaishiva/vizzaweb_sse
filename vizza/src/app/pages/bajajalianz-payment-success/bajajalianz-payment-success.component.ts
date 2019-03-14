@@ -26,19 +26,22 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
   constructor(public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
       this.settings = this.appSettings.settings;
       this.remainingStatus = false;
-
-      // let allDetails = JSON.parse(sessionStorage.allGroupDetails);
-      // if(allDetails.length > 1) {
-      //     this.remainingStatus = true;
-      // }
       this.route.params.forEach((params) => {
-          console.log(params.id);
           this.paymentStatus = params.status;
           this.proposalId = params.proId;
           this.proposalId = params.proId;
           this.mailstatus = params.mailstatus;
-
       });
+      let groupDetails = JSON.parse(sessionStorage.groupDetails);
+      for(let i = 0; i < groupDetails.length; i++) {
+          if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+              groupDetails.family_groups[i].status = 1;
+          }
+      }
+      let status = groupDetails.family_groups.filter(data => data.status == 0);
+      if(status.length > 0) {
+          this.remainingStatus = true;
+      }
   }
 
   ngOnInit() {
@@ -96,14 +99,7 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
     }
 
     pay(){
-        let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
-        let allGroupDetails = JSON.parse(sessionStorage.allGroupDetails);
-        for (let i = 0; i < allGroupDetails.length; i++) {
-            if(allGroupDetails[i].name == changedTabDetails.name) {
-                allGroupDetails.splice(i, 1);
-            }
-        }
-        sessionStorage.policyLists = JSON.stringify({index: 0, value: allGroupDetails});
+        sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
         this.router.navigate(['/healthinsurance']);
     }
 
