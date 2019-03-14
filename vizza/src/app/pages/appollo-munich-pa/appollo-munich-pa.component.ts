@@ -102,10 +102,16 @@ public minDate: any;
 public insuredage: any;
 public maxStartdate:any;
 public currentStep:any;
+public bmiValue:any;
 public sameRelationship:any;
 public proposerFormData:any;
 public nomineeDataForm:any;
 public sameaddress:boolean;
+public habits: boolean;
+   public height: any;
+   public heighrCal: any;
+    public weight:any;
+    public BMI: any;
     CheckHabits : boolean;
     readonlyProposer : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
@@ -127,6 +133,9 @@ public sameaddress:boolean;
       this.insuredAgeP = '';
       this.maxStartdate = '';
       this.sameaddress = false;
+      this.habits = true;
+      this.bmiValue = false;
+
       // let stepperindex = 0;
       // this.route.params.forEach((params) => {
       //     if(params.stepper == true) {
@@ -261,11 +270,11 @@ public sameaddress:boolean;
           sameAsProposer:false
 
       });
-      this.insured.controls['insuredPouchesList'].disable();
-      this.insured.controls['insuredSmokeList'].disable();
-      this.insured.controls['insuredLiquor'].disable();
-      this.insured.controls['insuredWine'].disable();
-      this.insured.controls['insuredBeer'].disable();
+      // this.insured.controls['insuredPouchesList'].disable();
+      // this.insured.controls['insuredSmokeList'].disable();
+      // this.insured.controls['insuredLiquor'].disable();
+      // this.insured.controls['insuredWine'].disable();
+      // this.insured.controls['insuredBeer'].disable();
       this.pannumber= false;
       this.passport= false;
       this.voter= false;
@@ -441,10 +450,14 @@ public sameaddress:boolean;
                 this.insured.controls['insuredSmoke'].patchValue(this.appollo2.insuredSmoke);
                 this.checkHabits(this.appollo2.insuredSmoke, 'smoke');
                 this.insured.controls['insuredSmokeList'].patchValue(this.appollo2.insuredSmokeList);
-                this.insured.controls['insuredSmokeList'].enable();
+                // this.insured.controls['insuredSmokeList'].enable();
+                this.habits = false;
+
             } else {
                 this.insuredSmoke = false;
-                this.insured.controls['insuredSmokeList'].disable();
+                this.habits = true;
+
+                // this.insured.controls['insuredSmokeList'].disable();
                 // this.insured.controls['insuredSmokeList'].patchValue('');
 
 
@@ -453,10 +466,14 @@ public sameaddress:boolean;
                 this.insured.controls['insuredPouches'].patchValue(this.appollo2.insuredPouches);
                 this.checkHabits(this.appollo2.insuredPouches, 'pouches');
                 this.insured.controls['insuredPouchesList'].patchValue(this.appollo2.insuredPouchesList);
-                this.insured.controls['insuredPouchesList'].enable();
+                // this.insured.controls['insuredPouchesList'].enable();
+                this.habits = false;
+
             } else {
                 this.insuredPouches = false;
-                this.insured.controls['insuredPouchesList'].disable();
+                this.habits = true;
+
+                // this.insured.controls['insuredPouchesList'].disable();
                 this.insured.controls['insuredPouchesList'].patchValue('');
 
             }
@@ -464,10 +481,12 @@ public sameaddress:boolean;
                 this.insured.controls['insuredLiquor'].patchValue(this.appollo2.insuredLiquor);
                 this.checkHabits(this.appollo2.insuredLiquor, 'liquor');
                 this.insured.controls['insuredCheck'].patchValue(this.appollo2.insuredCheck);
-                this.insured.controls['insuredLiquor'].enable();
+                this.habits = false;
+                // this.insured.controls['insuredLiquor'].enable();
             } else {
                 this.insuredCheck = false;
-                this.insured.controls['insuredLiquor'].disable();
+                this.habits = true;
+                // this.insured.controls['insuredLiquor'].disable();
                 this.insured.controls['insuredLiquor'].patchValue('');
 
             }
@@ -475,10 +494,14 @@ public sameaddress:boolean;
                 this.insured.controls['insuredWine'].patchValue(this.appollo2.insuredWine);
                 this.checkHabits(this.appollo2.insuredWine, 'wine');
                 this.insured.controls['insuredCheck1'].patchValue(this.appollo2.insuredCheck1);
-                this.insured.controls['insuredWine'].enable();
+                // this.insured.controls['insuredWine'].enable();
+                this.habits = false;
+
             } else {
                 this.insuredCheck1 = false;
-                this.insured.controls['insuredWine'].disable();
+                this.habits = true;
+
+                // this.insured.controls['insuredWine'].disable();
                 this.insured.controls['insuredWine'].patchValue('');
 
             }
@@ -487,8 +510,12 @@ public sameaddress:boolean;
                 this.checkHabits(this.appollo2.insuredBeer, 'beer');
                 this.insured.controls['insuredCheck2'].patchValue(this.appollo2.insuredCheck2);
                 this.insured.controls['insuredBeer'].enable();
+                this.habits = false;
+
             } else {
                 this.insuredCheck2 = false;
+                this.habits = true;
+
                 // this.insured.controls['insuredBeer'].disable();
                 this.insured.controls['insuredBeer'].patchValue('');
 
@@ -961,45 +988,59 @@ preInsureList() {
            this.CheckHabits = true;
             if (type == 'smoke') {
                 this.insuredSmoke = true;
-                this.insured.controls['insuredSmokeList'].enable();
+                this.habits = false;
+                // this.insured.controls['insuredSmokeList'].enable();
             } else if (type == 'pouches') {
                 this.insuredPouches = true;
-                this.insured.controls['insuredPouchesList'].enable();
+                this.habits = false;
+
+                // this.insured.controls['insuredPouchesList'].enable();
             } else if (type == 'liquor') {
                 this.insuredCheck = true;
-                this.insured.controls['insuredLiquor'].enable();
+                this.habits = false;
+
+                // this.insured.controls['insuredLiquor'].enable();
             } else if (type == 'wine') {
                 this.insuredCheck1 = true;
-                this.insured.controls['insuredWine'].enable();
+                this.habits = false;
+
+                // this.insured.controls['insuredWine'].enable();
             } else if (type == 'beer') {
                 this.insuredCheck2 = true;
-                this.insured.controls['insuredBeer'].enable();
+                this.habits = false;
+
+                // this.insured.controls['insuredBeer'].enable();
             }
         } else {
             this.CheckHabits = true;
             if (type == 'smoke') {
                 this.insuredSmoke = false;
+                this.habits = true;
                 this.insured.controls['insuredSmokeList'].patchValue('');
-                this.insured.controls['insuredSmokeList'].disable();
+                // this.insured.controls['insuredSmokeList'].disable();
 
             } else if (type == 'pouches') {
                 this.insuredPouches = false;
+                this.habits = true;
                 this.insured.controls['insuredPouchesList'].patchValue('');
-                this.insured.controls['insuredPouchesList'].disable();
+                // this.insured.controls['insuredPouchesList'].disable();
             } else if (type == 'liquor') {
                 this.insuredCheck = false;
+                this.habits = true;
                 this.insured.controls['insuredLiquor'].patchValue('');
-                this.insured.controls['insuredLiquor'].disable();
+                // this.insured.controls['insuredLiquor'].disable();
 
             } else if (type == 'wine') {
                 this.insuredCheck1 = false;
+                this.habits = true;
                 this.insured.controls['insuredWine'].patchValue('');
-                this.insured.controls['insuredWine'].disable();
+                // this.insured.controls['insuredWine'].disable();
 
             } else if (type == 'beer') {
                 this.insuredCheck2 = false;
+                this.habits = true;
                 this.insured.controls['insuredBeer'].patchValue('');
-                this.insured.controls['insuredBeer'].disable();
+                // this.insured.controls['insuredBeer'].disable();
 
             }
 
@@ -1148,6 +1189,8 @@ preInsureList() {
           this.insured.controls['insuredremark'].patchValue('');
       }
     }
+    // bmi calculation
+
 // Occupation List
 
     setOccupationListCode() {
@@ -1455,7 +1498,33 @@ preInsureList() {
                     this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
                 }
                 else {
-                    stepper.next();
+                    this.height =  this.insured.controls['insuredHeight'].value;
+                    this.heighrCal = (this.height / 100) * (this.height / 100);
+                    this.weight =  this.insured.controls['insuredWeight'].value;
+                    this. BMI = this.weight / this.heighrCal;
+                    if (this.insured.controls['insuredPaAge'].value > 0 && this.insured.controls['insuredPaAge'].value <= 15) {
+                        if (this.BMI >= 12 && this.BMI <= 39 ){
+                            stepper.next();
+                        } else {
+                            this.toastr.error('BMI Range should be greater than 12 and less than 39 or greater than 18 and less than 28 ');
+
+                        }
+                    }
+                     if (this.insured.controls['insuredPaAge'].value  >=16) {
+                        if (this.BMI >= 18 && this.BMI <= 28.99) {
+                            stepper.next();
+                        } else {
+                            this.toastr.error('BMI Range should be greater than 12 and less than 39 or greater than 18 and less than 28 ');
+                        }
+                    }
+
+                    // if(this.bmiValue){
+                    //     stepper.next();
+                    //
+                    // } else {
+                    //     this.toastr.error('Insured age should be 18 or above');
+                    //
+                    // }
                 }
                 this.topScroll();
 
@@ -1677,5 +1746,9 @@ preInsureList() {
         this.insured.controls['maritalStatusName'].patchValue(this.paMaritalList[this.insured.controls['maritalStatus'].value])
 
     }
+
+
 }
+
+
 

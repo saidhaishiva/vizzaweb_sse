@@ -612,9 +612,7 @@
                         <li class="list-group-item"><strong>Gender:</strong>{{proposerDataForm.insuredGender}} </li>
                         <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerDataForm.insuredDob  | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerDataForm.insuredMobile}} </li>
-                      <!--<li class="list-group-item" *ngIf="summaryData.proposer_details.p_res_contactnum != ''"><strong>Residence Number:</strong>{{proposerDataForm.proposer_details.p_res_contactnum}} </li>-->
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{proposerDataForm.insuredEmail}}</li>
-                      <!--<li class="list-group-item"><strong>Relationship With Insured:</strong>  {{proposerDataForm.proposer_details.p_relationcd}}</li>-->
                       <li class="list-group-item"><strong>Occupation:</strong>  {{proposerDataForm.insuredOccupationCodeName}}</li>
                     </ul>
                   </div>
@@ -622,16 +620,11 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <!--<li class="list-group-item" *ngIf="proposerDataForm.insuredDescriptionCodeName != '' && proposerDataForm.insuredDescriptionCodeName != null"><strong>Occupation Description:</strong>  {{proposerDataForm.insuredDescriptionCodeName}}</li>-->
 
                       <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerDataForm.insuredClassDescriptionCodeName}}</li>
-                      <!--<li class="list-group-item" *ngIf="proposerDataForm.insuredDescriptionName != '' && proposerDataForm.insuredDescriptionName != null"><strong>Occupation Description:</strong>  {{proposerDataForm.insuredDescriptionName}}</li>-->
                       <li class="list-group-item"><strong>PAN Number:</strong> {{proposerDataForm.insuredPan}}</li>
-                      <!--<li class="list-group-item" *ngIf="proposerDataForm.insuredPassPort != ''"><strong>Passport Number:</strong> {{proposerDataForm.insuredPassPort}}</li>-->
                       <li class="list-group-item"><strong>Annual Income:</strong>{{proposerDataForm.insuredAnnualIncome}} </li>
-                      <!--<li class="list-group-item" *ngIf="proposerDataForm.insuredEmail2 != ''"><strong>Official Email Id:</strong>  {{proposerDataForm.insuredEmail2}}</li>-->
-
-                      <li class="list-group-item"><strong>Height:</strong>  {{proposerDataForm.insuredHeight}}</li>
+                        <li class="list-group-item"><strong>Height:</strong>  {{proposerDataForm.insuredHeight}}</li>
                       <li class="list-group-item"><strong>Weight:</strong>  {{proposerDataForm.insuredWeight}}</li>
 
                     </ul>
@@ -642,7 +635,7 @@
                     <h6>COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{proposerDataForm.insuredAddress}}</li>
-                      <li class="list-group-item"><strong>Address 2:</strong>{{proposerDataForm.insuredAddress2}}</li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredAddress2 != ''"><strong>Address 2:</strong>{{proposerDataForm.insuredAddress2}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerDataForm.insuredPincode}}</li>
                       <li class="list-group-item"><strong>City:</strong>{{proposerDataForm.insuredCityName}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{proposerDataForm.insuredState}}</li>
@@ -656,7 +649,7 @@
                     <h6 class="color-blue">RESIDENCE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong>{{proposerDataForm.insuredrAddress}} </li>
-                      <li class="list-group-item"><strong>Address 2:</strong>{{proposerDataForm.insuredrAddress2}}</li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredrAddress2 != ''"><strong>Address 2:</strong>{{proposerDataForm.insuredrAddress2}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong>{{proposerDataForm.insuredrPincode}} </li>
                       <li class="list-group-item"><strong>City:</strong> {{proposerDataForm.insuredrCityName}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{proposerDataForm.insuredrState}}</li>
@@ -666,29 +659,46 @@
               </div>
             </section>
             <h5 class="mt-3 ">SECURE DETAILS </h5>
+              <div class="row box-card">
+                  <div class="col-md-12">
+                      <div class="p-3">
+                          <div class="row">
 
-            <div class="row box-card">
-              <div class="col-md-12">
-                <div class="p-3">
-                  <div class="row">
-                    <div class="col-md-12">
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item">1. Does Your Job Require You To Engage In Significant Manual Labor Or Hazardous Activities Or Requires Handling Hazardous Material Or Working At Significant Heights Or With High Voltage :
-                            <b>></b></li>
-                        <li class="list-group-item">2.Have You Ever Been Diagnosed Or Are Under Treatment For Any Terminal Illness Or Any Illness/Disease Restricting Your Activities (E.G. Epilepsy/Seizure Disorder) :
-                            <b></b></li>
-                        <li class="list-group-item">3.Any Existing Disability/Deformity (Physical Or Mental Impairment/Infirmity Or Any Condition Hampering Vision, Hearing Or Mobility) :
-                            <b></b></li>
-                        <li class="list-group-item">4.Has Any Company Ever Declined To Issue/Renew A Personal Accident Policy For Any Proposed? If Yes, Please Provide Details :
-                          <b></b></li>
-                        <li class="list-group-item">5.Do You Have An Existing Personal Accident/Health Insurance Policy With Religare Health Or Any Other Insurer? :
-                           <b></b></li>
-                      </ul>
-                    </div>
+                              <div class="col-md-12">
+                                  <ul class="m-0 list-group">
+                                      <li class="list-group-item" *ngFor="let items of personalAccidentQuestionsList;let i = index;"> {{i+1}}. {{items.question}} :
+                                          <b *ngIf="items.checked == false"> No</b>
+                                          <b *ngIf="items.checked != false"> Yes</b>
+                                      </li>
+                                  </ul>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                </div>
               </div>
-            </div>
+
+            <!--<div class="row box-card">-->
+              <!--<div class="col-md-12">-->
+                <!--<div class="p-3">-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-12">-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item">1. Does Your Job Require You To Engage In Significant Manual Labor Or Hazardous Activities Or Requires Handling Hazardous Material Or Working At Significant Heights Or With High Voltage :-->
+                            <!--<b>></b></li>-->
+                        <!--<li class="list-group-item">2.Have You Ever Been Diagnosed Or Are Under Treatment For Any Terminal Illness Or Any Illness/Disease Restricting Your Activities (E.G. Epilepsy/Seizure Disorder) :-->
+                            <!--<b></b></li>-->
+                        <!--<li class="list-group-item">3.Any Existing Disability/Deformity (Physical Or Mental Impairment/Infirmity Or Any Condition Hampering Vision, Hearing Or Mobility) :-->
+                            <!--<b></b></li>-->
+                        <!--<li class="list-group-item">4.Has Any Company Ever Declined To Issue/Renew A Personal Accident Policy For Any Proposed? If Yes, Please Provide Details :-->
+                          <!--<b></b></li>-->
+                        <!--<li class="list-group-item">5.Do You Have An Existing Personal Accident/Health Insurance Policy With Religare Health Or Any Other Insurer? :-->
+                           <!--<b></b></li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</div>-->
+            <!--</div>-->
 
 
 
@@ -702,7 +712,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeDataForm.religareNomineeName}}</li>
+                        <li class="list-group-item"><strong>Name:</strong> {{nomineeDataForm.religareNomineeName}}</li>
                       </ul>
                     </div>
 
@@ -714,7 +724,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{nomineeDataForm.religareRelationshipName}}</li>
+                        <li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataForm.religareRelationshipName}}</li>
                       </ul>
                     </div>
 
@@ -752,13 +762,12 @@
                         </div>
                     </div>
                 </form>
-
               </div>
             </div>
           </section>
-
-
         </mat-step>
+
+
 
       </mat-horizontal-stepper>
     </div>

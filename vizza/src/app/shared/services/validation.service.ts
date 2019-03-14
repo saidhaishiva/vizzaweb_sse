@@ -39,6 +39,15 @@ export class ValidationService {
         }
     }
 
+    // onlynumValidate(event) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[1-9][0-9]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
 // pan gst validation
     idValidate(event) {
         if (event.charCode !== 0) {
@@ -51,14 +60,14 @@ export class ValidationService {
     }
 
     space(event) {
-        if (event.keyCode != 32 && event.trim(event.value) != '') {
-            const pattern = /[a-zA-Z]/;
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z0-9 ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
             }
-            }
         }
+    }
 }
 
 
