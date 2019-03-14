@@ -571,7 +571,7 @@ a:hover {
     color: #ffffff !important;
   }
   .mat-tab-label:hover{
-    background-color: rgba(24, 204, 180, 0.35);
+    background-color: #FFE4F2;
   }
   .mat-tab-label-active{
     background-color: #ce367c;
@@ -618,12 +618,12 @@ a:hover {
         min-width: 0;
         width: 105px !important;
       }
-      //::-webkit-scrollbar-thumb:vertical {
-      //  background-color: #00b39b !important;
-      //}
-      //::-webkit-scrollbar-track {
-      //  background-color: #cfcfcf !important;
-      //}
+      ::-webkit-scrollbar-thumb:vertical {
+        background-color: #ce367c !important;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #cfcfcf !important;
+      }
     }
     .pTitle {
       margin-top: 3px !important;
@@ -688,7 +688,7 @@ a:hover {
     }
     .mat-raised-button.mat-primary {
       background-color: #FFE4F2;
-      border: 2px solid #ce397c;
+      border: 1px solid #ce397c;
       color: #ce397c;
     }
     .mat-raised-button.mat-primary1 {
@@ -2512,9 +2512,9 @@ btn-uploade{
     transform: rotateY(-180deg);
   }
 }
-.active-link {
-  background-color: #90d050 !important;
-}
+//.active-link {
+//  background-color: #90d050 !important;
+//}
 
 .about-health{
   mat-expansion-panel{

@@ -45,8 +45,12 @@ export class ReligarePaymentSuccessComponent implements OnInit {
             this.policyNo = params.policyNo;
         });
         let groupDetails = JSON.parse(sessionStorage.groupDetails);
+        console.log(groupDetails.family_groups[sessionStorage.changedTabIndex].name, 'name');
+        console.log(sessionStorage.changedTabIndex, 'indx');
         for(let i = 0; i < groupDetails.family_groups.length; i++) {
+            console.log('in');
             if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+                console.log('outt');
                 groupDetails.family_groups[i].status = 1;
             }
         }
@@ -54,43 +58,9 @@ export class ReligarePaymentSuccessComponent implements OnInit {
         if(status.length > 0) {
             this.remainingStatus = true;
         }
-
-  }
+        sessionStorage.groupDetails = JSON.stringify(groupDetails);
+    }
   ngOnInit() {
-      if (sessionStorage.setFamilyDetails != undefined && sessionStorage.setFamilyDetails != '') {
-          this.setArray = JSON.parse(sessionStorage.setFamilyDetails);
-          for (let i = 0; i < this.setArray.length; i++) {
-              this.setArray[i].auto = false;
-              if (this.setArray[i].checked && this.setArray[i].age != '') {
-                  this.setArray[i].error = '';
-              }
-          }
-      }
-      if (sessionStorage.policyLists != undefined && sessionStorage.policyLists != '') {
-          this.insuranceLists = JSON.parse(sessionStorage.policyLists).value;
-              let index = sessionStorage.changedTabIndex;
-              for (let i = 0; i < this.setArray.length; i++) {
-                  this.setArray[i].auto = false;
-              }
-              this.getArray = this.insuranceLists[index].family_members;
-              for (let i = 0; i < this.setArray.length; i++) {
-                  for (let j = 0; j < this.getArray.length; j++) {
-                      if (this.setArray[i].name == this.getArray[j].type) {
-                          this.setArray[i].auto = true;
-                      }
-                      if (this.setArray[i].checked && this.setArray[i].age != '') {
-                          this.setArray[i].error = '';
-                      }
-
-                  }
-              }
-      }
-      if (sessionStorage.setInsuredAmount != undefined && sessionStorage.setInsuredAmount != '') {
-          this.selectedAmount = sessionStorage.setInsuredAmount;
-      }
-      if (sessionStorage.setPincode != undefined && sessionStorage.setPincode != '') {
-          this.pincoce = sessionStorage.setPincode;
-      }
   }
 
     DownloadPdf() {
@@ -114,7 +84,6 @@ export class ReligarePaymentSuccessComponent implements OnInit {
     }
     public downloadPdfSuccess(successData) {
         this.settings.loadingSpinner = false;
-        console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
         this.type = successData.ResponseObject.type;
         this.path = successData.ResponseObject.path;
         if (successData.IsSuccess == true) {
@@ -147,143 +116,6 @@ export class ReligarePaymentSuccessComponent implements OnInit {
         sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
         this.router.navigate(['/healthinsurance']);
     }
-
-
-
-
-        //
-        // for (let i = 0; i < allGroupDetails.length; i++) {
-        //     let ststus = false;
-        //     if(allGroupDetails[i].purchase_status == '0') {
-        //         ststus = true;
-        //     }
-        //     if(ststus) {
-        //         if(allGroupDetails[i].name == changedTabDetails.name) {
-        //             allGroupDetails.splice(i, 1);
-        //         }
-        //     } else if(!ststus && allGroupDetails[i].purchase_status == '1') {
-        //         allGroupDetails.splice(i, 1);
-        //     }
-        //
-        // }
-        // let groups = [];
-        // for (let i = 0; i < allGroupDetails.length; i++) {
-        //     if(allGroupDetails[i] != changedTabDetails.name) {
-        //         groups.push(allGroupDetails[i].name);
-        //     }
-        // }
-        //     console.log(groups, 'groups');
-        // for (let i = 0; i < groups.length; i++) {
-        //     let index = allGroupDetails.findIndex(item => item.name == groups[i]);
-        //     console.log(index, 'indexindex');
-        //     // if(allGroupDetails.indexOf(data.name == groups[i])) {
-        //     //
-        //     // }
-        // }
-
-            // changedTabDetails.indexOf(data.purchase_status == -1);
-
-        // sessionStorage.policyLists = JSON.stringify({index: 0, value: allGroupDetails});
-        // this.router.navigate(['/healthinsurance']);
-
-
-
-    updateTabPolicy(value, index) {
-        this.finalData = [];
-        for (let i = 0; i < this.setArray.length; i++) {
-            if (this.setArray[i].checked) {
-                if (this.setArray[i].age == '') {
-                    this.setArray[i].error = 'Required';
-                } else {
-                    this.setArray[i].error = '';
-                    this.finalData.push({type: this.setArray[i].name, age: this.setArray[i].age });
-                }
-            }
-        }
-        for (let i = 0; i < this.setArray.length; i++) {
-            this.setArray[i].auto = false;
-        }
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pincoce,
-            'sum_insured': this.selectedAmount,
-            'family_details': this.finalData,
-            'family_group_name': value.name,
-            'enquiry_id': value.enquiry_id,
-            'created_by': '0',
-            'insurance_type' : '1',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-        };
-        this.settings.loadingSpinner = true;
-        this.healthService.updateTabPolicyQuotation(data).subscribe(
-            (successData) => {
-                this.updateTabPolicyQuotationSuccess(successData, index, value.enquiry_id, value.name);
-            },
-            (error) => {
-                this.updateTabPolicyQuotationFailure(error);
-            }
-        );
-    }
-    public updateTabPolicyQuotationSuccess(successData, index, enqId, name) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            this.insuranceLists = successData.ResponseObject;
-            let changedTabDetails = JSON.parse(sessionStorage.changedTabDetails);
-            for (let j = 0; j < this.insuranceLists.length; j++) {
-                if (this.insuranceLists[j].name == changedTabDetails.name) {
-                    this.insuranceLists.splice(j, 1);
-                }
-            }
-            console.log(this.insuranceLists, 'this.insuranceListsthis.insuranceLists9099090999091121');
-            this.allCompanyList = [];
-            for (let i = 0; i < this.insuranceLists.length; i++) {
-                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                    if(this.allCompanyList.indexOf(this.insuranceLists[i].product_lists[j].company_name) == -1) {
-                        this.allCompanyList.push(this.insuranceLists[i].product_lists[j].company_name);
-                    }
-                    this.insuranceLists[index].product_lists[j].shortlist =  this.insuranceLists[index].product_lists[j].shortlist_status;
-                    this.insuranceLists[index].product_lists[j].currentBtn =  this.insuranceLists[index].product_lists[j].shortlist_status;
-                    if (this.insuranceLists[index].product_lists[j].indiv_shortlist_status == true) {
-                        this.insuranceLists[index].product_lists[j].removebtn = this.insuranceLists[index].product_lists[j].indiv_shortlist_status;
-                        this.insuranceLists[index].product_lists[j].currentBtn = false;
-                    }
-
-                    this.insuranceLists[index].product_lists[j].premium_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].premium_amount);
-                    this.insuranceLists[index].product_lists[j].suminsured_amount_format = this.numberWithCommas(this.insuranceLists[index].product_lists[j].suminsured_amount);
-                }
-            }
-            for (let i = 0; i < this.setArray.length; i++) {
-                this.setArray[i].auto = false;
-            }
-            this.getArray = this.insuranceLists[index].family_members;
-            for (let i = 0; i < this.setArray.length; i++) {
-                for (let j = 0; j < this.getArray.length; j++) {
-                    if (this.setArray[i].name == this.getArray[j].type) {
-                        this.setArray[i].auto = true;
-                    }
-                }
-            }
-            // }
-
-            sessionStorage.policyLists = JSON.stringify({index: index, value: this.insuranceLists});
-            sessionStorage.allGroupDetails = JSON.stringify(this.insuranceLists);
-            sessionStorage.changedTabIndex = 0;
-            this.router.navigate(['/healthinsurance']);
-
-        } else {
-            this.toast.error(successData.ErrorObject, 'Failed');
-        }
-    }
-
-    public updateTabPolicyQuotationFailure(error) {
-        this.settings.loadingSpinner = false;
-    }
-    public  numberWithCommas(x) {
-        return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
-    }
-
-
 
 
     downloadMessage() {
