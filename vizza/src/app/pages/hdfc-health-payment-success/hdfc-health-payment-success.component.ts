@@ -45,6 +45,8 @@ constructor(public config: ConfigurationService, public router: Router, public p
     if(status.length > 0) {
         this.remainingStatus = true;
     }
+    sessionStorage.groupDetails = JSON.stringify(groupDetails);
+
 }
 ngOnInit() {
     // sessionStorage.hdfc_health_proposal_id = '';

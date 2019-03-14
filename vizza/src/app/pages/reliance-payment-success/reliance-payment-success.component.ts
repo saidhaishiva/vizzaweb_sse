@@ -46,6 +46,8 @@ export class ReliancePaymentSuccessComponent implements OnInit {
         if(status.length > 0) {
             this.remainingStatus = true;
         }
+        sessionStorage.groupDetails = JSON.stringify(groupDetails);
+
     }
 
   ngOnInit() {

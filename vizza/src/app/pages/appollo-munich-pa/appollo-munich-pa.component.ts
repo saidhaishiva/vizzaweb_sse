@@ -270,11 +270,7 @@ public habits: boolean;
           sameAsProposer:false
 
       });
-      // this.insured.controls['insuredPouchesList'].disable();
-      // this.insured.controls['insuredSmokeList'].disable();
-      // this.insured.controls['insuredLiquor'].disable();
-      // this.insured.controls['insuredWine'].disable();
-      // this.insured.controls['insuredBeer'].disable();
+
       this.pannumber= false;
       this.passport= false;
       this.voter= false;
@@ -361,7 +357,6 @@ public habits: boolean;
         // }
 
 
-
         if (sessionStorage.appollo2Detail != '' && sessionStorage.appollo2Detail != undefined) {
             this.appollo2 = JSON.parse(sessionStorage.appollo2Detail);
             if (this.appollo2.insuredPaPincode != '') {
@@ -440,70 +435,47 @@ public habits: boolean;
             if(this.appollo2.insuredPaIdProof != ''){
                 this.panType('insurer');
             }
-            // if (this.appollo2.sameAsProposer == true || this.appollo2.sameAsProposer == 'true') {
-            //     this.readonlyProposer = true;
-            // }
             this.maxStartdate = this.appollo2.PolicyStartDate;
             this.insureidList();
-
             if (this.appollo2.insuredSmoke) {
                 this.insured.controls['insuredSmoke'].patchValue(this.appollo2.insuredSmoke);
                 this.checkHabits(this.appollo2.insuredSmoke, 'smoke');
                 this.insured.controls['insuredSmokeList'].patchValue(this.appollo2.insuredSmokeList);
-                // this.insured.controls['insuredSmokeList'].enable();
                 this.habits = false;
-
             } else {
                 this.insuredSmoke = false;
                 this.habits = true;
-
-                // this.insured.controls['insuredSmokeList'].disable();
-                // this.insured.controls['insuredSmokeList'].patchValue('');
-
-
             }
             if (this.appollo2.insuredPouches) {
                 this.insured.controls['insuredPouches'].patchValue(this.appollo2.insuredPouches);
                 this.checkHabits(this.appollo2.insuredPouches, 'pouches');
                 this.insured.controls['insuredPouchesList'].patchValue(this.appollo2.insuredPouchesList);
-                // this.insured.controls['insuredPouchesList'].enable();
                 this.habits = false;
 
             } else {
                 this.insuredPouches = false;
                 this.habits = true;
-
-                // this.insured.controls['insuredPouchesList'].disable();
                 this.insured.controls['insuredPouchesList'].patchValue('');
-
             }
             if (this.appollo2.insuredCheck) {
                 this.insured.controls['insuredLiquor'].patchValue(this.appollo2.insuredLiquor);
                 this.checkHabits(this.appollo2.insuredLiquor, 'liquor');
                 this.insured.controls['insuredCheck'].patchValue(this.appollo2.insuredCheck);
                 this.habits = false;
-                // this.insured.controls['insuredLiquor'].enable();
             } else {
                 this.insuredCheck = false;
                 this.habits = true;
-                // this.insured.controls['insuredLiquor'].disable();
                 this.insured.controls['insuredLiquor'].patchValue('');
-
             }
             if (this.appollo2.insuredCheck1) {
                 this.insured.controls['insuredWine'].patchValue(this.appollo2.insuredWine);
                 this.checkHabits(this.appollo2.insuredWine, 'wine');
                 this.insured.controls['insuredCheck1'].patchValue(this.appollo2.insuredCheck1);
-                // this.insured.controls['insuredWine'].enable();
                 this.habits = false;
-
             } else {
                 this.insuredCheck1 = false;
                 this.habits = true;
-
-                // this.insured.controls['insuredWine'].disable();
                 this.insured.controls['insuredWine'].patchValue('');
-
             }
             if (this.appollo2.insuredCheck2) {
                 this.insured.controls['insuredBeer'].patchValue(this.appollo2.insuredBeer);
@@ -515,10 +487,7 @@ public habits: boolean;
             } else {
                 this.insuredCheck2 = false;
                 this.habits = true;
-
-                // this.insured.controls['insuredBeer'].disable();
                 this.insured.controls['insuredBeer'].patchValue('');
-
             }
             if (this.appollo2.previousradio == 1) {
                 this.insuredSmoke = true;
@@ -1121,7 +1090,7 @@ preInsureList() {
             this.pannumberP = false;
         }
         else {
-            if(this.insured.controls['insuredPaIdProof'].value == 'None'){
+            if(this.insured.controls['insuredPaIdProof'].value == 'None' || this.insured.controls['insuredPaIdProof'].value == ''){
                 this.drivinglicenseP= false;
                 this.voterP = false;
                 this.passportP = false;
@@ -1289,12 +1258,11 @@ preInsureList() {
     }
 // insured pin validate
     getinsuredPostalCode(pin) {
-        this.pin = pin;
         const data = {
             'platform': 'web',
-            'postalcode': this.pin
+            'postalcode': pin
         };
-        if (this.pin.length == 6) {
+        if (pin.length == 6) {
             this.personalservice.pinPaList(data).subscribe(
                 (successData) => {
                     this.pinPaInsuredListSuccess(successData);
@@ -1325,12 +1293,11 @@ preInsureList() {
     }
     // nomineee pin validate
     getnomineePostalCode(pin) {
-        this.pin = pin;
         const data = {
             'platform': 'web',
-            'postalcode': this.pin
+            'postalcode': pin
         };
-        if (this.pin.length == 6) {
+        if (pin.length == 6) {
             this.personalservice.pinPaList(data).subscribe(
                 (successData) => {
                     this.pinPanomineeListSuccess(successData);
