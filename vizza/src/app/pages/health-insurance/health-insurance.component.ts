@@ -220,6 +220,7 @@ export class HealthInsuranceComponent implements OnInit {
         if (sessionStorage.groupDetails != undefined && sessionStorage.groupDetails != '') {
             this.groupDetails = JSON.parse(sessionStorage.groupDetails);
             this.groupList = this.groupDetails.family_groups;
+
         }
         if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
             this.allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
@@ -499,11 +500,11 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.groupDetails = successData.ResponseObject;
-            this.groupList = successData.ResponseObject.family_groups;
             sessionStorage.changedTabIndex = 0;
             for(let i = 0; i < this.groupDetails.family_groups.length; i++) {
                 this.groupDetails.family_groups[i].status = 0;
             }
+            this.groupList = this.groupDetails.family_groups;
             sessionStorage.groupDetails = JSON.stringify(this.groupDetails);
             if(this.groupList.length > 1) {
                 let dialogRef = this.dialog.open(GrouppopupComponent, {
@@ -698,6 +699,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     addCompare(value,index) {
+        console.log(value, 'value');
         const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.allProductLists[index].compare = true;
         this.compareArray.push(data);
@@ -723,6 +725,7 @@ export class HealthInsuranceComponent implements OnInit {
                 this.allProductLists[i].compare = false;
             }
         }
+        console.log(this.compareArray, 'this.compareArray');
 
     }
     removeAllCompare(index) {

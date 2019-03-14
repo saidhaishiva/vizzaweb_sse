@@ -1120,6 +1120,19 @@ preInsureList() {
             this.passportP = false;
             this.pannumberP = false;
         }
+        else {
+            if(this.insured.controls['insuredPaIdProof'].value == 'None'){
+                this.drivinglicenseP= false;
+                this.voterP = false;
+                this.passportP = false;
+                this.pannumberP = false;
+                this.idListDetailsProposal = '';
+                this.ProposerPa.controls['proposerPaPan'].patchValue('');
+                this.ProposerPa.controls['proposerPaPassport'].patchValue('');
+                this.ProposerPa.controls['proposerPaVoter'].patchValue('');
+                this.ProposerPa.controls['proposerPaDriving'].patchValue('');
+            }
+        }
     }
     panType(type) {
       if (type == 'personal') {
@@ -1161,14 +1174,7 @@ preInsureList() {
           this.insured.controls['insuredQualify'].setValidators([Validators.required]);
           this.insured.controls['insuredWaive'].setValidators([Validators.required]);
           this.insured.controls['insuredremark'].setValidators([Validators.required]);
-          // this.insured.controls['PolicyStartDate'].value;
-          // this.insured.controls['PolicyEndDate'].value;
-          // this.insured.controls['insuredPrevList'].value;
-          // this.insured.controls['insuredPrevious'].value;
-          // this.insured.controls['insureSumInsured'].value;
-          // this.insured.controls['insuredQualify'].value;
-          // this.insured.controls['insuredWaive'].value;
-          // this.insured.controls['insuredremark'].value;
+
       } else{
           this.prevList = false;
           this.insured.controls['PolicyStartDate'].setValidators(null);
