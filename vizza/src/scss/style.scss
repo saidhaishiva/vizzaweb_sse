@@ -744,29 +744,63 @@ a:hover {
   }
 }
 #life-list{
+  .table-fixed{
+    width: 100%;
+    background-color: #f3f3f3;
+    tbody{
+      height:200px;
+      overflow-y:auto;
+      width: 100%;
+    }
+    thead,tbody,tr,td,th{
+      display:block;
+    }
+    tbody{
+      td{
+        float:left;
+      }
+    }
+    thead {
+      tr{
+        th{
+          float:left;
+          background-color: #f39c12;
+          border-color:#e67e22;
+        }
+      }
+    }
+  }
 .health-table {
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #731C77;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
+  button{
+    font-size: 12px;
+    padding: 0 4px;
+    line-height: 1.6;
+  }
    td {
-    border: 2px solid #dee2e6;
     text-align: center;
+     padding: 10px;
+     border : 1px solid #dee2e6;
   }
 
   th {
     background: #731C77;
+    text-align: center;
+    border : 1px solid #dee2e6;
     color: #fff;
-    border: 2px solid #dee2e6;
+    padding: 10px;
     font-weight: normal;
     font-size: 12px;
-    text-align: center;
   }
 
   .pink-color {
     background: #731C77;
     color: #fff;
-  }
-
-  .yellow-color {
-    background: #FFFF00;
-    color: #000;
   }
 }
   .life-table{
@@ -793,7 +827,7 @@ a:hover {
   }
 }
 //life View Component
-.lifeView{
+.AllFormView{
   .mat-select-value {
     color: #ffffff !important;
   }
@@ -815,6 +849,16 @@ a:hover {
   }
   .mat-form-field-empty.mat-form-field-label {
     color: #ffffff !important;
+  }
+
+  /* When the input is not focused */
+  md-input-container label {
+    color: white;
+  }
+
+  /* When the input is focused */
+  md-input-container.md-input-focused label {
+    color: white;
   }
 }
 
@@ -3078,17 +3122,6 @@ fieldset {
   }
 }
 
-.life-callback{
-  /* When the input is not focused */
-  md-input-container label {
-    color: white;
-  }
-
-  /* When the input is focused */
-  md-input-container.md-input-focused label {
-    color: white;
-  }
-}
 .card-block{
   height:100%;
 }

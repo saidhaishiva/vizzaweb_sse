@@ -53,9 +53,6 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
 
       });
   }
-    lifeInsurance(){
-
-    }
 
     public getDetails() {
         const data = {
