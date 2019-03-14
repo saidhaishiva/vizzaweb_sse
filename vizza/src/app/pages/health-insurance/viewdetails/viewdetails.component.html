@@ -10,7 +10,7 @@
 </div>
 
 <div id="view-details">
-  <div class="">
+  <div class="healthScroll">
     <div fxLayout="column">
       <div class="container">
 
@@ -32,7 +32,7 @@
                       </mat-nav-list>
                     </div>
                 </div>
-                  <div class="col-md-9" [style.background-color]="bgColor == 'true' ? '#18ccb4' : '#d81b60'" ><br>
+                  <div class="col-md-9" [style.background-color]="bgColor == 'true' ? '#dc6e97' : '#d81b60'" ><br>
                     <div mat-dialog-content>
                       <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
                           <div fxLayoutAlign="center center" class="well" *ngIf="id === i">
@@ -70,7 +70,7 @@
                   </mat-nav-list>
                 </div>
               </div>
-              <div class="col-md-9" style="background-color:#18ccb4 !important;"><br>
+              <div class="col-md-9" style="background-color:#dc6e97 !important;"><br>
                 <div>
                   <div class="h-100" *ngFor="let keys of productDocLists;let i = index">
                     <div fxLayoutAlign="center center" class="well" *ngIf="id1 == i">
@@ -100,40 +100,21 @@
                 <div mat-dialog-content >
 
                   <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
-                    <mat-list-item *ngIf="keys.type == 2" class="nav-item" (click)="selectClaim('form1')" [style.background-color]="selectedClaimDetails == 'form1' ? '#18ccb4' : '#8e8e8e'">
+                    <mat-list-item *ngIf="keys.type == 2" class="nav-item" (click)="selectClaim('form1')" [style.background-color]="selectedClaimDetails == 'form1' ? '#dc6e97' : '#8e8e8e'">
                       <i class="material-icons">keyboard_arrow_right</i>
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                     </mat-list-item>
                   </mat-nav-list>
                   <mat-nav-list>
-                    <mat-list-item (click)="selectClaim('form2')" [style.background-color]="selectedClaimDetails == 'form2' ? '#18ccb4' : '#8e8e8e'">
+                    <mat-list-item (click)="selectClaim('form2')" [style.background-color]="selectedClaimDetails == 'form2' ? '#dc6e97' : '#8e8e8e'">
                       <i class="material-icons">keyboard_arrow_right</i>
                       <a matLine  style="font-weight: bold !important;" >Vizza Assistance</a>
                     </mat-list-item>
                   </mat-nav-list>
-
-
-
-
-                      <!--<div *ngFor="let keys of getKeyList;let i = index">-->
-                        <!--<div *ngIf="keys.type == 2" class="nav-item" [ngClass]="{'active': id === i }" [style.background-color]="keys.type == 2 ? '#8e8e8e' : '#d81b60'">-->
-                          <!--<div class="p-3" >-->
-                            <!--<a matLine (click)="selectClaim('form1')" style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}} <span class="float-right"><i class="material-icons">keyboard_arrow_right</i></span></a>-->
-                          <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-
-                      <!--<div>-->
-                        <!--<div class="nav-item">-->
-                          <!--<div class="p-3" >-->
-                            <!--<a matLine (click)="selectClaim('form2')" style="font-weight: bold !important;" matTooltip="Vizza Accident Form">Vizza Accident Form<span class="float-right"><i class="material-icons">keyboard_arrow_right</i></span></a>-->
-                          <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
                 </div>
                 </div>
 
-              <div class="col-md-9" style="background-color:#18ccb4; height:510px;"><br>
+              <div class="col-md-9" style="background-color:#dc6e97; height:510px;"><br>
                 <div mat-dialog-content>
                   <div *ngIf="selectedClaimDetails == 'form1'">
                     <div class="h-100" *ngFor="let keys of getKeyList;let i = index">

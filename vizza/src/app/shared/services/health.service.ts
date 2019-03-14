@@ -25,27 +25,23 @@ export class HealthService {
             .catch(this.handleError);
     }
     // group details
-    getPolicyQuotation(data) {
-        console.log(data, 'ssssssssssss');
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHostHealth() + 'productlist/family_classification' ;
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
-
-
-
+    // getPolicyQuotation(data) {
+    //     console.log(data, 'ssssssssssss');
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHostHealth() + 'productlist/family_classification' ;
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
 
 
     // new policy lists
     // group details
     getFamilyLists(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -58,7 +54,6 @@ export class HealthService {
     }
     // policy details
     getPolicyLists(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -72,90 +67,82 @@ export class HealthService {
 
     // end
 
-
-
-
-// update familygroup suminsured
+    // old api
+    // update familygroup suminsured
      changeAmountPolicyQuotation(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/update_familygroup_suminsured' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/update_familygroup_suminsured' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
     // this function will tab update the policy deatils
     updateTabPolicyQuotation(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/showquotelist_ontabchange' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/showquotelist_ontabchange' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
     // this function will update the base policy deatils
     updatePolicyQuotation(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/update_enqfamily_memberdetails' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/update_enqfamily_memberdetails' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // old end
     // this function will compare the product lists
     addtoCompare(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/compare_shkeyfeatures' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/compare_shkeyfeatures' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
     // this function will add the short lists
     addShortList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/add_prodshortlist' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/add_prodshortlist' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
     // this function will remove the short lists
     removeShortList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/remove_prodshortlist' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/remove_prodshortlist' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
     // this function will get the key feature lists
     viewKeyFeatureList(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -168,20 +155,18 @@ export class HealthService {
     }
     // this function will get the short lists
     getShortLists(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/get_enq_shortlistedproduct' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/get_enq_shortlistedproduct' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
     // this function will get the Renewal lists
     policyRenewal(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -198,7 +183,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/enquiry_furtherassistance' ;
+        const url = this.configurationService.getHostHealth() + 'healthproduct/enquiry_furtherassistance' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -311,7 +296,6 @@ export class HealthService {
     }
     // pincode
     getPincode(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -362,7 +346,6 @@ export class HealthService {
     // }
     //policy
     mediaCenter(data) {
-        console.log(data, 'ssssssssssss');
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
@@ -376,7 +359,6 @@ export class HealthService {
     // proposal creation
     //comapny list resolver
     companyDetails() {
-        console.log('testyinnn');
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -461,7 +443,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/get_enq_shortlistedproduct';
+        const url = this.configurationService.getHostHealth() + 'healthproduct/get_enq_shortlistedproduct';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -471,7 +453,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/get_proposalquestions';
+        const url = this.configurationService.getHostHealth() + 'healthproduct/get_proposalquestions';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -481,7 +463,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/get_occupationcode';
+        const url = this.configurationService.getHostHealth() + 'healthproduct/get_occupationcode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -502,7 +484,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/get_occupationcode';
+        const url = this.configurationService.getHostHealth() + 'healthproduct/get_occupationcode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -525,7 +507,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'productlist/get_relationshipcode';
+        const url = this.configurationService.getHostHealth() + 'healthproduct/get_relationshipcode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -970,7 +952,6 @@ export class HealthService {
 
     //Bajaj Services
     getbajajProposal(data) {
-        console.log('bajajjjjjjjjjjj');
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
