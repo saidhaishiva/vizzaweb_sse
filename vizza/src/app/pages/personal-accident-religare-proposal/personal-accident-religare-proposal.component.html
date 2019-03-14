@@ -243,7 +243,7 @@
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-blue">PROPOSER / INSURED DETAILS</h6>
+                    <!--<h6 class="color-blue">PROPOSER / INSURED DETAILS</h6>-->
                     <!--<div class="row">-->
                       <!--<div class="col-md-12 mb-3"><mat-checkbox formControlName="sameAsinsureProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox></div>-->
                     <!--</div>-->
@@ -395,7 +395,7 @@
 
 
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-blue"> INSURED COMMUNICATION ADDRESS</h6>
+                    <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -416,18 +416,18 @@
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-4" *ngIf="sameFieldsInsure != true"><mat-form-field class="w-100" >
+                      <div class="col-md-4"><mat-form-field class="w-100" >
                         <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" (change)="changeCity()" required>
-                          <mat-option *ngFor="let city of personalcity | keys" [value]= 'city.key'>
+                          <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
                             {{city.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insured.controls.insuredCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-4" *ngIf="sameFieldsInsure"><mat-form-field class="w-100" >
-                        <input matInput placeholder="City" formControlName="insuredCity" autocomplete="off" required >
-                        <mat-error *ngIf="insured.controls.insuredCity.errors?.required">City is required</mat-error>
-                      </mat-form-field></div>
+                      <!--<div class="col-md-4" *ngIf="sameFieldsInsure"><mat-form-field class="w-100" >-->
+                        <!--<input matInput placeholder="City" formControlName="insuredCity" autocomplete="off" required >-->
+                        <!--<mat-error *ngIf="insured.controls.insuredCity.errors?.required">City is required</mat-error>-->
+                      <!--</mat-form-field></div>-->
 
 
                       <div class="col-md-4"><mat-form-field class="w-100">
@@ -440,7 +440,7 @@
                   </div>
                   <div class="col-md-12 box-card pt-3">
                   <!--<div class="col-md-12 box-card pt-3" [ngClass]="{'disabledP':readonlyproposer == true}">-->
-                    <h6 class="color-blue">INSURED RESIDENCE ADDRESS</h6>
+                    <h6 class="color-blue">RESIDENCE ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-12"><mat-checkbox formControlName="sameasInsuredAddress" (change)="insuredsameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox></div>
                       <div class="col-md-6">
@@ -465,19 +465,19 @@
 
 
                       </mat-form-field></div>
-                      <div class="col-md-4" *ngIf="sameinsure != true" ><mat-form-field class="w-100">
+                      <div class="col-md-4" ><mat-form-field class="w-100">
                         <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (change)="changeRCity()" [disabled]="inputReadonly" required>
-                          <mat-option *ngFor="let citys of city | keys" [value]= 'citys.key'>
+                          <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
                             {{citys.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insured.controls.insuredrCity.errors?.required">City is required</mat-error>
                       </mat-form-field></div>
 
-                      <div class="col-md-4" *ngIf="sameinsure"><mat-form-field class="w-100" >
-                        <input matInput placeholder="City" formControlName="insuredrCity" autocomplete="off">
-                        <mat-error *ngIf="insured.controls.insuredrCity.errors?.required">City is required</mat-error>
-                      </mat-form-field></div>
+                      <!--<div class="col-md-4" *ngIf="sameinsure"><mat-form-field class="w-100" >-->
+                        <!--<input matInput placeholder="City" formControlName="insuredrCity" autocomplete="off">-->
+                        <!--<mat-error *ngIf="insured.controls.insuredrCity.errors?.required">City is required</mat-error>-->
+                      <!--</mat-form-field></div>-->
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="State" formControlName="insuredrState" autocomplete="off"  readonly required>
                         <mat-error *ngIf="insured.controls.insuredrState.errors?.required">State is required</mat-error>
@@ -613,16 +613,19 @@
                         <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerDataForm.insuredDob  | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerDataForm.insuredMobile}} </li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong>  {{proposerDataForm.insuredEmail}}</li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredEmail2 != ''"><strong>Offfical Email Id:</strong>  {{proposerDataForm.insuredEmail2}}</li>
                       <li class="list-group-item"><strong>Occupation:</strong>  {{proposerDataForm.insuredOccupationCodeName}}</li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredAltnumber != ''"><strong>Residential Number:</strong>  {{proposerDataForm.insuredAltnumber}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-
-                      <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerDataForm.insuredClassDescriptionCodeName}}</li>
+                        <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerDataForm.insuredClassDescriptionCodeName}}</li>
+                        <li class="list-group-item"><strong>Occupation Description:</strong>  {{proposerDataForm.insuredDescriptionCodeName}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{proposerDataForm.insuredPan | uppercase}}</li>
+                      <li class="list-group-item" *ngIf="proposerDataForm.insuredPassPort != ''"><strong>Pass Port:</strong> {{proposerDataForm.insuredPassPort | uppercase}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong>{{proposerDataForm.insuredAnnualIncome}} </li>
                         <li class="list-group-item"><strong>Height:</strong>  {{proposerDataForm.insuredHeight}}</li>
                       <li class="list-group-item"><strong>Weight:</strong>  {{proposerDataForm.insuredWeight}}</li>
@@ -666,7 +669,7 @@
 
                               <div class="col-md-12">
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item" *ngFor="let items of personalAccidentQuestionsList;let i = index;"> {{i+1}}. {{items.question}} :
+                                      <li class="list-group-item" *ngFor="let items of personalAccidentQuestionsList;let i = index;"> {{i+1}}.  {{items.question}} :
                                           <b *ngIf="items.checked == false"> No</b>
                                           <b *ngIf="items.checked != false"> Yes</b>
                                       </li>
