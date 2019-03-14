@@ -371,7 +371,7 @@
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Previous Policy No" (keypress)="idValidate($event)" [required]="prevList" formControlName="insuredPrevious">
+                              <input matInput placeholder="Previous Policy No" (keypress)="idValidate($event)" maxlength="15" [required]="prevList" formControlName="insuredPrevious">
                               <mat-error *ngIf="insured.controls.insuredPrevious.errors?.required">Policy number is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -383,13 +383,13 @@
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Qualifying Amount" (keypress)="numberValidate($event)"  [required]="prevList" formControlName="insuredQualify">
+                              <input matInput placeholder="Qualifying Amount" (keypress)="numberValidate($event)" maxlength="15"  [required]="prevList" formControlName="insuredQualify">
                               <mat-error *ngIf="insured.controls.insuredQualify.errors?.required">Qualifying Amount is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Waive Period" (keypress)="idValidate($event)" [required]="prevList" formControlName="insuredWaive">
+                              <input matInput placeholder="Waive Period" (keypress)="idValidate($event)" [required]="prevList" maxlength="15" formControlName="insuredWaive">
                               <mat-error *ngIf="insured.controls.insuredWaive.errors?.required">Waive Period is required</mat-error>
                             </mat-form-field>
                           </div>
