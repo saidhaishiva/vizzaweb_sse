@@ -33,7 +33,7 @@ export class BajajalianzPaymentSuccessComponent implements OnInit {
           this.mailstatus = params.mailstatus;
       });
       let groupDetails = JSON.parse(sessionStorage.groupDetails);
-      for(let i = 0; i < groupDetails.length; i++) {
+      for(let i = 0; i < groupDetails.family_groups.length; i++) {
           if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
               groupDetails.family_groups[i].status = 1;
           }

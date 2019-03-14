@@ -545,29 +545,17 @@ a:hover {
   display: none !important;
 }
 
-#product-list{
-  //.main{
-  //  with: 100%;
-  //  background:#ffffff;
-  //  position: sticky;
-  //  top:0;
-  //  z-index:1;
-  //}
-  //.health-table th{
-  //  with: 100%;
-  //  background:#ffffff;
-  //  position: sticky;
-  //  top:50px;
-  //  z-index:2;
-  //}
-
+.healthScroll{
   ::-webkit-scrollbar-thumb:vertical {
-    background-color: #00b39b;
+    background-color: #ce367c !important;
   }
   ::-webkit-scrollbar-track {
     background-color: #cfcfcf !important;
   }
 
+}
+
+#product-list{
   .mat-tab-header, .mat-tab-nav-bar {
     border-bottom: 0px solid rgba(0,0,0,.12) !important;
   }
@@ -577,6 +565,7 @@ a:hover {
   }
   .mat-tab-label {
     height: 44px !important;
+    border-right: 1px solid #ffffff;
   }
   .mat-select-value-text {
     color: #ffffff !important;
@@ -585,15 +574,21 @@ a:hover {
     background-color: rgba(24, 204, 180, 0.35);
   }
   .mat-tab-label-active{
-    background-color: #19a98e;
+    background-color: #ce367c;
     z-index: 1;
+    p {
+      color: #ffffff !important;
+    }
+    path {
+      fill: #ffffff !important;
+    }
   }
   .mat-ink-bar{
     display:none !important;
   }
   .mat-tab-labels {
     float: right;
-    background: #ada4a4 !important;
+    background: #e1e6e2 !important;
 
   }
 
@@ -623,16 +618,16 @@ a:hover {
         min-width: 0;
         width: 105px !important;
       }
-      ::-webkit-scrollbar-thumb:vertical {
-        background-color: #00b39b !important;
-      }
-      ::-webkit-scrollbar-track {
-        background-color: #cfcfcf !important;
-      }
+      //::-webkit-scrollbar-thumb:vertical {
+      //  background-color: #00b39b !important;
+      //}
+      //::-webkit-scrollbar-track {
+      //  background-color: #cfcfcf !important;
+      //}
     }
     .pTitle {
       margin-top: 3px !important;
-      color: #e61b4f !important;
+      color: #28a745 !important;
       font-weight: 500 !important;
     }
 
@@ -666,8 +661,8 @@ a:hover {
       tr{
         th{
           float:left;
-          background-color: #f39c12;
-          border-color:#e67e22;
+          background-color: #ce367c;
+          // border-color:#e67e22;
         }
       }
     }
@@ -692,7 +687,9 @@ a:hover {
 
     }
     .mat-raised-button.mat-primary {
-      background-color: $green-color;
+      background-color: #FFE4F2;
+      border: 2px solid #ce397c;
+      color: #ce397c;
     }
     .mat-raised-button.mat-primary1 {
       background-color: #ca8845db;
@@ -701,23 +698,22 @@ a:hover {
       background-color: #2d8dc5;
       color: #ffff;
     }
+    .mat-raised-button.mat-accent{
+      background-color: #28a745 !important;
+    }
 
     thead th{
       border: none;
       vertical-align: text-bottom;
       border-bottom: 2px solid #dee2e6;
-      background: #18ccb4;
+      background: #ce367c;
       color: #fff;
       font-weight: normal;
       font-size: 12px;
     }
-    //health-insurance color white in mat-select-holder
     .myclass{
       color: #ffffff !important;
     }
-    //.ng-star-inserted{
-    //  color: #ffffff !important;
-    //}
     .mat-select-arrow{
       color: #ffffff !important;
     }
