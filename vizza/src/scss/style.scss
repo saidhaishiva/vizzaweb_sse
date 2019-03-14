@@ -41,6 +41,7 @@ button:focus{
 .logo-size{
   width: 30px;
   height: 30px;
+  margin-top: -4px;
 }
 .logo-size1{
   width: 50px;
@@ -99,6 +100,9 @@ button:focus{
 }
 .sidenav-header{
   border-bottom: 1px solid #ccc;
+}
+.mat-toolbar-single-row {
+  height: 97px !important;
 }
 .sidenav{
   width: 300px !important;
@@ -569,7 +573,7 @@ a:hover {
   }
   .mat-tab-group {
     width: 687px !important;
-    height: 1px !important;
+    height: 38px !important;
   }
   .mat-tab-label {
     height: 44px !important;
@@ -625,6 +629,11 @@ a:hover {
       ::-webkit-scrollbar-track {
         background-color: #cfcfcf !important;
       }
+    }
+    .pTitle {
+      margin-top: 3px !important;
+      color: #e61b4f !important;
+      font-weight: 500 !important;
     }
 
     //tbody{
@@ -851,9 +860,13 @@ a:hover {
 }
 
 .horizontal-menu-item .horizontal-sub-menu{
-  background: #0b9444 !important;
+  background: #93acb6 !important;
   color: #fff;
   width: auto !important;
+}
+
+::-webkit-scrollbar-track {
+  background: #93acb6 !important;
 }
 
 //.horizontal-sub-menu < div {
@@ -2509,7 +2522,7 @@ app-horizontal-menu{
 .horizontal-sub-menu{
   app-horizontal-menu{
     .horizontal-menu-item:last-child{
-      background: #0b9444 !important;
+      background: #93acb6 !important;
     }
   }
 }
@@ -2743,6 +2756,7 @@ fieldset {
 .aboutImg {
   postion: relative;
   text-align: center;
+  background: #f6cbfc !important;
 }
 .aboutContent{
   position: absolute;
@@ -3065,7 +3079,7 @@ fieldset {
   tbody{
     td{
       float:left;
-      height:84px;
+      height:96px;
     }
   }
   thead {
@@ -3095,6 +3109,10 @@ fieldset {
 .horizontal-menu-item .horizontal-sub-menu a.mat-button {
   border-bottom: 1px solid;
 }
+
+.personal-ac-home .mat-card {
+  background: rgb(104, 163, 184) !important;
+  }
 
 
 

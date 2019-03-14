@@ -1,8 +1,8 @@
 
 <div class="container dashboard h-100" fxLayoutAlign="start start"  *ngIf="firstPage">
   <div class="row my-flex-card">
-    <h2 class="w-100 text-center" style="color: #EF0034"><img src="assets/img/personal-accident.png" class="logo-size"> Personal Accident</h2>
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <h2 class="w-100 text-center mb-2" style="color: #EF0034"><img src="assets/img/personal-accident.png" class="logo-size"> Personal Accident</h2>
+    <div class="col-md-6 col-sm-12 col-xs-12 personal-ac-home">
       <div class="card">
         <div class="card-block">
           <div class="aboutImg">
@@ -15,11 +15,11 @@
         </div>
       </div>
     </div>
-    <div *ngIf="show" class="col-md-6 col-sm-12 col-xs-12">
+    <div *ngIf="show" class="col-md-6 col-sm-12 col-xs-12 personal-ac-home">
       <div class="card">
         <div class="card-block">
           <mat-card>
-            <mat-card-header><h5>Personal Accident for..</h5></mat-card-header>
+            <mat-card-header><h4 class="text-center">Personal Accident for..</h4></mat-card-header>
             <mat-form-field class="w-100" required>
               <mat-select placeholder="SUM INSURED"  name="suminsure" [(ngModel)]="selectedAmountP" (change)="changeAmount()">
                 <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
