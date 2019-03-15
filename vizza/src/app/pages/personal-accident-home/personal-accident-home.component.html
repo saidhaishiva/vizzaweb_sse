@@ -16,7 +16,7 @@
         </div>
 
         <div *ngIf="show" class="col-md-6 col-sm-12 col-xs-12 personal-ac-home">
-              <mat-card class="p-4" style="background: linear-gradient(to top, #F16D73 0%, #f5cde5 100%) !important;">
+              <mat-card class="p-4" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
                 <h4 class="text-center">Get Instant Quotes</h4>
                 <mat-form-field class="w-100" required>
                   <mat-select placeholder="SUM INSURED"  name="suminsure" [(ngModel)]="selectedAmountP" (change)="changeAmount()">
@@ -163,7 +163,6 @@
   </div>
 
 
-
 <div class="row pa-home" id="product-list-pa" fxLayoutAlign="center start" *ngIf="secondPage">
     <div class="col-sm-12">
         <div fxLayout="column" >
@@ -232,7 +231,7 @@
                                 <p class="text-center mt-4">{{keys.key_features_value}}</p>
                             </td>
                             <td class="col-md-1 text-center">
-                                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)">Add to Compare</button></p>
+                                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="compareDetails(plists, i, personalPremiumLists.enquiry_id, personalPremiumLists.name)">Add to Compare</button></p>
                                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                             </td>

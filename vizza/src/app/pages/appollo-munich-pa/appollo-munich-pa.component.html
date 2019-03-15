@@ -330,7 +330,7 @@
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
-                              <input matInput [matDatepicker]="picker3" [min]="maxStartdate" placeholder="Policy End Date" (keypress)="dobValidate($event)" [required]="prevList"  formControlName="PolicyEndDate" maxlength="10" autocomplete="off">
+                              <input matInput [matDatepicker]="picker3" [min]="maxStartdate" placeholder="Policy End Date" (dateInput)="addEvent($event, 'enddate')" (dateChange)="addEvent($event, 'enddate')" (keypress)="dobValidate($event)" [required]="prevList"  formControlName="PolicyEndDate" maxlength="10" autocomplete="off">
                               <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                               <mat-datepicker #picker3></mat-datepicker>
                               <mat-error *ngIf="insured.controls.PolicyEndDate.errors?.required">End Date is required</mat-error>
@@ -473,15 +473,15 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"  formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa(); nomineeDistrict()"  [disabled]="readonlyProposer">
+                          <mat-select placeholder="District"   formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa(); nomineeDistrict()"  [disabled]="readonlyProposer">
                             <mat-option *ngFor="let paDistrict of paNomineedistrictList | keys" value="{{paDistrict.key}}"> {{paDistrict.value}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>-->
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" [ngStyle]="{'pointer-events':readonlyProposer ? 'none' : ''}">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="City"  formControlName="paNomineeCity" (change)="nomineeCity()" required [disabled]="readonlyProposer">
+                          <mat-select placeholder="City"  formControlName="paNomineeCity" (change)="nomineeCity()" required>
                             <mat-option *ngFor="let paCity of paCityNomineeList | keys" value="{{paCity.key}}"> {{paCity.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeCity.errors?.required">City is required</mat-error>
