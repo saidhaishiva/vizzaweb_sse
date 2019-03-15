@@ -93,6 +93,7 @@ public idListDetailsinsured: any;
 public proposerAgeP: any;
 public insuredAgeP: any;
 public insurestardate: any;
+public insureenddate: any;
 public  insurerdateError: any;
 public pannumberP: boolean;
 public voterP: boolean;
@@ -239,7 +240,7 @@ public habits: boolean;
           PolicyEndDate:'',
           MedicalInformations: '',
           insuredPaAge: '',
-          insuredAnnual:'',
+          insuredAnnual: '',
           previousradio:'2',
           rolecd: 'PROPOSER',
           type: '',
@@ -301,61 +302,10 @@ public habits: boolean;
       this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
       this.sessionData();
       this.sameRelationship = 'Self' ;
+      this.insured.controls['insuredAnnual'].patchValue(this.getAllPremiumDetails.annual_salary);
   }
     // session Data
     sessionData() {
-        // if (sessionStorage.appollo1Details != '' && sessionStorage.appollo1Details != undefined) {
-        //     this.appollo1 = JSON.parse(sessionStorage.appollo1Details);
-        //     if (this.appollo1.proposerPaPincode != '') {
-        //         this.getPostalCode(this.appollo1.proposerPaPincode);
-        //     }
-        //     // this.ProposerPa.controls['proposerPaIdProof'].value;
-        //
-        //     this.ProposerPa = this.proposerpa.group({
-        //         proposerPaTitle: this.appollo1.proposerPaTitle,
-        //         proposerPaFirstname: this.appollo1.proposerPaFirstname,
-        //         proposerPaLastname: this.appollo1.proposerPaLastname,
-        //         proposerPaMidname: this.appollo1.proposerPaMidname,
-        //         maritalStatus: this.appollo1.maritalStatus,
-        //         proposerPaDob: new FormControl(new Date(this.appollo1.proposerPaDob)),
-        //         proposerParelationship: this.appollo1.proposerParelationship,
-        //         sameAsProposer: this.appollo1.sameAsProposer,
-        //         proposerPaGender: this.appollo1.proposerPaGender,
-        //         proposerPaAddress: this.appollo1.proposerPaAddress,
-        //         proposerPaAddress2: this.appollo1.proposerPaAddress2,
-        //         proposerPaAddress3: this.appollo1.proposerPaAddress3,
-        //         nationality: this.appollo1.nationality,
-        //         proposerPaPincode: this.appollo1.proposerPaPincode,
-        //         proposerPaIdProof: this.appollo1.proposerPaIdProof,
-        //         proposerPaIdProofIdP: this.appollo1.proposerPaIdProofIdP,
-        //         proposerPaPan: this.appollo1.proposerPaPan,
-        //         proposerPaPassport: this.appollo1.proposerPaPassport,
-        //         proposerPaVoter: this.appollo1.proposerPaVoter,
-        //         proposerPaGst: this.appollo1.proposerPaGst,
-        //         proposerPaDriving: this.appollo1.proposerPaDriving,
-        //         MedicalInformations: this.appollo1.MedicalInformations,
-        //         proposerPaCity: this.appollo1.proposerPaCity,
-        //         proposerPaState: this.appollo1.proposerPaState,
-        //         proposerPaCountry: this.appollo1.proposerPaCountry,
-        //         proposerPaDistrict: this.appollo1.proposerPaDistrict,
-        //         proposerPaStateIdP: this.appollo1.proposerPaStateIdP,
-        //         proposerPaCountryIdP: this.appollo1.proposerPaCountryIdP,
-        //         proposerPaCityIdP: this.appollo1.proposerPaCityIdP,
-        //         proposerPaDistrictIdP: this.appollo1.proposerPaDistrictIdP,
-        //         proposerPaEmail: this.appollo1.proposerPaEmail,
-        //         proposerPaMobile: this.appollo1.proposerPaMobile,
-        //         rolecd: this.appollo1.rolecd,
-        //         relationshipcd: this.appollo1.relationshipcd,
-        //     });
-        //     let age = this.ageCalculate(this.datepipe.transform(this.appollo1.proposerPaDob, 'y-MM-dd'));
-        //     sessionStorage.insuredPaAge = age;
-        //     if(this.appollo1.proposerPaIdProof != ''){
-        //         this.panType('personal');
-        //     }
-        //     this.idList();
-        //
-        // }
-
 
         if (sessionStorage.appollo2Detail != '' && sessionStorage.appollo2Detail != undefined) {
             this.appollo2 = JSON.parse(sessionStorage.appollo2Detail);
@@ -848,6 +798,10 @@ public habits: boolean;
                     if (type == 'startdate') {
                         this.insurestardate = 'Enter Valid Date';
                     }
+                    // if(type == 'startdate'){
+                    //     this.insureenddate = 'Enter Valid Date';
+                    //
+                    // }
                 }
             }
                 selectedDate = event.value._i;

@@ -85,7 +85,7 @@
                             </mat-form-field>
                         </div>
 
-                      <div class="col-md-3">
+                      <div class="col-md-3 mt-1">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="insuredPaMobile" autocomplete="off" [readonly]="readonlyProposer" required>
                           <mat-error *ngIf="insured.controls.insuredPaMobile.errors?.required">Mobile Number is required</mat-error>
@@ -354,7 +354,7 @@
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
-                              <input matInput [matDatepicker]="picker3" [min]="maxStartdate" placeholder="Policy End Date" (keypress)="dobValidate($event)" [required]="prevList"  formControlName="PolicyEndDate"  autocomplete="off">
+                              <input matInput [matDatepicker]="picker3" [min]="maxStartdate" placeholder="Policy End Date" (keypress)="dobValidate($event)" [required]="prevList"  formControlName="PolicyEndDate" maxlength="10" autocomplete="off">
                               <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                               <mat-datepicker #picker3></mat-datepicker>
                               <mat-error *ngIf="insured.controls.PolicyEndDate.errors?.required">End Date is required</mat-error>

@@ -350,6 +350,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         // this.insuremobileNumber = '';
         this.sessionData();
         this.sameRelationship = 'SELF';
+        this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
     }
 
     setStep(index: number) {
