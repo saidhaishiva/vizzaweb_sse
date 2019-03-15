@@ -17,6 +17,7 @@ import {PersonalAccidentService} from '../../shared/services/personal-accident.s
 import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.component';
 import {ViewProductDetailsComponent} from './view-product-details/view-product-details.component';
 import {DatePipe} from '@angular/common';
+import {ClearSessionPaService} from '../../shared/services/clear-session-pa.service';
 
 @Component({
   selector: 'app-personal-accident-home',
@@ -73,7 +74,7 @@ export class PersonalaccidentComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-    constructor(public appSettings: AppSettings, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
+    constructor(public appSettings: AppSettings,public clearSession: ClearSessionPaService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -114,10 +115,10 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.clearSession.clearSessionPaData();
         this.show = this.config.getpaAccident();
         this.firstPage = true;
         this.secondPage = false;
-        // this.closeIcon = true;
         this.sumInsuredAmonut();
         this.setOccupationListCode();
         this.sessionData();
@@ -125,33 +126,30 @@ export class PersonalaccidentComponent implements OnInit {
             this.firstPage = false;
             this.secondPage = true;
         }
-
         //fire
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
         this.route.params.forEach((params) => {
             this.productName = params.id;
-
         });
-
     }
 
-reset() {
-    this.selectedAmountP = '';
-    this.pincoceP = '';
-    this.occupationP = '';
-    this.Age = '';
-    this.AnnualIncomeP = '';
-}
-
-public annualIncome() {
-    if (this.AnnualIncomeP == '0') {
-        this.annualErrorMessage = true;
-    } else {
-        this.annualErrorMessage = false;
-        this.annualerror = false;
+    reset() {
+        this.selectedAmountP = '';
+        this.pincoceP = '';
+        this.occupationP = '';
+        this.Age = '';
+        this.AnnualIncomeP = '';
     }
-}
+
+    public annualIncome() {
+        if (this.AnnualIncomeP == '0') {
+            this.annualErrorMessage = true;
+        } else {
+            this.annualErrorMessage = false;
+            this.annualerror = false;
+        }
+    }
     public keyPress(event: any) {
         sessionStorage.pincoceP = this.pincoceP;
         sessionStorage.occupationP = this.occupationP;

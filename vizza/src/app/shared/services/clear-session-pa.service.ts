@@ -7,14 +7,14 @@ export class ClearSessionPaService {
   clearSessionPaData(){
     //apollo munich
     sessionStorage.personalPremiumLists = '';
-        sessionStorage.pAccidentProposalList = '';
+    sessionStorage.pAccidentProposalList = '';
     sessionStorage.appollo2Detail = '';
     sessionStorage.panomineeData = '';
     sessionStorage.appolloPAproposalID = '';
     sessionStorage.proposerAgeP = '';
     sessionStorage.insuredAgeP = '';
     sessionStorage.appollo1Details = '';
-// religare
+  // religare
     sessionStorage.residenceCitys = '';
     sessionStorage.personalCitys = '';
     sessionStorage.proposerAge = '';
@@ -25,6 +25,8 @@ export class ClearSessionPaService {
     sessionStorage.personalnomineeData = '';
     sessionStorage.pa_religare_proposal_id = '';
     sessionStorage.proposal2Detail = '';
+    sessionStorage.insureoccupationDescription = '';
+    sessionStorage.insureoccupationClass = '';
   }
 
 
