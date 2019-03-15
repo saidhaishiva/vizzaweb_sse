@@ -5,22 +5,17 @@
 
         <mat-step [stepControl]="">
 
-          <ng-template matStepLabel >PROPOSER DETAILS/INSURED DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
+          <ng-template matStepLabel >PROPOSER /INSURED DETAILS</ng-template>
+          <mat-accordion class=" w-100 float-left">
             <form [formGroup]="insured" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
-                  <mat-panel-title> PROPOSER DETAILS/INSURED DETAILS </mat-panel-title>
+                  <mat-panel-title> PROPOSER / INSURED DETAILS </mat-panel-title>
                 </mat-expansion-panel-header>
-
-                <div class="row mt-3">
+                <div class="row mt-1">
                   <div class="col-md-12 box-card pt-3">
-                    <!--<h6 class="color-blue">PROPOSER/INSURED DETAILS</h6>-->
                     <div class="row">
-                      <!--<div class="col-md-12 mb-3"  >-->
-                        <!--<mat-checkbox formControlName="sameAsProposer" (change)="sameProposer()"><strong>Same as proposer</strong></mat-checkbox>-->
-                      <!--</div>-->
-                      <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
+                      <div class="col-md-3" >
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="insurechangeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
@@ -31,18 +26,18 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="nameValidate($event)" [readonly]="readonlyProposer"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" (keypress)="nameValidate($event)" [readonly]="readonlyProposer" autocomplete="off">
+                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" (keypress)="nameValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname"  (keypress)="nameValidate($event)" [readonly]="readonlyProposer" autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname"  (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaLastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -54,7 +49,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" [readonly]="readonlyProposer" formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10"
+                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10"
                                autocomplete="off"  [max]="minDate" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
@@ -67,12 +62,11 @@
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Age" formControlName="insuredPaAge"     autocomplete="off" autocomplete="off" required readonly >
                           <mat-error *ngIf="insured.controls.insuredPaAge.errors?.required">Age is required</mat-error>
-
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID"   formControlName="insuredPaEmail"  autocomplete="off" [readonly]="readonlyProposer" required>
+                          <input matInput placeholder="Email ID"   formControlName="insuredPaEmail"  autocomplete="off" required>
                           <mat-error *ngIf="insured.controls.insuredPaEmail.errors?.required">Email ID is required</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
@@ -81,19 +75,16 @@
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual"  autocomplete="off" required>
                               <mat-error *ngIf="insured.controls.insuredAnnual.errors?.required">Annual Income is required</mat-error>
-
                             </mat-form-field>
                         </div>
-
                       <div class="col-md-3 mt-1">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="insuredPaMobile" autocomplete="off" [readonly]="readonlyProposer" required>
+                          <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="insuredPaMobile" autocomplete="off" required>
                           <mat-error *ngIf="insured.controls.insuredPaMobile.errors?.required">Mobile Number is required</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                       </div>
-
-                      <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
                             <mat-option *ngFor="let status of paMaritalList | keys" [value]= status.key> {{status.value}} </mat-option>
@@ -119,16 +110,7 @@
                           <mat-error *ngIf="insured.controls.insuredOccupationList.errors?.required">Occupation is required</mat-error>
                         </mat-form-field>
                       </div>
-
-                      <!--<div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Relationship with Proposer"  formControlName="insuredParelationship" required >-->
-                            <!--<mat-option *ngFor="let relationship of relationshipListPa" value="{{relationship.relationship_code}}" > {{relationship.relationship}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredParelationship.errors?.required">Relationship is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof" (change)="insureidList(); changeidName()" >
                             <mat-option *ngFor="let IdProof of paIdProofList | keys" value="{{IdProof.key}}" > {{IdProof.value}} </mat-option>
@@ -184,30 +166,30 @@
 
                         </mat-form-field>
                       </div>
-                      <div class="col-md-12">
-                        <h6 class="mt-3">Communication Address :</h6>
+                      <div class="col-md-12 mt-2">
+                        <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredPaAddress" autocomplete="off" maxlength="30" [readonly]="readonlyProposer" required></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredPaAddress" autocomplete="off" maxlength="30" required></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredPaAddress2" maxlength="30" [readonly]="readonlyProposer" autocomplete="off"></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredPaAddress2" maxlength="30" autocomplete="off"></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress2.errors?.required">Address2 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 3" rows="2" formControlName="insuredPaAddress3" maxlength="30" [readonly]="readonlyProposer" autocomplete="off"></textarea>
+                          <textarea matInput placeholder="Address 3" rows="2" formControlName="insuredPaAddress3" maxlength="30" autocomplete="off"></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress3.errors?.required">Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6" [readonly]="readonlyProposer"  formControlName="insuredPaPincode" (input)="getinsuredPostalCode($event.target.value)" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="insuredPaPincode" (input)="getinsuredPostalCode($event.target.value)" autocomplete="off" required>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="insured.controls.insuredPaPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -220,7 +202,7 @@
                             <mat-error *ngIf="insured.controls.insuredPaState.errors?.required">State is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListInsuredPa(); changeDistrictname()">
                             <mat-option *ngFor="let paDistrict of paInsureddistrictList | keys" value="{{paDistrict.key}}" > {{paDistrict.value}} </mat-option>
@@ -228,7 +210,7 @@
                           <mat-error *ngIf="insured.controls.insuredPaDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" [ngStyle]="{'pointer-events': readonlyProposer ? 'none' : ''}">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="City"  formControlName="insuredPaCity" (change)="changeCity()" required>
                             <mat-option *ngFor="let paCity of paCityInsuredList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
@@ -236,8 +218,8 @@
                           <mat-error *ngIf="insured.controls.insuredPaCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-12">
-                        <h6 class="mt-3">Personal Habits(per Day):</h6>
+                      <div class="col-md-12 mt-2">
+                        <h6 class="color-blue">PERSONAL HABITS (PER DAY)</h6>
                       </div>
                       <div class="col-md-6">
                         <mat-checkbox formControlName="insuredSmoke" (change)="checkHabits($event, 'smoke')">Smoking</mat-checkbox>
@@ -269,14 +251,11 @@
                           <mat-option value="6">6</mat-option>
                           <mat-option value="7">7</mat-option>
                           <mat-option value="8">Greater than 8</mat-option>
-                          <!--<mat-option value="9">9</mat-option>-->
-                          <!--<mat-option value="10">10</mat-option>-->
-                          <!--<mat-option value="11">11</mat-option>-->
                         </mat-select>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-12">
-                        <h6 class="mt-3">Drinking Habits(per week):</h6>
+                      <div class="col-md-12 mt-2">
+                        <h6 class="color-blue">DRINKING HABITS (PER WEEK)</h6>
                       </div>
                       <div class="col-md-4">
                         <mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>
@@ -292,7 +271,6 @@
                           <mat-option value="7">7</mat-option>
                           <mat-option value="8">8</mat-option>
                           <mat-option value="9">9</mat-option>
-                          <!--<mat-option value="10">10</mat-option>-->
                           <mat-option value="10">Greater than 9</mat-option>
                         </mat-select>
                         </mat-form-field>
@@ -308,10 +286,6 @@
                           <mat-option value="5">5</mat-option>
                           <mat-option value="6">6</mat-option>
                           <mat-option value="7">Greater than 6</mat-option>
-                          <!--<mat-option value="8">8</mat-option>-->
-                          <!--<mat-option value="9">9</mat-option>-->
-                          <!--<mat-option value="10">10</mat-option>-->
-                          <!--<mat-option value="11">11</mat-option>-->
                         </mat-select>
                         </mat-form-field>
                       </div>
@@ -333,8 +307,8 @@
                         </mat-select>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-12">
-                        <h6 class="mt-3">Previous Insurer details:</h6>
+                      <div class="col-md-12 mt-2">
+                        <h6 class="color-blue">PREVOIUS INSURER DETAILS</h6>
                       </div>
                       <div class="col-md-12">
                         <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio">
@@ -343,7 +317,7 @@
                         </mat-radio-group>
                       </div>
                    <div *ngIf="prevList">
-                     <div class="col-md-12">
+                     <div class="col-md-12 mt-2">
                         <div class="row">
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
@@ -404,8 +378,8 @@
                         </div>
                      </div>
                    </div>
-                    <div class="col-md-12">
-                        <h6 class="mt-3">Medical Informations details:</h6>
+                    <div class="col-md-12 mt-2">
+                        <h6 class="color-blue">MEDICAL INFORMATIONS DETAILS</h6>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field  class="w-100">
@@ -433,10 +407,9 @@
                 <mat-panel-title>NOMINEE DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <ng-template matStepLabel>INSURED DETAILS</ng-template>
+              <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <!--<h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>-->
                   <form [formGroup]="nomineeDetail">
                     <div class="row">
                       <div class="col-md-4">
@@ -454,14 +427,16 @@
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeName.errors?.required">Nominee Name is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
-                              <mat-select placeholder="Relationship with Insured"  formControlName="paRelationship" (change)="changeRelationship()" required >
-                                  <mat-option *ngFor="let relationship of relationshipListPa | keys" [hidden]="relationship.key == '1'" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
-                              </mat-select>
-                          <mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>
-                      </mat-form-field></div>
-                      <div class="col-md-12 mb-3"  >
-                      <mat-checkbox formControlName="sameAsProposer" (change)="sameasProposer()"><strong>Same as proposer Address</strong></mat-checkbox>
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Relationship with Insured"  formControlName="paRelationship" (change)="changeRelationship()" required >
+                              <mat-option *ngFor="let relationship of relationshipListPa | keys" [hidden]="relationship.key == '1'" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
+                          </mat-select>
+                        <mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12 mt-2 mb-3" >
+                      <mat-checkbox formControlName="sameAsProposer" (change)="sameasProposer()"><strong class="color-blue">Same as proposer Address</strong></mat-checkbox>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
@@ -529,7 +504,7 @@
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="appollosummaryData">
             <div class="row">
-              <div class="col-md-4"> <h4>{{appollosummaryData.group_name}}  <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>
+              <div class="col-md-4"> <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
@@ -541,15 +516,13 @@
               </div>
             </div>
             <section>
-            <h5 class="mt-3 sub-title">PROPOSER DETAILS / INSURED DETAILS </h5>
+            <h5 class="mt-3 sub-title">PROPOSER / INSURED DETAILS </h5>
             <div class="row box-card">
               <div class="col-md-6">
                 <div class="p-3">
-                  <!--<h6>PERSONAL DETAILS</h6>-->
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong><span *ngIf="proposerFormData.insuredPaTitle == 'MR'">Mr</span><span *ngIf="proposerFormData.insuredPaTitle == 'MRS'">Ms</span>.{{proposerFormData.insuredPaFirstname}} {{proposerFormData.insuredPaMidname}} {{proposerFormData.insuredPaLastname}} </li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaGender"><strong>Gender:</strong> {{proposerFormData.insuredPaGender}} </li>
-                    <!--<li class="list-group-item" *ngIf="proposerFormData.insuredPaGender == 2"><strong>Gender:</strong> FEMALE</li>-->
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.insuredPaMobile}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.insuredPaDob  | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Age:</strong> {{proposerFormData.insuredPaAge}}</li>
@@ -567,8 +540,8 @@
                     <li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.insuredWeight}}</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredProfessionListName !='' && proposerFormData.insuredProfessionListName != null"><strong>Profession:</strong> {{proposerFormData.insuredProfessionListName}}</li>
                     <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaIdProofName != '' && proposerFormData.insuredPaIdProof != null"><strong>Select ID Proof:</strong> {{proposerFormData.insuredPaIdProofName}}</li>
-                    <li class="list-group-item" *ngIf="idListDetailsinsured !=''"><strong>Select ID Proof Number:</strong> {{idListDetailsinsured | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaIdProofName != '' && proposerFormData.insuredPaIdProof != null"><strong>ID Proof:</strong> {{proposerFormData.insuredPaIdProofName}}</li>
+                    <li class="list-group-item" *ngIf="idListDetailsinsured !=''"><strong>ID Proof Number:</strong> {{idListDetailsinsured | uppercase}}</li>
                     <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.insuredAnnual}}</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaGst != '' && proposerFormData.insuredPaGst != null"><strong>Gst Number:</strong> {{proposerFormData.insuredPaGst | uppercase}}</li>
                   </ul>
@@ -577,7 +550,7 @@
 
               <div class="col-md-6">
                 <div class="p-3">
-                  <h6>COMMUNICATION DETAILS</h6>
+                  <h6 >COMMUNICATION DETAILS</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.insuredPaAddress}}</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress2 !=''"><strong>Address 2:</strong> {{proposerFormData.insuredPaAddress2}}</li>
@@ -590,15 +563,20 @@
                 </div>
               </div>
 
-              <div class="col-md-6" *ngIf="CheckHabits">
+              <div class="col-md-6">
                 <div class="p-3">
                   <h6>PERSONAL HABITS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredSmokeList != '' && proposerFormData.insuredSmokeList != 0"><strong>Smoking:</strong>{{proposerFormData.insuredSmokeList}}</li>
-                    <li class="list-group-item"  *ngIf="proposerFormData.insuredPouchesList != '' && proposerFormData.insuredPouchesList != 0" ><strong>Pouches:</strong> {{proposerFormData.insuredPouchesList}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredLiquor != '' && proposerFormData.insuredLiquor != 0"><strong>Liquor Peg:</strong> {{proposerFormData.insuredLiquor}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredWine != '' && proposerFormData.insuredWine != 0"><strong>Wine Glass:</strong> {{proposerFormData.insuredWine}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredSmokeList != ''"><strong>Smoking:</strong>{{proposerFormData.insuredSmokeList}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredSmokeList == ''"><strong>Smoking:</strong> Nil</li>
+                    <li class="list-group-item"  *ngIf="proposerFormData.insuredPouchesList != ''" ><strong>Pouches:</strong> {{proposerFormData.insuredPouchesList}}</li>
+                    <li class="list-group-item"  *ngIf="proposerFormData.insuredPouchesList == ''" ><strong>Pouches:</strong> Nil</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredLiquor != ''"><strong>Liquor Peg:</strong> {{proposerFormData.insuredLiquor}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredLiquor == ''"><strong>Liquor Peg:</strong> Nil</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredWine != ''"><strong>Wine Glass:</strong> {{proposerFormData.insuredWine}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredWine == ''"><strong>Wine Glass:</strong> Nil</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredBeer != ''"><strong>Beer Bottle:</strong> {{proposerFormData.insuredBeer}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredBeer == ''"><strong>Beer Bottle:</strong> Nil</li>
                   </ul>
                 </div>
               </div>
