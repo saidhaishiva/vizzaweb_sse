@@ -1004,6 +1004,10 @@ export class IffcoTokioComponent implements OnInit {
 
         }
 
+        if (sessionStorage.iffco_health_proposal_id != '' && sessionStorage.iffco_health_proposal_id != undefined) {
+            this.proposalId = sessionStorage.iffco_health_proposal_id;
+        }
+
     }
     sameProposer(value: any) {
         if (value.checked) {
