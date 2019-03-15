@@ -801,10 +801,10 @@ public habits: boolean;
                     if (type == 'startdate') {
                         this.insurestardate = 'Enter Valid Date';
                     }
-                    // if(type == 'startdate'){
-                    //     this.insureenddate = 'Enter Valid Date';
-                    //
-                    // }
+                    if(type == 'enddate'){
+                        this.insureenddate = 'Enter Valid Date';
+
+                    }
                 }
             }
                 selectedDate = event.value._i;
@@ -827,6 +827,9 @@ public habits: boolean;
                             this.maxStartdate = dob;
                             this.insured.controls['PolicyStartDate'].patchValue(dob);
                         }
+                        if(type == 'enddate'){
+                            this.insureenddate = '';
+                        }
                     }
                 }
             } else if (typeof event.value._i == 'object') {
@@ -847,6 +850,10 @@ public habits: boolean;
                             this.maxStartdate = dob;
                             this.insurestardate = '';
                             this.insured.controls['PolicyStartDate'].patchValue(dob);
+                        }
+                        if(type == 'enddate'){
+                            this.insureenddate = '';
+
                         }
                         // else if (type == 'startdate') {
                         //
@@ -1398,11 +1405,11 @@ preInsureList() {
         sessionStorage.appollo1Details = JSON.stringify(value);
         console.log(this.proposerPaData,'this.proposerPaData ');
         if (this.ProposerPa.valid) {
-            if (sessionStorage.proposerAgeP >= 18) {
+            if (sessionStorage.proposerAgeP >= 18 || sessionStorage.proposerAgeP <  56) {
                 stepper.next();
                 this.topScroll();
             } else {
-                this.toastr.error('Proposer age should be 18 or above');
+                this.toastr.error('Proposer age should be greater than 18 and lesser than 56');
             }
         }
     }

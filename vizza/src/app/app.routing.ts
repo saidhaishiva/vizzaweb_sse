@@ -45,7 +45,7 @@ import {IffcoTokioComponent} from './pages/iffco-tokio/iffco-tokio.component';
 import {ApollomunichPaymentSuccessComponent} from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
 import {CarInsuranceComponent} from './pages/car-insurance/car-insurance.component';
 import {BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
-import {TermLifeInsuranceComponent} from './pages/term-life-insurance/term-life-insurance.component';
+import {TermLifeComponent} from './pages/term-life/term-life.component';
 import {HdfcHealthInsuranceComponent} from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
 import {RenewalReminderComponent} from './pages/renewal-reminder/renewal-reminder.component';
 import {RenewExistingPolicyComponent} from './pages/renew-existing-policy/renew-existing-policy.component';
@@ -120,7 +120,7 @@ import {EndowmentLifeInsuranceComponent} from './pages/endowment-life-insurance/
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { 
+    {
         path: '',
         component: PagesComponent, children: [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
@@ -138,7 +138,7 @@ export const routes: Routes = [
             { path: 'chat', loadChildren: 'app/pages/chat/chat.module#ChatModule', data: { breadcrumb: 'Chat' } },
             { path: 'maps', loadChildren: 'app/pages/maps/maps.module#MapsModule', data: { breadcrumb: 'Maps' } },
             { path: 'charts', loadChildren: 'app/pages/charts/charts.module#ChartsModule', data: { breadcrumb: 'Charts' } },
-            { path: 'dynamic-menu', loadChildren: 'app/pages/dynamic-menu/dynamic-menu.module#DynamicMenuModule', data: { breadcrumb: 'Dynamic Menu' }  },          
+            { path: 'dynamic-menu', loadChildren: 'app/pages/dynamic-menu/dynamic-menu.module#DynamicMenuModule', data: { breadcrumb: 'Dynamic Menu' }  },
             { path: 'blank', component: BlankComponent, data: { breadcrumb: 'Blank page' } },
             { path: 'pos-profile', component: PosprofileComponent, data: { breadcrumb: 'Pos Profile' } },
             { path: 'pos-edit', component: EditposComponent, data: { breadcrumb: 'Pos Profile Edit' } },
@@ -218,7 +218,7 @@ export const routes: Routes = [
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
             { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
             { path: 'reliancetravel', component: TravelRelianceProposalComponent, data:{breadcrumb: 'Reliance Travel Proposal'}},
-            { path: 'term-life-insurance', component: TermLifeInsuranceComponent, data:{breadcrumb: 'Term Life Insurance'}},
+            { path: 'term-life', component: TermLifeComponent, data:{breadcrumb: 'Term Life Insurance'}},
             { path: 'endowment-life-insurance', component: EndowmentLifeInsuranceComponent, data:{breadcrumb: 'Endowment Life Insurance'}},
             { path: 'hdfc-insurance/:stepper', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}, canDeactivate: [HdfcproposaldeactivateGuardService]},
             { path: 'hdfc-personalAccident/:stepper', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}, canDeactivate: [HdfcPaproposaldeactivateGuardService]},

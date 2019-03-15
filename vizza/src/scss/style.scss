@@ -749,32 +749,6 @@ a:hover {
   }
 }
 #life-list{
-  .table-fixed{
-    width: 100%;
-    background-color: #f3f3f3;
-    tbody{
-      height:200px;
-      overflow-y:auto;
-      width: 100%;
-    }
-    thead,tbody,tr,td,th{
-      display:block;
-    }
-    tbody{
-      td{
-        float:left;
-      }
-    }
-    thead {
-      tr{
-        th{
-          float:left;
-          background-color: #f39c12;
-          border-color:#e67e22;
-        }
-      }
-    }
-  }
 .health-table {
   ::-webkit-scrollbar-thumb:vertical {
     background-color: #821646;
@@ -1756,7 +1730,7 @@ a:hover {
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
+    background: #E6D0DA;
   }
   ::-webkit-scrollbar-thumb:vertical {
     background-color: #ce367c !important;
@@ -1769,7 +1743,7 @@ a:hover {
     border-radius: 10px 10px 0 0;
   }
   .mat-tab-label-active {
-    background-color: #d81b60 !important;
+    background-color: #821646 !important;
     color: #fff !important;
   }
   .mat-tab-labels .mat-tab-label:first-child{
