@@ -13,6 +13,7 @@ export const environment = {
     imgUrl: 'http://13.127.24.123/vizza',
     travelInsurance: true,
     healthInsurance: true,
+    lifeInsurance: true,
     paAccident: true
 
     // apiHost: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
@@ -27,6 +28,7 @@ export const environment = {
     // imgUrl: 'https://vizzainsurance.com/vizza',
     // travelInsurance: false,
     // healthInsurance: true,
+    //lifeInsurance: false,
     // paAccident: false
 
 }
