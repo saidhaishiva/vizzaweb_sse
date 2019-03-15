@@ -125,29 +125,29 @@
                       <div class="col-md-3">
                         <p>CriticalIllness:</p>
                         <mat-radio-group formControlName="criticalIllness">
-                          <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
+                          <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                          <mat-radio-button value="N">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3">
                         <p>RoomRentWaiver:</p>
                         <mat-radio-group formControlName="roomRentWaiver">
-                          <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
+                          <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                          <mat-radio-button value="N">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3">
                         <p>AdditionalFacts:</p>
                         <mat-radio-group formControlName="additionalFacts">
-                          <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
+                          <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                          <mat-radio-button value="N">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3">
                         <p>PastInsuranceDeclined:</p>
                         <mat-radio-group formControlName="pastInsuranceDeclined">
-                          <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
+                          <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                          <mat-radio-button value="N">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
                     </div>
@@ -311,8 +311,8 @@
                         <div class="col-md-3">
                           <p>PreExistingDisease</p>
                           <mat-radio-group formControlName="PreExistingDisease">
-                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="No">No</mat-radio-button>
+                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-12">
@@ -321,8 +321,8 @@
                         <div class="col-md-3">
                           <p>Somke</p>
                           <mat-radio-group formControlName="Smoke" (change)="smoking(event,'smoke')">
-                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="No">No</mat-radio-button>
+                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3" *ngIf="smokeList">
@@ -333,8 +333,8 @@
                         <div class="col-md-3" >
                           <p>Alcohol</p>
                           <mat-radio-group formControlName="Alcohol" (change)="smoking(event,'alcohol')">
-                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="No">No</mat-radio-button>
+                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3" *ngIf="alchocolList">
@@ -345,8 +345,8 @@
                         <div class="col-md-3" >
                           <p>Tobacco</p>
                           <mat-radio-group formControlName="Tobacco" (change)="smoking(event,'Tobacco')">
-                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="No">No</mat-radio-button>
+                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3" *ngIf="tobacoList">
@@ -489,9 +489,9 @@
                       <li class="list-group-item"  *ngIf="personalFormData.proposerPan !=''"><strong>PAN Number:</strong> {{personalFormData.proposerPan}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerEmergencyName !=''"><strong>Emergency Name:</strong> {{personalFormData.proposerEmergencyName}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerEmergencyMobile !=''"><strong>Emergency Mobile No:</strong> {{personalFormData.proposerEmergencyMobile}}</li>
-                      <li class="list-group-item"><strong>Past Insurance Declined:</strong> {{personalFormData.pastInsuranceDeclined}}</li>
-                      <li class="list-group-item"><strong>RoomRent Waiver:</strong> {{personalFormData.roomRentWaiver}}</li>
-                      <li class="list-group-item"><strong>Critical Illness:</strong> {{personalFormData.criticalIllness}}</li>
+                      <li class="list-group-item"><strong>Past Insurance Declined:</strong><span *ngIf="personalFormData.pastInsuranceDeclined == 'N'">No</span><span *ngIf="personalFormData.pastInsuranceDeclined == 'Y'">Yes</span></li>
+                      <li class="list-group-item"><strong>RoomRent Waiver:</strong><span *ngIf="personalFormData.roomRentWaiver == 'N'">No</span><span *ngIf="personalFormData.roomRentWaiver == 'Y'">Yes</span></li>
+                      <li class="list-group-item"><strong>Critical Illness:</strong><span *ngIf="personalFormData.criticalIllness == 'N'">No</span><span *ngIf="personalFormData.criticalIllness == 'Y'">Yes</span></li>
                       <li class="list-group-item"><strong>Additional Facts:</strong> {{personalFormData.additionalFacts}}</li>
                     </ul>
                   </div>
@@ -583,11 +583,11 @@
             <div class="row">
               <div class="col-md-12 text-center">
                 <form action={{summaryData.ACTION_URL}} method='POST' #form>
-                  <input id="PARTNERCODE" type="text" value={{summaryData.PARTNER_CODE}} name="PARTNER_CODE"><br/>
-                  <input id="UNIQUEQUOTEID" type="text" value={{summaryData.UNIQUE_QUOTEID}} name="UNIQUE_QUOTEID"><br/>
+                  <input id="PARTNERCODE" type="hidden" value={{summaryData.PARTNER_CODE}} name="PARTNER_CODE"><br/>
+                  <input id="UNIQUEQUOTEID" type="hidden" value={{summaryData.UNIQUE_QUOTEID}} name="UNIQUE_QUOTEID"><br/>
                   <!--<input id="policyid" type="hidden" value="1" name="policy_id"><br/>-->
-                  <input id="XMLDATA" type="text" value="{{xmlString}}" name="XML_DATA"><br/>
-                  <input id="RESPONSEURL" type="text" value={{summaryData.RESPONSE_URL}} name="RESPONSE_URL"><br/>
+                  <input id="XMLDATA" type="hidden" value="{{xmlString}}" name="XML_DATA"><br/>
+                  <input id="RESPONSEURL" type="hidden" value={{summaryData.RESPONSE_URL}} name="RESPONSE_URL"><br/>
 
                   <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                   <button mat-raised-button color="primaryBlue"  [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
