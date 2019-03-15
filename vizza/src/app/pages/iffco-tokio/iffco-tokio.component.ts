@@ -201,17 +201,17 @@ export class IffcoTokioComponent implements OnInit {
 
     changeGender() {
         if (this.proposer.controls['proposerTitle'].value == 'MR') {
-            this.proposer.controls['proposerGender'].patchValue('Male');
+            this.proposer.controls['proposerGender'].patchValue('M');
         } else {
-            this.proposer.controls['proposerGender'].patchValue('Female');
+            this.proposer.controls['proposerGender'].patchValue('F');
         }
     }
 
     insureChangeGender(index) {
         if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR') {
-            this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Male');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('M');
         } else {
-            this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Female');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('F');
         }
     }
 
@@ -563,12 +563,12 @@ export class IffcoTokioComponent implements OnInit {
 
 
     smoking(value, type) {
-        if (this.insureArray['controls'].items['controls'][0]['controls'].Smoke.value == 'Yes' && type == 'smoke') {
+        if (this.insureArray['controls'].items['controls'][0]['controls'].Smoke.value == 'Y' && type == 'smoke') {
             this.smokeList = true;
-        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Alcohol.value == 'Yes' && type == 'alcohol') {
+        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Alcohol.value == 'Y' && type == 'alcohol') {
             this.tobacoList = true;
 
-        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Tobacco.value == 'Yes' && type == 'Tobacco') {
+        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Tobacco.value == 'Y' && type == 'Tobacco') {
             this.alchocolList = true;
         }
     }
