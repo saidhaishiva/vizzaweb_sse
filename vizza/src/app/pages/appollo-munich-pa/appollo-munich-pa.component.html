@@ -159,6 +159,8 @@
                       <div class="col-md-3" *ngIf="voterP" >
                         <mat-form-field class="w-100" >
                           <input matInput placeholder="Voter Id" formControlName="insuredPaVoter" maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)" (input)="panType('insurer')" [required]="voterP">
+                          <mat-error *ngIf="insured.controls.insuredPaVoter.hasError('pattern')"> Enter Valid Voter Id </mat-error>
+
                         </mat-form-field>
                       </div>
 

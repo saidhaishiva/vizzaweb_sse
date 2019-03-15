@@ -250,6 +250,7 @@ import {LifeCompareNowComponent} from './pages/endowment-life-insurance/life-com
 import {LifeCallBackComponent} from './pages/endowment-life-insurance/life-call-back/life-call-back.component';
 import {LifeViewDetailsComponent} from './pages/endowment-life-insurance/life-view-details/life-view-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {ClearSessionPaService} from './shared/services/clear-session-pa.service';
 
 @NgModule({
   imports: [
@@ -499,6 +500,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
       IffcoProposalGuardService,
       HealthInsuranceResolver,
       LifeService,
+      ClearSessionPaService,
 
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }
