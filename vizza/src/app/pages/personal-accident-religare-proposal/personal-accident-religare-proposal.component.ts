@@ -350,6 +350,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         // this.insuremobileNumber = '';
         this.sessionData();
         this.sameRelationship = 'SELF';
+        this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
     }
 
     setStep(index: number) {
@@ -585,15 +586,15 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
 
     ageCalculate(dob) {
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
-        let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        return year_age;
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
     }
 
     stepback() {

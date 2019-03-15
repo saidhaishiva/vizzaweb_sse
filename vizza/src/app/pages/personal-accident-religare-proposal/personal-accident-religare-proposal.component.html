@@ -332,7 +332,7 @@
 
                              <!--</mat-form-field>-->
                          <!--</div>-->
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-3 mt-2"><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"    maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">PAN is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
@@ -360,14 +360,14 @@
                         <mat-error *ngIf="insured.controls.insuredEmail2.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                       </mat-form-field></div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-3 mt-2"><mat-form-field class="w-100">
                         <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insuredMobile" autocomplete="off"   required>
                         <mat-error *ngIf="insured.controls.insuredMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Residential Number" formControlName="insuredAltnumber" maxlength="10" minlength="10"  (keyup)="alternateChange($event, 'insurer')" (keypress)="numberValidate($event)" autocomplete="off">
+                        <input matInput placeholder="Residential Number" formControlName="insuredAltnumber" maxlength="12"   (keyup)="alternateChange($event, 'insurer')" (keypress)="numberValidate($event)" autocomplete="off">
 
                       </mat-form-field>
                         <div class="error" *ngIf="insuremobileNumber != '' && insuremobileNumber != 'true'">{{insuremobileNumber}}</div>
@@ -669,7 +669,7 @@
 
                               <div class="col-md-12">
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item" *ngFor="let items of personalAccidentQuestionsList;let i = index;"> {{i+1}}.  {{items.question}} :
+                                      <li class="list-group-item" *ngFor="let items of personalAccidentQuestionsList;let i = index;">{{i+1}}.   {{items.question}} :
                                           <b *ngIf="items.checked == false"> No</b>
                                           <b *ngIf="items.checked != false"> Yes</b>
                                       </li>
