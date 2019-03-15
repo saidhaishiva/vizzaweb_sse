@@ -146,21 +146,25 @@
                 </thead>
                 <tbody>
                 <tr *ngFor = "let list of insurerLists; let i = index" >
-                  <td align="center" class="col-md-2">
+                  <td align="center" class="col-md-2" style="color:#821646;">
                     <!--<img src="{{webhost + '/' + plists.company_logo}}" style="width: 65px;">-->
-                    <p>{{list.company_name | titlecase}} - {{list.product_name | titlecase}}</p>
+                    <p><strong>{{list.company_name | titlecase}} - {{list.product_name | titlecase}}</strong></p>
                   </td>
                   <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3">
                     <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
+                    <p *ngIf="key.key_value == ''"> - </p>
                   </td>
                   <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3">
                     <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
+                    <p *ngIf="key.key_value == ''"> - </p>
                   </td>
                   <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3">
                     <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
+                    <p *ngIf="key.key_value == ''"> - </p>
                   </td>
                   <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0">
                     <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
+                    <p *ngIf="key.key_value == ''"> - </p>
                   </td>
                   <td class="col-md-1">
                     <p class="mt-1" style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="compareNow(list)">Compare All</button></p>
