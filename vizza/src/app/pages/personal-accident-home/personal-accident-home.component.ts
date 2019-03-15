@@ -137,7 +137,7 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
 reset() {
-    this.selectedAmountP = [];
+    this.selectedAmountP = '';
     this.pincoceP = '';
     this.occupationP = '';
     this.Age = '';
@@ -352,6 +352,7 @@ public annualIncome() {
             for (let j = 0; j < this.personalPremiumLists.product_lists.length; j++) {
                 this.personalPremiumLists.product_lists[j].compare_id = j+1;
                 this.personalPremiumLists.product_lists[j].suminsured_amount_format =   this.numberWithCommas( this.personalPremiumLists.product_lists[j].suminsured_amount);
+                this.personalPremiumLists.product_lists[j].premium_amount_format = this.numberWithCommas(this.personalPremiumLists.product_lists[j].premium_amount);
 
             }
 
@@ -604,7 +605,7 @@ public annualIncome() {
 
 
     // buy details
-    buyDetails(value) {
+    buyProduct(value) {
         sessionStorage.pAccidentProposalList =  JSON.stringify(value);
         if (value.product_id == 14 || value.product_id == 15) {
             this.router.navigate(['/appollopa' + '/' + false]);

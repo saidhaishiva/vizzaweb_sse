@@ -26,9 +26,7 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
 
     constructor(public config: ConfigurationService,public router: Router, public personalService: PersonalAccidentService,public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
-
         this.route.params.forEach((params) => {
-            // console.log(params.id);
             this.paymentStatus = params.status;
             console.log(this.paymentStatus, 'this.paymentStatus');
             this.proposalId = params.proId;
@@ -36,16 +34,6 @@ export class ReligarePaymentSuccessPaComponent implements OnInit {
         });
     }
     ngOnInit() {
-           //  sessionStorage.AnnualIncomeP= '';
-           // sessionStorage.occupationP='';
-           // sessionStorage.personalPremiumLists = '';
-           // sessionStorage.pincoceP= '';
-           // sessionStorage.selectedAmountP= '';
-           // sessionStorage.setAge= '';
-           // sessionStorage.pAccidentProposalList= '';
-           // sessionStorage.proposal1Detail= '';
-           // sessionStorage.proposal2Detail= '';
-           // sessionStorage.personalnomineeData= '';
 
     }
     retry() {

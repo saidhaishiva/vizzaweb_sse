@@ -372,7 +372,6 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
             this.personalCitys = JSON.parse(sessionStorage.personalCitys);
         }
-
         if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined) {
             this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
         }
@@ -430,6 +429,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 this.insuremobileNumber = sessionStorage.insuremobileNumber;
             } else {
                 this.insuremobileNumber = 'true';
+            }
+            if (sessionStorage.insureoccupationDescription != '' && sessionStorage.insureoccupationDescription != undefined) {
+                 this.insureoccupationDescription = sessionStorage.insureoccupationDescription;
+            }
+            if (sessionStorage.insureoccupationClass != '' && sessionStorage.insureoccupationClass != undefined) {
+                this.insureoccupationClass = sessionStorage.insureoccupationClass;
             }
 
 
@@ -895,8 +900,9 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         } else {
             this.insureoccupationDescription = false;
             this.insureoccupationClass = true;
-
         }
+        sessionStorage.insureoccupationDescription = this.insureoccupationDescription;
+        sessionStorage.insureoccupationClass = this.insureoccupationClass;
         const data = {
             'platform': 'web',
             'occupationId':this.insured.controls['insuredDescriptionCode'].value,
@@ -915,8 +921,6 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     }
     public classoccupationSuccess(successData) {
         this.insureClassDescription = successData.ResponseObject;
-
-
     }
 
     public classoccupationFailure(error) {

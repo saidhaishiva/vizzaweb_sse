@@ -324,7 +324,7 @@
                                 </mat-select>
                             </mat-form-field>
                         </div>
-                      <div class="col-md-3 mt-2"><mat-form-field class="w-100">
+                      <div class="col-md-3 "><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"    maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">PAN is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
@@ -338,8 +338,6 @@
 
 
                       </mat-form-field></div>
-                       <!--pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$"-->
-<!---->
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"   formControlName="insuredEmail"  autocomplete="off"  required>
                         <mat-error *ngIf="insured.controls.insuredEmail.errors?.required">Email ID is required</mat-error>
@@ -352,7 +350,7 @@
                         <mat-error *ngIf="insured.controls.insuredEmail2.hasError('pattern')">Please Enter Correct Format</mat-error>
 
                       </mat-form-field></div>
-                      <div class="col-md-3 mt-2"><mat-form-field class="w-100">
+                      <div class="col-md-3 "><mat-form-field class="w-100">
                         <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="insuredMobile" autocomplete="off"   required>
                         <mat-error *ngIf="insured.controls.insuredMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="insured.controls.insuredMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
@@ -395,7 +393,7 @@
                                             <input #message maxlength="80" matInput placeholder="Address 1" formControlName="insuredAddress" (keyup)="typeAddressDeatils()" autocomplete="off" required>
                                             <mat-hint align="start"></mat-hint>
                                             <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
-                                            <mat-error *ngIf="personal.controls.insuredAddress.errors?.required">Address is required</mat-error>
+                                            <mat-error *ngIf="insured.controls.insuredAddress.errors?.required">Address is required</mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-12">
@@ -403,7 +401,7 @@
                                             <input #message1 maxlength="80" matInput placeholder="Address 2" formControlName="insuredAddress2" (keyup)="typeAddressDeatils()" autocomplete="off" required>
                                             <mat-hint align="start"></mat-hint>
                                             <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
-                                            <mat-error *ngIf="personal.controls.insuredAddress2.errors?.required">Address2 is required</mat-error>
+                                            <mat-error *ngIf="insured.controls.insuredAddress2.errors?.required">Address2 is required</mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6"><mat-form-field class="w-100">
@@ -412,7 +410,7 @@
                                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('required')">Pincode required</mat-error>
                                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                     </mat-form-field></div>
-                                    <div class="col-md-4"><mat-form-field class="w-100" >
+                                    <div class="col-md-6"><mat-form-field class="w-100" >
                                         <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" (change)="changeCity()" required>
                                             <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
                                                 {{city.value}}
@@ -420,7 +418,7 @@
                                         </mat-select>
                                         <mat-error *ngIf="insured.controls.insuredCity.errors?.required">City is required</mat-error>
                                     </mat-form-field></div>
-                                    <div class="col-md-4"><mat-form-field class="w-100">
+                                    <div class="col-md-6"><mat-form-field class="w-100">
                                         <input matInput placeholder="State" formControlName="insuredState" autocomplete="off" required  readonly>
                                         <mat-error *ngIf="insured.controls.insuredState.errors?.required">State is required</mat-error>
 
@@ -445,7 +443,7 @@
                                             <input #message2 maxlength="80" matInput placeholder="Address 1" formControlName="insuredrAddress" required autocomplete="off" [readonly]="inputReadonly">
                                             <mat-hint align="start"></mat-hint>
                                             <mat-hint align="end">{{message2.value.length}} / 80</mat-hint>
-                                            <mat-error *ngIf="personal.controls.insuredrAddress.errors?.required">Address is required</mat-error>
+                                            <mat-error *ngIf="insured.controls.insuredrAddress.errors?.required">Address is required</mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-12">
@@ -453,7 +451,7 @@
                                             <input #message3 maxlength="80" matInput placeholder="Address 2" formControlName="insuredrAddress2" autocomplete="off" [readonly]="inputReadonly" required>
                                             <mat-hint align="start"></mat-hint>
                                             <mat-hint align="end">{{message3.value.length}} / 80</mat-hint>
-                                            <mat-error *ngIf="personal.controls.insuredrAddress2.errors?.required">Address2 is required</mat-error>
+                                            <mat-error *ngIf="insured.controls.insuredrAddress2.errors?.required">Address2 is required</mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6"><mat-form-field class="w-100">
@@ -462,7 +460,7 @@
                                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('required')">Pincode required</mat-error>
                                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                     </mat-form-field></div>
-                                    <div class="col-md-6" [ngStyle]="{'pointer-events': this.personal.controls['sameas'].value ? 'none' : ''}">
+                                    <div class="col-md-6" [ngStyle]="{'pointer-events': this.insured.controls['sameasInsuredAddress'].value ? 'none' : ''}">
                                         <mat-form-field class="w-100">
                                             <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (change)="changeRCity()" [disabled]="inputReadonly" required>
                                                 <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
@@ -509,7 +507,7 @@
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
                               <div *ngFor="let item of personalAccidentQuestionsList; let i = index">
-                                  {{i+1}}. <mat-checkbox [(ngModel)]="item.checked" >{{item.question}}</mat-checkbox>
+                                  <mat-checkbox [(ngModel)]="item.checked" class="mt-2">{{item.question}}</mat-checkbox>
                               </div>
                               <div class="proposal-buttom mt-3 text-right w-100">
                                   <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
@@ -603,8 +601,9 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerDataForm.insuredClassDescriptionCodeName}}</li>
-                        <li class="list-group-item"><strong>Occupation Description:</strong>  {{proposerDataForm.insuredDescriptionCodeName}}</li>
+                        <li class="list-group-item" *ngIf="insureoccupationClass"><strong>Occupation Description:</strong>  {{proposerDataForm.insuredClassDescriptionCodeName}}</li>
+                        <li class="list-group-item" *ngIf="insureoccupationDescription"><strong>Occupation Description:</strong>  {{proposerDataForm.insuredDescription}}</li>
+                        <li class="list-group-item"><strong>Occupation List:</strong>  {{proposerDataForm.insuredDescriptionCodeName}}</li>
                       <li class="list-group-item"><strong>PAN Number:</strong> {{proposerDataForm.insuredPan | uppercase}}</li>
                       <li class="list-group-item" *ngIf="proposerDataForm.insuredPassPort != ''"><strong>Pass Port:</strong> {{proposerDataForm.insuredPassPort | uppercase}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong>{{proposerDataForm.insuredAnnualIncome}} </li>
