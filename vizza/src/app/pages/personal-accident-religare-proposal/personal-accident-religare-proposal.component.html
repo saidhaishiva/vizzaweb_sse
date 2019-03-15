@@ -460,9 +460,9 @@
                                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('required')">Pincode required</mat-error>
                                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                     </mat-form-field></div>
-                                    <div class="col-md-6" [ngStyle]="{'pointer-events': this.insured.controls['sameasInsuredAddress'].value ? 'none' : ''}">
+                                    <div class="col-md-6" [ngStyle]="{'pointer-events':inputReadonly ? 'none' : ''}">
                                         <mat-form-field class="w-100">
-                                            <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (change)="changeRCity()" [disabled]="inputReadonly" required>
+                                            <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (change)="changeRCity()" required>
                                                 <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
                                                     {{citys.value}}
                                                 </mat-option>
@@ -587,7 +587,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{proposerDataForm.insuredTitle}}. {{proposerDataForm.insuredFirstname}} {{proposerDataForm.insuredLastname}} </li>
+                      <li class="list-group-item"><strong>Name:</strong> <span *ngIf="proposerDataForm.insuredTitle == 'MR'">Mr</span> <span *ngIf="proposerDataForm.insuredTitle == 'MS'">Ms</span>. {{proposerDataForm.insuredFirstname}} {{proposerDataForm.insuredLastname}} </li>
                         <li class="list-group-item"><strong>Gender:</strong>{{proposerDataForm.insuredGender}} </li>
                         <li class="list-group-item"><strong>D.O.B:</strong>  {{proposerDataForm.insuredDob  | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong>{{proposerDataForm.insuredMobile}} </li>
