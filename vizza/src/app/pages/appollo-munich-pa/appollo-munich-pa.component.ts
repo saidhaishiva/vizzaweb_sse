@@ -302,7 +302,10 @@ public habits: boolean;
       this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
       this.sessionData();
       this.sameRelationship = 'Self' ;
-      this.insured.controls['insuredAnnual'].patchValue(this.getAllPremiumDetails.annual_salary);
+      if(this.insured.controls['insuredAnnual'].value == ''){
+          this.insured.controls['insuredAnnual'].patchValue(this.getAllPremiumDetails.annual_salary);
+      }
+
   }
     // session Data
     sessionData() {
