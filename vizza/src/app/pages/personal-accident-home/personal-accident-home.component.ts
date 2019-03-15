@@ -10,8 +10,6 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {AuthService} from '../../shared/services/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import {GrouppopupComponent} from '../health-insurance/grouppopup/grouppopup.component';
-import {CompareDetailsComponent} from './compare-details/compare-details.component';
 import {ComparelistComponent} from '../health-insurance/comparelist/comparelist.component';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.component';
