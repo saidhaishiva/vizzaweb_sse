@@ -505,7 +505,17 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         document.getElementById('main-content').scrollTop = 0;
     }
 
-
+    typeAddressDeatils() {
+        if (this.insured.controls['sameasInsuredAddress'].value) {
+            this.residenceCitys = JSON.parse(sessionStorage.personalCitys);
+            this.insured.controls['insuredrAddress'].patchValue(this.insured.controls['insuredAddress'].value);
+            this.insured.controls['insuredrAddress2'].patchValue(this.insured.controls['insuredAddress2'].value);
+            this.insured.controls['insuredrCity'].patchValue(this.insured.controls['insuredCity'].value);
+            this.insured.controls['insuredrCityName'].patchValue(this.insured.controls['insuredCityName'].value);
+            this.insured.controls['insuredrPincode'].patchValue(this.insured.controls['insuredPincode'].value);
+            this.insured.controls['insuredrState'].patchValue(this.insured.controls['insuredState'].value);
+        }
+    }
     // insured
     insuredsameAddress(values: any) {
         this.sameinsure = values.checked;
