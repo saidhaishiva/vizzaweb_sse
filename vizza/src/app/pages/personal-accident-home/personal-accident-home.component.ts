@@ -275,10 +275,6 @@ public annualIncome() {
             this.toast.error('Personal age should be 18 or above');
             return false;
         }
-        // if (this.AnnualIncomeP != 0) {
-        //     this.toast.error('Personal age should be 18 or above');
-        //     return false;
-        // }
 
         if (this.selectedAmountP == '' || this.selectedAmountP == undefined) {
             this.sumerror = true;
@@ -343,39 +339,40 @@ public annualIncome() {
 
     public personalAccidentSuccess(successData, index) {
         if (successData.IsSuccess) {
-            this.personalPremiumLists = successData.ResponseObject;
-               // let id = 1;
-                for (let j = 0; j < this.personalPremiumLists.product_lists.length; j++) {
-                    this.personalPremiumLists.product_lists[j].compare_id = j+1;
-                }
-
-            console.log(this.personalPremiumLists, 'pppp099882211qq');
-
-            sessionStorage.personalPremiumLists = JSON.stringify(this.personalPremiumLists);
             this.firstPage = false;
             this.secondPage = true;
-            this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
-            this.Age = this.personalPremiumLists.family_details[0].age;
-            this.enquiryIdP = this.personalPremiumLists.enquiry_id;
-            this.occupationP = this.personalPremiumLists.occupation_code;
-            this.selectedAmountP = this.personalPremiumLists.group_suminsured_id;
-
+            this.personalPremiumLists = successData.ResponseObject;
             sessionStorage.setPageP = (this.personalPremiumLists.enquiry_id == '') ? 1 : 2;
             if (sessionStorage.setPageP != 1) {
                 sessionStorage.sideMenuP = true;
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
+            }
+            for (let j = 0; j < this.personalPremiumLists.product_lists.length; j++) {
+                this.personalPremiumLists.product_lists[j].compare_id = j+1;
+                this.personalPremiumLists.product_lists[j].suminsured_amount_format =   this.numberWithCommas( this.personalPremiumLists.product_lists[j].suminsured_amount);
 
             }
+
+            console.log(this.personalPremiumLists, 'pppp099882211qq');
+            sessionStorage.personalPremiumLists = JSON.stringify(this.personalPremiumLists);
+            this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
+            this.Age = this.personalPremiumLists.family_details[0].age;
+            this.enquiryIdP = this.personalPremiumLists.enquiry_id;
+            this.occupationP = this.personalPremiumLists.occupation_code;
+            this.selectedAmountP = this.personalPremiumLists.group_suminsured_id;
+
+
         } else {
             this.toast.error(successData.ErrorObject);
         }
-
-
     }
 
     public personalAccidentFailure(error) {
+    }
+    public  numberWithCommas(x) {
+        return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
     }
 
 // update

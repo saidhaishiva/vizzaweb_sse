@@ -1,19 +1,20 @@
 
-<div class="container dashboard h-100" fxLayoutAlign="start start"  *ngIf="firstPage">
-  <div class="row my-flex-card">
-    <h2 class="w-100 text-center mb-2" style="color: #EF0034"><img src="assets/img/personal-accident.png" class="logo-size"> Personal Accident</h2>
-    <div class="col-md-6 col-sm-12 col-xs-12 personal-ac-home">
-      <div class="card">
-        <div class="card-block">
-          <div class="aboutImg">
-            <img src="assets/img/Personal-Accident-Inner-banner.png" class="w-100">
-            <div class="aboutContent">
-              <h4>About Personal Accident</h4>
-              <p style="text-align: left;">Being safe is in your own hands. We can help you .… <button class="btn btn-sm" (click)="personalInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
+<div class="container dashboard h-100" *ngIf="firstPage">
+    <div class="row ">
+        <h3 class="w-100 text-center color-pink mb-3"><img src="assets/img/personal-accident.png" class="logo-size"> PERSONAL ACCIDENT</h3>
+        <div class="col-md-6 col-sm-12 col-xs-12 ">
+            <div class="card-block">
+                <div class="aboutImg">
+                    <img src="assets/img/Personal-Accident-Inner-banner.png" class="w-100">
+                    <div class="aboutContent">
+                        <h4>About Personal Accident</h4>
+                        <p>Being safe is in your own hands. We can help you .… <button class="btn btn-sm" (click)="personalInsurer()" style="border: 1px solid #000; background-color: inherit;"> Know More</button></p>
+
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
+
     </div>
     <div *ngIf="show" class="col-md-6 col-sm-12 col-xs-12 personal-ac-home">
       <div class="card">
@@ -38,7 +39,7 @@
             </mat-form-field>
             <div *ngIf="ageerror" class="ngError">Age Required</div>
             <mat-form-field class="w-100">
-            <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="occupationP" autocomplete="off" >
+            <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="occupationP" (keypress)="keyPress($event)" autocomplete="off" >
               <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.class">{{occupation.occupation}}</mat-option>
             </mat-select>
             </mat-form-field>
@@ -68,7 +69,6 @@
       </div>
 
     </div>
-
     <div *ngIf="!show" class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
@@ -173,194 +173,288 @@
         </div>
       </div>
     </div>
-
-
   </div>
+
+
+
+
+<div class="row " id="product-list" fxLayoutAlign="center start" *ngIf="secondPage">
+    <div class="col-sm-12">
+        <div fxLayout="column" >
+            <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4 class="color-pink" (click)="painsurance()"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Personal Accident Insurance</h4>
+                        </div>
+                        <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex">
+                                <p class="ml-2 mt-3">{{personalPremiumLists.name | uppercase}}</p>
+                        </mat-tab-group>
+                    </div>
+                </div>
+
+                <div class="flex-p" >
+                        <table class="table health-table" *ngIf="personalPremiumLists.product_lists !='' ">
+
+                        <thead>
+                        <tr>
+                            <th class="col-md-2">
+                                <mat-form-field class="w-100">
+                                    <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
+                                    <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
+                                        <mat-option value="All" >Select All</mat-option>
+
+                                        <mat-option *ngFor="let plists of personalPremiumLists.product_lists;let i = index" >value="{{plists.company_name}}">{{plists.company_name}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </th>
+                            <th class="sun-insured healthScroll col-md-1">
+                                <mat-form-field >
+                                    <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
+                                    <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
+                                        <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </th>
+                            <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Accidental Death</th>
+                            <th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Permanent Total Disablement</th>
+                            <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Temporary total disablement</th>
+                            <th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Permanent Partial Disablement</th>
+                            <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Compare</th>
+                            <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>
+                            <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Buy</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="" *ngFor="let plists of personalPremiumLists.product_lists;let i = index">
+                            <td align="center"  class="col-md-2 text-center">
+                                <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
+                                <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
+                            </td>
+                            <td  class="col-md-1">
+                                <p class="mt-4">&#8377; {{plists.suminsured_amount_format}}</p>
+                            </td>
+                            <td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3" class="col-md-1">
+                                <p class="text-center mt-4">{{keys.key_features_value}}</p>
+                            </td>
+                            <td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3" class="col-md-2">
+                                <p class="text-center mt-4">{{keys.key_features_value}}</p>
+                            </td>
+                            <td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3" class="col-md-1">
+                                <p class="text-center mt-4">{{keys.key_features_value}}</p>
+                            </td>
+                            <td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0" class="col-md-2">
+                                <p class="text-center mt-4">{{keys.key_features_value}}</p>
+                            </td>
+                            <td class="col-md-1 text-center">
+                                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)">Add to Compare</button></p>
+                                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
+                                <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
+                            </td>
+                            <td class="col-md-1">
+                                <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
+                                <p class="text-center change-p">(Including GST)</p>
+                            </td>
+                            <td class="col-md-1">
+                                <p class="mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!--second page-->
 
-<div class="row " id="product-list" fxLayoutAlign="center start">
-  <div class="col-sm-9"  *ngIf="secondPage">
-    <div fxLayout="column" >
-      <div class="flex-p">
-        <mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
-          <mat-card-content>
-            <h4 class="color-pink" (click)="painsurance()"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Personal Accident Insurance</h4>
-            <!--<mat-tab-group #tabGroup [selectedIndex]="tabIndex">-->
-              <div class="headerColor" let pi = "index" >
-                <ng-template>
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                       width="20" height="80"
-                       viewBox="0 0 24 24"
-                       style="fill:#ffffff;"><g id="surface1"><path style=" " d="M 12 5 C 9.789063 5 8 6.789063 8 9 C 8 11.210938 9.789063 13 12 13 C 14.210938 13 16 11.210938 16 9 C 16 6.789063 14.210938 5 12 5 Z M 4.5 6 C 3.121094 6 2 7.121094 2 8.5 C 2 9.878906 3.121094 11 4.5 11 C 5.878906 11 7 9.878906 7 8.5 C 7 7.121094 5.878906 6 4.5 6 Z M 19.5 6 C 18.121094 6 17 7.121094 17 8.5 C 17 9.878906 18.121094 11 19.5 11 C 20.878906 11 22 9.878906 22 8.5 C 22 7.121094 20.878906 6 19.5 6 Z M 12 7 C 13.105469 7 14 7.894531 14 9 C 14 10.105469 13.105469 11 12 11 C 10.894531 11 10 10.105469 10 9 C 10 7.894531 10.894531 7 12 7 Z M 4.5 13 C 1.082031 13 0 15.65625 0 15.65625 L 0 17 L 4.0625 17 L 4.09375 16.9375 C 4.144531 16.824219 5.015625 14.894531 7.34375 13.78125 C 6.660156 13.339844 5.726563 13 4.5 13 Z M 19.5 13 C 18.273438 13 17.339844 13.339844 16.65625 13.78125 C 18.984375 14.894531 19.855469 16.824219 19.90625 16.9375 L 19.9375 17 L 24 17 L 24 15.65625 C 24 15.65625 22.917969 13 19.5 13 Z M 12 14 C 6.683594 14 5 18 5 18 L 5 20 L 19 20 L 19 18 C 19 18 17.316406 14 12 14 Z M 12 16 C 15.433594 16 16.53125 18 16.53125 18 L 7.46875 18 C 7.46875 18 8.609375 16 12 16 Z "></path></g></svg>
-                  <p class="ml-2 mt-3">{{personalPremiumLists.name | uppercase}}</p>
+  <!--<div class="col-sm-9"  *ngIf="secondPage">-->
+    <!--<div fxLayout="column" >-->
+      <!--<div class="flex-p">-->
+        <!--<mat-card [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">-->
+          <!--<mat-card-content>-->
+            <!--<h4 class="color-pink" (click)="painsurance()"><img  src="assets/img/health-icon.png" class="h-icon" alt="5"> Personal Accident Insurance</h4>-->
+            <!--&lt;!&ndash;<mat-tab-group #tabGroup [selectedIndex]="tabIndex">&ndash;&gt;-->
+              <!--<div class="headerColor" let pi = "index" >-->
+                <!--<ng-template>-->
+                  <!--<svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"-->
+                       <!--width="20" height="80"-->
+                       <!--viewBox="0 0 24 24"-->
+                       <!--style="fill:#ffffff;"><g id="surface1"><path style=" " d="M 12 5 C 9.789063 5 8 6.789063 8 9 C 8 11.210938 9.789063 13 12 13 C 14.210938 13 16 11.210938 16 9 C 16 6.789063 14.210938 5 12 5 Z M 4.5 6 C 3.121094 6 2 7.121094 2 8.5 C 2 9.878906 3.121094 11 4.5 11 C 5.878906 11 7 9.878906 7 8.5 C 7 7.121094 5.878906 6 4.5 6 Z M 19.5 6 C 18.121094 6 17 7.121094 17 8.5 C 17 9.878906 18.121094 11 19.5 11 C 20.878906 11 22 9.878906 22 8.5 C 22 7.121094 20.878906 6 19.5 6 Z M 12 7 C 13.105469 7 14 7.894531 14 9 C 14 10.105469 13.105469 11 12 11 C 10.894531 11 10 10.105469 10 9 C 10 7.894531 10.894531 7 12 7 Z M 4.5 13 C 1.082031 13 0 15.65625 0 15.65625 L 0 17 L 4.0625 17 L 4.09375 16.9375 C 4.144531 16.824219 5.015625 14.894531 7.34375 13.78125 C 6.660156 13.339844 5.726563 13 4.5 13 Z M 19.5 13 C 18.273438 13 17.339844 13.339844 16.65625 13.78125 C 18.984375 14.894531 19.855469 16.824219 19.90625 16.9375 L 19.9375 17 L 24 17 L 24 15.65625 C 24 15.65625 22.917969 13 19.5 13 Z M 12 14 C 6.683594 14 5 18 5 18 L 5 20 L 19 20 L 19 18 C 19 18 17.316406 14 12 14 Z M 12 16 C 15.433594 16 16.53125 18 16.53125 18 L 7.46875 18 C 7.46875 18 8.609375 16 12 16 Z "></path></g></svg>-->
+                  <!--<p class="ml-2 mt-3">{{personalPremiumLists.name | uppercase}}</p>-->
 
-                </ng-template>
+                <!--</ng-template>-->
 
-                <table class="table health-table" *ngIf="personalPremiumLists.product_lists !='' ">
-                  <thead>
-                  <tr>
-                    <th>INSURER</th>
-                    <th>SUM INSURED</th>
-                    <th>KEY FEATURES</th>
-                    <th>COMPARE</th>
-                    <th>PREMIUM</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr class="" *ngFor="let plists of personalPremiumLists.product_lists;let i = index">
-                    <td>
-                      <p class="color-green">{{plists.product_name | titlecase}}</p>
-                      <img  src="{{webhost + '/' + plists.company_logo}}" style="width: 100px;" alt="5">
-                    </td>
-                    <td>
-                      <p>{{plists.suminsured_amount | currency: 'INR'}}</p>
-                    </td>
-                    <td style="width: 50%">
+                <!--<table class="table health-table" *ngIf="personalPremiumLists.product_lists !='' ">-->
+                  <!--<thead>-->
+                  <!--<tr>-->
+                    <!--<th>INSURER</th>-->
+                    <!--<th>SUM INSURED</th>-->
+                    <!--<th>KEY FEATURES</th>-->
+                    <!--<th>COMPARE</th>-->
+                    <!--<th>PREMIUM</th>-->
+                  <!--</tr>-->
+                  <!--</thead>-->
+                  <!--<tbody>-->
+                  <!--<tr class="" *ngFor="let plists of personalPremiumLists.product_lists;let i = index">-->
+                    <!--<td>-->
+                      <!--<p class="color-green">{{plists.product_name | titlecase}}</p>-->
+                      <!--<img  src="{{webhost + '/' + plists.company_logo}}" style="width: 100px;" alt="5">-->
+                    <!--</td>-->
+                    <!--<td>-->
+                      <!--<p>{{plists.suminsured_amount | currency: 'INR'}}</p>-->
+                    <!--</td>-->
+                    <!--<td style="width: 50%">-->
 
-                      <div class="row" fxLayoutAlign="left center" *ngFor="let keys of plists.key_features">
-                        <div class="col-md-8">
-                          <li *ngIf="keys.key_features_name !='Room Rent'">{{keys.key_features_name}}</li>
-                        </div>
-                        <div class="col-md-1">
-                          <span *ngIf="keys.key_features_name !='Room Rent'">:</span>
-                        </div>
-                        <div class="col-md-3">
-                          <!--<a style="color: #777272f0" *ngIf="keys.key_features_value == ''">-</a>-->
-                          <a *ngIf="keys.key_features_name !='Room Rent'" style="color: #777272f0">{{keys.key_features_value}}</a>
-                        </div>
-                      </div>
+                      <!--<div class="row" fxLayoutAlign="left center" *ngFor="let keys of plists.key_features">-->
+                        <!--<div class="col-md-8">-->
+                          <!--<li *ngIf="keys.key_features_name !='Room Rent'">{{keys.key_features_name}}</li>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-1">-->
+                          <!--<span *ngIf="keys.key_features_name !='Room Rent'">:</span>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--&lt;!&ndash;<a style="color: #777272f0" *ngIf="keys.key_features_value == ''">-</a>&ndash;&gt;-->
+                          <!--<a *ngIf="keys.key_features_name !='Room Rent'" style="color: #777272f0">{{keys.key_features_value}}</a>-->
+                        <!--</div>-->
+                      <!--</div>-->
 
-                      <div class="text-right pr-2 pl-2">
-                        <p class="linkClor" style="cursor: pointer"  (click)="viewKeyList(plists)">View Details / Product Documents</p>
-                      </div>
+                      <!--<div class="text-right pr-2 pl-2">-->
+                        <!--<p class="linkClor" style="cursor: pointer"  (click)="viewKeyList(plists)">View Details / Product Documents</p>-->
+                      <!--</div>-->
 
-                    </td>
-                    <td>
-                      <!--<p><button mat-raised-button color="primary1" style="color:#fff;" [hidden]="plists.shortlist" (click)="addShortlist(plists, pi, i, lists.enquiry_id, lists.name)">Add to Shortlist</button></p>-->
-                      <!--<p><button mat-raised-button color="accentRemove" *ngIf="plists.removebtn" (click)="removeShortlist(plists, pi, i, lists.enquiry_id, plists.shortlist_id)">Remove from Shortlist</button></p>-->
-                      <!--<p><button mat-raised-button disabled *ngIf="plists.shortlist && plists.currentBtn">Add to Shortlist</button></p>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                      <!--&lt;!&ndash;<p><button mat-raised-button color="primary1" style="color:#fff;" [hidden]="plists.shortlist" (click)="addShortlist(plists, pi, i, lists.enquiry_id, lists.name)">Add to Shortlist</button></p>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<p><button mat-raised-button color="accentRemove" *ngIf="plists.removebtn" (click)="removeShortlist(plists, pi, i, lists.enquiry_id, plists.shortlist_id)">Remove from Shortlist</button></p>&ndash;&gt;-->
+                      <!--&lt;!&ndash;<p><button mat-raised-button disabled *ngIf="plists.shortlist && plists.currentBtn">Add to Shortlist</button></p>&ndash;&gt;-->
 
-                      <p><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="compareDetails(plists, i, personalPremiumLists.enquiry_id, personalPremiumLists.name)">Add to Compare</button></p>
-                      <p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
-                    </td>
-                    <td>
-                      <p class="text-center">{{plists.premium_amount | currency: 'INR'}} / Yr</p>
-                      <p><button mat-raised-button color="accent" (click)="buyDetails(plists)">Buy</button></p>
-                      <p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>
+                      <!--<p><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="compareDetails(plists, i, personalPremiumLists.enquiry_id, personalPremiumLists.name)">Add to Compare</button></p>-->
+                      <!--<p><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>-->
+                    <!--</td>-->
+                    <!--<td>-->
+                      <!--<p class="text-center">{{plists.premium_amount | currency: 'INR'}} / Yr</p>-->
+                      <!--<p><button mat-raised-button color="accent" (click)="buyDetails(plists)">Buy</button></p>-->
+                      <!--<p class="text-center" style="font-size: 12px;">(Excluding.GST)</p>-->
 
-                    </td>
-                  </tr>
+                    <!--</td>-->
+                  <!--</tr>-->
 
-                  </tbody>
-                </table>
-                <table class="table health-table" *ngIf="personalPremiumLists.product_lists =='' ">
-                  <th class="text-center" class="color-pink"> No product matched your selection </th>
-                </table>
-                <!--</mat-card-content>-->
-                <mat-divider></mat-divider>
-                <!--</mat-card>-->
+                  <!--</tbody>-->
+                <!--</table>-->
+                <!--<table class="table health-table" *ngIf="personalPremiumLists.product_lists =='' ">-->
+                  <!--<th class="text-center" class="color-pink"> No product matched your selection </th>-->
+                <!--</table>-->
+                <!--&lt;!&ndash;</mat-card-content>&ndash;&gt;-->
+                <!--<mat-divider></mat-divider>-->
+                <!--&lt;!&ndash;</mat-card>&ndash;&gt;-->
 
 
-</div>
-          </mat-card-content>
-        </mat-card>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-3 product-choose"  [ngClass]="{'non-editable': nonEditable}">
+<!--</div>-->
+          <!--</mat-card-content>-->
+        <!--</mat-card>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="col-md-3 product-choose"  [ngClass]="{'non-editable': nonEditable}">-->
 
-    <div  *ngIf="secondPage" >
-      <div class="row" fxLayoutAlign="left center">
-        <div class="col-md-12">
-          <mat-card class="custom-card">
-            <mat-card-header class="p-2" >
-              <mat-card-title class="m-0">
-                <h6>Your Selections</h6>
-              </mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-              <div class="row" fxLayoutAlign="left center">
-                <mat-radio-group><br>
-                  <mat-radio-button [checked]="true" value="1">{{currentGroupName}}</mat-radio-button>
-                </mat-radio-group>
-              </div>
+    <!--<div  *ngIf="secondPage" >-->
+      <!--<div class="row" fxLayoutAlign="left center">-->
+        <!--<div class="col-md-12">-->
+          <!--<mat-card class="custom-card">-->
+            <!--<mat-card-header class="p-2" >-->
+              <!--<mat-card-title class="m-0">-->
+                <!--<h6>Your Selections</h6>-->
+              <!--</mat-card-title>-->
+            <!--</mat-card-header>-->
+            <!--<mat-card-content>-->
+              <!--<div class="row" fxLayoutAlign="left center">-->
+                <!--<mat-radio-group><br>-->
+                  <!--<mat-radio-button [checked]="true" value="1">{{currentGroupName}}</mat-radio-button>-->
+                <!--</mat-radio-group>-->
+              <!--</div>-->
 
-              <div class="row" fxLayoutAlign="left center">
-                <div class="col-md-6">
-                  <span>Sum Assured</span>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <mat-select [(ngModel)]="selectedAmountP" name="suminsure" (change)="changeAmount()">
-                      <mat-option  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
-                        {{amounts.si_amount}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
+              <!--<div class="row" fxLayoutAlign="left center">-->
+                <!--<div class="col-md-6">-->
+                  <!--<span>Sum Assured</span>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<mat-select [(ngModel)]="selectedAmountP" name="suminsure" (change)="changeAmount()">-->
+                      <!--<mat-option  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">-->
+                        <!--{{amounts.si_amount}}-->
+                      <!--</mat-option>-->
+                    <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+              <!--</div>-->
 
-              <div class="row" fxLayoutAlign="left center">
-                <div class="col-md-6">
-                  <span>Annual Income</span>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <input matInput name="annualincome"  [(ngModel)]="AnnualIncomeP"  [disabled]="true" autocomplete="off">
-                  </mat-form-field>
-                </div>
+              <!--<div class="row" fxLayoutAlign="left center">-->
+                <!--<div class="col-md-6">-->
+                  <!--<span>Annual Income</span>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<input matInput name="annualincome"  [(ngModel)]="AnnualIncomeP"  [disabled]="true" autocomplete="off">-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
 
-              </div>
+              <!--</div>-->
 
-              <div class="row" fxLayoutAlign="left center">
-                <div class="col-md-6">
-                  <span>Age</span>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <input matInput name="age" [(ngModel)]="Age"  [disabled]="true" autocomplete="off">
-                  </mat-form-field>
-                </div>
+              <!--<div class="row" fxLayoutAlign="left center">-->
+                <!--<div class="col-md-6">-->
+                  <!--<span>Age</span>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<input matInput name="age" [(ngModel)]="Age"  [disabled]="true" autocomplete="off">-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
 
-              </div>
+              <!--</div>-->
 
-              <div class="row" fxLayoutAlign="left center">
-                <div class="col-md-6">
-                  <span>Occupation</span>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <mat-select  name="occupation" [(ngModel)]="occupationP" [disabled]="true">
-                      <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.class">{{occupation.occupation}}</mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
+              <!--<div class="row" fxLayoutAlign="left center">-->
+                <!--<div class="col-md-6">-->
+                  <!--<span>Occupation</span>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<mat-select  name="occupation" [(ngModel)]="occupationP" [disabled]="true">-->
+                      <!--<mat-option *ngFor="let occupation of occupationCode" [value]="occupation.class">{{occupation.occupation}}</mat-option>-->
+                    <!--</mat-select>-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
 
-              </div>
+              <!--</div>-->
 
-              <div class="row" fxLayoutAlign="left center">
-                <div class="col-md-6">
-                  <span>City Pincode</span>
-                </div>
-                <div class="col-md-6">
-                  <mat-form-field class="w-100">
-                    <input matInput name="pin"  [disabled]="true"  [(ngModel)]="pincoceP" (keypress)="onNumber($event)" autocomplete="off">
-                  </mat-form-field>
-                </div>
-              </div>
-              <div fxLayoutAlign="center center" class="son">
-                <button mat-raised-button color="accent" (click)="updatePersonalAccident()">Update</button>
-              </div>
+              <!--<div class="row" fxLayoutAlign="left center">-->
+                <!--<div class="col-md-6">-->
+                  <!--<span>City Pincode</span>-->
+                <!--</div>-->
+                <!--<div class="col-md-6">-->
+                  <!--<mat-form-field class="w-100">-->
+                    <!--<input matInput name="pin"  [disabled]="true"  [(ngModel)]="pincoceP" (keypress)="onNumber($event)" autocomplete="off">-->
+                  <!--</mat-form-field>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<div fxLayoutAlign="center center" class="son">-->
+                <!--<button mat-raised-button color="accent" (click)="updatePersonalAccident()">Update</button>-->
+              <!--</div>-->
 
-            </mat-card-content>
-          </mat-card>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+            <!--</mat-card-content>-->
+          <!--</mat-card>-->
+        <!--</div>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
+
+
+
+
+
+
 <div class="row compar-fix" *ngIf="compareArray != ''">
   <div class="text-right closeBtnClass">
     <mat-icon (click)="removeAllCompare()">close</mat-icon>
