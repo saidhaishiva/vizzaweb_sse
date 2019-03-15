@@ -14,7 +14,17 @@ export class ClearSessionPaService {
     sessionStorage.proposerAgeP = '';
     sessionStorage.insuredAgeP = '';
     sessionStorage.appollo1Details = '';
-
+// religare
+    sessionStorage.residenceCitys = '';
+    sessionStorage.personalCitys = '';
+    sessionStorage.proposerAge = '';
+    sessionStorage.insuredAgePA = '';
+    sessionStorage.mobileNumber = '';
+    sessionStorage.insuremobileNumber = '';
+    sessionStorage.proposal3Detail = '';
+    sessionStorage.personalnomineeData = '';
+    sessionStorage.pa_religare_proposal_id = '';
+    sessionStorage.proposal2Detail = '';
   }
 
 
