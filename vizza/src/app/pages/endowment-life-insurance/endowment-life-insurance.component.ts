@@ -106,7 +106,7 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
     //compare Now Function
     compareNow(value) {
         let dialogRef = this.dialog.open(LifeCompareNowComponent, {
-            width: '2500px',data: this.LifeProductlistAll
+            width: '3500',data: this.LifeProductlistAll
         });
         dialogRef.disableClose = true;
 

@@ -203,7 +203,6 @@ import {CarInsurer} from './pages/car-insurance/car-insurance.component';
 import { BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
 import { ReliagretravelproposalComponent } from './pages/travel-religare-proposal/travel-religare-proposal.component';
-import { TermLifeInsuranceComponent } from './pages/term-life-insurance/term-life-insurance.component';
 import { TermLifeInsurer} from './pages/term-life-insurance/term-life-insurance.component';
 // import { LifeInsurer} from './pages/life-insurance/life-insurance.component';
 import { HdfcHealthInsuranceComponent } from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
@@ -251,6 +250,7 @@ import {LifeCallBackComponent} from './pages/endowment-life-insurance/life-call-
 import {LifeViewDetailsComponent} from './pages/endowment-life-insurance/life-view-details/life-view-details.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ClearSessionPaService} from './shared/services/clear-session-pa.service';
+import { TermLifeComponent } from './pages/term-life/term-life.component';
 
 @NgModule({
   imports: [
@@ -430,7 +430,6 @@ import {ClearSessionPaService} from './shared/services/clear-session-pa.service'
       CarInsurer,
       BikeInsuranceComponent,
       BikeInsurer,
-      TermLifeInsuranceComponent,
       TermLifeInsurer,
       ReliagretravelproposalComponent,
       // LifeInsuranceComponent,
@@ -464,6 +463,7 @@ import {ClearSessionPaService} from './shared/services/clear-session-pa.service'
       LifeCompareNowComponent,
       LifeCallBackComponent,
       LifeViewDetailsComponent,
+      TermLifeComponent,
 
   ],
   providers: [

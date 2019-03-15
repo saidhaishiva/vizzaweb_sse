@@ -7,10 +7,10 @@
   <div class="col-sm-12">
     <div fxLayout="column">
       <div class="row" style="height:550px; overflow:auto;">
-          <table class="table  life-table w-100" >
+          <table class="table  life-table" >
             <thead>
             <tr>
-            <th class="col-md-2"><strong>Endowment Policies</strong></th>
+            <th class="col-md-1"><strong>Endowment Policies</strong></th>
             <th class="col-md-2"><strong>Entry Age (Min/Max)</strong></th>
             <th class="col-md-1"><strong>Maturity Age (Min/Max)</strong></th>
             <th class="col-md-1"><strong>Policy Term</strong></th>
@@ -24,10 +24,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let list of compareDetails">
-              <td class="col-md-2"><small class="pinck-back" style="color:#821646; color:#ffffff;">{{list.company_name}}<br/>{{list.product_name}}</small></td>
-              <td *ngFor="let key of list.keyfeature; let i = index;" [ngClass] = "i == 1||i==7 ?'col-md-2': 'col-md-1'"><small>{{key.key_value}}</small></td>
-              <td class="col-md-1"><button type="button" class="btn pink-color btn-sm" (click)="callBack(list)">Call Back</button></td>
-            </tr>
+              <td class="col-md-1"><small class="pinck-back" style="color:#821646; color:#ffffff;">{{list.company_name}}<br/>{{list.product_name}}</small></td>
+              <td *ngFor="let key of list.keyfeature; let i = index;" [ngClass] = "i == 1||i==7 ? 'col-md-2' : 'col-md-1'"><small>{{key.key_value}}</small></td>
+              <p class="mt-1 col-md-1" style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="callBack(list)">Call Back</button></p></tr>
             </tbody>
           </table>
       </div>

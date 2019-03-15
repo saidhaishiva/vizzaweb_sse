@@ -152,19 +152,15 @@
                   </td>
                   <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3">
                     <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
-                    <p *ngIf="key.key_value == ''"> - </p>
                   </td>
                   <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3">
                     <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
-                    <p *ngIf="key.key_value == ''"> - </p>
                   </td>
                   <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3">
                     <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
-                    <p *ngIf="key.key_value == ''"> - </p>
                   </td>
                   <td class="col-md-2" *ngFor="let key of list.keyfeature; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0">
                     <p class="text-center mt-3">{{key.key_name}} : {{key.key_value}}</p>
-                    <p *ngIf="key.key_value == ''"> - </p>
                   </td>
                   <td class="col-md-1">
                     <p class="mt-1" style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="compareNow(list)">Compare All</button></p>
@@ -176,28 +172,6 @@
                 </tr>
                 </tbody>
               </table>
-
-              <!--<table class="health-table">-->
-                <!--<thead>-->
-                <!--<tr>-->
-                  <!--<th>INSURER</th>-->
-                  <!--<th>KEY FEATURES</th>-->
-                  <!--<th>COMPARE</th>-->
-                  <!--<th>POLICY DOCUMENTS</th>-->
-                  <!--<th>FIX AN APPOINTMENT</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr *ngFor = "let list of insurerLists">-->
-                  <!--<td><p>{{list.company_name}}-{{list.product_name}}</p></td>-->
-                  <!--<td><div class="row"><p class="col-md-6 text-primary" *ngFor="let key of list.keyfeature">-->
-                    <!--{{key.key_name}} : {{key.key_value}}</p></div></td>-->
-                  <!--<td><button mat-raised-button class="btn pink-color" (click)="compareNow(list)">Compare Now</button></td>-->
-                  <!--<td><button mat-raised-button class="btn yellow-color" (click)="viewDetails(list)">View Details/<br> Product Documents</button></td>-->
-                  <!--<td><button mat-raised-button class="btn pink-color" (click)="callBack(list)">Call Back</button></td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
-              <!--</table>-->
             </div>
           </div>
         </div>

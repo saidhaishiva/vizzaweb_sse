@@ -16,5 +16,6 @@ export const environment = {
     imgUrl:  'http://13.127.24.123/vizza',
     travelInsurance: true,
     healthInsurance: true,
+    lifeInsurance: true,
     paAccident: true
 };
