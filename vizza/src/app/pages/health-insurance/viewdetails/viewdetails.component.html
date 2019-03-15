@@ -25,7 +25,7 @@
                   <div class="col-md-3 pl-0 pr-1 bg-color">
                     <div mat-dialog-content >
                       <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
-                        <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#8e8e8e' : '#d81b60'">
+                        <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'">
                           <i class="material-icons">keyboard_arrow_right</i>
                           <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                         </mat-list-item>
@@ -63,7 +63,7 @@
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
                   <mat-nav-list *ngFor="let keys of productDocLists;let i = index">
-                    <mat-list-item *ngIf="keys.status == 1 || keys.status == 0" class="nav-item" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#8e8e8e' : '#d81b60'">
+                    <mat-list-item *ngIf="keys.status == 1 || keys.status == 0" class="nav-item" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#e8ccdb' : '#d81b60'">
                       <i class="material-icons">keyboard_arrow_right</i>
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                     </mat-list-item>
@@ -100,13 +100,13 @@
                 <div mat-dialog-content >
 
                   <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
-                    <mat-list-item *ngIf="keys.type == 2" class="nav-item" (click)="selectClaim('form1')" [style.background-color]="selectedClaimDetails == 'form1' ? '#dc6e97' : '#8e8e8e'">
+                    <mat-list-item *ngIf="keys.type == 2" class="nav-item" (click)="selectClaim('form1')" [style.background-color]="selectedClaimDetails == 'form1' ? '#dc6e97' : '#e8ccdb'">
                       <i class="material-icons">keyboard_arrow_right</i>
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                     </mat-list-item>
                   </mat-nav-list>
                   <mat-nav-list>
-                    <mat-list-item (click)="selectClaim('form2')" [style.background-color]="selectedClaimDetails == 'form2' ? '#dc6e97' : '#8e8e8e'">
+                    <mat-list-item (click)="selectClaim('form2')" [style.background-color]="selectedClaimDetails == 'form2' ? '#dc6e97' : '#e8ccdb'">
                       <i class="material-icons">keyboard_arrow_right</i>
                       <a matLine  style="font-weight: bold !important;" >Vizza Assistance</a>
                     </mat-list-item>
