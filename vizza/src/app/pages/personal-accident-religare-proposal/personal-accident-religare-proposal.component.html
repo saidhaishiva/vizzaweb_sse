@@ -320,7 +320,7 @@
                         <div class="col-md-3" *ngIf="insureoccupationClass">
                             <mat-form-field class="w-100" >
                                 <mat-select placeholder="Occupation Description" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode(); changeOccupationDescription()"  >
-                                    <mat-option *ngFor="let classOccupation of insureClassDescription | keys"  value="{{classOccupation.key}}">{{classOccupation.value}}</mat-option>
+                                    <mat-option *ngFor="let classOccupation of insureClassDescription"  value="{{classOccupation.occupation_class_description}}">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>

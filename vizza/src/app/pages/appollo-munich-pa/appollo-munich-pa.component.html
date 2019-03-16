@@ -205,7 +205,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListInsuredPa(); changeDistrictname()">
-                            <mat-option *ngFor="let paDistrict of paInsureddistrictList | keys" value="{{paDistrict.key}}" > {{paDistrict.value}} </mat-option>
+                            <mat-option *ngFor="let paDistrict of paInsureddistrictList | keys" value="{{paDistrict.value}}" > {{paDistrict.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredPaDistrict.errors?.required">District is required</mat-error>
                         </mat-form-field>
@@ -400,6 +400,38 @@
           </mat-accordion>
         </mat-step>
         <mat-step [stepControl]="">
+          <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+          <mat-accordion class="w-100 float-left ">
+            <mat-expansion-panel expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  MEDICAL HISTORY
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+              <div class="row mt-1">
+                <div class="col-md-12 box-card pt-3 pb-3" >
+                  <div class="row col-md-12" *ngFor="let item of appolloQuestionsListPa; let i = index">
+                    <div class="col-md-10">
+                      {{i+1}}. {{item.question}}
+                    </div>
+                    <div class="col-md-2 text-right">
+                      <mat-slide-toggle  (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
+                    </div>
+                  </div>
+                </div>
+                <div class="proposal-buttom mt-3 text-right w-100">
+                  <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                  <button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper)">Next</button>
+                </div>
+                <!--</div>-->
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+
+        </mat-step>
+
+        <mat-step [stepControl]="">
           <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <mat-expansion-panel expanded>
@@ -474,7 +506,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="District"   formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa(); nomineeDistrict()"  [disabled]="readonlyProposer">
-                            <mat-option *ngFor="let paDistrict of paNomineedistrictList | keys" value="{{paDistrict.key}}"> {{paDistrict.value}} </mat-option>
+                            <mat-option *ngFor="let paDistrict of paNomineedistrictList | keys" value="{{paDistrict.value}}"> {{paDistrict.value}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>-->
                         </mat-form-field>
