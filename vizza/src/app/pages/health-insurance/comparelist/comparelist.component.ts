@@ -11,12 +11,16 @@ export class ComparelistComponent implements OnInit {
     compareDetails: any;
     keyFeatureNames: any;
     webhost: any;
+    type: any;
   constructor(
       public dialogRef: MatDialogRef<ComparelistComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any, public config: ConfigurationService) {
       this.webhost = this.config.getimgUrl();
       this.compareDetails = this.data.comparedata;
+      this.type = this.data.type;
       console.log(this.compareDetails, 'this.data.comparedata');
+      console.log(this.type, 'this.type');
+      console.log(this.data, 'this.type');
 
       for (let i = 0; i < this.data.comparedata.productdetails.length; i++) {
           this.keyFeatureNames = [];

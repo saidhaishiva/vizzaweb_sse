@@ -16,6 +16,7 @@ import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.
 import {ViewProductDetailsComponent} from './view-product-details/view-product-details.component';
 import {DatePipe} from '@angular/common';
 import {ClearSessionPaService} from '../../shared/services/clear-session-pa.service';
+import {ValidationService} from '../../shared/services/validation.service';
 
 @Component({
   selector: 'app-personal-accident-home',
@@ -72,7 +73,7 @@ export class PersonalaccidentComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-    constructor(public appSettings: AppSettings,public clearSession: ClearSessionPaService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
+    constructor(public appSettings: AppSettings,public clearSession: ClearSessionPaService,public validation: ValidationService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -139,7 +140,20 @@ export class PersonalaccidentComponent implements OnInit {
         this.Age = '';
         this.AnnualIncomeP = '';
     }
-
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+    }
     public annualIncome() {
         if (this.AnnualIncomeP == '0') {
             this.annualErrorMessage = true;
@@ -478,7 +492,7 @@ export class PersonalaccidentComponent implements OnInit {
         }
     }
     // comparelist
-    compareList(value) {
+    compareList(value, title) {
             this.productData = [];
             let scheme = value[0].scheme;
             for (let i = 0; i < value.length; i++) {
@@ -498,18 +512,18 @@ export class PersonalaccidentComponent implements OnInit {
             this.settings.loadingSpinner = true;
             this.personalService.addtoCompare(data).subscribe(
                 (successData) => {
-                    this.compareSuccess(successData);
+                    this.compareSuccess(successData,title);
                 },
                 (error) => {
                     this.compareFailure(error);
                 }
             );
         }
-        public compareSuccess(successData) {
+        public compareSuccess(successData,title) {
             this.settings.loadingSpinner = false;
             if (successData.IsSuccess) {
                 let dialogRef = this.dialog.open(ComparelistComponent, {
-                    width: '1500px', data: {comparedata: successData.ResponseObject}});
+                    width: '1500px', data: {comparedata: successData.ResponseObject, type:title}});
                 dialogRef.disableClose = true;
 
                 dialogRef.afterClosed().subscribe(result => {
@@ -589,15 +603,15 @@ export class PersonalaccidentComponent implements OnInit {
     public getPincodeDetailsFailure(error) {
     }
 
-    public data(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
+    // public data(event: any) {
+    //     if (event.charCode !== 0) {
+    //         const pattern = /[a-zA-Z\\ ]/;
+    //         const inputChar = String.fromCharCode(event.charCode);
+    //         if (!pattern.test(inputChar)) {
+    //             event.preventDefault();
+    //         }
+    //     }
+    // }
 
 
     // buy details
