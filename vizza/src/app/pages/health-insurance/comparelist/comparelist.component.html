@@ -3,9 +3,11 @@
     <div class="col-sm-12 text-right">
         <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
     </div>
-  <div class="col-sm-12 text-center">
+  <div class="col-sm-12 text-center" >
     <h5 class="text-capitalize" >
-        <h3 class="text-center text-capitalize" style="color:#18CCB4;">{{compareDetails.group_name}} ({{compareDetails.scheme}})</h3>
+        <h3 class="text-center text-capitalize" *ngIf="type == 'health'" style="color:#18CCB4;">{{compareDetails.group_name}} ({{compareDetails.scheme}})</h3>
+        <h3 class="text-center text-capitalize" style="color:#18CCB4;"   *ngIf="type == 'pa'">Compare Details</h3>
+
     </h5>
       <mat-divider></mat-divider>
   </div>
@@ -16,12 +18,12 @@
       <div class="col">
           <table class="table compare">
               <tbody>
-              <tr class="table-warning1">
+              <tr [ngClass]="type == 'health'? 'color-blue': 'red'">
                   <td>
                       <p class="text-center" style="margin-top: 30px;">Key Features</p>
                   </td>
               </tr>
-              <tr class="table-warning1" >
+              <tr class="table-warning1">
                   <td height="70">SUM INSURED</td>
               </tr>
               <tr class="table-warning1" >
@@ -63,3 +65,9 @@
     <!--</div>-->
   </div>
 </div>
+
+<style>
+    .color-blue{
+        background-color: #0b9444;
+    }
+</style>
