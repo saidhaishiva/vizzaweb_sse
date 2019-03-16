@@ -298,13 +298,13 @@ public habits: boolean;
       this.stateListPa();
       this.paMaritalStatusList();
       this.preInsureList();
-      this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
+      this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
       this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
       this.sessionData();
       this.sameRelationship = 'Self' ;
-      if(this.insured.controls['insuredAnnual'].value == ''){
-          this.insured.controls['insuredAnnual'].patchValue(this.getAllPremiumDetails.annual_salary);
-      }
+      // if(this.insured.controls['insuredAnnual'].value == ''){
+      //     this.insured.controls['insuredAnnual'].patchValue(this.getAllPremiumDetails.annual_salary);
+      // }
 
   }
     // session Data

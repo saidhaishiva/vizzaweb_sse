@@ -335,24 +335,22 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.religareQuestions();
 
         this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
-        this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
-        if (this.getAllPremiumDetails.product_id == 1) {
+        this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
+        if (this.getBuyDetails.product_id == 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
             this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
         }
-        if (this.getAllPremiumDetails.product_id != 1) {
+        if (this.getBuyDetails.product_id != 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators(null);
             this.nomineeDetails.get('religareRelationship').setValidators(null);
         }
         this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
         this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
-        // this.mobileNumber = '';
-        // this.insuremobileNumber = '';
         this.sessionData();
         this.sameRelationship = 'SELF';
-        if(this.insured.controls['insuredAnnualIncome'].value == ''){
-            this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
-        }
+        // if(this.insured.controls['insuredAnnualIncome'].value == ''){
+        //     this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
+        // }
         // this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
     }
 

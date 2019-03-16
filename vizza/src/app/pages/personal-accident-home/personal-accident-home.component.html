@@ -32,13 +32,13 @@
                 </mat-form-field>
                 <div *ngIf="ageerror" class="ngError">Age Required</div>
                 <mat-form-field class="w-100" required>
-                    <mat-select placeholder="PROFESSION"  [(ngModel)]="selectedProfession" (change)="changeAmount()" (keypress)="keyPress($event)">
+                    <mat-select placeholder="PROFESSION"  [(ngModel)]="selectedProfession" (keypress)="keyPress($event)">
                         <mat-option *ngFor="let list of professions" [value]="list.profissional">
                             {{list.profissional}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                <div *ngIf="sumerror" class="ngError">Profession Required</div>
+                <div *ngIf="professionerr" class="ngError">Profession Required</div>
                 <mat-form-field class="w-100">
                   <mat-select placeholder="OCCUPATION" name="occupation" [(ngModel)]="occupationP" (keypress)="keyPress($event)" autocomplete="off" >
                   <mat-option *ngFor="let occupation of occupationCode" [value]="occupation.occupation_code">{{occupation.occupation}}</mat-option>
@@ -177,13 +177,13 @@
                             <h4 class="text-color" (click)="painsurance()"><img  src="assets/img/personal-accident.png" class="logo-size"> Personal Accident Insurance</h4>
                         </div>
                         <mat-tab-group #tabGroup class="col-md-6 w-100" [selectedIndex]="tabIndex">
-                                <p class="ml-2 mt-3">{{personalPremiumLists.name | uppercase}}</p>
+                                <!--<p class="ml-2 mt-3">{{personalPremiumLists.name | uppercase}}</p>-->
                         </mat-tab-group>
                     </div>
                 </div>
 
                 <div class="flex-p" >
-                        <table class="table health-table table-scroll paScroll" *ngIf="personalPremiumLists.product_lists !='' ">
+                        <table class="table health-table table-scroll paScroll " >
                             <thead>
                                 <tr>
                                     <th class="col-md-2">
@@ -192,7 +192,13 @@
                                             <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
                                                 <mat-option value="All" >Select All</mat-option>
 
-                                                <mat-option *ngFor="let plists of personalPremiumLists.product_lists;let i = index" >value="{{plists.company_name}}">{{plists.company_name}}</mat-option>
+                                                <mat-select-trigger>
+                                                    {{filterCompany ? filterCompany[0] : ''}}
+                                                    <span *ngIf="filterCompany.length > 1" class="example-additional-selection">
+                                                        (+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})
+                                                    </span>
+                                                </mat-select-trigger>
+                                                <mat-option *ngFor="let list of allCompanyList" value="{{list.company_name}}" [disabled]="checkAllStatus">{{list.company_name}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </th>
@@ -200,7 +206,7 @@
                                         <mat-form-field >
                                             <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
                                             <mat-select [(ngModel)]="selectedAmountP" (change)="updateSumInsured()">
-                                                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
+                                                <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount}}">{{amounts.si_amount}}</mat-option>
                                             </mat-select>
                                         </mat-form-field>
                                     </th>
@@ -214,7 +220,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr class="" *ngFor="let plists of personalPremiumLists.product_lists;let i = index">
+                            <tr class="" *ngFor="let plists of allProductLists;let i = index">
                             <td align="center"  class="col-md-2 text-center">
                                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
                                 <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
@@ -235,7 +241,7 @@
                                 <p class="text-center mt-4">{{keys.key_features_value}}</p>
                             </td>
                             <td class="col-md-1 text-center">
-                                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="compareDetails(plists, i, personalPremiumLists.enquiry_id, personalPremiumLists.name)">Add to Compare</button></p>
+                                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="compareDetails(plists, i)">Add to Compare</button></p>
                                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
                                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                             </td>

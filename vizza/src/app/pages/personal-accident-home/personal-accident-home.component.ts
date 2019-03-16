@@ -79,6 +79,11 @@ export class PersonalaccidentComponent implements OnInit {
     public productListArray: any;
     public allProductLists: any;
     public allCompanyList: any;
+    public firstPolicyDetails: any;
+    public filterCompany: any;
+    public setAllProductLists: any;
+    public professionerr: any;
+    public checkAllStatus: any;
 
     constructor(public appSettings: AppSettings, public clearSession: ClearSessionPaService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
@@ -121,13 +126,13 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.checkAllStatus = true;
         this.clearSession.clearSessionPaData();
         this.show = this.config.getpaAccident();
         this.firstPage = true;
         this.secondPage = false;
         this.professionalList();
         this.annualIncomeList();
-        this.sumInsuredAmonut();
         this.setOccupationListCode();
         this.companyList();
         this.sessionData();
@@ -210,14 +215,21 @@ export class PersonalaccidentComponent implements OnInit {
         if (sessionStorage.enquiryDetailsPa != undefined && sessionStorage.enquiryDetailsPa != '') {
             this.enquiryDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
         }
-
-        if (sessionStorage.enquiryIdP != undefined && sessionStorage.enquiryIdP != '') {
-            this.enquiryIdP = sessionStorage.enquiryIdP;
+        if (sessionStorage.setAllProductLists != undefined && sessionStorage.setAllProductLists != '') {
+            this.setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
         }
-        if (sessionStorage.personalPremiumLists != undefined && sessionStorage.personalPremiumLists != '') {
-            this.personalPremiumLists = JSON.parse(sessionStorage.personalPremiumLists);
-
+        if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
+            this.filterCompany = JSON.parse(sessionStorage.filterCompany);
+            if(this.filterCompany.includes('All')) {
+                this.checkAllStatus = true;
+            } else {
+                this.checkAllStatus = false;
+            }
         }
+        if (sessionStorage.allProductLists != undefined && sessionStorage.allProductLists != '') {
+            this.allProductLists = JSON.parse(sessionStorage.allProductLists);
+        }
+
 
 
     }
@@ -295,6 +307,11 @@ export class PersonalaccidentComponent implements OnInit {
     public getCompanySuccess(successData) {
         if (successData.IsSuccess) {
             this.allCompanyList = successData.ResponseObject;
+            let all = ['All'];
+            for (let i = 0; i < this.allCompanyList.length; i++) {
+                all.push(this.allCompanyList[i].company_name);
+            }
+            this.filterCompany = all;
         }
     }
     public getCompanyFailure(error) {
@@ -328,9 +345,10 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     // this function will get the sum insured amounts
-    public sumInsuredAmonut(): void {
+    public sumInsuredAmonut(age): void {
         const data = {
             'platform': 'web',
+            'age': age,
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
@@ -359,9 +377,6 @@ export class PersonalaccidentComponent implements OnInit {
             this.toast.error('Unable to connect to the network');
         }
     }
-    updateSumInsured() {
-        sessionStorage.selectedAmountP = this.selectedAmountP;
-    }
 
     // create enguiry
     createEnquiryDetails() {
@@ -369,20 +384,16 @@ export class PersonalaccidentComponent implements OnInit {
             this.toast.error('Personal age should be 18 or above');
             return false;
         }
-        // if (this.selectedAmountP == '' || this.selectedAmountP == undefined) {
-        //     this.sumerror = true;
-        // } else {
-        //     this.sumerror = false;
-        // }
+
         if (this.pincoceP == '' || this.pincoceP == undefined || this.pincoceP.length < 6) {
             this.pinerror = true;
         } else {
             this.pinerror = false;
         }
-        if (this.occupationP == '' || this.occupationP == undefined) {
-            this.occerror = true;
+        if (this.selectedProfession == '' || this.selectedProfession == undefined) {
+            this.professionerr = true;
         } else {
-            this.occerror = false;
+            this.professionerr = false;
         }
         if (this.occupationP == '' || this.occupationP == undefined) {
             this.occerror = true;
@@ -454,10 +465,30 @@ export class PersonalaccidentComponent implements OnInit {
     public createEnquiryFailure(err){
         this.settings.loadingSpinner = false;
     }
+    updateSumInsured() {
+        this.settings.loadingSpinner = true;
+        sessionStorage.selectedAmountP = this.selectedAmountP;
+        this.productListArray = [];
+        this.allProductLists = [];
+        let getCompanyCount = [];
+        for(let i = 0; i < this.allCompanyList.length; i++) {
+            for(let j = 0; j < this.filterCompany.length; j++) {
+                if(this.filterCompany[j] == this.allCompanyList[i].company_name) {
+                    getCompanyCount.push(this.allCompanyList[i].company_id);
+                }
+            }
+        }
+        for(let i = 0; i < getCompanyCount.length; i++) {
+            this.policyLists(getCompanyCount[i]);
+        }
+
+
+    }
+
     policyLists(company_id) {
         const data = {
             "platform": "web",
-            "sum_insured": '',
+            "sum_insured": this.selectedAmountP != undefined ? this.selectedAmountP : '',
             "enquiry_id": this.enquiryDetails.enquiry_id,
             "created_by": "0",
             "company_id": company_id,
@@ -475,26 +506,22 @@ export class PersonalaccidentComponent implements OnInit {
         );
     }
     public getPolicyListsSuccess(successData){
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             let policylists = successData.ResponseObject;
             this.selectedAmountP = "4";
-            this.productListArray.push(policylists[0].product_lists);
+            this.productListArray.push(policylists.product_lists);
             this.allProductLists = [].concat.apply([], this.productListArray);
-            // this.allPolicyDetails = policylists;
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = false;
-                this.allProductLists[i].shortlist = false;
                 this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
                 this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
             }
+            sessionStorage.selectedAmountP = this.selectedAmountP;
+            sessionStorage.firstPolicyDetails = JSON.stringify(policylists);
+            sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
 
-            // sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
-            // sessionStorage.allPolicyDetails = JSON.stringify(policylists);
-            // sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
-            // sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
-            // if(this.allProductLists.length > 1) {
-            //     this.sumInsuredAmount = this.allProductLists[0].suminsured_amount;
-            // }
+            this.sumInsuredAmonut(policylists.age);
 
         } else {
             this.toast.error(successData.ErrorObject);
@@ -504,6 +531,41 @@ export class PersonalaccidentComponent implements OnInit {
     }
     public  numberWithCommas(x) {
         return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
+    }
+
+    // filter by product
+    filterByProducts() {
+        console.log(this.filterCompany, 'this.filterCompany1');
+        if(this.filterCompany.includes('All')){
+            this.checkAllStatus = true;
+            this.allProductLists = this.setAllProductLists;
+            let all = ['All'];
+            for (let i = 0; i < this.allCompanyList.length; i++) {
+                all.push(this.allCompanyList[i].company_name);
+            }
+            this.filterCompany = all;
+        } else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+            this.checkAllStatus = false;
+            this.allProductLists = [];
+            this.filterCompany = [];
+        }  else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
+            this.checkAllStatus = false;
+            let cmpy = [];
+            for (let k = 0; k < this.filterCompany.length; k++) {
+                for (let j = 0; j < this.setAllProductLists.length; j++) {
+                    if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                        cmpy.push(this.setAllProductLists[j]);
+                    }
+                }
+            }
+            this.allProductLists = cmpy;
+
+        }
+        console.log( this.allProductLists, ' this.allProductLists');
+
+        sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
+        sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
+
     }
 
 
@@ -589,7 +651,7 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     //// compare Details
-    compareDetails(value, index, equiryId, name) {
+    compareDetails(value, index) {
         console.log(value, 'valuevalue1');
         const data = {
             index: index,
@@ -605,53 +667,41 @@ export class PersonalaccidentComponent implements OnInit {
             company_name: value.company_name,
             key_features: value.key_features
         };
-        this.enquiryIdP = equiryId;
-        this.personalPremiumLists.product_lists[index].compare = true;
+        this.allProductLists[index].compare = true;
         this.compareArray.push(data);
         if (this.compareArray.length >= 3) {
-            for (let i = 0; i < this.personalPremiumLists.product_lists.length; i++) {
-                this.personalPremiumLists.product_lists[i].compare = true;
+            for (let i = 0; i < this.allProductLists.length; i++) {
+                this.allProductLists[i].compare = true;
             }
         }
 
     }
     // remove compare
     removeCompare(index , pindex) {
-        console.log(index, 'indexindex');
         this.compareArray.splice(index, 1);
         console.log(this.compareArray, 'this.compareArray');
-        console.log(this.personalPremiumLists.product_lists, 'this.this.personalPremiumLists.product_lists');
-
         let getCount;
-        for (let i = 0; i < this.personalPremiumLists.product_lists.length; i++) {
+        for (let i = 0; i < this.allProductLists.length; i++) {
             getCount = false;
             for (let j = 0; j < this.compareArray.length; j++) {
-                if (this.compareArray[j].compare_id == this.personalPremiumLists.product_lists[i].compare_id) {
+                if (this.compareArray[j].compare_id == this.allProductLists[i].compare_id) {
                     getCount = true;
-                    this.personalPremiumLists.product_lists[i].compare = true;
+                    this.allProductLists[i].compare = true;
                 }
             }
             if (!getCount) {
-                this.personalPremiumLists.product_lists[i].compare = false;
+                this.allProductLists[i].compare = false;
             }
         }
 
     }
     removeAllCompare() {
-        for (let i = 0; i < this.personalPremiumLists.product_lists.length; i++) {
-            this.personalPremiumLists.product_lists[i].compare = false;
+        for (let i = 0; i < this.allProductLists.length; i++) {
+            this.allProductLists[i].compare = false;
         }
         this.compareArray = [];
     }
-    public onNumber(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
+
     // comparelist
     compareList(value) {
             this.productData = [];
@@ -663,7 +713,7 @@ export class PersonalaccidentComponent implements OnInit {
                 'platform': 'web',
                 'scheme': scheme,
                 'group_name': 'GROUP A',
-                'enquiry_id': this.enquiryIdP,
+                'enquiry_id': this.enquiryDetails.enquiry_id,
                 'product_lists': this.productData,
                 'created_by': 0,
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -696,8 +746,7 @@ export class PersonalaccidentComponent implements OnInit {
         }
 
 
-        // fire functions
-
+    // fire functions
     addEvent(event) {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');

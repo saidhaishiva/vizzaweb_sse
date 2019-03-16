@@ -544,6 +544,9 @@ a:hover {
 .options-icon{
   display: none !important;
 }
+::-webkit-scrollbar-track {
+  background: #93acb6 !important;
+}
 
 .healthScroll{
   ::-webkit-scrollbar-thumb:vertical {
@@ -893,6 +896,10 @@ a:hover {
 }
 .horizontal-menu-item .mat-button {
   height: 40px !important;
+}
+.horizontal-menu-item .horizontal-sub-menu {
+  background: #93acb6 !important;
+  color: #fff;
 }
 
 .horizontal-menu .inner-sidenav-content{
@@ -3125,6 +3132,7 @@ fieldset {
 .personal-ac-home .mat-card {
   background: rgb(104, 163, 184) !important;
   }
+
 
 // pa home page
 .paScroll{
