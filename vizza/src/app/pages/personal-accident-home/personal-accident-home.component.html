@@ -46,7 +46,7 @@
                 </mat-form-field>
                 <div *ngIf="occerror" class="ngError">Occupation Required</div>
                 <mat-form-field class="w-100">
-                    <input matInput  placeholder="PIN CODE" (input)="keyPress($event)" [(ngModel)]="pincoceP"  maxlength="6" (keypress)="numberValidate($event)" autocomplete="off" >
+                    <input matInput  placeholder="PIN CODE" (input)="keyPress($event)" [(ngModel)]="pincoceP"  maxlength="6" autocomplete="off" >
                     <mat-icon matSuffix>place</mat-icon>
                 </mat-form-field>
                 <div *ngIf="pinerror" class="ngError">Pincode Required</div>
@@ -461,7 +461,7 @@
     </div>
   </div>
   <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
-    <button mat-raised-button color="accent" (click)="compareList(compareArray,'pa')">COMPARE NOW</button>
+    <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
   </div>
 </div>
 

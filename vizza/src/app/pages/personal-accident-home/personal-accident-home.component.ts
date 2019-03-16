@@ -684,7 +684,7 @@ export class PersonalaccidentComponent implements OnInit {
             this.settings.loadingSpinner = false;
             if (successData.IsSuccess) {
                 let dialogRef = this.dialog.open(ComparelistComponent, {
-                    width: '1500px', data: {comparedata: successData.ResponseObject}});
+                    width: '1500px', data: {comparedata: successData.ResponseObject, type: 'pa'}});
                 dialogRef.disableClose = true;
 
                 dialogRef.afterClosed().subscribe(result => {

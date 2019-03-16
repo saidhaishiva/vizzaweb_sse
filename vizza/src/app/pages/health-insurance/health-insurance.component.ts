@@ -734,8 +734,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
         this.compareArray = [];
     }
-    compareList(value,type) {
-        console.log(type,'type');
+    compareList(value) {
         this.productLists = [];
         let scheme = value[0].scheme;
         for (let i = 0; i < value.length; i++) {
@@ -755,14 +754,14 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = true;
         this.common.addtoCompare(data).subscribe(
             (successData) => {
-                this.compareSuccess(successData,type);
+                this.compareSuccess(successData);
             },
             (error) => {
                 this.compareFailure(error);
             }
         );
     }
-    public compareSuccess(successData,type) {
+    public compareSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             let dialogRef = this.dialog.open(ComparelistComponent, {
