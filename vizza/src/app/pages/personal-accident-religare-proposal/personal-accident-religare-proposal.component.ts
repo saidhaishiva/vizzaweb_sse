@@ -334,7 +334,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.setinsureOccupationListCode();
         this.religareQuestions();
 
-        this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
+        this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
         this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
         if (this.getAllPremiumDetails.product_id == 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);

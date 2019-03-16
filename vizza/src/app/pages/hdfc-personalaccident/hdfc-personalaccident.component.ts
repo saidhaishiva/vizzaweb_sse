@@ -129,7 +129,7 @@ export class HdfcPersonalaccidentComponent implements OnInit {
         this.hdfc_PA_proposal_id = 0;
     }
     ngOnInit() {
-        this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
+        this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
         this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
         this.getStateList();
         this.nomineeRelationShipListHdfc();

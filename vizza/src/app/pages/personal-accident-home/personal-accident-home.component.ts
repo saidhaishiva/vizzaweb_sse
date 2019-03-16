@@ -602,7 +602,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     // buy details
     buyProduct(value) {
-        sessionStorage.pAccidentProposalList =  JSON.stringify(value);
+        sessionStorage.buyProductsPa =  JSON.stringify(value);
         if (value.product_id == 14 || value.product_id == 15) {
             this.router.navigate(['/appollopa' + '/' + false]);
         } else if (value.product_id == 3) {

@@ -299,7 +299,7 @@ public habits: boolean;
       this.paMaritalStatusList();
       this.preInsureList();
       this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
-      this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
+      this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
       this.sessionData();
       this.sameRelationship = 'Self' ;
       if(this.insured.controls['insuredAnnual'].value == ''){
@@ -1399,28 +1399,30 @@ preInsureList() {
     //
     // }
     // Proposal details first Page
-    proposerDetails(stepper: MatStepper, value) {
-        this.proposerPaData = value;
-        sessionStorage.appollo1Details = '';
-        sessionStorage.appollo1Details = JSON.stringify(value);
-        console.log(this.proposerPaData,'this.proposerPaData ');
-        if (this.ProposerPa.valid) {
-            if (sessionStorage.proposerAgeP >= 18 || sessionStorage.proposerAgeP <  56) {
-                stepper.next();
-                this.topScroll();
-            } else {
-                this.toastr.error('Proposer age should be greater than 18 and lesser than 56');
-            }
-        }
-    }
+    // proposerDetails(stepper: MatStepper, value) {
+    //     this.proposerPaData = value;
+    //     sessionStorage.appollo1Details = '';
+    //     sessionStorage.appollo1Details = JSON.stringify(value);
+    //     console.log(this.proposerPaData,'this.proposerPaData ');
+    //     if (this.ProposerPa.valid) {
+    //         if (sessionStorage.proposerAgeP >= 18 || sessionStorage.proposerAgeP <  56) {
+    //             stepper.next();
+    //             this.topScroll();
+    //         } else {
+    //             this.toastr.error('Proposer age should be greater than 18 and lesser than 56');
+    //         }
+    //     }
+    // }
 
     // insured Details second page
     InsureDetails(stepper: MatStepper, value) {
       console.log(value);
         sessionStorage.appollo2Detail = '';
         sessionStorage.appollo2Detail = JSON.stringify(value);
+        console.log(this.insured.valid, 'check');
         if (this.insured.valid) {
-            if (sessionStorage.insuredAgeP >= 18){
+            if (sessionStorage.insuredAgeP >= 18 && sessionStorage.insuredAgeP < 56) {
+
                 if(this.insured.controls['insuredProfessionList'].value == 'PROFS5'&& this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00){
                     this.toastr.error('Sum Insured greater then eligible amount');
                 } else if (this.insured.controls['insuredWine'].value >0 && this.insured.controls['insuredBeer'].value >0 && this.insured.controls['insuredLiquor'].value >0) {
@@ -1440,7 +1442,7 @@ preInsureList() {
                     this.height =  this.insured.controls['insuredHeight'].value;
                     this.heighrCal = (this.height / 100) * (this.height / 100);
                     this.weight =  this.insured.controls['insuredWeight'].value;
-                    this. BMI = this.weight / this.heighrCal;
+                    this.BMI = this.weight / this.heighrCal;
                     if (this.insured.controls['insuredPaAge'].value > 0 && this.insured.controls['insuredPaAge'].value <= 15) {
                         if (this.BMI >= 12 && this.BMI <= 39 ){
                             stepper.next();
@@ -1456,19 +1458,11 @@ preInsureList() {
                             this.toastr.error('BMI Range should be greater than 12 and less than 39 or greater than 18 and less than 28 ');
                         }
                     }
-
-                    // if(this.bmiValue){
-                    //     stepper.next();
-                    //
-                    // } else {
-                    //     this.toastr.error('Insured age should be 18 or above');
-                    //
-                    // }
                 }
                 this.topScroll();
 
             } else {
-                this.toastr.error('Insured age should be 18 or above');
+                this.toastr.error('Proposer or Insurer age should be greater than 18 and lesser than 56');
             }
 
         }
@@ -1486,7 +1480,7 @@ preInsureList() {
     // star-health-proposal creation
     createrPoposal(stepper){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
-   const data = {
+        const data = {
     "enquiry_id": enq_id.toString(),
     'proposal_id': sessionStorage.appolloPAproposalID == '' || sessionStorage.appolloPAproposalID == undefined ? '' : sessionStorage.appolloPAproposalID,
     "user_id": "0",

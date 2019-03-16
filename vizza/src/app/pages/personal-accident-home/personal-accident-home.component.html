@@ -16,7 +16,7 @@
         </div>
 
         <div *ngIf="show" class="col-md-6 col-sm-12 col-xs-12 personal-ac-home">
-              <mat-card class="p-4" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
+              <mat-card class="p-4" style="background: linear-gradient(to top, #F16D73 0%, #efbfc1 100%) !important;">
                 <h4 class="text-center">Get Instant Quotes</h4>
                 <mat-form-field class="w-100" required>
                   <mat-select placeholder="SUM INSURED"  name="suminsure" [(ngModel)]="selectedAmountP" (change)="changeAmount()">
@@ -443,7 +443,7 @@
   <div class="text-right closeBtnClass">
     <mat-icon (click)="removeAllCompare()">close</mat-icon>
   </div>
-  <div style="width: 250px" *ngFor="let plists of compareArray; let i = index">
+  <div style="width: 302px" *ngFor="let plists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">
       <mat-card class="custom-card compare-icon text-center">
         <div class="text-right closeBtnClass">
