@@ -209,7 +209,7 @@ export const routes: Routes = [
             { path: 'iffco/:stepper', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'travel-reliance-payment-success/:status/:proId/:mailStatus', component:TravelReliancePaymentSuccessComponent, data: { breadcrumb: 'Travel reliance payment success'} },
-            { path: 'apollomunich-pa-payment-success/:status/:proId', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
+            { path: 'apollomunich-pa-payment-success/:status/:proId/:applicationNo', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj/:stepper', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'}, canDeactivate: [BajajHealthDeactivateGuardService]},
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
             { path: 'bajaj-download-policy/:proId', component: BajajDownloadPolicyComponent, data: { breadcrumb: 'Bajaj Alianz Download Policy'} },

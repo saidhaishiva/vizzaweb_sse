@@ -109,6 +109,7 @@ public proposerFormData:any;
 public nomineeDataForm:any;
 public sameaddress:boolean;
 public habits: boolean;
+public appolloQuestionsListPa: any;
    public height: any;
    public heighrCal: any;
     public weight:any;
@@ -302,6 +303,7 @@ public habits: boolean;
       this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
       this.sessionData();
       this.sameRelationship = 'Self' ;
+      this.questionsList();
       // if(this.insured.controls['insuredAnnual'].value == ''){
       //     this.insured.controls['insuredAnnual'].patchValue(this.getAllPremiumDetails.annual_salary);
       // }
@@ -1476,6 +1478,69 @@ preInsureList() {
         }
 
     }
+    medicalHistoryDetails(stepper: MatStepper) {
+
+        sessionStorage.apollomedical = '';
+        sessionStorage.apollomedical = JSON.stringify(this.appolloQuestionsListPa);
+
+        // let statusChecked = [];
+        let medicalStatus = [];
+        for (let i = 0; i < this.appolloQuestionsListPa.length; i++) {
+
+            if(this.appolloQuestionsListPa[i].mStatus == 'No'){
+                medicalStatus.push('No');
+            } else if(this.appolloQuestionsListPa[i].mStatus == 'Yes') {
+                medicalStatus.push('Yes');
+            }
+        }
+
+        if (medicalStatus.includes('Yes')) {
+            // this.toastr.error('This medical questions is unable to proceed');
+            this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
+        } else {
+            stepper.next();
+
+        }
+
+    }
+
+    questionsList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.personalservice.questionList(data).subscribe(
+            (successData) => {
+                this.appolloQuestionsSuccess(successData);
+            },
+            (error) => {
+                this.appolloQuestionsFailure(error);
+            }
+        );
+
+    }
+
+    public appolloQuestionsSuccess(successData) {
+        this.appolloQuestionsListPa = successData.ResponseObject;
+        for (let i = 0; i < this.appolloQuestionsListPa.length; i++) {
+            this.appolloQuestionsListPa[i].mStatus = 'No';
+            this.appolloQuestionsListPa[i].checked = false;
+        }
+    }
+
+
+    public appolloQuestionsFailure(error) {
+    }
+
+    questionYes(index, value: any) {
+        if (value.checked) {
+            this.appolloQuestionsListPa[index].mStatus = 'Yes';
+        } else {
+            this.appolloQuestionsListPa[index].mStatus = 'No';
+        }
+    }
+
 
     // star-health-proposal creation
     createrPoposal(stepper){
@@ -1528,7 +1593,7 @@ preInsureList() {
                     "FirstName": this.insured.controls['insuredPaFirstname'].value,
                     "GenderCode": this.insured.controls['insuredPaGender'].value,
                     "GstinNumber": this.insured.controls['insuredPaGst'].value,
-                    "IDProofNumber": this.idListDetailsProposal,
+                    "IDProofNumber": this.idListDetailsinsured.toUpperCase(),
                     "IDProofTypeCode":this.insured.controls['insuredPaIdProof'].value,
                     "LastName": this.insured.controls['insuredPaLastname'].value,
                     "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
@@ -1569,7 +1634,7 @@ preInsureList() {
                 "GstinNumber": this.insured.controls['insuredPaGst'].value,
                 "Height": this.insured.controls['insuredHeight'].value,
                 "Weight": this.insured.controls['insuredWeight'].value,
-                "IDProofNumber": this.idListDetailsinsured,
+                "IDProofNumber": this.idListDetailsinsured.toUpperCase(),
                 "IDProofTypeCode": this.insured.controls['insuredPaIdProof'].value,
                 "LastName": this.insured.controls['insuredPaLastname'].value,
                 "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
