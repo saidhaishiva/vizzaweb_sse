@@ -228,6 +228,10 @@ export class PersonalaccidentComponent implements OnInit {
         }
         if (sessionStorage.allProductLists != undefined && sessionStorage.allProductLists != '') {
             this.allProductLists = JSON.parse(sessionStorage.allProductLists);
+            console.log(this.allProductLists, 'sessionn');
+        }
+        if (sessionStorage.sumInsuredAmountLists != undefined && sessionStorage.sumInsuredAmountLists != '') {
+            this.sumInsuredAmountLists = JSON.parse(sessionStorage.sumInsuredAmountLists);
         }
 
 
@@ -366,6 +370,7 @@ export class PersonalaccidentComponent implements OnInit {
     public getSumInsuredAmountSuccess(successData) {
         if (successData.IsSuccess) {
             this.sumInsuredAmountLists = successData.ResponseObject;
+            sessionStorage.sumInsuredAmountLists = JSON.stringify(this.sumInsuredAmountLists);
         }
     }
 
@@ -454,6 +459,9 @@ export class PersonalaccidentComponent implements OnInit {
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
             }
+            this.selectedAmountP= "6";
+            this.sumInsuredAmonut(this.enquiryDetails.age);
+
             this.productListArray = [];
             this.allProductLists = [];
             for(let i = 0; i < this.allCompanyList.length; i++) {
@@ -509,7 +517,6 @@ export class PersonalaccidentComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             let policylists = successData.ResponseObject;
-            this.selectedAmountP = "4";
             this.productListArray.push(policylists.product_lists);
             this.allProductLists = [].concat.apply([], this.productListArray);
             for (let i = 0; i < this.allProductLists.length; i++) {
@@ -520,8 +527,8 @@ export class PersonalaccidentComponent implements OnInit {
             sessionStorage.selectedAmountP = this.selectedAmountP;
             sessionStorage.firstPolicyDetails = JSON.stringify(policylists);
             sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
+            sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
-            this.sumInsuredAmonut(policylists.age);
 
         } else {
             this.toast.error(successData.ErrorObject);
@@ -537,6 +544,7 @@ export class PersonalaccidentComponent implements OnInit {
     filterByProducts() {
         console.log(this.filterCompany, 'this.filterCompany1');
         if(this.filterCompany.includes('All')){
+            console.log('fi');
             this.checkAllStatus = true;
             this.allProductLists = this.setAllProductLists;
             let all = ['All'];
@@ -545,10 +553,12 @@ export class PersonalaccidentComponent implements OnInit {
             }
             this.filterCompany = all;
         } else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+            console.log('sec');
             this.checkAllStatus = false;
             this.allProductLists = [];
             this.filterCompany = [];
         }  else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
+            console.log('third');
             this.checkAllStatus = false;
             let cmpy = [];
             for (let k = 0; k < this.filterCompany.length; k++) {
@@ -559,9 +569,14 @@ export class PersonalaccidentComponent implements OnInit {
                 }
             }
             this.allProductLists = cmpy;
+        } else if(this.filterCompany.length == 0){
+            console.log('frth');
 
+            this.checkAllStatus = false;
+            this.allProductLists = [];
+            this.filterCompany = [];
         }
-        console.log( this.allProductLists, ' this.allProductLists');
+        console.log(this.allProductLists, ' this.allProductLists');
 
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);

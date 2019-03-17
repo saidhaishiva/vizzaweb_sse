@@ -851,14 +851,23 @@ a:hover {
   top: 0;
   cursor: pointer;
 }
-.content-color, .compare td{
-  color: rgba(4, 78, 67, 0.87);
-}
-.table-success1 {
-  background-color: #ebf7fb;
-}
-.table-warning1 {
-  background-color: #e8b7cc;
+
+.compare-details {
+  .content-color, .compare td{
+    color: rgba(4, 78, 67, 0.87);
+  }
+  .table-success1 {
+    background-color: #ebf7fb;
+  }
+  .table-warning1 {
+    background-color: #e8b7cc;
+  }
+  .table-success2 {
+    background-color: #ebf7fb;
+  }
+  .table-warning2 {
+    background-color: #fbc5d1;
+  }
 }
 
 .compare-icon{
@@ -3137,7 +3146,7 @@ fieldset {
 // pa home page
 .paScroll{
   ::-webkit-scrollbar-thumb:vertical {
-    background-color: #ef0034 !important;
+    background-color: #F16D73 !important;
   }
   ::-webkit-scrollbar-track {
     background-color: #cfcfcf !important;

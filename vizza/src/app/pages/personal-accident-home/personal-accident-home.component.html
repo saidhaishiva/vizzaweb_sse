@@ -220,7 +220,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <tr class="" *ngFor="let plists of allProductLists;let i = index">
+                            <tr  *ngFor="let plists of allProductLists;let i = index">
                             <td align="center"  class="col-md-2 text-center">
                                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
                                 <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
