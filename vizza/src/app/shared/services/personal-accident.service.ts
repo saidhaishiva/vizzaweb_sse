@@ -8,6 +8,16 @@ export class PersonalAccidentService {
 
   constructor(private http: HttpClient, private configurationService: ConfigurationService, private authService: AuthService) { }
 // presonal accident
+    downloadpolicyPdf(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'religare/get_religare_pa_policypdf';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getPersonalAccidentReligareProposal(data) {
         const json = JSON.stringify(data);
         const httpOptions = {

@@ -118,6 +118,7 @@ import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance
 import {BajajDownloadPolicyComponent} from './pages/bajaj-download-policy/bajaj-download-policy.component';
 import {EndowmentLifeInsuranceComponent} from './pages/endowment-life-insurance/endowment-life-insurance.component';
 import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
+import {ReligareDownloadPaPolicyComponent} from './pages/religare-download-pa-policy/religare-download-pa-policy.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -232,6 +233,8 @@ export const routes: Routes = [
             { path: 'shriram-travel-payment-success/:status/:proId', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
             { path: 'hdfc-travel', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
+            { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
+
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },
