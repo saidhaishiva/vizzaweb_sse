@@ -129,6 +129,7 @@ export class ReligareHealthProposalComponent implements OnInit {
     insuredFormData: any;
     nomineeFormData: any;
     personalmedicalAge: any;
+    genderStatus: any;
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -169,6 +170,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.insureCity = false;
         this.insureSingle = true;
         this.selectMr = true;
+        this.genderStatus = false;
         this.proposerInsureData = [];
         this.questions_list = [];
         this.arr = [];
@@ -258,6 +260,11 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
+        if(this.insurePersons.length == 1) {
+            this.genderStatus = true;
+        } else {
+            this.genderStatus = false;
+        }
 
         if(this.buyProductdetails.product_id == 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
@@ -760,43 +767,43 @@ export class ReligareHealthProposalComponent implements OnInit {
     changeGender() {
         if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
             if (this.getFamilyDetails.family_members.length < 2) {
-                if(this.personal['controls'].personalTitle.value == 'MR'){
-                    this.insureSingle = false;
-                    this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
-                    this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.patchValue(false);
-                    this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
-                    this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
-
-                    // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
-                    // this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
-                    //
-                } else if(this. personal['controls'].personalTitle.value == 'MS'){
-                    this.insureSingle = true;
-                }
+                // if(this.personal['controls'].personalTitle.value == 'MR'){
+                //     this.insureSingle = false;
+                //     this.insureArray['controls'].items['controls'][0]['controls'].cityHide.patchValue(false);
+                //     this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.patchValue(false);
+                //     this.insureArray['controls'].items['controls'][0]['controls'].pCityHide.patchValue(true);
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalAadhar.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalPan.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalGst.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalEmail.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalAltnumber.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalHeight.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].personalWeight.patchValue('');
+                //     this.insureArray['controls'].items['controls'][0]['controls'].rolecd.patchValue('PRIMARY');
+                //
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].personalAddress2.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].personalCity.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].personalPincode.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].personalState.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].residenceAddress2.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].residenceCity.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].residencePincode.patchValue('');
+                //     // this.insureArray['controls'].items['controls'][0]['controls'].residenceState.patchValue('');
+                //     //
+                // } else if(this. personal['controls'].personalTitle.value == 'MS'){
+                //     this.insureSingle = true;
+                // }
             }
         }
 
