@@ -144,7 +144,7 @@ export class GrouptermComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #EF0034"><img src="assets/img/Group-Term-Life-Insurance.png" class="logo-size"> About Group Term Life Insurance</h3>
+                <h3 class="text-center" style="color: #5A8FBB"><img src="assets/img/Group-Term-Life-Insurance.png" class="logo-size"> About Group Term Life Insurance</h3>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
