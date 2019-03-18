@@ -176,6 +176,7 @@ export class IffcoTokioComponent implements OnInit {
             proposerStateName: '',
             proposerCity: '',
             proposerCityName: '',
+            typeAddress: '',
             criticalIllness: 'No',
             roomRentWaiver: 'No',
             additionalFacts: 'No',
@@ -243,6 +244,8 @@ export class IffcoTokioComponent implements OnInit {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
+
+
 
         this.insureArray = this.fb.group({
             items: this.fb.array([])
@@ -802,7 +805,7 @@ export class IffcoTokioComponent implements OnInit {
                 'FirstName': this.proposer.controls['proposerFirstname'].value,
                 'LastName': this.proposer.controls['proposerLastname'].value,
                 'Sex': this.proposer.controls['proposerGender'].value,
-                'AddressType': this.proposer.controls['proposerDob'].value,
+                'AddressType': this.proposer.controls['typeAddress'].value,
                 'PinCode': this.proposer.controls['proposerPincode'].value,
                 'State': this.proposer.controls['proposerState'].value,
                 'AddressLine1': this.proposer.controls['proposerAddress'].value,
@@ -939,6 +942,7 @@ export class IffcoTokioComponent implements OnInit {
                 proposerAddress3: this.getStepper1.proposerAddress3,
                 proposerAddress4: this.getStepper1.proposerAddress4,
                 proposerPincode: this.getStepper1.proposerPincode,
+                typeAddress: this.getStepper1.typeAddress,
                 proposerNationality: this.getStepper1.proposerNationality,
                 proposerState: this.getStepper1.proposerState,
                 proposerStateName: this.getStepper1.proposerStateName,
