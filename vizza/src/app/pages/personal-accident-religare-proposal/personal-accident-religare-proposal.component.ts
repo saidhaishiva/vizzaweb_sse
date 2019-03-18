@@ -508,7 +508,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         sessionStorage.proposal2Detail = JSON.stringify(value);
         this.insurerData = value;
         if (this.insured.valid) {
-            if (sessionStorage.insuredAgePA >= 18 && sessionStorage.insuredAgePA < 70) {
+            if (sessionStorage.insuredAgePA >= 18 && sessionStorage.insuredAgePA <= 70) {
                 if (this.insured.controls['insuredAnnualIncome'].value != 0) {
                     stepper.next();
                     this.topScroll();
@@ -518,7 +518,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 }
             } else {
                 // this.toastr.error('Proposer / Insurer age should be 18 or above');
-                this.toastr.error('Proposer or Insurer age should be greater than 18 and lesser than 70');
+                this.toastr.error('Proposer or Insurer age should be greater than 18 and till 70yrs');
 
             }
             // if (this.insuremobileNumber == '' || this.insuremobileNumber == 'true') {
