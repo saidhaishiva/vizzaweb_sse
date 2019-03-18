@@ -289,7 +289,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         }
 
-        if(this.buyProductdetails.product_name == 'Joy Today' || this.buyProductdetails.product_name == 'Joy Tomorrow') {
+        if(this.buyProductdetails.product_name == '4' || this.buyProductdetails.product_name == '5 ') {
             if (this.getFamilyDetails.family_members.length < 2) {
                 if (this.personal['controls'].personalTitle.value == 'MR') {
                     this.insureSingle = false;
