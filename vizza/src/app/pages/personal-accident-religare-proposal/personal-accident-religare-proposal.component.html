@@ -320,7 +320,7 @@
                         <div class="col-md-3" *ngIf="insureoccupationClass">
                             <mat-form-field class="w-100" >
                                 <mat-select placeholder="Occupation Description" name="occupation" formControlName="insuredClassDescriptionCode" (change)="setpersonalDescriptionListCode(); changeOccupationDescription()"  >
-                                    <mat-option *ngFor="let classOccupation of insureClassDescription | keys"  value="{{classOccupation.key}}">{{classOccupation.value}}</mat-option>
+                                    <mat-option *ngFor="let classOccupation of insureClassDescription"  value="{{classOccupation.occupation_class_description}}">{{classOccupation.occ_name}}</mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -533,7 +533,7 @@
               <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>
+                  <!--<h6 class="color-blue mb-3" >NOMINEE DETAILS </h6>-->
                   <form [formGroup]="nomineeDetails">
                     <div class="row">
                       <div class="col-md-4">

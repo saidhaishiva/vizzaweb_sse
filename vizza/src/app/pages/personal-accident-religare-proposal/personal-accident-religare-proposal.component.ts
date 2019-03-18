@@ -144,6 +144,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     insurerdateError: any;
     nomineeDataForm: any;
     currentStep: any;
+    RediretUrlLink: any;
     city: any;
     personalcity: any;
     proposerDataForm: any;
@@ -164,9 +165,23 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     constructor(private fb: FormBuilder, public proposalservice: HealthService, public route: ActivatedRoute, public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
+        // this.route.params.forEach((params) => {
+        //     if (params.stepper == true) {
+        //         stepperindex = 4;
+        //     }
+        // });
         this.route.params.forEach((params) => {
-            if (params.stepper == true) {
-                stepperindex = 4;
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 3;
+                if (sessionStorage.summaryDataReligare != '' && sessionStorage.summaryDataReligare != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryDataReligare);
+                    this.RediretUrlLink = this.summaryData.PaymentURL;
+                    this.proposalId = this.summaryData.ProposalId;
+                    this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataFormReligare);
+                    this.proposerDataForm = JSON.parse(sessionStorage.proposerDataFormReligare);
+                    // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    sessionStorage.pa_religare_proposal_id = this.proposalId;
+                }
             }
         });
         this.currentStep = stepperindex;
@@ -334,25 +349,23 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.setinsureOccupationListCode();
         this.religareQuestions();
 
-        this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
-        this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
-        if (this.getAllPremiumDetails.product_id == 1) {
+        this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
+        this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
+        if (this.getBuyDetails.product_id == 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators([Validators.required]);
             this.nomineeDetails.get('religareRelationship').setValidators([Validators.required]);
         }
-        if (this.getAllPremiumDetails.product_id != 1) {
+        if (this.getBuyDetails.product_id != 1) {
             this.nomineeDetails.get('religareNomineeName').setValidators(null);
             this.nomineeDetails.get('religareRelationship').setValidators(null);
         }
         this.nomineeDetails.get('religareNomineeName').updateValueAndValidity();
         this.nomineeDetails.get('religareRelationship').updateValueAndValidity();
-        // this.mobileNumber = '';
-        // this.insuremobileNumber = '';
         this.sessionData();
         this.sameRelationship = 'SELF';
-        if(this.insured.controls['insuredAnnualIncome'].value == ''){
-            this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
-        }
+        // if(this.insured.controls['insuredAnnualIncome'].value == ''){
+        //     this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
+        // }
         // this.insured.controls['insuredAnnualIncome'].patchValue(this.getAllPremiumDetails.annual_salary);
     }
 
@@ -433,12 +446,17 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             } else {
                 this.insuremobileNumber = 'true';
             }
-            if (sessionStorage.insureoccupationDescription != '' && sessionStorage.insureoccupationDescription != undefined) {
-                 this.insureoccupationDescription = sessionStorage.insureoccupationDescription;
+
+            if (this.getStepper2.insuredDescriptionCode == 'C5') {
+                if (sessionStorage.insureoccupationDescription != '' && sessionStorage.insureoccupationDescription != undefined) {
+                    this.insureoccupationDescription = sessionStorage.insureoccupationDescription;
+                }
+            } else {
+                if (sessionStorage.insureoccupationClass != '' && sessionStorage.insureoccupationClass != undefined) {
+                    this.insureoccupationClass = sessionStorage.insureoccupationClass;
+                }
             }
-            if (sessionStorage.insureoccupationClass != '' && sessionStorage.insureoccupationClass != undefined) {
-                this.insureoccupationClass = sessionStorage.insureoccupationClass;
-            }
+
 
 
 // nominee
@@ -490,7 +508,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         sessionStorage.proposal2Detail = JSON.stringify(value);
         this.insurerData = value;
         if (this.insured.valid) {
-            if (sessionStorage.insuredAgePA >= 18) {
+            if (sessionStorage.insuredAgePA >= 18 && sessionStorage.insuredAgePA < 70) {
                 if (this.insured.controls['insuredAnnualIncome'].value != 0) {
                     stepper.next();
                     this.topScroll();
@@ -499,7 +517,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
                 }
             } else {
-                this.toastr.error('Insured age should be 18 or above');
+                // this.toastr.error('Proposer / Insurer age should be 18 or above');
+                this.toastr.error('Proposer or Insurer age should be greater than 18 and lesser than 70');
 
             }
             // if (this.insuremobileNumber == '' || this.insuremobileNumber == 'true') {
@@ -889,17 +908,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     setinsureDescriptionListCode() {
         if (this.insured.controls['insuredDescriptionCode'].value == 'C5') {
             this.insureoccupationDescription = true;
-            if( this.insureoccupationDescription ){
-                this.insuredDescriptionValidator = true
-                this.insured.controls['insuredDescription'].setValidators([Validators.required]);
-            } else {
-                this.insuredDescriptionValidator = true
-                this.insured.controls['insuredDescription'].setValidators(null);
-
-            }
-
             this.insureoccupationClass = false;
-
+            if(this.insureoccupationDescription){
+                this.insuredDescriptionValidator = true;
+            } else {
+                this.insuredDescriptionValidator = false;
+            }
         } else {
             this.insureoccupationDescription = false;
             this.insureoccupationClass = true;
@@ -1244,8 +1258,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposal_id;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
+            sessionStorage.summaryDataReligare = this.summaryData;
             this.proposerDataForm = this.insured.value;
             this.nomineeDataForm = this.nomineeDetails.value;
+            sessionStorage.proposerDataFormReligare = this.proposerDataForm;
+            sessionStorage.nomineeDataFormReligare = this.nomineeDataForm;
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }

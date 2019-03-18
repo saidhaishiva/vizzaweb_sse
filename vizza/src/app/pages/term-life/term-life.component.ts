@@ -6,15 +6,23 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material';
+import {ValidationService} from '../../shared/services/validation.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {MY_FORMATS} from '../endowment-life-insurance/life-call-back/life-call-back.component';
 
 @Component({
     selector: 'app-term-life',
     templateUrl: './term-life.component.html',
-    styleUrls: ['./term-life.component.scss']
+    styleUrls: ['./term-life.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ],
 })
 export class TermLifeComponent implements OnInit {
     public TermLifeapp: FormGroup;
+    public TermLife: FormGroup;
     public setDate: any;
     public selectDate: any;
     public productName: any;
@@ -23,8 +31,12 @@ export class TermLifeComponent implements OnInit {
     public response: any;
     public pincodeErrors: any;
     public show: boolean;
+    public today : any;
+
     constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe,
-                public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService) {
+                public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService) {
+        let today  = new Date();
+        this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.TermLifeapp = this.fb.group({
             'appdate': ['', Validators.required],
             'apptime': null,
@@ -35,6 +47,15 @@ export class TermLifeComponent implements OnInit {
             'pincode': ['', Validators.compose([Validators.required])],
             'insurance': ['', Validators.compose([Validators.required])],
             'appointmentwith': ['', Validators.compose([Validators.required])]
+        });
+        this.TermLife = this.fb.group({
+            'lifedob': ['', Validators.required],
+            'lifeGender': ['', Validators.required],
+            'lifeBenefitTerm': ['', Validators.required],
+            'lifePolicy': ['', Validators.required],
+            'lifePayment': ['', Validators.required],
+            'lifePincode': ['', Validators.compose([Validators.required])],
+
         });
         this.productName = '';
         this.show = false;
@@ -119,24 +140,16 @@ export class TermLifeComponent implements OnInit {
     public getPincodeDetailsFailure(error) {
         console.log(error);
     }
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
     }
-    public data(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
     }
     TermLifeInsurer(){
         const dialogRef = this.dialog.open(TermLifeInsurer, {

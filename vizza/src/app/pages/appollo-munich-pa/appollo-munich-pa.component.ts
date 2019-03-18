@@ -109,20 +109,33 @@ public proposerFormData:any;
 public nomineeDataForm:any;
 public sameaddress:boolean;
 public habits: boolean;
-   public height: any;
-   public heighrCal: any;
-    public weight:any;
-    public BMI: any;
-    CheckHabits : boolean;
-    readonlyProposer : boolean;
+public appolloQuestionsListPa: any;
+public height: any;
+public heighrCal: any;
+public weight:any;
+public BMI: any;
+public proposalId: any;
+public summaryData: any;
+public RediretUrlLink: any;
+CheckHabits : boolean;
+readonlyProposer : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
+      this.currentStep = stepperindex;
+console.log(this.currentStep,'this.currentStep');
       this.route.params.forEach((params) => {
-          if(params.stepper == true) {
-              stepperindex = 2;
+          if(params.stepper == true || params.stepper == 'true') {
+              stepperindex = 1;
+              if (sessionStorage.summaryDataPa != '' && sessionStorage.summaryDataPa != undefined) {
+                  this.summaryData = JSON.parse(sessionStorage.summaryDataPa);
+                  this.RediretUrlLink = this.summaryData.PaymentURL;
+                  this.proposalId = this.summaryData.ProposalId;
+                  this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataForm);
+                  this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                  sessionStorage.appolloPAproposalID = this.proposalId;
+              }
           }
       });
-      this.currentStep = stepperindex;
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
       this.minDate= new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -137,12 +150,6 @@ public habits: boolean;
       this.habits = true;
       this.bmiValue = false;
 
-      // let stepperindex = 0;
-      // this.route.params.forEach((params) => {
-      //     if(params.stepper == true) {
-      //         stepperindex =2;
-      //     }
-      // });
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
           proposerPaFirstname: ['', Validators.required],
@@ -298,13 +305,14 @@ public habits: boolean;
       this.stateListPa();
       this.paMaritalStatusList();
       this.preInsureList();
-      this.getAllPremiumDetails = JSON.parse(sessionStorage.personalPremiumLists);
-      this.getBuyDetails = JSON.parse(sessionStorage.pAccidentProposalList);
+      this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
+      this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
       this.sessionData();
       this.sameRelationship = 'Self' ;
-      if(this.insured.controls['insuredAnnual'].value == ''){
-          this.insured.controls['insuredAnnual'].patchValue(this.getAllPremiumDetails.annual_salary);
-      }
+      this.questionsList();
+      // if(this.insured.controls['insuredAnnual'].value == ''){
+      //     this.insured.controls['insuredAnnual'].patchValue(this.getAllPremiumDetails.annual_salary);
+      // }
 
   }
     // session Data
@@ -1399,28 +1407,30 @@ preInsureList() {
     //
     // }
     // Proposal details first Page
-    proposerDetails(stepper: MatStepper, value) {
-        this.proposerPaData = value;
-        sessionStorage.appollo1Details = '';
-        sessionStorage.appollo1Details = JSON.stringify(value);
-        console.log(this.proposerPaData,'this.proposerPaData ');
-        if (this.ProposerPa.valid) {
-            if (sessionStorage.proposerAgeP >= 18 || sessionStorage.proposerAgeP <  56) {
-                stepper.next();
-                this.topScroll();
-            } else {
-                this.toastr.error('Proposer age should be greater than 18 and lesser than 56');
-            }
-        }
-    }
+    // proposerDetails(stepper: MatStepper, value) {
+    //     this.proposerPaData = value;
+    //     sessionStorage.appollo1Details = '';
+    //     sessionStorage.appollo1Details = JSON.stringify(value);
+    //     console.log(this.proposerPaData,'this.proposerPaData ');
+    //     if (this.ProposerPa.valid) {
+    //         if (sessionStorage.proposerAgeP >= 18 || sessionStorage.proposerAgeP <  56) {
+    //             stepper.next();
+    //             this.topScroll();
+    //         } else {
+    //             this.toastr.error('Proposer age should be greater than 18 and lesser than 56');
+    //         }
+    //     }
+    // }
 
     // insured Details second page
     InsureDetails(stepper: MatStepper, value) {
       console.log(value);
         sessionStorage.appollo2Detail = '';
         sessionStorage.appollo2Detail = JSON.stringify(value);
+        console.log(this.insured.valid, 'check');
         if (this.insured.valid) {
-            if (sessionStorage.insuredAgeP >= 18){
+            if (sessionStorage.insuredAgeP >= 18 && sessionStorage.insuredAgeP < 56) {
+
                 if(this.insured.controls['insuredProfessionList'].value == 'PROFS5'&& this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00){
                     this.toastr.error('Sum Insured greater then eligible amount');
                 } else if (this.insured.controls['insuredWine'].value >0 && this.insured.controls['insuredBeer'].value >0 && this.insured.controls['insuredLiquor'].value >0) {
@@ -1440,7 +1450,7 @@ preInsureList() {
                     this.height =  this.insured.controls['insuredHeight'].value;
                     this.heighrCal = (this.height / 100) * (this.height / 100);
                     this.weight =  this.insured.controls['insuredWeight'].value;
-                    this. BMI = this.weight / this.heighrCal;
+                    this.BMI = this.weight / this.heighrCal;
                     if (this.insured.controls['insuredPaAge'].value > 0 && this.insured.controls['insuredPaAge'].value <= 15) {
                         if (this.BMI >= 12 && this.BMI <= 39 ){
                             stepper.next();
@@ -1456,19 +1466,11 @@ preInsureList() {
                             this.toastr.error('BMI Range should be greater than 12 and less than 39 or greater than 18 and less than 28 ');
                         }
                     }
-
-                    // if(this.bmiValue){
-                    //     stepper.next();
-                    //
-                    // } else {
-                    //     this.toastr.error('Insured age should be 18 or above');
-                    //
-                    // }
                 }
                 this.topScroll();
 
             } else {
-                this.toastr.error('Insured age should be 18 or above');
+                this.toastr.error('Proposer or Insurer age should be greater than 18 and lesser than 56');
             }
 
         }
@@ -1482,11 +1484,74 @@ preInsureList() {
         }
 
     }
+    medicalHistoryDetails(stepper: MatStepper) {
+
+        sessionStorage.apollomedical = '';
+        sessionStorage.apollomedical = JSON.stringify(this.appolloQuestionsListPa);
+
+        // let statusChecked = [];
+        let medicalStatus = [];
+        for (let i = 0; i < this.appolloQuestionsListPa.length; i++) {
+
+            if(this.appolloQuestionsListPa[i].mStatus == 'No'){
+                medicalStatus.push('No');
+            } else if(this.appolloQuestionsListPa[i].mStatus == 'Yes') {
+                medicalStatus.push('Yes');
+            }
+        }
+
+        if (medicalStatus.includes('Yes')) {
+            // this.toastr.error('This medical questions is unable to proceed');
+            this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
+        } else {
+            stepper.next();
+
+        }
+
+    }
+
+    questionsList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.personalservice.questionList(data).subscribe(
+            (successData) => {
+                this.appolloQuestionsSuccess(successData);
+            },
+            (error) => {
+                this.appolloQuestionsFailure(error);
+            }
+        );
+
+    }
+
+    public appolloQuestionsSuccess(successData) {
+        this.appolloQuestionsListPa = successData.ResponseObject;
+        for (let i = 0; i < this.appolloQuestionsListPa.length; i++) {
+            this.appolloQuestionsListPa[i].mStatus = 'No';
+            this.appolloQuestionsListPa[i].checked = false;
+        }
+    }
+
+
+    public appolloQuestionsFailure(error) {
+    }
+
+    questionYes(index, value: any) {
+        if (value.checked) {
+            this.appolloQuestionsListPa[index].mStatus = 'Yes';
+        } else {
+            this.appolloQuestionsListPa[index].mStatus = 'No';
+        }
+    }
+
 
     // star-health-proposal creation
     createrPoposal(stepper){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
-   const data = {
+        const data = {
     "enquiry_id": enq_id.toString(),
     'proposal_id': sessionStorage.appolloPAproposalID == '' || sessionStorage.appolloPAproposalID == undefined ? '' : sessionStorage.appolloPAproposalID,
     "user_id": "0",
@@ -1534,7 +1599,7 @@ preInsureList() {
                     "FirstName": this.insured.controls['insuredPaFirstname'].value,
                     "GenderCode": this.insured.controls['insuredPaGender'].value,
                     "GstinNumber": this.insured.controls['insuredPaGst'].value,
-                    "IDProofNumber": this.idListDetailsProposal,
+                    "IDProofNumber": this.idListDetailsinsured.toUpperCase(),
                     "IDProofTypeCode":this.insured.controls['insuredPaIdProof'].value,
                     "LastName": this.insured.controls['insuredPaLastname'].value,
                     "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
@@ -1575,7 +1640,7 @@ preInsureList() {
                 "GstinNumber": this.insured.controls['insuredPaGst'].value,
                 "Height": this.insured.controls['insuredHeight'].value,
                 "Weight": this.insured.controls['insuredWeight'].value,
-                "IDProofNumber": this.idListDetailsinsured,
+                "IDProofNumber": this.idListDetailsinsured.toUpperCase(),
                 "IDProofTypeCode": this.insured.controls['insuredPaIdProof'].value,
                 "LastName": this.insured.controls['insuredPaLastname'].value,
                 "MaritalStatusCode": this.insured.controls['maritalStatus'].value,
@@ -1633,14 +1698,16 @@ preInsureList() {
             stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
+            sessionStorage.summaryDataPa = JSON.stringify(this.appollosummaryData);
+            this.RediretUrlLink = this.appollosummaryData.PaymentURL;
             this.appolloPA = this.appollosummaryData.ProposalId;
             this.proposerFormData = this.insured.value;
             console.log(this.proposerFormData,'this.proposerFormData');
             this.nomineeDataForm = this.nomineeDetail.value;
             console.log(this.nomineeDataForm,'this.nomineeDataForm');
             sessionStorage.appolloPAproposalID = this.appolloPA ;
-            console.log(this.nomineeDetail.controls['paRelationship'].value,'khkjhlk');
-
+            sessionStorage.nomineeDataForm = JSON.stringify(this.nomineeDataForm);
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
         } else {
             this.toastr.error(successData.ErrorObject);
         }

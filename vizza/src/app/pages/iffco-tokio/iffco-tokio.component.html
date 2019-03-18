@@ -156,6 +156,17 @@
                   <div class="col-md-12 box-card pt-3">
                     <h6 class="color-green"> PROPOSER COMMUNICATION ADDRESS</h6>
                     <div class="row">
+                      <div class="col-md-3">
+                        <p>Address Type:</p>
+                        <mat-radio-group formControlName="typeAddress">
+                          <mat-radio-button value="P" class="mr-2">Postal</mat-radio-button>
+                          <mat-radio-button value="R" class="mr-2"> Residential</mat-radio-button>
+                          <mat-radio-button value="B" class="mr-2">Business</mat-radio-button>
+                        </mat-radio-group>
+                      </div>
+                    </div>
+
+                    <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="proposerAddress" autocomplete="off" maxlength="30" required></textarea>

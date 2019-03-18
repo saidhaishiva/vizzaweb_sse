@@ -81,6 +81,42 @@ export class PersonalAccidentService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // this function will get the personal accident annual income  lists
+    getAnnualIncomeList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'productlist/annualIncome' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // this function will get the personal accident profession  lists
+    getProfessionLists(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'productlist/profission' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // this function will get the pa company lists
+    getCompanyList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'productlist/companyCode' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     // this function will get the personal accident sum insured lists
     getpersonalSumInsuredAmount(data) {
         const json = JSON.stringify(data);
@@ -89,6 +125,30 @@ export class PersonalAccidentService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostPa() + 'productlist/suminsured_amount' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // this function will create enquiry
+    createEnquiry(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'productlist/createEnquiry' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    // this function will get pa policy list
+    getPaPolicyLists(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'productlist/productList' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -345,6 +405,17 @@ export class PersonalAccidentService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostPa() + 'apollomunich/proposal';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    // apollo munich questionList
+    questionList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'apollomunich/get_medicalQuestions';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

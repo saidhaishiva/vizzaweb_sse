@@ -6,7 +6,7 @@ export class ClearSessionPaService {
   constructor() { }
   clearSessionPaData(){
     //apollo munich
-    sessionStorage.pAccidentProposalList = '';
+    sessionStorage.buyProductsPa = '';
     sessionStorage.appollo2Detail = '';
     sessionStorage.panomineeData = '';
     sessionStorage.appolloPAproposalID = '';

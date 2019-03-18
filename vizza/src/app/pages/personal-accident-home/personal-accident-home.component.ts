@@ -72,7 +72,20 @@ export class PersonalaccidentComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
-    constructor(public appSettings: AppSettings,public clearSession: ClearSessionPaService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
+    public selectedProfession: any;
+    public annualIncomeLists: any;
+    public professions: any;
+    public enquiryDetails: any;
+    public productListArray: any;
+    public allProductLists: any;
+    public allCompanyList: any;
+    public firstPolicyDetails: any;
+    public filterCompany: any;
+    public setAllProductLists: any;
+    public professionerr: any;
+    public checkAllStatus: any;
+
+    constructor(public appSettings: AppSettings, public clearSession: ClearSessionPaService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -88,12 +101,12 @@ export class PersonalaccidentComponent implements OnInit {
             'appdate': ['', Validators.required],
             'apptime': null,
             'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-            'contactperson':  ['', Validators.compose([Validators.required])],
+            'contactperson': ['', Validators.compose([Validators.required])],
             'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
             'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             'pincode': ['', Validators.compose([Validators.required])],
-            'insurance': ['',Validators.compose([Validators.required])],
-            'appointmentwith': ['',Validators.compose([Validators.required])]
+            'insurance': ['', Validators.compose([Validators.required])],
+            'appointmentwith': ['', Validators.compose([Validators.required])]
         });
         this.tabIndex = 0;
         this.pageSettings = 0;
@@ -113,12 +126,15 @@ export class PersonalaccidentComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.checkAllStatus = true;
         this.clearSession.clearSessionPaData();
         this.show = this.config.getpaAccident();
         this.firstPage = true;
         this.secondPage = false;
-        this.sumInsuredAmonut();
+        this.professionalList();
+        this.annualIncomeList();
         this.setOccupationListCode();
+        this.companyList();
         this.sessionData();
         if (this.pageSettings == 2) {
             this.firstPage = false;
@@ -148,12 +164,13 @@ export class PersonalaccidentComponent implements OnInit {
             this.annualerror = false;
         }
     }
+
     public keyPress(event: any) {
         sessionStorage.pincoceP = this.pincoceP;
         sessionStorage.occupationP = this.occupationP;
         sessionStorage.AnnualIncomeP = this.AnnualIncomeP;
-        sessionStorage.setAgeP= this.Age;
-
+        sessionStorage.setAgeP = this.Age;
+        sessionStorage.selectedProfession = this.selectedProfession;
         if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
@@ -166,6 +183,7 @@ export class PersonalaccidentComponent implements OnInit {
         this.firstPage = true;
         this.secondPage = false;
     }
+
 // this function will get the session data
     sessionData() {
         if (sessionStorage.selectedAmountP != undefined && sessionStorage.selectedAmountP != '') {
@@ -183,6 +201,9 @@ export class PersonalaccidentComponent implements OnInit {
         if (sessionStorage.occupationP != undefined && sessionStorage.occupationP) {
             this.occupationP = sessionStorage.occupationP;
         }
+        if (sessionStorage.selectedProfession != undefined && sessionStorage.selectedProfession) {
+            this.selectedProfession = sessionStorage.selectedProfession;
+        }
         if (sessionStorage.setPageP != undefined && sessionStorage.setPageP != '') {
             this.pageSettings = sessionStorage.setPageP;
             if (sessionStorage.sideMenuP) {
@@ -191,23 +212,149 @@ export class PersonalaccidentComponent implements OnInit {
                 this.settings.sidenavIsPinned = false;
             }
         }
-
-        if (sessionStorage.enquiryIdP != undefined && sessionStorage.enquiryIdP != '') {
-            this.enquiryIdP = sessionStorage.enquiryIdP;
+        if (sessionStorage.enquiryDetailsPa != undefined && sessionStorage.enquiryDetailsPa != '') {
+            this.enquiryDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
         }
-        if (sessionStorage.personalPremiumLists != undefined && sessionStorage.personalPremiumLists != '') {
-            this.personalPremiumLists = JSON.parse(sessionStorage.personalPremiumLists);
-
+        if (sessionStorage.setAllProductLists != undefined && sessionStorage.setAllProductLists != '') {
+            this.setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
         }
+        if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
+            this.filterCompany = JSON.parse(sessionStorage.filterCompany);
+            if(this.filterCompany.includes('All')) {
+                this.checkAllStatus = true;
+            } else {
+                this.checkAllStatus = false;
+            }
+        }
+        if (sessionStorage.allProductLists != undefined && sessionStorage.allProductLists != '') {
+            this.allProductLists = JSON.parse(sessionStorage.allProductLists);
+            console.log(this.allProductLists, 'sessionn');
+        }
+        if (sessionStorage.sumInsuredAmountLists != undefined && sessionStorage.sumInsuredAmountLists != '') {
+            this.sumInsuredAmountLists = JSON.parse(sessionStorage.sumInsuredAmountLists);
+        }
+
 
 
     }
 
-    // this function will get the sum insured amounts
-    public sumInsuredAmonut(): void {
+    // get annual income list
+    public annualIncomeList(): void {
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        this.personalService.getAnnualIncomeList(data).subscribe(
+            (successData) => {
+                this.getAnnualIncomeListSuccess(successData);
+            },
+            (error) => {
+                this.getAnnualIncomeListFailure(error);
+            }
+        );
+    }
+
+    public getAnnualIncomeListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.annualIncomeLists = successData.ResponseObject;
+        }
+    }
+
+    public getAnnualIncomeListFailure(error) {
+    }
+
+    // get annual professional list
+    public professionalList(): void {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        this.personalService.getProfessionLists(data).subscribe(
+            (successData) => {
+                this.getProfessionalSuccess(successData);
+            },
+            (error) => {
+                this.getProfessionalFailure(error);
+            }
+        );
+    }
+
+    public getProfessionalSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.professions = successData.ResponseObject;
+        }
+    }
+
+    public getProfessionalFailure(error) {
+    }
+    // get company list
+    public companyList(): void {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        this.personalService.getCompanyList(data).subscribe(
+            (successData) => {
+                this.getCompanySuccess(successData);
+            },
+            (error) => {
+                this.getCompanyFailure(error);
+            }
+        );
+    }
+    public getCompanySuccess(successData) {
+        if (successData.IsSuccess) {
+            this.allCompanyList = successData.ResponseObject;
+            let all = ['All'];
+            for (let i = 0; i < this.allCompanyList.length; i++) {
+                all.push(this.allCompanyList[i].company_name);
+            }
+            this.filterCompany = all;
+        }
+    }
+    public getCompanyFailure(error) {
+    }
+
+
+    // this function will get the occupation list
+    setOccupationListCode() {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        };
+        this.personalService.getOccupationCodeList(data).subscribe(
+            (successData) => {
+                this.occupationCodeSuccess(successData);
+            },
+            (error) => {
+                this.occupationCodeFailure(error);
+            }
+        );
+
+    }
+
+    public occupationCodeSuccess(successData) {
+        this.occupationCode = successData.ResponseObject;
+    }
+
+    public occupationCodeFailure(error) {
+    }
+
+    // this function will get the sum insured amounts
+    public sumInsuredAmonut(age): void {
+        const data = {
+            'platform': 'web',
+            'age': age,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
         this.personalService.getpersonalSumInsuredAmount(data).subscribe(
@@ -223,6 +370,7 @@ export class PersonalaccidentComponent implements OnInit {
     public getSumInsuredAmountSuccess(successData) {
         if (successData.IsSuccess) {
             this.sumInsuredAmountLists = successData.ResponseObject;
+            sessionStorage.sumInsuredAmountLists = JSON.stringify(this.sumInsuredAmountLists);
         }
     }
 
@@ -235,57 +383,22 @@ export class PersonalaccidentComponent implements OnInit {
         }
     }
 
-    setOccupationListCode() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        };
-        this.personalService.getOccupationCodeList(data).subscribe(
-            (successData) => {
-                this.occupationCodeSuccess(successData);
-            },
-            (error) => {
-                this.occupationCodeFailure(error);
-            }
-        );
-
-    }
-
-
-    public occupationCodeSuccess(successData) {
-        this.occupationCode = successData.ResponseObject;
-
-    }
-
-    public occupationCodeFailure(error) {
-    }
-
-    changeAmount() {
-        sessionStorage.selectedAmountP = this.selectedAmountP;
-    }
-
-    getPersonalAccident() {
-
+    // create enguiry
+    createEnquiryDetails() {
         if (this.Age < 18) {
             this.toast.error('Personal age should be 18 or above');
             return false;
         }
 
-        if (this.selectedAmountP == '' || this.selectedAmountP == undefined) {
-            this.sumerror = true;
-        } else {
-            this.sumerror = false;
-        }
         if (this.pincoceP == '' || this.pincoceP == undefined || this.pincoceP.length < 6) {
             this.pinerror = true;
         } else {
             this.pinerror = false;
         }
-        if (this.occupationP == '' || this.occupationP == undefined) {
-            this.occerror = true;
+        if (this.selectedProfession == '' || this.selectedProfession == undefined) {
+            this.professionerr = true;
         } else {
-            this.occerror = false;
+            this.professionerr = false;
         }
         if (this.occupationP == '' || this.occupationP == undefined) {
             this.occerror = true;
@@ -302,119 +415,177 @@ export class PersonalaccidentComponent implements OnInit {
         } else {
             this.ageerror = false;
         }
-        if (this.selectedAmountP != '' && this.selectedAmountP != undefined && this.pincoceP != '' && this.pincoceP != undefined && this.AnnualIncomeP == '' || this.AnnualIncomeP == undefined || this.AnnualIncomeP != 0) {
-
+        if (this.AnnualIncomeP != '' && this.AnnualIncomeP != undefined && this.selectedProfession != '' && this.selectedProfession != undefined && this.pincoceP != '' && this.pincoceP != undefined) {
             const data = {
                 "platform": "web",
                 "insurance_type": "2",
                 "annual_salary": this.AnnualIncomeP,
                 "occupation_code": this.occupationP,
+                "profissional": this.selectedProfession,
                 "postalcode": this.pincoceP ? this.pincoceP : '',
-                "sum_insured": this.selectedAmountP,
+                "sum_insured": '',
                 "created_by": "0",
-                "pos_status": "0",
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
                 "family_details": [{
-                    "type": "self",
+                    "type": "Self",
                     "age": this.Age
                 }]
             };
-            this.personalService.personalAccident(data).subscribe(
+            this.settings.loadingSpinner = true;
+            this.personalService.createEnquiry(data).subscribe(
                 (successData) => {
-                    //this.settings.loadingSpinner = true;
-                    this.personalAccidentSuccess(successData, 0);
+                    this.createEnquirySuccess(successData);
                 },
                 (error) => {
-                    this.personalAccidentFailure(error);
+                    this.createEnquiryFailure(error);
                 }
             );
-
         }
     }
 
-
-    public personalAccidentSuccess(successData, index) {
+    public createEnquirySuccess(successData) {
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.firstPage = false;
             this.secondPage = true;
-            this.personalPremiumLists = successData.ResponseObject;
-            sessionStorage.setPageP = (this.personalPremiumLists.enquiry_id == '') ? 1 : 2;
+            this.enquiryDetails = successData.ResponseObject;
+            sessionStorage.enquiryDetailsPa = JSON.stringify(this.enquiryDetails);
+            sessionStorage.setPageP = (this.enquiryDetails.enquiry_id == '') ? 1 : 2;
             if (sessionStorage.setPageP != 1) {
                 sessionStorage.sideMenuP = true;
                 this.settings.HomeSidenavUserBlock = false;
                 this.settings.sidenavIsOpened = false;
                 this.settings.sidenavIsPinned = false;
             }
-            for (let j = 0; j < this.personalPremiumLists.product_lists.length; j++) {
-                this.personalPremiumLists.product_lists[j].compare_id = j+1;
-                this.personalPremiumLists.product_lists[j].suminsured_amount_format =   this.numberWithCommas( this.personalPremiumLists.product_lists[j].suminsured_amount);
-                this.personalPremiumLists.product_lists[j].premium_amount_format = this.numberWithCommas(this.personalPremiumLists.product_lists[j].premium_amount);
+            this.selectedAmountP= "6";
+            this.sumInsuredAmonut(this.enquiryDetails.age);
 
+            this.productListArray = [];
+            this.allProductLists = [];
+            for(let i = 0; i < this.allCompanyList.length; i++) {
+                this.policyLists(this.allCompanyList[i].company_id);
             }
 
-            console.log(this.personalPremiumLists, 'pppp099882211qq');
-            sessionStorage.personalPremiumLists = JSON.stringify(this.personalPremiumLists);
-            this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
-            this.Age = this.personalPremiumLists.family_details[0].age;
-            this.enquiryIdP = this.personalPremiumLists.enquiry_id;
-            this.occupationP = this.personalPremiumLists.occupation_code;
-            this.selectedAmountP = this.personalPremiumLists.group_suminsured_id;
+        }
+    }
+    public createEnquiryFailure(err){
+        this.settings.loadingSpinner = false;
+    }
+    updateSumInsured() {
+        this.settings.loadingSpinner = true;
+        sessionStorage.selectedAmountP = this.selectedAmountP;
+        this.productListArray = [];
+        this.allProductLists = [];
+        let getCompanyCount = [];
+        for(let i = 0; i < this.allCompanyList.length; i++) {
+            for(let j = 0; j < this.filterCompany.length; j++) {
+                if(this.filterCompany[j] == this.allCompanyList[i].company_name) {
+                    getCompanyCount.push(this.allCompanyList[i].company_id);
+                }
+            }
+        }
+        for(let i = 0; i < getCompanyCount.length; i++) {
+            this.policyLists(getCompanyCount[i]);
+        }
+
+
+    }
+
+    policyLists(company_id) {
+        const data = {
+            "platform": "web",
+            "sum_insured": this.selectedAmountP != undefined ? this.selectedAmountP : '',
+            "enquiry_id": this.enquiryDetails.enquiry_id,
+            "created_by": "0",
+            "company_id": company_id,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'
+        }
+        this.personalService.getPaPolicyLists(data).subscribe(
+            (successData) => {
+                this.getPolicyListsSuccess(successData);
+            },
+            (error) => {
+                this.getPolicyListsFailure(error);
+            }
+        );
+    }
+    public getPolicyListsSuccess(successData){
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            let policylists = successData.ResponseObject;
+            this.productListArray.push(policylists.product_lists);
+            this.allProductLists = [].concat.apply([], this.productListArray);
+            for (let i = 0; i < this.allProductLists.length; i++) {
+                this.allProductLists[i].compare = false;
+                this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
+                this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
+            }
+            sessionStorage.selectedAmountP = this.selectedAmountP;
+            sessionStorage.firstPolicyDetails = JSON.stringify(policylists);
+            this.setAllProductLists = this.allProductLists;
+            sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
+            sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
 
         } else {
             this.toast.error(successData.ErrorObject);
         }
     }
-
-    public personalAccidentFailure(error) {
+    public getPolicyListsFailure(error){
     }
     public  numberWithCommas(x) {
         return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
     }
 
-// update
-    updatePersonalAccident() {
+    // filter by product
+    filterByProducts() {
 
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pincoceP,
-            'sum_insured': this.selectedAmountP,
-            'occupation_code': this.occupationP,
-            'family_details': [{
-                "type": "self",
-                "age": this.Age
-            }],
-            'family_group_name': 'Group A',
-            'enquiry_id': this.personalPremiumLists.enquiry_id,
-            'created_by': '0',
-            'insurance_type': '1',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-
-        }
-        this.personalService.updatePersonalAccident(data).subscribe(
-            (successData) => {
-                //this.settings.loadingSpinner = true;
-                this.updateSuccess(successData, 0);
-            },
-            (error) => {
-                this.updateFailure(error);
+        if(this.filterCompany.includes('All')){
+            console.log('fi');
+            this.checkAllStatus = true;
+            this.allProductLists = this.setAllProductLists;
+            let all = ['All'];
+            for (let i = 0; i < this.allCompanyList.length; i++) {
+                all.push(this.allCompanyList[i].company_name);
             }
-        );
+            this.filterCompany = all;
+        }
+        else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+            console.log('sec');
+            this.checkAllStatus = false;
+            this.allProductLists = [];
+            this.filterCompany = [];
+        }
+        else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
+            console.log('third');
+            this.checkAllStatus = false;
+            let cmpy = [];
+            for (let k = 0; k < this.filterCompany.length; k++) {
+                for (let j = 0; j < this.setAllProductLists.length; j++) {
+                    if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                        cmpy.push(this.setAllProductLists[j]);
+                    }
+                }
+            }
+            this.allProductLists = cmpy;
+        } else if(this.filterCompany.length == 0){
+            console.log('frth');
+            this.checkAllStatus = false;
+            this.allProductLists = [];
+            this.filterCompany = [];
+        }
+
+        console.log(this.allProductLists, ' this.allProductLists');
+        sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
+        sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
     }
-
-    public updateSuccess(successData, index) {
-        this.personalPremiumLists = successData.ResponseObject;
-        sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
-    }
-
-
-    public updateFailure(error) {
-    }
-
     //// compare Details
-    compareDetails(value, index, equiryId, name) {
+    compareDetails(value, index) {
         console.log(value, 'valuevalue1');
         const data = {
             index: index,
@@ -430,53 +601,41 @@ export class PersonalaccidentComponent implements OnInit {
             company_name: value.company_name,
             key_features: value.key_features
         };
-        this.enquiryIdP = equiryId;
-        this.personalPremiumLists.product_lists[index].compare = true;
+        this.allProductLists[index].compare = true;
         this.compareArray.push(data);
         if (this.compareArray.length >= 3) {
-            for (let i = 0; i < this.personalPremiumLists.product_lists.length; i++) {
-                this.personalPremiumLists.product_lists[i].compare = true;
+            for (let i = 0; i < this.allProductLists.length; i++) {
+                this.allProductLists[i].compare = true;
             }
         }
 
     }
     // remove compare
     removeCompare(index , pindex) {
-        console.log(index, 'indexindex');
         this.compareArray.splice(index, 1);
         console.log(this.compareArray, 'this.compareArray');
-        console.log(this.personalPremiumLists.product_lists, 'this.this.personalPremiumLists.product_lists');
-
         let getCount;
-        for (let i = 0; i < this.personalPremiumLists.product_lists.length; i++) {
+        for (let i = 0; i < this.allProductLists.length; i++) {
             getCount = false;
             for (let j = 0; j < this.compareArray.length; j++) {
-                if (this.compareArray[j].compare_id == this.personalPremiumLists.product_lists[i].compare_id) {
+                if (this.compareArray[j].compare_id == this.allProductLists[i].compare_id) {
                     getCount = true;
-                    this.personalPremiumLists.product_lists[i].compare = true;
+                    this.allProductLists[i].compare = true;
                 }
             }
             if (!getCount) {
-                this.personalPremiumLists.product_lists[i].compare = false;
+                this.allProductLists[i].compare = false;
             }
         }
 
     }
     removeAllCompare() {
-        for (let i = 0; i < this.personalPremiumLists.product_lists.length; i++) {
-            this.personalPremiumLists.product_lists[i].compare = false;
+        for (let i = 0; i < this.allProductLists.length; i++) {
+            this.allProductLists[i].compare = false;
         }
         this.compareArray = [];
     }
-    public onNumber(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
+
     // comparelist
     compareList(value) {
             this.productData = [];
@@ -488,7 +647,7 @@ export class PersonalaccidentComponent implements OnInit {
                 'platform': 'web',
                 'scheme': scheme,
                 'group_name': 'GROUP A',
-                'enquiry_id': this.enquiryIdP,
+                'enquiry_id': this.enquiryDetails.enquiry_id,
                 'product_lists': this.productData,
                 'created_by': 0,
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -509,7 +668,7 @@ export class PersonalaccidentComponent implements OnInit {
             this.settings.loadingSpinner = false;
             if (successData.IsSuccess) {
                 let dialogRef = this.dialog.open(ComparelistComponent, {
-                    width: '1500px', data: {comparedata: successData.ResponseObject}});
+                    width: '1500px', data: {comparedata: successData.ResponseObject, type: 'pa'}});
                 dialogRef.disableClose = true;
 
                 dialogRef.afterClosed().subscribe(result => {
@@ -521,8 +680,7 @@ export class PersonalaccidentComponent implements OnInit {
         }
 
 
-        // fire functions
-
+    // fire functions
     addEvent(event) {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
@@ -602,7 +760,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     // buy details
     buyProduct(value) {
-        sessionStorage.pAccidentProposalList =  JSON.stringify(value);
+        sessionStorage.buyProductsPa =  JSON.stringify(value);
         if (value.product_id == 14 || value.product_id == 15) {
             this.router.navigate(['/appollopa' + '/' + false]);
         } else if (value.product_id == 3) {
@@ -674,3 +832,45 @@ export class PersonalInsurer {
 
 }
 
+
+/// old
+// update
+// updatePersonalAccident() {
+//
+//     const data = {
+//         'platform': 'web',
+//         'postalcode': this.pincoceP,
+//         'sum_insured': this.selectedAmountP,
+//         'occupation_code': this.occupationP,
+//         'family_details': [{
+//             "type": "self",
+//             "age": this.Age
+//         }],
+//         'family_group_name': 'Group A',
+//         'enquiry_id': this.personalPremiumLists.enquiry_id,
+//         'created_by': '0',
+//         'insurance_type': '1',
+//         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+//         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+//
+//     }
+//     this.personalService.updatePersonalAccident(data).subscribe(
+//         (successData) => {
+//             //this.settings.loadingSpinner = true;
+//             this.updateSuccess(successData, 0);
+//         },
+//         (error) => {
+//             this.updateFailure(error);
+//         }
+//     );
+//
+// }
+//
+// public updateSuccess(successData, index) {
+//     this.personalPremiumLists = successData.ResponseObject;
+//     sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
+// }
+//
+//
+// public updateFailure(error) {
+// }
