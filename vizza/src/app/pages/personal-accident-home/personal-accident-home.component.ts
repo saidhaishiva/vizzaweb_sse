@@ -526,6 +526,7 @@ export class PersonalaccidentComponent implements OnInit {
             }
             sessionStorage.selectedAmountP = this.selectedAmountP;
             sessionStorage.firstPolicyDetails = JSON.stringify(policylists);
+            this.setAllProductLists = this.allProductLists;
             sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
             sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
@@ -542,7 +543,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     // filter by product
     filterByProducts() {
-        console.log(this.filterCompany, 'this.filterCompany1');
+
         if(this.filterCompany.includes('All')){
             console.log('fi');
             this.checkAllStatus = true;
@@ -552,12 +553,14 @@ export class PersonalaccidentComponent implements OnInit {
                 all.push(this.allCompanyList[i].company_name);
             }
             this.filterCompany = all;
-        } else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+        }
+        else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
             console.log('sec');
             this.checkAllStatus = false;
             this.allProductLists = [];
             this.filterCompany = [];
-        }  else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
+        }
+        else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
             console.log('third');
             this.checkAllStatus = false;
             let cmpy = [];
@@ -571,100 +574,16 @@ export class PersonalaccidentComponent implements OnInit {
             this.allProductLists = cmpy;
         } else if(this.filterCompany.length == 0){
             console.log('frth');
-
             this.checkAllStatus = false;
             this.allProductLists = [];
             this.filterCompany = [];
         }
-        console.log(this.allProductLists, ' this.allProductLists');
 
+        console.log(this.allProductLists, ' this.allProductLists');
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
     }
-
-
-                // public personalAccidentSuccess(successData, index) {
-    //     this.settings.loadingSpinner = true;
-    //     if (successData.IsSuccess) {
-    //         this.firstPage = false;
-    //         this.secondPage = true;
-    //         this.personalPremiumLists = successData.ResponseObject;
-    //         sessionStorage.setPageP = (this.personalPremiumLists.enquiry_id == '') ? 1 : 2;
-    //         if (sessionStorage.setPageP != 1) {
-    //             sessionStorage.sideMenuP = true;
-    //             this.settings.HomeSidenavUserBlock = false;
-    //             this.settings.sidenavIsOpened = false;
-    //             this.settings.sidenavIsPinned = false;
-    //         }
-    //         for (let j = 0; j < this.personalPremiumLists.product_lists.length; j++) {
-    //             this.personalPremiumLists.product_lists[j].compare_id = j+1;
-    //             this.personalPremiumLists.product_lists[j].suminsured_amount_format =   this.numberWithCommas( this.personalPremiumLists.product_lists[j].suminsured_amount);
-    //             this.personalPremiumLists.product_lists[j].premium_amount_format = this.numberWithCommas(this.personalPremiumLists.product_lists[j].premium_amount);
-    //
-    //         }
-    //
-    //         console.log(this.personalPremiumLists, 'pppp099882211qq');
-    //         sessionStorage.personalPremiumLists = JSON.stringify(this.personalPremiumLists);
-    //         this.AnnualIncomeP = this.personalPremiumLists.annual_salary;
-    //         this.Age = this.personalPremiumLists.family_details[0].age;
-    //         this.enquiryIdP = this.personalPremiumLists.enquiry_id;
-    //         this.occupationP = this.personalPremiumLists.occupation_code;
-    //         this.selectedAmountP = this.personalPremiumLists.group_suminsured_id;
-    //
-    //
-    //     } else {
-    //         this.toast.error(successData.ErrorObject);
-    //     }
-    // }
-    //
-    // public personalAccidentFailure(error) {
-    // }
-    // public  numberWithCommas(x) {
-    //     return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
-    // }
-
-// update
-    updatePersonalAccident() {
-
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pincoceP,
-            'sum_insured': this.selectedAmountP,
-            'occupation_code': this.occupationP,
-            'family_details': [{
-                "type": "self",
-                "age": this.Age
-            }],
-            'family_group_name': 'Group A',
-            'enquiry_id': this.personalPremiumLists.enquiry_id,
-            'created_by': '0',
-            'insurance_type': '1',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
-
-        }
-        this.personalService.updatePersonalAccident(data).subscribe(
-            (successData) => {
-                //this.settings.loadingSpinner = true;
-                this.updateSuccess(successData, 0);
-            },
-            (error) => {
-                this.updateFailure(error);
-            }
-        );
-
-    }
-
-    public updateSuccess(successData, index) {
-        this.personalPremiumLists = successData.ResponseObject;
-        sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
-    }
-
-
-    public updateFailure(error) {
-    }
-
     //// compare Details
     compareDetails(value, index) {
         console.log(value, 'valuevalue1');
@@ -913,3 +832,45 @@ export class PersonalInsurer {
 
 }
 
+
+/// old
+// update
+// updatePersonalAccident() {
+//
+//     const data = {
+//         'platform': 'web',
+//         'postalcode': this.pincoceP,
+//         'sum_insured': this.selectedAmountP,
+//         'occupation_code': this.occupationP,
+//         'family_details': [{
+//             "type": "self",
+//             "age": this.Age
+//         }],
+//         'family_group_name': 'Group A',
+//         'enquiry_id': this.personalPremiumLists.enquiry_id,
+//         'created_by': '0',
+//         'insurance_type': '1',
+//         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+//         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+//
+//     }
+//     this.personalService.updatePersonalAccident(data).subscribe(
+//         (successData) => {
+//             //this.settings.loadingSpinner = true;
+//             this.updateSuccess(successData, 0);
+//         },
+//         (error) => {
+//             this.updateFailure(error);
+//         }
+//     );
+//
+// }
+//
+// public updateSuccess(successData, index) {
+//     this.personalPremiumLists = successData.ResponseObject;
+//     sessionStorage.personalPremiumLists = JSON.stringify(successData.ResponseObject);
+// }
+//
+//
+// public updateFailure(error) {
+// }

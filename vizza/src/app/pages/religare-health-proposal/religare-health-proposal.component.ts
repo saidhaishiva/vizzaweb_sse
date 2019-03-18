@@ -347,11 +347,11 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.personal.get('personalPan').updateValueAndValidity();
 
 
-        if(this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5){
-            if (this.getFamilyDetails.family_members.length < 2) {
-                this.changeGender();
-            }
-        }
+        // if(this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5){
+        //     if (this.getFamilyDetails.family_members.length < 2) {
+        //         this.changeGender();
+        //     }
+        // }
 
     }
     // Dame validation
