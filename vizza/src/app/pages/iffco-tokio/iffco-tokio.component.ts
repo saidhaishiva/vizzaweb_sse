@@ -695,7 +695,7 @@ export class IffcoTokioComponent implements OnInit {
             this.insuredData = [];
             for(let i=0;i < this.insuredDetails.items.length; i++){
                 this.insuredData.push({
-                    'PreExistingDisease': 'No',
+                    'PreExistingDisease': 'N',
                     'Age': this.insuredDetails.items[i].proposerAge,
                     'DateOfBirth': this.insuredDetails.items[i].proposerDob,
                     'FirstName': this.insuredDetails.items[i].proposerFirstname,
