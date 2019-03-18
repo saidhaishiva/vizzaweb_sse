@@ -144,6 +144,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     insurerdateError: any;
     nomineeDataForm: any;
     currentStep: any;
+    RediretUrlLink: any;
     city: any;
     personalcity: any;
     proposerDataForm: any;
@@ -164,9 +165,23 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     constructor(private fb: FormBuilder, public proposalservice: HealthService, public route: ActivatedRoute, public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
+        // this.route.params.forEach((params) => {
+        //     if (params.stepper == true) {
+        //         stepperindex = 4;
+        //     }
+        // });
         this.route.params.forEach((params) => {
-            if (params.stepper == true) {
-                stepperindex = 4;
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 3;
+                if (sessionStorage.summaryDataReligare != '' && sessionStorage.summaryDataReligare != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryDataReligare);
+                    this.RediretUrlLink = this.summaryData.PaymentURL;
+                    this.proposalId = this.summaryData.ProposalId;
+                    this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataFormReligare);
+                    this.proposerDataForm = JSON.parse(sessionStorage.proposerDataFormReligare);
+                    // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    sessionStorage.pa_religare_proposal_id = this.proposalId;
+                }
             }
         });
         this.currentStep = stepperindex;
@@ -1243,8 +1258,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposal_id;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
+            sessionStorage.summaryDataReligare = this.summaryData;
             this.proposerDataForm = this.insured.value;
             this.nomineeDataForm = this.nomineeDetails.value;
+            sessionStorage.proposerDataFormReligare = this.proposerDataForm;
+            sessionStorage.nomineeDataFormReligare = this.nomineeDataForm;
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }

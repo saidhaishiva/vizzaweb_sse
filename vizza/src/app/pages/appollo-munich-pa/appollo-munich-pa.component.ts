@@ -110,20 +110,32 @@ public nomineeDataForm:any;
 public sameaddress:boolean;
 public habits: boolean;
 public appolloQuestionsListPa: any;
-   public height: any;
-   public heighrCal: any;
-    public weight:any;
-    public BMI: any;
-    CheckHabits : boolean;
-    readonlyProposer : boolean;
+public height: any;
+public heighrCal: any;
+public weight:any;
+public BMI: any;
+public proposalId: any;
+public summaryData: any;
+public RediretUrlLink: any;
+CheckHabits : boolean;
+readonlyProposer : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
+      this.currentStep = stepperindex;
+console.log(this.currentStep,'this.currentStep');
       this.route.params.forEach((params) => {
-          if(params.stepper == true) {
-              stepperindex = 2;
+          if(params.stepper == true || params.stepper == 'true') {
+              stepperindex = 1;
+              if (sessionStorage.summaryDataPa != '' && sessionStorage.summaryDataPa != undefined) {
+                  this.summaryData = JSON.parse(sessionStorage.summaryDataPa);
+                  this.RediretUrlLink = this.summaryData.PaymentURL;
+                  this.proposalId = this.summaryData.ProposalId;
+                  this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataForm);
+                  this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                  sessionStorage.appolloPAproposalID = this.proposalId;
+              }
           }
       });
-      this.currentStep = stepperindex;
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
       this.minDate= new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -138,12 +150,6 @@ public appolloQuestionsListPa: any;
       this.habits = true;
       this.bmiValue = false;
 
-      // let stepperindex = 0;
-      // this.route.params.forEach((params) => {
-      //     if(params.stepper == true) {
-      //         stepperindex =2;
-      //     }
-      // });
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
           proposerPaFirstname: ['', Validators.required],
@@ -1692,14 +1698,16 @@ preInsureList() {
             stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.appollosummaryData = successData.ResponseObject;
+            sessionStorage.summaryDataPa = JSON.stringify(this.appollosummaryData);
+            this.RediretUrlLink = this.appollosummaryData.PaymentURL;
             this.appolloPA = this.appollosummaryData.ProposalId;
             this.proposerFormData = this.insured.value;
             console.log(this.proposerFormData,'this.proposerFormData');
             this.nomineeDataForm = this.nomineeDetail.value;
             console.log(this.nomineeDataForm,'this.nomineeDataForm');
             sessionStorage.appolloPAproposalID = this.appolloPA ;
-            console.log(this.nomineeDetail.controls['paRelationship'].value,'khkjhlk');
-
+            sessionStorage.nomineeDataForm = JSON.stringify(this.nomineeDataForm);
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
         } else {
             this.toastr.error(successData.ErrorObject);
         }
