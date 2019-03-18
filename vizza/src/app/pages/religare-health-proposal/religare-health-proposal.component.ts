@@ -260,7 +260,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
-        if(this.insurePersons.length == 1) {
+        if(this.insurePersons.length < 2 && (this.buyProductdetails.product_id == 4 || this.buyProductdetails.product_id == 5)) {
             this.genderStatus = true;
         } else {
             this.genderStatus = false;

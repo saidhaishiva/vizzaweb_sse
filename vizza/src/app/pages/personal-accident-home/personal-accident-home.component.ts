@@ -448,22 +448,13 @@ export class PersonalaccidentComponent implements OnInit {
     public createEnquirySuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.firstPage = false;
-            this.secondPage = true;
             this.enquiryDetails = successData.ResponseObject;
             sessionStorage.enquiryDetailsPa = JSON.stringify(this.enquiryDetails);
-            sessionStorage.setPageP = (this.enquiryDetails.enquiry_id == '') ? 1 : 2;
-            if (sessionStorage.setPageP != 1) {
-                sessionStorage.sideMenuP = true;
-                this.settings.HomeSidenavUserBlock = false;
-                this.settings.sidenavIsOpened = false;
-                this.settings.sidenavIsPinned = false;
-            }
             this.selectedAmountP= "6";
             this.sumInsuredAmonut(this.enquiryDetails.age);
-
             this.productListArray = [];
             this.allProductLists = [];
+            // this.settings.loadingSpinner = true;
             for(let i = 0; i < this.allCompanyList.length; i++) {
                 this.policyLists(this.allCompanyList[i].company_id);
             }
@@ -516,6 +507,15 @@ export class PersonalaccidentComponent implements OnInit {
     public getPolicyListsSuccess(successData){
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.firstPage = false;
+            this.secondPage = true;
+            sessionStorage.setPageP = (this.enquiryDetails.enquiry_id == '') ? 1 : 2;
+            if (sessionStorage.setPageP != 1) {
+                sessionStorage.sideMenuP = true;
+                this.settings.HomeSidenavUserBlock = false;
+                this.settings.sidenavIsOpened = false;
+                this.settings.sidenavIsPinned = false;
+            }
             let policylists = successData.ResponseObject;
             this.productListArray.push(policylists.product_lists);
             this.allProductLists = [].concat.apply([], this.productListArray);

@@ -252,6 +252,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ClearSessionPaService} from './shared/services/clear-session-pa.service';
 import { TermLifeComponent } from './pages/term-life/term-life.component';
 import { IffcoTokioHealthPayamentSuccessComponent } from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
+import { ReligareDownloadPaPolicyComponent } from './pages/religare-download-pa-policy/religare-download-pa-policy.component';
 
 @NgModule({
   imports: [
@@ -466,6 +467,7 @@ import { IffcoTokioHealthPayamentSuccessComponent } from './pages/iffco-tokio-he
       LifeViewDetailsComponent,
       TermLifeComponent,
       IffcoTokioHealthPayamentSuccessComponent,
+      ReligareDownloadPaPolicyComponent,
 
   ],
   providers: [

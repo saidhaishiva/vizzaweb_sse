@@ -194,7 +194,7 @@
 
                                                 <mat-select-trigger>
                                                     {{filterCompany ? filterCompany[0] : ''}}
-                                                    <span *ngIf="filterCompany.length > 1" class="example-additional-selection">
+                                                    <span *ngIf="filterCompany" >
                                                         (+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})
                                                     </span>
                                                 </mat-select-trigger>
