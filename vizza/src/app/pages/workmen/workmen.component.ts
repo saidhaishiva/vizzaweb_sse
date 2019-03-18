@@ -149,7 +149,7 @@ export class WorkmenComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #FAD026"><img src="assets/img/workmen.png" class="logo-size"> About Workmen Compensation</h3>
+                <h3 class="text-center" style="color: #FFD400; text-shadow: 0 0 3px #fff, 0 0 5px #FCC645;"><img src="assets/img/workmen.png" class="logo-size"> About Workmen Compensation</h3>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
