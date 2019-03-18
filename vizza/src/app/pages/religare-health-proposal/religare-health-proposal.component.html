@@ -244,8 +244,21 @@
                                 <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                               </mat-form-field>
                             </div>
+                              <div class="col-md-3" *ngIf="(buyProductdetails.product_id == 4 || buyProductdetails.product_id == 5) && !genderStatus">
+                                  <mat-form-field class="w-100">
+                                      <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)"  required>
+                                          <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
+                                              <mat-option value="MR" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter'">Mr</mat-option>
+                                              <mat-option value="MS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
+                                              <!--<mat-option value="MRS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Mrs</mat-option>-->
+                                          </mat-select>
+                                      </mat-select>
+                                      <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
+                                  </mat-form-field>
+                              </div>
 
-                            <div class="col-md-3">
+
+                              <div class="col-md-3">
                               <mat-form-field class="w-100">
                                 <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >
                                 <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
