@@ -226,7 +226,7 @@
                             <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                           </div>
                           <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-3" *ngIf="buyProductdetails.product_id != 4 || buyProductdetails.product_id != 5">
                               <mat-form-field class="w-100">
                                 <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" required>
                                   <mat-option value="MR" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Daughter' && insureSingle">Mr</mat-option>
@@ -236,6 +236,15 @@
                                 <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                               </mat-form-field>
                             </div>
+                            <div class="col-md-3" *ngIf="buyProductdetails.product_id == 4 || buyProductdetails.product_id == 5">
+                              <mat-form-field class="w-100">
+                                <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)"  required>
+                                  <mat-option value="MS" *ngIf="insureArray['controls'].items['controls'][i]['controls'].type.value != 'Son'">Ms</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
+                              </mat-form-field>
+                            </div>
+
                             <div class="col-md-3">
                               <mat-form-field class="w-100">
                                 <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value" >

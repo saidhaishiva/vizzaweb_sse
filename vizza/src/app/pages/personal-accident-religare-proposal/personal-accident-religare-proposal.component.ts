@@ -903,7 +903,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     setinsureDescriptionListCode() {
         if (this.insured.controls['insuredDescriptionCode'].value == 'C5') {
             this.insureoccupationDescription = true;
-            if( this.insureoccupationDescription ){
+            if(this.insureoccupationDescription ){
                 this.insuredDescriptionValidator = true
                 this.insured.controls['insuredDescription'].setValidators([Validators.required]);
             } else {
