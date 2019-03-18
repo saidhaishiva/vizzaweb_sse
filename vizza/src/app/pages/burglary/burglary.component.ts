@@ -144,7 +144,7 @@ export class BurglaryComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #000"><img src="assets/img/burglary-insurance.png" class="logo-size"> About Burglary Insurance</h3>
+                <h3 class="text-center" style="color: #171915"><img src="assets/img/burglary-insurance.png" class="logo-size"> About Burglary Insurance</h3>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>

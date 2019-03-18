@@ -145,7 +145,7 @@ export class HouseholdComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #00D4B5"><img src="assets/img/House-holders-policy.png" class="logo-size"> About House Holders Policy</h3>
+                <h3 class="text-center" style="color: #4EB9E4"><img src="assets/img/House-holders-policy.png" class="logo-size"> About House Holders Policy</h3>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>

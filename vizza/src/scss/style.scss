@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Parisienne');
 $theme-color:#02810E;
 $green-color:#18CCB4;
-$pink-color:#F50091;
+$pink-color:#D5528E;
 $light-green:#2FE827;
 *{
   outline: none;
@@ -1435,6 +1435,87 @@ a:hover {
     }
   }
 }
+.iffcoHealthProposal{
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+    margin-top: -11px !important;
+    // margin-left: 20px !important;
+  }
+  .mat-checkbox-inner-container {
+    height: 17px !important;
+    width: 17px !important;
+  }
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+  }
+
+  .mat-primaryBlue {
+    background-color: #467f8b !important;
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #467f8b !important;
+    color: #ffff;
+  }
+
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+  mat-expansion-panel-header{
+    background: #467f8b !important;
+    mat-panel-title, .mat-expansion-indicator::after{
+      color: white !important;
+    }
+  }
+  .color-blue{
+    color:  #467f8b !important;
+    font-size: 12px;
+  }
+
+  .mat-expansion-panel-body{
+    border: 1px solid #467f8b;
+  }
+  .mat-step-header .mat-step-icon{
+    background-color: #467f8b !important;
+  }
+  .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    color: #467f8b !important;
+
+  }
+  .box-card{
+    background: #ffffff;
+    border-left: 5px solid #fff;
+    margin-bottom: 15px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .summary-details {
+    .sub-title {
+      font-size: 14px;
+    }
+    .box-card {
+      border: none;
+    }
+    h6 {
+      text-align: center;
+      color: #467f8b;
+    }
+    h5 {
+      background: #467f8b;
+      color: #fff;
+      padding: 8px;
+      margin-bottom: 0;
+    }
+    li{
+      padding-bottom: 8px;
+      margin-right: 10px;
+
+      strong{
+        width: 180px;
+        float: left;
+      }
+    }
+  }
+}
 
 
 .tavelProposal{
@@ -2713,11 +2794,18 @@ fieldset {
     margin-top: 6px !important;
   }
   .mat-tab-group {
-    background: #6bc3e4 !important;
+    background:linear-gradient(to top, #E2C582 50%, #8AC2E7 100%) !important;;
+    color: #fff;
   }
   .mat-tab-label-active {
     background-color: #ffffff !important;
-    color: #201f1f !important;
+    color: #9769DF !important;
+  }
+  .mat-radio-outer-circle{
+    border-color : #fff !important;
+  }
+  .mat-checkbox-frame {
+    border-color: #fff !important;
   }
   .travel-box {
     border: 1px solid gray !important;
@@ -2742,7 +2830,7 @@ fieldset {
       display: none;
     }
     .travel{
-      background: #6bc3e4;
+      background: linear-gradient(to top, #E2C582 0%, #8AC2E7 100%) !important;
       padding:15px;
       border-radius: 5px;
       button{
@@ -2754,6 +2842,19 @@ fieldset {
         }
       }
     }
+  .travel1{
+    background: #8AC2E7;
+    padding:15px;
+    border-radius: 5px;
+    button{
+      line-height: 28px;
+      font-size: 10px;
+      padding: 0 10px;
+      i{
+        font-size: 18px;
+      }
+    }
+  }
     thead th{
       background: #7dc3e0 !important;
     }
@@ -3155,7 +3256,7 @@ fieldset {
 }
 .pa-home {
   .text-color {
-    color: #EF0034 !important;
+    color: #D92D32 !important;
 
   }
 }

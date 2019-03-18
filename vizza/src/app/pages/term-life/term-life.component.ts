@@ -46,7 +46,7 @@ export class TermLifeComponent implements OnInit {
             'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             'pincode': ['', Validators.compose([Validators.required])],
             'insurance': ['', Validators.compose([Validators.required])],
-            'appointmentwith': ['', Validators.compose([Validators.required])]
+            'appointmentwith': ['', Validators.compose([Validators.required])],
         });
         this.TermLife = this.fb.group({
             'lifedob': ['', Validators.required],
@@ -55,6 +55,7 @@ export class TermLifeComponent implements OnInit {
             'lifePolicy': ['', Validators.required],
             'lifePayment': ['', Validators.required],
             'lifePincode': ['', Validators.compose([Validators.required])],
+            'lifesmoker' : false
 
         });
         this.productName = '';
@@ -167,7 +168,7 @@ export class TermLifeComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h4 class="text-center" style="color: #A521B3 "><img src="assets/img/term-life-insurance.png" class="logo-size"> About Term Life Insurance</h4>
+                <h4 class="text-center" style="color: #9ECB3B "><img src="assets/img/term-life-insurance.png" class="logo-size"> About Term Life Insurance</h4>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
