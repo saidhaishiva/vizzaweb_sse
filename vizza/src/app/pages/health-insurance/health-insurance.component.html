@@ -1,8 +1,8 @@
 <!--new-->
 
 
-<div class="container dashboard h-100" *ngIf="firstPage">
-  <div class="row ">
+<div class="container dashboard h-100" fxLayoutAlign="start start" *ngIf="firstPage">
+  <div class="row my-flex-card">
     <h3 class="w-100 text-center color-pink mb-3"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
     <div class="col-md-6 col-sm-12 col-xs-12 ">
       <div class="card-block">
@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-md-6 col-sm-12 col-xs-12" >
-      <mat-card class="p-4" style="background: linear-gradient(to top, #ccccff 0%, #ffccff 100%) !important;">
+      <mat-card class="p-4" style="background: linear-gradient(to top, #A4AEDD 0%, #F285C0 100%) !important;">
         <h4 class=" text-center">Get Instant Quotes</h4>
         <div class="w-100 mb-2 son" >
           <div id="clonehead">
@@ -63,7 +63,7 @@
 
 
 <!--second page-->
-<div class="row " id="product-list" fxLayoutAlign="center start">
+<div class="row" id="product-list" fxLayoutAlign="start start">
   <div class="col-sm-12">
     <div fxLayout="column" *ngIf="secondPage">
       <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">

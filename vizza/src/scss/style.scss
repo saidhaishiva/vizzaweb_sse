@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Parisienne');
 $theme-color:#02810E;
 $green-color:#18CCB4;
-$pink-color:#F50091;
+$pink-color:#D5528E;
 $light-green:#2FE827;
 *{
   outline: none;
@@ -2713,11 +2713,18 @@ fieldset {
     margin-top: 6px !important;
   }
   .mat-tab-group {
-    background: #6bc3e4 !important;
+    background:linear-gradient(to top, #E2C582 50%, #8AC2E7 100%) !important;;
+    color: #fff;
   }
   .mat-tab-label-active {
     background-color: #ffffff !important;
-    color: #201f1f !important;
+    color: #9769DF !important;
+  }
+  .mat-radio-outer-circle{
+    border-color : #fff !important;
+  }
+  .mat-checkbox-frame {
+    border-color: #fff !important;
   }
   .travel-box {
     border: 1px solid gray !important;
@@ -2742,7 +2749,7 @@ fieldset {
       display: none;
     }
     .travel{
-      background: #6bc3e4;
+      background: linear-gradient(to top, #E2C582 0%, #8AC2E7 100%) !important;
       padding:15px;
       border-radius: 5px;
       button{
@@ -2754,6 +2761,19 @@ fieldset {
         }
       }
     }
+  .travel1{
+    background: #8AC2E7;
+    padding:15px;
+    border-radius: 5px;
+    button{
+      line-height: 28px;
+      font-size: 10px;
+      padding: 0 10px;
+      i{
+        font-size: 18px;
+      }
+    }
+  }
     thead th{
       background: #7dc3e0 !important;
     }
@@ -3155,7 +3175,7 @@ fieldset {
 }
 .pa-home {
   .text-color {
-    color: #EF0034 !important;
+    color: #D92D32 !important;
 
   }
 }

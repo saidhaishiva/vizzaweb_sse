@@ -1,6 +1,6 @@
 <div class="container dashboard" fxLayoutAlign="start start">
   <div class="row my-flex-card">
-    <h2 class="w-100 text-center" fxLayoutAlign="center center" style="color:#00FB88;"><img src="assets/img/car-insurance.png" class="logo-size">&nbsp;Motor Car Insurance</h2>
+    <h2 class="w-100 text-center" fxLayoutAlign="center center" style="color:#22B9C6;"><img src="assets/img/car-insurance.png" class="logo-size">&nbsp;Motor Car Insurance</h2>
    <!--<div fxLayout="row" fxLayoutAlign="center stretch">-->
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
@@ -17,8 +17,8 @@
     </div>
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
-        <div class="card-block">
-          <mat-card style="background:#00FB88 !important; color: #fff;">
+        <div class="card-block AllFormView">
+          <mat-card class="p-4" style="background: linear-gradient(to top, #1DBAC7 0%, #83D0DF 100%) !important; color:#fff;">
             <h2 class="w-100 text-center" >Let us assist you</h2>
             <form [formGroup]="carapp">
 
@@ -76,7 +76,7 @@
                     <mat-icon matSuffix>email</mat-icon>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="w-100">
                     <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
                     <mat-error *ngIf="carapp.controls.pincode.errors?.required">Pincode is required</mat-error>
@@ -86,7 +86,7 @@
                     <mat-icon matSuffix>place</mat-icon>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="w-100">
                     <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
                       <mat-option value="call">Call</mat-option>
@@ -111,7 +111,7 @@
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!carapp.valid ) || (!pincodeErrors)" (click)="carKeeper(carapp.value)">Submit</button>
-                  <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
+                  <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
             </form>
