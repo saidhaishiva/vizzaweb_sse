@@ -49,7 +49,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate" required>
+                            <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="insured.controls.insuredPaDob.errors?.required">DOB is required</mat-error>
