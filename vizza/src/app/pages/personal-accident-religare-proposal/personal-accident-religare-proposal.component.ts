@@ -431,12 +431,17 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             } else {
                 this.insuremobileNumber = 'true';
             }
-            if (sessionStorage.insureoccupationDescription != '' && sessionStorage.insureoccupationDescription != undefined) {
-                 this.insureoccupationDescription = sessionStorage.insureoccupationDescription;
+
+            if (this.getStepper2.insuredDescriptionCode == 'C5') {
+                if (sessionStorage.insureoccupationDescription != '' && sessionStorage.insureoccupationDescription != undefined) {
+                    this.insureoccupationDescription = sessionStorage.insureoccupationDescription;
+                }
+            } else {
+                if (sessionStorage.insureoccupationClass != '' && sessionStorage.insureoccupationClass != undefined) {
+                    this.insureoccupationClass = sessionStorage.insureoccupationClass;
+                }
             }
-            if (sessionStorage.insureoccupationClass != '' && sessionStorage.insureoccupationClass != undefined) {
-                this.insureoccupationClass = sessionStorage.insureoccupationClass;
-            }
+
 
 
 // nominee
@@ -888,17 +893,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     setinsureDescriptionListCode() {
         if (this.insured.controls['insuredDescriptionCode'].value == 'C5') {
             this.insureoccupationDescription = true;
-            if( this.insureoccupationDescription ){
-                this.insuredDescriptionValidator = true
-                this.insured.controls['insuredDescription'].setValidators([Validators.required]);
-            } else {
-                this.insuredDescriptionValidator = true
-                this.insured.controls['insuredDescription'].setValidators(null);
-
-            }
-
             this.insureoccupationClass = false;
-
+            if(this.insureoccupationDescription){
+                this.insuredDescriptionValidator = true;
+            } else {
+                this.insuredDescriptionValidator = false;
+            }
         } else {
             this.insureoccupationDescription = false;
             this.insureoccupationClass = true;
