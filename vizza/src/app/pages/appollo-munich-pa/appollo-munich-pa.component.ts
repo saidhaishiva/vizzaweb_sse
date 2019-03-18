@@ -1455,7 +1455,7 @@ preInsureList() {
                         if (this.BMI >= 12 && this.BMI <= 39 ){
                             stepper.next();
                         } else {
-                            this.toastr.error('BMI Range should be greater than 12 and less than 39 or greater than 18 and less than 28 ');
+                            this.toastr.error('For Age less than 15, BMI range should be greater than 12 and less than 39.');
 
                         }
                     }
@@ -1463,7 +1463,7 @@ preInsureList() {
                         if (this.BMI >= 18 && this.BMI <= 28.99) {
                             stepper.next();
                         } else {
-                            this.toastr.error('BMI Range should be greater than 12 and less than 39 or greater than 18 and less than 28 ');
+                            this.toastr.error('For Age above 18, BMI range should be greater than 18 and less than 28. ');
                         }
                     }
                 }
