@@ -415,7 +415,12 @@ export class PersonalaccidentComponent implements OnInit {
         } else {
             this.ageerror = false;
         }
-        if (this.AnnualIncomeP != '' && this.AnnualIncomeP != undefined && this.selectedProfession != '' && this.selectedProfession != undefined && this.pincoceP != '' && this.pincoceP != undefined) {
+        console.log(this.pinerror);
+        console.log(this.professionerr);
+        console.log(this.occerror);
+        console.log(this.annualerror);
+        console.log(this.ageerror);
+        if (!this.pinerror && !this.professionerr && !this.occerror && !this.annualerror && !this.ageerror) {
             const data = {
                 "platform": "web",
                 "insurance_type": "2",

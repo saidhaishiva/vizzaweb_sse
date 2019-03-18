@@ -1,10 +1,10 @@
 <div class="container-fluid">
-  <div class="row proposal">
+  <div class="row iffcoHealthProposal">
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="proposer">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
+          <mat-accordion class="mt-2 w-100 float-left">
             <form [formGroup]="proposer" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
@@ -12,7 +12,6 @@
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green">PROPOSER DETAILS</h6>
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -26,14 +25,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="proposerFirstname" maxlength="30" (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="proposerFirstname" maxlength="23" (keypress)="nameValidate($event)"  autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.proposerFirstname.errors?.required">First Name is required</mat-error>
-                          <!--<mat-error *ngIf="proposer.controls.proposerFirstname.hasError('pattern')">Beginning space not allowed</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="proposerLastname" maxlength="30"  (keypress)="nameValidate($event)"   autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="proposerLastname" maxlength="23"  (keypress)="nameValidate($event)"   autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.proposerLastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -114,7 +112,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Emergency Contact Name"   maxlength="30"  formControlName="proposerEmergencyName" required (keypress)="nameValidate($event)"  autocomplete="off">
+                          <input matInput placeholder="Emergency Contact Name"   maxlength="23"  formControlName="proposerEmergencyName" required (keypress)="nameValidate($event)"  autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -154,7 +152,6 @@
                   </div>
 
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-green"> PROPOSER COMMUNICATION ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-3">
                         <p>Address Type:</p>
@@ -242,7 +239,6 @@
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
                   <div class="row mt-3">
                     <div class="col-md-12 box-card pt-3">
-                      <h6 class="color-green">INSURED DETAILS</h6>
                       <div class="row">
                         <div class="col-md-12 mb-3" *ngIf="i == 0">
                           <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
@@ -391,18 +387,8 @@
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <h6 class="color-green mb-3">NOMINEE DETAILS </h6>
                   <form [formGroup]="nomineeDetails">
                     <div class="row">
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Title" formControlName="nomineeTitle" required>-->
-                            <!--<mat-option value="MR">Mr</mat-option>-->
-                            <!--<mat-option value="MS">Ms</mat-option>-->
-                          <!--</mat-select>-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetails.controls.nomineeTitle.errors?.required">Title is required</mat-error>&ndash;&gt;-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Nominee Name"  formControlName="nomineeFirstName" autocomplete="off" required>
