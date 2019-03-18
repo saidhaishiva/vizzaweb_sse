@@ -251,7 +251,7 @@ import {LifeViewDetailsComponent} from './pages/endowment-life-insurance/life-vi
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ClearSessionPaService} from './shared/services/clear-session-pa.service';
 import { TermLifeComponent } from './pages/term-life/term-life.component';
-// import { IffcoTokioHealthPayamentSuccessComponent } from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
+import { IffcoTokioHealthPayamentSuccessComponent } from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
 
 @NgModule({
   imports: [
@@ -465,7 +465,7 @@ import { TermLifeComponent } from './pages/term-life/term-life.component';
       LifeCallBackComponent,
       LifeViewDetailsComponent,
       TermLifeComponent,
-      // IffcoTokioHealthPayamentSuccessComponent,
+      IffcoTokioHealthPayamentSuccessComponent,
 
   ],
   providers: [
