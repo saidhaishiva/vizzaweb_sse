@@ -502,7 +502,7 @@
                   <div class="p-3">
                     <h6>PROPOSER COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address Type:</strong> {{personalFormData.typeAddress}}</li>
+                      <li class="list-group-item"><strong>Address Type:</strong> <span *ngIf="personalFormData.typeAddress == 'P'">Postal</span><span *ngIf="personalFormData.typeAddress == 'R'">Residential</span><span *ngIf="personalFormData.typeAddress == 'B'">Business</span></li>
                       <li class="list-group-item"><strong>Address 1:</strong> {{personalFormData.proposerAddress}}</li>
                       <li class="list-group-item"><strong>Address 2:</strong> {{personalFormData.proposerAddress2}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerAddress3 !=''"><strong>Address 3:</strong> {{personalFormData.proposerAddress3}}</li>
