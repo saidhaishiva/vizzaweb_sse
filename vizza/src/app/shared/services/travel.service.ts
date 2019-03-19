@@ -382,7 +382,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'hdfc/create_proposal_details' ;
+        const url = this.configurationService.getHostTravel() + 'hdfc/createProposal' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -430,7 +430,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'hdfc/ped_lists' ;
+        const url = this.configurationService.getHostTravel() + 'hdfc/pedList' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
