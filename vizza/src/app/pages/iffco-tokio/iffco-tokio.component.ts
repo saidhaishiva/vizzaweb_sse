@@ -202,17 +202,17 @@ export class IffcoTokioComponent implements OnInit {
 
     changeGender() {
         if (this.proposer.controls['proposerTitle'].value == 'MR') {
-            this.proposer.controls['proposerGender'].patchValue('M');
+            this.proposer.controls['proposerGender'].patchValue('Male');
         } else {
-            this.proposer.controls['proposerGender'].patchValue('F');
+            this.proposer.controls['proposerGender'].patchValue('Female');
         }
     }
 
     insureChangeGender(index) {
         if (this.insureArray['controls'].items['controls'][index]['controls'].proposerTitle.value == 'MR') {
-            this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('M');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Male');
         } else {
-            this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('F');
+            this.insureArray['controls'].items['controls'][index]['controls'].proposerGender.patchValue('Female');
         }
     }
 
@@ -717,7 +717,7 @@ export class IffcoTokioComponent implements OnInit {
                     'Age': this.insuredDetails.items[i].proposerAge,
                     'DateOfBirth': this.insuredDetails.items[i].proposerDob,
                     'FirstName': this.insuredDetails.items[i].proposerFirstname,
-                    'Gender': this.insuredDetails.items[i].proposerGender,
+                    'Gender': this.insuredDetails.items[i].proposerGender == 'Male' ? 'M' : 'F',
                     'Height': this.insuredDetails.items[i].proposerHeight,
                     'Weight': this.insuredDetails.items[i].proposerWeight,
                     'GrossMonthlyIncome': "",
@@ -823,7 +823,7 @@ export class IffcoTokioComponent implements OnInit {
                 'Salutation': this.proposer.controls['proposerTitle'].value,
                 'FirstName': this.proposer.controls['proposerFirstname'].value,
                 'LastName': this.proposer.controls['proposerLastname'].value,
-                'Sex': this.proposer.controls['proposerGender'].value,
+                'Sex': this.proposer.controls['proposerGender'].value == 'Male'? 'M' : 'F',
                 'AddressType': this.proposer.controls['typeAddress'].value,
                 'PinCode': this.proposer.controls['proposerPincode'].value,
                 'State': this.proposer.controls['proposerState'].value,
