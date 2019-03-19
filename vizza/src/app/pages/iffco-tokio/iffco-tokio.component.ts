@@ -117,6 +117,7 @@ export class IffcoTokioComponent implements OnInit {
     public xmlData: any;
     public nomineecityDetails: any;
     public xmlString: any;
+    public numberValidateErr: boolean;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, public validation: ValidationService, public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -143,6 +144,7 @@ export class IffcoTokioComponent implements OnInit {
         this.step = 0;
         this.totalInsureDetails = [];
         this.insuredData = [];
+        this.arr = [];
 
         this.smokeList = false;
         this.tobacoList = false;
@@ -241,6 +243,7 @@ export class IffcoTokioComponent implements OnInit {
         console.log(this.personalFormData,'1');
         console.log(this.insuredFormData,'2');
         console.log(this.nomineeFormData,'3');
+        this.numberValidateErr = false;
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
@@ -250,12 +253,7 @@ export class IffcoTokioComponent implements OnInit {
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
-        // let family_members = [{'type':'Self', 'age': '25'}];
-        // for (let i = 0; i < family_members.length; i++) {
-        //     this.items = this.insureArray.get('items') as FormArray;
-        //     this.items.push(this.initItemRows());
-        //     this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(family_members[i].type);
-        // }
+
         for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
@@ -266,8 +264,6 @@ export class IffcoTokioComponent implements OnInit {
         this.stateList();
         this.sessionData();
         console.log(this.proposer.controls['proposerState'].value,'stateee');
-        // this.setDate = Date.now();
-        // this.setDate = this.datepipe.transform(this.setDate, 'dd-MM-y');
     }
 
 
@@ -449,6 +445,16 @@ export class IffcoTokioComponent implements OnInit {
     public nomineecityListFailure(error) {
     }
 
+    checkMobileNumber(value){
+        if(value.length == 10) {
+            if(this.proposer.controls['proposerEmergencyMobile'].value == this.proposer.controls['proposerMobile'].value) {
+                this.numberValidateErr = true;
+            } else {
+                this.numberValidateErr = false;
+            }
+        }
+    }
+
     addEvent(event, type) {
         if (event.value != null) {
             let selectedDate = '';
@@ -522,7 +528,6 @@ export class IffcoTokioComponent implements OnInit {
 
                 } else {
                     if (name == 'startDate') {
-                        this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue('Enter Valid Date');
                     } else {
                         this.insureArray['controls'].items['controls'][i]['controls'].proposerAge.patchValue('');
                     }
@@ -602,25 +607,25 @@ export class IffcoTokioComponent implements OnInit {
         console.log(type, 'type');
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'days');
 
-        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 55 && type == 'Self')) {
+        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Self') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Self')) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age between 18 to 55');
         } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Self') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 55 && type == 'Spouse')) {
+        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Spouse')) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age between 18 to 55');
             // this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
         } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Spouse') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        let smallest = this.arr[0];
-        for (let i = 1; i < this.arr.length; i++) {
-            if (this.arr[i] < smallest) {
-                smallest = this.arr[i];
-            }
-        }
+        // let smallest = this.arr[0];
+        // for (let i = 1; i < this.arr.length; i++) {
+        //     if (this.arr[i] < smallest) {
+        //         smallest = this.arr[i];
+        //     }
+        // }
 
 
         if (this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Son') {
@@ -739,8 +744,22 @@ export class IffcoTokioComponent implements OnInit {
             }
             console.log(this.insuredData,'data');
 
-            stepper.next();
-            this.topScroll();
+
+             let ageValidate = [];
+            for (let i = 0; i< this.insuredDetails.items.length; i++){
+                if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
+                    ageValidate.push(1);
+                } else{
+                    ageValidate.push(0);
+                }
+            }
+
+             if(!ageValidate.includes(1)) {
+                 stepper.next();
+                 this.topScroll();
+             }
+
+
         }
     }
 
@@ -754,9 +773,6 @@ export class IffcoTokioComponent implements OnInit {
     }
     pincodevalidationiffco(pin) {
         this.pin = pin;
-        if (pin == '') {
-            this.pincodeValid = true;
-        }
         const data = {
             'platform': 'web',
             'user_id': '0',
@@ -776,10 +792,8 @@ export class IffcoTokioComponent implements OnInit {
     }
     public pincodeSuccess(successData) {
         if (successData.IsSuccess) {
-            this.pincodeValid = true;
         } else {
-            this.pincodeValid = false;
-            this.toastr.error(successData.ErrorObject);
+            this.toastr.error('sorry!,Pls Enter Valid Pin Code');
         }
         sessionStorage.pincodeValidiffco = this.pincodeValid;
     }
@@ -1054,6 +1068,12 @@ export class IffcoTokioComponent implements OnInit {
 
             let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
             this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
+
+            if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('Age between 18 to 55');
+            } else {
+                this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
+            }
         } else {
             this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
             this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue('');
