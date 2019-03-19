@@ -177,10 +177,10 @@ export class IffcoTokioComponent implements OnInit {
             proposerCity: '',
             proposerCityName: '',
             typeAddress: '',
-            criticalIllness: 'No',
-            roomRentWaiver: 'No',
-            additionalFacts: 'No',
-            pastInsuranceDeclined: 'No',
+            criticalIllness: 'N',
+            roomRentWaiver: 'N',
+            additionalFacts: 'N',
+            pastInsuranceDeclined: 'N',
             sameas: false,
             rolecd: 'PROPOSER',
             type: ''
@@ -294,10 +294,10 @@ export class IffcoTokioComponent implements OnInit {
                 proposerOccupation: '',
                 proposerHeight: ['', Validators.required],
                 proposerWeight: ['', Validators.required],
-                PreExistingDisease: 'No',
-                Smoke: 'No',
-                Alcohol: 'No',
-                Tobacco: 'No',
+                PreExistingDisease: 'N',
+                Smoke: 'N',
+                Alcohol: 'N',
+                Tobacco: 'N',
                 smokeQuantity: '',
                 alcoholQuantity: '',
                 tobaccoQuantity: '',
@@ -569,10 +569,14 @@ export class IffcoTokioComponent implements OnInit {
         if (this.insureArray['controls'].items['controls'][0]['controls'].Smoke.value == 'Y' && type == 'smoke') {
             this.smokeList = true;
         } else if (this.insureArray['controls'].items['controls'][0]['controls'].Alcohol.value == 'Y' && type == 'alcohol') {
-            this.tobacoList = true;
-
-        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Tobacco.value == 'Y' && type == 'Tobacco') {
             this.alchocolList = true;
+        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Tobacco.value == 'Y' && type == 'Tobacco') {
+            this.tobacoList = true;
+        } else {
+            this.smokeList = false;
+            this.alchocolList = false;
+            this.tobacoList = false;
+
         }
     }
 
@@ -587,13 +591,13 @@ export class IffcoTokioComponent implements OnInit {
         console.log(type, 'type');
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'days');
 
-        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Self') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Self')) {
+        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 55 && type == 'Self')) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age between 18 to 55');
         } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Self') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
-        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Spouse')) {
+        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 55 && type == 'Spouse')) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age between 18 to 55');
             // this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
         } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Spouse') {
@@ -676,16 +680,19 @@ export class IffcoTokioComponent implements OnInit {
         sessionStorage.stepper1IffcoDetails = '';
         sessionStorage.stepper1IffcoDetails = JSON.stringify(value);
         if (this.proposer.valid) {
-            if (sessionStorage.proposerAgeiffco >= 18) {
+            if (sessionStorage.proposerAgeiffco >= 18 && sessionStorage.proposerAgeiffco <= 55) {
                 stepper.next();
+                this.topScroll();
             } else {
-                this.toastr.error('Proposer age should be 18 or above');
+                this.toastr.error('Proposer age should be  greater than 18 and lesser than equal to 55');
             }
         } else {
-            this.toastr.error('please enter all filed');
+            this.toastr.error('Please enter all fields');
         }
     }
-
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
     iffcoInsureDetails(stepper: MatStepper, index,value) {
         sessionStorage.stepper2IffcoDetails = '';
         sessionStorage.stepper2IffcoDetails = JSON.stringify(value);
@@ -722,6 +729,7 @@ export class IffcoTokioComponent implements OnInit {
             console.log(this.insuredData,'data');
 
             stepper.next();
+            this.topScroll();
         }
     }
 
