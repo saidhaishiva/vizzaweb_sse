@@ -565,20 +565,31 @@ export class IffcoTokioComponent implements OnInit {
     }
 
 
-    smoking(value, type) {
-        if (this.insureArray['controls'].items['controls'][0]['controls'].Smoke.value == 'Y' && type == 'smoke') {
+    smoking(value) {
+        if (this.insureArray['controls'].items['controls'][0]['controls'].Smoke.value == 'Y') {
             this.smokeList = true;
-        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Alcohol.value == 'Y' && type == 'alcohol') {
-            this.alchocolList = true;
-        } else if (this.insureArray['controls'].items['controls'][0]['controls'].Tobacco.value == 'Y' && type == 'Tobacco') {
-            this.tobacoList = true;
         } else {
             this.smokeList = false;
-            this.alchocolList = false;
-            this.tobacoList = false;
-
         }
     }
+        alcohol(value){
+            if (this.insureArray['controls'].items['controls'][0]['controls'].Alcohol.value == 'Y') {
+                this.alchocolList = true;
+            } else {
+                this.alchocolList = false;
+
+            }
+        }
+        tovacco(value){
+            if (this.insureArray['controls'].items['controls'][0]['controls'].Tobacco.value == 'Y') {
+                this.tobacoList = true;
+            } else {
+                this.tobacoList = false;
+
+            }
+
+        }
+
 
     ageCalculateInsurer(getDays) {
         let a = moment(getDays, 'DD/MM/YYYY');

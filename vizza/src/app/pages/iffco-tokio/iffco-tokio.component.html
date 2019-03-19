@@ -129,7 +129,7 @@
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3">
-                        <p>RoomRent Waiver: <span class="error">*</span></p>
+                        <p>Room Rent Waiver: <span class="error">*</span></p>
                         <mat-radio-group formControlName="roomRentWaiver">
                           <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                           <mat-radio-button value="N">No</mat-radio-button>
@@ -143,7 +143,7 @@
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3">
-                        <p>PastInsurance Declined: <span class="error">*</span></p>
+                        <p>Past Insurance Declined: <span class="error">*</span></p>
                         <mat-radio-group formControlName="pastInsuranceDeclined">
                           <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                           <mat-radio-button value="N">No</mat-radio-button>
@@ -343,7 +343,7 @@
                         </div>
                         <div class="col-md-3" >
                           <p>Alcohol:  <span class="error">*</span></p>
-                          <mat-radio-group formControlName="Alcohol"  [required]="smokeList" (change)="smoking(event,'alcohol')">
+                          <mat-radio-group formControlName="Alcohol"  [required]="smokeList" (change)="alcohol(event)">
                             <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
@@ -355,7 +355,7 @@
                         </div>
                         <div class="col-md-3" >
                           <p>Tobacco:  <span class="error">*</span></p>
-                          <mat-radio-group formControlName="Tobacco" (change)="smoking(event,'Tobacco')">
+                          <mat-radio-group formControlName="Tobacco" (change)="tovacco(event)">
                             <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
@@ -385,7 +385,7 @@
           <mat-accordion class="mt-4 w-100 float-left">
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
-                <mat-panel-title> {{groupName}} </mat-panel-title>
+                <mat-panel-title> NOMINEE DETAILS </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3">
@@ -395,7 +395,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Nominee Name"  formControlName="nomineeFirstName" maxlength="30" autocomplete="off" required>
-                          <!--<mat-error *ngIf="nomineeDetails.controls.nomineeFirstName.errors?.required">First Name of Nominee is required</mat-error>-->
+                          <mat-error *ngIf="nomineeDetails.controls.nomineeFirstName.errors?.required">First Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
@@ -413,7 +413,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  minlength="6"   maxlength="6" (input)="pincodevalidationiffco($event.target.value)" formControlName="nomineePincode" autocomplete="off" required>
+                          <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  minlength="6"  (keypress)="numberValidate($event)"   maxlength="6" (input)="pincodevalidationiffco($event.target.value)" formControlName="nomineePincode" autocomplete="off" required>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('required')">Pincode required</mat-error>
                           <mat-error *ngIf="nomineeDetails.controls.nomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -456,8 +456,9 @@
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{policy.NetPremiumPayable}}</span> /</li>
-                  <!--<li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.Premium.FinalPremium}}</span> </li>-->
+                  <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{policy.NetPremiumPayable}}</span> /</li>
+                  <li><span>Gross Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{policy.GrossPremium}}</span> </li>
+                  <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{policy.ServiceTax}}</span> </li>
                   <li></li>
                 </ul>
               </div>
@@ -493,7 +494,7 @@
                       <li class="list-group-item"><strong>Past Insurance Declined:</strong><span *ngIf="personalFormData.pastInsuranceDeclined == 'N'">No</span><span *ngIf="personalFormData.pastInsuranceDeclined == 'Y'">Yes</span></li>
                       <li class="list-group-item"><strong>RoomRent Waiver:</strong><span *ngIf="personalFormData.roomRentWaiver == 'N'">No</span><span *ngIf="personalFormData.roomRentWaiver == 'Y'">Yes</span></li>
                       <li class="list-group-item"><strong>Critical Illness:</strong><span *ngIf="personalFormData.criticalIllness == 'N'">No</span><span *ngIf="personalFormData.criticalIllness == 'Y'">Yes</span></li>
-                      <li class="list-group-item"><strong>Additional Facts:</strong> {{personalFormData.additionalFacts}}</li>
+                      <li class="list-group-item"><strong>Additional Facts:</strong><span *ngIf="personalFormData.additionalFacts == 'N'">No</span><span *ngIf="personalFormData.additionalFacts == 'Y'">Yes</span></li>
                     </ul>
                   </div>
                 </div>
@@ -538,9 +539,9 @@
                       <li class="list-group-item"><strong >Existing Illness:  </strong> {{items.PreExistingDisease}}</li>
                       <li class="list-group-item"><strong>Height:</strong> {{items.Height}}</li>
                       <li class="list-group-item"><strong>Weight:</strong> {{items.Weight}}</li>
-                      <li class="list-group-item"><strong>smoke:</strong> {{items.Smoke}}</li>
-                      <li class="list-group-item"><strong>Alcohol:</strong> {{items.Alcohol}}</li>
-                      <li class="list-group-item"><strong>Tobacco:</strong> {{items.Tobacco}}</li>
+                      <li class="list-group-item"><strong>smoke:</strong><span *ngIf="items.Smoke == 'N'">No</span><span *ngIf="items.Smoke == 'Y'">Yes</span></li>
+                      <li class="list-group-item"><strong>Alcohol:</strong><span *ngIf="items.Alcohol == 'N'">No</span><span *ngIf="items.Alcohol == 'Y'">Yes</span> </li>
+                      <li class="list-group-item"><strong>Tobacco:</strong><span *ngIf="items.Tobacco == 'N'">No</span><span *ngIf="items.Tobacco == 'Y'">Yes</span></li>
                       <!--<li class="list-group-item"><strong>Smoke Quantity:</strong> {{item.SmokeQuantity}}</li>-->
                       <!--<li class="list-group-item"><strong>Alcohol Quantity:</strong> {{item.AlcoholQuantity}}</li>-->
                       <!--<li class="list-group-item"><strong>Tobacco Quantity:</strong> {{item.TobaccoQuantity}}</li>-->
