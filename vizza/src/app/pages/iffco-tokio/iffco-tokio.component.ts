@@ -875,7 +875,6 @@ export class IffcoTokioComponent implements OnInit {
             sessionStorage.iffco_health_proposal_id = this.proposalId;
             this.proposer.controls['proposerOccupationName'].patchValue(this.occupationDetails[this.proposer.controls['proposerOccupation'].value]);
             console.log(this.proposer.controls['proposerOccupationName'].value,'uytiyu');
-            // this.proposer.controls['proposerMarital'].patchValue(this.occupationDetails[this.proposer.controls['proposerMaritalStatus'].value]);
             this.proposer.controls['proposerStateName'].patchValue(this.stateDetails[this.proposer.controls['proposerState'].value]);
             this.proposer.controls['proposerCityName'].patchValue(this.cityDetails[this.proposer.controls['proposerCity'].value]);
             // this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
@@ -908,6 +907,14 @@ export class IffcoTokioComponent implements OnInit {
     //
     //     return xml;
     // }
+
+
+    stateListname(){
+        this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
+    }
+    cityListname(){
+        this.nomineeDetails.controls['nomineeCityName'].patchValue(this.cityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+    }
     public objectToXml(xmlData){
         var xml = '';
         let prop: any;
@@ -971,6 +978,7 @@ export class IffcoTokioComponent implements OnInit {
                 proposerEmergencyMobile: this.getStepper1.proposerEmergencyMobile,
                 proposerEmergencyName: this.getStepper1.proposerEmergencyName,
                 proposerMaritalStatus: this.getStepper1.proposerMaritalStatus,
+                proposerMarital: this.getStepper1.proposerMarital,
                 criticalIllness: this.getStepper1.criticalIllness,
                 roomRentWaiver: this.getStepper1.roomRentWaiver,
                 additionalFacts: this.getStepper1.additionalFacts,
@@ -1060,4 +1068,5 @@ export class IffcoTokioComponent implements OnInit {
             // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue('');
         }
     }
+
 }

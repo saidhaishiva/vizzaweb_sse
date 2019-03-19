@@ -61,7 +61,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Marital Status" formControlName="proposerMaritalStatus"  required class="w-100">
+                          <mat-select  placeholder="Marital Status" formControlName="proposerMaritalStatus" (change)="maritalName()" required class="w-100">
                               <mat-option value="M">Married</mat-option>
                               <mat-option value="U">Unmarried</mat-option>
                               <mat-option value="S">Single</mat-option>
@@ -218,7 +218,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field  class="w-100">
-                          <input matInput placeholder="Fax" formControlName="proposerFax" maxlength="20" autocomplete="off" >
+                          <input matInput placeholder="Fax" formControlName="proposerFax" maxlength="20" (keypress)="idValidate($event)" autocomplete="off" >
                         </mat-form-field>
                       </div>
                     </div>
@@ -338,7 +338,7 @@
                         </div>
                         <div class="col-md-3" *ngIf="smokeList">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Smoke Quantity" formControlName="smokeQuantity" [required]="smokeList" (keypress)="numberValidate($event)"  autocomplete="off">
+                            <input matInput placeholder="Smoke Quantity(Per Day)" formControlName="smokeQuantity" [required]="smokeList" (keypress)="numberValidate($event)"  autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" >
@@ -350,7 +350,7 @@
                         </div>
                         <div class="col-md-3" *ngIf="alchocolList" >
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Alcohol Quantity"   [required]="alchocolList"  (keypress)="numberValidate($event)" formControlName="alcoholQuantity" autocomplete="off">
+                            <input matInput placeholder="Alcohol Quantity(Per Day)"   [required]="alchocolList"  (keypress)="numberValidate($event)" formControlName="alcoholQuantity" autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" >
@@ -362,7 +362,7 @@
                         </div>
                         <div class="col-md-3" *ngIf="tobacoList">
                           <mat-form-field class="w-100">
-                            <textarea matInput placeholder="Tobacco Quantity" formControlName="tobaccoQuantity"  (keypress)="numberValidate($event)" [required]="tobacoList" autocomplete="off"></textarea>
+                            <textarea matInput placeholder="Tobacco Quantity(Per Day)" formControlName="tobaccoQuantity"  (keypress)="numberValidate($event)" [required]="tobacoList" autocomplete="off"></textarea>
                           </mat-form-field>
                         </div>
                       </div>
@@ -421,7 +421,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="State" formControlName="nomineeState"   class="w-100" required>
+                          <mat-select  placeholder="State" formControlName="nomineeState"   class="w-100" (change)="stateListname()"required>
                             <mat-option  *ngFor="let statedata of stateDetails | keys"  [value]= 'statedata.key'> {{statedata.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
@@ -429,7 +429,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field  class="w-100">
-                          <mat-select  placeholder="City" formControlName="nomineeCity"   class="w-100" required>
+                          <mat-select  placeholder="City" formControlName="nomineeCity" (change)="cityListname()"  class="w-100" required>
                             <mat-option  *ngFor="let citydata of cityDetails | keys"  [value]= 'citydata.key'> {{citydata.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>
@@ -478,7 +478,7 @@
                       <li class="list-group-item"  *ngIf="personalFormData.proposerHomePhone !=''"><strong>Home Phone Number:</strong> {{personalFormData.proposerHomePhone}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerOfficePhone !=''"><strong>Office Phone Number:</strong> {{personalFormData.proposerOfficePhone}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{personalFormData.proposerGender}}</li>
-                      <li class="list-group-item"><strong>Marital Status:</strong> {{personalFormData.proposerMaritalStatus}}</li>
+                      <li class="list-group-item"><strong>Marital Status:</strong><span *ngIf="personalFormData.proposerMaritalStatus == 'M'">Married</span><span *ngIf="personalFormData.proposerMaritalStatus == 'U'">Unmarried</span><span *ngIf="personalFormData.proposerMaritalStatus == 'S'">Single</span><span *ngIf="personalFormData.proposerMaritalStatus == 'N'">Not Known</span></li>
                     </ul>
                   </div>
                 </div>
@@ -525,7 +525,7 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{items.Salutation}}. {{items.FirstName}} {{items.LastName}}</li>
-                      <li class="list-group-item"><strong>Gender:</strong> {{items.Gender}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong><span *ngIf="items.Gender == 'M'">Male</span><span *ngIf="items.Gender == 'F'">Female</span></li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{items.DateOfBirth | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Age:</strong> {{items.Age}}</li>
                       <li class="list-group-item"><strong>Occupation:</strong> {{items.Occupation}}</li>
@@ -536,7 +536,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong >Existing Illness:  </strong> {{items.PreExistingDisease}}</li>
+                      <li class="list-group-item"><strong >Existing Illness:  </strong><span *ngIf="items.PreExistingDisease == 'N'">No</span> <span *ngIf="items.PreExistingDisease == 'Y'">Yes</span></li>
                       <li class="list-group-item"><strong>Height:</strong> {{items.Height}}</li>
                       <li class="list-group-item"><strong>Weight:</strong> {{items.Weight}}</li>
                       <li class="list-group-item"><strong>smoke:</strong><span *ngIf="items.Smoke == 'N'">No</span><span *ngIf="items.Smoke == 'Y'">Yes</span></li>
