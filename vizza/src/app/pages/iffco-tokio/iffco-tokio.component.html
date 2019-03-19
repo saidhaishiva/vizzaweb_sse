@@ -421,7 +421,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="State" formControlName="nomineeState"   class="w-100" (change)="stateList()"required>
+                          <mat-select  placeholder="State" formControlName="nomineeState"   class="w-100" (change)="stateListname()"required>
                             <mat-option  *ngFor="let statedata of stateDetails | keys"  [value]= 'statedata.key'> {{statedata.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
@@ -429,7 +429,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field  class="w-100">
-                          <mat-select  placeholder="City" formControlName="nomineeCity"   class="w-100" required>
+                          <mat-select  placeholder="City" formControlName="nomineeCity" (change)="cityListname()"  class="w-100" required>
                             <mat-option  *ngFor="let citydata of cityDetails | keys"  [value]= 'citydata.key'> {{citydata.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>

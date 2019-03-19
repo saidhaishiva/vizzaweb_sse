@@ -909,9 +909,12 @@ export class IffcoTokioComponent implements OnInit {
     // }
 
 
-    // stateList(){
-    //     this.nomineeData.nomineeState
-    // }
+    stateListname(){
+        this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
+    }
+    cityListname(){
+        this.nomineeDetails.controls['nomineeCityName'].patchValue(this.cityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+    }
     public objectToXml(xmlData){
         var xml = '';
         let prop: any;
