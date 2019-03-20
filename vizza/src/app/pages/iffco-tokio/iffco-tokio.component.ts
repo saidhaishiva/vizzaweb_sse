@@ -304,6 +304,7 @@ export class IffcoTokioComponent implements OnInit {
                 sameAsProposer: false,
                 sameas: false,
                 sameasreadonly:false,
+                personalHabits:false,
                 type: '',
                 ins_age: '',
                 ins_days: '',
@@ -606,26 +607,30 @@ export class IffcoTokioComponent implements OnInit {
 
     smoking(value,index) {
         if (this.insureArray['controls'].items['controls'][index]['controls'].Smoke.value == 'Y') {
-            this.smokeList = true;
+            this.insureArray['controls'].items['controls'][index]['controls'].personalHabits.patchValue(true);
+
         } else {
-            this.smokeList = false;
+            this.insureArray['controls'].items['controls'][index]['controls'].personalHabits.patchValue(false);
+
             this.insureArray['controls'].items['controls'][index]['controls'].smokeQuantity.patchValue('');
         }
     }
         alcohol(value,index){
             if (this.insureArray['controls'].items['controls'][index]['controls'].Alcohol.value == 'Y') {
-                this.alchocolList = true;
+                this.insureArray['controls'].items['controls'][index]['controls'].personalHabits.patchValue(true);
             } else {
-                this.alchocolList = false;
                 this.insureArray['controls'].items['controls'][index]['controls'].alcoholQuantity.patchValue('');
+                this.insureArray['controls'].items['controls'][index]['controls'].personalHabits.patchValue(false);
+
 
             }
         }
         tovacco(value,index){
             if (this.insureArray['controls'].items['controls'][index]['controls'].Tobacco.value == 'Y') {
-                this.tobacoList = true;
+                this.insureArray['controls'].items['controls'][index]['controls'].personalHabits.patchValue(true);
+
             } else {
-                this.tobacoList = false;
+                this.insureArray['controls'].items['controls'][index]['controls'].personalHabits.patchValue(false);
                 this.insureArray['controls'].items['controls'][index]['controls'].tobaccoQuantity.patchValue('');
 
             }
@@ -840,7 +845,7 @@ export class IffcoTokioComponent implements OnInit {
         // IHP FHP
         const data = {
             'enquiry_id':this.getFamilyDetails.enquiry_id,
-            'proposal_id': sessionStorage.iffco_health_proposal_id == '' || sessionStorage.iffco_health_proposal_id == undefined ? '' : sessionStorage.iffco_health_proposal_id,
+            'proposal_id': sessionStorage.iffco_health_proposal_id == '' || sessionStorage.iffco_health_proposal_id == "undefined" ? '' : sessionStorage.iffco_health_proposal_id,
             // 'proposal_id': 0,
             'product_id': this.buyProductdetails.product_id,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -1066,6 +1071,7 @@ export class IffcoTokioComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
                 this.insureArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getStepper2.items[i].ins_days);
                 this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
+                this.insureArray['controls'].items['controls'][i]['controls'].personalHabits.patchValue(this.getStepper2.items[i].personalHabits);
 
             }
         }
