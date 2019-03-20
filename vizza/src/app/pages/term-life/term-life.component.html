@@ -139,7 +139,7 @@
                 </div>
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker1" placeholder="Date Of Birth(DD/MM/YYY)" formControlName="lifedob" [max]="today" (keypress)="dobValidate($event)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                    <input matInput [matDatepicker]="picker1" placeholder="Date Of Birth(DD/MM/YYY)" formControlName="lifedob" [max]="today" (keypress)="dobValidate($event)" (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)" required>
                     <mat-error *ngIf="TermLife.controls.lifedob.errors?.required">Date Of Birth is required</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
@@ -148,29 +148,33 @@
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-select  placeholder="Gender" formControlName="lifeGender" required>
-                      <mat-option value="Mr.">Male</mat-option>
-                      <mat-option value="Ms.">Female</mat-option>
+                      <mat-option value="m">Male</mat-option>
+                      <mat-option value="f">Female</mat-option>
                     </mat-select>
                     <mat-error *ngIf="TermLife.controls.lifeGender.errors?.required">Gender is required</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Bemefit Term" formControlName="lifeBenefitTerm" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                    <input matInput placeholder="Benefit Term(in years)" formControlName="lifeBenefitTerm"  (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
                     <mat-error *ngIf="TermLife.controls.lifeBenefitTerm.errors?.required">Benefit Term is required</mat-error>
+                    <mat-error *ngIf="TermLife.controls.lifeBenefitTerm.value < 10">Benefit Term should be greater than or equla to 10</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Policy Paying Term" formControlName="lifePolicy" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                    <input matInput placeholder="Policy Paying Term(in years)" formControlName="lifePolicy"  (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
                     <mat-error *ngIf="TermLife.controls.lifePolicy.errors?.required">Policy Paying Term is required</mat-error>
+                    <mat-error *ngIf="TermLife.controls.lifePolicy.value < 10">Policy Paying Term should be greater than or equal to 10</mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
                     <mat-select  placeholder="Payment Mode" formControlName="lifePayment" required>
-                      <mat-option value="Monthly">Monthly</mat-option>
-                      <mat-option value="Yearly">Yearly</mat-option>
+                      <mat-option value="monthly">Monthly</mat-option>
+                      <mat-option value="quarterly">Quarterly</mat-option>
+                      <mat-option value="halfyearly">Half-yearly</mat-option>
+                      <mat-option value="yearly">Yearly</mat-option>
                     </mat-select>
                     <mat-error *ngIf="TermLife.controls.lifePayment.errors?.required">Payment Mode is required</mat-error>
                   </mat-form-field>
@@ -186,13 +190,90 @@
                   </mat-form-field>
                 </div>
                 <div fxLayoutAlign="center center" class="mt-1">
-                  <button mat-raised-button style="color:#fff; Background:#B12900; border: 1px solid #fff;"  class="ml-2 mr-2" type="button">Proceed</button>
+                  <button mat-raised-button style="color:#fff; Background:#B12900; border: 1px solid #fff;"  class="ml-2 mr-2" type="button" (click)="productListEnquiry()">Proceed</button>
                 </div>
               </form>
             </mat-card>
           </div>
         </div>
       </div>
+    <!--<div class="flex-p" >-->
+      <!--<table class="table health-table table-scroll healthScroll">-->
+        <!--<thead>-->
+        <!--<tr>-->
+          <!--<th class="col-md-2">-->
+            <!--<mat-form-field class="w-100">-->
+              <!--<mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>-->
+              <!--<mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>-->
+                <!--<mat-option value="All" >Select All</mat-option>-->
+
+                <!--<mat-select-trigger>-->
+                  <!--{{filterCompany ? filterCompany[0] : ''}}-->
+                  <!--<span *ngIf="filterCompany.length > 1" class="example-additional-selection">-->
+                        <!--(+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})-->
+                      <!--</span>-->
+                <!--</mat-select-trigger>-->
+
+                <!--<mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>-->
+              <!--</mat-select>-->
+            <!--</mat-form-field>-->
+          <!--</th>-->
+          <!--<th class="sun-insured healthScroll col-md-1">-->
+            <!--<mat-form-field >-->
+              <!--<mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>-->
+              <!--<mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">-->
+                <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>-->
+              <!--</mat-select>-->
+            <!--</mat-form-field>-->
+          <!--</th>-->
+          <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Copay</th>-->
+          <!--<th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Pre Existing Disease</th>-->
+          <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Pre Hospitalization</th>-->
+          <!--<th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Post Hospitalization</th>-->
+          <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Compare</th>-->
+          <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>-->
+          <!--<th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Buy</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
+        <!--<tbody>-->
+        <!--&lt;!&ndash;<tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index" [hidden]="changeSuninsuredAmount != getSumInsureId" >&ndash;&gt;-->
+        <!--<tr class="" *ngFor="let plists of allProductLists;let i = index" [hidden]="changeSuninsuredAmount != getSumInsureId" >-->
+          <!--<td align="center"  class="col-md-2 text-center">-->
+            <!--<img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">-->
+            <!--<p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>-->
+          <!--</td>-->
+          <!--<td  class="col-md-1">-->
+            <!--<p class="mt-4">&#8377; {{plists.suminsured_amount_format}}</p>-->
+          <!--</td>-->
+          <!--<td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3" class="col-md-1">-->
+            <!--<p class="text-center mt-4">{{keys.key_features_value}}</p>-->
+          <!--</td>-->
+          <!--<td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3" class="col-md-2">-->
+            <!--<p class="text-center mt-4">{{keys.key_features_value}}</p>-->
+          <!--</td>-->
+          <!--<td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3" class="col-md-1">-->
+            <!--<p class="text-center mt-4">{{keys.key_features_value}}</p>-->
+          <!--</td>-->
+          <!--<td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0" class="col-md-2">-->
+            <!--<p class="text-center mt-4">{{keys.key_features_value}}</p>-->
+          <!--</td>-->
+          <!--<td class="col-md-1 text-center">-->
+            <!--<p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)">Add to Compare</button></p>-->
+            <!--<p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>-->
+            <!--<p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>-->
+          <!--</td>-->
+          <!--<td class="col-md-1">-->
+            <!--<p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>-->
+            <!--<p class="text-center change-p">(Including GST)</p>-->
+          <!--</td>-->
+          <!--<td class="col-md-1">-->
+            <!--<p class="mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>-->
+          <!--</td>-->
+        <!--</tr>-->
+        <!--</tbody>-->
+      <!--</table>-->
+    <!--</div>-->
+
     <!--</div>-->
   </div>
 </div>
