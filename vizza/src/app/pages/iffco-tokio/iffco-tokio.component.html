@@ -61,7 +61,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Marital Status" formControlName="proposerMaritalStatus" (change)="maritalName()" required class="w-100">
+                          <mat-select  placeholder="Marital Status" formControlName="proposerMaritalStatus"  required class="w-100">
                               <mat-option value="M">Married</mat-option>
                               <mat-option value="U">Unmarried</mat-option>
                               <mat-option value="S">Single</mat-option>
@@ -113,12 +113,16 @@
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Emergency Contact Name"   maxlength="30"  formControlName="proposerEmergencyName" required (keypress)="nameValidate($event)"  autocomplete="off">
                           <mat-error *ngIf="proposer.controls.proposerEmergencyName.errors?.required">Emergency Name is required</mat-error>
+
+
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Emergency Contact Number" (keypress)="numberValidate($event)" (keyup)="checkMobileNumber($event.target.value)" required  maxlength="10"  formControlName="proposerEmergencyMobile"  autocomplete="off">
                           <mat-error *ngIf="proposer.controls.proposerEmergencyMobile.errors?.required">Emergency Mobile is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.proposerEmergencyMobile.hasError('pattern')">Enter Valid Emergency Mobile Number</mat-error>
+
                         </mat-form-field>
                         <div class="error" *ngIf="numberValidateErr">Emergency Number and Mobile Number should be different</div>
                       </div>
@@ -156,7 +160,7 @@
                   <div class="col-md-12 box-card pt-3">
                     <div class="row">
                       <div class="col-md-3">
-                        <p>Address Type:</p>
+                        <p>Address Type: <span class="error">*</span></p>
                         <mat-radio-group formControlName="typeAddress">
                           <mat-radio-button value="P" class="mr-2">Postal</mat-radio-button>
                           <mat-radio-button value="R" class="mr-2"> Residential</mat-radio-button>
@@ -248,7 +252,7 @@
                         <div class="col-md-12 mb-3" *ngIf="i == 0">
                           <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" required>
                               <mat-option value="MR">Mr</mat-option>
@@ -292,7 +296,7 @@
                             <mat-error *ngIf="insureArray.invalid">Age is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" required class="w-100">
                               <mat-option  *ngFor="let occupation of occupationDetails | keys"  [value]= 'occupation.key'> {{occupation.value}} </mat-option>
@@ -300,9 +304,9 @@
                             <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Proposer"  formControlName="proposerRelationship" required [disabled]="sameValue" >
+                            <mat-select placeholder="Relationship with Proposer"  formControlName="proposerRelationship" required >
                               <mat-option  *ngFor="let relation of relationshipDetails | keys"  [value]= 'relation.key'> {{relation.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -332,7 +336,7 @@
                         </div>
                         <div class="col-md-3">
                           <p>smoke: <span class="error">*</span></p>
-                          <mat-radio-group formControlName="Smoke" (change)="smoking($event,'smoke')">
+                          <mat-radio-group formControlName="Smoke" (change)="smoking($event,i)">
                             <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
@@ -344,7 +348,7 @@
                         </div>
                         <div class="col-md-3" >
                           <p>Alcohol:  <span class="error">*</span></p>
-                          <mat-radio-group formControlName="Alcohol"  (change)="alcohol($event)">
+                          <mat-radio-group formControlName="Alcohol"  (change)="alcohol($event,i)">
                             <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
@@ -356,7 +360,7 @@
                         </div>
                         <div class="col-md-3" >
                           <p>Tobacco:  <span class="error">*</span></p>
-                          <mat-radio-group formControlName="Tobacco" (change)="tovacco($event)">
+                          <mat-radio-group formControlName="Tobacco" (change)="tovacco($event,i)">
                             <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
@@ -422,7 +426,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="State" formControlName="nomineeState"   class="w-100" (change)="stateListname()"required>
+                          <mat-select  placeholder="State" formControlName="nomineeState" (change)="stateListname()"  class="w-100" required>
                             <mat-option  *ngFor="let statedata of stateDetails | keys"  [value]= 'statedata.key'> {{statedata.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
