@@ -58,7 +58,6 @@ export class TravelHdfcProposalComponent implements OnInit {
     public restrictiondetails: boolean;
     public getpedDetails: boolean;
     public arr: any;
-    public hdfcTravelProposerAge: any;
     public nomineeRelationshipDetails: any;
     public insuredTravelData: any;
     public summaryData: any;
@@ -91,13 +90,14 @@ export class TravelHdfcProposalComponent implements OnInit {
                 stepperindex = 2;
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
-                    this.fullName = this.summaryData.ProposalDetails.fname + ' ' + this.summaryData.ProposalDetails.lname;
-                    this.totalAmount = parseFloat(this.summaryData.ProposalDetails.totalPremium);
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                     sessionStorage.hdfc_Travel_proposal_id = this.summaryData.ProposalId;
                     this.hdfc_Travel_proposal_id = this.summaryData.ProposalId;
-                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                     this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
                     this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    this.fullName = this.proposerFormData.firstname + ' ' + this.proposerFormData.lastname;
+                    this.totalAmount = parseFloat(this.summaryData.totalPremium);
+
                 }
             }
         });
@@ -243,10 +243,8 @@ export class TravelHdfcProposalComponent implements OnInit {
             if (this.hdfcTravel2.items[0].sameAsProposer != '' && this.hdfcTravel2.items[0].sameAsProposer != undefined) {
                 this.sameasInsurerDetails();
             }
-
         }
         let insuretravelDetails = this.totalInsureDetails;
-
         if (sessionStorage.hdfcTravelDetails3 != '' && sessionStorage.hdfcTravelDetails3 != undefined) {
             this.hdfcTravel3 = JSON.parse(sessionStorage.hdfcTravelDetails3);
             this.nomineeTravelDetails = this.fb.group({
@@ -824,14 +822,15 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
-            this.fullName = this.summaryData.ProposalDetails.fname + ' ' + this.summaryData.ProposalDetails.lname;
-            this.totalAmount = parseFloat(this.summaryData.ProposalDetails.totalPremium);
-            sessionStorage.hdfc_Travel_proposal_id = successData.ResponseObject.ProposalId;
-            this.hdfc_Travel_proposal_id = successData.ResponseObject.ProposalId;
-
             this.proposerFormData = this.hdfcTravel.value;
             this.insuredFormData = this.hdfcInsuredTravel.value.items;
             this.nomineeFormData = this.nomineeTravelDetails.value;
+            this.fullName = this.proposerFormData.firstname + ' ' + this.proposerFormData.lastname;
+            this.totalAmount = parseFloat(this.summaryData.totalPremium);
+            sessionStorage.hdfc_Travel_proposal_id = successData.ResponseObject.ProposalId;
+            this.hdfc_Travel_proposal_id = successData.ResponseObject.ProposalId;
+
+
             console.log(this.proposerFormData, 'p');
             console.log(this.insuredFormData, 'i');
             console.log(this.nomineeFormData, 'n');

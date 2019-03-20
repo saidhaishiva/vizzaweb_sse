@@ -234,11 +234,11 @@
               <div formArrayName="items" *ngFor="let item of hdfcInsuredTravel.get('items')['controls']; let i = index;">
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
-                    <mat-panel-title> INSURED DETAILS FOR {{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value}}
+                    <mat-panel-title> INSURED DETAILS FOR {{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value | uppercase}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
-                  <div class="row mt-3">
+                  <div class="row">
                     <div class="col-md-12 box-card pt-3">
                       <!--<h6 class="color-blue">INSURED DETAILS</h6>-->
                       <div class="row">
@@ -374,13 +374,13 @@
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.ProposalDetails.sumInsured}}</span></h4></div>
+              <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.suminsured_amount_format}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
-                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.ProposalDetails.basePremium}}</span> /</li>
-                  <li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.ProposalDetails.serviceTax}}</span> /</li>
-                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.ProposalDetails.totalPremium}}</span> </li>
+                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 80px;" /> </li>
+                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</span> /</li>
+                  <li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.serviceTax}}</span> /</li>
+                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</span> </li>
                   <li></li>
                 </ul>
               </div>
@@ -418,7 +418,7 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address1}}</li>
-                      <li class="list-group-item" *ngIf ="proposerFormDatas.address2 != ''" ><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
+                      <li class="list-group-item" *ngIf ="proposerFormData.address2 != ''" ><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
                       <li class="list-group-item" *ngIf ="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
                       <li class="list-group-item"><strong>Pincode:</strong>  {{proposerFormData.pincode}}</li>
                       <li class="list-group-item"><strong>City:</strong> {{proposerFormData.cityName}}</li>
@@ -490,7 +490,7 @@
                 </div>
               </mat-expansion-panel>
             </div>
-            <p class="mt-2 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+            <p class="mb-4 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             <hr>
             <div class="row" *ngIf="summaryData">
               <div class="col-md-12 text-center">
@@ -500,14 +500,14 @@
                          name="__EVENTVALIDATION">
                   <input id="CustomerId" type="hidden" value={{summaryData.ProposalNumber}} name="CustomerId"><br/>
                   <input id="TxnAmount" type="hidden" value="{{totalAmount}}" name="TxnAmount"><br/>
-                  <input id="AdditionalInfo1" type="hidden" value="NB" name="AdditionalInfo1"><br/>
-                  <input id="AdditionalInfo2" type="hidden" value="RTI" name="AdditionalInfo2"><br/>
-                  <input id="AdditionalInfo3" type="hidden" value="1" name="AdditionalInfo3"><br/>
+                  <input id="AdditionalInfo1" type="hidden" value={{summaryData.AdditionalInfo1}} name="AdditionalInfo1"><br/>
+                  <input id="AdditionalInfo2" type="hidden" value={{summaryData.AdditionalInfo2}} name="AdditionalInfo2"><br/>
+                  <input id="AdditionalInfo3" type="hidden" value={{summaryData.AdditionalInfo3}} name="AdditionalInfo3"><br/>
                   <input id="hdnPayMode" type="hidden" value="{{proposerFormData.paymentmode}}" name="hdnPayMode"><br/>
                   <input id="UserName" type="hidden" value="{{fullName}}" name="UserName"><br/>
                   <input id="UserMailId" type="hidden" value="{{proposerFormData.email}}" name="UserMailId"><br/>
-                  <input id="ProductCd" type="hidden" value="RTI" name="ProductCd"><br/>
-                  <input id="ProducerCd" type="hidden" value="TRC00043" name="ProducerCd"><br/>
+                  <input id="ProductCd" type="hidden" value={{summaryData.ProductCd}} name="ProductCd"><br/>
+                  <input id="ProducerCd" type="hidden" value={{summaryData.productcode}} name="ProducerCd"><br/>
 
                   <!--<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>-->
                   <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
