@@ -263,7 +263,7 @@ export class IffcoTokioComponent implements OnInit {
         this.relationshipList();
         this.occupationList();
         this.stateList();
-        this.nomineestateList();
+        // this.nomineestateList();
         // this.nomineecityList();
         this.sessionData();
         console.log(this.proposer.controls['proposerState'].value,'stateee');
@@ -400,7 +400,7 @@ export class IffcoTokioComponent implements OnInit {
         const data = {
             'platform': 'web',
             'product_id': '11',
-            'state_code':this.proposer.controls['proposerState'].value,
+            'state_code':this.proposer.controls['proposerState'].value ? this.proposer.controls['proposerState'].value :this.nomineeDetails.controls['nomineeState'].value,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
@@ -423,61 +423,61 @@ export class IffcoTokioComponent implements OnInit {
 
     public cityListFailure(error) {
     }
-    nomineestateList() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.stateListNomineeIffco(data).subscribe(
-            (successData) => {
-                this.nomineestateListSuccess(successData);
-            },
-            (error) => {
-                this.nomineestateListFailure(error);
-            }
-        );
-    }
-
-    public nomineestateListSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.nomineestateDetails = successData.ResponseObject;
-            // this.nomineecityList();
-           console.log(this.nomineeDetails.controls['nomineeState'].value,'state');
-
-        }
-    }
-
-    public nomineestateListFailure(error) {
-    }
-    nomineecityList() {
-        const data = {
-            'platform': 'web',
-            'product_id': '11',
-            'state_code':this.nomineeDetails.controls['nomineeState'].value,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.proposalservice.cityListNomineeIffco(data).subscribe(
-            (successData) => {
-                this.nomineecityListSuccess(successData);
-            },
-            (error) => {
-                this.nomineecityListFailure(error);
-            }
-        );
-    }
-
-    public nomineecityListSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.nomineecityDetails = successData.ResponseObject;
-            console.log(this.nomineecityDetails,' this.nomineecityDetails');
-        }
-    }
-
-    public nomineecityListFailure(error) {
-    }
+    // nomineestateList() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'product_id': '11',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+    //     }
+    //     this.proposalservice.stateListNomineeIffco(data).subscribe(
+    //         (successData) => {
+    //             this.nomineestateListSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.nomineestateListFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // public nomineestateListSuccess(successData) {
+    //     if (successData.IsSuccess == true) {
+    //         this.nomineestateDetails = successData.ResponseObject;
+    //         // this.nomineecityList();
+    //        console.log(this.nomineeDetails.controls['nomineeState'].value,'state');
+    //
+    //     }
+    // }
+    //
+    // public nomineestateListFailure(error) {
+    // }
+    // nomineecityList() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'product_id': '11',
+    //         'state_code':this.nomineeDetails.controls['nomineeState'].value,
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+    //     }
+    //     this.proposalservice.cityListNomineeIffco(data).subscribe(
+    //         (successData) => {
+    //             this.nomineecityListSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.nomineecityListFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // public nomineecityListSuccess(successData) {
+    //     if (successData.IsSuccess == true) {
+    //         this.nomineecityDetails = successData.ResponseObject;
+    //         console.log(this.nomineecityDetails,' this.nomineecityDetails');
+    //     }
+    // }
+    //
+    // public nomineecityListFailure(error) {
+    // }
 
     checkMobileNumber(value){
         if(value.length == 10) {
@@ -961,12 +961,12 @@ export class IffcoTokioComponent implements OnInit {
     // }
 
 
-    // stateListname(){
-    //     this.nomineeDetails.controls['nomineeStateName'].patchValue(this.nomineestateDetails[this.nomineeDetails.controls['nomineeState'].value]);
-    // }
-    // cityListname(){
-    //     this.nomineeDetails.controls['nomineeCityName'].patchValue(this.nomineecityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
-    // }
+    stateListname(){
+        this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
+    }
+    cityListname(){
+        this.nomineeDetails.controls['nomineeCityName'].patchValue(this.cityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+    }
     public objectToXml(xmlData){
         var xml = '';
         let prop: any;
