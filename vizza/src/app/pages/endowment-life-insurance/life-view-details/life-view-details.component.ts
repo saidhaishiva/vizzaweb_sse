@@ -21,6 +21,7 @@ export class LifeViewDetailsComponent implements OnInit {
   public bgColor : any;
   public productId : any;
   public productName: any;
+  public companyName: any;
   public id1 : any;
   public selectedClaimDetails : any;
   public settings: Settings;
@@ -40,6 +41,7 @@ export class LifeViewDetailsComponent implements OnInit {
     this.settings = this.appSettings.settings;
     this.productId = data.productId;
     this.productName = data.productName;
+    this.companyName = data.companyName;
     this.webhost = this.config.getimgUrl();
     this.testPath = '/uploads/religare1120002190099_1539679118.pdf';
     this.fileUploadPath = '';
