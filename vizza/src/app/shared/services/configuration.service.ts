@@ -12,6 +12,7 @@ export class ConfigurationService {
   apiHostHealth: string = environment.apiHostHealth;
   apiHostPos: string = environment.apiHostPos;
   apiHostHome: string = environment.apiHostHome;
+  apiHostTerm: string = environment.apiHostTerm;
   apiHostDm: string = environment.apiHostDm;
   apiHostLife: string = environment.apiHostLife;
   paAccident: boolean = environment.paAccident;
@@ -39,6 +40,7 @@ export class ConfigurationService {
     this.apiHostHealth = this.apiHostHealth;
     this.apiHostPos = this.apiHostPos;
     this.apiHostHome = this.apiHostHome;
+    this.apiHostTerm = this.apiHostTerm;
     this.apiHostDm = this.apiHostDm;
     this.apiHostLife = this.apiHostLife;
     this.paAccident = this.paAccident;
@@ -90,5 +92,8 @@ export class ConfigurationService {
 
   getTermLife() {
     return this.termLifeInsurance;
+  }
+  getHostTerm() {
+    return this.apiHostTerm;
   }
 }
