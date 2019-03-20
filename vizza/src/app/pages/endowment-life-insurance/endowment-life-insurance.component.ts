@@ -99,7 +99,6 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
             width: '1500px',data: {productId : value.product_id, productName: value.product_name, companyName: value.company_name}
         });
         dialogRef.disableClose = true;
-
         dialogRef.afterClosed().subscribe(result => {
         });
     }

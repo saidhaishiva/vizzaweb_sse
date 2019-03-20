@@ -51,7 +51,6 @@ export class LifeViewDetailsComponent implements OnInit {
       'subject': ['', Validators.compose([Validators.required])],
       'message': ['', Validators.compose([Validators.required])],
       'profile': ['',Validators.compose( [Validators.required])]
-
     });
 
 
