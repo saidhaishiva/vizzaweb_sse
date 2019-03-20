@@ -845,7 +845,7 @@ export class IffcoTokioComponent implements OnInit {
         // IHP FHP
         const data = {
             'enquiry_id':this.getFamilyDetails.enquiry_id,
-            'proposal_id': sessionStorage.iffco_health_proposal_id == '' || sessionStorage.iffco_health_proposal_id == "undefined" ? '' : sessionStorage.iffco_health_proposal_id,
+            'proposal_id': sessionStorage.iffco_health_proposal_id == '' || sessionStorage.iffco_health_proposal_id == undefined ? '' : sessionStorage.iffco_health_proposal_id,
             // 'proposal_id': 0,
             'product_id': this.buyProductdetails.product_id,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -928,7 +928,9 @@ export class IffcoTokioComponent implements OnInit {
             console.log(this.xmlString,'xmlString');
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
-            this.proposalId = this.summaryData.ProposalId;
+            this.proposalId = this.summaryData.UNIQUE_QUOTEID;
+            console.log(this.proposalId,' this.proposalId');
+            console.log(sessionStorage.iffco_health_proposal_id ,'sessionStorage.iffco_health_proposal_id ');
             sessionStorage.iffco_health_proposal_id = this.proposalId;
             this.proposer.controls['proposerOccupationName'].patchValue(this.occupationDetails[this.proposer.controls['proposerOccupation'].value]);
             console.log(this.proposer.controls['proposerOccupationName'].value,'uytiyu');
