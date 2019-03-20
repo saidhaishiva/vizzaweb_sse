@@ -56,6 +56,8 @@ export class TravelShriramProposalComponent implements OnInit {
     public declaration: boolean;
     public acceptSummaryDeclaration: boolean;
     public summaryData: any;
+    public proposerFormData: any;
+    public nomineeFormData: any;
     public paymentData: any;
     public proposalDtails: any;
     public insurerDtails: any;
@@ -714,9 +716,12 @@ export class TravelShriramProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
-            this.summaryData = successData.ResponseObject.ProposalDetails;
-            this.paymentData = successData.ResponseObject;
-            sessionStorage.travel_shriram_proposal_id = this.summaryData.proposal_id;
+            // this.summaryData = successData.ResponseObject.ProposalDetails;
+            // this.paymentData = successData.ResponseObject;
+            // sessionStorage.travel_shriram_proposal_id = this.summaryData.proposal_id;
+            //
+            this.proposerFormData = this.personal.value;
+            this.nomineeFormData = this.nomineeDetails.value;
             // this.insurerDtails = successData.ResponseObject.proposal_details.insure_details;
            // this.proposalDtails = this.summaryData.proposal_details[0];
             this.toastr.success('Proposal created successfully!!');
