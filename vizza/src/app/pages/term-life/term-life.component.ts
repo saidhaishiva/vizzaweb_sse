@@ -10,6 +10,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, 
 import {ValidationService} from '../../shared/services/validation.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {MY_FORMATS} from '../endowment-life-insurance/life-call-back/life-call-back.component';
+import  { AuthService } from '../../shared/services/auth.service';
+import { TermLifeCommonService } from '../../shared/services/term-life-common.service';
 
 @Component({
     selector: 'app-term-life',
@@ -24,6 +26,7 @@ export class TermLifeComponent implements OnInit {
     public TermLifeapp: FormGroup;
     public TermLife: FormGroup;
     public setDate: any;
+    public age: any;
     public selectDate: any;
     public productName: any;
     public pin:any;
@@ -32,9 +35,10 @@ export class TermLifeComponent implements OnInit {
     public pincodeErrors: any;
     public show: boolean;
     public today : any;
+    public companyList: any;
 
     constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe,
-                public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService) {
+                public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService) {
         let today  = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.TermLifeapp = this.fb.group({
@@ -51,7 +55,7 @@ export class TermLifeComponent implements OnInit {
         this.TermLife = this.fb.group({
             'lifedob': ['', Validators.required],
             'lifeGender': ['', Validators.required],
-            'lifeBenefitTerm': ['', Validators.required],
+            'lifeBenefitTerm': ['', Validators.compose([Validators.required, Validators.min(10)])],
             'lifePolicy': ['', Validators.required],
             'lifePayment': ['', Validators.required],
             'lifePincode': ['', Validators.compose([Validators.required])],
@@ -60,6 +64,7 @@ export class TermLifeComponent implements OnInit {
         });
         this.productName = '';
         this.show = false;
+        this.age = 0;
     }
 
     ngOnInit() {
@@ -71,10 +76,60 @@ export class TermLifeComponent implements OnInit {
             this.productName = params.id;
 
         });
+        this.getCompanyList();
     }
-    addEvent(event) {
+    // addEvent(event) {
+    //     console.log(this.TermLife.controls.lifesmoker.value, 'lifesmokerlifesmoker');
+    //     this.selectDate = event.value;
+    //     this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+    // }
+    public addEvent(type, event) {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+        let getage: any = '';
+        console.log(event.value, 'valuuuueeeeee');
+        if (event.value != null) {
+            let selectedDate  = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                selectedDate = event.value._i;
+            } else if (typeof event.value._i == 'object') {
+                console.log(event.value._i, 'objectttttt');
+                let date = event.value._i.date;
+                if (date.toString().length == 1) {
+                    date = '0'+date;
+                }
+                let month =  (parseInt(event.value._i.month)+1).toString();
+
+                if (month.length == 1) {
+                    month = '0' + month;
+                }
+                let year = event.value._i.year;
+                selectedDate = date + '/' + month + '/' + year;
+            }
+            getage = this.datepipe.transform(event.value, 'y-MM-dd');
+
+            if (getage.length == 10) {
+                this.calculateAge(this.datepipe.transform(event.value, 'y-MM-dd'));
+            }
+            this.age = this.calculateAge(getage);
+            console.log(this.age, 'ageeeeeeeee');
+
+        }
+    }
+
+    public  calculateAge(dob) {
+
+        let mdate = dob.toString();
+        let yearThen = parseInt(mdate.substring(8, 10), 10);
+        let monthThen = parseInt(mdate.substring(5, 7), 10);
+        let dayThen = parseInt(mdate.substring(0, 4), 10);
+        let todays = new Date();
+        let birthday = new Date(dayThen, monthThen - 1, yearThen);
+        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+        let year_age = Math.floor(differenceInMilisecond / 31536000000);
+        let res = year_age;
+        return res;
     }
     TermLifeKeeper(values) {
 
@@ -111,6 +166,25 @@ export class TermLifeComponent implements OnInit {
     fixAppointmentFailure(error) {
         console.log(error);
     }
+    getCompanyList() {
+        this.commontermlyf.getComapnyList().subscribe(
+            (successData) => {
+                this.getComapnyListSuccess(successData);
+            },
+            (error) => {
+                this.getComapnyListFailure(error);
+            }
+        );
+    }
+    getComapnyListSuccess(successData) {
+        console.log(successData);
+        if (successData.IsSuccess) {
+            this.companyList = successData.ResponseObject;
+        }
+    }
+    getComapnyListFailure(error) {
+        console.log(error);
+    }
     getPincodeDetails(pin, title) {
         this.pin = pin;
         this.title = title;
@@ -141,6 +215,17 @@ export class TermLifeComponent implements OnInit {
     public getPincodeDetailsFailure(error) {
         console.log(error);
     }
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+
+            if (!pattern.test(inputChar)) {
+                // invalid character, prevent input
+                event.preventDefault();
+            }
+        }
+    }
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }
@@ -157,6 +242,60 @@ export class TermLifeComponent implements OnInit {
             width: '1200px',
         });
         dialogRef.disableClose = true;
+    }
+    productListEnquiry() {
+        const data = {
+            'platform': 'web',
+            'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'sum_assured_id': '',
+            'age': this.age,
+            'dob': this.setDate,
+            'gender': this.TermLife.controls.lifeGender.value,
+            'policy_paying_term': this.TermLife.controls.lifePolicy.value,
+            'benefit_term': this.TermLife.controls.lifeBenefitTerm.value,
+            'payment_mode': this.TermLife.controls.lifePayment.value,
+            'smoker': this.TermLife.controls.lifesmoker.value ? 'y' : ' n',
+            'pincode': this.TermLife.controls.lifePincode.value
+        };
+        console.log(data, 'dattttaaaaa');
+        this.commontermlyf.productListEnquiry(data).subscribe(
+            (successData) => {
+                this.productListEnquirySuccess(successData, data);
+            },
+            (error) => {
+                this.productListEnquiryFailure(error);
+            }
+        );
+    }
+    productListEnquirySuccess(successData, data) {
+        console.log(successData);
+        if (successData.IsSuccess) {
+            sessionStorage.term_enquiry_detials = JSON.stringify(data);
+            sessionStorage.term_policy_id = successData.ResponseObject.policy_id;
+            sessionStorage.term_suminsured_id = successData.ResponseObject.sum_assured_id
+            this.getProductList();
+        }
+    }
+    productListEnquiryFailure(error) {
+        console.log(error)
+    }
+    getProductList() {
+        this.commontermlyf.getProductList(this.companyList).subscribe(
+            (successData) => {
+                this.getProductListSuccess(successData);
+            },
+            (error) => {
+                this.getProductListFailure(error);
+            }
+        );
+    }
+    getProductListSuccess(successData) {
+        console.log(successData, 'forkjoinnnnnnnn');
+    }
+    getProductListFailure(error) {
+        console.log(error);
     }
 }
 @Component({
