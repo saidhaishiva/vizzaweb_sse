@@ -7,6 +7,8 @@ import {PersonalAccidentService} from '../../shared/services/personal-accident.s
 import {ToastrService} from 'ngx-toastr';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE,MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {AppSettings} from '../../app.settings';
+import {Settings} from '../../app.settings.model';
 import {MY_FORMATS} from '../appollo-munich-pa/appollo-munich-pa.component';
 
 
@@ -23,7 +25,8 @@ export class ReliancePaComponent implements OnInit {
   public proposer: FormGroup;
   public insure: FormGroup;
   public currentStep: any;
-  public minDate: any;
+    public settings: Settings;
+    public minDate: any;
   public insuredAgeP: any;
   public paMaritalList: any;
   public insurerdateError: any;
@@ -53,9 +56,13 @@ export class ReliancePaComponent implements OnInit {
 
 
 
-  constructor(public proposerpa: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, public personalservice: PersonalAccidentService,private toastr: ToastrService,) {
+  constructor(public proposerpa: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, public personalservice: PersonalAccidentService,private toastr: ToastrService, public appSettings: AppSettings) {
     let stepperindex = 0;
-    this.currentStep = stepperindex;
+      this.settings = this.appSettings.settings;
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
+      this.currentStep = stepperindex;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     this.insuredAgeP = '';
@@ -131,8 +138,6 @@ export class ReliancePaComponent implements OnInit {
       previousradio: '2',
       rolecd: 'PROPOSER',
       type: '',
-      insuredHeight: '',
-      insuredWeight: '',
       sameAsProposer: false
     });
     this.ProposerPa = this.proposerpa.group({
