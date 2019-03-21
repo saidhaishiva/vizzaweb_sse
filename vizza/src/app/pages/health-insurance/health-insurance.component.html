@@ -124,9 +124,9 @@
                   <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Copay</th>
                   <th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Pre Existing Disease</th>
                   <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Pre Hospitalization</th>
-                  <th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Post Hospitalization</th>
+                  <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Post Hospitalization</th>
                   <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Compare</th>
-                  <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>
+                  <th class="col-md-2 font-weight-bold" style="padding: 15px 5px !important;">Premium ( &#8377; )</th>
                   <th class="col-md-1 font-weight-bold" style="padding: 15px 5px !important;">Buy</th>
                 </tr>
                 </thead>
@@ -149,15 +149,15 @@
                   <td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3" class="col-md-1">
                     <p class="text-center mt-4">{{keys.key_features_value}}</p>
                   </td>
-                  <td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0" class="col-md-2">
+                  <td *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0" class="col-md-1">
                     <p class="text-center mt-4">{{keys.key_features_value}}</p>
                   </td>
                   <td class="col-md-1 text-center">
-                    <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)">Add to Compare</button></p>
-                    <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare">Add to Compare</button></p>
+                    <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
+                    <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                     <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                   </td>
-                  <td class="col-md-1">
+                  <td class="col-md-2">
                     <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
                     <p class="text-center change-p">(Including GST)</p>
                   </td>
