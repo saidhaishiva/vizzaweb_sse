@@ -106,9 +106,9 @@ export class LearningcenterService {
         const json = JSON.stringify(data);
         const token = this.authService.getDmAccessToken();
         const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'policyrenewal/ListMedia' ;
+        const url = this.configurationService.getHostHealth() + 'policyrenewal/ListMedia';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
