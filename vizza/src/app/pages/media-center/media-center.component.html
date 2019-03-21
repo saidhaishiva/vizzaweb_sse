@@ -15,7 +15,7 @@
         <mat-card class="p-0 mb-2 mt-viwe-profile1">
             <div fxLayout="row"  class="head-card">
                 <div class="col-md-1 text-right w-100">
-                    <mat-icon style="color: white;cursor: pointer">visibility</mat-icon>
+                    <mat-icon style="color: white;cursor: pointer" (click)="redirect(user)">visibility</mat-icon>
                 </div>
                 <div class="col-md-7 text-left">
                     <div class="f-size" (click)="redirect(user)" innerHtml="{{user.content | limitTo:200}}...">
