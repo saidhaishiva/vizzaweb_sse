@@ -1,700 +1,449 @@
-<!--<div class="container-fluid">-->
-  <!--<div class="row apolloMunichProposal">-->
-    <!--<div class="col-md-12">-->
-      <!--<mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">-->
+<div class="container-fluid">
+    <div class="row apolloMunichProposal">
+        <div class="col-md-12">
+            <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
 
-        <!--<mat-step [stepControl]="">-->
+                <mat-step [stepControl]="">
 
-          <!--<ng-template matStepLabel >PROPOSER /INSURED DETAILS</ng-template>-->
-          <!--<mat-accordion class=" w-100 float-left">-->
-            <!--<form [formGroup]="insured" >-->
-              <!--<mat-expansion-panel expanded>-->
-                <!--<mat-expansion-panel-header>-->
-                  <!--<mat-panel-title> PROPOSER / INSURED DETAILS </mat-panel-title>-->
-                <!--</mat-expansion-panel-header>-->
-                <!--<div class="row mt-1">-->
-                  <!--<div class="col-md-12 box-card pt-3">-->
-                    <!--<div class="row">-->
-                      <!--<div class="col-md-3" >-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="insurechangeGender()" required>-->
-                            <!--<mat-option value="MR">Mr</mat-option>-->
-                            <!--<mat-option value="MRS">Ms</mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaTitle.errors?.required">Title is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="nameValidate($event)" autocomplete="off" required >-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Mid Name" formControlName="insuredPaMidname" (keypress)="nameValidate($event)" autocomplete="off">-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Last Name" formControlName="insuredPaLastname"  (keypress)="nameValidate($event)" autocomplete="off" required >-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaLastname.errors?.required">Last Name is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Gender" formControlName="insuredPaGender"  required readonly>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaGender.errors?.required">Gender is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                            <!--<input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate" required>-->
-                          <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
-                          <!--<mat-datepicker #picker1></mat-datepicker>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaDob.errors?.required">DOB is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                        <!--<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>-->
+                    <ng-template matStepLabel >PROPOSER DETAILS</ng-template>
+                    <mat-accordion class=" w-100 float-left">
+                        <form [formGroup]="proposer" >
+                            <mat-expansion-panel expanded>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title> PROPOSER DETAILS </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <div class="row mt-1">
+                                    <div class="col-md-12 box-card pt-3">
+                                        <div class="row">
+                                            <div class="col-md-3" >
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Title" formControlName="insuredPaTitle" (change)="insurechangeGender()" required>
+                                                        <mat-option value="MR">Mr</mat-option>
+                                                        <mat-option value="MRS">Ms</mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaTitle.errors?.required">Title is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="nameValidate($event)" autocomplete="off" required >
+                                                    <mat-error *ngIf="proposer.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" (keypress)="nameValidate($event)" autocomplete="off">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Last Name" formControlName="insuredPaLastname"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                                                    <mat-error *ngIf="proposer.controls.insuredPaLastname.errors?.required">Last Name is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Gender" formControlName="insuredPaGender"  required readonly>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaGender.errors?.required">Gender is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10"
+                                                           autocomplete="off"  [max]="minDate" required>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker1></mat-datepicker>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaDob.errors?.required">DOB is required</mat-error>
+                                                </mat-form-field>
+                                                <div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>
 
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Age" formControlName="insuredPaAge"     autocomplete="off" autocomplete="off" required readonly >-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaAge.errors?.required">Age is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Email ID"   formControlName="insuredPaEmail"  autocomplete="off" required>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaEmail.errors?.required">Email ID is required</mat-error>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaEmail.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual"  autocomplete="off" required>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredAnnual.errors?.required">Annual Income is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3 mt-1">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="insuredPaMobile" autocomplete="off" required>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaMobile.errors?.required">Mobile Number is required</mat-error>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">-->
-                            <!--<mat-option *ngFor="let status of paMaritalList | keys" [value]= status.key> {{status.value}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Age" formControlName="insuredPaAge"     autocomplete="off" autocomplete="off" required readonly >
+                                                    <mat-error *ngIf="proposer.controls.insuredPaAge.errors?.required">Age is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Email ID"   formControlName="insuredPaEmail"  autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaEmail.errors?.required">Email ID is required</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual"  autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.insuredAnnual.errors?.required">Annual Income is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3 mt-1">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="insuredPaMobile" autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaMobile.errors?.required">Mobile Number is required</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
+                                                        <mat-option *ngFor="let status of paMaritalList | keys" [value]= status.key> {{status.value}} </mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="proposer.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
 
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Profession" formControlName="insuredProfessionList" (change)="professionListCode()" required>-->
-                            <!--<mat-option *ngFor="let professioncode of professionList | keys" [value]="professioncode.key">{{professioncode.value}}</mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredProfessionList.errors?.required">Profession is required</mat-error>-->
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Profession" formControlName="insuredProfessionList" (change)="professionListCode()" required>
+                                                        <mat-option *ngFor="let professioncode of professionList | keys" [value]="professioncode.key">{{professioncode.value}}</mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="proposer.controls.insuredProfessionList.errors?.required">Profession is required</mat-error>
 
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationList" (change)="occupationListCode()"required>-->
-                            <!--<mat-option *ngFor="let occupation of occupationCode | keys" [value]="occupation.key">{{occupation.value}}</mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredOccupationList.errors?.required">Occupation is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof" (change)="insureidList(); changeidName()" >-->
-                            <!--<mat-option *ngFor="let IdProof of paIdProofList | keys" value="{{IdProof.key}}" > {{IdProof.value}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaIdProof.errors?.required">Id Proof is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationList" (change)="occupationListCode()"required>
+                                                        <mat-option *ngFor="let occupation of occupationCode | keys" [value]="occupation.key">{{occupation.value}}</mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="proposer.controls.insuredOccupationList.errors?.required">Occupation is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Select ID Proof"  formControlName="insuredPaIdProof" (change)="insureidList(); changeidName()" >
+                                                        <mat-option *ngFor="let IdProof of paIdProofList | keys" value="{{IdProof.key}}" > {{IdProof.value}} </mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaIdProof.errors?.required">Id Proof is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
 
-                      <!--<div class="col-md-3" *ngIf="pannumberP">-->
-                        <!--<mat-form-field class="w-100"  >-->
-                          <!--<input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" [required]="pannumberP" formControlName="insuredPaPan" (input)="panType('insurer')" (keypress)="idValidate($event)" autocomplete="off">-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3" *ngIf="drivinglicenseP" >-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Driving License" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="idValidate($event)" maxlength="15" [required]="drivinglicenseP" (input)="panType('insurer')">-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3" *ngIf="passportP">-->
-                        <!--<mat-form-field class="w-100" >-->
-                          <!--<input matInput placeholder="Passport" formControlName="insuredPaPassport" (keypress)="idValidate($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" [required]="passportP" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3" *ngIf="voterP" >-->
-                        <!--<mat-form-field class="w-100" >-->
-                          <!--<input matInput placeholder="Voter Id" formControlName="insuredPaVoter" maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)" (input)="panType('insurer')" [required]="voterP">-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaVoter.hasError('pattern')"> Enter Valid Voter Id </mat-error>-->
+                                            <div class="col-md-3" *ngIf="pannumberP">
+                                                <mat-form-field class="w-100"  >
+                                                    <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" [required]="pannumberP" formControlName="insuredPaPan" (input)="panType('insurer')" (keypress)="idValidate($event)" autocomplete="off">
+                                                    <mat-error *ngIf="proposer.controls.insuredPaPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3" *ngIf="drivinglicenseP" >
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Driving License" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="idValidate($event)" maxlength="15" [required]="drivinglicenseP" (input)="panType('insurer')">
+                                                    <mat-error *ngIf="proposer.controls.insuredPaDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3" *ngIf="passportP">
+                                                <mat-form-field class="w-100" >
+                                                    <input matInput placeholder="Passport" formControlName="insuredPaPassport" (keypress)="idValidate($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" [required]="passportP" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                                                    <mat-error *ngIf="proposer.controls.insuredPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3" *ngIf="voterP" >
+                                                <mat-form-field class="w-100" >
+                                                    <input matInput placeholder="Voter Id" formControlName="insuredPaVoter" maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)" (input)="panType('insurer')" [required]="voterP">
+                                                    <mat-error *ngIf="proposer.controls.insuredPaVoter.hasError('pattern')"> Enter Valid Voter Id </mat-error>
 
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
+                                                </mat-form-field>
+                                            </div>
 
-                      <!--<div class="col-md-3"><mat-form-field class="w-100">-->
-                        <!--<input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="insuredPaGst" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">-->
-                        <!--<mat-error *ngIf="insured.controls.insuredPaGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>-->
-                        <!--<mat-error *ngIf="insured.controls.insuredPaGst.hasError('pattern')">Enter valid GST</mat-error>-->
-                      <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Height"    (keypress)="numberValidate($event)" formControlName="insuredHeight" maxlength="3" autocomplete="off" required>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredHeight.errors?.required">Height is required</mat-error>-->
+                                            <div class="col-md-3"><mat-form-field class="w-100">
+                                                <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="insuredPaGst" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
+                                                <mat-error *ngIf="proposer.controls.insuredPaGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
+                                                <mat-error *ngIf="proposer.controls.insuredPaGst.hasError('pattern')">Enter valid GST</mat-error>
+                                            </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Height"    (keypress)="numberValidate($event)" formControlName="insuredHeight" maxlength="3" autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.insuredHeight.errors?.required">Height is required</mat-error>
 
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Weight"    (keypress)="numberValidate($event)" formControlName="insuredWeight" maxlength="3" autocomplete="off" required>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredWeight.errors?.required">Weight is required</mat-error>-->
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Weight"    (keypress)="numberValidate($event)" formControlName="insuredWeight" maxlength="3" autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.insuredWeight.errors?.required">Weight is required</mat-error>
 
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-12 mt-2">-->
-                        <!--<h6 class="color-blue">COMMUNICATION ADDRESS</h6>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<textarea matInput placeholder="Address 1" rows="2" formControlName="insuredPaAddress" autocomplete="off" maxlength="30" required></textarea>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaAddress.errors?.required">Address is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<textarea matInput placeholder="Address 2" rows="2" formControlName="insuredPaAddress2" maxlength="30" autocomplete="off"></textarea>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaAddress2.errors?.required">Address2 is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<textarea matInput placeholder="Address 3" rows="2" formControlName="insuredPaAddress3" maxlength="30" autocomplete="off"></textarea>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaAddress3.errors?.required">Address3 is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="insuredPaPincode" (input)="getinsuredPostalCode($event.target.value)" autocomplete="off" required>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaPincode.hasError('required')">Pincode required</mat-error>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-12 mt-2">
+                                                <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field class="w-100">
+                                                    <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredPaAddress" autocomplete="off" maxlength="30" required></textarea>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaAddress.errors?.required">Address is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field class="w-100">
+                                                    <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredPaAddress2" maxlength="30" autocomplete="off"></textarea>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaAddress2.errors?.required">Address2 is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field class="w-100">
+                                                    <textarea matInput placeholder="Address 3" rows="2" formControlName="insuredPaAddress3" maxlength="30" autocomplete="off"></textarea>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaAddress3.errors?.required">Address3 is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="insuredPaPincode" (input)="getinsuredPostalCode($event.target.value)" autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaPincode.hasError('required')">Pincode required</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                                </mat-form-field>
+                                            </div>
 
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="State" formControlName="insuredPaState"  autocomplete="off" readonly required>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaState.errors?.required">State is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListInsuredPa(); changeDistrictname()">-->
-                            <!--<mat-option *ngFor="let paDistrict of paInsureddistrictList | keys" value="{{paDistrict.key}}" > {{paDistrict.value}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaDistrict.errors?.required">District is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="City"  formControlName="insuredPaCity" (change)="changeCity()" required>-->
-                            <!--<mat-option *ngFor="let paCity of paCityInsuredList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.insuredPaCity.errors?.required">City is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-12 mt-2">-->
-                        <!--<h6 class="color-blue">PERSONAL HABITS (PER DAY)</h6>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-6">-->
-                        <!--<mat-checkbox formControlName="insuredSmoke" (change)="checkHabits($event, 'smoke')">Smoking</mat-checkbox>-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Smoking" formControlName="insuredSmokeList"  (change)="smokingPersonalhabit()" [required]="insuredSmoke" [disabled]="habits">-->
-                            <!--<mat-option value="1">1</mat-option>-->
-                            <!--<mat-option value="2">2</mat-option>-->
-                            <!--<mat-option value="3">3</mat-option>-->
-                            <!--<mat-option value="4">4</mat-option>-->
-                            <!--<mat-option value="5">5</mat-option>-->
-                            <!--<mat-option value="6">6</mat-option>-->
-                            <!--<mat-option value="7">7</mat-option>-->
-                            <!--<mat-option value="8">8</mat-option>-->
-                            <!--<mat-option value="9">9</mat-option>-->
-                            <!--<mat-option value="10">10</mat-option>-->
-                            <!--<mat-option value="11">Greater than 11</mat-option>-->
-                          <!--</mat-select>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-6">-->
-                        <!--<mat-checkbox formControlName="insuredPouches" (change)="checkHabits($event, 'pouches')" >Pouches</mat-checkbox>-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Pouches" formControlName="insuredPouchesList" (change)="pouchesPersonalhabit()" [required]="insuredPouches"  [disabled]="habits">-->
-                            <!--<mat-option value="1">1</mat-option>-->
-                            <!--<mat-option value="2">2</mat-option>-->
-                            <!--<mat-option value="3">3</mat-option>-->
-                            <!--<mat-option value="4">4</mat-option>-->
-                            <!--<mat-option value="5">5</mat-option>-->
-                            <!--<mat-option value="6">6</mat-option>-->
-                            <!--<mat-option value="7">7</mat-option>-->
-                            <!--<mat-option value="8">Greater than 8</mat-option>-->
-                          <!--</mat-select>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-12 mt-2">-->
-                        <!--<h6 class="color-blue">DRINKING HABITS (PER WEEK)</h6>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>-->
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="State" formControlName="insuredPaState"  autocomplete="off" readonly required>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaState.errors?.required">State is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="District"  formControlName="insuredPaDistrict" (change)="onChangecityListInsuredPa(); changeDistrictname()">
+                                                        <mat-option *ngFor="let paDistrict of paInsureddistrictList | keys" value="{{paDistrict.value}}" > {{paDistrict.value}} </mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaDistrict.errors?.required">District is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="City"  formControlName="insuredPaCity" (change)="changeCity()" required>
+                                                        <mat-option *ngFor="let paCity of paCityInsuredList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="proposer.controls.insuredPaCity.errors?.required">City is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-12 mt-2">
+                                                <h6 class="color-blue">PERSONAL HABITS (PER DAY)</h6>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <mat-checkbox formControlName="insuredSmoke" (change)="checkHabits($event, 'smoke')">Smoking</mat-checkbox>
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Smoking" formControlName="insuredSmokeList"  (change)="smokingPersonalhabit()" [required]="insuredSmoke" [disabled]="habits">
+                                                        <mat-option value="1">1</mat-option>
+                                                        <mat-option value="2">2</mat-option>
+                                                        <mat-option value="3">3</mat-option>
+                                                        <mat-option value="4">4</mat-option>
+                                                        <mat-option value="5">5</mat-option>
+                                                        <mat-option value="6">6</mat-option>
+                                                        <mat-option value="7">7</mat-option>
+                                                        <mat-option value="8">8</mat-option>
+                                                        <mat-option value="9">9</mat-option>
+                                                        <mat-option value="10">10</mat-option>
+                                                        <mat-option value="11">Greater than 11</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <mat-checkbox formControlName="insuredPouches" (change)="checkHabits($event, 'pouches')" >Pouches</mat-checkbox>
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Pouches" formControlName="insuredPouchesList" (change)="pouchesPersonalhabit()" [required]="insuredPouches"  [disabled]="habits">
+                                                        <mat-option value="1">1</mat-option>
+                                                        <mat-option value="2">2</mat-option>
+                                                        <mat-option value="3">3</mat-option>
+                                                        <mat-option value="4">4</mat-option>
+                                                        <mat-option value="5">5</mat-option>
+                                                        <mat-option value="6">6</mat-option>
+                                                        <mat-option value="7">7</mat-option>
+                                                        <mat-option value="8">Greater than 8</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-12 mt-2">
+                                                <h6 class="color-blue">DRINKING HABITS (PER WEEK)</h6>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-checkbox formControlName="insuredCheck" (change)="checkHabits($event, 'liquor')">Liquor Peg</mat-checkbox>
 
-                        <!--<mat-form-field class="w-100" >-->
-                          <!--<mat-select placeholder="Liquor Peg" formControlName="insuredLiquor"  (change)="liquorPegPersonalhabit()" [required]="insuredCheck"  [disabled]="habits">-->
-                            <!--<mat-option value="1">1</mat-option>-->
-                            <!--<mat-option value="2">2</mat-option>-->
-                            <!--<mat-option value="3">3</mat-option>-->
-                            <!--<mat-option value="4">4</mat-option>-->
-                            <!--<mat-option value="5">5</mat-option>-->
-                            <!--<mat-option value="6">6</mat-option>-->
-                            <!--<mat-option value="7">7</mat-option>-->
-                            <!--<mat-option value="8">8</mat-option>-->
-                            <!--<mat-option value="9">9</mat-option>-->
-                            <!--<mat-option value="10">Greater than 9</mat-option>-->
-                          <!--</mat-select>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-checkbox formControlName="insuredCheck1" (change)="checkHabits($event, 'wine')">Wine Glass</mat-checkbox>-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder=Wine formControlName="insuredWine" (change)="wineGlassPersonalhabit()" [required]="insuredCheck1"  [disabled]="habits">-->
-                            <!--<mat-option value="1">1</mat-option>-->
-                            <!--<mat-option value="2">2</mat-option>-->
-                            <!--<mat-option value="3">3</mat-option>-->
-                            <!--<mat-option value="4">4</mat-option>-->
-                            <!--<mat-option value="5">5</mat-option>-->
-                            <!--<mat-option value="6">6</mat-option>-->
-                            <!--<mat-option value="7">Greater than 6</mat-option>-->
-                          <!--</mat-select>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-checkbox formControlName="insuredCheck2" (change)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>-->
-                        <!--<mat-form-field class="w-100" >-->
-                          <!--<mat-select placeholder=Beer formControlName="insuredBeer" (change)="beerBottlePersonalhabit()" [required]="insuredCheck2"  [disabled]="habits">-->
-                            <!--<mat-option value="1">1</mat-option>-->
-                            <!--<mat-option value="2">2</mat-option>-->
-                            <!--<mat-option value="3">3</mat-option>-->
-                            <!--<mat-option value="4">4</mat-option>-->
-                            <!--<mat-option value="5">5</mat-option>-->
-                            <!--<mat-option value="6">6</mat-option>-->
-                            <!--<mat-option value="7">7</mat-option>-->
-                            <!--<mat-option value="8">8</mat-option>-->
-                            <!--<mat-option value="9">9</mat-option>-->
-                            <!--<mat-option value="10">10</mat-option>-->
-                            <!--<mat-option value="11">Greater than 11</mat-option>-->
-                          <!--</mat-select>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-12 mt-2">-->
-                        <!--<h6 class="color-blue">PREVOIUS INSURER DETAILS</h6>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-12">-->
-                        <!--<mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio">-->
-                          <!--<mat-radio-button value="1">Yes</mat-radio-button>-->
-                          <!--<mat-radio-button value="2">No</mat-radio-button>-->
-                        <!--</mat-radio-group>-->
-                      <!--</div>-->
-                      <!--<div *ngIf="prevList">-->
-                        <!--<div class="col-md-12 mt-2">-->
-                          <!--<div class="row">-->
-                            <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput [matDatepicker]="picker2" [max]="minDate" placeholder="Policy Start Date (DD/MM/YYYY)" (keypress)="dobValidate($event)"   formControlName="PolicyStartDate" (dateInput)="addEvent($event, 'startdate')" (dateChange)="addEvent($event, 'startdate')" maxlength="10" minlength="10" autocomplete="off" [required]="prevList">-->
-                                <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
-                                <!--<mat-datepicker #picker2></mat-datepicker>-->
-                                <!--<mat-error *ngIf="insured.controls.PolicyStartDate.errors?.required">Start Date is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                              <!--<div class="error" *ngIf="insurestardate != ''">{{insurestardate}}</div>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput [matDatepicker]="picker3" [min]="maxStartdate" placeholder="Policy End Date" (dateInput)="addEvent($event, 'enddate')" (dateChange)="addEvent($event, 'enddate')" (keypress)="dobValidate($event)" [required]="prevList"  formControlName="PolicyEndDate" maxlength="10" autocomplete="off">-->
-                                <!--<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
-                                <!--<mat-datepicker #picker3></mat-datepicker>-->
-                                <!--<mat-error *ngIf="insured.controls.PolicyEndDate.errors?.required">End Date is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                              <!--<div class="error" *ngIf="insureenddate != ''">{{insureenddate}}</div>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<mat-select placeholder="Previous Insurance List" (keypress)="numberValidate($event)" [required]="prevList" formControlName="insuredPrevList" (change)="preInsureList(); changePrevName()" >-->
-                                  <!--<mat-option *ngFor="let previous of preinsure | keys" value="{{previous.key}}" > {{previous.value}} </mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="insured.controls.insuredPrevList.errors?.required">Previous Insurance List is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Previous Policy No" (keypress)="idValidate($event)" maxlength="15" [required]="prevList" formControlName="insuredPrevious">-->
-                                <!--<mat-error *ngIf="insured.controls.insuredPrevious.errors?.required">Policy number is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Sum Insured" (keypress)="numberValidate($event)" [required]="prevList" maxlength="15" formControlName="insureSumInsured">-->
-                                <!--<mat-error *ngIf="insured.controls.insureSumInsured.errors?.required">Sum Insured is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Qualifying Amount" (keypress)="numberValidate($event)" maxlength="15"  [required]="prevList" formControlName="insuredQualify">-->
-                                <!--<mat-error *ngIf="insured.controls.insuredQualify.errors?.required">Qualifying Amount is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Waive Period" (keypress)="idValidate($event)" [required]="prevList" maxlength="15" formControlName="insuredWaive">-->
-                                <!--<mat-error *ngIf="insured.controls.insuredWaive.errors?.required">Waive Period is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                            <!--<div class="col-md-3">-->
-                              <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Enter Remark Details" (keypress)="space($event)" [required]="prevList"  formControlName="insuredremark">-->
-                                <!--<mat-error *ngIf="insured.controls.insuredremark.errors?.required">Enter Remark Details is required</mat-error>-->
-                              <!--</mat-form-field>-->
-                            <!--</div>-->
-                          <!--</div>-->
-                        <!--</div>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-12 mt-2">-->
-                        <!--<h6 class="color-blue">MEDICAL INFORMATIONS DETAILS</h6>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field  class="w-100">-->
-                          <!--<input matInput placeholder="Medical Informations" formControlName="MedicalInformations" autocomplete="off" required >-->
-                          <!--<mat-error *ngIf="insured.controls.MedicalInformations.errors?.required">Medical Informations is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                    <!--</div>-->
+                                                <mat-form-field class="w-100" >
+                                                    <mat-select placeholder="Liquor Peg" formControlName="insuredLiquor"  (change)="liquorPegPersonalhabit()" [required]="insuredCheck"  [disabled]="habits">
+                                                        <mat-option value="1">1</mat-option>
+                                                        <mat-option value="2">2</mat-option>
+                                                        <mat-option value="3">3</mat-option>
+                                                        <mat-option value="4">4</mat-option>
+                                                        <mat-option value="5">5</mat-option>
+                                                        <mat-option value="6">6</mat-option>
+                                                        <mat-option value="7">7</mat-option>
+                                                        <mat-option value="8">8</mat-option>
+                                                        <mat-option value="9">9</mat-option>
+                                                        <mat-option value="10">Greater than 9</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-checkbox formControlName="insuredCheck1" (change)="checkHabits($event, 'wine')">Wine Glass</mat-checkbox>
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder=Wine formControlName="insuredWine" (change)="wineGlassPersonalhabit()" [required]="insuredCheck1"  [disabled]="habits">
+                                                        <mat-option value="1">1</mat-option>
+                                                        <mat-option value="2">2</mat-option>
+                                                        <mat-option value="3">3</mat-option>
+                                                        <mat-option value="4">4</mat-option>
+                                                        <mat-option value="5">5</mat-option>
+                                                        <mat-option value="6">6</mat-option>
+                                                        <mat-option value="7">Greater than 6</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-checkbox formControlName="insuredCheck2" (change)="checkHabits($event, 'beer')">Beer Bottle</mat-checkbox>
+                                                <mat-form-field class="w-100" >
+                                                    <mat-select placeholder=Beer formControlName="insuredBeer" (change)="beerBottlePersonalhabit()" [required]="insuredCheck2"  [disabled]="habits">
+                                                        <mat-option value="1">1</mat-option>
+                                                        <mat-option value="2">2</mat-option>
+                                                        <mat-option value="3">3</mat-option>
+                                                        <mat-option value="4">4</mat-option>
+                                                        <mat-option value="5">5</mat-option>
+                                                        <mat-option value="6">6</mat-option>
+                                                        <mat-option value="7">7</mat-option>
+                                                        <mat-option value="8">8</mat-option>
+                                                        <mat-option value="9">9</mat-option>
+                                                        <mat-option value="10">10</mat-option>
+                                                        <mat-option value="11">Greater than 11</mat-option>
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-12 mt-2">
+                                                <h6 class="color-blue">PREVOIUS INSURER DETAILS</h6>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio">
+                                                    <mat-radio-button value="1">Yes</mat-radio-button>
+                                                    <mat-radio-button value="2">No</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                            <div *ngIf="prevList">
+                                                <div class="col-md-12 mt-2">
+                                                    <div class="row">
+                                                        <div class="col-md-3">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput [matDatepicker]="picker2" [max]="minDate" placeholder="Policy Start Date (DD/MM/YYYY)" (keypress)="dobValidate($event)"   formControlName="PolicyStartDate" (dateInput)="addEvent($event, 'startdate')" (dateChange)="addEvent($event, 'startdate')" maxlength="10" minlength="10" autocomplete="off" [required]="prevList">
+                                                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                                <mat-datepicker #picker2></mat-datepicker>
+                                                                <mat-error *ngIf="proposer.controls.PolicyStartDate.errors?.required">Start Date is required</mat-error>
+                                                            </mat-form-field>
+                                                            <div class="error" *ngIf="insurestardate != ''">{{insurestardate}}</div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput [matDatepicker]="picker3" [min]="maxStartdate" placeholder="Policy End Date" (dateInput)="addEvent($event, 'enddate')" (dateChange)="addEvent($event, 'enddate')" (keypress)="dobValidate($event)" [required]="prevList"  formControlName="PolicyEndDate" maxlength="10" autocomplete="off">
+                                                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                                                <mat-datepicker #picker3></mat-datepicker>
+                                                                <mat-error *ngIf="proposer.controls.PolicyEndDate.errors?.required">End Date is required</mat-error>
+                                                            </mat-form-field>
+                                                            <div class="error" *ngIf="insureenddate != ''">{{insureenddate}}</div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <mat-form-field class="w-100">
+                                                                <mat-select placeholder="Previous Insurance List" (keypress)="numberValidate($event)" [required]="prevList" formControlName="insuredPrevList" (change)="preInsureList(); changePrevName()" >
+                                                                    <mat-option *ngFor="let previous of preinsure | keys" value="{{previous.key}}" > {{previous.value}} </mat-option>
+                                                                </mat-select>
+                                                                <mat-error *ngIf="proposer.controls.insuredPrevList.errors?.required">Previous Insurance List is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Previous Policy No" (keypress)="idValidate($event)" maxlength="15" [required]="prevList" formControlName="insuredPrevious">
+                                                                <mat-error *ngIf="proposer.controls.insuredPrevious.errors?.required">Policy number is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Sum Insured" (keypress)="numberValidate($event)" [required]="prevList" maxlength="15" formControlName="insureSumInsured">
+                                                                <mat-error *ngIf="proposer.controls.insureSumInsured.errors?.required">Sum Insured is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Qualifying Amount" (keypress)="numberValidate($event)" maxlength="15"  [required]="prevList" formControlName="insuredQualify">
+                                                                <mat-error *ngIf="proposer.controls.insuredQualify.errors?.required">Qualifying Amount is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Waive Period" (keypress)="idValidate($event)" [required]="prevList" maxlength="15" formControlName="insuredWaive">
+                                                                <mat-error *ngIf="proposer.controls.insuredWaive.errors?.required">Waive Period is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <mat-form-field class="w-100">
+                                                                <input matInput placeholder="Enter Remark Details" (keypress)="space($event)" [required]="prevList"  formControlName="insuredremark">
+                                                                <mat-error *ngIf="proposer.controls.insuredremark.errors?.required">Enter Remark Details is required</mat-error>
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12 mt-2">
+                                                <h6 class="color-blue">MEDICAL INFORMATIONS DETAILS</h6>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <mat-form-field  class="w-100">
+                                                    <input matInput placeholder="Medical Informations" formControlName="MedicalInformations" autocomplete="off" required >
+                                                    <mat-error *ngIf="proposer.controls.MedicalInformations.errors?.required">Medical Informations is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
 
-                    <!--<div class="proposal-buttom mt-3 text-right w-100">-->
-                      <!--&lt;!&ndash;<button mat-button matStepperPrevious (click)="topScroll()">Back</button>&ndash;&gt;-->
-                      <!--<button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, insured.value)" >Next</button>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                <!--</div>-->
-              <!--</mat-expansion-panel>-->
-            <!--</form>-->
-          <!--</mat-accordion>-->
-        <!--</mat-step>-->
-      <!--</mat-horizontal-stepper>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
-        <!--&lt;!&ndash;<mat-step [stepControl]="">&ndash;&gt;-->
-          <!--&lt;!&ndash;<ng-template matStepLabel>NOMINEE DETAILS</ng-template>&ndash;&gt;-->
-          <!--&lt;!&ndash;<mat-accordion class="mt-4 w-100 float-left">&ndash;&gt;-->
-            <!--&lt;!&ndash;<mat-expansion-panel expanded>&ndash;&gt;-->
-              <!--&lt;!&ndash;<mat-expansion-panel-header>&ndash;&gt;-->
-                <!--&lt;!&ndash;<mat-panel-title>NOMINEE DETAILS&ndash;&gt;-->
-                <!--&lt;!&ndash;</mat-panel-title>&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-expansion-panel-header>&ndash;&gt;-->
-              <!--&lt;!&ndash;<ng-template matStepLabel>NOMINEE DETAILS</ng-template>&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="row mt-3">&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="col-md-12 box-card pt-3 pb-3" >&ndash;&gt;-->
-                  <!--&lt;!&ndash;<form [formGroup]="nomineeDetail">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-select placeholder="Title" formControlName="paNomineeTitle" required >&ndash;&gt;-->
-                            <!--&lt;!&ndash;<mat-option value="MR">Mr</mat-option>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<mat-option value="MRS">Ms</mat-option>&ndash;&gt;-->
-                          <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paNomineeTitle.errors?.required">Title is required</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<input matInput placeholder="Nominee Name"  formControlName="paNomineeName" (keypress)="nameValidate($event)" required  autocomplete="off">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paNomineeName.errors?.required">Nominee Name is required</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-select placeholder="Relationship with Insured"  formControlName="paRelationship" (change)="changeRelationship()" required >&ndash;&gt;-->
-                            <!--&lt;!&ndash;<mat-option *ngFor="let relationship of relationshipListPa | keys" [hidden]="relationship.key == '1'" value="{{relationship.key}}" > {{relationship.value}} </mat-option>&ndash;&gt;-->
-                          <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paRelationship.errors?.required">Relationship with Proposer is required</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-12 mt-2 mb-3" >&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-checkbox formControlName="sameAsProposer" (change)="sameasProposer()"><strong class="color-blue">Same as proposer Address</strong></mat-checkbox>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<textarea matInput placeholder="Address 1" rows="2" formControlName="paNomineeAddress" maxlength="30" autocomplete="off" required  [readonly]="readonlyProposer"></textarea>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls. paNomineeAddress.errors?.required">Address is required</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<textarea matInput placeholder="Address 2" rows="2" formControlName="paNomineeAddress2" maxlength="30" autocomplete="off"  [readonly]="readonlyProposer" ></textarea>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls. paNomineeAddress2.errors?.required">Address is required</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<textarea matInput placeholder="Address 3" rows="2" formControlName="paNomineeAddress3" maxlength="30" autocomplete="off"  [readonly]="readonlyProposer"></textarea>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls. paNomineeAddress3.errors?.required">Address is required</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}"  (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  [readonly]="readonlyProposer" formControlName="paNomineePincode" autocomplete="off" (input)=" getnomineePostalCode($event.target.value)" required>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('minlength')">Pin should be 6 digits</mat-error>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('required')">Pincode required</mat-error>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paNomineePincode.hasError('pattern')">Enter Valid  Pin</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                        <div class="proposal-buttom mt-3 text-right w-100">
+                                            <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
+                                            <button mat-raised-button color="primaryBlue"  (click)="nexttab(stepper)" >Next</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                        </form>
+                    </mat-accordion>
+                </mat-step>
+                <mat-step [stepControl]="">
+                    <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+                    <mat-accordion class="w-100 float-left ">
+                        <mat-expansion-panel expanded>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    MEDICAL HISTORY
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+                            <div class="row mt-1">
+                                <div class="col-md-12 box-card pt-3 pb-3" >
+                                    <div class="row col-md-12" *ngFor="let item of appolloQuestionsListPa; let i = index">
+                                        <div class="col-md-10">
+                                            {{i+1}}. {{item.question}}
+                                        </div>
+                                        <div class="col-md-2 text-right">
+                                            <mat-slide-toggle  (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="proposal-buttom mt-3 text-right w-100">
+                                    <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                                    <button mat-raised-button color="primaryBlue" (click)="nexttab(stepper)">Next</button>
+                                </div>
+                                <!--</div>-->
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </mat-step>
+                <mat-step [stepControl]="">
 
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<input matInput placeholder="State"  formControlName="paNomineeState" autocomplete="off" required readonly>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paNomineeState.errors?.required">State is required</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-select placeholder="District"   formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa(); nomineeDistrict()"  [disabled]="readonlyProposer">&ndash;&gt;-->
-                            <!--&lt;!&ndash;<mat-option *ngFor="let paDistrict of paNomineedistrictList | keys" value="{{paDistrict.key}}"> {{paDistrict.value}} </mat-option>&ndash;&gt;-->
-                          <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
-                          <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-4" [ngStyle]="{'pointer-events':readonlyProposer ? 'none' : ''}">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-select placeholder="City"  formControlName="paNomineeCity" (change)="nomineeCity()" required>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<mat-option *ngFor="let paCity of paCityNomineeList | keys" value="{{paCity.key}}"> {{paCity.value}} </mat-option>&ndash;&gt;-->
-                          <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.paNomineeCity.errors?.required">City is required</mat-error>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="proposal-buttom mb-3 text-right w-100">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<button mat-button matStepperPrevious (click)="topScroll()">Back</button>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue"   (click)="religareNomineeDetails(stepper, nomineeDetail.value)">Next</button>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div></div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</mat-expansion-panel>&ndash;&gt;-->
-          <!--&lt;!&ndash;</mat-accordion>&ndash;&gt;-->
-        <!--&lt;!&ndash;</mat-step>&ndash;&gt;-->
-        <!--&lt;!&ndash;<mat-step [stepControl]="">&ndash;&gt;-->
-          <!--&lt;!&ndash;<ng-template matStepLabel>SUMMARY</ng-template>&ndash;&gt;-->
-          <!--&lt;!&ndash;<section class="summary-details" *ngIf="appollosummaryData">&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="col-md-4"> <h4 class="mt-3 text-center"> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="col-md-8">&ndash;&gt;-->
-                <!--&lt;!&ndash;<ul class="summary-head">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><span>Base Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.BasePremium}}</span> /</li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.Tax}}</span> </li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.FinalPremium}}</span> </li>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<li></li>&ndash;&gt;-->
-                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;<section>&ndash;&gt;-->
-              <!--&lt;!&ndash;<h5 class="mt-3 sub-title">PROPOSER / INSURED DETAILS </h5>&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="row box-card">&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Name:</strong><span *ngIf="proposerFormData.insuredPaTitle == 'MR'">Mr</span><span *ngIf="proposerFormData.insuredPaTitle == 'MRS'">Ms</span>.{{proposerFormData.insuredPaFirstname}} {{proposerFormData.insuredPaMidname}} {{proposerFormData.insuredPaLastname}} </li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredPaGender"><strong>Gender:</strong> {{proposerFormData.insuredPaGender}} </li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.insuredPaMobile}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.insuredPaDob  | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Age:</strong> {{proposerFormData.insuredPaAge}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Email:</strong> {{proposerFormData.insuredPaEmail}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.insuredOccupationListName}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<h6 class="mb-4"></h6>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Height:</strong> {{proposerFormData.insuredHeight}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.insuredWeight}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredProfessionListName !='' && proposerFormData.insuredProfessionListName != null"><strong>Profession:</strong> {{proposerFormData.insuredProfessionListName}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredPaIdProofName != '' && proposerFormData.insuredPaIdProof != null"><strong>ID Proof:</strong> {{proposerFormData.insuredPaIdProofName}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="idListDetailsinsured !=''"><strong>ID Proof Number:</strong> {{idListDetailsinsured | uppercase}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.insuredAnnual}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredPaGst != '' && proposerFormData.insuredPaGst != null"><strong>Gst Number:</strong> {{proposerFormData.insuredPaGst | uppercase}}</li>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<h6 >COMMUNICATION DETAILS</h6>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.insuredPaAddress}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress2 !=''"><strong>Address 2:</strong> {{proposerFormData.insuredPaAddress2}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress3!= ''"><strong>Address 3:</strong> {{proposerFormData.insuredPaAddress3}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.insuredPaPincode}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>City:</strong> {{proposerFormData.insuredPaCityName}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredPaDistrictName !='' && proposerFormData.insuredPaDistrictName != null"><strong>District:</strong> {{proposerFormData.insuredPaDistrictName}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>State:</strong> {{proposerFormData.insuredPaState}}</li>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<h6>PERSONAL HABITS</h6>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredSmokeList != ''"><strong>Smoking:</strong>{{proposerFormData.insuredSmokeList}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredSmokeList == ''"><strong>Smoking:</strong> Nil</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"  *ngIf="proposerFormData.insuredPouchesList != ''" ><strong>Pouches:</strong> {{proposerFormData.insuredPouchesList}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"  *ngIf="proposerFormData.insuredPouchesList == ''" ><strong>Pouches:</strong> Nil</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredLiquor != ''"><strong>Liquor Peg:</strong> {{proposerFormData.insuredLiquor}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredLiquor == ''"><strong>Liquor Peg:</strong> Nil</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredWine != ''"><strong>Wine Glass:</strong> {{proposerFormData.insuredWine}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredWine == ''"><strong>Wine Glass:</strong> Nil</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredBeer != ''"><strong>Beer Bottle:</strong> {{proposerFormData.insuredBeer}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.insuredBeer == ''"><strong>Beer Bottle:</strong> Nil</li>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="col-md-6" *ngIf="prevList">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<h6>PREVIOUS INSURED DETAILS</h6>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Policy Start Date:</strong>{{proposerFormData.PolicyStartDate | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Policy End Date:</strong> {{proposerFormData.PolicyEndDate | date: 'dd/MM/yyyy'}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Previous Insurer:</strong> {{proposerFormData.insuredPrevListName}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Previous Policy No:</strong> {{proposerFormData.insuredPrevious}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Sum Insured:</strong>{{proposerFormData.insureSumInsured}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Qualifying Amount:</strong> {{proposerFormData.insuredQualify}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Waive Period:</strong> {{proposerFormData.insuredWaive}}</li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<li class="list-group-item"><strong>Remark Details:</strong>{{proposerFormData.insuredremark}}</li>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</section>&ndash;&gt;-->
-            <!--&lt;!&ndash;<section>&ndash;&gt;-->
-              <!--&lt;!&ndash;<h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="row box-card">&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item"><strong>Name:</strong><span *ngIf="nomineeDataForm.paNomineeTitle == 'MR'">Mr</span><span *ngIf="nomineeDataForm.paNomineeTitle == 'MRS'">Ms</span>.{{nomineeDataForm.paNomineeName}}</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataForm.paRelationshipName}}</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<h6 >NOMINEE ADDRESS</h6>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item"><strong>Address1:</strong> {{nomineeDataForm.paNomineeAddress}}</li>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress2 !=''"><strong>Address2:</strong> {{nomineeDataForm.paNomineeAddress2}}</li>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress3 !=''"><strong>Address3:</strong> {{nomineeDataForm.paNomineeAddress3}}</li>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item"><strong>Pincode:</strong> {{nomineeDataForm.paNomineePincode}}</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="p-3">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<h1 class="mb-4"></h1>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<ul class="m-0 list-group">&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item"><strong>State:</strong> {{nomineeDataForm.paNomineeState}}</li>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item"><strong>City:</strong> {{nomineeDataForm.paNomineeCityName}}</li>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<li class="list-group-item" *ngIf="nomineeDataForm.paNomineeDistrictName != '' && nomineeDataForm.paNomineeDistrictName != null"><strong>District:</strong> {{nomineeDataForm.paNomineeDistrictName}}</li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</section>&ndash;&gt;-->
-            <!--&lt;!&ndash;<p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all the details provided above is correct</mat-checkbox></p>&ndash;&gt;-->
-            <!--&lt;!&ndash;<hr>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
-              <!--&lt;!&ndash;<div class="col-md-12 text-center">&ndash;&gt;-->
-                <!--&lt;!&ndash;<form action= {{appollosummaryData.PaymentURL}} method='post' #form>&ndash;&gt;-->
-
-                  <!--&lt;!&ndash;<div>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<input type='hidden' name='proposalNum' value={{appollosummaryData.proposalNum}}/>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<input type='hidden' name='returnURL' value={{appollosummaryData.returnURL}}/>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="proposal-buttom mb-3 text-center w-100">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<button mat-button matStepperPrevious  (click)="topScroll()">Back</button>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                <!--&lt;!&ndash;</form>&ndash;&gt;-->
-
-
-              <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-          <!--&lt;!&ndash;</section>&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<div class="proposal-buttom mt-3 text-right w-100">&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;<button mat-button matStepperPrevious  >Back</button>&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-        <!--&lt;!&ndash;</mat-step>&ndash;&gt;-->
-      <!--&lt;!&ndash;</mat-horizontal-stepper>&ndash;&gt;-->
-    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-  <!--&lt;!&ndash;</div>&ndash;&gt;-->
-<!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-
-
-
-
-
-
+                    <ng-template matStepLabel >INSURED DETAILS</ng-template>
+                    <mat-accordion class=" w-100 float-left">
+                        <form [formGroup]="insure" >
+                            <mat-expansion-panel expanded>
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title> INSURED DETAILS </mat-panel-title>
+                                </mat-expansion-panel-header>
+                                <h1>sffsfsfsfsd</h1>
+                            </mat-expansion-panel>
+                        </form>
+                    </mat-accordion>
+                </mat-step>
+            </mat-horizontal-stepper>
+        </div>
+    </div>
+</div>
