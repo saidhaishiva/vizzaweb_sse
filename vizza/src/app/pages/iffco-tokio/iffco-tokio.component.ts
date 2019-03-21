@@ -762,7 +762,7 @@ export class IffcoTokioComponent implements OnInit {
                 this.insuredData.push({
                     'PreExistingDisease': 'N',
                     'Age': this.insuredDetails.items[i].proposerAge,
-                    'DateOfBirth': this.insuredDetails.items[i].proposerDob,
+                    'DateOfBirth': this.insuredDetails.items[i].proposerDob.toString(),
                     'FirstName': this.insuredDetails.items[i].proposerFirstname,
                     'Gender': this.insuredDetails.items[i].proposerGender == 'Male' ? 'M' : 'F',
                     'Height': this.insuredDetails.items[i].proposerHeight,
@@ -874,7 +874,7 @@ export class IffcoTokioComponent implements OnInit {
                 "Insured": this.insuredData,
             },
             "Contact": {
-                'DOB': this.proposer.controls['proposerDob'].value,
+                'DOB': this.proposer.controls['proposerDob'].value.toString(),
                 'PassPort': this.proposer.controls['proposerPassport'].value,
                 'PAN': this.proposer.controls['proposerPan'].value,
                 'Salutation': this.proposer.controls['proposerTitle'].value,
