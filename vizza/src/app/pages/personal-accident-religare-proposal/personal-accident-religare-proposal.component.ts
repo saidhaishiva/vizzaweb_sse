@@ -507,6 +507,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         sessionStorage.proposal2Detail = '';
         sessionStorage.proposal2Detail = JSON.stringify(value);
         this.insurerData = value;
+        console.log(this.insurerData,'this.insurerData');
         if (this.insured.valid) {
             if (sessionStorage.insuredAgePA >= 18 && sessionStorage.insuredAgePA <= 70) {
                 if (this.insured.controls['insuredAnnualIncome'].value != 0) {
@@ -826,48 +827,48 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
     public occupationdescriptionFailure(error) {
     }
-    setpersonalDescriptionListCode(type) {
-        if (this.personal.controls['personalDescriptionCode'].value == 'C5') {
-            this.occupationDescription = true;
-            if(this.occupationDescription = true) {
-                this.personalDescriptionclassPA = true;
-                this.personal.controls['personalDescription'].setValidators([Validators.required]);
-            } else{
-                this.personalDescriptionclassPA = false;
-                this.personal.controls['personalDescription'].setValidators(null);
-            }
-            this.occupationClass = false;
-        } else {
-            this.occupationDescription = false;
-            this.occupationClass = true;
-        }
-        const data = {
-            'platform': 'web',
-            'occupationId':this.personal.controls['personalDescriptionCode'].value,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.personalservice.classOccupationCode(data).subscribe(
-            (successData) => {
-                this.classSuccess(successData, type);
-            },
-            (error) => {
-                this.classFailure(error);
-            }
-        );
-
-    }
-    public classSuccess(successData, type) {
-        if (type != 'session' ) {
-            this.personal.controls['personalClassDescriptionCode'].patchValue('');
-        }
-        this.personalClassDescription = successData.ResponseObject;
-
-
-    }
-
-    public classFailure(error) {
-    }
+    // setpersonalDescriptionListCode(type) {
+    //     if (this.personal.controls['personalDescriptionCode'].value == 'C5') {
+    //         this.occupationDescription = true;
+    //         if(this.occupationDescription = true) {
+    //             this.personalDescriptionclassPA = true;
+    //             this.personal.controls['personalDescription'].setValidators([Validators.required]);
+    //         } else{
+    //             this.personalDescriptionclassPA = false;
+    //             this.personal.controls['personalDescription'].setValidators(null);
+    //         }
+    //         this.occupationClass = false;
+    //     } else {
+    //         this.occupationDescription = false;
+    //         this.occupationClass = true;
+    //     }
+    //     const data = {
+    //         'platform': 'web',
+    //         'occupationId':this.personal.controls['personalDescriptionCode'].value,
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
+    //     }
+    //     this.personalservice.classOccupationCode(data).subscribe(
+    //         (successData) => {
+    //             this.classSuccess(successData, type);
+    //         },
+    //         (error) => {
+    //             this.classFailure(error);
+    //         }
+    //     );
+    //
+    // }
+    // public classSuccess(successData, type) {
+    //     if (type != 'session' ) {
+    //         this.personal.controls['personalClassDescriptionCode'].patchValue('');
+    //     }
+    //     this.personalClassDescription = successData.ResponseObject;
+    //
+    //
+    // }
+    //
+    // public classFailure(error) {
+    // }
 
 
     // insured occupation list
@@ -938,6 +939,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     }
     public classoccupationSuccess(successData) {
         this.insureClassDescription = successData.ResponseObject;
+        console.log(this.insureClassDescription,' this.insureClassDescription');
     }
 
     public classoccupationFailure(error) {
@@ -1279,7 +1281,14 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.insured.controls['insuredCityName'].patchValue(this.personalCitys[this.insured.controls['insuredCity'].value]);
     }
     changeOccupationDescription(){
-        this.insured.controls['insuredClassDescriptionCodeName'].patchValue(this.insureClassDescription[this.insured.controls['insuredClassDescriptionCode'].value]);
+
+        for(let i=0 ;i < this.insureClassDescription.length; i++){
+            if(this.insureClassDescription[i].occupation_class_description == this.insured.controls['insuredClassDescriptionCode'].value){
+                this.insured.controls['insuredClassDescriptionCodeName'].patchValue(this.insureClassDescription[i].occ_name);
+            }
+        }
+        console.log( this.insured.controls['insuredClassDescriptionCodeName'].value,'oooooooooooo');
+
     }
     changeDescription(){
         this.insured.controls['insuredDescriptionCodeName'].patchValue(this.insureoccupationdescriptionList[this.insured.controls['insuredDescriptionCode'].value]);

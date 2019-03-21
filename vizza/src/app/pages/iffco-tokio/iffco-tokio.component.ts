@@ -150,6 +150,7 @@ export class IffcoTokioComponent implements OnInit {
         this.smokeList = false;
         this.tobacoList = false;
         this.alchocolList = false;
+
         this.proposer = this.fb.group({
             proposerTitle: ['', Validators.required],
             proposerFirstname: ['', Validators.required],
@@ -762,7 +763,7 @@ export class IffcoTokioComponent implements OnInit {
                 this.insuredData.push({
                     'PreExistingDisease': 'N',
                     'Age': this.insuredDetails.items[i].proposerAge,
-                    'DateOfBirth': this.insuredDetails.items[i].proposerDob,
+                    'DateOfBirth': this.insuredDetails.items[i].proposerDob.toString(),
                     'FirstName': this.insuredDetails.items[i].proposerFirstname,
                     'Gender': this.insuredDetails.items[i].proposerGender == 'Male' ? 'M' : 'F',
                     'Height': this.insuredDetails.items[i].proposerHeight,
@@ -874,7 +875,7 @@ export class IffcoTokioComponent implements OnInit {
                 "Insured": this.insuredData,
             },
             "Contact": {
-                'DOB': this.proposer.controls['proposerDob'].value,
+                'DOB': this.proposer.controls['proposerDob'].value.toString(),
                 'PassPort': this.proposer.controls['proposerPassport'].value,
                 'PAN': this.proposer.controls['proposerPan'].value,
                 'Salutation': this.proposer.controls['proposerTitle'].value,
@@ -1006,9 +1007,10 @@ export class IffcoTokioComponent implements OnInit {
 
 
     sessionData() {
+        console.log('inside');
         if (sessionStorage.stepper1IffcoDetails != '' && sessionStorage.stepper1IffcoDetails != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1IffcoDetails);
-            this.proposer = this.fb.group({
+            this.proposer.patchValue({
                 proposerTitle: this.getStepper1.proposerTitle,
                 proposerFirstname: this.getStepper1.proposerFirstname,
                 proposerLastname: this.getStepper1.proposerLastname,
@@ -1043,6 +1045,8 @@ export class IffcoTokioComponent implements OnInit {
                 additionalFacts: this.getStepper1.additionalFacts,
                 pastInsuranceDeclined: this.getStepper1.pastInsuranceDeclined,
             });
+            console.log(this.proposer, 'setttttttttttt');
+            // this.proposer.controls['proposerEmail'].patchValue(this.getStepper1.proposerEmail);
         }
 
         if (sessionStorage.stepper2IffcoDetails != '' && sessionStorage.stepper2IffcoDetails != undefined) {
