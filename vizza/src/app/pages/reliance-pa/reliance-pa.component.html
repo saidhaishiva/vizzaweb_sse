@@ -152,20 +152,7 @@
                                                 <mat-error *ngIf="proposer.controls.insuredPaGst.hasError('pattern')">Enter valid GST</mat-error>
                                             </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Height"    (keypress)="numberValidate($event)" formControlName="insuredHeight" maxlength="3" autocomplete="off" required>
-                                                    <mat-error *ngIf="proposer.controls.insuredHeight.errors?.required">Height is required</mat-error>
 
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Weight"    (keypress)="numberValidate($event)" formControlName="insuredWeight" maxlength="3" autocomplete="off" required>
-                                                    <mat-error *ngIf="proposer.controls.insuredWeight.errors?.required">Weight is required</mat-error>
-
-                                                </mat-form-field>
-                                            </div>
                                             <div class="col-md-12 mt-2">
                                                 <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                                             </div>

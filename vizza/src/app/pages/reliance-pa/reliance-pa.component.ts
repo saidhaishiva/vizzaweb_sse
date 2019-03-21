@@ -138,8 +138,6 @@ export class ReliancePaComponent implements OnInit {
       previousradio: '2',
       rolecd: 'PROPOSER',
       type: '',
-      insuredHeight: '',
-      insuredWeight: '',
       sameAsProposer: false
     });
     this.ProposerPa = this.proposerpa.group({
