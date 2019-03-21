@@ -62,7 +62,7 @@
     "ng2-simple-timepicker": "^0.1.11",
     "ng2-utils": "^0.6.1",
     "ngx-image-cropper": "^0.2.3",
-    "ngx-material-timepicker": "^2.2.3",
+    "ngx-material-timepicker": "2.2.3",
     "ngx-pagination": "3.0.3",
     "ngx-perfect-scrollbar": "5.3.1",
     "ngx-quill": "2.1.1",

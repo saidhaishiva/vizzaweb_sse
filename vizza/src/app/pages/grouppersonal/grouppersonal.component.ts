@@ -144,7 +144,7 @@ export class GrouppersonalComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #A600A0"><img src="assets/img/group-personal-accidents.png" class="logo-size"> About Group Personal Accident</h3>
+                <h3 class="text-center" style="color: #32326D"><img src="assets/img/group-personal-accidents.png" class="logo-size"> About Group Personal Accident</h3>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>

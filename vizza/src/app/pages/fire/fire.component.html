@@ -1,6 +1,6 @@
 <div class="container dashboard h-100" fxLayoutAlign="start start">
   <div class="row my-flex-card">
-    <h2 class="w-100 text-center" style="color: #F44D00"><img src="assets/img/fire-insurance.png" class="logo-size"> Fire Insurance</h2>
+    <h2 class="w-100 text-center" style="color: #F4611F"><img src="assets/img/fire-insurance.png" class="logo-size"> Fire Insurance</h2>
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
@@ -8,7 +8,7 @@
             <img src="assets/img/Fire-Insurance-new.jpg" style="height:605px;" class="w-100">
             <div class="aboutContent">
               <h4 class="w-100 text-center">About Fire Insurance</h4>
-              <p class="text-justify text-left">Think of fire before it starts, whatever burns never returns..… <button class="btn btn-sm" (click)="FireInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px;"> Know More</button></p>
+              <p class="text-justify text-left">Think of fire before it starts, whatever burns never returns..… <button class="btn btn-sm" (click)="FireInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -16,8 +16,8 @@
     </div>
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
-        <div class="card-block">
-          <mat-card style="background:#F44D00 !important; color: #fff;">
+        <div class="card-block AllFormView">
+          <mat-card class="p-4" style="background: linear-gradient(to top, #973D12 0%, #EE945A 100%) !important; color:#fff;">
             <h2 class="w-100 text-center" >Let us assist you</h2>
             <form [formGroup]="fireapp">
 
@@ -75,7 +75,7 @@
                     <mat-icon matSuffix>email</mat-icon>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="w-100">
                     <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
                     <mat-error *ngIf="fireapp.controls.pincode.errors?.required">Pincode is required</mat-error>
@@ -85,7 +85,7 @@
                     <mat-icon matSuffix>place</mat-icon>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="w-100">
                     <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
                       <mat-option value="call">Call</mat-option>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!fireapp.valid ) || (!pincodeErrors)" (click)="fireKeeper(fireapp.value)">Submit</button>
-                  <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
+                  <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
             </form>

@@ -415,7 +415,12 @@ export class PersonalaccidentComponent implements OnInit {
         } else {
             this.ageerror = false;
         }
-        if (this.AnnualIncomeP != '' && this.AnnualIncomeP != undefined && this.selectedProfession != '' && this.selectedProfession != undefined && this.pincoceP != '' && this.pincoceP != undefined) {
+        console.log(this.pinerror);
+        console.log(this.professionerr);
+        console.log(this.occerror);
+        console.log(this.annualerror);
+        console.log(this.ageerror);
+        if (!this.pinerror && !this.professionerr && !this.occerror && !this.annualerror && !this.ageerror) {
             const data = {
                 "platform": "web",
                 "insurance_type": "2",
@@ -804,7 +809,7 @@ export class PersonalaccidentComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h3 class="text-center" style="color: #EF0034"><img src="assets/img/personal-accident.png" class="logo-size"> About Personal Accident</h3>
+                <h3 class="text-center" style="color: #D92D32"><img src="assets/img/personal-accident.png" class="logo-size"> About Personal Accident</h3>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>

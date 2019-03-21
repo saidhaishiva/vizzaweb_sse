@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Parisienne');
 $theme-color:#02810E;
 $green-color:#18CCB4;
-$pink-color:#F50091;
+$pink-color:#D5528E;
 $light-green:#2FE827;
 *{
   outline: none;
@@ -477,49 +477,49 @@ a:hover {
     //  background: #3EA1F7;
     //}
     li:nth-child(1) .icon {
-      background: #07F488;
+      background: #22B9C6;
     }
     li:nth-child(2) .icon {
-      background: #DF6601;
+      background: #6A6477;
     }
     li:nth-child(3) .icon {
-      background: #FD0089;
+      background: #CE367B;
     }
     li:nth-child(4) .icon {
-      background: #EF0034;
+      background: #D7252B;
     }
     li:nth-child(5) .icon {
-      background: #0FBEEA;
+      background: #8A56DB;
     }
     li:nth-child(6) .icon {
-      background: #A521B3;
+      background: #9ECA3A;
     }
     li:nth-child(7) .icon {
-      background: #A521B3;
+      background: #821546;
     }
     li:nth-child(8) .icon {
-      background: #F44D00;
+      background: #F3520B;
     }
     li:nth-child(9) .icon {
-      background: #000000;
+      background: #161814;
     }
     li:nth-child(10) .icon {
-      background: #18CCB4;
+      background: #50BAE3;
     }
     li:nth-child(11) .icon {
-      background: #F50091;
+      background: #EB017D;
     }
     li:nth-child(12) .icon {
-      background: #FAE639;
+      background: #FFD400;
     }
     li:nth-child(13) .icon {
-      background: #F00034;
+      background: #2FB017;
     }
     li:nth-child(14) .icon {
-      background: #F00034;
+      background: #5188B8;
     }
     li:nth-child(15) .icon {
-      background: #A811A3;
+      background: #252564;
     }
   }
   .nav-item{
@@ -1430,6 +1430,87 @@ a:hover {
 
       strong{
         width: 248px;
+        float: left;
+      }
+    }
+  }
+}
+.iffcoHealthProposal{
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+    margin-top: -11px !important;
+    // margin-left: 20px !important;
+  }
+  .mat-checkbox-inner-container {
+    height: 17px !important;
+    width: 17px !important;
+  }
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+  }
+
+  .mat-primaryBlue {
+    background-color: #467f8b !important;
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #467f8b !important;
+    color: #ffff;
+  }
+
+  .mat-horizontal-stepper-header{
+    pointer-events: none !important;
+  }
+  mat-expansion-panel-header{
+    background: #467f8b !important;
+    mat-panel-title, .mat-expansion-indicator::after{
+      color: white !important;
+    }
+  }
+  .color-blue{
+    color:  #467f8b !important;
+    font-size: 12px;
+  }
+
+  .mat-expansion-panel-body{
+    border: 1px solid #467f8b;
+  }
+  .mat-step-header .mat-step-icon{
+    background-color: #467f8b !important;
+  }
+  .mat-step-label.mat-step-label-active.mat-step-label-selected{
+    color: #467f8b !important;
+
+  }
+  .box-card{
+    background: #ffffff;
+    border-left: 5px solid #fff;
+    margin-bottom: 15px;
+    position: relative;
+    text-transform: capitalize;
+  }
+  .summary-details {
+    .sub-title {
+      font-size: 14px;
+    }
+    .box-card {
+      border: none;
+    }
+    h6 {
+      text-align: center;
+      color: #467f8b;
+    }
+    h5 {
+      background: #467f8b;
+      color: #fff;
+      padding: 8px;
+      margin-bottom: 0;
+    }
+    li{
+      padding-bottom: 8px;
+      margin-right: 10px;
+
+      strong{
+        width: 180px;
         float: left;
       }
     }
@@ -2510,7 +2591,7 @@ btn-uploade{
   }
 }
 //.active-link {
-//  background-color: #90d050 !important;
+//  background-color: #00695c !important;
 //}
 
 .about-health{
@@ -2713,11 +2794,18 @@ fieldset {
     margin-top: 6px !important;
   }
   .mat-tab-group {
-    background: #6bc3e4 !important;
+    background:linear-gradient(to top, #E2C582 50%, #8AC2E7 100%) !important;;
+    color: #fff;
   }
   .mat-tab-label-active {
     background-color: #ffffff !important;
-    color: #201f1f !important;
+    color: #9769DF !important;
+  }
+  .mat-radio-outer-circle{
+    border-color : #fff !important;
+  }
+  .mat-checkbox-frame {
+    border-color: #fff !important;
   }
   .travel-box {
     border: 1px solid gray !important;
@@ -2742,18 +2830,31 @@ fieldset {
       display: none;
     }
     .travel{
-      background: #6bc3e4;
+      background: linear-gradient(to top, #E2C582 0%, #8AC2E7 100%) !important;
       padding:15px;
       border-radius: 5px;
-      button{
-        line-height: 28px;
-        font-size: 10px;
-        padding: 0 10px;
-        i{
-          font-size: 18px;
-        }
-      }
+      //button{
+      //  line-height: 28px;
+      //  font-size: 10px;
+      //  padding: 0 10px;
+      //  i{
+      //    font-size: 18px;
+      //  }
+      //}
     }
+  .travel1{
+    background: #8AC2E7;
+    padding:15px;
+    border-radius: 5px;
+    //button{
+    //  line-height: 28px;
+    //  font-size: 10px;
+    //  padding: 0 10px;
+    //  i{
+    //    font-size: 18px;
+    //  }
+    //}
+  }
     thead th{
       background: #7dc3e0 !important;
     }
@@ -3155,7 +3256,7 @@ fieldset {
 }
 .pa-home {
   .text-color {
-    color: #EF0034 !important;
+    color: #D92D32 !important;
 
   }
 }

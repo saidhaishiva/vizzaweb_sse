@@ -20,6 +20,8 @@ export class LifeViewDetailsComponent implements OnInit {
   public productDocLists : any;
   public bgColor : any;
   public productId : any;
+  public productName: any;
+  public companyName: any;
   public id1 : any;
   public selectedClaimDetails : any;
   public settings: Settings;
@@ -34,11 +36,12 @@ export class LifeViewDetailsComponent implements OnInit {
   public url: any;
   public fileUploadPath: any;
 
-
   constructor( public dialogRef : MatDialogRef<LifeViewDetailsComponent>,
       @Inject(MAT_DIALOG_DATA)public data: any, public toastr : ToastrService, public auth : AuthService,public life:LifeService,public appSettings: AppSettings,public config: ConfigurationService, public fb: FormBuilder) {
     this.settings = this.appSettings.settings;
     this.productId = data.productId;
+    this.productName = data.productName;
+    this.companyName = data.companyName;
     this.webhost = this.config.getimgUrl();
     this.testPath = '/uploads/religare1120002190099_1539679118.pdf';
     this.fileUploadPath = '';
@@ -48,7 +51,6 @@ export class LifeViewDetailsComponent implements OnInit {
       'subject': ['', Validators.compose([Validators.required])],
       'message': ['', Validators.compose([Validators.required])],
       'profile': ['',Validators.compose( [Validators.required])]
-
     });
 
 

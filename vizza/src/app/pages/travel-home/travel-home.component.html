@@ -1,6 +1,6 @@
 <div class="container dashboard h-100" fxLayoutAlign="start start" id="travel-starthealth">
   <div class="row my-flex-card">
-    <h2 class="w-100 text-center" style="color: #0CC3E8"><button mat-icon-button color="accent"><img src="assets/img/travel-insurance.png" class="logo-size"></button> Travel Insurance</h2>
+    <h2 class="w-100 text-center" style="color: #9769DF"><button mat-icon-button color="accent"><img src="assets/img/travel-insurance.png" class="logo-size"></button> Travel Insurance</h2>
     <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
@@ -8,7 +8,7 @@
             <img src="assets/img/Travel-Inner-banner.png" class="w-100">
             <div class="aboutContent">
               <h4>About Travel Insurance</h4>
-              <p style="text-align: left;">Sometimes, things don’t go as planned. Wherever you go, we protect you.… <button class="btn btn-sm" (click)="travelInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px;"> Know More</button></p>
+              <p style="text-align: left;">Sometimes, things don’t go as planned. Wherever you go, we protect you.… <button class="btn btn-sm" (click)="travelInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -18,7 +18,7 @@
     <div *ngIf="show" id="start-travel" class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
-            <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)" class="travel-box">
+          <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)" class="travel-box AllFormView">
               <mat-tab>
                 <ng-template mat-tab-label>
                   <mat-icon class="example-tab-icon">person</mat-icon>
@@ -145,7 +145,7 @@
                     <div *ngIf="medicalerror" class="ngError">Required</div>
                     <div fxLayoutAlign="center center" class="mt-3">
                       <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('self')">Proceed</button>
-                      <button mat-button type="reset" style="color: #000; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
+                      <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
                       <!--<i class="material-icons" style="position: absolute; right: 10px;" (click)="refresh()">refresh</i> Reset-->
                     </div>
                     <!--<div fxLayoutAlign="end center" class="text-right refreshBtn" >-->
@@ -457,7 +457,7 @@
                     </mat-select>
                   </mat-form-field>
                   <div *ngIf="sumerror" class="ngError">Required</div>
-                  <div class="w-100 mb-2 travel">
+                  <div class="w-100 mb-2 travel1">
                     <div class="row" fxLayoutAlign="start center">
                       <div class="col-md-6" *ngFor="let item of studentArray; let i = index; let last = last">
                         <div class="row" fxLayoutAlign="start center">
@@ -565,8 +565,8 @@
 
     <div *ngIf="!show" class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
-        <div class="card-block">
-          <mat-card style="background:#F44D00 !important; color: #fff;">
+        <div class="card-block AllFormView">
+          <mat-card class="p-4" style="background: linear-gradient(to top, #E2C582 0%, #8AC2E7 100%) !important; color:#fff;">
             <h2 class="w-100 text-center" >Let us assist you</h2>
             <form [formGroup]="fireapp">
 
@@ -624,7 +624,7 @@
                     <mat-icon matSuffix>email</mat-icon>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="w-100">
                     <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
                     <mat-error *ngIf="fireapp.controls.pincode.errors?.required">Pincode is required</mat-error>
@@ -634,7 +634,7 @@
                     <mat-icon matSuffix>place</mat-icon>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12">
+                <div class="col-md-6">
                   <mat-form-field class="w-100">
                     <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
                       <mat-option value="call">Call</mat-option>
