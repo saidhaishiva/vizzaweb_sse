@@ -159,6 +159,9 @@
 
                   <div class="col-md-12 box-card pt-3">
                     <div class="row">
+                        <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
+                    </div>
+                    <div class="row">
                       <div class="col-md-3">
                         <p>Address Type: <span class="error">*</span></p>
                         <mat-radio-group formControlName="typeAddress">
@@ -343,7 +346,7 @@
                         </div>
                         <div class="col-md-3" *ngIf="smokeList">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Smoke Quantity(Per Day)" formControlName="smokeQuantity" [required]="smokeList" (keypress)="numberValidate($event)"  autocomplete="off">
+                            <input matInput placeholder="Smoke Quantity(Per Day)" formControlName="smokeQuantity" [required]="insureArray['controls'].items['controls'][i]['controls'].personalHabits.value == true" (keypress)="numberValidate($event)"  autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" >
@@ -355,7 +358,7 @@
                         </div>
                         <div class="col-md-3" *ngIf="alchocolList" >
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Alcohol Quantity(Per Day)"   [required]="alchocolList"  (keypress)="numberValidate($event)" formControlName="alcoholQuantity" autocomplete="off">
+                            <input matInput placeholder="Alcohol Quantity(ml/Per Day)"   [required]="insureArray['controls'].items['controls'][i]['controls'].personalHabits.value == true"  (keypress)="numberValidate($event)" maxlength="2" formControlName="alcoholQuantity" autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" >
@@ -367,7 +370,7 @@
                         </div>
                         <div class="col-md-3" *ngIf="tobacoList">
                           <mat-form-field class="w-100">
-                            <textarea matInput placeholder="Tobacco Quantity(Per Day)" formControlName="tobaccoQuantity"  (keypress)="numberValidate($event)" [required]="tobacoList" autocomplete="off"></textarea>
+                            <textarea matInput placeholder="Tobacco Quantity(gms/Per Day)" formControlName="tobaccoQuantity"  (keypress)="numberValidate($event)" maxlength="2" [required]="insureArray['controls'].items['controls'][i]['controls'].personalHabits.value == true" autocomplete="off"></textarea>
                           </mat-form-field>
                         </div>
                       </div>

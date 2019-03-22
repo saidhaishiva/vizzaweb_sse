@@ -64,6 +64,24 @@ export class HealthService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // fork join
+    getPolicyListsNew(list, data) {
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        let response: any;
+        response = [];
+        for (let i = 0; i < list.length; i++) {
+            data.company_id = list[i].company_id;
+
+            let json = '';
+            json = JSON.stringify(data);
+            const url = this.configurationService.getHostHealth() + 'healthproduct/productList';
+            response.push(this.http.post(url, json, httpOptions));
+        }
+        console.log(response);
+        return Observable.forkJoin(response);
+    }
 
     // end
 
@@ -148,7 +166,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHome() + 'starheathproduct/view_keyfeatures' ;
+        const url = this.configurationService.getHostHealth() + 'starheathproduct/view_keyfeatures' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

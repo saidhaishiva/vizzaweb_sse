@@ -96,10 +96,9 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
     // view key features details
     viewDetails(value) {
         let dialogRef = this.dialog.open(LifeViewDetailsComponent, {
-            width: '1500px',data: {productId : value.product_id, productName: value.product_name}
+            width: '1500px',data: {productId : value.product_id, productName: value.product_name, companyName: value.company_name}
         });
         dialogRef.disableClose = true;
-
         dialogRef.afterClosed().subscribe(result => {
         });
     }
@@ -120,7 +119,7 @@ export class EndowmentLifeInsuranceComponent implements OnInit {
     //call Back Function
     callBack(value){
         let dialogRef = this.dialog.open(LifeCallBackComponent, {
-            width: '800px',data: {productId : value.product_id, productName: value.product_name}
+            width: '800px',data: {productId : value.product_id, productName: value.product_name, companyName: value.company_name}
         });
         dialogRef.disableClose = true;
 

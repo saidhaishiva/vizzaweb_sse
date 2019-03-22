@@ -6,7 +6,7 @@ import {CommonService} from '../../shared/services/common.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {Router} from '@angular/router';
 import {Settings} from '../../app.settings.model';
-import {HealthService} from '../../shared/services/health.service';
+import {LearningcenterService} from '../../shared/services/learningcenter.service';
 
 @Component({
   selector: 'app-media-center',
@@ -19,7 +19,7 @@ export class MediaCenterComponent implements OnInit {
     public page:any;
     public response:any;
     public settings: Settings;
-    constructor(public appSettings:AppSettings,public proposalservice: HealthService, public common: CommonService, public router: Router){
+    constructor(public appSettings:AppSettings,public learning: LearningcenterService, public common: CommonService, public router: Router){
         this.settings = this.appSettings.settings;
     }
 
@@ -31,7 +31,7 @@ export class MediaCenterComponent implements OnInit {
         const data = {
             "platform": "web",
         };
-            this.proposalservice.getProposal(data).subscribe(
+            this.learning.learningcenter(data).subscribe(
             (successData) => {
                 this.updateSuccess(successData);
             },
@@ -41,7 +41,7 @@ export class MediaCenterComponent implements OnInit {
         );
     }
     updateSuccess(successData) {
-        if (successData.IsSuccess) {
+        if (successData.IsSuccess == true) {
            this.response= successData.ResponseObject;
         } else {
         }
