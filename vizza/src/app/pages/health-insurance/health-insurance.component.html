@@ -93,7 +93,7 @@
         </div>
 
         <div class="flex-p" >
-           <table class="table health-table table-scroll healthScroll">
+           <table class="table table-striped health-table table-scroll healthScroll">
             <thead>
             <tr>
               <th class="col-md-2">
@@ -132,7 +132,8 @@
                 </thead>
                 <tbody>
                 <!--<tr class="" *ngFor="let plists of allProductLists | orderBy : 'premium_amount';let i = index" [hidden]="changeSuninsuredAmount != getSumInsureId" >-->
-                <tr class="" *ngFor="let plists of allProductLists;let i = index" [hidden]="changeSuninsuredAmount != getSumInsureId" >
+                <tr class="" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId"
+                   >
                   <td align="center"  class="col-md-2 text-center">
                     <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
                     <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
