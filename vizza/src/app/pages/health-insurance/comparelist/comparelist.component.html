@@ -24,13 +24,13 @@
                   </td>
               </tr>
               <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
-                  <td height="70">SUM INSURED</td>
+                  <td >SUM INSURED</td>
               </tr>
               <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
-                  <td height="70">PREMIUM</td>
+                  <td >PREMIUM</td>
               </tr>
               <tr class="table-success1" *ngFor="let names of keyFeatureNames" >
-                  <td height="70">{{names}}</td>
+                  <td >{{names}}</td>
               </tr>
               </tbody>
           </table>
@@ -46,14 +46,14 @@
                   </td>
               </tr>
               <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
-                  <td height="70">&#8377; {{clists.suminsured_amount}}</td>
+                  <td >&#8377; {{clists.suminsured_amount}}</td>
               </tr>
               <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
-                  <td height="70">&#8377; {{clists.premium_amount}}</td>
+                  <td >&#8377; {{clists.premium_amount}}</td>
               </tr>
               <tr class="table-success1" *ngFor="let keyValues of clists.key_features;let i = index;" >
-                  <td height="70" *ngIf="keyValues.key_features_value != ''">{{keyValues.key_features_value}}</td>
-                  <td height="70" *ngIf="keyValues.key_features_value == ''"> -- </td>
+                  <td  *ngIf="keyValues.key_features_value != ''">{{keyValues.key_features_value}}</td>
+                  <td  *ngIf="keyValues.key_features_value == ''"> -- </td>
               </tr>
 
               </tbody>
