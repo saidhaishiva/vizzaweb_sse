@@ -28,13 +28,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredFirstname"  (keypress)="nameValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredFirstname" class="nospace"  (keypress)="nameValidate($event);spac($event)"  autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="insuredLastname"  (keypress)="nameValidate($event)"   autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="insuredLastname" class="nospace"  (keypress)="nameValidate($event);spac($event)"   autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredLastname.errors?.required">Last Name is required</mat-error>
 
                         </mat-form-field>

@@ -56,6 +56,7 @@
                           <mat-error *ngIf="insured.controls.insuredPaDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>
+                        <!--<div class="error" *ngIf="insuredPaDob > minDate">Future Date not allowed</div>-->
 
                       </div>
                       <div class="col-md-3">
@@ -505,7 +506,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"   formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa(); nomineeDistrict()"  [disabled]="readonlyProposer">
+                          <mat-select placeholder="District"   formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa()"  [disabled]="readonlyProposer">
                             <mat-option *ngFor="let paDistrict of paNomineedistrictList | keys" value="{{paDistrict.value}}"> {{paDistrict.value}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>-->
@@ -662,9 +663,9 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Address1:</strong> {{nomineeDataForm.paNomineeAddress}}</li>
-                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress2 !=''"><strong>Address2:</strong> {{nomineeDataForm.paNomineeAddress2}}</li>
-                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress3 !=''"><strong>Address3:</strong> {{nomineeDataForm.paNomineeAddress3}}</li>
+                        <li class="list-group-item"><strong>Address 1:</strong> {{nomineeDataForm.paNomineeAddress}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress2 !=''"><strong>Address 2:</strong> {{nomineeDataForm.paNomineeAddress2}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress3 !=''"><strong>Address 3:</strong> {{nomineeDataForm.paNomineeAddress3}}</li>
                         <li class="list-group-item"><strong>Pincode:</strong> {{nomineeDataForm.paNomineePincode}}</li>
                       </ul>
                     </div>
@@ -679,7 +680,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>State:</strong> {{nomineeDataForm.paNomineeState}}</li>
                         <li class="list-group-item"><strong>City:</strong> {{nomineeDataForm.paNomineeCityName}}</li>
-                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeDistrictName != '' && nomineeDataForm.paNomineeDistrictName != null"><strong>District:</strong> {{nomineeDataForm.paNomineeDistrictName}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeDistrict != '' && nomineeDataForm.paNomineeDistrict != null"><strong>District:</strong> {{nomineeDataForm.paNomineeDistrict}}</li>
                       </ul>
                     </div>
 
@@ -720,7 +721,11 @@
     </div>
   </div>
 </div>
-
+<!--<style>-->
+  <!--.nospace{-->
+    <!--user-input: no-spac;-->
+  <!--}-->
+<!--</style>-->
 
 
 

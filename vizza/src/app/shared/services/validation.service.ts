@@ -68,6 +68,20 @@ export class ValidationService {
             }
         }
     }
+
+    spac(event) {
+        console.log(event);
+        let id = document.getElementsByClassName('nospace');
+        console.log(id, 'id');
+        id[0].addEventListener("keydown", checkKeyPress, false);
+
+        function checkKeyPress(event) {
+            if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
+                event.preventDefault();
+            }
+        }
+
+    }
 }
 
 

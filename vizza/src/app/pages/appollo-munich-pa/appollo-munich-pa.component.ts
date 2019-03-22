@@ -101,6 +101,7 @@ public voterP: boolean;
 public passportP: boolean;
 public drivinglicenseP: boolean;
 public minDate: any;
+public maxdate: any;
 public insuredage: any;
 public maxStartdate:any;
 public currentStep:any;
@@ -141,6 +142,7 @@ console.log(this.currentStep,'this.currentStep');
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
       this.minDate= new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+      this.maxdate = this.minDate;
       this.appolloPA = "0";
       this.mobileNumber = 'true';
       this.idListDetailsinsured = '';
@@ -272,7 +274,7 @@ console.log(this.currentStep,'this.currentStep');
           paNomineeCountry: 'IN',
           paNomineeState: ['', Validators.required],
           paNomineeDistrict: '',
-          paNomineeDistrictName: '',
+          // paNomineeDistrictName: '',
           paNomineeCityIdP: '',
           paNomineeStateIdP: '',
           paNomineeCountryIdP: '',
@@ -496,7 +498,7 @@ console.log(this.currentStep,'this.currentStep');
                 paNomineeState: this.getpanomineeData.paNomineeState,
                 paNomineeCountryIdP: this.getpanomineeData.paNomineeCountryIdP,
                 paNomineeDistrict: this.getpanomineeData.paNomineeDistrict,
-                paNomineeDistrictName: this.getpanomineeData.paNomineeDistrictName,
+                // paNomineeDistrictName: this.getpanomineeData.paNomineeDistrictName,
                 paNomineeCityIdP: this.getpanomineeData.paNomineeCityIdP,
                 paNomineeStateIdP: this.getpanomineeData.paNomineeStateIdP,
                 paNomineeDistrictIdP: this.getpanomineeData.paNomineeDistrictIdP,
@@ -548,6 +550,10 @@ console.log(this.currentStep,'this.currentStep');
     // space
     space(event: any){
         this.validation.space(event);
+    }
+    spac(event: any){
+        this.validation.spac(event);
+
     }
     // RelationShip with Proposer
     relationshipPaProposer() {
@@ -1348,7 +1354,7 @@ preInsureList() {
           this.nomineeDetail.controls['paNomineeAddress3'].patchValue(this.insured.controls['insuredPaAddress3'].value);
           this.nomineeDetail.controls['paNomineeCity'].patchValue(this.insured.controls['insuredPaCity'].value);
           this.nomineeDetail.controls['paNomineeCityName'].patchValue(this.insured.controls['insuredPaCityName'].value);
-          this.nomineeDetail.controls['paNomineeDistrictName'].patchValue(this.insured.controls['insuredPaDistrictName'].value);
+          // this.nomineeDetail.controls['paNomineeDistrictName'].patchValue(this.insured.controls['insuredPaDistrictName'].value);
           this.nomineeDetail.controls['paNomineeState'].patchValue(this.insured.controls['insuredPaState'].value);
           this.nomineeDetail.controls['paNomineeDistrict'].patchValue(this.insured.controls['insuredPaDistrict'].value);
           this.nomineeDetail.controls['paNomineeStateIdP'].patchValue(this.insured.controls['insuredPaStateIdP'].value);
@@ -1368,6 +1374,7 @@ preInsureList() {
           this.nomineeDetail.controls['paNomineeStateIdP'].patchValue('');
           this.nomineeDetail.controls['paNomineeCityIdP'].patchValue('');
           this.nomineeDetail.controls['paNomineeDistrictIdP'].patchValue('');
+          // this.nomineeDetail.controls['paNomineeDistrictName'].patchValue('');
 
       }
     }
@@ -1757,9 +1764,9 @@ preInsureList() {
     nomineeCity(){
       this.nomineeDetail.controls['paNomineeCityName'].patchValue(this.paCityNomineeList[this.nomineeDetail.controls['paNomineeCity'].value])
     }
-    nomineeDistrict(){
-        this.nomineeDetail.controls['paNomineeDistrictName'].patchValue(this.paNomineedistrictList[this.nomineeDetail.controls['paNomineeDistrict'].value])
-    }
+    // nomineeDistrict(){
+    //     this.nomineeDetail.controls['paNomineeDistrictName'].patchValue(this.paNomineedistrictList[this.nomineeDetail.controls['paNomineeDistrict'].value])
+    // }
     changeRelationship(){
         this.nomineeDetail.controls['paRelationshipName'].patchValue(this.relationshipListPa[this.nomineeDetail.controls['paRelationship'].value])
 
@@ -1790,31 +1797,31 @@ preInsureList() {
         this.insured.controls['maritalStatusName'].patchValue(this.paMaritalList[this.insured.controls['maritalStatus'].value])
 
     }
-    validationSpace(event){
-        let elmt = document.getElementById('noSpaces');
-    console.log(elmt,'elmt');
-        elmt.addEventListener('keydown', function (event) {
-            if (event.which === 32  ) {
-                event.preventDefault();
-            }
-        });
-    }
+    // validationSpace(event){
+    //     let elmt = document.getElementById('noSpaces');
+    // console.log(elmt,'elmt');
+    //     elmt.addEventListener('keydown', function (event) {
+    //         if (event.which === 32  ) {
+    //             event.preventDefault();
+    //         }
+    //     });
+    // }
 
-    spac(event) {
-      console.log(event);
-       let id = document.getElementsByClassName('nospace');
-       console.log(id,'id');
-            id[0].addEventListener("input",checkKeyPress, false);
-      function checkKeyPress(event) {
-              if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
-                  console.log(event.target.value.keyCode,'prevent');
-                  event.preventDefault();
-              } else {
-            console.log('else', 'gdghdg');
-        }
-      }
-
-    }
+    // spac(event) {
+    //   console.log(event);
+    //    let id = document.getElementsByClassName('nospace');
+    //    console.log(id,'id');
+    //         id[0].addEventListener("keypress",checkKeyPress, false);
+    //   function checkKeyPress(event) {
+    //           if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
+    //               console.log(event.target.value.keyCode,'prevent');
+    //               event.preventDefault();
+    //           } else {
+    //         console.log('else', 'gdghdg');
+    //     }
+    //   }
+    //
+    // }
 
     // document.getElementById("myAnchor").addEventListener("click", function(event){
     //     event.preventDefault()
