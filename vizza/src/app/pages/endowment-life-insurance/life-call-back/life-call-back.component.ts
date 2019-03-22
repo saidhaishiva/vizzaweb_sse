@@ -100,11 +100,11 @@ export class LifeCallBackComponent implements OnInit {
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if(pattern.test(event.value._i) && event.value._i.length == 0){
+                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.dobError = '';
-                } else if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.dobError = '';
-                } else {
+                } else if(this.Lifeapp['controls'].appdate.value == ''){
+                     this.dobError = '';
+                 }else {
                     this.dobError = 'Enter Valid Date';
                 }
             } else {
@@ -112,6 +112,7 @@ export class LifeCallBackComponent implements OnInit {
             }
 
         }
+        console.log(this.Lifeapp['controls'].appdate.value,'this.Lifeapp[\'controls\'].appdate.value');
     }
     // ageCalculate(dob) {
     //     let today = new Date();
