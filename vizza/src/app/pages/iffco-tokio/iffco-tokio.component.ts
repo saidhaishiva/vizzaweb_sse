@@ -180,7 +180,7 @@ export class IffcoTokioComponent implements OnInit {
             proposerStateName: '',
             proposerCity: '',
             proposerCityName: '',
-            typeAddress: '',
+            typeAddress: ['', Validators.required],
             criticalIllness: 'N',
             roomRentWaiver: 'N',
             additionalFacts: 'N',

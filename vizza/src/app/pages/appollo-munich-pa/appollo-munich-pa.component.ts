@@ -11,6 +11,7 @@ import {Settings} from '../../app.settings.model';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
+import {element} from 'protractor';
 
 export const MY_FORMATS = {
     parse: {
@@ -117,6 +118,7 @@ public BMI: any;
 public proposalId: any;
 public summaryData: any;
 public RediretUrlLink: any;
+public occupationClass: any;
 CheckHabits : boolean;
 readonlyProposer : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
@@ -1165,6 +1167,33 @@ preInsureList() {
 
     public occupationCodeFailure(error) {
     }
+    // occupationClass
+    setOccupationListClass() {
+        const data = {
+            'platform': 'web',
+            'created_by': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'code': this.insured.controls['insuredOccupationList'].value
+        }
+        this.personalservice.getAppolloOccupationClassList(data).subscribe(
+            (successData) => {
+                this.occupationClassSuccess(successData);
+            },
+            (error) => {
+                this.occupationClassFailure(error);
+            }
+        );
+
+    }
+
+
+    public occupationClassSuccess(successData) {
+        this.occupationClass = successData.ResponseObject;
+
+    }
+
+    public occupationClassFailure(error) {
+    }
 
     // profession List
     setProfessionList() {
@@ -1752,8 +1781,37 @@ preInsureList() {
         this.insured.controls['maritalStatusName'].patchValue(this.paMaritalList[this.insured.controls['maritalStatus'].value])
 
     }
+    validationSpace(event){
+        let elmt = document.getElementById('noSpaces');
+    console.log(elmt,'elmt');
+        elmt.addEventListener('keydown', function (event) {
+            if (event.which === 32  ) {
+                event.preventDefault();
+            }
+        });
+    }
 
+    spac(event) {
+      console.log(event);
+       // let id = document.getElementById('nospace');
+       // console.log(id,'id');
+            event.addEventListener("keypress",checkKeyPress, false);
+            console.log(event,'gdjhdgh');
+      function checkKeyPress(event) {
+              if (event.code == "Space" && event.target.value.length == 0) {
+                  console.log(event.target.value.keyCode,'prevent');
+                  event.preventDefault();
+              } else {
+            console.log('else');
+        }
+      }
+        console.log(event.target.value.length,'lwngth');
 
+    }
+
+    // document.getElementById("myAnchor").addEventListener("click", function(event){
+    //     event.preventDefault()
+    // });
 }
 
 
