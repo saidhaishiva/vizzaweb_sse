@@ -101,12 +101,12 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder=" Office Phone Number"  (keypress)="numberValidate($event)"  maxlength="15"   formControlName="proposerOfficePhone" autocomplete="off">
+                          <input matInput placeholder=" Office Phone Number"  (keypress)="numberValidate($event)"  maxlength="12"   formControlName="proposerOfficePhone" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Home Phone Number"   (keypress)="numberValidate($event)"  maxlength="15" formControlName="proposerHomePhone"  autocomplete="off">
+                          <input matInput placeholder="Home Phone Number"   (keypress)="numberValidate($event)"  maxlength="12" formControlName="proposerHomePhone"  autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -169,6 +169,8 @@
                           <mat-radio-button value="R" class="mr-2"> Residential</mat-radio-button>
                           <mat-radio-button value="B" class="mr-2">Business</mat-radio-button>
                         </mat-radio-group>
+                        <mat-error *ngIf="proposer.controls.typeAddress.errors?.required">AddressType is required</mat-error>
+
                       </div>
                     </div>
 

@@ -13,6 +13,7 @@ import {HttpClient} from '@angular/common/http';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
+import * as moment from 'moment';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -77,6 +78,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public insuredFormData: any;
     public nomineeFormData: any;
     public currentStep: any;
+    public today: any;
 
 
     constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -102,6 +104,8 @@ export class TravelHdfcProposalComponent implements OnInit {
             }
         });
         this.currentStep = stepperindex;
+        let today = new Date();
+        this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.totalInsureDetails = [];
         this.decline = false;
         this.settings.sidenavIsPinned = false;
@@ -358,89 +362,138 @@ export class TravelHdfcProposalComponent implements OnInit {
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
-            this.getAge = '';
-            this.getDays;
+            let dob_days = '';
+            let getAge;
+            let getDays;
+            dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                 } else {
-                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid DOB');
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
                 }
                 selectedDate = event.value._i;
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-
                 if (selectedDate.length == 10) {
-                    this.getAge = this.ageCalculate(dob);
-                    this.getDays = this.ageCalculateInsurer(dob);
-                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
-                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(dob);
-
-
+                    if (name == 'insurer') {
+                        getAge = this.ageCalculate(dob);
+                        getDays = this.DobDaysCalculate(dob_days);
+                        this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].personalDob.patchValue(dob);
+                    }
                 } else {
-                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue('');
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
                 }
-            } else if (typeof event.value._i == 'object') {
-
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-
+            }else if (typeof event.value._i == 'object') {
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
                 if (dob.length == 10) {
-                    this.getAge = this.ageCalculate(dob);
-                    this.getDays = this.ageCalculateInsurer(dob);
-                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(dob);
+                    if (name == 'insurer') {
+                        getAge = this.ageCalculate(dob);
+                        getDays = this.DobDaysCalculate(dob_days);
+                        this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].personalDob.patchValue(dob);
+                    }
                 }
+            }
+            // let length =  this.datepipe.transform(this.insureArray['controls'].items['controls'][i]['controls'].personalDob.value, 'y-MM-dd');
+            console.log(getDays, 'getDays');
 
+            if (getDays || getDays == 0) {
+                if (name == 'insurer') {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.patchValue(getAge);
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.patchValue(getDays);
+                    this.ageValidation(i, type);
+                }
+            } else {
+                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             }
 
         }
-        let length = this.datepipe.transform(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.value, 'y-MM-dd');
-        // let length =  this.insureArray['controls'].items['controls'][i]['controls'].proposerDob.value;
-        if (length.length == 10) {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-            // this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
-            // this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.getDays);
-            this.ageValidation(i, type);
-        } else {
 
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue('');
-        }
     }
+    DobDaysCalculate(getDays) {
+        let a = moment(getDays, 'DD/MM/YYYY');
+        let b = moment(new Date(), 'DD/MM/YYYY');
+        let days = b.diff(a, 'days');
+        return days;
+    }
+    // ageValidation(i, type) {
+    //
+    //     if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value <= 18 && type == 'Self') {
+    //         this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
+    //     } else if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value > 18 && type == 'Self') {
+    //         this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+    //         this.arr.push(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value);
+    //     }
+    //     if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value <= 18 && type == 'Spouse') {
+    //         this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
+    //     } else if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value > 18 && type == 'Spouse') {
+    //         this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+    //         this.arr.push(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value);
+    //     }
+    //     let smallest = this.arr[0];
+    //     for (let i = 1; i < this.arr.length; i++) {
+    //         if (this.arr[i] < smallest) {
+    //             smallest = this.arr[i];
+    //         }
+    //     }
+    // }
     ageValidation(i, type) {
 
-        if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value <= 18 && type == 'Self') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 18');
-        } else if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value > 18 && type == 'Self') {
+        if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value <= 16800 && type == 'Self') {
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be 46 and above');
+        } else if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 16800 && type == 'Self') {
             this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-            this.arr.push(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value);
+            this.arr.push(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value);
         }
-        if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value <= 18 && type == 'Spouse') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 18');
-        } else if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value > 18 && type == 'Spouse') {
+        if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 16800 && type == 'Spouse') {
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 46 and above');
+        } else if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 16800 && type == 'Spouse') {
             this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-            this.arr.push(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.value);
+            this.arr.push(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value);
         }
-        let smallest = this.arr[0];
-        for (let i = 1; i < this.arr.length; i++) {
-            if (this.arr[i] < smallest) {
+
+            let smallest = this.arr[0];
+        for(let i = 1; i<this.arr.length; i++){
+            if(this.arr[i] < smallest){
                 smallest = this.arr[i];
             }
         }
+
+
+        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Son')  {
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Son')  {
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 9495 && type == 'Son')  {
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        }
+
+        if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 90 && this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value <= 9495 && type == 'Daughter')  {
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 91 && type == 'Daughter')  {
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        } else if(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 9495 && type == 'Daughter')  {
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 25 years');
+        }
     }
+
     selectRelation(i){
         // this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelationName.patchValue(this.insuredRelationshipDetails[this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredRelation.value])
     }
 
     ageCalculate(dob) {
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
-        let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        return year_age;
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
+
+
     }
 
     ageCalculateInsurer(dob) {
