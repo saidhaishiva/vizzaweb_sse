@@ -26,6 +26,20 @@ export class ClearSessionPaService {
     sessionStorage.proposal2Detail = '';
     sessionStorage.insureoccupationDescription = '';
     sessionStorage.insureoccupationClass = '';
+    // home
+    sessionStorage.pincoceP = '';
+    sessionStorage.occupationP = '';
+    sessionStorage.AnnualIncomeP = '';
+    sessionStorage.setAgeP = '';
+    sessionStorage.selectedProfession = '';
+    sessionStorage.setPageP  = '';
+    sessionStorage.enquiryDetailsPa = '';
+    sessionStorage.setAllProductLists = '';
+    sessionStorage.filterCompany = '';
+    sessionStorage.allProductLists = '';
+    sessionStorage.sumInsuredAmountLists = '';
+    sessionStorage.sideMenuP = '';
+    sessionStorage.buyProductsPa = '';
   }
 
 

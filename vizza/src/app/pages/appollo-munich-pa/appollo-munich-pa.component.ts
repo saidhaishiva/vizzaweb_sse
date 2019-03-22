@@ -784,6 +784,9 @@ console.log(this.currentStep,'this.currentStep');
     public nomineeCityPaListFailure(error){
     }
 
+
+
+
     // date input
     addEvent(event, type) {
 
@@ -823,19 +826,19 @@ console.log(this.currentStep,'this.currentStep');
                 if (selectedDate.length == 10) {
                     if(type == 'personal'){
                         this.insuredate = '';
-                        this.ProposerPa.controls['proposerPaDob'].patchValue(dob);
+                        // this.ProposerPa.controls['proposerPaDob'].patchValue(dob);
                         this.proposerAgeP = this.ageCalculate(dob);
                     }  else if (type == 'insure') {
                         this.insurerdateError = '';
-                        this.insured.controls['insuredPaDob'].patchValue(dob);
+                        // this.insured.controls['insuredPaDob'].patchValue(dob);
                         this.insuredAgeP = this.ageCalculate(dob);
-                        this.insured.controls['insuredPaAge'].patchValue(this.insuredAgeP);
+                        this.insured.controls['insuredPaAge'].setValue(this.insuredAgeP);
 
                     } else {
                         if (type == 'startdate') {
                             this.insurestardate = '';
                             this.maxStartdate = dob;
-                            this.insured.controls['PolicyStartDate'].patchValue(dob);
+                            // this.insured.controls['PolicyStartDate'].patchValue(dob);
                         }
                         if(type == 'enddate'){
                             this.insureenddate = '';
@@ -847,11 +850,11 @@ console.log(this.currentStep,'this.currentStep');
                 if (dob.length == 10) {
                     if(type == 'personal'){
                         this.insuredate = '';
-                        this.ProposerPa.controls['proposerPaDob'].patchValue(dob);
+                        // this.ProposerPa.controls['proposerPaDob'].patchValue(dob);
                         this.proposerAgeP = this.ageCalculate(dob);
                     } else if (type == 'insure') {
                         this.insurerdateError = '';
-                        this.insured.controls['insuredPaDob'].patchValue(dob);
+                        // this.insured.controls['insuredPaDob'].patchValue(dob);
                         this.insuredAgeP = this.ageCalculate(dob);
                         this.insured.controls['insuredPaAge'].patchValue(this.insuredAgeP);
 
@@ -859,7 +862,7 @@ console.log(this.currentStep,'this.currentStep');
                         if (type == 'startdate') {
                             this.maxStartdate = dob;
                             this.insurestardate = '';
-                            this.insured.controls['PolicyStartDate'].patchValue(dob);
+                            // this.insured.controls['PolicyStartDate'].patchValue(dob);
                         }
                         if(type == 'enddate'){
                             this.insureenddate = '';
@@ -1188,7 +1191,12 @@ preInsureList() {
 
 
     public occupationClassSuccess(successData) {
-        this.occupationClass = successData.ResponseObject;
+        if (successData.IsSuccess) {
+            this.occupationClass = successData.ResponseObject;
+            console.log(this.occupationClass,'this.occupationClass');
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
 
     }
 
@@ -1459,45 +1467,46 @@ preInsureList() {
         console.log(this.insured.valid, 'check');
         if (this.insured.valid) {
             if (sessionStorage.insuredAgeP >= 18 && sessionStorage.insuredAgeP < 56) {
+                if(this.occupationClass == 'Valid Occupation') {
+                    if (this.insured.controls['insuredProfessionList'].value == 'PROFS5' && this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00) {
+                        this.toastr.error('Sum Insured greater then eligible amount');
+                    } else if (this.insured.controls['insuredWine'].value > 0 && this.insured.controls['insuredBeer'].value > 0 && this.insured.controls['insuredLiquor'].value > 0) {
+                        this.toastr.error('If you have all the drinking Habits, Sorry you are unable to purchase the policy.');
+                    } else if (this.insured.controls['insuredSmokeList'].value > 10) {
+                        this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy ');
+                    } else if (this.insured.controls['insuredLiquor'].value > 9) {
+                        this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
+                    } else if (this.insured.controls['insuredPouchesList'].value > 7) {
+                        this.toastr.error('As per your Pouches count more than 7 per day unable to purchase the policy in online');
+                    } else if (this.insured.controls['insuredWine'].value > 6) {
+                        this.toastr.error('As per your WineGlass count more than 6 per week unable to purchase the policy in online');
+                    } else if (this.insured.controls['insuredBeer'].value > 10) {
+                        this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
+                    } else {
+                        this.height = this.insured.controls['insuredHeight'].value;
+                        this.heighrCal = (this.height / 100) * (this.height / 100);
+                        this.weight = this.insured.controls['insuredWeight'].value;
+                        this.BMI = this.weight / this.heighrCal;
+                        if (this.insured.controls['insuredPaAge'].value > 0 && this.insured.controls['insuredPaAge'].value <= 15) {
+                            if (this.BMI >= 12 && this.BMI <= 39) {
+                                stepper.next();
+                            } else {
+                                this.toastr.error('For Age less than 15, BMI range should be greater than 12 and less than 39.');
 
-                if(this.insured.controls['insuredProfessionList'].value == 'PROFS5'&& this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00){
-                    this.toastr.error('Sum Insured greater then eligible amount');
-                } else if (this.insured.controls['insuredWine'].value >0 && this.insured.controls['insuredBeer'].value >0 && this.insured.controls['insuredLiquor'].value >0) {
-                    this.toastr.error('If you have all the drinking Habits, Sorry you are unable to purchase the policy.');
-                } else if(this.insured.controls['insuredSmokeList'].value >10){
-                    this.toastr.error('As per your smoking count more than 10 per day unable to purchase the policy ');
-                } else if(this.insured.controls['insuredLiquor'].value >9){
-                    this.toastr.error('As per your LiquorPeg count more than 9 per week unable to purchase the policy in online');
-                }   else if(this.insured.controls['insuredPouchesList'].value >7){
-                    this.toastr.error('As per your Pouches count more than 7 per day unable to purchase the policy in online');
-                } else if(this.insured.controls['insuredWine'].value >6){
-                    this.toastr.error('As per your WineGlass count more than 6 per week unable to purchase the policy in online');
-                } else if(this.insured.controls['insuredBeer'].value >10) {
-                    this.toastr.error('As per your BeerBottle count more than 10 per week unable to purchase the policy in online');
-                }
-                else {
-                    this.height =  this.insured.controls['insuredHeight'].value;
-                    this.heighrCal = (this.height / 100) * (this.height / 100);
-                    this.weight =  this.insured.controls['insuredWeight'].value;
-                    this.BMI = this.weight / this.heighrCal;
-                    if (this.insured.controls['insuredPaAge'].value > 0 && this.insured.controls['insuredPaAge'].value <= 15) {
-                        if (this.BMI >= 12 && this.BMI <= 39 ){
-                            stepper.next();
-                        } else {
-                            this.toastr.error('For Age less than 15, BMI range should be greater than 12 and less than 39.');
-
+                            }
+                        }
+                        if (this.insured.controls['insuredPaAge'].value >= 16) {
+                            if (this.BMI >= 18 && this.BMI <= 28.99) {
+                                stepper.next();
+                            } else {
+                                this.toastr.error('For Age above 18, BMI range should be greater than 18 and less than 28. ');
+                            }
                         }
                     }
-                     if (this.insured.controls['insuredPaAge'].value  >=16) {
-                        if (this.BMI >= 18 && this.BMI <= 28.99) {
-                            stepper.next();
-                        } else {
-                            this.toastr.error('For Age above 18, BMI range should be greater than 18 and less than 28. ');
-                        }
-                    }
+                    this.topScroll();
+                } else{
+                    this.toastr.error('Sorry!, Your occupation is not allowed');
                 }
-                this.topScroll();
-
             } else {
                 this.toastr.error('Proposer or Insurer age should be greater than 18 and lesser than 56');
             }
@@ -1773,7 +1782,7 @@ preInsureList() {
     changeCity() {
       this.insured.controls['insuredPaCityName'].patchValue(this.paCityInsuredList[this.insured.controls['insuredPaCity'].value])
 
-    }
+    }  // l
     changePrevName(){
         this.insured.controls['insuredPrevListName'].patchValue(this.preinsure[this.insured.controls['insuredPrevList'].value])
   }
@@ -1793,19 +1802,17 @@ preInsureList() {
 
     spac(event) {
       console.log(event);
-       // let id = document.getElementById('nospace');
-       // console.log(id,'id');
-            event.addEventListener("keypress",checkKeyPress, false);
-            console.log(event,'gdjhdgh');
+       let id = document.getElementsByClassName('nospace');
+       console.log(id,'id');
+            id[0].addEventListener("input",checkKeyPress, false);
       function checkKeyPress(event) {
-              if (event.code == "Space" && event.target.value.length == 0) {
+              if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
                   console.log(event.target.value.keyCode,'prevent');
                   event.preventDefault();
               } else {
-            console.log('else');
+            console.log('else', 'gdghdg');
         }
       }
-        console.log(event.target.value.length,'lwngth');
 
     }
 
