@@ -64,8 +64,8 @@
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <mat-select placeholder="Travel Purpose"  formControlName="travelPurpose" required >
-                          <mat-option *ngFor="let lists of travelPurposeLists" value="{{lists.plan_id}}" >
-                            {{lists.plan_name}}
+                          <mat-option *ngFor="let lists of travelPurposeLists | keys" value="{{lists.key}}" >
+                            {{lists.value}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field></div>
@@ -118,8 +118,8 @@
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100" >
                         <mat-select placeholder="City" formControlName="personalCity" autocomplete="off" required>
-                          <mat-option *ngFor="let city of personalCitys" [value]= 'city.city'>
-                            {{city.city}}
+                          <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
+                            {{city.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
@@ -204,8 +204,8 @@
 
                         <div class="col-md-6"><mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Proposer" (change)="changeRelationSame($event)" formControlName="insurerRelationship" required >
-                            <mat-option *ngFor="let lists of insureRelationList" value="{{lists.relationship_id}}" >
-                              {{lists.relationship_name}}
+                            <mat-option *ngFor="let lists of insureRelationList | keys" value="{{lists.key}}" >
+                              {{lists.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -229,8 +229,8 @@
                                   <!--<input matInput placeholder="Visa Type" formControlName="visaType" maxlength="10" autocomplete="off" required >-->
                                   <!--<mat-error *ngIf="insureArray.invalid">Visa Type is required</mat-error>-->
                                   <mat-select placeholder="Visa Type"  formControlName="visaType" required>
-                                      <mat-option *ngFor="let lists of visaTypeAllList" value="{{lists.viz_type_id}}" >
-                                          {{lists.viz_type_name}}
+                                      <mat-option *ngFor="let lists of visaTypeAllList | keys" value="{{lists.key}}" >
+                                          {{lists.value}}
                                       </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="insureArray.invalid">Visa Type is required</mat-error>
@@ -244,22 +244,20 @@
                         </div>
                         <div class="col-md-6"><mat-form-field class="w-100">
                           <mat-select placeholder="Relationship with Assignee"  formControlName="assigneeRelationship" required >
-                            <mat-option *ngFor="let lists of assigneeRelationList" [hidden]="sameRelationshipValue == lists.relationship_name" value="{{lists.relationship_id}}" >
-                              {{lists.relationship_name}}
+                            <mat-option *ngFor="let lists of assigneeRelationList | keys" [hidden]="sameRelationshipValue == lists.value" value="{{lists.key}}" >
+                              {{lists.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-6"><mat-form-field class="w-100">
                           <mat-select placeholder="Illness"  formControlName="illness" required multiple >
-                            <mat-option *ngFor="let lists of preExistingDisease" value="{{lists.disease_name}}" >
-                              {{lists.disease_name}}
+                            <mat-option *ngFor="let lists of preExistingDisease | keys" value="{{lists.value}}" >
+                              {{lists.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureArray.invalid">Ilness is required</mat-error>
                         </mat-form-field></div>
-
-
 
                       </div>
                     </div>
