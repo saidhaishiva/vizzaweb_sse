@@ -5,12 +5,22 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {MY_FORMATS} from '../endowment-life-insurance/life-call-back/life-call-back.component';
+import {ValidationService} from '../../shared/services/validation.service';
+import {Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
+
 
 @Component({
   selector: 'app-bike-insurance',
   templateUrl: './bike-insurance.component.html',
-  styleUrls: ['./bike-insurance.component.scss']
+  styleUrls: ['./bike-insurance.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class BikeInsuranceComponent implements OnInit {
     public bikeapp: FormGroup;
@@ -21,11 +31,22 @@ export class BikeInsuranceComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
+    public dobError : any;
+    public setFtime : any;
+    public minDate : any;
+    public settings: Settings;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog) {
-      this.bikeapp = this.fb.group({
+
+    meridian = true;
+
+    constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
+        const minDate = new Date();
+        this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+        this.settings = this.appSettings.settings;
+
+        this.bikeapp = this.fb.group({
           'appdate': ['', Validators.required],
-          'apptime': null,
+          'apptime': '',
           'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
           'contactperson': ['', Validators.compose([Validators.required])],
           'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
@@ -45,18 +66,66 @@ export class BikeInsuranceComponent implements OnInit {
 
       });
   }
+
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
+    }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+
     addEvent(event) {
-        this.selectDate = event.value;
-        this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+        console.log(event,'eventevent');
+        console.log(event.value,'eventevent1');
+
+        if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.dobError = '';
+                } else {
+                    this.dobError = 'Enter Valid Date';
+                }
+            } else {
+                this.dobError = '';
+            }
+
+        }
     }
     bikeKeeper(values) {
-
         if (this.bikeapp.valid) {
+            //date
+            let date = this.datepipe.transform(this.bikeapp.controls['appdate'].value, 'yyyy-MM-dd');
+            //time
+            let setTime = this.bikeapp.controls['apptime'].value;
+            let hr = setTime.hour < '10' ? '0' + setTime.hour : setTime.hour.toString();
+            let mns = setTime.minute < '10' ? '0' + setTime.minute : setTime.minute.toString();
+            let hours = hr[0] + hr[1];
+            let min = mns[0] + mns[1];
+            if (parseInt(hours) < 12 ) {
+                if (hours == 0) {
+                    hours = 12;
+                }
+                this.setFtime = hours + ':' + min + ' AM';
+            } else if (parseInt(hours) > 12 ) {
+                hours = hours - 12;
+                hours = (hours.length < 10) ? '0' + hours : hours;
+                this.setFtime = hours + ':' + min + ' PM';
+            } else {
+                this.setFtime = hours + ':' + min + ' PM';
+            }
             const data = {
                 'platform': 'web',
                 'product_type': 'offline',
-                'appointment_date': this.setDate,
-                'appointment_time': this.bikeapp.controls['apptime'].value,
+                'appointment_date': date,
+                'appointment_time': this.setFtime,
                 'company_name': this.bikeapp.controls['name'].value,
                 'customer_mobile': this.bikeapp.controls['mobile'].value,
                 'customer_email': this.bikeapp.controls['email'].value,
@@ -67,6 +136,7 @@ export class BikeInsuranceComponent implements OnInit {
 
             };
 
+            this.settings.loadingSpinner = true;
             this.commonservices.setFixAppointment(data).subscribe(
                 (successData) => {
                     this.fixAppointmentSuccess(successData);
@@ -78,8 +148,17 @@ export class BikeInsuranceComponent implements OnInit {
         }
     }
     fixAppointmentSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        console.log(this.bikeapp,'bikeeeeee');
+        if (successData.IsSuccess) {
+            this.toastr.success('Your Bike insurance appointment has been fixed successfully');
+            this.bikeapp.reset();
+        }else{
+            this.toastr.error(successData.ErrorObject);
+        }
     }
     fixAppointmentFailure(error) {
+        this.settings.loadingSpinner = false;
     }
     getPincodeDetails(pin, title) {
         this.pin = pin;
@@ -109,25 +188,6 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     public getPincodeDetailsFailure(error) {
-    }
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    public data(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
     }
     BikeInsurer(){
         const dialogRef = this.dialog.open(BikeInsurer, {
