@@ -115,12 +115,12 @@ export class TravelProposalComponent implements OnInit {
     public isDisable: any;
     public inputReadonly: any;
     public back: boolean;
-    public relationshipcode : any;
-    public medicalStatus : any;
-    public arr : any;
-    public insureRelationList : any;
-    public sameRelationship : any;
-    public sameRelationshipValue : any;
+    public relationshipcode: any;
+    public medicalStatus: any;
+    public arr: any;
+    public insureRelationList: any;
+    public sameRelationship: any;
+    public sameRelationshipValue: any;
     array: any;
     placeOfVisiLists: any;
     assigneeRelationList: any;
@@ -523,6 +523,9 @@ export class TravelProposalComponent implements OnInit {
         }
     }
     sessionData() {
+        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+        }
         if (sessionStorage.stepper1DetailsForTravel != '' && sessionStorage.stepper1DetailsForTravel != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1DetailsForTravel);
             this.personal = this.fb.group({
@@ -747,20 +750,18 @@ export class TravelProposalComponent implements OnInit {
     }
 
 
-//personal city detail
+    // pincode list
     getPostal(pin, title) {
-        this.pin = pin;
-        this.title = title;
         const data = {
             'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
-            'pincode': this.pin
+            'pincode': pin,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        if (this.pin.length == 6) {
+        if (pin.length == 6) {
             this.proposalservice.getPostalReligare(data).subscribe(
                 (successData) => {
-                    this.getpostalSuccess(successData);
+                    this.getpostalSuccess(successData,title);
                 },
                 (error) => {
                     this.getpostalFailure(error);
@@ -768,41 +769,50 @@ export class TravelProposalComponent implements OnInit {
             );
         }
     }
-    public getpostalSuccess(successData) {
-        if (this.title == 'personal') {
-            this.personalCitys = [];
+    public getpostalSuccess(successData, title) {
+        if (successData.IsSuccess == true) {
             this.response = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                this.personal.controls['personalState'].setValue(this.response[0].state);
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city});
+            if (title == 'personal') {
+                if (Object.keys(this.response).length === 0) {
+                    this.personal.controls['personalState'].setValue('');
+                    this.personal.controls['personalCity'].setValue('');
+                    this.personalCitys = {};
+                } else {
+                    this.personal.controls['personalState'].setValue(this.response.state);
+                    this.personalCitys = this.response.city;
                 }
-            } else if(successData.IsSuccess != true) {
-                this.personal.controls['personalState'].setValue('');
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city = ''});
+                sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            } else if (title == 'residence') {
+                if (Object.keys(this.response).length === 0) {
+                    this.personal.controls['residenceCity'].setValue('');
+                    this.personal.controls['residenceState'].setValue('');
+                    this.personal.controls['residenceArea'].setValue('');
+                    this.residenceCitys = {};
+                } else {
+                    this.personal.controls['residenceState'].setValue(this.response.state);
+                    this.residenceCitys = this.response.city;
                 }
-                this.toastr.error('In valid Pincode');
+                sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
             }
-        }
-        if (this.title == 'residence') {
-            this.residenceCitys = [];
-            this.rResponse = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.residenceCitys.push({city: this.rResponse[i].city});
-                }
-            } else if(successData.IsSuccess != true) {
+        } else {
+            this.toastr.error('In valid Pincode');
+            if (title == 'personal') {
+                this.personalCitys = {};
+                sessionStorage.personalCitys = '';
+                this.personal.controls['personalState'].setValue('');
+                this.personal.controls['personalArea'].setValue('');
+                this.personal.controls['personalCity'].setValue('');
+            } else if (title == 'residence') {
+                this.residenceCitys = {};
+                sessionStorage.residenceCitys = '';
+                this.personal.controls['residenceCity'].setValue('');
                 this.personal.controls['residenceState'].setValue('');
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.residenceCitys.push({city: this.rResponse[i].city = ''});
-                }
-                this.toastr.error('In valid Pincode');
+                this.personal.controls['residenceArea'].setValue('');
             }
         }
     }
     public getpostalFailure(error) {
+        console.log(error);
     }
     //insurer city detail
     getPostalInsurer(pin, index, title) {
@@ -966,7 +976,7 @@ export class TravelProposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
-        }
+        };
         this.travelservice.gettravelPurposeLists(data).subscribe(
             (successData) => {
                 this.travelPurposeListsSuccess(successData);
@@ -979,6 +989,7 @@ export class TravelProposalComponent implements OnInit {
     public travelPurposeListsSuccess(successData) {
         if (successData.IsSuccess) {
             this.travelPurposeLists = successData.ResponseObject;
+            console.log(this.travelPurposeLists);
         } else {
             this.toastr.error(successData.ErrorObject);
         }

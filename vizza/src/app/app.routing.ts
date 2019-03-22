@@ -119,6 +119,7 @@ import {BajajDownloadPolicyComponent} from './pages/bajaj-download-policy/bajaj-
 import {EndowmentLifeInsuranceComponent} from './pages/endowment-life-insurance/endowment-life-insurance.component';
 import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
 import {ReligareDownloadPaPolicyComponent} from './pages/religare-download-pa-policy/religare-download-pa-policy.component';
+import {ReliancePaComponent} from './pages/reliance-pa/reliance-pa.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -234,6 +235,7 @@ export const routes: Routes = [
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
             { path: 'hdfc-travel', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
             { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
+            { path: 'reliance-pa', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
 
         ]
     },

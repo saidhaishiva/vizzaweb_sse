@@ -679,7 +679,7 @@ a:hover {
       text-align: center;
       border-collapse: collapse;
       border: 1px solid #efecec !important;
-      padding: 5px !important;
+      padding: 7px !important;
     }
     td{
       vertical-align: middle;
@@ -766,7 +766,6 @@ a:hover {
   }
    td {
     text-align: center;
-     padding: 10px;
      border : 1px solid #dee2e6;
   }
 
@@ -775,7 +774,6 @@ a:hover {
     text-align: center;
     border : 1px solid #dee2e6;
     color: #fff;
-    padding: 10px;
     font-weight: normal;
     font-size: 12px;
   }
@@ -830,9 +828,9 @@ a:hover {
   .mat-form-field-underline{
     background-color : #ffffff !important;
   }
-  .mat-form-field-empty.mat-form-field-label {
-    color: #ffffff !important;
-  }
+  //.mat-form-field-empty.mat-form-field-label {
+  //  color: #ffffff !important;
+  //}
 
   /* When the input is not focused */
   md-input-container label {
@@ -842,6 +840,9 @@ a:hover {
   /* When the input is focused */
   md-input-container.md-input-focused label {
     color: white;
+  }
+  .mat-form-field-label{
+    color:#fff !important;
   }
 }
 
