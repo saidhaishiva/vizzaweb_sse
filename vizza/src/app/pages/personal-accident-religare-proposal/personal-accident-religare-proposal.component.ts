@@ -341,7 +341,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     idValidate(event: any) {
         this.validation.idValidate(event);
     }
+    spac(event: any){
+        this.validation.spac(event);
 
+    }
     ngOnInit() {
         this.setRelationship();
         this.setOccupationListCode();
