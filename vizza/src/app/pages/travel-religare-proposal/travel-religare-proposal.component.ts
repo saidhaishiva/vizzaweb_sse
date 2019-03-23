@@ -95,6 +95,7 @@ public sameinsure: any;
 public allLists: any;
 public addon: any;
 public sameRelationship: any;
+public insurer: any;
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -473,6 +474,30 @@ public sameRelationship: any;
             }
         }
     }
+
+    personalTravelListName() {
+        this.religarePersonal.controls['rcityName'].patchValue(this.personalTravelResCitys[this.religarePersonal.controls['rcity'].value]);
+    }
+    insureTravelRelationListName() {
+        this.insureReligareArray.controls['relationshipName'].patchValue(this.insuretravelRelationList[this.insureReligareArray.controls['relationship'].value]);
+    }
+    iPersonalCitysName() {
+        this.insureReligareArray.controls['cityName'].patchValue(this.iPersonalCitys[this.insureReligareArray.controls['city'].value]);
+    }
+    rPersonalCitysName() {
+        this.insureReligareArray.controls['rcityName'].patchValue(this.rPersonalCitys[this.insureReligareArray.controls['rcity'].value]);
+    }
+    religareTravelRelationshipList() {
+        this.nomineeDetails.controls['religareTravelRelationshipName'].patchValue(this.insuretravelRelationList[this.nomineeDetails.controls['religareTravelRelationship'].value]);
+    }
+    studentRelationshipList() {
+        this.religarePersonal.controls['studentRelationShipName'].patchValue(this.insuretravelRelationList[this.religarePersonal.controls['studentRelationShip'].value]);
+    }
+    personalTravelCitysList() {
+        this.religarePersonal.controls['cityName'].patchValue(this.personalTravelCitys[this.religarePersonal.controls['city'].value]);
+    }
+
+
 
     public getpostalFailure(error) {
         console.log(error);
@@ -974,6 +999,8 @@ public sameRelationship: any;
             console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
             this.proposalId = this.summaryData.proposal_id;
             sessionStorage.religare_Travel_proposal_id = this.proposalId;
+            this.insurer = this.totalReligareData;
+            console.log(this.insurer,'this.insurer')
             //console.log(this.proposalId, 'this.summaryDatathis.summaryDatathis.summaryData');
             this.lastStepper.next();
 

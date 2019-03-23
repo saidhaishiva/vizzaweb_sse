@@ -153,8 +153,8 @@
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3" *ngIf="restrictiondetails"><mat-form-field class="w-100">
-                        <input matInput placeholder="Restrictionbyinsurancedetails"  (keypress)="nameValidate($event)"  required formControlName="restrictionbyinsurancedetails" autocomplete="off">
-                        <mat-error *ngIf="hdfcTravel.controls.restrictionbyinsurancedetails.errors?.required"> Restrictionbyinsurancedetails is required</mat-error>
+                        <input matInput placeholder="Restriction By Insurance Details"  (keypress)="nameValidate($event)"  required formControlName="restrictionbyinsurancedetails" autocomplete="off">
+                        <mat-error *ngIf="hdfcTravel.controls.restrictionbyinsurancedetails.errors?.required"> Restriction By Insurance Details is required</mat-error>
 
                       </mat-form-field></div>
                     </div>
@@ -397,7 +397,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.firstname}} {{proposerFormData.middlename}} {{proposerFormData.lastname}}</li>
+                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}}. {{proposerFormData.firstname}} {{proposerFormData.middlename}} {{proposerFormData.lastname}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'M'"><strong>Gender:</strong> Male</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'F'"><strong>Gender:</strong> Female</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob}}</li>

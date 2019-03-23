@@ -96,9 +96,9 @@
                       <mat-error *ngIf="religarePersonal.controls.sponserdob.errors?.required">Sponser Dob is required</mat-error>
                     </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Student"  formControlName="studentRelationShip" required>
-                              <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_id}}" >
-                                {{lists.relation_name}}
+                            <mat-select placeholder="Relationship with Student"  formControlName="studentRelationShip" (change)="studentRelationshipList()" required>
+                              <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.key}}" >
+                                {{lists.value}}
                               </mat-option>
                             </mat-select>
                             <!--<mat-error *ngIf="religarePersonal.controls.studentRelationShip.errors?.required">Relationship with Student is required</mat-error>-->
@@ -170,9 +170,9 @@
                         <mat-error *ngIf="religarePersonal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="city" autocomplete="off" required>
-                          <mat-option *ngFor="let city of personalTravelCitys" [value]= 'city.city'>
-                            {{city.city}}
+                        <mat-select placeholder="City" formControlName="city" (change)="personalTravelCitysList()" autocomplete="off" required>
+                          <mat-option *ngFor="let city of personalTravelCitys | keys" [value]= 'city.keys'>
+                            {{city.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="religarePersonal.controls.city.errors?.required">City is required</mat-error>
@@ -220,9 +220,9 @@
                                 <!--<mat-error *ngIf="religarePersonal.controls.rcity.errors?.required">City is required</mat-error>-->
                             <!--</mat-form-field></div>-->
                           <div class="col-md-4" *ngIf="sameinsure != true"><mat-form-field class="w-100">
-                            <mat-select placeholder="City" formControlName="rcity" autocomplete="off"   required>
-                              <mat-option *ngFor="let citys of personalTravelResCitys" [value]= 'city.city'>
-                                {{city.city}}
+                            <mat-select placeholder="City" formControlName="rcity" (change)="personalTravelListName()"  autocomplete="off"   required>
+                              <mat-option *ngFor="let city of personalTravelResCitys | keys" [value]= 'city.keys'>
+                                {{city.value}}
                               </mat-option>
                             </mat-select>
                             <mat-error *ngIf="religarePersonal.controls.rcity.errors?.required">City is required</mat-error>
@@ -313,9 +313,9 @@
                         </div>
 
                         <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" required>
-                            <mat-option *ngFor="let lists of insuretravelRelationList" value="{{lists.relation_id}}" >
-                              {{lists.relation_name}}
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="insureTravelRelationListName()" required>
+                            <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.keys}}" >
+                              {{lists.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureReligareArray.invalid">Relationship is required</mat-error>
@@ -374,9 +374,9 @@
 
                         </mat-form-field></div>
                         <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100" >
-                          <mat-select placeholder="City" formControlName="city" autocomplete="off" required>
-                            <mat-option *ngFor="let city of iPersonalCitys" [value]= 'city.city'>
-                              {{city.city}}
+                          <mat-select placeholder="City" formControlName="city" (change)="iPersonalCitysName()" autocomplete="off" required>
+                            <mat-option *ngFor="let city of iPersonalCitys | keys" [value]= 'city.keys'>
+                              {{city.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="insureReligareArray.invalid">City is required</mat-error>
@@ -416,9 +416,9 @@
 
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="rcity" autocomplete="off" required>
-                          <mat-option *ngFor="let city of rPersonalCitys" [value]= 'city.city'>
-                            {{city.city}}
+                        <mat-select placeholder="City" formControlName="rcity" (change)="rPersonalCitysName()" autocomplete="off" required>
+                          <mat-option *ngFor="let city of rPersonalCitys | keys" [value]= 'city.keys'>
+                            {{city.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="insureReligareArray.invalid">City is required</mat-error>
@@ -505,9 +505,9 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Proposer"  formControlName="religareTravelRelationship" >
-                          <mat-option *ngFor="let lists of insuretravelRelationList" [hidden]="sameRelationship == lists.relation_id" value="{{lists.relation_id}}" required>
-                            {{lists.relation_name}}
+                        <mat-select placeholder="Relationship with Proposer"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()">
+                          <mat-option *ngFor="let lists of insuretravelRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.keys}}" required>
+                            {{lists.value}}
                           </mat-option>
                         </mat-select>
                         <mat-error *ngIf="nomineeDetails.controls.religareTravelRelationship.errors?.required">Relationship with Proposer is required</mat-error>
@@ -567,7 +567,7 @@
 
               </tbody>
             </table>
-            <div *ngFor="let item of summaryData.proposer_insurer_details; let i = index;">
+            <div *ngFor="let item of insurer; let i = index;">
 
             <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
