@@ -190,7 +190,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             if (this.hdfcTravel1.pincode != '') {
                 // this.pincodevalidationHdfc(this.hdfcTravel1.pincode);
             }
-            this.hdfcTravel = this.fb.group({
+            this.hdfcTravel.patchValue({
                 title: this.hdfcTravel1.title,
                 firstname: this.hdfcTravel1.firstname,
                 middlename: this.hdfcTravel1.middlename,
@@ -518,6 +518,8 @@ export class TravelHdfcProposalComponent implements OnInit {
         } else {
             this.declinedetails = false;
             this.hdfcTravel.controls['declineReson'].setValidators(null);
+            this.hdfcTravel.controls['declineReson'].patchValue('');
+
 
         }
     }
@@ -529,6 +531,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         } else {
             this.restrictiondetails = false;
             this.hdfcTravel.controls['restrictionbyinsurancedetails'].setValidators(null);
+            this.hdfcTravel.controls['restrictionbyinsurancedetails'].patchValue('');
 
         }
     }
@@ -805,7 +808,7 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'DepartureDate': this.getallTravelPremiumList.start_date,
                     'ArrivalDate': this.getallTravelPremiumList.end_date,
                     'TravelDays': this.getallTravelPremiumList.day_count.toString(),
-                    'purposeofvisitcd': "Business",
+                    'purposeofvisitcd': this.getallTravelPremiumList.travel_time_type,
                     'PlacesVisitedCd': "London",
                     'NoOfAdults': this.getallTravelPremiumList.adult_count,
                     'NoOfKids': this.getallTravelPremiumList.child_count,

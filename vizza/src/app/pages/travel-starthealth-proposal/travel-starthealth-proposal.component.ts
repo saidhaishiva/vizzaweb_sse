@@ -781,11 +781,14 @@ export class TravelProposalComponent implements OnInit {
     }
     public getAreaFailure(error) {
     }
-    selectPurpose() {
+    selectArea() {
         this.personal.controls['personalAreaName'].patchValue(this.areaList[this.personal.controls['personalArea'].value]);
     }
-    selectArea() {
-        this.personal.controls['travelPurposeName'].patchValue(this.areaList[this.personal.controls['travelPurpose'].value]);
+    // selectCity() {
+    //     this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+    // }
+    selectPurpose() {
+        this.personal.controls['travelPurposeName'].patchValue(this.travelPurposeLists[this.personal.controls['travelPurpose'].value]);
     }
 
 
