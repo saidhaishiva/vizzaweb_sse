@@ -19,14 +19,16 @@
             <th class="col-md-1"><strong>Minimum Sum Assured</strong></th>
             <th class="col-md-1"><strong>Maximum Sum Assured</strong></th>
             <th class="col-md-2"><strong>Policy Paying Mode</strong></th>
-            <th class="col-md-1"><strong>Action</strong></th>
+            <th class="col-md-1"><strong>Fix An Appointment</strong></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let list of compareDetails">
-              <td class="col-md-1"><small class="pinck-back" style="color:#821646; color:#ffffff;">{{list.company_name}}<br/>{{list.product_name}}</small></td>
+              <td class="col-md-1"><small class="pinck-back" style="color:#ffffff;">{{list.company_name}}<br/>{{list.product_name}}</small></td>
               <td *ngFor="let key of list.keyfeature; let i = index;" [ngClass] = "i == 1||i==7 ? 'col-md-2' : 'col-md-1'"><small>{{key.key_value}}</small></td>
-              <p class="mt-1 col-md-1" style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="callBack(list)">Call Back</button></p></tr>
+            <td class="col-md-1 pt-2">
+              <p style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="callBack(list)">Call Back</button></p>
+            </td></tr>
             </tbody>
           </table>
       </div>

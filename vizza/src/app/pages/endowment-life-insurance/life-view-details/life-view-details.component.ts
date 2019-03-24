@@ -80,7 +80,7 @@ export class LifeViewDetailsComponent implements OnInit {
     }else if (index == 1) {
       this.id1 = 0;
     } else if (index == 2) {
-      this.selectedClaimDetails = 'form1';
+      this.selectedClaimDetails = 'form2';
       const getIndex = this.getKeyList.findIndex( list => list.type == 2);
       this.id = getIndex;
     }

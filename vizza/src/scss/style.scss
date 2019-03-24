@@ -800,9 +800,15 @@ a:hover {
       font-size: 12px;
       text-align: center;
     }
+    button{
+      font-size: 12px;
+      padding: 0 4px;
+      line-height: 1.6;
+    }
     .pink-color {
-      background: #821646;
-      color: #fff;
+      background: #E6D0DA;
+      border: 1px solid #821646;
+      color: #821646;
     }
     td:first-child{
         background: #821646;
@@ -1800,7 +1806,7 @@ a:hover {
   .mat-dialog-content{
     margin: 0 !important;
     padding: 0 !important;
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
   }
   .row{
     margin: 0;
