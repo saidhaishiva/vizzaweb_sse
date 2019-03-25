@@ -98,9 +98,9 @@
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Telephone Number(office)"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="telephoneNooffice" autocomplete="off" >
-                        <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.errors?.required">Telephone Number(office) is required</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.hasError('minlength')">Telephone Number(office) isn't long enough, minimum of 8 Digits</mat-error>
+                        <input matInput placeholder="Telephone office Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="telephoneNooffice" autocomplete="off" >
+                        <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.errors?.required">Telephpne office Number is required</mat-error>
+                        <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 8 Digits</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder=" Physician Name"  (keypress)="nameValidate($event)"   formControlName="physicianName" autocomplete="off">
@@ -309,7 +309,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PassPort" class="text-uppercase" formControlName="PassportNo" (keypress)="idValidate($event)"   maxlength="8" minlength="8" pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$" autocomplete="off" required>
+                            <input matInput placeholder="PassPort" class="text-uppercase" formControlName="PassportNo"  maxlength="8" minlength="8" pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$" autocomplete="off" required>
                             <mat-error *ngIf="hdfcInsuredTravel.invalid">PassPort is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -348,7 +348,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Insured"  formControlName="NomineeRelation" (change)="selectNomineRelation()"  required >
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="NomineeRelation" (change)="selectNomineRelation()"  required >
                             <mat-option *ngFor="let lists of nomineeRelationshipDetails | keys" [hidden]="sameRelationship == lists.value" value="{{lists.value}}">
                               {{lists.value}}
                             </mat-option>
@@ -405,7 +405,7 @@
                       <li class="list-group-item"><strong>Mobile:</strong> {{proposerFormData.mobile}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.physicianName != ''"><strong>Physician Name :</strong> {{proposerFormData.physicianName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>Physician Name :</strong> {{proposerFormData.gst}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.physicianMobile != ''"><strong>Physician Mobile number :</strong> {{proposerFormData.physicianMobile}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.physicianMobile != ''"><strong>Physician Mobilenumber :</strong> {{proposerFormData.physicianMobile}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.stdcode != ''"><strong>STD Code:</strong> {{proposerFormData.stdcode}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.telephoneNo != ''"><strong>Telephone Number:</strong> {{proposerFormData.telephoneNo}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.stdcodeoffice != ''"><strong>Office STD Code:</strong> {{proposerFormData.stdcodeoffice}}</li>
