@@ -144,7 +144,7 @@
                       </div>
                       </div>
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-blue"> PROPOSER COMMUNICATION ADDRESS</h6>
+                    <h6 class="color-blue"> COMMUNICATION ADDRESS</h6>
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
@@ -170,8 +170,8 @@
                         <mat-error *ngIf="religarePersonal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100" >
-                        <mat-select placeholder="City" formControlName="city" (change)="personalTravelCitysList()" autocomplete="off" required>
-                          <mat-option *ngFor="let city of personalTravelCitys | keys" [value]= 'city.keys'>
+                        <mat-select placeholder="City" formControlName="city" (change)="selectComCity()" autocomplete="off" required>
+                          <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
                             {{city.value}}
                           </mat-option>
                         </mat-select>
@@ -183,14 +183,14 @@
                         <mat-error *ngIf="religarePersonal.controls.state.errors?.required">State is required</mat-error>
                       </mat-form-field></div>
                     <div class="col-md-12 box-card pt-3">
-                        <h6 class="color-blue"> PROPOSER PERMENENT ADDRESS</h6>
+                        <h6 class="color-blue"> PERMENENT ADDRESS</h6>
                         <div class="row">
                             <div class="col-md-12">
                               <mat-checkbox formControlName="sameAsProposer" (change)="sameAddress($event)"><strong>Same as Communication Address</strong></mat-checkbox>
                             </div>
                             <div class="col-md-6">
                                 <mat-form-field class="w-100">
-                                    <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="raddress1"  autocomplete="off" required></textarea>
+                                    <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="raddress1"  autocomplete="off" required [readonly]="this.religarePersonal.controls['sameAsProposer'].value"></textarea>
                                     <mat-hint align="start"></mat-hint>
                                     <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
                                     <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress.errors?.required">Address is required</mat-error>-->
@@ -198,7 +198,7 @@
                             </div>
                             <div class="col-md-6">
                                 <mat-form-field class="w-100">
-                                    <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="raddress2" autocomplete="off" ></textarea>
+                                    <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="raddress2" autocomplete="off" [readonly]="this.religarePersonal.controls['sameAsProposer'].value"></textarea>
                                     <mat-hint align="start"></mat-hint>
                                     <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
                                     <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress2.errors?.required">Address2 is required</mat-error>-->
@@ -206,35 +206,28 @@
                                 </mat-form-field>
                             </div>
                             <div class="col-md-4"><mat-form-field class="w-100">
-                                <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="rpincode" autocomplete="off" required>
+                                <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'residence')" formControlName="rpincode" autocomplete="off" required [readonly]="this.religarePersonal.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="religarePersonal.controls.rpincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                 <mat-error *ngIf="religarePersonal.controls.rpincode.hasError('required')">Pincode Is Required</mat-error>
                                 <mat-error *ngIf="religarePersonal.controls.rpincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                             </mat-form-field></div>
-                            <!--<div class="col-md-4"><mat-form-field class="w-100" >-->
-                                <!--<mat-select placeholder="City" formControlName="rcity" autocomplete="off" required>-->
-                                    <!--<mat-option *ngFor="let city of personalTravelResCitys" [value]= 'city.city'>-->
-                                        <!--{{city.city}}-->
-                                    <!--</mat-option>-->
-                                <!--</mat-select>-->
-                                <!--<mat-error *ngIf="religarePersonal.controls.rcity.errors?.required">City is required</mat-error>-->
-                            <!--</mat-form-field></div>-->
-                          <div class="col-md-4" *ngIf="sameinsure != true"><mat-form-field class="w-100">
-                            <mat-select placeholder="City" formControlName="rcity" (change)="personalTravelListName()"  autocomplete="off"   required>
-                              <mat-option *ngFor="let city of personalTravelResCitys | keys" [value]= 'city.keys'>
+                          <div class="col-md-4" [ngStyle]="{'pointer-events': this.religarePersonal.controls['sameAsProposer'].value ? 'none' : ''}">
+                            <mat-form-field class="w-100"  >
+                            <mat-select placeholder="City" formControlName="rcity" (change)="selectResCity()" autocomplete="off"   required>
+                              <mat-option *ngFor="let city of residenceCitys | keys" [value]= 'city.key'>
                                 {{city.value}}
                               </mat-option>
                             </mat-select>
                             <mat-error *ngIf="religarePersonal.controls.rcity.errors?.required">City is required</mat-error>
                           </mat-form-field></div>
 
-                          <div class="col-md-4" *ngIf="sameinsure"><mat-form-field class="w-100" >
-                            <input matInput placeholder="City" formControlName="rcity" autocomplete="off">
-                            <mat-error *ngIf="religarePersonal.controls.rcity.errors?.required">City is required</mat-error>
-                          </mat-form-field></div>
+                          <!--<div class="col-md-4" *ngIf="sameinsure"><mat-form-field class="w-100" >-->
+                            <!--<input matInput placeholder="City" formControlName="rcity" autocomplete="off">-->
+                            <!--<mat-error *ngIf="religarePersonal.controls.rcity.errors?.required">City is required</mat-error>-->
+                          <!--</mat-form-field></div>-->
 
                           <div class="col-md-4"><mat-form-field class="w-100">
-                                <input matInput placeholder="State" formControlName="rstate" autocomplete="off" required readonly>
+                                <input matInput placeholder="State" formControlName="rstate" [readonly]="this.religarePersonal.controls['sameAsProposer'].value" autocomplete="off" required readonly>
                                 <mat-error *ngIf="religarePersonal.controls.rstate.errors?.required">State is required</mat-error>
                             </mat-form-field></div>
                         </div>
