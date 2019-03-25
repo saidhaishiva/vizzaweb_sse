@@ -79,6 +79,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public nomineeFormData: any;
     public currentStep: any;
     public today: any;
+    public plantype: any;
 
 
     constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -190,7 +191,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             if (this.hdfcTravel1.pincode != '') {
                 // this.pincodevalidationHdfc(this.hdfcTravel1.pincode);
             }
-            this.hdfcTravel = this.fb.group({
+            this.hdfcTravel.patchValue({
                 title: this.hdfcTravel1.title,
                 firstname: this.hdfcTravel1.firstname,
                 middlename: this.hdfcTravel1.middlename,
@@ -518,6 +519,8 @@ export class TravelHdfcProposalComponent implements OnInit {
         } else {
             this.declinedetails = false;
             this.hdfcTravel.controls['declineReson'].setValidators(null);
+            this.hdfcTravel.controls['declineReson'].patchValue('');
+
 
         }
     }
@@ -529,6 +532,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         } else {
             this.restrictiondetails = false;
             this.hdfcTravel.controls['restrictionbyinsurancedetails'].setValidators(null);
+            this.hdfcTravel.controls['restrictionbyinsurancedetails'].patchValue('');
 
         }
     }
@@ -786,6 +790,9 @@ export class TravelHdfcProposalComponent implements OnInit {
     // proposal craetion
     createProposal(stepper) {
         console.log(this.getallTravelPremiumList);
+        for(let i = 0; i < this.getallTravelPremiumList.plan_type.length; i++){
+            this.plantype = this.getallTravelPremiumList.plan_type[i];
+        }
         let insuretravelDetails = this.totalInsureDetails;
         for (let i = 0; i < this.insuredTravelData.items.length; i++) {
             this.insuredTravelData.items[i].NomineeName = this.nomineeTravelDetails.controls['NomineeName'].value;
@@ -805,8 +812,8 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'DepartureDate': this.getallTravelPremiumList.start_date,
                     'ArrivalDate': this.getallTravelPremiumList.end_date,
                     'TravelDays': this.getallTravelPremiumList.day_count.toString(),
-                    'purposeofvisitcd': "Business",
-                    'PlacesVisitedCd': "London",
+                    'purposeofvisitcd': sessionStorage.travelType,
+                    'PlacesVisitedCd':this.plantype,
                     'NoOfAdults': this.getallTravelPremiumList.adult_count,
                     'NoOfKids': this.getallTravelPremiumList.child_count,
                     'FloaterPlan': this.getallTravelPremiumList.scheme,

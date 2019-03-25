@@ -718,7 +718,7 @@ export class TravelProposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         if (pin.length == 6) {
-            this.proposalservice.getPostal(data).subscribe(
+            this.travelservice.getPostal(data).subscribe(
                 (successData) => {
                     this.getpostalSuccess(successData,title);
                 },
@@ -737,7 +737,7 @@ export class TravelProposalComponent implements OnInit {
                     this.personal.controls['personalCity'].setValue('');
                     this.personalCitys = {};
                 } else {
-                    this.personal.controls['personalState'].setValue(this.response.state);
+                    this.personal.controls['personalState'].setValue(this.response.state_name);
                     this.personalCitys = this.response.city;
                 }
                 sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
@@ -764,7 +764,7 @@ export class TravelProposalComponent implements OnInit {
             'pincode': this.personal.controls['personalPincode'].value,
             'city_id': this.personal.controls['personalCity'].value
         }
-        this.proposalservice.getArea(data).subscribe(
+        this.travelservice.getAreaList(data).subscribe(
             (successData) => {
                 this.getAreaSuccess(successData);
             },
@@ -781,11 +781,14 @@ export class TravelProposalComponent implements OnInit {
     }
     public getAreaFailure(error) {
     }
-    selectPurpose() {
+    selectArea() {
         this.personal.controls['personalAreaName'].patchValue(this.areaList[this.personal.controls['personalArea'].value]);
     }
-    selectArea() {
-        this.personal.controls['travelPurposeName'].patchValue(this.areaList[this.personal.controls['travelPurpose'].value]);
+    // selectCity() {
+    //     this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+    // }
+    selectPurpose() {
+        this.personal.controls['travelPurposeName'].patchValue(this.travelPurposeLists[this.personal.controls['travelPurpose'].value]);
     }
 
 
@@ -1038,7 +1041,10 @@ export class TravelProposalComponent implements OnInit {
         this.validation.idValidate(event);
 
     }
+    nameValidateNospace(event: any){
+        this.validation.nameValidateNospace(event);
 
+    }
 
     alternateChange(event) {
         if (event.target.value.length == 10) {

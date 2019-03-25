@@ -26,19 +26,19 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstname" (keypress)="nameValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="firstname" (keypress)="nameValidateNospace($event)"  autocomplete="off" required >
                           <mat-error *ngIf="hdfcTravel.controls.firstname.errors?.required"> First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Middle Name" formControlName="middlename"  (keypress)="nameValidate($event)"  autocomplete="off"  >
+                          <input matInput placeholder="Middle Name" formControlName="middlename"  (keypress)="nameValidateNospace($event)"  autocomplete="off"  >
                           <!--<mat-error *ngIf="hdfcPersonal.controls.midname.errors?.required"> Middle Name is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidate($event)"  autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidateNospace($event)"  autocomplete="off" required >
                           <mat-error *ngIf="hdfcTravel.controls.lastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -97,23 +97,23 @@
                         <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 5 Digits</mat-error>
 
                       </mat-form-field></div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-3 mt-2"><mat-form-field class="w-100">
                         <input matInput placeholder="Telephone office Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="telephoneNooffice" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.errors?.required">Telephpne office Number is required</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 8 Digits</mat-error>
+                        <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.hasError('minlength')">Telephpne office Number isn't long enough, minimum of 8 Digits</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-3 mt-2"><mat-form-field class="w-100">
                         <input matInput placeholder=" Physician Name"  (keypress)="nameValidate($event)"   formControlName="physicianName" autocomplete="off">
                         <mat-error *ngIf="hdfcTravel.controls.physicianName.errors?.required">Phyisican Name is required</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
+                      <div class="col-md-3 mt-2"><mat-form-field class="w-100">
                         <input matInput placeholder="Physician Mobile Number"  (keypress)="dobValidate($event)"  minlength="10" maxlength="10" formControlName="physicianMobile"  pattern="[6789][0-9]{9}" autocomplete="off">
                         <mat-error *ngIf="hdfcTravel.controls.physicianMobile.errors?.required">Mobile Number is required</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.physicianMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         <mat-error *ngIf="hdfcTravel.controls.physicianMobile.hasError('minlength')">Mobile Number isn't long enough, minimum of 10 Digits</mat-error>
+                        <mat-error *ngIf="hdfcTravel.controls.physicianMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                       </mat-form-field></div>
-                      <div class="col-md-3">
+                      <div class="col-md-3 mt-2">
                         <mat-form-field class="w-100" >
                           <mat-select placeholder="PED" formControlName="ped" autocomplete="off" required>
                             <mat-option *ngFor="let item of getpedDetails | keys" value= {{item.value}}>
@@ -153,8 +153,8 @@
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3" *ngIf="restrictiondetails"><mat-form-field class="w-100">
-                        <input matInput placeholder="Restriction By Insurance Details"  (keypress)="nameValidate($event)"  required formControlName="restrictionbyinsurancedetails" autocomplete="off">
-                        <mat-error *ngIf="hdfcTravel.controls.restrictionbyinsurancedetails.errors?.required"> Restriction By Insurance Details is required</mat-error>
+                        <input matInput placeholder="Restrictionbyinsurancedetails"  (keypress)="nameValidate($event)"  required formControlName="restrictionbyinsurancedetails" autocomplete="off">
+                        <mat-error *ngIf="hdfcTravel.controls.restrictionbyinsurancedetails.errors?.required"> Restrictionbyinsurancedetails is required</mat-error>
 
                       </mat-form-field></div>
                     </div>
@@ -255,19 +255,19 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="InsFirstName"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="First Name" formControlName="InsFirstName"  (keypress)="nameValidateNospace($event)" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="hdfcInsuredTravel.invalid">First Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Middle Name" formControlName="InsMiddleName"  (keypress)="nameValidate($event)" autocomplete="off" readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Middle Name" formControlName="InsMiddleName"  (keypress)="nameValidateNospace($event)" autocomplete="off" readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <!--<mat-error *ngIf="hdfcInsuredTravel.invalid">Last Name is required</mat-error>-->
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="InsLastName"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                            <input matInput placeholder="Last Name" formControlName="InsLastName"  (keypress)="nameValidateNospace($event)" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                             <mat-error *ngIf="hdfcInsuredTravel.invalid">Last Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -309,7 +309,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PassPort" class="text-uppercase" formControlName="PassportNo"  maxlength="8" minlength="8" pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$" autocomplete="off" required>
+                            <input matInput placeholder="PassPort" class="text-uppercase" formControlName="PassportNo" (keypress)="idValidate($event)" maxlength="8" minlength="8" pattern="[A-PR-WYa-pr-wy]{1}[1-9]\d\s?\d{4}[1-9]$" autocomplete="off" required>
                             <mat-error *ngIf="hdfcInsuredTravel.invalid">PassPort is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -397,7 +397,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}}. {{proposerFormData.firstname}} {{proposerFormData.middlename}} {{proposerFormData.lastname}}</li>
+                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.firstname}} {{proposerFormData.middlename}} {{proposerFormData.lastname}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'M'"><strong>Gender:</strong> Male</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'F'"><strong>Gender:</strong> Female</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob}}</li>
