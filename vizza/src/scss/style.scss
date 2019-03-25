@@ -2729,7 +2729,9 @@ fieldset {
 
 #about {
   top: 20px;
-  background-color: #e05b5a;
+  background-color: #28A745;
+  border: 2px solid #ffffff;
+  border-right: hidden;
 }
 #loading {
   -webkit-animation: rotation 2s infinite linear;
