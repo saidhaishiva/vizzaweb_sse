@@ -880,7 +880,7 @@ export class TravelPremiumListComponent implements OnInit {
     viewKeyList(value, type) {
         console.log(value, 'valuevaluevaluevalue');
         let dialogRef = this.dialog.open(TravelViewKeyFeaturesComponent, {
-            width: '1500px', data: {planId : value.product_id, planName: value.plan_name, type: type}
+            width: '1500px', data:{ planName: value.plan_name, type: type, product_id: value.product_id }
         });
         dialogRef.disableClose = true;
 

@@ -737,7 +737,7 @@ export class TravelProposalComponent implements OnInit {
                     this.personal.controls['personalCity'].setValue('');
                     this.personalCitys = {};
                 } else {
-                    this.personal.controls['personalState'].setValue(this.response.state);
+                    this.personal.controls['personalState'].setValue(this.response.state_name);
                     this.personalCitys = this.response.city;
                 }
                 sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
@@ -1041,7 +1041,10 @@ export class TravelProposalComponent implements OnInit {
         this.validation.idValidate(event);
 
     }
+    nameValidateNospace(event: any){
+        this.validation.nameValidateNospace(event);
 
+    }
 
     alternateChange(event) {
         if (event.target.value.length == 10) {
