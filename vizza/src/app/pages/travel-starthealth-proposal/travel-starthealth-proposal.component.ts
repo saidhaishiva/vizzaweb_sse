@@ -718,7 +718,7 @@ export class TravelProposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
         if (pin.length == 6) {
-            this.proposalservice.getPostal(data).subscribe(
+            this.travelservice.getPostal(data).subscribe(
                 (successData) => {
                     this.getpostalSuccess(successData,title);
                 },
@@ -764,7 +764,7 @@ export class TravelProposalComponent implements OnInit {
             'pincode': this.personal.controls['personalPincode'].value,
             'city_id': this.personal.controls['personalCity'].value
         }
-        this.proposalservice.getArea(data).subscribe(
+        this.travelservice.getAreaList(data).subscribe(
             (successData) => {
                 this.getAreaSuccess(successData);
             },

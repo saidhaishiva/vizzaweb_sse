@@ -812,7 +812,7 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'DepartureDate': this.getallTravelPremiumList.start_date,
                     'ArrivalDate': this.getallTravelPremiumList.end_date,
                     'TravelDays': this.getallTravelPremiumList.day_count.toString(),
-                    'purposeofvisitcd': this.getallTravelPremiumList.travel_time_type == 'Single' ? 'Business' : this.getallTravelPremiumList.travel_time_type == 'Single' ? 'Holiday' : this.getallTravelPremiumList.travel_time_type,
+                    'purposeofvisitcd': sessionStorage.travelType,
                     'PlacesVisitedCd':this.plantype,
                     'NoOfAdults': this.getallTravelPremiumList.adult_count,
                     'NoOfKids': this.getallTravelPremiumList.child_count,

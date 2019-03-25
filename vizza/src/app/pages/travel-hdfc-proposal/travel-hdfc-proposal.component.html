@@ -100,7 +100,7 @@
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Telephone office Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="telephoneNooffice" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.errors?.required">Telephpne office Number is required</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 8 Digits</mat-error>
+                        <mat-error *ngIf="hdfcTravel.controls.telephoneNooffice.hasError('minlength')">Telephpne office Number isn't long enough, minimum of 8 Digits</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder=" Physician Name"  (keypress)="nameValidate($event)"   formControlName="physicianName" autocomplete="off">
