@@ -17,6 +17,7 @@ import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {TravelService} from '../../shared/services/travel.service';
 import {HealthService} from '../../shared/services/health.service';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -140,11 +141,20 @@ export class TravelProposalComponent implements OnInit {
     nomineeFormData: any;
     travelStartDate: any;
     travelEndDate: any;
+    currentStep: any;
 
-    constructor(public travelservice: TravelService, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 3;
+            }
+        });
+        this.currentStep = stepperindex;
+
         this.stopNext = false;
         this.back = false;
         this.hideQuestion = false;
@@ -461,15 +471,17 @@ export class TravelProposalComponent implements OnInit {
 
     }
     ageCalculate(dob) {
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
-        let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        return year_age;
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
+
+
     }
     stepback() {
         this.back = true;
@@ -737,7 +749,7 @@ export class TravelProposalComponent implements OnInit {
                     this.personal.controls['personalCity'].setValue('');
                     this.personalCitys = {};
                 } else {
-                    this.personal.controls['personalState'].setValue(this.response.state_name);
+                    this.personal.controls['personalState'].setValue(this.response.state);
                     this.personalCitys = this.response.city;
                 }
                 sessionStorage.personalCitys = JSON.stringify(this.personalCitys);

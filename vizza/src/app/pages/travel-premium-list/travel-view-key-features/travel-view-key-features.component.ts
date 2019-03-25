@@ -119,7 +119,7 @@ export class TravelViewKeyFeaturesComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'plan_id': value,
             'productid': this.productId,
-            'type': (this.travelType == 'self' || this.travelType == 'family' || this.travelType == 'group' ) ? 'SFG' : 'Students'
+            'type': this.travelType
 
         };
         console.log(data,'view');

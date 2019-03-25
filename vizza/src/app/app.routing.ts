@@ -207,7 +207,7 @@ export const routes: Routes = [
             { path: 'personal-accident-religare/:stepper', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'},canDeactivate: [ReligarePaproposaldeactivateGuardService] },
             { path: 'appollo-munich-health/:stepper', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'},canDeactivate: [AppollohealthproposaldeactivateGuardService]},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
-            { path: 'travelproposal', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
+            { path: 'travelproposal/:stepper', component:TravelProposalComponent, data: { breadcrumb: 'Travel Proposal'} },
             { path: 'paymentSuccessTravel', component:PaymentSuccessTravelComponent, data: { breadcrumb: 'Payment Success'} },
             { path: 'iffco/:stepper', component:IffcoTokioComponent, data: { breadcrumb: 'Iffco Tokio'} },
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
@@ -233,7 +233,7 @@ export const routes: Routes = [
             { path: 'travel-religare-payment-success/:status/:proId', component: TravelReligarePaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'shriram-travel-payment-success/:status/:proId', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
-            { path: 'hdfc-travel', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
+            { path: 'hdfc-travel/:stepper', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
             { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
             { path: 'reliance-pa', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
 
