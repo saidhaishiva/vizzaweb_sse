@@ -102,17 +102,15 @@ export class LifeCallBackComponent implements OnInit {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                  if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.dobError = '';
-                } else if(this.Lifeapp['controls'].appdate.value == ''){
-                     this.dobError = '';
-                 }else {
+                } else {
                     this.dobError = 'Enter Valid Date';
                 }
             } else {
                 this.dobError = '';
             }
-
+        }else {
+            this.dobError = '';
         }
-        console.log(this.Lifeapp['controls'].appdate.value,'this.Lifeapp[\'controls\'].appdate.value');
     }
     // ageCalculate(dob) {
     //     let today = new Date();
