@@ -60,16 +60,15 @@ export class ReliagretravelproposalComponent implements OnInit {
     public getReligareTravelNomineeData: any;
     public acceptSummaryDeclaration: boolean;
 
-    public religareTravelProposalID: any;
     public settings: any;
     public insuretravelRelationList: any;
     public religareTravelQuestionsList: any;
     public partyQuestionDOList: any;
-    public insurerTravelCitys: any;
     public index: any;
     public iPersonalCitys: any;
     public response: any;
-    public personalTravelResCitys: any;
+    public personalCitys: any;
+    public residenceCitys: any;
     public tripStatus: any;
     public enquiryId: any;
     public stepback: any;
@@ -124,6 +123,7 @@ public insurer: any;
             address2: '',
             pincode: ['', Validators.required],
             city: ['', Validators.required],
+            cityName: '',
             state: ['', Validators.required],
             raddress1: ['', Validators.required],
             raddress2: '',
@@ -133,6 +133,7 @@ public insurer: any;
             sameAsProposer:false,
             rpincode: ['', Validators.required],
             rcity: ['', Validators.required],
+            rcityName: '',
              rstate: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
@@ -421,19 +422,16 @@ public insurer: any;
     }
     // postal code in religareproposal
     getPostal(pin, title) {
-        this.pin = pin;
-        this.title = title;
-        console.log(this.title, 'kjhjkghkhk');
         const data = {
             'platform': 'web',
             'user_id': '0',
             'role_id': '4',
-            'pincode': this.pin
+            'pincode': pin
         }
-        if (this.pin.length == 6) {
+        if (pin.length == 6) {
             this.proposalservice.getPostalReligare(data).subscribe(
                 (successData) => {
-                    this.getpostalSuccess(successData);
+                    this.getpostalSuccess(successData, title);
                 },
                 (error) => {
                     this.getpostalFailure(error);
@@ -442,41 +440,53 @@ public insurer: any;
         }
     }
 
-    public getpostalSuccess(successData) {
-        if (successData.IsSuccess) {
-            if (this.title == 'personal') {
-                this.personalTravelCitys = [];
-                this.responseReligareTravel = successData.ResponseObject;
-                this.religarePersonal.controls['state'].setValue(this.responseReligareTravel[0].state);
-                for (let i = 0; i < this.responseReligareTravel.length; i++) {
-                    this.personalTravelCitys.push({city: this.responseReligareTravel[i].city});
+    public getpostalSuccess(successData, title) {
+        if (successData.IsSuccess == true) {
+            this.response = successData.ResponseObject;
+            if (title == 'personal') {
+                if (Object.keys(this.response).length === 0) {
+                    this.religarePersonal.controls['state'].setValue('');
+                    this.religarePersonal.controls['city'].setValue('');
+                    this.personalCitys = {};
+                } else {
+                    this.religarePersonal.controls['state'].setValue(this.response.state);
+                    this.personalCitys = this.response.city;
                 }
-            } else if (successData.IsSuccess != true) {
+                sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
+            } else if (title == 'residence') {
+                if (Object.keys(this.response).length === 0) {
+                    this.religarePersonal.controls['rcity'].setValue('');
+                    this.religarePersonal.controls['rstate'].setValue('');
+                     this.residenceCitys = {};
+                } else {
+                    this.religarePersonal.controls['rstate'].setValue(this.response.state);
+                    this.residenceCitys = this.response.city;
+                }
+                sessionStorage.residenceCitys = JSON.stringify(this.residenceCitys);
+            }
+        } else {
+            this.toastr.error('In valid Pincode');
+            if (title == 'personal') {
+                sessionStorage.personalCitys = '';
+                this.personalCitys = {};
                 this.religarePersonal.controls['state'].setValue('');
-                for (let i = 0; i < this.responseReligareTravel.length; i++) {
-                    this.personalTravelCitys.push({city: this.responseReligareTravel[i].city = ''});
-                }
-                this.toastr.error('In valid Pincode');
-            }
-            if (this.title == 'residence') {
-                this.personalTravelResCitys = [];
-                this.responseReligareTravel = successData.ResponseObject;
-                this.religarePersonal.controls['rstate'].setValue(this.responseReligareTravel[0].state);
-                for (let i = 0; i < this.responseReligareTravel.length; i++) {
-                    this.personalTravelResCitys.push({city: this.responseReligareTravel[i].city});
-                }
-            } else if (successData.IsSuccess != true) {
+                this.religarePersonal.controls['city'].setValue('');
+            } else if (title == 'residence') {
+                sessionStorage.residenceCitys = '';
+                this.residenceCitys = {};
+                this.religarePersonal.controls['rcity'].setValue('');
                 this.religarePersonal.controls['rstate'].setValue('');
-                for (let i = 0; i < this.responseReligareTravel.length; i++) {
-                    this.personalTravelResCitys.push({city: this.responseReligareTravel[i].city = ''});
-                }
-                this.toastr.error('In valid Pincode');
             }
+
         }
+
+
+
+
     }
 
-    personalTravelListName() {
-        this.religarePersonal.controls['rcityName'].patchValue(this.personalTravelResCitys[this.religarePersonal.controls['rcity'].value]);
+    selectResCity() {
+        this.religarePersonal.controls['rcityName'].patchValue(this.residenceCitys[this.religarePersonal.controls['rcity'].value]);
     }
     insureTravelRelationListName() {
         this.insureReligareArray.controls['relationshipName'].patchValue(this.insuretravelRelationList[this.insureReligareArray.controls['relationship'].value]);
@@ -493,8 +503,8 @@ public insurer: any;
     studentRelationshipList() {
         this.religarePersonal.controls['studentRelationShipName'].patchValue(this.insuretravelRelationList[this.religarePersonal.controls['studentRelationShip'].value]);
     }
-    personalTravelCitysList() {
-        this.religarePersonal.controls['cityName'].patchValue(this.personalTravelCitys[this.religarePersonal.controls['city'].value]);
+    selectComCity() {
+        this.religarePersonal.controls['cityName'].patchValue(this.personalCitys[this.religarePersonal.controls['city'].value]);
     }
 
 
@@ -773,9 +783,8 @@ public insurer: any;
         }
     }
     sameAddress(values){
-    if ( this.religarePersonal.controls['sameAsProposer'].value) {
+    if (this.religarePersonal.controls['sameAsProposer'].value) {
         this.inputReadonly = true;
-        this.sameinsure = values.checked;
         this.religarePersonal.controls['raddress1'].patchValue(this.religarePersonal.controls['address1'].value);
         this.religarePersonal.controls['raddress2'].patchValue(this.religarePersonal.controls['address2'].value);
         this.religarePersonal.controls['rcity'].patchValue(this.religarePersonal.controls['city'].value);
@@ -1050,10 +1059,11 @@ public insurer: any;
     sessionData() {
         if (sessionStorage.ReligareTravelDetails1 != '' && sessionStorage.ReligareTravelDetails1 != undefined) {
             console.log(JSON.parse(sessionStorage.ReligareTravelDetails1), 'sessionStorage.ReligareTravelDetails1');
+
+            this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+
             this.religareTravel1 = JSON.parse(sessionStorage.ReligareTravelDetails1);
-            if (this.religareTravel1.pincode != '') {
-                this.getPostal(this.religareTravel1.pincode, 'personal');
-            }
             this.religarePersonal = this.fb.group({
                 title: this.religareTravel1.title,
                 firstname: this.religareTravel1.firstname,
@@ -1064,11 +1074,13 @@ public insurer: any;
                 address2: this.religareTravel1.address2,
                 pincode: this.religareTravel1.pincode,
                 city: this.religareTravel1.city,
+                cityName: this.religareTravel1.cityName,
                 state: this.religareTravel1.state,
                 raddress1: this.religareTravel1.raddress1,
                 raddress2: this.religareTravel1.raddress2,
                 rpincode: this.religareTravel1.rpincode,
                 rcity: this.religareTravel1.rcity,
+                rcityName: this.religareTravel1.rcityName,
                 rstate: this.religareTravel1.rstate,
                 pannumber: this.religareTravel1.pannumber,
                 adharnumber: this.religareTravel1.adharnumber,

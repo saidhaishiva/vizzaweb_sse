@@ -2,7 +2,7 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {Settings} from '../../app.settings.model';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {HealthService} from '../../shared/services/health.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
@@ -24,7 +24,7 @@ export class HdfcTravelPaymentSuccessComponent implements OnInit {
   public proposalId: any
   public settings: Settings;
 
-  constructor(public config: ConfigurationService, public proposalservice: TravelService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public proposalservice: TravelService, public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
 
     this.route.params.forEach((params) => {
@@ -96,7 +96,9 @@ export class HdfcTravelPaymentSuccessComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
-
+  retry() {
+    this.router.navigate(['/hdfc-travel'  + '/' + true]);
+  }
 
 }
 @Component({
