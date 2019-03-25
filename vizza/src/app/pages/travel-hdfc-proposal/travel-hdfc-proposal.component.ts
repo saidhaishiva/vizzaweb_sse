@@ -79,6 +79,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public nomineeFormData: any;
     public currentStep: any;
     public today: any;
+    public plantype: any;
 
 
     constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -789,6 +790,9 @@ export class TravelHdfcProposalComponent implements OnInit {
     // proposal craetion
     createProposal(stepper) {
         console.log(this.getallTravelPremiumList);
+        for(let i = 0; i < this.getallTravelPremiumList.plan_type.length; i++){
+            this.plantype = this.getallTravelPremiumList.plan_type[i];
+        }
         let insuretravelDetails = this.totalInsureDetails;
         for (let i = 0; i < this.insuredTravelData.items.length; i++) {
             this.insuredTravelData.items[i].NomineeName = this.nomineeTravelDetails.controls['NomineeName'].value;
@@ -808,8 +812,8 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'DepartureDate': this.getallTravelPremiumList.start_date,
                     'ArrivalDate': this.getallTravelPremiumList.end_date,
                     'TravelDays': this.getallTravelPremiumList.day_count.toString(),
-                    'purposeofvisitcd': this.getallTravelPremiumList.travel_time_type,
-                    'PlacesVisitedCd': "London",
+                    'purposeofvisitcd': this.getallTravelPremiumList.travel_time_type == 'Single' ? 'Business' : this.getallTravelPremiumList.travel_time_type == 'Single' ? 'Holiday' : this.getallTravelPremiumList.travel_time_type,
+                    'PlacesVisitedCd':this.plantype,
                     'NoOfAdults': this.getallTravelPremiumList.adult_count,
                     'NoOfKids': this.getallTravelPremiumList.child_count,
                     'FloaterPlan': this.getallTravelPremiumList.scheme,
