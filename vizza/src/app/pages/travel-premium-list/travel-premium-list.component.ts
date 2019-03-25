@@ -840,9 +840,9 @@ export class TravelPremiumListComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     if (value.product_id <= 37 && value.product_id >=32) {
-                        this.router.navigate(['/travelproposal']);
+                        this.router.navigate(['/travelproposal'  + '/' + false]);
                     }  else if (value.product_id <= 31 && value.product_id >=27) {
-                        this.router.navigate(['/hdfc-travel']);
+                        this.router.navigate(['/hdfc-travel'  + '/' + false]);
                     } else if (value.product_id <= 26 && value.product_id >=24) {
                         this.router.navigate(['/shriram-travel-home']);
                     }else if (value.product_id == 52) {
@@ -854,9 +854,9 @@ export class TravelPremiumListComponent implements OnInit {
             });
         }  else {
             if (value.product_id <= 37 && value.product_id >=32) {
-                this.router.navigate(['/travelproposal']);
+                this.router.navigate(['/travelproposal'  + '/' + false]);
             }   else if (value.product_id <= 31 && value.product_id >=27) {
-                this.router.navigate(['/hdfc-travel']);
+                this.router.navigate(['/hdfc-travel'  + '/' + false]);
             } else if (value.product_id <= 26 && value.product_id >=24) {
                 this.router.navigate(['/shriram-travel-home']);
             }else if (value.product_id == 52) {
