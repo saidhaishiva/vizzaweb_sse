@@ -400,7 +400,7 @@
                       <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.firstname}} {{proposerFormData.middlename}} {{proposerFormData.lastname}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'M'"><strong>Gender:</strong> Male</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'F'"><strong>Gender:</strong> Female</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
                       <li class="list-group-item"><strong>Mobile:</strong> {{proposerFormData.mobile}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.physicianName != ''"><strong>Physician Name :</strong> {{proposerFormData.physicianName}}</li>
@@ -443,7 +443,7 @@
                           <li class="list-group-item"><strong>Name:</strong> {{item.InsTitle}} {{item.InsFirstName}} {{item.InsMiddleName}} {{item.InsLastName}}</li>
                           <li class="list-group-item" *ngIf="item.InsGender == 'M'"><strong>Gender:</strong> Male</li>
                           <li class="list-group-item" *ngIf="item.InsGender == 'F'"><strong>Gender:</strong> Female</li>
-                          <li class="list-group-item"><strong>D.O.B:</strong> {{item.InsDOB}}</li>
+                          <li class="list-group-item"><strong>D.O.B:</strong> {{item.InsDOB | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item"><strong>Age:</strong> {{item.InsuredAge}}</li>
                           <li class="list-group-item"><strong>Relationship:</strong> {{item.InsuredRelation}}</li>
                           <li class="list-group-item"><strong>PassPort:</strong> {{item.PassportNo}}</li>
@@ -490,7 +490,7 @@
                 </div>
               </mat-expansion-panel>
             </div>
-            <p class="mb-4 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+            <p class="mt-4 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             <hr>
             <div class="row" *ngIf="summaryData">
               <div class="col-md-12 text-center">
