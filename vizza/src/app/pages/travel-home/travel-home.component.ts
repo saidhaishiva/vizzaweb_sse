@@ -101,6 +101,9 @@ export class TravelHomeComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
+    public pincode: any;
+    public pinerror: any;
+    public travelUserType: any;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute) {
         this.settings = this.appSettings.settings;
@@ -110,9 +113,10 @@ export class TravelHomeComponent implements OnInit {
         this.showstudent = false;
         this.selfDetails();
         this.familyDetails();
-        this.studentDetails();
-        this.groupDetails();
+        // this.studentDetails();
+        // this.groupDetails();
         this.currentTab = 'self';
+        this.travelUserType == ''
         // this.today = new Date();
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate() +1);
@@ -139,8 +143,6 @@ export class TravelHomeComponent implements OnInit {
             this.productName = params.id;
 
         });
-
-
         this.Child3BTn = true;
         this.FatherBTn = true;
         this.MotherBTn = true;
@@ -260,10 +262,8 @@ export class TravelHomeComponent implements OnInit {
         this.Student10BTn = false;
         this.selfDetails();
         this.familyDetails();
-        this.groupDetails();
-        this.studentDetails();
-
-
+        // this.groupDetails();
+        // this.studentDetails();
         sessionStorage.selfArray = '';
         sessionStorage.familyArray = '';
         sessionStorage.studentArray = '';
@@ -303,34 +303,24 @@ export class TravelHomeComponent implements OnInit {
         }
         this.travel.getAllcountry(data).subscribe(
             (successData) => {
-                this.viewPlanSuccess(successData);
+                this.countrySuccess(successData);
             },
             (error) => {
-                this.viewPlanFailure(error);
+                this.contryFailure(error);
             }
         );
 
     }
-    public viewPlanSuccess(successData) {
+    public countrySuccess(successData) {
         console.log(successData.ResponseObject);
         if (successData.IsSuccess) {
-            // this.occupationFirst = true;
-            // this.occupationSecond = true;
             this.getAllcountryList = successData.ResponseObject;
-            // this.personal.get('personalDescriptionCode').setValidators([Validators.required]);
-
-            console.log(this.getAllcountryList, 'occupationdescription');
         } else {
-            // this.occupationFirst = true;
-            // this.occupationSecond = false;
-            //  this.personal.get('personalDescriptionCode').setValidators(null);
-            // this.toastr.error(successData.ErrorObject);
         }
     }
-    public viewPlanFailure(error) {
+    public contryFailure(error) {
         console.log(error);
     }
-
     onSelectedIndexChange(event){
         console.log(event, 'value');
         this.currentTab = '';
@@ -349,24 +339,25 @@ export class TravelHomeComponent implements OnInit {
             this.showGroup = false;
             this.showstudent = false;
             console.log(this.travelPlan, 'travelPlantravelPlan');
-        } else if (event == 2) {
-            this.currentTab = 'group';
-            this.groupDetails();
-            this.showSelf = false;
-            this.showFamily = false;
-            this.showGroup = true;
-            this.showstudent = false;
-        } else if (event == 3) {
-            this.currentTab = 'student';
-            this.studentDetails();
-            this.showSelf = false;
-            this.showFamily = false;
-            this.showGroup = false;
-            this.showstudent = true;
-            this.travelType = 'Holiday';
-            this.travelPlan = '';
-            this.medicalCondition = '';
         }
+        // else if (event == 2) {
+        //     this.currentTab = 'group';
+        //     this.groupDetails();
+        //     this.showSelf = false;
+        //     this.showFamily = false;
+        //     this.showGroup = true;
+        //     this.showstudent = false;
+        // } else if (event == 3) {
+        //     this.currentTab = 'student';
+        //     this.studentDetails();
+        //     this.showSelf = false;
+        //     this.showFamily = false;
+        //     this.showGroup = false;
+        //     this.showstudent = true;
+        //     this.travelType = 'Holiday';
+        //     this.travelPlan = '';
+        //     this.medicalCondition = '';
+        // }
     }
     ckeckedUser(index, checked, name) {
         console.log(this.currentTab, 'this.currentTab');
@@ -564,6 +555,12 @@ export class TravelHomeComponent implements OnInit {
     changeMedicalCondition() {
         sessionStorage.medicalCondition = this.medicalCondition;
     }
+    typePincode() {
+        sessionStorage.pincode = this.pincode;
+    }
+    ckeckedUserType() {
+        sessionStorage.travelUserType = this.travelUserType;
+    }
 
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
@@ -652,6 +649,11 @@ export class TravelHomeComponent implements OnInit {
         } else {
             this.medicalerror = false;
         }
+        if (this.pinerror == '' || this.pinerror == undefined) {
+            this.pinerror = true;
+        } else {
+            this.pinerror = false;
+        }
 
         let arrayEmpty = true;
         if (this.travelPlan && this.travelPlan.length) {
@@ -699,65 +701,49 @@ export class TravelHomeComponent implements OnInit {
                     }
                 }
             }
-
-        } else if (groupname == 'group') {
-            for (let i = 0; i < 4; i++) {
-                if (!this.groupArray[i].checked) {
-                    this.groupArray[i].error = 'Required';
-                }
-            }
-            for (let i = 0; i < this.groupArray.length; i++) {
-                if (this.groupArray[i].checked) {
-                    if (this.groupArray[i].age == '') {
-                        this.groupArray[i].error = 'Required';
-                    } else {
-                        this.groupArray[i].error = '';
-                        this.finalData.push({type: this.groupArray[i].name, age: this.groupArray[i].age});
-                    }
-                }
-            }
-        } else if (groupname == 'student') {
-            // for (let i = 0; i < 1; i++) {
-            //     if (!this.studentArray[i].checked) {
-            //         this.studentArray[i].error = 'Required';
-            //     }
-            // }
-            getFiledData = this.studentArray.filter(data => data.checked == true);
-            if (getFiledData != '') {
-                this.studentArray[0].error = '';
-            } else {
-                this.studentArray[0].error = 'Required';
-            }
-            for (let i = 0; i < this.studentArray.length; i++) {
-                if (this.studentArray[i].checked) {
-                    if (this.studentArray[i].age == '') {
-                        this.studentArray[i].error = 'Required';
-                    } else {
-                        this.studentArray[i].error = '';
-                        this.finalData.push({type: this.studentArray[i].name, age: this.studentArray[i].age});
-                    }
-                }
-            }
         }
+        // else if (groupname == 'group') {
+        //     for (let i = 0; i < 4; i++) {
+        //         if (!this.groupArray[i].checked) {
+        //             this.groupArray[i].error = 'Required';
+        //         }
+        //     }
+        //     for (let i = 0; i < this.groupArray.length; i++) {
+        //         if (this.groupArray[i].checked) {
+        //             if (this.groupArray[i].age == '') {
+        //                 this.groupArray[i].error = 'Required';
+        //             } else {
+        //                 this.groupArray[i].error = '';
+        //                 this.finalData.push({type: this.groupArray[i].name, age: this.groupArray[i].age});
+        //             }
+        //         }
+        //     }
+        // } else if (groupname == 'student') {
+        //     getFiledData = this.studentArray.filter(data => data.checked == true);
+        //     if (getFiledData != '') {
+        //         this.studentArray[0].error = '';
+        //     } else {
+        //         this.studentArray[0].error = 'Required';
+        //     }
+        //     for (let i = 0; i < this.studentArray.length; i++) {
+        //         if (this.studentArray[i].checked) {
+        //             if (this.studentArray[i].age == '') {
+        //                 this.studentArray[i].error = 'Required';
+        //             } else {
+        //                 this.studentArray[i].error = '';
+        //                 this.finalData.push({type: this.studentArray[i].name, age: this.studentArray[i].age});
+        //             }
+        //         }
+        //     }
+        // }
         let sum_amount = '';
         for (let i = 0; i < this.sumInsuredAmountLists.length; i++) {
             if (this.sumInsuredAmountLists[i].suminsured_id == this.selectedAmountTravel) {
                 sum_amount = this.sumInsuredAmountLists[i].suminsured_amount;
             }
         }
-       // console.log(this.familyArray, 'this.familyArray');
-        //
-       // console.log(this.studentArray, 'this.studentArray');
-       //  if (groupname == 'self' || groupname == 'family' || groupname == 'group')  {
-       //      alert('in');
-       //  } else {
-       //      alert('out');
-       //
-       //  }
-
-        if (!memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
+        if (!this.pinerror && !memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
             sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
-
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
@@ -769,18 +755,18 @@ export class TravelHomeComponent implements OnInit {
                     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                     'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
                     'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-                    'sum_insured': this.selectedAmountTravel,
-                    'sum_amount': sum_amount,
+                    'sum_insured_id': this.selectedAmountTravel,
+                    'sum_insured_amount': sum_amount,
                     'family_members': this.finalData,
-                    'travel_plan': this.travelPlan,
-                    'travel_time_type': this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType,
+                    'travel_place': this.travelPlan,
+                    'travel_plan_type': this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType,
                     'enquiry_id': '',
-                    'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student',
                     'start_date': sDate,
                     'end_date': eDate,
                     'day_count': days,
+                    'pincode': this.pincode,
                     'duration': this.duration ? this.duration : '',
-                    'travel_type': groupname,
+                    'travel_user_type': this.travelUserType == '' ? groupname : this.travelUserType,
                     'medical_condition': this.medicalCondition
                 }
                 this.settings.loadingSpinner = true;
@@ -917,6 +903,13 @@ export class TravelHomeComponent implements OnInit {
         if (sessionStorage.medicalCondition != undefined && sessionStorage.medicalCondition != '') {
             this.medicalCondition = sessionStorage.medicalCondition;
         }
+        if (sessionStorage.travelUserType != undefined && sessionStorage.travelUserType != '') {
+            this.travelUserType = sessionStorage.travelUserType;
+        }
+        if (sessionStorage.pincode != undefined && sessionStorage.pincode != '') {
+            this.pincode = sessionStorage.pincode;
+        }
+
 
     }
     members(array) {
