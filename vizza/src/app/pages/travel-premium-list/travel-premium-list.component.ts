@@ -779,15 +779,14 @@ export class TravelPremiumListComponent implements OnInit {
                     'sum_insured': sum_amount,
                     'sum_amount': this.selectedAmount,
                     'family_members': this.finalData,
-                    'travel_plan': this.travelPlan,
-                    'travel_time_type': this.travelType,
+                    'travel_place': this.travelPlan,
+                    'travel_plan_type': this.travelType,
                     'enquiry_id': this.premiumLists.enquiry_id,
-                    'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student',
                     'start_date': sDate,
                     'end_date': eDate,
                     'day_count': days,
                     'duration': this.duration ? this.duration : '',
-                    'travel_type': groupname,
+                    'travel_user_type': groupname,
                     'medical_condition': this.medicalCondition
                 }
                 this.settings.loadingSpinner = true;
@@ -807,15 +806,12 @@ export class TravelPremiumListComponent implements OnInit {
 
     }
 
-
-
     public getTravelPremiumCalSuccess(successData) {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             sessionStorage.allTravelPremiumLists = JSON.stringify(successData.ResponseObject);
             this.premiumLists = successData.ResponseObject;
-            console.log( this.premiumLists,' this.premiumLists');
             for (let i = 0; i < this.premiumLists.length; i++) {
                 this.premiumLists[i].compare = false;
                 this.premiumLists[i].shortlist = false;

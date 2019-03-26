@@ -16,6 +16,7 @@ import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.
 import {ViewProductDetailsComponent} from './view-product-details/view-product-details.component';
 import {DatePipe} from '@angular/common';
 import {ClearSessionPaService} from '../../shared/services/clear-session-pa.service';
+import {ValidationService} from '../../shared/services/validation.service';
 
 @Component({
   selector: 'app-personal-accident-home',
@@ -85,7 +86,7 @@ export class PersonalaccidentComponent implements OnInit {
     public professionerr: any;
     public checkAllStatus: any;
 
-    constructor(public appSettings: AppSettings, public clearSession: ClearSessionPaService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
+    constructor(public appSettings: AppSettings, public clearSession: ClearSessionPaService, public validation: ValidationService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -589,6 +590,10 @@ export class PersonalaccidentComponent implements OnInit {
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
     }
+
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
     //// compare Details
     compareDetails(value, index) {
         console.log(value, 'valuevalue1');
@@ -796,6 +801,9 @@ export class PersonalaccidentComponent implements OnInit {
         dialogRef.disableClose = true;
     }
 }
+
+
+
 
 
 
