@@ -281,7 +281,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-3"><mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i, hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <input matInput [matDatepicker]="picker" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i,hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value,'insurer')" (dateChange)="addEventInsurer($event, i,hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-datepicker-toggle matSuffix [for]="picker"  disabled="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="hdfcInsuredTravel.invalid">DOB is required</mat-error>
