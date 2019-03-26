@@ -363,7 +363,7 @@ export class TravelHomeComponent implements OnInit {
             this.showFamily = false;
             this.showGroup = false;
             this.showstudent = true;
-            this.travelType = 'Single';
+            this.travelType = 'Holiday';
             this.travelPlan = '';
             this.medicalCondition = '';
         }
@@ -773,7 +773,7 @@ export class TravelHomeComponent implements OnInit {
                     'sum_amount': sum_amount,
                     'family_members': this.finalData,
                     'travel_plan': this.travelPlan,
-                    'travel_time_type': this.travelType,
+                    'travel_time_type': this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType,
                     'enquiry_id': '',
                     'type': (groupname == 'self' || groupname == 'family' || groupname == 'group') ? 'SFG' : 'Student',
                     'start_date': sDate,

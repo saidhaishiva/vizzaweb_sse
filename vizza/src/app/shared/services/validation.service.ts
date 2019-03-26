@@ -16,7 +16,15 @@ export class ValidationService {
             }
         }
     }
-
+    nameValidateNospace(event) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     // Dob validation
     dobValidate(event) {
         if (event.charCode !== 0) {
@@ -67,6 +75,20 @@ export class ValidationService {
                 event.preventDefault();
             }
         }
+    }
+
+    spac(event) {
+        console.log(event);
+        let id = document.getElementsByClassName('nospace');
+        console.log(id, 'id');
+        id[0].addEventListener("keydown", checkKeyPress, false);
+
+        function checkKeyPress(event) {
+            if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
+                event.preventDefault();
+            }
+        }
+
     }
 }
 

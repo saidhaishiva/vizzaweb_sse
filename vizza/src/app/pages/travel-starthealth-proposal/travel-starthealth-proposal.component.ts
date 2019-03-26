@@ -16,6 +16,8 @@ import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {TravelService} from '../../shared/services/travel.service';
 import {HealthService} from '../../shared/services/health.service';
+import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -115,12 +117,12 @@ export class TravelProposalComponent implements OnInit {
     public isDisable: any;
     public inputReadonly: any;
     public back: boolean;
-    public relationshipcode : any;
-    public medicalStatus : any;
-    public arr : any;
-    public insureRelationList : any;
-    public sameRelationship : any;
-    public sameRelationshipValue : any;
+    public relationshipcode: any;
+    public medicalStatus: any;
+    public arr: any;
+    public insureRelationList: any;
+    public sameRelationship: any;
+    public sameRelationshipValue: any;
     array: any;
     placeOfVisiLists: any;
     assigneeRelationList: any;
@@ -133,10 +135,26 @@ export class TravelProposalComponent implements OnInit {
     placeOfVisitNames: any;
     travelPurposeName: any;
     AcceptDeclaration: boolean;
-    constructor(public travelservice: TravelService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    areaList: any;
+    proposerFormData: any;
+    insuredFormData: any;
+    nomineeFormData: any;
+    travelStartDate: any;
+    travelEndDate: any;
+    currentStep: any;
+
+    constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 3;
+            }
+        });
+        this.currentStep = stepperindex;
+
         this.stopNext = false;
         this.back = false;
         this.hideQuestion = false;
@@ -158,6 +176,8 @@ export class TravelProposalComponent implements OnInit {
         this.proposerInsureData = [];
         this.questions_list = [];
         this.arr = [];
+        this.travelStartDate = sessionStorage.startDate;
+        this.travelEndDate = sessionStorage.endDate;
         let nameFormat = "[a-zA-Z\s]+$";
 
         // this.name = new FormControl("", Validators.compose([Validators.required, Validators.pattern(nameFormat)]));
@@ -172,11 +192,15 @@ export class TravelProposalComponent implements OnInit {
             personalAddress2: ['', Validators.required],
             personalPincode: ['', Validators.required],
             personalCity: ['', Validators.required],
+            personalCityName: '',
+            personalArea: ['', Validators.required],
+            personalAreaName: '',
             personalState: ['', Validators.required],
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             placeOfVisit: ['', Validators.required],
             travelPurpose: ['', Validators.required],
+            travelPurposeName: '',
             physicianName:'',
             physicianContactNumber: '',
             travelDeclaration: ['', Validators.required]
@@ -233,11 +257,14 @@ export class TravelProposalComponent implements OnInit {
                 insurerDob: ['', Validators.required],
                 insurerGender: ['', Validators.compose([Validators.required])],
                 insurerRelationship: ['', Validators.required],
+                insurerRelationshipName: '',
                 assigneeName: ['', Validators.required],
                 assigneeRelationship: ['', Validators.required],
+                assigneeRelationshipName: '',
                 passportNumber: ['', Validators.required],
                 passportExpiry: ['', Validators.required],
                 visaType: ['', Validators.required],
+                visaTypeName: '',
                 illness: ['', Validators.required],
                 insurerDobError: '',
                 insurerDobValidError: '',
@@ -248,55 +275,6 @@ export class TravelProposalComponent implements OnInit {
         );
     }
 
-
-    PreviousInsure(value) {
-        if (value.value == 'true') {
-            this.personal.controls['previousinsurance'].setValue('');
-            this.previousInsuranceStatus = true;
-        } else {
-            this.previousInsuranceStatus = false;
-            this.personal.controls['previousinsurance'].setValue('No');
-        }
-    }
-
-    PreviousInsuredDetail(value, i) {
-        if (value.value == 'true') {
-            this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('');
-            this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
-        } else {
-            this.previousInsuranceStatus1[i] = this.insureArray['controls'].items['controls'][i]['controls'].previousinsuranceChecked.value;
-            this.insureArray['controls'].items['controls'][i]['controls'].previousinsurance.setValue('No');
-        }
-    }
-
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-
-    public dobkeyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9/\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    public onAlternative(event: any) {
-        if (event.charCode !== 0) {
-            const pattern =/[0-9-]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
     acceptDeclaration() {
         if (this.personal.controls['travelDeclaration'].value) {
             this.AcceptDeclaration = true;
@@ -493,15 +471,17 @@ export class TravelProposalComponent implements OnInit {
 
     }
     ageCalculate(dob) {
-        let mdate = dob.toString();
-        let yearThen = parseInt(mdate.substring(8, 10), 10);
-        let monthThen = parseInt(mdate.substring(5, 7), 10);
-        let dayThen = parseInt(mdate.substring(0, 4), 10);
-        let todays = new Date();
-        let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        return year_age;
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
+
+
     }
     stepback() {
         this.back = true;
@@ -509,7 +489,9 @@ export class TravelProposalComponent implements OnInit {
     quesback() {
         this.back = false;
     }
-    changeRelationSame(event){
+    changeRelationSame(event, i){
+        this.insureArray['controls'].items['controls'][i]['controls'].insurerRelationshipName.patchValue(this.insureRelationList[this.insureArray['controls'].items['controls'][i]['controls'].insurerRelationship.value]);
+
             let target = event.source.selected._element.nativeElement;
             let selectedData = {
                 value: event.value,
@@ -522,26 +504,43 @@ export class TravelProposalComponent implements OnInit {
             }
         }
     }
+    selectAssigneeRealtion(i){
+        this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationshipName.patchValue(this.assigneeRelationList[this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationship.value]);
+    }
+    selectVisaType(i){
+        this.insureArray['controls'].items['controls'][i]['controls'].visaTypeName.patchValue(this.assigneeRelationList[this.insureArray['controls'].items['controls'][i]['controls'].visaType.value]);
+    }
+
+
     sessionData() {
+        if (sessionStorage.personalCitys != '' && sessionStorage.personalCitys != undefined) {
+            this.personalCitys = JSON.parse(sessionStorage.personalCitys);
+        }
+        if (sessionStorage.areaList != '' && sessionStorage.areaList != undefined) {
+            this.areaList = JSON.parse(sessionStorage.areaList);
+        }
+
         if (sessionStorage.stepper1DetailsForTravel != '' && sessionStorage.stepper1DetailsForTravel != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1DetailsForTravel);
             this.personal = this.fb.group({
                 personalTitle: this.getStepper1.personalTitle,
                 personalFirstname: this.getStepper1.personalFirstname,
                 personalDob: new FormControl(new Date(this.getStepper1.personalDob)),
-                personalArea: this.getStepper1.personalArea,
-                residenceArea: this.getStepper1.residenceArea,
                 personalrelationship: this.getStepper1.personalrelationship,
                 personalGender: this.getStepper1.personalGender,
                 personalAddress: this.getStepper1.personalAddress,
                 personalAddress2: this.getStepper1.personalAddress2,
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
+                personalCityName: this.getStepper1.personalCityName,
+                personalArea: this.getStepper1.personalArea,
+                personalAreaName: this.getStepper1.personalAreaName,
                 personalState: this.getStepper1.personalState,
                 personalEmail: this.getStepper1.personalEmail,
                 personalMobile: this.getStepper1.personalMobile,
                 personalGst: this.getStepper1.personalGst,
                 travelPurpose: this.getStepper1.travelPurpose,
+                travelPurposeName: this.getStepper1.travelPurposeName,
                 placeOfVisit: '',
                 physicianName: this.getStepper1.physicianName,
                 physicianContactNumber: this.getStepper1.physicianContactNumber,
@@ -579,13 +578,15 @@ export class TravelProposalComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerGender.patchValue(this.getStepper2.items[i].insurerGender);
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerDob.patchValue(this.datepipe.transform(this.getStepper2.items[i].insurerDob, 'y-MM-dd'));
                 this.insureArray['controls'].items['controls'][i]['controls'].insurerRelationship.patchValue(this.getStepper2.items[i].insurerRelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].insurerRelationshipName.patchValue(this.getStepper2.items[i].insurerRelationshipName);
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2.items[i].assigneeName);
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationship.patchValue(this.getStepper2.items[i].assigneeRelationship);
+                this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationshipName.patchValue(this.getStepper2.items[i].assigneeRelationshipName);
                 this.insureArray['controls'].items['controls'][i]['controls'].passportNumber.patchValue(this.getStepper2.items[i].passportNumber);
                 this.insureArray['controls'].items['controls'][i]['controls'].passportExpiry.patchValue(this.getStepper2.items[i].passportExpiry);
                 this.insureArray['controls'].items['controls'][i]['controls'].visaType.patchValue(this.getStepper2.items[i].visaType);
+                this.insureArray['controls'].items['controls'][i]['controls'].visaTypeName.patchValue(this.getStepper2.items[i].visaTypeName);
                 this.insureArray['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2.items[i].assigneeName);
-                this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationship.patchValue(this.getStepper2.items[i].assigneeRelationship);
                 this.insureArray['controls'].items['controls'][i]['controls'].illness.patchValue(this.getStepper2.items[i].illness);
             }
             // for (let i = 0; i < this.getStepper2.items.length; i++) {
@@ -660,7 +661,7 @@ export class TravelProposalComponent implements OnInit {
                 'placeOfVisit': this.personalData.placeOfVisit.toString(),
                 'proposerAddressOne': this.personalData.personalAddress,
                 'proposerAddressTwo': this.personalData.personalAddress2,
-                'proposerAreaId': this.personalData.personalPincode,
+                'proposerAreaId': this.personalData.personalArea,
 
                 'physicianName': this.personalData.physicianName,
                 'physicianContactNumber': this.personalData.physicianContactNumber,
@@ -703,40 +704,13 @@ export class TravelProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
-            this.summaryData = successData.ResponseObject.proposal_details;
+            this.summaryData = successData.ResponseObject;
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             sessionStorage.travel_proposal_id = this.summaryData.proposal_id;
-            this.insurerDtails = successData.ResponseObject.proposal_details.insure_details;
-            this.proposalDtails = this.summaryData.proposal_details[0];
-            this.toastr.success('Proposal created successfully!!');
-            for (let i =0; i < this.insurerDtails.length; i++) {
-                for (let j =0; j < this.insureRelationList.length; j++) {
-                    if (this.insurerDtails[i].relationshipId == this.insureRelationList[j].relationship_id) {
-                        this.insurerDtails[i].relationship_name = this.insureRelationList[j].relationship_name;
-                    }
-                }
-            }
-            let placeArray = this.summaryData.place_of_visit.split(',');
-            this.placeOfVisitNames = [];
-            for (let i =0; i < this.placeOfVisiLists.length; i++) {
-                for (let j =0; j < placeArray.length; j++) {
-                    if (this.placeOfVisiLists[i].country_code == placeArray[j]) {
-                        this.placeOfVisitNames.push(this.placeOfVisiLists[i].country_name);
-                    }
-                }
-            }
-            for (let i =0; i < this.insurerDtails.length; i++) {
-                for (let j =0; j < this.visaTypeAllList.length; j++) {
-                    if (this.insurerDtails[i].visaType == this.visaTypeAllList[j].viz_type_id) {
-                        this.insurerDtails[i].visaTypeName = this.visaTypeAllList[j].viz_type_name;
-                    }
-                }
-            }
-            for (let i =0; i < this.travelPurposeLists.length; i++) {
-                if (this.travelPurposeLists[i].plan_id == this.summaryData.travel_purpose_id) {
-                    this.travelPurposeName = this.travelPurposeLists[i].plan_name;
-                }
-            }
-
+            this.proposerFormData = this.personal.value;
+            this.insuredFormData = this.insureArray.value.items;
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
 
         } else {
             this.toastr.error(successData.ErrorObject);
@@ -747,20 +721,18 @@ export class TravelProposalComponent implements OnInit {
     }
 
 
-//personal city detail
+    // pincode list
     getPostal(pin, title) {
-        this.pin = pin;
-        this.title = title;
         const data = {
             'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
-            'pincode': this.pin
+            'pincode': pin,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
         }
-        if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
+        if (pin.length == 6) {
+            this.travelservice.getPostal(data).subscribe(
                 (successData) => {
-                    this.getpostalSuccess(successData);
+                    this.getpostalSuccess(successData,title);
                 },
                 (error) => {
                     this.getpostalFailure(error);
@@ -768,97 +740,68 @@ export class TravelProposalComponent implements OnInit {
             );
         }
     }
-    public getpostalSuccess(successData) {
-        if (this.title == 'personal') {
-            this.personalCitys = [];
+    public getpostalSuccess(successData, title) {
+        if (successData.IsSuccess == true) {
             this.response = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                this.personal.controls['personalState'].setValue(this.response[0].state);
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city});
+            if (title == 'personal') {
+                if (Object.keys(this.response).length === 0) {
+                    this.personal.controls['personalState'].setValue('');
+                    this.personal.controls['personalCity'].setValue('');
+                    this.personalCitys = {};
+                } else {
+                    this.personal.controls['personalState'].setValue(this.response.state);
+                    this.personalCitys = this.response.city;
                 }
-            } else if(successData.IsSuccess != true) {
-                this.personal.controls['personalState'].setValue('');
-                for (let i = 0; i < this.response.length; i++) {
-                    this.personalCitys.push({city: this.response[i].city = ''});
-                }
-                this.toastr.error('In valid Pincode');
+                sessionStorage.personalCitys = JSON.stringify(this.personalCitys);
             }
-        }
-        if (this.title == 'residence') {
-            this.residenceCitys = [];
-            this.rResponse = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                this.personal.controls['residenceState'].setValue(this.rResponse[0].state);
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.residenceCitys.push({city: this.rResponse[i].city});
-                }
-            } else if(successData.IsSuccess != true) {
-                this.personal.controls['residenceState'].setValue('');
-                for (let i = 0; i < this.rResponse.length; i++) {
-                    this.residenceCitys.push({city: this.rResponse[i].city = ''});
-                }
-                this.toastr.error('In valid Pincode');
+        } else {
+            this.toastr.error('In valid Pincode');
+            if (title == 'personal') {
+                this.personalCitys = {};
+                sessionStorage.personalCitys = '';
+                this.personal.controls['personalState'].setValue('');
+                this.personal.controls['personalCity'].setValue('');
             }
         }
     }
     public getpostalFailure(error) {
+        console.log(error);
     }
-    //insurer city detail
-    getPostalInsurer(pin, index, title) {
-        this.pin = pin;
-        this.title = title;
-        this.index = index;
+    // area list
+    getArea() {
+        this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+
         const data = {
             'platform': 'web',
-            'user_id': '0',
-            'role_id': '4',
-            'pincode': this.pin
+            'pincode': this.personal.controls['personalPincode'].value,
+            'city_id': this.personal.controls['personalCity'].value
         }
-        if (this.pin.length == 6) {
-            this.proposalservice.getPostalReligare(data).subscribe(
-                (successData) => {
-                    this.getpostalInsurerSuccess(successData);
-                },
-                (error) => {
-                    this.getpostalInsurerFailure(error);
-                }
-            );
-        }
-    }
-
-    public getpostalInsurerSuccess(successData) {
-
-        if (this.title == 'personal') {
-            this.iPersonalCitys = [];
-            this.response = successData.ResponseObject;
-            if (successData.IsSuccess) {
-                for (let i = 0; i < this.response.length; i++) {
-                    this.iPersonalCitys.push({city: this.response[i].city});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue(this.response[0].state);
-                // this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-            } else if(successData.IsSuccess != true && this.title == 'personal') {
-                for (let i = 0; i < this.response.length; i++) {
-                    this.iPersonalCitys.push({city: this.response[i].city = ''});
-                }
-                this.insureArray['controls'].items['controls'][this.index]['controls'].personalState.patchValue('');
-                // this.insureArray['controls'].items['controls'][this.index]['controls'].pCityHide.patchValue(false);
-                this.toastr.error('In valid Pincode');
+        this.travelservice.getAreaList(data).subscribe(
+            (successData) => {
+                this.getAreaSuccess(successData);
+            },
+            (error) => {
+                this.getAreaFailure(error);
             }
+        );
+    }
+    public getAreaSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.areaList = successData.ResponseObject;
+            sessionStorage.areaList = JSON.stringify(this.areaList);
         }
-
     }
-
-    public getpostalInsurerFailure(error) {
+    public getAreaFailure(error) {
     }
-
-
-
-
-
-
-
+    selectArea() {
+        this.personal.controls['personalAreaName'].patchValue(this.areaList[this.personal.controls['personalArea'].value]);
+    }
+    // selectCity() {
+    //     this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+    // }
+    selectPurpose() {
+        this.personal.controls['travelPurposeName'].patchValue(this.travelPurposeLists[this.personal.controls['travelPurpose'].value]);
+    }
 
 
 //summary city detail
@@ -966,7 +909,7 @@ export class TravelProposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
-        }
+        };
         this.travelservice.gettravelPurposeLists(data).subscribe(
             (successData) => {
                 this.travelPurposeListsSuccess(successData);
@@ -979,6 +922,7 @@ export class TravelProposalComponent implements OnInit {
     public travelPurposeListsSuccess(successData) {
         if (successData.IsSuccess) {
             this.travelPurposeLists = successData.ResponseObject;
+            console.log(this.travelPurposeLists);
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -1093,15 +1037,27 @@ export class TravelProposalComponent implements OnInit {
         }
     }
 
-    public typeValidate(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
+    // Dame validation
+    nameValidate(event: any){
+        this.validation.nameValidate(event);
     }
+    // Dob validation
+    dobValidate(event: any){
+        this.validation.dobValidate(event);
+    }
+    // Number validation
+    numberValidate(event: any){
+        this.validation.numberValidate(event);
+    }
+    idValidate(event: any){
+        this.validation.idValidate(event);
+
+    }
+    nameValidateNospace(event: any){
+        this.validation.nameValidateNospace(event);
+
+    }
+
     alternateChange(event) {
         if (event.target.value.length == 10) {
             if(event.target.value == this.personal.get('personalMobile').value) {
@@ -1115,13 +1071,11 @@ export class TravelProposalComponent implements OnInit {
         sessionStorage.mobileNumberForTravel = this.mobileNumber;
     }
 
-
-
     public payNow() {
         const data = {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'platform': 'web',
-            'reference_id' :  this.proposalDtails.referenceId,
+            'reference_id' :  this.summaryData.referenceId,
             'proposal_id': sessionStorage.travel_proposal_id,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'

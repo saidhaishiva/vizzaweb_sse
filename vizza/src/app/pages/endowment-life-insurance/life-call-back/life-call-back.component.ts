@@ -39,6 +39,8 @@ export class LifeCallBackComponent implements OnInit {
   public pincodeErrors : any;
   public setDate: any;
   public productId : any;
+  public productName : any;
+  public companyName : any;
   public time : any;
   public dobError : any;
   public minDate : any;
@@ -52,6 +54,8 @@ export class LifeCallBackComponent implements OnInit {
     constructor(public dialogRef : MatDialogRef<LifeCallBackComponent>,
               @Inject(MAT_DIALOG_DATA)public data: any,public auth: AuthService, public FromBuilder: FormBuilder,public fb: FormBuilder,public lifeservices: LifeService,public toastr : ToastrService, public datepipe: DatePipe, public validation: ValidationService,public appSettings: AppSettings,) {
         this.productId = data.productId;
+        this.productName = data.productName;
+        this.companyName = data.companyName;
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         let today  = new Date();
@@ -91,15 +95,12 @@ export class LifeCallBackComponent implements OnInit {
         this.validation.numberValidate(event);
     }
     addEvent(event) {
-        console.log(event,'eventevent');
-        console.log(event.value,'eventevent1');
-
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.dobError = '';
                 } else {
                     this.dobError = 'Enter Valid Date';
@@ -107,7 +108,8 @@ export class LifeCallBackComponent implements OnInit {
             } else {
                 this.dobError = '';
             }
-
+        }else {
+            this.dobError = '';
         }
     }
     // ageCalculate(dob) {

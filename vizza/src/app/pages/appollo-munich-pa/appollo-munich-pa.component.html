@@ -26,18 +26,18 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" class="nospace" (input)="spac($event)" maxlength="45" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" (keypress)="nameValidate($event)" autocomplete="off">
+                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" class="nospace"  maxlength="45" (input)="spac($event)" (keypress)="nameValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname" class="nospace" maxlength="45" (input)="spac($event)"  (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaLastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -49,13 +49,14 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10"
+                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="insuredPaDob" (dateInput)="addEvent($event, 'insure')" (dateChange)="addEvent($event, 'insure')" minlength="10" maxlength="10"
                                autocomplete="off"  [max]="minDate" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="insured.controls.insuredPaDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>
+                        <!--<div class="error" *ngIf="insuredPaDob > minDate">Future Date not allowed</div>-->
 
                       </div>
                       <div class="col-md-3">
@@ -73,7 +74,7 @@
                       </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual"  autocomplete="off" required>
+                                <input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual" maxlength="20" autocomplete="off" required>
                               <mat-error *ngIf="insured.controls.insuredAnnual.errors?.required">Annual Income is required</mat-error>
                             </mat-form-field>
                         </div>
@@ -104,7 +105,7 @@
                         </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationList" (change)="occupationListCode()"required>
+                          <mat-select placeholder="Occupation" name="occupation" formControlName="insuredOccupationList" (change)="occupationListCode(); setOccupationListClass()"required>
                             <mat-option *ngFor="let occupation of occupationCode | keys" [value]="occupation.key">{{occupation.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="insured.controls.insuredOccupationList.errors?.required">Occupation is required</mat-error>
@@ -171,19 +172,19 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredPaAddress" autocomplete="off" maxlength="30" required></textarea>
+                          <textarea matInput placeholder="Address 1" rows="2" formControlName="insuredPaAddress" class="nospace" (input)="spac($event)" autocomplete="off" maxlength="30" required></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredPaAddress2" maxlength="30" autocomplete="off"></textarea>
+                          <textarea matInput placeholder="Address 2" rows="2" formControlName="insuredPaAddress2" class="nospace" maxlength="30"  (input)="spac($event)" autocomplete="off"></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress2.errors?.required">Address2 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 3" rows="2" formControlName="insuredPaAddress3" maxlength="30" autocomplete="off"></textarea>
+                          <textarea matInput placeholder="Address 3" rows="2" formControlName="insuredPaAddress3" class="nospace" maxlength="30"   (input)="spac($event)" autocomplete="off"></textarea>
                           <mat-error *ngIf="insured.controls.insuredPaAddress3.errors?.required">Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -371,7 +372,7 @@
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Enter Remark Details" (keypress)="space($event)" [required]="prevList"  formControlName="insuredremark">
+                              <input matInput placeholder="Enter Remark Details" (keypress)="space($event)" [required]="prevList" class="nospace"  (input)="spac($event)" formControlName="insuredremark">
                               <mat-error *ngIf="insured.controls.insuredremark.errors?.required">Enter Remark Details is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -455,7 +456,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Nominee Name"  formControlName="paNomineeName" (keypress)="nameValidate($event)" required  autocomplete="off">
+                          <input matInput placeholder="Nominee Name"  formControlName="paNomineeName" (keypress)="nameValidate($event)" required   class="nospace" (input)="spac($event)" autocomplete="off">
                           <mat-error *ngIf="nomineeDetail.controls.paNomineeName.errors?.required">Nominee Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -505,7 +506,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="District"   formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa(); nomineeDistrict()"  [disabled]="readonlyProposer">
+                          <mat-select placeholder="District"   formControlName="paNomineeDistrict" (change)="onChangecityListNomineePa()"  [disabled]="readonlyProposer">
                             <mat-option *ngFor="let paDistrict of paNomineedistrictList | keys" value="{{paDistrict.value}}"> {{paDistrict.value}} </mat-option>
                           </mat-select>
                           <!--<mat-error *ngIf="nomineeDetail.controls.paNomineeDistrict.errors?.required">District is required</mat-error>-->
@@ -539,7 +540,7 @@
               <div class="col-md-4"> <h4 class="mt-3 text-center"> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
-                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 88px;" /> </li>
                   <li><span>Base Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.BasePremium}}</span> /</li>
                   <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.Tax}}</span> </li>
                   <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{appollosummaryData.FinalPremium}}</span> </li>
@@ -566,7 +567,7 @@
               </div>
               <div class="col-md-6">
                 <div class="p-3">
-                  <h6 class="mb-4"></h6>
+
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Height:</strong> {{proposerFormData.insuredHeight}}</li>
                     <li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.insuredWeight}}</li>
@@ -589,7 +590,7 @@
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress3!= ''"><strong>Address 3:</strong> {{proposerFormData.insuredPaAddress3}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.insuredPaPincode}}</li>
                     <li class="list-group-item"><strong>City:</strong> {{proposerFormData.insuredPaCityName}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaDistrictName !='' && proposerFormData.insuredPaDistrictName != null"><strong>District:</strong> {{proposerFormData.insuredPaDistrictName}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaDistrict !='' && proposerFormData.insuredPaDistrict != null"><strong>District:</strong> {{proposerFormData.insuredPaDistrict}}</li>
                     <li class="list-group-item"><strong>State:</strong> {{proposerFormData.insuredPaState}}</li>
                   </ul>
                 </div>
@@ -662,9 +663,9 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Address1:</strong> {{nomineeDataForm.paNomineeAddress}}</li>
-                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress2 !=''"><strong>Address2:</strong> {{nomineeDataForm.paNomineeAddress2}}</li>
-                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress3 !=''"><strong>Address3:</strong> {{nomineeDataForm.paNomineeAddress3}}</li>
+                        <li class="list-group-item"><strong>Address 1:</strong> {{nomineeDataForm.paNomineeAddress}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress2 !=''"><strong>Address 2:</strong> {{nomineeDataForm.paNomineeAddress2}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeAddress3 !=''"><strong>Address 3:</strong> {{nomineeDataForm.paNomineeAddress3}}</li>
                         <li class="list-group-item"><strong>Pincode:</strong> {{nomineeDataForm.paNomineePincode}}</li>
                       </ul>
                     </div>
@@ -679,7 +680,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>State:</strong> {{nomineeDataForm.paNomineeState}}</li>
                         <li class="list-group-item"><strong>City:</strong> {{nomineeDataForm.paNomineeCityName}}</li>
-                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeDistrictName != '' && nomineeDataForm.paNomineeDistrictName != null"><strong>District:</strong> {{nomineeDataForm.paNomineeDistrictName}}</li>
+                        <li class="list-group-item" *ngIf="nomineeDataForm.paNomineeDistrict != '' && nomineeDataForm.paNomineeDistrict != null"><strong>District:</strong> {{nomineeDataForm.paNomineeDistrict}}</li>
                       </ul>
                     </div>
 
@@ -720,7 +721,11 @@
     </div>
   </div>
 </div>
-
+<!--<style>-->
+  <!--.nospace{-->
+    <!--user-input: no-spac;-->
+  <!--}-->
+<!--</style>-->
 
 
 

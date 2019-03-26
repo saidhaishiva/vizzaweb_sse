@@ -44,9 +44,9 @@ export class TravelViewKeyFeaturesComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<TravelViewKeyFeaturesComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: CommonService, public travel: TravelService, public fb: FormBuilder, public toastr: ToastrService) {
         this.settings = this.appSettings.settings;
-        this.productId = data.planId;
         this.productName = data.planName;
         this.travelType = data.type;
+        this.productId = data.product_id;
         this.webhost = this.config.getimgUrl();
         this.testPath = '/uploads/religare1120002190099_1539679118.pdf';
         // this.id = 0;
@@ -118,9 +118,11 @@ export class TravelViewKeyFeaturesComponent implements OnInit {
             'roleid': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'plan_id': value,
-            'type': (this.travelType == 'self' || this.travelType == 'family' || this.travelType == 'group' ) ? 'SFG' : 'Students'
+            'productid': this.productId,
+            'type': this.travelType
 
         };
+        console.log(data,'view');
         this.settings.loadingSpinner = true;
         this.travel.viewKeyFeatureList(data).subscribe(
             (successData) => {
