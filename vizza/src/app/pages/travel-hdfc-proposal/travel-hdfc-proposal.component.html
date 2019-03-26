@@ -281,7 +281,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-3"><mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i, hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
+                          <input matInput [matDatepicker]="picker" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i,hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value,'insurer')" (dateChange)="addEventInsurer($event, i,hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
                           <mat-datepicker-toggle matSuffix [for]="picker"  disabled="{{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value}}"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="hdfcInsuredTravel.invalid">DOB is required</mat-error>
@@ -400,7 +400,7 @@
                       <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.firstname}} {{proposerFormData.middlename}} {{proposerFormData.lastname}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'M'"><strong>Gender:</strong> Male</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'F'"><strong>Gender:</strong> Female</li>
-                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
                       <li class="list-group-item"><strong>Mobile:</strong> {{proposerFormData.mobile}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.physicianName != ''"><strong>Physician Name :</strong> {{proposerFormData.physicianName}}</li>
@@ -443,7 +443,7 @@
                           <li class="list-group-item"><strong>Name:</strong> {{item.InsTitle}} {{item.InsFirstName}} {{item.InsMiddleName}} {{item.InsLastName}}</li>
                           <li class="list-group-item" *ngIf="item.InsGender == 'M'"><strong>Gender:</strong> Male</li>
                           <li class="list-group-item" *ngIf="item.InsGender == 'F'"><strong>Gender:</strong> Female</li>
-                          <li class="list-group-item"><strong>D.O.B:</strong> {{item.InsDOB}}</li>
+                          <li class="list-group-item"><strong>D.O.B:</strong> {{item.InsDOB | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item"><strong>Age:</strong> {{item.InsuredAge}}</li>
                           <li class="list-group-item"><strong>Relationship:</strong> {{item.InsuredRelation}}</li>
                           <li class="list-group-item"><strong>PassPort:</strong> {{item.PassportNo}}</li>
@@ -490,7 +490,7 @@
                 </div>
               </mat-expansion-panel>
             </div>
-            <p class="mb-4 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+            <p class="mt-4 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             <hr>
             <div class="row" *ngIf="summaryData">
               <div class="col-md-12 text-center">

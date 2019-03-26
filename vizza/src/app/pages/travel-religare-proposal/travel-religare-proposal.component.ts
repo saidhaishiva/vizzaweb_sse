@@ -25,9 +25,9 @@ export const MY_FORMATS = {
     },
 };
 @Component({
-  selector: 'app-travel-reliagre-proposal',
-  templateUrl: './travel-religare-proposal.component.html',
-  styleUrls: ['./travel-religare-proposal.component.scss'],
+    selector: 'app-travel-reliagre-proposal',
+    templateUrl: './travel-religare-proposal.component.html',
+    styleUrls: ['./travel-religare-proposal.component.scss'],
     providers: [
 
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -82,19 +82,19 @@ export class ReliagretravelproposalComponent implements OnInit {
     public rPersonalCitys: any;
     public responseres: any;
     public webhost: any;
-public productid: any;
-public getallTravelPremiumList: any;
-public questions_list: any;
-public questionsListTravel: any;
-public inputReadonly: boolean;
-public studentdetails: boolean;
-public isDisable: boolean;
-public religare_Travel_proposal_id: any;
-public sameinsure: any;
-public allLists: any;
-public addon: any;
-public sameRelationship: any;
-public insurer: any;
+    public productid: any;
+    public getallTravelPremiumList: any;
+    public questions_list: any;
+    public questionsListTravel: any;
+    public inputReadonly: boolean;
+    public studentdetails: boolean;
+    public isDisable: boolean;
+    public religare_Travel_proposal_id: any;
+    public sameinsure: any;
+    public allLists: any;
+    public addon: any;
+    public sameRelationship: any;
+    public insurer: any;
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -108,7 +108,7 @@ public insurer: any;
         this.sameinsure = false;
         this.studentdetails = false;
         this.inputReadonly = false;
-    this.isDisable = false;
+        this.isDisable = false;
         this.acceptSummaryDeclaration = false;
         this.webhost = this.config.getimgUrl();
         this.religare_Travel_proposal_id ='0';
@@ -134,7 +134,7 @@ public insurer: any;
             rpincode: ['', Validators.required],
             rcity: ['', Validators.required],
             rcityName: '',
-             rstate: ['', Validators.required],
+            rstate: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             rolecd: 'PROPOSER',
@@ -375,12 +375,12 @@ public insurer: any;
 
             }
             if (this.getAge) {
-            console.log(this.getAge, 'newwagee11');
-            console.log(dob, 'dob2');
-            this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-            this.insureReligareArray['controls'].items['controls'][i]['controls'].dob.patchValue(dob);
-            this.insureReligareArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
-            this.ageValidationInsurer(i, type);
+                console.log(this.getAge, 'newwagee11');
+                console.log(dob, 'dob2');
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].dob.patchValue(dob);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].ins_age.patchValue(this.getAge);
+                this.ageValidationInsurer(i, type);
             }
 
         }
@@ -457,7 +457,7 @@ public insurer: any;
                 if (Object.keys(this.response).length === 0) {
                     this.religarePersonal.controls['rcity'].setValue('');
                     this.religarePersonal.controls['rstate'].setValue('');
-                     this.residenceCitys = {};
+                    this.residenceCitys = {};
                 } else {
                     this.religarePersonal.controls['rstate'].setValue(this.response.state);
                     this.residenceCitys = this.response.city;
@@ -783,25 +783,25 @@ public insurer: any;
         }
     }
     sameAddress(values){
-    if (this.religarePersonal.controls['sameAsProposer'].value) {
-        this.inputReadonly = true;
-        this.religarePersonal.controls['raddress1'].patchValue(this.religarePersonal.controls['address1'].value);
-        this.religarePersonal.controls['raddress2'].patchValue(this.religarePersonal.controls['address2'].value);
-        this.religarePersonal.controls['rcity'].patchValue(this.religarePersonal.controls['city'].value);
-        this.religarePersonal.controls['rpincode'].patchValue(this.religarePersonal.controls['pincode'].value);
-        this.religarePersonal.controls['rstate'].patchValue(this.religarePersonal.controls['state'].value);
+        if (this.religarePersonal.controls['sameAsProposer'].value) {
+            this.inputReadonly = true;
+            this.religarePersonal.controls['raddress1'].patchValue(this.religarePersonal.controls['address1'].value);
+            this.religarePersonal.controls['raddress2'].patchValue(this.religarePersonal.controls['address2'].value);
+            this.religarePersonal.controls['rcity'].patchValue(this.religarePersonal.controls['city'].value);
+            this.religarePersonal.controls['rpincode'].patchValue(this.religarePersonal.controls['pincode'].value);
+            this.religarePersonal.controls['rstate'].patchValue(this.religarePersonal.controls['state'].value);
 
-    } else {
-        this.inputReadonly = false;
-        this.religarePersonal.controls['raddress1'].patchValue('');
-        this.religarePersonal.controls['raddress2'].patchValue('');
-        this.religarePersonal.controls['rcity'].patchValue('');
-        this.religarePersonal.controls['rpincode'].patchValue('');
-        this.religarePersonal.controls['rstate'].patchValue('');
+        } else {
+            this.inputReadonly = false;
+            this.religarePersonal.controls['raddress1'].patchValue('');
+            this.religarePersonal.controls['raddress2'].patchValue('');
+            this.religarePersonal.controls['rcity'].patchValue('');
+            this.religarePersonal.controls['rpincode'].patchValue('');
+            this.religarePersonal.controls['rstate'].patchValue('');
+
+        }
 
     }
-
-}
     sameInsureAddress(values,i){
         if( this.insureReligareArray['controls'].items['controls'][i]['controls'].sameAsInsurer.value){
             this.getPostal(this.religareTravel1.pincode, 'personal');
@@ -885,8 +885,8 @@ public insurer: any;
         sessionStorage.ReligareTravelDetails3 = '';
         sessionStorage.ReligareTravelDetails3 = JSON.stringify(this.religareTravelQuestionsList);
         console.log( sessionStorage.ReligareTravelDetails3 , ' sessionStorage.ReligareTravelDetails3 ');
-       this.partyQuestionDOList = [];
-       this.questionsListTravel = [];
+        this.partyQuestionDOList = [];
+        this.questionsListTravel = [];
         stepper.next();
 
         let count = 0;
@@ -935,67 +935,67 @@ public insurer: any;
 
 // star-health-proposal Creation Page
     religareTravelproposal() {
-            let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
-            const data = {
-                'platform': 'web',
-                'travel_type':this.allLists[0].insurance_type,
-                'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
-                'product_id': this.getTravelPremiumList.product_id,
-                'enquiry_id': this.getTravelPremiumList.enquiry_id,
-                'trip_start_on': this.datepipe.transform( this.getTravelPremiumList.start_date , 'dd/MM/yyyy'),
-                'trip_end_on': this.datepipe.transform( this.getTravelPremiumList.end_date , 'dd/MM/yyyy'),
-                'group_name': 'Group A',
-                'coverType': 'INDIVIDUAL',
-                'businessTypeCd': 'NEWBUSINESS',
-                'baseAgentId': '20572800',
-                'baseProductId': this.getTravelPremiumList.plan_id,
-                'trip_type': 'Single',
-                'company_name': this.getTravelPremiumList.company_name,
-                'suminsured_amount': this.getTravelPremiumList.suminsured_amount,
-                'proposer_insurer_details': this.totalReligareData,
-                'fieldAgree': 'YES',
-                'fieldAlerts': 'YES',
-                'fieldTc': 'YES',
-                'field20': '10',
-                'tripStart': 'YES',
-                'travel_geography_code': this.getTravelPremiumList.geography_code,
-                'maxTripPeriod':this.getTravelPremiumList.trip_duration,
-                'plan_id': this.getTravelPremiumList.plan_id,
-                'policy_term':this.getTravelPremiumList.trip_duration,
-                'scheme_id': '',
-                'terms_condition': '1',
-                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-                'nominee_name':this.nomineeDetails.controls['religareTravelNomineeName'].value,
-                'nominee_relationship': this.nomineeDetails.controls['religareTravelNomineeName'].value,
-                'medical_status': mcondition != '' ? 'Yes' : 'No',
-                'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : '',
-                'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : '',
-                'student_relationship': this.religarePersonal.controls['studentRelationShip'].value,
-                'university_name':this.religarePersonal.controls['universityname'].value ? this.religarePersonal.controls['universityname'].value : '',
-                'address':this.religarePersonal.controls['guideAddress'].value,
-                'title':this.religarePersonal.controls['guidetitle'].value ? this.religarePersonal.controls['guidetitle'].value : '',
-                // 'course_details':this.religarePersonal.controls['coursedetails'].value,
-                // 'field11':'',
-                'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
-                'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
-                'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
-                'addons': this.religarePersonal.controls['addon'].value ?  this.religarePersonal.controls['addon'].value :'',
-            };
+        let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
+        const data = {
+            'platform': 'web',
+            'travel_type':this.allLists[0].insurance_type,
+            'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
+            'product_id': this.getTravelPremiumList.product_id,
+            'enquiry_id': this.getTravelPremiumList.enquiry_id,
+            'trip_start_on': this.datepipe.transform( this.getTravelPremiumList.start_date , 'dd/MM/yyyy'),
+            'trip_end_on': this.datepipe.transform( this.getTravelPremiumList.end_date , 'dd/MM/yyyy'),
+            'group_name': 'Group A',
+            'coverType': 'INDIVIDUAL',
+            'businessTypeCd': 'NEWBUSINESS',
+            'baseAgentId': '20572800',
+            'baseProductId': this.getTravelPremiumList.plan_id,
+            'trip_type': 'Single',
+            'company_name': this.getTravelPremiumList.company_name,
+            'suminsured_amount': this.getTravelPremiumList.suminsured_amount,
+            'proposer_insurer_details': this.totalReligareData,
+            'fieldAgree': 'YES',
+            'fieldAlerts': 'YES',
+            'fieldTc': 'YES',
+            'field20': '10',
+            'tripStart': 'YES',
+            'travel_geography_code': this.getTravelPremiumList.geography_code,
+            'maxTripPeriod':this.getTravelPremiumList.trip_duration,
+            'plan_id': this.getTravelPremiumList.plan_id,
+            'policy_term':this.getTravelPremiumList.trip_duration,
+            'scheme_id': '',
+            'terms_condition': '1',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'nominee_name':this.nomineeDetails.controls['religareTravelNomineeName'].value,
+            'nominee_relationship': this.nomineeDetails.controls['religareTravelNomineeName'].value,
+            'medical_status': mcondition != '' ? 'Yes' : 'No',
+            'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.religarePersonal.controls['sponserdob'].value : '',
+            'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : '',
+            'student_relationship': this.religarePersonal.controls['studentRelationShip'].value,
+            'university_name':this.religarePersonal.controls['universityname'].value ? this.religarePersonal.controls['universityname'].value : '',
+            'address':this.religarePersonal.controls['guideAddress'].value,
+            'title':this.religarePersonal.controls['guidetitle'].value ? this.religarePersonal.controls['guidetitle'].value : '',
+            // 'course_details':this.religarePersonal.controls['coursedetails'].value,
+            // 'field11':'',
+            'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
+            'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
+            'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
+            'addons': this.religarePersonal.controls['addon'].value ?  this.religarePersonal.controls['addon'].value :'',
+        };
 
-            console.log(data, 'fghj');
+        console.log(data, 'fghj');
 
 
-            this.settings.loadingSpinner = true;
-            this.travelservice.createReligareTravelProposal(data).subscribe(
-                (successData) => {
-                    this.proposalSuccess(successData);
-                },
-                (error) => {
-                    this.proposalFailure(error);
-                }
-            );
+        this.settings.loadingSpinner = true;
+        this.travelservice.createReligareTravelProposal(data).subscribe(
+            (successData) => {
+                this.proposalSuccess(successData);
+            },
+            (error) => {
+                this.proposalFailure(error);
+            }
+        );
 
 
     }
@@ -1109,10 +1109,10 @@ public insurer: any;
             console.log(JSON.parse(sessionStorage.ReligareTravelDetails2), 'sessionStorage');
             this.religareTravel2 = JSON.parse(sessionStorage.ReligareTravelDetails2);
             console.log( this.religareTravel2, 'this.religareTravel2');
-          // /  if (this.religareTravel2.religarePersonalPincode != '') {
-          //       this.getPostalInsurer(this.religareTravel2.insurerReligarePincode,'i', 'insurer');
-          //   //
-          //   }
+            // /  if (this.religareTravel2.religarePersonalPincode != '') {
+            //       this.getPostalInsurer(this.religareTravel2.insurerReligarePincode,'i', 'insurer');
+            //   //
+            //   }
             for (let i = 0; i < this.religareTravel2.items.length; i++) {
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].title.patchValue(this.religareTravel2.items[i].title);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].firstname.patchValue(this.religareTravel2.items[i].firstname);
