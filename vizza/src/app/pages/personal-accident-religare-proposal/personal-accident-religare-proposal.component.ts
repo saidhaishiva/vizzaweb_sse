@@ -173,8 +173,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
-                if (sessionStorage.summaryDataReligare != '' && sessionStorage.summaryDataReligare != undefined) {
-                    this.summaryData = JSON.parse(sessionStorage.summaryDataReligare);
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
                     this.RediretUrlLink = this.summaryData.PaymentURL;
                     this.proposalId = this.summaryData.ProposalId;
                     this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataFormReligare);
@@ -185,6 +185,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             }
         });
         this.currentStep = stepperindex;
+        console.log(this.currentStep,'this.currentStep');
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
@@ -1263,11 +1264,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposal_id;
             sessionStorage.pa_religare_proposal_id = this.religarePAProposal;
-            sessionStorage.summaryDataReligare = this.summaryData;
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            console.log(sessionStorage.summaryData,'sessionStorage.summaryData');
             this.proposerDataForm = this.insured.value;
             this.nomineeDataForm = this.nomineeDetails.value;
-            sessionStorage.proposerDataFormReligare = this.proposerDataForm;
-            sessionStorage.nomineeDataFormReligare = this.nomineeDataForm;
+            sessionStorage.proposerDataFormReligare =  JSON.stringify(this.proposerDataForm);
+            sessionStorage.nomineeDataFormReligare = JSON.stringify(this.nomineeDataForm);
 
         } else {
             this.toastr.error(successData.ErrorObject);
