@@ -657,7 +657,7 @@ export class IffcoTokioComponent implements OnInit {
             this.arr.push(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value);
         }
         if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Spouse')) {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age between age between 18 years to 55 years');
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age between 18 years to 55 years');
             // this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be 18 and above');
         } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Spouse') {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');

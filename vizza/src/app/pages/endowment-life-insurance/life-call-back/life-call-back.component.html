@@ -15,13 +15,13 @@
           <h2 class="w-100 text-center" >Let us assist you</h2>
           <form [formGroup]="Lifeapp">
             <div class="row">
-              <div class="col-md-6" >
+              <div class="col-md-6 mt-3">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Company Name" formControlName="CompanyName"  (keypress)="nameValidate($event)"  autocomplete="off" maxlength="30" required >
                   <mat-error *ngIf="Lifeapp.controls.CompanyName.errors?.required">Company Name is required</mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 mt-3">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="nameValidate($event)" autocomplete="off" required>
                   <mat-error *ngIf="Lifeapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
@@ -29,7 +29,7 @@
                   <mat-icon matSuffix>person</mat-icon>
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 mt-3">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Mobile" formControlName="mobile"  required minlength="10"  maxlength="10" (keypress)="numberValidate($event)" autocomplete="off">
                   <mat-error *ngIf="Lifeapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
@@ -38,7 +38,7 @@
                   <mat-icon matSuffix>call</mat-icon>
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 mt-3">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="Email" formControlName="email" autocomplete="off" required>
                   <mat-error *ngIf="Lifeapp.controls.email.errors?.required">Email is required</mat-error>
@@ -46,7 +46,7 @@
                   <mat-icon matSuffix>email</mat-icon>
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 mt-3">
                 <mat-form-field class="w-100">
                   <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}"  minlength="6" (keypress)="numberValidate($event)"  maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
                   <mat-error *ngIf="Lifeapp.controls.pincode.errors?.required">Pincode is required</mat-error>
@@ -55,7 +55,7 @@
                   <mat-icon matSuffix>place</mat-icon>
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 mt-3">
                 <mat-form-field class="w-100">
                   <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" autocomplete="off" required>
                     <mat-option value="call">Call</mat-option>
@@ -64,7 +64,7 @@
                   <mat-error *ngIf="Lifeapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-6 mt-3">
                 <mat-form-field class="w-100">
                   <input matInput [matDatepicker]="picker" [min]="today" placeholder="Appointment Date(DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  (keypress)="dobValidate($event)" autocomplete="off" maxlength="10" minlength="10"  required>
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

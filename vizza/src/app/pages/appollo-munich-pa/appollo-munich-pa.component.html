@@ -26,18 +26,18 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" class="nospace" (input)="spac($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" class="nospace" (input)="spac($event)" maxlength="45" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" class="nospace"  (input)="spac($event)" (keypress)="nameValidate($event)" autocomplete="off">
+                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" class="nospace"  maxlength="45" (input)="spac($event)" (keypress)="nameValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname" class="nospace"  (input)="spac($event)"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname" class="nospace" maxlength="45" (input)="spac($event)"  (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaLastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -74,7 +74,7 @@
                       </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual"  autocomplete="off" required>
+                                <input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual" maxlength="20" autocomplete="off" required>
                               <mat-error *ngIf="insured.controls.insuredAnnual.errors?.required">Annual Income is required</mat-error>
                             </mat-form-field>
                         </div>
@@ -567,7 +567,7 @@
               </div>
               <div class="col-md-6">
                 <div class="p-3">
-                  <h6 class="mb-4"></h6>
+
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Height:</strong> {{proposerFormData.insuredHeight}}</li>
                     <li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.insuredWeight}}</li>
@@ -590,7 +590,7 @@
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaAddress3!= ''"><strong>Address 3:</strong> {{proposerFormData.insuredPaAddress3}}</li>
                     <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.insuredPaPincode}}</li>
                     <li class="list-group-item"><strong>City:</strong> {{proposerFormData.insuredPaCityName}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaDistrictName !='' && proposerFormData.insuredPaDistrictName != null"><strong>District:</strong> {{proposerFormData.insuredPaDistrictName}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaDistrict !='' && proposerFormData.insuredPaDistrict != null"><strong>District:</strong> {{proposerFormData.insuredPaDistrict}}</li>
                     <li class="list-group-item"><strong>State:</strong> {{proposerFormData.insuredPaState}}</li>
                   </ul>
                 </div>

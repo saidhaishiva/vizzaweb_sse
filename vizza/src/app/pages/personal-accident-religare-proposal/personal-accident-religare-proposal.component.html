@@ -309,7 +309,7 @@
                       </div>
                         <div class="col-md-4">
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (change)="setRelationship(); changeRelationShip()" required  >
+                                <mat-select placeholder="Relationship With Insured"  formControlName="religareRelationship"  (change)="setRelationship()" required  >
                                     <mat-option *ngFor="let relation of relationshipList | keys"  [hidden]="relation.key == '1'" value="{{relation.value}}">{{relation.value}}</mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="insured.controls.insuredrelationship.errors?.required">Relationship With Insured is required</mat-error>
@@ -445,7 +445,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataForm.religareRelationshipName}}</li>
+                        <li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataForm.religareRelationship}}</li>
                       </ul>
                     </div>
 

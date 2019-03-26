@@ -122,6 +122,7 @@ public RediretUrlLink: any;
 public occupationClass: any;
 CheckHabits : boolean;
 readonlyProposer : boolean;
+    occupationClass1 : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
       this.currentStep = stepperindex;
@@ -1200,6 +1201,11 @@ preInsureList() {
         if (successData.IsSuccess) {
             this.occupationClass = successData.ResponseObject;
             console.log(this.occupationClass,'this.occupationClass');
+            if(this.occupationClass == 'Valid Occupation'){
+                this.occupationClass1 = true;
+            } else{
+                this.occupationClass1 = false;
+            }
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -1472,9 +1478,10 @@ preInsureList() {
         sessionStorage.appollo2Detail = '';
         sessionStorage.appollo2Detail = JSON.stringify(value);
         console.log(this.insured.valid, 'check');
+        console.log(this.occupationClass,'this.occupationClass');
         if (this.insured.valid) {
             if (sessionStorage.insuredAgeP >= 18 && sessionStorage.insuredAgeP < 56) {
-                if(this.occupationClass == 'Valid Occupation') {
+                if(this.occupationClass1 == true) {
                     if (this.insured.controls['insuredProfessionList'].value == 'PROFS5' && this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00) {
                         this.toastr.error('Sum Insured greater then eligible amount');
                     } else if (this.insured.controls['insuredWine'].value > 0 && this.insured.controls['insuredBeer'].value > 0 && this.insured.controls['insuredLiquor'].value > 0) {
