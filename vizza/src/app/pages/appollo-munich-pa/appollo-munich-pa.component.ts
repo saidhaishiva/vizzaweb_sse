@@ -122,6 +122,7 @@ public occupationClass: any;
 CheckHabits : boolean;
 readonlyProposer : boolean;
     occupationClass1 : boolean;
+    rider : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
       this.route.params.forEach((params) => {
@@ -155,6 +156,7 @@ readonlyProposer : boolean;
       this.maxStartdate = '';
       this.sameaddress = false;
       this.habits = true;
+      this.rider = true;
       this.bmiValue = false;
 
       this.ProposerPa = this.proposerpa.group({
@@ -260,6 +262,7 @@ readonlyProposer : boolean;
           type: '',
           insuredHeight:'',
           insuredWeight:'',
+          ttdrider:false,
           sameAsProposer:false
       });
       this.nomineeDetail = this.proposerpa.group({
@@ -399,6 +402,7 @@ readonlyProposer : boolean;
                 insuredremark: this.appollo2.insuredremark,
                 insuredWaive: this.appollo2.insuredWaive,
                 relationshipcd: this.appollo2.relationshipcd,
+                ttdrider: this.appollo2.ttdrider,
             });
             if(this.appollo2.insuredPaIdProof != ''){
                 this.panType('insurer');
@@ -1482,7 +1486,7 @@ preInsureList() {
 
     // insured Details second page
     InsureDetails(stepper: MatStepper, value) {
-      console.log(value);
+      console.log(value, 'kjhgfdgh');
         sessionStorage.appollo2Detail = '';
         sessionStorage.appollo2Detail = JSON.stringify(value);
         console.log(this.insured.valid, 'check');
@@ -1609,7 +1613,15 @@ preInsureList() {
         }
     }
 
-
+    // ttd(){
+    //   alert();
+    //   if(this.insured.controls['ttdrider'].value == true){
+    //       this.rider = true;
+    //   } else{
+    //       this.rider = true;
+    //
+    //   }
+    // }
     // star-health-proposal creation
     createrPoposal(stepper){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
@@ -1619,6 +1631,7 @@ preInsureList() {
     "user_id": "0",
     "role_id": "4",
     "pos_status": "0",
+    "ttdrider": this.insured.controls['ttdrider'].value ? '1' : '0',
     "ProposalCaptureServiceRequest": {
         "Prospect": {
             "Application": {
@@ -1824,21 +1837,21 @@ preInsureList() {
     //     });
     // }
 
-    // spac(event) {
-    //   console.log(event);
-    //    let id = document.getElementsByClassName('nospace');
-    //    console.log(id,'id');
-    //         id[0].addEventListener("keypress",checkKeyPress, false);
-    //   function checkKeyPress(event) {
-    //           if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
-    //               console.log(event.target.value.keyCode,'prevent');
-    //               event.preventDefault();
-    //           } else {
-    //         console.log('else', 'gdghdg');
-    //     }
-    //   }
-    //
-    // }
+    spacing(event) {
+      console.log(event);
+       let id = document.getElementById('nospace');
+       console.log(id,'id');
+            id[0].addEventListener("keypress",checkKeyPress, false);
+      function checkKeyPress(event) {
+              if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
+                  console.log(event.target.value.keyCode,'prevent');
+                  event.preventDefault();
+              } else {
+            console.log('else', 'gdghdg');
+        }
+      }
+
+    }
 
     // document.getElementById("myAnchor").addEventListener("click", function(event){
     //     event.preventDefault()
