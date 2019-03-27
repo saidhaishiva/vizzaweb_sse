@@ -1750,7 +1750,7 @@ preInsureList() {
                 "RelationshipCode":'1',
                 "TitleCode": this.insured.controls['insuredPaTitle'].value,
             },
-            "MedicalInformations": this.insured.controls['MedicalInformations'].value
+            "MedicalInformations": 'Nil'
         }
     }
 }

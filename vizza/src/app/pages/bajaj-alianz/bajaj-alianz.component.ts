@@ -184,6 +184,8 @@ export class BajajAlianzComponent implements OnInit {
                 rolecd: 'PRIMARY',
                 insureTitle: ['', Validators.required],
                 insureName: ['', Validators.required],
+                insuremiddleName: '',
+                insureLastName: ['', Validators.required],
                 insureDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
                 insureGender: ['', Validators.compose([Validators.required])],
                 insureAge: ['', Validators.compose([Validators.required])],
@@ -277,6 +279,8 @@ export class BajajAlianzComponent implements OnInit {
             for (let i = 0; i < this.insurePersons.length; i++) {
                 this.totalInsureDetails.push({
                     'membername': this.insurerData[i].insureName,
+                    'membermiddlename': this.insurerData[i].insuremiddleName,
+                    'memberlastname': this.insurerData[i].insureLastName,
                     'memrelation': this.insurerData[i].insurerelationship,
                     'memdob': this.datepipe.transform(this.insurerData[i].insureDob, 'y-MM-dd'),
                     'memage': this.insurerData[i].insureAge == 0 ? "0" : this.insurerData[i].insureAge,
@@ -685,6 +689,8 @@ export class BajajAlianzComponent implements OnInit {
             for (let i = 0; i < this.getStepper1.items.length; i++) {
                 this.insureArray['controls'].items['controls'][i]['controls'].insureTitle.patchValue(this.getStepper1.items[i].insureTitle);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureName.patchValue(this.getStepper1.items[i].insureName);
+                this.insureArray['controls'].items['controls'][i]['controls'].insuremiddleName.patchValue(this.getStepper1.items[i].insuremiddleName);
+                this.insureArray['controls'].items['controls'][i]['controls'].insureLastName.patchValue(this.getStepper1.items[i].insureLastName);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureDob.patchValue(this.datepipe.transform(this.getStepper1.items[i].insureDob, 'y-MM-dd')),
                 this.insureArray['controls'].items['controls'][i]['controls'].insureGender.patchValue(this.getStepper1.items[i].insureGender);
                 this.insureArray['controls'].items['controls'][i]['controls'].insureAge.patchValue(this.getStepper1.items[i].insureAge);
@@ -771,8 +777,8 @@ export class BajajAlianzComponent implements OnInit {
                 'telephone': this.insureArray['controls'].items['controls'][0]['controls'].insurePhone.value,
                 'email': this.insureArray['controls'].items['controls'][0]['controls'].insureEmail.value,
                 'firstname': this.insureArray['controls'].items['controls'][0]['controls'].insureName.value,
-                'surname': this.insureArray['controls'].items['controls'][0]['controls'].insureName.value,
-                'middlename': this.insureArray['controls'].items['controls'][0]['controls'].insureName.value
+                'surname': this.insureArray['controls'].items['controls'][0]['controls'].insureLastName.value,
+                'middlename': this.insureArray['controls'].items['controls'][0]['controls'].insuremiddleName.value
             },
             'tycpaddrlist': [{
                 'postcode': this.insureArray['controls'].items['controls'][0]['controls'].insurePincode.value,
