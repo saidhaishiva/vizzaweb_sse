@@ -70,7 +70,7 @@ export class TravelPremiumListComponent implements OnInit {
     endDateError: any;
     today: any;
 
-    selectedAmount: any;
+    selectedAmountTravel: any;
     daysCount: any;
     startDate: any;
     endDate: any;
@@ -94,32 +94,19 @@ export class TravelPremiumListComponent implements OnInit {
     allCompanyList: any;
     filterCompany: any;
     tabIndex: any;
+    enquiryDetails: any;
+    insuranceLists: any;
+    productListArray: any;
+    allProductLists: any;
+    setAllProductLists: any;
+    checkAllStatus: boolean;
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.tabIndex = 0;
-        this.premiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
-        this.setAllTravelFamilyDetails = JSON.parse(sessionStorage.setAllTravelFamilyDetails);
-        this.allCompanyList = [];
-        for (let i = 0; i < this.premiumLists.length; i++) {
-            for (let j = 0; j < this.premiumLists[i].product_lists.length; j++) {
-                if(this.allCompanyList.indexOf(this.premiumLists[i].product_lists[j].company_name) == -1) {
-                    this.allCompanyList.push(this.premiumLists[i].product_lists[j].company_name);
-                }
-            }
-        }
-        this.filterCompany = this.allCompanyList;
-
-        console.log(this.premiumLists, 'testy');
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
-
-        for (let i = 0; i < this.premiumLists.length; i++) {
-            this.premiumLists[i].compare = false;
-            this.premiumLists[i].shortlist = false;
-        }
-
         this.compareArray = [];
 
     }
@@ -127,12 +114,33 @@ export class TravelPremiumListComponent implements OnInit {
         this.settings.loadingSpinner = false;
         this.sumInsuredAmonut();
         this.companyList();
+        if (sessionStorage.enquiryDetailsTravel != undefined && sessionStorage.enquiryDetailsTravel != '') {
+            let details = JSON.parse(sessionStorage.enquiryDetailsTravel);
+            this.enquiryDetails = details[0];
+        }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);
         }
+        if (sessionStorage.allTravelPremiumLists != undefined && sessionStorage.allTravelPremiumLists != '') {
+            this.setAllProductLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        }
+        if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
+            this.filterCompany = JSON.parse(sessionStorage.filterCompany);
+            if(this.filterCompany.includes('All')) {
+                this.checkAllStatus = true;
+            } else {
+                this.checkAllStatus = false;
+            }
+        }
+        if (sessionStorage.allProductLists != undefined && sessionStorage.allProductLists != '') {
+            this.allProductLists = JSON.parse(sessionStorage.allProductLists);
+            console.log(this.allProductLists, 'sessionn');
+        }
+        // if (sessionStorage.sumInsuredAmountLists != undefined && sessionStorage.sumInsuredAmountLists != '') {
+        //     this.sumInsuredAmountLists = JSON.parse(sessionStorage.sumInsuredAmountLists);
+        // }
     }
-    selectedSumAmount(){
-    }
+
     companyList() {
         const data = {
             'platform': 'web',
@@ -140,7 +148,7 @@ export class TravelPremiumListComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
         };
-        this.travel.getAllcountry(data).subscribe(
+        this.travel.getAllCompany(data).subscribe(
             (successData) => {
                 this.companyListSuccess(successData);
             },
@@ -155,9 +163,11 @@ export class TravelPremiumListComponent implements OnInit {
             this.allCompanyList = successData.ResponseObject;
             let all = ['All'];
             for (let i = 0; i < this.allCompanyList.length; i++) {
-                all.push(this.allCompanyList[i].company_name);
+                all.push(this.allCompanyList[i].company_name)
             }
             this.filterCompany = all;
+
+            this.getProductLists(this.allCompanyList);
         }
     }
     public companyListFailure(error) {
@@ -188,6 +198,75 @@ export class TravelPremiumListComponent implements OnInit {
     }
     public getSumInsuredAmountFailure(error) {
         console.log(error, 'error');
+    }
+    public getProductLists(companyList): void {
+        const data = {
+            'platform': 'web',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            "enquiry_id": this.enquiryDetails.enquiry_id,
+            "group_name": this.enquiryDetails.group_name,
+            "adult_count": this.enquiryDetails.sum_insured_amount,
+            "child_count": this.enquiryDetails.sum_insured_amount,
+            "scheme": this.enquiryDetails.scheme,
+            "travel_place": this.enquiryDetails.travel_place,
+            "travel_plan_type": this.enquiryDetails.travel_plan_type,
+            "start_date": this.enquiryDetails.start_date,
+            "end_date": this.enquiryDetails.end_date,
+            "travel_user_type": this.enquiryDetails.travel_user_type,
+            "medical_condition": this.enquiryDetails.medical_condition,
+            "duration": this.enquiryDetails.duration,
+            "family_members": this.enquiryDetails.family_members,
+            "company_id": companyList.company_id,
+            "sum_insured_id": this.enquiryDetails.sum_insured_id,
+            "sum_insured_amount": this.enquiryDetails.sum_insured_amount,
+            "pincode": this.enquiryDetails.pincode
+        };
+        this.settings.loadingSpinner = true;
+        this.travel.getTravelPremiumList(data,companyList).subscribe(
+            (successData) => {
+                this.getProductListSuccess(successData);
+            },
+            (error) => {
+                this.getProductListFailure(error);
+            }
+        );
+    }
+    public getProductListSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            for(let i = 0; i < successData.length; i++) {
+                if (successData[i].IsSuccess) {
+                    let policylists = successData[i].ResponseObject;
+                    this.productListArray.push(policylists[0].product_lists);
+                }
+                // this.changeSuninsuredAmount = "4";
+                this.allProductLists = [].concat.apply([], this.productListArray);
+            }
+            for (let i = 0; i < this.allProductLists.length; i++) {
+                this.allProductLists[i].compare = false;
+                this.allProductLists[i].shortlist = false;
+                this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
+                this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
+            }
+            console.log(this.allProductLists, 'all');
+            // sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
+            sessionStorage.allTravelPremiumLists = JSON.stringify(this.allProductLists);
+            this.setAllProductLists = this.allProductLists;
+            sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
+            if(this.allProductLists.length > 1) {
+                this.selectedAmountTravel = this.allProductLists[0].suminsured_amount;
+            }
+
+        }
+    }
+    public getProductListFailure(error) {
+        this.settings.loadingSpinner = false;
+        console.log(error, 'error');
+    }
+    public  numberWithCommas(x) {
+        return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
     }
 
     // filter by product

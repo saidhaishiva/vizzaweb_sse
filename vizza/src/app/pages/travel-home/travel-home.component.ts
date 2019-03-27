@@ -102,8 +102,13 @@ export class TravelHomeComponent implements OnInit {
     public response: any;
     public pincodeErrors: any;
     public pincode: any;
-    public pinerror: any;
-    public travelUserType: any;
+    public pinerror: boolean;
+    public travelUserType: boolean;
+    public startDateRequired: boolean;
+    public endDateRequired: boolean;
+    public plcaeOfVisitError: boolean;
+    public travelTypeError: boolean;
+    public enquiryDetails: any;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute) {
         this.settings = this.appSettings.settings;
@@ -115,8 +120,12 @@ export class TravelHomeComponent implements OnInit {
         this.familyDetails();
         // this.studentDetails();
         // this.groupDetails();
+        this.getAllcountryLists();
+        this.sumInsuredAmonut();
+
+
         this.currentTab = 'self';
-        this.travelUserType == ''
+        this.travelUserType = false;
         // this.today = new Date();
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate() +1);
@@ -143,6 +152,11 @@ export class TravelHomeComponent implements OnInit {
             this.productName = params.id;
 
         });
+        this.startDateRequired = false;
+        this.endDateRequired = false;
+        this.plcaeOfVisitError = false;
+        this.travelTypeError = false;
+
         this.Child3BTn = true;
         this.FatherBTn = true;
         this.MotherBTn = true;
@@ -160,9 +174,7 @@ export class TravelHomeComponent implements OnInit {
         this.Student9BTn = true;
         this.Student10BTn = true;
         this.count = 0;
-        this.sumInsuredAmonut();
         this.sessionData();
-        this.getAllcountryLists();
     }
     selfDetails() {
         this.selfArray = [
@@ -177,22 +189,22 @@ export class TravelHomeComponent implements OnInit {
             {name: 'Child2', age: '', disabled: false, checked: false, required: false, error: ''}
         ];
     }
-    groupDetails() {
-        this.groupArray = [
-            {name: 'Member1', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Member2', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Member3', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Member4', age: '', disabled: false, checked: false, required: true, error: ''}
-        ];
-    }
-    studentDetails() {
-        this.studentArray = [
-            {name: 'Student1', age: '', disabled: false, checked: false, required: true, error: ''},
-            {name: 'Student2', age: '', disabled: false, checked: false, required: false, error: ''},
-            {name: 'Student3', age: '', disabled: false, checked: false, required: false, error: ''},
-            {name: 'Student4', age: '', disabled: false, checked: false, required: false, error: ''}
-        ];
-    }
+    // groupDetails() {
+    //     this.groupArray = [
+    //         {name: 'Member1', age: '', disabled: false, checked: false, required: true, error: ''},
+    //         {name: 'Member2', age: '', disabled: false, checked: false, required: true, error: ''},
+    //         {name: 'Member3', age: '', disabled: false, checked: false, required: true, error: ''},
+    //         {name: 'Member4', age: '', disabled: false, checked: false, required: true, error: ''}
+    //     ];
+    // }
+    // studentDetails() {
+    //     this.studentArray = [
+    //         {name: 'Student1', age: '', disabled: false, checked: false, required: true, error: ''},
+    //         {name: 'Student2', age: '', disabled: false, checked: false, required: false, error: ''},
+    //         {name: 'Student3', age: '', disabled: false, checked: false, required: false, error: ''},
+    //         {name: 'Student4', age: '', disabled: false, checked: false, required: false, error: ''}
+    //     ];
+    // }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
             const pattern = /[0-9]/;
@@ -202,11 +214,9 @@ export class TravelHomeComponent implements OnInit {
             }
         }
     }
-
     dobValidate(event: any){
         this.validation.dobValidate(event);
     }
-
     // this function will get the sum insured amounts
     public sumInsuredAmonut(): void {
         const data = {
@@ -528,8 +538,8 @@ export class TravelHomeComponent implements OnInit {
         }
         sessionStorage.selfArray = JSON.stringify(this.selfArray);
         sessionStorage.familyArray = JSON.stringify(this.familyArray);
-        sessionStorage.groupArray = JSON.stringify(this.groupArray);
-        sessionStorage.studentArray = JSON.stringify(this.studentArray);
+        // sessionStorage.groupArray = JSON.stringify(this.groupArray);
+        // sessionStorage.studentArray = JSON.stringify(this.studentArray);
     }
     addGroupMembers(value){
         this.groupArray.push({name: value, age: '', disabled: false, checked: true, required: false, error: ''});
@@ -559,6 +569,7 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.pincode = this.pincode;
     }
     ckeckedUserType() {
+        console.log(this.travelUserType, 'sty');
         sessionStorage.travelUserType = this.travelUserType;
     }
 
@@ -649,7 +660,27 @@ export class TravelHomeComponent implements OnInit {
         } else {
             this.medicalerror = false;
         }
-        if (this.pinerror == '' || this.pinerror == undefined) {
+        if (this.startDate == '' || this.startDate == undefined) {
+            this.startDateRequired = true;
+        } else {
+            this.startDateRequired = false;
+        }
+        if (this.endDate == '' || this.endDate == undefined) {
+            this.endDateRequired = true;
+        } else {
+            this.endDateRequired = false;
+        }
+        if (this.travelPlan == '' || this.travelPlan == undefined) {
+            this.plcaeOfVisitError = true;
+        } else {
+            this.plcaeOfVisitError = false;
+        }
+        if (this.travelType == '' || this.travelType == undefined) {
+            this.travelTypeError = true;
+        } else {
+            this.travelTypeError = false;
+        }
+        if (this.pincode == '' || this.pincode == undefined) {
             this.pinerror = true;
         } else {
             this.pinerror = false;
@@ -742,7 +773,8 @@ export class TravelHomeComponent implements OnInit {
                 sum_amount = this.sumInsuredAmountLists[i].suminsured_amount;
             }
         }
-        if (!this.pinerror && !memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
+        console.log(this.pinerror, 'this.pinerror');
+        if (this.pinerror == false && !memberValid && !arrayEmpty && this.medicalerror == false && getFiledData != '' && !this.sumerror && this.daysBookingCount <= 60) {
             sessionStorage.setAllTravelFamilyDetails = JSON.stringify(this.finalData);
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
@@ -766,12 +798,12 @@ export class TravelHomeComponent implements OnInit {
                     'day_count': days,
                     'pincode': this.pincode,
                     'duration': this.duration ? this.duration : '',
-                    'travel_user_type': this.travelUserType == '' ? groupname : this.travelUserType,
+                    'travel_user_type': this.travelUserType ?  'student' : groupname,
                     'medical_condition': this.medicalCondition
                 }
                 this.settings.loadingSpinner = true;
                 console.log(data, 'this.datadata');
-                this.travel.getTravelPremiumCal(data).subscribe(
+                this.travel.getEnquiryDetails(data).subscribe(
                     (successData) => {
                         this.getTravelPremiumCalSuccess(successData);
                     },
@@ -789,22 +821,13 @@ export class TravelHomeComponent implements OnInit {
         console.log(successData);
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            this.insuranceLists = successData.ResponseObject;
-            console.log(this.insuranceLists,'this.insuranceLists');
-            for (let i = 0; i < this.insuranceLists.length; i++) {
-                for (let j = 0; j < this.insuranceLists[i].product_lists.length; j++) {
-                    this.insuranceLists[i].product_lists[j].compare = false;
-                    this.insuranceLists[i].product_lists[j].shortlist = false;
-                    this.insuranceLists[i].product_lists[j].premium_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].total_premium);
-                    this.insuranceLists[i].product_lists[j].suminsured_amount_format =   this.numberWithCommas(this.insuranceLists[i].product_lists[j].suminsured_amount);
-                }
-                this.insuranceLists[i].all_product_list = this.insuranceLists[i].product_lists;
-            }
-            sessionStorage.changedTabIndex = 0;
-            sessionStorage.allTravelPremiumLists = JSON.stringify(this.insuranceLists);
-            console.log(sessionStorage.allTravelPremiumLists, 'sessionStorage.allTravelPremiumLists');
+            this.enquiryDetails = successData.ResponseObject;
+            sessionStorage.enquiryDetailsTravel = JSON.stringify(this.enquiryDetails);
             this.router.navigate(['/travelpremium']);
-        } else {
+        }
+
+
+        else {
             this.toast.error(successData.ErrorObject);
         }
     }
@@ -820,18 +843,18 @@ export class TravelHomeComponent implements OnInit {
             this.selfArray = JSON.parse(sessionStorage.selfArray);
             this.members(this.selfArray);
         }
-        if (sessionStorage.groupArray != undefined && sessionStorage.groupArray != '') {
-            this.groupArray = JSON.parse(sessionStorage.groupArray);
-            this.members(this.groupArray);
-        }
         if (sessionStorage.familyArray != undefined && sessionStorage.familyArray != '') {
             this.familyArray = JSON.parse(sessionStorage.familyArray);
             this.members(this.familyArray);
         }
-        if (sessionStorage.studentArray != undefined && sessionStorage.studentArray != '') {
-            this.studentArray = JSON.parse(sessionStorage.studentArray);
-            this.members(this.studentArray);
-        }
+        // if (sessionStorage.groupArray != undefined && sessionStorage.groupArray != '') {
+        //     this.groupArray = JSON.parse(sessionStorage.groupArray);
+        //     this.members(this.groupArray);
+        // }
+        // if (sessionStorage.studentArray != undefined && sessionStorage.studentArray != '') {
+        //     this.studentArray = JSON.parse(sessionStorage.studentArray);
+        //     this.members(this.studentArray);
+        // }
         if (sessionStorage.daysBookingCount != undefined && sessionStorage.daysBookingCount != '') {
             this.daysBookingCount = sessionStorage.daysBookingCount;
         }
@@ -904,11 +927,15 @@ export class TravelHomeComponent implements OnInit {
             this.medicalCondition = sessionStorage.medicalCondition;
         }
         if (sessionStorage.travelUserType != undefined && sessionStorage.travelUserType != '') {
-            this.travelUserType = sessionStorage.travelUserType;
+            this.travelUserType = JSON.parse(sessionStorage.travelUserType);
         }
         if (sessionStorage.pincode != undefined && sessionStorage.pincode != '') {
             this.pincode = sessionStorage.pincode;
         }
+        if (sessionStorage.enquiryDetailsTravel != undefined && sessionStorage.enquiryDetailsTravel != '') {
+            this.enquiryDetails = JSON.parse(sessionStorage.enquiryDetailsTravel);
+        }
+
 
 
     }

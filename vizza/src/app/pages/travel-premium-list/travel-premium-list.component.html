@@ -10,33 +10,30 @@
           </div>
         </div>
 
-        <div class="flex-p " *ngFor="let lists of premiumLists;let pi = index" >
-          <table class="table health-table table-scroll" *ngIf="lists.product_lists !='' ">
+        <div class="flex-p ">
+          <table class="table health-table table-scroll">
             <thead>
             <tr>
               <th class="col-md-3">
                 <mat-form-field class="w-100">
-                  <mat-placeholder class="myclass">FILTER BY COMPANY</mat-placeholder>
-                  <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                    <mat-option *ngFor="let lists of allCompanyList " value="{{lists}}">{{lists}}</mat-option>
+                  <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
+                  <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
+                    <mat-option value="All" >Select All</mat-option>
+                    <mat-select-trigger>
+                      {{filterCompany ? filterCompany[0] : ''}}
+                      <span *ngIf="filterCompany" >
+                        (+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})
+                      </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let list of allCompanyList" value="{{list.company_name}}" [disabled]="checkAllStatus">{{list.company_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </th>
               <th class="sun-insured col-md-1">
                 <mat-form-field >
-                  <mat-placeholder class="myclass">SUM INSURED ( &#8377; )</mat-placeholder>
-                  <mat-select>
-                    <mat-option value="1">1</mat-option>
-                    <mat-option value="2">2</mat-option>
-                    <mat-option value="3">3</mat-option>
-                    <mat-option value="4">4</mat-option>
-                    <mat-option value="5">5</mat-option>
-                    <mat-option value="6">6</mat-option>
-                    <mat-option value="7">7</mat-option>
-                    <mat-option value="8">8</mat-option>
-                    <mat-option value="9">9</mat-option>
-                    <mat-option value="10">10</mat-option>
-                    <mat-option value="11">11</mat-option>
+                  <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
+                  <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
+                    <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount}}">{{amounts.si_amount}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </th>
@@ -51,7 +48,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr  *ngFor="let plists of lists.product_lists | orderBy : 'suminsured_amount';let i = index">
+            <tr  *ngFor="let plists of allProductLists;let i = index">
 
               <td align="center"  class="col-md-3 text-center">
                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
@@ -74,7 +71,7 @@
                 <p class="text-center change-p">(Including GST)</p>
               </td>
               <td class="col-md-1">
-                <p class="mt-4"><button mat-raised-button color="accent" (click)="booking(plists, lists.enquiry_id,lists.name)">Buy</button></p>
+                <p class="mt-4"><button mat-raised-button color="accent" (click)="booking(plists)">Buy</button></p>
               </td>
             </tr>
             </tbody>

@@ -44,7 +44,7 @@
                           <div class="col-md-4"><span class="text-left">{{item.name}}</span></div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100 text-left">
-                              <input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" >
+                              <input matInput placeholder="Age"  [(ngModel)]="item.age" name="age" maxlength="2" (keypress)="numberOnly($event)" (keyup)="typeAge(item.checked, i, item.age)" required>
                             </mat-form-field>
                             <div *ngIf="item.error != ''" class="ngError">Required</div>
                           </div>
@@ -52,7 +52,7 @@
                       </div>
                       <div class="col-md-6">
                         <mat-checkbox [(ngModel)]="travelUserType" (change)="ckeckedUserType()">
-                          Are you Student?
+                          Are You Student?
                         </mat-checkbox>
                       </div>
                     </div>
@@ -62,40 +62,42 @@
                       <div class="col-md-4">
                         <mat-form-field color="accent" class="w-100">
                           <mat-label>Trip Start Date </mat-label>
-                          <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today" (keypress)="dobValidate($event)" [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')"  maxlength="10" minlength="10">
+                          <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" [min]="today" (keypress)="dobValidate($event)" [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')"  maxlength="10" minlength="10" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                         <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
+                        <div class="error" *ngIf="startDateRequired != ''">Required</div>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field color="accent" class="w-100">
                           <mat-label>Trip End Date</mat-label>
-                          <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')" maxlength="10" minlength="10">
+                          <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" [(ngModel)]="endDate" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')" maxlength="10" minlength="10" required>
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2 color="primary"></mat-datepicker>
                         </mat-form-field>
-                          <p class="error" *ngIf="endDateError != ''">{{endDateError}}</p>
+                        <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
+                        <div class="error" *ngIf="endDateRequired != ''">Required</div>
                       </div>
                       <div class="col-md-4 text-center">
                         <p class="days-count">Total Days : {{daysCount}}</p>
                       </div>
-                      <div col-md-4>
-                        <p *ngIf="daysBookingCount> 60" class="error">Travel booking starts before 60 days</p>
+                      <div class="col-md-4">
+                        <p *ngIf="daysBookingCount >60" class="error">Travel booking starts before 60 days</p>
                       </div>
                     </div>
                     <div class="row mt-2">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple>
+                          <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple required>
                             <mat-option *ngFor="let list of getAllcountryList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
                           </mat-select>
                         </mat-form-field>
-                        <div class="error" *ngIf="plcaeOfVisitError != ''">{{plcaeOfVisitError}}</div>
+                        <div class="error" *ngIf="plcaeOfVisitError != ''">Required</div>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">
+                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()" required>
                             <mat-option value="Business">
                               Business
                             </mat-option>
@@ -107,10 +109,11 @@
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
+                        <div class="error" *ngIf="travelTypeError != ''">Required</div>
                       </div>
                     </div>
                     <div *ngIf="travelType == 'Multi'">
-                      <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()">
+                      <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()" required>
                         <div class="row mt-2">
                           <div class="col-md-5">
                             <mat-label>Max trip Duraion (in days) </mat-label>
@@ -127,7 +130,7 @@
                         </div>
                       </mat-radio-group>
                     </div><br>
-                    <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()">
+                    <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()" required>
                       <div class="row">
                         <div class="col-md-5">
                           <mat-label>Any medical conditions?</mat-label>
@@ -140,7 +143,7 @@
                     </mat-radio-group>
                     <div *ngIf="medicalerror" class="ngError">Required</div>
                     <mat-form-field class="w-100">
-                      <input matInput maxlength="6" [(ngModel)]="pincode"  placeholder="Pincode" (keypress)="numberOnly($event)" (keyup)="typePincode()">
+                      <input matInput maxlength="6" [(ngModel)]="pincode" placeholder="Pincode" (keypress)="numberOnly($event)" (keyup)="typePincode()" required>
                       <mat-icon matSuffix>place</mat-icon>
                     </mat-form-field>
                     <div *ngIf="pinerror" class="ngError">Required</div>
@@ -149,7 +152,6 @@
                       <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
                     </div>
                   </div>
-
                 </div>
               </mat-tab>
 
@@ -200,20 +202,23 @@
                       <div class="col-md-4">
                         <mat-form-field color="accent" class="w-100">
                           <mat-label>Trip Start Date </mat-label>
-                          <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" (keypress)="onlyNumber($event)" [min]="today" maxlength="10" minlength="10" [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')">
+                          <input matInput [matDatepicker]="picker1" placeholder="Start date(DD/MM/YYYY)" (keypress)="onlyNumber($event)" [min]="today" maxlength="10" minlength="10" [(ngModel)]="startDate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                         <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
+                        <div class="error" *ngIf="startDateRequired != ''">Required</div>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field color="accent" class="w-100">
                           <mat-label>Trip End Date</mat-label>
-                          <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" (keypress)="onlyNumber($event)" [(ngModel)]="endDate"  maxlength="10" minlength="10"  [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')">
+                          <input matInput [matDatepicker]="picker2" placeholder="End date(DD/MM/YYYY)" (keypress)="onlyNumber($event)" [(ngModel)]="endDate"  maxlength="10" minlength="10"  [min]="maxDate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')" required>
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2 color="primary"></mat-datepicker>
                         </mat-form-field>
                         <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
+                        <div class="error" *ngIf="endDateRequired != ''">Required</div>
+
                       </div>
                       <div class="col-md-4 text-center">
                         <p class="days-count">Total Days : {{daysCount}}</p>
@@ -223,14 +228,16 @@
                     <div class="row mt-2">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple>
+                          <mat-select placeholder="Travel plans" [(ngModel)]="travelPlan" (change)="changeTravelPlan()" multiple required>
                             <mat-option *ngFor="let list of getAllcountryList" value="{{list.country_name}}">{{list.country_name}}</mat-option>
                           </mat-select>
                         </mat-form-field>
+                        <div class="error" *ngIf="plcaeOfVisitError != ''">Required</div>
+
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()">
+                          <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()" required>
                             <mat-option value="Business">
                               Business
                             </mat-option>
@@ -242,10 +249,12 @@
                             </mat-option>
                           </mat-select>
                         </mat-form-field>
+                        <div class="error" *ngIf="travelTypeError != ''">Required</div>
+
                       </div>
                     </div>
                     <div *ngIf="travelType == 'Multi'">
-                      <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()">
+                      <mat-radio-group class="w-100" [(ngModel)]="duration" (change)="changeTravelDuration()" required>
                         <div class="row mt-2">
                           <div class="col-md-5">
                             <mat-label>Max trip Duraion (in days) </mat-label>
@@ -262,7 +271,7 @@
                         </div>
                       </mat-radio-group>
                     </div><br>
-                    <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()">
+                    <mat-radio-group class="w-100" [(ngModel)]="medicalCondition" (change)="changeMedicalCondition()" required>
                       <div class="row">
                         <div class="col-md-5">
                           <mat-label>Any medical conditions?</mat-label>
@@ -275,7 +284,7 @@
                     </mat-radio-group>
                     <div *ngIf="medicalerror" class="ngError">Required</div>
                     <mat-form-field class="w-100">
-                      <input matInput maxlength="6" [(ngModel)]="pincode"  placeholder="Pincode" (keypress)="numberOnly($event)" (keyup)="typePincode()">
+                      <input matInput maxlength="6" [(ngModel)]="pincode"  placeholder="Pincode" (keypress)="numberOnly($event)" (keyup)="typePincode()" required>
                       <mat-icon matSuffix>place</mat-icon>
                     </mat-form-field>
                     <div *ngIf="pinerror" class="ngError">Required</div>
