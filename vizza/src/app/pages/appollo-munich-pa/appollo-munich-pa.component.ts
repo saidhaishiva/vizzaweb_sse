@@ -67,7 +67,7 @@ public occupationCode: any;
 public appollo1: any;
 public appollo2: any;
 public getpanomineeData: any;
-public appollosummaryData: any;
+public summaryData: any;
 public declaration: any;
 public professionList: any;
 public applloPAproposalId: any;
@@ -117,29 +117,32 @@ public heighrCal: any;
 public weight:any;
 public BMI: any;
 public proposalId: any;
-public summaryData: any;
 public RediretUrlLink: any;
 public occupationClass: any;
 CheckHabits : boolean;
 readonlyProposer : boolean;
     occupationClass1 : boolean;
+    rider : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
-      this.currentStep = stepperindex;
-console.log(this.currentStep,'this.currentStep');
       this.route.params.forEach((params) => {
           if(params.stepper == true || params.stepper == 'true') {
-              stepperindex = 1;
-              if (sessionStorage.summaryDataPa != '' && sessionStorage.summaryDataPa != undefined) {
-                  this.summaryData = JSON.parse(sessionStorage.summaryDataPa);
+              stepperindex = 3;
+              if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                  this.summaryData = JSON.parse(sessionStorage.summaryData);
                   this.RediretUrlLink = this.summaryData.PaymentURL;
                   this.proposalId = this.summaryData.ProposalId;
                   this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataForm);
                   this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                   sessionStorage.appolloPAproposalID = this.proposalId;
+                  console.log(this.summaryData ,'this.summaryData ');
+                  console.log(sessionStorage.summaryData,'sessionStorage.summaryData ');
               }
           }
       });
+      this.currentStep = stepperindex;
+      console.log(this.currentStep,'this.currentStep');
+
       this.webhost = this.config.getimgUrl();
       const minDate = new Date();
       this.minDate= new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -153,6 +156,7 @@ console.log(this.currentStep,'this.currentStep');
       this.maxStartdate = '';
       this.sameaddress = false;
       this.habits = true;
+      this.rider = true;
       this.bmiValue = false;
 
       this.ProposerPa = this.proposerpa.group({
@@ -258,6 +262,7 @@ console.log(this.currentStep,'this.currentStep');
           type: '',
           insuredHeight:'',
           insuredWeight:'',
+          ttdrider:false,
           sameAsProposer:false
       });
       this.nomineeDetail = this.proposerpa.group({
@@ -397,6 +402,7 @@ console.log(this.currentStep,'this.currentStep');
                 insuredremark: this.appollo2.insuredremark,
                 insuredWaive: this.appollo2.insuredWaive,
                 relationshipcd: this.appollo2.relationshipcd,
+                ttdrider: this.appollo2.ttdrider,
             });
             if(this.appollo2.insuredPaIdProof != ''){
                 this.panType('insurer');
@@ -1203,10 +1209,16 @@ preInsureList() {
             console.log(this.occupationClass,'this.occupationClass');
             if(this.occupationClass == 'Valid Occupation'){
                 this.occupationClass1 = true;
-            } else{
+                console.log(this.occupationClass1,'this.occupationClass1');
+            } else {
                 this.occupationClass1 = false;
+
             }
         } else {
+            if (successData.ErrorObject){
+                this.occupationClass1 = false;
+                console.log(this.occupationClass1,'occupationClass1');
+            }
             this.toastr.error(successData.ErrorObject);
         }
 
@@ -1474,14 +1486,14 @@ preInsureList() {
 
     // insured Details second page
     InsureDetails(stepper: MatStepper, value) {
-      console.log(value);
+      console.log(value, 'kjhgfdgh');
         sessionStorage.appollo2Detail = '';
         sessionStorage.appollo2Detail = JSON.stringify(value);
         console.log(this.insured.valid, 'check');
         console.log(this.occupationClass,'this.occupationClass');
         if (this.insured.valid) {
             if (sessionStorage.insuredAgeP >= 18 && sessionStorage.insuredAgeP < 56) {
-                if(this.occupationClass1 == true) {
+                if(this.occupationClass1 != false) {
                     if (this.insured.controls['insuredProfessionList'].value == 'PROFS5' && this.insured.controls['insuredAnnual'].value <= 200000 && this.getBuyDetails.suminsured_amount == 2500000.00) {
                         this.toastr.error('Sum Insured greater then eligible amount');
                     } else if (this.insured.controls['insuredWine'].value > 0 && this.insured.controls['insuredBeer'].value > 0 && this.insured.controls['insuredLiquor'].value > 0) {
@@ -1519,7 +1531,9 @@ preInsureList() {
                     }
                     this.topScroll();
                 } else{
-                    this.toastr.error('Sorry!, Your occupation is not allowed');
+                    if(this.occupationClass1 == false){
+                        this.toastr.error('Sorry!, Your occupation is not allowed');
+                    }
                 }
             } else {
                 this.toastr.error('Proposer or Insurer age should be greater than 18 and lesser than 56');
@@ -1599,7 +1613,15 @@ preInsureList() {
         }
     }
 
-
+    // ttd(){
+    //   alert();
+    //   if(this.insured.controls['ttdrider'].value == true){
+    //       this.rider = true;
+    //   } else{
+    //       this.rider = true;
+    //
+    //   }
+    // }
     // star-health-proposal creation
     createrPoposal(stepper){
       let enq_id = this.getAllPremiumDetails.enquiry_id;
@@ -1609,6 +1631,7 @@ preInsureList() {
     "user_id": "0",
     "role_id": "4",
     "pos_status": "0",
+    "ttdrider": this.insured.controls['ttdrider'].value ? '1' : '0',
     "ProposalCaptureServiceRequest": {
         "Prospect": {
             "Application": {
@@ -1727,7 +1750,7 @@ preInsureList() {
                 "RelationshipCode":'1',
                 "TitleCode": this.insured.controls['insuredPaTitle'].value,
             },
-            "MedicalInformations": this.insured.controls['MedicalInformations'].value
+            "MedicalInformations": 'Nil'
         }
     }
 }
@@ -1749,10 +1772,10 @@ preInsureList() {
         if (successData.IsSuccess) {
             stepper.next();
             this.toastr.success('Proposal created successfully!!');
-            this.appollosummaryData = successData.ResponseObject;
-            sessionStorage.summaryDataPa = JSON.stringify(this.appollosummaryData);
-            this.RediretUrlLink = this.appollosummaryData.PaymentURL;
-            this.appolloPA = this.appollosummaryData.ProposalId;
+            this.summaryData = successData.ResponseObject;
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            this.RediretUrlLink = this.summaryData.PaymentURL;
+            this.appolloPA = this.summaryData.ProposalId;
             this.proposerFormData = this.insured.value;
             console.log(this.proposerFormData,'this.proposerFormData');
             this.nomineeDataForm = this.nomineeDetail.value;
@@ -1814,21 +1837,21 @@ preInsureList() {
     //     });
     // }
 
-    // spac(event) {
-    //   console.log(event);
-    //    let id = document.getElementsByClassName('nospace');
-    //    console.log(id,'id');
-    //         id[0].addEventListener("keypress",checkKeyPress, false);
-    //   function checkKeyPress(event) {
-    //           if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
-    //               console.log(event.target.value.keyCode,'prevent');
-    //               event.preventDefault();
-    //           } else {
-    //         console.log('else', 'gdghdg');
-    //     }
-    //   }
-    //
-    // }
+    spacing(event) {
+      console.log(event);
+       let id = document.getElementById('nospace');
+       console.log(id,'id');
+            id[0].addEventListener("keypress",checkKeyPress, false);
+      function checkKeyPress(event) {
+              if (event.code == "Space" && event.target.value.length == 0 && event.keyCode == 32) {
+                  console.log(event.target.value.keyCode,'prevent');
+                  event.preventDefault();
+              } else {
+            console.log('else', 'gdghdg');
+        }
+      }
+
+    }
 
     // document.getElementById("myAnchor").addEventListener("click", function(event){
     //     event.preventDefault()
