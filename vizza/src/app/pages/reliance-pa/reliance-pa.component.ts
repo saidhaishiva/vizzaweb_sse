@@ -25,6 +25,7 @@ export class ReliancePaComponent implements OnInit {
   public proposer: FormGroup;
   public insure: FormGroup;
   public nominee: FormGroup;
+  public riskDetails: FormGroup;
   public currentStep: any;
   public settings: Settings;
   public minDate: any;
@@ -32,18 +33,9 @@ export class ReliancePaComponent implements OnInit {
   public paMaritalList: any;
   public proposerdateError: any;
   public insuredateError: any;
-  public proposerdate: any;
-  public proposerstardate: any;
-  public proposerenddate: any;
   public occupationCode: any;
-  public paIdProofList: any;
-  public pannumberP: boolean;
-  public voterP: boolean;
-  public passportP: boolean;
-  public drivinglicenseP: boolean;
+  public coverage: boolean;
   public idListDetailsProposal: any;
-  public idListDetailsinsured: any;
-  public ProposerPa: any;
   public paPinInsuredList: any;
   public paCityInsuredList: any;
   public paInsureddistrictList: any;
@@ -51,7 +43,7 @@ export class ReliancePaComponent implements OnInit {
   public paCityNomineeList: any;
   public paNomineedistrictList: any;
   public proposerAgeP: any;
-  public maxStartdate: any;
+
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, public personalservice: PersonalAccidentService, private toastr: ToastrService, public appSettings: AppSettings) {
     let stepperindex = 0;
@@ -65,47 +57,46 @@ export class ReliancePaComponent implements OnInit {
     this.insureAgeP = '';
     this.idListDetailsProposal = '';
     this.proposerAgeP = '';
-    this.maxStartdate = '';
-
 
     this.proposer = this.fb.group({
       proposerPaTitle: ['', Validators.required],
       proposerPaFirstname: ['', Validators.required],
-      proposerPaMidname: '',
+      proposerPaMidname:'',
       proposerPaLastname: ['', Validators.required],
       proposerPaGender: ['', Validators.compose([Validators.required])],
       proposerPaDob: ['', Validators.compose([Validators.required])],
+      proposercustomertype:['',Validators.required],
       proposerPaEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       proposerPaMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-      maritalStatus: ['', Validators.required],
+      maritalStatus: '',
       proposerPaAge: '',
-      maritalStatusName: '',
       proposerPaIdProof: '',
-      proposerPaIdProofName: '',
-      proposerPaIdProofIdP: '',
       proposerPaPan: ['', Validators.compose([Validators.minLength(10)])],
       proposerPaDriving: '',
       proposerPaPassport: '',
       proposerPaVoter: '',
+      proposerPaAadhar: '',
       proposerPaGst: ['', Validators.compose([Validators.minLength(15)])],
       proposerPaAddressone: ['', Validators.required],
-      proposerPaAddresstwo: '',
+      proposerPaAddresstwo: ['',Validators.required],
       proposerPaAddressthree: '',
-      proposerPaAddress1: ['', Validators.required],
-      proposerPaAddress2: '',
-      proposerPaAddress3: '',
-      nationality: 'IN',
       proposerPaPincode: ['', Validators.required],
+      nearestlandmark: '',
+      area: ['',Validators.required],
       proposerPaState: ['', Validators.required],
-      proposerPaDistrict: '',
       proposerPaCity: ['', Validators.required],
-      proposerPaCityName: '',
-      proposerPaCountry: 'IN',
+      proposerPaDistrict: '',
+      proposerPaAddress1: ['', Validators.required],
+      proposerPaAddress2: ['', Validators.required],
+      proposerPaAddress3: '',
       proposerPaPincode1: ['', Validators.required],
+      nearestlandmark1: '',
+      area1: ['',Validators.required],
+      nationality: 'IN',
       proposerPaState1: ['', Validators.required],
-      proposerPaDistrict1: '',
       proposerPaCity1: ['', Validators.required],
-      proposerPaStateIdP: '',
+      proposerPaDistrict1: '',
+      proposerPaCountry: 'IN',
       proposerOccupationList: ['', Validators.required],
       proposerOccupationListName: '',
       proposerAnnual: '',
@@ -124,8 +115,30 @@ export class ReliancePaComponent implements OnInit {
       insurePaMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       maritalStatus: ['', Validators.required],
       insureAnnual: ['', Validators.required],
+      Relationship: ['',Validators.required],
+      otherinformation: '',
+      insureOccupationList: ['',Validators.required],
+      physicaldefectdetail: ['',Validators.required],
+      insuredclaimdetails: ['',Validators.required],
+      earningmember: '',
+      physicaldefect: '',
+      previousinsurer: '',
+      personalaccident: '',
+      insurancecover: '',
       type: ''
     });
+    this.riskDetails = this.fb.group({
+      CoverageOptionID:['',Validators.required],
+      coveragesubOptionID:['',Validators.required],
+      SumInsured: '',
+      MembertoInsure: '',
+      Tenure: '',
+      employername: ['',Validators.required],
+      exemptionreason: ['',Validators.required],
+      specialconditions: '',
+      capitalsuminsured: ['',Validators.required],
+    });
+
     this.nominee = this.fb.group({
       nomineePaTitle: ['', Validators.required],
       nomineePaFirstname: ['', Validators.required],
@@ -162,7 +175,6 @@ export class ReliancePaComponent implements OnInit {
   ngOnInit() {
     this.paMaritalStatusList();
     this.setOccupationListCode();
-    this.paIdList();
   }
 
   insurechangeGender() {
@@ -331,85 +343,8 @@ export class ReliancePaComponent implements OnInit {
   }
 
 
-  // Id proof
-  paIdList() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    }
-    this.personalservice.paIdProofList(data).subscribe(
-        (successData) => {
-          this.paIdProofListSuccess(successData);
-        },
-        (error) => {
-          this.paIdProofListFailure(error);
-        }
-    );
-  }
-
-  public paIdProofListSuccess(successData) {
-    this.paIdProofList = successData.ResponseObject;
-  }
-
-  public paIdProofListFailure(error) {
-  }
-
-  insureidList() {
-    if (this.proposer.controls['proposerPaIdProof'].value == 'IDNO2') {
-      this.pannumberP = true;
-      this.voterP = false;
-      this.passportP = false;
-      this.drivinglicenseP = false;
-    } else if (this.proposer.controls['proposerPaIdProof'].value == 'IDNO1') {
-      this.passportP = true;
-      this.pannumberP = false;
-      this.voterP = false;
-      this.drivinglicenseP = false;
-    } else if (this.proposer.controls['proposerPaIdProof'].value == 'IDNO4') {
-      this.voterP = true;
-      this.passportP = false;
-      this.pannumberP = false;
-      this.drivinglicenseP = false;
-
-    } else if (this.proposer.controls['proposerPaIdProof'].value == 'IDNO3') {
-      this.drivinglicenseP = true;
-      this.voterP = false;
-      this.passportP = false;
-      this.pannumberP = false;
-    } else {
-      if (this.proposer.controls['proposerPaIdProof'].value == 'None' || this.proposer.controls['proposerPaIdProof'].value == '') {
-        this.drivinglicenseP = false;
-        this.voterP = false;
-        this.passportP = false;
-        this.pannumberP = false;
-        this.idListDetailsProposal = '';
-        this.ProposerPa.controls['proposerPaPan'].patchValue('');
-        this.ProposerPa.controls['proposerPaPassport'].patchValue('');
-        this.ProposerPa.controls['proposerPaVoter'].patchValue('');
-        this.ProposerPa.controls['proposerPaDriving'].patchValue('');
-      }
-    }
-  }
-
-  panType(type) {
-    if (type == 'proposer') {
-      if (this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO2') {
-        this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPan'].value;
-      } else if (this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO1') {
-        this.idListDetailsProposal = this.ProposerPa.controls['proposerPaPassport'].value;
-      } else if (this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO4') {
-        this.idListDetailsProposal = this.ProposerPa.controls['proposerPaVoter'].value;
-      } else if (this.ProposerPa.controls['proposerPaIdProof'].value == 'IDNO3') {
-        this.idListDetailsProposal = this.ProposerPa.controls['proposerPaDriving'].value;
-      }
-
-    }
-
-  }
-
   // insured pin validate
-  getinsuredPostalCode(pin) {
+  getPostalCode(pin) {
     const data = {
       'platform': 'web',
       'postalcode': pin
@@ -496,10 +431,14 @@ export class ReliancePaComponent implements OnInit {
   }
 // proposer next button
   nexttab(stepper: MatStepper) {
-    if (this.proposer.valid) {
       stepper.next();
     }
+
+  changecover(){
+    alert('438');
+    this.coverage = true;
   }
+
 
   // nominee pin validate
   getnomineePostalCode(pin) {
@@ -589,7 +528,7 @@ export class ReliancePaComponent implements OnInit {
   public nomineedistrictPaListFailure(error) {
   }
 
-  sameAsCurrentAddress(value: any) {
+  sameAsCurrentAddress(value) {
     if (value) {
       this.proposer.controls['proposerPaAddress1'].patchValue(this.proposer.controls['proposerPaAddressone'].value);
       this.proposer.controls['proposerPaAddress2'].patchValue(this.proposer.controls['proposerPaAddresstwo'].value);
