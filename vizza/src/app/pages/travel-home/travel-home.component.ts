@@ -825,8 +825,6 @@ export class TravelHomeComponent implements OnInit {
             sessionStorage.enquiryDetailsTravel = JSON.stringify(this.enquiryDetails);
             this.router.navigate(['/travelpremium']);
         }
-
-
         else {
             this.toast.error(successData.ErrorObject);
         }

@@ -1082,6 +1082,21 @@ a:hover {
     .mat-form-field-underline{
       background-color:#ffffff !important;
     }
+    .sun-insured{
+      .mat-form-field-infix {
+        display: block;
+        position: relative;
+        flex: auto;
+        min-width: 0;
+        width: 100px !important;
+      }
+      ::-webkit-scrollbar-thumb:vertical {
+        background-color: #ce367c !important;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #cfcfcf !important;
+      }
+    }
   }
 
 

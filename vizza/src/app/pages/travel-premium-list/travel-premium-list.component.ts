@@ -108,6 +108,8 @@ export class TravelPremiumListComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.compareArray = [];
+        this.productListArray = [];
+        this.allProductLists = [];
 
     }
     ngOnInit() {
@@ -235,28 +237,30 @@ export class TravelPremiumListComponent implements OnInit {
     }
     public getProductListSuccess(successData) {
         this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
+        console.log(successData, 'successData');
+        if (successData) {
             for(let i = 0; i < successData.length; i++) {
                 if (successData[i].IsSuccess) {
                     let policylists = successData[i].ResponseObject;
-                    this.productListArray.push(policylists[0].product_lists);
+                    this.productListArray.push(policylists.product_list);
                 }
                 // this.changeSuninsuredAmount = "4";
                 this.allProductLists = [].concat.apply([], this.productListArray);
             }
+            console.log(this.allProductLists, 'all');
+
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
-                this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].premium_amount);
-                this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].suminsured_amount);
+                // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
+                this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
             }
-            console.log(this.allProductLists, 'all');
             // sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
             sessionStorage.allTravelPremiumLists = JSON.stringify(this.allProductLists);
             this.setAllProductLists = this.allProductLists;
             sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
             if(this.allProductLists.length > 1) {
-                this.selectedAmountTravel = this.allProductLists[0].suminsured_amount;
+                this.selectedAmountTravel = this.allProductLists[0].sum_insured_amount;
             }
 
         }
@@ -267,6 +271,9 @@ export class TravelPremiumListComponent implements OnInit {
     }
     public  numberWithCommas(x) {
         return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
+    }
+    updateSumInsured(){
+
     }
 
     // filter by product
@@ -380,38 +387,38 @@ export class TravelPremiumListComponent implements OnInit {
     }
     addCompare(value, index) {
         console.log(value, 'valuepp');
-        const data  = { index: index, plan_id: value.product_id, plan_description: value.plan_description, plan_name: value.plan_name, premium_amount: value.total_premium, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
+        const data  = { index: index, plan_id: value.plan_id, product_id: value.product_id, plan_description: value.plan_description, plan_name: value.plan_name, premium_amount: value.total_premium, suminsured_amount: value.sum_insured_amount, suminsured_id: value.sum_insured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.equiryId = value.enquiry_id;
-        this.premiumLists.product_lists[index].compare = true;
+        this.allProductLists[index].compare = true;
         this.compareArray.push(data);
         if (this.compareArray.length >= 3) {
-            for (let i = 0; i < this.premiumLists.product_lists.length; i++) {
-                this.premiumLists.product_lists[i].compare = true;
+            for (let i = 0; i < this.allProductLists.length; i++) {
+                this.allProductLists[i].compare = true;
             }
         }
 
     }
     removeCompare(index , pindex) {
-        this.premiumLists.product_lists[pindex].compare = false;
+        this.allProductLists[pindex].compare = false;
         this.compareArray.splice(index, 1);
         let getCount;
-        for (let i = 0; i < this.premiumLists.product_lists.length; i++) {
+        for (let i = 0; i < this.allProductLists.length; i++) {
             getCount = false;
             for (let j = 0; j < this.compareArray.length; j++) {
-                if (this.compareArray[j].premium_id == this.premiumLists.product_lists[i].premium_id) {
+                if (this.compareArray[j].plan_id == this.allProductLists[i].plan_id) {
                     getCount = true;
-                    this.premiumLists.product_lists[i].compare = true;
+                    this.allProductLists[i].compare = true;
                 }
             }
             if (!getCount) {
-                this.premiumLists.product_lists[i].compare = false;
+                this.allProductLists[i].compare = false;
             }
         }
 
     }
     removeAllCompare(index) {
-        for (let i = 0; i < this.premiumLists.product_lists.length; i++) {
-            this.premiumLists.product_lists[i].compare = false;
+        for (let i = 0; i < this.allProductLists.length; i++) {
+            this.allProductLists[i].compare = false;
         }
         this.compareArray = [];
     }
@@ -419,7 +426,7 @@ export class TravelPremiumListComponent implements OnInit {
         console.log(value, 'lop1');
         this.productLists = [];
         for (let i = 0; i < value.length; i++) {
-            this.productLists.push({plan_id: value[i].plan_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
+            this.productLists.push({plan_id: value[i].plan_id, product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].sum_insured_amount, prod_suminsuredid: value[i].sum_insured_id});
         }
         const data = {
             'platform': 'web',

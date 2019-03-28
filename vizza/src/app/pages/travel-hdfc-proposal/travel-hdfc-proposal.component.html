@@ -26,19 +26,19 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="firstname" (keypress)="nameValidateNospace($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="firstname" (keypress)="nameValidate($event)"   autocomplete="off" required >
                           <mat-error *ngIf="hdfcTravel.controls.firstname.errors?.required"> First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Middle Name" formControlName="middlename"  (keypress)="nameValidateNospace($event)"  autocomplete="off"  >
+                          <input matInput placeholder="Middle Name" formControlName="middlename"  (keypress)="nameValidate($event)"   autocomplete="off"  >
                           <!--<mat-error *ngIf="hdfcPersonal.controls.midname.errors?.required"> Middle Name is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidateNospace($event)"  autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="lastname"  (keypress)="nameValidate($event)"   autocomplete="off" required >
                           <mat-error *ngIf="hdfcTravel.controls.lastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>

@@ -1053,8 +1053,8 @@ export class TravelProposalComponent implements OnInit {
         this.validation.idValidate(event);
 
     }
-    nameValidateNospace(event: any){
-        this.validation.nameValidateNospace(event);
+    validateNospace(event: any){
+       // this.validation.nameValidateNospace(event);
 
     }
 

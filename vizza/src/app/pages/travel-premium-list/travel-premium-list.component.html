@@ -31,10 +31,13 @@
               </th>
               <th class="sun-insured col-md-1">
                 <mat-form-field >
-                  <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
+                  <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured</mat-placeholder>
                   <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
-                    <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount}}">{{amounts.si_amount}}</mat-option>
+                    <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
+                      {{amounts.suminsured_amount}}
+                    </mat-option>
                   </mat-select>
+
                 </mat-form-field>
               </th>
               <th class="col-md-1">Emergency Medical Expenses</th>
@@ -55,7 +58,7 @@
                 <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
               </td>
               <td class="col-md-1">
-                <p class="mt-4">&#8377; {{plists.suminsured_amount_format}}</p>
+                <p class="mt-4">$ {{plists.suminsured_amount_format}}</p>
               </td>
               <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
                 <p class="text-center mt-4">{{keys.key_features_value}}</p>
@@ -67,7 +70,7 @@
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
               <td class="col-md-2">
-                <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
+                <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.total_premium}} / Yr</strong></p>
                 <p class="text-center change-p">(Including GST)</p>
               </td>
               <td class="col-md-1">

@@ -16,6 +16,7 @@ export class ValidationService {
             }
         }
     }
+
     nameValidateNospace(event) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z]/;
