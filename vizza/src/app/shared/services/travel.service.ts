@@ -48,17 +48,60 @@ export class TravelService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    getTravelPremiumCal(data) {
+    // new
+    getAllCompany(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'productlist/company_list';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getEnquiryDetails(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'productlist/get_premium_details' ;
+        const url = this.configurationService.getHostTravel() + 'productlist/enquiry';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // getTravelPremiumList(data) {
+    //     const json = JSON.stringify(data);
+    //     const token = this.authService.getAccessToken();
+    //     const httpOptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     };
+    //     const url = this.configurationService.getHostTravel() + 'productlist/index';
+    //     return this.http.post(url, json, httpOptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
+
+    getTravelPremiumList(data, list) {
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        let response: any;
+        response = [];
+        for (let i = 0; i < list.length; i++) {
+            data.company_id = list[i].company_id;
+            let json = '';
+            json = JSON.stringify(data);
+            const url = this.configurationService.getHostTravel() + 'productlist/index';
+            response.push(this.http.post(url, json, httpOptions));
+        }
+        console.log(response, 'res');
+        return Observable.forkJoin(response);
+
+    }
+
+
+    // old
     updatedTravelPremiumCal(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();

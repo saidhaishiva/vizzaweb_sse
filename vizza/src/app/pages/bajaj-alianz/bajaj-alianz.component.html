@@ -36,7 +36,19 @@
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Name" formControlName="insureName"  (keypress)="nameValidate($event)"   autocomplete="off" required>
+                                                                    <input matInput placeholder="First Name" formControlName="insureName"  (keypress)="nameValidate($event)" maxlength="20"  autocomplete="off" required>
+                                                                    <mat-error *ngIf="insureArray.invalid">Insured Name is required</mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <mat-form-field class="w-100">
+                                                                    <input matInput placeholder="Middle Name" formControlName="insuremiddleName"  (keypress)="nameValidate($event)" maxlength="20"  autocomplete="off">
+                                                                    <mat-error *ngIf="insureArray.invalid">Insured Name is required</mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                            <div class="col-md-3">
+                                                                <mat-form-field class="w-100">
+                                                                    <input matInput placeholder="Last Name" formControlName="insureLastName"  (keypress)="nameValidate($event)" maxlength="50"  autocomplete="off" required>
                                                                     <mat-error *ngIf="insureArray.invalid">Insured Name is required</mat-error>
                                                                 </mat-form-field>
                                                             </div>
@@ -254,7 +266,7 @@
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <mat-form-field class="w-100">
-                                                                    <input matInput placeholder="Name of Nominee"  formControlName="bajajNomineeName" (keypress)="nameValidate($event)" autocomplete="off" required>
+                                                                    <input matInput placeholder="Name of Nominee"  formControlName="bajajNomineeName" (keypress)="nameValidate($event)" maxlength="200" autocomplete="off" required>
                                                                     <mat-error *ngIf="insureArray.invalid">Name of Nominee is required</mat-error>
                                                                 </mat-form-field>
                                                             </div>
@@ -316,7 +328,7 @@
                                     <div class="p-3">
                                         <h6 class="color-blue mt-2"></h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong> Name :</strong><span *ngIf="item.insureTitle == 'MRS'">Ms</span><span *ngIf="item.insureTitle == 'MR'">Mr</span> .{{item.insureName}}</li>
+                                            <li class="list-group-item"><strong> Name :</strong><span *ngIf="item.insureTitle == 'MRS'">Ms</span><span *ngIf="item.insureTitle == 'MR'">Mr</span> .{{item.insureName}} {{item.insuremiddleName}} {{item.insureLastName}}</li>
                                             <!--<li class="list-group-item" *ngIf="item.ins_gender == 'M'"><strong> Name :</strong>Mr. {{item.ins_name}}</li>-->
                                             <li class="list-group-item"><strong>Gender :</strong> {{item.insureGender}}</li>
                                             <li class="list-group-item" *ngIf="item.insureGender == 'F'"><strong>Gender :</strong> Female</li>

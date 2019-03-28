@@ -34,6 +34,7 @@ export class BikeInsuranceComponent implements OnInit {
     public dobError : any;
     public setFtime : any;
     public minDate : any;
+    public time : any;
     public settings: Settings;
 
 
