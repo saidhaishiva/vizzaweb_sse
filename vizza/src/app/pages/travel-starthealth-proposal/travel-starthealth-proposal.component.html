@@ -291,17 +291,17 @@
                   <div class="col-md-6">
                       <div class="row">
                           <div class="col-md-6">
-                              <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.suminsured_amount}}</span></h4>
+                              <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                           </div>
                           <div class="col-md-6">
-                              <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit">{{lists}}</span></span></h4>
+                              <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisiLists">{{lists}}</span></span></h4>
                           </div>
                       </div>
                   </div>
                   <div class="col-md-6">
                       <ul class="summary-head">
-                          <li><span>Start Date:</span> &nbsp;{{getTravelPremiumList.start_date | date: 'dd/MM/yyyy' }} </li>
-                          <li><span>End Date:</span> &nbsp; {{getTravelPremiumList.end_date| date: 'dd/MM/yyyy'}} </li>
+                          <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
+                          <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date| date: 'dd/MM/yyyy'}} </li>
                           <li></li>
                       </ul>
                   </div>
