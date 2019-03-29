@@ -138,9 +138,10 @@ export class TravelPremiumListComponent implements OnInit {
             this.allProductLists = JSON.parse(sessionStorage.allProductLists);
             console.log(this.allProductLists, 'sessionn');
         }
-        // if (sessionStorage.sumInsuredAmountLists != undefined && sessionStorage.sumInsuredAmountLists != '') {
-        //     this.sumInsuredAmountLists = JSON.parse(sessionStorage.sumInsuredAmountLists);
-        // }
+        if (sessionStorage.changeSuninsuredAmount != undefined && sessionStorage.changeSuninsuredAmount != '') {
+            this.enquiryDetails.sum_insured_amount = sessionStorage.changeSuninsuredAmount;
+
+        }
     }
 
     companyList() {
@@ -168,8 +169,7 @@ export class TravelPremiumListComponent implements OnInit {
                 all.push(this.allCompanyList[i].company_name)
             }
             this.filterCompany = all;
-
-            this.getProductLists(this.allCompanyList);
+            this.getProductLists(this.allCompanyList, 'enquiry');
         }
     }
     public companyListFailure(error) {
@@ -201,7 +201,18 @@ export class TravelPremiumListComponent implements OnInit {
     public getSumInsuredAmountFailure(error) {
         console.log(error, 'error');
     }
-    public getProductLists(companyList): void {
+    public getProductLists(companyList, type): void {
+        this.productListArray = [];
+        this.allProductLists = [];
+        let sum_amount = '';
+        if(type == 'productLists') {
+            for (let i = 0; i < this.sumInsuredAmountLists.length; i++) {
+                if (this.sumInsuredAmountLists[i].suminsured_id == this.selectedAmountTravel) {
+                    sum_amount = this.sumInsuredAmountLists[i].suminsured_amount;
+                }
+            }
+        }
+
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
@@ -221,8 +232,8 @@ export class TravelPremiumListComponent implements OnInit {
             "duration": this.enquiryDetails.duration,
             "family_members": this.enquiryDetails.family_members,
             "company_id": companyList.company_id,
-            "sum_insured_id": this.enquiryDetails.sum_insured_id,
-            "sum_insured_amount": this.enquiryDetails.sum_insured_amount,
+            "sum_insured_id": type == 'productLists' ? this.selectedAmountTravel : this.enquiryDetails.sum_insured_id,
+            "sum_insured_amount": type == 'productLists' ? sum_amount : this.enquiryDetails.sum_insured_amount,
             "pincode": this.enquiryDetails.pincode
         };
         this.settings.loadingSpinner = true;
@@ -244,25 +255,22 @@ export class TravelPremiumListComponent implements OnInit {
                     let policylists = successData[i].ResponseObject;
                     this.productListArray.push(policylists.product_list);
                 }
-                // this.changeSuninsuredAmount = "4";
                 this.allProductLists = [].concat.apply([], this.productListArray);
             }
             console.log(this.allProductLists, 'all');
-
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
                 this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
             }
-            // sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
             sessionStorage.allTravelPremiumLists = JSON.stringify(this.allProductLists);
             this.setAllProductLists = this.allProductLists;
             sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
-            if(this.allProductLists.length > 1) {
-                this.selectedAmountTravel = this.allProductLists[0].sum_insured_amount;
+            if(this.allProductLists.length > 0) {
+                this.enquiryDetails.sum_insured_amount = this.allProductLists[0].sum_insured_amount;
             }
-
+            sessionStorage.changeSuninsuredAmount = this.allProductLists[0].sum_insured_amount;
         }
     }
     public getProductListFailure(error) {
@@ -273,50 +281,49 @@ export class TravelPremiumListComponent implements OnInit {
         return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
     }
     updateSumInsured(){
-
+        this.getProductLists(this.allCompanyList, 'productLists');
     }
 
     // filter by product
     filterByProducts() {
+        if(this.filterCompany.includes('All')){
+            console.log('fi');
+            this.checkAllStatus = true;
+            this.allProductLists = this.setAllProductLists;
+            let all = ['All'];
+            for (let i = 0; i < this.allCompanyList.length; i++) {
+                all.push(this.allCompanyList[i].company_name);
+            }
+            this.filterCompany = all;
+        }
+        else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+            console.log('sec');
+            this.checkAllStatus = false;
+            this.allProductLists = [];
+            this.filterCompany = [];
+        }
+        else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
+            console.log('third');
+            this.checkAllStatus = false;
+            let cmpy = [];
+            for (let k = 0; k < this.filterCompany.length; k++) {
+                for (let j = 0; j < this.setAllProductLists.length; j++) {
+                    if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                        cmpy.push(this.setAllProductLists[j]);
+                    }
+                }
+            }
+            this.allProductLists = cmpy;
+        } else if(this.filterCompany.length == 0){
+            console.log('frth');
+            this.checkAllStatus = false;
+            this.allProductLists = [];
+            this.filterCompany = [];
+        }
 
-        // if(this.filterCompany.includes('All')){
-        //     console.log('fi');
-        //     this.checkAllStatus = true;
-        //     this.allProductLists = this.setAllProductLists;
-        //     let all = ['All'];
-        //     for (let i = 0; i < this.allCompanyList.length; i++) {
-        //         all.push(this.allCompanyList[i].company_name);
-        //     }
-        //     this.filterCompany = all;
-        // }
-        // else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
-        //     console.log('sec');
-        //     this.checkAllStatus = false;
-        //     this.allProductLists = [];
-        //     this.filterCompany = [];
-        // }
-        // else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
-        //     console.log('third');
-        //     this.checkAllStatus = false;
-        //     let cmpy = [];
-        //     for (let k = 0; k < this.filterCompany.length; k++) {
-        //         for (let j = 0; j < this.setAllProductLists.length; j++) {
-        //             if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
-        //                 cmpy.push(this.setAllProductLists[j]);
-        //             }
-        //         }
-        //     }
-        //     this.allProductLists = cmpy;
-        // } else if(this.filterCompany.length == 0){
-        //     console.log('frth');
-        //     this.checkAllStatus = false;
-        //     this.allProductLists = [];
-        //     this.filterCompany = [];
-        // }
-        //
-        // console.log(this.allProductLists, ' this.allProductLists');
-        // sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
-        // sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
+        console.log(this.allProductLists, ' this.allProductLists');
+        sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
+        sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
     }
     numberOnly(event): boolean {
