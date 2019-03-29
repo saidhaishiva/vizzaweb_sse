@@ -340,7 +340,7 @@ export class TravelPremiumListComponent implements OnInit {
     booking(value, enqId, gname) {
         console.log(value, 'vlitss');
         sessionStorage.travelPremiumList = JSON.stringify(value);
-        if (this.auth.getPosStatus() == '0') {
+        if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
             let dialogRef = this.dialog.open(PosstatusAlertTravel, {
                 width: '700px',
             });
