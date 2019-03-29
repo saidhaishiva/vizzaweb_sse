@@ -777,12 +777,12 @@ export class TravelHdfcProposalComponent implements OnInit {
             "InsuranceDetails": {
                 "PlanDetails": {
                     'TotalSumInsured': this.getEnquiryDetails.sum_insured_amount,//From main page
-                    'PlanCd': this.getTravelPremiumList.product_code,
+                    'PlanCd': this.getTravelPremiumList.plan_id,
                     'DepartureDate': this.getEnquiryDetails.start_date,
                     'ArrivalDate': this.getEnquiryDetails.end_date,
                     'TravelDays': this.getEnquiryDetails.day_count.toString(),
                     'purposeofvisitcd': sessionStorage.travelType,
-                    'PlacesVisitedCd':this.getEnquiryDetails.travel_place,
+                    'PlacesVisitedCd':this.getEnquiryDetails.travel_place.toString(),
                     'NoOfAdults': this.getEnquiryDetails.adult_count,
                     'NoOfKids': this.getEnquiryDetails.child_count,
                     'FloaterPlan': this.getEnquiryDetails.scheme,
