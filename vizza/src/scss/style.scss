@@ -1097,6 +1097,15 @@ a:hover {
         background-color: #cfcfcf !important;
       }
     }
+
+    thead {
+      tr{
+        th{
+          float:left;
+          height:63px !important;
+        }
+      }
+    }
   }
 
 

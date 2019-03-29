@@ -110,18 +110,18 @@ export class TravelPremiumListComponent implements OnInit {
         this.compareArray = [];
         this.productListArray = [];
         this.allProductLists = [];
-
     }
     ngOnInit() {
         this.settings.loadingSpinner = false;
         this.sumInsuredAmonut();
         this.companyList();
+        this.sessionData();
+    }
+    sessionData() {
         if (sessionStorage.enquiryDetailsTravel != undefined && sessionStorage.enquiryDetailsTravel != '') {
             let details = JSON.parse(sessionStorage.enquiryDetailsTravel);
             this.enquiryDetails = details[0];
-        }
-        if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
-            this.filterCompany = JSON.parse(sessionStorage.filterCompany);
+            this.selectedAmountTravel = this.enquiryDetails.sum_insured_id;
         }
         if (sessionStorage.allTravelPremiumLists != undefined && sessionStorage.allTravelPremiumLists != '') {
             this.setAllProductLists = JSON.parse(sessionStorage.allTravelPremiumLists);
@@ -140,10 +140,8 @@ export class TravelPremiumListComponent implements OnInit {
         }
         if (sessionStorage.changeSuninsuredAmount != undefined && sessionStorage.changeSuninsuredAmount != '') {
             this.enquiryDetails.sum_insured_amount = sessionStorage.changeSuninsuredAmount;
-
         }
     }
-
     companyList() {
         const data = {
             'platform': 'web',
@@ -169,7 +167,12 @@ export class TravelPremiumListComponent implements OnInit {
                 all.push(this.allCompanyList[i].company_name)
             }
             this.filterCompany = all;
-            this.getProductLists(this.allCompanyList, 'enquiry');
+            console.log(sessionStorage.allProductLists, 'ppp');
+            if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
+                console.log('inn');
+                this.getProductLists(this.allCompanyList, 'enquiry');
+            }
+
         }
     }
     public companyListFailure(error) {
@@ -212,7 +215,6 @@ export class TravelPremiumListComponent implements OnInit {
                 }
             }
         }
-
         const data = {
             'platform': 'web',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,

@@ -122,11 +122,8 @@ export class TravelHomeComponent implements OnInit {
         // this.groupDetails();
         this.getAllcountryLists();
         this.sumInsuredAmonut();
-
-
         this.currentTab = 'self';
         this.travelUserType = false;
-        // this.today = new Date();
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate() +1);
 
@@ -144,6 +141,12 @@ export class TravelHomeComponent implements OnInit {
     }
 
     ngOnInit() {
+        // clear session for list page
+        sessionStorage.enquiryDetailsTravel = '';
+        sessionStorage.filterCompany = '';
+        sessionStorage.allTravelPremiumLists = '';
+        sessionStorage.allProductLists = '';
+        sessionStorage.changeSuninsuredAmount = '';
         // fire
         this.show = this.config.getTravelInsurance();
         this.setDate = Date.now();
@@ -231,8 +234,7 @@ export class TravelHomeComponent implements OnInit {
             },
             (error) => {
                 this.getSumInsuredAmountFailure(error);
-            }
-        );
+            });
     }
     public getSumInsuredAmountSuccess(successData) {
         if (successData.IsSuccess) {
