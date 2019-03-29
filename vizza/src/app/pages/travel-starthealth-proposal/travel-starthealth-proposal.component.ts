@@ -142,6 +142,7 @@ export class TravelProposalComponent implements OnInit {
     travelStartDate: any;
     travelEndDate: any;
     currentStep: any;
+    getEnquiryDetails: any;
 
     constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -231,6 +232,8 @@ export class TravelProposalComponent implements OnInit {
 
       //  this.enquiryId = sessionStorage.enquiryId;
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+        let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
+        this.getEnquiryDetails = enqList[0];
         this.insurePersons = this.getTravelPremiumList.family_details;
         this.insureArray = this.fb.group({
             items: this.fb.array([])
@@ -647,10 +650,10 @@ export class TravelProposalComponent implements OnInit {
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'title': this.personalData.personalTitle,
                 'gender': this.personalData.personalGender,
-                'enquiry_id': this.getTravelPremiumList.enquiry_id,
+                'enquiry_id': this.getEnquiryDetails.enquiry_id,
                 'proposal_id': sessionStorage.travel_proposal_id == '' || sessionStorage.travel_proposal_id == undefined ? '' : sessionStorage.travel_proposal_id,
-                'travelStartOn': this.datepipe.transform(this.getTravelPremiumList.start_date, 'MMM d, y'),
-                'travelEndOn': this.datepipe.transform(this.getTravelPremiumList.end_date, 'MMM d, y'),
+                'travelStartOn': this.datepipe.transform(this.getEnquiryDetails.start_date, 'MMM d, y'),
+                'travelEndOn': this.datepipe.transform(this.getEnquiryDetails.end_date, 'MMM d, y'),
                 'proposerName': this.personalData.personalFirstname,
                 'proposerDob': this.datepipe.transform(this.personalData.personalDob, 'MMM d, y'),
                 'proposerEmail': this.personalData.personalEmail,

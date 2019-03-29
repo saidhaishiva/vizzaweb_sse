@@ -350,6 +350,7 @@ export class TravelPremiumListComponent implements OnInit {
                     }  else if (value.product_id <= 31 && value.product_id >=27) {
                         this.router.navigate(['/hdfc-travel'  + '/' + false]);
                     } else if (value.product_id <= 26 && value.product_id >=24) {
+                        alert();
                         this.router.navigate(['/shriram-travel-home']);
                     }else if (value.product_id == 52) {
                         this.router.navigate(['/reliancetravel']);
@@ -364,6 +365,7 @@ export class TravelPremiumListComponent implements OnInit {
             }   else if (value.product_id <= 31 && value.product_id >=27) {
                 this.router.navigate(['/hdfc-travel'  + '/' + false]);
             } else if (value.product_id <= 26 && value.product_id >=24) {
+                alert('in');
                 this.router.navigate(['/shriram-travel-home']);
             }else if (value.product_id == 52) {
                 this.router.navigate(['/reliancetravel']);

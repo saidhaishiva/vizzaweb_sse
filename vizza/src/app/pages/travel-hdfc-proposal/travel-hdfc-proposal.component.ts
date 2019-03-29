@@ -80,6 +80,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public currentStep: any;
     public today: any;
     public plantype: any;
+    public getEnquiryDetails: any;
 
 
 
@@ -168,10 +169,13 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.insuredRelationshipList();
         this.nomineeRelationshipList();
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
-        this.getallTravelPremiumList = allLists[sessionStorage.changedTabIndex];
+        console.log(this.getTravelPremiumList,'this.getTravelPremiumList');
+        let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
+        this.getEnquiryDetails = enqList[0];
+        this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
         console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
-        this.insuredTravelPerson = this.getTravelPremiumList.family_details;
+        this.insuredTravelPerson = this.getEnquiryDetails.family_members;
+        console.log(this.insuredTravelPerson,' this.insuredTravelPerson ');
         this.hdfcInsuredTravel = this.fb.group({
             items: this.fb.array([])
         });
@@ -757,10 +761,7 @@ export class TravelHdfcProposalComponent implements OnInit {
 
     // proposal craetion
     createProposal(stepper) {
-        console.log(this.getallTravelPremiumList);
-        for(let i = 0; i < this.getallTravelPremiumList.plan_type.length; i++){
-            this.plantype = this.getallTravelPremiumList.plan_type[i];
-        }
+
         let insuretravelDetails = this.totalInsureDetails;
         for (let i = 0; i < this.insuredTravelData.items.length; i++) {
             this.insuredTravelData.items[i].NomineeName = this.nomineeTravelDetails.controls['NomineeName'].value;
@@ -775,16 +776,16 @@ export class TravelHdfcProposalComponent implements OnInit {
             'proposal_id': sessionStorage.hdfc_Travel_proposal_id ? sessionStorage.hdfc_Travel_proposal_id : this.hdfc_Travel_proposal_id,
             "InsuranceDetails": {
                 "PlanDetails": {
-                    'TotalSumInsured': this.getallTravelPremiumList.suminsured_amount,//From main page
+                    'TotalSumInsured': this.getEnquiryDetails.sum_insured_amount,//From main page
                     'PlanCd': this.getTravelPremiumList.product_code,
-                    'DepartureDate': this.getallTravelPremiumList.start_date,
-                    'ArrivalDate': this.getallTravelPremiumList.end_date,
-                    'TravelDays': this.getallTravelPremiumList.day_count.toString(),
+                    'DepartureDate': this.getEnquiryDetails.start_date,
+                    'ArrivalDate': this.getEnquiryDetails.end_date,
+                    'TravelDays': this.getEnquiryDetails.day_count.toString(),
                     'purposeofvisitcd': sessionStorage.travelType,
-                    'PlacesVisitedCd':this.plantype,
-                    'NoOfAdults': this.getallTravelPremiumList.adult_count,
-                    'NoOfKids': this.getallTravelPremiumList.child_count,
-                    'FloaterPlan': this.getallTravelPremiumList.scheme,
+                    'PlacesVisitedCd':this.getEnquiryDetails.travel_place,
+                    'NoOfAdults': this.getEnquiryDetails.adult_count,
+                    'NoOfKids': this.getEnquiryDetails.child_count,
+                    'FloaterPlan': this.getEnquiryDetails.scheme,
                     'DependentParent': "None",
                     'NoOfAdditionalKids': "0"
                 },

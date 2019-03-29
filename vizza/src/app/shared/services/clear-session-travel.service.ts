@@ -20,6 +20,28 @@ export class ClearSessionTravelService {
       sessionStorage.proposerFormData = '';
       sessionStorage.insuredFormData = '';
       sessionStorage.nomineeFormData = '';
+
+
+      // statr health
+
+      sessionStorage.travelPremiumList = '';
+      sessionStorage.proposerAgeForTravel = '';
+      sessionStorage.personalCitys = '';
+      sessionStorage.areaList = '';
+      sessionStorage.stepper1DetailsForTravel = '';
+      sessionStorage.stepper2DetailsForTravel = '';
+      sessionStorage.travel_proposal_id = '';
+      sessionStorage.summaryData = '';
+      sessionStorage.proposerFormData = '';
+      sessionStorage.insuredFormData = '';
+      sessionStorage.startDate = '';
+      sessionStorage.endDate = '';
+
+      // shriram
+      sessionStorage.travelPremiumList
+      sessionStorage.allTravelPremiumLists
+      sessionStorage.changedTabIndex
   }
+
 
 }
