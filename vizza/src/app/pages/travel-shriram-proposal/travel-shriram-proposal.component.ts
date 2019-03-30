@@ -177,6 +177,8 @@ export class TravelShriramProposalComponent implements OnInit {
             pincode: ['', Validators.required],
             city: ['', Validators.required],
             state: ['', Validators.required],
+            stateName: '',
+            cityName: '',
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             phone: '',
@@ -187,7 +189,8 @@ export class TravelShriramProposalComponent implements OnInit {
         });
         this.nomineeDetails = this.fb.group({
             'nomineeName': ['', Validators.required],
-            'nomineeRelationship': ['', Validators.required]
+            'nomineeRelationship': ['', Validators.required],
+            'nomineeRelationshipName': ''
         });
         this.personal.controls['handicapped'].patchValue('N');
         this.personal.controls['handicapped'].patchValue('N');
@@ -230,25 +233,6 @@ export class TravelShriramProposalComponent implements OnInit {
     canDeactivate() {
         return this.travel_shriram_proposal_id;
     }
-    // public keyPress(event: any) {
-    //     if (event.charCode !== 0) {
-    //         const pattern = /[0-9\\ ]/;
-    //         const inputChar = String.fromCharCode(event.charCode);
-    //         if (!pattern.test(inputChar)) {
-    //             event.preventDefault();
-    //         }
-    //     }
-    // }
-    //
-    // public dobkeyPress(event: any) {
-    //     if (event.charCode !== 0) {
-    //         const pattern = /[0-9/\\ ]/;
-    //         const inputChar = String.fromCharCode(event.charCode);
-    //         if (!pattern.test(inputChar)) {
-    //             event.preventDefault();
-    //         }
-    //     }
-    // }
     public onAlternative(event: any) {
         if (event.charCode !== 0) {
             const pattern =/[0-9-]/;
@@ -339,14 +323,15 @@ export class TravelShriramProposalComponent implements OnInit {
         this.back = false;
     }
     sessionData() {
+        if (sessionStorage.shriramCitys != '' && sessionStorage.shriramCitys != undefined) {
+            this.shriramCitys = JSON.parse(sessionStorage.shriramCitys);
+        }
         if (sessionStorage.stepper1ShriramTravel != '' && sessionStorage.stepper1ShriramTravel != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1ShriramTravel);
-            this.personal.controls['state'].patchValue(this.getStepper1.state);
-            this.selectedSate();
             this.personal = this.fb.group({
                 firstname: this.getStepper1.firstname,
                 gender: this.getStepper1.gender,
-                dob: new FormControl(new Date(this.getStepper1.dob)),
+                dob: this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
                 purposeofVisit: this.getStepper1.purposeofVisit,
                 occupation: this.getStepper1.occupation,
                 passportNumber: this.getStepper1.passportNumber,
@@ -359,21 +344,24 @@ export class TravelShriramProposalComponent implements OnInit {
                 address3: this.getStepper1.address3,
                 pincode: this.getStepper1.pincode,
                 city: this.getStepper1.city,
+                cityName: this.getStepper1.cityName,
                 state: this.getStepper1.state,
+                stateName: this.getStepper1.stateName,
                 email: this.getStepper1.email,
                 mobile: this.getStepper1.mobile,
                 phone: this.getStepper1.phone,
                 physicianName: this.getStepper1.physicianName,
                 physicianAddress: this.getStepper1.physicianAddress,
                 medicalRepAttach: this.getStepper1.medicalRepAttach,
-                medicalRepDate: new FormControl(new Date(this.getStepper1.medicalRepDate))
+                medicalRepDate: this.datepipe.transform(this.getStepper1.medicalRepDate, 'y-MM-dd')
             });
         }
         if (sessionStorage.stepper2ShriramTravel != '' && sessionStorage.stepper2ShriramTravel != undefined) {
             this.getStepper2 = JSON.parse(sessionStorage.stepper2ShriramTravel);
             this.nomineeDetails = this.fb.group({
                 nomineeName: this.getStepper2.nomineeName,
-                nomineeRelationship: this.getStepper2.nomineeRelationship
+                nomineeRelationship: this.getStepper2.nomineeRelationship,
+                nomineeRelationshipName: this.getStepper2.nomineeRelationshipName
             });
         }
         if (sessionStorage.travel_shriram_proposal_id != '' && sessionStorage.travel_shriram_proposal_id != undefined) {
@@ -417,6 +405,9 @@ export class TravelShriramProposalComponent implements OnInit {
 
     // city lists
     selectedSate() {
+        this.personal.controls['stateName'].patchValue(this.shriramStates[this.personal.controls['state'].value]);
+        console.log(this.personal.value);
+
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId(),
@@ -437,9 +428,14 @@ export class TravelShriramProposalComponent implements OnInit {
     public getCitySuccess(successData) {
         if (successData.IsSuccess) {
             this.shriramCitys = successData.ResponseObject;
+            sessionStorage.shriramCitys = JSON.stringify(this.shriramCitys);
         }
     }
     public getCityFailure(error) {
+    }
+    selectedCity(){
+        this.personal.controls['cityName'].patchValue(this.shriramCitys[this.personal.controls['city'].value]);
+        console.log(this.personal.value);
     }
     // state lists
     getStateList() {
@@ -575,6 +571,11 @@ export class TravelShriramProposalComponent implements OnInit {
 
     public assigneeRelationshipFailure(error) {
     }
+    selectNomineeRelation(){
+        this.nomineeDetails.controls['nomineeRelationshipName'].patchValue(this.nomineeRelationList[this.nomineeDetails.controls['nomineeRelationship'].value]);
+        console.log(this.nomineeDetails.value);
+
+    }
 
     getIlnessDetails() {
         const data = {
@@ -686,7 +687,7 @@ export class TravelShriramProposalComponent implements OnInit {
                     'DateOfBirth': this.datepipe.transform(this.personalData.dob, 'dd-MM-yyy'),
                     'Gender': this.personalData.gender,
                     "PassportNumber": this.personalData.passportNumber,
-                    "CountryOfVisit": this.getEnquiryDetails.travel_place, //From main page this.getTravelPremiumList.plan_continent,
+                    // "CountryOfVisit": this.getEnquiryDetails.travel_place, //From main page this.getTravelPremiumList.plan_continent,
                     "PlanType": this.getTravelPremiumList.plan_id,
                     "PurposeOfVisit": this.personalData.purposeofVisit,
                     "AssigneeName": this.nomineeData.nomineeName,
@@ -694,7 +695,7 @@ export class TravelShriramProposalComponent implements OnInit {
                     "Occupation": this.personalData.occupation,
                     "PreExistingAilments": this.personalData.preExistingAilments,
                     "HandicappedYN": this.personalData.handicapped,
-                    "CountriesTobeVisit": this.allPremiumLists.plan_type,
+                    "CountriesTobeVisit": this.getTravelPremiumList.travel_place,
                     "EngagedSportsYN": this.personalData.engagedSports,
                     "NameofPhysician": this.personalData.physicianName,
                     "AddressofPhysician": this.personalData.physicianAddress,
@@ -704,7 +705,7 @@ export class TravelShriramProposalComponent implements OnInit {
                     "TravelerType": "IND"//Set Static value - Individul
                 }
             }
-            // this.settings.loadingSpinner = true;
+            this.settings.loadingSpinner = true;
             this.travelservice.createShriramTravelProposal(data).subscribe(
                 (successData) => {
                     this.proposalSuccess(successData, stepper);
@@ -718,21 +719,21 @@ export class TravelShriramProposalComponent implements OnInit {
     public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            this.toastr.success('Proposal created successfully!!');
             stepper.next();
-            // this.summaryData = successData.ResponseObject.ProposalDetails;
-            // this.paymentData = successData.ResponseObject;
-            // sessionStorage.travel_shriram_proposal_id = this.summaryData.proposal_id;
-            //
+            this.summaryData = successData.ResponseObject;
+            sessionStorage.travel_shriram_proposal_id = this.summaryData.ProposalId;
             this.proposerFormData = this.personal.value;
             this.nomineeFormData = this.nomineeDetails.value;
-            // this.insurerDtails = successData.ResponseObject.proposal_details.insure_details;
-           // this.proposalDtails = this.summaryData.proposal_details[0];
-            this.toastr.success('Proposal created successfully!!');
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+            sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }
     }
     public proposalFailure(error) {
+        this.settings.loadingSpinner = false;
     }
     topScroll() {
         document.getElementById('main-content').scrollTop = 0;
@@ -740,42 +741,6 @@ export class TravelShriramProposalComponent implements OnInit {
 
     PaymentPage(stepper: MatStepper) {
         stepper.next();
-    }
-
-    public payNow() {
-        const data = {
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'platform': 'web',
-            'reference_id' :  this.proposalDtails.referenceId,
-            'proposal_id': sessionStorage.travel_shriram_proposal_id,
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'
-        }
-        this.settings.loadingSpinner = true;
-        this.travelservice.getPolicyToken(data).subscribe(
-            (successData) => {
-                this.getPolicyTokenSuccess(successData);
-            },
-            (error) => {
-                this.getPolicyTokenFailure(error);
-            }
-        );
-    }
-
-    public getPolicyTokenSuccess(successData) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-            this.toastr.success('Proposal created successfully!!');
-            this.paymentGatewayData = successData.ResponseObject;
-            window.location.href = this.paymentGatewayData.payment_gateway_url;
-            // this.lastStepper.next();
-
-        } else {
-            this.toastr.error(successData.ErrorObject);
-        }
-    }
-    public getPolicyTokenFailure(error) {
-        this.settings.loadingSpinner = false;
     }
 
 
