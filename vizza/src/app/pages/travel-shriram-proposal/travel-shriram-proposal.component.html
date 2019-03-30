@@ -193,8 +193,8 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100" >
                           <mat-select placeholder="City" formControlName="city" autocomplete="off" required>
-                            <mat-option *ngFor="let city of shriramCitys" [value]= 'city.city'>
-                              {{city.city}}
+                            <mat-option *ngFor="let city of shriramCitys | keys" [value]= 'city.value'>
+                              {{city.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.city.errors?.required">City is required</mat-error>

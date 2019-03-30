@@ -134,6 +134,7 @@ export class TravelShriramProposalComponent implements OnInit {
     occupationLists: any;
     allPremiumLists: any;
     public sameRelationship: any;
+    public getEnquiryDetails: any;
     constructor(public travelservice: TravelService, public proposalservice: HealthService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
@@ -199,9 +200,10 @@ export class TravelShriramProposalComponent implements OnInit {
         this.getStateList();
         // this.getIlnessDetails();
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
-        this.allPremiumLists = allLists[sessionStorage.changedTabIndex];
-        this.insurePersons = this.getTravelPremiumList.family_details;
+        let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
+        this.getEnquiryDetails = enqList[0];
+        this.allPremiumLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+        this.insurePersons = this.getEnquiryDetails.family_details;
         this.sessionData();
         this.sameRelationship = 'SELF';
     }
@@ -647,6 +649,7 @@ export class TravelShriramProposalComponent implements OnInit {
         if (this.personal.valid) {
             if (sessionStorage.proposerAgeForTravel >= 18) {
                 stepper.next();
+                this.topScroll();
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -666,9 +669,9 @@ export class TravelShriramProposalComponent implements OnInit {
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
                 'proposal_id': sessionStorage.travel_shriram_proposal_id == '' || sessionStorage.travel_shriram_proposal_id == undefined ? '' : sessionStorage.travel_shriram_proposal_id,
                 'objTravelProposalEntryETT': {
-                    'PolicyFromDt': this.datepipe.transform(this.getTravelPremiumList.start_date, 'dd-MM-yyy'),
-                    'PolicyToDt': this.datepipe.transform(this.getTravelPremiumList.end_date, 'dd-MM-yyy'),
-                    'DurationOfTrip': this.getTravelPremiumList.trip_duration.toString(),
+                    'PolicyFromDt': this.datepipe.transform(this.getEnquiryDetails.start_date, 'dd-MM-yyy'),
+                    'PolicyToDt': this.datepipe.transform(this.getEnquiryDetails.end_date, 'dd-MM-yyy'),
+                    'DurationOfTrip': this.getEnquiryDetails.day_count.toString(),
                     'InsuredName': this.personalData.firstname,
                     'Address1':  this.personalData.address,
                     'Address2': this.personalData.address2,
@@ -683,8 +686,8 @@ export class TravelShriramProposalComponent implements OnInit {
                     'DateOfBirth': this.datepipe.transform(this.personalData.dob, 'dd-MM-yyy'),
                     'Gender': this.personalData.gender,
                     "PassportNumber": this.personalData.passportNumber,
-                    "CountryOfVisit": "Excl", //From main page this.getTravelPremiumList.plan_continent,
-                    "PlanType": this.getTravelPremiumList.product_code,
+                    "CountryOfVisit": this.getEnquiryDetails.travel_place, //From main page this.getTravelPremiumList.plan_continent,
+                    "PlanType": this.getTravelPremiumList.plan_id,
                     "PurposeOfVisit": this.personalData.purposeofVisit,
                     "AssigneeName": this.nomineeData.nomineeName,
                     "AssigneeRelationShip": this.nomineeData.nomineeRelationship,
@@ -730,6 +733,9 @@ export class TravelShriramProposalComponent implements OnInit {
         }
     }
     public proposalFailure(error) {
+    }
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
     }
 
     PaymentPage(stepper: MatStepper) {

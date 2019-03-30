@@ -264,7 +264,7 @@ export class TravelPremiumListComponent implements OnInit {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
-                this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
+                //this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
             }
             sessionStorage.allTravelPremiumLists = JSON.stringify(this.allProductLists);
             this.setAllProductLists = this.allProductLists;
