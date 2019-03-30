@@ -234,11 +234,11 @@ export class TravelProposalComponent implements OnInit {
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
         let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
         this.getEnquiryDetails = enqList[0];
-        this.insurePersons = this.getTravelPremiumList.family_details;
+        this.insurePersons = this.getEnquiryDetails.family_members;
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
-        for (let i = 0; i < this.getTravelPremiumList.family_details.length; i++) {
+        for (let i = 0; i < this.insurePersons.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getTravelPremiumList.family_details[i].type);
@@ -869,6 +869,7 @@ export class TravelProposalComponent implements OnInit {
     public placeOfVisitSuccess(successData) {
         if (successData.IsSuccess) {
             this.placeOfVisiLists = successData.ResponseObject;
+            console.log(this.placeOfVisiLists,'this.placeOfVisiLists' );
         } else {
             this.toastr.error(successData.ErrorObject);
         }
