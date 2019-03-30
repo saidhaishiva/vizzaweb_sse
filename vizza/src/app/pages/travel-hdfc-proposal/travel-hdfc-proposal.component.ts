@@ -172,8 +172,8 @@ export class TravelHdfcProposalComponent implements OnInit {
         console.log(this.getTravelPremiumList,'this.getTravelPremiumList');
         let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
         this.getEnquiryDetails = enqList[0];
-        this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
-        console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
+        // this.getallTravelPremiumList = JSON.parse(sessionStorage.allTravelPremiumLists);
+        // console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
         this.insuredTravelPerson = this.getEnquiryDetails.family_members;
         console.log(this.insuredTravelPerson,' this.insuredTravelPerson ');
         this.hdfcInsuredTravel = this.fb.group({
