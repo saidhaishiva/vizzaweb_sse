@@ -232,6 +232,7 @@ export const routes: Routes = [
             { path: 'hdfc-travel-payment-success/:status/:proId', component: HdfcTravelPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'travel-religare-payment-success/:status/:proId', component: TravelReligarePaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'shriram-travel-payment-success/:status/:proId', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
+            { path: 'shriram-travel-payment-success/:status/:proId/:mailstatus', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
             { path: 'hdfc-travel/:stepper', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
             { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
