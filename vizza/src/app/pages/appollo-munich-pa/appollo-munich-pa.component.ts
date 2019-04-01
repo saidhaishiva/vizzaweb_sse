@@ -1798,33 +1798,33 @@ preInsureList() {
     //     this.nomineeDetail.controls['paNomineeDistrictName'].patchValue(this.paNomineedistrictList[this.nomineeDetail.controls['paNomineeDistrict'].value])
     // }
     changeRelationship(){
-        this.nomineeDetail.controls['paRelationshipName'].patchValue(this.relationshipListPa[this.nomineeDetail.controls['paRelationship'].value])
+        this.nomineeDetail.controls['paRelationshipName'].patchValue(this.relationshipListPa[this.nomineeDetail.controls['paRelationship'].value]);
 
     }
     professionListCode() {
-        this.insured.controls['insuredProfessionListName'].patchValue(this.professionList[this.insured.controls['insuredProfessionList'].value])
+        this.insured.controls['insuredProfessionListName'].patchValue(this.professionList[this.insured.controls['insuredProfessionList'].value]);
      }
     occupationListCode() {
-        this.insured.controls['insuredOccupationListName'].patchValue(this.occupationCode[this.insured.controls['insuredOccupationList'].value])
+        this.insured.controls['insuredOccupationListName'].patchValue(this.occupationCode[this.insured.controls['insuredOccupationList'].value]);
 
     }
     changeidName(){
-        this.insured.controls['insuredPaIdProofName'].patchValue(this.paIdProofList[this.insured.controls['insuredPaIdProof'].value])
+        this.insured.controls['insuredPaIdProofName'].patchValue(this.paIdProofList[this.insured.controls['insuredPaIdProof'].value]);
 
   }
     changeDistrictname(){
-        this.insured.controls['insuredPaDistrictName'].patchValue(this.paInsureddistrictList[this.insured.controls['insuredPaDistrict'].value])
+        this.insured.controls['insuredPaDistrictName'].patchValue(this.paInsureddistrictList[this.insured.controls['insuredPaDistrict'].value]);
 
     }
     changeCity() {
-      this.insured.controls['insuredPaCityName'].patchValue(this.paCityInsuredList[this.insured.controls['insuredPaCity'].value])
+      this.insured.controls['insuredPaCityName'].patchValue(this.paCityInsuredList[this.insured.controls['insuredPaCity'].value]);
 
     }  // l
     changePrevName(){
-        this.insured.controls['insuredPrevListName'].patchValue(this.preinsure[this.insured.controls['insuredPrevList'].value])
+        this.insured.controls['insuredPrevListName'].patchValue(this.preinsure[this.insured.controls['insuredPrevList'].value]);
   }
     changeMarital(){
-        this.insured.controls['maritalStatusName'].patchValue(this.paMaritalList[this.insured.controls['maritalStatus'].value])
+        this.insured.controls['maritalStatusName'].patchValue(this.paMaritalList[this.insured.controls['maritalStatus'].value]);
 
     }
     // validationSpace(event){

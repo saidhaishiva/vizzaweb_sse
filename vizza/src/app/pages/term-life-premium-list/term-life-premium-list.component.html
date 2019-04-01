@@ -10,7 +10,7 @@
           </div>
         </div>
         <div class="flex-p ">
-          <table class="table health-table table-scroll">
+          <table class="table health-table table-scroll termLifeScroll">
             <thead>
             <tr>
               <th class="col-md-3">
@@ -39,11 +39,10 @@
 
                 </mat-form-field>
               </th>
-              <th class="col-md-1">Emergency Medical Expenses</th>
-              <th class="col-md-1">Emergency Medical Transportation</th>
-              <th class="col-md-1">Transportation Of Mortal Remains</th>
-              <th class="col-md-1" style="padding: 15px 5px !important;">Daily Allowance</th>
-              <!--<th class="col-md-1">PRE EXISTING DISEASES</th>-->
+              <th class="col-md-1" style="padding: 15px 5px !important;">Age</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Policy Term</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Policy Paying Term</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Payment</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>
               <th class="col-md-2" style="padding: 15px 5px !important;">Premiun ( &#8377; )</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
@@ -54,22 +53,30 @@
 
               <td align="center"  class="col-md-3 text-center">
                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
-                <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
+                <p class="pTitle" matTooltip="{{plists.product_display_name}}">{{plists.product_display_name | titlecase }}</p>
               </td>
-              <td class="col-md-1">
+              <td class="col-md-1 text-center">
                 <p class="mt-4">{{plists.sum_insured_amount | currency}}</p>
               </td>
-              <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
-                <p class="text-center mt-4">{{keys.key_features_value}}</p>
+              <td class="col-md-1 text-center">
+                <p class="mt-4">{{plists.age}}</p>
               </td>
-
+              <td class="col-md-1 text-center">
+                <p class="mt-4">{{plists.policy_term}}</p>
+              </td>
+              <td class="col-md-1 text-center">
+                <p class="mt-4">{{plists.policy_paying_term}}</p>
+              </td>
+              <td class="col-md-1 text-center">
+                <p class="mt-4">{{plists.payment_mode | titlecase}}</p>
+              </td>
               <td class="col-md-1 text-center">
                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
               <td class="col-md-2">
-                <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.total_premium}} / Yr</strong></p>
+                <p class="text-center change-p" ><strong>&#8377;  {{plists.totalpremium}} / Yr</strong></p>
                 <p class="text-center change-p">(Including GST)</p>
               </td>
               <td class="col-md-1">

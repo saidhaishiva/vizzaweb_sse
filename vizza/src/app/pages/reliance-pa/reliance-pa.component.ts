@@ -448,7 +448,9 @@ export class ReliancePaComponent implements OnInit {
     this.coverage = true;
   }
 
+    getinsuredPostalCode(pin) {
 
+    }
   // nominee pin validate
   getnomineePostalCode(pin) {
     const data = {
@@ -556,6 +558,12 @@ export class ReliancePaComponent implements OnInit {
       this.proposer.controls['proposerPaCity1'].patchValue('');
     }
   }
+    panType(val) {
+
+    }
+    occupationListCode() {
+
+    }
 }
 
 

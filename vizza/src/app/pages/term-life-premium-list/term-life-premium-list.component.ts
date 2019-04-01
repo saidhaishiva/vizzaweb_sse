@@ -5,6 +5,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-term-life-premium-list',
@@ -22,7 +23,7 @@ export class TermLifePremiumListComponent implements OnInit {
     getEnquiryDetials: any;
     compareArray: any;
     selectedAmountTravel: any;
-  constructor(public auth: AuthService, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService) {
+  constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
@@ -38,6 +39,16 @@ export class TermLifePremiumListComponent implements OnInit {
         if(sessionStorage.getEnquiryDetials != '' && sessionStorage.getEnquiryDetials !=undefined) {
           this.getEnquiryDetials  = JSON.parse(sessionStorage.getEnquiryDetials);
         }
+        if(sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists !=undefined) {
+            this.setAllProductLists  = JSON.parse(sessionStorage.setAllProductLists);
+        }
+        if(sessionStorage.allProductLists != '' && sessionStorage.allProductLists !=undefined) {
+            this.allProductLists  = JSON.parse(sessionStorage.allProductLists);
+        }
+
+
+
+
     }
     getCompanyList() {
     const data = {
@@ -104,7 +115,7 @@ export class TermLifePremiumListComponent implements OnInit {
             for(let i = 0; i < successData.length; i++) {
                 if (successData[i].IsSuccess) {
                     let policylists = successData[i].ResponseObject;
-                    this.productListArray.push(policylists.product_list);
+                    this.productListArray.push(policylists.productlist);
                 }
                 this.allProductLists = [].concat.apply([], this.productListArray);
             }
@@ -112,10 +123,13 @@ export class TermLifePremiumListComponent implements OnInit {
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
+                let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
+                this.allProductLists[i].age = this.ageCalculate(dob);
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
                 //this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
             }
             this.setAllProductLists = this.allProductLists;
+            sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
             sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
             // if(this.allProductLists.length > 0) {
             //     this.enquiryDetails.sum_insured_amount = this.allProductLists[0].sum_insured_amount;
@@ -125,6 +139,17 @@ export class TermLifePremiumListComponent implements OnInit {
     public getProductListFailure(error) {
         this.settings.loadingSpinner = false;
         console.log(error, 'error');
+    }
+    ageCalculate(dob) {
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
     }
     updateSumInsured(){
 

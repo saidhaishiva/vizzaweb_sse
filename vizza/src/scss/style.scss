@@ -3721,10 +3721,11 @@ fieldset {
       border-top: 1px solid #85b31e !important;
     }
     .mat-raised-button.mat-primary {
-      background-color: #d9edf7;
-      border: 1px solid #2b7496;
-      color: #2b7496;
+      background-color: #e7f7c9;
+      border: 1px solid #6fa50d;
+      color: #5f8e0a;
     }
+
     .mat-raised-button.mat-primary1 {
       background-color: #ca8845db;
     }
@@ -3777,8 +3778,10 @@ fieldset {
       }
     }
   }
-
-
+  .change-p {
+    margin-bottom: 0.3rem !important;
+    line-height: 1.4 !important;
+  }
 
   //.mat-raised-button.mat-primaryBlue {
   //  background-color: #80c4e0 !important;
@@ -3792,6 +3795,15 @@ fieldset {
   //td{
   //  color: rgb(15, 105, 142) !important;
   //}
+}
+.termLifeScroll{
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #85b31e !important;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
+
 }
 
 
