@@ -199,14 +199,14 @@ export class ReliagretravelproposalComponent implements OnInit {
 
     ngOnInit() {
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        this.allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
-        console.log(this.allLists,'this.allLists');
-       console.log(this.allLists[0].travel_user_type,'tyoooooo');
-        // this.getallTravelPremiumList = this.allLists[sessionStorage.changedTabIndex];
+        // this.allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
+       //  console.log(this.allLists,'this.allLists');
+       // console.log(this.allLists[0].travel_user_type,'tyoooooo');
+       //  // this.getallTravelPremiumList = this.allLists[sessionStorage.changedTabIndex];
         console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
         let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
         this.getEnquiryDetails = enqList[0];
-        if(this.allLists[0].travel_user_type == 'student'){
+        if(this.getEnquiryDetails.travel_user_type == 'student'){
             this.studentdetails = true;
         } else {
             this.studentdetails = false;
@@ -948,7 +948,7 @@ export class ReliagretravelproposalComponent implements OnInit {
         let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
         const data = {
             'platform': 'web',
-            'travel_type':this.allLists[0].travel_user_type,
+            'travel_type':this.getEnquiryDetails.travel_user_type,
             'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
             'product_id': this.getTravelPremiumList.product_id,
             'enquiry_id': this.getEnquiryDetails.enquiry_id,
