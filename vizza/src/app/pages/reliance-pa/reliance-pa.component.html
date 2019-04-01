@@ -17,7 +17,7 @@
                                         <div class="row">
                                             <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Salutation" formControlName="proposerPaTitle" (change)="insurechangeGender()" required>
+                                                    <mat-select placeholder="Title" formControlName="proposerPaTitle" (change)="insurechangeGender()" required>
                                                         <mat-option value="MR">Mr</mat-option>
                                                         <mat-option value="MRS">Ms</mat-option>
                                                     </mat-select>
@@ -64,7 +64,6 @@
                                                     <mat-error *ngIf="proposer.controls.proposerPaDob.errors?.required">DOB is required</mat-error>
                                                 </mat-form-field>
                                                 <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
-
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
@@ -100,7 +99,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" class="w-100">
+                                                    <mat-select  placeholder="Marital Status" formControlName="maritalStatus" class="w-100">
                                                         <mat-option *ngFor="let status of paMaritalList | keys" [value]= status.key> {{status.value}} </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
@@ -198,7 +197,7 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="City"  formControlName="proposerPaCity" required>
-                                                        <mat-option *ngFor="let paCity of paCityInsuredList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                                        ,                <mat-option *ngFor="let paCity of paCityInsuredList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="proposer.controls.proposerPaCity.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
@@ -296,10 +295,10 @@
                                         <div class="row">
                                             <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Relationship with Proposer" formControlName="Relationship" required>
+                                                    <mat-select placeholder="Relationship with Proposer" formControlName="paRelationship" required>
                                                         <mat-option></mat-option>
                                                     </mat-select>
-                                                    <mat-error *ngIf="insure.controls.Relationship.errors?.required">Relationship is required</mat-error>
+                                                    <mat-error *ngIf="insure.controls.paRelationship.errors?.required">Relationship With Proposer is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3" >
@@ -371,7 +370,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Occupation" name="occupation" formControlName="insureOccupationList" (change)="occupationListCode()"required>
+                                                    <mat-select placeholder="Occupation" name="occupation" formControlName="insureOccupationList"required>
                                                         <mat-option *ngFor="let occupation of occupationCode | keys" [value]="occupation.key">{{occupation.value}}</mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="insure.controls.insureOccupationList.errors?.required">Occupation is required</mat-error>
@@ -465,6 +464,24 @@
                                                 <mat-option> </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="riskDetails.controls.coveragesubOptionID.errors?.required">coveragesubOptionID is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck7" formControlName="medicalexpense">
+                                            <label class="custom-control-label" for="customCheck7" >Medical Expense Extn Applicable?</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="extnrate"  formControlName="extnrate"  autocomplete="off" required>
+                                            <mat-error *ngIf="riskDetails.controls.extnrate.errors?.required">Medical Expense Extn Rate  is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <mat-form-field class="w-100">
+                                            <input matInput placeholder="familydiscount"  formControlName="familydiscount"  autocomplete="off" required>
+                                            <mat-error *ngIf="riskDetails.controls.familydiscount.errors?.required">Family Discount Rate (%)  is required</mat-error>
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-3">
@@ -563,13 +580,40 @@
                                         <mat-error *ngIf="nominee.controls.nomineePaLastname.errors?.required">Last Name is required</mat-error>
                                     </mat-form-field>
                                 </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput [matDatepicker]="picker3"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="nomineePaDob" (dateInput)="addEvent($event, 'nominee')" (dateChange)="addEvent($event, 'nominee')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate">
+                                                    <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker3></mat-datepicker>
+                                                </mat-form-field>
+                                                <div class="error" *ngIf="nomineedateError != ''">{{proposerdateError}}</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select  placeholder="Relationship with Proposer" formControlName="relationshipWithProposer" required  class="w-100">
+                                                        <mat-option></mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="nominee.controls.relationshipWithProposer.errors?.required">Relationship with Proposer is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="If Others Please Specify" formControlName="ifothersPleaseSpecify"  required readonly>
+                                                    <mat-error *ngIf="nominee.controls.ifothersPleaseSpecify.errors?.required">If Others Please Specify is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Gender" formControlName="nomineePaGender"  required readonly>
+                                                    <mat-error *ngIf="nominee.controls.nomineePaGender.errors?.required">Gender is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="w-100">
                                         <input matInput placeholder="Gender" formControlName="nomineePaGender"  required readonly>
                                         <mat-error *ngIf="nominee.controls.nomineePaGender.errors?.required">Gender is required</mat-error>
                                     </mat-form-field>
                                 </div>
-
                                 <div class="col-md-3">
                                     <mat-form-field class="w-100">
                                         <input matInput placeholder="Email ID"   formControlName="nomineePaEmail"  autocomplete="off" required>
@@ -592,14 +636,12 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="w-100">
-                                        <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
+                                        <mat-select  placeholder="Marital Status" formControlName="maritalStatus" required  class="w-100">
                                             <mat-option *ngFor="let status of paMaritalList | keys" [value]= status.key> {{status.value}} </mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="nominee.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
                                     </mat-form-field>
                                 </div>
-
-
                                 <div class="col-md-3">
                                     <mat-form-field class="w-100">
                                         <mat-select placeholder="Occupation" name="occupation" formControlName="nomineeOccupationList" (change)="occupationListCode()"required>
@@ -662,7 +704,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <mat-form-field class="w-100">
-                                        <mat-select placeholder="City"  formControlName="nomineePaCity" (change)="changeCity()" required>
+                                        <mat-select placeholder="City"  formControlName="nomineePaCity"  required>
                                             <mat-option *ngFor="let paCity of paCityNomineeList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                         </mat-select>
                                         <mat-error *ngIf="nominee.controls.nomineePaCity.errors?.required">City is required</mat-error>
