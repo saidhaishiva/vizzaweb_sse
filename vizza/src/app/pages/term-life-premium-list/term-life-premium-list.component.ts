@@ -21,6 +21,7 @@ export class TermLifePremiumListComponent implements OnInit {
     setAllProductLists: any;
     getEnquiryDetials: any;
     compareArray: any;
+    selectedAmountTravel: any;
   constructor(public auth: AuthService, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -83,7 +84,8 @@ export class TermLifePremiumListComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'policy_id': this.getEnquiryDetials.term_policy_id
+            'policy_id': this.getEnquiryDetials.policy_id,
+            'company_id': ''
         };
         this.settings.loadingSpinner = true;
         this.life.getProductList(data,companyList).subscribe(
@@ -123,5 +125,11 @@ export class TermLifePremiumListComponent implements OnInit {
     public getProductListFailure(error) {
         this.settings.loadingSpinner = false;
         console.log(error, 'error');
+    }
+    updateSumInsured(){
+
+    }
+    filterByProducts(){
+
     }
 }

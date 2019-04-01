@@ -19,6 +19,7 @@ export class BikePremiumListComponent implements OnInit {
   public settings: Settings;
   tabIndex: any;
   webhost: any;
+    filterCompany: any;
   constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
     this.settings = this.appSettings.settings;
     this.tabIndex = 0;

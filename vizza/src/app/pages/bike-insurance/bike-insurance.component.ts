@@ -89,6 +89,9 @@ export class BikeInsuranceComponent implements OnInit {
 
 
   }
+    BikeInsurer(){
+
+    }
     claim(){
         if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
             this.claimAmountDetails = true;

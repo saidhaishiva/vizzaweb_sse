@@ -70,6 +70,10 @@ export class TermLifeComponent implements OnInit {
     }
 
     ngOnInit() {
+        sessionStorage.enquiryFromDetials = '';
+        sessionStorage.filterCompany = '';
+        sessionStorage.getEnquiryDetials = '';
+        sessionStorage.allProductLists = '';
         this.show = this.config.getTermLife();
         this.setDate = Date.now();
         this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');

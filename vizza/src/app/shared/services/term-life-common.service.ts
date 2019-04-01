@@ -50,9 +50,7 @@ export class TermLifeCommonService {
         response = [];
         for (let i = 0; i < list.length; i++) {
             console.log('insideeee');
-            const data = {
-                'company_id': list[i].company_id
-            };
+            data.company_id = list[i].company_id;
             let  json = '';
             json = JSON.stringify(data);
             const url = this.configurationService.getHostTerm() + 'productlist/index' ;
