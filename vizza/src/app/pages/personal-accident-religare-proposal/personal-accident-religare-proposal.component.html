@@ -93,7 +93,7 @@
                       <div class="col-md-3 "><mat-form-field class="w-100">
                         <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"    maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="insuredPan"  autocomplete="off" required>
                         <mat-error *ngIf="insured.controls.insuredPan.errors?.required">PAN is required</mat-error>
-                        <mat-error *ngIf="insured.controls.insuredPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                        <!--<mat-error *ngIf="insured.controls.insuredPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
                         <mat-error *ngIf="insured.controls.insuredPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
 
                       </mat-form-field></div>
@@ -171,7 +171,7 @@
                                     </div>
                                     <div class="col-md-6"><mat-form-field class="w-100">
                                         <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6" (input)=" getInsurePostal($event.target.value, 'personal')" formControlName="insuredPincode" autocomplete="off" required>
-                                        <mat-error *ngIf="insured.controls.insuredPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                        <!--<mat-error *ngIf="insured.controls.insuredPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('required')">Pincode required</mat-error>
                                         <mat-error *ngIf="insured.controls.insuredPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                     </mat-form-field></div>
@@ -221,7 +221,7 @@
                                     </div>
                                     <div class="col-md-6"><mat-form-field class="w-100">
                                         <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   [readonly]="inputReadonly" maxlength="6" (input)=" getInsurePostal($event.target.value, 'residence')" formControlName="insuredrPincode"autocomplete="off"  required>
-                                        <mat-error *ngIf="insured.controls.insuredrPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                        <!--<mat-error *ngIf="insured.controls.insuredrPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('required')">Pincode required</mat-error>
                                         <mat-error *ngIf="insured.controls.insuredrPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                     </mat-form-field></div>

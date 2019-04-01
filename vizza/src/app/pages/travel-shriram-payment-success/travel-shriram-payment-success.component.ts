@@ -25,7 +25,6 @@ export class TravelShriramPaymentSuccessComponent implements OnInit {
 
     constructor(public config: ConfigurationService, public travelservice: TravelService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
-
         this.route.params.forEach((params) => {
             console.log(params);
             this.paymentStatus = params.status;
