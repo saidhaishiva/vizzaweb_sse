@@ -121,6 +121,7 @@ import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-heal
 import {ReligareDownloadPaPolicyComponent} from './pages/religare-download-pa-policy/religare-download-pa-policy.component';
 import {ReliancePaComponent} from './pages/reliance-pa/reliance-pa.component';
 import {BikePremiumListComponent} from './pages/bike-premium-list/bike-premium-list.component';
+import {TermLifePremiumListComponent} from './pages/term-life-premium-list/term-life-premium-list.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -239,7 +240,7 @@ export const routes: Routes = [
             { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
             { path: 'reliance-pa', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
             { path: 'bikepremium', component:BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
-
+            { path: 'life-premium-list', component:TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} }
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },
