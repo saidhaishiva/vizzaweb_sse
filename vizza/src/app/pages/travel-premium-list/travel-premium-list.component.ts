@@ -255,9 +255,12 @@ export class TravelPremiumListComponent implements OnInit {
             for(let i = 0; i < successData.length; i++) {
                 if (successData[i].IsSuccess) {
                     let policylists = successData[i].ResponseObject;
-                    this.productListArray.push(policylists.product_list);
+                    console.log(policylists.length, 'policylists.length');
+                    if(policylists.length > 0) {
+                        this.productListArray.push(policylists.product_list);
+                        this.allProductLists = [].concat.apply([], this.productListArray);
+                    }
                 }
-                this.allProductLists = [].concat.apply([], this.productListArray);
             }
             console.log(this.allProductLists, 'all');
             for (let i = 0; i < this.allProductLists.length; i++) {

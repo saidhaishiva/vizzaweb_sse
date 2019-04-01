@@ -98,7 +98,7 @@ export const horizontalMenuItems = [
     new Menu (40, 'Products Liability Policy', '/', null, null, null, false, 26),
     new Menu (41, 'Professional Indemnity Policy', '/', null, null, null, false, 26),
     new Menu (42, 'Directors and Officers Liability Policy', '/', null, null, null, false, 26),
-    new Menu (43, 'Life (Third Party) Insurance', '/', null, null, null, false, 26),
+    new Menu (43, 'Lift Insurance', '/', null, null, null, false, 26),
     new Menu (44, 'Employers Liability Policy', '/', null, null, null, false, 26),
     new Menu (23, 'Workmen Compensation', '/workmen', null, null, null, false, 26),
     new Menu (45, 'Carriers Liability Insurance', '/', null, null, null, false, 26),
