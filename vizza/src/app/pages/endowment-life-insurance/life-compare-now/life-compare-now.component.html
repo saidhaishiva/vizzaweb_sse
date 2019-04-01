@@ -3,35 +3,37 @@
     <mat-icon (click)="onNoClick()" style="cursor: pointer">cancel</mat-icon>
   </div>
 </div>
-<div class="row " id="life-list" fxLayoutAlign="center start">
+<div class="row " id="life-list" fxLayoutAlign="center center">
   <div class="col-sm-12">
     <div fxLayout="column">
-      <div class="row" style="height:550px; overflow:auto;">
-        <div class="table-responsive">
-          <table class="table  life-table" >
-            <thead>
-            <tr>
-            <th class="col-md-1"><strong>Endowment Policies</strong></th>
-            <th class="col-md-2"><strong>Entry Age (Min/Max)</strong></th>
-            <th class="col-md-1"><strong>Maximum Maturity Age</strong></th>
-            <th class="col-md-1"><strong>Policy Term</strong></th>
-            <th class="col-md-1"><strong>Premium Paying Term</strong></th>
-            <th class="col-md-1"><strong>Minimum Annualised Premium</strong></th>
-            <th class="col-md-1"><strong>Minimum Sum Assured</strong></th>
-            <th class="col-md-1"><strong>Maximum Sum Assured</strong></th>
-            <th class="col-md-2"><strong>Policy Paying Mode</strong></th>
-            <th class="col-md-1"><strong>Fix An Appointment</strong></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let list of compareDetails">
-              <td class="col-md-1"><small class="pinck-back" style="color:#ffffff;">{{list.company_name}}<br/>{{list.product_name}}</small></td>
-              <td *ngFor="let key of list.keyfeature; let i = index;" [ngClass] = "i == 1||i==7 ? 'col-md-2' : 'col-md-1'"><small>{{key.key_value}}</small></td>
-            <td class="col-md-1 pt-2">
-              <p style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="callBack(list)">Call Back</button></p>
-            </td></tr>
-            </tbody>
-          </table>
+      <div class="flex-p">
+        <div class="row" style="height:550px; overflow:auto;">
+          <div class="table-responsive">
+            <table class="table  life-table" >
+              <thead>
+              <tr>
+              <th class="col-md-1"><strong>Endowment Policies</strong></th>
+              <th class="col-md-2"><strong>Entry Age (Min/Max)</strong></th>
+              <th class="col-md-1"><strong>Maximum Maturity Age</strong></th>
+              <th class="col-md-1"><strong>Policy Term</strong></th>
+              <th class="col-md-1"><strong>Premium Paying Term</strong></th>
+              <th class="col-md-1"><strong>Minimum Annualised Premium</strong></th>
+              <th class="col-md-1"><strong>Minimum Sum Assured</strong></th>
+              <th class="col-md-1"><strong>Maximum Sum Assured</strong></th>
+              <th class="col-md-2"><strong>Policy Paying Mode</strong></th>
+              <th class="col-md-1"><strong>Fix An Appointment</strong></th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let list of compareDetails">
+                <td class="col-md-1"><small class="pinck-back" style="color:#ffffff;">{{list.company_name}}<br/>{{list.product_name}}</small></td>
+                <td *ngFor="let key of list.keyfeature; let i = index;" [ngClass] = "i == 1||i==7 ? 'col-md-2' : 'col-md-1'"><small>{{key.key_value}}</small></td>
+              <td class="col-md-1 pt-2">
+                <p style="margin-bottom: 0.3rem; line-height: 1.4;"><button mat-raised-button class="pink-color" (click)="callBack(list)">Call Back</button></p>
+              </td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

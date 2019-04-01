@@ -74,7 +74,7 @@
                 <div style="color:#DB414F;" *ngIf="dobError != ''">{{dobError}}</div>
               </div>
               <div class="col-md-6 mt-3">
-                    <ngb-timepicker placeholder="Appointment Time" [(ngModel)]="time" [meridian]="meridian" formControlName="apptime" (keypress)="numberValidate($event)" required></ngb-timepicker>
+                    <ngb-timepicker placeholder="Appointment Time" [(ngModel)]="time" [meridian]="meridian" size="small" formControlName="apptime" (keypress)="numberValidate($event)" required></ngb-timepicker>
               </div>
               <div class="col-md-12 text-right mt-1">
                 <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>

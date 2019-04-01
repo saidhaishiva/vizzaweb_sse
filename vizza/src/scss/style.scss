@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Parisienne');
 $theme-color:#02810E;
 $green-color:#18CCB4;
-$pink-color:#D5528E;
+$pink-color:#CE367B;
 $light-green:#2FE827;
 *{
   outline: none;
@@ -795,6 +795,12 @@ a:hover {
         color: #fff;
       }
   }
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #821646;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
 }
 //life View Component
 .AllFormView{
@@ -1095,15 +1101,6 @@ a:hover {
       }
       ::-webkit-scrollbar-track {
         background-color: #cfcfcf !important;
-      }
-    }
-
-    thead {
-      tr{
-        th{
-          float:left;
-          height:63px !important;
-        }
       }
     }
   }
@@ -3657,7 +3654,8 @@ fieldset {
   }
 
 }
-
-
+.active-link{
+  background-color: #5cb85c !important;
+}
 
 
