@@ -178,6 +178,8 @@ export class LifeCallBackComponent implements OnInit {
                 'user_id':this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                 'role_id':this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'product_id': this.productId,
+                'product_name': this.productName,
+                'product_company': this.companyName,
                 'appoinment_date': date,
                 'time': this.setFtime,
                 'mobile': this.Lifeapp.controls['mobile'].value,

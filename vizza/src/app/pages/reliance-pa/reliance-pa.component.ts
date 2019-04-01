@@ -33,6 +33,7 @@ export class ReliancePaComponent implements OnInit {
   public paMaritalList: any;
   public proposerdateError: any;
   public insuredateError: any;
+  public nomineedateError: any;
   public occupationCode: any;
   public coverage: boolean;
   public idListDetailsProposal: any;
@@ -115,7 +116,7 @@ export class ReliancePaComponent implements OnInit {
       insurePaMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       maritalStatus: ['', Validators.required],
       insureAnnual: ['', Validators.required],
-      Relationship: ['',Validators.required],
+      paRelationship: ['',Validators.required],
       otherinformation: '',
       insureOccupationList: ['',Validators.required],
       physicaldefectdetail: ['',Validators.required],
@@ -128,15 +129,18 @@ export class ReliancePaComponent implements OnInit {
       type: ''
     });
     this.riskDetails = this.fb.group({
-      CoverageOptionID:['',Validators.required],
-      coveragesubOptionID:['',Validators.required],
-      SumInsured: '',
-      MembertoInsure: '',
-      Tenure: '',
-      employername: ['',Validators.required],
-      exemptionreason: ['',Validators.required],
-      specialconditions: '',
-      capitalsuminsured: ['',Validators.required],
+        CoverageOptionID: ['', Validators.required],
+        coveragesubOptionID: ['', Validators.required],
+        SumInsured: '',
+        MembertoInsure: '',
+        Tenure: '',
+        employername: ['', Validators.required],
+        exemptionreason: ['', Validators.required],
+        specialconditions: '',
+        capitalsuminsured: ['', Validators.required],
+        medicalexpense: '',
+        extnrate: ['',Validators.required],
+        familydiscount: ['',Validators.required],
     });
 
     this.nominee = this.fb.group({
@@ -167,8 +171,8 @@ export class ReliancePaComponent implements OnInit {
       nomineePaStateIdP: '',
       nomineePaDistrict: '',
       nomineePaCity: ['', Validators.required],
-
-
+      relationshipWithProposer: ['',Validators.required],
+      ifothersPleaseSpecify: ['',Validators.required],
     });
   }
 
@@ -220,12 +224,16 @@ export class ReliancePaComponent implements OnInit {
             this.proposerdateError = '';
           } else if (type == 'insure') {
             this.insuredateError = '';
+          }else if(type == 'nominee'){
+              this.nomineedateError = '';
           }
         } else {
           if (type == 'proposer') {
             this.proposerdateError = 'Enter Valid Date';
           } else if (type == 'insure') {
             this.insuredateError = 'Enter Valid Date';
+          }else if(type == 'nominee'){
+              this.nomineedateError = 'Enter Valid Date';
           }
         }
         selectedDate = event.value._i;
@@ -256,6 +264,8 @@ export class ReliancePaComponent implements OnInit {
             this.insure.controls['insurePaDob'].patchValue(dob);
             this.insureAgeP = this.ageCalculate(dob);
             this.insure.controls['insurePaAge'].patchValue(this.insureAgeP);
+          }else if (type == 'nominee'){
+            this.nomineedateError = '';
           }
           if (type == 'proposer') {
             sessionStorage.proposerAgeP = this.proposerAgeP;
@@ -435,11 +445,12 @@ export class ReliancePaComponent implements OnInit {
     }
 
   changecover(){
-    alert('438');
     this.coverage = true;
   }
 
+    getinsuredPostalCode(pin) {
 
+    }
   // nominee pin validate
   getnomineePostalCode(pin) {
     const data = {
@@ -547,6 +558,12 @@ export class ReliancePaComponent implements OnInit {
       this.proposer.controls['proposerPaCity1'].patchValue('');
     }
   }
+    panType(val) {
+
+    }
+    occupationListCode() {
+
+    }
 }
 
 

@@ -255,9 +255,11 @@ export class TravelPremiumListComponent implements OnInit {
             for(let i = 0; i < successData.length; i++) {
                 if (successData[i].IsSuccess) {
                     let policylists = successData[i].ResponseObject;
-                    this.productListArray.push(policylists.product_list);
+                    if (policylists != '') {
+                        this.productListArray.push(policylists.product_list);
+                        this.allProductLists = [].concat.apply([], this.productListArray);
+                    }
                 }
-                this.allProductLists = [].concat.apply([], this.productListArray);
             }
             console.log(this.allProductLists, 'all');
             for (let i = 0; i < this.allProductLists.length; i++) {
@@ -289,7 +291,6 @@ export class TravelPremiumListComponent implements OnInit {
     // filter by product
     filterByProducts() {
         if(this.filterCompany.includes('All')){
-            console.log('fi');
             this.checkAllStatus = true;
             this.allProductLists = this.setAllProductLists;
             let all = ['All'];
@@ -322,8 +323,6 @@ export class TravelPremiumListComponent implements OnInit {
             this.allProductLists = [];
             this.filterCompany = [];
         }
-
-        console.log(this.allProductLists, ' this.allProductLists');
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
