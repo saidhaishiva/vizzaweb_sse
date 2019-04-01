@@ -22,6 +22,36 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getCompanyList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'productlist/company';
+    return this.http.get(url, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  getPremieumList(data, list) {
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    let response: any;
+    response = [];
+    for (let i = 0; i < list.length; i++) {
+      data.company_id = list[i].company_id;
+      let json = '';
+      json = JSON.stringify(data);
+      const url = this.configurationService.getBikeInsurance() + 'productlist/index';
+      response.push(this.http.post(url, json, httpOptions));
+
+    }
+    console.log(response, 'res');
+    return Observable.forkJoin(response);
+
+  }
+
 
   private extractData(res: Response) {
     const body = res;
