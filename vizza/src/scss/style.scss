@@ -795,6 +795,12 @@ a:hover {
         color: #fff;
       }
   }
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #821646;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
 }
 //life View Component
 .AllFormView{
