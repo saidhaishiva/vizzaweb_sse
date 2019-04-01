@@ -14,6 +14,7 @@ export class ConfigurationService {
   apiHostHome: string = environment.apiHostHome;
   apiHostTerm: string = environment.apiHostTerm;
   apiHostDm: string = environment.apiHostDm;
+  apiHostMotor: string = environment.apiHostMotor;
   apiHostLife: string = environment.apiHostLife;
   paAccident: boolean = environment.paAccident;
   travelInsurance: boolean = environment.travelInsurance;
@@ -46,6 +47,7 @@ export class ConfigurationService {
     this.paAccident = this.paAccident;
     this.travelInsurance = this.travelInsurance;
     this.healthInsurance = this.healthInsurance;
+    this.apiHostMotor = this.apiHostMotor;
     this.termLifeInsurance = this.healthInsurance;
 
 
@@ -95,5 +97,8 @@ export class ConfigurationService {
   }
   getHostTerm() {
     return this.apiHostTerm;
+  }
+  getBikeInsurance() {
+    return this.apiHostMotor;
   }
 }

@@ -16,6 +16,7 @@ import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
 import {TravelService} from '../../shared/services/travel.service';
 import {HealthService} from '../../shared/services/health.service';
 import {ValidationService} from '../../shared/services/validation.service';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -133,11 +134,20 @@ export class TravelShriramProposalComponent implements OnInit {
     travelPurposeName: any;
     occupationLists: any;
     allPremiumLists: any;
+    currentStep: any;
     public sameRelationship: any;
     public getEnquiryDetails: any;
-    constructor(public travelservice: TravelService, public proposalservice: HealthService,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
+    constructor(public travelservice: TravelService, public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let today = new Date();
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 2;
+            }
+        });
+        this.currentStep = stepperindex;
+
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
         this.back = false;
