@@ -300,7 +300,7 @@ export class BikeInsuranceComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h4 class="text-center" style="color: #7F7B8A "><img src="assets/img/bike-insurance.png" class="logo-size"> About Bike Insurance</h4>
+                <h4 class="text-center" style="color: #6A6477 "><img src="assets/img/bike-insurance.png" class="logo-size"> About Bike Insurance</h4>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
