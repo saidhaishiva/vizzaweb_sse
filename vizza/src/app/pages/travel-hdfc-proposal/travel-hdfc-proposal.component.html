@@ -374,7 +374,7 @@
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.suminsured_amount_format}}</span></h4></div>
+              <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.suminsured_amount_format}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 80px;" /> </li>
@@ -498,16 +498,16 @@
                   <!--<input id="__VIEWSTATE" type="text" value="/wEPDwUKMTgyOTc0NDQ4NGRk" name="__VIEWSTATE">-->
                   <input id="__EVENTVALIDATION" type="hidden" value="/wEWCwKu9u1aArWAsjgC2N/j/ggCu8Wf9QYC1q69igEC8ZfbnwsCz5v5iAgCr67qtggCj+334AIC1N752ggC7OGafg=="
                          name="__EVENTVALIDATION">
-                  <input id="CustomerId" type="hidden" value={{summaryData.ProposalNumber}} name="CustomerId"><br/>
-                  <input id="TxnAmount" type="hidden" value="{{totalAmount}}" name="TxnAmount"><br/>
-                  <input id="AdditionalInfo1" type="hidden" value={{summaryData.AdditionalInfo1}} name="AdditionalInfo1"><br/>
-                  <input id="AdditionalInfo2" type="hidden" value={{summaryData.AdditionalInfo2}} name="AdditionalInfo2"><br/>
-                  <input id="AdditionalInfo3" type="hidden" value={{summaryData.AdditionalInfo3}} name="AdditionalInfo3"><br/>
-                  <input id="hdnPayMode" type="hidden" value="{{proposerFormData.paymentmode}}" name="hdnPayMode"><br/>
-                  <input id="UserName" type="hidden" value="{{fullName}}" name="UserName"><br/>
-                  <input id="UserMailId" type="hidden" value="{{proposerFormData.email}}" name="UserMailId"><br/>
-                  <input id="ProductCd" type="hidden" value={{summaryData.ProductCd}} name="ProductCd"><br/>
-                  <input id="ProducerCd" type="hidden" value={{summaryData.productcode}} name="ProducerCd"><br/>
+                  <input id="CustomerId" type="text" value="{{summaryData.ProposalNumber}}" name="CustomerId"><br/>
+                  <input id="TxnAmount" type="text" value="{{totalAmount}}" name="TxnAmount"><br/>
+                  <input id="AdditionalInfo1" type="text" value="{{summaryData.AdditionalInfo1}}" name="AdditionalInfo1"><br/>
+                  <input id="AdditionalInfo2" type="text" value={{summaryData.AdditionalInfo2}} name="AdditionalInfo2"><br/>
+                  <input id="AdditionalInfo3" type="text" value={{summaryData.AdditionalInfo3}} name="AdditionalInfo3"><br/>
+                  <input id="hdnPayMode" type="text" value="{{proposerFormData.paymentmode}}" name="hdnPayMode"><br/>
+                  <input id="UserName" type="text" value="{{fullName}}" name="UserName"><br/>
+                  <input id="UserMailId" type="text" value="{{proposerFormData.email}}" name="UserMailId"><br/>
+                  <input id="ProductCd" type="text" value={{summaryData.ProductCd}} name="ProductCd"><br/>
+                  <input id="ProducerCd" type="text" value={{summaryData.productcode}} name="ProducerCd"><br/>
 
                   <!--<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>-->
                   <button mat-button matStepperPrevious (click)="topScroll()">Back</button>

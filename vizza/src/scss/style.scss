@@ -1097,6 +1097,15 @@ a:hover {
         background-color: #cfcfcf !important;
       }
     }
+
+    thead {
+      tr{
+        th{
+          float:left;
+          height:63px !important;
+        }
+      }
+    }
   }
 
 
@@ -3577,6 +3586,212 @@ fieldset {
     margin-right: 8px;
   }
 
+}
+
+#view-details-travel {
+  color: #ffffff !important;
+  height: calc(100vh - 150px);
+  .nav-item.active {
+    background-color: #F16D73 !important;
+    color: #ffffff;
+  }
+  .mat-list, .mat-nav-list, .mat-selection-list {
+    padding-top: 1px;
+    display: block;
+  }
+  .mat-dialog-content{
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-y: scroll !important;
+  }
+  .row{
+    margin: 0;
+  }
+
+  .mat-list .mat-list-item .mat-list-text>*, .mat-list .mat-list-option .mat-list-text>*, .mat-nav-list .mat-list-item .mat-list-text>*, .mat-nav-list .mat-list-option .mat-list-text>*, .mat-selection-list .mat-list-item .mat-list-text>*, .mat-selection-list .mat-list-option .mat-list-text>* {
+    margin: 0;
+    padding: 0;
+    font-weight: 300 !important;
+    font-size: inherit;
+    color: #ffffff !important;
+  }
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #cccccc;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #1d4f66;
+  }
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #1d4f66 !important;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
+  .mat-tab-list {
+    background: #efefef;
+    border-radius: 10px 10px 0 0;
+  }
+  .mat-tab-label-active {
+    background-color: #1d4f66 !important;
+    color: #fff !important;
+  }
+  .mat-tab-labels .mat-tab-label:first-child{
+    border-radius: 10px 0 0 0;
+  }
+  .example-tab-icon {
+    margin-right: 8px;
+  }
+
+}
+
+.life-product-list{
+  .mat-tab-label:hover{
+    background-color: #31CCEB !important;
+  }
+  .mat-tab-label-active{
+    background-color: #127396 !important;
+    z-index: 1;
+  }
+  .mat-tab-header, .mat-tab-nav-bar {
+    border-bottom: 0px solid rgba(0,0,0,.12) !important;
+  }
+  .mat-tab-label {
+    height: 44px !important;
+    border-right: 1px solid #ffffff;
+  }
+  .mat-select-value-text {
+    color: #ffffff !important;
+  }
+
+  h4 {
+    color: #127396 !important;
+  }
+  .mat-tab-labels {
+    float: right;
+    background: #3c393942 !important;
+
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #127396;
+    color: #ffffff !important;
+  }
+
+  .health-table {
+    button{
+      font-size: 12px;
+      padding: 0 4px;
+      line-height: 1.6;
+
+    }
+    .w-100 {
+      width: 92% !important;
+    }
+    .pTitle {
+      margin-top: 3px !important;
+      color: #28a745 !important;
+      font-weight: 500 !important;
+    }
+    .linkClor {
+      color: #117ab7;
+    }
+    th {
+      text-align: center;
+      border-collapse: collapse;
+      padding: 7px !important;
+    }
+    td{
+      vertical-align: middle;
+      color: rgba(4, 78, 67, 0.87);
+      font-size: 13px;
+      text-align: left;
+      border-top: 1px solid #127396 !important;
+    }
+    .mat-raised-button.mat-primary {
+      background-color: #d9edf7;
+      border: 1px solid #2b7496;
+      color: #2b7496;
+    }
+    .mat-raised-button.mat-primary1 {
+      background-color: #ca8845db;
+    }
+    .mat-raised-button.mat-accentRemove {
+      background-color: #2d8dc5;
+      color: #ffff;
+    }
+    .mat-raised-button.mat-accent{
+      background-color: #28a745 !important;
+    }
+    thead th{
+      border: none;
+      vertical-align: text-bottom;
+      border-bottom: 2px solid #dee2e6;
+      background: #127396;
+      color: #fff;
+      font-weight: normal;
+      font-size: 12px;
+    }
+    .myclass{
+      color: #ffffff !important;
+    }
+    .mat-select-arrow{
+      color: #ffffff !important;
+    }
+    .mat-form-field-underline{
+      background-color:#ffffff !important;
+    }
+    .sun-insured{
+      .mat-form-field-infix {
+        display: block;
+        position: relative;
+        flex: auto;
+        min-width: 0;
+        width: 100px !important;
+      }
+      ::-webkit-scrollbar-thumb:vertical {
+        background-color: #ce367c !important;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #cfcfcf !important;
+      }
+    }
+    thead {
+      tr{
+        th{
+          float:left;
+          height:50px !important;
+        }
+      }
+    }
+  }
+
+
+
+  //.mat-raised-button.mat-primaryBlue {
+  //  background-color: #80c4e0 !important;
+  //  color: #ffff;
+  //}
+  //.mat-tab-labels {
+  //  .mat-ripple {
+  //    background-color: #6fc5e4 !important;
+  //  }
+  //}
+  //td{
+  //  color: rgb(15, 105, 142) !important;
+  //}
 }
 
 

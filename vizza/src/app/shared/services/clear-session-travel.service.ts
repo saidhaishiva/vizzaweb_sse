@@ -8,6 +8,16 @@ export class ClearSessionTravelService {
   }
 
   clearSessionTravelData() {
+      // common
+      sessionStorage.travelPremiumList = '';
+      sessionStorage.allTravelPremiumLists = '';
+      sessionStorage.enquiryDetailsTravel = '';
+
+      sessionStorage.summaryData = '';
+      sessionStorage.proposerFormData = '';
+      sessionStorage.insuredFormData = '';
+      sessionStorage.nomineeFormData = '';
+
       // Hdfc
       sessionStorage.hdfcTravelCity = '';
       sessionStorage.hdfcTravelDetails1 = '';
@@ -16,10 +26,22 @@ export class ClearSessionTravelService {
       sessionStorage.hdfc_Travel_proposal_id = '';
       sessionStorage.proposerAgeHdfcTravel = '';
 
-      sessionStorage.summaryData = '';
-      sessionStorage.proposerFormData = '';
-      sessionStorage.insuredFormData = '';
-      sessionStorage.nomineeFormData = '';
+      // statr health
+      sessionStorage.travelPremiumList = '';
+      sessionStorage.proposerAgeForTravel = '';
+      sessionStorage.personalCitys = '';
+      sessionStorage.areaList = '';
+      sessionStorage.stepper1DetailsForTravel = '';
+      sessionStorage.stepper2DetailsForTravel = '';
+      sessionStorage.travel_proposal_id = '';
+
+      // shriram
+      sessionStorage.stepper1ShriramTravel = '';
+      sessionStorage.stepper2ShriramTravel = '';
+      sessionStorage.proposerAgeForTravel = '';
+      sessionStorage.travel_shriram_proposal_id = '';
+
   }
+
 
 }

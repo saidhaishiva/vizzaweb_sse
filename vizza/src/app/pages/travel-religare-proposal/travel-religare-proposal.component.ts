@@ -95,6 +95,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public addon: any;
     public sameRelationship: any;
     public insurer: any;
+    public getEnquiryDetails: any;
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -199,15 +200,19 @@ export class ReliagretravelproposalComponent implements OnInit {
     ngOnInit() {
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
         this.allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
-        this.getallTravelPremiumList = this.allLists[sessionStorage.changedTabIndex];
+        console.log(this.allLists,'this.allLists');
+       console.log(this.allLists[0].travel_user_type,'tyoooooo');
+        // this.getallTravelPremiumList = this.allLists[sessionStorage.changedTabIndex];
         console.log(this.getTravelPremiumList, 'this.getTravelPremiumList');
-        if(this.allLists[0].insurance_type == 'Student'){
+        let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
+        this.getEnquiryDetails = enqList[0];
+        if(this.allLists[0].travel_user_type == 'student'){
             this.studentdetails = true;
         } else {
             this.studentdetails = false;
 
         }
-        this.insureReligarePerson =  this.allLists[0].family_members;
+        this.insureReligarePerson =   this.getEnquiryDetails.family_members;
         console.log(this.insureReligarePerson, 'this.insureReligarePerson');
         this.insureReligareArray = this.fb.group({
             items: this.fb.array([])
@@ -743,18 +748,18 @@ export class ReliagretravelproposalComponent implements OnInit {
                             'identity_type': this.proposerInsureData[i].religarePersonalpassport != '' ? 'passport' : ''
                         }
                     ],
-                    'proposer_res_address1': this.proposerInsureData[i].address1,
-                    'proposer_res_address2': this.proposerInsureData[i].address2,
-                    'proposer_res_area': this.proposerInsureData[i].city,
-                    'proposer_res_city': this.proposerInsureData[i].city,
-                    'proposer_res_state': this.proposerInsureData[i].state,
-                    'proposer_res_pincode': this.proposerInsureData[i].pincode,
-                    'proposer_comm_address1': this.proposerInsureData[i].raddress1,
-                    'proposer_comm_address2': this.proposerInsureData[i].raddress2,
-                    'proposer_comm_area': this.proposerInsureData[i].rcity,
-                    'proposer_comm_city': this.proposerInsureData[i].rcity,
-                    'proposer_comm_state': this.proposerInsureData[i].rstate,
-                    'proposer_comm_pincode': this.proposerInsureData[i].rpincode,
+                    'proposer_res_address1': this.proposerInsureData[0].address1,
+                    'proposer_res_address2': this.proposerInsureData[0].address2,
+                    'proposer_res_area': this.proposerInsureData[0].city,
+                    'proposer_res_city': this.proposerInsureData[0].city,
+                    'proposer_res_state': this.proposerInsureData[0].state,
+                    'proposer_res_pincode': this.proposerInsureData[0].pincode,
+                    'proposer_comm_address1': this.proposerInsureData[0].raddress1,
+                    'proposer_comm_address2': this.proposerInsureData[0].raddress2,
+                    'proposer_comm_area': this.proposerInsureData[0].rcity,
+                    'proposer_comm_city': this.proposerInsureData[0].rcity,
+                    'proposer_comm_state': this.proposerInsureData[0].rstate,
+                    'proposer_comm_pincode': this.proposerInsureData[0].rpincode,
                     'prop_dob': this.datepipe.transform(this.proposerInsureData[i].dob, 'dd/MM/yyyy'),
                     'prop_gender': this.proposerInsureData[i].gender,
                     'relationship_cd': this.proposerInsureData[i].type == "Student1" ? 'Self' : this.proposerInsureData[i].type,
@@ -943,20 +948,20 @@ export class ReliagretravelproposalComponent implements OnInit {
         let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
         const data = {
             'platform': 'web',
-            'travel_type':this.allLists[0].insurance_type,
+            'travel_type':this.allLists[0].travel_user_type,
             'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
             'product_id': this.getTravelPremiumList.product_id,
-            'enquiry_id': this.getTravelPremiumList.enquiry_id,
-            'trip_start_on': this.datepipe.transform( this.getTravelPremiumList.start_date , 'dd/MM/yyyy'),
-            'trip_end_on': this.datepipe.transform( this.getTravelPremiumList.end_date , 'dd/MM/yyyy'),
+            'enquiry_id': this.getEnquiryDetails.enquiry_id,
+            'trip_start_on': this.datepipe.transform( this.getEnquiryDetails.start_date , 'dd/MM/yyyy'),
+            'trip_end_on': this.datepipe.transform( this.getEnquiryDetails.end_date , 'dd/MM/yyyy'),
             'group_name': 'Group A',
             'coverType': 'INDIVIDUAL',
             'businessTypeCd': 'NEWBUSINESS',
             'baseAgentId': '20572800',
             'baseProductId': this.getTravelPremiumList.plan_id,
-            'trip_type': 'Single',
+            'trip_type': this.getEnquiryDetails.travel_plan_type,
             'company_name': this.getTravelPremiumList.company_name,
-            'suminsured_amount': this.getTravelPremiumList.suminsured_amount,
+            'suminsured_amount': this.getEnquiryDetails.sum_insured_amount,
             'proposer_insurer_details': this.totalReligareData,
             'fieldAgree': 'YES',
             'fieldAlerts': 'YES',
@@ -964,9 +969,9 @@ export class ReliagretravelproposalComponent implements OnInit {
             'field20': '10',
             'tripStart': 'YES',
             'travel_geography_code': this.getTravelPremiumList.geography_code,
-            'maxTripPeriod':this.getTravelPremiumList.trip_duration,
+            'maxTripPeriod':this.getEnquiryDetails.day_count,
             'plan_id': this.getTravelPremiumList.plan_id,
-            'policy_term':this.getTravelPremiumList.trip_duration,
+            'policy_term':this.getEnquiryDetails.day_count,
             'scheme_id': '',
             'terms_condition': '1',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',

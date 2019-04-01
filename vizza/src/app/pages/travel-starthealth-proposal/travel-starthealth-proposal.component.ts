@@ -142,6 +142,7 @@ export class TravelProposalComponent implements OnInit {
     travelStartDate: any;
     travelEndDate: any;
     currentStep: any;
+    getEnquiryDetails: any;
 
     constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -231,11 +232,13 @@ export class TravelProposalComponent implements OnInit {
 
       //  this.enquiryId = sessionStorage.enquiryId;
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-        this.insurePersons = this.getTravelPremiumList.family_details;
+        let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
+        this.getEnquiryDetails = enqList[0];
+        this.insurePersons = this.getEnquiryDetails.family_members;
         this.insureArray = this.fb.group({
             items: this.fb.array([])
         });
-        for (let i = 0; i < this.getTravelPremiumList.family_details.length; i++) {
+        for (let i = 0; i < this.insurePersons.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getTravelPremiumList.family_details[i].type);
@@ -647,10 +650,10 @@ export class TravelProposalComponent implements OnInit {
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'title': this.personalData.personalTitle,
                 'gender': this.personalData.personalGender,
-                'enquiry_id': this.getTravelPremiumList.enquiry_id,
+                'enquiry_id': this.getEnquiryDetails.enquiry_id,
                 'proposal_id': sessionStorage.travel_proposal_id == '' || sessionStorage.travel_proposal_id == undefined ? '' : sessionStorage.travel_proposal_id,
-                'travelStartOn': this.datepipe.transform(this.getTravelPremiumList.start_date, 'MMM d, y'),
-                'travelEndOn': this.datepipe.transform(this.getTravelPremiumList.end_date, 'MMM d, y'),
+                'travelStartOn': this.datepipe.transform(this.getEnquiryDetails.start_date, 'MMM d, y'),
+                'travelEndOn': this.datepipe.transform(this.getEnquiryDetails.end_date, 'MMM d, y'),
                 'proposerName': this.personalData.personalFirstname,
                 'proposerDob': this.datepipe.transform(this.personalData.personalDob, 'MMM d, y'),
                 'proposerEmail': this.personalData.personalEmail,
@@ -866,6 +869,7 @@ export class TravelProposalComponent implements OnInit {
     public placeOfVisitSuccess(successData) {
         if (successData.IsSuccess) {
             this.placeOfVisiLists = successData.ResponseObject;
+            console.log(this.placeOfVisiLists,'this.placeOfVisiLists' );
         } else {
             this.toastr.error(successData.ErrorObject);
         }

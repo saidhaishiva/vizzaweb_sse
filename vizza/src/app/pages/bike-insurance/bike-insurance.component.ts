@@ -11,6 +11,7 @@ import {MY_FORMATS} from '../endowment-life-insurance/life-call-back/life-call-b
 import {ValidationService} from '../../shared/services/validation.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
+import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 
 
 @Component({
@@ -23,7 +24,9 @@ import {AppSettings} from '../../app.settings';
     ]
 })
 export class BikeInsuranceComponent implements OnInit {
-    public bikeapp: FormGroup;
+    // public bikeapp: FormGroup;
+    public bikeInsurance: FormGroup;
+    public settings: Settings;
     public setDate: any;
     public selectDate: any;
     public productName: any;
@@ -35,27 +38,44 @@ export class BikeInsuranceComponent implements OnInit {
     public setFtime : any;
     public minDate : any;
     public time : any;
-    public settings: Settings;
+    public claimAmountDetails : any;
+    public bikeList : any;
 
 
     meridian = true;
 
-    constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
+    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.settings = this.appSettings.settings;
 
-        this.bikeapp = this.fb.group({
-          'appdate': ['', Validators.required],
-          'apptime': '',
-          'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-          'contactperson': ['', Validators.compose([Validators.required])],
-          'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-          'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-          'pincode': ['', Validators.compose([Validators.required])],
-          'insurance': ['', Validators.compose([Validators.required])],
-          'appointmentwith': ['', Validators.compose([Validators.required])]
-      });
+        this.bikeInsurance = this.fb.group({
+            'vehicalNumber': ['', Validators.required],
+            'registrationDate': ['', Validators.required],
+            'previousClaim': ['', Validators.required],
+            'claimamount': '',
+            'enquiry': '',
+            'fuelType': '',
+            'manufacture':'',
+            'vehicleCC':'',
+            'variant': '',
+            'chasissNumber':'',
+            'previousPolicyExpiry':''
+        });
+        this.claimAmountDetails = false;
+
+      //   this.bikeapp = this.fb.group({
+      //     'appdate': ['', Validators.required],
+      //     'apptime': '',
+      //     'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      //     'contactperson': ['', Validators.compose([Validators.required])],
+      //     'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
+      //     'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      //     'pincode': ['', Validators.compose([Validators.required])],
+      //     'insurance': ['', Validators.compose([Validators.required])],
+      //     'appointmentwith': ['', Validators.compose([Validators.required])]
+      // });
+      //
       this.productName = '';
   }
 
@@ -64,10 +84,20 @@ export class BikeInsuranceComponent implements OnInit {
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
           this.productName = params.id;
-
       });
-  }
+      this.sessionData();
 
+
+  }
+    claim(){
+        if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
+            this.claimAmountDetails = true;
+        } else {
+            this.claimAmountDetails = false;
+
+        }
+        sessionStorage.claimDetail = this.claimAmountDetails;
+    }
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }
@@ -100,102 +130,160 @@ export class BikeInsuranceComponent implements OnInit {
 
         }
     }
-    bikeKeeper(values) {
-        if (this.bikeapp.valid) {
-            //date
-            let date = this.datepipe.transform(this.bikeapp.controls['appdate'].value, 'yyyy-MM-dd');
-            //time
-            let setTime = this.bikeapp.controls['apptime'].value;
-            let hr = setTime.hour < '10' ? '0' + setTime.hour : setTime.hour.toString();
-            let mns = setTime.minute < '10' ? '0' + setTime.minute : setTime.minute.toString();
-            let hours = hr[0] + hr[1];
-            let min = mns[0] + mns[1];
-            if (parseInt(hours) < 12 ) {
-                if (hours == 0) {
-                    hours = 12;
-                }
-                this.setFtime = hours + ':' + min + ' AM';
-            } else if (parseInt(hours) > 12 ) {
-                hours = hours - 12;
-                hours = (hours.length < 10) ? '0' + hours : hours;
-                this.setFtime = hours + ':' + min + ' PM';
-            } else {
-                this.setFtime = hours + ':' + min + ' PM';
-            }
-            const data = {
-                'platform': 'web',
-                'product_type': 'offline',
-                'appointment_date': date,
-                'appointment_time': this.setFtime,
-                'company_name': this.bikeapp.controls['name'].value,
-                'customer_mobile': this.bikeapp.controls['mobile'].value,
-                'customer_email': this.bikeapp.controls['email'].value,
-                'contact_person' : this.bikeapp.controls['contactperson'].value,
-                'pincode': this.bikeapp.controls['pincode'].value,
-                'product_name': this.bikeapp.controls['insurance'].value,
-                'appointment_with': this.bikeapp.controls['appointmentwith'].value,
 
-            };
-
-            this.settings.loadingSpinner = true;
-            this.commonservices.setFixAppointment(data).subscribe(
-                (successData) => {
-                    this.fixAppointmentSuccess(successData);
-                },
-                (error) => {
-                    this.fixAppointmentFailure(error);
-                }
-            );
-        }
-    }
-    fixAppointmentSuccess(successData) {
-        this.settings.loadingSpinner = false;
-        console.log(this.bikeapp,'bikeeeeee');
-        if (successData.IsSuccess) {
-            this.toastr.success('Your Bike insurance appointment has been fixed successfully');
-            this.bikeapp.reset();
-        }else{
-            this.toastr.error(successData.ErrorObject);
-        }
-    }
-    fixAppointmentFailure(error) {
-        this.settings.loadingSpinner = false;
-    }
-    getPincodeDetails(pin, title) {
-        this.pin = pin;
-        this.title = title;
+    // home bike
+    bike(value){
+        console.log(value);
+        sessionStorage.bikehomeDetails = JSON.stringify(value);
         const data = {
-            'platform': 'web',
-            'postalcode': this.pin
+            "platform": "web",
+            "created_by": "0",
+            "role_id": 4,
+            "user_id": 1,
+            "company_id": 7,
+            "enquiry_id": 1,
+            "pos_status": 0,
+            "vehicle_no":this.bikeInsurance.controls['vehicalNumber'].value,
+            "registration_date": this.bikeInsurance.controls['registrationDate'].value,
+            "previous_claim_YN":this.bikeInsurance.controls['previousClaim'].value == 'No' ? '0' : '1',
+            "previous_policy_expiry_date":this.bikeInsurance.controls['previousPolicyExpiry'].value,
+            "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
         }
-        if (this.pin.length == 6) {
-            this.commonservices.getPincodeDetails(data).subscribe(
+            this.bikeService.getMotorHomeDetails(data).subscribe(
                 (successData) => {
-                    this.getPincodeDetailsSuccess(successData);
+                    this.bikeDetailsSuccess(successData);
                 },
                 (error) => {
-                    this.getPincodeDetailsFailure(error);
+                    this.bikeDetailsFailure(error);
                 }
             );
         }
-    }
-    public getPincodeDetailsSuccess(successData) {
-        if (successData.ErrorObject) {
-            this.toastr.error(successData.ErrorObject);
-            this.pincodeErrors = false;
-        }else {
-            this.pincodeErrors = true;
+
+            public bikeDetailsSuccess(successData) {
+                this.bikeList = successData.ResponseObject;
+                sessionStorage.bikehomeDetailsResponse = JSON.stringify(this.bikeList);
+
+                this.router.navigate(['/bikepremium']);
+            }
+            public bikeDetailsFailure(error) {
+            }
+
+    sessionData(){
+        let stepper = JSON.parse( sessionStorage.bikehomeDetails);
+        this.bikeInsurance = this.fb.group({
+            'vehicalNumber': stepper.vehicalNumber,
+            'registrationDate': stepper.registrationDate,
+            'previousClaim': stepper.previousClaim,
+            'claimamount': stepper.claimamount,
+            'enquiry': stepper.enquiry,
+            'fuelType': stepper.fuelType,
+            'manufacture':stepper.manufacture,
+            'vehicleCC':stepper.vehicleCC,
+            'variant': stepper.variant,
+            'chasissNumber':stepper.chasissNumber,
+            'previousPolicyExpiry':stepper.previousPolicyExpiry
+        });
+
+        if(sessionStorage.claimDetail != '' &&  sessionStorage.claimDetail != undefined){
+            this.claimAmountDetails =  sessionStorage.claimDetail;
         }
     }
-
-    public getPincodeDetailsFailure(error) {
-    }
-    BikeInsurer(){
-        const dialogRef = this.dialog.open(BikeInsurer, {
-            width: '1200px',
-        });
-        dialogRef.disableClose = true;
-    }
+    // bikeKeeper(values) {
+    //     if (this.bikeapp.valid) {
+    //         //date
+    //         let date = this.datepipe.transform(this.bikeapp.controls['appdate'].value, 'yyyy-MM-dd');
+    //         //time
+    //         let setTime = this.bikeapp.controls['apptime'].value;
+    //         let hr = setTime.hour < '10' ? '0' + setTime.hour : setTime.hour.toString();
+    //         let mns = setTime.minute < '10' ? '0' + setTime.minute : setTime.minute.toString();
+    //         let hours = hr[0] + hr[1];
+    //         let min = mns[0] + mns[1];
+    //         if (parseInt(hours) < 12 ) {
+    //             if (hours == 0) {
+    //                 hours = 12;
+    //             }
+    //             this.setFtime = hours + ':' + min + ' AM';
+    //         } else if (parseInt(hours) > 12 ) {
+    //             hours = hours - 12;
+    //             hours = (hours.length < 10) ? '0' + hours : hours;
+    //             this.setFtime = hours + ':' + min + ' PM';
+    //         } else {
+    //             this.setFtime = hours + ':' + min + ' PM';
+    //         }
+    //         const data = {
+    //             'platform': 'web',
+    //             'product_type': 'offline',
+    //             'appointment_date': date,
+    //             'appointment_time': this.setFtime,
+    //             'company_name': this.bikeapp.controls['name'].value,
+    //             'customer_mobile': this.bikeapp.controls['mobile'].value,
+    //             'customer_email': this.bikeapp.controls['email'].value,
+    //             'contact_person' : this.bikeapp.controls['contactperson'].value,
+    //             'pincode': this.bikeapp.controls['pincode'].value,
+    //             'product_name': this.bikeapp.controls['insurance'].value,
+    //             'appointment_with': this.bikeapp.controls['appointmentwith'].value,
+    //
+    //         };
+    //
+    //         this.settings.loadingSpinner = true;
+    //         this.commonservices.setFixAppointment(data).subscribe(
+    //             (successData) => {
+    //                 this.fixAppointmentSuccess(successData);
+    //             },
+    //             (error) => {
+    //                 this.fixAppointmentFailure(error);
+    //             }
+    //         );
+    //     }
+    // }
+    // fixAppointmentSuccess(successData) {
+    //     this.settings.loadingSpinner = false;
+    //     console.log(this.bikeapp,'bikeeeeee');
+    //     if (successData.IsSuccess) {
+    //         this.toastr.success('Your Bike insurance appointment has been fixed successfully');
+    //         this.bikeapp.reset();
+    //     }else{
+    //         this.toastr.error(successData.ErrorObject);
+    //     }
+    // }
+    // fixAppointmentFailure(error) {
+    //     this.settings.loadingSpinner = false;
+    // }
+    // getPincodeDetails(pin, title) {
+    //     this.pin = pin;
+    //     this.title = title;
+    //     const data = {
+    //         'platform': 'web',
+    //         'postalcode': this.pin
+    //     }
+    //     if (this.pin.length == 6) {
+    //         this.commonservices.getPincodeDetails(data).subscribe(
+    //             (successData) => {
+    //                 this.getPincodeDetailsSuccess(successData);
+    //             },
+    //             (error) => {
+    //                 this.getPincodeDetailsFailure(error);
+    //             }
+    //         );
+    //     }
+    // }
+    // public getPincodeDetailsSuccess(successData) {
+    //     if (successData.ErrorObject) {
+    //         this.toastr.error(successData.ErrorObject);
+    //         this.pincodeErrors = false;
+    //     }else {
+    //         this.pincodeErrors = true;
+    //     }
+    // }
+    //
+    // public getPincodeDetailsFailure(error) {
+    // }
+    // BikeInsurer(){
+    //     const dialogRef = this.dialog.open(BikeInsurer, {
+    //         width: '1200px',
+    //     });
+    //     dialogRef.disableClose = true;
+    // }
 }
 @Component({
     selector: 'bikeinsurer',

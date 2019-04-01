@@ -1,0 +1,106 @@
+<div class="row " id="" fxLayoutAlign="center start">
+  <div class="col-sm-12">
+    <div fxLayout="column" class="life-product-list">
+      <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-6">
+              <h4 style="cursor: pointer" ><img src="assets/img/travel-insurance.png" class="logo-size"> Life Insurance</h4>
+            </div>
+          </div>
+        </div>
+        <div class="flex-p ">
+          <table class="table health-table table-scroll">
+            <thead>
+            <tr>
+              <th class="col-md-3">
+                <mat-form-field class="w-100">
+                  <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
+                  <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
+                    <mat-option value="All" >Select All</mat-option>
+                    <mat-select-trigger>
+                      {{filterCompany ? filterCompany[0] : ''}}
+                      <span *ngIf="filterCompany" >
+                        (+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})
+                      </span>
+                    </mat-select-trigger>
+                    <mat-option *ngFor="let list of allCompanyList" value="{{list.company_name}}" [disabled]="checkAllStatus">{{list.company_name}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+              <th class="sun-insured col-md-1">
+                <mat-form-field >
+                  <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured ($)</mat-placeholder>
+                  <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
+                    <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
+                      $ {{amounts.suminsured_amount}}
+                    </mat-option>
+                  </mat-select>
+
+                </mat-form-field>
+              </th>
+              <th class="col-md-1">Emergency Medical Expenses</th>
+              <th class="col-md-1">Emergency Medical Transportation</th>
+              <th class="col-md-1">Transportation Of Mortal Remains</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Daily Allowance</th>
+              <!--<th class="col-md-1">PRE EXISTING DISEASES</th>-->
+              <th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>
+              <th class="col-md-2" style="padding: 15px 5px !important;">Premiun ( &#8377; )</th>
+              <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let plists of allProductLists;let i = index">
+
+              <td align="center"  class="col-md-3 text-center">
+                <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
+                <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
+              </td>
+              <td class="col-md-1">
+                <p class="mt-4">{{plists.sum_insured_amount | currency}}</p>
+              </td>
+              <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
+                <p class="text-center mt-4">{{keys.key_features_value}}</p>
+              </td>
+
+              <td class="col-md-1 text-center">
+                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
+                <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
+                <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
+              </td>
+              <td class="col-md-2">
+                <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.total_premium}} / Yr</strong></p>
+                <p class="text-center change-p">(Including GST)</p>
+              </td>
+              <td class="col-md-1">
+                <p class="mt-4"><button mat-raised-button color="accent" (click)="booking(plists)">Buy</button></p>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row compar-fix" *ngIf="compareArray != ''">
+  <div class="text-right closeBtnClass">
+    <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
+  </div>
+  <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
+    <div fxLayout="column" class="flex-p">
+      <mat-card class="custom-card compare-icon text-center">
+        <div class="text-right closeBtnClass">
+          <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+        </div>
+        <mat-card-content class="p-0">
+          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+          <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+  <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
+    <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
+  </div>
+</div>

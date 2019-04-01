@@ -23,9 +23,8 @@ export class TravelShriramPaymentSuccessComponent implements OnInit {
     public proposalId: any
     public settings: Settings;
 
-    constructor(public config: ConfigurationService, public travelservice: TravelService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(public config: ConfigurationService, public travelservice: TravelService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
-
         this.route.params.forEach((params) => {
             console.log(params);
             this.paymentStatus = params.status;
@@ -33,6 +32,9 @@ export class TravelShriramPaymentSuccessComponent implements OnInit {
         });
     }
     ngOnInit() {
+    }
+    retry() {
+        this.router.navigate(['/shriram-travel-home'  + '/' + true]);
     }
 
     DownloadPdf() {

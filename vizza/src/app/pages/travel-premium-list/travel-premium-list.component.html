@@ -31,10 +31,10 @@
               </th>
               <th class="sun-insured col-md-1">
                 <mat-form-field >
-                  <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured</mat-placeholder>
+                  <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured ($)</mat-placeholder>
                   <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
-                      {{amounts.suminsured_amount}}
+                      $ {{amounts.suminsured_amount}}
                     </mat-option>
                   </mat-select>
 
@@ -58,7 +58,7 @@
                 <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
               </td>
               <td class="col-md-1">
-                <p class="mt-4">$ {{plists.suminsured_amount_format}}</p>
+                <p class="mt-4">{{plists.sum_insured_amount | currency}}</p>
               </td>
               <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
                 <p class="text-center mt-4">{{keys.key_features_value}}</p>

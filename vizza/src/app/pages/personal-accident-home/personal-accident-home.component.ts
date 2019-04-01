@@ -140,6 +140,11 @@ export class PersonalaccidentComponent implements OnInit {
         if (this.pageSettings == 2) {
             this.firstPage = false;
             this.secondPage = true;
+        } else {
+            sessionStorage.enquiryDetailsPa = '';
+            sessionStorage.setAllProductLists = '';
+            sessionStorage.filterCompany = '';
+            sessionStorage.allProductLists = '';
         }
         //fire
         this.setDate = Date.now();

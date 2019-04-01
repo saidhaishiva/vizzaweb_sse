@@ -19,96 +19,67 @@
       <div class="card">
         <div class="card-block AllFormView">
           <mat-card class="p-4" style="background: linear-gradient(to top, #6CBCD5 0%, #7F8688 100%) !important; color:#fff;">
-            <h2 class="w-100 text-center" >Let us assist you</h2>
-            <form [formGroup]="bikeapp">
+            <h2 class="w-100 text-center" >Get Instant Quotes</h2>
+            <form [formGroup]="bikeInsurance">
 
               <div class="row">
-                <div class="col-md-6 mt-3">
                   <mat-form-field class="w-100">
-                    <mat-select  placeholder="Insurance Type" formControlName ="insurance" required>
-                      <mat-option value="shopkeepers">Shopkeepers</mat-option>
-                      <mat-option value="marine">Marine Cargo Policy</mat-option>
-                      <mat-option value="money">Money Insurance</mat-option>
-                      <mat-option value="fire">Fire Policy</mat-option>
-                      <mat-option value="burglary">Burglary Policy</mat-option>
-                      <mat-option value="machinery">Machinery Breakdown Policy</mat-option>
-                      <mat-option value="electronics">Electronics Equiptment Policy</mat-option>
-                      <mat-option value="contractors">Contractors All Risk Policy</mat-option>
-                      <mat-option value="house-holders">House Holders Policy</mat-option>
-                      <mat-option value="public-liability">Public Liability</mat-option>
-                      <mat-option value="professional">Professional Indemnity Policy</mat-option>
-                      <mat-option value="workmen-compensation">Workmen Compensation</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="bikeapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>
+                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" required>
+                  <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
+                  <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
-                </div>
-                <div class="col-md-6 mt-3">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Company Name" formControlName="name" (keypress)="nameValidate($event)" required>
-                    <mat-error *ngIf="bikeapp.controls.name.errors?.required">Company Name is required</mat-error>
-                    <mat-error *ngIf="bikeapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>
+                    <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" [max]="minDate" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                    <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
 
-                    <mat-icon matSuffix>person</mat-icon>
                   </mat-form-field>
-                </div>
-                <div class="col-md-6 mt-3">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="nameValidate($event)" required>
-                    <mat-error *ngIf="bikeapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>
-                    <mat-error *ngIf="bikeapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
-                    <mat-icon matSuffix>person</mat-icon>
+                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [max]="minDate" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                      <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
+
                   </mat-form-field>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <mat-form-field class="w-100">
-                    <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="numberValidate($event)" required minlength="10"  maxlength="10">
-                    <mat-error *ngIf="bikeapp.controls.mobile.errors?.required">Mobile number is required</mat-error>
-                    <mat-error *ngIf="bikeapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
-                    <mat-error *ngIf="bikeapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>
-                    <mat-icon matSuffix>call</mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <mat-form-field class="w-100">
-                    <input matInput placeholder="Email" formControlName="email" required>
-                    <mat-error *ngIf="bikeapp.controls.email.errors?.required">Email is required</mat-error>
-                    <mat-error *ngIf="bikeapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
-                    <mat-icon matSuffix>email</mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <mat-form-field class="w-100">
-                    <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>
-                    <mat-error *ngIf="bikeapp.controls.pincode.errors?.required">Pincode is required</mat-error>
-                    <mat-error *ngIf="bikeapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                    <mat-error *ngIf="bikeapp.controls.pincode.hasError('required')">Pincode required</mat-error>
-                    <mat-error *ngIf="bikeapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
-                    <mat-icon matSuffix>place</mat-icon>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <mat-form-field class="w-100">
-                    <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
-                      <mat-option value="call">Call</mat-option>
-                      <mat-option value="meetinperson">Meet in Person</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="bikeapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Appintment Date(DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="dobValidate($event)"  autocomplete="off" maxlength="10" minlength="10" required>
-                    <mat-error *ngIf="bikeapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>
-                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-                  <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
-                </div>
-                <div class="col-md-6 mt-3">
-                  <ngb-timepicker placeholder="Appointment Time" [(ngModel)]="time" [meridian]="meridian" formControlName="apptime" (keypress)="numberValidate($event)" required></ngb-timepicker>
-                </div>
+                <p class="mt-2">Previous Claim: </p>
+                <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="claim()">
+                  <mat-radio-button value="Yes">Yes</mat-radio-button>
+                  <mat-radio-button value="No">No</mat-radio-button>
+                </mat-radio-group>
+                <mat-form-field class="w-100" *ngIf="claimAmountDetails">
+                  <input matInput placeholder="Claim Amount:" formControlName="claimamount">
+                  <!--<mat-error *ngIf="bikeInsurance.controls.claimamount.errors?.required">Claimamount is required</mat-error>-->
+                  <!--<mat-error *ngIf="bikeapp.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                </mat-form-field>
+                  <!--<mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="ChasissNumber" formControlName="chasissNumber"  required>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">ChasissNumber is required</mat-error>-->
+                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                  <!--</mat-form-field>-->
+                  <!--<mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="Vehicle Manufacture" formControlName="manufacture" maxlength="10" required>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle Manufacture is required</mat-error>-->
+                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                  <!--</mat-form-field>-->
+                  <!--<mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="Fuel Type" formControlName="fuelType" maxlength="10" required>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Fuel Type is required</mat-error>-->
+                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                  <!--</mat-form-field>-->
+                  <!--<mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="Vehicle CC" formControlName="vehicleCC" maxlength="10" required>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>-->
+                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                  <!--</mat-form-field>-->
+
+                  <!--<mat-form-field class="w-100">-->
+                      <!--<input matInput placeholder="Variant" formControlName="variant" maxlength="10" required>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Variant is required</mat-error>-->
+                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                  <!--</mat-form-field>-->
                 <div class="col-md-12 text-center mt-3">
-                  <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!bikeapp.valid ) || (!pincodeErrors)" (click)="bikeKeeper(bikeapp.value)">Submit</button>
+                  <button mat-raised-button color="primary" (click)="bike(bikeInsurance.value)">Submit</button>
                   <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
@@ -122,3 +93,87 @@
 </div>
 
 
+<!--<div class="col-md-6 mt-3">-->
+<!--<mat-form-field class="w-100">-->
+<!--<mat-select  placeholder="Insurance Type" formControlName ="insurance" required>-->
+<!--<mat-option value="shopkeepers">Shopkeepers</mat-option>-->
+<!--<mat-option value="marine">Marine Cargo Policy</mat-option>-->
+<!--<mat-option value="money">Money Insurance</mat-option>-->
+<!--<mat-option value="fire">Fire Policy</mat-option>-->
+<!--<mat-option value="burglary">Burglary Policy</mat-option>-->
+<!--<mat-option value="machinery">Machinery Breakdown Policy</mat-option>-->
+<!--<mat-option value="electronics">Electronics Equiptment Policy</mat-option>-->
+<!--<mat-option value="contractors">Contractors All Risk Policy</mat-option>-->
+<!--<mat-option value="house-holders">House Holders Policy</mat-option>-->
+<!--<mat-option value="public-liability">Public Liability</mat-option>-->
+<!--<mat-option value="professional">Professional Indemnity Policy</mat-option>-->
+<!--<mat-option value="workmen-compensation">Workmen Compensation</mat-option>-->
+<!--</mat-select>-->
+<!--<mat-error *ngIf="bikeapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<!--<div class="col-md-6 mt-3">-->
+<!--<mat-form-field class="w-100">-->
+<!--<input matInput placeholder="Company Name" formControlName="name" (keypress)="nameValidate($event)" required>-->
+<!--<mat-error *ngIf="bikeapp.controls.name.errors?.required">Company Name is required</mat-error>-->
+<!--<mat-error *ngIf="bikeapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>-->
+
+<!--<mat-icon matSuffix>person</mat-icon>-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<!--<div class="col-md-6 mt-3">-->
+<!--<mat-form-field class="w-100">-->
+<!--<input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="nameValidate($event)" required>-->
+<!--<mat-error *ngIf="bikeapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>-->
+<!--<mat-error *ngIf="bikeapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>-->
+<!--<mat-icon matSuffix>person</mat-icon>-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<!--<div class="col-md-6 mt-3">-->
+<!--<mat-form-field class="w-100">-->
+<!--<input matInput placeholder="Mobile" formControlName="mobile" (keypress)="numberValidate($event)" required minlength="10"  maxlength="10">-->
+<!--<mat-error *ngIf="bikeapp.controls.mobile.errors?.required">Mobile number is required</mat-error>-->
+<!--<mat-error *ngIf="bikeapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>-->
+<!--<mat-error *ngIf="bikeapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>-->
+<!--<mat-icon matSuffix>call</mat-icon>-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<!--<div class="col-md-6 mt-3">-->
+<!--<mat-form-field class="w-100">-->
+<!--<input matInput placeholder="Email" formControlName="email" required>-->
+<!--<mat-error *ngIf="bikeapp.controls.email.errors?.required">Email is required</mat-error>-->
+<!--<mat-error *ngIf="bikeapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+<!--<mat-icon matSuffix>email</mat-icon>-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<!--<div class="col-md-6 mt-3">-->
+<!--<mat-form-field class="w-100">-->
+<!--<input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>-->
+<!--<mat-error *ngIf="bikeapp.controls.pincode.errors?.required">Pincode is required</mat-error>-->
+<!--<mat-error *ngIf="bikeapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
+<!--<mat-error *ngIf="bikeapp.controls.pincode.hasError('required')">Pincode required</mat-error>-->
+<!--<mat-error *ngIf="bikeapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
+<!--<mat-icon matSuffix>place</mat-icon>-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<!--<div class="col-md-6 mt-3">-->
+<!--<mat-form-field class="w-100">-->
+<!--<mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>-->
+<!--<mat-option value="call">Call</mat-option>-->
+<!--<mat-option value="meetinperson">Meet in Person</mat-option>-->
+<!--</mat-select>-->
+<!--<mat-error *ngIf="bikeapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>-->
+<!--</mat-form-field>-->
+<!--</div>-->
+<!--<div class="col-md-6 mt-3">-->
+<!--<mat-form-field class="w-100">-->
+<!--<input matInput [matDatepicker]="picker" [min]="minDate" placeholder="Appintment Date(DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" (keypress)="dobValidate($event)"  autocomplete="off" maxlength="10" minlength="10" required>-->
+<!--<mat-error *ngIf="bikeapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>-->
+<!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+<!--<mat-datepicker #picker></mat-datepicker>-->
+<!--</mat-form-field>-->
+<!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
+<!--</div>-->
+<!--<div class="col-md-6 mt-3">-->
+<!--<ngb-timepicker placeholder="Appointment Time" [(ngModel)]="time" [meridian]="meridian" formControlName="apptime" (keypress)="numberValidate($event)" required></ngb-timepicker>-->
+<!--</div>-->
