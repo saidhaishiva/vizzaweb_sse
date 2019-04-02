@@ -122,6 +122,7 @@ import {ReligareDownloadPaPolicyComponent} from './pages/religare-download-pa-po
 import {ReliancePaComponent} from './pages/reliance-pa/reliance-pa.component';
 import {BikePremiumListComponent} from './pages/bike-premium-list/bike-premium-list.component';
 import {TermLifePremiumListComponent} from './pages/term-life-premium-list/term-life-premium-list.component';
+import {BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -239,8 +240,9 @@ export const routes: Routes = [
             { path: 'hdfc-travel/:stepper', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
             { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
             { path: 'reliance-pa', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
-            { path: 'bikepremium', component:BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
-            { path: 'life-premium-list', component:TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} }
+            { path: 'bikepremium', component: BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
+            { path: 'life-premium-list', component: TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} },
+            { path: 'bike-shriram-proposal', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}}
         ]
     },
     { path: 'login', loadChildren: 'app/pages/login/login.module#LoginModule' },
