@@ -12,6 +12,7 @@ import {ValidationService} from '../../shared/services/validation.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
+import {AuthService} from '../../shared/services/auth.service';
 
 
 @Component({
@@ -44,7 +45,7 @@ export class BikeInsuranceComponent implements OnInit {
 
     meridian = true;
 
-    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
+    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.settings = this.appSettings.settings;
@@ -89,6 +90,9 @@ export class BikeInsuranceComponent implements OnInit {
 
 
   }
+    BikeInsurer(){
+
+    }
     claim(){
         if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
             this.claimAmountDetails = true;
@@ -133,37 +137,39 @@ export class BikeInsuranceComponent implements OnInit {
 
     // home bike
     bike(value){
-        console.log(value);
-        sessionStorage.bikehomeDetails = JSON.stringify(value);
-        const data = {
-            "platform": "web",
-            "created_by": "0",
-            "role_id": 4,
-            "user_id": 1,
-            "company_id": 7,
-            "enquiry_id": 1,
-            "pos_status": 0,
-            "vehicle_no":this.bikeInsurance.controls['vehicalNumber'].value,
-            "registration_date": this.bikeInsurance.controls['registrationDate'].value,
-            "previous_claim_YN":this.bikeInsurance.controls['previousClaim'].value == 'No' ? '0' : '1',
-            "previous_policy_expiry_date":this.bikeInsurance.controls['previousPolicyExpiry'].value,
-            "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
-        }
+            console.log(value);
+            sessionStorage.bikehomeDetails = JSON.stringify(value);
+            const data = {
+                "platform": "web",
+                "created_by": "0",
+                "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+                "user_id":  this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                // "company_id": 7,
+                "enquiry_id": 0,
+                "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                "vehicle_no":this.bikeInsurance.controls['vehicalNumber'].value,
+                "registration_date": this.bikeInsurance.controls['registrationDate'].value,
+                "previous_claim_YN":this.bikeInsurance.controls['previousClaim'].value == 'No' ? '0' : '1',
+                "previous_policy_expiry_date":this.bikeInsurance.controls['previousPolicyExpiry'].value,
+                "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
+            }
             this.bikeService.getMotorHomeDetails(data).subscribe(
                 (successData) => {
-                    this.bikeDetailsSuccess(successData);
-                },
-                (error) => {
-                    this.bikeDetailsFailure(error);
-                }
-            );
+                        this.bikeDetailsSuccess(successData);
+                    },
+                    (error) => {
+                        this.bikeDetailsFailure(error);
+                    }
+                );
         }
 
             public bikeDetailsSuccess(successData) {
-                this.bikeList = successData.ResponseObject;
-                sessionStorage.bikehomeDetailsResponse = JSON.stringify(this.bikeList);
+                if (successData.IsSuccess) {
+                    this.bikeList = successData.ResponseObject;
+                    sessionStorage.bikeEnquiryDetails = JSON.stringify(this.bikeList);
 
-                this.router.navigate(['/bikepremium']);
+                    this.router.navigate(['/bikepremium']);
+                }
             }
             public bikeDetailsFailure(error) {
             }
@@ -294,7 +300,7 @@ export class BikeInsuranceComponent implements OnInit {
             <div class="col-sm-2">
             </div>
             <div class="col-sm-8">
-                <h4 class="text-center" style="color: #7F7B8A "><img src="assets/img/bike-insurance.png" class="logo-size"> About Bike Insurance</h4>
+                <h4 class="text-center" style="color: #6A6477 "><img src="assets/img/bike-insurance.png" class="logo-size"> About Bike Insurance</h4>
             </div>
             <div class="col-sm-2 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>

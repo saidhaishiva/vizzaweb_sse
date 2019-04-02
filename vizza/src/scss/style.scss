@@ -795,6 +795,12 @@ a:hover {
         color: #fff;
       }
   }
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #821646;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
 }
 //life View Component
 .AllFormView{
@@ -3658,6 +3664,155 @@ fieldset {
 
 }
 
+.life-product-list{
+  .mat-tab-label:hover{
+    background-color: #31CCEB !important;
+  }
+  .mat-tab-label-active{
+    background-color: #85b31e !important;
+    z-index: 1;
+  }
+  .mat-tab-header, .mat-tab-nav-bar {
+    border-bottom: 0px solid rgba(0,0,0,.12) !important;
+  }
+  .mat-tab-label {
+    height: 44px !important;
+    border-right: 1px solid #ffffff;
+  }
+  .mat-select-value-text {
+    color: #ffffff !important;
+  }
 
+  h4 {
+    color: #85b31e !important;
+  }
+  .mat-tab-labels {
+    float: right;
+    background: #3c393942 !important;
+
+  }
+  .mat-raised-button.mat-primaryBlue {
+    background-color: #85b31e;
+    color: #ffffff !important;
+  }
+
+  .health-table {
+    button{
+      font-size: 12px;
+      padding: 0 4px;
+      line-height: 1.6;
+
+    }
+    .w-100 {
+      width: 92% !important;
+    }
+    .pTitle {
+      margin-top: 3px !important;
+      color: #28a745 !important;
+      font-weight: 500 !important;
+    }
+    .linkClor {
+      color: #117ab7;
+    }
+    th {
+      text-align: center;
+      border-collapse: collapse;
+      padding: 7px !important;
+    }
+    td{
+      vertical-align: middle;
+      color: rgba(4, 78, 67, 0.87);
+      font-size: 13px;
+      text-align: left;
+      border-top: 1px solid #85b31e !important;
+    }
+    .mat-raised-button.mat-primary {
+      background-color: #e7f7c9;
+      border: 1px solid #6fa50d;
+      color: #5f8e0a;
+    }
+
+    .mat-raised-button.mat-primary1 {
+      background-color: #ca8845db;
+    }
+    .mat-raised-button.mat-accentRemove {
+      background-color: #2d8dc5;
+      color: #ffff;
+    }
+    .mat-raised-button.mat-accent{
+      background-color: #28a745 !important;
+    }
+    thead th{
+      border: none;
+      vertical-align: text-bottom;
+      border-bottom: 2px solid #dee2e6;
+      background: #85b31e;
+      color: #fff;
+      font-weight: normal;
+      font-size: 12px;
+    }
+    .myclass{
+      color: #ffffff !important;
+    }
+    .mat-select-arrow{
+      color: #ffffff !important;
+    }
+    .mat-form-field-underline{
+      background-color:#ffffff !important;
+    }
+    .sun-insured{
+      .mat-form-field-infix {
+        display: block;
+        position: relative;
+        flex: auto;
+        min-width: 0;
+        width: 100px !important;
+      }
+      ::-webkit-scrollbar-thumb:vertical {
+        background-color: #ce367c !important;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #cfcfcf !important;
+      }
+    }
+    thead {
+      tr{
+        th{
+          float:left;
+          height:50px !important;
+        }
+      }
+    }
+  }
+  .change-p {
+    margin-bottom: 0.3rem !important;
+    line-height: 1.4 !important;
+  }
+
+  //.mat-raised-button.mat-primaryBlue {
+  //  background-color: #80c4e0 !important;
+  //  color: #ffff;
+  //}
+  //.mat-tab-labels {
+  //  .mat-ripple {
+  //    background-color: #6fc5e4 !important;
+  //  }
+  //}
+  //td{
+  //  color: rgb(15, 105, 142) !important;
+  //}
+}
+.termLifeScroll{
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #85b31e !important;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
+
+}
+.active-link{
+  background-color: #259a40  !important;
+}
 
 

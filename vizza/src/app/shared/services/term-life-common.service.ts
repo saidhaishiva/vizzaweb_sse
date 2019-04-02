@@ -31,17 +31,18 @@ export class TermLifeCommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getComapnyList() {
+    getComapnyList(data) {
+        const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostTerm() + 'productlist/company' ;
-        return this.http.get(url, httpOptions)
+        return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }
-    getProductList(list) {
+    getProductList(data,list) {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
@@ -49,12 +50,7 @@ export class TermLifeCommonService {
         response = [];
         for (let i = 0; i < list.length; i++) {
             console.log('insideeee');
-            const data = {
-                'platform': 'web',
-                'role_id': this.authService.getPosRoleId() ? this.authService.getPosRoleId() : 4,
-                'policy_id': sessionStorage.term_policy_id,
-                'company_id': 6
-            };
+            data.company_id = list[i].company_id;
             let  json = '';
             json = JSON.stringify(data);
             const url = this.configurationService.getHostTerm() + 'productlist/index' ;

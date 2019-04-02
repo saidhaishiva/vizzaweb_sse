@@ -257,7 +257,7 @@ import {ReliancePaComponent} from './pages/reliance-pa/reliance-pa.component';
 import { TermLifeCommonService } from './shared/services/term-life-common.service';
 import { BikePremiumListComponent } from './pages/bike-premium-list/bike-premium-list.component';
 import {BikeInsuranceService} from './shared/services/bike-insurance.service';
-import { BikeShriramProposalComponent } from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
+import { TermLifePremiumListComponent } from './pages/term-life-premium-list/term-life-premium-list.component';
 
 @NgModule({
   imports: [
@@ -475,7 +475,7 @@ import { BikeShriramProposalComponent } from './pages/bike-shriram-proposal/bike
       ReligareDownloadPaPolicyComponent,
       ReliancePaComponent,
       BikePremiumListComponent,
-      BikeShriramProposalComponent,
+      TermLifePremiumListComponent,
 
   ],
   providers: [

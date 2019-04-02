@@ -255,9 +255,11 @@ export class TravelPremiumListComponent implements OnInit {
             for(let i = 0; i < successData.length; i++) {
                 if (successData[i].IsSuccess) {
                     let policylists = successData[i].ResponseObject;
-                    this.productListArray.push(policylists.product_list);
+                    if (policylists != '') {
+                        this.productListArray.push(policylists.product_list);
+                        this.allProductLists = [].concat.apply([], this.productListArray);
+                    }
                 }
-                this.allProductLists = [].concat.apply([], this.productListArray);
             }
             console.log(this.allProductLists, 'all');
             for (let i = 0; i < this.allProductLists.length; i++) {
@@ -289,7 +291,6 @@ export class TravelPremiumListComponent implements OnInit {
     // filter by product
     filterByProducts() {
         if(this.filterCompany.includes('All')){
-            console.log('fi');
             this.checkAllStatus = true;
             this.allProductLists = this.setAllProductLists;
             let all = ['All'];
@@ -322,8 +323,6 @@ export class TravelPremiumListComponent implements OnInit {
             this.allProductLists = [];
             this.filterCompany = [];
         }
-
-        console.log(this.allProductLists, ' this.allProductLists');
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
@@ -352,7 +351,7 @@ export class TravelPremiumListComponent implements OnInit {
                     }  else if (value.product_id <= 31 && value.product_id >=27) {
                         this.router.navigate(['/hdfc-travel'  + '/' + false]);
                     } else if (value.product_id <= 26 && value.product_id >=24) {
-                        this.router.navigate(['/shriram-travel-home']);
+                        this.router.navigate(['/shriram-travel-home' + '/' + false]);
                     }else if (value.product_id == 52) {
                         this.router.navigate(['/reliancetravel']);
                     }else if (value.product_id <= 59 && value.product_id >=38) {
@@ -366,7 +365,7 @@ export class TravelPremiumListComponent implements OnInit {
             }   else if (value.product_id <= 31 && value.product_id >=27) {
                 this.router.navigate(['/hdfc-travel'  + '/' + false]);
             } else if (value.product_id <= 26 && value.product_id >=24) {
-                this.router.navigate(['/shriram-travel-home']);
+                this.router.navigate(['/shriram-travel-home'+ '/' + false]);
             }else if (value.product_id == 52) {
                 this.router.navigate(['/reliancetravel']);
             }else if (value.product_id <= 59 && value.product_id >=38) {

@@ -1,7 +1,8 @@
 <div class="container h-100" fxLayoutAlign="start start" id="travel-starthealth">
   <div class="row my-flex-card">
-    <h2 class="w-100 text-center" style="color: #9769DF"><button mat-icon-button color="accent"><img src="assets/img/travel-insurance.png" class="logo-size"></button> Travel Insurance</h2>
-    <div class="col-md-6 col-sm-12 col-xs-12">
+    <!--<h2 class="w-100 text-center" style="color: #9769DF"><button mat-icon-button color="accent"><img src="assets/img/travel-insurance.png" class="logo-size"></button> Travel Insurance</h2>-->
+      <h2 class="w-100 text-center" fxLayoutAlign="center center" style="color: #9769DF;"><img src="assets/img/travel-insurance.png" class="logo-size">&nbsp;Travel Insurance</h2>
+      <div class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
           <div class="aboutImg">
@@ -15,7 +16,7 @@
       </div>
     </div>
 
-    <div *ngIf="show" id="start-travel" class="col-md-6 col-sm-12 col-xs-12">
+    <div *ngIf="show" class="col-md-6 col-sm-12 col-xs-12">
       <div class="card">
         <div class="card-block">
           <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)" class="travel-box AllFormView">
@@ -218,7 +219,6 @@
                         </mat-form-field>
                         <div class="error" *ngIf="endDateError != ''">{{endDateError}}</div>
                         <div class="error" *ngIf="endDateRequired != ''">Required</div>
-
                       </div>
                       <div class="col-md-4 text-center">
                         <p class="days-count">Total Days : {{daysCount}}</p>
