@@ -351,7 +351,7 @@ export class TravelPremiumListComponent implements OnInit {
                     }  else if (value.product_id <= 31 && value.product_id >=27) {
                         this.router.navigate(['/hdfc-travel'  + '/' + false]);
                     } else if (value.product_id <= 26 && value.product_id >=24) {
-                        this.router.navigate(['/shriram-travel-home']);
+                        this.router.navigate(['/shriram-travel-home' + '/' + false]);
                     }else if (value.product_id == 52) {
                         this.router.navigate(['/reliancetravel']);
                     }else if (value.product_id <= 59 && value.product_id >=38) {
@@ -365,7 +365,7 @@ export class TravelPremiumListComponent implements OnInit {
             }   else if (value.product_id <= 31 && value.product_id >=27) {
                 this.router.navigate(['/hdfc-travel'  + '/' + false]);
             } else if (value.product_id <= 26 && value.product_id >=24) {
-                this.router.navigate(['/shriram-travel-home']);
+                this.router.navigate(['/shriram-travel-home'+ '/' + false]);
             }else if (value.product_id == 52) {
                 this.router.navigate(['/reliancetravel']);
             }else if (value.product_id <= 59 && value.product_id >=38) {

@@ -23,6 +23,7 @@ export class TermLifePremiumListComponent implements OnInit {
     getEnquiryDetials: any;
     compareArray: any;
     selectedAmountTravel: any;
+    checkAllStatus: boolean;
   constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -45,9 +46,14 @@ export class TermLifePremiumListComponent implements OnInit {
         if(sessionStorage.allProductLists != '' && sessionStorage.allProductLists !=undefined) {
             this.allProductLists  = JSON.parse(sessionStorage.allProductLists);
         }
-
-
-
+        if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
+            this.filterCompany = JSON.parse(sessionStorage.filterCompany);
+            if(this.filterCompany.includes('All')) {
+                this.checkAllStatus = true;
+            } else {
+                this.checkAllStatus = false;
+            }
+        }
 
     }
     getCompanyList() {
@@ -154,7 +160,43 @@ export class TermLifePremiumListComponent implements OnInit {
     updateSumInsured(){
 
     }
-    filterByProducts(){
+    // filter by product
+    filterByProducts() {
+        if(this.filterCompany.includes('All')){
+            this.checkAllStatus = true;
+            this.allProductLists = this.setAllProductLists;
+            let all = ['All'];
+            for (let i = 0; i < this.allCompanyList.length; i++) {
+                all.push(this.allCompanyList[i].company_name);
+            }
+            this.filterCompany = all;
+        }
+        else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+            console.log('sec');
+            this.checkAllStatus = false;
+            this.allProductLists = [];
+            this.filterCompany = [];
+        }
+        else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
+            console.log('third');
+            this.checkAllStatus = false;
+            let cmpy = [];
+            for (let k = 0; k < this.filterCompany.length; k++) {
+                for (let j = 0; j < this.setAllProductLists.length; j++) {
+                    if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                        cmpy.push(this.setAllProductLists[j]);
+                    }
+                }
+            }
+            this.allProductLists = cmpy;
+        } else if(this.filterCompany.length == 0){
+            console.log('frth');
+            this.checkAllStatus = false;
+            this.allProductLists = [];
+            this.filterCompany = [];
+        }
+        sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
+        sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
     }
 }
