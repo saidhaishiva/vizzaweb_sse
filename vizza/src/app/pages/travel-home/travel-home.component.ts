@@ -932,9 +932,7 @@ export class TravelHomeComponent implements OnInit {
         if (sessionStorage.pincode != undefined && sessionStorage.pincode != '') {
             this.pincode = sessionStorage.pincode;
         }
-        if (sessionStorage.enquiryDetailsTravel != undefined && sessionStorage.enquiryDetailsTravel != '') {
-            this.enquiryDetails = JSON.parse(sessionStorage.enquiryDetailsTravel);
-        }
+
 
 
 
