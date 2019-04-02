@@ -247,7 +247,7 @@ export class TravelProposalComponent implements OnInit {
         for (let i = 0; i < this.insurePersons.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getTravelPremiumList.family_details[i].type);
+            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.insurePersons[i].type);
         }
         this.sessionData();
     }
