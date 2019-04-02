@@ -144,9 +144,17 @@ export class TravelShriramProposalComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 2;
+                if(sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined){
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    this.travel_shriram_proposal_id = sessionStorage.travel_shriram_proposal_id;
+                }
+
             }
         });
         this.currentStep = stepperindex;
+        console.log(this.currentStep, 'this.currentStep');
 
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.stopNext = false;
@@ -732,6 +740,7 @@ export class TravelShriramProposalComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             stepper.next();
             this.summaryData = successData.ResponseObject;
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
             sessionStorage.travel_shriram_proposal_id = this.summaryData.ProposalId;
             this.proposerFormData = this.personal.value;
             this.nomineeFormData = this.nomineeDetails.value;
