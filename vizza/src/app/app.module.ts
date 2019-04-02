@@ -259,6 +259,7 @@ import { BikePremiumListComponent } from './pages/bike-premium-list/bike-premium
 import {BikeInsuranceService} from './shared/services/bike-insurance.service';
 import { TermLifePremiumListComponent } from './pages/term-life-premium-list/term-life-premium-list.component';
 import { LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
+import { BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
 
 @NgModule({
   imports: [
@@ -344,7 +345,7 @@ import { LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-baja
       TravelHomeComponent,
       TravelInsurer,
       PosstatusAlertTravel,
-      //PersonalAccidentProposalComponent,
+      // PersonalAccidentProposalComponent,
       PosCertificateComponent,
       TrainingComponent,
       // RelianceComponent,
@@ -477,7 +478,8 @@ import { LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-baja
       ReliancePaComponent,
       BikePremiumListComponent,
       TermLifePremiumListComponent,
-      LifeBajajProposalComponent
+      LifeBajajProposalComponent,
+      BikeShriramProposalComponent
 
   ],
   providers: [
