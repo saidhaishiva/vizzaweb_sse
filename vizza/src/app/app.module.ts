@@ -258,6 +258,7 @@ import { TermLifeCommonService } from './shared/services/term-life-common.servic
 import { BikePremiumListComponent } from './pages/bike-premium-list/bike-premium-list.component';
 import {BikeInsuranceService} from './shared/services/bike-insurance.service';
 import { TermLifePremiumListComponent } from './pages/term-life-premium-list/term-life-premium-list.component';
+import { LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
 
 @NgModule({
   imports: [
@@ -476,6 +477,7 @@ import { TermLifePremiumListComponent } from './pages/term-life-premium-list/ter
       ReliancePaComponent,
       BikePremiumListComponent,
       TermLifePremiumListComponent,
+      LifeBajajProposalComponent
 
   ],
   providers: [
