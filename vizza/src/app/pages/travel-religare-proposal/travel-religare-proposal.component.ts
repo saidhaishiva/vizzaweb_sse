@@ -1093,7 +1093,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 adharnumber: getProposerDetails.adharnumber,
                 email: getProposerDetails.email,
                 sameAsProposer: getProposerDetails.sameAsProposer,
-                sponserdob:  new FormControl(new Date(getProposerDetails.sponserdob)),
+                sponserdob:  getProposerDetails.sponserdob,
                 sponsername: getProposerDetails.sponsername,
                 universityname: getProposerDetails.universityname,
                 universityaddress: getProposerDetails.universityaddress,

@@ -542,8 +542,8 @@
               </div>
               <div class="col-md-6">
                 <ul class="summary-head">
-                  <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date }} </li>
-                  <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date }} </li>
+                  <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
+                  <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date | date: 'dd/MM/yyyy' }} </li>
                   <li></li>
                 </ul>
               </div>
@@ -563,15 +563,15 @@
                 <td>
                   <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" />
                 </td>
-                <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
-                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>
-                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>
-                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>
+                  <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
+                  <td class="align-middle"><i class="fas fa-rupee-sign"></i> Nil</td>
+                  <td class="align-middle"><i class="fas fa-rupee-sign"></i> Nil</td>
+                  <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.total_premium}}</td>
               </tr>
 
               </tbody>
             </table>
-            <div *ngFor="let item of insurer; let i = index;">
+            <div *ngFor="let item of proposerInsureData; let i = index;">
 
               <mat-expansion-panel   [expanded]="true">
                 <mat-expansion-panel-header>
@@ -589,14 +589,14 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{item.title}} {{item.first_name}} {{item.last_name}}</li>
                         <li class="list-group-item"><strong>Gender:</strong>{{item.gender}}</li>
-                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob}}</li>
-                        <li class="list-group-item"><strong>Email:</strong> {{item.personal_email}}</li>
-                        <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile_no}}</li>
-                        <li class="list-group-item" *ngIf="item.resedential_contact_no != '' && item.resedential_contact_no != null"><strong>Phone:</strong> {{item.resedential_contact_no}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item"><strong>Email:</strong> {{item.email}}</li>
+                        <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile}}</li>
+                        <li class="list-group-item" *ngIf="item.mobile != '' && item.mobile != null"><strong>Phone:</strong> {{item.mobile}}</li>
                         <li class="list-group-item" *ngIf="item.official_email != '' && item.official_email != null"><strong>Offical Email:</strong> {{item.official_email}}</li>
                         <li class="list-group-item" *ngIf="item.aadhar_no != '' && item.aadhar_no != null"><strong>Aadhar No:</strong> {{item.aadhar_no}}</li>
                         <li class="list-group-item" *ngIf="item.pan_no != '' && item.pan_no != null"><strong>Pan No:</strong> {{item.pan_no}}</li>
-                        <li class="list-group-item"><strong>PassPort:</strong> {{item.gst_no}}</li>
+                        <li class="list-group-item"><strong>PassPort:</strong> {{item.passport}}</li>
 
                       </ul>
                     </div>
@@ -604,12 +604,11 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong> Address1:</strong> {{item.res_address_line1}}</li>
-                        <li class="list-group-item"*ngIf="item.res_address_line2 != '' && item.res_address_line2 != null"><strong>Address2 :</strong> {{item.res_address_line2}}</li>
-                        <li class="list-group-item"><strong>Area:</strong> {{item.res_area}}</li>
-                        <li class="list-group-item"><strong>City:</strong> {{item.res_city}}</li>
-                        <li class="list-group-item"><strong>State:</strong> {{item.res_state}}</li>
-                        <li class="list-group-item"><strong>Pincode:</strong> {{item.res_pincode}}</li>
+                        <li class="list-group-item" ><strong> Address1:</strong> {{item.address1}}</li>
+                        <li class="list-group-item" ><strong>Address2 :</strong> {{item.address2}}</li>
+                        <li class="list-group-item"  ><strong>City:</strong> {{item.city}}</li>
+                        <li class="list-group-item" ><strong>State:</strong> {{item.state}}</li>
+                        <li class="list-group-item" ><strong>Pincode:</strong> {{item.pincode}}</li>
 
                       </ul>
                     </div>
