@@ -121,6 +121,7 @@ import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-heal
 import {ReligareDownloadPaPolicyComponent} from './pages/religare-download-pa-policy/religare-download-pa-policy.component';
 import {ReliancePaComponent} from './pages/reliance-pa/reliance-pa.component';
 import {BikePremiumListComponent} from './pages/bike-premium-list/bike-premium-list.component';
+import {BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -238,7 +239,8 @@ export const routes: Routes = [
             { path: 'hdfc-travel/:stepper', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
             { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
             { path: 'reliance-pa', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
-            { path: 'bikepremium', component:BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
+            { path: 'bikepremium', component: BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
+            { path: 'bike-shriram-proposal', component: BikeShriramProposalComponent, data: {breadcrumb: 'Bike-Shriram'}},
 
         ]
     },
