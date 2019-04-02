@@ -260,6 +260,7 @@ import {BikeInsuranceService} from './shared/services/bike-insurance.service';
 import { TermLifePremiumListComponent } from './pages/term-life-premium-list/term-life-premium-list.component';
 import { LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
 import { BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
+import{ ClearSessionTravelService} from './shared/services/clear-session-travel.service';
 
 @NgModule({
   imports: [
@@ -519,6 +520,7 @@ import { BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-
       ClearSessionPaService,
       TermLifeCommonService,
       BikeInsuranceService,
+      ClearSessionTravelService,
 
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }

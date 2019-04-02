@@ -13,6 +13,7 @@ import { TravelViewKeyFeaturesComponent} from './travel-view-key-features/travel
 import { TravelCompareComponent} from './travel-compare/travel-compare.component';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ClearSessionTravelService} from '../../shared/services/clear-session-travel.service';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -90,7 +91,6 @@ export class TravelPremiumListComponent implements OnInit {
     equiryId: any;
     daysBookingCount: any;
     viewList: any;
-    setAllTravelFamilyDetails: any;
     allCompanyList: any;
     filterCompany: any;
     tabIndex: any;
@@ -100,7 +100,7 @@ export class TravelPremiumListComponent implements OnInit {
     allProductLists: any;
     setAllProductLists: any;
     checkAllStatus: boolean;
-    constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
+    constructor(public appSettings: AppSettings, public clearSession: ClearSessionTravelService, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
         this.tabIndex = 0;
         this.settings.HomeSidenavUserBlock = false;
@@ -112,6 +112,7 @@ export class TravelPremiumListComponent implements OnInit {
         this.allProductLists = [];
     }
     ngOnInit() {
+        this.clearSession.clearSessionTravelData();
         this.settings.loadingSpinner = false;
         this.sumInsuredAmonut();
         this.companyList();

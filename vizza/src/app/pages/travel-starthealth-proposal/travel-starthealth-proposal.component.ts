@@ -152,6 +152,12 @@ export class TravelProposalComponent implements OnInit {
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
+                if(sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined){
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                }
+
             }
         });
         this.currentStep = stepperindex;
@@ -241,7 +247,7 @@ export class TravelProposalComponent implements OnInit {
         for (let i = 0; i < this.insurePersons.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getTravelPremiumList.family_details[i].type);
+            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.insurePersons[i].type);
         }
         this.sessionData();
     }
