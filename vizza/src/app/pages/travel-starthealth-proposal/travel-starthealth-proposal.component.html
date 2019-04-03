@@ -70,8 +70,8 @@
                         </mat-select>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Place of visit"  formControlName="placeOfVisit" required multiple>
-                          <mat-option *ngFor="let lists of placeOfVisiLists" value="{{lists.country_code}}" >
+                        <mat-select placeholder="Place of visit"  formControlName="placeOfVisit" required multiple matTooltip="{{personal.controls.placeOfVisit.value}}">
+                          <mat-option *ngFor="let lists of placeOfVisiLists" value="{{lists.country_code}}">
                             {{lists.country_name}}
                           </mat-option>
                         </mat-select>
@@ -173,7 +173,8 @@
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{insureArray['controls'].items['controls'][i]['controls'].type.value}}
+                        INSURED DETAILS FOR
+                        {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>

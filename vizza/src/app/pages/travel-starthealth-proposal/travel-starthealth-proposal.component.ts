@@ -617,7 +617,15 @@ export class TravelProposalComponent implements OnInit {
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
         if (this.personal.valid) {
             if (sessionStorage.proposerAgeForTravel >= 18) {
-                stepper.next();
+                if((this.personal.controls['physicianName'].value == '' &&  this.personal.controls['physicianContactNumber'].value == '') || (this.personal.controls['physicianName'].value != '' &&  this.personal.controls['physicianContactNumber'].value != '')){
+                    stepper.next();
+
+                } else {
+                    if (this.personal.controls['physicianName'].value != '' || this.personal.controls['physicianContactNumber'].value != '') {
+                        this.toastr.error('Complete Physician Details');
+                    }
+                }
+
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
