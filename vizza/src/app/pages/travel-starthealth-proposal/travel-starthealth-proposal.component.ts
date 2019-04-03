@@ -621,7 +621,7 @@ export class TravelProposalComponent implements OnInit {
                     stepper.next();
 
                 } else {
-                    if (this.personal.controls['physicianName'].value != '' || this.personal.controls['physicianContactNumber'].value != '') {
+                    if (this.personal.controls['physicianName'].value == '' || this.personal.controls['physicianContactNumber'].value == '') {
                         this.toastr.error('Complete Physician Details');
                     }
                 }
