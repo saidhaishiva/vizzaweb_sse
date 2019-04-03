@@ -617,7 +617,15 @@ export class TravelProposalComponent implements OnInit {
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
         if (this.personal.valid) {
             if (sessionStorage.proposerAgeForTravel >= 18) {
-                stepper.next();
+                if((this.personal.controls['physicianName'].value == '' &&  this.personal.controls['physicianContactNumber'].value == '') || (this.personal.controls['physicianName'].value != '' &&  this.personal.controls['physicianContactNumber'].value != '')){
+                    stepper.next();
+
+                } else {
+                    if (this.personal.controls['physicianName'].value == '' || this.personal.controls['physicianContactNumber'].value == '') {
+                        this.toastr.error('Complete Physician Details');
+                    }
+                }
+
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -690,7 +698,7 @@ export class TravelProposalComponent implements OnInit {
                 }
             }
             if (ageValidate.includes(1)) {
-                this.toastr.error('Insurer Date of birth date should be atleast 5 months old');
+                this.toastr.error(' Insured Date Of Birth should be at least 5 months old');
             } else if(ageValidate.includes(2)){
                 valid = true;
             }
