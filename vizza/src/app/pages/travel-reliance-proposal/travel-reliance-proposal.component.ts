@@ -49,8 +49,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   public webhost: any;
   public reliance_Travel_proposal_id: any;
 
-  public getTravelPremiumList: any;
-  public getallTravelPremiumList: any;
+  // public getTravelPremiumList: any;
+  public getEnquiryDetails: any;
   public groupName: any;
   public getFamilyDetails: any;
   public insuredTravelPerson: any;
@@ -363,13 +363,10 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relainceSportsActivities();
     this.relainceCoverType();
 
-    this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-    let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
-    this.getallTravelPremiumList = allLists[sessionStorage.changedTabIndex];
-    console.log(this.getallTravelPremiumList.start_date, 'this.getallTravelPremiumList');
-    console.log(this.datepipe.transform(this.getallTravelPremiumList.start_date, 'dd/MM/y'), 'this.getallTravelPremiumList');
-    console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
-    this.insuredTravelPerson = this.getTravelPremiumList.family_details;
+    // this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+    let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
+    this.getEnquiryDetails = enqList[0];
+    this.insuredTravelPerson = this.getEnquiryDetails.family_members;
     console.log(this.insuredTravelPerson,'insuredTravelPersoninsuredTravelPersoninsuredTravelPerson');
     this.relianceInsuredTravel = this.fb.group({
       items: this.fb.array([])
@@ -531,8 +528,13 @@ export class TravelRelianceProposalComponent implements OnInit {
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper3Details = JSON.stringify(value);
     if (this.riskDetails.valid) {
+      if(this.RiskData.riskIndian == true || this.RiskData.riskIsOverSeasCitizen == true){
       this.lastStepper = stepper;
       this.proposal();
+      }else{
+        this.toastr.error('select you are Indian Citizen or Over Seas Citizen');
+
+      }
     }
   }
 
@@ -540,7 +542,7 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   proposal() {
     const data = {
-      'enquiry_id': this.getTravelPremiumList.enquiry_id,
+      'enquiry_id': this.getEnquiryDetails.enquiry_id,
       "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
@@ -732,9 +734,9 @@ export class TravelRelianceProposalComponent implements OnInit {
           'PreExistDiseaseID': this.RiskData.riskPreExistDisease.toString(),
           'IsVisitingUSACanada': this.RiskData.riskIsVisitingUSACanada.toString(),
           'VisitingCountriesID': this.RiskData.riskVisitingCountries,
-          'JourneyStartDate': this.datepipe.transform(this.getallTravelPremiumList.start_date, 'dd/MM/y'),
-          'JourneyEndDate': this.datepipe.transform(this.getallTravelPremiumList.end_date, 'dd/MM/y'),
-          'TravelDays': this.getallTravelPremiumList.day_count.toString(),
+          'JourneyStartDate': this.datepipe.transform(this.getEnquiryDetails.start_date, 'dd/MM/y'),
+          'JourneyEndDate': this.datepipe.transform(this.getEnquiryDetails.end_date, 'dd/MM/y'),
+          'TravelDays': this.getEnquiryDetails.day_count.toString(),
           'DateOfBirth': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y'),
           'CoverageTypeID': this.RiskData.riskCoverageType,
           'IsAddOnCover': this.RiskData.riskIsVisitingStudent.toString(),
