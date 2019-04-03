@@ -19,6 +19,8 @@ export class TravelReligarePaymentSuccessComponent implements OnInit {
   public currenturl: any
   public type: any
   public path: any
+  public policyStatus: any
+  public policyNo: any
   public proposalId: any
   public settings: Settings;
 
@@ -29,6 +31,8 @@ export class TravelReligarePaymentSuccessComponent implements OnInit {
       console.log(params.id);
       this.paymentStatus = params.status;
       this.proposalId = params.proId;
+      this.policyStatus = params.policyStatus;
+      this.policyNo = params.policyNo;
     });
   }
   ngOnInit() {

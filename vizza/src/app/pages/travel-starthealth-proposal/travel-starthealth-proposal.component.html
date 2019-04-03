@@ -221,7 +221,7 @@
                         </mat-form-field></div>
 
                         <div class="col-md-6"><mat-form-field class="w-100">
-                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" required>
+                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" required>
                           <mat-error *ngIf="insureArray.invalid">Enter Valid Passport number</mat-error>
                         </mat-form-field></div>
                         <div class="col-md-6"><mat-form-field class="w-100">
@@ -294,7 +294,7 @@
                               <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                           </div>
                           <div class="col-md-6">
-                              <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisiLists">{{lists}}</span></span></h4>
+                              <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of proposerFormData.placeOfVisit">{{lists}}</span></span></h4>
                           </div>
                       </div>
                   </div>

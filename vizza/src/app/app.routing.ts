@@ -234,7 +234,7 @@ export const routes: Routes = [
             { path: 'hdfc-payment-success/:status/:proId/:policyStatus', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-pa-payment-success/:status/:proId', component: HdfcPaPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-travel-payment-success/:status/:proId', component: HdfcTravelPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
-            { path: 'travel-religare-payment-success/:status/:proId', component: TravelReligarePaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
+            { path: 'travel-religare-payment-success/:status/:proId/:policyNo/:policyStatus', component: TravelReligarePaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'shriram-travel-payment-success/:status/:proId', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'shriram-travel-payment-success/:status/:proId/:mailstatus', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},

@@ -1,82 +1,125 @@
-<div class="container-fluid" >
-    <div class="row apolloMunichHealthProposal">
+<div class="container-fluid">
+    <div class="row apolloMunichProposal">
         <div class="col-md-12">
-            <mat-horizontal-stepper  #stepper>
+            <mat-horizontal-stepper  #stepper >
+
                 <mat-step [stepControl]="">
-                    <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
-                    <mat-accordion class="w-100 float-left">
+
+                    <ng-template matStepLabel >PROPOSER </ng-template>
+                    <mat-accordion class=" w-100 float-left">
                         <form [formGroup]="proposer" >
                             <mat-expansion-panel expanded>
                                 <mat-expansion-panel-header>
-                                    <mat-panel-title>
-
-                                        PROPOSER DETAILS
-                                    </mat-panel-title>
+                                    <mat-panel-title> PROPOSER  </mat-panel-title>
                                 </mat-expansion-panel-header>
-
                                 <div class="row mt-1">
                                     <div class="col-md-12 box-card pt-3">
                                         <div class="row">
                                             <div class="col-md-3" >
-                                        <mat-form-field class="w-100">
-                                            <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required>
-                                                <mat-option value="MR">Mr</mat-option>
-                                                <mat-option value="MS">Ms</mat-option>
-                                            </mat-select>
-                                            <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <mat-form-field class="w-100">
-                                            <input matInput placeholder="First Name" formControlName="firstname" (keypress)="nameValidate($event)"  autocomplete="off" required >
-                                            <mat-error *ngIf="proposer.controls.firstname.errors?.required"> First Name is required</mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <mat-form-field class="w-100">
-                                            <input matInput placeholder="Last Name" formControlName="lastname" (keypress)="nameValidate($event)"  autocomplete="off" required >
-                                            <mat-error *ngIf="proposer.controls.lastname.errors?.required"> First Name is required</mat-error>
-                                        </mat-form-field>
-                                    </div>
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required>
+                                                        <mat-option value="MR">Mr</mat-option>
+                                                        <mat-option value="MRS">Ms</mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="First Name" formControlName="firstname" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required >
+                                                    <mat-error *ngIf="proposer.controls.firstname.errors?.required">First Name is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Middle Name" formControlName="middlename" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" >
 
-                                    <div class="col-md-4"><mat-form-field class="w-100">
-                                        <input matInput placeholder="Gender" formControlName="gender" required readonly>
-                                        <mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>
-                                    </mat-form-field></div>
-
-
-                                    <div class="col-md-4"><mat-form-field class="w-100">
-                                        <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required>
-                                        <mat-error *ngIf="proposer.controls.email.errors?.required">Email ID is required</mat-error>
-                                        <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
-                                    </mat-form-field></div>
-
-                                    <div class="col-md-4"><mat-form-field class="w-100">
-                                        <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"  minlength="10" maxlength="10" formControlName="mobile" autocomplete="off" required>
-                                        <mat-error *ngIf="proposer.controls.mobile.errors?.required">Mobile Number is required</mat-error>
-                                        <mat-error *ngIf="proposer.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
-                                    </mat-form-field></div>
-
-                                    <div class="row mt-4">
-                                        <div class="col-md-12 text-right">
-                                            <button mat-raised-button color="primary" >back</button>
-                                            <button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, proposer.value)">Next</button>
-                                        </div>
-                                    </div>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Last Name" formControlName="lastname" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required >
+                                                    <mat-error *ngIf="proposer.controls.lastname.errors?.required">Last Name is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Gender" formControlName="gender"  required readonly>
+                                                    <mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
 
 
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.email.errors?.required">Email ID is required</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-md-3 mt-1">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobile" autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.mobile.errors?.required">Mobile Number is required</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode" (input)="getinsuredPostalCode($event.target.value)" autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode required</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+
+                                          <!-- <div class="col-md-12">
+                                                <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio">
+                                                    <mat-radio-button value="1">Yes</mat-radio-button>
+                                                    <mat-radio-button value="2">No</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+
+                                          </div> -->
+
+                                        <div class="proposal-buttom mt-3 text-right w-100">
+
+                                            <button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>
                                         </div>
                                     </div>
                                 </div>
-
-
-
+                                </div>
                             </mat-expansion-panel>
                         </form>
                     </mat-accordion>
                 </mat-step>
+                <mat-step [stepControl]="">
+                    <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+                    <mat-accordion class="w-100 float-left ">
+                        <mat-expansion-panel expanded>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    MEDICAL HISTORY
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+                            <h1>eeeeeeee</h1>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+
+                </mat-step>
+
+
             </mat-horizontal-stepper>
         </div>
     </div>
 </div>
+
+
+
+
+
+
 

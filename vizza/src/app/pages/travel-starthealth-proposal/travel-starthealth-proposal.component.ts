@@ -151,11 +151,17 @@ export class TravelProposalComponent implements OnInit {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 3;
+                stepperindex = 2;
+                if(sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined){
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                }
+
             }
         });
         this.currentStep = stepperindex;
-
+        console.log(this.currentStep,' this.currentStep');
         this.stopNext = false;
         this.back = false;
         this.hideQuestion = false;
@@ -241,7 +247,7 @@ export class TravelProposalComponent implements OnInit {
         for (let i = 0; i < this.insurePersons.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getTravelPremiumList.family_details[i].type);
+            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.insurePersons[i].type);
         }
         this.sessionData();
     }
@@ -708,6 +714,7 @@ export class TravelProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             stepper.next();
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, 'this.summaryData');
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             sessionStorage.travel_proposal_id = this.summaryData.proposal_id;
             this.proposerFormData = this.personal.value;

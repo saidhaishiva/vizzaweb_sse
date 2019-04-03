@@ -348,7 +348,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="NomineeRelation" (change)="selectNomineRelation()"  required >
+                          <mat-select placeholder="Relationship with Insured"  formControlName="NomineeRelation" (change)="selectNomineRelation()"  required >
                             <mat-option *ngFor="let lists of nomineeRelationshipDetails | keys" [hidden]="sameRelationship == lists.value" value="{{lists.value}}">
                               {{lists.value}}
                             </mat-option>
@@ -373,20 +373,61 @@
         <mat-step [stepControl]="">
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
+            <!--<div class="row">-->
+              <!--<div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.suminsured_amount_format}}</span></h4></div>-->
+              <!--<div class="col-md-8">-->
+                <!--<ul class="summary-head">-->
+                  <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 80px;" /> </li>-->
+                  <!--<li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</span> /</li>-->
+                  <!--<li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.serviceTax}}</span> /</li>-->
+                  <!--<li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</span> </li>-->
+                  <!--<li></li>-->
+                <!--</ul>-->
+              <!--</div>-->
+              <!--<div>-->
+              <!--</div>-->
+            <!--</div>-->
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-3"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.suminsured_amount_format}}</span></h4></div>
-              <div class="col-md-8">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-6">
+                    <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
+                  </div>
+                  <div class="col-md-6">
+                    <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit">{{lists}}</span></span></h4>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
                 <ul class="summary-head">
-                  <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 80px;" /> </li>
-                  <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</span> /</li>
-                  <li><span>Service Tax:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.serviceTax}}</span> /</li>
-                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</span> </li>
+                  <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
+                  <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date| date: 'dd/MM/yyyy'}} </li>
                   <li></li>
                 </ul>
               </div>
-              <div>
-              </div>
             </div>
+            <table class="table table-bordered">
+              <thead class="thead-light">
+              <tr>
+                <th>Insurer</th>
+                <th>Plan Name</th>
+                <th>Premium</th>
+                <th>Service Tax</th>
+                <th>Total Premium</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" />
+                </td>
+                <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.serviceTax}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</td>
+              </tr>
+              </tbody>
+            </table>
             <mat-expansion-panel   [expanded]="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -447,7 +488,6 @@
                           <li class="list-group-item"><strong>Age:</strong> {{item.InsuredAge}}</li>
                           <li class="list-group-item"><strong>Relationship:</strong> {{item.InsuredRelation}}</li>
                           <li class="list-group-item"><strong>PassPort:</strong> {{item.PassportNo}}</li>
-
                         </ul>
                       </div>
                     </div>

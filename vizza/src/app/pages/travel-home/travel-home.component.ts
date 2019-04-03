@@ -103,12 +103,15 @@ export class TravelHomeComponent implements OnInit {
     public pincodeErrors: any;
     public pincode: any;
     public pinerror: boolean;
+    public sem: any;
+    // public studentDuration: any;
     public travelUserType: boolean;
     public startDateRequired: boolean;
     public endDateRequired: boolean;
     public plcaeOfVisitError: boolean;
     public travelTypeError: boolean;
     public enquiryDetails: any;
+    public studentDuration: boolean;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute) {
         this.settings = this.appSettings.settings;
@@ -159,6 +162,7 @@ export class TravelHomeComponent implements OnInit {
         this.endDateRequired = false;
         this.plcaeOfVisitError = false;
         this.travelTypeError = false;
+        this.studentDuration = false;
 
         this.Child3BTn = true;
         this.FatherBTn = true;
@@ -579,7 +583,14 @@ export class TravelHomeComponent implements OnInit {
         console.log(this.travelUserType, 'sty');
         sessionStorage.travelUserType = this.travelUserType;
     }
+   studentInfo(){
+       if(this.travelUserType == true){
+           this.studentDuration = true;
+       } else {
+           this.studentDuration = true;
 
+       }
+    }
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -937,9 +948,7 @@ export class TravelHomeComponent implements OnInit {
         if (sessionStorage.pincode != undefined && sessionStorage.pincode != '') {
             this.pincode = sessionStorage.pincode;
         }
-        if (sessionStorage.enquiryDetailsTravel != undefined && sessionStorage.enquiryDetailsTravel != '') {
-            this.enquiryDetails = JSON.parse(sessionStorage.enquiryDetailsTravel);
-        }
+
 
 
 

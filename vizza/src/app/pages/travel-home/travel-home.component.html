@@ -56,6 +56,12 @@
                           Are You Student?
                         </mat-checkbox>
                       </div>
+                      <mat-form-field class="w-100" *ngIf="studentDuration">
+                        <input matInput [(ngModel)]="studentDuration" maxlength="2" placeholder="Duration(In Month)" (keypress)="numberOnly($event)">
+                      </mat-form-field>
+                      <mat-form-field class="w-100"  *ngIf="studentDuration">
+                        <input matInput  [(ngModel)]="sem" maxlength="2" placeholder="Semester" (keypress)="numberOnly($event)">
+                      </mat-form-field>
                     </div>
                   </div>
                   <div *ngIf="showSelf">
