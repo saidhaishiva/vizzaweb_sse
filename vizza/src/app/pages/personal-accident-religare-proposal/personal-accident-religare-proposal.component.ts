@@ -179,7 +179,6 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     this.proposalId = this.summaryData.ProposalId;
                     this.nomineeDataForm = JSON.parse(sessionStorage.nomineeDataFormReligare);
                     this.proposerDataForm = JSON.parse(sessionStorage.proposerDataFormReligare);
-                    // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                     sessionStorage.pa_religare_proposal_id = this.proposalId;
                 }
             }
@@ -1270,12 +1269,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.nomineeDataForm = this.nomineeDetails.value;
             sessionStorage.proposerDataFormReligare =  JSON.stringify(this.proposerDataForm);
             sessionStorage.nomineeDataFormReligare = JSON.stringify(this.nomineeDataForm);
-
         } else {
             this.toastr.error(successData.ErrorObject);
         }
     }
-
     public proposalFailure(error) {
         this.settings.loadingSpinner = false;
     }
