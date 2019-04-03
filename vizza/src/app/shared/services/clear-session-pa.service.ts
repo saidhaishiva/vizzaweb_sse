@@ -13,7 +13,8 @@ export class ClearSessionPaService {
     sessionStorage.proposerAgeP = '';
     sessionStorage.insuredAgeP = '';
     sessionStorage.appollo1Details = '';
-  // religare
+
+    // religare
     sessionStorage.residenceCitys = '';
     sessionStorage.personalCitys = '';
     sessionStorage.proposerAge = '';
@@ -26,6 +27,11 @@ export class ClearSessionPaService {
     sessionStorage.proposal2Detail = '';
     sessionStorage.insureoccupationDescription = '';
     sessionStorage.insureoccupationClass = '';
+    sessionStorage.nomineeDataFormReligare = '';
+    sessionStorage.proposerDataFormReligare = '';
+    sessionStorage.summaryData = '';
+
+
     // home
     // sessionStorage.pincoceP = '';
     // sessionStorage.occupationP = '';
