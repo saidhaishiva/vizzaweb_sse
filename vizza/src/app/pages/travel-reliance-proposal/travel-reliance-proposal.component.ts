@@ -123,6 +123,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   public getStepper1: any;
   public getStepper2: any;
   public getStepper3: any;
+  public sessionStepper3: any;
   public lastStepper: any;
   public personalData :any;
   public RiskData :any;
@@ -327,6 +328,22 @@ export class TravelRelianceProposalComponent implements OnInit {
       TravelPlusPlan: '',
       // TravelIsAllPlan:'',
 
+      // overseas: this.overseas,
+      // riskIsResidingInIndiaTrue: this.riskIsResidingInIndiaTrue,
+      // riskSportsActivitiesTrue: this.riskSportsActivitiesTrue,
+      // VisitingListTure: this.VisitingListTure,
+      // riskCoverageTypeTrue: this.riskCoverageTypeTrue,
+      // riskMaxDaysPerTripTrue: this.riskMaxDaysPerTripTrue,
+      // riskSeniorCitizenTrue: this.riskSeniorCitizenTrue,
+      // TravelCoverageTrue: this.TravelCoverageTrue,
+      // TravelStandardLimitTrue: this.TravelStandardLimitTrue,
+      // TravelSilverPlanTrue: this.TravelSilverPlanTrue,
+      // TravelGoldPlanTrue: this.TravelGoldPlanTrue,
+      // TravelPlatinumPlanTrue: this.TravelPlatinumPlanTrue,
+      // TravelBasicPlanTrue: this.TravelBasicPlanTrue,
+      // TravelElitePlanTrue: this.TravelElitePlanTrue,
+      // TravelPlusPlanTrue: this.TravelPlusPlanTrue,
+
     });
     this.totalInsureSpouseDetails = {
       'FirstName': '',
@@ -364,6 +381,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relainceCoverType();
 
     // this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+    console.log(this.sessionStepper3,'sessionStepper3');
     let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
     this.getEnquiryDetails = enqList[0];
     this.insuredTravelPerson = this.getEnquiryDetails.family_members;
@@ -541,6 +559,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   //Create Proposal
 
   proposal() {
+
     const data = {
       'enquiry_id': this.getEnquiryDetails.enquiry_id,
       "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -1369,6 +1388,22 @@ export class TravelRelianceProposalComponent implements OnInit {
         TravelElitePlan: this.getStepper3.TravelElitePlan,
         TravelIsPlusPlan: this.getStepper3.TravelIsPlusPlan,
         TravelPlusPlan: this.getStepper3.TravelPlusPlan,
+
+        // overseas: this.getStepper3.overseas,
+        // riskIsResidingInIndiaTrue: this.getStepper3.riskIsResidingInIndiaTrue,
+        // riskSportsActivitiesTrue: this.getStepper3.riskSportsActivitiesTrue,
+        // VisitingListTure: this.getStepper3.VisitingListTure,
+        // riskCoverageTypeTrue: this.getStepper3.riskCoverageTypeTrue,
+        // riskMaxDaysPerTripTrue: this.getStepper3.riskMaxDaysPerTripTrue,
+        // riskSeniorCitizenTrue: this.getStepper3.riskSeniorCitizenTrue,
+        // TravelCoverageTrue: this.getStepper3.TravelCoverageTrue,
+        // TravelStandardLimitTrue: this.getStepper3.TravelStandardLimitTrue,
+        // TravelSilverPlanTrue: this.getStepper3.TravelSilverPlanTrue,
+        // TravelGoldPlanTrue: this.getStepper3.TravelGoldPlanTrue,
+        // TravelPlatinumPlanTrue: this.getStepper3.TravelPlatinumPlanTrue,
+        // TravelBasicPlanTrue: this.getStepper3.TravelBasicPlanTrue,
+        // TravelElitePlanTrue: this.getStepper3.TravelElitePlanTrue,
+        // TravelPlusPlanTrue: this.getStepper3.TravelPlusPlanTrue,
       });
       if (sessionStorage.reliance_Travel_proposal_id != '' && sessionStorage.reliance_Travel_proposal_id != undefined) {
         this.reliance_Travel_proposal_id = sessionStorage.religare_Travel_proposal_id;

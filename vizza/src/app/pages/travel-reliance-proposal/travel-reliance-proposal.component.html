@@ -66,7 +66,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Occupation" formControlName="occupation" required  class="w-100">
-                            <mat-option *ngFor="let list of PersonalOccupation" value = '{{list.occupation_id}}'> {{list.occupation_name}} </mat-option>
+                            <mat-option *ngFor="let list of PersonalOccupation | keys " value = '{{list.key}}'> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
                         </mat-form-field>
@@ -108,7 +108,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Nationality" formControlName="nationality" required  class="w-100">
-                            <mat-option *ngFor="let list of Nationality" [value]= 'list.nationality_id'> {{list.nationality}} </mat-option>
+                            <mat-option *ngFor="let list of Nationality | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.nationality.errors?.required">Nationality is required</mat-error>
                         </mat-form-field>
@@ -191,7 +191,7 @@
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <mat-select  placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" required  class="w-100">
-                                <mat-option *ngFor="let list of proposalPArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                <mat-option *ngFor="let list of proposalPArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>
                             </mat-form-field>
@@ -269,7 +269,7 @@
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" [disabled]="inputReadonly">
-                                <mat-option *ngFor="let list of proposalRArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                <mat-option *ngFor="let list of proposalRArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="personal.controls.residenceArea.errors?.required">Area is required</mat-error>
                             </mat-form-field>
@@ -432,7 +432,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Area" formControlName="personalBurglaryArea" [disabled]="inputBurglaryReadonly">
-                            <mat-option *ngFor="let list of proposalBArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                            <mat-option *ngFor="let list of proposalBArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -582,7 +582,7 @@
                             <div class="col-md-3">
                                 <mat-form-field class="w-100">
                                     <mat-select  placeholder="Area" formControlName="personalCompanyArea">
-                                        <mat-option *ngFor="let list of proposalCArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                        <mat-option *ngFor="let list of proposalCArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -679,7 +679,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Area" formControlName="personalDoctorArea">
-                            <mat-option *ngFor="let list of proposalDArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                            <mat-option *ngFor="let list of proposalDArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -776,7 +776,7 @@
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
                               <mat-select  placeholder="Occupation" formControlName="occupation"  [disabled]="sameValue" [required]="i == 0">
-                                <mat-option *ngFor="let list of PersonalOccupation" value = '{{list.occupation_id}}'> {{list.occupation_name}} </mat-option>
+                                <mat-option *ngFor="let list of PersonalOccupation | keys " value = '{{list.key}}'> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Occupation is required</mat-error>
                             </mat-form-field>
@@ -790,8 +790,8 @@
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" required>
-                              <mat-option *ngFor="let lists of Relationship" value="{{lists.insured_id}}" >
-                                {{lists.relation_name}}
+                              <mat-option *ngFor="let lists of Relationship | keys " value="{{lists.key}}" >
+                                {{lists.value}}
                               </mat-option>
                             </mat-select>
                             <mat-error *ngIf="relianceInsuredTravel.invalid">Relationship is required</mat-error>
