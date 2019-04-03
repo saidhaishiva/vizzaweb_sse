@@ -528,8 +528,13 @@ export class TravelRelianceProposalComponent implements OnInit {
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper3Details = JSON.stringify(value);
     if (this.riskDetails.valid) {
+      if(this.RiskData.riskIndian == true || this.RiskData.riskIsOverSeasCitizen == true){
       this.lastStepper = stepper;
       this.proposal();
+      }else{
+        this.toastr.error('select you are Indian Citizen or Over Seas Citizen');
+
+      }
     }
   }
 
