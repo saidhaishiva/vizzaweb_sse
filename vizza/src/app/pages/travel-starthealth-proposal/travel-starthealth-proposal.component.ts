@@ -698,7 +698,7 @@ export class TravelProposalComponent implements OnInit {
                 }
             }
             if (ageValidate.includes(1)) {
-                this.toastr.error('Insurer Date of birth date should be atleast 5 months old');
+                this.toastr.error(' Insured Date Of Birth should be at least 5 months old');
             } else if(ageValidate.includes(2)){
                 valid = true;
             }
