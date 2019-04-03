@@ -206,6 +206,7 @@ export class TravelProposalComponent implements OnInit {
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             placeOfVisit: ['', Validators.required],
+            placeOfVisitName: '',
             travelPurpose: ['', Validators.required],
             travelPurposeName: '',
             physicianName:'',
@@ -551,6 +552,7 @@ export class TravelProposalComponent implements OnInit {
                 travelPurpose: this.getStepper1.travelPurpose,
                 travelPurposeName: this.getStepper1.travelPurposeName,
                 placeOfVisit: '',
+                placeOfVisitName: '',
                 physicianName: this.getStepper1.physicianName,
                 physicianContactNumber: this.getStepper1.physicianContactNumber,
                 travelDeclaration: this.getStepper1.travelDeclaration
@@ -738,7 +740,6 @@ export class TravelProposalComponent implements OnInit {
 
     }
 
-
     // pincode list
     getPostal(pin, title) {
         const data = {
@@ -763,6 +764,7 @@ export class TravelProposalComponent implements OnInit {
             this.response = successData.ResponseObject;
             if (title == 'personal') {
                 if (Object.keys(this.response).length === 0) {
+                    this.toastr.error('In valid Pincode');
                     this.personal.controls['personalState'].setValue('');
                     this.personal.controls['personalCity'].setValue('');
                     this.personalCitys = {};
@@ -821,6 +823,10 @@ export class TravelProposalComponent implements OnInit {
         this.personal.controls['travelPurposeName'].patchValue(this.travelPurposeLists[this.personal.controls['travelPurpose'].value]);
     }
 
+    placePurpose(){
+        this.personal.controls['placeOfVisitName'].patchValue(this.placeOfVisiLists[this.personal.controls['placeOfVisit'].value]);
+
+    }
 
 //summary city detail
     getPostalSummary(pin, title) {

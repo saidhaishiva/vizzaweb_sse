@@ -104,7 +104,7 @@ export class TravelHomeComponent implements OnInit {
     public pincode: any;
     public pinerror: boolean;
     public sem: any;
-    // public studentDuration: any;
+    public courseDuration: any;
     public travelUserType: boolean;
     public startDateRequired: boolean;
     public endDateRequired: boolean;
@@ -582,15 +582,25 @@ export class TravelHomeComponent implements OnInit {
     ckeckedUserType() {
         console.log(this.travelUserType, 'sty');
         sessionStorage.travelUserType = this.travelUserType;
-    }
-   studentInfo(){
-       if(this.travelUserType == true){
-           this.studentDuration = true;
-       } else {
-           this.studentDuration = true;
+        if(this.travelUserType == true){
+            this.studentDuration = true;
+            sessionStorage.studentDuration = this.studentDuration;
+        } else {
+            this.studentDuration = false;
+            sessionStorage.studentDuration = this.studentDuration;
+        }
+            sessionStorage.courseDuration = this.courseDuration;
+            sessionStorage.sem = this.sem;
 
-       }
-    }
+        }
+   // studentInfo(){
+   //     if(this.travelUserType == true){
+   //         this.studentDuration = true;
+   //     } else {
+   //         this.studentDuration = true;
+   //
+   //     }
+   //  }
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -948,7 +958,15 @@ export class TravelHomeComponent implements OnInit {
         if (sessionStorage.pincode != undefined && sessionStorage.pincode != '') {
             this.pincode = sessionStorage.pincode;
         }
-
+        if (sessionStorage.studentDuration != undefined && sessionStorage.studentDuration != '') {
+            this.studentDuration = sessionStorage.studentDuration;
+        }
+        if (sessionStorage.sem != undefined && sessionStorage.sem != '') {
+            this.sem = sessionStorage.sem;
+        }
+        if (sessionStorage.courseDuration != undefined && sessionStorage.courseDuration != '') {
+            this.courseDuration = sessionStorage.courseDuration;
+        }
 
 
 
