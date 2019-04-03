@@ -261,6 +261,8 @@ export class TravelHomeComponent implements OnInit {
         this.daysCount = '';
         this.maxDate = '';
         this.medicalCondition = '';
+        this.pincode = '';
+        this.travelUserType = false;
         this.Child3BTn = false;
         this.FatherBTn = false;
         this.MotherBTn = false;
@@ -309,6 +311,9 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.stepper2DetailsForTravel = '';
         sessionStorage.proposerAgeForTravel = '';
         sessionStorage.mobileNumberForTravel = '';
+        sessionStorage.daysCount = '';
+        sessionStorage.pincode = '';
+        sessionStorage.travelUserType = '';
     }
     getAllcountryLists() {
         const data = {
