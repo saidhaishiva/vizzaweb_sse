@@ -74,12 +74,12 @@
                         <mat-error *ngIf="religarePersonal.controls.passport.hasError('pattern')">Enter Valid  Passport</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="PAN" class="text-uppercase" minlength="10" maxlength="10"  (keypress)="idValidate($event)" formControlName="pannumber" autocomplete="off" >
+                        <input matInput placeholder="PAN" class="text-uppercase"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$"  (keypress)="idValidate($event)" formControlName="pannumber" autocomplete="off" >
                         <mat-error *ngIf="religarePersonal.controls.pannumber.errors?.required">PAN is required</mat-error>
                         <mat-error *ngIf="religarePersonal.controls.pannumber.hasError('pattern')">Enter Valid  PAN</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" class="text-uppercase"  formControlName="adharnumber"  (keypress)="numberValidate($event)" autocomplete="off" >
+                        <input matInput placeholder="Aadhar Number" maxlength="12" formControlName="adharnumber"  (keypress)="numberValidate($event)" autocomplete="off" >
                         <mat-error *ngIf="religarePersonal.controls.adharnumber.errors?.required">Aadhar Number is required</mat-error>
                         <mat-error *ngIf="religarePersonal.controls.adharnumber.hasError('pattern')">Enter Valid  Aadhar Number</mat-error>
                       </mat-form-field></div>
