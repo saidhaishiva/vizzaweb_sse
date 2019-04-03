@@ -18,7 +18,7 @@
                   <div class="col-md-12 box-card pt-3">
                     <!--<h6 class="color-blue">PROPOSER DETAILS</h6>-->
                     <div class="row">
-                      <div class="col-md-4">
+                      <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
                             <mat-option value="MR">Mr</mat-option>
@@ -27,17 +27,17 @@
                           <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">Name is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Gender" formControlName="personalGender" required readonly>
                         <mat-error *ngIf="personal.controls.personalGender.errors?.required">Gender is required</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event, 'index', 'proposor')" (dateChange)="addEvent($event, 'index', 'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -46,43 +46,43 @@
                         </mat-form-field>
                         <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
                       </div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                         <input matInput placeholder="GST Number" (keypress)="idValidate($event)"  minlength="15"  maxlength="15" formControlName="personalGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                         <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                         <mat-error *ngIf="personal.controls.personalGst.hasError('pattern')">Enter valid GST</mat-error>
                       </mat-form-field></div>
 
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                         <mat-select placeholder="Travel Purpose"  formControlName="travelPurpose" (change)="selectPurpose()" required >
                           <mat-option *ngFor="let lists of travelPurposeLists | keys" value="{{lists.key}}" >
                             {{lists.value}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field></div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                         <mat-select placeholder="Place of visit"  formControlName="placeOfVisit" required multiple>
                           <mat-option *ngFor="let lists of placeOfVisiLists" value="{{lists.country_code}}" >
                             {{lists.country_name}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field></div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Physician Name" formControlName="physicianName"  (keypress)="nameValidate($event)"  autocomplete="off"  >
                           <mat-error *ngIf="personal.controls.physicianName.errors?.required">Physician Name is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Physician Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="physicianContactNumber" autocomplete="off" >
                         <mat-error *ngIf="personal.controls.physicianContactNumber.errors?.required">Physician Mobile Number is required</mat-error>
                         <mat-error *ngIf="personal.controls.physicianContactNumber.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
@@ -93,7 +93,7 @@
                   <div class="col-md-12 box-card pt-3">
                     <h6 class="color-blue"> COMMUNICATION ADDRESS</h6>
                     <div class="row">
-                      <div class="col-md-6">
+                      <div class="col-md-6 mt-3">
                         <mat-form-field class="w-100">
                           <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="personalAddress"  autocomplete="off" required></textarea>
                           <mat-hint align="start"></mat-hint>
@@ -101,7 +101,7 @@
                           <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-6 mt-3">
                         <mat-form-field class="w-100">
                           <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="personalAddress2" autocomplete="off" required></textarea>
                           <mat-hint align="start"></mat-hint>
@@ -110,18 +110,18 @@
 
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                         <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="add($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="personalPincode" autocomplete="off" required>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                         <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field></div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4 mt-3"><mat-form-field class="w-100">
                           <input matInput placeholder="State" formControlName="personalState" autocomplete="off" required readonly>
                         <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
                       </mat-form-field></div>
 
-                        <div class="col-md-4"><mat-form-field class="w-100" >
+                        <div class="col-md-4 mt-3"><mat-form-field class="w-100" >
                             <mat-select placeholder="City" formControlName="personalCity" (change)="getArea()" autocomplete="off" required>
                                 <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
                                     {{city.value}}
@@ -129,7 +129,7 @@
                             </mat-select>
                             <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
                         </mat-form-field></div>
-                        <div class="col-md-4"><mat-form-field class="w-100" >
+                        <div class="col-md-4 mt-3"><mat-form-field class="w-100" >
                             <mat-select placeholder="Area" formControlName="personalArea" (change)="selectArea()" autocomplete="off" required>
                                 <mat-option *ngFor="let city of areaList | keys" [value]= 'city.key'>
                                     {{city.value}}
