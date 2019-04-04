@@ -75,14 +75,19 @@
                                             </div>
 
 
-                                          <!-- <div class="col-md-12">
-                                                <mat-radio-group (change)="previousinsureList($event)"  formControlName="previousradio">
-                                                    <mat-radio-button value="1">Yes</mat-radio-button>
-                                                    <mat-radio-button value="2">No</mat-radio-button>
+                                          <div class="col-md-12">
+                                                <mat-radio-group formControlName="proposerRadio" (change)="proposerList()"  >
+                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                    <mat-radio-button value="No">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100" *ngIf="proposerRatioDetail">
+                                                    <input matInput placeholder="If Yes Give Details" formControlName="radio"  autocomplete="off" required >
+                                                </mat-form-field>
+                                            </div>
 
-                                          </div> -->
+
 
                                         <div class="proposal-buttom mt-3 text-right w-100">
 
@@ -96,16 +101,28 @@
                     </mat-accordion>
                 </mat-step>
                 <mat-step [stepControl]="">
-                    <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
+                    <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                     <mat-accordion class="w-100 float-left ">
                         <mat-expansion-panel expanded>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    MEDICAL HISTORY
+                                    NOMINEE DETAILS
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
-                            <h1>eeeeeeee</h1>
+                            <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
+                            <div class="row mt-3">
+                                <div class="col-md-12 box-card pt-3 pb-3" >
+                                    <form [formGroup]="nomineeDetail">
+                                    <h1>eeeeeeeeeee</h1>
+
+
+                              <div class="proposal-buttom mt-3 text-right w-100">
+                                    <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                                    <button mat-raised-button color="primaryBlue" (click)="shriramNomineeDetails(stepper)">Next</button>
+                                </div>
+                                 </form>
+                                </div>
+                            </div>
                         </mat-expansion-panel>
                     </mat-accordion>
 

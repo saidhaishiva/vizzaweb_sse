@@ -153,7 +153,7 @@
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3" *ngIf="restrictiondetails"><mat-form-field class="w-100">
-                        <input matInput placeholder="Restrictionbyinsurancedetails"  (keypress)="nameValidate($event)"  required formControlName="restrictionbyinsurancedetails" autocomplete="off">
+                        <input matInput placeholder="Restriction By Insurance Details"  (keypress)="nameValidate($event)"  required formControlName="restrictionbyinsurancedetails" autocomplete="off">
                         <mat-error *ngIf="hdfcTravel.controls.restrictionbyinsurancedetails.errors?.required"> Restrictionbyinsurancedetails is required</mat-error>
 
                       </mat-form-field></div>
@@ -394,7 +394,7 @@
                     <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                   </div>
                   <div class="col-md-6">
-                    <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit">{{lists}}</span></span></h4>
+                    <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit" class="p-2"> {{lists}}</span></span></h4>
                   </div>
                 </div>
               </div>
@@ -438,7 +438,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.firstname}} {{proposerFormData.middlename}} {{proposerFormData.lastname}}</li>
+                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}}. {{proposerFormData.firstname}} {{proposerFormData.middlename}} {{proposerFormData.lastname}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'M'"><strong>Gender:</strong> Male</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gender == 'F'"><strong>Gender:</strong> Female</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
@@ -450,7 +450,7 @@
                       <li class="list-group-item" *ngIf="proposerFormData.restrictionbyinsurancedetails != ''"><strong>Restriction By Insurance Reson:</strong> {{proposerFormData.restrictionbyinsurancedetails}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.physicianName != ''"><strong>Physician Name :</strong> {{proposerFormData.physicianName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>Physician Name :</strong> {{proposerFormData.gst}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.physicianMobile != ''"><strong>Physician Mobilenumber :</strong> {{proposerFormData.physicianMobile}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.physicianMobile != ''"><strong>Physician Mobile Number :</strong> {{proposerFormData.physicianMobile}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.stdcode != ''"><strong>STD Code:</strong> {{proposerFormData.stdcode}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.telephoneNo != ''"><strong>Telephone Number:</strong> {{proposerFormData.telephoneNo}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.stdcodeoffice != ''"><strong>Office STD Code:</strong> {{proposerFormData.stdcodeoffice}}</li>
@@ -485,7 +485,7 @@
                     <div class="col-md-12">
                       <div class="p-3">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Name:</strong> {{item.InsTitle}} {{item.InsFirstName}} {{item.InsMiddleName}} {{item.InsLastName}}</li>
+                          <li class="list-group-item"><strong>Name:</strong> {{item.InsTitle}}. {{item.InsFirstName}} {{item.InsMiddleName}} {{item.InsLastName}}</li>
                           <li class="list-group-item" *ngIf="item.InsGender == 'M'"><strong>Gender:</strong> Male</li>
                           <li class="list-group-item" *ngIf="item.InsGender == 'F'"><strong>Gender:</strong> Female</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.InsDOB | date: 'dd/MM/yyyy'}}</li>

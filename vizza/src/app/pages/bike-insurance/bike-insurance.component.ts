@@ -41,6 +41,7 @@ export class BikeInsuranceComponent implements OnInit {
     public time : any;
     public claimAmountDetails : any;
     public bikeList : any;
+    public show : any;
 
 
     meridian = true;
@@ -84,9 +85,10 @@ export class BikeInsuranceComponent implements OnInit {
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
+          console.log(params.id);
           this.productName = params.id;
       });
-      this.sessionData();
+      // this.sessionData();
 
 
   }
@@ -116,7 +118,6 @@ export class BikeInsuranceComponent implements OnInit {
 
     addEvent(event) {
         console.log(event,'eventevent');
-        console.log(event.value,'eventevent1');
 
         if (event.value != null) {
             let selectedDate = '';
@@ -137,14 +138,12 @@ export class BikeInsuranceComponent implements OnInit {
 
     // home bike
     bike(value){
-            console.log(value);
-            sessionStorage.bikehomeDetails = JSON.stringify(value);
-            const data = {
+        sessionStorage.enquiryFormData = JSON.stringify(value);
+        const data = {
                 "platform": "web",
                 "created_by": "0",
                 "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
                 "user_id":  this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-                // "company_id": 7,
                 "enquiry_id": 0,
                 "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 "vehicle_no":this.bikeInsurance.controls['vehicalNumber'].value,
@@ -155,7 +154,7 @@ export class BikeInsuranceComponent implements OnInit {
             }
             this.bikeService.getMotorHomeDetails(data).subscribe(
                 (successData) => {
-                        this.bikeDetailsSuccess(successData);
+                        this.bikeDetailsSuccess(successData,data);
                     },
                     (error) => {
                         this.bikeDetailsFailure(error);
@@ -163,11 +162,12 @@ export class BikeInsuranceComponent implements OnInit {
                 );
         }
 
-            public bikeDetailsSuccess(successData) {
+            public bikeDetailsSuccess(successData, data) {
                 if (successData.IsSuccess) {
                     this.bikeList = successData.ResponseObject;
+                    console.log(this.bikeList,'hgdj');
                     sessionStorage.bikeEnquiryDetails = JSON.stringify(this.bikeList);
-
+                    sessionStorage.enquiryFormData = JSON.stringify(data);
                     this.router.navigate(['/bikepremium']);
                 }
             }
@@ -175,21 +175,22 @@ export class BikeInsuranceComponent implements OnInit {
             }
 
     sessionData(){
-        let stepper = JSON.parse( sessionStorage.bikehomeDetails);
-        this.bikeInsurance = this.fb.group({
-            'vehicalNumber': stepper.vehicalNumber,
-            'registrationDate': stepper.registrationDate,
-            'previousClaim': stepper.previousClaim,
-            'claimamount': stepper.claimamount,
-            'enquiry': stepper.enquiry,
-            'fuelType': stepper.fuelType,
-            'manufacture':stepper.manufacture,
-            'vehicleCC':stepper.vehicleCC,
-            'variant': stepper.variant,
-            'chasissNumber':stepper.chasissNumber,
-            'previousPolicyExpiry':stepper.previousPolicyExpiry
-        });
-
+        if(sessionStorage.bikeEnquiryDetails != '' &&  sessionStorage.bikeEnquiryDetails != undefined) {
+            let stepper = JSON.parse(sessionStorage.bikeEnquiryDetails);
+            this.bikeInsurance = this.fb.group({
+                'vehicalNumber': stepper.vehicalNumber,
+                'registrationDate': stepper.registrationDate,
+                'previousClaim': stepper.previousClaim,
+                'claimamount': stepper.claimamount,
+                'enquiry': stepper.enquiry,
+                'fuelType': stepper.fuelType,
+                'manufacture': stepper.manufacture,
+                'vehicleCC': stepper.vehicleCC,
+                'variant': stepper.variant,
+                'chasissNumber': stepper.chasissNumber,
+                'previousPolicyExpiry': stepper.previousPolicyExpiry
+            });
+        }
         if(sessionStorage.claimDetail != '' &&  sessionStorage.claimDetail != undefined){
             this.claimAmountDetails =  sessionStorage.claimDetail;
         }
