@@ -49,7 +49,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   public webhost: any;
   public reliance_Travel_proposal_id: any;
 
-  // public getTravelPremiumList: any;
+  public getTravelPremiumList: any;
   public getEnquiryDetails: any;
   public groupName: any;
   public getFamilyDetails: any;
@@ -208,6 +208,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalBurglaryAddress3: '',
       personalBurglaryPincode: '',
       personalBurglaryCity: '',
+      personalyDistrictIdB: '',
       personalBurglaryArea: '',
       personalBurglaryDistrict: '',
       personalBurglaryState: '',
@@ -380,7 +381,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relainceSportsActivities();
     this.relainceCoverType();
 
-    // this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+    this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
     console.log(this.sessionStepper3,'sessionStepper3');
     let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
     this.getEnquiryDetails = enqList[0];
@@ -566,7 +567,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       "proposal_id": sessionStorage.reliance_Travel_proposal_id ? sessionStorage.reliance_Travel_proposal_id : this.reliance_Travel_proposal_id,
-      "UserID": '100002',
+        "UserID": '100002',
         "ClientDetails": {
           'ClientType': '0',
           'Salutation': this.personalData.personalTitle,
@@ -734,7 +735,7 @@ export class TravelRelianceProposalComponent implements OnInit {
           'AgentName': '',
           'Branch_Name': '',
           'Branch_Code': '',
-          'ProductCode': '',
+          'ProductCode': this.getTravelPremiumList.product_code,
           'OtherSystemName': ''
     },
       'RiskDetails': {
@@ -1221,6 +1222,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         personalBurglaryAddress3: this.getStepper1.personalBurglaryAddress3,
         personalBurglaryPincode: this.getStepper1.personalBurglaryPincode,
         personalBurglaryCity: this.getStepper1.personalBurglaryCity,
+        personalyDistrictIdB: this.getStepper1.personalyDistrictIdB,
         personalBurglaryArea: this.getStepper1.personalBurglaryArea,
         personalBurglaryDistrict: this.getStepper1.personalBurglaryDistrict,
         personalBurglaryState: this.getStepper1.personalBurglaryState,
