@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
@@ -39,9 +39,14 @@ export const MY_FORMATS = {
 export class LifeBajajProposalComponent implements OnInit {
   public proposer: FormGroup;
   public insured: FormGroup;
+  public questions: FormGroup;
+  public nomineeDetail: any;
+  public apointeeDetails: any;
+  public itemsNominee: any;
   public proposerdateError : any;
   public settings:Settings;
   public bajajAge : any;
+  public nomineeAge : any;
   public paIdProofList: any;
   public ageProofList : any;
   public maritalStatusList : any;
@@ -55,6 +60,9 @@ export class LifeBajajProposalComponent implements OnInit {
   public TitleList: any;
   public weightList: any;
   public occupationList:any;
+  public primiumPayTerm: any;
+  public politicalDetails: boolean;
+  public show: boolean;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -79,6 +87,7 @@ export class LifeBajajProposalComponent implements OnInit {
       height: ['', Validators.compose([ Validators.minLength(3)])],
       weight: ['', Validators.compose([Validators.minLength(3)])],
       weightChanged:'' ,
+      weightChangedName:'',
       aadharNum: ['', Validators.required],
 
       spouseDob:'',
@@ -115,37 +124,37 @@ export class LifeBajajProposalComponent implements OnInit {
     rstate :'',
       });
 
-    // this.nomineeDetail = this.proposerpa.group({
-    //   paNomineeTitle: ['', Validators.required],
-    //   paNomineeName: ['', Validators.required],
-    //   paRelationship: ['', Validators.required],
-    //   paRelationshipName: '',
-    //   paNomineeAddress: ['', Validators.required],
-    //   paNomineeAddress2:'',
-    //   paNomineeAddress3: '',
-    //   nationality: 'IN',
-    //   paNomineePincode: ['', Validators.required],
-    //   paNomineeCity:'',
-    //   paNomineeCityName:'',
-    //   paNomineeCountry: 'IN',
-    //   paNomineeState: ['', Validators.required],
-    //   paNomineeDistrict: '',
-    //   // paNomineeDistrictName: '',
-    //   paNomineeCityIdP: '',
-    //   paNomineeStateIdP: '',
-    //   paNomineeCountryIdP: '',
-    //   paNomineeDistrictIdP: '',
-    //   sameAsProposer:false
-    //
+    // this.nomineeDetail = this.Proposer.group({
+    //   nName: ['', Validators.required],
+    //   nDob: ['', Validators.required],
+    //   nBirthPlace: ['', Validators.required],
+    //   nRelation: ['', Validators.required],
     // });
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
+    this.politicalDetails = false;
 
+    this.nomineeDetail = this.Proposer.group({
+      itemsNominee : this.Proposer.array([]),
+      nName: '',
+      nDob: '',
+      nBirthPlace: '',
+      nRelation: '',
+    });
+
+    this.apointeeDetails = this.Proposer.group({
+      aName: '',
+    });
+
+    this.questions = this.Proposer.group({
+    });
   }
 
+
   ngOnInit() {
+
     this.paIdList();
     this.ageProof();
     this.maritalStatus();
@@ -160,7 +169,43 @@ export class LifeBajajProposalComponent implements OnInit {
     this.weightChanged();
     this.occupation();
 
+
+    //NOMINEE Details
+
+
+    this.itemsNominee = this.nomineeDetail.get('itemsNominee') as FormArray;
+    this.itemsNominee.push(this.nomineeItems());
+
   }
+
+  nomineeItems(){
+    return this.Proposer.group( {
+      nName: '',
+      nDob: '',
+      nBirthPlace: '',
+      nRelation: '',
+    });
+  }
+
+  // add NOmineee
+  addNominee(event) {
+    console.log(this.itemsNominee.length);
+   // console.log(this.nomineeDetail['controls'].itemsNominee.length);
+    if (this.itemsNominee.length < 2) {
+      this.itemsNominee.push(this.nomineeItems());
+    }
+  }
+
+  removeNominee(event , index){
+    if (index ==1 ){
+      this.itemsNominee.removeAt(1);
+    }
+
+  }
+
+
+
+
 
   //  validation functions
   topScroll() {
@@ -216,8 +261,10 @@ export class LifeBajajProposalComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
           this.bajajAge = this.ageCalculate(dob);
+          console.log(this.bajajAge,'agre');
           sessionStorage.bajajproposerAge = this.bajajAge;
-
+          console.log(sessionStorage.bajajproposerAge,'sessionStorage.bajajproposerAge');
+          this.proposer.controls['age'].patchValue(this.bajajAge);
         }
 
       } else if (typeof event.value._i == 'object') {
@@ -226,11 +273,22 @@ export class LifeBajajProposalComponent implements OnInit {
         if (dob.length == 10) {
           this.bajajAge = this.ageCalculate(dob);
           sessionStorage.insuredAgePA = this.bajajAge;
-
+          this.proposer.controls['age'].patchValue(this.bajajAge);
         }
         this.proposerdateError = '';
+      } else if ( type == 'nominee') {
+        alert('1');
+        this.nomineeAge = this.ageCalculate(dob);
+        console.log(this.nomineeAge);
+        if ( this.nomineeAge < 18) {
+          alert('2');
+          this.show = true;
+        }else {
+          this.show = false;
+        }
+
       }
-      sessionStorage.insuredAgePA = this.bajajAge;
+      //sessionStorage.insuredAgePA = this.bajajAge;
 
     }
   }
@@ -239,6 +297,13 @@ export class LifeBajajProposalComponent implements OnInit {
   proposerDetails(stepper,value){
     console.log(value);
     sessionStorage.lifeBajaj1 = JSON.stringify(value);
+    if (this.proposer.valid)
+    {
+      stepper.next();
+    }else
+    {
+      this.toastr.error('error')
+    }
   }
 
 
@@ -558,7 +623,62 @@ export class LifeBajajProposalComponent implements OnInit {
   }
   public occupationListFailure(error){
   }
- // session Data
+
+  politicalReson(){
+    console.log(this.proposer.controls['politicallyExposedPerson'].value,'reson');
+    if(this.proposer.controls['politicallyExposedPerson'].value == 'Yes'){
+      this.politicalDetails = true;
+    } else {
+      this.politicalDetails = false;
+
+    }
+  }
+
+
+
+  changeWeightChanged(){
+    this.proposer.controls['weightChangedName'].patchValue(this.weightList[this.proposer.controls['weightChanged'].value]);
+  }
+
+  changeMarital(){
+    this.proposer.controls['maritalStatusName'].patchValue(this.maritalStatusList[this.proposer.controls['maritalStatus'].value]);
+  }
+  occupationListCode(){
+    this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
+  }
+  changeLanguage(){
+    this.proposer.controls['languageName'].patchValue(this.languageList[this.proposer.controls['language'].value]);
+
+  }
+  changeProposerType()
+  {
+    this.proposer.controls['proposerTypeName'].patchValue(this.proposerTypeList[this.proposer.controls['proposerType'].value]);
+  }
+  changeDocLanguage(){
+    this.proposer.controls['language2Name'].patchValue(this.docLanguageList[this.proposer.controls['language2'].value]);
+  }
+  changePremiumPayTerm()
+  {
+    this.proposer.controls['premiumPayTermName'].patchValue(this.primiumpayList[this.proposer.controls['premiumPayTerm'].value]);
+
+  }
+  changeNationality()
+  {
+    this.proposer.controls['nationalityName'].patchValue(this.nationalityList[this.proposer.controls['nationalityTerm'].value]);
+
+  }
+
+  changeCountry()
+  {
+    this.proposer.controls['countryOfResidName'].patchValue(this.countryList[this.proposer.controls['countryOfResid'].value]);
+
+  }
+  changeCitizenship()
+  {
+    this.proposer.controls['citizenshipName'].patchValue(this.citizenshipList[this.proposer.controls['citizenship'].value]);
+
+  }
+  // session Data
   sessionData() {
 
     if (sessionStorage.lifeBajaj1 != '' && sessionStorage.lifeBajaj1 != undefined) {
@@ -578,6 +698,7 @@ export class LifeBajajProposalComponent implements OnInit {
         height :lifeBajaj1.height,
         weight :lifeBajaj1.weight,
         weightChanged :lifeBajaj1.weightChanged,
+        weightChangedName :lifeBajaj1.weightChangedName,
         aadharNum :lifeBajaj1.aadharNum,
         address1 :lifeBajaj1.address1,
         address2 :lifeBajaj1.address2,
@@ -587,7 +708,7 @@ export class LifeBajajProposalComponent implements OnInit {
         sameAsProposer: lifeBajaj1.sameAsProposer,
         raddress1: lifeBajaj1.raddress1,
         raddress2 :lifeBajaj1.raddress2,
-        //rpincode :lifeBajaj1.rpincode,
+        rpincode :lifeBajaj1.rpincode,
         rcity :lifeBajaj1.rcity,
         rstate :lifeBajaj1.rstate,
         spouseDob :lifeBajaj1.spouseDob,

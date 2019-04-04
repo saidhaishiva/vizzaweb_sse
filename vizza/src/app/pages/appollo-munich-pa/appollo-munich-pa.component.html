@@ -26,18 +26,18 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" class="nospace" (input)="spac($event)" maxlength="45" autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="insuredPaFirstname" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname" class="nospace"  maxlength="45" (input)="spac($event)" (keypress)="nameValidate($event)" autocomplete="off">
+                          <input matInput placeholder="Mid Name" formControlName="insuredPaMidname"   maxlength="45"  (keypress)="nameValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname" class="nospace" maxlength="45" (input)="spac($event)"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="insuredPaLastname"  maxlength="45"   (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="insured.controls.insuredPaLastname.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -566,7 +566,7 @@
                     <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.insuredPaEmail}}</li>
                     <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.insuredOccupationListName}}</li>
                     <!--<li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>-->
-                    <li class="list-group-item" *ngIf="proposerFormData.ttdrider != ''"><strong>TTD Rider:</strong> {{proposerFormData.ttdrider}}</li>
+                    <li class="list-group-item"><strong>TTD Rider:</strong> {{proposerFormData.ttdrider}}</li>
                   </ul>
                 </div>
               </div>
