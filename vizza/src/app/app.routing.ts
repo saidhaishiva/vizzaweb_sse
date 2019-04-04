@@ -224,7 +224,7 @@ export const routes: Routes = [
             { path: 'appollopa/:stepper',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'},canDeactivate: [AppolloPaproposaldeactivateGuardService]},
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
-            { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
+            { path: 'religaretravel/:stepper', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
             { path: 'reliancetravel', component: TravelRelianceProposalComponent, data:{breadcrumb: 'Reliance Travel Proposal'}},
             { path: 'term-life', component: TermLifeComponent, data:{breadcrumb: 'Term Life Insurance'}},
             { path: 'endowment-life-insurance', component: EndowmentLifeInsuranceComponent, data:{breadcrumb: 'Endowment Life Insurance'}},
