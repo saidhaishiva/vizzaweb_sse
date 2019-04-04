@@ -502,7 +502,7 @@
                     </div>
                     <div class="col-md-6">
                       <div class="p-3">
-                        <ul class="m-0 list-group">{{item | json}}
+                        <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Name:</strong> {{item.title}} {{item.first_name}} {{item.last_name}}</li>
                           <li class="list-group-item"><strong>Gender:</strong>{{item.gender}}</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
@@ -531,7 +531,6 @@
                     </div>
                   </div>
                   <div *ngIf ="i==0">
-                  <h5 class="mt-3">NOMINEE DETAILS </h5>
                   <div class="row box-card">
                     <div class="col-md-6">
                       <div class="p-3">
