@@ -151,11 +151,17 @@ export class TravelProposalComponent implements OnInit {
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
-                stepperindex = 3;
+                stepperindex = 2;
+                if(sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined){
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                }
+
             }
         });
         this.currentStep = stepperindex;
-
+        console.log(this.currentStep,' this.currentStep');
         this.stopNext = false;
         this.back = false;
         this.hideQuestion = false;
@@ -200,6 +206,7 @@ export class TravelProposalComponent implements OnInit {
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             placeOfVisit: ['', Validators.required],
+            placeOfVisitName: '',
             travelPurpose: ['', Validators.required],
             travelPurposeName: '',
             physicianName:'',
@@ -241,7 +248,7 @@ export class TravelProposalComponent implements OnInit {
         for (let i = 0; i < this.insurePersons.length; i++) {
             this.items = this.insureArray.get('items') as FormArray;
             this.items.push(this.initItemRows());
-            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getTravelPremiumList.family_details[i].type);
+            this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.insurePersons[i].type);
         }
         this.sessionData();
     }
@@ -545,6 +552,7 @@ export class TravelProposalComponent implements OnInit {
                 travelPurpose: this.getStepper1.travelPurpose,
                 travelPurposeName: this.getStepper1.travelPurposeName,
                 placeOfVisit: '',
+                placeOfVisitName: '',
                 physicianName: this.getStepper1.physicianName,
                 physicianContactNumber: this.getStepper1.physicianContactNumber,
                 travelDeclaration: this.getStepper1.travelDeclaration
@@ -611,7 +619,15 @@ export class TravelProposalComponent implements OnInit {
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
         if (this.personal.valid) {
             if (sessionStorage.proposerAgeForTravel >= 18) {
-                stepper.next();
+                if((this.personal.controls['physicianName'].value == '' &&  this.personal.controls['physicianContactNumber'].value == '') || (this.personal.controls['physicianName'].value != '' &&  this.personal.controls['physicianContactNumber'].value != '')){
+                    stepper.next();
+
+                } else {
+                    if (this.personal.controls['physicianName'].value == '' || this.personal.controls['physicianContactNumber'].value == '') {
+                        this.toastr.error('Complete Physician Details');
+                    }
+                }
+
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -684,7 +700,7 @@ export class TravelProposalComponent implements OnInit {
                 }
             }
             if (ageValidate.includes(1)) {
-                this.toastr.error('Insurer Date of birth date should be atleast 5 months old');
+                this.toastr.error(' Insured Date Of Birth should be at least 5 months old');
             } else if(ageValidate.includes(2)){
                 valid = true;
             }
@@ -708,6 +724,7 @@ export class TravelProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             stepper.next();
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData, 'this.summaryData');
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             sessionStorage.travel_proposal_id = this.summaryData.proposal_id;
             this.proposerFormData = this.personal.value;
@@ -722,7 +739,6 @@ export class TravelProposalComponent implements OnInit {
     public proposalFailure(error) {
 
     }
-
 
     // pincode list
     getPostal(pin, title) {
@@ -748,6 +764,7 @@ export class TravelProposalComponent implements OnInit {
             this.response = successData.ResponseObject;
             if (title == 'personal') {
                 if (Object.keys(this.response).length === 0) {
+                    this.toastr.error('In valid Pincode');
                     this.personal.controls['personalState'].setValue('');
                     this.personal.controls['personalCity'].setValue('');
                     this.personalCitys = {};
@@ -806,6 +823,10 @@ export class TravelProposalComponent implements OnInit {
         this.personal.controls['travelPurposeName'].patchValue(this.travelPurposeLists[this.personal.controls['travelPurpose'].value]);
     }
 
+    placePurpose(){
+        this.personal.controls['placeOfVisitName'].patchValue(this.placeOfVisiLists[this.personal.controls['placeOfVisit'].value]);
+
+    }
 
 //summary city detail
     getPostalSummary(pin, title) {

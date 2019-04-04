@@ -9,9 +9,9 @@ export class ClearSessionTravelService {
 
   clearSessionTravelData() {
       // common
-      sessionStorage.travelPremiumList = '';
-      sessionStorage.allTravelPremiumLists = '';
-      sessionStorage.enquiryDetailsTravel = '';
+      // sessionStorage.travelPremiumList = '';
+      // sessionStorage.allTravelPremiumLists = '';
+      // sessionStorage.enquiryDetailsTravel = '';
 
       sessionStorage.summaryData = '';
       sessionStorage.proposerFormData = '';

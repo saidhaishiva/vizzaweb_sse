@@ -58,7 +58,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Marital Status" formControlName="maritalStatus" required  class="w-100">
-                            <mat-option *ngFor="let status of Marital" [value]= 'status.marital_status_id'> {{status.marital_status}} </mat-option>
+                            <mat-option *ngFor="let status of Marital | keys" [value]= 'status.key'> {{status.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
                         </mat-form-field>
@@ -66,7 +66,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Occupation" formControlName="occupation" required  class="w-100">
-                            <mat-option *ngFor="let list of PersonalOccupation" value = '{{list.occupation_id}}'> {{list.occupation_name}} </mat-option>
+                            <mat-option *ngFor="let list of PersonalOccupation | keys " value = '{{list.key}}'> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
                         </mat-form-field>
@@ -108,7 +108,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Nationality" formControlName="nationality" required  class="w-100">
-                            <mat-option *ngFor="let list of Nationality" [value]= 'list.nationality_id'> {{list.nationality}} </mat-option>
+                            <mat-option *ngFor="let list of Nationality | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.nationality.errors?.required">Nationality is required</mat-error>
                         </mat-form-field>
@@ -191,7 +191,7 @@
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <mat-select  placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" required  class="w-100">
-                                <mat-option *ngFor="let list of proposalPArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                <mat-option *ngFor="let list of proposalPArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>
                             </mat-form-field>
@@ -269,7 +269,7 @@
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" [disabled]="inputReadonly">
-                                <mat-option *ngFor="let list of proposalRArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                <mat-option *ngFor="let list of proposalRArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="personal.controls.residenceArea.errors?.required">Area is required</mat-error>
                             </mat-form-field>
@@ -308,7 +308,7 @@
                           </div>
                           <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Tution FeePer Sem" formControlName="personalTutionFeePerSem" maxlength="25"  (keypress)="numberValidate($event)"  autocomplete="off">
+                                    <input matInput placeholder="Tuition Fees Per Sem" formControlName="personalTutionFeePerSem" maxlength="25"  (keypress)="numberValidate($event)"  autocomplete="off">
                                 </mat-form-field>
                           </div>
                           <div class="col-md-3">
@@ -432,7 +432,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Area" formControlName="personalBurglaryArea" [disabled]="inputBurglaryReadonly">
-                            <mat-option *ngFor="let list of proposalBArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                            <mat-option *ngFor="let list of proposalBArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -582,7 +582,7 @@
                             <div class="col-md-3">
                                 <mat-form-field class="w-100">
                                     <mat-select  placeholder="Area" formControlName="personalCompanyArea">
-                                        <mat-option *ngFor="let list of proposalCArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                                        <mat-option *ngFor="let list of proposalCArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                                     </mat-select>
                                 </mat-form-field>
                             </div>
@@ -679,7 +679,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Area" formControlName="personalDoctorArea">
-                            <mat-option *ngFor="let list of proposalDArea" [value]= 'list.area_id'> {{list.area_name}} </mat-option>
+                            <mat-option *ngFor="let list of proposalDArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -776,7 +776,7 @@
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
                               <mat-select  placeholder="Occupation" formControlName="occupation"  [disabled]="sameValue" [required]="i == 0">
-                                <mat-option *ngFor="let list of PersonalOccupation" value = '{{list.occupation_id}}'> {{list.occupation_name}} </mat-option>
+                                <mat-option *ngFor="let list of PersonalOccupation | keys " value = '{{list.key}}'> {{list.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Occupation is required</mat-error>
                             </mat-form-field>
@@ -816,7 +816,7 @@
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
                               <mat-select placeholder="Visiting Countries" formControlName="VisitingCountries">
-                                <mat-option  *ngFor="let countries of VisitingCountry" value="{{countries.visiting_name}}">{{countries.visiting_name}}</mat-option>
+                                <mat-option  *ngFor="let countries of VisitingCountry | keys" value="{{countries.key}}">{{countries.value}}</mat-option>
                               </mat-select>
                             </mat-form-field>
                           </div>
@@ -833,7 +833,7 @@
                               <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'">
                                 <mat-form-field class="w-100">
                                   <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness">
-                                    <mat-option  *ngFor="let disease of PreExistingIllness" value="{{disease.disease_name}}">{{disease.disease_name}}</mat-option>
+                                    <mat-option  *ngFor="let disease of PreExistingIllness | keys" value="{{disease.key}}">{{disease.value}}</mat-option>
                                   </mat-select>
                                 </mat-form-field>
                               </div>
@@ -950,7 +950,7 @@
                                     <div class="col-md-4">
                                       <mat-form-field class="w-100">
                                         <mat-select placeholder="Sports Name" formControlName="riskSportsActivities">
-                                          <mat-option  *ngFor="let sports of SportsActivities"  value="{{sports.sportsactivity_id}}">{{sports.sportsactivity_name}}</mat-option>
+                                          <mat-option  *ngFor="let sports of SportsActivities | keys"  value="{{sports.key}}">{{sports.value}}</mat-option>
                                         </mat-select>
                                       </mat-form-field>
                                     </div>
@@ -997,7 +997,7 @@
                                         <div class="col-md-12">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Visiting Countries" formControlName="riskVisitingCountries">
-                                                    <mat-option  *ngFor="let countries of VisitingCountry" value="{{countries.visiting_name}}">{{countries.visiting_name}}</mat-option>
+                                                    <mat-option  *ngFor="let countries of VisitingCountry | keys" value="{{countries.key}}">{{countries.value}}</mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
@@ -1034,7 +1034,7 @@
                                       <div class="col-md-12" *ngIf="riskCoverageTypeTrue">
                                         <mat-form-field class="w-100">
                                           <mat-select placeholder="Coverage Type Id" formControlName="riskCoverageType">
-                                            <mat-option  *ngFor="let cover of CoverType"  value="{{cover.cover_code}}">{{cover.cover_type}}</mat-option>
+                                            <mat-option  *ngFor="let cover of CoverType | keys"  value="{{cover.key}}">{{cover.value}}</mat-option>
                                           </mat-select>
                                         </mat-form-field>
                                       </div>

@@ -49,8 +49,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   public webhost: any;
   public reliance_Travel_proposal_id: any;
 
-  public getTravelPremiumList: any;
-  public getallTravelPremiumList: any;
+  // public getTravelPremiumList: any;
+  public getEnquiryDetails: any;
   public groupName: any;
   public getFamilyDetails: any;
   public insuredTravelPerson: any;
@@ -123,6 +123,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   public getStepper1: any;
   public getStepper2: any;
   public getStepper3: any;
+  public sessionStepper3: any;
   public lastStepper: any;
   public personalData :any;
   public RiskData :any;
@@ -327,6 +328,22 @@ export class TravelRelianceProposalComponent implements OnInit {
       TravelPlusPlan: '',
       // TravelIsAllPlan:'',
 
+      // overseas: this.overseas,
+      // riskIsResidingInIndiaTrue: this.riskIsResidingInIndiaTrue,
+      // riskSportsActivitiesTrue: this.riskSportsActivitiesTrue,
+      // VisitingListTure: this.VisitingListTure,
+      // riskCoverageTypeTrue: this.riskCoverageTypeTrue,
+      // riskMaxDaysPerTripTrue: this.riskMaxDaysPerTripTrue,
+      // riskSeniorCitizenTrue: this.riskSeniorCitizenTrue,
+      // TravelCoverageTrue: this.TravelCoverageTrue,
+      // TravelStandardLimitTrue: this.TravelStandardLimitTrue,
+      // TravelSilverPlanTrue: this.TravelSilverPlanTrue,
+      // TravelGoldPlanTrue: this.TravelGoldPlanTrue,
+      // TravelPlatinumPlanTrue: this.TravelPlatinumPlanTrue,
+      // TravelBasicPlanTrue: this.TravelBasicPlanTrue,
+      // TravelElitePlanTrue: this.TravelElitePlanTrue,
+      // TravelPlusPlanTrue: this.TravelPlusPlanTrue,
+
     });
     this.totalInsureSpouseDetails = {
       'FirstName': '',
@@ -363,13 +380,11 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relainceSportsActivities();
     this.relainceCoverType();
 
-    this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-    let allLists = JSON.parse(sessionStorage.allTravelPremiumLists);
-    this.getallTravelPremiumList = allLists[sessionStorage.changedTabIndex];
-    console.log(this.getallTravelPremiumList.start_date, 'this.getallTravelPremiumList');
-    console.log(this.datepipe.transform(this.getallTravelPremiumList.start_date, 'dd/MM/y'), 'this.getallTravelPremiumList');
-    console.log(this.getallTravelPremiumList, 'this.getallTravelPremiumList');
-    this.insuredTravelPerson = this.getTravelPremiumList.family_details;
+    // this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+    console.log(this.sessionStepper3,'sessionStepper3');
+    let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
+    this.getEnquiryDetails = enqList[0];
+    this.insuredTravelPerson = this.getEnquiryDetails.family_members;
     console.log(this.insuredTravelPerson,'insuredTravelPersoninsuredTravelPersoninsuredTravelPerson');
     this.relianceInsuredTravel = this.fb.group({
       items: this.fb.array([])
@@ -531,16 +546,22 @@ export class TravelRelianceProposalComponent implements OnInit {
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper3Details = JSON.stringify(value);
     if (this.riskDetails.valid) {
+      if(this.RiskData.riskIndian == true || this.RiskData.riskIsOverSeasCitizen == true){
       this.lastStepper = stepper;
       this.proposal();
+      }else{
+        this.toastr.error('select you are Indian Citizen or Over Seas Citizen');
+
+      }
     }
   }
 
   //Create Proposal
 
   proposal() {
+
     const data = {
-      'enquiry_id': this.getTravelPremiumList.enquiry_id,
+      'enquiry_id': this.getEnquiryDetails.enquiry_id,
       "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
@@ -732,9 +753,9 @@ export class TravelRelianceProposalComponent implements OnInit {
           'PreExistDiseaseID': this.RiskData.riskPreExistDisease.toString(),
           'IsVisitingUSACanada': this.RiskData.riskIsVisitingUSACanada.toString(),
           'VisitingCountriesID': this.RiskData.riskVisitingCountries,
-          'JourneyStartDate': this.datepipe.transform(this.getallTravelPremiumList.start_date, 'dd/MM/y'),
-          'JourneyEndDate': this.datepipe.transform(this.getallTravelPremiumList.end_date, 'dd/MM/y'),
-          'TravelDays': this.getallTravelPremiumList.day_count.toString(),
+          'JourneyStartDate': this.datepipe.transform(this.getEnquiryDetails.start_date, 'dd/MM/y'),
+          'JourneyEndDate': this.datepipe.transform(this.getEnquiryDetails.end_date, 'dd/MM/y'),
+          'TravelDays': this.getEnquiryDetails.day_count.toString(),
           'DateOfBirth': this.datepipe.transform(this.personalData.personalDob, 'dd/MM/y'),
           'CoverageTypeID': this.RiskData.riskCoverageType,
           'IsAddOnCover': this.RiskData.riskIsVisitingStudent.toString(),
@@ -1367,6 +1388,22 @@ export class TravelRelianceProposalComponent implements OnInit {
         TravelElitePlan: this.getStepper3.TravelElitePlan,
         TravelIsPlusPlan: this.getStepper3.TravelIsPlusPlan,
         TravelPlusPlan: this.getStepper3.TravelPlusPlan,
+
+        // overseas: this.getStepper3.overseas,
+        // riskIsResidingInIndiaTrue: this.getStepper3.riskIsResidingInIndiaTrue,
+        // riskSportsActivitiesTrue: this.getStepper3.riskSportsActivitiesTrue,
+        // VisitingListTure: this.getStepper3.VisitingListTure,
+        // riskCoverageTypeTrue: this.getStepper3.riskCoverageTypeTrue,
+        // riskMaxDaysPerTripTrue: this.getStepper3.riskMaxDaysPerTripTrue,
+        // riskSeniorCitizenTrue: this.getStepper3.riskSeniorCitizenTrue,
+        // TravelCoverageTrue: this.getStepper3.TravelCoverageTrue,
+        // TravelStandardLimitTrue: this.getStepper3.TravelStandardLimitTrue,
+        // TravelSilverPlanTrue: this.getStepper3.TravelSilverPlanTrue,
+        // TravelGoldPlanTrue: this.getStepper3.TravelGoldPlanTrue,
+        // TravelPlatinumPlanTrue: this.getStepper3.TravelPlatinumPlanTrue,
+        // TravelBasicPlanTrue: this.getStepper3.TravelBasicPlanTrue,
+        // TravelElitePlanTrue: this.getStepper3.TravelElitePlanTrue,
+        // TravelPlusPlanTrue: this.getStepper3.TravelPlusPlanTrue,
       });
       if (sessionStorage.reliance_Travel_proposal_id != '' && sessionStorage.reliance_Travel_proposal_id != undefined) {
         this.reliance_Travel_proposal_id = sessionStorage.religare_Travel_proposal_id;

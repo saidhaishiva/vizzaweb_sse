@@ -4,13 +4,13 @@
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="personal">
-          <ng-template matStepLabel>PROPOSER / INSURER DETAILS</ng-template>
+          <ng-template matStepLabel> PROPOSER / INSURED DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="personal" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    PROPOSER / INSURER DETAILS
+                    PROPOSER / INSURED DETAILS
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row ">
@@ -267,7 +267,7 @@
                     <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.sum_insured_amount}}</span></h4>
                   </div>
                   <div class="col-md-6">
-                    <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of getTravelPremiumList.travel_place">{{lists}}</span></span></h4>
+                    <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i>  <span *ngFor="let lists of getTravelPremiumList.travel_place"> {{lists}}</span></span></h4>
                   </div>
                 </div>
               </div>
@@ -292,7 +292,7 @@
               <tbody>
               <tr>
                 <td>
-                  <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" />
+                  <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 100px;" />
                 </td>
                 <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
                 <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</td>
@@ -353,7 +353,7 @@
                       <li class="list-group-item" *ngIf="proposerFormData.address2 != ''"><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
                       <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.cityName}}</li>
-                      <li class="list-group-item" ><strong>Sate:</strong> {{proposerFormData.stateName}}</li>
+                      <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.stateName}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
                     </ul>
                   </div>

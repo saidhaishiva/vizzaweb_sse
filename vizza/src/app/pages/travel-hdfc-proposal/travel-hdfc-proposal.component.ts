@@ -81,6 +81,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public today: any;
     public plantype: any;
     public getEnquiryDetails: any;
+    public placeOfVisit: any;
 
 
 
@@ -188,7 +189,10 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
     // session Storage
     sessionData() {
-        if (sessionStorage.hdfcTravelCity != '' && sessionStorage.hdfcTravelCity != undefined) {
+        if (sessionStorage.travelPlan != '' && sessionStorage.travelPlan != undefined) {
+            this.placeOfVisit = JSON.parse(sessionStorage.travelPlan);
+        }
+            if (sessionStorage.hdfcTravelCity != '' && sessionStorage.hdfcTravelCity != undefined) {
             this.hdfcTravelCity = JSON.parse(sessionStorage.hdfcTravelCity);
         }
         if (sessionStorage.hdfcTravelDetails1 != '' && sessionStorage.hdfcTravelDetails1 != undefined) {
@@ -282,6 +286,10 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
     idValidate(event: any){
         this.validation.idValidate(event);
+    }
+
+    nameValidateNospace(event: any){
+        this.validation.nameValidateNospace(event);
     }
     canDeactivate() {
         return this.hdfc_Travel_proposal_id;

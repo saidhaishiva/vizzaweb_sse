@@ -565,7 +565,8 @@
                     <li class="list-group-item"><strong>Age:</strong> {{proposerFormData.insuredPaAge}}</li>
                     <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.insuredPaEmail}}</li>
                     <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.insuredOccupationListName}}</li>
-                    <li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>
+                    <!--<li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>-->
+                    <li class="list-group-item" *ngIf="proposerFormData.ttdrider != ''"><strong>TTD Rider:</strong> {{proposerFormData.ttdrider}}</li>
                   </ul>
                 </div>
               </div>

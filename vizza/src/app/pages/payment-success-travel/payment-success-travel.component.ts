@@ -30,40 +30,25 @@ export class PaymentSuccessTravelComponent implements OnInit {
     status: any;
     remainingStatus: any;
 
-    constructor(public config: ConfigurationService, public travelservice: TravelService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
+    constructor(public config: ConfigurationService,public router : Router,public travelservice: TravelService, public route: ActivatedRoute, public appSettings: AppSettings, public auth: AuthService, public dialog: MatDialog) {
         this.purchasetoken = this.route.snapshot.queryParamMap['params']['purchaseToken'];
+        console.log(this.purchasetoken, 'ppp');
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
         this.settings.sidenavIsPinned = false;
         this.remainingStatus = false;
-
-        let groupDetails = JSON.parse(sessionStorage.groupDetails);
-
-        console.log(groupDetails.family_groups[sessionStorage.changedTabIndex].name, 'name');
-        console.log(sessionStorage.changedTabIndex, 'indx');
-        for(let i = 0; i < groupDetails.family_groups.length; i++) {
-            if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
-                console.log('in');
-                groupDetails.family_groups[i].status = 1;
-            }
-        }
-        let status = groupDetails.family_groups.filter(data => data.status == 0);
-        if(status.length > 0) {
-            this.remainingStatus = true;
-        }
-        sessionStorage.groupDetails = JSON.stringify(groupDetails);
-
-
-
     }
 
     ngOnInit() {
         this.proposalid = sessionStorage.travel_proposal_id;
         console.log(this.proposalid,' this.proposalid');
-        if ( this.purchasetoken != undefined) {
+        if (this.purchasetoken != undefined) {
             this.setPurchaseStatus();
         }
+    }
+    retry() {
+        this.router.navigate(['/travelproposal'  + '/' + true]);
     }
 
     setPurchaseStatus() {

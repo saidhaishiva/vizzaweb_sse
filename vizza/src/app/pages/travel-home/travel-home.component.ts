@@ -103,12 +103,15 @@ export class TravelHomeComponent implements OnInit {
     public pincodeErrors: any;
     public pincode: any;
     public pinerror: boolean;
+    public sem: any;
+    public courseDuration: any;
     public travelUserType: boolean;
     public startDateRequired: boolean;
     public endDateRequired: boolean;
     public plcaeOfVisitError: boolean;
     public travelTypeError: boolean;
     public enquiryDetails: any;
+    public studentDuration: boolean;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute) {
         this.settings = this.appSettings.settings;
@@ -159,6 +162,7 @@ export class TravelHomeComponent implements OnInit {
         this.endDateRequired = false;
         this.plcaeOfVisitError = false;
         this.travelTypeError = false;
+        this.studentDuration = false;
 
         this.Child3BTn = true;
         this.FatherBTn = true;
@@ -257,6 +261,8 @@ export class TravelHomeComponent implements OnInit {
         this.daysCount = '';
         this.maxDate = '';
         this.medicalCondition = '';
+        this.pincode = '';
+        this.travelUserType = false;
         this.Child3BTn = false;
         this.FatherBTn = false;
         this.MotherBTn = false;
@@ -305,6 +311,9 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.stepper2DetailsForTravel = '';
         sessionStorage.proposerAgeForTravel = '';
         sessionStorage.mobileNumberForTravel = '';
+        sessionStorage.daysCount = '';
+        sessionStorage.pincode = '';
+        sessionStorage.travelUserType = '';
     }
     getAllcountryLists() {
         const data = {
@@ -573,8 +582,25 @@ export class TravelHomeComponent implements OnInit {
     ckeckedUserType() {
         console.log(this.travelUserType, 'sty');
         sessionStorage.travelUserType = this.travelUserType;
-    }
+        if(this.travelUserType == true){
+            this.studentDuration = true;
+            sessionStorage.studentDuration = this.studentDuration;
+        } else {
+            this.studentDuration = false;
+            sessionStorage.studentDuration = this.studentDuration;
+        }
+            sessionStorage.courseDuration = this.courseDuration;
+            sessionStorage.sem = this.sem;
 
+        }
+   // studentInfo(){
+   //     if(this.travelUserType == true){
+   //         this.studentDuration = true;
+   //     } else {
+   //         this.studentDuration = true;
+   //
+   //     }
+   //  }
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
@@ -932,8 +958,14 @@ export class TravelHomeComponent implements OnInit {
         if (sessionStorage.pincode != undefined && sessionStorage.pincode != '') {
             this.pincode = sessionStorage.pincode;
         }
-        if (sessionStorage.enquiryDetailsTravel != undefined && sessionStorage.enquiryDetailsTravel != '') {
-            this.enquiryDetails = JSON.parse(sessionStorage.enquiryDetailsTravel);
+        if (sessionStorage.studentDuration != undefined && sessionStorage.studentDuration != '') {
+            this.studentDuration = sessionStorage.studentDuration;
+        }
+        if (sessionStorage.sem != undefined && sessionStorage.sem != '') {
+            this.sem = sessionStorage.sem;
+        }
+        if (sessionStorage.courseDuration != undefined && sessionStorage.courseDuration != '') {
+            this.courseDuration = sessionStorage.courseDuration;
         }
 
 
