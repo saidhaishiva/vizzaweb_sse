@@ -367,7 +367,7 @@ export class TravelPremiumListComponent implements OnInit {
                 this.router.navigate(['/hdfc-travel'  + '/' + false]);
             } else if (value.product_id <= 26 && value.product_id >=24) {
                 this.router.navigate(['/shriram-travel-home'+ '/' + false]);
-            }else if (value.product_id == 52) {
+            }else if (value.product_id == 52 || (value.product_id >= 60 && value.product_id <= 65) || (value.product_id >= 82 && value.product_id <= 85) ) {
                 this.router.navigate(['/reliancetravel']);
             }else if (value.product_id <= 59 && value.product_id >=38) {
                 this.router.navigate(['/religaretravel']);
