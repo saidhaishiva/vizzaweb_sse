@@ -287,6 +287,10 @@ export class TravelHdfcProposalComponent implements OnInit {
     idValidate(event: any){
         this.validation.idValidate(event);
     }
+
+    nameValidateNospace(event: any){
+        this.validation.nameValidateNospace(event);
+    }
     canDeactivate() {
         return this.hdfc_Travel_proposal_id;
     }
