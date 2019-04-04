@@ -356,7 +356,7 @@ export class TravelPremiumListComponent implements OnInit {
                     }else if (value.product_id == 52) {
                         this.router.navigate(['/reliancetravel']);
                     }else if (value.product_id <= 59 && value.product_id >=38) {
-                        this.router.navigate(['/religaretravel']);
+                        this.router.navigate(['/religaretravel'  + '/' + false]);
                     } else{}
                 }
             });
@@ -370,7 +370,7 @@ export class TravelPremiumListComponent implements OnInit {
             }else if (value.product_id == 52 || (value.product_id >= 60 && value.product_id <= 65) || (value.product_id >= 82 && value.product_id <= 85) ) {
                 this.router.navigate(['/reliancetravel']);
             }else if (value.product_id <= 59 && value.product_id >=38) {
-                this.router.navigate(['/religaretravel']);
+                this.router.navigate(['/religaretravel' + '/' + false]);
             } else {
 
             }

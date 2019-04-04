@@ -827,7 +827,9 @@ export class TravelHomeComponent implements OnInit {
                     'pincode': this.pincode,
                     'duration': this.duration ? this.duration : '',
                     'travel_user_type': this.travelUserType ?  'student' : groupname,
-                    'medical_condition': this.medicalCondition
+                    'medical_condition': this.medicalCondition,
+                    'course_duration':this.courseDuration,
+                    'semester':this.sem
                 }
                 this.settings.loadingSpinner = true;
                 console.log(data, 'this.datadata');
