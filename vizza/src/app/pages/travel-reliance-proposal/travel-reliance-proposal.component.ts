@@ -132,6 +132,11 @@ export class TravelRelianceProposalComponent implements OnInit {
   public summaryData :any;
   public rediretUrlLink :any;
 
+
+  public response :any;
+
+
+
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public travelservice: TravelService) {
     const minDate = new Date();
@@ -1046,9 +1051,9 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
   }
   sameAddress(values: any) {
-    this.sameField = values.checked;
     if (values.checked) {
-      this.commonPincode(this.personal.controls['personalPincode'].value, 'proposalR');
+      this.proposalRArea = JSON.parse(sessionStorage.proposalPArea);
+      sessionStorage.proposalRArea = JSON.stringify(this.proposalRArea);
       this.inputReadonly = true;
       this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
       this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
@@ -1061,6 +1066,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['residenceCountry'].setValue(this.personal.controls['personalCountry'].value);
       this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
     } else {
+      this.proposalRArea = '';
+      sessionStorage.proposalRArea = {};
       this.inputReadonly = false;
       this.personal.controls['residenceAddress'].setValue('');
       this.personal.controls['residenceAddress2'].setValue('');
@@ -1161,14 +1168,31 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   sessionData() {
-    if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
-      this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
-      this.personal = this.fb.group({
+      if (sessionStorage.proposalPArea != '' && sessionStorage.proposalPArea != undefined) {
+          this.proposalPArea = JSON.parse(sessionStorage.proposalPArea);
+      }
+      if (sessionStorage.proposalRArea != '' && sessionStorage.proposalRArea != undefined) {
+          this.proposalRArea = JSON.parse(sessionStorage.proposalRArea);
+      }
+      if (sessionStorage.proposalBArea != '' && sessionStorage.proposalBArea != undefined) {
+          this.proposalBArea = JSON.parse(sessionStorage.proposalBArea);
+      }
+      if (sessionStorage.proposalCArea != '' && sessionStorage.proposalCArea != undefined) {
+          this.proposalCArea = JSON.parse(sessionStorage.proposalCArea);
+      }
+      if (sessionStorage.proposalDArea != '' && sessionStorage.proposalDArea != undefined) {
+          this.proposalDArea = JSON.parse(sessionStorage.proposalDArea);
+      }
+
+
+      if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
+        this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+        this.personal = this.fb.group({
         personalTitle: this.getStepper1.personalTitle,
         personalFirstname: this.getStepper1.personalFirstname,
         personalMidname: this.getStepper1.personalMidname,
         personalLastname: this.getStepper1.personalLastname,
-        personalDob: this.getStepper1.personalDob,
+        personalDob: this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd'),
         personalGender: this.getStepper1.personalGender,
         maritalStatus: this.getStepper1.maritalStatus,
         occupation: this.getStepper1.occupation,
@@ -1293,30 +1317,22 @@ export class TravelRelianceProposalComponent implements OnInit {
         rolecd: this.getStepper1.rolecd,
       });
 
-      if (this.getStepper1.personalPincode != '') {
-        this.commonPincode(this.getStepper1.personalPincode, 'proposalP');
-        setTimeout(() =>{
-          if(this.getStepper1.sameas == true) {
+        if(this.getStepper1.sameas == true) {
             this.inputReadonly = true;
-            this.commonPincode(this.getStepper1.personalPincode, 'proposalR');
-          } else if(this.getStepper1.sameas == false) {
-            this.commonPincode(this.getStepper1.residencePincode, 'proposalR');
-          }if(this.getStepper1.sameasBurglary == true){
+        } else {
+            this.inputReadonly = false;
+        }
+        if(this.getStepper1.sameasBurglary == true){
             this.inputBurglaryReadonly = true;
-            this.commonPincode(this.getStepper1.personalBurglaryPincode, 'proposalB');
-          }else if(this.getStepper1.sameasBurglary == false){
-            this.commonPincode(this.getStepper1.personalBurglaryPincode, 'proposalB');
-          }if(this.getStepper1.sameasSponsor == true){
+        } else {
+            this.inputBurglaryReadonly = false;
+        }
+        if(this.getStepper1.sameasSponsor == true){
             this.inputSponsorReadonly = true;
-            this.commonPincode(this.getStepper1.personalSponsorPincode, 'proposalS');
-          }else if(this.getStepper1.sameasSponsor == false){
-            this.commonPincode(this.getStepper1.personalSponsorPincode, 'proposalS');
-          }
-        },2000);
-      };
+        } else {
+            this.inputSponsorReadonly = false;
+        }
 
-      let getPerDob = this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd');
-      this.personal['controls'].personalDob.patchValue(getPerDob);
     }
 
     if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
@@ -1618,19 +1634,17 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   commonPincode(pin, title) {
-    this.pin = pin;
-    this.title = title;
     const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'product_id' : '11',
-      'pincode': this.pin
+      'pincode': pin
     }
     if (this.pin.length == 6) {
       this.travelservice.travelRelianceCheckpincode(data).subscribe(
           (successData) => {
-            this.commonPincodeSuccess(successData);
+            this.commonPincodeSuccess(successData, title);
           },
           (error) => {
             this.commonPincodeFailure(error);
@@ -1639,141 +1653,128 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
   }
 
-  public commonPincodeSuccess(successData) {
-    this.setPincode = successData.ResponseObject;
-    if (this.title == 'proposalP') {
+  public commonPincodeSuccess(successData, title) {
       if (successData.IsSuccess) {
-        this.personal['controls'].personalState.patchValue(this.setPincode.state_name);
-        this.personal['controls'].personalDistrict.patchValue(this.setPincode.district_name);
-        this.personal['controls'].personalCity.patchValue(this.setPincode.city_village_name);
-        this.proposalPArea = this.setPincode.area_details;
-        this.personal['controls'].personalDistrictIdP.patchValue(this.setPincode.district_id);
-        this.personal['controls'].personalCityIdP.patchValue(this.setPincode.city_village_id);
-        this.personal['controls'].personalStateIdP.patchValue(this.setPincode.state_id);
-        this.getComAddressList = successData.ResponseObject;
+          this.response = successData.ResponseObject;
+          if (title == 'personal') {
+              if (Object.keys(this.response).length === 0) {
+                  this.personal['controls'].personalState.patchValue('');
+                  this.personal['controls'].personalDistrict.patchValue('');
+                  this.personal['controls'].personalCity.patchValue('');
+                  this.personal['controls'].personalDistrictIdP.patchValue('');
+                  this.personal['controls'].personalCityIdP.patchValue('');
+                  this.personal['controls'].personalStateIdP.patchValue('');
+                  this.proposalPArea = this.response.area_details;
+                  sessionStorage.proposalPArea = {};
 
-      } else {
-        this.toastr.error('In valid Pincode');
-        this.personal['controls'].personalState.patchValue('');
-        this.personal['controls'].personalDistrict.patchValue('');
-        this.personal['controls'].personalCity.patchValue('');
-        this.proposalPArea = [];
-        this.personal['controls'].personalDistrictIdP.patchValue('');
-        this.personal['controls'].personalCityIdP.patchValue('');
-        this.personal['controls'].personalStateIdP.patchValue('');
-        this.getComAddressList = '';
+              } else {
+                  this.personal['controls'].personalState.patchValue(this.response.state_name);
+                  this.personal['controls'].personalDistrict.patchValue(this.response.district_name);
+                  this.personal['controls'].personalCity.patchValue(this.response.city_village_name);
+                  this.personal['controls'].personalDistrictIdP.patchValue(this.response.district_id);
+                  this.personal['controls'].personalCityIdP.patchValue(this.response.city_village_id);
+                  this.personal['controls'].personalStateIdP.patchValue(this.response.state_id);
+                  this.proposalPArea = '';
+                  sessionStorage.proposalPArea = JSON.stringify(this.proposalPArea);
+              }
+          } else if(title == 'proposalR') {
+              if (Object.keys(this.response).length === 0) {
+                  this.personal['controls'].residenceState.patchValue('');
+                  this.personal['controls'].residenceDistrict.patchValue('');
+                  this.personal['controls'].residenceCity.patchValue('');
+                  this.personal['controls'].residenceDistrictIdR.patchValue('');
+                  this.personal['controls'].personalCityIdR.patchValue('');
+                  this.personal['controls'].personalStateIdR.patchValue('');
+                  this.proposalRArea = '';
+                  sessionStorage.proposalRArea = {};
+
+              } else {
+                  this.personal['controls'].residenceState.patchValue(this.response.state_name);
+                  this.personal['controls'].residenceDistrict.patchValue(this.response.district_name);
+                  this.personal['controls'].residenceCity.patchValue(this.response.city_village_name);
+                  this.personal['controls'].residenceDistrictIdR.patchValue(this.response.district_id);
+                  this.personal['controls'].personalCityIdR.patchValue(this.response.city_village_id);
+                  this.personal['controls'].personalStateIdR.patchValue(this.response.state_id);
+                  this.proposalRArea = this.response.area_details;
+                  sessionStorage.proposalRArea = JSON.stringify(this.proposalRArea);
+              }
+          } else if(title == 'proposalB') {
+              if (Object.keys(this.response).length === 0) {
+                  this.personal['controls'].personalBurglaryState.patchValue('');
+                  this.personal['controls'].personalBurglaryDistrict.patchValue('');
+                  this.personal['controls'].personalBurglaryCity.patchValue('');
+                  this.personal['controls'].personalyDistrictIdB.patchValue('');
+                  this.personal['controls'].personalCityIdB.patchValue('');
+                  this.personal['controls'].personalStateIdB.patchValue('');
+                  this.proposalBArea = this.setPincode.area_details;
+                  sessionStorage.proposalBArea = {};
+              } else {
+                  this.personal['controls'].personalBurglaryState.patchValue(this.response.state_name);
+                  this.personal['controls'].personalBurglaryDistrict.patchValue(this.response.district_name);
+                  this.personal['controls'].personalBurglaryCity.patchValue(this.response.city_village_name);
+                  this.personal['controls'].personalyDistrictIdB.patchValue(this.response.district_id);
+                  this.personal['controls'].personalCityIdB.patchValue(this.response.city_village_id);
+                  this.personal['controls'].personalStateIdB.patchValue(this.response.state_id);
+                  this.proposalBArea = this.setPincode.area_details;
+                  sessionStorage.proposalBArea = JSON.stringify(this.proposalBArea);
+              }
+          } else if(title == 'proposalS') {
+              if (Object.keys(this.response).length === 0) {
+                  this.personal['controls'].personalSponsorState.patchValue('');
+                  this.personal['controls'].personalSponsorCity.patchValue('');
+                  this.personal['controls'].personalCityIdS.patchValue('');
+                  this.personal['controls'].personalStateIdS.patchValue('');
+              } else {
+                  this.personal['controls'].personalSponsorState.patchValue(this.response.state_name);
+                  this.personal['controls'].personalSponsorCity.patchValue(this.response.city_village_name);
+                  this.personal['controls'].personalCityIdS.patchValue(this.response.city_village_id);
+                  this.personal['controls'].personalStateIdS.patchValue(this.response.state_id);
+              }
+          } else if(title == 'proposalC') {
+              if (Object.keys(this.response).length === 0) {
+                  this.personal['controls'].personalCompanyState.patchValue('');
+                  this.personal['controls'].personalCompanyDistrict.patchValue('');
+                  this.personal['controls'].personalCompanyCity.patchValue('');
+                  this.personal['controls'].personalyDistrictIdC.patchValue('');
+                  this.personal['controls'].personalCityIdC.patchValue('');
+                  this.personal['controls'].personalStateIdC.patchValue('');
+                  this.proposalCArea = '';
+                  sessionStorage.proposalCArea = {};
+              } else {
+                  this.personal['controls'].personalCompanyState.patchValue(this.response.state_name);
+                  this.personal['controls'].personalCompanyDistrict.patchValue(this.response.district_name);
+                  this.personal['controls'].personalCompanyCity.patchValue(this.response.city_village_name);
+                  this.personal['controls'].personalyDistrictIdC.patchValue(this.response.district_id);
+                  this.personal['controls'].personalCityIdC.patchValue(this.response.city_village_id);
+                  this.personal['controls'].personalStateIdC.patchValue(this.response.state_id);
+                  this.proposalCArea = this.response.area_details;
+                  sessionStorage.proposalCArea = JSON.stringify(this.proposalCArea);
+
+              }
+          } else if(title == 'proposalD') {
+              if (Object.keys(this.response).length === 0) {
+                  this.personal['controls'].personalDoctorState.patchValue('');
+                  this.personal['controls'].personalDoctorDistrict.patchValue('');
+                  this.personal['controls'].personalDoctorCity.patchValue('');
+                  this.personal['controls'].personalyDistrictIdD.patchValue('');
+                  this.personal['controls'].personalCityIdD.patchValue('');
+                  this.personal['controls'].personalStateIdD.patchValue('');
+                  this.proposalDArea = '';
+                  sessionStorage.proposalDArea = {};
+
+              } else {
+                  this.personal['controls'].personalDoctorState.patchValue(this.response.state_name);
+                  this.personal['controls'].personalDoctorDistrict.patchValue(this.response.district_name);
+                  this.personal['controls'].personalDoctorCity.patchValue(this.response.city_village_name);
+                  this.personal['controls'].personalyDistrictIdD.patchValue(this.response.district_id);
+                  this.personal['controls'].personalCityIdD.patchValue(this.response.city_village_id);
+                  this.personal['controls'].personalStateIdD.patchValue(this.response.state_id);
+                  this.proposalDArea = this.response.area_details;
+                  sessionStorage.proposalDArea = JSON.stringify(this.proposalDArea);
+              }
+          }
       }
-    }
-    if (this.title == 'proposalR') {
-      if (successData.IsSuccess) {
-        this.personal['controls'].residenceState.patchValue(this.setPincode.state_name);
-        this.personal['controls'].residenceDistrict.patchValue(this.setPincode.district_name);
-        this.personal['controls'].residenceCity.patchValue(this.setPincode.city_village_name);
-        this.proposalRArea = this.setPincode.area_details;
-        this.personal['controls'].residenceDistrictIdR.patchValue(this.setPincode.district_id);
-        this.personal['controls'].personalCityIdR.patchValue(this.setPincode.city_village_id);
-        this.personal['controls'].personalStateIdR.patchValue(this.setPincode.state_id);
-        this.getResAddressList = successData.ResponseObject;
 
-      } else {
-        this.toastr.error('In valid Pincode');
-        this.personal['controls'].residenceState.patchValue('');
-        this.personal['controls'].residenceDistrict.patchValue('');
-        this.personal['controls'].residenceCity.patchValue('');
-        this.proposalRArea = [];
-        this.personal['controls'].residenceDistrictIdR.patchValue('');
-        this.personal['controls'].personalCityIdR.patchValue('');
-        this.personal['controls'].personalStateIdR.patchValue('');
-        this.getResAddressList = '';
-      }
-    }
-
-    if(this.title == 'proposalB'){
-      if (successData.IsSuccess) {
-        this.personal['controls'].personalBurglaryState.patchValue(this.setPincode.state_name);
-        this.personal['controls'].personalBurglaryDistrict.patchValue(this.setPincode.district_name);
-        this.personal['controls'].personalBurglaryCity.patchValue(this.setPincode.city_village_name);
-        this.proposalBArea = this.setPincode.area_details;
-        this.personal['controls'].personalyDistrictIdB.patchValue(this.setPincode.district_id);
-        this.personal['controls'].personalCityIdB.patchValue(this.setPincode.city_village_id);
-        this.personal['controls'].personalStateIdB.patchValue(this.setPincode.state_id);
-        this.getBurglaryAddressList = successData.ResponseObject;
-
-      } else {
-        this.toastr.error('In valid Pincode');
-        this.personal['controls'].personalBurglaryState.patchValue('');
-        this.personal['controls'].personalBurglaryDistrict.patchValue('');
-        this.personal['controls'].personalBurglaryCity.patchValue('');
-        this.proposalBArea = [];
-        this.personal['controls'].residenceDistrictIdB.patchValue('');
-        this.personal['controls'].personalCityIdB.patchValue('');
-        this.personal['controls'].personalStateIdB.patchValue('');
-        this.getBurglaryAddressList = '';
-      }
-    }
-    if(this.title == 'proposalS'){
-      if (successData.IsSuccess) {
-        this.personal['controls'].personalSponsorState.patchValue(this.setPincode.state_name);
-        this.personal['controls'].personalSponsorCity.patchValue(this.setPincode.city_village_name);
-        this.personal['controls'].personalCityIdS.patchValue(this.setPincode.city_village_id);
-        this.personal['controls'].personalStateIdS.patchValue(this.setPincode.state_id);
-        this.getSponsorAddressList = successData.ResponseObject;
-
-      } else {
-        this.toastr.error('In valid Pincode');
-        this.personal['controls'].personalSponsorState.patchValue('');
-        this.personal['controls'].personalSponsorCity.patchValue('');
-        this.personal['controls'].personalCityIdS.patchValue('');
-        this.personal['controls'].personalStateIdS.patchValue('');
-        this.getSponsorAddressList = '';
-      }
-    }
-    if(this.title == 'proposalC'){
-      if (successData.IsSuccess) {
-        this.personal['controls'].personalCompanyState.patchValue(this.setPincode.state_name);
-        this.personal['controls'].personalCompanyDistrict.patchValue(this.setPincode.district_name);
-        this.personal['controls'].personalCompanyCity.patchValue(this.setPincode.city_village_name);
-        this.proposalCArea = this.setPincode.area_details;
-        this.personal['controls'].personalyDistrictIdC.patchValue(this.setPincode.district_id);
-        this.personal['controls'].personalCityIdC.patchValue(this.setPincode.city_village_id);
-        this.personal['controls'].personalStateIdC.patchValue(this.setPincode.state_id);
-        this.getCompanyAddressList = successData.ResponseObject;
-
-      } else {
-        this.toastr.error('In valid Pincode');
-        this.personal['controls'].personalCompanyState.patchValue('');
-        this.personal['controls'].personalCompanyDistrict.patchValue('');
-        this.personal['controls'].personalCompanyCity.patchValue('');
-        this.proposalCArea = [];
-        this.personal['controls'].residenceDistrictIdC.patchValue('');
-        this.personal['controls'].personalCityIdC.patchValue('');
-        this.personal['controls'].personalStateIdC.patchValue('');
-        this.getCompanyAddressList = '';
-      }
-    }
-    if(this.title == 'proposalD'){
-      if (successData.IsSuccess) {
-        this.personal['controls'].personalDoctorState.patchValue(this.setPincode.state_name);
-        this.personal['controls'].personalDoctorDistrict.patchValue(this.setPincode.district_name);
-        this.personal['controls'].personalDoctorCity.patchValue(this.setPincode.city_village_name);
-        this.proposalDArea = this.setPincode.area_details;
-        this.personal['controls'].personalyDistrictIdD.patchValue(this.setPincode.district_id);
-        this.personal['controls'].personalCityIdD.patchValue(this.setPincode.city_village_id);
-        this.personal['controls'].personalStateIdD.patchValue(this.setPincode.state_id);
-        this.getDoctorAddressList = successData.ResponseObject;
-
-      } else {
-        this.toastr.error('In valid Pincode');
-        this.personal['controls'].personalDoctorState.patchValue('');
-        this.personal['controls'].personalDoctorDistrict.patchValue('');
-        this.personal['controls'].personalDoctorCity.patchValue('');
-        this.proposalDArea = [];
-        this.personal['controls'].residenceDistrictIdD.patchValue('');
-        this.personal['controls'].personalCityIdD.patchValue('');
-        this.personal['controls'].personalStateIdD.patchValue('');
-        this.getDoctorAddressList = '';
-      }
-    }
   }
   public commonPincodeFailure(error)
     {
