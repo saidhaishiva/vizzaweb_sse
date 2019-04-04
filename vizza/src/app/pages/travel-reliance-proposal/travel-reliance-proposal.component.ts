@@ -1750,6 +1750,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue(true);
         this.overseas = true;
       }
+
     }
     if (title == 'overseas') {
       if (value.checked == true) {
