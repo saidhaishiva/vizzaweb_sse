@@ -48,7 +48,7 @@ export class ConfigurationService {
     this.travelInsurance = this.travelInsurance;
     this.healthInsurance = this.healthInsurance;
     this.apiHostMotor = this.apiHostMotor;
-    this.termLifeInsurance = this.healthInsurance;
+    this.termLifeInsurance = this.termLifeInsurance;
 
 
   }
