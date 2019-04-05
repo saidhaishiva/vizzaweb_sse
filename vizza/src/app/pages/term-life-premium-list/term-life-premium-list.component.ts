@@ -6,6 +6,8 @@ import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
+import {PosstatusAlertTravel} from '../travel-premium-list/travel-premium-list.component';
+import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
 
 @Component({
   selector: 'app-term-life-premium-list',
@@ -24,7 +26,7 @@ export class TermLifePremiumListComponent implements OnInit {
     compareArray: any;
     selectedAmountTravel: any;
     checkAllStatus: boolean;
-  constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService) {
+  constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
@@ -198,5 +200,27 @@ export class TermLifePremiumListComponent implements OnInit {
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
+    }
+
+    buyProduct(value) {
+        console.log(value, 'vlitss');
+        sessionStorage.lifePremiumList = JSON.stringify(value);
+        if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
+            let dialogRef = this.dialog.open(PosstatusAlertTravel, {
+                width: '700px',
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                if (result) {
+                    if (value.product_id <= 81 && value.product_id >=78) {
+                        this.router.navigate(['/travelproposal'  + '/' + false]);
+                    }
+                }
+            });
+        }  else {
+            if (value.product_id <= 81 && value.product_id >=78) {
+                this.router.navigate(['/travelproposal'  + '/' + false]);
+            }
+        }
     }
 }
