@@ -63,6 +63,14 @@ export class LifeBajajProposalComponent implements OnInit {
   public primiumPayTerm: any;
   public politicalDetails: boolean;
   public show: boolean;
+  public MainQuesList: any;
+  public SubQuesList: any;
+  public questionId: any;
+  public status: any;
+  public subQuestionText: any;
+  public sampleee: any;
+  public mobilecode: any;
+  public subDropDown: any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -168,7 +176,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.title();
     this.weightChanged();
     this.occupation();
-
+    this.mainQuestion();
 
     //NOMINEE Details
 
@@ -633,7 +641,67 @@ export class LifeBajajProposalComponent implements OnInit {
 
     }
   }
+  mainQuestion(){
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.termService.getMainQues(data).subscribe(
+        (successData) => {
+          console.log('ok');
+          this.MainQuesSuccess(successData);
+        },
+        (error) => {
+          this.MainQuesFailure(error);
+        }
+    );
+  }
+  public MainQuesSuccess(successData){
+    if(successData.IsSuccess){
+      this.MainQuesList = successData.ResponseObject;
+      console.log(this.MainQuesList,'pro');
+      for(let i=0; i< this.MainQuesList.length; i++) {
+        this.questionId = this.MainQuesList[i].qus_id;
+        this.MainQuesList[i].mainQuestionName = '';
+      }
+      console.log(this.questionId,'questionId');
 
+    }
+  }
+  public MainQuesFailure(error){
+  }
+  questionYes(items,value){
+    console.log(items,'kjgkgj');
+    if(value.checked) {
+      if(items.is_sub_question == '1') {
+        const data = {
+          'platform': 'web',
+          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+          'questionid': items.id
+        }
+        this.termService.getSubQues(data).subscribe(
+            (successData) => {
+              this.SubQuesSuccess(successData);
+            },
+            (error) => {
+              this.SubQuesFailure(error);
+            }
+        );
+      }
+    } else {
+      this.SubQuesList = [];
+    }
+  }
+  public SubQuesSuccess(successData){
+    if(successData.IsSuccess){
+      this.SubQuesList = successData.ResponseObject;
+      console.log(this.SubQuesList,'pro');
+    }
+  }
+  public SubQuesFailure(error){
+  }
 
 
   changeWeightChanged(){
@@ -682,7 +750,7 @@ export class LifeBajajProposalComponent implements OnInit {
   sessionData() {
 
     if (sessionStorage.lifeBajaj1 != '' && sessionStorage.lifeBajaj1 != undefined) {
-      let lifeBajaj1 = JSON.parse(sessionStorage.appollo2Detail);
+      let lifeBajaj1 = JSON.parse(sessionStorage.lifeBajaj1);
       this.proposer = this.Proposer.group({
         title: lifeBajaj1.title,
         firstName: lifeBajaj1.firstName,
