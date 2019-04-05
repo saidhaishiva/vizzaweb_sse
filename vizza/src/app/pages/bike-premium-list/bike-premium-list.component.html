@@ -14,7 +14,7 @@
                     <table class="table health-table table-scroll termLifeScroll">
                         <thead>
                         <tr>
-                            <th class="col-md-3">
+                            <th class="col-md-2">
                                 <mat-form-field class="w-100">
                                     <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
                                     <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
@@ -29,59 +29,48 @@
                                     </mat-select>
                                 </mat-form-field>
                             </th>
-                            <th class="sun-insured col-md-1">
+                            <th class="sun-insured col-md-2">
                                 <mat-form-field >
-                                    <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured ($)</mat-placeholder>
-                                    <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
-                                        <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">-->
-                                        <!--$ {{amounts.suminsured_amount}}-->
-                                        <!--</mat-option>-->
+                                    <mat-placeholder class="myclass font-weight-bold">Premium type ($)</mat-placeholder>
+                                    <mat-select [(ngModel)]="compherhensive" (change)="premiumlist()">
+                                        <mat-option value="Comprehensive_premium">Comprehensive Premium</mat-option>
+                                        <mat-option value="ThridParty_premium">ThridParty Premium</mat-option>
                                     </mat-select>
 
                                 </mat-form-field>
                             </th>
-                            <th class="col-md-1" style="padding: 15px 5px !important;">Age</th>
-                            <th class="col-md-1" style="padding: 15px 5px !important;">Policy Term</th>
-                            <th class="col-md-1" style="padding: 15px 5px !important;">Policy Paying Term</th>
-                            <th class="col-md-1" style="padding: 15px 5px !important;">Payment</th>
-                            <th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>
+                            <th class="col-md-2" style="padding: 15px 5px !important;">IDV</th>
+                            <th class="col-md-2" style="padding: 15px 5px !important;">Compare</th>
                             <th class="col-md-2" style="padding: 15px 5px !important;">Premiun ( &#8377; )</th>
-                            <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
+                            <th class="col-md-2" style="padding: 15px 5px !important;">Buy </th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr  *ngFor="let plists of allProductLists;let i = index">
-
-                            <td align="center"  class="col-md-3 text-center">
+                            <td align="center"  class="col-md-2 text-center">
                                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
-                                <p class="pTitle" matTooltip="{{plists.product_display_name}}">{{plists.product_display_name | titlecase }}</p>
+                                <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
                             </td>
-                            <td class="col-md-1 text-center">
-                                <p class="mt-4">{{plists.sum_insured_amount | currency}}</p>
+                            <td class="col-md-2 text-center">
+                                <p class="mt-4" *ngIf="comphensivePremium">Comprehensive Premium</p>
+                                <p class="mt-4" *ngIf="thirdParty">ThridParty Premium</p>
+
                             </td>
-                            <td class="col-md-1 text-center">
-                                <p class="mt-4">{{plists.age}}</p>
+                            <td class="col-md-2 text-center">
+                                <p class="mt-4"><strong> &#8377; {{plists.Idv}}
+                                </strong></p>
                             </td>
-                            <td class="col-md-1 text-center">
-                                <p class="mt-4">{{plists.policy_term}}</p>
-                            </td>
-                            <td class="col-md-1 text-center">
-                                <p class="mt-4">{{plists.policy_paying_term}}</p>
-                            </td>
-                            <td class="col-md-1 text-center">
-                                <p class="mt-4">{{plists.payment_mode | titlecase}}</p>
-                            </td>
-                            <td class="col-md-1 text-center">
+                            <td class="col-md-2 text-center">
                                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                             </td>
                             <td class="col-md-2">
-                                <p class="text-center change-p mt-2" ><strong>&#8377;  {{plists.totalpremium}} / Yr</strong></p>
+                                <p class="text-center change-p mt-2" ><strong>&#8377; <span  *ngIf="comphensivePremium">{{plists.Comprehensive_premium}}</span> <span  *ngIf="thirdParty">{{plists.ThridParty_premium}}</span>  / Yr</strong></p>
                                 <p class="text-center change-p">(Including GST)</p>
                             </td>
-                            <td class="col-md-1">
-                                <p class="mt-4"><button mat-raised-button color="accent" (click)="booking(plists)">Buy</button></p>
+                            <td class="col-md-2">
+                                <p class="text-center mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>
                             </td>
                         </tr>
                         </tbody>
