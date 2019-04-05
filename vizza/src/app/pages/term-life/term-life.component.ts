@@ -245,33 +245,35 @@ export class TermLifeComponent implements OnInit {
             if(this.pincodeErrors == false) {
                 valid = true;
             }
-            console.log(valid, 'valid');
-            console.log(this.dobError, 'this.dobError');
             if(valid) {
-                const data = {
-                    'platform': 'web',
-                    'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-                    'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-                    'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-                    'sum_assured_id': '',
-                    'age': sessionStorage.lifeEnqAge,
-                    'dob': this.datepipe.transform(this.TermLife.controls.lifedob.value, 'y-MM-dd'),
-                    'gender': this.TermLife.controls.lifeGender.value,
-                    'policy_paying_term': this.TermLife.controls.lifePolicy.value,
-                    'benefit_term': this.TermLife.controls.lifeBenefitTerm.value,
-                    'payment_mode': this.TermLife.controls.lifePayment.value,
-                    'smoker': this.TermLife.controls.lifesmoker.value ? 'y' : ' n',
-                    'pincode': this.TermLife.controls.lifePincode.value
-                };
-                console.log(data, 'dattttaaaaa');
-                this.commontermlyf.productListEnquiry(data).subscribe(
-                    (successData) => {
-                        this.productListEnquirySuccess(successData, data);
-                    },
-                    (error) => {
-                        this.productListEnquiryFailure(error);
-                    }
-                );
+                if (sessionStorage.lifeEnqAge >= 18) {
+                    const data = {
+                        'platform': 'web',
+                        'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+                        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+                        'sum_assured_id': '',
+                        'age': sessionStorage.lifeEnqAge,
+                        'dob': this.datepipe.transform(this.TermLife.controls.lifedob.value, 'y-MM-dd'),
+                        'gender': this.TermLife.controls.lifeGender.value,
+                        'policy_paying_term': this.TermLife.controls.lifePolicy.value,
+                        'benefit_term': this.TermLife.controls.lifeBenefitTerm.value,
+                        'payment_mode': this.TermLife.controls.lifePayment.value,
+                        'smoker': this.TermLife.controls.lifesmoker.value ? 'y' : ' n',
+                        'pincode': this.TermLife.controls.lifePincode.value
+                    };
+                    console.log(data, 'dattttaaaaa');
+                    this.commontermlyf.productListEnquiry(data).subscribe(
+                        (successData) => {
+                            this.productListEnquirySuccess(successData, data);
+                        },
+                        (error) => {
+                            this.productListEnquiryFailure(error);
+                        }
+                    );
+                } else {
+                    this.toastr.error('Age should be 18 or above');
+                }
             }
         }
     }
