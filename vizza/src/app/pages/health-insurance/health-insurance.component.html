@@ -268,7 +268,7 @@
     <div class="col pl-0"><button mat-raised-button  class="w-100">Group C</button></div>
   </div>
 
-  <mat-card class="" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
+  <mat-card class="mb-3" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
     <div class="row">
       <div class="col-md-6 col-6">
         <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
