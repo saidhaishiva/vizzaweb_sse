@@ -353,6 +353,7 @@ export class TravelProposalComponent implements OnInit {
                 } else {
                     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Enter Valid Date');
                 }
+                console.log(this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError,'jkhgfdsfsg');
                 selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {

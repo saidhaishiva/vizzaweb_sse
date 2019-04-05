@@ -29,6 +29,9 @@ export class BikePremiumListComponent implements OnInit {
     compareArray: any;
     bikeEnquiryDetails: any;
     checkAllStatus: boolean;
+    thirdParty: boolean;
+    comphensivePremium: boolean;
+    compherhensive: any;
     constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -36,8 +39,11 @@ export class BikePremiumListComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.compareArray = [];
+        this.thirdParty = false;
     }
-    ngOnInit() {
+    ngOnInit()
+    {
+        this.compherhensive = 'Comprehensive_premium';
         this.getCompanyList();
         this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
 
@@ -208,6 +214,26 @@ export class BikePremiumListComponent implements OnInit {
         }
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
+
+    }
+    premiumlist(){
+        if(this.compherhensive == 'ThridParty_premium'){
+            this.thirdParty = true;
+            this.comphensivePremium = false;
+        } else{
+            this.thirdParty = false;
+            this.comphensivePremium = true;
+
+        }
+    }
+
+    buyProduct(value) {
+        console.log(value,'value');
+        sessionStorage.buyProductDetails =  JSON.stringify(value);
+        if (value.company_id == 7) {
+            this.router.navigate(['/bike-shriram-proposal']);
+        }
+
 
     }
 }
