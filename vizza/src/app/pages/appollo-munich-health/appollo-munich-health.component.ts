@@ -171,9 +171,11 @@ export class AppolloMunichComponent implements OnInit {
     public idlistValid: boolean;
     public nomineesame: boolean;
 
+
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       let stepperindex = 0;
+      let step = 0;
       this.route.params.forEach((params) => {
           if(params.stepper == true || params.stepper == 'true') {
               stepperindex = 4;
@@ -292,6 +294,7 @@ export class AppolloMunichComponent implements OnInit {
       });
       this.TitleCodeStatus();
 
+
   }
     ngOnInit() {
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
@@ -328,7 +331,6 @@ export class AppolloMunichComponent implements OnInit {
                 this.insureArray['controls'].items['controls'][1]['controls'].set_validator.patchValue(true);
             }
         }
-
     }
     sessionData() {
         if (sessionStorage.AppolloDistrictList != '' && sessionStorage.AppolloDistrictList != undefined) {
@@ -599,10 +601,17 @@ export class AppolloMunichComponent implements OnInit {
 
     setStep(index: number) {
         this.step = index;
+        console.log(this.step, 'jhgh');
+    }
+
+    nextStep() {
+        this.step++;
+        alert('next');
     }
 
     prevStep() {
         this.step--;
+        alert('per');
     }
 
     initItemRows() {
@@ -1864,6 +1873,7 @@ export class AppolloMunichComponent implements OnInit {
 
     }
 
+
 //proposer Details
     proposerDetails(stepper: MatStepper, value) {
         this.proposerData = value;
@@ -1900,8 +1910,10 @@ export class AppolloMunichComponent implements OnInit {
             if (sessionStorage.proposerAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     if(this.proofValid){
+                        alert('in');
                         stepper.next();
                         this.topScroll();
+
                     } else{
                         this.toastr.error('Please enter id proof');
                     }
