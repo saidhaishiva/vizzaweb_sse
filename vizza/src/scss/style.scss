@@ -3527,7 +3527,7 @@ fieldset {
 #view-details-pa {
   color: #ffffff !important;
   height: calc(100vh - 150px);
-  .nav-item.active {
+  .nav-item.active, .mat-expansion-panel.active {
     background-color: #F16D73 !important;
     color: #ffffff;
   }
