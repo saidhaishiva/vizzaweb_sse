@@ -8,6 +8,7 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
+import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 @Component({
   selector: 'app-bike-shriram-proposal',
   templateUrl: './bike-shriram-proposal.component.html',
@@ -34,8 +35,9 @@ export class BikeShriramProposalComponent implements OnInit {
   public bkVehicleList: any;
   public bikeProposerAge: any;
   public proposerdateError: any;
+  public nomineeRelation: any;
 
-  constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public personalservice: PersonalAccidentService ) {
+  constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -128,7 +130,7 @@ export class BikeShriramProposalComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.nomineeRelationShip();
   }
 
 
@@ -196,32 +198,32 @@ export class BikeShriramProposalComponent implements OnInit {
 
               }
           }
-  // PINCODE
-            getinsuredPostalCode(pin) {
-              const data = {
-                'platform': 'web',
-                'postalcode': pin
-              };
-              if (pin.length == 6) {
-                this.personalservice.pinPaList(data).subscribe(
-                    (successData) => {
-                      this.pinProposerListSuccess(successData);
-                    },
-                    (error) => {
-                      this.pinProposerListFailure(error);
-                    }
-                );
-              }
-            }
-
-            public pinProposerListSuccess(successData) {
-              if (successData.IsSuccess) {
-                this.pinProposerList = successData.ResponseObject;
-              }
-            }
-
-            public pinProposerListFailure(error) {
-            }
+  // // PINCODE
+  //           getinsuredPostalCode(pin) {
+  //             const data = {
+  //               'platform': 'web',
+  //               'postalcode': pin
+  //             };
+  //             if (pin.length == 6) {
+  //               this.personalservice.pinPaList(data).subscribe(
+  //                   (successData) => {
+  //                     this.pinProposerListSuccess(successData);
+  //                   },
+  //                   (error) => {
+  //                     this.pinProposerListFailure(error);
+  //                   }
+  //               );
+  //             }
+  //           }
+  //
+  //           public pinProposerListSuccess(successData) {
+  //             if (successData.IsSuccess) {
+  //               this.pinProposerList = successData.ResponseObject;
+  //             }
+  //           }
+  //
+  //           public pinProposerListFailure(error) {
+  //           }
 
             driverAgeList() {
               console.log(this.proposer.controls['driverAge'].value,'eeeeeeeeeeeeeeee')
@@ -232,28 +234,27 @@ export class BikeShriramProposalComponent implements OnInit {
               }
             }
   // CITY
-          onChangecityListInsuredPa(){
-            const data = {
-              'platform': 'web',
-              'state_code': this.proposer.controls['insuredPaStateIdP'].value,
-              'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-              'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-            }
-            this.personalservice.cityPaList(data).subscribe(
-                (successData) => {
-                  this.insuredCityPaListSuccess(successData);
-                },
-                (error) => {
-                  this.insuredCityPaListFailure(error);
-                }
-            );
-          }
-            public insuredCityPaListSuccess(successData){
-              this.bikeCityList = successData.ResponseObject;
-
-            }
-            public insuredCityPaListFailure(error){
-            }
+  //         onChangecityListInsuredPa(){
+  //           const data = {
+  //             'platform': 'web',
+  //             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //           }
+  //           this.bikeInsurance.getNomineeRelationship(data).subscribe(
+  //               (successData) => {
+  //                 this.nomineeRelationSuccess(successData);
+  //               },
+  //               (error) => {
+  //                 this.nomineeRelationFailure(error);
+  //               }
+  //           );
+  //         }
+  //           public nomineeRelationSuccess(successData){
+  //             this.nomineeRelation = successData.ResponseObject;
+  //
+  //           }
+  //           public nomineeRelationFailure(error){
+  //           }
       changeCity() {
         this.proposer.controls['proposerbkCityName'].patchValue(this.bikeCityList[this.proposer.controls['proposerbkCity'].value]);
 
@@ -300,6 +301,30 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper3 = JSON.stringify(value);
           stepper.next();
         }
+//  fFOURTH sTEPPER (NOMINEE)
+
+        //RELATIONSHIP
+          nomineeRelationShip(){
+            const data = {
+              'platform': 'web',
+              'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+              'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+            }
+              this.bikeInsurance.getNomineeRelationship(data).subscribe(
+                  (successData) => {
+                    this.nomineeRelationSuccess(successData);
+                  },
+                  (error) => {
+                    this.nomineeRelationFailure(error);
+                  }
+              );
+            }
+            public nomineeRelationSuccess(successData){
+                this.nomineeRelation = successData.ResponseObject;
+                console.log(this.nomineeRelation,'this.nomineeRelation');
+            }
+            public nomineeRelationFailure(error){
+            }
 
   // VALIDATION
           numberValidate(event: any) {
@@ -327,9 +352,9 @@ export class BikeShriramProposalComponent implements OnInit {
   sessionData() {
     if (sessionStorage.shriramProposer != '' && sessionStorage.shriramProposer != undefined) {
       this.shriramProposer = JSON.parse(sessionStorage.shriramProposer);
-      if (this.shriramProposer.pincode != '') {
-        this.getinsuredPostalCode(this.shriramProposer.pincode);
-      }
+      // if (this.shriramProposer.pincode != '') {
+      //   this.getinsuredPostalCode(this.shriramProposer.pincode);
+      // }
       this.proposer = this.fb.group({
         title: this.shriramProposer.title,
         name: this.shriramProposer.name,
