@@ -475,11 +475,11 @@
 </div>
 <!--Mobile secondpage-->
 <section class="d-block d-sm-block d-md-none d-xl-none d-lg-none" *ngIf="secondPage">
-    <div class="row" style="margin:30px;">
-        <div class="col pr-0"><button mat-raised-button style="background-color: #28a745; color:#ffffff;" class="w-100">Group A</button></div>
-        <div class="col p-0"><button mat-raised-button  class="w-100">Group B</button></div>
-        <div class="col pl-0"><button mat-raised-button  class="w-100">Group C</button></div>
-    </div>
+    <!--<div class="row" style="margin:30px;">-->
+        <!--<div class="col pr-0"><button mat-raised-button style="background-color: #28a745; color:#ffffff;" class="w-100">Group A</button></div>-->
+        <!--<div class="col p-0"><button mat-raised-button  class="w-100">Group B</button></div>-->
+        <!--<div class="col pl-0"><button mat-raised-button  class="w-100">Group C</button></div>-->
+    <!--</div>-->
     <div class="sticky-top">
         <mat-card style="background-color: antiquewhite;">
             <div class="row">
@@ -513,7 +513,7 @@
 
     <mat-card class="mb-3" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
         <div class="row " >
-            <div class="col-md-6 col-6">
+            <div class="col-md-6 col-6 w-75">
                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
                 <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
             </div>
