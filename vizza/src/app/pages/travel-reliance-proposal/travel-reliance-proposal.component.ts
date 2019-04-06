@@ -1042,7 +1042,6 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   }
   typeAddressDeatils() {
-    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
     if (this.personal.controls['sameas'].value) {
       this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
       this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
@@ -1074,6 +1073,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
       this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
     }
+    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
   }
   sameAddress(values: any) {
     if (values.checked) {
@@ -1698,7 +1698,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   public commonPincodeSuccess(successData, title) {
       if (successData.IsSuccess == true) {
           this.response = successData.ResponseObject;
-          if (title == 'personal') {
+          if (title == 'proposalP') {
               if (Object.keys(this.response).length === 0) {
                   this.personal['controls'].personalState.patchValue('');
                   this.personal['controls'].personalDistrict.patchValue('');
