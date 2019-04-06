@@ -88,190 +88,38 @@
                                                 <mat-error *ngIf="proposer.controls.proposerGst.hasError('pattern')">Enter valid GST</mat-error>
                                             </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="ConvertNoteNo "  formControlName="convertNoteNo"  autocomplete="off">
-                                                    <mat-error *ngIf="proposer.controls.convertNoteNo.errors?.required">Convert Note No is required</mat-error>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker2"  placeholder="DOB (DD/MM/YYYY)" id="ndatepicker" (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEvent($event , 'nominee')" (dateChange)="addEvent($event, 'nominee')"  minlength="10" maxlength="10"
-                                                           autocomplete="off"   required>
-                                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                                    <mat-datepicker #picker2></mat-datepicker>
-                                                    <!--<mat-error *ngIf="nomineeDetail.controls.nDob.errors?.required">DOB is required</mat-error>-->
-                                                </mat-form-field>
-                                                <!--<div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>-->
-                                                <!--<div class="error" *ngIf="insuredPaDob > minDate">Future Date not allowed</div>-->
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select placeholder="vehicleType"  formControlName="vehicleType" (change)="changevehicle()" required>
-                                                        <mat-option *ngFor="let vehiclebk of bkVehicleList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
-                                                    </mat-select>
-                                                    <mat-error *ngIf="proposer.controls.vehicleType.errors?.required">City is required</mat-error>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="IDV_of_Vehicle "  formControlName="vehicleIDV"  autocomplete="off">
-                                                   </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="NoEmpCoverLL "  formControlName="noEmpCoverLL"  autocomplete="off">
-                                                     </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Vehicle Colour "  formControlName="vehicleColour"  autocomplete="off">
-                                                   </mat-form-field>
-                                            </div>
 
-
-
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="BreakIn "  formControlName="breakIn"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <p>Vehicle Purpose</p>
-                                                <mat-radio-group formControlName="vehiclePurpose" (change)="vehiclePurposeList()"  >
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <p>Driver Age</p>
-                                                <mat-radio-group formControlName="driverAge" (change)="driverAgeList()"  >
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <p>Nil Depreciation Cover</p>
-                                                <mat-radio-group formControlName="nilDepreciationCover"  >
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <p>PA for Unnamed Passenger</p>
-                                                <mat-radio-group formControlName="unnamedPassenger"  >
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PA for UnnamedPassenger SI"  formControlName="unnamedPassengerSI"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-
-                                            <div class="col-md-3">
-                                                <p>Electrical Access</p>
-                                               <mat-radio-group formControlName="electricalAccess"  >
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Electrical Access SI "  formControlName="electricalAccessSI"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <p>Non Electrical Access</p>
-                                                <mat-radio-group formControlName="nonElectricalAccess"   >
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Non Electrical Access SI "  formControlName="nonElectricalAccessSI"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <p>PA Paid Driver Conductor Cleaner</p>
-                                                <mat-radio-group formControlName="pdConductorCleaner"  >
-                                                    <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                    <mat-radio-button value="No">No</mat-radio-button>
-                                                </mat-radio-group>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PA Paid Driver Conductor Cleaner"  formControlName="pdConductorCleanerSI"  autocomplete="off">
-                                                   </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PA Paid Driver Count"  formControlName="pdCount"  autocomplete="off">
-                                                     </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PA Paid Conductor Count"  formControlName="pConductorCount"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PA Paid Cleaner Count"  formControlName="pCleanerCount"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Electrical Access Remark"  formControlName="eleAccessRemark"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Non Electrical Access Remark"  formControlName="nonEleAccessRemark"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Specified Person Field"  formControlName="specifiedPersonField"  autocomplete="off">
-                                                     </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PA Owner Driver Exclusion"  formControlName="paOWexclusion"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PA Owner Driver ExReason"  formControlName="paOWexReason"  autocomplete="off">
-                                                    </mat-form-field>
-                                            </div>
-
-
-
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput [matDatepicker]="picker2"  placeholder="DOB (DD/MM/YYYY)" id="ndatepicker" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event , 'nominee')" (dateChange)="addEvent($event, 'nominee')"  minlength="10" maxlength="10"-->
+                                                           <!--autocomplete="off"   required>-->
+                                                    <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                                                    <!--<mat-datepicker #picker2></mat-datepicker>-->
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.nDob.errors?.required">DOB is required</mat-error>&ndash;&gt;-->
+                                                <!--</mat-form-field>-->
+                                                <!--&lt;!&ndash;<div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<div class="error" *ngIf="insuredPaDob > minDate">Future Date not allowed</div>&ndash;&gt;-->
+                                            <!--</div>-->
 
                                             <div class="col-md-12 mt-2">
                                                 <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <textarea matInput placeholder="Address 1" rows="2" formControlName="proposerAddress" class="nospace" (input)="spac($event)" autocomplete="off" maxlength="30" required></textarea>
-                                                    <mat-error *ngIf="proposer.controls.proposerAddress.errors?.required">Address is required</mat-error>
+                                                    <textarea matInput placeholder="Address 1" rows="2" formControlName="address" class="nospace" (input)="spac($event)" autocomplete="off" maxlength="30" required></textarea>
+                                                    <mat-error *ngIf="proposer.controls.address.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <textarea matInput placeholder="Address 2" rows="2" formControlName="proposerAddress2" class="nospace" maxlength="30"  (input)="spac($event)" autocomplete="off"></textarea>
-                                                    <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address2 is required</mat-error>
+                                                    <textarea matInput placeholder="Address 2" rows="2" formControlName="address2" class="nospace" maxlength="30"  (input)="spac($event)" autocomplete="off"></textarea>
+                                                    <mat-error *ngIf="proposer.controls.address2.errors?.required">Address2 is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3" class="nospace" maxlength="30"   (input)="spac($event)" autocomplete="off"></textarea>
-                                                    <mat-error *ngIf="proposer.controls.proposerAddress3.errors?.required">Address3 is required</mat-error>
+                                                    <textarea matInput placeholder="Address 3" rows="2" formControlName="address3" class="nospace" maxlength="30"   (input)="spac($event)" autocomplete="off"></textarea>
+                                                    <mat-error *ngIf="proposer.controls.address3.errors?.required">Address3 is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-4">
@@ -285,8 +133,8 @@
 
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="State" formControlName="proposerbkState"  autocomplete="off" readonly required>
-                                                    <mat-error *ngIf="proposer.controls.proposerbkState.errors?.required">State is required</mat-error>
+                                                    <input matInput placeholder="State" formControlName="state"  autocomplete="off" readonly required>
+                                                    <mat-error *ngIf="proposer.controls.state.errors?.required">State is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                            <!-- <div class="col-md-3">
@@ -299,10 +147,10 @@
                                             </div>-->
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="City"  formControlName="proposerbkCity" (change)="changeCity()" required>
+                                                    <mat-select placeholder="City"  formControlName="city" (change)="changeCity()" required>
                                                         <mat-option *ngFor="let paCity of bikeCityList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
-                                                    <mat-error *ngIf="proposer.controls.proposerbkCity.errors?.required">City is required</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
                                             </div>
 
@@ -320,6 +168,259 @@
                     </mat-accordion>
                 </mat-step>
                 <mat-step [stepControl]="">
+                    <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+                    <mat-accordion class="w-100 float-left ">
+                        <mat-expansion-panel expanded>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    VEHICAL DETAILS
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+                            <div class="row mt-3">
+                                <div class="col-md-12 box-card pt-3 pb-3" >
+                                    <form [formGroup]="vehical">
+                                        <div class="row">
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <mat-select placeholder="vehicleType"  formControlName="vehicleType" (change)="changevehicle()" required>
+                                                    <mat-option *ngFor="let vehiclebk of bkVehicleList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
+                                                </mat-select>
+                                                <!--<mat-error *ngIf="proposer.controls.vehicleType.errors?.required">City is required</mat-error>-->
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="IDV_of_Vehicle "  formControlName="vehicleIDV"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="NoEmpCoverLL "  formControlName="noEmpCoverLL"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Vehicle Colour "  formControlName="vehicleColour"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+
+
+
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="BreakIn "  formControlName="breakIn"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p>Vehicle Purpose</p>
+                                            <mat-radio-group formControlName="vehiclePurpose" (change)="vehiclePurposeList()"  >
+                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                <mat-radio-button value="No">No</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p>Driver Age</p>
+                                            <mat-radio-group formControlName="driverAge" (change)="driverAgeList()"  >
+                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                <mat-radio-button value="No">No</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p>Nil Depreciation Cover</p>
+                                            <mat-radio-group formControlName="nilDepreciationCover"  >
+                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                <mat-radio-button value="No">No</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p>PA for Unnamed Passenger</p>
+                                            <mat-radio-group formControlName="unnamedPassenger"  >
+                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                <mat-radio-button value="No">No</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="PA for UnnamedPassenger SI"  formControlName="unnamedPassengerSI"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <p>Electrical Access</p>
+                                            <mat-radio-group formControlName="electricalAccess"  >
+                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                <mat-radio-button value="No">No</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Electrical Access SI "  formControlName="electricalAccessSI"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p>Non Electrical Access</p>
+                                            <mat-radio-group formControlName="nonElectricalAccess"   >
+                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                <mat-radio-button value="No">No</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Non Electrical Access SI "  formControlName="nonElectricalAccessSI"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <p>PA Paid Driver Conductor Cleaner</p>
+                                            <mat-radio-group formControlName="pdConductorCleaner"  >
+                                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                <mat-radio-button value="No">No</mat-radio-button>
+                                            </mat-radio-group>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="PA Paid Driver Conductor Cleaner"  formControlName="pdConductorCleanerSI"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="PA Paid Driver Count"  formControlName="pdCount"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="PA Paid Conductor Count"  formControlName="pConductorCount"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="PA Paid Cleaner Count"  formControlName="pCleanerCount"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Electrical Access Remark"  formControlName="eleAccessRemark"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Non Electrical Access Remark"  formControlName="nonEleAccessRemark"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="Specified Person Field"  formControlName="specifiedPersonField"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="PA Owner Driver Exclusion"  formControlName="paOWexclusion"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="PA Owner Driver ExReason"  formControlName="paOWexReason"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <mat-form-field class="w-100">
+                                                <input matInput placeholder="ConvertNoteNo "  formControlName="convertNoteNo"  autocomplete="off">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="proposal-buttom mt-3 text-right w-100">
+                                            <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                                            <button mat-raised-button color="primaryBlue" (click)="vehicalDetails(stepper,vehical.value)">Next</button>
+                                        </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+
+                </mat-step>
+                <mat-step [stepControl]="">
+                    <ng-template matStepLabel>PREVIOUS INSURE DETAILS</ng-template>
+                    <mat-accordion class="w-100 float-left ">
+                        <mat-expansion-panel expanded>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    NOMINEE DETAILS
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
+                            <div class="row mt-3">
+                                <div class="col-md-12 box-card pt-3 pb-3" >
+                                    <form [formGroup]="previousInsure">
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber"  autocomplete="off">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Previous Insurer"  formControlName="previousInsure" required>
+                                                        <!--<mat-option *ngFor="let paCity of bikeCityList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Previous Policy UW Year"  formControlName="policyUwYear"  autocomplete="off">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Previous Policy SI"  formControlName="policySi"  autocomplete="off">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Previous policy Type"  formControlName="previousPolicyType"  required>
+                                                        <!--<mat-option *ngFor="let paCity of bikeCityList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Previous Nil Description "  formControlName="policyNilDescription"  autocomplete="off">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <p>Previous Policy Claim</p>
+                                                <mat-radio-group formControlName="policyClaim" >
+                                                    <mat-radio-button value="1" class="mr-2">Yes</mat-radio-button>
+                                                    <mat-radio-button value="0">No</mat-radio-button>
+                                                </mat-radio-group>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Previous policy Ncb Percent"  formControlName="previousPolicyNcb"  required>
+                                                        <!--<mat-option *ngFor="let paCity of bikeCityList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+
+                                        <div class="proposal-buttom mt-3 text-right w-100">
+                                            <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                                            <button mat-raised-button color="primaryBlue" (click)="previousDetails(stepper,previousInsure.value)">Next</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+
+                </mat-step>
+                <mat-step [stepControl]="">
                     <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                     <mat-accordion class="w-100 float-left ">
                         <mat-expansion-panel expanded>
@@ -332,12 +433,45 @@
                             <div class="row mt-3">
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <form [formGroup]="nomineeDetail">
-                                    <h1>eeeeeeeeeee</h1>
+                                        <div class="row">
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Name"  formControlName="nomineeName"  autocomplete="off">
+                                                </mat-form-field>
+                                            </div>
 
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Age"  formControlName="nomineeAge"  autocomplete="off">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship"  required>
+                                                        <!--<mat-option *ngFor="let paCity of bikeCityList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                </mat-form-field>
+                                            </div>
+                                            <!--<h4> Apponitee Details</h4>-->
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Apponitee Name"  formControlName="appointeeName"  autocomplete="off">
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship"  required>
+                                                        <!--<mat-option *ngFor="let paCity of bikeCityList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
 
                               <div class="proposal-buttom mt-3 text-right w-100">
                                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                                    <button mat-raised-button color="primaryBlue" (click)="shriramNomineeDetails(stepper)">Next</button>
+                                    <button mat-raised-button color="primaryBlue" (click)="nomineeDetails(stepper,nomineeDetail.value)">Next</button>
                                 </div>
                                  </form>
                                 </div>
@@ -346,6 +480,7 @@
                     </mat-accordion>
 
                 </mat-step>
+
 
 
             </mat-horizontal-stepper>

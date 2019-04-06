@@ -15,6 +15,8 @@ import {DatePipe} from '@angular/common';
 })
 export class BikeShriramProposalComponent implements OnInit {
   public proposer: FormGroup;
+  public vehical:FormGroup;
+  public previousInsure:FormGroup;
   public nomineeDetail: FormGroup;
   public minDate: any;
   public maxdate: any;
@@ -25,8 +27,6 @@ export class BikeShriramProposalComponent implements OnInit {
   public driverAgeDetail: boolean;
   public insurerdateError: any;
   public proposerAgeP: any;
-  public insurestardate: any;
-  public insureenddate: any;
   public insuredAgeP: any;
   public maxStartdate: any;
   public pannumberP: boolean;
@@ -34,9 +34,24 @@ export class BikeShriramProposalComponent implements OnInit {
   public bkVehicleList: any;
   public bikeProposerAge: any;
   public proposerdateError: any;
-  public nomineeAge: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public personalservice: PersonalAccidentService ) {
+
+    const minDate = new Date();
+    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    this.maxdate = this.minDate;
+
+    this.settings = this.appSettings.settings;
+    this.settings.HomeSidenavUserBlock = false;
+    this.settings.sidenavIsOpened = false;
+    this.settings.sidenavIsPinned = false;
+    this.proposerRatioDetail = false;
+    this.driverAgeDetail = false;
+    this.proposerAgeP = '';
+    this.insuredAgeP = '';
+    this.maxStartdate = '';
+    this.pannumberP = false;
+
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       name: new FormControl(''),
@@ -45,20 +60,19 @@ export class BikeShriramProposalComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pincode: ['', Validators.required],
-      vehiclePurpose: ' ',
       radio: ' ',
-      alterMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-      proposerFax: ['', Validators.compose([ Validators.minLength(10)])],
+      alterMobile: '',
+      proposerFax: '',
       proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
       proposerGst: ['', Validators.compose([Validators.minLength(15)])],
-      proposerAddress: ['', Validators.required],
-      proposerAddress2: '',
-      proposerAddress3: '',
-      proposerbkState: ['', Validators.required],
-      proposerbkCity: ['', Validators.required],
-      proposerbkCityName: '',
-      convertNoteNo: ['', Validators.required],
-      convertNoteDt: ['', Validators.compose([Validators.required])],
+      address: ['', Validators.required],
+      address2: '',
+      address3: '',
+      state: ['', Validators.required],
+      city: ['', Validators.required],
+      breakIn:''
+    });
+    this.vehical = this.fb.group({
       vehicleType: ['', Validators.required],
       vehicleTypeName: '',
       vehicleIDV: '',
@@ -83,46 +97,231 @@ export class BikeShriramProposalComponent implements OnInit {
       specifiedPersonField: '',
       paOWexclusion: '',
       paOWexReason: '',
-      insuredPaCityIdP: '',
-      insuredPaStateIdP: '',
-      nDob: '',
-     });
-    const minDate = new Date();
-    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
-    this.maxdate = this.minDate;
+      vehiclePurpose: ' ',
+      convertNoteNo: '',
+      convertNoteDt:'',
 
-    this.settings = this.appSettings.settings;
-    this.settings.HomeSidenavUserBlock = false;
-    this.settings.sidenavIsOpened = false;
-    this.settings.sidenavIsPinned = false;
-    this.proposerRatioDetail = false;
-    this.driverAgeDetail = false;
-    this.proposerAgeP = '';
-    this.insuredAgeP = '';
-    this.maxStartdate = '';
-    this.pannumberP = false;
+    });
+    this.previousInsure = this.fb.group({
+      policyNumber: '',
+      previousInsure: '',
+      policyUwYear: '',
+      policySi: '',
+      previousPolicyType: '',
+      policyNilDescription: '',
+      previousPolicyNcb: '',
+      policyClaim:''
+
+    });
+
 
     this.nomineeDetail = this.fb.group({
-
+      nomineeName:'',
+      nomineeAge:'',
+      nomineeRelationship:'',
+      appointeeName:'',
+      appointeeRelationship:''
     });
 
 
 
   }
 
-  // title change function
-  changeGender() {
-    if (this.proposer.controls['title'].value == 'MR') {
-      this.proposer.controls['gender'].patchValue('Male');
-    } else {
-      this.proposer.controls['gender'].patchValue('Female');
-    }
-  }
-
   ngOnInit() {
 
-
   }
+
+
+
+  // FIRST STEPPER
+
+  // title change function
+      changeGender() {
+        if (this.proposer.controls['title'].value == 'MR') {
+          this.proposer.controls['gender'].patchValue('Male');
+        } else {
+          this.proposer.controls['gender'].patchValue('Female');
+        }
+      }
+
+
+    // AGE VALIDATION
+        ageCalculate(dob) {
+          let today = new Date();
+          let birthDate = new Date(dob);
+          let age = today.getFullYear() - birthDate.getFullYear();
+          let m = today.getMonth() - birthDate.getMonth();
+          let dd = today.getDate()- birthDate.getDate();
+          if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+          }
+          return age;
+        }
+
+
+  // date input
+         addEvent(event, type) {
+              if (event.value != null) {
+                let selectedDate = '';
+                this.bikeProposerAge = '';
+                let dob = '';
+                if (typeof event.value._i == 'string') {
+                  const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                  if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.proposerdateError = '';
+                  } else {
+                    this.proposerdateError = 'Enter Valid Date';
+                  }
+                  selectedDate = event.value._i;
+                  dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                  if (selectedDate.length == 10) {
+                    this.bikeProposerAge = this.ageCalculate(dob);
+                    console.log(this.bikeProposerAge,'agre');
+                    sessionStorage.bkShriramProposerAge = this.bikeProposerAge;
+                    console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
+                    this.proposer.controls['age'].patchValue(this.bikeProposerAge);
+                  }
+
+                } else if (typeof event.value._i == 'object') {
+                  // dob = this.datepipe.transform(event.value, 'MMM d, y');
+                  dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                  if (dob.length == 10) {
+                    this.bikeProposerAge = this.ageCalculate(dob);
+                    sessionStorage.insuredAgePA = this.bikeProposerAge;
+                    this.proposer.controls['age'].patchValue(this.bikeProposerAge);
+                  }
+                  this.proposerdateError = '';
+                }
+                //sessionStorage.insuredAgePA = this.bikeProposerAge;
+
+              }
+          }
+  // PINCODE
+            getinsuredPostalCode(pin) {
+              const data = {
+                'platform': 'web',
+                'postalcode': pin
+              };
+              if (pin.length == 6) {
+                this.personalservice.pinPaList(data).subscribe(
+                    (successData) => {
+                      this.pinProposerListSuccess(successData);
+                    },
+                    (error) => {
+                      this.pinProposerListFailure(error);
+                    }
+                );
+              }
+            }
+
+            public pinProposerListSuccess(successData) {
+              if (successData.IsSuccess) {
+                this.pinProposerList = successData.ResponseObject;
+              }
+            }
+
+            public pinProposerListFailure(error) {
+            }
+
+            driverAgeList() {
+              console.log(this.proposer.controls['driverAge'].value,'eeeeeeeeeeeeeeee')
+              if (this.proposer.controls['driverAge'].value == 'Yes') {
+                this.driverAgeDetail = true;
+              } else {
+                this.driverAgeDetail = false;
+              }
+            }
+  // CITY
+          onChangecityListInsuredPa(){
+            const data = {
+              'platform': 'web',
+              'state_code': this.proposer.controls['insuredPaStateIdP'].value,
+              'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+              'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+            }
+            this.personalservice.cityPaList(data).subscribe(
+                (successData) => {
+                  this.insuredCityPaListSuccess(successData);
+                },
+                (error) => {
+                  this.insuredCityPaListFailure(error);
+                }
+            );
+          }
+            public insuredCityPaListSuccess(successData){
+              this.bikeCityList = successData.ResponseObject;
+
+            }
+            public insuredCityPaListFailure(error){
+            }
+      changeCity() {
+        this.proposer.controls['proposerbkCityName'].patchValue(this.bikeCityList[this.proposer.controls['proposerbkCity'].value]);
+
+      }
+      changevehicle() {
+        this.proposer.controls['vehicleTypeName'].patchValue(this.bkVehicleList[this.proposer.controls['vehicleType'].value]);
+
+      }
+
+  // NEXT BUTTON
+
+        public proposerDetails(stepper: MatStepper, value) {
+          console.log(value, 'eeeeeeeeeee');
+          sessionStorage.stepper1 = '';
+          sessionStorage.stepper1 = JSON.stringify(value);
+          console.log(this.proposer.valid, 'checked');
+          stepper.next();
+
+        }
+
+ // SECOND STEPPER
+     // PURPOSE lIST
+          vehiclePurposeList() {
+            console.log(this.proposer.controls['vehiclePurpose'].value,'eeeeeeeeeeeeeeee')
+            if (this.proposer.controls['vehiclePurpose'].value == 'Yes') {
+              this.proposerRatioDetail = true;
+            } else {
+              this.proposerRatioDetail = false;
+            }
+          }
+  // NEXT BUTTON
+          vehicalDetails(stepper: MatStepper, value){
+              sessionStorage.stepper2 = '';
+              sessionStorage.stepper2 = JSON.stringify(value);
+              stepper.next();
+          }
+
+
+
+  // THIRD STEPPER
+
+        previousDetails(stepper: MatStepper, value){
+          sessionStorage.stepper3 = '';
+          sessionStorage.stepper3 = JSON.stringify(value);
+          stepper.next();
+        }
+
+  // VALIDATION
+          numberValidate(event: any) {
+            this.validation.numberValidate(event);
+          }
+          nameValidate(event: any) {
+            this.validation.nameValidate(event);
+          }
+          // Dob validation
+          dobValidate(event: any) {
+            this.validation.dobValidate(event);
+          }
+          spac(event: any){
+            this.validation.spac(event);
+
+          }
+          idValidate(event: any) {
+            this.validation.idValidate(event);
+          }
+        topScroll() {
+          document.getElementById('main-content').scrollTop = 0;
+        }
 
   // session Data
   sessionData() {
@@ -157,175 +356,4 @@ export class BikeShriramProposalComponent implements OnInit {
     }
   }
 
-  numberValidate(event: any) {
-    this.validation.numberValidate(event);
-  }
-  nameValidate(event: any) {
-    this.validation.nameValidate(event);
-  }
-  // Dob validation
-  dobValidate(event: any) {
-    this.validation.dobValidate(event);
-  }
-  spac(event: any){
-    this.validation.spac(event);
-
-  }
-  idValidate(event: any) {
-    this.validation.idValidate(event);
-  }
-
-  public proposerDetails(stepper: MatStepper, value) {
-    console.log(value, 'eeeeeeeeeee');
-    sessionStorage.shriramProposerDetail = '';
-    sessionStorage.shriramProposerDetail = JSON.stringify(value);
-    console.log(this.proposer.valid, 'checked');
-    if (this.proposer.valid) {
-      stepper.next();
-    } else {
-      this.toastr.error('error');
-    }
-
-  }
-  // insured pin validate
-  getinsuredPostalCode(pin) {
-    const data = {
-      'platform': 'web',
-      'postalcode': pin
-    };
-    if (pin.length == 6) {
-      this.personalservice.pinPaList(data).subscribe(
-          (successData) => {
-            this.pinProposerListSuccess(successData);
-          },
-          (error) => {
-            this.pinProposerListFailure(error);
-          }
-      );
-    }
-  }
-
-  public pinProposerListSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.pinProposerList = successData.ResponseObject;
-    }
-  }
-
-  public pinProposerListFailure(error) {
-  }
-
-  vehiclePurposeList() {
-    console.log(this.proposer.controls['vehiclePurpose'].value,'eeeeeeeeeeeeeeee')
-    if (this.proposer.controls['vehiclePurpose'].value == 'Yes') {
-      this.proposerRatioDetail = true;
-     } else {
-      this.proposerRatioDetail = false;
-    }
-  }
-  driverAgeList() {
-    console.log(this.proposer.controls['driverAge'].value,'eeeeeeeeeeeeeeee')
-    if (this.proposer.controls['driverAge'].value == 'Yes') {
-      this.driverAgeDetail = true;
-    } else {
-      this.driverAgeDetail = false;
-    }
-  }
-  topScroll() {
-    document.getElementById('main-content').scrollTop = 0;
-  }
-
-  shriramNomineeDetails(stepper: MatStepper, value) {
-    if (this.nomineeDetail.valid) {
-      sessionStorage.panomineeData = '';
-      sessionStorage.panomineeData = JSON.stringify(value);
-      this.createrPoposal(stepper);
-    }
-
-  }
-  createrPoposal(stepper){
-
-  }
-
-  // insured City
-  onChangecityListInsuredPa(){
-    const data = {
-      'platform': 'web',
-      'state_code': this.proposer.controls['insuredPaStateIdP'].value,
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    }
-    this.personalservice.cityPaList(data).subscribe(
-        (successData) => {
-          this.insuredCityPaListSuccess(successData);
-        },
-        (error) => {
-          this.insuredCityPaListFailure(error);
-        }
-    );
-  }
-  public insuredCityPaListSuccess(successData){
-    this.bikeCityList = successData.ResponseObject;
-
-  }
-  public insuredCityPaListFailure(error){
-  }
-  ageCalculate(dob) {
-    let today = new Date();
-    let birthDate = new Date(dob);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    let m = today.getMonth() - birthDate.getMonth();
-    let dd = today.getDate()- birthDate.getDate();
-    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
-      age = age-1;
-    }
-    return age;
-  }
-
-
-  // date input
-  addEvent(event, type) {
-    if (event.value != null) {
-      let selectedDate = '';
-      this.bikeProposerAge = '';
-      let dob = '';
-      if (typeof event.value._i == 'string') {
-        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-        if (pattern.test(event.value._i) && event.value._i.length == 10) {
-          this.proposerdateError = '';
-        } else {
-          this.proposerdateError = 'Enter Valid Date';
-        }
-        selectedDate = event.value._i;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        if (selectedDate.length == 10) {
-          this.bikeProposerAge = this.ageCalculate(dob);
-          console.log(this.bikeProposerAge,'agre');
-          sessionStorage.bkShriramProposerAge = this.bikeProposerAge;
-          console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
-          this.proposer.controls['age'].patchValue(this.bikeProposerAge);
-        }
-
-      } else if (typeof event.value._i == 'object') {
-        // dob = this.datepipe.transform(event.value, 'MMM d, y');
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        if (dob.length == 10) {
-          this.bikeProposerAge = this.ageCalculate(dob);
-          sessionStorage.insuredAgePA = this.bikeProposerAge;
-          this.proposer.controls['age'].patchValue(this.bikeProposerAge);
-        }
-        this.proposerdateError = '';
-      }
-      //sessionStorage.insuredAgePA = this.bikeProposerAge;
-
-    }
-  }
-
-  changeCity() {
-    this.proposer.controls['proposerbkCityName'].patchValue(this.bikeCityList[this.proposer.controls['proposerbkCity'].value]);
-
-  }
-  changevehicle() {
-    this.proposer.controls['vehicleTypeName'].patchValue(this.bkVehicleList[this.proposer.controls['vehicleType'].value]);
-
-  }
 }
