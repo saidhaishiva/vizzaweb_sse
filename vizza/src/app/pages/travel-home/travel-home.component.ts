@@ -150,6 +150,8 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.allTravelPremiumLists = '';
         sessionStorage.allProductLists = '';
         sessionStorage.changeSuninsuredAmount = '';
+        this.courseDuration = '';
+        this.sem = '';
         // fire
         this.show = this.config.getTravelInsurance();
         this.setDate = Date.now();
@@ -584,15 +586,18 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.travelUserType = this.travelUserType;
         if(this.travelUserType == true){
             this.studentDuration = true;
-            sessionStorage.studentDuration = this.studentDuration;
         } else {
             this.studentDuration = false;
-            sessionStorage.studentDuration = this.studentDuration;
         }
-            sessionStorage.courseDuration = this.courseDuration;
-            sessionStorage.sem = this.sem;
 
-        }
+        sessionStorage.studentDuration = this.studentDuration;
+    }
+    typeCourseDuration() {
+        sessionStorage.courseDuration = this.courseDuration;
+    }
+    typeSemester() {
+        sessionStorage.sem = this.sem;
+    }
    // studentInfo(){
    //     if(this.travelUserType == true){
    //         this.studentDuration = true;
