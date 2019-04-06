@@ -8,6 +8,7 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
+import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 @Component({
   selector: 'app-bike-shriram-proposal',
   templateUrl: './bike-shriram-proposal.component.html',
@@ -15,8 +16,8 @@ import {DatePipe} from '@angular/common';
 })
 export class BikeShriramProposalComponent implements OnInit {
   public proposer: FormGroup;
-  public vehical:FormGroup;
-  public previousInsure:FormGroup;
+  public vehical: FormGroup;
+  public previousInsure: FormGroup;
   public nomineeDetail: FormGroup;
   public minDate: any;
   public maxdate: any;
@@ -32,10 +33,15 @@ export class BikeShriramProposalComponent implements OnInit {
   public pannumberP: boolean;
   public bikeCityList: any;
   public bkVehicleList: any;
+  public bkHypothecationList: any;
   public bikeProposerAge: any;
   public proposerdateError: any;
+  public nomineeRelation: any;
+  public hypothecationTypedm: any;
+  public addonPackagedm: any;
 
-  constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public personalservice: PersonalAccidentService ) {
+
+  constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -70,7 +76,7 @@ export class BikeShriramProposalComponent implements OnInit {
       address3: '',
       state: ['', Validators.required],
       city: ['', Validators.required],
-      breakIn:''
+      breakIn: '',
     });
     this.vehical = this.fb.group({
       vehicleType: ['', Validators.required],
@@ -99,8 +105,12 @@ export class BikeShriramProposalComponent implements OnInit {
       paOWexReason: '',
       vehiclePurpose: ' ',
       convertNoteNo: '',
-      convertNoteDt:'',
-
+      convertNoteDt: '',
+      hypothecationType: ['', Validators.required],
+      hypothecationAddress1: ['', Validators.required],
+      hypothecationAddress2: '',
+      hypothecationAddress3: '',
+      hypothecationAgreementNo: '',
     });
     this.previousInsure = this.fb.group({
       policyNumber: '',
@@ -110,25 +120,24 @@ export class BikeShriramProposalComponent implements OnInit {
       previousPolicyType: '',
       policyNilDescription: '',
       previousPolicyNcb: '',
-      policyClaim:''
+      policyClaim: ''
 
     });
 
 
     this.nomineeDetail = this.fb.group({
-      nomineeName:'',
-      nomineeAge:'',
-      nomineeRelationship:'',
-      appointeeName:'',
-      appointeeRelationship:''
+      nomineeName: '',
+      nomineeAge: '',
+      nomineeRelationship: '',
+      appointeeName: '',
+      appointeeRelationship: ''
     });
-
-
-
   }
 
   ngOnInit() {
-
+    this.nomineeRelationShip();
+    this.changehypothecation();
+    this.addonPackage();
   }
 
 
@@ -176,9 +185,9 @@ export class BikeShriramProposalComponent implements OnInit {
                   dob = this.datepipe.transform(event.value, 'y-MM-dd');
                   if (selectedDate.length == 10) {
                     this.bikeProposerAge = this.ageCalculate(dob);
-                    console.log(this.bikeProposerAge,'agre');
+                    console.log(this.bikeProposerAge,' agre ');
                     sessionStorage.bkShriramProposerAge = this.bikeProposerAge;
-                    console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
+                    // console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
                     this.proposer.controls['age'].patchValue(this.bikeProposerAge);
                   }
 
@@ -196,32 +205,32 @@ export class BikeShriramProposalComponent implements OnInit {
 
               }
           }
-  // PINCODE
-            getinsuredPostalCode(pin) {
-              const data = {
-                'platform': 'web',
-                'postalcode': pin
-              };
-              if (pin.length == 6) {
-                this.personalservice.pinPaList(data).subscribe(
-                    (successData) => {
-                      this.pinProposerListSuccess(successData);
-                    },
-                    (error) => {
-                      this.pinProposerListFailure(error);
-                    }
-                );
-              }
-            }
-
-            public pinProposerListSuccess(successData) {
-              if (successData.IsSuccess) {
-                this.pinProposerList = successData.ResponseObject;
-              }
-            }
-
-            public pinProposerListFailure(error) {
-            }
+  // // PINCODE
+  //           getinsuredPostalCode(pin) {
+  //             const data = {
+  //               'platform': 'web',
+  //               'postalcode': pin
+  //             };
+  //             if (pin.length == 6) {
+  //               this.personalservice.pinPaList(data).subscribe(
+  //                   (successData) => {
+  //                     this.pinProposerListSuccess(successData);
+  //                   },
+  //                   (error) => {
+  //                     this.pinProposerListFailure(error);
+  //                   }
+  //               );
+  //             }
+  //           }
+  //
+  //           public pinProposerListSuccess(successData) {
+  //             if (successData.IsSuccess) {
+  //               this.pinProposerList = successData.ResponseObject;
+  //             }
+  //           }
+  //
+  //           public pinProposerListFailure(error) {
+  //           }
 
             driverAgeList() {
               console.log(this.proposer.controls['driverAge'].value,'eeeeeeeeeeeeeeee')
@@ -232,28 +241,27 @@ export class BikeShriramProposalComponent implements OnInit {
               }
             }
   // CITY
-          onChangecityListInsuredPa(){
-            const data = {
-              'platform': 'web',
-              'state_code': this.proposer.controls['insuredPaStateIdP'].value,
-              'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-              'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-            }
-            this.personalservice.cityPaList(data).subscribe(
-                (successData) => {
-                  this.insuredCityPaListSuccess(successData);
-                },
-                (error) => {
-                  this.insuredCityPaListFailure(error);
-                }
-            );
-          }
-            public insuredCityPaListSuccess(successData){
-              this.bikeCityList = successData.ResponseObject;
-
-            }
-            public insuredCityPaListFailure(error){
-            }
+  //         onChangecityListInsuredPa(){
+  //           const data = {
+  //             'platform': 'web',
+  //             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //           }
+  //           this.bikeInsurance.getNomineeRelationship(data).subscribe(
+  //               (successData) => {
+  //                 this.nomineeRelationSuccess(successData);
+  //               },
+  //               (error) => {
+  //                 this.nomineeRelationFailure(error);
+  //               }
+  //           );
+  //         }
+  //           public nomineeRelationSuccess(successData){
+  //             this.nomineeRelation = successData.ResponseObject;
+  //
+  //           }
+  //           public nomineeRelationFailure(error){
+  //           }
       changeCity() {
         this.proposer.controls['proposerbkCityName'].patchValue(this.bikeCityList[this.proposer.controls['proposerbkCity'].value]);
 
@@ -284,6 +292,49 @@ export class BikeShriramProposalComponent implements OnInit {
               this.proposerRatioDetail = false;
             }
           }
+  addonPackage() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.bikeInsurance.getAddonPackage(data).subscribe(
+        (successData) => {
+          this.addonPackageSuccess(successData);
+        },
+        (error) => {
+          this.addonPackageFailure(error);
+        }
+    );
+  }
+  public addonPackageSuccess(successData){
+    this.addonPackagedm = successData.ResponseObject;
+    console.log(this.addonPackagedm,'this.addonPackagedm');
+  }
+  public addonPackageFailure(error) {
+  }
+
+  changehypothecation() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.bikeInsurance.getHypothecation(data).subscribe(
+        (successData) => {
+          this.hypothecationSuccess(successData);
+        },
+        (error) => {
+          this.hypothecationFailure(error);
+        }
+    );
+  }
+  public hypothecationSuccess(successData){
+    this.hypothecationTypedm = successData.ResponseObject;
+    console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+  }
+  public hypothecationFailure(error) {
+  }
   // NEXT BUTTON
           vehicalDetails(stepper: MatStepper, value){
               sessionStorage.stepper2 = '';
@@ -300,6 +351,30 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper3 = JSON.stringify(value);
           stepper.next();
         }
+//  fFOURTH sTEPPER (NOMINEE)
+
+        //RELATIONSHIP
+          nomineeRelationShip(){
+            const data = {
+              'platform': 'web',
+              'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+              'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+            }
+              this.bikeInsurance.getNomineeRelationship(data).subscribe(
+                  (successData) => {
+                    this.nomineeRelationSuccess(successData);
+                  },
+                  (error) => {
+                    this.nomineeRelationFailure(error);
+                  }
+              );
+            }
+            public nomineeRelationSuccess(successData){
+                this.nomineeRelation = successData.ResponseObject;
+                console.log(this.nomineeRelation,'this.nomineeRelation');
+            }
+            public nomineeRelationFailure(error){
+            }
 
   // VALIDATION
           numberValidate(event: any) {
@@ -327,9 +402,9 @@ export class BikeShriramProposalComponent implements OnInit {
   sessionData() {
     if (sessionStorage.shriramProposer != '' && sessionStorage.shriramProposer != undefined) {
       this.shriramProposer = JSON.parse(sessionStorage.shriramProposer);
-      if (this.shriramProposer.pincode != '') {
-        this.getinsuredPostalCode(this.shriramProposer.pincode);
-      }
+      // if (this.shriramProposer.pincode != '') {
+      //   this.getinsuredPostalCode(this.shriramProposer.pincode);
+      // }
       this.proposer = this.fb.group({
         title: this.shriramProposer.title,
         name: this.shriramProposer.name,
@@ -351,7 +426,7 @@ export class BikeShriramProposalComponent implements OnInit {
         proposerbkCity: this.shriramProposer.proposerbkCity,
 
 
-      })
+      });
 
     }
   }
