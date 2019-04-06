@@ -78,7 +78,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
     this.proposer = this.Proposer.group({
-      title: ['', Validators.required],
+      title: '',
       firstName: ['', Validators.required],
       midName: '',
       lastName: ['', Validators.required],
@@ -212,7 +212,29 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
 
+  sameAddress(){
+    if(this.proposer.controls['sameAsProposer'].value) {
+      this.proposer.controls['raddress1'].patchValue(this.proposer.controls['address1'].value);
+      this.proposer.controls['raddress2'].patchValue(this.proposer.controls['address2'].value);
+      this.proposer.controls['rpincode'].patchValue(this.proposer.controls['pincode'].value);
+      this.proposer.controls['rcity'].patchValue(this.proposer.controls['city'].value);
+      this.proposer.controls['rstate'].patchValue(this.proposer.controls['state'].value);
 
+
+
+
+    } else{
+      this.proposer.controls['raddress1'].patchValue('');
+      this.proposer.controls['raddress2'].patchValue('');
+      this.proposer.controls['rpincode'].patchValue('');
+      this.proposer.controls['rcity'].patchValue('');
+      this.proposer.controls['rstate'].patchValue('');
+
+
+
+
+    }
+  }
 
 
   //  validation functions
@@ -603,7 +625,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public TitleListSuccess(successData){
     if(successData.IsSuccess){
       this.TitleList = successData.ResponseObject;
-      console.log(this.TitleList,'pro');
+      console.log(this.TitleList,'title');
     }
   }
   public TitleListFailure(error){
