@@ -1683,7 +1683,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       'product_id' : '11',
       'pincode': pin
     }
-    if (this.pin.length == 6) {
+    if (pin.length == 6) {
       this.travelservice.travelRelianceCheckpincode(data).subscribe(
           (successData) => {
             this.commonPincodeSuccess(successData, title);
@@ -1696,7 +1696,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   public commonPincodeSuccess(successData, title) {
-      if (successData.IsSuccess) {
+      if (successData.IsSuccess == true) {
           this.response = successData.ResponseObject;
           if (title == 'personal') {
               if (Object.keys(this.response).length === 0) {
