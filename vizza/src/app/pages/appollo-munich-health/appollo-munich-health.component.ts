@@ -175,7 +175,6 @@ export class AppolloMunichComponent implements OnInit {
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
       let stepperindex = 0;
-      let step = 0;
       this.route.params.forEach((params) => {
           if(params.stepper == true || params.stepper == 'true') {
               stepperindex = 4;
@@ -599,19 +598,16 @@ export class AppolloMunichComponent implements OnInit {
 
 
 
-    setStep(index: number) {
+    setStep(index) {
         this.step = index;
-        console.log(this.step, 'jhgh');
     }
 
     nextStep() {
         this.step++;
-        alert('next');
     }
 
     prevStep() {
         this.step--;
-        alert('per');
     }
 
     initItemRows() {
@@ -901,7 +897,13 @@ export class AppolloMunichComponent implements OnInit {
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal(stepper);
+            this.nextStep();
         }
+    }
+
+    backAll(){
+        this.topScroll();
+        this.prevStep();
     }
 
     //
@@ -1910,10 +1912,9 @@ export class AppolloMunichComponent implements OnInit {
             if (sessionStorage.proposerAge >= 18) {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     if(this.proofValid){
-                        alert('in');
                         stepper.next();
                         this.topScroll();
-
+                        this.nextStep();
                     } else{
                         this.toastr.error('Please enter id proof');
                     }
@@ -1947,7 +1948,7 @@ export class AppolloMunichComponent implements OnInit {
             this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
         } else {
             stepper.next();
-
+            this.nextStep();
         }
 
     }
@@ -2130,6 +2131,7 @@ export class AppolloMunichComponent implements OnInit {
 
                                  stepper.next();
                                  this.topScroll();
+                                 this.nextStep();
                              } else {
                                  this.toastr.error('Please enter id proof');
                              }
