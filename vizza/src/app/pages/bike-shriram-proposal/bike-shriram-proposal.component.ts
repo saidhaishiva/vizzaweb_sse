@@ -16,8 +16,8 @@ import {BikeInsuranceService} from '../../shared/services/bike-insurance.service
 })
 export class BikeShriramProposalComponent implements OnInit {
   public proposer: FormGroup;
-  public vehical:FormGroup;
-  public previousInsure:FormGroup;
+  public vehical: FormGroup;
+  public previousInsure: FormGroup;
   public nomineeDetail: FormGroup;
   public minDate: any;
   public maxdate: any;
@@ -33,9 +33,13 @@ export class BikeShriramProposalComponent implements OnInit {
   public pannumberP: boolean;
   public bikeCityList: any;
   public bkVehicleList: any;
+  public bkHypothecationList: any;
   public bikeProposerAge: any;
   public proposerdateError: any;
   public nomineeRelation: any;
+  public hypothecationTypedm: any;
+  public addonPackagedm: any;
+
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
@@ -72,7 +76,7 @@ export class BikeShriramProposalComponent implements OnInit {
       address3: '',
       state: ['', Validators.required],
       city: ['', Validators.required],
-      breakIn:''
+      breakIn: '',
     });
     this.vehical = this.fb.group({
       vehicleType: ['', Validators.required],
@@ -101,8 +105,12 @@ export class BikeShriramProposalComponent implements OnInit {
       paOWexReason: '',
       vehiclePurpose: ' ',
       convertNoteNo: '',
-      convertNoteDt:'',
-
+      convertNoteDt: '',
+      hypothecationType: ['', Validators.required],
+      hypothecationAddress1: ['', Validators.required],
+      hypothecationAddress2: '',
+      hypothecationAddress3: '',
+      hypothecationAgreementNo: '',
     });
     this.previousInsure = this.fb.group({
       policyNumber: '',
@@ -112,25 +120,24 @@ export class BikeShriramProposalComponent implements OnInit {
       previousPolicyType: '',
       policyNilDescription: '',
       previousPolicyNcb: '',
-      policyClaim:''
+      policyClaim: ''
 
     });
 
 
     this.nomineeDetail = this.fb.group({
-      nomineeName:'',
-      nomineeAge:'',
-      nomineeRelationship:'',
-      appointeeName:'',
-      appointeeRelationship:''
+      nomineeName: '',
+      nomineeAge: '',
+      nomineeRelationship: '',
+      appointeeName: '',
+      appointeeRelationship: ''
     });
-
-
-
   }
 
   ngOnInit() {
     this.nomineeRelationShip();
+    this.changehypothecation();
+    this.addonPackage();
   }
 
 
@@ -178,9 +185,9 @@ export class BikeShriramProposalComponent implements OnInit {
                   dob = this.datepipe.transform(event.value, 'y-MM-dd');
                   if (selectedDate.length == 10) {
                     this.bikeProposerAge = this.ageCalculate(dob);
-                    console.log(this.bikeProposerAge,'agre');
+                    console.log(this.bikeProposerAge,' agre ');
                     sessionStorage.bkShriramProposerAge = this.bikeProposerAge;
-                    console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
+                    // console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
                     this.proposer.controls['age'].patchValue(this.bikeProposerAge);
                   }
 
@@ -285,6 +292,49 @@ export class BikeShriramProposalComponent implements OnInit {
               this.proposerRatioDetail = false;
             }
           }
+  addonPackage() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.bikeInsurance.getAddonPackage(data).subscribe(
+        (successData) => {
+          this.addonPackageSuccess(successData);
+        },
+        (error) => {
+          this.addonPackageFailure(error);
+        }
+    );
+  }
+  public addonPackageSuccess(successData){
+    this.addonPackagedm = successData.ResponseObject;
+    console.log(this.addonPackagedm,'this.addonPackagedm');
+  }
+  public addonPackageFailure(error) {
+  }
+
+  changehypothecation() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.bikeInsurance.getHypothecation(data).subscribe(
+        (successData) => {
+          this.hypothecationSuccess(successData);
+        },
+        (error) => {
+          this.hypothecationFailure(error);
+        }
+    );
+  }
+  public hypothecationSuccess(successData){
+    this.hypothecationTypedm = successData.ResponseObject;
+    console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+  }
+  public hypothecationFailure(error) {
+  }
   // NEXT BUTTON
           vehicalDetails(stepper: MatStepper, value){
               sessionStorage.stepper2 = '';
@@ -376,7 +426,7 @@ export class BikeShriramProposalComponent implements OnInit {
         proposerbkCity: this.shriramProposer.proposerbkCity,
 
 
-      })
+      });
 
     }
   }

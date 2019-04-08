@@ -128,13 +128,14 @@ export class TravelRelianceProposalComponent implements OnInit {
   public personalData :any;
   public RiskData :any;
 
-  public proposalId :any;
   public summaryData :any;
   public rediretUrlLink :any;
 
-
   public response :any;
 
+  public proposerFormData: any;
+  public insuredFormData: any;
+  public riskFormData: any;
 
 
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -158,13 +159,16 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalDob: ['', Validators.compose([Validators.required])],
       personalGender: ['', Validators.compose([Validators.required])],
       maritalStatus: ['', Validators.required],
+      maritalName: '',
       occupation: ['', Validators.required],
+      occupationName: '',
       personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
       personalPan: ['', Validators.compose([Validators.minLength(10)])],
       personalEmail: ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
       personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       personalPhone: '',
       nationality: ['', Validators.required],
+      nationalName: '',
       personalGst: ['', Validators.compose([Validators.minLength(15)])],
       gstin: '',
       relatedParty: '',
@@ -176,6 +180,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalPincode: ['', Validators.required],
       personalCity: ['', Validators.required],
       personalArea: ['', Validators.required],
+      personalAreaName: '',
       personalDistrict: ['', Validators.required],
       personalState: ['', Validators.required],
       personalNearestLandMark: '',
@@ -215,6 +220,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalBurglaryCity: '',
       personalyDistrictIdB: '',
       personalBurglaryArea: '',
+      personalBurglaryAreaName: '',
       personalBurglaryDistrict: '',
       personalBurglaryState: '',
       personalBurglaryNearestLandMark: '',
@@ -242,6 +248,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalDoctorPincode: '',
       personalDoctorCity: '',
       personalDoctorArea: '',
+      personalDoctorAreaName: '',
       personalDoctorDistrict: '',
       personalDoctorState: '',
       personalDoctorNearestLandMark: '',
@@ -259,6 +266,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalCompanyPincode: '',
       personalCompanyCity: '',
       personalCompanyArea: '',
+      personalCompanyAreaName: '',
       personalCompanyDistrict: '',
       personalCompanyState: '',
       personalCompanyNearestLandMark: '',
@@ -303,11 +311,14 @@ export class TravelRelianceProposalComponent implements OnInit {
       riskIsInsuredOnImmigrantVisa: false,
       riskIsTravelInvolvesSportingActivities: false,
       riskSportsActivities: '',
+      riskSportsActivitiesName: '',
       riskIsSufferingFromPEMC: false,
       riskPreExistDisease: false,
       riskIsVisitingUSACanada: false,
       riskVisitingCountries: '',
+      riskVisitingCountriesName: '',
       riskCoverageType: '',
+      riskCoverageTypeName: '',
       riskIsVisitingStudent: false,
       riskMaxDaysPerTrip: '',
       riskNoOfYears: '',
@@ -425,20 +436,25 @@ export class TravelRelianceProposalComponent implements OnInit {
           personalGender: '',
           InsDOB: ['', Validators.required],
           occupation: '',
+          insureOccupationName: '',
           personalEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
           relationship: ['', Validators.required],
+          insureRelationshipName: '',
           passport: ['', Validators.compose([Validators.minLength(8)])],
           personalMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
           personalPhone1: '',
           VisitingCountries: '',
+          insureVisitingCountryName: '',
           type:'',
 
           IsUnderMedication: 'false',
           PreExistingIllness: '',
+          insurePreExistingIllnessName: '',
           SufferingSince: '',
 
           nomineeName: ['', Validators.required],
           nomineeRelationship: ['', Validators.required],
+          insureNomineeRelationshipName: '',
 
           // InsuredAge: '',
           ins_age: '',
@@ -554,7 +570,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     if (this.riskDetails.valid) {
       if(this.RiskData.riskIndian == true || this.RiskData.riskIsOverSeasCitizen == true){
       this.lastStepper = stepper;
-      this.proposal();
+      this.proposal(stepper);
       }else{
         this.toastr.error('select you are Indian Citizen or Over Seas Citizen');
 
@@ -564,7 +580,7 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   //Create Proposal
 
-  proposal() {
+  proposal(stepper) {
 
     const data = {
       'enquiry_id': this.getEnquiryDetails.enquiry_id,
@@ -801,7 +817,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.loadingSpinner = true;
     this.travelservice.createReliancerelainceTravelProposal(data).subscribe(
         (successData) => {
-          this.proposalSuccess(successData);
+          this.proposalSuccess(successData,stepper);
         },
         (error) => {
           this.proposalFailure(error);
@@ -810,23 +826,31 @@ export class TravelRelianceProposalComponent implements OnInit {
     );
   }
 
-  public proposalSuccess(successData){
+  public proposalSuccess(successData,stepper){
     this.settings.loadingSpinner = false;
-    if (successData.IsSuccess) {
-      this.summaryData = successData.ResponseObject;
-      console.log(this.summaryData, 'this.summaryData,this.summaryDatathis.summaryDatathis.summaryDatathis.summaryData');
-      this.proposalId = this.summaryData.proposal_id;
-      sessionStorage.reliance_Travel_proposal_id = this.proposalId;
-      this.rediretUrlLink = successData.RediretUrlLink;
-      this.lastStepper.next();
+    if (successData.IsSuccess == true) {
+      stepper.next();
       this.toastr.success('Proposal created successfully!!');
+      this.summaryData = successData.ResponseObject;
+      sessionStorage.summaryData = JSON.stringify(this.summaryData);
+      this.proposerFormData = this.personal.value;
+      this.insuredFormData = this.relianceInsuredTravel.value.items;
+      this.riskFormData = this.riskDetails.value;
+      this.reliance_Travel_proposal_id = this.summaryData.proposal_id;
+      sessionStorage.reliance_Travel_proposal_id = successData.ResponseObject.proposalId;
+
+      console.log(this.proposerFormData, 'p');
+      console.log(this.insuredFormData, 'i');
+      console.log(this.riskFormData, 'n');
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+      sessionStorage.riskFormData = JSON.stringify(this.riskFormData);
     } else {
       this.toastr.error(successData.ErrorObject);
 
     }
   }
   public proposalFailure(error){
-
   }
 
   topScroll() {
@@ -1049,6 +1073,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
       this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
     }
+    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
   }
   sameAddress(values: any) {
     if (values.checked) {
@@ -1195,13 +1220,16 @@ export class TravelRelianceProposalComponent implements OnInit {
         personalDob: this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd'),
         personalGender: this.getStepper1.personalGender,
         maritalStatus: this.getStepper1.maritalStatus,
+          maritalName: this.getStepper1.maritalName,
         occupation: this.getStepper1.occupation,
+          occupationName: this.getStepper1.occupationName,
         personalAadhar: this.getStepper1.personalAadhar,
         personalPan: this.getStepper1.personalPan,
         personalEmail: this.getStepper1.personalEmail,
         personalMobile: this.getStepper1.personalMobile,
         personalPhone: this.getStepper1.personalPhone,
         nationality: this.getStepper1.nationality,
+          nationalName: this.getStepper1.nationalName,
         personalGst: this.getStepper1.personalGst,
         gstin: this.getStepper1.gstin,
         relatedParty: this.getStepper1.relatedParty,
@@ -1212,6 +1240,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         personalPincode: this.getStepper1.personalPincode,
         personalCity: this.getStepper1.personalCity,
         personalArea: this.getStepper1.personalArea,
+          personalAreaName: this.getStepper1.personalAreaName,
         personalDistrict: this.getStepper1.personalDistrict,
         personalState: this.getStepper1.personalState,
         personalNearestLandMark: this.getStepper1.personalNearestLandMark,
@@ -1248,6 +1277,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         personalBurglaryCity: this.getStepper1.personalBurglaryCity,
         personalyDistrictIdB: this.getStepper1.personalyDistrictIdB,
         personalBurglaryArea: this.getStepper1.personalBurglaryArea,
+          personalBurglaryAreaName: this.getStepper1.personalBurglaryAreaName,
         personalBurglaryDistrict: this.getStepper1.personalBurglaryDistrict,
         personalBurglaryState: this.getStepper1.personalBurglaryState,
         personalBurglaryNearestLandMark: this.getStepper1.personalBurglaryNearestLandMark,
@@ -1273,6 +1303,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         personalDoctorPincode: this.getStepper1.personalDoctorPincode,
         personalDoctorCity: this.getStepper1.personalDoctorCity,
         personalDoctorArea: this.getStepper1.personalDoctorArea,
+          personalDoctorAreaName: this.getStepper1.personalDoctorAreaName,
         personalDoctorDistrict: this.getStepper1.personalDoctorDistrict,
         personalDoctorState: this.getStepper1.personalDoctorState,
         personalDoctorNearestLandMark: this.getStepper1.personalDoctorNearestLandMark,
@@ -1288,6 +1319,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         personalCompanyPincode: this.getStepper1.personalCompanyPincode,
         personalCompanyCity: this.getStepper1.personalCompanyCity,
         personalCompanyArea: this.getStepper1.personalCompanyArea,
+          personalCompanyAreaName: this.getStepper1.personalCompanyAreaName,
         personalCompanyDistrict: this.getStepper1.personalCompanyDistrict,
         personalCompanyState: this.getStepper1.personalCompanyState,
         personalCompanyNearestLandMark: this.getStepper1.personalCompanyNearestLandMark,
@@ -1348,16 +1380,22 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(this.getStepper2.items[i].InsDOB);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].occupation.patchValue(this.getStepper2.items[i].occupation);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insureOccupationName.patchValue(this.getStepper2.items[i].insureOccupationName);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].relationship.patchValue(this.getStepper2.items[i].relationship);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insureRelationshipName.patchValue(this.getStepper2.items[i].insureRelationshipName);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].VisitingCountries.patchValue(this.getStepper2.items[i].VisitingCountries);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insureVisitingCountryName.patchValue(this.getStepper2.items[i].insureVisitingCountryName);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].passport.patchValue(this.getStepper2.items[i].passport);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalMobile.patchValue(this.getStepper2.items[i].personalMobile);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalPhone1.patchValue(this.getStepper2.items[i].personalPhone1);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.patchValue(this.getStepper2.items[i].IsUnderMedication);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.patchValue(this.getStepper2.items[i].PreExistingIllness);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurePreExistingIllnessName.patchValue(this.getStepper2.items[i].insurePreExistingIllnessName);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].SufferingSince.patchValue(this.getStepper2.items[i].SufferingSince);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].nomineeName.patchValue(this.getStepper2.items[i].nomineeName);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].nomineeRelationship.patchValue(this.getStepper2.items[i].nomineeRelationship);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insureNomineeRelationshipName.patchValue(this.getStepper2.items[i].insureNomineeRelationshipName);
         // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getStepper2.items[i].InsuredAge);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
@@ -1378,11 +1416,14 @@ export class TravelRelianceProposalComponent implements OnInit {
         riskIsInsuredOnImmigrantVisa: this.getStepper3.riskIsInsuredOnImmigrantVisa,
         riskIsTravelInvolvesSportingActivities: this.getStepper3.riskIsTravelInvolvesSportingActivities,
         riskSportsActivities: this.getStepper3.riskSportsActivities,
+        riskSportsActivitiesName: this.getStepper3.riskSportsActivitiesName,
         riskIsSufferingFromPEMC: this.getStepper3.riskIsSufferingFromPEMC,
         riskPreExistDisease: this.getStepper3.riskPreExistDisease,
         riskIsVisitingUSACanada: this.getStepper3.riskIsVisitingUSACanada,
         riskVisitingCountries: this.getStepper3.riskVisitingCountries,
+        riskVisitingCountriesName: this.getStepper3.riskVisitingCountriesName,
         riskCoverageType: this.getStepper3.riskCoverageType,
+        riskCoverageTypeName: this.getStepper3.riskCoverageTypeName,
         riskIsVisitingStudent: this.getStepper3.riskIsVisitingStudent,
         riskMaxDaysPerTrip: this.getStepper3.riskMaxDaysPerTrip,
         riskNoOfYears: this.getStepper3.riskNoOfYears,
@@ -1525,6 +1566,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   public relainceMaritalListSuccess(successData) {
     if (successData.IsSuccess) {
       this.Marital = successData.ResponseObject;
+      console.log(this.Marital,'MaritalMaritalMarital');
     }
   }
 
@@ -1641,7 +1683,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       'product_id' : '11',
       'pincode': pin
     }
-    if (this.pin.length == 6) {
+    if (pin.length == 6) {
       this.travelservice.travelRelianceCheckpincode(data).subscribe(
           (successData) => {
             this.commonPincodeSuccess(successData, title);
@@ -1654,9 +1696,9 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   public commonPincodeSuccess(successData, title) {
-      if (successData.IsSuccess) {
+      if (successData.IsSuccess == true) {
           this.response = successData.ResponseObject;
-          if (title == 'personal') {
+          if (title == 'proposalP') {
               if (Object.keys(this.response).length === 0) {
                   this.personal['controls'].personalState.patchValue('');
                   this.personal['controls'].personalDistrict.patchValue('');
@@ -1921,4 +1963,49 @@ export class TravelRelianceProposalComponent implements OnInit {
     medicalHistoryDetails(vvv){
 
     }
+    //proposal details view summary
+  selectMarital(){
+    this.personal.controls['maritalName'].patchValue(this.Marital[this.personal.controls['maritalStatus'].value]);
+
+  }
+  selectOccupation() {
+    this.personal.controls['occupationName'].patchValue(this.PersonalOccupation[this.personal.controls['occupation'].value]);
+  }
+  selectNationality(){
+    this.personal.controls['nationalName'].patchValue(this.Nationality[this.personal.controls['nationality'].value]);
+  }
+  selectBurglaryArea(){
+    this.personal.controls['personalBurglaryAreaName'].patchValue(this.proposalBArea[this.personal.controls['personalBurglaryArea'].value]);
+  }
+  selectCompanyArea(){
+    this.personal.controls['personalCompanyAreaName'].patchValue(this.proposalCArea[this.personal.controls['personalCompanyArea'].value]);
+  }
+  selectDoctorArea(){
+    this.personal.controls['personalDoctorAreaName'].patchValue(this.proposalDArea[this.personal.controls['personalDoctorArea'].value]);
+  }
+
+  selectInsureOccupation(index){
+    this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureOccupationName.patchValue(this.PersonalOccupation[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].occupation.value]);
+  }
+  selectInsureRelationship(index){
+    this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureRelationshipName.patchValue(this.Relationship[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].relationship.value]);
+  }
+  selectInsureVisitingCountries(index){
+    this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureVisitingCountryName.patchValue(this.VisitingCountry[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].VisitingCountries.value]);
+  }
+  selectInsurePreExistingIllness(index){
+    this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insurePreExistingIllnessName.patchValue(this.PreExistingIllness[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].PreExistingIllness.value]);
+  }
+  selectInsureNomineeRelationshipi(index){
+    this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureNomineeRelationshipName.patchValue(this.Relationship[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].nomineeRelationship.value]);
+  }
+  selectriskSportsActivities(){
+    this.riskDetails.controls['riskSportsActivitiesName'].patchValue(this.SportsActivities[this.riskDetails.controls['riskSportsActivities'].value]);
+  }
+  selectriskVisitingCountries(){
+    this.riskDetails.controls['riskVisitingCountriesName'].patchValue(this.VisitingCountry[this.riskDetails.controls['riskVisitingCountries'].value]);
+  }
+  selectriskriskCoverageType(){
+    this.riskDetails.controls['riskCoverageTypeName'].patchValue(this.CoverType[this.riskDetails.controls['riskCoverageType'].value]);
+  }
 }

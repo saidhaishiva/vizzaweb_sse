@@ -2550,6 +2550,14 @@ btn-uploade{
   background: antiquewhite;
   padding: 5px 14px;
 }
+.compar-fix-tr{
+  position: fixed;
+  bottom: 0;
+  z-index: 99;
+  width: 100%;
+  background-color: #d9edf7;
+  padding: 5px 14px;
+}
 .margin-bottom170 {
   margin-bottom: 170px;
 }

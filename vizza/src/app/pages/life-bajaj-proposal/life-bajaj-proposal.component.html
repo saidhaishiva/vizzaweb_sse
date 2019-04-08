@@ -15,7 +15,7 @@
                     <div class="row">
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                        <mat-select placeholder="Title" formControlName="title" required>
+                        <mat-select placeholder="Title" formControlName="title" >
                           <mat-option *ngFor="let list of TitleList | keys" [value]= list.key> {{list.value}} </mat-option>
                         </mat-select>
                         <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
@@ -288,12 +288,17 @@
                           <mat-error *ngIf="proposer.controls.spouseName.errors?.required">Spouse Name is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Spouse DOB" formControlName="spouseDob" maxlength="45" autocomplete="off" required >
-                          <mat-error *ngIf="proposer.controls.spouseDob.errors?.required">Spouse DOB is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                        <div class="col-md-3">
+                          <mat-form-field class="w-100">
+                            <input matInput [matDatepicker]="picker3"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="spouseDob" (dateInput)="($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"
+                                   autocomplete="off"   required>
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                            <mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>
+                          </mat-form-field>
+                          <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
+                          <!--<div class="error" *ngIf="insuredPaDob > minDate">Future Date not allowed</div>-->
+                        </div>
                     </div>
                     </div>
 
