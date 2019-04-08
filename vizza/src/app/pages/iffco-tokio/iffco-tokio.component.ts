@@ -746,7 +746,7 @@ export class IffcoTokioComponent implements OnInit {
                 this.toastr.error('Proposer age should be  greater than 18 and lesser than equal to 55');
             }
         } else {
-            this.toastr.error('Please enter all fields');
+          //  this.toastr.error('Please enter all fields');
         }
     }
     topScroll() {
