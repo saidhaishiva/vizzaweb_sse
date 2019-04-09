@@ -40,7 +40,8 @@ export class LifeBajajProposalComponent implements OnInit {
   public proposer: FormGroup;
   public insured: FormGroup;
   public questions: FormGroup;
-  public nomineeDetail: any;
+  public nomineeDetail: FormGroup;
+  public bankDetail: FormGroup;
   public apointeeDetails: any;
   public itemsNominee: any;
   public proposerdateError: any;
@@ -72,7 +73,8 @@ export class LifeBajajProposalComponent implements OnInit {
   public mobilecode: any;
   public subDropDown: any;
   public nomineeRelationList: any;
-  public pincodeList:any
+  public pincodeList:any;
+  public lifeBajajProposal:any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -98,7 +100,6 @@ export class LifeBajajProposalComponent implements OnInit {
       weightChanged: '',
       weightChangedName: '',
       aadharNum: ['', Validators.required],
-
       spouseDob: '',
       maritalStatusName: '',
       occupationListName: '',
@@ -118,8 +119,6 @@ export class LifeBajajProposalComponent implements OnInit {
       countryIpMailing: '',
       relation: '',
       citizenship: '',
-
-
       pob: '',
       countryOfResid: '',
       nationality: '',
@@ -129,19 +128,27 @@ export class LifeBajajProposalComponent implements OnInit {
       language2: '',
       proposerType: '',
       language: '',
-
       benefitTerm: '',
-      address1: '',
-      address2: '',
+      comDoorNo:'',
+      comBuildingNumber:'',
+      comPlotNumber:'',
+      comLandmark:'',
+      comPlace:'',
+      comDistrict:'',
       pincode: '',
       city: '',
       state: '',
       sameAsProposer: '',
-      raddress1: '',
-      raddress2: '',
+      perDoorNo:'',
+      perBuildingNumber:'',
+      perPlotNumber:'',
+      perLandmark:'',
+      perPlace:'',
+      perDistrict:'',
       rpincode: '',
       rcity: '',
       rstate: '',
+
     });
 
     // this.nomineeDetail = this.Proposer.group({
@@ -162,6 +169,16 @@ export class LifeBajajProposalComponent implements OnInit {
       nDob: ['', Validators.required],
       nBirthPlace: ['', Validators.required],
       nRelation:['', Validators.required],
+
+    });
+
+    this.bankDetail = this.Proposer.group({
+      accountHolderName:'',
+      branchName:'',
+      accountNo:'',
+      accountType:'',
+      ifscCode:'',
+      micrCode:'',
 
     });
 
@@ -190,7 +207,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.occupation();
     this.mainQuestion();
     this.nomineeRelation();
-
+  this.sessionData();
     //NOMINEE Details
 
 
@@ -231,16 +248,24 @@ export class LifeBajajProposalComponent implements OnInit {
 
   sameAddress() {
     if (this.proposer.controls['sameAsProposer'].value) {
-      this.proposer.controls['raddress1'].patchValue(this.proposer.controls['address1'].value);
-      this.proposer.controls['raddress2'].patchValue(this.proposer.controls['address2'].value);
+      this.proposer.controls['perDoorNo'].patchValue(this.proposer.controls['comDoorNo'].value);
+      this.proposer.controls['perBuildingNumber'].patchValue(this.proposer.controls['comBuildingNumber'].value);
+      this.proposer.controls['perLandmark'].patchValue(this.proposer.controls['comLandmark'].value);
+      this.proposer.controls['perPlotNumber'].patchValue(this.proposer.controls['comPlotNumber'].value);
+      this.proposer.controls['perPlace'].patchValue(this.proposer.controls['comPlace'].value);
+      this.proposer.controls['perDistrict'].patchValue(this.proposer.controls['comDistrict'].value);
       this.proposer.controls['rpincode'].patchValue(this.proposer.controls['pincode'].value);
       this.proposer.controls['rcity'].patchValue(this.proposer.controls['city'].value);
       this.proposer.controls['rstate'].patchValue(this.proposer.controls['state'].value);
 
 
     } else {
-      this.proposer.controls['raddress1'].patchValue('');
-      this.proposer.controls['raddress2'].patchValue('');
+      this.proposer.controls['perDoorNo'].patchValue('');
+      this.proposer.controls['perBuildingNumber'].patchValue('');
+      this.proposer.controls['perPlotNumber'].patchValue('');
+      this.proposer.controls['perLandmark'].patchValue('');
+      this.proposer.controls['perPlace'].patchValue('');
+      this.proposer.controls['perDistrict'].patchValue('');
       this.proposer.controls['rpincode'].patchValue('');
       this.proposer.controls['rcity'].patchValue('');
       this.proposer.controls['rstate'].patchValue('');
@@ -346,6 +371,18 @@ export class LifeBajajProposalComponent implements OnInit {
     sessionStorage.lifeBajaj1 = JSON.stringify(value);
     console.log(sessionStorage.lifeBajaj1, 'session')
     if (this.proposer.valid) {
+      stepper.next();
+    } else {
+      this.toastr.error('error')
+    }
+  }
+
+  //Bank Details
+  bankDetailNext(stepper, value) {
+    console.log(value);
+    sessionStorage.lifeBajaj2 = JSON.stringify(value);
+    console.log(sessionStorage.lifeBajaj2, 'session')
+    if (this.bankDetail.valid) {
       stepper.next();
     } else {
       this.toastr.error('error')
@@ -881,7 +918,7 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
   changeNationality() {
-    this.proposer.controls['nationalityName'].patchValue(this.nationalityList[this.proposer.controls['nationalityTerm'].value]);
+    this.proposer.controls['nationalityName'].patchValue(this.nationalityList[this.proposer.controls['nationality'].value]);
 
   }
 
@@ -899,6 +936,154 @@ export class LifeBajajProposalComponent implements OnInit {
     this.proposer.controls['nRelationName'].patchValue(this.nomineeRelationList[this.proposer.controls['nRelation'].value]);
 
   }
+
+
+  // proposal Creation
+
+  proposal(stepper) {
+    alert();
+    console.log(this.lifeBajajProposal.enquiry_id,'0987');
+    const data = {
+      "user_id": "0",
+      "role_id": "4",
+      "pos_status": "0",
+      "platform": "web",
+      "product_id": "79",
+      "suminsured_id": "2",
+      "policy_id": "11",
+      "insurer_proposer": {
+        "title": this.proposer.controls['title'].value,
+        "firstName": this.proposer.controls['firstName'].value,
+        "middleName": this.proposer.controls['midName'].value,
+        "lastName": this.proposer.controls['lastName'].value,
+        "dob": this.proposer.controls['dob'].value,
+        "age": this.proposer.controls['age'].value,
+        "gender": this.proposer.controls['gender'].value,
+        "mobile": this.proposer.controls['mobile'].value,
+        "email": this.proposer.controls['email'].value,
+        "alternate_contact": this.proposer.controls['alterMobile'].value,
+        "maritalStatus": this.proposer.controls['maritalStatus'].value,
+        "annualIncome": this.proposer.controls['annualIncome'].value,
+        "occupation": this.proposer.controls['occupation'].value,
+        "education": "GR",
+        "height": this.proposer.controls['height'].value,
+        "weight": this.proposer.controls['weight'].value,
+        "weightChanged":this.proposer.controls['weightChanged'].value,
+        "aadhaar": this.proposer.controls['aadharNum'].value,
+        "smoker": "N",
+        "sameAsProposer": this.proposer.controls['sameAsProposer'].value,
+        "modeOfComm": "E",
+        "commMail/SMS": "",
+        "preferredLanguage": this.proposer.controls['language'].value,
+        "proposer_type": this.proposer.controls['proposerType'].value,
+        "documentLanguage": this.proposer.controls['language2'].value,
+        "lifeBenefit": this.proposer.controls['lifeBenifit'].value,
+        "benefitTerm": this.proposer.controls['benifitTerm'].value,
+        "premiumPaymentTerm": "10",
+        "premiumFrequency": "12",
+        "nationality": this.proposer.controls['nationality'].value,
+        "countryOfResidence": this.proposer.controls['countryOfResid'].value,
+        "placeOfBirth": this.proposer.controls['pob'].value,
+        "cititzenship": this.proposer.controls['citizenship'].value,
+        "IpRelation":"SELF",
+        "CountryIpMailing":"IN",
+        "politicallyExposedPerson": this.proposer.controls['politicallyExposedPerson'].value,
+        "ifYesGiveDetails": this.proposer.controls['ifYesGiveDetails'].value,
+      },
+      "family_details": {
+        "fatherName": this.proposer.controls['fatherName'].value,
+        "motherName": this.proposer.controls['motherName'].value,
+        "spouseBirthPlace": this.proposer.controls['spouseBirthPlace'].value,
+        "spouseName": this.proposer.controls['spouseName'].value,
+        "spouseDob": this.proposer.controls['spouseDob'].value,
+      },
+      "nominee_details": {
+        "nominee1Name": this.nomineeDetail.controls['nnName'].value,
+        "nominee1BirthPlace": this.nomineeDetail.controls['nBirthPlace'].value,
+        "nominee1Dob": this.nomineeDetail.controls['nDob'].value,
+        "nominee1Relation": this.nomineeDetail.controls['nRelation'].value,
+        "nominee2Name": "",
+        "nominee2BirthPlace": "",
+        "nominee2Dob": "",
+        "nominee2Relation": "",
+        "sharePercentage": "",
+        "appointeeName": "",
+        "appointeeDob": "",
+        "appointeeRelationToNominee": "",
+        "RelationToInsured": ""
+      },
+
+      "address_details": {
+        "comDoorNo": this.proposer.controls['comDoorNo'].value,
+        "comBuildingNumber": this.proposer.controls['comBuildingNumber'].value,
+        "comPlotNumber":this.proposer.controls['comPlotNumber'].value,
+        "comLandmark": this.proposer.controls['comLandmark'].value,
+        "comPlace": this.proposer.controls['comPlace'].value,
+        "comDistrict": this.proposer.controls['comDistrict'].value,
+        "comState": this.proposer.controls['state'].value,
+        "comPincode": this.proposer.controls['pincode'].value,
+        "perDoorNo": this.proposer.controls['perDoorNo'].value,
+        "perBuildingNumber": this.proposer.controls['perBuildingNumber'].value,
+        "perPlotNumber": this.proposer.controls['perPlotNumber'].value,
+        "perLandmark": this.proposer.controls['perLandmark'].value,
+        "perPlace": this.proposer.controls['perPlace'].value,
+        "perDistrict": this.proposer.controls['perDistrict'].value,
+        "perState": this.proposer.controls['rstate'].value,
+        "perPincode": this.proposer.controls['rpincode'].value,
+        "comSameAsPer": this.proposer.controls['sameAsProposer'].value,
+
+      },
+      "bank_deatils": {
+        "accountHolderName": this.proposer.controls['accountHolderName'].value,
+        "branchName": this.proposer.controls['branchName'].value,
+        "accountNo": this.proposer.controls['accountNo'].value,
+        "accountType": this.proposer.controls['accountType'].value,
+        "ifscCode": this.proposer.controls['ifscCode'].value,
+        "micrCode": this.proposer.controls['micrCode'].value,
+      },
+      "office_details": {
+        "department":"DEVELOPER",
+        "officeName": "OTHER",
+        "officeAddress1": "IBM ",
+        "officeAddress2": "qwe",
+        "officeAddress3": "qwer",
+        "officeDistrict": "qwe",
+        "officeState": "TAMIL NADU",
+        "officePincode": "636808",
+        "officeNumber": ""
+      },
+      "other_details": {
+        "addressProof": "",
+        "ageProof": "ACS",
+        "incomeProof": "BCF_P",
+        "idProof": ""
+      },
+    }
+    console.log(data,'fileeee');
+    this.termService.proposalCreation(data).subscribe(
+        (successData) => {
+          this.proposalSuccess(successData,stepper);
+        },
+        (error) => {
+          this.proposalFailure(error);
+        }
+    );
+  }
+  public proposalSuccess(successData, stepper){
+    if(successData.IsSuccess){
+      stepper.next();
+      this.toastr.success('Proposal created successfully!!');
+     // this.summaryData = successData.ResponseObject;
+    }
+  }
+  public proposalFailure(error){
+
+  }
+
+
+
+
+
 
   // session Data
   sessionData() {
@@ -924,14 +1109,22 @@ export class LifeBajajProposalComponent implements OnInit {
         countryOfResidName: lifeBajaj1.countryOfResidName,
         citizenshipName: lifeBajaj1.citizenshipName,
         aadharNum: lifeBajaj1.aadharNum,
-        address1: lifeBajaj1.address1,
-        address2: lifeBajaj1.address2,
+        comDoorNo: lifeBajaj1.comDoorNo,
+        comBuildingNumber: lifeBajaj1.comBuildingNumber,
+        comPlotNumber: lifeBajaj1.comPlotNumber,
+        comLandmark: lifeBajaj1.comLandmark,
+        comPlace: lifeBajaj1.comPlace,
+        comDistrict: lifeBajaj1.comDistrict,
         pincode: lifeBajaj1.pincode,
         city: lifeBajaj1.city,
         state: lifeBajaj1.state,
         sameAsProposer: lifeBajaj1.sameAsProposer,
-        raddress1: lifeBajaj1.raddress1,
-        raddress2: lifeBajaj1.raddress2,
+        perDoorNo: lifeBajaj1.perDoorNo,
+        perBuildingNumber: lifeBajaj1.perBuildingNumber,
+        perPlotNumber: lifeBajaj1.perPlotNumber,
+        perLandmark: lifeBajaj1.perLandmark,
+        perPlace: lifeBajaj1.perPlace,
+        perDistrict: lifeBajaj1.perDistrict,
         rpincode: lifeBajaj1.rpincode,
         rcity: lifeBajaj1.rcity,
         rstate: lifeBajaj1.rstate,
@@ -967,7 +1160,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
       if (sessionStorage.nlifeBajaj1 != '' && sessionStorage.nlifeBajaj1 != undefined) {
         let nlifeBajaj1 = JSON.parse(sessionStorage.nlifeBajaj1);
-        this.nomineeDetail = this.nomineeDetail.group({
+        this.nomineeDetail = this.Proposer.group({
           nRelation: nlifeBajaj1.nRelation,
           nRelationName: nlifeBajaj1.nRelationName,
           nName: nlifeBajaj1.nName,

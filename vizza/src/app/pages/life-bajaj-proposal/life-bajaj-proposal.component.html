@@ -109,7 +109,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Occupation" name="occupation" formControlName="occupationList" (change)="occupationListCode(); setOccupationListClass()"required>
+                          <mat-select placeholder="Occupation" name="occupation" formControlName="occupationList" (change)="occupationListCode(); "required>
                             <mat-option *ngFor="let list of occupationList | keys" [value]="list.key">{{list.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.occupationList.errors?.required">Occupation is required</mat-error>
@@ -314,18 +314,50 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="address1"  autocomplete="off" required></textarea>
+                                  <textarea #message maxlength="80" matInput placeholder="Door Number" rows="2" formControlName="comDoorNo"  autocomplete="off" required></textarea>
                                   <mat-hint align="start"></mat-hint>
-                                  <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
-                                  <mat-error *ngIf="proposer.controls.address1.errors?.required">Address1 is required</mat-error>
+                                  <mat-error *ngIf="proposer.controls.comDoorNo.errors?.required">Door No is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="address2" autocomplete="off" ></textarea>
+                                  <textarea #message1 maxlength="80" matInput placeholder="Building Number" rows="2" formControlName="comBuildingNumber" autocomplete="off" ></textarea>
                                   <mat-hint align="start"></mat-hint>
-                                  <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
-                                  <mat-error *ngIf="proposer.controls.address2.errors?.required">Address2 is required</mat-error>
+                                  <!--<mat-hint align="end">{{message1.value.length}} / 80</mat-hint>-->
+                                  <mat-error *ngIf="proposer.controls.comBuildingNumber.errors?.required">Building No is required</mat-error>
+
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                  <textarea maxlength="80" matInput placeholder="Plot Number" rows="2" formControlName="comPlotNumber" autocomplete="off" ></textarea>
+                                  <mat-hint align="start"></mat-hint>
+                                  <mat-error *ngIf="proposer.controls.comPlotNumber.errors?.required">Plot Number is required</mat-error>
+
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                  <textarea maxlength="80" matInput placeholder="Land Mark" rows="2" formControlName="comLandmark" autocomplete="off" ></textarea>
+                                  <mat-hint align="start"></mat-hint>
+                                  <mat-error *ngIf="proposer.controls.comLandmark.errors?.required">Land Mark is required</mat-error>
+
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                  <textarea maxlength="80" matInput placeholder="Place" rows="2" formControlName="comPlace" autocomplete="off" ></textarea>
+                                  <mat-hint align="start"></mat-hint>
+                                  <mat-error *ngIf="proposer.controls.comPlace.errors?.required">Land Mark is required</mat-error>
+
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                  <textarea maxlength="80" matInput placeholder="District" rows="2" formControlName="comDistrict" autocomplete="off" ></textarea>
+                                  <mat-hint align="start"></mat-hint>
+                                  <!--<mat-hint align="end">{{message1.value.length}} / 80</mat-hint>-->
+                                  <mat-error *ngIf="proposer.controls.comDistrict.errors?.required">District is required</mat-error>
 
                                 </mat-form-field>
                               </div>
@@ -338,10 +370,10 @@
                               </mat-form-field>
                               </div>
 
-                              <div class="col-md-6"><mat-form-field class="w-100">
-                                <input matInput placeholder="City" formControlName="city" autocomplete="off" readonly>
-                                <mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>
-                              </mat-form-field></div>
+                              <!--<div class="col-md-6"><mat-form-field class="w-100">-->
+                                <!--<input matInput placeholder="City" formControlName="city" autocomplete="off" readonly>-->
+                                <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                              <!--</mat-form-field></div>-->
 
                               <div class="col-md-6"><mat-form-field class="w-100">
                                 <input matInput placeholder="State" formControlName="state" autocomplete="off" readonly>
@@ -364,15 +396,51 @@
 
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea #message maxlength="80" matInput placeholder="Address 1" rows="2" formControlName="raddress1"  autocomplete="off" required [readonly]="this.proposer.controls['sameAsProposer'].value"></textarea>
+                                  <textarea #message maxlength="80" matInput placeholder="Door No" rows="2" formControlName="perDoorNo"  autocomplete="off" required [readonly]="this.proposer.controls['sameAsProposer'].value"></textarea>
                                   <mat-hint align="start"></mat-hint>
                                   <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
-                                  <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress.errors?.required">Address is required</mat-error>-->
+                                  <mat-error *ngIf="proposer.controls.perDoorNo.errors?.required">Door No is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea #message1 maxlength="80" matInput placeholder="Address 2" rows="2" formControlName="raddress2" autocomplete="off" [readonly]="this.proposer.controls['sameAsProposer'].value"></textarea>
+                                  <textarea #message1 maxlength="80" matInput placeholder="Building Number" rows="2" formControlName="perBuildingNumber" autocomplete="off" [readonly]="this.proposer.controls['sameAsProposer'].value"></textarea>
+                                  <mat-hint align="start"></mat-hint>
+                                  <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
+                                  <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress2.errors?.required">Address2 is required</mat-error>-->
+
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                  <textarea #message1 maxlength="80" matInput placeholder="Plot Number" rows="2" formControlName="perPlotNumber" autocomplete="off" [readonly]="this.proposer.controls['sameAsProposer'].value"></textarea>
+                                  <mat-hint align="start"></mat-hint>
+                                  <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
+                                  <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress2.errors?.required">Address2 is required</mat-error>-->
+
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                  <textarea #message1 maxlength="80" matInput placeholder="Land Mark" rows="2" formControlName="perLandmark" autocomplete="off" [readonly]="this.proposer.controls['sameAsProposer'].value"></textarea>
+                                  <mat-hint align="start"></mat-hint>
+                                  <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
+                                  <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress2.errors?.required">Address2 is required</mat-error>-->
+
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                  <textarea #message1 maxlength="80" matInput placeholder="Place" rows="2" formControlName="perPlace" autocomplete="off" [readonly]="this.proposer.controls['sameAsProposer'].value"></textarea>
+                                  <mat-hint align="start"></mat-hint>
+                                  <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
+                                  <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress2.errors?.required">Address2 is required</mat-error>-->
+
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                  <textarea #message1 maxlength="80" matInput placeholder="District" rows="2" formControlName="perDistrict" autocomplete="off" [readonly]="this.proposer.controls['sameAsProposer'].value"></textarea>
                                   <mat-hint align="start"></mat-hint>
                                   <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
                                   <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress2.errors?.required">Address2 is required</mat-error>-->
@@ -385,11 +453,11 @@
                                 <mat-error *ngIf="proposer.controls.rpincode.hasError('required')">Pincode Is Required</mat-error>
                                 <mat-error *ngIf="proposer.controls.rpincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                               </mat-form-field></div>
-                              <div class="col-md-6" [ngStyle]="{'pointer-events': this.proposer.controls['sameAsProposer'].value ? 'none' : ''}">
-                                <div class="col-md-6"><mat-form-field class="w-100">
-                                  <input matInput placeholder="City" formControlName="rcity" autocomplete="off" readonly>
-                                  <mat-error *ngIf="proposer.controls.rcity.errors?.required">City is required</mat-error>
-                                </mat-form-field></div></div>
+                              <!--<div class="col-md-6" [ngStyle]="{'pointer-events': this.proposer.controls['sameAsProposer'].value ? 'none' : ''}">-->
+                                <!--<div class="col-md-6"><mat-form-field class="w-100">-->
+                                  <!--<input matInput placeholder="City" formControlName="rcity" autocomplete="off" readonly>-->
+                                  <!--<mat-error *ngIf="proposer.controls.rcity.errors?.required">City is required</mat-error>-->
+                                <!--</mat-form-field></div></div>-->
                               <div class="col-md-6"><mat-form-field class="w-100">
                                 <input matInput placeholder="State" formControlName="rstate" [readonly]="this.proposer.controls['sameAsProposer'].value" autocomplete="off" readonly>
                                 <mat-error *ngIf="proposer.controls.rstate.errors?.required">State is required</mat-error>
@@ -416,8 +484,8 @@
 
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
-                      <button mat-button matStepperNext>Next</button>
-                      <!--<button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>-->
+                      <!--<button mat-button matStepperNext>Next</button>-->
+                      <button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, proposer.value)" >Next</button>
                     </div>
                   </div>
               </mat-expansion-panel>
@@ -425,6 +493,75 @@
           </mat-accordion>
         </mat-step>
 
+
+
+    <mat-step [stepControl]="">
+      <ng-template matStepLabel>BANK DETAILS</ng-template>
+      <mat-accordion class="mt-4 w-100 float-left">
+        <mat-expansion-panel expanded>
+          <mat-expansion-panel-header>
+            <mat-panel-title>BANK DETAILS
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <ng-template matStepLabel>BANK DETAILS</ng-template>
+          <div class="row mt-3">
+            <div class="col-md-12 box-card pt-3 pb-3" >
+              <form [formGroup]="bankDetail">
+                <div>
+                  <div class="row">
+
+
+                    <div class="col-md-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Account Holder Name"  required formControlName="accountHolderName" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <mat-error *ngIf="bankDetail.controls.accountHolderName.errors?.required">Account Holder Name is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Branch Name"  required formControlName="branchName" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <mat-error *ngIf="bankDetail.controls.branchName.errors?.required">Branch Name is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Account No"  required formControlName="accountNo" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <mat-error *ngIf="bankDetail.controls.accountNo.errors?.required">Account No is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Account Type"  required formControlName="accountType" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <mat-error *ngIf="bankDetail.controls.accountType.errors?.required">Account Type is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Ifsc Code"  required formControlName="ifscCode" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4">
+                      <mat-form-field class="w-100">
+                        <input matInput placeholder="Micro Code"  required formControlName="micrCode" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <mat-error *ngIf="bankDetail.controls.micrCode.errors?.required">Micro Code is required</mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!--<div class="proposal-buttom mb-3 text-right w-100">-->
+                <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
+                <button mat-raised-button color="primaryBlue"   (click)="bankDetailNext(stepper, bankDetail.value)">Next</button>
+                <!--</div></div>-->
+              </form>
+            </div>
+
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </mat-step>
 
         <mat-step [stepControl]="">
           <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
@@ -570,7 +707,7 @@
                     <!--<div class="col-md-12">-->
                       <!--<div class="proposal-buttom mb-3 text-right w-100">-->
                         <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
-                        <!--<button mat-raised-button color="primaryBlue"   (click)="religareNomineeDetails(stepper, nomineeDetail.value)">Next</button>-->
+                        <button mat-raised-button color="primaryBlue"   (click)="nomineeDetails(stepper, nomineeDetail.value)">Next</button>
                       <!--</div></div>-->
                   </form>
                 </div>
