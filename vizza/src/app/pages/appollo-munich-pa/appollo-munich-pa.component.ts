@@ -119,6 +119,8 @@ public BMI: any;
 public proposalId: any;
 public RediretUrlLink: any;
 public occupationClass: any;
+public step: any;
+public nomineesame: any;
 CheckHabits : boolean;
 readonlyProposer : boolean;
     occupationClass1 : boolean;
@@ -140,6 +142,9 @@ readonlyProposer : boolean;
               }
           }
       });
+      this.nomineesame = false;
+      this.step = 0;
+
       this.currentStep = stepperindex;
       console.log(this.currentStep,'this.currentStep');
 
@@ -158,6 +163,7 @@ readonlyProposer : boolean;
       this.habits = true;
       this.rider = true;
       this.bmiValue = false;
+
 
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
@@ -797,6 +803,23 @@ readonlyProposer : boolean;
     public nomineeCityPaListFailure(error){
     }
 
+    setStep(index) {
+        this.step = index;
+    }
+
+    nextStep() {
+        this.step++;
+    }
+
+    prevStep() {
+        this.step--;
+    }
+
+
+    backAll(){
+        this.topScroll();
+        this.prevStep();
+    }
 
 
 
@@ -1530,6 +1553,7 @@ preInsureList() {
                         }
                     }
                     this.topScroll();
+                    this.nextStep();
                 } else{
                     if(this.occupationClass1 == false){
                         this.toastr.error('Sorry!, Your occupation is not allowed');
@@ -1571,6 +1595,7 @@ preInsureList() {
             this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
         } else {
             stepper.next();
+            this.nextStep();
 
         }
 
@@ -1771,6 +1796,7 @@ preInsureList() {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
+            this.nextStep();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);

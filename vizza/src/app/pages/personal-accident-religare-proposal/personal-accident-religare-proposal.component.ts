@@ -380,6 +380,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         return this.religarePAProposal;
     }
 
+    nextStep() {
+        this.step++;
+    }
+
 
     prevStep() {
         this.step--;
@@ -493,6 +497,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     if (this.personal.controls['personalAnualIncome'].value != 0) {
                         stepper.next();
                         this.topScroll();
+                        this.nextStep();
                     } else {
                         this.toastr.error('Invalid Annual Income');
 
@@ -516,6 +521,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 if (this.insured.controls['insuredAnnualIncome'].value != 0) {
                     stepper.next();
                     this.topScroll();
+                    this.nextStep();
                 } else {
                     this.toastr.error('Invalid Annual Income');
 
@@ -530,6 +536,11 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             // }
 
         }
+    }
+
+    backAll(){
+        this.topScroll();
+        this.prevStep();
     }
 
     topScroll() {
@@ -1065,6 +1076,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         }
         if (count == 5) {
             stepper.next();
+            this.nextStep();
+
         } else {
             this.toastr.error('All the Question are mandatory')
         }
