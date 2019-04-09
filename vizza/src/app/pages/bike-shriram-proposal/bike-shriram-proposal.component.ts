@@ -50,10 +50,14 @@ export class BikeShriramProposalComponent implements OnInit {
   public previousList: any;
   public summaryData: any;
   public bikeEnquiryDetails: any;
+  public ProposalId: any;
   public apponiteeList: boolean;
-
-
-  constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+  public proposerFormData : any;
+  public vehicalFormData : any;
+  public previousFormData : any;
+  public nomineeFormData : any;
+  public buyBikeDetails : any;
+    constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -137,6 +141,7 @@ export class BikeShriramProposalComponent implements OnInit {
 
   ngOnInit() {
       this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
+      this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
     this.changeGender();
      this.changehypothecation();
      this.policyType();
@@ -250,7 +255,7 @@ export class BikeShriramProposalComponent implements OnInit {
               if (successData.IsSuccess) {
                 this.pincodeList = successData.ResponseObject;
                 console.log(this.pincodeList,'jhgfdghj');
-                this.proposer.controls['state'].patchValue(this.pincodeList.state_name);
+                this.proposer.controls['state'].patchValue(this.pincodeList.state);
                 this.proposer.controls['city'].patchValue(this.pincodeList.city_village_name);
               }
             }
@@ -675,6 +680,11 @@ export class BikeShriramProposalComponent implements OnInit {
           stepper.next();
           this.toastr.success('Proposal created successfully!!');
           this.summaryData = successData.ResponseObject;
+         this.ProposalId =   this.summaryData.ProposalId;
+         this.proposerFormData = this.proposer.value;
+         this.vehicalFormData = this.vehical.value;
+         this.previousFormData = this.previousInsure.value;
+         this.nomineeFormData = this.nomineeDetail.value;
       }
     }
     public proposalFailure(error){
