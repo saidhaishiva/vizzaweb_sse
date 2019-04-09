@@ -99,6 +99,7 @@ export class BajajAlianzComponent implements OnInit {
     public sameRelationship: any;
     public insuredFormData: any;
 
+
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public validation: ValidationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -177,6 +178,18 @@ export class BajajAlianzComponent implements OnInit {
             if(this.insurePersons.length == 1){
                 this.sameRelationship = this.insureArray['controls'].items['controls'][0]['controls'].insurerelationship.value;
             }
+    }
+
+    setStep(index) {
+        this.step = index;
+    }
+
+    nextStep() {
+        this.step++;
+    }
+
+    prevStep() {
+        this.step--;
     }
     initItemRows() {
         return this.fb.group(
@@ -340,6 +353,7 @@ export class BajajAlianzComponent implements OnInit {
                 if(!diseaseValidate.includes('No')) {
                     if(!relationshipValidate.includes('No')) {
                         this.proposal(stepper);
+                        this.prevStep();
                     }  else{
                         this.toastr.error('Insurer and Nominee relationship should be different');
                     }
@@ -348,6 +362,11 @@ export class BajajAlianzComponent implements OnInit {
                 }
             }
         }
+    }
+
+    backAll(){
+        this.topScroll();
+        this.prevStep();
     }
 
     changeCoPayment(event:any, index){

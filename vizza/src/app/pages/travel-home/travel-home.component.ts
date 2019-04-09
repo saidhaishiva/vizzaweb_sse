@@ -150,6 +150,8 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.allTravelPremiumLists = '';
         sessionStorage.allProductLists = '';
         sessionStorage.changeSuninsuredAmount = '';
+        this.courseDuration = '';
+        this.sem = '';
         // fire
         this.show = this.config.getTravelInsurance();
         this.setDate = Date.now();
@@ -359,6 +361,7 @@ export class TravelHomeComponent implements OnInit {
             this.showFamily = true;
             this.showGroup = false;
             this.showstudent = false;
+            this.travelUserType = false;
             console.log(this.travelPlan, 'travelPlantravelPlan');
         }
         // else if (event == 2) {
@@ -584,15 +587,18 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.travelUserType = this.travelUserType;
         if(this.travelUserType == true){
             this.studentDuration = true;
-            sessionStorage.studentDuration = this.studentDuration;
         } else {
             this.studentDuration = false;
-            sessionStorage.studentDuration = this.studentDuration;
         }
-            sessionStorage.courseDuration = this.courseDuration;
-            sessionStorage.sem = this.sem;
 
-        }
+        sessionStorage.studentDuration = this.studentDuration;
+    }
+    typeCourseDuration() {
+        sessionStorage.courseDuration = this.courseDuration;
+    }
+    typeSemester() {
+        sessionStorage.sem = this.sem;
+    }
    // studentInfo(){
    //     if(this.travelUserType == true){
    //         this.studentDuration = true;
@@ -703,11 +709,16 @@ export class TravelHomeComponent implements OnInit {
         } else {
             this.plcaeOfVisitError = false;
         }
-        if (this.travelType == '' || this.travelType == undefined) {
-            this.travelTypeError = true;
-        } else {
+        if(this.travelUserType) {
             this.travelTypeError = false;
+        } else {
+            if (this.travelType == '' || this.travelType == undefined) {
+                this.travelTypeError = true;
+            } else {
+                this.travelTypeError = false;
+            }
         }
+
         if (this.pincode == '' || this.pincode == undefined) {
             this.pinerror = true;
         } else {
@@ -807,7 +818,8 @@ export class TravelHomeComponent implements OnInit {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
-            console.log(days, 'days');
+            console.log(this.courseDuration, 'this.courseDuration');
+            console.log(this.sem, 'this.sem');
             if (days <= 180 ) {
                 console.log('as');
                 const data = {
@@ -828,9 +840,9 @@ export class TravelHomeComponent implements OnInit {
                     'duration': this.duration ? this.duration : '',
                     'travel_user_type': this.travelUserType ?  'student' : groupname,
                     'medical_condition': this.medicalCondition,
-                    'course_duration':this.courseDuration,
-                    'semester':this.sem
-                }
+                    'course_duration': this.travelUserType ? this.courseDuration : '',
+                    'semester': this.travelUserType ? this.sem : ''
+                };
                 this.settings.loadingSpinner = true;
                 console.log(data, 'this.datadata');
                 this.travel.getEnquiryDetails(data).subscribe(
