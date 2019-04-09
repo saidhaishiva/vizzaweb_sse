@@ -263,8 +263,7 @@
                   <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        INSURED DETAILS FOR
-                        {{insureReligareArray['controls'].items['controls'][i]['controls'].type.value}}
+                        INSURED DETAILS FOR {{insureReligareArray['controls'].items['controls'][i]['controls'].type.value | uppercase}}
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <ng-template matStepLabel>INSURED DETAILS </ng-template>
