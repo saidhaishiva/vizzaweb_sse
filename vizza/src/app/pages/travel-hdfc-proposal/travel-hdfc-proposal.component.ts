@@ -82,6 +82,8 @@ export class TravelHdfcProposalComponent implements OnInit {
     public plantype: any;
     public getEnquiryDetails: any;
     public placeOfVisit: any;
+    public step: any;
+    public mobileView: boolean;
 
 
 
@@ -111,6 +113,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.totalInsureDetails = [];
+        this.step = 0;
         this.decline = false;
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
@@ -164,6 +167,13 @@ export class TravelHdfcProposalComponent implements OnInit {
     }
 
     ngOnInit() {
+        if(window.innerWidth<=768){
+            this.mobileView = true;
+        }
+        else{
+            this.mobileView = false;
+        }
+
         this.titleproposer();
         this.getStateList();
         this.getPedList();
@@ -270,6 +280,24 @@ export class TravelHdfcProposalComponent implements OnInit {
         if (sessionStorage.hdfc_Travel_proposal_id != '' && sessionStorage.hdfc_Travel_proposal_id != undefined) {
             this.hdfc_Travel_proposal_id = sessionStorage.hdfc_Travel_proposal_id;
         }
+    }
+
+    setStep(index) {
+        this.step = index;
+    }
+
+    nextStep() {
+        this.step++;
+    }
+
+    prevStep() {
+        this.step--;
+    }
+
+
+    backAll(){
+        this.topScroll();
+        this.prevStep();
     }
 
     // validation
@@ -694,6 +722,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             if (sessionStorage.proposerAgeHdfcTravel >= 18) {
                 if (this.hdfcTravel.controls['ped'].value == 'None') {
                     stepper.next();
+                    this.nextStep();
 
                 } else {
                     this.toastr.error('Existing Disease should Not allow For this insurance');
@@ -712,6 +741,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.insuredTravelData = value;
         if (this.hdfcInsuredTravel.valid) {
             stepper.next();
+            this.nextStep();
 
         }
         if(this.insuredTravelPerson.length == 1){
@@ -856,6 +886,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
             stepper.next();
+            this.nextStep();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);

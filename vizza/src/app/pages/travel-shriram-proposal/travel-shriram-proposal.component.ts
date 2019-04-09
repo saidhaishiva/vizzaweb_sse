@@ -231,8 +231,18 @@ export class TravelShriramProposalComponent implements OnInit {
     setStep(index: number) {
         this.step = index;
     }
+    nextStep() {
+        this.step++;
+    }
     prevStep() {
         this.step--;
+    }
+
+
+
+    backAll(){
+        this.topScroll();
+        this.prevStep();
     }
     nameValidate(event: any){
         this.validation.nameValidate(event);
@@ -260,6 +270,23 @@ export class TravelShriramProposalComponent implements OnInit {
             }
         }
     }
+
+    // setStep(index) {
+    //     this.step = index;
+    // }
+    //
+    // nextStep() {
+    //     this.step++;
+    // }
+    //
+    // prevStep() {
+    //     this.step--;
+    // }
+    //
+    //
+    // backAll(){
+    //     this.topScroll();
+    //     this.prevStep();
 
     addEvent(event, type) {
         if (event.value != null) {
@@ -668,7 +695,9 @@ export class TravelShriramProposalComponent implements OnInit {
         if (this.personal.valid) {
             if (sessionStorage.proposerAgeForTravel >= 18) {
                 stepper.next();
+                this.nextStep();
                 this.topScroll();
+
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
@@ -739,6 +768,8 @@ export class TravelShriramProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.toastr.success('Proposal created successfully!!');
             stepper.next();
+            this.nextStep();
+
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             sessionStorage.travel_shriram_proposal_id = this.summaryData.ProposalId;
