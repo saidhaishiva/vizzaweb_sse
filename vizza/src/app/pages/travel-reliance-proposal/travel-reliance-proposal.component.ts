@@ -1080,6 +1080,10 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.proposalRArea = JSON.parse(sessionStorage.proposalPArea);
       sessionStorage.proposalRArea = JSON.stringify(this.proposalRArea);
       this.inputReadonly = true;
+      this.personal['controls'].residenceDistrictIdR.patchValue(this.personal.controls['personalDistrictIdP'].value);
+      this.personal['controls'].personalCityIdR.patchValue(this.personal.controls['personalCityIdP'].value);
+      this.personal['controls'].personalStateIdR.patchValue(this.personal.controls['personalStateIdP'].value);
+
       this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
       this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
       this.personal.controls['residenceAddress3'].setValue(this.personal.controls['personalAddress3'].value);
@@ -1706,7 +1710,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                   this.personal['controls'].personalDistrictIdP.patchValue('');
                   this.personal['controls'].personalCityIdP.patchValue('');
                   this.personal['controls'].personalStateIdP.patchValue('');
-                  this.proposalPArea = this.response.area_details;
+                  this.proposalPArea = '';
                   sessionStorage.proposalPArea = {};
 
               } else {
@@ -1716,7 +1720,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                   this.personal['controls'].personalDistrictIdP.patchValue(this.response.district_id);
                   this.personal['controls'].personalCityIdP.patchValue(this.response.city_village_id);
                   this.personal['controls'].personalStateIdP.patchValue(this.response.state_id);
-                  this.proposalPArea = '';
+                  this.proposalPArea = this.response.area_details;
                   sessionStorage.proposalPArea = JSON.stringify(this.proposalPArea);
               }
           } else if(title == 'proposalR') {
@@ -1748,7 +1752,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                   this.personal['controls'].personalyDistrictIdB.patchValue('');
                   this.personal['controls'].personalCityIdB.patchValue('');
                   this.personal['controls'].personalStateIdB.patchValue('');
-                  this.proposalBArea = this.setPincode.area_details;
+                  this.proposalBArea = '';
                   sessionStorage.proposalBArea = {};
               } else {
                   this.personal['controls'].personalBurglaryState.patchValue(this.response.state_name);
@@ -1757,7 +1761,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                   this.personal['controls'].personalyDistrictIdB.patchValue(this.response.district_id);
                   this.personal['controls'].personalCityIdB.patchValue(this.response.city_village_id);
                   this.personal['controls'].personalStateIdB.patchValue(this.response.state_id);
-                  this.proposalBArea = this.setPincode.area_details;
+                  this.proposalBArea = this.response.area_details;
                   sessionStorage.proposalBArea = JSON.stringify(this.proposalBArea);
               }
           } else if(title == 'proposalS') {
@@ -1814,6 +1818,59 @@ export class TravelRelianceProposalComponent implements OnInit {
                   this.proposalDArea = this.response.area_details;
                   sessionStorage.proposalDArea = JSON.stringify(this.proposalDArea);
               }
+          }
+      } else {
+          this.toastr.error('In valid Pincode');
+          if (title == 'proposalP') {
+              this.personal['controls'].personalState.patchValue('');
+              this.personal['controls'].personalDistrict.patchValue('');
+              this.personal['controls'].personalCity.patchValue('');
+              this.personal['controls'].personalDistrictIdP.patchValue('');
+              this.personal['controls'].personalCityIdP.patchValue('');
+              this.personal['controls'].personalStateIdP.patchValue('');
+              this.proposalPArea = '';
+              sessionStorage.proposalPArea = {};
+          } else if (title == 'proposalR') {
+              this.personal['controls'].residenceState.patchValue('');
+              this.personal['controls'].residenceDistrict.patchValue('');
+              this.personal['controls'].residenceCity.patchValue('');
+              this.personal['controls'].residenceDistrictIdR.patchValue('');
+              this.personal['controls'].personalCityIdR.patchValue('');
+              this.personal['controls'].personalStateIdR.patchValue('');
+              this.proposalRArea = '';
+              sessionStorage.proposalRArea = {};
+          } else if (title == 'proposalB') {
+              this.personal['controls'].personalBurglaryState.patchValue('');
+              this.personal['controls'].personalBurglaryDistrict.patchValue('');
+              this.personal['controls'].personalBurglaryCity.patchValue('');
+              this.personal['controls'].personalyDistrictIdB.patchValue('');
+              this.personal['controls'].personalCityIdB.patchValue('');
+              this.personal['controls'].personalStateIdB.patchValue('');
+              this.proposalBArea = '';
+              sessionStorage.proposalBArea = {};
+          } else if (title == 'proposalS') {
+              this.personal['controls'].personalSponsorState.patchValue('');
+              this.personal['controls'].personalSponsorCity.patchValue('');
+              this.personal['controls'].personalCityIdS.patchValue('');
+              this.personal['controls'].personalStateIdS.patchValue('');
+          } else if (title == 'proposalC') {
+              this.personal['controls'].personalCompanyState.patchValue('');
+              this.personal['controls'].personalCompanyDistrict.patchValue('');
+              this.personal['controls'].personalCompanyCity.patchValue('');
+              this.personal['controls'].personalyDistrictIdC.patchValue('');
+              this.personal['controls'].personalCityIdC.patchValue('');
+              this.personal['controls'].personalStateIdC.patchValue('');
+              this.proposalCArea = '';
+              sessionStorage.proposalCArea = {};
+          } else if (title == 'proposalD') {
+              this.personal['controls'].personalCompanyState.patchValue('');
+              this.personal['controls'].personalCompanyDistrict.patchValue('');
+              this.personal['controls'].personalCompanyCity.patchValue('');
+              this.personal['controls'].personalyDistrictIdC.patchValue('');
+              this.personal['controls'].personalCityIdC.patchValue('');
+              this.personal['controls'].personalStateIdC.patchValue('');
+              this.proposalCArea = '';
+              sessionStorage.proposalCArea = {};
           }
       }
 

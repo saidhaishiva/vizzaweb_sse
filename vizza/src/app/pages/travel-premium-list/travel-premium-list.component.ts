@@ -99,6 +99,8 @@ export class TravelPremiumListComponent implements OnInit {
     productListArray: any;
     allProductLists: any;
     setAllProductLists: any;
+    courseDuration: any;
+    sem: any;
     checkAllStatus: boolean;
     constructor(public appSettings: AppSettings, public clearSession: ClearSessionTravelService, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe : DatePipe) {
         this.settings = this.appSettings.settings;
@@ -110,6 +112,7 @@ export class TravelPremiumListComponent implements OnInit {
         this.compareArray = [];
         this.productListArray = [];
         this.allProductLists = [];
+        this.filterCompany = [];
     }
     ngOnInit() {
         this.clearSession.clearSessionTravelData();
@@ -134,6 +137,12 @@ export class TravelPremiumListComponent implements OnInit {
             } else {
                 this.checkAllStatus = false;
             }
+        }
+        if (sessionStorage.sem != undefined && sessionStorage.sem != '') {
+            this.sem = sessionStorage.sem;
+        }
+        if (sessionStorage.courseDuration != undefined && sessionStorage.courseDuration != '') {
+            this.courseDuration = sessionStorage.courseDuration;
         }
         if (sessionStorage.allProductLists != undefined && sessionStorage.allProductLists != '') {
             this.allProductLists = JSON.parse(sessionStorage.allProductLists);
@@ -167,13 +176,13 @@ export class TravelPremiumListComponent implements OnInit {
             for (let i = 0; i < this.allCompanyList.length; i++) {
                 all.push(this.allCompanyList[i].company_name)
             }
-            this.filterCompany = all;
             console.log(sessionStorage.allProductLists, 'ppp');
             if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
                 console.log('inn');
                 this.getProductLists(this.allCompanyList, 'enquiry');
             }
 
+            this.filterCompany = all;
         }
     }
     public companyListFailure(error) {
@@ -223,8 +232,8 @@ export class TravelPremiumListComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             "enquiry_id": this.enquiryDetails.enquiry_id,
             "group_name": this.enquiryDetails.group_name,
-            "adult_count": this.enquiryDetails.sum_insured_amount,
-            "child_count": this.enquiryDetails.sum_insured_amount,
+            "adult_count": this.enquiryDetails.adult_count,
+            "child_count": this.enquiryDetails.child_count,
             "scheme": this.enquiryDetails.scheme,
             "travel_place": this.enquiryDetails.travel_place,
             "travel_plan_type": this.enquiryDetails.travel_plan_type,
@@ -237,7 +246,9 @@ export class TravelPremiumListComponent implements OnInit {
             "company_id": companyList.company_id,
             "sum_insured_id": type == 'productLists' ? this.selectedAmountTravel : this.enquiryDetails.sum_insured_id,
             "sum_insured_amount": type == 'productLists' ? sum_amount : this.enquiryDetails.sum_insured_amount,
-            "pincode": this.enquiryDetails.pincode
+            "pincode": this.enquiryDetails.pincode,
+            'course_duration': this.enquiryDetails.travel_user_type ? this.courseDuration : '',
+            'semester': this.enquiryDetails.travel_user_type ? this.sem : ''
         };
         this.settings.loadingSpinner = true;
         this.travel.getTravelPremiumList(data,companyList).subscribe(
@@ -262,7 +273,7 @@ export class TravelPremiumListComponent implements OnInit {
                     }
                 }
             }
-            console.log(this.allProductLists, 'all');
+            console.log(this.allProductLists, 'all1');
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;

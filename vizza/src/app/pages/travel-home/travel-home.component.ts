@@ -708,11 +708,16 @@ export class TravelHomeComponent implements OnInit {
         } else {
             this.plcaeOfVisitError = false;
         }
-        if (this.travelType == '' || this.travelType == undefined) {
-            this.travelTypeError = true;
-        } else {
+        if(this.travelUserType) {
             this.travelTypeError = false;
+        } else {
+            if (this.travelType == '' || this.travelType == undefined) {
+                this.travelTypeError = true;
+            } else {
+                this.travelTypeError = false;
+            }
         }
+
         if (this.pincode == '' || this.pincode == undefined) {
             this.pinerror = true;
         } else {
@@ -812,7 +817,8 @@ export class TravelHomeComponent implements OnInit {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
-            console.log(days, 'days');
+            console.log(this.courseDuration, 'this.courseDuration');
+            console.log(this.sem, 'this.sem');
             if (days <= 180 ) {
                 console.log('as');
                 const data = {
@@ -833,9 +839,9 @@ export class TravelHomeComponent implements OnInit {
                     'duration': this.duration ? this.duration : '',
                     'travel_user_type': this.travelUserType ?  'student' : groupname,
                     'medical_condition': this.medicalCondition,
-                    'course_duration':this.courseDuration,
-                    'semester':this.sem
-                }
+                    'course_duration': this.travelUserType ? this.courseDuration : '',
+                    'semester': this.travelUserType ? this.sem : ''
+                };
                 this.settings.loadingSpinner = true;
                 console.log(data, 'this.datadata');
                 this.travel.getEnquiryDetails(data).subscribe(
