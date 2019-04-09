@@ -345,12 +345,13 @@ export class ReliagretravelproposalComponent implements OnInit {
         public getpostalFailure(error) {
         }
 
-        selectResCity() {
-            this.religarePersonal.controls['rcityName'].patchValue(this.residenceCitys[this.religarePersonal.controls['rcity'].value]);
-        }
+        // selectResCity() {
+        //     this.religarePersonal.controls['rcityName'].patchValue(this.residenceCitys[this.religarePersonal.controls['rcity'].value]);
+        // }
         insureTravelRelationListName() {
             this.insureReligareArray.controls['relationshipName'].patchValue(this.insuretravelRelationList[this.insureReligareArray.controls['relationship'].value]);
         }
+
         iPersonalCitysName() {
             this.insureReligareArray.controls['cityName'].patchValue(this.iPersonalCitys[this.insureReligareArray.controls['city'].value]);
         }
@@ -647,13 +648,13 @@ export class ReliagretravelproposalComponent implements OnInit {
                             ],
                             'proposer_res_address1': this.proposerInsureData[0].address1,
                             'proposer_res_address2': this.proposerInsureData[0].address2,
-                            'proposer_res_area': this.proposerInsureData[0].city,
+                            'proposer_res_area': '',
                             'proposer_res_city': this.proposerInsureData[0].city,
                             'proposer_res_state': this.proposerInsureData[0].state,
                             'proposer_res_pincode': this.proposerInsureData[0].pincode,
                             'proposer_comm_address1': this.proposerInsureData[0].raddress1,
                             'proposer_comm_address2': this.proposerInsureData[0].raddress2,
-                            'proposer_comm_area': this.proposerInsureData[0].rcity,
+                            'proposer_comm_area': '',
                             'proposer_comm_city': this.proposerInsureData[0].rcity,
                             'proposer_comm_state': this.proposerInsureData[0].rstate,
                             'proposer_comm_pincode': this.proposerInsureData[0].rpincode,
@@ -769,30 +770,29 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.topScroll();
             let count = 0;
             for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-                if (this.religareTravelQuestionsList[i].checked == true) {
+                // if (this.religareTravelQuestionsList[i].checked == true) {
                         count++;
                         this.partyQuestionDOList.push({
                             'questionCd': this.religareTravelQuestionsList[i].question_code,
                             'questionSetCd': this.religareTravelQuestionsList[i].question_name,
                             'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
                         });
-                }
-                if(this.religareTravelQuestionsList[i].checked == true){
+                // }
+                // if(this.religareTravelQuestionsList[i].checked == true){
                         count++;
                         this.questionsListTravel.push({
                             'questionCd': this.religareTravelQuestionsList[i].question_code,
                             'questionSetCd': this.religareTravelQuestionsList[i].question_set_code,
                             'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
                         });
-                }
+                // }
             }
 
+            // for (let i = 0; i < this.totalReligareData.length; i++) {
+            //     this.totalReligareData[i].medical_status =  this.partyQuestionDOList.response ? 'Yes' : 'No'
+            // }
             for (let i = 0; i < this.totalReligareData.length; i++) {
-                this.totalReligareData[i].medical_status =  this.partyQuestionDOList.response ? 'Yes' : 'No'
-            }
-
-            for (let i = 0; i < this.totalReligareData.length; i++) {
-                this.totalReligareData[i].questions_list =  this.questionsListTravel
+                this.totalReligareData[i].questions_list = this.questionsListTravel;
             }
         }
 
@@ -842,26 +842,15 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'enquiry_id': this.getEnquiryDetails.enquiry_id,
                     'trip_start_on': this.datepipe.transform( this.getEnquiryDetails.start_date , 'dd/MM/yyyy'),
                     'trip_end_on': this.datepipe.transform( this.getEnquiryDetails.end_date , 'dd/MM/yyyy'),
-                    'group_name': 'Group A',
-                    'coverType': 'INDIVIDUAL',
-                    'businessTypeCd': 'NEWBUSINESS',
-                    'baseAgentId': '20572800',
                     'baseProductId': this.getTravelPremiumList.geography_code,
                     'trip_type': this.getEnquiryDetails.travel_plan_type,
                     'company_name': this.getTravelPremiumList.company_name,
                     'suminsured_amount': this.getEnquiryDetails.sum_insured_amount,
                     'proposer_insurer_details': this.totalReligareData,
-                    'fieldAgree': 'YES',
-                    'fieldAlerts': 'YES',
-                    'fieldTc': 'YES',
-                    'field20': '10',
-                    'tripStart': 'YES',
                     'travel_geography_code': this.getTravelPremiumList.geography_code,
                     'maxTripPeriod':this.getEnquiryDetails.day_count,
                     'plan_id': this.getTravelPremiumList.geography_code,
                     'policy_term':this.getEnquiryDetails.day_count,
-                    'scheme_id': '',
-                    'terms_condition': '1',
                     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
                     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                     'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,

@@ -176,7 +176,7 @@
                                 </mat-form-field></div>
                                 <div class="col-md-6"><mat-form-field class="w-100" >
                                   <mat-select placeholder="City" formControlName="city" (change)="selectComCity()" autocomplete="off" required>
-                                    <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
+                                    <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.value'>
                                       {{city.value}}
                                     </mat-option>
                                   </mat-select>
@@ -228,7 +228,7 @@
                                 <div class="col-md-6" [ngStyle]="{'pointer-events': this.religarePersonal.controls['sameAsProposer'].value ? 'none' : ''}">
                                   <mat-form-field class="w-100"  >
                                     <mat-select placeholder="City" formControlName="rcity" (change)="selectResCity()" autocomplete="off"   required>
-                                      <mat-option *ngFor="let city of residenceCitys | keys" [value]= 'city.key'>
+                                      <mat-option *ngFor="let city of residenceCitys | keys" [value]= 'city.value'>
                                         {{city.value}}
                                       </mat-option>
                                     </mat-select>
@@ -429,7 +429,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()">
+                          <mat-select placeholder="Relationship with Insured"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()">
                             <mat-option *ngFor="let lists of insuretravelRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.key}}" required>
                               {{lists.value}}
                             </mat-option>
@@ -492,8 +492,8 @@
                 <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      <span *ngIf="i == 0">Proposer Details</span>
-                      {{insureReligarePerson.type}}
+                      <span *ngIf="i == 0">PROPOSER DETAILS</span>
+                      <span *ngIf="i != 0">INSURED DETAILS FOR {{item.type | uppercase}} </span>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
 
@@ -530,42 +530,44 @@
                       </div>
                     </div>
                   </div>
-                  <div *ngIf ="i==0">
-                  <div class="row box-card">
-                    <div class="col-md-6">
-                      <div class="p-3">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <ul class="m-0 list-group">
-                              <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeFormData.religareTravelNomineeName}}</li>
-                            </ul>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="p-3">
-                        <div class="row">
-                          <div class="col-md-12">
-                            <ul class="m-0 list-group">
-                              <li class="list-group-item"><strong>Relationship with Insured:</strong>
-                                {{nomineeFormData.religareTravelNomineeName}}
-                              </li>
-                            </ul>
-                          </div>
-
-                        </div>
-                      </div>
-                    </div>
-
-
-                  </div>
-                  </div>
-
                 </mat-expansion-panel>
-
               </div>
+
+              <mat-expansion-panel   [expanded]="true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                   NOMINEE DETAILS
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row box-card">
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeFormData.religareTravelNomineeName}}</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item"><strong>Relationship with Insured:</strong>
+                              {{nomineeFormData.religareTravelNomineeName}}
+                            </li>
+                          </ul>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-expansion-panel>
+
               <br>
               <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             </section>
