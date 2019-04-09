@@ -58,12 +58,12 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-75" *ngIf="studentDuration">
-                          <input matInput [(ngModel)]="courseDuration" maxlength="2" placeholder="Duration(In Month)"  (keypress)="numberOnly($event)">
+                          <input matInput [(ngModel)]="courseDuration" maxlength="2" placeholder="Duration(In Month)" (keyup)="typeCourseDuration()" (keypress)="numberOnly($event)">
                         </mat-form-field>
                       </div>
                      <div class="col-md-6">
                        <mat-form-field class="w-75"  *ngIf="studentDuration">
-                         <input matInput  [(ngModel)]="sem" maxlength="2" placeholder="Semester" (keypress)="numberOnly($event)">
+                         <input matInput  [(ngModel)]="sem" maxlength="2" placeholder="Semester" (keyup)="typeSemester()" (keypress)="numberOnly($event)">
                        </mat-form-field>
                      </div>
                     </div>
@@ -106,7 +106,7 @@
                         </mat-form-field>
                         <div class="error" *ngIf="plcaeOfVisitError != ''">Required</div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-md-6" *ngIf="!travelUserType">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Types of Travel" [(ngModel)]="travelType" (change)="changeTravelType()" required>
                             <mat-option value="Business">

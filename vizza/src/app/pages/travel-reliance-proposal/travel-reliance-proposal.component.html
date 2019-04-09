@@ -1,4 +1,4 @@
-<div class="container-fluid">
+ <div class="container-fluid">
   <div class="row relianceHealthProposal">
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
@@ -790,7 +790,7 @@
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="selectInsureRelationship(i)" required>
-                              <mat-option *ngFor="let lists of Relationship" value="{{lists.insured_id}}" >
+                              <mat-option *ngFor="let lists of Relationship" [hidden]="lists.insured_relationship_with_proposer != '1'" value="{{lists.insured_id}}" >
                                 {{lists.relation_name}}
                               </mat-option>
                             </mat-select>
@@ -856,14 +856,34 @@
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Name of Nominee is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-6">
+                              <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Self'">
                                 <mat-form-field class="w-100">
                                   <mat-select placeholder="Relationship with Proposer" formControlName="nomineeRelationship" (change)="selectInsureNomineeRelationship(i)" required>
-                                    <mat-option  *ngFor="let relation of Relationship"  value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
+                                    <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_insured !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
                                 </mat-form-field>
                               </div>
+
+                              <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Spouse'">
+                                <mat-form-field class="w-100">
+                                  <mat-select placeholder="Relationship with Proposer" formControlName="nomineeRelationship" (change)="selectInsureNomineeRelationship(i)" required>
+                                    <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_spouse !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Son' || relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Daughter'">
+                                <mat-form-field class="w-100">
+                                  <mat-select placeholder="Relationship with Proposer" formControlName="nomineeRelationship" (change)="selectInsureNomineeRelationship(i)" required>
+                                    <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_child !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
+                                  </mat-select>
+                                  <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
+                                </mat-form-field>
+                              </div>
+
+
+
                             </div>
                           </div>
                         <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
@@ -908,32 +928,32 @@
                                     <mat-slide-toggle  formControlName="riskIsOverSeasCitizen" (change)="riskDetailsChange($event,'overseas')"></mat-slide-toggle>
                                   </div>
                                 </div>
-                                <div class="row col-md-12" *ngIf="overseas">
+                                <div class="row col-md-12 ml-2" *ngIf="overseas">
                                     <div class="col-md-8">
-                                      3.Is Residing In India
+                                      * Is Residing In India
                                     </div>
                                     <div class="col-md-4 text-right">
                                       <mat-slide-toggle  formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')"></mat-slide-toggle>
                                     </div>
-                                    <div class="col-md-12" *ngIf="overseas">
+                                    <div class="col-md-12" >
                                       <mat-form-field class="w-100">
-                                        <input matInput placeholder="Permanent Residence Country Name"  formControlName="riskPermanentResidenceCountry" (keypress)="nameValidate($event)" autocomplete="off">
+                                        <input matInput placeholder="Permanent Residence Country Name"  formControlName="riskPermanentResidenceCountry" [required]="riskDetails.controls.riskIsResidingInIndia.value" (keypress)="nameValidate($event)" autocomplete="off">
                                       </mat-form-field >
                                     </div>
-                                    <div class="col-md-12" *ngIf="riskIsResidingInIndiaTrue">
+                                    <div class="col-md-12" >
                                       <mat-form-field class="w-100">
-                                        <input matInput placeholder="OCI Number"  formControlName="riskOCINumber" (keypress)="idValidate($event)" autocomplete="off">
+                                        <input matInput placeholder="OCI Number"  formControlName="riskOCINumber" [required]="riskDetails.controls.riskIsResidingInIndia.value" (keypress)="idValidate($event)" autocomplete="off">
                                       </mat-form-field>
                                     </div>
-                                  <div class="col-md-12" *ngIf="riskIsResidingInIndiaTrue">
+                                  <div class="col-md-12" >
                                     <mat-form-field class="w-100">
-                                    <input matInput placeholder="Passport Issuing Country"  formControlName="riskPassportIssuingCountry" (keypress)="idValidate($event)" autocomplete="off">
+                                    <input matInput placeholder="Passport Issuing Country"  formControlName="riskPassportIssuingCountry" [required]="!riskDetails.controls.riskIsResidingInIndia.value" (keypress)="idValidate($event)" autocomplete="off">
                                     </mat-form-field>
                                   </div>
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    4.Is Insured On Immigrant Visa
+                                    3.Is Insured On Immigrant Visa
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsInsuredOnImmigrantVisa" (change)="riskDetailsChange($event,'ImmigrantVisa')"></mat-slide-toggle>
@@ -941,7 +961,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    5.Travel Involves Sporting Activities
+                                    4.Travel Involves Sporting Activities
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsTravelInvolvesSportingActivities" (change)="riskDetailsChange($event,'TravelInvolvesSporting')"></mat-slide-toggle>
@@ -963,7 +983,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    6.Is Suffering From Pre-Existing Medical Conditions
+                                    5.Is Suffering From Pre-Existing Medical Conditions
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsSufferingFromPEMC" (change)="riskDetailsChange($event,'IsSufferingFromPEMC')"></mat-slide-toggle>
@@ -971,7 +991,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    7.Is Pre-Existing Disease
+                                    6.Is Pre-Existing Disease
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')"></mat-slide-toggle>
@@ -979,7 +999,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    8.Is Visiting USA Canada
+                                    7.Is Visiting USA Canada
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsVisitingUSACanada" (change)="riskDetailsChange($event,'IsVisitingUSACanada')"></mat-slide-toggle>
@@ -1026,7 +1046,7 @@
                                 </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          9.Is Visiting Family
+                                          8.Is Visiting Family
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle (change)="riskDetailsChange($event,'IsVisitingFamily')"></mat-slide-toggle>
@@ -1041,7 +1061,7 @@
                                   </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          10.Is Add On Cover Only Student
+                                          9.Is Add On Cover Only Student
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle formControlName="riskIsVisitingStudent" (change)="riskDetailsChange($event,'IsVisitingStudent')"></mat-slide-toggle>
@@ -1049,7 +1069,7 @@
                                   </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          11.Is Annual Multi-trip Individual
+                                          10.Is Annual Multi-trip Individual
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle  (change)="riskDetailsChange($event,'IsMultitripIndividual')"></mat-slide-toggle>
@@ -1062,7 +1082,7 @@
                                   </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                         12.Is Travel Pravasi Number of Years
+                                         11.Is Travel Pravasi Number of Years
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle  (change)="riskDetailsChange($event,'IsPravasi')"></mat-slide-toggle>
@@ -1075,7 +1095,7 @@
                                   </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
-                                          13.Senior Citizens Add On Bnifits
+                                          12.Senior Citizens Add On Bnifits
                                       </div>
                                       <div class="col-md-4 text-right">
                                           <mat-slide-toggle formControlName="riskSeniorCitizen" (change)="riskDetailsChange($event,'IsSeniorCitizen')"></mat-slide-toggle>
