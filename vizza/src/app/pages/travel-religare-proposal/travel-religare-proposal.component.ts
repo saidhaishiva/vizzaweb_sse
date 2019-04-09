@@ -345,12 +345,13 @@ export class ReliagretravelproposalComponent implements OnInit {
         public getpostalFailure(error) {
         }
 
-        selectResCity() {
-            this.religarePersonal.controls['rcityName'].patchValue(this.residenceCitys[this.religarePersonal.controls['rcity'].value]);
-        }
+        // selectResCity() {
+        //     this.religarePersonal.controls['rcityName'].patchValue(this.residenceCitys[this.religarePersonal.controls['rcity'].value]);
+        // }
         insureTravelRelationListName() {
             this.insureReligareArray.controls['relationshipName'].patchValue(this.insuretravelRelationList[this.insureReligareArray.controls['relationship'].value]);
         }
+
         iPersonalCitysName() {
             this.insureReligareArray.controls['cityName'].patchValue(this.iPersonalCitys[this.insureReligareArray.controls['city'].value]);
         }
@@ -647,13 +648,13 @@ export class ReliagretravelproposalComponent implements OnInit {
                             ],
                             'proposer_res_address1': this.proposerInsureData[0].address1,
                             'proposer_res_address2': this.proposerInsureData[0].address2,
-                            'proposer_res_area': this.proposerInsureData[0].city,
+                            'proposer_res_area': '',
                             'proposer_res_city': this.proposerInsureData[0].city,
                             'proposer_res_state': this.proposerInsureData[0].state,
                             'proposer_res_pincode': this.proposerInsureData[0].pincode,
                             'proposer_comm_address1': this.proposerInsureData[0].raddress1,
                             'proposer_comm_address2': this.proposerInsureData[0].raddress2,
-                            'proposer_comm_area': this.proposerInsureData[0].rcity,
+                            'proposer_comm_area': '',
                             'proposer_comm_city': this.proposerInsureData[0].rcity,
                             'proposer_comm_state': this.proposerInsureData[0].rstate,
                             'proposer_comm_pincode': this.proposerInsureData[0].rpincode,
