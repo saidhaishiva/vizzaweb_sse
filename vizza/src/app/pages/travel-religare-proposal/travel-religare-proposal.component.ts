@@ -205,6 +205,25 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.getAddon();
     }
 
+
+    setStep(index: number) {
+        this.step = index;
+    }
+
+    prevStep() {
+        this.step--;
+    }
+
+    nextStep() {
+        this.step++;
+    }
+
+    backAll() {
+        this.topScroll();
+        this.prevStep();
+    }
+
+
     // PROPOSER PAGE
 
     // title change function
@@ -454,6 +473,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     if (sessionStorage.proposerAgeReligareTravel >= 18) {
                         stepper.next();
                         this.topScroll();
+                        this.nextStep();
                     } else {
                         this.toastr.error('Proposer age should be 18 or above');
                     }
@@ -678,6 +698,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     } else if (ageValidate.includes(2)) {
                         stepper.next();
                         this.topScroll();
+                        this.nextStep();
 
 
                     }
@@ -768,6 +789,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.questionsListTravel = [];
             stepper.next();
             this.topScroll();
+            this.nextStep();
             let count = 0;
             for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
                 // if (this.religareTravelQuestionsList[i].checked == true) {
