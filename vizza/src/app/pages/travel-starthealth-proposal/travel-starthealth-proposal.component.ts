@@ -417,7 +417,7 @@ export class TravelProposalComponent implements OnInit {
         return Bob_days;
     }
     ageValidationInsurer(i, type) {
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 150) {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 142) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Insurer Date of birth date should be atleast 5 months old');
         } else {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
