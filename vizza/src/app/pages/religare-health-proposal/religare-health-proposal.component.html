@@ -321,13 +321,13 @@
                           </div>
                             <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Height" maxlength="3" formControlName="personalHeight" (keypress)="numberValidate($event)" autocomplete="off" required>
+                                <input matInput placeholder="Height" maxlength="3" formControlName="personalHeight"  (keypress)="heightValidate($event)" autocomplete="off" required>
                                 <mat-error *ngIf="insureArray.invalid">Enter Your Height</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Weight" maxlength="3" formControlName="personalWeight" (keypress)="numberValidate($event)" autocomplete="off" required>
+                                <input matInput placeholder="Weight" maxlength="3" formControlName="personalWeight"  (keypress)="heightValidate($event)" autocomplete="off" required>
                                 <mat-error *ngIf="insureArray.invalid">Enter Your Body Weight</mat-error>
                               </mat-form-field>
                             </div>
