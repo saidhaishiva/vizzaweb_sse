@@ -1,4 +1,3 @@
-
 import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {TravelService} from '../../shared/services/travel.service';
 import {HealthService} from '../../shared/services/health.service';
@@ -249,6 +248,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
 
     setStep(index: number) {
         this.step = index;
+    }
+    nextStep() {
+        this.step++;
     }
 
     quesback() {
@@ -731,6 +733,11 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public hdfcNomineeRelationshipFailure(error) {
     }
 
+    backAll(){
+        this.topScroll();
+        this.prevStep();
+    }
+
     personalDetails(stepper: MatStepper, value) {
         sessionStorage.hdfcStep1 = '';
         sessionStorage.hdfcStep1 = JSON.stringify(value);
@@ -741,6 +748,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     // this.sameasInsurerDetails('event', '1');
                     stepper.next();
                     this.topScroll();
+                    this.nextStep();
                 } else {
                     this.toastr.error('Enter valid pincode');
                 }
@@ -862,6 +870,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             if (validData) {
                 stepper.next();
                 this.topScroll();
+                this.nextStep();
             } else {
                 //  this.toastr.error('Insured age should be 18 or above');
             }
@@ -881,6 +890,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         sessionStorage.hdfcHealthNomineeDetails = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
             this.createProposal(stepper);
+            this.nextStep();
         }
     }
 // star-health-proposal Creation
