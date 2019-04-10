@@ -363,16 +363,35 @@ export class ReligareHealthProposalComponent implements OnInit {
     }
     // Dame validation
     nameValidate(event: any){
-        this.validation.nameValidate(event);
+        console.log(event.target.value.length);
+        // if (event.code == 'Space') {
+        //     if (event.target.value.length == 0) {
+        //         event.preventDefault();
+        //     }
+        // } else {
+            this.validation.nameValidate(event);
+       // }
     }
     // Dob validation
-    dobValidate(event: any){
+    dobValidate(event: any) {
         this.validation.dobValidate(event);
     }
     // Number validation
-    numberValidate(event: any){
+    numberValidate(event: any) {
         this.validation.numberValidate(event);
     }
+    // height weight validation
+    heightValidate(event: any) {
+        console.log(event.target.value.length);
+        if (event.key == '0') {
+            if (event.target.value.length == 0) {
+                event.preventDefault();
+            }
+        } else {
+            this.validation.numberValidate(event);
+        }
+    }
+
     idValidate(event){
         this.validation.idValidate(event);
 
