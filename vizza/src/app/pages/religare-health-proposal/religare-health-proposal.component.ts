@@ -561,6 +561,9 @@ export class ReligareHealthProposalComponent implements OnInit {
     setStep(index: number) {
         this.step = index;
     }
+    nextStep() {
+        this.step++;
+    }
     prevStep() {
         this.step--;
     }
@@ -666,6 +669,10 @@ export class ReligareHealthProposalComponent implements OnInit {
         }
     }
 
+    backAll(){
+        this.topScroll();
+        this.prevStep();
+    }
     personalDetails(stepper: MatStepper, value) {
         this.personalData = value;
         this.personalData.rolecd = 'PROPOSER';
@@ -689,6 +696,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                 if (this.mobileNumber == '' || this.mobileNumber == 'true'){
                     stepper.next();
                     this.topScroll();
+                    this.nextStep();
                 }
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -1225,6 +1233,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             } else if(aterMobile.includes(2)){} else {
                 stepper.next();
                 this.topScroll();
+                this.nextStep();
             }
         }
         if(this.insurePersons.length == 1) {
@@ -1385,6 +1394,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             console.log(statusChecked,'ghhh');
             stepper.next();
             this.topScroll();
+            this.nextStep();
         }
     }
     subStatus(value: any, i, k, j) {
@@ -1423,6 +1433,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             sessionStorage.nomineeData = '';
             sessionStorage.nomineeData = JSON.stringify(value);
             this.proposal(stepper);
+            this.nextStep();
+
         }
     }
     // selectNomineeRelation(){
