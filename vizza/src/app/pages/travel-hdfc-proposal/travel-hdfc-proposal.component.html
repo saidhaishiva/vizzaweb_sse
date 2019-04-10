@@ -232,7 +232,7 @@
           <ng-template matStepLabel >INSURER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="hdfcInsuredTravel">
-              <div formArrayName="items" *ngFor="let item of hdfcInsuredTravel.get('items')['controls']; let i = index;">
+              <div formArrayName="items" *ngFor="let item of hdfcInsuredTravel.get('items')['controls']; let i = index;let last = last;">
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
                     <mat-panel-title> INSURED DETAILS FOR {{hdfcInsuredTravel['controls'].items['controls'][i]['controls'].type.value | uppercase}}
@@ -317,7 +317,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="proposal-buttom mt-3 text-right w-100" >
+                  <div class="proposal-buttom mt-3 text-right w-100" *ngIf="last">
                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                     <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, hdfcInsuredTravel.value)">Next</button>
                   </div>
@@ -420,7 +420,7 @@
               <tbody>
               <tr>
                 <td>
-                  <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" />
+                  <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 60px;" />
                 </td>
                 <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
                 <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</td>
@@ -445,8 +445,12 @@
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
                       <li class="list-group-item"><strong>Mobile:</strong> {{proposerFormData.mobile}}</li>
-                      <li class="list-group-item"><strong>Restriction By Insurance:</strong> {{proposerFormData.restrictionbyinsurance}}</li>
-                      <li class="list-group-item"><strong>Decline Insurance:</strong> {{proposerFormData.declineinsurance}}</li>
+                      <li class="list-group-item"><strong>Restriction By Insurance:</strong> <span *ngIf="proposerFormData.restrictionbyinsurance">Yes</span>
+                        <span *ngIf="!proposerFormData.restrictionbyinsurance">No</span></li>
+                      <li class="list-group-item"><strong>Decline Insurance:</strong>
+                        <span *ngIf="proposerFormData.declineinsurance">Yes</span>
+                        <span *ngIf="!proposerFormData.declineinsurance">Yes</span>
+                       </li>
                       <li class="list-group-item" *ngIf="proposerFormData.declineReson != ''"><strong>Decline Reson:</strong> {{proposerFormData.declineReson}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.restrictionbyinsurancedetails != ''"><strong>Restriction By Insurance Reson:</strong> {{proposerFormData.restrictionbyinsurancedetails}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.physicianName != ''"><strong>Physician Name :</strong> {{proposerFormData.physicianName}}</li>

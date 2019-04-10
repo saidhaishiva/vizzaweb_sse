@@ -22,7 +22,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public minDate: any;
   public maxdate: any;
   public shriramProposer: any;
-  public pinProposerList: any;
+  public pincodeList: any;
   public settings: Settings;
   public proposerRatioDetail: boolean;
   public driverAgeDetail: boolean;
@@ -39,13 +39,28 @@ export class BikeShriramProposalComponent implements OnInit {
   public nomineeRelation: any;
   public hypothecationTypedm: any;
   public addonPackagedm: any;
-
-
-  constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+  public titleList: any;
+  public policyTypeList: any;
+  public proposalTypeList: any;
+  public electrical: boolean;
+  public nonelectrical: boolean;
+  public finance: boolean;
+  public claimDetails: any;
+  public claimList: boolean;
+  public previousList: any;
+  public summaryData: any;
+  public bikeEnquiryDetails: any;
+  public ProposalId: any;
+  public apponiteeList: boolean;
+  public proposerFormData : any;
+  public vehicalFormData : any;
+  public previousFormData : any;
+  public nomineeFormData : any;
+  public buyBikeDetails : any;
+    constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
-    this.maxdate = this.minDate;
 
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
@@ -57,6 +72,11 @@ export class BikeShriramProposalComponent implements OnInit {
     this.insuredAgeP = '';
     this.maxStartdate = '';
     this.pannumberP = false;
+    this.electrical = false;
+    this.nonelectrical = false;
+    this.finance = false;
+    this.claimList = false;
+    this.apponiteeList = false;
 
     this.proposer = this.fb.group({
       title: ['', Validators.required],
@@ -68,9 +88,9 @@ export class BikeShriramProposalComponent implements OnInit {
       pincode: ['', Validators.required],
       radio: ' ',
       alterMobile: '',
-      proposerFax: '',
-      proposerPan: ['', Validators.compose([ Validators.minLength(10)])],
-      proposerGst: ['', Validators.compose([Validators.minLength(15)])],
+      fax: '',
+      pan: ['', Validators.compose([ Validators.minLength(10)])],
+      gst: ['', Validators.compose([Validators.minLength(15)])],
       address: ['', Validators.required],
       address2: '',
       address3: '',
@@ -79,38 +99,23 @@ export class BikeShriramProposalComponent implements OnInit {
       breakIn: '',
     });
     this.vehical = this.fb.group({
-      vehicleType: ['', Validators.required],
-      vehicleTypeName: '',
-      vehicleIDV: '',
-      noEmpCoverLL: '',
+      policyType: ['', Validators.required],
+      proposalType:'' ,
       vehicleColour: '',
-      driverAge: '',
-      BreakIn: '',
       nilDepreciationCover: '',
-      unnamedPassenger: '',
-      unnamedPassengerSI: '',
       electricalAccess: '',
       electricalAccessSI: '',
       nonElectricalAccess: '',
       nonElectricalAccessSI: '',
-      pdConductorCleaner: '',
-      pdConductorCleanerSI: '',
-      pdCount: '',
-      pConductorCount: '',
-      pCleanerCount: '',
-      eleAccessRemark: '',
-      nonEleAccessRemark: '',
-      specifiedPersonField: '',
-      paOWexclusion: '',
-      paOWexReason: '',
-      vehiclePurpose: ' ',
-      convertNoteNo: '',
-      convertNoteDt: '',
-      hypothecationType: ['', Validators.required],
-      hypothecationAddress1: ['', Validators.required],
+      hypothecationType: '',
+      hypothecationAddress1: '',
       hypothecationAddress2: '',
       hypothecationAddress3: '',
       hypothecationAgreementNo: '',
+      antiTheft: '',
+      lltoPaidDriver: '',
+      addonPackage:'',
+      hypothecationBankName:'',
     });
     this.previousInsure = this.fb.group({
       policyNumber: '',
@@ -135,9 +140,17 @@ export class BikeShriramProposalComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
+      this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+    this.changeGender();
+     this.changehypothecation();
+     this.policyType();
+     this.proposalType();
+     this.addonPackage();
+    this.previousInsureType();
+    this.claimpercent();
     this.nomineeRelationShip();
-    this.changehypothecation();
-    this.addonPackage();
+     this.sessionData();
   }
 
 
@@ -146,12 +159,26 @@ export class BikeShriramProposalComponent implements OnInit {
 
   // title change function
       changeGender() {
-        if (this.proposer.controls['title'].value == 'MR') {
-          this.proposer.controls['gender'].patchValue('Male');
-        } else {
-          this.proposer.controls['gender'].patchValue('Female');
+        const data = {
+          'platform': 'web',
+          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
         }
+        this.bikeInsurance.getTitleList(data).subscribe(
+            (successData) => {
+              this.titlesucccess(successData);
+            },
+            (error) => {
+              this.failureSuccess(error);
+            }
+        );
       }
+        public titlesucccess(successData){
+          this.titleList = successData.ResponseObject;
+        }
+        public failureSuccess(error) {
+        }
+
 
 
     // AGE VALIDATION
@@ -206,31 +233,35 @@ export class BikeShriramProposalComponent implements OnInit {
               }
           }
   // // PINCODE
-  //           getinsuredPostalCode(pin) {
-  //             const data = {
-  //               'platform': 'web',
-  //               'postalcode': pin
-  //             };
-  //             if (pin.length == 6) {
-  //               this.personalservice.pinPaList(data).subscribe(
-  //                   (successData) => {
-  //                     this.pinProposerListSuccess(successData);
-  //                   },
-  //                   (error) => {
-  //                     this.pinProposerListFailure(error);
-  //                   }
-  //               );
-  //             }
-  //           }
-  //
-  //           public pinProposerListSuccess(successData) {
-  //             if (successData.IsSuccess) {
-  //               this.pinProposerList = successData.ResponseObject;
-  //             }
-  //           }
-  //
-  //           public pinProposerListFailure(error) {
-  //           }
+           getPostalCode(pin) {
+              const data = {
+                'platform': 'web',
+                'pin_code': pin
+              };
+              console.log(data,'jhgjh');
+              if (pin.length == 6) {
+                this.bikeInsurance.getPincodeList(data).subscribe(
+                    (successData) => {
+                      this.pinProposerListSuccess(successData);
+                    },
+                    (error) => {
+                      this.pinProposerListFailure(error);
+                    }
+                );
+              }
+            }
+
+            public pinProposerListSuccess(successData) {
+              if (successData.IsSuccess) {
+                this.pincodeList = successData.ResponseObject;
+                console.log(this.pincodeList,'jhgfdghj');
+                this.proposer.controls['state'].patchValue(this.pincodeList.state);
+                this.proposer.controls['city'].patchValue(this.pincodeList.city_village_name);
+              }
+            }
+
+            public pinProposerListFailure(error) {
+            }
 
             driverAgeList() {
               console.log(this.proposer.controls['driverAge'].value,'eeeeeeeeeeeeeeee')
@@ -240,28 +271,7 @@ export class BikeShriramProposalComponent implements OnInit {
                 this.driverAgeDetail = false;
               }
             }
-  // CITY
-  //         onChangecityListInsuredPa(){
-  //           const data = {
-  //             'platform': 'web',
-  //             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-  //           }
-  //           this.bikeInsurance.getNomineeRelationship(data).subscribe(
-  //               (successData) => {
-  //                 this.nomineeRelationSuccess(successData);
-  //               },
-  //               (error) => {
-  //                 this.nomineeRelationFailure(error);
-  //               }
-  //           );
-  //         }
-  //           public nomineeRelationSuccess(successData){
-  //             this.nomineeRelation = successData.ResponseObject;
-  //
-  //           }
-  //           public nomineeRelationFailure(error){
-  //           }
+
       changeCity() {
         this.proposer.controls['proposerbkCityName'].patchValue(this.bikeCityList[this.proposer.controls['proposerbkCity'].value]);
 
@@ -278,81 +288,227 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper1 = '';
           sessionStorage.stepper1 = JSON.stringify(value);
           console.log(this.proposer.valid, 'checked');
-          stepper.next();
+          if(this.proposer.valid) {
+            stepper.next();
+          }
 
         }
 
  // SECOND STEPPER
-     // PURPOSE lIST
-          vehiclePurposeList() {
-            console.log(this.proposer.controls['vehiclePurpose'].value,'eeeeeeeeeeeeeeee')
-            if (this.proposer.controls['vehiclePurpose'].value == 'Yes') {
-              this.proposerRatioDetail = true;
-            } else {
-              this.proposerRatioDetail = false;
+
+    addonPackage() {
+          const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+          }
+                this.bikeInsurance.getAddonPackage(data).subscribe(
+                    (successData) => {
+                      this.addonPackageSuccess(successData);
+                    },
+                    (error) => {
+                      this.addonPackageFailure(error);
+                    }
+                );
+              }
+                  public addonPackageSuccess(successData) {
+                    if (successData.IsSuccess) {
+                      this.addonPackagedm = successData.ResponseObject;
+                      console.log(this.addonPackagedm, 'this.addonPackagedm');
+                    }
+                  }
+                public addonPackageFailure(error) {
+
+  }
+          proposalType() {
+            const data = {
+              'platform': 'web',
+              'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+              'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+              'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+
+            }
+            this.bikeInsurance.getProposalDetails(data).subscribe(
+                (successData) => {
+                  this.proposalTypeSuccess(successData);
+                },
+                (error) => {
+                  this.proposalTypeFailure(error);
+                }
+            );
+          }
+          public proposalTypeSuccess(successData){
+            if (successData.IsSuccess) {
+              this.proposalTypeList = successData.ResponseObject;
             }
           }
-  addonPackage() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    }
-    this.bikeInsurance.getAddonPackage(data).subscribe(
-        (successData) => {
-          this.addonPackageSuccess(successData);
-        },
-        (error) => {
-          this.addonPackageFailure(error);
-        }
-    );
-  }
-  public addonPackageSuccess(successData){
-    this.addonPackagedm = successData.ResponseObject;
-    console.log(this.addonPackagedm,'this.addonPackagedm');
-  }
-  public addonPackageFailure(error) {
-  }
+          public proposalTypeFailure(error) {
+          }
 
-  changehypothecation() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    }
-    this.bikeInsurance.getHypothecation(data).subscribe(
-        (successData) => {
-          this.hypothecationSuccess(successData);
-        },
-        (error) => {
-          this.hypothecationFailure(error);
+        policyType() {
+              const data = {
+                'platform': 'web',
+                'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+                'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+                'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+
+              }
+              this.bikeInsurance.getPolicyDetails(data).subscribe(
+                  (successData) => {
+                    this.policyTypeSuccess(successData);
+                  },
+                  (error) => {
+                    this.policyTypeFailure(error);
+                  }
+              );
+          }
+            public policyTypeSuccess(successData){
+              if (successData.IsSuccess) {
+                this.policyTypeList = successData.ResponseObject;
+              }
+            }
+            public policyTypeFailure(error) {
+            }
+
+        changehypothecation() {
+          const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+          }
+          this.bikeInsurance.getHypothecation(data).subscribe(
+              (successData) => {
+                this.hypothecationSuccess(successData);
+              },
+              (error) => {
+                this.hypothecationFailure(error);
+              }
+          );
         }
-    );
-  }
-  public hypothecationSuccess(successData){
-    this.hypothecationTypedm = successData.ResponseObject;
-    console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
-  }
-  public hypothecationFailure(error) {
+        public hypothecationSuccess(successData){
+          if (successData.IsSuccess) {
+            this.hypothecationTypedm = successData.ResponseObject;
+          }
+          console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+        }
+        public hypothecationFailure(error) {
+        }
+
+      electricalType(value){
+          if(value.checked){
+            this.electrical = true;
+          } else{
+            this.electrical = false;
+
+          }
+      }
+      nonelectricalType(value){
+        if(value.checked){
+          this.nonelectrical = true;
+        } else{
+          this.nonelectrical = false;
+
+        }
+      }
+  financeType(value){
+    if(value.checked){
+      this.finance = true;
+    } else{
+      this.finance = false;
+
+    }
   }
   // NEXT BUTTON
           vehicalDetails(stepper: MatStepper, value){
               sessionStorage.stepper2 = '';
               sessionStorage.stepper2 = JSON.stringify(value);
-              stepper.next();
+              if(this.vehical.valid){
+                stepper.next();
+              }
           }
 
 
 
   // THIRD STEPPER
+        previousClaim(){
+            if(this.previousInsure.controls['policyClaim'].value == 1) {
+              this.claimList = true;
+              this.claimpercent();
+            }  else {
+              this.claimList = false;
 
-        previousDetails(stepper: MatStepper, value){
+            }
+        }
+        claimpercent() {
+          const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+          }
+          this.bikeInsurance.getClaimList(data).subscribe(
+              (successData) => {
+                this.claimSuccess(successData);
+              },
+              (error) => {
+                this.claimFailure(error);
+              }
+          );
+        }
+        public claimSuccess(successData){
+          if (successData.IsSuccess) {
+            this.claimDetails = successData.ResponseObject;
+          }
+        }
+        public claimFailure(error) {
+        }
+
+  previousInsureType() {
+        const data = {
+          'platform': 'web',
+          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+          'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+        }
+        this.bikeInsurance.getPreviousList(data).subscribe(
+            (successData) => {
+              this.previousInsureSuccess(successData);
+            },
+            (error) => {
+              this.previousInsureFailure(error);
+            }
+        );
+      }
+      public previousInsureSuccess(successData){
+        if (successData.IsSuccess) {
+          this.previousList = successData.ResponseObject;
+        }
+      }
+      public previousInsureFailure(error) {
+      }
+
+  previousDetails(stepper: MatStepper, value){
           sessionStorage.stepper3 = '';
           sessionStorage.stepper3 = JSON.stringify(value);
           stepper.next();
         }
 //  fFOURTH sTEPPER (NOMINEE)
+      ageNominee(){
+      if(this.nomineeDetail.controls['nomineeAge'].value <= 17){
+        this.apponiteeList = true;
+      }  else{
+        this.apponiteeList = false;
 
+      }
+      }
         //RELATIONSHIP
           nomineeRelationShip(){
             const data = {
@@ -369,13 +525,21 @@ export class BikeShriramProposalComponent implements OnInit {
                   }
               );
             }
-            public nomineeRelationSuccess(successData){
+            public nomineeRelationSuccess(successData) {
+              if (successData.IsSuccess) {
                 this.nomineeRelation = successData.ResponseObject;
-                console.log(this.nomineeRelation,'this.nomineeRelation');
+                console.log(this.nomineeRelation, 'this.nomineeRelation');
+              }
             }
             public nomineeRelationFailure(error){
             }
 
+        nomineeDetails(stepper: MatStepper, value){
+          sessionStorage.stepper4 = '';
+          sessionStorage.stepper4 = JSON.stringify(value);
+            this.proposal(stepper);
+
+  }
   // VALIDATION
           numberValidate(event: any) {
             this.validation.numberValidate(event);
@@ -398,34 +562,208 @@ export class BikeShriramProposalComponent implements OnInit {
           document.getElementById('main-content').scrollTop = 0;
         }
 
+    // proposal Creation
+
+  proposal(stepper) {
+      alert();
+      console.log(this.bikeEnquiryDetails.enquiry_id,'0987');
+      const data = {
+          'platform': 'web',
+          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+          'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+          'enquiry_id': this.bikeEnquiryDetails.enquiry_id,
+          "created_by": "",
+          "proposal_id": "0",
+          "geogrophicalExtensionCover": "false",
+          "motorProposalObj": {
+              "PreviousPolicyFromDt": "02/03/2016",
+              "InsuredPrefix": "1",
+              "InsuredName": this.proposer.controls['name'].value,
+              "Gender": this.proposer.controls['gender'].value,
+              "Address1": this.proposer.controls['address'].value,
+              "Address2": this.proposer.controls['address2'].value,
+              "Address3": this.proposer.controls['address3'].value,
+              "State": 'TN',
+              "City": this.proposer.controls['city'].value,
+              "PinCode": this.proposer.controls['pincode'].value,
+              "PanNo": this.proposer.controls['pan'].value,
+              "TelephoneNo": "",
+              "FaxNo": "",
+              "GSTNo": "",
+              "EMailID": this.proposer.controls['email'].value,
+              "PolType": this.vehical.controls['policyType'].value,
+              "ProposalType": this.vehical.controls['proposalType'].value,
+              "MobileNo": this.proposer.controls['mobile'].value,
+              "DateOfBirth": this.proposer.controls['dob'].value,
+              "CoverNoteNo": "",
+              "CoverNoteDt": "",
+              "VehicleType": "U",
+              "IDV_of_Vehicle": "",
+              "Colour": this.vehical.controls['vehicleColour'].value,
+              "NoEmpCoverLL": "",
+              "VehiclePurposeYN": "",
+              "DriverAgeYN": "0",
+              "LimitOwnPremiseYN": "0",
+              "CNGKitYN": "0",
+              "CNGKitSI": "",
+              "LimitedTPPDYN": "0",
+              "InBuiltCNGKitYN": "0",
+              "VoluntaryExcess": "TWVE1",
+              "Bangladesh": "0",
+              "Bhutan": "0",
+              "SriLanka": "0",
+              "Pakistan": "0",
+              "Nepal": "0",
+              "Maldives": "0",
+              "DeTariff": "0",
+              "PreInspectionReportYN": "0",
+              "PreInspection": "",
+              "BreakIn": "NO",
+              "AddonPackage": this.vehical.controls['addonPackage'].value,
+              "NilDepreciationCoverYN": this.vehical.controls['addonPackage'].value == true ? '1' : '0',
+              "PAforUnnamedPassengerYN": "0",
+              "PAforUnnamedPassengerSI": "",
+              "ElectricalaccessYN": this.vehical.controls['addonPackage'].value == true ? '1' : '0',
+              "ElectricalaccessSI": this.vehical.controls['electricalAccessSI'].value ? this.vehical.controls['electricalAccessSI'].value : '',
+              "NonElectricalaccessYN": this.vehical.controls['addonPackage'].value == true ? '1' : '0',
+              "NonElectricalaccessSI": this.vehical.controls['nonElectricalAccessSI'].value ? this.vehical.controls['nonElectricalAccessSI'].value : '',
+              "PAPaidDriverConductorCleanerYN": "0",
+              "PAPaidDriverConductorCleanerSI": "",
+              "PAPaidDriverCount": "",
+              "PAPaidConductorCount": "",
+              "PAPaidCleanerCount": "",
+              "ElectricalaccessRemarks": "",
+              "NonElectricalaccessRemarks": "",
+              "SpecifiedPersonField": "",
+              "PAOwnerDriverExclusion": "",
+              "PAOwnerDriverExReason": "",
+              "NomineeNameforPAOwnerDriver": this.nomineeDetail.controls['nomineeName'].value,
+              "NomineeAgeforPAOwnerDriver": this.nomineeDetail.controls['nomineeAge'].value,
+              "NomineeRelationforPAOwnerDriver": this.nomineeDetail.controls['nomineeRelationship'].value,
+              "AppointeeNameforPAOwnerDriver": this.nomineeDetail.controls['appointeeName'].value,
+              "AppointeeRelationforPAOwnerDriver": this.nomineeDetail.controls['appointeeRelationship'].value,
+              "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
+              "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
+              "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
+              "PreviousInsurer": this.previousInsure.controls['previousInsure'].value,
+              "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
+              "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
+              "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
+              "PreviousPolicyNCBPerc": this.previousInsure.controls['previousPolicyNcb'].value ? this.previousInsure.controls['previousPolicyNcb'].value : 0,
+              "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
+              "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
+              "HypothecationType": this.vehical.controls['hypothecationType'].value,
+              "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value,
+              "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value,
+              "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value,
+              "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value,
+              "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value,
+              "HypothecationCountry": "",
+              "HypothecationState": "",
+              "HypothecationCity": "",
+              "HypothecationPinCode": ""
+          },
+      }
+      console.log(data,'fileeee');
+          this.bikeInsurance.proposalCreation(data).subscribe(
+              (successData) => {
+                  this.proposalSuccess(successData,stepper);
+              },
+              (error) => {
+                  this.proposalFailure(error);
+              }
+          );
+  }
+    public proposalSuccess(successData, stepper){
+      if(successData.IsSuccess){
+          stepper.next();
+          this.toastr.success('Proposal created successfully!!');
+          this.summaryData = successData.ResponseObject;
+         this.ProposalId =   this.summaryData.ProposalId;
+         this.proposerFormData = this.proposer.value;
+         this.vehicalFormData = this.vehical.value;
+         this.previousFormData = this.previousInsure.value;
+         this.nomineeFormData = this.nomineeDetail.value;
+      }
+    }
+    public proposalFailure(error){
+
+    }
+
+
+
+
+
   // session Data
   sessionData() {
-    if (sessionStorage.shriramProposer != '' && sessionStorage.shriramProposer != undefined) {
-      this.shriramProposer = JSON.parse(sessionStorage.shriramProposer);
-      // if (this.shriramProposer.pincode != '') {
-      //   this.getinsuredPostalCode(this.shriramProposer.pincode);
-      // }
+    if (sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
+      let stepper1 = JSON.parse(sessionStorage.stepper1);
       this.proposer = this.fb.group({
-        title: this.shriramProposer.title,
-        name: this.shriramProposer.name,
-        gender: this.shriramProposer.gender,
-        dob : this.shriramProposer.dob,
-        email: this.shriramProposer.email,
-        mobile: this.shriramProposer.mobile,
-        pincode: this.shriramProposer.pincode,
-        proposerRadio: this.shriramProposer.proposerRadio,
-        radio: this.shriramProposer.radio,
-        alterMobile : this.shriramProposer.alterMobile,
-        personalFax: this.shriramProposer.personalFax,
-        proposerPan: this.shriramProposer.proposerPan,
-        proposerGst: this.shriramProposer.proposerGst,
-        proposerAddress: this.shriramProposer.proposerAddress,
-        proposerAddress2: this.shriramProposer.proposerAddress2,
-        proposerAddress3: this.shriramProposer.proposerAddress3,
-        proposerbkState: this.shriramProposer.proposerbkState,
-        proposerbkCity: this.shriramProposer.proposerbkCity,
+        title: stepper1.title,
+        name: stepper1.name,
+        gender:stepper1.gender,
+        dob : stepper1.dob,
+        email:stepper1.email,
+        mobile: stepper1.mobile,
+        pincode: stepper1.pincode,
+        alterMobile : stepper1.alterMobile,
+        fax: stepper1.personalFax,
+        pan: stepper1.proposerPan,
+        gst: stepper1.proposerGst,
+        address: stepper1.address,
+        address2: stepper1.address2,
+        address3: stepper1.address3,
+        state:stepper1.state,
+        city: stepper1.city,
+      });
 
+    }
+    if (sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
+      let stepper2 = JSON.parse(sessionStorage.stepper2);
+      this.vehical = this.fb.group({
+        policyType: stepper2.policyType,
+        proposalType:stepper2.proposalType ,
+        vehicleColour: stepper2.vehicleColour,
+        nilDepreciationCover: stepper2.nilDepreciationCover,
+        electricalAccess:stepper2.electricalAccess,
+        electricalAccessSI: stepper2.electricalAccessSI,
+        nonElectricalAccess:stepper2.nonElectricalAccess,
+        nonElectricalAccessSI: stepper2.nonElectricalAccessSI,
+        hypothecationType: stepper2.hypothecationType,
+        hypothecationAddress1:stepper2.hypothecationAddress1,
+        hypothecationAddress2: stepper2.hypothecationAddress2,
+        hypothecationAddress3:stepper2.hypothecationAddress3,
+        hypothecationAgreementNo:stepper2.hypothecationAgreementNo,
+        antiTheft: stepper2.antiTheft,
+        lltoPaidDriver: stepper2.lltoPaidDriver,
+        addonPackage:stepper2.addonPackage,
+        hypothecationBankName:stepper2.hypothecationBankName,
+      });
 
+    }
+    if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
+      let stepper3 = JSON.parse(sessionStorage.stepper3);
+      this.previousInsure = this.fb.group({
+        policyNumber: stepper3.policyNumber,
+        previousInsure: stepper3.previousInsure,
+        policyUwYear: stepper3.policyUwYear,
+        policySi: stepper3.policySi,
+        previousPolicyType: stepper3.previousPolicyType,
+        policyNilDescription: stepper3.policyNilDescription,
+        previousPolicyNcb:stepper3.previousPolicyNcb,
+        policyClaim: stepper3.policyClaim
+      });
+
+    }
+    if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
+      let stepper4 = JSON.parse(sessionStorage.stepper4);
+      this.previousInsure = this.fb.group({
+        nomineeName: stepper4.nomineeName,
+        nomineeAge: stepper4.nomineeAge,
+        nomineeRelationship: stepper4.nomineeRelationship,
+        appointeeName: stepper4.appointeeName,
+        appointeeRelationship: stepper4.appointeeRelationship
       });
 
     }

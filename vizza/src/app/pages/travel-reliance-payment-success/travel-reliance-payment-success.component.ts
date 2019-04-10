@@ -35,7 +35,6 @@ export class TravelReliancePaymentSuccessComponent implements OnInit {
   ngOnInit() {
   }
 
-
   DownloadPdf() {
     const data = {
       'mail_status': this.mailStatus,

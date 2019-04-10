@@ -259,6 +259,21 @@ export class TravelProposalComponent implements OnInit {
     prevStep() {
         this.step--;
     }
+
+    nextStep() {
+        this.step++;
+    }
+
+    backAll() {
+        this.topScroll();
+        this.prevStep();
+    }
+
+
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
+    }
+
     initItemRows() {
         return this.fb.group(
             {
@@ -402,7 +417,7 @@ export class TravelProposalComponent implements OnInit {
         return Bob_days;
     }
     ageValidationInsurer(i, type) {
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 150) {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 142) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Insurer Date of birth date should be atleast 5 months old');
         } else {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
@@ -622,6 +637,8 @@ export class TravelProposalComponent implements OnInit {
             if (sessionStorage.proposerAgeForTravel >= 18) {
                 if((this.personal.controls['physicianName'].value == '' &&  this.personal.controls['physicianContactNumber'].value == '') || (this.personal.controls['physicianName'].value != '' &&  this.personal.controls['physicianContactNumber'].value != '')){
                     stepper.next();
+                    this.topScroll();
+                    this.nextStep();
 
                 } else {
                     if (this.personal.controls['physicianName'].value == '' || this.personal.controls['physicianContactNumber'].value == '') {
@@ -724,6 +741,8 @@ export class TravelProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
+            this.topScroll();
+            this.nextStep();
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData, 'this.summaryData');
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
