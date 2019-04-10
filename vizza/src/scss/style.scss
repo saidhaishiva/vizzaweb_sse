@@ -2011,6 +2011,7 @@ a:hover {
 }
 .inner-sidenav-content{
   top:105px !important;
+  padding-top: 0px !important;
 }
 .pie-grid .percent-label {
   font-size: 16px;
@@ -3132,6 +3133,15 @@ fieldset {
   }
 }
 .religareTavelProposal{
+  .mat-checkbox-layout{
+    white-space: pre-wrap;
+    margin-top: -11px !important;
+  }
+  .mat-checkbox-inner-container {
+    height: 17px !important;
+    width: 17px !important;
+  }
+
   .mat-checkbox-layout{
     white-space: pre-wrap;
   }
