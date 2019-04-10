@@ -8,11 +8,17 @@ export class ValidationService {
 
     // Name validation
     nameValidate(event) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
+        if (event.code == 'Space') {
+            if (event.target.value.length == 0) {
                 event.preventDefault();
+            }
+        } else {
+            if (event.charCode !== 0) {
+                const pattern = /[a-zA-Z ]/;
+                const inputChar = String.fromCharCode(event.charCode);
+                if (!pattern.test(inputChar)) {
+                    event.preventDefault();
+                }
             }
         }
     }
