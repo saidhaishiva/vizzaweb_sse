@@ -439,17 +439,17 @@ export class BikeShriramProposalComponent implements OnInit {
       }
     nonPassangerType(value){
         if(value.checked){
-            this.nonelectrical = true;
+            this.nopassanger = true;
         } else{
-            this.nonelectrical = false;
+            this.nopassanger = false;
 
         }
     }
   financeType(value){
     if(value.checked){
-      this.nopassanger = true;
+      this.finance = true;
     } else{
-      this.nopassanger = false;
+      this.finance = false;
 
     }
   }

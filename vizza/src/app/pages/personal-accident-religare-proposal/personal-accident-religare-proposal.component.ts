@@ -1054,12 +1054,16 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             this.personalAccidentQuestionsList = successData.ResponseObject;
             console.log(this.personalAccidentQuestionsList,'this.personalAccidentQuestionsList');
             for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
-                this.personalAccidentQuestionsList[i].checked = false;
-                this.personalAccidentQuestionsList[i].insureNameQ ='';
-
-            }
-
-
+            // this.religareTravelQuestionsList[i].main_qustion = '0';
+            this.personalAccidentQuestionsList[i].checked = false;
+            this.personalAccidentQuestionsList[i].status = 'No';
+            this.personalAccidentQuestionsList[i].fieldValue = '';
+        }
+        for (let i = 0; i < this.personalAccidentQuestionsList[1].sub_questions_list.length; i++) {
+            this.personalAccidentQuestionsList[1].sub_questions_list[i].fieldValue = '';
+            this.personalAccidentQuestionsList[1].sub_questions_list[i].checked = false;
+            this.personalAccidentQuestionsList[1].sub_questions_list[i].status = 'No';
+        }
 
 
     }
@@ -1083,27 +1087,41 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         sessionStorage.proposal3Detail = '';
         sessionStorage.proposal3Detail = JSON.stringify(this.personalAccidentQuestionsList);
         this.partyQuestionDOList = [];
+        stepper.next();
+        this.topScroll();
+        this.nextStep();
+        let setMainRes = '';
+        let setSubRes = '';
 
-        let count = 0;
         for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
-           // if (this.personalAccidentQuestionsList[i].checked == true) {
-                count ++;
-                this.partyQuestionDOList.push(
-                    {
-                        'questionCd':this.personalAccidentQuestionsList[i].question_code,
-                        // 'nnn':this.personalAccidentQuestionsList[i].question_code == 'InsurerName' ? this.personalAccidentQuestionsList[i].insureNameQ : '',
-                        'questionSetCd':this.personalAccidentQuestionsList[i].question_set_code,
-                        'response': this.personalAccidentQuestionsList[i].checked ? 'YES' : 'NO' }
-                    );
-          //  }
-        }
-        // if (count == 5) {
-            stepper.next();
-            this.nextStep();
+            if(this.personalAccidentQuestionsList[i].field_type == 'textbox') {
+                setMainRes =  this.personalAccidentQuestionsList[i].fieldValue;
+            } else if(this.personalAccidentQuestionsList[i].field_type == 'checkbox') {
+                setMainRes =  this.personalAccidentQuestionsList[i].checked ? 'YES' : 'NO';
+            }
+            this.partyQuestionDOList.push({
+                'questionCd': this.personalAccidentQuestionsList[i].question_code,
+                'questionSetCd': this.personalAccidentQuestionsList[i].question_set_code,
+                'response': setMainRes
 
-        // } else {
-        //     this.toastr.error('All the Question are mandatory')
-        // }
+            });
+        }
+
+        for (let i = 0; i < this.personalAccidentQuestionsList[1].sub_questions_list.length; i++) {
+            if(this.personalAccidentQuestionsList[1].sub_questions_list[i].field_type == 'textbox') {
+                setSubRes =  this.personalAccidentQuestionsList[1].sub_questions_list[i].fieldValue;
+            } else if(this.personalAccidentQuestionsList[1].sub_questions_list[i].field_type == 'checkbox') {
+                setSubRes =  this.personalAccidentQuestionsList[1].sub_questions_list[i].checked ? 'YES' : 'NO';
+            }
+            this.partyQuestionDOList.push({
+                'questionCd': this.personalAccidentQuestionsList[1].sub_questions_list[i].question_code,
+                'questionSetCd': this.personalAccidentQuestionsList[1].sub_questions_list[i].question_set_code,
+                'response': setSubRes
+
+            });
+        }
+
+
 
     }
 
