@@ -800,9 +800,9 @@ export class ReliagretravelproposalComponent implements OnInit {
                         this.religareTravelQuestionsList[i].fieldValue = '';
                     }
                     for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
-                        this.religareTravelQuestionsList[i].fieldValue = '';
-                        this.religareTravelQuestionsList[i].checked = false;
-                        this.religareTravelQuestionsList[i].status = 'No';
+                        this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue = '';
+                        this.religareTravelQuestionsList[0].sub_questions_list[i].checked = false;
+                        this.religareTravelQuestionsList[0].sub_questions_list[i].status = 'No';
                     }
             }
         }
@@ -818,39 +818,45 @@ export class ReliagretravelproposalComponent implements OnInit {
     // Medical Details
         medicalHistoryDetails(stepper: MatStepper) {
             sessionStorage.ReligareTravelDetails3 = '';
-            sessionStorage.ReligareTravelDetails3 = JSON.stringify(this.religareTravelQuestionsList);
             this.partyQuestionDOList = [];
             this.questionsListTravel = [];
             stepper.next();
             this.topScroll();
             this.nextStep();
 
+            let setMainRes = '';
+            let setSubRes = '';
+
+
             for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-                this.partyQuestionDOList.push({
-                    'questionCd': this.religareTravelQuestionsList[i].question_code,
-                    'questionSetCd': this.religareTravelQuestionsList[i].question_name,
-                    'value': this.religareTravelQuestionsList[i].fieldValue,
-                    'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
-                });
+                // this.partyQuestionDOList.push({
+                //     'questionCd': this.religareTravelQuestionsList[i].question_code,
+                //     'questionSetCd': this.religareTravelQuestionsList[i].question_name,
+                //     'value': this.religareTravelQuestionsList[i].fieldValue,
+                //     'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
+                // });
+
+                if(this.religareTravelQuestionsList[i].field_type == 'datefield' || this.religareTravelQuestionsList[i].field_type == 'textarea') {
+                    setMainRes =  this.religareTravelQuestionsList[i].fieldValue;
+                } else if(this.religareTravelQuestionsList[i].field_type == 'checkbox') {
+                    setMainRes =  this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO';
+                }
                 this.questionsListTravel.push({
                     'questionCd': this.religareTravelQuestionsList[i].question_code,
                     'questionSetCd': this.religareTravelQuestionsList[i].question_set_code,
-                    'value': this.religareTravelQuestionsList[i].fieldValue,
-                    'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
+                    'response': setMainRes
                 });
             }
             for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
-                this.partyQuestionDOList.push({
-                    'questionCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_code,
-                    'questionSetCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_name,
-                    'value': this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue,
-                    'response': this.religareTravelQuestionsList[0].sub_questions_list[i].checked ? 'YES' : 'NO'
-                });
+                if(this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'datefield' || this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'textarea') {
+                    setSubRes =  this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue;
+                } else if(this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'checkbox') {
+                    setSubRes =  this.religareTravelQuestionsList[0].sub_questions_list[i].checked ? 'YES' : 'NO';
+                }
                 this.questionsListTravel.push({
-                    'questionCd': this.religareTravelQuestionsList[0].sub_questions_list.question_code,
-                    'questionSetCd': this.religareTravelQuestionsList[0].sub_questions_list.question_set_code,
-                    'value': this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue,
-                    'response': this.religareTravelQuestionsList[0].sub_questions_list.checked ? 'YES' : 'NO'
+                    'questionCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_code,
+                    'questionSetCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_set_code,
+                    'response': setSubRes
                 });
             }
             console.log(this.partyQuestionDOList, 'this.partyQuestionDOList');
@@ -862,6 +868,8 @@ export class ReliagretravelproposalComponent implements OnInit {
             for (let i = 0; i < this.totalReligareData.length; i++) {
                 this.totalReligareData[i].questions_list = this.questionsListTravel;
             }
+            sessionStorage.ReligareTravelDetails3 = JSON.stringify(this.religareTravelQuestionsList);
+
         }
 
     // NOMINEE DETAILS
@@ -1036,6 +1044,9 @@ export class ReliagretravelproposalComponent implements OnInit {
 
                 }
             }
+            if (sessionStorage.ReligareTravelDetails3 != '' && sessionStorage.ReligareTravelDetails3 != undefined) {
+                this.religareTravelQuestionsList = JSON.parse(sessionStorage.ReligareTravelDetails3);
+            }
             if (sessionStorage.ReligareTravelNomineeDetails != '' && sessionStorage.ReligareTravelNomineeDetails != undefined) {
                 this.getReligareTravelNomineeData = JSON.parse(sessionStorage.ReligareTravelNomineeDetails);
                 this.nomineeDetails = this.fb.group({
@@ -1050,6 +1061,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             if (sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined) {
                 this.setAddons = sessionStorage.setAddons;
             }
+
 
 
 
