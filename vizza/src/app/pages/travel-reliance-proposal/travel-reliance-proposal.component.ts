@@ -136,6 +136,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   public proposerFormData: any;
   public insuredFormData: any;
   public riskFormData: any;
+  public step: any;
+
 
 
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -151,6 +153,8 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.sidenavIsPinned = false;
     this.webhost = this.config.getimgUrl();
     this.reliance_Travel_proposal_id ='0';
+    this.step = 0;
+
     this.personal = this.fb.group({
       personalTitle: ['', Validators.required],
       personalFirstname: ['', Validators.required],
@@ -474,6 +478,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     if (this.personal.valid) {
       if (sessionStorage.personalAge >= 18) {
         stepper.next();
+        this.nextStep();
       }else {
         this.toastr.error('Proposer age should be 18 or above');
       }
@@ -554,6 +559,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if(!ageValidate.includes(1)){
           stepper.next();
+        this.nextStep();
         } else {
           this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -830,6 +836,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess == true) {
       stepper.next();
+      this.nextStep();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
@@ -1475,6 +1482,23 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
   }
 
+  setStep(index) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
+
+  backAll(){
+    this.topScroll();
+    this.prevStep();
+  }
   relianceOccupation() {
     const data = {
       'platform': 'web',
