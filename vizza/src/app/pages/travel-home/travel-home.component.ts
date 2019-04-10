@@ -583,15 +583,7 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.pincode = this.pincode;
     }
     ckeckedUserType() {
-        console.log(this.travelUserType, 'sty');
         sessionStorage.travelUserType = this.travelUserType;
-        if(this.travelUserType == true){
-            this.studentDuration = true;
-        } else {
-            this.studentDuration = false;
-        }
-
-        sessionStorage.studentDuration = this.studentDuration;
     }
     typeCourseDuration() {
         sessionStorage.courseDuration = this.courseDuration;

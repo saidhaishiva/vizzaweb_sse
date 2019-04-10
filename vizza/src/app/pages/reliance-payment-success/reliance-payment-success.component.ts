@@ -4,7 +4,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AppSettings} from '../../app.settings';
-import {HealthService} from '../../shared/services/health.service';
+import {TravelService} from '../../shared/services/travel.service';
 import {ToastrService} from 'ngx-toastr';
 import {Settings} from '../../app.settings.model';
 
@@ -26,7 +26,7 @@ export class ReliancePaymentSuccessComponent implements OnInit {
     public settings: Settings;
 
 
-    constructor(public config: ConfigurationService,public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    constructor(public config: ConfigurationService,public router: Router, public proposalservice: TravelService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
         this.settings = this.appSettings.settings;
         this.remainingStatus = false;
         this.route.params.forEach((params) => {
@@ -61,7 +61,7 @@ export class ReliancePaymentSuccessComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
         }
         this.settings.loadingSpinner = true;
-        this.proposalservice.getDownloadPdfReliance(data).subscribe(
+        this.proposalservice.downloadPolicyReliance(data).subscribe(
             (successData) => {
                 this.downloadPdfSuccess(successData);
             },

@@ -264,21 +264,85 @@
           <mat-step [stepControl]="">
               <ng-template matStepLabel>SECURE DETAILS</ng-template>
               <mat-accordion class="w-100 float-left ">
+                  <div class="row">
+                      <div class="col-md-12 box-card pt-3 pb-3" >
+                          <div class="row" *ngFor="let item of personalAccidentQuestionsList; let i = index">
+                              <div class="col-md-8">
+                                  {{i+1}}. {{item.question}}
+                                  <div *ngIf="item.question_code == 'InsurerName' || item.question_code == 'PolicyNo.' || item.question_code == 'PlanName' || item.question_code == 'SumInsured'">
+                                          <mat-form-field class="w-50">
+                                                      <input matInput type="number"  [(ngModel)]="item.insureNameQ" autocomplete="off">
+                                          </mat-form-field>
+                                      </div>
+                                  </div>
+
+
+
+                              <div class="col-md-4">
+                                  <!--<mat-slide-toggle (change)="questionYes(item,$event)"></mat-slide-toggle>-->
+                                  <mat-checkbox [(ngModel)]="item.checked" ></mat-checkbox>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                          <div class="proposal-buttom mt-3 text-right w-100">
+                              <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                              <button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper)">Next</button>
+
+                          </div>
+
+              </mat-accordion>
+          </mat-step>
+
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel>MEDICAL DETAILS</ng-template>
+              <mat-accordion class="mt-4 w-100 float-left ">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
                           <mat-panel-title>
-                            SECURE DETAILS
+                              SECURE DETAILS
                           </mat-panel-title>
                       </mat-expansion-panel-header>
-                      <ng-template matStepLabel>SECURE DETAILS</ng-template>
+                      <ng-template matStepLabel>MEDICAL DETAILS</ng-template>
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
-                              <div *ngFor="let item of personalAccidentQuestionsList; let i = index">
-                                  <mat-checkbox [(ngModel)]="item.checked" class="mt-2">{{item.question}}</mat-checkbox>
+                              <div class="row">
+                                  <div class="col-md-12" *ngFor="let item of personalAccidentQuestionsList; let i = index ">
+                                      <div class="col-md-8">
+                                          <p>{{i+1}}. {{item.question}} </p>
+                                          <div *ngIf="item.checked">
+                                              <div class="row" *ngIf="item.checked">
+                                                  <div class="col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">
+                                                      <div class="col-md-6">
+                                                          <p>{{si+1}}. {{list.question_name}} </p>
+                                                      </div>
+                                                      <div class="col-md-6" >
+                                                          <mat-checkbox [(ngModel)]="list.checked">
+                                                          </mat-checkbox>
+                                                      </div>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <div class="row col-md-6" >
+                                              <mat-checkbox [(ngModel)]="item.checked">
+                                              </mat-checkbox>
+                                          </div>
+                                      </div>
+
+                                      <div class=" col-md-12" *ngIf="item.field_type == 'textbox'">
+                                          <mat-form-field class="w-50" >
+                                              <input matInput placeholder="{{item.question}}"  [(ngModel)]="item.fieldValue" name="fieldValue" >
+                                          </mat-form-field>
+                                      </div>
+
+                                  </div>
                               </div>
+
                               <div class="proposal-buttom mt-3 text-right w-100">
-                                  <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                                  <button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper)">Next</button>
+                                  <button mat-button matStepperPrevious (click)="topScroll()" >Back</button>
+                                  <button mat-raised-button color="primary" (click)="medicalHistoryDetails(stepper)">Next</button>
                               </div>
 
                           </div>
@@ -289,7 +353,7 @@
 
           </mat-step>
 
-        <mat-step [stepControl]="">
+          <mat-step [stepControl]="">
           <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
           <mat-accordion class=" w-100 float-left">
             <mat-expansion-panel expanded>

@@ -41,6 +41,19 @@ export class ClearSessionTravelService {
       sessionStorage.proposerAgeForTravel = '';
       sessionStorage.travel_shriram_proposal_id = '';
 
+      // religare
+      sessionStorage.stepperDetails1 = '';
+      sessionStorage.stepperDetails2 = '';
+      sessionStorage.ReligareTravelDetails3 = '';
+      sessionStorage.ReligareTravelNomineeDetails = '';
+      sessionStorage.proposerAgeReligareTravel = '';
+      sessionStorage.InsurerAgeReligareTravel = '';
+      sessionStorage.proposerInsureData = '';
+      sessionStorage.religare_Travel_proposal_id = '';
+
+      sessionStorage.personalCitys = '';
+      sessionStorage.residenceCitys = '';
+
   }
 
 

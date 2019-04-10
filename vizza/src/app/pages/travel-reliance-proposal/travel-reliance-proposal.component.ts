@@ -136,6 +136,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   public proposerFormData: any;
   public insuredFormData: any;
   public riskFormData: any;
+  public step: any;
+
 
 
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -151,6 +153,8 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.sidenavIsPinned = false;
     this.webhost = this.config.getimgUrl();
     this.reliance_Travel_proposal_id ='0';
+    this.step = 0;
+
     this.personal = this.fb.group({
       personalTitle: ['', Validators.required],
       personalFirstname: ['', Validators.required],
@@ -474,6 +478,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     if (this.personal.valid) {
       if (sessionStorage.personalAge >= 18) {
         stepper.next();
+        this.nextStep();
       }else {
         this.toastr.error('Proposer age should be 18 or above');
       }
@@ -554,6 +559,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if(!ageValidate.includes(1)){
           stepper.next();
+        this.nextStep();
         } else {
           this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -830,14 +836,16 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess == true) {
       stepper.next();
+      this.nextStep();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
+      console.log(this.summaryData,'summaryDatasummaryData');
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposerFormData = this.personal.value;
       this.insuredFormData = this.relianceInsuredTravel.value.items;
       this.riskFormData = this.riskDetails.value;
-      this.reliance_Travel_proposal_id = this.summaryData.proposal_id;
-      sessionStorage.reliance_Travel_proposal_id = successData.ResponseObject.proposalId;
+      this.reliance_Travel_proposal_id = this.summaryData.policy_id;
+      sessionStorage.reliance_Travel_proposal_id = successData.ResponseObject.policy_id;
 
       console.log(this.proposerFormData, 'p');
       console.log(this.insuredFormData, 'i');
@@ -1073,7 +1081,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
       this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
     }
-    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
+    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea(this.personal.controls['personalArea'].value));
   }
   sameAddress(values: any) {
     if (values.checked) {
@@ -1475,6 +1483,23 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
   }
 
+  setStep(index) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+
+
+  backAll(){
+    this.topScroll();
+    this.prevStep();
+  }
   relianceOccupation() {
     const data = {
       'platform': 'web',
