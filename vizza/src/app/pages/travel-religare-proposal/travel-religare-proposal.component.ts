@@ -733,28 +733,39 @@ export class ReliagretravelproposalComponent implements OnInit {
 
     // MEDICAL THIRD PAGE
     // OuestionList
-        changereligareTravelQuestions(value, index) {
-            if (index == 0) {
-                if (value.checked) {
-                    for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-                        if (this.religareTravelQuestionsList[i].main_qustion == 1) {
-                            this.religareTravelQuestionsList[i].showQuesion = true;
-                        }
-                    }
+        changereligareTravelQuestions(value, index, type) {
+            // if (index == 0) {
+            //     if (value.checked) {
+            //         for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
+            //             if (this.religareTravelQuestionsList[i].main_qustion == 1) {
+            //                 this.religareTravelQuestionsList[i].showQuesion = true;
+            //             }
+            //         }
+            //     } else {
+            //         for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
+            //             if (this.religareTravelQuestionsList[i].main_qustion == 1) {
+            //                 this.religareTravelQuestionsList[i].showQuesion = false;
+            //             }
+            //         }
+            //     }
+            // }
+
+            if(type == 'main') {
+                if(value.checked){
+                    this.religareTravelQuestionsList[index].status = 'Yes';
                 } else {
-                    for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-                        if (this.religareTravelQuestionsList[i].main_qustion == 1) {
-                            this.religareTravelQuestionsList[i].showQuesion = false;
-                        }
-                    }
+                    this.religareTravelQuestionsList[index].status = 'No';
+                }
+            } else if(type == 'sub') {
+                if(value.checked){
+                    this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'Yes';
+                } else {
+                    this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'No';
                 }
             }
-            if(value.checked){
-                this.religareTravelQuestionsList[index].status = 'Yes';
-            } else {
-                this.religareTravelQuestionsList[index].status = 'No';
 
-            }
+
+
             console.log(this.religareTravelQuestionsList, 'this.religareTravelQuestionsLis');
 
         }
@@ -787,10 +798,11 @@ export class ReliagretravelproposalComponent implements OnInit {
                         this.religareTravelQuestionsList[i].checked = false;
                         this.religareTravelQuestionsList[i].status = 'No';
                         this.religareTravelQuestionsList[i].fieldValue = '';
-
-                        if (this.religareTravelQuestionsList[i].main_qustion == 0) {
-                            this.religareTravelQuestionsList[i].showQuesion = true;
-                        }
+                    }
+                    for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
+                        this.religareTravelQuestionsList[i].fieldValue = '';
+                        this.religareTravelQuestionsList[i].checked = false;
+                        this.religareTravelQuestionsList[i].status = 'No';
                     }
             }
         }
@@ -812,25 +824,37 @@ export class ReliagretravelproposalComponent implements OnInit {
             stepper.next();
             this.topScroll();
             this.nextStep();
-            let count = 0;
+
             for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-                // if (this.religareTravelQuestionsList[i].checked == true) {
-                        count++;
-                        this.partyQuestionDOList.push({
-                            'questionCd': this.religareTravelQuestionsList[i].question_code,
-                            'questionSetCd': this.religareTravelQuestionsList[i].question_name,
-                            'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
-                        });
-                // }
-                // if(this.religareTravelQuestionsList[i].checked == true){
-                        count++;
-                        this.questionsListTravel.push({
-                            'questionCd': this.religareTravelQuestionsList[i].question_code,
-                            'questionSetCd': this.religareTravelQuestionsList[i].question_set_code,
-                            'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
-                        });
-                // }
+                this.partyQuestionDOList.push({
+                    'questionCd': this.religareTravelQuestionsList[i].question_code,
+                    'questionSetCd': this.religareTravelQuestionsList[i].question_name,
+                    'value': this.religareTravelQuestionsList[i].fieldValue,
+                    'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
+                });
+                this.questionsListTravel.push({
+                    'questionCd': this.religareTravelQuestionsList[i].question_code,
+                    'questionSetCd': this.religareTravelQuestionsList[i].question_set_code,
+                    'value': this.religareTravelQuestionsList[i].fieldValue,
+                    'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
+                });
             }
+            for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
+                this.partyQuestionDOList.push({
+                    'questionCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_code,
+                    'questionSetCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_name,
+                    'value': this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue,
+                    'response': this.religareTravelQuestionsList[0].sub_questions_list[i].checked ? 'YES' : 'NO'
+                });
+                this.questionsListTravel.push({
+                    'questionCd': this.religareTravelQuestionsList[0].sub_questions_list.question_code,
+                    'questionSetCd': this.religareTravelQuestionsList[0].sub_questions_list.question_set_code,
+                    'value': this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue,
+                    'response': this.religareTravelQuestionsList[0].sub_questions_list.checked ? 'YES' : 'NO'
+                });
+            }
+            console.log(this.partyQuestionDOList, 'this.partyQuestionDOList');
+            console.log(this.questionsListTravel, 'this.questionsListTravel');
 
             // for (let i = 0; i < this.totalReligareData.length; i++) {
             //     this.totalReligareData[i].medical_status =  this.partyQuestionDOList.response ? 'Yes' : 'No'
