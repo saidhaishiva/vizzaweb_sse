@@ -65,7 +65,7 @@
 
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="Residence Mobile Number"  (keypress)="numberValidate($event)"  minlength="10" maxlength="10" formControlName="phone" autocomplete="off" >
-                        <mat-error *ngIf="religarePersonal.controls.phone.errors?.required">Mobile Number is required</mat-error>
+                        <!--<mat-error *ngIf="religarePersonal.controls.phone.errors?.required">Mobile Number is required</mat-error>-->
                         <mat-error *ngIf="religarePersonal.controls.phone.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4"><mat-form-field class="w-100">
@@ -85,24 +85,31 @@
                       </mat-form-field></div>
                       <div class="col-md-12 box-card pt-3">
                         <div class="row" *ngIf="studentdetails">
+                          <h6 class="col-md-12 color-blue mt-3">SPONSER DETAILS</h6>
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <input matInput placeholder="Sponser Name"  formControlName="sponsername" (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required>
                             <mat-error *ngIf="religarePersonal.controls.sponsername.errors?.required">Sponser Name is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker1"  placeholder="Sponser DOB (DD/MM/YYYY)"   formControlName="sponserdob"  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker1"  placeholder="Sponser DOB (DD/MM/YYYY)" [max]="today"  formControlName="sponserdob"  (dateInput)="addEvent($event, 'sponser')" (dateChange)="addEvent($event, 'sponser')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                             <mat-error *ngIf="religarePersonal.controls.sponserdob.errors?.required">Sponser Dob is required</mat-error>
-                          </mat-form-field></div>
+                          </mat-form-field>
+                            <div class="error" *ngIf="sponserDobError !=''">{{sponserDobError}}</div>
+
+                          </div>
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Student"  formControlName="studentRelationShip" (change)="studentRelationshipList()" required>
                               <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.key}}" >
                                 {{lists.value}}
                               </mat-option>
                             </mat-select>
-                            <!--<mat-error *ngIf="religarePersonal.controls.studentRelationShip.errors?.required">Relationship with Student is required</mat-error>-->
+                            <mat-error *ngIf="religarePersonal.controls.studentRelationShip.errors?.required">Relationship with Student is required</mat-error>
                           </mat-form-field></div>
+
+                          <h6 class="col-md-12 color-blue mt-3">COURSE DETAILS</h6>
+
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <input matInput placeholder="Course details"  formControlName="coursedetails" (keypress)="nameValidate($event)" autocomplete="off" required>
                             <mat-error *ngIf="religarePersonal.controls.universityname.errors?.required">Course details is required</mat-error>
@@ -115,6 +122,9 @@
                             <input matInput placeholder="University Address"  formControlName="universityaddress" autocomplete="off" required>
                             <mat-error *ngIf="religarePersonal.controls.universityname.errors?.required">University Address is required</mat-error>
                           </mat-form-field></div>
+
+                          <h6 class="col-md-12 color-blue mt-3">GUIDE DETAILS</h6>
+
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
                               <mat-select placeholder="Guide Title" formControlName="guidetitle" required>
@@ -138,7 +148,7 @@
                           <div class="col-md-12">
                             <h6 class="color-blue mb-4 w-100"><strong>ADDON</strong></h6>
                             <span *ngFor="let item of addon; let i = index;">
-                                <mat-checkbox   formControlName="addon" (change)="addonList($event)" class="mr-4">{{item.addon_description}}</mat-checkbox>
+                                <mat-checkbox   formControlName="addon" (change)="addonList($event, i)" class="mr-4">{{item.addon_description}}</mat-checkbox>
                               </span>
                           </div>
                         </div>
@@ -255,7 +265,6 @@
         </mat-step>
 
         <mat-step [stepControl]="">
-
           <ng-template matStepLabel >INSURED DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="insureReligareArray">
@@ -371,30 +380,17 @@
               <ng-template matStepLabel>MEDICAL DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
-                  <!--<h6 class="color-blue mb-3" >SECURE DETAILS </h6>-->
-
-                  <mat-accordion class="question-panel">
-                    <mat-expansion-panel [expanded]="true">
-
-                      <mat-expansion-panel-header>
-                        <mat-panel-title>
-                          Questions
-                        </mat-panel-title>
-                      </mat-expansion-panel-header>
-
                       <div *ngFor="let item of religareTravelQuestionsList; let i = index ">
-                        <!--<div class="row col-12">-->
-                        <!--<div class="col-md-8"> {{i+1}}. {{item.question_name}}</div>-->
-                        <!--<div class="col-md-4"> <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i)" *ngIf="item.showQuesion" ></mat-checkbox>-->
-                        <!--</div>-->
-                        <!--</div>-->
-                        <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i)" *ngIf="item.showQuesion" >{{item.question_name}}</mat-checkbox>
+                        <div class="row col-12">
+                          <div class="col-md-8"> {{i+1}}. {{item.question_name}}</div>
+                          <div class="col-md-4">
+                            <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i)"  >
+                            </mat-checkbox>
+                          </div>
+                        </div>
+                        <!--<mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i)" *ngIf="item.showQuesion" >{{item.question_name}}</mat-checkbox>-->
                       </div>
 
-
-
-                    </mat-expansion-panel>
-                  </mat-accordion>
                   <div class="proposal-buttom mt-3 text-right w-100">
                     <button mat-button matStepperPrevious (click)="topScroll()" >Back</button>
                     <button mat-raised-button color="primary" (click)="medicalHistoryDetails(stepper)">Next</button>
@@ -498,8 +494,7 @@
                 </mat-expansion-panel-header>
 
                 <div class="row box-card">
-                  <div class="col-md-12">
-                  </div>
+
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
@@ -509,31 +504,92 @@
                         <li class="list-group-item"><strong>Email:</strong> {{item.email}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile}}</li>
                         <li class="list-group-item" *ngIf="item.mobile != '' && item.mobile != null"><strong>Phone:</strong> {{item.mobile}}</li>
-                        <li class="list-group-item" *ngIf="item.official_email != '' && item.official_email != null"><strong>Offical Email:</strong> {{item.official_email}}</li>
-                        <li class="list-group-item" *ngIf="item.aadhar_no != '' && item.aadhar_no != null"><strong>Aadhar No:</strong> {{item.aadhar_no}}</li>
-                        <li class="list-group-item" *ngIf="item.pan_no != '' && item.pan_no != null"><strong>Pan No:</strong> {{item.pan_no}}</li>
-                        <li class="list-group-item"><strong>PassPort:</strong> {{item.passport}}</li>
-
+                        <li class="list-group-item" *ngIf="item.adharnumber != ''"><strong>Aadhar No:</strong> {{item.adharnumber}}</li>
+                        <li class="list-group-item" *ngIf="item.pannumber != ''"><strong>Pan No:</strong> {{item.pannumber}}</li>
+                        <li class="list-group-item" *ngIf="item.passport != ''"><strong>PassPort:</strong> {{item.passport}}</li>
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item" ><strong> Address1:</strong> {{item.address1}}</li>
-                        <li class="list-group-item" ><strong>Address2 :</strong> {{item.address2}}</li>
-                        <li class="list-group-item"  ><strong>City:</strong> {{item.cityName}}</li>
-                        <li class="list-group-item" ><strong>State:</strong> {{item.state}}</li>
-                        <li class="list-group-item" ><strong>Pincode:</strong> {{item.pincode}}</li>
 
+                  <div class="col-md-6"  *ngIf="i == 0">
+                    <div class="p-3">
+                      <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item" *ngIf="item.address1"><strong>Address 1:</strong> {{item.address1}}</li>
+                        <li class="list-group-item" *ngIf="item.address2"><strong>Address 2:</strong> {{item.address2}}</li>
+                        <li class="list-group-item" *ngIf="item.pincode"><strong>PIN code:</strong>  {{item.pincode}}</li>
+                        <li class="list-group-item" *ngIf="item.cityName"><strong>City:</strong> {{item.cityName}}</li>
+                        <li class="list-group-item" *ngIf="item.state"><strong>State:</strong> {{item.state}}</li>
                       </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6"  *ngIf="i == 0">
+                    <div class=" p-3">
+                      <h6 class="color-blue">RESIDENCE DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item" *ngIf="item.raddress1"><strong>Address 1:</strong> {{item.raddress1}}</li>
+                        <li class="list-group-item" *ngIf="item.raddress2"><strong>Address 2:</strong> {{item.raddress2}}</li>
+                        <li class="list-group-item" *ngIf="item.rpincode"><strong>PIN code:</strong>  {{item.rpincode}}</li>
+                        <li class="list-group-item" *ngIf="item.rcityName"><strong>City:</strong> {{item.rcityName}}</li>
+                        <li class="list-group-item" *ngIf="item.rstate"><strong>State:</strong> {{item.rstate}}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student'">
+                    <div class="p-3">
+                      <h6 class="color-blue">SPONSER DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Name:</strong> {{item.sponsername}}</li>
+                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.sponserdob | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item" ><strong>Relation with student:</strong>  {{item.studentRelationShipName}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student'">
+                    <div class="p-3">
+                      <h6 class="color-blue">COURSE DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Course Name:</strong> {{item.coursedetails}}</li>
+                        <li class="list-group-item"><strong>University Name:</strong> {{item.universityname}}</li>
+                        <li class="list-group-item"><strong>University Address:</strong> {{item.universityaddress}}</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student'">
+                    <div class="p-3">
+                      <h6 class="color-blue">GUIDE DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Name:</strong> {{item.guidetitle}}. {{item.guidefirstname}} {{item.guidelastname}}</li>
+                        <li class="list-group-item"><strong>Address:</strong> {{item.guideAddress}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student'">
+                    <div class="p-3">
+                      <h6 class="color-blue">ADDON DETAILS</h6>
+
+                      <div class="row box-card" *ngFor="let lists of setAddons;">
+                        <div class="col-md-6" *ngIf="lists.checked">
+                          <div class="p-3">
+                            <div class="row">
+                              <div class="col-md-12">
+                                <ul class="m-0 list-group">
+                                  <li class="list-group-item"><strong>Addon's:</strong> {{lists.addon_description}}</li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </mat-expansion-panel>
             </div>
 
-            <mat-expansion-panel   [expanded]="true">
+            <mat-expansion-panel [expanded]="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   NOMINEE DETAILS
@@ -557,7 +613,7 @@
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Relationship with Insured:</strong>
-                            {{nomineeFormData.religareTravelNomineeName}}
+                            {{nomineeFormData.religareNomineeRelationshipName}}
                           </li>
                         </ul>
                       </div>
