@@ -46,6 +46,12 @@ export class PagesComponent implements OnInit {
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
     }
+
+      if(window.innerWidth >= 768){
+          this.settings.menu = 'horizontal';
+          this.settings.sidenavIsOpened = true;
+          this.settings.sidenavIsPinned = true;
+      }
     this.menuOption = this.settings.menu; 
     this.menuTypeOption = this.settings.menuType; 
     this.defaultMenu = this.settings.menu;
@@ -91,7 +97,7 @@ export class PagesComponent implements OnInit {
   }
    
   public toggleSidenav(){
-    console.log(this.sidenav);
+    // console.log(this.sidenav);
     this.sidenav.toggle();
   }
   
@@ -135,8 +141,8 @@ export class PagesComponent implements OnInit {
     }
     else{
       (this.defaultMenu == 'horizontal') ? this.settings.menu = 'horizontal' : this.settings.menu = 'vertical'
-      // this.settings.sidenavIsOpened = true;
-     // this.settings.sidenavIsPinned = true;
+      this.settings.sidenavIsOpened = true;
+     this.settings.sidenavIsPinned = true;
     }
   }
 
