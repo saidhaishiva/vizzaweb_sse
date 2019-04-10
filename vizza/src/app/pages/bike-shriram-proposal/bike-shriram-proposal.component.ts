@@ -45,6 +45,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public electrical: boolean;
   public nonelectrical: boolean;
   public finance: boolean;
+  public nopassanger: boolean;
   public claimDetails: any;
   public claimList: boolean;
   public previousList: any;
@@ -57,6 +58,8 @@ export class BikeShriramProposalComponent implements OnInit {
   public previousFormData : any;
   public nomineeFormData : any;
   public buyBikeDetails : any;
+  public pincodeState : any;
+  public pincodeCity : any;
     constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -74,6 +77,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.pannumberP = false;
     this.electrical = false;
     this.nonelectrical = false;
+    this.nopassanger = false;
     this.finance = false;
     this.claimList = false;
     this.apponiteeList = false;
@@ -107,6 +111,8 @@ export class BikeShriramProposalComponent implements OnInit {
       electricalAccessSI: '',
       nonElectricalAccess: '',
       nonElectricalAccessSI: '',
+        paforUnnamed: '',
+        paforUnnamedSI: '',
       hypothecationType: '',
       hypothecationAddress1: '',
       hypothecationAddress2: '',
@@ -255,10 +261,25 @@ export class BikeShriramProposalComponent implements OnInit {
               if (successData.IsSuccess) {
                 this.pincodeList = successData.ResponseObject;
                 console.log(this.pincodeList,'jhgfdghj');
-                this.proposer.controls['state'].patchValue(this.pincodeList.state);
-                this.proposer.controls['city'].patchValue(this.pincodeList.city_village_name);
+                for(let key in this.pincodeList.state) {
+                    this.pincodeState = key;
+                    console.log(key);
+                    console.log(this.pincodeList['state'][key]);
+
+                    console.log(this.pincodeState, 'kjhfgdghj');
+                    this.proposer.controls['state'].patchValue(this.pincodeList['state'][key]);
+                }
+                  for(let key in this.pincodeList.city) {
+                      this.pincodeCity = key;
+                      console.log(key);
+                      console.log(this.pincodeList['state'][key]);
+
+                      this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
+                  }
+
+                }
               }
-            }
+
 
             public pinProposerListFailure(error) {
             }
@@ -416,11 +437,19 @@ export class BikeShriramProposalComponent implements OnInit {
 
         }
       }
+    nonPassangerType(value){
+        if(value.checked){
+            this.nonelectrical = true;
+        } else{
+            this.nonelectrical = false;
+
+        }
+    }
   financeType(value){
     if(value.checked){
-      this.finance = true;
+      this.nopassanger = true;
     } else{
-      this.finance = false;
+      this.nopassanger = false;
 
     }
   }
@@ -731,6 +760,8 @@ export class BikeShriramProposalComponent implements OnInit {
         nonElectricalAccess:stepper2.nonElectricalAccess,
         nonElectricalAccessSI: stepper2.nonElectricalAccessSI,
         hypothecationType: stepper2.hypothecationType,
+          paforUnnamed: stepper2.paforUnnamed,
+          paforUnnamedSI: stepper2.paforUnnamedSI,
         hypothecationAddress1:stepper2.hypothecationAddress1,
         hypothecationAddress2: stepper2.hypothecationAddress2,
         hypothecationAddress3:stepper2.hypothecationAddress3,

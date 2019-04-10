@@ -1256,15 +1256,15 @@
                       <!--<div class="col-md-6">-->
                           <!--<div class="row">-->
                               <div class="col-md-6">
-                                  <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.suminsured_amount}}</span></h4>
+                                  <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.suminsured_amount}}</span></h4>
                               </div>
                           <!--</div>-->
                       <!--</div>-->
                       <div class="col-md-6">
                           <ul class="summary-head">
-                              <li><span>Start Date:</span> &nbsp;{{summaryData.RiskDetails.JourneyStartDate}} </li>
-                              <li><span>End Date:</span> &nbsp; {{summaryData.RiskDetails.JourneyEndDate}} </li>
-                              <li><span>Travel Days:</span> &nbsp; {{summaryData.RiskDetails.TravelDays}} </li>
+                              <li><span>Start Date:</span>&nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
+                              <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date | date: 'dd/MM/yyyy'}} </li>
+                              <!--<li><span>Travel Days:</span> &nbsp; {{summaryData.RiskDetails.TravelDays}} </li>-->
                               <li></li>
                           </ul>
                       </div>
@@ -1565,7 +1565,7 @@
 
               <div class="row"  *ngIf="summaryData">
                   <div class="col-md-12 text-center">
-                      <form action={{summaryData.rediretUrlLink}}  method='post' #form>
+                      <form action={{summaryData.RediretUrlLink}}  method='post' #form>
                           <div class="col-md-12">
                               <div class="proposal-buttom mb-3 text-center w-100">
                                   <button mat-button matStepperPrevious>Back</button>
@@ -2830,45 +2830,19 @@
         </mat-expansion-panel-header>
         <section class="summary-details" *ngIf="summaryData">
           <div class="row">
-            <!--<div class="col-md-6">-->
-            <!--<div class="row">-->
-            <div class="col-sm-12 col-xs-12">
-              <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.suminsured_amount}}</span></h4>
+            <div class="col-md-6">
+              <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.suminsured_amount}}</span></h4>
             </div>
-            <!--</div>-->
-            <!--</div>-->
-            <div class="col-sm-12 col-xs-12">
+            <div class="col-md-6">
               <ul class="summary-head">
-                <li><span>Start Date:</span> &nbsp;{{summaryData.RiskDetails.JourneyStartDate}} </li>
-                <li><span>End Date:</span> &nbsp; {{summaryData.RiskDetails.JourneyEndDate}} </li>
-                <li><span>Travel Days:</span> &nbsp; {{summaryData.RiskDetails.TravelDays}} </li>
+                <li><span>Start Date:</span>&nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
+                <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date | date: 'dd/MM/yyyy'}} </li>
+                <!--<li><span>Travel Days:</span> &nbsp; {{summaryData.RiskDetails.TravelDays}} </li>-->
                 <li></li>
               </ul>
             </div>
           </div>
-          <!--&lt;!&ndash;<table class="table table-bordered">&ndash;&gt;-->
-          <!--&lt;!&ndash;<thead class="thead-light">&ndash;&gt;-->
-          <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-          <!--&lt;!&ndash;<th>Insurer</th>&ndash;&gt;-->
-          <!--&lt;!&ndash;<th>Plan Name</th>&ndash;&gt;-->
-          <!--&lt;!&ndash;<th>Premium</th>&ndash;&gt;-->
-          <!--&lt;!&ndash;<th>Service Tax</th>&ndash;&gt;-->
-          <!--&lt;!&ndash;<th>Total Premium</th>&ndash;&gt;-->
-          <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-          <!--&lt;!&ndash;</thead>&ndash;&gt;-->
-          <!--&lt;!&ndash;<tbody>&ndash;&gt;-->
-          <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-          <!--&lt;!&ndash;<td>&ndash;&gt;-->
-          <!--&lt;!&ndash;<img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" />&ndash;&gt;-->
-          <!--&lt;!&ndash;</td>&ndash;&gt;-->
-          <!--&lt;!&ndash;<td class="align-middle">{{getTravelPremiumList.plan_name}}</td>&ndash;&gt;-->
-          <!--&lt;!&ndash;<td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>&ndash;&gt;-->
-          <!--&lt;!&ndash;<td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>&ndash;&gt;-->
-          <!--&lt;!&ndash;<td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>&ndash;&gt;-->
-          <!--&lt;!&ndash;</tr>&ndash;&gt;-->
 
-          <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
-          <!--&lt;!&ndash;</table>&ndash;&gt;-->
           <mat-expansion-panel   [expanded]="true">
             <mat-expansion-panel-header>
               <mat-panel-title>
