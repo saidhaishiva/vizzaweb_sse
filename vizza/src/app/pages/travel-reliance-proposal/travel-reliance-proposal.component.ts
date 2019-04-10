@@ -839,12 +839,13 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.nextStep();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
+      console.log(this.summaryData,'summaryDatasummaryData');
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposerFormData = this.personal.value;
       this.insuredFormData = this.relianceInsuredTravel.value.items;
       this.riskFormData = this.riskDetails.value;
-      this.reliance_Travel_proposal_id = this.summaryData.proposal_id;
-      sessionStorage.reliance_Travel_proposal_id = successData.ResponseObject.proposalId;
+      this.reliance_Travel_proposal_id = this.summaryData.policy_id;
+      sessionStorage.reliance_Travel_proposal_id = successData.ResponseObject.policy_id;
 
       console.log(this.proposerFormData, 'p');
       console.log(this.insuredFormData, 'i');
@@ -1080,7 +1081,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
       this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
     }
-    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
+    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea(this.personal.controls['personalArea'].value));
   }
   sameAddress(values: any) {
     if (values.checked) {

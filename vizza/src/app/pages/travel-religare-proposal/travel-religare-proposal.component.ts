@@ -786,6 +786,8 @@ export class ReliagretravelproposalComponent implements OnInit {
                         // this.religareTravelQuestionsList[i].main_qustion = '0';
                         this.religareTravelQuestionsList[i].checked = false;
                         this.religareTravelQuestionsList[i].status = 'No';
+                        this.religareTravelQuestionsList[i].fieldValue = '';
+
                         if (this.religareTravelQuestionsList[i].main_qustion == 0) {
                             this.religareTravelQuestionsList[i].showQuesion = true;
                         }
