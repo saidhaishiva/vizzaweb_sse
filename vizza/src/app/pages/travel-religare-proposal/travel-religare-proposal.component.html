@@ -85,7 +85,7 @@
                       </mat-form-field></div>
                       <div class="col-md-12 box-card pt-3">
                         <div class="row" *ngIf="studentdetails">
-                          <h6 class="col-md-12 color-blue mt-3">SPONSER DETAILS</h6>
+                          <h6 class="col-md-12 color-blue mt-3 mb-4">SPONSER DETAILS</h6>
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <input matInput placeholder="Sponser Name"  formControlName="sponsername" (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required>
                             <mat-error *ngIf="religarePersonal.controls.sponsername.errors?.required">Sponser Name is required</mat-error>
@@ -108,7 +108,7 @@
                             <mat-error *ngIf="religarePersonal.controls.studentRelationShip.errors?.required">Relationship with Student is required</mat-error>
                           </mat-form-field></div>
 
-                          <h6 class="col-md-12 color-blue mt-3">COURSE DETAILS</h6>
+                          <h6 class="col-md-12 color-blue mt-3 mb-4">COURSE DETAILS</h6>
 
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <input matInput placeholder="Course details"  formControlName="coursedetails" (keypress)="nameValidate($event)" autocomplete="off" required>
@@ -123,7 +123,7 @@
                             <mat-error *ngIf="religarePersonal.controls.universityname.errors?.required">University Address is required</mat-error>
                           </mat-form-field></div>
 
-                          <h6 class="col-md-12 color-blue mt-3">GUIDE DETAILS</h6>
+                          <h6 class="col-md-12 color-blue mt-3 mb-4">GUIDE DETAILS</h6>
 
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
@@ -226,7 +226,6 @@
                                   <mat-hint align="start"></mat-hint>
                                   <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
                                   <!--<mat-error *ngIf="religarePersonal.controls.religarePersonalPAddress2.errors?.required">Address2 is required</mat-error>-->
-
                                 </mat-form-field>
                               </div>
                               <div class="col-md-6"><mat-form-field class="w-100">
@@ -272,8 +271,7 @@
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      INSURED DETAILS FOR
-                      {{insureReligareArray['controls'].items['controls'][i]['controls'].type.value}}
+                      INSURED DETAILS FOR {{insureReligareArray['controls'].items['controls'][i]['controls'].type.value | uppercase}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
@@ -384,8 +382,18 @@
                         <div class="row col-12">
                           <div class="col-md-8"> {{i+1}}. {{item.question_name}}</div>
                           <div class="col-md-4">
-                            <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i)"  >
+                            <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i)"  *ngIf="item.field_type == 'checkbox'">>
                             </mat-checkbox>
+
+                            <mat-form-field class="w-100 " *ngIf="item.field_type == 'textbox'">
+                              <input matInput placeholder="Name"  [(ngModel)]="item.fieldValue" name="fieldValue" >
+                            </mat-form-field>
+                            <mat-form-field class="w-100 " *ngIf="item.field_type == 'datefield'">
+                              <input matInput placeholder="DOB"  [(ngModel)]="item.fieldValue" name="fieldValue" >
+                            </mat-form-field>
+                            <mat-form-field class="w-100 " *ngIf="item.field_type == 'textarea'">
+                              <textarea #message maxlength="60" matInput placeholder="Address" rows="2" [(ngModel)]="item.fieldValue" autocomplete="off"></textarea>
+                            </mat-form-field>
                           </div>
                         </div>
                         <!--<mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i)" *ngIf="item.showQuesion" >{{item.question_name}}</mat-checkbox>-->
@@ -412,7 +420,7 @@
                   NOMINEE DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <ng-template matStepLabel>INSURED DETAILS</ng-template>
+              <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <!--<h6 class="color-green mb-3" >NOMINEE DETAILS </h6>-->
