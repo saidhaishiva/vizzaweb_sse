@@ -264,15 +264,16 @@
 
 <!--Mobile secondpage-->
 <section class="d-block d-sm-block d-md-none d-xl-none d-lg-none" *ngIf="secondPage">
-  <div class="row" style="margin:30px;">
-    <div class="col pr-0"><button mat-raised-button color="accent" class="w-100">Group A</button></div>
-    <div class="col p-0"><button mat-raised-button  class="w-100">Group B</button></div>
-    <div class="col pl-0"><button mat-raised-button  class="w-100">Group C</button></div>
-  </div>
-  <div class="sticky-top">
+  <!--<div class="row" style="margin:30px;">-->
+    <!--<div class="col pr-0"><button mat-raised-button color="accent" class="w-100">Group A</button></div>-->
+    <!--<div class="col p-0"><button mat-raised-button  class="w-100">Group B</button></div>-->
+    <!--<div class="col pl-0"><button mat-raised-button  class="w-100">Group C</button></div>-->
+  <!--</div>-->
+  <div class="pt-0">
+  <div class="sticky-top mt-0">
     <mat-card style="background-color: antiquewhite;">
 <div class="row">
-  <div class="col">
+  <div class="col-6">
     <mat-form-field class="w-100">
       <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
       <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
@@ -289,7 +290,7 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="col">
+  <div class="col-6">
     <mat-form-field class="w-100">
       <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
       <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
@@ -378,6 +379,7 @@
       <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
     </div>
     </div>
+  </div>
   </div>
 </section>
 
