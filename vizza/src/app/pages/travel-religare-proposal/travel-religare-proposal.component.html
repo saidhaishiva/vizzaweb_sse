@@ -14,7 +14,7 @@
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                    <h6 class="color-blue">PROPOSER DETAILS</h6>
+                    <!--<h6 class="color-blue">PROPOSER DETAILS</h6>-->
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
@@ -410,12 +410,22 @@
 
                             <div class=" col-md-12" *ngIf="item.field_type == 'textbox'">
                               <mat-form-field class="w-50" >
-                                <input matInput placeholder="{{item.question_name}}"  [(ngModel)]="item.fieldValue" name="fieldValue" >
+                                <input matInput placeholder="{{item.question_name}}"  [(ngModel)]="item.fieldValue" name="fieldValue" required="{{item.question_set_code == 'SPDsponsorDetails'}}">
                               </mat-form-field>
                             </div>
+                            <div class=" col-md-12" *ngIf="item.field_type == 'dropdown'">
+                              <mat-form-field class="w-50" >
+                                <mat-select placeholder="Sponser Relation" [(ngModel)]="item.fieldValue" (change)="studentRelationshipList()" required="{{item.question_set_code == 'SPDsponsorDetails'}}">
+                                  <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.key}}" >
+                                    {{lists.value}}
+                                  </mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+
                             <div class=" col-md-12" *ngIf="item.field_type == 'datefield'">
                               <mat-form-field class="w-50" >
-                                <input matInput [matDatepicker]="picker2" [max]="today" placeholder="{{item.question_name}}" [(ngModel)]="item.fieldValue" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  >
+                                <input matInput [matDatepicker]="picker2" [max]="today" placeholder="{{item.question_name}}" [(ngModel)]="item.fieldValue" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required="{{item.question_set_code == 'SPDsponsorDetails'}}">
                                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                 <mat-datepicker #picker2></mat-datepicker>
                               </mat-form-field>
@@ -537,14 +547,20 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.title}} {{item.first_name}} {{item.last_name}}</li>
+                        <li class="list-group-item"><strong>Name:</strong> {{item.title}} {{item.firstname}} {{item.lastname}}</li>
                         <li class="list-group-item"><strong>Gender:</strong>{{item.gender}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
-                        <li class="list-group-item"><strong>Email:</strong> {{item.email}}</li>
-                        <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile}}</li>
-                        <li class="list-group-item" *ngIf="item.mobile != '' && item.mobile != null"><strong>Phone:</strong> {{item.mobile}}</li>
                         <li class="list-group-item" *ngIf="item.adharnumber != ''"><strong>Aadhar No:</strong> {{item.adharnumber}}</li>
                         <li class="list-group-item" *ngIf="item.pannumber != ''"><strong>Pan No:</strong> {{item.pannumber}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Email:</strong> {{item.email}}</li>
+                        <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile}}</li>
+                        <li class="list-group-item" *ngIf="item.phone != '' && item.phone != null"><strong>Phone:</strong> {{item.phone}}</li>
                         <li class="list-group-item" *ngIf="item.passport != ''"><strong>PassPort:</strong> {{item.passport}}</li>
                       </ul>
                     </div>
@@ -575,28 +591,28 @@
                     </div>
                   </div>
 
-                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student'">
+                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
                     <div class="p-3">
                       <h6 class="color-blue">SPONSER DETAILS</h6>
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.sponsername}}</li>
-                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.sponserdob | date: 'dd/MM/yyyy'}}</li>
-                        <li class="list-group-item" ><strong>Relation with student:</strong>  {{item.studentRelationShipName}}</li>
+                        <li class="list-group-item"  *ngIf="item.sponsername != ''"><strong>Name:</strong> {{item.sponsername}}</li>
+                        <li class="list-group-item"  *ngIf="item.sponserdob != ''"><strong>D.O.B:</strong> {{item.sponserdob | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item"  *ngIf="item.studentRelationShipName != ''"><strong>Relation with student:</strong>  {{item.studentRelationShipName}}</li>
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student'">
+                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
                     <div class="p-3">
                       <h6 class="color-blue">COURSE DETAILS</h6>
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Course Name:</strong> {{item.coursedetails}}</li>
-                        <li class="list-group-item"><strong>University Name:</strong> {{item.universityname}}</li>
-                        <li class="list-group-item"><strong>University Address:</strong> {{item.universityaddress}}</li>
+                        <li class="list-group-item" *ngIf="item.coursedetails != ''"><strong>Course Name:</strong> {{item.coursedetails}}</li>
+                        <li class="list-group-item" *ngIf="item.universityname != ''"><strong>University Name:</strong> {{item.universityname}}</li>
+                        <li class="list-group-item" *ngIf="item.universityaddress != ''"><strong>University Address:</strong> {{item.universityaddress}}</li>
                       </ul>
                     </div>
                   </div>
 
-                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student'">
+                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
                     <div class="p-3">
                       <h6 class="color-blue">GUIDE DETAILS</h6>
                       <ul class="m-0 list-group">
@@ -605,7 +621,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student'">
+                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">
                     <div class="p-3">
                       <h6 class="color-blue">ADDON DETAILS</h6>
 
@@ -646,43 +662,36 @@
                             <div class="col-md-6">
                               <p>{{si+1}}. {{list.question_name}} </p>
                             </div>
-                            <div class="col-md-6" >
-                              <mat-checkbox [(ngModel)]="list.checked" (change)="changereligareTravelQuestions($event, si, 'sub')"  *ngIf="list.field_type == 'checkbox'">
-                              </mat-checkbox>
+                            <div class="col-md-6" *ngIf="list.field_type == 'checkbox'">
+                              <strong>
+                                <span *ngIf="item.checked">Yes</span>
+                                <span *ngIf="!item.checked">No</span>
+                              </strong>
                             </div>
-                            <div class="col-md-12" >
-                              <mat-form-field class="w-50 " *ngIf="list.field_type == 'textarea'">
-                                <textarea #message maxlength="60" matInput placeholder="{{list.question_name}}" rows="2" [(ngModel)]="list.fieldValue" autocomplete="off"></textarea>
-                              </mat-form-field>
+                            <div class="col-md-6" *ngIf="list.field_type == 'textarea'">
+                              <strong>{{list.fieldValue}}</strong>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" *ngIf="item.field_type == 'checkbox'">
                       <div class="row col-md-6" >
-                        <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i, 'main')"  *ngIf="item.field_type == 'checkbox'">
-                        </mat-checkbox>
+                        <strong>
+                          <span *ngIf="item.checked">Yes</span>
+                          <span *ngIf="!item.checked">No</span>
+                        </strong>
                       </div>
                     </div>
 
-                    <div class=" col-md-12" *ngIf="item.field_type == 'textbox'">
-                      <mat-form-field class="w-50" >
-                        <input matInput placeholder="{{item.question_name}}"  [(ngModel)]="item.fieldValue" name="fieldValue" >
-                      </mat-form-field>
+                    <div class=" col-md-4" *ngIf="item.field_type == 'textbox'">
+                      <strong>{{item.fieldValue}}</strong>
                     </div>
-                    <div class=" col-md-12" *ngIf="item.field_type == 'datefield'">
-                      <mat-form-field class="w-50" >
-                        <input matInput [matDatepicker]="picker2" [max]="today" placeholder="{{item.question_name}}" [(ngModel)]="item.fieldValue" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  >
-                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                        <mat-datepicker #picker2></mat-datepicker>
-                      </mat-form-field>
-                      <!--<div class="error" *ngIf="personalDobError !=''">{{personalDobError}}</div>-->
+                    <div class=" col-md-4" *ngIf="item.field_type == 'datefield'">
+                      <strong>{{item.fieldValue}}</strong>
                     </div>
-                    <div class=" col-md-12" *ngIf="item.field_type == 'textarea'">
-                      <mat-form-field class="w-50" >
-                        <textarea #message maxlength="60" matInput placeholder="{{item.question_name}}" rows="2" [(ngModel)]="item.fieldValue" autocomplete="off"></textarea>
-                      </mat-form-field>
+                    <div class=" col-md-4" *ngIf="item.field_type == 'textarea'">
+                      <strong>{{item.fieldValue}}</strong>
                     </div>
 
                   </div>

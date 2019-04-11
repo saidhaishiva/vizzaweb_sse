@@ -146,32 +146,19 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     currentStep: any;
     RediretUrlLink: any;
     city: any;
-    insureNameQ: any;
     personalcity: any;
     proposerDataForm: any;
     personalDescriptionclassPA: boolean;
     Address2: boolean;
     personalAddress2: boolean;
     mobileno: boolean;
-    resAddress2: boolean;
     gst: boolean;
-    gst1: boolean;
-    resnumber: boolean;
-    passPort1: boolean;
-    passPort: boolean;
-    addressPr: boolean;
-    addressPC: boolean;
     insuredDescriptionValidator: boolean;
     codeList: boolean;
     questionId : any;
     constructor(private fb: FormBuilder, public proposalservice: HealthService, public route: ActivatedRoute, public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
-        // this.route.params.forEach((params) => {
-        //     if (params.stepper == true) {
-        //         stepperindex = 4;
-        //     }
-        // });
         this.route.params.forEach((params) => {
             if(params.stepper == true || params.stepper == 'true') {
                 stepperindex = 3;
@@ -470,7 +457,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
 
 
-// nominee
+            // nominee
             if (sessionStorage.personalnomineeData != '' && sessionStorage.personalnomineeData != undefined) {
                 this.getpersonalNomineeData = JSON.parse(sessionStorage.personalnomineeData);
                 this.nomineeDetails = this.fb.group({
@@ -482,6 +469,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             if (sessionStorage.pa_religare_proposal_id != '' && sessionStorage.pa_religare_proposal_id != undefined) {
                 this.religarePAProposal = sessionStorage.pa_religare_proposal_id;
             }
+            if (sessionStorage.proposal3Detail != '' && sessionStorage.proposal3Detail != undefined) {
+                this.personalAccidentQuestionsList = JSON.parse(sessionStorage.proposal3Detail);
+            }
+
         }
     }
 
@@ -776,7 +767,9 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     }
 
     public occupationListSuccess(successData) {
-        this.occupationList = successData.ResponseObject;
+        if (successData.IsSuccess) {
+            this.occupationList = successData.ResponseObject;
+        }
     }
 
     public occupationListFailure(error) {
@@ -800,7 +793,9 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     }
 
     public occupationCodeSuccess(successData) {
-        this.occupationCode = successData.ResponseObject;
+        if (successData.IsSuccess) {
+            this.occupationCode = successData.ResponseObject;
+        }
     }
 
     public occupationCodeFailure(error) {
@@ -952,13 +947,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
     }
     public classoccupationSuccess(successData) {
-        this.insureClassDescription = successData.ResponseObject;
-        console.log(this.insureClassDescription,' this.insureClassDescription');
+        if (successData.IsSuccess) {
+            this.insureClassDescription = successData.ResponseObject;
+        }
     }
-
     public classoccupationFailure(error) {
     }
-
 
     setRelationship() {
         const data = {
@@ -1085,43 +1079,60 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 // Medical
     medicalHistoryDetails(stepper: MatStepper) {
         sessionStorage.proposal3Detail = '';
-        sessionStorage.proposal3Detail = JSON.stringify(this.personalAccidentQuestionsList);
         this.partyQuestionDOList = [];
-        stepper.next();
-        this.topScroll();
-        this.nextStep();
-        let setMainRes = '';
-        let setSubRes = '';
-
-        for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
-            if(this.personalAccidentQuestionsList[i].field_type == 'textbox') {
-                setMainRes =  this.personalAccidentQuestionsList[i].fieldValue;
-            } else if(this.personalAccidentQuestionsList[i].field_type == 'checkbox') {
-                setMainRes =  this.personalAccidentQuestionsList[i].checked ? 'YES' : 'NO';
+        let valid = true;
+        if(this.personalAccidentQuestionsList[1].checked) {
+            valid = false;
+            let findFieldValue = this.personalAccidentQuestionsList[1].sub_questions_list.filter(values => values.fieldValue == '' );
+            console.log(findFieldValue, 'findFieldValuefindFieldValue');
+            if(findFieldValue.length == 0) {
+                valid = true;
             }
-            this.partyQuestionDOList.push({
-                'questionCd': this.personalAccidentQuestionsList[i].question_code,
-                'questionSetCd': this.personalAccidentQuestionsList[i].question_set_code,
-                'response': setMainRes
+        }
+        console.log(this.personalAccidentQuestionsList, 'kllkllk');
+        console.log(valid, 'validvalid');
 
-            });
+        if(valid) {
+            stepper.next();
+            this.topScroll();
+            this.nextStep();
+
+            let setMainRes = '';
+            let setSubRes = '';
+
+            for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
+                if(this.personalAccidentQuestionsList[i].field_type == 'textbox') {
+                    setMainRes =  this.personalAccidentQuestionsList[i].fieldValue;
+                } else if(this.personalAccidentQuestionsList[i].field_type == 'checkbox') {
+                    setMainRes =  this.personalAccidentQuestionsList[i].checked ? 'YES' : 'NO';
+                }
+                this.partyQuestionDOList.push({
+                    'questionCd': this.personalAccidentQuestionsList[i].question_code,
+                    'questionSetCd': this.personalAccidentQuestionsList[i].question_set_code,
+                    'response': setMainRes
+
+                });
+            }
+
+            for (let i = 0; i < this.personalAccidentQuestionsList[1].sub_questions_list.length; i++) {
+                if(this.personalAccidentQuestionsList[1].sub_questions_list[i].field_type == 'textbox') {
+                    setSubRes =  this.personalAccidentQuestionsList[1].sub_questions_list[i].fieldValue;
+                } else if(this.personalAccidentQuestionsList[1].sub_questions_list[i].field_type == 'checkbox') {
+                    setSubRes =  this.personalAccidentQuestionsList[1].sub_questions_list[i].checked ? 'YES' : 'NO';
+                }
+                this.partyQuestionDOList.push({
+                    'questionCd': this.personalAccidentQuestionsList[1].sub_questions_list[i].question_code,
+                    'questionSetCd': this.personalAccidentQuestionsList[1].sub_questions_list[i].question_set_code,
+                    'response': setSubRes
+
+                });
+            }
+
+        } else {
+            this.toastr.error('Please fill the required fields');
         }
 
-        for (let i = 0; i < this.personalAccidentQuestionsList[1].sub_questions_list.length; i++) {
-            if(this.personalAccidentQuestionsList[1].sub_questions_list[i].field_type == 'textbox') {
-                setSubRes =  this.personalAccidentQuestionsList[1].sub_questions_list[i].fieldValue;
-            } else if(this.personalAccidentQuestionsList[1].sub_questions_list[i].field_type == 'checkbox') {
-                setSubRes =  this.personalAccidentQuestionsList[1].sub_questions_list[i].checked ? 'YES' : 'NO';
-            }
-            this.partyQuestionDOList.push({
-                'questionCd': this.personalAccidentQuestionsList[1].sub_questions_list[i].question_code,
-                'questionSetCd': this.personalAccidentQuestionsList[1].sub_questions_list[i].question_set_code,
-                'response': setSubRes
-
-            });
-        }
-
-
+        sessionStorage.proposal3Detail = JSON.stringify(this.personalAccidentQuestionsList);
 
     }
 

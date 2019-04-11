@@ -138,6 +138,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   public riskFormData: any;
   public step: any;
 
+
+
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public travelservice: TravelService) {
     const minDate = new Date();
@@ -166,7 +168,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       occupationName: '',
       personalAadhar: ['', Validators.compose([Validators.minLength(12)])],
       personalPan: ['', Validators.compose([Validators.minLength(10)])],
-      personalEmail: ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+      personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       personalPhone: '',
       nationality: ['', Validators.required],
@@ -200,11 +202,11 @@ export class TravelRelianceProposalComponent implements OnInit {
       residenceNearestLandMark: '',
       residenceCountry: ['', Validators.required],
 
-      personalCourseName:'',
-      personalTutionFeePerSem:'',
-      personalNoOfSems:'',
+      personalCourseName: '',
+      personalTutionFeePerSem: '',
+      personalNoOfSems: '',
       personalUniversityName: '',
-      personalUniversityEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+      personalUniversityEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       personalUniversityMobileNo: '',
       personalUniversityPhoneNo: '',
       personalUniversityFax: '',
@@ -212,7 +214,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalUniversityState: '',
       personalUniversityCountry: '',
 
-      personalBurglaryEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+      personalBurglaryEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       personalBurglaryMobileNo: '',
       personalBurglaryPhoneNo: '',
       personalBurglaryFax: '',
@@ -427,22 +429,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.sessionData();
   }
 
-  setStep(index) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-  backAll(){
-    this.topScroll();
-    this.prevStep();
-  }
-
   initItemRows() {
     return this.fb.group(
         {
@@ -488,19 +474,27 @@ export class TravelRelianceProposalComponent implements OnInit {
   //Personal Details
   personalDetails(stepper: MatStepper, value) {
     this.personalData = value;
+    console.log(this.personalData, 'this.personalData');
     sessionStorage.stepper1Details = '';
     sessionStorage.stepper1Details = JSON.stringify(value);
     if (this.personal.valid) {
       if (sessionStorage.personalAge >= 18) {
         stepper.next();
         this.topScroll();
-        this.nextStep();
       }else {
         this.toastr.error('Proposer age should be 18 or above');
       }
     }
   }
   //Insure Details
+  underMedication(i) {
+    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'){
+      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators([Validators.required]);
+    } else {
+      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators(null);
+
+    }
+  }
   relianceInsureDetails(stepper: MatStepper, id, value, key) {
     console.log(this.insuredTravelPerson,'insuredTravelPerson');
     sessionStorage.stepper2Details = '';
@@ -575,8 +569,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if(!ageValidate.includes(1)){
           stepper.next();
-          this.topScroll();
-          this.nextStep();
+        this.topScroll();
         } else {
           this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -854,7 +847,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     if (successData.IsSuccess == true) {
       stepper.next();
       this.topScroll();
-      this.nextStep();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
       console.log(this.summaryData,'summaryDatasummaryData');
@@ -1410,7 +1402,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalLastname.patchValue(this.getStepper2.items[i].personalLastname);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalMidname.patchValue(this.getStepper2.items[i].personalMidname);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
-        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(this.getStepper2.items[i].InsDOB);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(this.datepipe.transform(this.getStepper2.items[i].InsDOB, 'y-MM-dd'));
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].occupation.patchValue(this.getStepper2.items[i].occupation);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insureOccupationName.patchValue(this.getStepper2.items[i].insureOccupationName);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].personalEmail.patchValue(this.getStepper2.items[i].personalEmail);
@@ -1424,7 +1416,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.patchValue(this.getStepper2.items[i].IsUnderMedication);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.patchValue(this.getStepper2.items[i].PreExistingIllness);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurePreExistingIllnessName.patchValue(this.getStepper2.items[i].insurePreExistingIllnessName);
-        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].SufferingSince.patchValue(this.getStepper2.items[i].SufferingSince);
+        this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].SufferingSince.patchValue(this.datepipe.transform(this.getStepper2.items[i].SufferingSince, 'y-MM-dd'));
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].nomineeName.patchValue(this.getStepper2.items[i].nomineeName);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].nomineeRelationship.patchValue(this.getStepper2.items[i].nomineeRelationship);
         this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insureNomineeRelationshipName.patchValue(this.getStepper2.items[i].insureNomineeRelationshipName);
@@ -1503,6 +1495,23 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
   }
 
+  setStep(index) {
+    this.step = index;
+  }
+
+  // nextStep() {
+  //   this.step++;
+  // }
+  //
+  // prevStep() {
+  //   this.step--;
+  // }
+
+
+  // backAll(){
+  //   this.topScroll();
+  //   this.prevStep();
+  // }
   relianceOccupation() {
     const data = {
       'platform': 'web',

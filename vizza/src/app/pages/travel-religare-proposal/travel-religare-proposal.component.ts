@@ -289,22 +289,21 @@ export class ReliagretravelproposalComponent implements OnInit {
         }
     // RelationShip List
         RelationShipListTravel() {
-                const data = {
-                    'platform': 'web',
-                    'user_id': '0',
-                    'role_id': '4',
-                    'pos_status': '0'
-                };
-                this.travelservice.religareTravelRelationshipList(data).subscribe(
-                    (successData) => {
-                        this.relationShipSuccess(successData);
-                    },
-                    (error) => {
-                        this.relationShipFailure(error);
-                    }
-                );
+            const data = {
+                'platform': 'web',
+                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+            };
+            this.travelservice.religareTravelRelationshipList(data).subscribe(
+                (successData) => {
+                    this.relationShipSuccess(successData);
+                },
+                (error) => {
+                    this.relationShipFailure(error);
+                }
+            );
         }
-
         public relationShipSuccess(successData) {
                 if (successData.IsSuccess) {
                     this.insuretravelRelationList = successData.ResponseObject;
@@ -319,8 +318,9 @@ export class ReliagretravelproposalComponent implements OnInit {
         getPostal(pin, title) {
                 const data = {
                     'platform': 'web',
-                    'user_id': '0',
-                    'role_id': '4',
+                    'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                    'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                    'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                     'pincode': pin
                 }
                 if (pin.length == 6) {
@@ -481,6 +481,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             sessionStorage.stepperDetails1 = '';
             sessionStorage.stepperDetails1 = JSON.stringify(value);
             this.personalReligareTravelData = value;
+            console.log(this.personalReligareTravelData,'this.personalReligareTravelData');
             console.log(this.personalReligareTravelData, 'first');
             console.log(this.religarePersonal.valid, 'this.religarePersonal.valid');
             let sponserValidDob = true;
@@ -734,21 +735,42 @@ export class ReliagretravelproposalComponent implements OnInit {
         }
 
 
-    // MEDICAL THIRD PAGE
-    // OuestionList
+        // MEDICAL THIRD PAGE
+        // OuestionList
         changereligareTravelQuestions(value, index, type) {
-            // if (index == 0) {
-            //     if (value.checked) {
-            //         for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-            //             if (this.religareTravelQuestionsList[i].main_qustion == 1) {
-            //                 this.religareTravelQuestionsList[i].showQuesion = true;
-            //             }
+            // let valid = false;
+            // if (this.getEnquiryDetails.travel_user_type == 'student') {
+            //     if(type == 'main') {
+            //         console.log(index, 'indexindex');
+            //         console.log(this.getEnquiryDetails.sum_insured_amount, 'this.getEnquiryDetails.sum_insured_amount');
+            //         if ((index == 0 || index == 1 || index == 2 || index == 3) && this.getEnquiryDetails.sum_insured_amount < 50000) {
+            //             alert('in');
+            //             valid = true;
+            //         } else {
+            //             alert('outtt');
+            //
+            //             valid = false;
+            //             this.toastr.error('Sorry! If you have any pre existing disease not allowed to purchase.');
             //         }
             //     } else {
-            //         for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-            //             if (this.religareTravelQuestionsList[i].main_qustion == 1) {
-            //                 this.religareTravelQuestionsList[i].showQuesion = false;
-            //             }
+            //         valid = true;
+            //     }
+            // } else {
+            //     valid = true;
+            // }
+            // console.log(valid,'validvalid');
+            // if(valid) {
+            //     if(type == 'main') {
+            //         if(value.checked){
+            //             this.religareTravelQuestionsList[index].status = 'Yes';
+            //         } else {
+            //             this.religareTravelQuestionsList[index].status = 'No';
+            //         }
+            //     } else if(type == 'sub') {
+            //         if(value.checked){
+            //             this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'Yes';
+            //         } else {
+            //             this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'No';
             //         }
             //     }
             // }
@@ -766,47 +788,41 @@ export class ReliagretravelproposalComponent implements OnInit {
                     this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'No';
                 }
             }
-
-
-
             console.log(this.religareTravelQuestionsList, 'this.religareTravelQuestionsLis');
 
         }
-
         religareTravelQuestions() {
             const data = {
                 'platform': 'web',
-                'user_id': '0',
-                'role_id': '4',
-                'pos_status': '0',
+                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 "travel_type": this.getEnquiryDetails.travel_user_type ? this.getEnquiryDetails.travel_user_type : ''
 
             };
-                this.travelservice.religareTravelQuestionList(data).subscribe(
-                    (successData) => {
-                        this.religareTravelQuestionsSuccess(successData);
-                    },
-                    (error) => {
-                        this.religareTravelQuestionsFailure(error);
-                    }
-                );
+            this.travelservice.religareTravelQuestionList(data).subscribe(
+                (successData) => {
+                    this.religareTravelQuestionsSuccess(successData);
+                },
+                (error) => {
+                    this.religareTravelQuestionsFailure(error);
+                }
+            );
 
         }
-
         public religareTravelQuestionsSuccess(successData) {
             if (successData.IsSuccess) {
-                    this.religareTravelQuestionsList = successData.ResponseObject;
-                    for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-                        // this.religareTravelQuestionsList[i].main_qustion = '0';
-                        this.religareTravelQuestionsList[i].checked = false;
-                        this.religareTravelQuestionsList[i].status = 'No';
-                        this.religareTravelQuestionsList[i].fieldValue = '';
-                    }
-                    for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
-                        this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue = '';
-                        this.religareTravelQuestionsList[0].sub_questions_list[i].checked = false;
-                        this.religareTravelQuestionsList[0].sub_questions_list[i].status = 'No';
-                    }
+                this.religareTravelQuestionsList = successData.ResponseObject;
+                for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
+                    this.religareTravelQuestionsList[i].checked = false;
+                    this.religareTravelQuestionsList[i].status = 'No';
+                    this.religareTravelQuestionsList[i].fieldValue = '';
+                }
+                for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
+                    this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue = '';
+                    this.religareTravelQuestionsList[0].sub_questions_list[i].checked = false;
+                    this.religareTravelQuestionsList[0].sub_questions_list[i].status = 'No';
+                }
             }
         }
 
@@ -821,26 +837,15 @@ export class ReliagretravelproposalComponent implements OnInit {
     // Medical Details
         medicalHistoryDetails(stepper: MatStepper) {
             sessionStorage.ReligareTravelDetails3 = '';
-            this.partyQuestionDOList = [];
             this.questionsListTravel = [];
-            stepper.next();
-            this.topScroll();
-            this.nextStep();
-
+            let fieldValid = false;
             let setMainRes = '';
             let setSubRes = '';
-
-
             for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
-                // this.partyQuestionDOList.push({
-                //     'questionCd': this.religareTravelQuestionsList[i].question_code,
-                //     'questionSetCd': this.religareTravelQuestionsList[i].question_name,
-                //     'value': this.religareTravelQuestionsList[i].fieldValue,
-                //     'response': this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO'
-                // });
-
-                if(this.religareTravelQuestionsList[i].field_type == 'datefield' || this.religareTravelQuestionsList[i].field_type == 'textarea') {
+                if(this.religareTravelQuestionsList[i].field_type == 'dropdown' || this.religareTravelQuestionsList[i].field_type == 'textarea' || this.religareTravelQuestionsList[i].field_type == 'textbox') {
                     setMainRes =  this.religareTravelQuestionsList[i].fieldValue;
+                } else if(this.religareTravelQuestionsList[i].field_type == 'datefield') {
+                    setMainRes =  this.datepipe.transform(this.religareTravelQuestionsList[i].fieldValue, 'y-MM-dd');
                 } else if(this.religareTravelQuestionsList[i].field_type == 'checkbox') {
                     setMainRes =  this.religareTravelQuestionsList[i].checked ? 'YES' : 'NO';
                 }
@@ -862,28 +867,58 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'response': setSubRes
                 });
             }
-            console.log(this.partyQuestionDOList, 'this.partyQuestionDOList');
-            console.log(this.questionsListTravel, 'this.questionsListTravel');
-
-            // for (let i = 0; i < this.totalReligareData.length; i++) {
-            //     this.totalReligareData[i].medical_status =  this.partyQuestionDOList.response ? 'Yes' : 'No'
-            // }
+            console.log(this.religareTravelQuestionsList, 'this.religareTravelQuestionsList');
             for (let i = 0; i < this.totalReligareData.length; i++) {
                 this.totalReligareData[i].questions_list = this.questionsListTravel;
             }
-            sessionStorage.ReligareTravelDetails3 = JSON.stringify(this.religareTravelQuestionsList);
 
+            if(this.getEnquiryDetails.travel_user_type == 'student') {
+                if(this.getEnquiryDetails.sum_insured_amount > 50000 ) {
+                    if (this.religareTravelQuestionsList[0].checked || this.religareTravelQuestionsList[1].checked || this.religareTravelQuestionsList[2].checked || this.religareTravelQuestionsList[3].checked) {
+                        fieldValid = false;
+                    } else {
+                        fieldValid = true;
+                    }
+                } else {
+                    fieldValid = true;
+                }
+            } else {
+                fieldValid = true;
+            }
+            if(fieldValid) {
+                let findQuesCode = this.questionsListTravel.filter(data => data.questionSetCd == 'SPDsponsorDetails');
+                console.log(findQuesCode, 'findQuesCode');
+                let findFieldValid = findQuesCode.filter(data => data.response == '');
+                console.log(findFieldValid, 'findFieldValid11');
+                let required = true;
+                if (findFieldValid != '') {
+                    required = false;
+                }
+                console.log(required, 'requiredrequired');
+
+                if(required) {
+                    stepper.next();
+                    this.topScroll();
+                    this.nextStep();
+                } else {
+                    this.toastr.error('Please fill the required fields');
+                }
+
+            } else {
+                this.toastr.error('Sorry! If you have any pre existing disease not allowed to purchase.');
+
+            }
+            sessionStorage.ReligareTravelDetails3 = JSON.stringify(this.religareTravelQuestionsList);
         }
 
     // NOMINEE DETAILS
-
-        religareNomineeDetails(stepper: MatStepper, value) {
-            if (this.nomineeDetails.valid) {
-                    sessionStorage.ReligareTravelNomineeDetails = '';
-                    sessionStorage.ReligareTravelNomineeDetails = JSON.stringify(value);
-                    this.religareTravelproposal(stepper);
-            }
+    religareNomineeDetails(stepper: MatStepper, value) {
+        if (this.nomineeDetails.valid) {
+                sessionStorage.ReligareTravelNomineeDetails = '';
+                sessionStorage.ReligareTravelNomineeDetails = JSON.stringify(value);
+                this.religareTravelproposal(stepper);
         }
+    }
     // SCROLL PAGE
         topScroll() {
             document.getElementById('main-content').scrollTop = 0;
@@ -945,7 +980,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
                     'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
                     'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
-                    'addons': this.religarePersonal.controls['addon'].value ?  this.religarePersonal.controls['addon'].value :'',
+                    'addons': sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined ? sessionStorage.setAddons : '',
                 };
 
                 this.settings.loadingSpinner = true;
@@ -969,7 +1004,11 @@ export class ReliagretravelproposalComponent implements OnInit {
             sessionStorage.religare_Travel_proposal_id = this.proposalId;
             this.nomineeFormData = this.nomineeDetails.value;
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
-            this.setAddons = JSON.parse(sessionStorage.setAddons);
+            if (sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined) {
+                this.setAddons = JSON.parse(sessionStorage.setAddons);
+            } else {
+                this.setAddons = [];
+            }
         } else {
              this.toastr.error(successData.ErrorObject);
         }
