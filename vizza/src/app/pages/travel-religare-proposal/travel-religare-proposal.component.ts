@@ -204,9 +204,12 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].type.patchValue(this.insureReligarePerson[i].type);
             }
             this.RelationShipListTravel();
-            this.religareTravelQuestions();
-            this.sessionData();
+            if (sessionStorage.ReligareTravelDetails3 == '' && sessionStorage.ReligareTravelDetails3 == undefined) {
+                this.religareTravelQuestions();
+            }
             this.getAddon();
+            this.sessionData();
+
     }
 
     setStep(index: number) {
@@ -1059,12 +1062,9 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.religare_Travel_proposal_id = sessionStorage.religare_Travel_proposal_id;
             }
             if (sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined) {
-                this.setAddons = sessionStorage.setAddons;
+                this.setAddons = JSON.parse(sessionStorage.setAddons);
+                this.addon = JSON.parse(sessionStorage.setAddons);
             }
-
-
-
-
 
         }
 
