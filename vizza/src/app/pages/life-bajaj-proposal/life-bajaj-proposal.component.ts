@@ -74,12 +74,15 @@ export class LifeBajajProposalComponent implements OnInit {
   public lifeBajajProposal:any;
   public nRelationName:any;
   public getNomineeDetails:any;
+  public lifePremiumList:any;
+  public today:any;
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
 
-
+      let today = new Date();
+      this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.proposer = this.Proposer.group({
-      title: '',
+      title: ['', Validators.required],
       firstName: ['', Validators.required],
       midName: '',
       lastName: ['', Validators.required],
@@ -206,6 +209,8 @@ export class LifeBajajProposalComponent implements OnInit {
 
   ngOnInit() {
 
+      // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+      // console.log(this.lifePremiumList, 'kjhgdhgh');
     this.paIdList();
     this.ageProof();
     this.maritalStatus();
@@ -979,9 +984,9 @@ export class LifeBajajProposalComponent implements OnInit {
     alert();
     console.log(this.lifeBajajProposal.enquiry_id,'0987');
     const data = {
-      "user_id": "0",
-      "role_id": "4",
-      "pos_status": "0",
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": "79",
       "suminsured_id": "2",
