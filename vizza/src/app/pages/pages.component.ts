@@ -27,11 +27,16 @@ export class PagesComponent implements OnInit {
   public scrolledContent:any;
   public breadcrumbHome: boolean;
   public userId: any;
+  public mHorizontal: any;
 
   constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService){
     this.settings = this.appSettings.settings;
     this.breadcrumbHome = true;
     this.userId = 0;
+    this.mHorizontal = true;
+    this.settings.menu = 'vertical';
+    this.settings.sidenavIsOpened = true;
+    this.settings.sidenavIsPinned = true;
   }
   
   ngOnInit() {
@@ -46,12 +51,13 @@ export class PagesComponent implements OnInit {
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
     }
+    // if(window.innerWidth >= 768){
+    //   this.settings.menu = 'horizontal';
+    //   this.settings.sidenavIsOpened = true;
+    //   this.settings.sidenavIsPinned = true;
+    // }
 
-      if(window.innerWidth >= 768){
-          this.settings.menu = 'horizontal';
-          this.settings.sidenavIsOpened = true;
-          this.settings.sidenavIsPinned = true;
-      }
+
     this.menuOption = this.settings.menu; 
     this.menuTypeOption = this.settings.menuType; 
     this.defaultMenu = this.settings.menu;
@@ -69,7 +75,7 @@ export class PagesComponent implements OnInit {
   ngAfterViewInit(){
     setTimeout(() => { this.settings.loadingSpinner = false }, 300)  
     this.router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) { 
+      if (event instanceof NavigationEnd) {
         if(!this.settings.sidenavIsPinned){
           this.sidenav.close(); 
         }      
@@ -78,6 +84,7 @@ export class PagesComponent implements OnInit {
         } 
       }                
     });
+
     if(this.settings.menu == "horizantal")
       this.menuService.expandActiveSubMenu(this.menuService.getHorizontalMenuItems());
   }
@@ -138,8 +145,11 @@ export class PagesComponent implements OnInit {
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
       this.settings.menu = 'vertical'
+      this.mHorizontal = false;
     }
+
     else{
+      this.mHorizontal = true;
       (this.defaultMenu == 'horizontal') ? this.settings.menu = 'horizontal' : this.settings.menu = 'vertical'
       this.settings.sidenavIsOpened = true;
      this.settings.sidenavIsPinned = true;

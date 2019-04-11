@@ -664,7 +664,7 @@
     <div class="sticky-top">
         <mat-card style="background-color: antiquewhite;">
             <div class="row">
-                <div class="col">
+                <div class="col-6">
                     <mat-form-field class="w-100">
                         <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
                         <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
@@ -680,7 +680,7 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col">
+                <div class="col-6">
                     <mat-form-field class="w-100" >
                         <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
                         <mat-select [(ngModel)]="selectedAmountP" (change)="updateSumInsured()">
@@ -739,15 +739,15 @@
             </div>
         </div>
 
-        <div class="row">
+        <div class="row text-center">
 
 
-            <div class="col pr-0">
-                <button mat-raised-button class="w-100" [hidden]="plists.compare"  (click)="compareDetails(plists, i)">Add to Compare</button>
-                <button mat-raised-button disabled class="w-100"  *ngIf="plists.compare">Add to Compare</button>
+            <div class="col-4 pr-0">
+                <button mat-raised-button class="w-100" [hidden]="plists.compare"  (click)="compareDetails(plists, i)">Compare</button>
+                <button mat-raised-button disabled class="w-100"  *ngIf="plists.compare">Compare</button>
                </div>
-            <div class="col p-0"><button mat-raised-button  class="w-100" style="cursor: pointer;" (click)="viewKeyList(plists)">See Details</button></div>
-            <div class="col pl-0"><button mat-raised-button  class="w-100" style="background-color: #28a745; color:#ffffff;" (click)="buyProduct(plists)">Buy Now</button></div>
+            <div class="col-4 p-0"><button mat-raised-button  class="w-100" style="cursor: pointer;" (click)="viewKeyList(plists)">See Details</button></div>
+            <div class="col-4 pl-0"><button mat-raised-button  class="w-100" style="background-color: #28a745; color:#ffffff;" (click)="buyProduct(plists)">Buy Now</button></div>
         </div>
 
     </mat-card>
