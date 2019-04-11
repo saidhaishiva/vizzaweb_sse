@@ -297,69 +297,7 @@
                     </div>
                   </div>
 
-                    <div class="col-md-12 box-card pt-3">
-                        <div class="row">
-                            <h6 class="color-blue ml-3">University Details</h6>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Course Name" formControlName="personalCourseName"  (keypress)="nameValidate($event)"  autocomplete="off">
-                                </mat-form-field>
-                          </div>
-                          <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Tuition Fees Per Sem" formControlName="personalTutionFeePerSem" maxlength="25"  (keypress)="numberValidate($event)"  autocomplete="off">
-                                </mat-form-field>
-                          </div>
-                          <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="No Of Sems" formControlName="personalNoOfSems" maxlength="2"  (keypress)="numberValidate($event)"  autocomplete="off">
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="University Name" formControlName="personalUniversityName"  (keypress)="nameValidate($event)"  autocomplete="off">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Email ID"   formControlName="personalUniversityEmail"  autocomplete="off">
-                                    <mat-error *ngIf="personal.controls.personalUniversityEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Mobile No" formControlName="personalUniversityMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Phone No" formControlName="personalUniversityPhoneNo" maxlength="12" minlength="12" (keypress)="numberValidate($event)"  autocomplete="off">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Fax" formControlName="personalUniversityFax" (keypress)="numberValidate($event)"   maxlength="11" autocomplete="off">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field  class="w-100">
-                                    <input matInput placeholder="City" formControlName="personalUniversityCity" autocomplete="off" [readonly]="inputBurglaryReadonly">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="State" formControlName="personalUniversityState" autocomplete="off" [readonly]="inputBurglaryReadonly" >
-                                </mat-form-field>
-                            </div>
-                            <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Country Name" formControlName="personalUniversityCountry" [readonly]="inputBurglaryReadonly" autocomplete="off">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
+
 
                   <div class="col-md-12 box-card pt-3">
                     <div class="row">
@@ -450,7 +388,71 @@
                     </div>
                   </div>
 
-                  <div class="col-md-12 box-card pt-3">
+                  <div class="col-md-12 box-card pt-3" *ngIf="personal['controls'].occupation.value == '36'" >
+                    <div class="row">
+                      <h6 class="color-blue ml-3">University Details</h6>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Course Name" formControlName="personalCourseName"  (keypress)="nameValidate($event)"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Tuition Fees Per Sem" formControlName="personalTutionFeePerSem" maxlength="25"  (keypress)="numberValidate($event)"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="No Of Sems" formControlName="personalNoOfSems" maxlength="2"  (keypress)="numberValidate($event)"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="University Name" formControlName="personalUniversityName"  (keypress)="nameValidate($event)"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Email ID"   formControlName="personalUniversityEmail"  autocomplete="off">
+                          <mat-error *ngIf="personal.controls.personalUniversityEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Mobile No" formControlName="personalUniversityMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Phone No" formControlName="personalUniversityPhoneNo" maxlength="12" minlength="12" (keypress)="numberValidate($event)"  autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Fax" formControlName="personalUniversityFax" (keypress)="numberValidate($event)"   maxlength="11" autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field  class="w-100">
+                          <input matInput placeholder="City" formControlName="personalUniversityCity" autocomplete="off" [readonly]="inputBurglaryReadonly">
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="State" formControlName="personalUniversityState" autocomplete="off" [readonly]="inputBurglaryReadonly" >
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Country Name" formControlName="personalUniversityCountry" [readonly]="inputBurglaryReadonly" autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12 box-card pt-3" *ngIf="personal['controls'].occupation.value == '36'" >
                     <div class="row">
                       <h6 class="color-blue ml-3">Sponsor Details</h6>
                       <div class="text-right w-50">
@@ -706,7 +708,7 @@
           </mat-accordion>
         </mat-step>
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>INSURER DETAILS</ng-template>
+          <ng-template matStepLabel>INSURED DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="relianceInsuredTravel">
               <div formArrayName="items" *ngFor="let item of relianceInsuredTravel.get('items')['controls']; let i = index;">
@@ -823,7 +825,7 @@
                             </mat-form-field>
                           </div>
                           <div class="col-md-12 box-card pt-3">
-                            <h6 class="color-blue">Medication DETAILS</h6>
+                            <h6 class="color-blue">MEDICATION DETAILS</h6>
                             <div class="row">
                               <div class="col-md-3">
                                 <p>Is Under Medication</p>
@@ -1118,7 +1120,7 @@
                               </div>
                               <!--List Of Travel Cover Details-->
                               <div class="col-md-6 box-card pt-3 pb-3">
-                                  <h6 class="color-blue">Last Of Travel Cover Details</h6>
+                                  <h6 class="color-blue">List Of Travel Cover Details</h6>
                                     <div class="row col-md-12">
                                         <div class="col-md-8">
                                             1.Travel Coverage
