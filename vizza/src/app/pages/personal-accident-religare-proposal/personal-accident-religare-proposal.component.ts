@@ -1,4 +1,4 @@
- import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
+import {Component, Inject, LOCALE_ID, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {HealthService} from '../../shared/services/health.service';
 import {DatePipe} from '@angular/common';
@@ -146,6 +146,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     currentStep: any;
     RediretUrlLink: any;
     city: any;
+    insureNameQ: any;
     personalcity: any;
     proposerDataForm: any;
     personalDescriptionclassPA: boolean;
@@ -161,7 +162,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     addressPr: boolean;
     addressPC: boolean;
     insuredDescriptionValidator: boolean;
-
+    codeList: boolean;
+    questionId : any;
     constructor(private fb: FormBuilder, public proposalservice: HealthService, public route: ActivatedRoute, public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -210,6 +212,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.proposerInsureData = [];
         this.questions_list = [];
         this.arr = [];
+        this.questionId = [];
         this.personalAccidentQuestionsList = [];
         this.occupationFirst = true;
         this.occupationSecond = false;
@@ -222,6 +225,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.insureoccupationClass = false;
         this.readonlyproposer = false;
         this.insuredDescriptionValidator = false;
+        this.codeList = false;
 
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
@@ -633,10 +637,6 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
 
         }
     }
-
-
-
-
     ageCalculate(dob) {
         let today = new Date();
         let birthDate = new Date(dob);
@@ -1052,35 +1052,76 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     public religareQuestionsSuccess(successData) {
        // if (sessionStorage.proposal3Detail == '' && sessionStorage.proposal3Detail == undefined) {
             this.personalAccidentQuestionsList = successData.ResponseObject;
+            console.log(this.personalAccidentQuestionsList,'this.personalAccidentQuestionsList');
             for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
-                this.personalAccidentQuestionsList[i].checked = false;
-            }
-     //   }
+            // this.religareTravelQuestionsList[i].main_qustion = '0';
+            this.personalAccidentQuestionsList[i].checked = false;
+            this.personalAccidentQuestionsList[i].status = 'No';
+            this.personalAccidentQuestionsList[i].fieldValue = '';
+        }
+        for (let i = 0; i < this.personalAccidentQuestionsList[1].sub_questions_list.length; i++) {
+            this.personalAccidentQuestionsList[1].sub_questions_list[i].fieldValue = '';
+            this.personalAccidentQuestionsList[1].sub_questions_list[i].checked = false;
+            this.personalAccidentQuestionsList[1].sub_questions_list[i].status = 'No';
+        }
 
 
     }
     public religareQuestionsFailure(error) {
     }
+    questionYes(id, value: any) {
+        if (value.checked) {
+            this.personalAccidentQuestionsList[id].checked = true;
+            for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
+                // if(this.personalAccidentQuestionsList[i].question_code == 'P003') {
+                // } else {
+                // }
+            }
+        } else {
+            this.personalAccidentQuestionsList[id].checked = false;
 
+        }
+    }
 // Medical
     medicalHistoryDetails(stepper: MatStepper) {
         sessionStorage.proposal3Detail = '';
         sessionStorage.proposal3Detail = JSON.stringify(this.personalAccidentQuestionsList);
         this.partyQuestionDOList = [];
-        let count = 0;
-        for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
-           // if (this.personalAccidentQuestionsList[i].checked == true) {
-                count ++;
-                this.partyQuestionDOList.push({'questionCd':this.personalAccidentQuestionsList[i].question_code, 'questionSetCd':this.personalAccidentQuestionsList[i].question_set_code, 'response': this.personalAccidentQuestionsList[i].checked ? 'YES' : 'NO' });
-          //  }
-        }
-        if (count == 5) {
-            stepper.next();
-            this.nextStep();
+        stepper.next();
+        this.topScroll();
+        this.nextStep();
+        let setMainRes = '';
+        let setSubRes = '';
 
-        } else {
-            this.toastr.error('All the Question are mandatory')
+        for (let i = 0; i < this.personalAccidentQuestionsList.length; i++) {
+            if(this.personalAccidentQuestionsList[i].field_type == 'textbox') {
+                setMainRes =  this.personalAccidentQuestionsList[i].fieldValue;
+            } else if(this.personalAccidentQuestionsList[i].field_type == 'checkbox') {
+                setMainRes =  this.personalAccidentQuestionsList[i].checked ? 'YES' : 'NO';
+            }
+            this.partyQuestionDOList.push({
+                'questionCd': this.personalAccidentQuestionsList[i].question_code,
+                'questionSetCd': this.personalAccidentQuestionsList[i].question_set_code,
+                'response': setMainRes
+
+            });
         }
+
+        for (let i = 0; i < this.personalAccidentQuestionsList[1].sub_questions_list.length; i++) {
+            if(this.personalAccidentQuestionsList[1].sub_questions_list[i].field_type == 'textbox') {
+                setSubRes =  this.personalAccidentQuestionsList[1].sub_questions_list[i].fieldValue;
+            } else if(this.personalAccidentQuestionsList[1].sub_questions_list[i].field_type == 'checkbox') {
+                setSubRes =  this.personalAccidentQuestionsList[1].sub_questions_list[i].checked ? 'YES' : 'NO';
+            }
+            this.partyQuestionDOList.push({
+                'questionCd': this.personalAccidentQuestionsList[1].sub_questions_list[i].question_code,
+                'questionSetCd': this.personalAccidentQuestionsList[1].sub_questions_list[i].question_set_code,
+                'response': setSubRes
+
+            });
+        }
+
+
 
     }
 

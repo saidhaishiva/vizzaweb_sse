@@ -42,8 +42,6 @@ export class BikeShriramProposalComponent implements OnInit {
   public titleList: any;
   public policyTypeList: any;
   public proposalTypeList: any;
-  public electrical: boolean;
-  public nonelectrical: boolean;
   public finance: boolean;
   public claimDetails: any;
   public claimList: boolean;
@@ -57,6 +55,10 @@ export class BikeShriramProposalComponent implements OnInit {
   public previousFormData : any;
   public nomineeFormData : any;
   public buyBikeDetails : any;
+  public pincodeState : any;
+  public pincodeCity : any;
+  public pincodeHypoList : any;
+  public previousDateError : any;
     constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -72,8 +74,6 @@ export class BikeShriramProposalComponent implements OnInit {
     this.insuredAgeP = '';
     this.maxStartdate = '';
     this.pannumberP = false;
-    this.electrical = false;
-    this.nonelectrical = false;
     this.finance = false;
     this.claimList = false;
     this.apponiteeList = false;
@@ -107,6 +107,8 @@ export class BikeShriramProposalComponent implements OnInit {
       electricalAccessSI: '',
       nonElectricalAccess: '',
       nonElectricalAccessSI: '',
+      paforUnnamed: '',
+      paforUnnamedSI: '',
       hypothecationType: '',
       hypothecationAddress1: '',
       hypothecationAddress2: '',
@@ -116,16 +118,20 @@ export class BikeShriramProposalComponent implements OnInit {
       lltoPaidDriver: '',
       addonPackage:'',
       hypothecationBankName:'',
+      pincode:'',
+      state:'',
+      city:'',
     });
     this.previousInsure = this.fb.group({
       policyNumber: '',
-      previousInsure: '',
+      previousInsured: '',
       policyUwYear: '',
       policySi: '',
       previousPolicyType: '',
       policyNilDescription: '',
       previousPolicyNcb: '',
-      policyClaim: ''
+      policyClaim: '',
+      previousdob:'',
 
     });
 
@@ -142,15 +148,15 @@ export class BikeShriramProposalComponent implements OnInit {
   ngOnInit() {
       this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
-    this.changeGender();
-     this.changehypothecation();
-     this.policyType();
-     this.proposalType();
-     this.addonPackage();
-    this.previousInsureType();
-    this.claimpercent();
-    this.nomineeRelationShip();
-     this.sessionData();
+         this.changeGender();
+         this.changehypothecation();
+         this.policyType();
+         this.proposalType();
+         this.addonPackage();
+         this.previousInsureType();
+         this.claimpercent();
+         this.nomineeRelationShip();
+         this.sessionData();
   }
 
 
@@ -255,10 +261,25 @@ export class BikeShriramProposalComponent implements OnInit {
               if (successData.IsSuccess) {
                 this.pincodeList = successData.ResponseObject;
                 console.log(this.pincodeList,'jhgfdghj');
-                this.proposer.controls['state'].patchValue(this.pincodeList.state);
-                this.proposer.controls['city'].patchValue(this.pincodeList.city_village_name);
+                for(let key in this.pincodeList.state) {
+                    this.pincodeState = key;
+                    console.log(key);
+                    console.log(this.pincodeList['state'][key]);
+
+                    console.log(this.pincodeState, 'kjhfgdghj');
+                    this.proposer.controls['state'].patchValue(this.pincodeList['state'][key]);
+                }
+                  for(let key in this.pincodeList.city) {
+                      this.pincodeCity = key;
+                      console.log(key);
+                      console.log(this.pincodeList['state'][key]);
+
+                      this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
+                  }
+
+                }
               }
-            }
+
 
             public pinProposerListFailure(error) {
             }
@@ -400,23 +421,39 @@ export class BikeShriramProposalComponent implements OnInit {
         public hypothecationFailure(error) {
         }
 
-      electricalType(value){
-          if(value.checked){
-            this.electrical = true;
-          } else{
-            this.electrical = false;
-
-          }
-      }
-      nonelectricalType(value){
-        if(value.checked){
-          this.nonelectrical = true;
-        } else{
-          this.nonelectrical = false;
-
+        // hypo pincode
+    getHypoPostalCode(pin) {
+        const data = {
+            'platform': 'web',
+            'pin_code': pin
+        };
+        console.log(data,'jhgjh');
+        if (pin.length == 6) {
+            this.bikeInsurance.getHypoPincodeList(data).subscribe(
+                (successData) => {
+                    this.pinListSuccess(successData);
+                },
+                (error) => {
+                    this.pinListFailure(error);
+                }
+            );
         }
-      }
-  financeType(value){
+    }
+
+    public pinListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.pincodeHypoList = successData.ResponseObject;
+            this.vehical.controls['state'].patchValue(this.pincodeHypoList.HypothecationState);
+                this.vehical.controls['city'].patchValue(this.pincodeHypoList.HypothecationCity);
+        }
+    }
+
+
+    public pinListFailure(error) {
+    }
+
+
+    financeType(value){
     if(value.checked){
       this.finance = true;
     } else{
@@ -470,6 +507,24 @@ export class BikeShriramProposalComponent implements OnInit {
         public claimFailure(error) {
         }
 
+
+        // from date
+    addEventPrevious(event, type) {
+        if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.previousDateError = '';
+                } else {
+                    this.previousDateError = 'Enter Valid Date';
+                }
+            }
+            //sessionStorage.insuredAgePA = this.bikeProposerAge;
+
+        }
+    }
   previousInsureType() {
         const data = {
           'platform': 'web',
@@ -566,7 +621,7 @@ export class BikeShriramProposalComponent implements OnInit {
 
   proposal(stepper) {
       alert();
-      console.log(this.bikeEnquiryDetails.enquiry_id,'0987');
+      console.log( this.vehical.controls['addonPackage'].value,'0987');
       const data = {
           'platform': 'web',
           'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -622,11 +677,11 @@ export class BikeShriramProposalComponent implements OnInit {
               "BreakIn": "NO",
               "AddonPackage": this.vehical.controls['addonPackage'].value,
               "NilDepreciationCoverYN": this.vehical.controls['addonPackage'].value == true ? '1' : '0',
-              "PAforUnnamedPassengerYN": "0",
-              "PAforUnnamedPassengerSI": "",
-              "ElectricalaccessYN": this.vehical.controls['addonPackage'].value == true ? '1' : '0',
+              "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
+              "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value == true ? this.vehical.controls['paforUnnamedSI'].value == true :'',
+              "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
               "ElectricalaccessSI": this.vehical.controls['electricalAccessSI'].value ? this.vehical.controls['electricalAccessSI'].value : '',
-              "NonElectricalaccessYN": this.vehical.controls['addonPackage'].value == true ? '1' : '0',
+              "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
               "NonElectricalaccessSI": this.vehical.controls['nonElectricalAccessSI'].value ? this.vehical.controls['nonElectricalAccessSI'].value : '',
               "PAPaidDriverConductorCleanerYN": "0",
               "PAPaidDriverConductorCleanerSI": "",
@@ -703,14 +758,14 @@ export class BikeShriramProposalComponent implements OnInit {
         title: stepper1.title,
         name: stepper1.name,
         gender:stepper1.gender,
-        dob : stepper1.dob,
+        dob :  this.datepipe.transform(stepper1.dob, 'y-MM-dd'),
         email:stepper1.email,
         mobile: stepper1.mobile,
         pincode: stepper1.pincode,
         alterMobile : stepper1.alterMobile,
-        fax: stepper1.personalFax,
-        pan: stepper1.proposerPan,
-        gst: stepper1.proposerGst,
+        fax: stepper1.fax,
+        pan: stepper1.pan,
+        gst: stepper1.gst,
         address: stepper1.address,
         address2: stepper1.address2,
         address3: stepper1.address3,
@@ -731,6 +786,8 @@ export class BikeShriramProposalComponent implements OnInit {
         nonElectricalAccess:stepper2.nonElectricalAccess,
         nonElectricalAccessSI: stepper2.nonElectricalAccessSI,
         hypothecationType: stepper2.hypothecationType,
+        paforUnnamed: stepper2.paforUnnamed,
+        paforUnnamedSI: stepper2.paforUnnamedSI,
         hypothecationAddress1:stepper2.hypothecationAddress1,
         hypothecationAddress2: stepper2.hypothecationAddress2,
         hypothecationAddress3:stepper2.hypothecationAddress3,
@@ -739,6 +796,9 @@ export class BikeShriramProposalComponent implements OnInit {
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
+        pincode:stepper2.pincode,
+        state:stepper2.state,
+        city:stepper2.city,
       });
 
     }
@@ -746,13 +806,14 @@ export class BikeShriramProposalComponent implements OnInit {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
-        previousInsure: stepper3.previousInsure,
+        previousInsured: stepper3.previousInsured,
         policyUwYear: stepper3.policyUwYear,
         policySi: stepper3.policySi,
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
         previousPolicyNcb:stepper3.previousPolicyNcb,
-        policyClaim: stepper3.policyClaim
+        policyClaim: stepper3.policyClaim,
+        previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd')
       });
 
     }
