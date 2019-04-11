@@ -204,7 +204,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].type.patchValue(this.insureReligarePerson[i].type);
             }
             this.RelationShipListTravel();
-            if (sessionStorage.ReligareTravelDetails3 == '' && sessionStorage.ReligareTravelDetails3 == undefined) {
+            if (sessionStorage.ReligareTravelDetails3 == '' || sessionStorage.ReligareTravelDetails3 == undefined) {
                 this.religareTravelQuestions();
             }
             this.getAddon();
