@@ -132,7 +132,7 @@ export class TravelProposalComponent implements OnInit {
     getAge: any;
     paymentGatewayData: any;
     visaTypeAllList: any;
-    placeOfVisitNames: any;
+    placeOfVisitName: any;
     travelPurposeName: any;
     AcceptDeclaration: boolean;
     areaList: any;
@@ -143,6 +143,7 @@ export class TravelProposalComponent implements OnInit {
     travelEndDate: any;
     currentStep: any;
     getEnquiryDetails: any;
+    gstListType: any;
 
     constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -202,6 +203,8 @@ export class TravelProposalComponent implements OnInit {
             personalCityName: '',
             personalArea: ['', Validators.required],
             personalAreaName: '',
+            personalgstIdType: '',
+            personalAadhar: '',
             personalState: ['', Validators.required],
             personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
@@ -235,6 +238,7 @@ export class TravelProposalComponent implements OnInit {
         this.assigneeRelationship();
         this.travelPurposeList();
         this.getIlnessDetails();
+        this.gstIdList();
         this.visaTypeList();
 
       //  this.enquiryId = sessionStorage.enquiryId;
@@ -406,7 +410,7 @@ export class TravelProposalComponent implements OnInit {
         return Bob_days;
     }
     ageValidationInsurer(i, type) {
-        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 142) {
+        if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 150) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Insurer Date of birth date should be atleast 5 months old');
         } else {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
@@ -537,6 +541,7 @@ export class TravelProposalComponent implements OnInit {
                 personalPincode: this.getStepper1.personalPincode,
                 personalCity: this.getStepper1.personalCity,
                 personalCityName: this.getStepper1.personalCityName,
+                personalAadhar: this.getStepper1.personalAadhar,
                 personalArea: this.getStepper1.personalArea,
                 personalAreaName: this.getStepper1.personalAreaName,
                 personalState: this.getStepper1.personalState,
@@ -545,6 +550,7 @@ export class TravelProposalComponent implements OnInit {
                 personalGst: this.getStepper1.personalGst,
                 travelPurpose: this.getStepper1.travelPurpose,
                 travelPurposeName: this.getStepper1.travelPurposeName,
+                personalgstIdType: this.getStepper1.personalgstIdType,
                 placeOfVisit: '',
                 placeOfVisitName: '',
                 physicianName: this.getStepper1.physicianName,
@@ -610,13 +616,24 @@ export class TravelProposalComponent implements OnInit {
         sessionStorage.stepper1DetailsForTravel = '';
         sessionStorage.stepper1DetailsForTravel = JSON.stringify(value);
         this.personalData = value;
+        console.log(this.personalData,'hgfsdfdsjfg');
+        console.log(this.personal.controls['personalgstIdType'].value,'8809809');
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
         if (this.personal.valid) {
-            if (sessionStorage.proposerAgeForTravel >= 18) {
+            if (sessionStorage.proposerAgeForTravel >= 18 || sessionStorage.proposerAgeForTravel <= 90 ) {
                 if((this.personal.controls['physicianName'].value == '' &&  this.personal.controls['physicianContactNumber'].value == '') || (this.personal.controls['physicianName'].value != '' &&  this.personal.controls['physicianContactNumber'].value != '')){
-                    stepper.next();
-                    this.topScroll();
-                    this.nextStep();
+                    if((this.personal.controls['personalgstIdType'].value == '' && this.personal.controls['personalGst'].value == '') || (this.personal.controls['personalgstIdType'].value != '' && this.personal.controls['personalGst'].value != '')){
+                        stepper.next();
+                        this.topScroll();
+                        this.nextStep();
+
+                    } else {
+                        if(this.personal.controls['personalgstIdType'].value != '' || this.personal.controls['personalGst'].value != ''){
+                            this.toastr.error('Enter GST Number');
+
+                        }
+
+                    }
 
                 } else {
                     if (this.personal.controls['physicianName'].value == '' || this.personal.controls['physicianContactNumber'].value == '') {
@@ -673,6 +690,8 @@ export class TravelProposalComponent implements OnInit {
                 'proposerPhone': this.personalData.personalMobile,
                 'planId': this.getTravelPremiumList.plan_id,
                 'travelPurposeId': this.personalData.travelPurpose,
+                'aadharIdNumber': this.personalData.personalAadhar,
+                'gstType': this.personalData.personalgstIdType,
                 'placeOfVisit': this.personalData.placeOfVisit.toString(),
                 'proposerAddressOne': this.personalData.personalAddress,
                 'proposerAddressTwo': this.personalData.personalAddress2,
@@ -729,7 +748,14 @@ export class TravelProposalComponent implements OnInit {
             this.insuredFormData = this.insureArray.value.items;
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
-
+            console.log(this.proposerFormData,' this.proposerFormData');
+            for(let i=0; i < this.placeOfVisiLists.length; i++){
+                if(this.placeOfVisiLists[i].country_code === this.proposerFormData.placeOfVisit) {
+                    this.proposerFormData.placeOfVisitName = this.placeOfVisiLists[i].country_name;
+                }
+            }
+            console.log( this.proposerFormData.placeOfVisitName,'iuhgdk');
+            console.log(this.proposerFormData.placeOfVisit,'code');
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -821,10 +847,10 @@ export class TravelProposalComponent implements OnInit {
         this.personal.controls['travelPurposeName'].patchValue(this.travelPurposeLists[this.personal.controls['travelPurpose'].value]);
     }
 
-    placePurpose(){
-        this.personal.controls['placeOfVisitName'].patchValue(this.placeOfVisiLists[this.personal.controls['placeOfVisit'].value]);
-
-    }
+    // placePurpose(){
+    //     this.personal.controls['placeOfVisitName'].patchValue(this.placeOfVisiLists[this.personal.controls['placeOfVisit'].value]);
+    //
+    // }
 
 //summary city detail
     getPostalSummary(pin, title) {
@@ -895,6 +921,34 @@ export class TravelProposalComponent implements OnInit {
     }
     public placeOfVisitFailure(error) {
     }
+    gstIdList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.travelservice.getGstId(data).subscribe(
+            (successData) => {
+                this.gstSuccess(successData);
+            },
+            (error) => {
+                this.gstFailure(error);
+            }
+        );
+    }
+    public gstSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.gstListType = successData.ResponseObject;
+            console.log(this.gstListType,'this.gstListType' );
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    public gstFailure(error) {
+    }
+
 
     visaTypeList() {
         const data = {
