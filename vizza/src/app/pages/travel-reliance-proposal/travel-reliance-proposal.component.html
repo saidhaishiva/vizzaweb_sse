@@ -96,7 +96,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" required>
+                          <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" minlength="10" formControlName="personalMobile" autocomplete="off" required>
                           <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
                           <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
@@ -204,7 +204,7 @@
                           </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Country Name" formControlName="personalCountry" (keyup)="typeAddressDeatils()" autocomplete="off" required>
+                              <input matInput placeholder="Country Name" formControlName="personalCountry" (keypress)="nameValidate($event)" (keyup)="typeAddressDeatils()" autocomplete="off" required>
                               <mat-error *ngIf="personal.controls.personalCountry.errors?.required">Country Name is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -288,7 +288,7 @@
                         </div>
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Country Name" formControlName="residenceCountry" [readonly]="inputReadonly" autocomplete="off" required>
+                              <input matInput placeholder="Country Name" formControlName="residenceCountry" (keypress)="nameValidate($event)" [readonly]="inputReadonly" autocomplete="off" required>
                               <mat-error *ngIf="personal.controls.residenceCountry.errors?.required">Country Name is required</mat-error>
                             </mat-form-field>
                           </div>
@@ -382,7 +382,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Country Name" formControlName="personalBurglaryCountry" [readonly]="inputBurglaryReadonly" autocomplete="off">
+                          <input matInput placeholder="Country Name" formControlName="personalBurglaryCountry" (keypress)="nameValidate($event)" [readonly]="inputBurglaryReadonly" autocomplete="off">
                         </mat-form-field>
                       </div>
                     </div>
@@ -446,7 +446,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Country Name" formControlName="personalUniversityCountry" [readonly]="inputBurglaryReadonly" autocomplete="off">
+                          <input matInput placeholder="Country Name" formControlName="personalUniversityCountry" (keypress)="nameValidate($event)" [readonly]="inputBurglaryReadonly" autocomplete="off">
                         </mat-form-field>
                       </div>
                     </div>
@@ -506,7 +506,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Country Name" formControlName="personalSponsorCountry"  autocomplete="off" [readonly]="inputSponsorReadonly">
+                          <input matInput placeholder="Country Name" formControlName="personalSponsorCountry" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputSponsorReadonly">
                         </mat-form-field>
                       </div>
                     </div>
@@ -596,7 +596,7 @@
                             </div>
                             <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                    <input matInput placeholder="Country Name" formControlName="personalCompanyCountry" autocomplete="off">
+                                    <input matInput placeholder="Country Name" formControlName="personalCompanyCountry" (keypress)="nameValidate($event)" autocomplete="off">
                                 </mat-form-field>
                             </div>
                         </div>
@@ -693,7 +693,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Country Name" formControlName="personalDoctorCountry" autocomplete="off">
+                          <input matInput placeholder="Country Name" formControlName="personalDoctorCountry" (keypress)="nameValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
                     </div>
@@ -829,7 +829,7 @@
                             <div class="row">
                               <div class="col-md-3">
                                 <p>Is Under Medication</p>
-                                <mat-radio-group formControlName="IsUnderMedication" >
+                                <mat-radio-group formControlName="IsUnderMedication" (change)="underMedication(i)">
                                   <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
                                   <mat-radio-button value="false">No</mat-radio-button>
                                 </mat-radio-group>
@@ -1573,7 +1573,7 @@
                       <form action={{summaryData.RediretUrlLink}}  method='post' #form>
                           <div class="col-md-12">
                               <div class="proposal-buttom mb-3 text-center w-100">
-                                  <button mat-button matStepperPrevious>Back</button>
+                                  <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                                   <button mat-raised-button color="primaryBlue" [disabled]="!acceptSummaryDeclaration" (click)="form.submit()">Pay Now</button>
                               </div>
                           </div>
@@ -1757,7 +1757,7 @@
                         <div class="col-sm-12 col-xs-12">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="PIN Code" formControlName="personalPincode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"  minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalP')" autocomplete="off" required>
-                            <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                            <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field>
@@ -1834,7 +1834,7 @@
                         <div class="col-sm-12 col-xs-12">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="PIN Code" formControlName="residencePincode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6" [readonly]="inputReadonly"    maxlength="6" (input)="commonPincode($event.target.value, 'proposalR')" autocomplete="off"  required>
-                            <mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                            <!--<mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                             <mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>
                             <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field>
@@ -2002,7 +2002,7 @@
                     <div class="col-sm-12 col-xs-12">
                       <mat-form-field class="w-100">
                         <input matInput placeholder="PIN Code" formControlName="personalBurglaryPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalB')" autocomplete="off" [readonly]="inputBurglaryReadonly">
-                        <mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                        <!--<mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                         <mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field>
                     </div>
@@ -2080,7 +2080,7 @@
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
                         <input matInput placeholder="PIN Code" formControlName="personalSponsorPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalS')" autocomplete="off" [readonly]="inputSponsorReadonly">
-                        <mat-error *ngIf="personal.controls.personalSponsorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                        <!--<mat-error *ngIf="personal.controls.personalSponsorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                         <mat-error *ngIf="personal.controls.personalSponsorPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field>
                     </div>
@@ -2152,7 +2152,7 @@
                     <div class="col-sm-12 col-xs-12">
                       <mat-form-field class="w-100">
                         <input matInput placeholder="PIN Code" formControlName="personalCompanyPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalC')" autocomplete="off">
-                        <mat-error *ngIf="personal.controls.personalCompanyPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                        <!--<mat-error *ngIf="personal.controls.personalCompanyPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                         <mat-error *ngIf="personal.controls.personalCompanyPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field>
                     </div>
@@ -2249,7 +2249,7 @@
                     <div class="col-sm-12 col-xs-12">
                       <mat-form-field class="w-100">
                         <input matInput placeholder="PIN Code" formControlName="personalDoctorPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalD')" autocomplete="off">
-                        <mat-error *ngIf="personal.controls.personalDoctorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                        <!--<mat-error *ngIf="personal.controls.personalDoctorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                         <mat-error *ngIf="personal.controls.personalDoctorPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                       </mat-form-field>
                     </div>
@@ -2463,7 +2463,7 @@
                         </div>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
-                        <button mat-button Previous  (click)="backAll()">Back</button>
+                        <button mat-button Previous  (click)="topScroll()">Back</button>
                         <button mat-raised-button color="primaryBlue"  (click)="relianceInsureDetails(stepper, i, relianceInsuredTravel.value)" >Next</button>
                       </div>
                     </div>
@@ -2815,7 +2815,7 @@
                   <!--</div>-->
                 </div>
                 <div class="proposal-buttom mt-3 text-right w-100">
-                  <button mat-button Previous  (click)="backAll()" >Back</button>
+                  <button mat-button Previous  (click)="topScroll()" >Back</button>
                   <button mat-raised-button color="primaryBlue" (click)="relianceRiskDetails(stepper,riskDetails.value)">Next</button>
                 </div>
                 <!--</div>-->
@@ -3125,7 +3125,7 @@
             <form action={{summaryData.rediretUrlLink}}  method='post' #form>
               <div class="col-md-12">
                 <div class="proposal-buttom mb-3 text-center w-100">
-                  <button mat-button Previous>Back</button>
+                  <button mat-button Previous (click)="topScroll()">Back</button>
                   <button mat-raised-button color="primaryBlue" [disabled]="!acceptSummaryDeclaration" (click)="form.submit()">Pay Now</button>
                 </div>
               </div>
