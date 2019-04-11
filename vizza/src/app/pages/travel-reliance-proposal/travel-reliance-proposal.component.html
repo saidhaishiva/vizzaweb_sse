@@ -1594,9 +1594,9 @@
     <div class="container-fluid">
       <div class="row relianceHealthProposal">
         <div class="col-md-12">
-          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled>
             <mat-expansion-panel-header>
-              <mat-panel-title>PROPOSER DETAILS</mat-panel-title>
+              <mat-panel-title> PROPOSER DETAILS </mat-panel-title>
             </mat-expansion-panel-header>
             <form [formGroup]="personal">
               <div class="row mt-3">
@@ -2291,187 +2291,185 @@
               </div>
           </form>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled>
             <mat-expansion-panel-header>
-              <mat-panel-title>
-                INSURED DETAILS
-              </mat-panel-title>
+              <mat-panel-title> INSURED DETAILS </mat-panel-title>
             </mat-expansion-panel-header>
-            <form [formGroup]="relianceInsuredTravel">
-              <div formArrayName="items" *ngFor="let item of relianceInsuredTravel.get('items')['controls']; let i = index;">
-                <mat-accordion>
-                  <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title> {{relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value}}
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ng-template matStepLabel>INSURED DETAILS </ng-template>
-                    <div class="row mt-3">
-                      <div class="col-sm-12 col-xs-12box-card pt-3">
-                    <h6 class="color-blue">INSURED DETAILS</h6>
-                    <div class="row">
-                      <div class="col-sm-12 col-xs-12 mb-3 pt-2" *ngIf="i == 0">
-                        <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" [required]="i == 0">
-                            <mat-option value="Mr.">Mr</mat-option>
-                            <mat-option value="Ms.">Ms</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Title is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                <mat-accordion class="mt-2">
+                  <form [formGroup]="relianceInsuredTravel">
+                    <div formArrayName="items" *ngFor="let item of relianceInsuredTravel.get('items')['controls']; let i = index;">
+                      <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title> {{relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value}}
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <ng-template matStepLabel>INSURED DETAILS </ng-template>
+                      <div class="row mt-3">
+                        <div class="col-sm-12 col-xs-12box-card pt-3">
+                      <h6 class="color-blue">INSURED DETAILS</h6>
+                      <div class="row">
+                        <div class="col-sm-12 col-xs-12 mb-3 pt-2" *ngIf="i == 0">
+                          <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" [required]="i == 0">
+                              <mat-option value="Mr.">Mr</mat-option>
+                              <mat-option value="Ms.">Ms</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Title is required</mat-error>
+                          </mat-form-field>
+                        </div>
 
-                      <div class="col-sm-12 col-xs-12" *ngIf="i == 1">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Full Name" formControlName="insurespouseFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 1">
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Full  Name is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="i >= 2">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Child Full Name" formControlName="insurechildFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i >= 2">
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Child  Name is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i == 1">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Full Name" formControlName="insurespouseFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 1">
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Full  Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i >= 2">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Child Full Name" formControlName="insurechildFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i >= 2">
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Child  Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
 
 
-                      <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 0" [readonly]="sameValue" >
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">First Name is required</mat-error>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 0" [readonly]="sameValue" >
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">First Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 0" [readonly]="sameValue">
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Last Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Gender" formControlName="personalGender" [required]="i == 0" readonly autocomplete="off">
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Gender is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12"><mat-form-field class="w-100">
+                          <input matInput [max]="minDate" [matDatepicker]="picker12" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i, relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required [readonly]="sameValue">
+                          <mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
+                          <mat-datepicker #picker12></mat-datepicker>
+                          <mat-error *ngIf="relianceInsuredTravel.invalid">Date is required</mat-error>
                         </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 0" [readonly]="sameValue">
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Last Name is required</mat-error>
+                          <p class="error mb-0" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
+                          <p class="error mb-0" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <mat-select  placeholder="Occupation" formControlName="occupation" (change)="selectInsureOccupation(i)"  [disabled]="sameValue" [required]="i == 0">
+                              <mat-option *ngFor="let list of PersonalOccupation | keys " value = '{{list.key}}'> {{list.value}} </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Occupation is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" [readonly]="sameValue" [required]="i == 0">
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Email Id is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12">
+                          <mat-form-field class="w-100">
+                            <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="selectInsureRelationship(i)" required>
+                              <mat-option *ngFor="let lists of Relationship" value="{{lists.insured_id}}" >
+                                {{lists.relation_name}}
+                              </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Relationship is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" ><mat-form-field class="w-100">
+                          <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" autocomplete="off"  (keypress)="idValidate($event)"  required>
+                          <mat-error *ngIf="relianceInsuredTravel.invalid">Pass Port is required</mat-error>
                         </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Gender" formControlName="personalGender" [required]="i == 0" readonly autocomplete="off">
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Gender is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12"><mat-form-field class="w-100">
-                        <input matInput [max]="minDate" [matDatepicker]="picker12" placeholder="DOB (DD/MM/YYYY)"   formControlName="InsDOB" (dateInput)="addEventInsurer($event, i, relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required [readonly]="sameValue">
-                        <mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
-                        <mat-datepicker #picker12></mat-datepicker>
-                        <mat-error *ngIf="relianceInsuredTravel.invalid">Date is required</mat-error>
-                      </mat-form-field>
-                        <p class="error mb-0" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
-                        <p class="error mb-0" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Occupation" formControlName="occupation" (change)="selectInsureOccupation(i)"  [disabled]="sameValue" [required]="i == 0">
-                            <mat-option *ngFor="let list of PersonalOccupation | keys " value = '{{list.key}}'> {{list.value}} </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Occupation is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" [readonly]="sameValue" [required]="i == 0">
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Email Id is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="selectInsureRelationship(i)" required>
-                            <mat-option *ngFor="let lists of Relationship" value="{{lists.insured_id}}" >
-                              {{lists.relation_name}}
-                            </mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Relationship is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" ><mat-form-field class="w-100">
-                        <input matInput placeholder="passport" class="text-uppercase" minlength="8" maxlength="8" formControlName="passport" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" autocomplete="off"  (keypress)="idValidate($event)"  required>
-                        <mat-error *ngIf="relianceInsuredTravel.invalid">Pass Port is required</mat-error>
-                      </mat-form-field>
-                      </div>
-                      <div class="col-md-3" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" [required]="i == 0" [readonly]="sameValue">
-                          <mat-error *ngIf="relianceInsuredTravel.invalid">Mobile Number is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Phone Number"  (keypress)="numberValidate($event)"  maxlength="12" formControlName="personalPhone1" autocomplete="off" [readonly]="sameValue">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Visiting Countries" formControlName="VisitingCountries" (change)="selectInsureVisitingCountries(i)">
-                            <mat-option  *ngFor="let countries of VisitingCountry | keys" value="{{countries.key}}">{{countries.value}}</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-sm-12 col-xs-12 box-card pt-3">
-                        <h6 class="color-blue">Medication DETAILS</h6>
-                        <div class="row">
-                          <div class="col-md-3">
-                            <p>Is Under Medication</p>
-                            <mat-radio-group formControlName="IsUnderMedication" >
-                              <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
-                              <mat-radio-button value="false">No</mat-radio-button>
-                            </mat-radio-group>
-                          </div>
-                          <div class="col-sm-12 col-xs-12" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'">
-                            <mat-form-field class="w-100">
-                              <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness" (change)="selectInsurePreExistingIllness(i)">
-                                <mat-option  *ngFor="let disease of PreExistingIllness | keys" value="{{disease.key}}">{{disease.value}}</mat-option>
-                              </mat-select>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-sm-12 col-xs-12" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'">
-                            <mat-form-field class="w-100">
-                              <input matInput [max]="minDate" [matDatepicker]="picker20" placeholder="Suffering Since (DD/MM/YYYY)"   formControlName="SufferingSince"  (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sufferingDate')"  (dateChange)="addEvent($event, 'sufferingDate')"  minlength="10"  maxlength="10" autocomplete="off" >
-                              <mat-datepicker-toggle matSuffix [for]="picker20"></mat-datepicker-toggle>
-                              <mat-datepicker #picker20></mat-datepicker>
-                            </mat-form-field>
-                            <div class="error" *ngIf="sufferingError != ''">{{sufferingError}}</div>
+                        </div>
+                        <div class="col-md-3" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" [required]="i == 0" [readonly]="sameValue">
+                            <mat-error *ngIf="relianceInsuredTravel.invalid">Mobile Number is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Phone Number"  (keypress)="numberValidate($event)"  maxlength="12" formControlName="personalPhone1" autocomplete="off" [readonly]="sameValue">
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12" *ngIf="i == 0">
+                          <mat-form-field class="w-100">
+                            <mat-select placeholder="Visiting Countries" formControlName="VisitingCountries" (change)="selectInsureVisitingCountries(i)">
+                              <mat-option  *ngFor="let countries of VisitingCountry | keys" value="{{countries.key}}">{{countries.value}}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-sm-12 col-xs-12 box-card pt-3">
+                          <h6 class="color-blue">Medication DETAILS</h6>
+                          <div class="row">
+                            <div class="col-md-3">
+                              <p>Is Under Medication</p>
+                              <mat-radio-group formControlName="IsUnderMedication" >
+                                <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                                <mat-radio-button value="false">No</mat-radio-button>
+                              </mat-radio-group>
+                            </div>
+                            <div class="col-sm-12 col-xs-12" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'">
+                              <mat-form-field class="w-100">
+                                <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness" (change)="selectInsurePreExistingIllness(i)">
+                                  <mat-option  *ngFor="let disease of PreExistingIllness | keys" value="{{disease.key}}">{{disease.value}}</mat-option>
+                                </mat-select>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-sm-12 col-xs-12" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'">
+                              <mat-form-field class="w-100">
+                                <input matInput [max]="minDate" [matDatepicker]="picker20" placeholder="Suffering Since (DD/MM/YYYY)"   formControlName="SufferingSince"  (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sufferingDate')"  (dateChange)="addEvent($event, 'sufferingDate')"  minlength="10"  maxlength="10" autocomplete="off" >
+                                <mat-datepicker-toggle matSuffix [for]="picker20"></mat-datepicker-toggle>
+                                <mat-datepicker #picker20></mat-datepicker>
+                              </mat-form-field>
+                              <div class="error" *ngIf="sufferingError != ''">{{sufferingError}}</div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-sm-12 col-xs-12 box-card pt-3">
-                        <h6 class="color-blue">NOMINEE DETAILS</h6>
-                        <div class="row">
-                          <div class="col-sm-12 col-xs-12">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Name of Nominee"  formControlName="nomineeName" (keypress)="nameValidate($event)" autocomplete="off" required>
-                              <mat-error *ngIf="relianceInsuredTravel.invalid">Name of Nominee is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-sm-12 col-xs-12">
-                            <mat-form-field class="w-100">
-                              <mat-select placeholder="Relationship with Proposer" formControlName="nomineeRelationship" (change)="selectInsureNomineeRelationship(i)" required>
-                                <mat-option  *ngFor="let relation of Relationship"  value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
-                            </mat-form-field>
+                        <div class="col-sm-12 col-xs-12 box-card pt-3">
+                          <h6 class="color-blue">NOMINEE DETAILS</h6>
+                          <div class="row">
+                            <div class="col-sm-12 col-xs-12">
+                              <mat-form-field class="w-100">
+                                <input matInput placeholder="Name of Nominee"  formControlName="nomineeName" (keypress)="nameValidate($event)" autocomplete="off" required>
+                                <mat-error *ngIf="relianceInsuredTravel.invalid">Name of Nominee is required</mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-sm-12 col-xs-12">
+                              <mat-form-field class="w-100">
+                                <mat-select placeholder="Relationship with Proposer" formControlName="nomineeRelationship" (change)="selectInsureNomineeRelationship(i)" required>
+                                  <mat-option  *ngFor="let relation of Relationship"  value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
+                              </mat-form-field>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
-                        <button mat-button Previous  (click)="backAll()">Back</button>
-                        <button mat-raised-button color="primaryBlue"  (click)="relianceInsureDetails(stepper, i, relianceInsuredTravel.value)" >Next</button>
+                        <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
+                          <button mat-button Previous  (click)="backAll()">Back</button>
+                          <button mat-raised-button color="primaryBlue"  (click)="relianceInsureDetails(stepper, i, relianceInsuredTravel.value)" >Next</button>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                      </div>
-                  </mat-expansion-panel>
+                        </div>
+                    </mat-expansion-panel>
+                    </div>
+                  </form>
                 </mat-accordion>
-              </div>
-            </form>
           </mat-expansion-panel>
 
 
-      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled>
         <mat-expansion-panel-header>
           <mat-panel-title>
             RISK DETAILS
@@ -2822,7 +2820,7 @@
 
 
         <!--{{summaryData | json}}iuiy-->
-      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle >
+      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled>
         <mat-expansion-panel-header>
           <mat-panel-title>
             SUMMARY

@@ -138,8 +138,6 @@ export class TravelRelianceProposalComponent implements OnInit {
   public riskFormData: any;
   public step: any;
 
-
-
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public travelservice: TravelService) {
     const minDate = new Date();
@@ -427,6 +425,22 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.sessionData();
   }
 
+  setStep(index) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+  backAll(){
+    this.topScroll();
+    this.prevStep();
+  }
+
   initItemRows() {
     return this.fb.group(
         {
@@ -478,6 +492,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     if (this.personal.valid) {
       if (sessionStorage.personalAge >= 18) {
         stepper.next();
+        this.topScroll();
         this.nextStep();
       }else {
         this.toastr.error('Proposer age should be 18 or above');
@@ -559,7 +574,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if(!ageValidate.includes(1)){
           stepper.next();
-        this.nextStep();
+          this.topScroll();
+          this.nextStep();
         } else {
           this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -836,6 +852,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess == true) {
       stepper.next();
+      this.topScroll();
       this.nextStep();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
@@ -1483,23 +1500,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
   }
 
-  setStep(index) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-
-
-  backAll(){
-    this.topScroll();
-    this.prevStep();
-  }
   relianceOccupation() {
     const data = {
       'platform': 'web',
