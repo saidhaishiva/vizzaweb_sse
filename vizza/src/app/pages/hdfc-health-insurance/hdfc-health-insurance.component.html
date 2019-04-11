@@ -510,7 +510,7 @@
     <div class="row hdfcHealthProposal">
       <div class="col-md-12">
         <mat-accordion>
-          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title> PROPOSER DETAILS</mat-panel-title>
             </mat-expansion-panel-header>
@@ -649,7 +649,7 @@
               </div>
             </form>
           </mat-expansion-panel>
-          <mat-expansion-panel   [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel   [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 INSURED DETAILS
@@ -769,7 +769,7 @@
               <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, hdfcInsureArray.value)">Next</button>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 NOMINEE DETAILS
@@ -808,7 +808,7 @@
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 SUMMARY DETAILS

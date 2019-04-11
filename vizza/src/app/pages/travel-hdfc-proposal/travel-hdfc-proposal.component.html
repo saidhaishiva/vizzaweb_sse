@@ -72,7 +72,7 @@
                         <input matInput placeholder="GST"   formControlName="gst"  autocomplete="off"  maxlength="15" minlength="15"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$" (keypress)="idValidate($event)" >
                         <mat-error *ngIf="hdfcTravel.controls.gst.errors?.required">GST is required</mat-error>
                         <mat-error *ngIf="hdfcTravel.controls.gst.hasError('pattern')">Enter Valid  GST</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.gst.hasError('minlength')">GST isn't long enough, minimum of 15 Digits</mat-error>
+                        <!--<mat-error *ngIf="hdfcTravel.controls.gst.hasError('minlength')">GST isn't long enough, minimum of 15 Digits</mat-error>-->
 
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
@@ -229,7 +229,7 @@
 
         <mat-step [stepControl]="">
 
-          <ng-template matStepLabel >INSURER DETAILS</ng-template>
+          <ng-template matStepLabel >INSURED DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="hdfcInsuredTravel">
               <div formArrayName="items" *ngFor="let item of hdfcInsuredTravel.get('items')['controls']; let i = index;let last = last;">
@@ -395,7 +395,7 @@
                     <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                   </div>
                   <div class="col-md-6">
-                    <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit" class="p-2"> {{lists}}</span></span></h4>
+                    <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">/</span> </span></span></h4>
                   </div>
                 </div>
               </div>
@@ -454,8 +454,8 @@
                       <li class="list-group-item" *ngIf="proposerFormData.declineReson != ''"><strong>Decline Reson:</strong> {{proposerFormData.declineReson}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.restrictionbyinsurancedetails != ''"><strong>Restriction By Insurance Reson:</strong> {{proposerFormData.restrictionbyinsurancedetails}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.physicianName != ''"><strong>Physician Name :</strong> {{proposerFormData.physicianName}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>Physician Name :</strong> {{proposerFormData.gst}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.physicianMobile != ''"><strong>Physician Mobile Number :</strong> {{proposerFormData.physicianMobile}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>GST Number :</strong> {{proposerFormData.gst}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.physicianMobile != ''"><strong>Physician Mobile :</strong> {{proposerFormData.physicianMobile}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.stdcode != ''"><strong>STD Code:</strong> {{proposerFormData.stdcode}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.telephoneNo != ''"><strong>Telephone Number:</strong> {{proposerFormData.telephoneNo}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.stdcodeoffice != ''"><strong>Office STD Code:</strong> {{proposerFormData.stdcodeoffice}}</li>
@@ -541,7 +541,7 @@
             </div>
             <p class="mt-4 pl-1"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
             <hr>
-            <div *ngIf="mobileView">
+            <div *ngIf="!mobileView">
             <div class="row" *ngIf="summaryData">
               <div class="col-md-12 text-center">
                 <form action={{summaryData.PaymentActionUrl}}  method='POST' #form>
@@ -587,7 +587,7 @@
   <div class="container-fluid">
     <div class="row hdfcHealthProposal">
       <div class="col-md-12">
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               PROPOSER DETAILS
@@ -810,7 +810,7 @@
 
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               INSURED DETAILS
@@ -916,7 +916,7 @@
         </mat-expansion-panel>
 
 
-            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+            <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   NOMINEE DETAILS
@@ -956,7 +956,7 @@
               </div>
             </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               SUMMARY
