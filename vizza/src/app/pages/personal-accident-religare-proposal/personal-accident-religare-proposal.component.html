@@ -487,21 +487,25 @@
                               <div class="row col-md-12" *ngFor="let items of personalAccidentQuestionsList;let i = index ">
                                   <div class="col-md-8">
                                       <p>{{i+1}}. {{items.question}} </p>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <b *ngIf="items.checked == false"> No</b>
+                                      <b *ngIf="items.checked != false"> Yes</b>
+                                  </div>
                                       <div *ngIf="items.checked">
                                           <div class="" *ngIf="items.checked">
                                               <div class="row col-md-12" *ngFor="let list of items.sub_questions_list; let si = index;">
-                                                  <div class="col-md-6">
                                                       <p>{{si+1}}. {{list.question}} </p>
-                                                  </div>
-                                                  <div class=" col-md-12" *ngIf="list.field_type == 'textbox'">
-                                                      <mat-form-field class="w-50" >
-                                                          <input matInput placeholder="{{list.question_name}}"  [(ngModel)]="list.fieldValue" name="fieldValue" >
-                                                      </mat-form-field>
-                                                  </div>
+                                              </div>
+                                              <div class=" col-md-12" *ngIf="list.field_type == 'textbox'">
+                                                  <mat-form-field class="w-50" >
+                                                      <input matInput placeholder="{{list.question_name}}"  [(ngModel)]="list.fieldValue" name="fieldValue" >
+                                                  </mat-form-field>
                                               </div>
                                           </div>
                                       </div>
-                                  </div>
+                                </div>
+
 
 
 
@@ -511,7 +515,7 @@
                           </div>
                       </div>
                   </div>
-              </div>
+
 
 
             <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>

@@ -197,29 +197,32 @@
                                                 <mat-checkbox  formControlName="nilDepreciationCover">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
                                             <div class="row">
-                                                <mat-checkbox  formControlName="electricalAccess" (change)="electricalType($event)">electricalAccess</mat-checkbox>
-                                                    <div class="col-md-6" *ngIf="electrical">
+                                                <div class="col-md-6">
+                                                <mat-checkbox  formControlName="electricalAccess">electricalAccess</mat-checkbox>
+                                                </div>
+                                                    <div class="col-md-6" *ngIf="vehical.controls['electricalAccess'].value == '1'">{{vehical.controls['electricalAccess'].value}}
                                                 <mat-form-field class="w-100">
-
-                                                <mat-select placeholder="Electrical Access SI"  formControlName="electricalAccessSI">
-                                                    <mat-option value="10000"> 10,000 </mat-option>
-                                                    <mat-option value="20000"> 20,000 </mat-option>
-                                                    <mat-option value="30000"> 30,000 </mat-option>
-                                                    <mat-option value="40000"> 40,000 </mat-option>
-                                                    <mat-option value="50000"> 50,000 </mat-option>
-                                                    <mat-option value="60000"> 60,000 </mat-option>
-                                                    <mat-option value="70000"> 70,000 </mat-option>
-                                                    <mat-option value="80000"> 80,000 </mat-option>
-                                                    <mat-option value="90000"> 90,000 </mat-option>
-                                                </mat-select>
+                                                    <mat-select placeholder="Electrical Access SI"  formControlName="electricalAccessSI">
+                                                        <mat-option value="10000"> 10,000 </mat-option>
+                                                        <mat-option value="20000"> 20,000 </mat-option>
+                                                        <mat-option value="30000"> 30,000 </mat-option>
+                                                        <mat-option value="40000"> 40,000 </mat-option>
+                                                        <mat-option value="50000"> 50,000 </mat-option>
+                                                        <mat-option value="60000"> 60,000 </mat-option>
+                                                        <mat-option value="70000"> 70,000 </mat-option>
+                                                        <mat-option value="80000"> 80,000 </mat-option>
+                                                        <mat-option value="90000"> 90,000 </mat-option>
+                                                    </mat-select>
                                                     </mat-form-field>
 
                                             </div>
                                             </div>
 
                                         <div class="row">
-                                                <mat-checkbox  formControlName="nonElectricalAccess" (change)="nonelectricalType($event)">Non Electrical Access</mat-checkbox>
-                                            <div class="col-md-6" *ngIf="nonelectrical">
+                                            <div class="col-md-6">
+                                                <mat-checkbox  formControlName="nonElectricalAccess">Non Electrical Access</mat-checkbox>
+                                            </div>
+                                            <div class="col-md-6" *ngIf="vehical.controls['nonElectricalAccess'].value == '1'">
                                                 <mat-form-field class="w-100" >
                                                 <mat-select placeholder="Non Electrical Access SI "  formControlName="nonElectricalAccessSI">
                                                     <mat-option value="10000"> 10,000 </mat-option>
@@ -237,8 +240,10 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <mat-checkbox  formControlName="paforUnnamed" (change)="financeType($event)">Pa For Unnamed Passenger</mat-checkbox>
-                                        <div class="col-md-6" *ngIf="nopassanger">
+                                            <div class="col-md-6">
+                                            <mat-checkbox  formControlName="paforUnnamed" >Pa For Unnamed Passenger</mat-checkbox>
+                                            </div>
+                                        <div class="col-md-6" *ngIf="vehical.controls['paforUnnamed'].value == '1'">
                                             <mat-form-field class="w-100" >
 
                                             <mat-select placeholder="Pa For Unnamed Passenger SI "  formControlName="paforUnnamedSI">
@@ -300,6 +305,27 @@
                                                     <input matInput placeholder="Hypothecation AgreementNo "  formControlName="hypothecationAgreementNo"  autocomplete="off">
                                                 </mat-form-field>
                                             </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode" (input)="getHypoPostalCode($event.target.value)" autocomplete="off" >
+                                                    <mat-error *ngIf="vehical.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                                    <mat-error *ngIf="vehical.controls.pincode.hasError('required')">Pincode required</mat-error>
+                                                    <mat-error *ngIf="vehical.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="State" formControlName="state"  autocomplete="off" readonly >
+                                                    <mat-error *ngIf="vehical.controls.state.errors?.required">State is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="City" formControlName="city"  autocomplete="off" readonly>
+                                                    <mat-error *ngIf="vehical.controls.city.errors?.required">City is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
                                         </div>
 
                                         <div class="proposal-buttom mt-3 text-right w-100">
@@ -334,11 +360,21 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Previous Insurer"  formControlName="previousInsure" required>
+                                                    <mat-select placeholder="Previous Insurer"  formControlName="previousInsured" required>
                                                         <mat-option *ngFor="let paCity of previousList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
                                                 </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput [matDatepicker]="picker2"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" [max]="minDate"  formControlName="previousdob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
+                                                           autocomplete="off"   required>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker2></mat-datepicker>
+                                                    <!--<mat-error *ngIf="previousInsure.controls.previousdob.errors?.required">DOB is required</mat-error>-->
+                                                </mat-form-field>
+                                                <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
@@ -413,7 +449,7 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Age"  formControlName="nomineeAge"  autocomplete="off">
+                                                    <input matInput placeholder="Age"  formControlName="nomineeAge" (input)="ageNominee()" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
