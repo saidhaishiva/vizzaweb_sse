@@ -1008,7 +1008,7 @@
     <mat-accordion>
         <div class="container-fluid" id="apollo">
             <div class="row apolloMunichHealthProposal">
-                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled>
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         PROPOSER DETAILS
@@ -1209,7 +1209,7 @@
                 </form>
             </mat-expansion-panel>
 
-              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
+              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     INSURED DETAILS
@@ -1668,7 +1668,7 @@
                 </form>
               </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     MEDICAL HISTORY
@@ -1714,7 +1714,7 @@
             </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled>
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     NOMINEE DETAILS
@@ -1815,7 +1815,7 @@
             </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled hideToggle class="w-100">
+        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled class="w-100">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     SUMMARY DETAILS
@@ -1826,14 +1826,9 @@
                 <div class="row">
                     <div class="col-sm-12 col-xs-12">
                         <h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
-                    </div>
-                    <div class="col-sm-8 col-xs-12">
-                        <ul class="summary-head">
-                            <li><span>Insurer:</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                            <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
-                            <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
-                            <li></li>
-                        </ul>
+                        <h4 class="mt-2"><span style="font-size: 17px; color: #666;">Insurer: <img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /></span></h4>
+                        <h4 class="mt-2"><span style="font-size: 17px; color: #666;">Premium: <i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></h4>
+                        <h4 class="mt-2"><span style="font-size: 17px; color: #666;">Total Premium: <i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></h4>
                     </div>
                 </div>
                 <section>
