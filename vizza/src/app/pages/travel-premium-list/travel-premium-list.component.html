@@ -186,7 +186,7 @@
     <div class="sticky-top">
       <mat-card style="background-color: #d9edf7">
         <div class="row">
-          <div class="col">
+          <div class="col-6">
             <mat-form-field class="w-100">
               <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
               <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
@@ -203,14 +203,14 @@
               </mat-select>
             </mat-form-field>
           </div>
-          <div class="col">
+          <div class="col-6">
             <!--<mat-form-field class="w-100">-->
               <!--<mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>-->
               <!--<mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">-->
                 <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>-->
               <!--</mat-select>-->
             <!--</mat-form-field>-->
-            <mat-form-field >
+            <mat-form-field class="w-100">
               <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured ($)</mat-placeholder>
               <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
                 <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
@@ -226,17 +226,17 @@
 
     <mat-card class="mb-3" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
       <div class="row " >
-        <div class="col-md-6 col-6">
+        <div class="col-4">
           <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
           <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
         </div>
-        <div class="col-md-3 col-3">
+        <div class="col-4">
           <p style="margin-bottom: 0rem !important;">Sum Insured</p>
           <div>
             <p> &#8377; {{plists.sum_insured_amount | currency}} </p>
           </div>
         </div>
-        <div class="col-md-3 col-3">
+        <div class="col-4">
           <p style="margin-bottom: 0rem !important;">Premium/yr</p>
           <div>
             <p>&#8377; {{plists.total_premium}} / Yr</p>
@@ -244,7 +244,7 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-md-10 col-10">
+        <div class=" col-10">
           <h5>Main Features</h5>
           <ul style="list-style: none;">
             <li>Emergency Medical Expenses:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3">{{keys.key_features_value}}</a></li>
@@ -272,9 +272,9 @@
       </div>
 
       <div class="row">
-        <div class="col pr-0"><button mat-raised-button class="w-100" [disabled]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></div>
-        <div class="col p-0"><button mat-raised-button  class="w-100" style="cursor: pointer;" (click)="viewKeyList(plists)">See Details</button></div>
-        <div class="col pl-0"><button mat-raised-button  class="w-100" style="background-color: #28a745 !important; color: #FFFFFF;" (click)="booking(plists)">Buy Now</button></div>
+        <div class="col-4 pr-0"><button mat-raised-button class="w-100" [disabled]="plists.compare"  (click)="addCompare(plists,i)">Compare</button></div>
+        <div class="col-4 p-0"><button mat-raised-button  class="w-100" style="cursor: pointer;" (click)="viewKeyList(plists)">See Details</button></div>
+        <div class="col-4 pl-0"><button mat-raised-button  class="w-100" style="background-color: #28a745 !important; color: #FFFFFF;" (click)="booking(plists)">Buy Now</button></div>
       </div>
 
     </mat-card>
@@ -284,7 +284,7 @@
         <div class="text-right closeBtnClass">
           <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
         </div>
-        <div class="col" *ngFor="let clists of compareArray; let i = index">
+        <div class="col-3" *ngFor="let clists of compareArray; let i = index">
           <div fxLayout="column" class="flex-p">
             <mat-card class="custom-card compare-icon text-center">
               <div class="text-right closeBtnClass">
