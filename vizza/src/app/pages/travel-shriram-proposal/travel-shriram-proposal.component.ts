@@ -189,7 +189,7 @@ export class TravelShriramProposalComponent implements OnInit {
             faxNo: '',
             preExistingAilments: '',
             handicapped: ['', Validators.required],
-            engagedSports: '',
+            engagedSports: 'N',
             address: ['', Validators.required],
             address2: '',
             address3: '',
