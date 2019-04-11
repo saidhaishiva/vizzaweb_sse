@@ -395,17 +395,6 @@ export class TravelProposalComponent implements OnInit {
 
     }
     ageCalculateInsurer(dob) {
-        // let mdate = dob.toString();
-        // let yearThen = parseInt(mdate.substring(8, 10), 10);
-        // let monthThen = parseInt(mdate.substring(5, 7), 10);
-        // let dayThen = parseInt(mdate.substring(0, 4), 10);
-        // let todays = new Date();
-        // let birthday = new Date(dayThen, monthThen - 1, yearThen);
-        // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-        // let year_age = Math.floor(differenceInMilisecond / 31536000000);
-        // let day_age = Math.floor((differenceInMilisecond % 31536000000) / 86400000);
-        // let month_age = Math.floor(day_age/30);
-        // return month_age;
         let mdate = dob.toString();
         let yearThen = parseInt(mdate.substring( 8,10), 10);
         let monthThen = parseInt(mdate.substring(5,7), 10);
@@ -483,17 +472,6 @@ export class TravelProposalComponent implements OnInit {
         } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 36 && type == ' Mother In Law')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
-
-        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom') {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age should be above 46');
-        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Self' && this.buyProductdetails.product_name == 'Care Freedom')  {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
-        // if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom') {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age should be above 46');
-        // } else if(this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 46 && type == 'Spouse' && this.buyProductdetails.product_name == 'Care Freedom')  {
-        //     this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
 
     }
     ageCalculate(dob) {
