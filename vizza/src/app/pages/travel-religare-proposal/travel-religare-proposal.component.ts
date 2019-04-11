@@ -980,7 +980,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
                     'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
                     'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
-                    'addons': this.religarePersonal.controls['addon'].value ?  this.religarePersonal.controls['addon'].value :'',
+                    'addons': sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined ? sessionStorage.setAddons : '',
                 };
 
                 this.settings.loadingSpinner = true;
