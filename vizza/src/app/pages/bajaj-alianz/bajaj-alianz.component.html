@@ -452,7 +452,7 @@
         <div class="row bajajHealthProposal">
             <div class="col-md-12">
                 <mat-accordion>
-                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
                         <mat-expansion-panel-header>
                             <mat-panel-title>
                                 PROPOSER / INSURED DETAILS
@@ -711,7 +711,7 @@
                                 </form>
                             </mat-accordion>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
                                     SUMMARY DETAILS

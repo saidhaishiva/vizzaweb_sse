@@ -22,7 +22,7 @@
             </ng-template>
               <div class="row">
                 <!--mobile view-->
-                <div class="col-md-12 p-0 d-md-none d-sm-block">
+                <div class="col-md-12 p-0 d-block d-sm-block d-md-none">
                 <mat-accordion class="w-100">
                   <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i == 0">
                     <mat-expansion-panel-header>
@@ -47,7 +47,7 @@
 
 
                 <!--disktop view-->
-                  <div class="col-md-12 p-0 d-md-block d-sm-none">
+                  <div class="col-md-12 p-0 d-none d-sm-none d-md-block">
                     <div class="row">
                   <div class="col-md-3 pl-0 pr-1 bg-color">
                     <div mat-dialog-content >
@@ -90,7 +90,7 @@
             </ng-template>
             <div class="row">
               <!--disktop view-->
-              <div class="col-md-12 p-0 d-md-block d-sm-none">
+              <div class="col-md-12 p-0 d-none d-sm-none d-md-block">
                 <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
@@ -121,7 +121,7 @@
 
 
               <!--mobile view-->
-              <div class="col-md-12 p-0 d-md-none d-sm-block">
+              <div class="col-md-12 p-0 d-block d-sm-block d-md-none">
                 <mat-accordion class="w-100">
                   <mat-expansion-panel *ngFor="let keys of productDocLists;let i = index" [expanded]="i == 0" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#e8ccdb' : '#d81b60'" >
                     <mat-expansion-panel-header>
@@ -154,7 +154,7 @@
             </ng-template>
             <div class="row">
               <!--disktop view-->
-              <div class="col-md-12 p-0 d-md-block d-sm-none">
+              <div class="col-md-12 p-0 d-none d-sm-none d-md-block">
                 <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
@@ -284,7 +284,7 @@
               </div>
 
               <!--mobile view-->
-              <div class="col-md-12 p-0 d-md-none d-sm-block">
+              <div class="col-md-12 p-0 d-block d-sm-block d-md-none">
                 <mat-accordion class="w-100">
                   <mat-expansion-panel expanded style="background: #dc6e97">
                     <mat-expansion-panel-header >

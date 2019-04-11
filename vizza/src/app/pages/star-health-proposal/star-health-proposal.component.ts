@@ -115,6 +115,7 @@ export class StarHealthProposalComponent implements OnInit {
     relationshipListAppointe: any;
     relationshipListNomine: any;
     total: number;
+    public step: any;
 
     constructor(public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -151,6 +152,7 @@ export class StarHealthProposalComponent implements OnInit {
         this.webhost = this.config.getimgUrl();
         this.selectDate = '';
         this.proposalId = 0;
+        this.step = 0;
         this.mobileNumber = 'true';
         this.ageRestriction = 'true';
         this.personal = this.fb.group({
@@ -300,6 +302,21 @@ export class StarHealthProposalComponent implements OnInit {
         this.personal.controls['previousinsuranceChecked'].patchValue(false);
         this.sessionData();
         this.socialNo = '';
+    }
+
+    setStep(index: number) {
+        this.step = index;
+    }
+    nextStep() {
+        this.step++;
+    }
+
+    prevStep() {
+        this.step--;
+    }
+    backAll(){
+        this.topScroll();
+        this.prevStep();
     }
     canDeactivate() {
         return this.proposalId;
@@ -737,14 +754,16 @@ export class StarHealthProposalComponent implements OnInit {
                 if(this.personal.controls['socialStatus'].value == true || this.personal.controls['socialStatus'].value == 'true') {
                     if(value.socialAnswer1 == '1' || value.socialAnswer2 == '1' || value.socialAnswer3 =='1' || value.socialAnswer4 == '1'){
                         stepper.next();
-                        this.topScroll();
+                        this.topScroll()
+                        this.nextStep();
                     } else {
                         this.toastr.error('Select any one Social Status');
                     }
                 } else {
                     // if(value.socialAnswer1 == '0' || value.socialAnswer2 == '0' || value.socialAnswer3 =='0' || value.socialAnswer4 == '0') {
                         stepper.next();
-                        this.topScroll();
+                        this.topScroll()
+                        this.nextStep();
                     // }
                 }
             } else {
@@ -898,6 +917,7 @@ export class StarHealthProposalComponent implements OnInit {
             if (sessionStorage.insurerDobError == '' && sessionStorage.ageRestriction =='') {
                 stepper.next();
                 this.topScroll();
+                this.nextStep();
             }
         }
         if(this.familyMembers.length == 1){
@@ -1482,6 +1502,7 @@ export class StarHealthProposalComponent implements OnInit {
 
             stepper.next();
             this.topScroll();
+            this.nextStep();
 
 
         } else {
@@ -1518,6 +1539,7 @@ export class StarHealthProposalComponent implements OnInit {
             this.paymentGatewayData = successData.ResponseObject;
             window.location.href = this.paymentGatewayData.payment_gateway_url;
             this.lastStepper.next();
+            this.nextStep();
 
         } else {
             this.toastr.error(successData.ErrorObject);

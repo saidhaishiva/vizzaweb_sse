@@ -333,9 +333,16 @@ export class RelianceHeathProposalComponent implements OnInit {
     setStep(index: number) {
         this.step = index;
     }
+    nextStep() {
+        this.step++;
+    }
 
     prevStep() {
         this.step--;
+    }
+    backAll(){
+        this.topScroll();
+        this.prevStep();
     }
     nameValidate(event: any){
         this.validation.nameValidate(event);
@@ -763,13 +770,13 @@ export class RelianceHeathProposalComponent implements OnInit {
                         this.taxRequired = '';
                         stepper.next();
                         this.topScroll();
-
+                        this.nextStep();
                     } else {
                         if(this.personal.controls['ServicesTaxId'].value != '') {
                             this.taxRequired = '';
                             stepper.next();
                             this.topScroll();
-
+                            this.nextStep();
                         } else {
                             this.taxRequired = 'Services Tax is required';
                         }
@@ -1279,7 +1286,7 @@ export class RelianceHeathProposalComponent implements OnInit {
                 if(!diseases.includes('Yes')){
                     stepper.next();
                     this.topScroll();
-
+                    this.nextStep();
                 } else {
                     this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -1340,12 +1347,14 @@ export class RelianceHeathProposalComponent implements OnInit {
         }
     }
     //Nominee Details
-    religareNomineeDetails(stepper: MatStepper, value) {
+    relianceNomineeDetails(stepper: MatStepper, value) {
         sessionStorage.nomineeData = '';
         sessionStorage.nomineeData = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal(stepper);
+            this.nextStep();
+
         }
     }
     selectNomineRelation(){
@@ -1690,6 +1699,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             sessionStorage.previousInsuranceFromData = JSON.stringify(this.previousInsuranceFromData);
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             stepper.next();
+            this.nextStep();
 
         } else {
             this.toastr.error(successData.ErrorObject);
