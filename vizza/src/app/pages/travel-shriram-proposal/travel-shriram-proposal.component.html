@@ -419,7 +419,7 @@
   <div class="container-fluid">
     <div class="row shriramProposal">
       <div class="col-sm-12 col-12">
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               PROPOSER / INSURED DETAILS
@@ -624,11 +624,7 @@
 
             </form>
         </mat-expansion-panel>
-
-
-
-
-            <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   NOMINEE DETAILS
@@ -667,9 +663,7 @@
                 </div>
               </div>
             </mat-expansion-panel>
-
-
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
           <mat-expansion-panel-header>
             <mat-panel-title>
               SUMMARY
