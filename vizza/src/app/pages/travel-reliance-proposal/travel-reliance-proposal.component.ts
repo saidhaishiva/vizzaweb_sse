@@ -138,8 +138,6 @@ export class TravelRelianceProposalComponent implements OnInit {
   public riskFormData: any;
   public step: any;
 
-
-
   constructor(public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
               public config: ConfigurationService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public travelservice: TravelService) {
     const minDate = new Date();
@@ -186,6 +184,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalArea: ['', Validators.required],
       personalAreaName: '',
       personalDistrict: ['', Validators.required],
+      personalyDistrictIdC: '',
       personalState: ['', Validators.required],
       personalNearestLandMark: '',
       personalCountry: ['', Validators.required],
@@ -254,6 +253,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalDoctorArea: '',
       personalDoctorAreaName: '',
       personalDoctorDistrict: '',
+      personalyDistrictIdD: '',
       personalDoctorState: '',
       personalDoctorNearestLandMark: '',
       personalDoctorCountry: '',
@@ -412,7 +412,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     });
     for (let i = 0; i < this.insuredTravelPerson.length; i++) {
       this.items = this.relianceInsuredTravel.get('items') as FormArray;
-      console.log(this.items,'itemsssssssss');
+      console.log(this.items,' itemsssssssss ');
       this.items.push(this.initItemRows());
 
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
@@ -425,6 +425,22 @@ export class TravelRelianceProposalComponent implements OnInit {
     console.log(this.items, 'items');
 
     this.sessionData();
+  }
+
+  setStep(index) {
+    this.step = index;
+  }
+
+  nextStep() {
+    this.step++;
+  }
+
+  prevStep() {
+    this.step--;
+  }
+  backAll(){
+    this.topScroll();
+    this.prevStep();
   }
 
   initItemRows() {
@@ -452,10 +468,9 @@ export class TravelRelianceProposalComponent implements OnInit {
           type:'',
 
           IsUnderMedication: 'false',
-          PreExistingIllness: '',
+          PreExistingIllness: ['', Validators.required],
           insurePreExistingIllnessName: '',
-          SufferingSince: '',
-
+          SufferingSince: ['', Validators.required],
           nomineeName: ['', Validators.required],
           nomineeRelationship: ['', Validators.required],
           insureNomineeRelationshipName: '',
@@ -478,6 +493,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     if (this.personal.valid) {
       if (sessionStorage.personalAge >= 18) {
         stepper.next();
+        this.topScroll();
         this.nextStep();
       }else {
         this.toastr.error('Proposer age should be 18 or above');
@@ -559,7 +575,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
       if(!ageValidate.includes(1)){
           stepper.next();
-        this.nextStep();
+          this.topScroll();
+          this.nextStep();
         } else {
           this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -836,6 +853,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess == true) {
       stepper.next();
+      this.topScroll();
       this.nextStep();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
@@ -1254,6 +1272,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         personalArea: this.getStepper1.personalArea,
           personalAreaName: this.getStepper1.personalAreaName,
         personalDistrict: this.getStepper1.personalDistrict,
+        personalyDistrictIdC: this.getStepper1.personalyDistrictIdC,
         personalState: this.getStepper1.personalState,
         personalNearestLandMark: this.getStepper1.personalNearestLandMark,
         personalCountry: this.getStepper1.personalCountry,
@@ -1359,6 +1378,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         sameasBurglary: this.getStepper1.sameasBurglary,
         sameasSponsor: this.getStepper1.sameasSponsor,
         rolecd: this.getStepper1.rolecd,
+          personalyDistrictIdD: this.getStepper1.personalyDistrictIdD,
       });
 
         if(this.getStepper1.sameas == true) {
@@ -1483,23 +1503,6 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
   }
 
-  setStep(index) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
-
-
-  backAll(){
-    this.topScroll();
-    this.prevStep();
-  }
   relianceOccupation() {
     const data = {
       'platform': 'web',
@@ -1780,6 +1783,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                   this.proposalBArea = '';
                   sessionStorage.proposalBArea = {};
               } else {
+                  console.log(this.response.district_id,'eeeee');
                   this.personal['controls'].personalBurglaryState.patchValue(this.response.state_name);
                   this.personal['controls'].personalBurglaryDistrict.patchValue(this.response.district_name);
                   this.personal['controls'].personalBurglaryCity.patchValue(this.response.city_village_name);
@@ -2078,7 +2082,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   selectInsurePreExistingIllness(index){
     this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insurePreExistingIllnessName.patchValue(this.PreExistingIllness[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].PreExistingIllness.value]);
   }
-  selectInsureNomineeRelationshipi(index){
+  selectInsureNomineeRelationship(index){
     this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureNomineeRelationshipName.patchValue(this.Relationship[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].nomineeRelationship.value]);
   }
   selectriskSportsActivities(){
