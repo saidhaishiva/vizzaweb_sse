@@ -89,9 +89,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea #message3 maxlength="80" matInput placeholder="Physician Address" rows="2" formControlName="physicianAddress" autocomplete="off" required></textarea>
-                          <mat-hint align="start"></mat-hint>
-                          <mat-hint align="end">{{message3.value.length}} / 80</mat-hint>
+                          <input  matInput placeholder="Physician Address"  formControlName="physicianAddress" autocomplete="off" required>
                           <mat-error *ngIf="personal.controls.physicianAddress.errors?.required">Physician Address is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -106,7 +104,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="Medical Report Date (DD/MM/YYYY)" formControlName="medicalRepDate" (dateInput)="addEvent($event,'receiptDate')" (dateChange)="addEvent($event,'receiptDate')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker1" [min]="personal.controls['dob'].value" placeholder="Medical Report Date (DD/MM/YYYY)" formControlName="medicalRepDate" (dateInput)="addEvent($event,'receiptDate')" (dateChange)="addEvent($event,'receiptDate')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="personal.controls.medicalRepDate.errors?.required">Report Date is required</mat-error>
@@ -294,7 +292,7 @@
               <tbody>
               <tr>
                 <td>
-                  <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 100px;" />
+                  <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 95px;" />
                 </td>
                 <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
                 <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</td>
