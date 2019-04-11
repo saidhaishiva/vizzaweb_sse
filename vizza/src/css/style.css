@@ -17,6 +17,11 @@ button:focus {
   color: #18CCB4 !important;
   font-size: 12px; }
 
+
+.color-green-mobile {
+  color: #18CCB4 !important;
+  font-size: 5px; }
+
 .color-pink {
   color: #F50091; }
 
@@ -1176,7 +1181,9 @@ footer {
   z-index: 99;
   width: 100%;
   background: antiquewhite;
-  padding: 5px 14px; }
+  padding: 5px 14px;
+
+}
 
 .margin-bottom170 {
   margin-bottom: 170px; }
