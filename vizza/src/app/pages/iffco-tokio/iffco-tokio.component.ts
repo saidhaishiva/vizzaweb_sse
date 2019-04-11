@@ -275,9 +275,15 @@ export class IffcoTokioComponent implements OnInit {
     setStep(index: number) {
         this.step = index;
     }
-
+    nextStep() {
+        this.step++;
+    }
     prevStep() {
         this.step--;
+    }
+    backAll(){
+        this.topScroll();
+        this.prevStep();
     }
 
     initItemRows() {
@@ -742,6 +748,7 @@ export class IffcoTokioComponent implements OnInit {
             if (sessionStorage.proposerAgeiffco >= 18 && sessionStorage.proposerAgeiffco <= 55) {
                 stepper.next();
                 this.topScroll();
+                this.nextStep();
             } else {
                 this.toastr.error('Proposer age should be  greater than 18 and lesser than equal to 55');
             }
@@ -800,6 +807,7 @@ export class IffcoTokioComponent implements OnInit {
              if(!ageValidate.includes(1)) {
                  stepper.next();
                  this.topScroll();
+                 this.nextStep();
              }
 
 
@@ -812,6 +820,7 @@ export class IffcoTokioComponent implements OnInit {
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal(stepper);
+            this.nextStep();
         }
     }
     pincodevalidationiffco(pin) {
@@ -946,6 +955,7 @@ export class IffcoTokioComponent implements OnInit {
             console.log(this.nomineeFormData,'nomineeFormData');
             console.log(this.personalFormData,'personalFormData');
             stepper.next();
+            this.nextStep();
         }
         else{
             this.toastr.error(successData.ErrorObject);

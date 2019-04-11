@@ -442,7 +442,7 @@
     <mat-accordion>
         <div class="container-fluid">
             <div class="row tavelProposal">
-                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             PROPOSER DETAILS
@@ -589,9 +589,7 @@
                     </div>
                 </form>
                 </mat-expansion-panel>
-
-
-                <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             INSURED DETAILS
@@ -706,8 +704,7 @@
                         </div>
                     </form>
                 </mat-expansion-panel>
-
-                <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle class="w-100">
+                <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle class="w-100">
                     <mat-expansion-panel-header>
                         <mat-panel-title>
                             SUMMARY DETAILS
