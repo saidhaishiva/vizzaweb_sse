@@ -1594,7 +1594,7 @@
     <div class="container-fluid">
       <div class="row relianceHealthProposal">
         <div class="col-md-12">
-          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>PROPOSER DETAILS</mat-panel-title>
             </mat-expansion-panel-header>
@@ -2291,7 +2291,7 @@
               </div>
           </form>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
                 INSURED DETAILS
@@ -2471,7 +2471,7 @@
           </mat-expansion-panel>
 
 
-      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
             RISK DETAILS
@@ -2822,7 +2822,7 @@
 
 
         <!--{{summaryData | json}}iuiy-->
-      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" hideToggle >
+      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle >
         <mat-expansion-panel-header>
           <mat-panel-title>
             SUMMARY

@@ -1438,8 +1438,7 @@ export class ReligareHealthProposalComponent implements OnInit {
         if (this.questionEmpty ) {
             stepper.next();
             this.topScroll();
-
-
+            this.nextStep();
         } else {
             this.toastr.error('Please fill the all Answers');
 
@@ -1693,6 +1692,7 @@ export class ReligareHealthProposalComponent implements OnInit {
 
             stepper.next();
             this.topScroll();
+            this.nextStep();
 
         } else {
             this.toastr.error(successData.ErrorObject);
