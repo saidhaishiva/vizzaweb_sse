@@ -197,9 +197,7 @@
                                                 <mat-checkbox  formControlName="nilDepreciationCover">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
                                                 <mat-checkbox  formControlName="electricalAccess" (change)="electricalType($event)">electricalAccess</mat-checkbox>
-                                                </div>
                                                     <div class="col-md-6" *ngIf="electrical">
                                                 <mat-form-field class="w-100">
 
@@ -220,9 +218,7 @@
                                             </div>
 
                                         <div class="row">
-                                            <div class="col-md-6">
                                                 <mat-checkbox  formControlName="nonElectricalAccess" (change)="nonelectricalType($event)">Non Electrical Access</mat-checkbox>
-                                            </div>
                                             <div class="col-md-6" *ngIf="nonelectrical">
                                                 <mat-form-field class="w-100" >
                                                 <mat-select placeholder="Non Electrical Access SI "  formControlName="nonElectricalAccessSI">
@@ -241,9 +237,7 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
                                             <mat-checkbox  formControlName="paforUnnamed" (change)="financeType($event)">Pa For Unnamed Passenger</mat-checkbox>
-                                            </div>
                                         <div class="col-md-6" *ngIf="nopassanger">
                                             <mat-form-field class="w-100" >
 

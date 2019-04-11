@@ -1073,15 +1073,15 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['personalBurglaryNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
       this.personal.controls['personalBurglaryCountry'].setValue(this.personal.controls['personalCountry'].value);
       this.personal.controls['personalBurglaryArea'].setValue(this.personal.controls['personalArea'].value);
-    }
-    else if (this.personal.controls['sameasSponsor'].value) {
+    } else if (this.personal.controls['sameasSponsor'].value) {
       this.personal.controls['personalSponsorAddress'].setValue(this.personal.controls['personalAddress'].value);
       this.personal.controls['personalSponsorCity'].setValue(this.personal.controls['personalCity'].value);
       this.personal.controls['personalSponsorPincode'].setValue(this.personal.controls['personalPincode'].value);
       this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
       this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
     }
-    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea(this.personal.controls['personalArea'].value));
+    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
+
   }
   sameAddress(values: any) {
     if (values.checked) {
@@ -1891,7 +1891,7 @@ export class TravelRelianceProposalComponent implements OnInit {
               this.personal['controls'].personalCompanyState.patchValue('');
               this.personal['controls'].personalCompanyDistrict.patchValue('');
               this.personal['controls'].personalCompanyCity.patchValue('');
-              this.personal['controls'].personalyDistrictIdC.patchValue('');
+              this.personal['controls'].personalyDistrictIdD.patchValue('');
               this.personal['controls'].personalCityIdC.patchValue('');
               this.personal['controls'].personalStateIdC.patchValue('');
               this.proposalCArea = '';
