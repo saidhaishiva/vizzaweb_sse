@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit} from '@angular/core';
+import {Component, HostListener, Inject, OnInit} from '@angular/core';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
@@ -73,6 +73,7 @@ export class HomeComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = true;
         this.settings.sidenavIsOpened = true;
         this.settings.sidenavIsPinned = true;
+        this.settings.menu = 'vertical';
         this.commentBox = false;
         this.selectDate = '';
         this.fileUploadPath = '';
@@ -230,6 +231,16 @@ export class HomeComponent implements OnInit {
             }
         }
     }
+
+
+    // @HostListener('window:resize')
+    // public onWindowResize():void {
+    //     if (window.innerWidth >= 768) {
+    //         this.settings.sidenavIsOpened = true;
+    //         this.settings.sidenavIsPinned = true;
+    //         this.settings.menu = 'vertical'
+    //     }
+    // }
 
 
     testiComments() {
