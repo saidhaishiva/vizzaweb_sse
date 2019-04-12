@@ -231,7 +231,7 @@ export class BikePremiumListComponent implements OnInit {
         console.log(value,'value');
         sessionStorage.buyProductDetails =  JSON.stringify(value);
         if (value.company_id == 7) {
-            this.router.navigate(['/bike-shriram-proposal']);
+            this.router.navigate(['/bike-shriram-proposal'  + '/' + false]);
         }
 
 

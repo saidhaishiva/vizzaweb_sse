@@ -553,15 +553,15 @@
                                     <div class="p-3">
                                         <h6>PROPOSER DETAILS</h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Name:</strong> {{vehicalFormData.policyType}}</li>
-                                            <li class="list-group-item"><strong>D.O.B:</strong> {{vehicalFormData.proposalType}}</li>
-                                            <li class="list-group-item" ><strong>Email Id:</strong> {{vehicalFormData.vehicleColour}}</li>
-                                            <li class="list-group-item"><strong>Mobile Number:</strong> {{vehicalFormData.nilDepreciationCover}}</li>
-                                            <li class="list-group-item"><strong>Gender:</strong>{{vehicalFormData.electricalAccess}}</li>
-                                            <li class="list-group-item"><strong>Alternative Number:</strong> {{vehicalFormData.electricalAccessSI}}</li>
-                                            <li class="list-group-item" ><strong> PAN :</strong> {{vehicalFormData.nonElectricalAccess }}</li>
-                                            <li class="list-group-item" ><strong>GST:</strong> {{vehicalFormData.nonElectricalAccessSI}}</li>
-                                            <li class="list-group-item" ><strong>FAX:</strong> {{vehicalFormData.paforUnnamed }}</li>
+                                            <li class="list-group-item"><strong>Policy Type:</strong> {{vehicalFormData.policyType}}</li>
+                                            <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
+                                            <li class="list-group-item" ><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
+                                            <li class="list-group-item"><strong>NilDepreciation Cover:</strong> {{vehicalFormData.nilDepreciationCover}}</li>
+                                            <li class="list-group-item"><strong>Electrical Access:</strong>{{vehicalFormData.electricalAccess}}</li>
+                                            <li class="list-group-item"><strong>ElectricalAccessSI:</strong> {{vehicalFormData.electricalAccessSI}}</li>
+                                            <li class="list-group-item" ><strong>Non Electrical Access :</strong> {{vehicalFormData.nonElectricalAccess }}</li>
+                                            <li class="list-group-item" ><strong>Non Electrical AccessSI:</strong> {{vehicalFormData.nonElectricalAccessSI}}</li>
+                                            <li class="list-group-item" ><strong>Pa For Unnamed:</strong> {{vehicalFormData.paforUnnamed }}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -569,52 +569,85 @@
                                     <div class="p-3">
                                         <h6>COMMUNICATION DETAILS</h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Address 1:</strong> {{vehicalFormData.paforUnnamedSI}}</li>
-                                            <li class="list-group-item" ><strong>Address 2:</strong> {{vehicalFormData.hypothecationType}}</li>
-                                            <li class="list-group-item" ><strong>Address 3:</strong> {{proposerFormData.hypothecationAddress3}}</li>
-                                            <li class="list-group-item"><strong>PIN code:</strong> {{vehicalFormData.hypothecationAgreementNo}}</li>
-                                            <li class="list-group-item"><strong>City:</strong> {{vehicalFormData.antiTheft}}</li>
-                                            <li class="list-group-item"><strong>State:</strong> {{vehicalFormData.lltoPaidDriver}}</li>
+                                            <li class="list-group-item"><strong>Pa For Unnamed SI:</strong> {{vehicalFormData.paforUnnamedSI}}</li>
+                                            <li class="list-group-item" ><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
+                                            <li class="list-group-item" ><strong>Hypothecation Address3:</strong> {{proposerFormData.hypothecationAddress3}}</li>
+                                            <li class="list-group-item"><strong>Hypothecation Agreement No:</strong> {{vehicalFormData.hypothecationAgreementNo}}</li>
+                                            <li class="list-group-item"><strong>AntiTheft:</strong> {{vehicalFormData.antiTheft}}</li>
+                                            <li class="list-group-item"><strong>LltoPaid Driver:</strong> {{vehicalFormData.lltoPaidDriver}}</li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </section>
                         <section>
-                            <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-                            <!--<div class="row box-card">-->
-                                <!--<div class="col-md-6">-->
-                                    <!--<div class="p-3">-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-md-12">-->
-                                                <!--<ul class="m-0 list-group">-->
-                                                    <!--<li class="list-group-item"><strong>Nominee name:</strong> {{nomineeFormData.nomineeTitleName}} {{nomineeFormData.nomineeName}}</li>-->
-                                                    <!--<li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationshipName}}</li>-->
-                                                    <!--<li class="list-group-item"><strong>Address1:</strong> {{nomineeFormData.nomineeAddress}}</li>-->
-                                                    <!--<li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress2 != ''"><strong>Address2:</strong> {{nomineeFormData.nomineeAddress2}}</li>-->
-                                                    <!--<li class="list-group-item" *ngIf="nomineeFormData.nomineeAddress3 != ''"><strong>Address3:</strong> {{nomineeFormData.nomineeAddress3}}</li>-->
-                                                <!--</ul>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                                <!--<div class="col-md-6">-->
-                                    <!--<div class="p-3">-->
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-md-12">-->
-                                                <!--<ul class="m-0 list-group">-->
-                                                    <!--<li class="list-group-item"><strong>Pin Code:</strong> {{nomineeFormData.nomineePincode}}</li>-->
-                                                    <!--<li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nomineeState}}</li>-->
-                                                    <!--<li class="list-group-item" *ngIf="nomineeFormData.nomineeDistrictName != ''"><strong>District:</strong> {{nomineeFormData.nomineeDistrictName}}</li>-->
-                                                    <!--<li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nomineeCityName}}</li>-->
-                                                <!--</ul>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                <!--</div>-->
+                            <h5 class="mt-3 sub-title">PREVIOUS INSURE DETAILS </h5>
+                            <div class="row box-card">
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="m-0 list-group">
+                                                    <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
+                                                    <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
+                                                    <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob}}</li>
+                                                    <li class="list-group-item"><strong>Policy UwYear:</strong> {{previousFormData.policyUwYear}}</li>
+                                                    <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="m-0 list-group">
+                                                    <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyType}}</li>
+                                                    <li class="list-group-item"><strong>Previous PolicyNcb:</strong> {{previousFormData.previousPolicyNcb}}</li>
+                                                    <li class="list-group-item"><strong>Policy Claim:</strong> {{previousFormData.policyClaim}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <!--</div>-->
-                            <p class="mt-2 pl-3">
+                            </div>
+                        </section>
+
+                        <section>
+                            <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+                            <div class="row box-card">
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="m-0 list-group">
+                                                    <li class="list-group-item"><strong>Nominee Name:</strong> {{nomineeFormData.nomineeName}}</li>
+                                                    <li class="list-group-item"><strong>Nominee Age:</strong> {{nomineeFormData.nomineeAge}}</li>
+                                                    <li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationship}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <ul class="m-0 list-group">
+                                                    <li class="list-group-item"><strong>Appointee Name:</strong> {{nomineeFormData.appointeeName}}</li>
+                                                    <li class="list-group-item"><strong>Appointee Relationship:</strong> {{nomineeFormData.appointeeRelationship}}</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <p class="mt-2 pl-3">
                                 <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
                             </p>
                             <hr>
@@ -628,7 +661,6 @@
                                     </form>
                                 </div>
                             </div>
-                        </section>
                     </section>
                 </mat-step>
             </mat-horizontal-stepper>
