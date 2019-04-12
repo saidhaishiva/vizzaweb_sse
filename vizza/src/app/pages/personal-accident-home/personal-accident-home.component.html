@@ -692,8 +692,8 @@
         </mat-card>
     </div>
 
-    <mat-card class="mb-3" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
-        <div class="row " >
+    <mat-card class="metacard" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
+        <div class="row mb-5" >
             <div class="col-md-6 col-6">
                 <img class="mt-1 w-75" src="{{webhost + '/' + plists.company_logo}}">
                 <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
@@ -751,7 +751,7 @@
         </div>
 
     </mat-card>
-    <div class="d-sm-block d-md-none" >
+    <div class="d-sm-block d-md-none"style="margin-top: 200px !important;" >
         <div class="row compar-mobile" *ngIf="compareArray != ''">
             <div class="text-right closeBtnClass">
                 <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
@@ -775,7 +775,6 @@
         </div>
     </div>
 </section>
-
 
 
 
