@@ -15,12 +15,12 @@
                     <!--<div class="row">-->
                       <!--<div class="col-md-3" >-->
                         <!--<mat-form-field class="w-100">-->
-                        <!--<mat-select placeholder="Title" formControlName="title" >-->
+                        <!--<mat-select placeholder="Title" formControlName="title"  required>-->
                           <!--<mat-option *ngFor="let list of TitleList | keys" [value]= list.key> {{list.value}} </mat-option>-->
                         <!--</mat-select>-->
                         <!--<mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>-->
                       <!--</mat-form-field>-->
-                    <!--</div>-->
+                    <!--</div>div-->
                       <!--<div class="col-md-3">-->
                         <!--<mat-form-field class="w-100">-->
                           <!--<input matInput placeholder="First Name" formControlName="firstName"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required >-->
@@ -32,7 +32,7 @@
                           <!--<input matInput placeholder="Mid Name" formControlName="midName"  maxlength="45" (keypress)="nameValidate($event)" autocomplete="off">-->
                         <!--</mat-form-field>-->
                       <!--</div>-->
-                      <!--<div class="col-md-3">-->
+                      <!--<div class="col-md-3">col-md-3-->
                         <!--<mat-form-field class="w-100">-->
                           <!--<input matInput placeholder="Last Name" formControlName="lastName" class="nospace" maxlength="45"  (keypress)="nameValidate($event)" autocomplete="off" required >-->
                           <!--<mat-error *ngIf="proposer.controls.lastName.errors?.required">Last Name is required</mat-error>-->
@@ -40,7 +40,7 @@
                       <!--</div>-->
                       <!--<div class="col-md-3">-->
                         <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"-->
+                          <!--<input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"-->
                                  <!--autocomplete="off"   required>-->
                           <!--<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
                           <!--<mat-datepicker #picker1></mat-datepicker>-->
@@ -84,7 +84,7 @@
                       <!--</div>-->
                       <!--<div class="col-md-3 mt-1">-->
                         <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Alternate Contact"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="alterMobile" autocomplete="off" required>-->
+                          <!--<input matInput placeholder="Alternate Contact"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="alterMobile" autocomplete="off">-->
                           <!--<mat-error *ngIf="proposer.controls.alterMobile.errors?.required">Mobile Number is required</mat-error>-->
                           <!--<mat-error *ngIf="proposer.controls.alterMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
                         <!--</mat-form-field>-->
@@ -135,7 +135,7 @@
 
                         <!--<div class="col-md-3">-->
                             <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Weight" maxlength="3" formControlName="weight" (keypress)="numberValidate($event)" autocomplete="off">-->
+                                <!--<input matInput placeholder="Weight" maxlength="3" formControlName="weight" (keypress)="numberValidate($event)" autocomplete="off" required>-->
                                 <!--<mat-error *ngIf="proposer.controls.weight.errors?.required">Enter Your Body Weight</mat-error>-->
                             <!--</mat-form-field>-->
                         <!--</div>-->
@@ -148,7 +148,7 @@
                       <!--</div>-->
 
                         <!--<div class="col-md-3"><mat-form-field class="w-100">-->
-                            <!--<input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNum"  autocomplete="off">-->
+                            <!--<input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNum"  autocomplete="off" required>-->
                             <!--<mat-error *ngIf="proposer.controls.aadharNum.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>-->
 
                         <!--</mat-form-field></div>-->
@@ -293,7 +293,7 @@
                       <!--</div>-->
                         <!--<div class="col-md-3">-->
                           <!--<mat-form-field class="w-100">-->
-                            <!--<input matInput [matDatepicker]="picker3"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="spouseDob" (dateInput)="($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"-->
+                            <!--<input matInput [matDatepicker]="picker3" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="spouseDob" (dateInput)="($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"-->
                                    <!--autocomplete="off"   required>-->
                             <!--<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
                             <!--<mat-datepicker #picker3></mat-datepicker>-->
@@ -752,7 +752,7 @@
                       <!--</div>-->
                       <!--<div class="col-md-4">-->
                         <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput [matDatepicker]="picker2"  placeholder="DOB (DD/MM/YYYY)" id="ndatepicker" (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEvent($event , 'nominee')" (dateChange)="addEvent($event, 'nominee')" required minlength="10" maxlength="10"-->
+                          <!--<input matInput [matDatepicker]="picker2" [max]="today"   placeholder="DOB (DD/MM/YYYY)" id="ndatepicker" (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEvent($event , 'nominee')" (dateChange)="addEvent($event, 'nominee')" required minlength="10" maxlength="10"-->
                                  <!--autocomplete="off"   required>-->
                           <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
                           <!--<mat-datepicker #picker2></mat-datepicker>-->

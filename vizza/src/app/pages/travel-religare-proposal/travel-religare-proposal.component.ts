@@ -481,6 +481,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             sessionStorage.stepperDetails1 = '';
             sessionStorage.stepperDetails1 = JSON.stringify(value);
             this.personalReligareTravelData = value;
+            console.log(this.personalReligareTravelData,'this.personalReligareTravelData');
             console.log(this.personalReligareTravelData, 'first');
             console.log(this.religarePersonal.valid, 'this.religarePersonal.valid');
             let sponserValidDob = true;
@@ -979,7 +980,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'university_address':this.religarePersonal.controls['universityaddress'].value ? this.religarePersonal.controls['universityaddress'].value : '',
                     'gfirstname':this.religarePersonal.controls['guidefirstname'].value ? this.religarePersonal.controls['guidefirstname'].value : '',
                     'glastname':this.religarePersonal.controls['guidelastname'].value ? this.religarePersonal.controls['guidelastname'].value : '',
-                    'addons': this.religarePersonal.controls['addon'].value ?  this.religarePersonal.controls['addon'].value :'',
+                    'addons': sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined ? sessionStorage.setAddons : '',
                 };
 
                 this.settings.loadingSpinner = true;
@@ -1003,7 +1004,11 @@ export class ReliagretravelproposalComponent implements OnInit {
             sessionStorage.religare_Travel_proposal_id = this.proposalId;
             this.nomineeFormData = this.nomineeDetails.value;
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
-            this.setAddons = JSON.parse(sessionStorage.setAddons);
+            if (sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined) {
+                this.setAddons = JSON.parse(sessionStorage.setAddons);
+            } else {
+                this.setAddons = [];
+            }
         } else {
              this.toastr.error(successData.ErrorObject);
         }

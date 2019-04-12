@@ -331,22 +331,22 @@
           <li>Post Hospitalization:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0">{{keys.key_features_value}}</a></li>
         </ul>
       </div>
-      <div class="col-md-2 col-2" style="font-size: 10px !important;">
-        <ul style="list-style: none;">
-          <li><i class="material-icons">
-            help_outline
-          </i></li>
-          <li><i class="material-icons">
-            help_outline
-          </i></li>
-          <li><i class="material-icons">
-            help_outline
-          </i></li>
-          <li><i class="material-icons">
-            help_outline
-          </i></li>
-        </ul>
-      </div>
+      <!--<div class="col-md-2 col-2">-->
+        <!--<ul style="list-style: none;" >-->
+          <!--<li style=" font-size: 5px !important;"><i class="material-icons">-->
+            <!--help_outline-->
+          <!--</i></li>-->
+          <!--<li><i class="material-icons">-->
+            <!--help_outline-->
+          <!--</i></li>-->
+          <!--<li><i class="material-icons">-->
+            <!--help_outline-->
+          <!--</i></li>-->
+          <!--<li><i class="material-icons">-->
+            <!--help_outline-->
+          <!--</i></li>-->
+        <!--</ul>-->
+      <!--</div>-->
     </div>
 
     <div class="row">
@@ -357,19 +357,19 @@
 
   </mat-card>
   <div class="d-sm-block d-md-none" >
-  <div class="row compar-fix" *ngIf="compareArray != ''">
+  <div class="row compar-mobile" *ngIf="compareArray != ''">
 
     <div class="text-right closeBtnClass">
       <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
     </div>
-    <div class="col" *ngFor="let clists of compareArray; let i = index">
+    <div class="col-4" *ngFor="let clists of compareArray; let i = index">
       <div fxLayout="column" class="flex-p">
         <mat-card class="custom-card compare-icon text-center">
           <div class="text-right closeBtnClass">
             <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
           </div>
           <mat-card-content class="p-0 col">
-            <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+            <p class="color-green-mobile mb-0 text-center">{{clists.product_name}}</p>
             <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
           </mat-card-content>
         </mat-card>
