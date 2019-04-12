@@ -13,7 +13,6 @@
                 </mat-expansion-panel-header>
                 <div class="row mt-3">
                   <div class="col-md-12 box-card pt-3">
-                  <!--  <h6 class="color-blue">PROPOSER DETAILS</h6>-->
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -297,11 +296,9 @@
                     </div>
                   </div>
 
-
-
                   <div class="col-md-12 box-card pt-3">
                     <div class="row">
-                      <h6 class="color-blue ml-3">Home Burglary Details</h6>
+                      <h6 class="color-blue ml-3">HOME BURGLARY DETAILS</h6>
                       <div class="text-right w-50">
                         <mat-checkbox formControlName="sameasBurglary" (change)="sameBurglaryAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                       </div>
@@ -316,6 +313,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Mobile No" formControlName="personalBurglaryMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="personal.controls.personalBurglaryMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -422,6 +420,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Mobile No" formControlName="personalUniversityMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="personal.controls.personalUniversityMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -474,6 +473,8 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Mobile No" formControlName="personalSponsorMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="personal.controls.personalSponsorMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -530,6 +531,8 @@
                             <div class="col-md-3">
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="Mobile No" formControlName="personalCompanyMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                                  <mat-error *ngIf="personal.controls.personalCompanyMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+
                                 </mat-form-field>
                             </div>
                             <div class="col-md-3">
@@ -627,6 +630,8 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Mobile No" formControlName="personalDoctorMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="personal.controls.personalDoctorMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -791,7 +796,7 @@
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Email Id is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-3">
+                          <div class="col-md-3" [ngStyle]="{'pointer-events': relianceInsuredTravel['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
                             <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="selectInsureRelationship(i)" required>
                               <mat-option *ngFor="let lists of Relationship" [hidden]="lists.insured_relationship_with_proposer != '1'" value="{{lists.insured_id}}" >
@@ -810,6 +815,7 @@
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="personalMobile" autocomplete="off" [required]="i == 0" [readonly]="sameValue">
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Mobile Number is required</mat-error>
+                              <!--<mat-error *ngIf="relianceInsuredTravel.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
                             </mat-form-field>
                           </div>
                           <div class="col-md-3" *ngIf="i == 0">
@@ -836,15 +842,15 @@
                               </div>
                               <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness" (change)="selectInsurePreExistingIllness(i)" required>
+                                  <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness" (change)="selectInsurePreExistingIllness(i)" required="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'}}">
                                     <mat-option  *ngFor="let disease of PreExistingIllness | keys" value="{{disease.key}}">{{disease.value}}</mat-option>
                                    </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Pre Existing Illness is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'" required>
+                              <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'" >
                                 <mat-form-field class="w-100">
-                                  <input matInput [max]="minDate" [matDatepicker]="picker2" placeholder="Suffering Since (DD/MM/YYYY)"   formControlName="SufferingSince"  (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sufferingDate')"  (dateChange)="addEvent($event, 'sufferingDate')"  minlength="10"  maxlength="10" autocomplete="off" >
+                                  <input matInput [max]="minDate" [matDatepicker]="picker2" placeholder="Suffering Since (DD/MM/YYYY)"   formControlName="SufferingSince"  (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sufferingDate')"  (dateChange)="addEvent($event, 'sufferingDate')"  minlength="10"  maxlength="10" autocomplete="off" required="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'}}" >
                                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                   <mat-datepicker #picker2></mat-datepicker>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Suffering is required</mat-error>
@@ -914,7 +920,7 @@
                                 RISK DETAILS
                               </mat-panel-title>
                           </mat-expansion-panel-header>
-                          <ng-template matStepLabel>Risk Details</ng-template>
+                          <ng-template matStepLabel>RISK DETAILS</ng-template>
                           <div class="row mt-1">
                               <div class="col-md-6 box-card pt-3 pb-3" >
                                 <h6 class="color-blue">List Of Travel persons Details</h6>
@@ -936,14 +942,14 @@
                                 </div>
                                 <div class="row col-md-12 ml-2" *ngIf="overseas">
                                     <div class="col-md-8">
-                                      * Is Residing In India
+                                      1.Is Residing In India
                                     </div>
-                                    <div class="col-md-4 text-right">
+                                    <div class="col-md-2 text-left">
                                       <mat-slide-toggle  formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')"></mat-slide-toggle>
                                     </div>
                                     <div class="col-md-12" >
                                       <mat-form-field class="w-100">
-                                        <input matInput placeholder="Permanent Residence Country Name"  formControlName="riskPermanentResidenceCountry" [required]="riskDetails.controls.riskIsResidingInIndia.value" (keypress)="nameValidate($event)" autocomplete="off">
+                                        <input matInput placeholder="Permanent Residence Country Name"  formControlName="riskPermanentResidenceCountry" required="{{riskDetails.controls.riskIsResidingInIndia.value}}" (keypress)="nameValidate($event)" autocomplete="off">
                                       </mat-form-field >
                                     </div>
                                     <div class="col-md-12" >
@@ -953,13 +959,13 @@
                                     </div>
                                   <div class="col-md-12" >
                                     <mat-form-field class="w-100">
-                                    <input matInput placeholder="Passport Issuing Country"  formControlName="riskPassportIssuingCountry" [required]="!riskDetails.controls.riskIsResidingInIndia.value" (keypress)="idValidate($event)" autocomplete="off">
+                                    <input matInput placeholder="Passport Issuing Country"  formControlName="riskPassportIssuingCountry" required="{{riskDetails.controls.riskIsResidingInIndia.value == false}}" (keypress)="idValidate($event)" autocomplete="off">
                                     </mat-form-field>
                                   </div>
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    3.Is Insured On Immigrant Visa
+                                    3.Is Insured On Immigrant Visa  <span class="error">*</span>
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsInsuredOnImmigrantVisa" (change)="riskDetailsChange($event,'ImmigrantVisa')"></mat-slide-toggle>
@@ -967,24 +973,19 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    4.Travel Involves Sporting Activities
+                                    4.Travel Involves Sporting Activities  <span class="error">*</span>
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsTravelInvolvesSportingActivities" (change)="riskDetailsChange($event,'TravelInvolvesSporting')"></mat-slide-toggle>
                                   </div>
-                                  <div class="col-md-12" *ngIf="riskSportsActivitiesTrue">
-                                    <div class="col-md-4">
+                                  <div class="col-md-12" *ngIf="riskDetails['controls'].riskIsTravelInvolvesSportingActivities.value">
+                                    <div class="col-md-6">
                                       <mat-form-field class="w-100">
-                                        <mat-select placeholder="Sports Name" formControlName="riskSportsActivities" (change)="selectriskSportsActivities()">
+                                        <mat-select placeholder="Sports Name" formControlName="riskSportsActivities"  multiple required>
                                           <mat-option  *ngFor="let sports of SportsActivities | keys"  value="{{sports.key}}">{{sports.value}}</mat-option>
                                         </mat-select>
                                       </mat-form-field>
                                     </div>
-                                    <!--<div class="col-md-8">-->
-                                    <!--<mat-form-field class="w-100">-->
-                                      <!--<input matInput placeholder="Sports Name" formControlName="riskSportsActivities" maxlength="250" autocomplete="off">-->
-                                    <!--</mat-form-field>-->
-                                    <!--</div>-->
                                   </div>
                                 </div>
                                 <div class="row col-md-12">
@@ -1002,6 +1003,15 @@
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')"></mat-slide-toggle>
                                   </div>
+                                  <div class="col-md-12" *ngIf="riskDetails['controls'].riskPreExistDisease.value">
+                                    <div class="col-md-6">
+                                      <mat-form-field class="w-100">
+                                        <mat-select placeholder="Diseases" formControlName="riskPreExistDiseaseValue" multiple required>
+                                          <mat-option  *ngFor="let list of allPreExistingDiseases | keys"  value="{{list.key}}">{{list.value}}</mat-option>
+                                        </mat-select>
+                                      </mat-form-field>
+                                    </div>
+                                  </div>
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
@@ -1010,54 +1020,46 @@
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskIsVisitingUSACanada" (change)="riskDetailsChange($event,'IsVisitingUSACanada')"></mat-slide-toggle>
                                   </div>
-                                    <div class="row col-md-12" *ngIf="VisitingListTure">
-                                        <!--<div class="col-md-4">-->
-                                            <!--<mat-form-field color="accent" class="w-100">-->
-                                                <!--<mat-label>DOB (DD/MM/YYYY)</mat-label>-->
-                                                <!--<input matInput [matDatepicker]="picker3" placeholder="End date(DD/MM/YYYY)"  formControlName="riskDOB" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="addEvent($event, 'riskDOB')"  (dateChange)="addEvent($event, 'riskDOB')" maxlength="10" minlength="10">-->
-                                                <!--<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
-                                                <!--<mat-datepicker #picker3 color="primary"></mat-datepicker>-->
-                                            <!--</mat-form-field>-->
-                                            <!--<div class="error" *ngIf="riskDOBDateError != ''">{{riskDOBDateError}}</div>-->
-                                        <!--</div>-->
-                                        <div class="col-md-12">
-                                            <mat-form-field class="w-100">
-                                                <mat-select placeholder="Visiting Countries" formControlName="riskVisitingCountries" (change)="selectriskVisitingCountries()">
-                                                    <mat-option  *ngFor="let countries of VisitingCountry | keys" value="{{countries.key}}">{{countries.value}}</mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
-                                        </div>
-                                        <!--<div class="col-md-4">-->
-                                            <!--<mat-form-field color="accent" class="w-100">-->
-                                                <!--<mat-label>Journey Start Date (DD/MM/YYYY)</mat-label>-->
-                                                <!--<input matInput [matDatepicker]="picker4" placeholder="Start date(DD/MM/YYYY)" formControlName="riskstartDate" [min]="today" (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sDate')"  (dateChange)="addEvent($event, 'sDate')"  maxlength="10" minlength="10">-->
-                                                <!--<mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>-->
-                                                <!--<mat-datepicker #picker4></mat-datepicker>-->
-                                            <!--</mat-form-field>-->
-                                            <!--<div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>-->
-                                        <!--</div>-->
-                                        <!--<div class="col-md-4">-->
-                                            <!--<mat-form-field color="accent" class="w-100">-->
-                                                <!--<mat-label>Journey End Date (DD/MM/YYYY)</mat-label>-->
-                                                <!--<input matInput [matDatepicker]="picker5" placeholder="End date(DD/MM/YYYY)"  formControlName="riskendDate" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="addEvent($event, 'eDate')"  (dateChange)="addEvent($event, 'eDate')" maxlength="10" minlength="10">-->
-                                                <!--<mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>-->
-                                                <!--<mat-datepicker #picker5 color="primary"></mat-datepicker>-->
-                                            <!--</mat-form-field>-->
-                                            <!--<p class="error" *ngIf="endDateError != ''">{{endDateError}}</p>-->
-                                        <!--</div>-->
-                                        <!--<div class="col-md-4">-->
-                                            <!--<p class="days-count">Travel Days : {{riskdaysCount}}</p>-->
-                                        <!--</div>-->
-                                    </div>
                                 </div>
+
+                                  <div class="row col-md-12">
+                                      <div class="col-md-12">
+                                          <mat-form-field class="w-100">
+                                              <mat-select placeholder="Visiting Countries" formControlName="riskVisitingCountries" multiple required>
+                                                  <mat-option  *ngFor="let countries of VisitingCountry" value="{{countries.key}}">{{countries.value}}</mat-option>
+                                              </mat-select>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <mat-form-field color="accent" class="w-100">
+                                              <mat-label>Journey Start Date (DD/MM/YYYY)</mat-label>
+                                              <input matInput [matDatepicker]="picker4" placeholder="Start date(DD/MM/YYYY)" formControlName="riskstartDate" [min]="today" (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sDate')"  (dateChange)="addEvent($event, 'sDate')"  maxlength="10" minlength="10">
+                                              <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                              <mat-datepicker #picker4></mat-datepicker>
+                                          </mat-form-field>
+                                          <div class="error" *ngIf="startDateError != ''">{{startDateError}}</div>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <mat-form-field color="accent" class="w-100">
+                                              <mat-label>Journey End Date (DD/MM/YYYY)</mat-label>
+                                              <input matInput [matDatepicker]="picker5" placeholder="End date(DD/MM/YYYY)"  formControlName="riskendDate" (keypress)="dobValidate($event)" [min]="maxDate" (dateInput)="addEvent($event, 'eDate')"  (dateChange)="addEvent($event, 'eDate')" maxlength="10" minlength="10">
+                                              <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                                              <mat-datepicker #picker5 color="primary"></mat-datepicker>
+                                          </mat-form-field>
+                                          <p class="error" *ngIf="endDateError != ''">{{endDateError}}</p>
+                                      </div>
+                                      <div class="col-md-4">
+                                          <p class="days-count">Travel Days : {{riskdaysCount}}</p>
+                                      </div>
+                                  </div>
                                   <div class="row col-md-12">
                                       <div class="col-md-8">
                                           8.Is Visiting Family
                                       </div>
-                                      <div class="col-md-4 text-right">
-                                          <mat-slide-toggle (change)="riskDetailsChange($event,'IsVisitingFamily')"></mat-slide-toggle>
+                                      <!--<div class="col-md-4 text-right">-->
+                                          <!--<mat-slide-toggle (change)="riskDetailsChange($event,'IsVisitingFamily')"></mat-slide-toggle>-->
                                       </div>
-                                      <div class="col-md-12" *ngIf="riskCoverageTypeTrue">
+                                      <div class="col-md-12" >
                                         <mat-form-field class="w-100">
                                           <mat-select placeholder="Coverage Type Id" formControlName="riskCoverageType" (change)="selectriskriskCoverageType()">
                                             <mat-option  *ngFor="let cover of CoverType | keys"  value="{{cover.key}}">{{cover.value}}</mat-option>
@@ -1090,10 +1092,10 @@
                                       <div class="col-md-8">
                                          11.Is Travel Pravasi Number of Years
                                       </div>
-                                      <div class="col-md-4 text-right">
-                                          <mat-slide-toggle  (change)="riskDetailsChange($event,'IsPravasi')"></mat-slide-toggle>
-                                      </div>
-                                      <div class="col-md-12" *ngIf="riskNoOfYearsTrue">
+                                      <!--<div class="col-md-4 text-right">-->
+                                          <!--<mat-slide-toggle  (change)="riskDetailsChange($event,'IsPravasi')"></mat-slide-toggle>-->
+                                      <!--</div>-->
+                                      <div class="col-md-12">
                                           <mat-form-field class="w-100">
                                               <input matInput placeholder="Enter The Number Of Years" (keypress)="numberValidate($event)" maxlength="10" formControlName="riskNoOfYears" autocomplete="off">
                                           </mat-form-field>
@@ -1103,18 +1105,20 @@
                                       <div class="col-md-8">
                                           12.Senior Citizens Add On Benefits
                                       </div>
-                                      <div class="col-md-4 text-right">
-                                          <mat-slide-toggle formControlName="riskSeniorCitizen" (change)="riskDetailsChange($event,'IsSeniorCitizen')"></mat-slide-toggle>
-                                      </div>
-                                      <div class="col-md-12" *ngIf="riskSeniorCitizenTrue">
+                                      <!--<div class="col-md-4 text-right">-->
+                                          <!--<mat-slide-toggle formControlName="riskSeniorCitizen" (change)="riskDetailsChange($event,'IsSeniorCitizen')"></mat-slide-toggle>-->
+                                      <!--</div>-->
+                                      <!--<div class="col-md-12" *ngIf="riskSeniorCitizenTrue">-->
+                                        <!--<mat-form-field class="w-100">-->
+                                          <!--<input matInput placeholder="Senior Citizen Plan Name" (keypress)="nameValidate($event)"  formControlName="riskSeniorCitizenPlanName" autocomplete="off">-->
+                                        <!--</mat-form-field>-->
+                                      <!--</div>-->
+                                      <div class="col-md-12">
                                         <mat-form-field class="w-100">
-                                          <input matInput placeholder="Senior Citizen Plan Name" (keypress)="nameValidate($event)"  formControlName="riskSeniorCitizenPlanName" autocomplete="off">
+                                          <mat-select placeholder="Senior Citizen Plan" formControlName="riskSeniorCitizenPlanID" (change)="selectseniorPlan()">
+                                            <mat-option  *ngFor="let plans of seniorCitizenPlans | keys"  value="{{plans.key}}">{{plans.value}}</mat-option>
+                                          </mat-select>
                                         </mat-form-field>
-                                      </div>
-                                      <div class="col-md-12" *ngIf="riskSeniorCitizenTrue">
-                                          <mat-form-field class="w-100">
-                                              <input matInput placeholder="Senior Citizen Plan ID" (keypress)="numberValidate($event)" maxlength="10" formControlName="riskSeniorCitizenPlanID" autocomplete="off">
-                                          </mat-form-field>
                                       </div>
                                   </div>
                               </div>
