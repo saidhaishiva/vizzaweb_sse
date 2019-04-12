@@ -130,26 +130,26 @@
                       </div>
                       <div class="col-md-3" *ngIf="drivinglicenseP" >
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Driving License" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="idValidate($event)" maxlength="15" [required]="drivinglicenseP" (input)="panType('insurer')">
+                          <input matInput placeholder="Driving License" class="text-uppercase" formControlName="insuredPaDriving" pattern="^([a-zA-Z]){2}([0-9]){13}?$" (keypress)="idValidate($event)" maxlength="15" [required]="drivinglicenseP" (input)="panType('insurer')">
                           <mat-error *ngIf="insured.controls.insuredPaDriving.hasError('pattern')"> Enter Valid Driving License </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="passportP">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Passport" formControlName="insuredPaPassport" (keypress)="idValidate($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" [required]="passportP" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
+                          <input matInput placeholder="Passport"  class="text-uppercase" formControlName="insuredPaPassport" (keypress)="idValidate($event)" minlength="8"  maxlength="8" (input)="panType('insurer')" [required]="passportP" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$">
                           <mat-error *ngIf="insured.controls.insuredPaPassport.hasError('pattern')"> Enter Valid PassPort </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="voterP" >
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Voter Id" formControlName="insuredPaVoter" maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)" (input)="panType('insurer')" [required]="voterP">
+                          <input matInput placeholder="Voter Id" class="text-uppercase" formControlName="insuredPaVoter" maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)" (input)="panType('insurer')" [required]="voterP">
                           <mat-error *ngIf="insured.controls.insuredPaVoter.hasError('pattern')"> Enter Valid Voter Id </mat-error>
 
                         </mat-form-field>
                       </div>
 
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="GST Number"  minlength="15"  maxlength="15" formControlName="insuredPaGst" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
+                        <input matInput placeholder="GST Number"  class="text-uppercase" minlength="15"  maxlength="15" formControlName="insuredPaGst" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                         <mat-error *ngIf="insured.controls.insuredPaGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                         <mat-error *ngIf="insured.controls.insuredPaGst.hasError('pattern')">Enter valid GST</mat-error>
                       </mat-form-field>
@@ -373,7 +373,7 @@
                           </div>
                           <div class="col-md-3">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Enter Remark Details" (keypress)="space($event)" [required]="prevList" id="nospace"  (keypress)="spacing($event)" formControlName="insuredremark">
+                              <input matInput placeholder="Enter Remark Details" (keypress)="nameValidate($event)" [required]="prevList" formControlName="insuredremark">
                               <mat-error *ngIf="insured.controls.insuredremark.errors?.required">Enter Remark Details is required</mat-error>
                             </mat-form-field>
                           </div>

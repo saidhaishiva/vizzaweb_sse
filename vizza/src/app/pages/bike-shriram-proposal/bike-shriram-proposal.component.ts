@@ -61,6 +61,10 @@ export class BikeShriramProposalComponent implements OnInit {
   public pincodeHypoList : any;
   public previousDateError : any;
   public webhost : any;
+  public declaration : any;
+  public PaymentRedirect : any;
+  public PolicySisID : any;
+  public PaymentReturn : any;
     constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -740,6 +744,9 @@ export class BikeShriramProposalComponent implements OnInit {
           this.toastr.success('Proposal created successfully!!');
           this.summaryData = successData.ResponseObject;
          this.ProposalId =   this.summaryData.ProposalId;
+         this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+         this.PolicySisID =   this.summaryData.PolicySisID;
+         this.PaymentReturn =   this.summaryData.PaymentReturn;
          sessionStorage.shiramBikeproposalID = this.ProposalId;
          this.proposerFormData = this.proposer.value;
          this.vehicalFormData = this.vehical.value;
