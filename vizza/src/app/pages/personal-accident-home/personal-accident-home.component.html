@@ -695,7 +695,7 @@
     <mat-card class="mb-3" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
         <div class="row " >
             <div class="col-md-6 col-6">
-                <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
+                <img class="mt-1 w-75" src="{{webhost + '/' + plists.company_logo}}">
                 <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
             </div>
             <div class="col-md-3 col-3">
@@ -769,7 +769,7 @@
                     </mat-card>
                 </div>
             </div>
-            <div class="col" fxLayoutAlign="left center" *ngIf="compareArray != ''">
+            <div class="col text-center" *ngIf="compareArray != ''">
                 <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
             </div>
         </div>
