@@ -244,7 +244,7 @@ export const routes: Routes = [
             { path: 'reliance-pa', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
             { path: 'bikepremium', component: BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
             { path: 'life-premium-list', component: TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} },
-            { path: 'bike-shriram-proposal', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
+            { path: 'bike-shriram-proposal/:stepper', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
             { path: 'life-bajaj-proposal', component: LifeBajajProposalComponent, data:{ breadcrumb: 'life-bajaj-proposal'}},
             { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}}
 

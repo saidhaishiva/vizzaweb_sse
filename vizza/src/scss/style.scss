@@ -106,6 +106,7 @@ button:focus{
 }
 .sidenav{
   width: 300px !important;
+  overflow: auto !important;
 }
 
 .dashboard1{
@@ -3986,5 +3987,9 @@ fieldset {
   //td{
   //  color: rgb(15, 105, 142) !important;
   //}
+}
+
+.mat-drawer-container {
+  padding-bottom: 40px;
 }
 
