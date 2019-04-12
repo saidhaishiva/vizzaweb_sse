@@ -9,6 +9,7 @@ import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 @Component({
   selector: 'app-bike-shriram-proposal',
   templateUrl: './bike-shriram-proposal.component.html',
@@ -59,13 +60,20 @@ export class BikeShriramProposalComponent implements OnInit {
   public pincodeCity : any;
   public pincodeHypoList : any;
   public previousDateError : any;
-    constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+  public webhost : any;
+  public declaration : any;
+  public PaymentRedirect : any;
+  public PolicySisID : any;
+  public PaymentReturn : any;
+    constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
     this.settings = this.appSettings.settings;
-    this.settings.HomeSidenavUserBlock = false;
+        this.webhost = this.config.getimgUrl();
+
+        this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
     this.proposerRatioDetail = false;
@@ -202,7 +210,7 @@ export class BikeShriramProposalComponent implements OnInit {
 
 
   // date input
-         addEvent(event, type) {
+         addEvent(event) {
               if (event.value != null) {
                 let selectedDate = '';
                 this.bikeProposerAge = '';
@@ -509,7 +517,7 @@ export class BikeShriramProposalComponent implements OnInit {
 
 
         // from date
-    addEventPrevious(event, type) {
+    addEventPrevious(event) {
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
@@ -629,7 +637,7 @@ export class BikeShriramProposalComponent implements OnInit {
           'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
           'enquiry_id': this.bikeEnquiryDetails.enquiry_id,
           "created_by": "",
-          "proposal_id": "0",
+          'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
           "geogrophicalExtensionCover": "false",
           "motorProposalObj": {
               "PreviousPolicyFromDt": "02/03/2016",
@@ -701,7 +709,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "LLtoPaidDriverYN": this.vehical.controls['lltoPaidDriver'].value == true ? '1' : '0',
               "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
               "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
-              "PreviousInsurer": this.previousInsure.controls['previousInsure'].value,
+              "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
               "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
               "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
               "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
@@ -736,6 +744,10 @@ export class BikeShriramProposalComponent implements OnInit {
           this.toastr.success('Proposal created successfully!!');
           this.summaryData = successData.ResponseObject;
          this.ProposalId =   this.summaryData.ProposalId;
+         this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+         this.PolicySisID =   this.summaryData.PolicySisID;
+         this.PaymentReturn =   this.summaryData.PaymentReturn;
+         sessionStorage.shiramBikeproposalID = this.ProposalId;
          this.proposerFormData = this.proposer.value;
          this.vehicalFormData = this.vehical.value;
          this.previousFormData = this.previousInsure.value;
@@ -803,7 +815,9 @@ export class BikeShriramProposalComponent implements OnInit {
 
     }
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
+        console.log('inside stepper 3')
       let stepper3 = JSON.parse(sessionStorage.stepper3);
+        console.log(stepper3, 'stepper3');
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
         previousInsured: stepper3.previousInsured,
@@ -819,7 +833,7 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
       let stepper4 = JSON.parse(sessionStorage.stepper4);
-      this.previousInsure = this.fb.group({
+      this.nomineeDetail = this.fb.group({
         nomineeName: stepper4.nomineeName,
         nomineeAge: stepper4.nomineeAge,
         nomineeRelationship: stepper4.nomineeRelationship,
