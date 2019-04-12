@@ -664,7 +664,7 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTravel() + 'reliance/get_pre_existingdisease' ;
+        const url = this.configurationService.getHostTravel() + 'reliance/get_senior_citizen' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

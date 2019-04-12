@@ -984,7 +984,7 @@
                                     <div class="col-md-6">
                                       <mat-form-field class="w-100">
                                         <mat-select placeholder="Sports Name" formControlName="riskSportsActivities"  multiple required>
-                                          <mat-option  *ngFor="let sports of SportsActivities"  value="{{sports.key}}">{{sports.value}}</mat-option>
+                                          <mat-option  *ngFor="let sports of SportsActivities"  value="{{sports.sportsactivity_id}}">{{sports.sportsactivity_name}}</mat-option>
                                         </mat-select>
                                       </mat-form-field>
                                     </div>
@@ -1000,16 +1000,17 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    6.Is Pre-Existing Disease
+                                    6.Is Pre-Existing Disease ooo
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')"></mat-slide-toggle>
                                   </div>
                                   <div class="col-md-12" *ngIf="riskDetails['controls'].riskPreExistDisease.value">
                                     <div class="col-md-6">
+
                                       <mat-form-field class="w-100">
-                                        <mat-select placeholder="Diseases" formControlName="riskPreExistDiseaseValue" multiple required>
-                                          <mat-option  *ngFor="let list of allPreExistingDiseases "  value="{{list.key}}">{{list.value}}</mat-option>
+                                        <mat-select placeholder="Diseases" formControlName="riskPreExistDiseaseValue"  multiple required>
+                                          <mat-option  *ngFor="let list of allPreExistingDiseases"  value="{{list.disease_id}}">{{list.disease_name}}</mat-option>
                                         </mat-select>
                                       </mat-form-field>
                                     </div>
@@ -1028,7 +1029,7 @@
                                       <div class="col-md-6">
                                           <mat-form-field class="w-100">
                                               <mat-select placeholder="Visiting Countries" formControlName="riskVisitingCountries" multiple required>
-                                                  <mat-option  *ngFor="let countries of VisitingCountry" value="{{countries.key}}">{{countries.value}}</mat-option>
+                                                  <mat-option  *ngFor="let countries of VisitingCountry" value="{{countries.visiting_id}}">{{countries.visiting_name}}</mat-option>
                                               </mat-select>
                                           </mat-form-field>
                                       </div>
@@ -1278,40 +1279,18 @@
                           </ul>
                       </div>
                   </div>
-                  <!--&lt;!&ndash;<table class="table table-bordered">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<thead class="thead-light">&ndash;&gt;-->
-                      <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<th>Insurer</th>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<th>Plan Name</th>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<th>Premium</th>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<th>Service Tax</th>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<th>Total Premium</th>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</thead>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<tbody>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<td>&ndash;&gt;-->
-                              <!--&lt;!&ndash;<img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" />&ndash;&gt;-->
-                          <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<td class="align-middle">{{getTravelPremiumList.plan_name}}</td>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>&ndash;&gt;-->
-                          <!--&lt;!&ndash;<td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium_amount}}</td>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</tr>&ndash;&gt;-->
 
-                      <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</table>&ndash;&gt;-->
                       <mat-expansion-panel   [expanded]="true">
                           <mat-expansion-panel-header>
                               <mat-panel-title>
-                                  Proposer Details
+                                  PROPOSER DETAILS Proposer Details
                               </mat-panel-title>
                           </mat-expansion-panel-header>
 
                           <div class="row box-card">
                               <div class="col-md-6">
                                   <div class="p-3">
-                                    <h6 class="color-blue">Proposer Details</h6>
+                                    <!--<h6 class="color-blue">Proposer Details</h6>-->
                                     <ul class="m-0 list-group">
                                           <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.personalTitle}} {{proposerFormData.personalFirstname}} {{proposerFormData.personalMidname}} {{proposerFormData.personalLastname}}</li>
                                           <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.personalGender}}</li>
@@ -1333,7 +1312,7 @@
                               </div>
                               <div class="col-md-6">
                                   <div class="p-3">
-                                    <h6 class="color-blue">Proposer Communication Address</h6>
+                                    <h6 class="color-blue">Communication Address</h6>
                                     <ul class="m-0 list-group">
                                           <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>
                                           <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
@@ -1473,7 +1452,7 @@
                   <mat-expansion-panel   [expanded]="true">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        Insurer Details
+                        INSURED DETAILS
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="row box-card">
@@ -1507,7 +1486,7 @@
                 <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      Risk Details
+                      RISK DETAILS
                     </mat-panel-title>
                   </mat-expansion-panel-header>
 
@@ -1516,54 +1495,105 @@
                       <div class="p-3">
                         <h6 class="color-blue">List Of Travel persons Details</h6>
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Is Indian Citizen</strong> {{riskFormData.riskIndian}}</li>
-                          <li class="list-group-item"><strong>Is Over Seas Citizen</strong> {{riskFormData.riskIsOverSeasCitizen}}</li>
-                          <li class="list-group-item"><strong>Is Residing In India</strong> {{riskFormData.riskIsResidingInIndia}}</li>
+                          <li class="list-group-item">
+                            <strong> Is Indian Citizen : </strong>
+                            <span *ngIf="riskFormData.riskIndian">Yes</span>
+                            <span *ngIf="!riskFormData.riskIndian">No</span>
+                          </li>
+                          <li class="list-group-item">
+                            <strong> Is Over Seas Citizen :</strong>
+                            <span *ngIf="riskFormData.riskIsOverSeasCitizen">Yes</span>
+                            <span *ngIf="!riskFormData.riskIsOverSeasCitizen">No</span>
+                          </li>
+                          <li class="list-group-item">
+                            <strong>Is Residing In India : </strong>
+                            <span *ngIf="riskFormData.riskIsResidingInIndia">Yes</span>
+                            <span *ngIf="!riskFormData.riskIsResidingInIndia">No</span>
+                          </li>
                           <li class="list-group-item" *ngIf="riskFormData.riskPermanentResidenceCountry != ''"><strong>Permanent Residence Country</strong> {{riskFormData.riskPermanentResidenceCountry}}</li>
                           <li class="list-group-item" *ngIf="riskFormData.riskOCINumber != ''"><strong>OCI Number</strong> {{riskFormData.riskOCINumber}}</li>
                           <li class="list-group-item" *ngIf="riskFormData.riskPassportIssuingCountry != ''"><strong>Passport Issuing Country</strong> {{riskFormData.riskPassportIssuingCountry}}</li>
-                          <li class="list-group-item"><strong>Is Insured On Immigrant Visa</strong> {{riskFormData.riskIsInsuredOnImmigrantVisa}}</li>
-                          <li class="list-group-item"><strong>Is Travel Involves Sporting Activities</strong> {{riskFormData.riskIsTravelInvolvesSportingActivities}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.riskSportsActivities != '' && riskFormData.riskSportsActivities != null"><strong>Sports Activities</strong> {{riskFormData.riskSportsActivities}}</li>
-                          <li class="list-group-item"><strong>Is Suffering From PEMC</strong> {{riskFormData.riskIsSufferingFromPEMC}}</li>
-                          <li class="list-group-item"><strong>Pre-Exist Disease</strong> {{riskFormData.riskPreExistDisease}}</li>
-                          <li class="list-group-item"><strong>Is Visiting USA Canada</strong> {{riskFormData.riskIsVisitingUSACanada}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.riskVisitingCountriesName != '' && riskFormData.riskVisitingCountriesName != null" ><strong>Visiting Countries</strong> {{riskFormData.riskVisitingCountriesName}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.riskCoverageTypeName != ''"><strong>Coverage Type</strong> {{riskFormData.riskCoverageTypeName}}</li>
-                          <li class="list-group-item"><strong>Is Add On Cover Only Student</strong> {{riskFormData.riskIsVisitingStudent}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.riskMaxDaysPerTrip != ''"><strong>Max Days Per Trip</strong> {{riskFormData.riskMaxDaysPerTrip}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.riskNoOfYears != ''"><strong>No Of Years</strong> {{riskFormData.riskNoOfYears}}</li>
-                          <li class="list-group-item"><strong>Senior Citizens Add On Bnifits</strong> {{riskFormData.riskSeniorCitizen}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.riskSeniorCitizenPlanID != ''"><strong>Senior Citizen Plan Id</strong> {{riskFormData.riskSeniorCitizenPlanID}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.riskSeniorCitizenPlanName != ''"><strong>Senior Citizen Plan Name</strong> {{riskFormData.riskSeniorCitizenPlanName}}</li>
+                          <li class="list-group-item">
+                            <strong>Is Insured On Immigrant Visa :</strong>
+                            <span *ngIf="riskFormData.riskIsInsuredOnImmigrantVisa">Yes</span>
+                            <span *ngIf="!riskFormData.riskIsInsuredOnImmigrantVisa">No</span>
+                          </li>
+
+                          <li class="list-group-item">
+                            <strong>Is Travel Involves Sporting Activities :</strong>
+                            <span *ngIf="riskFormData.riskIsTravelInvolvesSportingActivities">Yes</span>
+                            <span *ngIf="!riskFormData.riskIsTravelInvolvesSportingActivities">No</span>
+                          </li>
+
+                          <li class="list-group-item" *ngIf="riskFormData.riskSportsActivities != ''">
+                            <strong>Sports Activities : </strong>
+                            <span *ngFor="let lists of riskFormData.riskSportsActivities; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">,</span> </span>
+                          </li>
+
+                          <li class="list-group-item">
+                            <strong>Is Suffering From PEMC : </strong>
+                            <span *ngIf="riskFormData.riskIsSufferingFromPEMC">Yes</span>
+                            <span *ngIf="!riskFormData.riskIsSufferingFromPEMC">No</span>
+                          </li>
+
+                          <li class="list-group-item">
+                            <strong>Pre-Exist Disease : </strong>
+                            <span *ngFor="let lists of riskFormData.riskPreExistDisease; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">,</span> </span>
+                          </li>
+                          <li class="list-group-item">
+                            <strong>Is Visiting USA Canada : </strong>
+                            <span *ngIf="riskFormData.riskIsVisitingUSACanada">Yes</span>
+                            <span *ngIf="!riskFormData.riskIsVisitingUSACanada">No</span>
+                          </li>
+                          <li class="list-group-item" *ngIf="riskFormData.riskVisitingCountries != ''" >
+                            <strong>Visiting Countries : </strong>
+                            <span *ngFor="let lists of riskFormData.riskVisitingCountriesName; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">,</span> </span>
+
+                          </li>
+                          <li class="list-group-item" *ngIf="riskFormData.riskCoverageTypeName != ''"><strong>Is Visiting Family Coverage Type : </strong> {{riskFormData.riskCoverageTypeName}}</li>
+                          <li class="list-group-item">
+                            <strong>Is Add On Cover Only Student : </strong>
+                            <span *ngIf="riskFormData.riskIsVisitingStudent">Yes</span>
+                            <span *ngIf="!riskFormData.riskIsVisitingStudent">No</span>
+                          </li>
+
+                          <li class="list-group-item" *ngIf="riskFormData.riskMaxDaysPerTrip != ''">
+                            <strong>Max Days Per Trip : </strong> {{riskFormData.riskMaxDaysPerTrip}}
+                          </li>
+                          <li class="list-group-item" *ngIf="riskFormData.riskNoOfYears != ''"><strong> Is Travel Pravasi Number of Years  : </strong> {{riskFormData.riskNoOfYears}}</li>
+                          <li class="list-group-item">
+                            <strong>Senior Citizens Add On Bnifits : </strong>
+                            {{riskFormData.riskSeniorCitizenPlanIDName}}</li>
+                          <!--<li class="list-group-item" *ngIf="riskFormData.riskSeniorCitizenPlanID != ''"><strong>Senior Citizen Plan Id</strong> {{riskFormData.riskSeniorCitizenPlanID}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.riskSeniorCitizenPlanName != ''"><strong>Senior Citizen Plan Name</strong> {{riskFormData.riskSeniorCitizenPlanName}}</li>-->
                           <!--<li class="list-group-item"><strong>Add On Bnifits Opted</strong> {{riskFormData.AddOnBnifitsOpted}}</li>-->
                         </ul>
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="p-3">
-                        <h6 class="color-blue">Last Of Travel Cover Details</h6>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="riskFormData.TravelCoverageName != ''"><strong>Coverage Name</strong> {{riskFormData.TravelCoverageName}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.TravelCoverageDisplayName != ''"><strong>Coverage Display Name</strong> {{riskFormData.TravelCoverageDisplayName}}</li>
-                          <li class="list-group-item"><strong>Is Standard Plan</strong> {{riskFormData.TravelStandardLimitedPlan}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.TravelStandardDeductiblePlan != ''"><strong>Standard Limit</strong> {{riskFormData.TravelStandardDeductiblePlan}}</li>
-                          <li class="list-group-item"><strong>Is Silver Plan</strong> {{riskFormData.TravelIsSilverPlan}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.TravelSilverPlan != ''"><strong>Silver Limit</strong> {{riskFormData.TravelSilverPlan}}</li>
-                          <!--<li class="list-group-item" *ngIf="riskFormData.StandardDeductible != '' && riskFormData.StandardDeductible != 'null'"><strong>Travel Standard Deductible Plan</strong> {{riskFormData.StandardDeductible}}</li>-->
-                          <li class="list-group-item"><strong>Is Gold Plan</strong> {{riskFormData.TravelIsGoldPlan}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.TravelGoldPlan != ''"><strong>Gold Limit</strong> {{riskFormData.TravelGoldPlan}}</li>
-                          <li class="list-group-item"><strong>Is Platinum Plan</strong> {{riskFormData.TravelIsPlatinumPlan}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.TravelPlatinumPlan != ''"><strong>Platinum Limit</strong> {{riskFormData.TravelPlatinumPlan}}</li>
-                          <li class="list-group-item"><strong>Is Basic Plan</strong> {{riskFormData.TravelIsBasicPlan}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.TravelBasicPlan != ''"><strong>Basic Limit</strong> {{riskFormData.TravelBasicPlan}}</li>
-                          <li class="list-group-item"><strong>Is Elite Plan</strong> {{riskFormData.TravelIsElitePlan}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.TravelElitePlan != ''"><strong>Elite Limit</strong> {{riskFormData.TravelElitePlan}}</li>
-                          <li class="list-group-item"><strong>Is Plus Plan</strong> {{riskFormData.TravelIsPlusPlan}}</li>
-                          <li class="list-group-item" *ngIf="riskFormData.TravelPlusPlan != ''"><strong>Plus Limit</strong> {{riskFormData.TravelPlusPlan}}</li>
-                        </ul>
-                      </div>
-                    </div>
+                    <!--<div class="col-md-6">-->
+                      <!--<div class="p-3">-->
+                        <!--<h6 class="color-blue">Last Of Travel Cover Details</h6>-->
+                        <!--<ul class="m-0 list-group">-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelCoverageName != ''"><strong>Coverage Name</strong> {{riskFormData.TravelCoverageName}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelCoverageDisplayName != ''"><strong>Coverage Display Name</strong> {{riskFormData.TravelCoverageDisplayName}}</li>-->
+                          <!--<li class="list-group-item"><strong>Is Standard Plan</strong> {{riskFormData.TravelStandardLimitedPlan}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelStandardDeductiblePlan != ''"><strong>Standard Limit</strong> {{riskFormData.TravelStandardDeductiblePlan}}</li>-->
+                          <!--<li class="list-group-item"><strong>Is Silver Plan</strong> {{riskFormData.TravelIsSilverPlan}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelSilverPlan != ''"><strong>Silver Limit</strong> {{riskFormData.TravelSilverPlan}}</li>-->
+                          <!--&lt;!&ndash;<li class="list-group-item" *ngIf="riskFormData.StandardDeductible != '' && riskFormData.StandardDeductible != 'null'"><strong>Travel Standard Deductible Plan</strong> {{riskFormData.StandardDeductible}}</li>&ndash;&gt;-->
+                          <!--<li class="list-group-item"><strong>Is Gold Plan</strong> {{riskFormData.TravelIsGoldPlan}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelGoldPlan != ''"><strong>Gold Limit</strong> {{riskFormData.TravelGoldPlan}}</li>-->
+                          <!--<li class="list-group-item"><strong>Is Platinum Plan</strong> {{riskFormData.TravelIsPlatinumPlan}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelPlatinumPlan != ''"><strong>Platinum Limit</strong> {{riskFormData.TravelPlatinumPlan}}</li>-->
+                          <!--<li class="list-group-item"><strong>Is Basic Plan</strong> {{riskFormData.TravelIsBasicPlan}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelBasicPlan != ''"><strong>Basic Limit</strong> {{riskFormData.TravelBasicPlan}}</li>-->
+                          <!--<li class="list-group-item"><strong>Is Elite Plan</strong> {{riskFormData.TravelIsElitePlan}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelElitePlan != ''"><strong>Elite Limit</strong> {{riskFormData.TravelElitePlan}}</li>-->
+                          <!--<li class="list-group-item"><strong>Is Plus Plan</strong> {{riskFormData.TravelIsPlusPlan}}</li>-->
+                          <!--<li class="list-group-item" *ngIf="riskFormData.TravelPlusPlan != ''"><strong>Plus Limit</strong> {{riskFormData.TravelPlusPlan}}</li>-->
+                        <!--</ul>-->
+                      <!--</div>-->
+                    <!--</div>-->
                   </div>
                 </mat-expansion-panel>
 

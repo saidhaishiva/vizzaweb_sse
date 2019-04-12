@@ -334,8 +334,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       riskNoOfYears: '',
       riskSeniorCitizen: false,
       riskSeniorCitizenPlanID: '',
-      riskSeniorCitizenPlanName: 'Standard',
       TravelStandardLimited: '',
+        riskSeniorCitizenPlanIDName: '',
 
       TravelCoverageName:'',
       TravelCoverageDisplayName: '',
@@ -406,6 +406,9 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relaincePreExistingIllness();
     this.relainceSportsActivities();
     this.relainceCoverType();
+
+    this.getSenorCitPlans();
+    this.getRiskPreDiseases();
 
     this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
     console.log(this.sessionStepper3,'sessionStepper3');
@@ -585,6 +588,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   //reliance Risk Details
   relianceRiskDetails(stepper: MatStepper, value) {
     this.RiskData = value;
+    console.log(value, 'valuevalue');
+    console.log(this.riskDetails.valid, 'this.riskDetails.valid');
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper3Details = JSON.stringify(value);
     if (this.riskDetails.valid) {
@@ -1483,7 +1488,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         riskNoOfYears: this.getStepper3.riskNoOfYears,
         riskSeniorCitizen: this.getStepper3.riskSeniorCitizen,
         riskSeniorCitizenPlanID: this.getStepper3.riskSeniorCitizenPlanID,
-        riskSeniorCitizenPlanName: this.getStepper3.riskSeniorCitizenPlanName,
+          riskSeniorCitizenPlanIDName: this.getStepper3.riskSeniorCitizenPlanIDName,
         TravelStandardLimited: this.getStepper3.TravelStandardLimited,
         TravelCoverageName: this.getStepper3.TravelCoverageName,
         TravelCoverageDisplayName: this.getStepper3.TravelCoverageDisplayName,
@@ -1739,6 +1744,8 @@ export class TravelRelianceProposalComponent implements OnInit {
     public preExDiseaseSuccess(successData) {
         if (successData.IsSuccess) {
             this.allPreExistingDiseases = successData.ResponseObject;
+            console.log(this.allPreExistingDiseases,'eeeee')
+
         }
     }
     public preExDiseaseFailure(error) {
@@ -1788,6 +1795,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     public getSenorCitPlansSuccess(successData) {
         if (successData.IsSuccess) {
             this.seniorCitizenPlans = successData.ResponseObject;
+            console.log(this.seniorCitizenPlans, 'this.seniorCitizenPlansthis.seniorCitizenPlans');
         }
     }
 
@@ -2186,6 +2194,6 @@ export class TravelRelianceProposalComponent implements OnInit {
 
 
     selectseniorPlan() {
-        this.riskDetails.controls['riskCoverageTypeName'].patchValue(this.CoverType[this.riskDetails.controls['riskCoverageType'].value]);
+        this.riskDetails.controls['riskSeniorCitizenPlanIDName'].patchValue(this.CoverType[this.seniorCitizenPlans.controls['riskSeniorCitizenPlanID'].value]);
     }
 }
