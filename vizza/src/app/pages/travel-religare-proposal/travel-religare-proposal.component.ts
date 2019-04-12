@@ -102,6 +102,8 @@ export class ReliagretravelproposalComponent implements OnInit {
     public setAddons: any;
     public sponserAge: any;
     public sponserDobError: any;
+    public placeOfVisit: any;
+
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public route: ActivatedRoute,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -209,6 +211,9 @@ export class ReliagretravelproposalComponent implements OnInit {
             }
             this.getAddon();
             this.sessionData();
+            if (sessionStorage.travelPlan != '' && sessionStorage.travelPlan != undefined) {
+                this.placeOfVisit = JSON.parse(sessionStorage.travelPlan);
+            }
 
     }
 

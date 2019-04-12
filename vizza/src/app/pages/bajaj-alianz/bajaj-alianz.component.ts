@@ -191,6 +191,10 @@ export class BajajAlianzComponent implements OnInit {
     prevStep() {
         this.step--;
     }
+    backAll(){
+        this.topScroll();
+        this.prevStep();
+    }
     initItemRows() {
         return this.fb.group(
             {
@@ -353,7 +357,8 @@ export class BajajAlianzComponent implements OnInit {
                 if(!diseaseValidate.includes('No')) {
                     if(!relationshipValidate.includes('No')) {
                         this.proposal(stepper);
-                        this.prevStep();
+                        this.topScroll();
+                        this.nextStep();
                     }  else{
                         this.toastr.error('Insurer and Nominee relationship should be different');
                     }
@@ -362,11 +367,6 @@ export class BajajAlianzComponent implements OnInit {
                 }
             }
         }
-    }
-
-    backAll(){
-        this.topScroll();
-        this.prevStep();
     }
 
     changeCoPayment(event:any, index){
