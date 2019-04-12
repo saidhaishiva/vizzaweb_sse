@@ -302,7 +302,7 @@
   </mat-card>
   </div>
 
-  <mat-card class="mb-3" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
+  <mat-card *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
     <div class="row " >
       <div class="col-md-6 col-6">
         <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
@@ -356,7 +356,7 @@
     </div>
 
   </mat-card>
-  <div class="d-sm-block d-md-none" >
+  <div class="d-sm-block d-md-none" style="margin-top: 200px !important;" >
   <div class="row compar-mobile" *ngIf="compareArray != ''">
 
     <div class="text-right closeBtnClass">
