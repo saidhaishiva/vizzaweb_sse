@@ -1744,7 +1744,7 @@
                         </section>
                         <div class="row" *ngIf="summaryData">
                             <div class="col-sm-12 col-xs-12 text-right">
-                                <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                                <button mat-button color="warn" (click)="backAll()">Back</button>
                             </div>
                             <div class="col-sm-12 col-xs-12 text-left">
                                 <form action={{summaryData.RediretUrlLink}} method='post' #form>
