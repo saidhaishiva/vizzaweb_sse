@@ -296,7 +296,7 @@
                     </div>
                   </div>
 
-                  <div class="col-md-12 box-card pt-3">
+                  <div class="col-md-12 box-card pt-3" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code == 'Standard'">
                     <div class="row">
                       <h6 class="color-blue ml-3">HOME BURGLARY DETAILS</h6>
                       <div class="text-right w-50">
@@ -1000,7 +1000,7 @@
                                 </div>
                                 <div class="row col-md-12">
                                   <div class="col-md-8">
-                                    6.Is Pre-Existing Disease ooo
+                                    6.Is Pre-Existing Disease
                                   </div>
                                   <div class="col-md-4 text-right">
                                     <mat-slide-toggle  formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')"></mat-slide-toggle>
@@ -1059,7 +1059,7 @@
                                       <div class="col-md-8">
                                           8.Is Visiting Family :
                                       </div>
-                                      <div class="col-md-4 text-left">
+                                      <div class="col-md-12 text-left">
                                         <mat-form-field class="w-100">
                                           <mat-select placeholder="Coverage Type Id" formControlName="riskCoverageType" (change)="selectriskriskCoverageType()">
                                             <mat-option  *ngFor="let cover of CoverType | keys"  value="{{cover.key}}">{{cover.value}}</mat-option>
@@ -1081,9 +1081,9 @@
                                           10.Is Annual Multi-trip Individual
                                       </div>
                                       <div class="col-md-4 text-right">
-                                          <mat-slide-toggle  (change)="riskDetailsChange($event,'IsMultitripIndividual')"></mat-slide-toggle>
+                                          <mat-slide-toggle formControlName="riskMaxDaysPerTripFlag" (change)="riskDetailsChange($event,'IsMultitripIndividual')"></mat-slide-toggle>
                                       </div>
-                                      <div class="col-md-6" *ngIf="riskMaxDaysPerTripTrue">
+                                      <div class="col-md-6" *ngIf="riskDetails['controls'].riskMaxDaysPerTripFlag.value">
                                           <mat-form-field class="w-100">
                                               <input matInput placeholder="Enter The Maximum Days Per Trip" (keypress)="numberValidate($event)" maxlength="10" formControlName="riskMaxDaysPerTrip" autocomplete="off">
                                           </mat-form-field>
@@ -1096,7 +1096,7 @@
                                       <!--<div class="col-md-4 text-right">-->
                                           <!--<mat-slide-toggle  (change)="riskDetailsChange($event,'IsPravasi')"></mat-slide-toggle>-->
                                       <!--</div>-->
-                                    <div class="col-md-4 text-left">
+                                    <div class="col-md-12 text-left">
                                           <mat-form-field class="w-100">
                                               <input matInput placeholder="Enter The Number Of Years" (keypress)="numberValidate($event)" maxlength="10" formControlName="riskNoOfYears" autocomplete="off">
                                           </mat-form-field>
@@ -1114,7 +1114,7 @@
                                           <!--<input matInput placeholder="Senior Citizen Plan Name" (keypress)="nameValidate($event)"  formControlName="riskSeniorCitizenPlanName" autocomplete="off">-->
                                         <!--</mat-form-field>-->
                                       <!--</div>-->
-                                    <div class="col-md-4 text-left">
+                                    <div class="col-md-12 text-left">
                                         <mat-form-field class="w-100">
                                           <mat-select placeholder="Senior Citizen Plan" formControlName="riskSeniorCitizenPlanID" (change)="selectseniorPlan()">
                                             <mat-option  *ngFor="let plans of seniorCitizenPlans | keys"  value="{{plans.key}}">{{plans.value}}</mat-option>
@@ -1262,23 +1262,49 @@
               <ng-template matStepLabel>SUMMARY</ng-template>
             <!--{{summaryData | json}}iuiy-->
               <section class="summary-details" *ngIf="summaryData">
-                  <div class="row">
-                      <!--<div class="col-md-6">-->
-                          <!--<div class="row">-->
-                              <div class="col-md-6">
-                                  <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.suminsured_amount}}</span></h4>
-                              </div>
-                          <!--</div>-->
-                      <!--</div>-->
+
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="row">
                       <div class="col-md-6">
-                          <ul class="summary-head">
-                              <li><span>Start Date:</span>&nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
-                              <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date | date: 'dd/MM/yyyy'}} </li>
-                              <!--<li><span>Travel Days:</span> &nbsp; {{summaryData.RiskDetails.TravelDays}} </li>-->
-                              <li></li>
-                          </ul>
+                        <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                       </div>
+                      <div class="col-md-6">
+                        <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">/</span> </span></span></h4>
+                      </div>
+                    </div>
                   </div>
+                  <div class="col-md-6">
+                    <ul class="summary-head">
+                      <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
+                      <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date| date: 'dd/MM/yyyy'}} </li>
+                      <li></li>
+                    </ul>
+                  </div>
+                </div>
+                <table class="table table-bordered">
+                  <thead class="thead-light">
+                  <tr>
+                    <th>Insurer</th>
+                    <th>Plan Name</th>
+                    <th>Premium</th>
+                    <th>Service Tax</th>
+                    <th>Total Premium</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>
+                      <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 60px;" />
+                    </td>
+                    <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
+                    <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</td>
+                    <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</td>
+                    <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</td>
+                  </tr>
+                  </tbody>
+                </table>
 
                       <mat-expansion-panel   [expanded]="true">
                           <mat-expansion-panel-header>
@@ -1296,20 +1322,27 @@
                                           <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.personalGender}}</li>
                                           <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.personalDob | date: 'dd/MM/yyyy'}}</li>
                                           <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalName}}</li>
-                                          <li class="list-group-item"><strong>Email Id:</strong> {{proposerFormData.personalEmail}}</li>
+
                                           <li class="list-group-item" *ngIf="proposerFormData.personalPan != ''"><strong>Pan No:</strong> {{proposerFormData.personalPan}}</li>
                                           <li class="list-group-item" *ngIf="proposerFormData.personalAadhar != ''"><strong>Aadhaar No:</strong> {{proposerFormData.personalAadhar}}</li>
-                                          <li class="list-group-item"><strong>Mobile No:</strong> {{proposerFormData.personalMobile}}</li>
-                                          <li class="list-group-item" *ngIf="proposerFormData.personalPhone != ''"><strong>Phone No:</strong> {{proposerFormData.personalPhone}}</li>
-                                          <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationalName}}</li>
-                                          <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationName}}</li>
                                           <li class="list-group-item" *ngIf="proposerFormData.personalGst != ''"><strong>GST Id:</strong> {{proposerFormData.personalGst}}</li>
-                                          <li class="list-group-item" *ngIf="proposerFormData.relatedParty != ''"><strong>Related Party:</strong> {{proposerFormData.relatedParty}}</li>
                                           <li class="list-group-item" *ngIf="proposerFormData.gstin != ''"><strong>GSTIN Id:</strong> {{proposerFormData.gstin}}</li>
-                                          <li class="list-group-item" *ngIf="proposerFormData.groupCorpID != ''"><strong>Group Corp ID:</strong> {{proposerFormData.groupCorpID}}</li>
-                                      </ul>
+
+                                    </ul>
                                   </div>
                               </div>
+                            <div class="col-md-6">
+                              <div class="p-3">
+                                <ul class="m-0 list-group">
+                                  <li class="list-group-item"><strong>Mobile No:</strong> {{proposerFormData.personalMobile}}</li>
+                                  <li class="list-group-item" *ngIf="proposerFormData.personalPhone != ''"><strong>Phone No:</strong> {{proposerFormData.personalPhone}}</li>
+                                  <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationalName}}</li>
+                                  <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationName}}</li>
+                                  <li class="list-group-item" *ngIf="proposerFormData.relatedParty != ''"><strong>Related Party:</strong> {{proposerFormData.relatedParty}}</li>
+                                  <li class="list-group-item" *ngIf="proposerFormData.groupCorpID != ''"><strong>Group Corp ID:</strong> {{proposerFormData.groupCorpID}}</li>
+                                </ul>
+                              </div>
+                            </div>
                               <div class="col-md-6">
                                   <div class="p-3">
                                     <h6 class="color-blue">Communication Address</h6>
@@ -1326,24 +1359,24 @@
                                       </ul>
                                   </div>
                               </div>
-                              <!--<div class="col-md-6">-->
-                                  <!--<div class="p-3">-->
-                                      <!--<h6 class="color-blue">Proposer Residence Address</h6>-->
-                                      <!--<ul class="m-0 list-group">-->
-                                        <!--&lt;!&ndash;<li class="list-group-item"><strong>Is Permanent Sameas Communication Address</strong> {{proposerFormData.PermanentAddress.IsPermanentSameasCommAddr}}</li>&ndash;&gt;-->
-                                        <!--<li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.residenceAddress}}</li>-->
-                                        <!--<li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.residenceAddress2}}</li>-->
-                                        <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.residenceAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.residenceAddress3}}</li>&ndash;&gt;-->
-                                        <!--<li class="list-group-item"><strong>Country:</strong> {{proposerFormData.PermanentAddress.Address.Country}}</li>-->
-                                        <!--<li class="list-group-item"><strong>Country:</strong> {{proposerFormData.PermanentAddress.Address.Country}}</li>-->
-                                        <!--<li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.residencePincode}}</li>-->
-                                        <!--<li class="list-group-item"><strong>City:</strong> {{proposerFormData.residenceCity}}</li>-->
-                                        <!--<li class="list-group-item"><strong>State:</strong> {{proposerFormData.residenceArea}}</li>-->
-                                        <!--<li class="list-group-item"><strong>Area:</strong> {{proposerFormData.residenceCity}}</li>-->
-                                        <!--&lt;!&ndash;<li class="list-group-item" *ngIf="proposerFormData.residenceNearestLandMark != ''"><strong>NearestLandmark:</strong> {{proposerFormData.residenceNearestLandMark}}</li>&ndash;&gt;-->
-                                      <!--</ul>-->
-                                  <!--</div>-->
-                              <!--</div>-->
+                              <div class="col-md-6">
+                                  <div class="p-3">
+                                      <h6 class="color-blue">Residence Address</h6>
+                                      <ul class="m-0 list-group">
+                                        <!--<li class="list-group-item"><strong>Is Permanent Sameas Communication Address</strong> {{proposerFormData.PermanentAddress.IsPermanentSameasCommAddr}}</li>-->
+                                        <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.residenceAddress}}</li>
+                                        <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.residenceAddress2}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.residenceAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.residenceAddress3}}</li>
+                                        <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.PermanentAddress.Address.Country}}</li>
+                                        <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.PermanentAddress.Address.Country}}</li>
+                                        <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.residencePincode}}</li>
+                                        <li class="list-group-item"><strong>City:</strong> {{proposerFormData.residenceCity}}</li>
+                                        <li class="list-group-item"><strong>State:</strong> {{proposerFormData.residenceArea}}</li>
+                                        <li class="list-group-item"><strong>Area:</strong> {{proposerFormData.residenceCity}}</li>
+                                        <li class="list-group-item" *ngIf="proposerFormData.residenceNearestLandMark != ''"><strong>NearestLandmark:</strong> {{proposerFormData.residenceNearestLandMark}}</li>
+                                      </ul>
+                                  </div>
+                              </div>
                             <div class="col-md-6" *ngIf="proposerFormData.personalCourseName != ''">
                               <div class="p-3">
                                 <h6 class="color-blue">University Details</h6>
@@ -1362,7 +1395,9 @@
                                 </ul>
                               </div>
                             </div>
-                            <div class="col-md-6" *ngIf="proposerFormData.personalBurglaryAddress != ''">
+
+                            <!--<div class="col-md-6" *ngIf="proposerFormData.personalBurglaryAddress != ''">-->
+                            <div class="col-md-6" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code == 'Standard'">
                               <div class="p-3">
                                 <h6 class="color-blue">Home Burglary Details</h6>
                                 <ul class="m-0 list-group">
@@ -1557,7 +1592,7 @@
                             <span *ngIf="!riskFormData.riskIsVisitingStudent">No</span>
                           </li>
 
-                          <li class="list-group-item" *ngIf="riskFormData.riskMaxDaysPerTrip != ''">
+                          <li class="list-group-item" *ngIf="riskFormData.riskMaxDaysPerTripFlag">
                             <strong>Max Days Per Trip : </strong> {{riskFormData.riskMaxDaysPerTrip}}
                           </li>
                           <li class="list-group-item" *ngIf="riskFormData.riskNoOfYears != ''"><strong> Is Travel Pravasi Number of Years  : </strong> {{riskFormData.riskNoOfYears}}</li>

@@ -208,7 +208,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalTutionFeePerSem: '',
       personalNoOfSems: '',
       personalUniversityName: '',
-      personalUniversityEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      personalUniversityEmail: ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
         personalUniversityMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
         personalUniversityPhoneNo: '',
       personalUniversityFax: '',
@@ -216,7 +216,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalUniversityState: '',
       personalUniversityCountry: '',
 
-      personalBurglaryEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      personalBurglaryEmail: ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
         personalBurglaryMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
         personalBurglaryPhoneNo: '',
       personalBurglaryFax: '',
@@ -317,13 +317,13 @@ export class TravelRelianceProposalComponent implements OnInit {
       riskPermanentResidenceCountry: '',
       riskOCINumber: '',
       riskPassportIssuingCountry: '',
-      riskIsInsuredOnImmigrantVisa: true,
+      riskIsInsuredOnImmigrantVisa: false,
       riskIsTravelInvolvesSportingActivities: false,
       riskSportsActivities: '',
       riskSportsActivitiesName: '',
       riskIsSufferingFromPEMC: false,
       riskPreExistDisease: false,
-      riskPreExistDiseaseValue: false,
+      riskPreExistDiseaseValue: '',
       riskIsVisitingUSACanada: false,
       riskVisitingCountries: '',
       riskVisitingCountriesName: '',
@@ -335,8 +335,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       riskSeniorCitizen: false,
       riskSeniorCitizenPlanID: '',
       TravelStandardLimited: '',
-        riskSeniorCitizenPlanIDName: '',
-
+      riskSeniorCitizenPlanIDName: '',
       TravelCoverageName:'',
       TravelCoverageDisplayName: '',
       TravelStandardLimitedPlan: false,
@@ -352,6 +351,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       TravelIsElitePlan: false,
       TravelElitePlan: '',
       TravelIsPlusPlan: false,
+      riskMaxDaysPerTripFlag: false,
       TravelPlusPlan: '',
       // TravelIsAllPlan:'',
 
@@ -411,28 +411,17 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.getRiskPreDiseases();
 
     this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-    console.log(this.sessionStepper3,'sessionStepper3');
     let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
     this.getEnquiryDetails = enqList[0];
     this.insuredTravelPerson = this.getEnquiryDetails.family_members;
-    console.log(this.insuredTravelPerson,'insuredTravelPersoninsuredTravelPersoninsuredTravelPerson');
     this.relianceInsuredTravel = this.fb.group({
       items: this.fb.array([])
     });
     for (let i = 0; i < this.insuredTravelPerson.length; i++) {
       this.items = this.relianceInsuredTravel.get('items') as FormArray;
-      console.log(this.items,' itemsssssssss ');
       this.items.push(this.initItemRows());
-
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
-      // console.log(this.relianceInsuredTravel,'this.relianceInsuredTravelthis.relianceInsuredTravel');
-      console.log(this.insuredTravelPerson[i].type, 'yyyy');
-      console.log(this.relianceInsuredTravel, 'pppp');
     }
-
-    console.log(this.relianceInsuredTravel, 'Mainnnnnnn');
-    console.log(this.items, 'items');
-
     this.sessionData();
   }
 
@@ -502,17 +491,12 @@ export class TravelRelianceProposalComponent implements OnInit {
   //   }
   // }
   relianceInsureDetails(stepper: MatStepper, id, value, key) {
-    console.log(this.insuredTravelPerson, 'insuredTravelPerson');
-    console.log(this.relianceInsuredTravel.valid, 'this.relianceInsuredTravel.valid');
     sessionStorage.stepper2Details = '';
     sessionStorage.stepper2Details = JSON.stringify(value);
     if (this.relianceInsuredTravel.valid) {
       this.insurerData = value.items;
-      console.log(this.insuredTravelPerson, 'insuredTravelPerson');
-      console.log(this.insurerData, 'insurerData');
       for(let a=0; a < this.insurerData.length; a++) {
         if (this.insurerData[a].type == 'Self') {
-          console.log('inside self');
           this.totalInsureDetails = {};
             this.totalInsureDetails = {
               'RelationshipWithProposerID': this.insurerData[a].relationship,
@@ -612,7 +596,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      "proposal_id": sessionStorage.reliance_Travel_proposal_id ? sessionStorage.reliance_Travel_proposal_id : this.reliance_Travel_proposal_id,
+      "proposal_id":  this.reliance_Travel_proposal_id,
         "UserID": '100002',
         "ClientDetails": {
           'ClientType': '0',
@@ -809,7 +793,7 @@ export class TravelRelianceProposalComponent implements OnInit {
           'MaxDaysPerTrip': this.RiskData.riskMaxDaysPerTrip,
           'NoOfYears': this.RiskData.riskNoOfYears,
           'SeniorCitizenPlanID': this.RiskData.riskSeniorCitizenPlanID,
-          'PlanName': this.RiskData.riskSeniorCitizenPlanName,
+          'PlanName': this.getTravelPremiumList.plan_code,
           'AddOnBnifitsOpted': this.RiskData.riskSeniorCitizen.toString()
     },
       'LstTravelCoverDetails': {
@@ -828,13 +812,13 @@ export class TravelRelianceProposalComponent implements OnInit {
             'GoldDeductible': '',
             'PlatinumDeductible': '',
             'BasicDeductible': '',
-            'IsStandardPlan': '',
-            'IsSilverPlan': '',
-            'IsGoldPlan': '',
-            'IsPlatinumPlan': '',
-            'IsBasicPlan': '',
-            'IsElitePlan': '',
-            'IsPlusPlan': '',
+            'IsStandardPlan': 'false',
+            'IsSilverPlan': 'false',
+            'IsGoldPlan': 'false',
+            'IsPlatinumPlan': 'false',
+            'IsBasicPlan': 'false',
+            'IsElitePlan': 'false',
+            'IsPlusPlan': 'false',
             'IsChecked': 'false'
       }
           // 'LstTravelCovers': {
@@ -1505,6 +1489,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         TravelIsElitePlan: this.getStepper3.TravelIsElitePlan,
         TravelElitePlan: this.getStepper3.TravelElitePlan,
         TravelIsPlusPlan: this.getStepper3.TravelIsPlusPlan,
+        riskMaxDaysPerTripFlag: this.getStepper3.riskMaxDaysPerTripFlag,
         TravelPlusPlan: this.getStepper3.TravelPlusPlan,
 
         // overseas: this.getStepper3.overseas,
@@ -2194,6 +2179,6 @@ export class TravelRelianceProposalComponent implements OnInit {
 
 
     selectseniorPlan() {
-        this.riskDetails.controls['riskSeniorCitizenPlanIDName'].patchValue(this.CoverType[this.seniorCitizenPlans.controls['riskSeniorCitizenPlanID'].value]);
+        this.riskDetails.controls['riskSeniorCitizenPlanIDName'].patchValue(this.seniorCitizenPlans[this.riskDetails.controls['riskSeniorCitizenPlanID'].value]);
     }
 }
