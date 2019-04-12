@@ -206,7 +206,7 @@ export class BikeShriramProposalComponent implements OnInit {
 
 
   // date input
-         addEvent(event, type) {
+         addEvent(event) {
               if (event.value != null) {
                 let selectedDate = '';
                 this.bikeProposerAge = '';
@@ -513,7 +513,7 @@ export class BikeShriramProposalComponent implements OnInit {
 
 
         // from date
-    addEventPrevious(event, type) {
+    addEventPrevious(event) {
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
