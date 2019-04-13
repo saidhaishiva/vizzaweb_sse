@@ -423,7 +423,10 @@ export class LifeBajajProposalComponent implements OnInit {
     sessionStorage.nlifeBajaj = JSON.stringify(value);
     console.log(sessionStorage.nlifeBajaj, 'session')
     if (this.nomineeDetail.valid) {
-      stepper.next();
+      this.proposal(stepper);
+      alert();
+     // stepper.next();
+
     } else {
       this.toastr.error('error')
     }
@@ -1073,6 +1076,225 @@ export class LifeBajajProposalComponent implements OnInit {
         "comSameAsPer": this.proposer.controls['sameAsProposer'].value,
 
       },
+
+      "question_details": [{
+        "questionId": "85",
+        "subQuestionId": "1",
+        "answer": "N",
+        "detailAnswer": "",
+        "ipType": "1",
+        "questionFlag": "QUES_HEALTH"
+      },
+        {
+          "questionId": "85",
+          "subQuestionId": "2",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "3",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "4",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "5",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "6",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "7",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "8",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "9",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "10",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "11",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "12",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "13",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "47",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "48",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "57",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "32",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "33",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "34",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "35",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "36",
+          "answer": "",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "39",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "40",
+          "answer": "",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "41",
+          "answer": "N",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        },
+        {
+          "questionId": "85",
+          "subQuestionId": "42",
+          "answer": "EQUALLY",
+          "detailAnswer": "",
+          "ipType": "1",
+          "questionFlag": "QUES_HEALTH"
+        }
+      ],
+
       "bank_deatils": {
         "accountHolderName": this.proposer.controls['accountHolderName'].value,
         "branchName": this.proposer.controls['branchName'].value,
