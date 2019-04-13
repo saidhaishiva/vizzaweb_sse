@@ -199,6 +199,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       residencePincode: ['', Validators.required],
       residenceCity: ['', Validators.required],
       residenceArea: ['', Validators.required],
+        residenceAreaName: '',
       residenceDistrict: ['', Validators.required],
       residenceState: ['', Validators.required],
       residenceNearestLandMark: '',
@@ -1077,7 +1078,9 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   }
   typeAddressDeatils() {
-    if (this.personal.controls['sameas'].value) {
+      this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
+
+      if (this.personal.controls['sameas'].value) {
       this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
       this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
       this.personal.controls['residenceAddress3'].setValue(this.personal.controls['residenceAddress3'].value);
@@ -1107,7 +1110,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
       this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
     }
-    //this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
 
   }
   sameAddress(values: any) {
@@ -1129,6 +1131,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
       this.personal.controls['residenceCountry'].setValue(this.personal.controls['personalCountry'].value);
       this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+      this.personal.controls['residenceAreaName'].setValue(this.personal.controls['personalAreaName'].value);
+
     } else {
       this.proposalRArea = '';
       sessionStorage.proposalRArea = {};
@@ -1292,6 +1296,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         residencePincode: this.getStepper1.residencePincode,
         residenceCity: this.getStepper1.residenceCity,
         residenceArea: this.getStepper1.residenceArea,
+        residenceAreaName: this.getStepper1.residenceAreaName,
         residenceDistrict: this.getStepper1.residenceDistrict,
         residenceState: this.getStepper1.residenceState,
         residenceNearestLandMark: this.getStepper1.residenceNearestLandMark,
@@ -2169,7 +2174,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   //   this.riskDetails.controls['riskSportsActivitiesName'].patchValue(this.SportsActivities[this.riskDetails.controls['riskSportsActivities'].value]);
   // }
   selectriskVisitingCountries(){
-    this.riskDetails.controls['riskVisitingCountriesName'].patchValue(this.VisitingCountry[this.riskDetails.controls['riskVisitingCountries'].value]);
+   // this.riskDetails.controls['riskVisitingCountriesName'].patchValue(this.VisitingCountry[this.riskDetails.controls['riskVisitingCountries'].value]);
   }
   selectriskriskCoverageType(){
     this.riskDetails.controls['riskCoverageTypeName'].patchValue(this.CoverType[this.riskDetails.controls['riskCoverageType'].value]);
