@@ -722,7 +722,7 @@
                     <mat-panel-title> {{relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-                  <ng-template matStepLabel>INSURED DETAILS </ng-template>
+                  <ng-template matStepLabel>INSURED DETAILS FOR SELF</ng-template>
                   <div class="row mt-3">
                     <div class="col-md-12 box-card pt-3">
                       <!--<h6 class="color-blue">INSURED DETAILS</h6>-->
@@ -825,8 +825,8 @@
                           </div>
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Visiting Countries" formControlName="VisitingCountries" (change)="selectInsureVisitingCountries(i)">
-                                <mat-option  *ngFor="let countries of VisitingCountry | keys" value="{{countries.key}}">{{countries.value}}</mat-option>
+                              <mat-select placeholder="Visiting Countries" formControlName="VisitingCountries" (change)="selectInsureVisitingCountries(i)" multiple>
+                                <mat-option  *ngFor="let countries of VisitingCountry " value="{{countries.visiting_id}}">{{countries.visiting_name}}</mat-option>
                               </mat-select>
                             </mat-form-field>
                           </div>
@@ -1309,7 +1309,7 @@
                       <mat-expansion-panel   [expanded]="true">
                           <mat-expansion-panel-header>
                               <mat-panel-title>
-                                  PROPOSER DETAILS Proposer Details
+                                  PROPOSER DETAILS
                               </mat-panel-title>
                           </mat-expansion-panel-header>
 
@@ -1345,7 +1345,7 @@
                             </div>
                               <div class="col-md-6">
                                   <div class="p-3">
-                                    <h6 class="color-blue">Communication Address</h6>
+                                    <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                                     <ul class="m-0 list-group">
                                           <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>
                                           <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
@@ -1361,7 +1361,7 @@
                               </div>
                               <div class="col-md-6">
                                   <div class="p-3">
-                                      <h6 class="color-blue">Residence Address</h6>
+                                      <h6 class="color-blue">RESIDENCE ADDRESS</h6>
                                       <ul class="m-0 list-group">
                                         <!--<li class="list-group-item"><strong>Is Permanent Sameas Communication Address</strong> {{proposerFormData.PermanentAddress.IsPermanentSameasCommAddr}}</li>-->
                                         <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.residenceAddress}}</li>
@@ -1378,7 +1378,7 @@
                               </div>
                             <div class="col-md-6" *ngIf="proposerFormData.personalCourseName != ''">
                               <div class="col-md-12">
-                                <h6 class="color-blue">University Details</h6>
+                                <h6 class="color-blue">UNIVERSITY DETAILS</h6>
                               </div>
 
                               <div class="p-3">
@@ -1395,6 +1395,7 @@
 
                             <div class="col-md-6" *ngIf="proposerFormData.personalCourseName != ''">
                               <div class="p-3">
+                                <h6 class="color-blue mt-4"></h6>
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="proposerFormData.personalUniversityEmail != ''"><strong>University Email Id:</strong>{{proposerFormData.personalUniversityEmail}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalUniversityFax != ''"><strong>Fax:</strong>{{proposerFormData.personalUniversityFax}}</li>
@@ -1409,7 +1410,7 @@
                             <!--<div class="col-md-6" *ngIf="proposerFormData.personalBurglaryAddress != ''">-->
                             <div class="col-md-6" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code == 'Standard'">
                               <div class="p-3">
-                                <h6 class="color-blue">Home Burglary Details</h6>
+                                <h6 class="color-blue">HOME BURGLARY DETAILS</h6>
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryEmail != ''"><strong>Email Id:</strong> {{proposerFormData.personalBurglaryEmail}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryMobileNo != ''"><strong>Mobile Number:</strong> {{proposerFormData.personalBurglaryMobileNo}}</li>
@@ -1418,7 +1419,7 @@
                                   <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryAddress != ''"><strong>Address 1:</strong> {{proposerFormData.personalBurglaryAddress}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryAddress2 != ''"><strong>Address 2:</strong> {{proposerFormData.personalBurglaryAddress2}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.personalBurglaryAddress3}}</li>
-
+                                  <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalBurglaryCountry}}</li>
                                 </ul>
                               </div>
                             </div>
@@ -1426,8 +1427,6 @@
                               <div class="p-3">
                                 <h6 class="color-blue mt-4"></h6>
                                 <ul class="m-0 list-group">
-
-                                  <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalBurglaryCountry}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalBurglaryPincode}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryCity != ''"><strong>City Name:</strong> {{proposerFormData.personalBurglaryCity}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalBurglaryDistrict}}</li>
@@ -1439,7 +1438,7 @@
                             </div>
                             <div class="col-md-6" *ngIf="proposerFormData.personalDoctorFullname != ''">
                               <div class="p-3">
-                                <h6 class="color-blue">Doctor Details</h6>
+                                <h6 class="color-blue">DOCTOR DETAILS</h6>
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item"><strong>Is Doctor Details:</strong> {{proposerFormData.IsDoctorDetails}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalDoctorFullname != ''"><strong>Name:</strong> {{proposerFormData.personalDoctorFullname}}</li>
@@ -1449,6 +1448,7 @@
                                   <li class="list-group-item" *ngIf="proposerFormData.personalDoctorFax != ''"><strong>Fax:</strong> {{proposerFormData.personalDoctorFax}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalDoctorAddress != ''"><strong>Address 1:</strong> {{proposerFormData.personalDoctorAddress}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalDoctorAddress2 != ''"><strong>Address 2:</strong> {{proposerFormData.personalDoctorAddress2}}</li>
+                                  <li class="list-group-item" *ngIf="proposerFormData.personalDoctorAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.personalDoctorAddress3}}</li>
                                 </ul>
                               </div>
                             </div>
@@ -1456,7 +1456,7 @@
                               <div class="p-3">
                                 <h6 class="color-blue mt-4"></h6>
                                 <ul class="m-0 list-group">
-                                   <li class="list-group-item" *ngIf="proposerFormData.personalDoctorAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.personalDoctorAddress3}}</li>
+
                                   <li class="list-group-item" *ngIf="proposerFormData.personalDoctorCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalDoctorCountry}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalDoctorPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalDoctorPincode}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalDoctorCity != ''"><strong>City Name:</strong> {{proposerFormData.personalDoctorCity}}</li>
@@ -1469,7 +1469,7 @@
                             </div>
                             <div class="col-md-6" *ngIf="proposerFormData.personalCompanyFullname != ''">
                               <div class="p-3">
-                                <h6 class="color-blue">Company Details</h6>
+                                <h6 class="color-blue">COMPANY DETAILS</h6>
                                 <ul class="m-0 list-group">
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyFullname != ''"><strong>Name:</strong> {{proposerFormData.personalCompanyFullname}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyEmail != ''"><strong>Email Id:</strong> {{proposerFormData.personalCompanyEmail}}</li>
@@ -1479,14 +1479,15 @@
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyAddress != ''"><strong>Address 1:</strong> {{proposerFormData.personalCompanyAddress}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyAddress2 != ''"><strong>Address 2:</strong> {{proposerFormData.personalCompanyAddress2}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.personalCompanyAddress3}}</li>
+                                  <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalCompanyCountry}}</li>
                                 </ul>
                               </div>
                             </div>
                             <div class="col-md-6" *ngIf="proposerFormData.personalCompanyFullname != ''">
                               <div class="p-3">
-                                <h6 class="color-blue">Company Details</h6>
+                                <h6 class="color-blue mt-4"></h6>
                                 <ul class="m-0 list-group">
-                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalCompanyCountry}}</li>
+
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalCompanyPincode}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCity != ''"><strong>City Name:</strong> {{proposerFormData.personalCompanyCity}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalCompanyDistrict}}</li>
@@ -1498,7 +1499,7 @@
                             </div>
                             <div class="col-md-6" *ngIf="proposerFormData.personalSponsorFullname != ''">
                               <div class="p-3">
-                                <h6 class="color-blue">Sponsor Details</h6>
+                                <h6 class="color-blue">SPONSOR DETAILS</h6>
                                 <ul class="m-0 list-group">
                                   <!--<li class="list-group-item"><strong>Is Same As Communication Address:</strong> {{proposerFormData.IsSponserAddressSameasCommAddress}}</li>-->
                                   <li class="list-group-item" *ngIf="proposerFormData.personalSponsorFullname != ''"><strong>Sponsor Name:</strong> {{proposerFormData.personalSponsorFullname}}</li>
@@ -1506,14 +1507,22 @@
                                   <li class="list-group-item" *ngIf="proposerFormData.personalSponsorMobileNo != ''"><strong>Mobile Number:</strong> {{proposerFormData.personalSponsorMobileNo}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalSponsorPhoneNo != ''"><strong>Phone Number:</strong> {{proposerFormData.personalSponsorPhoneNo}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalSponsorAddress != ''"><strong>Address 1:</strong> {{proposerFormData.personalSponsorAddress}}</li>
-                                  <li class="list-group-item" *ngIf="proposerFormData.personalSponsorPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalSponsorPincode}}</li>
-                                  <li class="list-group-item" *ngIf="proposerFormData.personalSponsorCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalSponsorCountry}}</li>
-                                  <li class="list-group-item" *ngIf="proposerFormData.personalSponsorCity != ''"><strong>City Name:</strong> {{proposerFormData.personalSponsorCity}}</li>
-                                  <li class="list-group-item" *ngIf="proposerFormData.personalSponsorState != ''"><strong>State Name:</strong> {{proposerFormData.personalSponsorState}}</li>
-                                </ul>
+                               </ul>
                               </div>
                             </div>
                           </div>
+                        <div class="col-md-6" *ngIf="proposerFormData.personalSponsorFullname != ''">
+                          <div class="p-3">
+                            <h6 class="color-blue mt-4"></h6>
+                            <ul class="m-0 list-group">
+                              <li class="list-group-item" *ngIf="proposerFormData.personalSponsorPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalSponsorPincode}}</li>
+                              <li class="list-group-item" *ngIf="proposerFormData.personalSponsorCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalSponsorCountry}}</li>
+                              <li class="list-group-item" *ngIf="proposerFormData.personalSponsorCity != ''"><strong>City Name:</strong> {{proposerFormData.personalSponsorCity}}</li>
+                              <li class="list-group-item" *ngIf="proposerFormData.personalSponsorState != ''"><strong>State Name:</strong> {{proposerFormData.personalSponsorState}}</li>
+                            </ul>
+                          </div>
+                        </div>
+
                       </mat-expansion-panel>
                 <div *ngFor="let item of insuredFormData; let i = index;">
                   <mat-expansion-panel   [expanded]="true">
@@ -1633,7 +1642,7 @@
                           </li>
                           <li class="list-group-item" *ngIf="riskFormData.riskNoOfYears != ''"><strong> Is Travel Pravasi Number of Years  : </strong> {{riskFormData.riskNoOfYears}}</li>
                           <li class="list-group-item" *ngIf="riskFormData.riskSeniorCitizenPlanIDName !=''">
-                            <strong>Senior Citizens Add On Bnifits : </strong>
+                            <strong>Senior Citizens Add On Benefits : </strong>
                             {{riskFormData.riskSeniorCitizenPlanIDName}}</li>
                           <!--<li class="list-group-item" *ngIf="riskFormData.riskSeniorCitizenPlanID != ''"><strong>Senior Citizen Plan Id</strong> {{riskFormData.riskSeniorCitizenPlanID}}</li>-->
                           <!--<li class="list-group-item" *ngIf="riskFormData.riskSeniorCitizenPlanName != ''"><strong>Senior Citizen Plan Name</strong> {{riskFormData.riskSeniorCitizenPlanName}}</li>-->

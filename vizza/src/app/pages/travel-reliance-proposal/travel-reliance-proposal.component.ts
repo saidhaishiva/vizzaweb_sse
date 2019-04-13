@@ -2168,7 +2168,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insurePreExistingIllnessName.patchValue(this.PreExistingIllness[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].PreExistingIllness.value]);
   }
   selectInsureNomineeRelationship(index){
-    this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureNomineeRelationshipName.patchValue(this.Relationship[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].nomineeRelationship.value]);
+        this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureNomineeRelationshipName.patchValue(this.Relationship[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].nomineeRelationship.value]);
   }
   // selectriskSportsActivities(){
   //   this.riskDetails.controls['riskSportsActivitiesName'].patchValue(this.SportsActivities[this.riskDetails.controls['riskSportsActivities'].value]);
