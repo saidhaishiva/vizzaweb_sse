@@ -27,7 +27,6 @@ export class ClearSessionTravelService {
       sessionStorage.proposerAgeHdfcTravel = '';
 
       // statr health
-      sessionStorage.travelPremiumList = '';
       sessionStorage.proposerAgeForTravel = '';
       sessionStorage.personalCitys = '';
       sessionStorage.areaList = '';

@@ -137,6 +137,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   public insuredFormData: any;
   public riskFormData: any;
   public step: any;
+  public seniorCitizenPlans: any;
+  public allPreExistingDiseases: any;
 
 
 
@@ -197,6 +199,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       residencePincode: ['', Validators.required],
       residenceCity: ['', Validators.required],
       residenceArea: ['', Validators.required],
+        residenceAreaName: '',
       residenceDistrict: ['', Validators.required],
       residenceState: ['', Validators.required],
       residenceNearestLandMark: '',
@@ -206,17 +209,17 @@ export class TravelRelianceProposalComponent implements OnInit {
       personalTutionFeePerSem: '',
       personalNoOfSems: '',
       personalUniversityName: '',
-      personalUniversityEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      personalUniversityMobileNo: '',
-      personalUniversityPhoneNo: '',
+      personalUniversityEmail: ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+        personalUniversityMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+        personalUniversityPhoneNo: '',
       personalUniversityFax: '',
       personalUniversityCity: '',
       personalUniversityState: '',
       personalUniversityCountry: '',
 
-      personalBurglaryEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      personalBurglaryMobileNo: '',
-      personalBurglaryPhoneNo: '',
+      personalBurglaryEmail: ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+        personalBurglaryMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+        personalBurglaryPhoneNo: '',
       personalBurglaryFax: '',
       personalBurglaryAddress: '',
       personalBurglaryAddress2: '',
@@ -233,8 +236,9 @@ export class TravelRelianceProposalComponent implements OnInit {
 
       personalSponsorFullname: '',
       personalSponsorEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
-      personalSponsorMobileNo: '',
-      personalSponsorPhoneNo: '',
+     personalSponsorMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+
+        personalSponsorPhoneNo: '',
       personalSponsorAddress: '',
       personalSponsorPincode: '',
       personalSponsorCity: '',
@@ -244,7 +248,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       IsDoctorDetails: 'false',
       personalDoctorFullname: '',
       personalDoctorEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
-      personalDoctorMobileNo: '',
+      personalDoctorMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       personalDoctorPhoneNo: '',
       personalDoctorFax: '',
       personalDoctorAddress: '',
@@ -263,7 +267,7 @@ export class TravelRelianceProposalComponent implements OnInit {
 
       personalCompanyFullname: '',
       personalCompanyEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
-      personalCompanyMobileNo: '',
+      personalCompanyMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       personalCompanyPhoneNo: '',
       personalCompanyFax: '',
       personalCompanyAddress: '',
@@ -308,7 +312,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     });
 
     this.riskDetails = this.fb.group({
-      riskIndian: false,
+      riskIndian: true,
       riskIsOverSeasCitizen: false,
       riskIsResidingInIndia: false,
       riskPermanentResidenceCountry: '',
@@ -320,6 +324,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       riskSportsActivitiesName: '',
       riskIsSufferingFromPEMC: false,
       riskPreExistDisease: false,
+      riskPreExistDiseaseValue: '',
       riskIsVisitingUSACanada: false,
       riskVisitingCountries: '',
       riskVisitingCountriesName: '',
@@ -330,9 +335,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       riskNoOfYears: '',
       riskSeniorCitizen: false,
       riskSeniorCitizenPlanID: '',
-      riskSeniorCitizenPlanName: 'Standard',
       TravelStandardLimited: '',
-
+      riskSeniorCitizenPlanIDName: '',
       TravelCoverageName:'',
       TravelCoverageDisplayName: '',
       TravelStandardLimitedPlan: false,
@@ -348,6 +352,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       TravelIsElitePlan: false,
       TravelElitePlan: '',
       TravelIsPlusPlan: false,
+      riskMaxDaysPerTripFlag: false,
       TravelPlusPlan: '',
       // TravelIsAllPlan:'',
 
@@ -403,29 +408,21 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relainceSportsActivities();
     this.relainceCoverType();
 
+    this.getSenorCitPlans();
+    this.getRiskPreDiseases();
+
     this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
-    console.log(this.sessionStepper3,'sessionStepper3');
     let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
     this.getEnquiryDetails = enqList[0];
     this.insuredTravelPerson = this.getEnquiryDetails.family_members;
-    console.log(this.insuredTravelPerson,'insuredTravelPersoninsuredTravelPersoninsuredTravelPerson');
     this.relianceInsuredTravel = this.fb.group({
       items: this.fb.array([])
     });
     for (let i = 0; i < this.insuredTravelPerson.length; i++) {
       this.items = this.relianceInsuredTravel.get('items') as FormArray;
-      console.log(this.items,' itemsssssssss ');
       this.items.push(this.initItemRows());
-
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
-      // console.log(this.relianceInsuredTravel,'this.relianceInsuredTravelthis.relianceInsuredTravel');
-      console.log(this.insuredTravelPerson[i].type, 'yyyy');
-      console.log(this.relianceInsuredTravel, 'pppp');
     }
-
-    console.log(this.relianceInsuredTravel, 'Mainnnnnnn');
-    console.log(this.items, 'items');
-
     this.sessionData();
   }
 
@@ -454,9 +451,9 @@ export class TravelRelianceProposalComponent implements OnInit {
           type:'',
 
           IsUnderMedication: 'false',
-          PreExistingIllness: ['', Validators.required],
+          PreExistingIllness: '',
           insurePreExistingIllnessName: '',
-          SufferingSince: ['', Validators.required],
+          SufferingSince: '',
           nomineeName: ['', Validators.required],
           nomineeRelationship: ['', Validators.required],
           insureNomineeRelationshipName: '',
@@ -486,26 +483,21 @@ export class TravelRelianceProposalComponent implements OnInit {
       }
     }
   }
-  //Insure Details
-  underMedication(i) {
-    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'){
-      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators([Validators.required]);
-    } else {
-      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators(null);
-
-    }
-  }
+  // Insure Details
+  // underMedication(i) {
+  //   if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true') {
+  //     this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators([Validators.required]);
+  //   } else {
+  //     this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators(null);
+  //   }
+  // }
   relianceInsureDetails(stepper: MatStepper, id, value, key) {
-    console.log(this.insuredTravelPerson,'insuredTravelPerson');
     sessionStorage.stepper2Details = '';
     sessionStorage.stepper2Details = JSON.stringify(value);
     if (this.relianceInsuredTravel.valid) {
       this.insurerData = value.items;
-      console.log(this.insuredTravelPerson, 'insuredTravelPerson');
-      console.log(this.insurerData, 'insurerData');
       for(let a=0; a < this.insurerData.length; a++) {
         if (this.insurerData[a].type == 'Self') {
-          console.log('inside self');
           this.totalInsureDetails = {};
             this.totalInsureDetails = {
               'RelationshipWithProposerID': this.insurerData[a].relationship,
@@ -581,6 +573,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   //reliance Risk Details
   relianceRiskDetails(stepper: MatStepper, value) {
     this.RiskData = value;
+    console.log(value, 'valuevalue');
+    console.log(this.riskDetails.valid, 'this.riskDetails.valid');
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper3Details = JSON.stringify(value);
     if (this.riskDetails.valid) {
@@ -603,7 +597,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      "proposal_id": sessionStorage.reliance_Travel_proposal_id ? sessionStorage.reliance_Travel_proposal_id : this.reliance_Travel_proposal_id,
+      "proposal_id":  this.reliance_Travel_proposal_id,
         "UserID": '100002',
         "ClientDetails": {
           'ClientType': '0',
@@ -788,9 +782,9 @@ export class TravelRelianceProposalComponent implements OnInit {
           'IsTravelInvolvesSportingActivities': this.RiskData.riskIsTravelInvolvesSportingActivities.toString(),
           'SportsActivitiesID': this.RiskData.riskSportsActivities,
           'IsSufferingFromPEMC': this.RiskData.riskIsSufferingFromPEMC.toString(),
-          'PreExistDiseaseID': this.RiskData.riskPreExistDisease.toString(),
-          'IsVisitingUSACanada': this.RiskData.riskIsVisitingUSACanada.toString(),
-          'VisitingCountriesID': this.RiskData.riskVisitingCountries,
+          'PreExistDiseaseID': this.RiskData.riskPreExistDiseaseValue.toString(),
+          'IsVisitingUSACanada': this.RiskData.riskIsVisitingUSACanada,
+          'VisitingCountriesID': this.RiskData.riskVisitingCountries.toString(),
           'JourneyStartDate': this.datepipe.transform(this.getEnquiryDetails.start_date, 'dd/MM/y'),
           'JourneyEndDate': this.datepipe.transform(this.getEnquiryDetails.end_date, 'dd/MM/y'),
           'TravelDays': this.getEnquiryDetails.day_count.toString(),
@@ -800,34 +794,58 @@ export class TravelRelianceProposalComponent implements OnInit {
           'MaxDaysPerTrip': this.RiskData.riskMaxDaysPerTrip,
           'NoOfYears': this.RiskData.riskNoOfYears,
           'SeniorCitizenPlanID': this.RiskData.riskSeniorCitizenPlanID,
-          'PlanName': this.RiskData.riskSeniorCitizenPlanName,
+          'PlanName': this.getTravelPremiumList.plan_code,
           'AddOnBnifitsOpted': this.RiskData.riskSeniorCitizen.toString()
     },
       'LstTravelCoverDetails': {
       'LstTravelCovers': {
-        'CoverageName': this.RiskData.TravelCoverageName,
-            'CoverageDisplayName': this.RiskData.TravelCoverageDisplayName,
-            'StandardLimit': this.RiskData.TravelStandardLimited,
-            'SilverLimit': this.RiskData.TravelSilverPlan,
-            'GoldLimit': this.RiskData.TravelGoldPlan,
-            'PlatinumLimit': this.RiskData.TravelPlatinumPlan,
-            'BasicLimit': this.RiskData.TravelBasicPlan,
-            'EliteLimit': this.RiskData.TravelElitePlan,
-            'PlusLimit': this.RiskData.TravelPlusPlan,
+        'CoverageName': '',
+            'CoverageDisplayName': '',
+            'StandardLimit': '',
+            'SilverLimit': '',
+            'GoldLimit': '',
+            'PlatinumLimit': '',
+            'BasicLimit': '',
+            'EliteLimit': '',
+            'PlusLimit': '',
             'StandardDeductible': '',
             'SilverDeductible': '',
             'GoldDeductible': '',
             'PlatinumDeductible': '',
-            'BasicDeductible': this.RiskData.TravelStandardDeductiblePlan.toString(),
-            'IsStandardPlan': this.RiskData.TravelStandardLimitedPlan.toString(),
-            'IsSilverPlan': this.RiskData.TravelIsSilverPlan.toString(),
-            'IsGoldPlan': this.RiskData.TravelIsGoldPlan.toString(),
-            'IsPlatinumPlan': this.RiskData.TravelIsPlatinumPlan.toString(),
-            'IsBasicPlan': this.RiskData.TravelIsBasicPlan.toString(),
-            'IsElitePlan': this.RiskData.TravelIsElitePlan.toString(),
-            'IsPlusPlan': this.RiskData.TravelIsPlusPlan.toString(),
+            'BasicDeductible': '',
+            'IsStandardPlan': 'false',
+            'IsSilverPlan': 'false',
+            'IsGoldPlan': 'false',
+            'IsPlatinumPlan': 'false',
+            'IsBasicPlan': 'false',
+            'IsElitePlan': 'false',
+            'IsPlusPlan': 'false',
             'IsChecked': 'false'
       }
+          // 'LstTravelCovers': {
+          //     'CoverageName': this.RiskData.TravelCoverageName,
+          //     'CoverageDisplayName': this.RiskData.TravelCoverageDisplayName,
+          //     'StandardLimit': this.RiskData.TravelStandardLimited,
+          //     'SilverLimit': this.RiskData.TravelSilverPlan,
+          //     'GoldLimit': this.RiskData.TravelGoldPlan,
+          //     'PlatinumLimit': this.RiskData.TravelPlatinumPlan,
+          //     'BasicLimit': this.RiskData.TravelBasicPlan,
+          //     'EliteLimit': this.RiskData.TravelElitePlan,
+          //     'PlusLimit': this.RiskData.TravelPlusPlan,
+          //     'StandardDeductible': '',
+          //     'SilverDeductible': '',
+          //     'GoldDeductible': '',
+          //     'PlatinumDeductible': '',
+          //     'BasicDeductible': this.RiskData.TravelStandardDeductiblePlan.toString(),
+          //     'IsStandardPlan': this.RiskData.TravelStandardLimitedPlan.toString(),
+          //     'IsSilverPlan': this.RiskData.TravelIsSilverPlan.toString(),
+          //     'IsGoldPlan': this.RiskData.TravelIsGoldPlan.toString(),
+          //     'IsPlatinumPlan': this.RiskData.TravelIsPlatinumPlan.toString(),
+          //     'IsBasicPlan': this.RiskData.TravelIsBasicPlan.toString(),
+          //     'IsElitePlan': this.RiskData.TravelIsElitePlan.toString(),
+          //     'IsPlusPlan': this.RiskData.TravelIsPlusPlan.toString(),
+          //     'IsChecked': 'false'
+          // }
     }
     }
     this.settings.loadingSpinner = true;
@@ -1060,7 +1078,9 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   }
   typeAddressDeatils() {
-    if (this.personal.controls['sameas'].value) {
+      this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
+
+      if (this.personal.controls['sameas'].value) {
       this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
       this.personal.controls['residenceAddress2'].setValue(this.personal.controls['personalAddress2'].value);
       this.personal.controls['residenceAddress3'].setValue(this.personal.controls['residenceAddress3'].value);
@@ -1090,7 +1110,6 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
       this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
     }
-    this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
 
   }
   sameAddress(values: any) {
@@ -1112,6 +1131,8 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
       this.personal.controls['residenceCountry'].setValue(this.personal.controls['personalCountry'].value);
       this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
+      this.personal.controls['residenceAreaName'].setValue(this.personal.controls['personalAreaName'].value);
+
     } else {
       this.proposalRArea = '';
       sessionStorage.proposalRArea = {};
@@ -1195,6 +1216,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalMobile.patchValue(this.personal.controls['personalMobile'].value);
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalPhone1.patchValue(this.personal.controls['personalPhone'].value);
+      this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].relationship.patchValue('345');
 
       let getDob = this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd');
       this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].InsDOB.patchValue(getDob);
@@ -1274,6 +1296,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         residencePincode: this.getStepper1.residencePincode,
         residenceCity: this.getStepper1.residenceCity,
         residenceArea: this.getStepper1.residenceArea,
+        residenceAreaName: this.getStepper1.residenceAreaName,
         residenceDistrict: this.getStepper1.residenceDistrict,
         residenceState: this.getStepper1.residenceState,
         residenceNearestLandMark: this.getStepper1.residenceNearestLandMark,
@@ -1443,6 +1466,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         riskSportsActivitiesName: this.getStepper3.riskSportsActivitiesName,
         riskIsSufferingFromPEMC: this.getStepper3.riskIsSufferingFromPEMC,
         riskPreExistDisease: this.getStepper3.riskPreExistDisease,
+          riskPreExistDiseaseValue: this.getStepper3.riskPreExistDiseaseValue,
         riskIsVisitingUSACanada: this.getStepper3.riskIsVisitingUSACanada,
         riskVisitingCountries: this.getStepper3.riskVisitingCountries,
         riskVisitingCountriesName: this.getStepper3.riskVisitingCountriesName,
@@ -1453,7 +1477,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         riskNoOfYears: this.getStepper3.riskNoOfYears,
         riskSeniorCitizen: this.getStepper3.riskSeniorCitizen,
         riskSeniorCitizenPlanID: this.getStepper3.riskSeniorCitizenPlanID,
-        riskSeniorCitizenPlanName: this.getStepper3.riskSeniorCitizenPlanName,
+          riskSeniorCitizenPlanIDName: this.getStepper3.riskSeniorCitizenPlanIDName,
         TravelStandardLimited: this.getStepper3.TravelStandardLimited,
         TravelCoverageName: this.getStepper3.TravelCoverageName,
         TravelCoverageDisplayName: this.getStepper3.TravelCoverageDisplayName,
@@ -1470,6 +1494,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         TravelIsElitePlan: this.getStepper3.TravelIsElitePlan,
         TravelElitePlan: this.getStepper3.TravelElitePlan,
         TravelIsPlusPlan: this.getStepper3.TravelIsPlusPlan,
+        riskMaxDaysPerTripFlag: this.getStepper3.riskMaxDaysPerTripFlag,
         TravelPlusPlan: this.getStepper3.TravelPlusPlan,
 
         // overseas: this.getStepper3.overseas,
@@ -1687,9 +1712,34 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.SportsActivities = successData.ResponseObject;
     }
   }
-
   public relainceSportsActivitiesListFailure(error) {
   }
+
+    getRiskPreDiseases() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'product_id': '11'
+        }
+        this.travelservice.getRiskPreDiseases(data).subscribe(
+            (successData) => {
+                this.preExDiseaseSuccess(successData);
+            },
+            (error) => {
+                this.preExDiseaseFailure(error);
+            }
+        );
+    }
+    public preExDiseaseSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.allPreExistingDiseases = successData.ResponseObject;
+            console.log(this.allPreExistingDiseases,'eeeee')
+
+        }
+    }
+    public preExDiseaseFailure(error) {
+    }
   relainceCoverType() {
     const data = {
       'platform': 'web',
@@ -1715,6 +1765,32 @@ export class TravelRelianceProposalComponent implements OnInit {
 
   public relainceCoverTypeListFailure(error) {
   }
+    getSenorCitPlans() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'product_id': '11'
+        }
+        this.travelservice.getSenorCitPlans(data).subscribe(
+            (successData) => {
+                this.getSenorCitPlansSuccess(successData);
+            },
+            (error) => {
+                this.getSenorCitPlansFailure(error);
+            }
+        );
+    }
+
+    public getSenorCitPlansSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.seniorCitizenPlans = successData.ResponseObject;
+            console.log(this.seniorCitizenPlans, 'this.seniorCitizenPlansthis.seniorCitizenPlans');
+        }
+    }
+
+    public getSenorCitPlansFailure(error) {
+    }
 
   commonPincode(pin, title) {
     const data = {
@@ -2092,15 +2168,22 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insurePreExistingIllnessName.patchValue(this.PreExistingIllness[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].PreExistingIllness.value]);
   }
   selectInsureNomineeRelationship(index){
-    this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureNomineeRelationshipName.patchValue(this.Relationship[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].nomineeRelationship.value]);
+        this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].insureNomineeRelationshipName.patchValue(this.Relationship[this.relianceInsuredTravel['controls'].items['controls'][index]['controls'].nomineeRelationship.value]);
   }
-  selectriskSportsActivities(){
-    this.riskDetails.controls['riskSportsActivitiesName'].patchValue(this.SportsActivities[this.riskDetails.controls['riskSportsActivities'].value]);
-  }
+  // selectriskSportsActivities(){
+  //   this.riskDetails.controls['riskSportsActivitiesName'].patchValue(this.SportsActivities[this.riskDetails.controls['riskSportsActivities'].value]);
+  // }
   selectriskVisitingCountries(){
-    this.riskDetails.controls['riskVisitingCountriesName'].patchValue(this.VisitingCountry[this.riskDetails.controls['riskVisitingCountries'].value]);
+   // this.riskDetails.controls['riskVisitingCountriesName'].patchValue(this.VisitingCountry[this.riskDetails.controls['riskVisitingCountries'].value]);
   }
   selectriskriskCoverageType(){
     this.riskDetails.controls['riskCoverageTypeName'].patchValue(this.CoverType[this.riskDetails.controls['riskCoverageType'].value]);
   }
+
+
+
+
+    selectseniorPlan() {
+        this.riskDetails.controls['riskSeniorCitizenPlanIDName'].patchValue(this.seniorCitizenPlans[this.riskDetails.controls['riskSeniorCitizenPlanID'].value]);
+    }
 }

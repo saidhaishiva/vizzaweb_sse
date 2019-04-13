@@ -106,6 +106,7 @@ button:focus{
 }
 .sidenav{
   width: 300px !important;
+  overflow: auto !important;
 }
 
 .dashboard1{
@@ -2558,7 +2559,7 @@ btn-uploade{
   width: 100%;
   font-size:5px;
   background: antiquewhite;
-  margin-bottom: 70px;
+  //margin-bottom: 70px;
 }
 .compar-fix-tr{
   position: fixed;
@@ -3986,5 +3987,9 @@ fieldset {
   //td{
   //  color: rgb(15, 105, 142) !important;
   //}
+}
+
+.mat-drawer-container {
+  padding-bottom: 40px;
 }
 

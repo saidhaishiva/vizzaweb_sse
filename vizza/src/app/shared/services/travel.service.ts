@@ -646,6 +646,29 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    // this function will get pre existing diseases
+    getRiskPreDiseases(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/get_pre_existingdisease' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    getSenorCitPlans(data){
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'reliance/get_senior_citizen' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     //reliance cover type
     travelReliancerelainceCoverType(data){
         const json = JSON.stringify(data);
