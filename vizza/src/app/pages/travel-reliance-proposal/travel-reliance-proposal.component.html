@@ -2,7 +2,7 @@
 <div class="container-fluid">
   <div class="row relianceHealthProposal">
     <div class="col-md-12">
-      <mat-horizontal-stepper  #stepper>
+      <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="personal">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
@@ -825,7 +825,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Visiting Countries" formControlName="VisitingCountries" (change)="selectInsureVisitingCountries(i)" multiple>
+                              <mat-select placeholder="Visiting Countries" formControlName="VisitingCountries" multiple>
                                 <mat-option  *ngFor="let countries of VisitingCountry " value="{{countries.visiting_id}}">{{countries.visiting_name}}</mat-option>
                               </mat-select>
                             </mat-form-field>
@@ -842,8 +842,8 @@
                               </div>
                               <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness" (change)="selectInsurePreExistingIllness(i)" required="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'}}">
-                                    <mat-option  *ngFor="let disease of PreExistingIllness | keys" value="{{disease.key}}">{{disease.value}}</mat-option>
+                                  <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness"  required="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'}}">
+                                    <mat-option  *ngFor="let disease of PreExistingIllness " value="{{disease.disease_id}}">{{disease.disease_name}}</mat-option>
                                    </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Pre Existing Illness is required</mat-error>
                                 </mat-form-field>
@@ -870,7 +870,7 @@
                               </div>
                               <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Self'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship With Insured" formControlName="nomineeRelationship" (change)="selectInsureNomineeRelationship(i)" required>
+                                  <mat-select placeholder="Relationship With Insured" formControlName="nomineeRelationship"  required>
                                     <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_insured !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
@@ -879,7 +879,7 @@
 
                               <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Spouse'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship with Insured" formControlName="nomineeRelationship" (change)="selectInsureNomineeRelationship(i)" required>
+                                  <mat-select placeholder="Relationship with Insured" formControlName="nomineeRelationship"  required>
                                     <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_spouse !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
@@ -887,7 +887,7 @@
                               </div>
                               <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Son' || relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Daughter'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship with Insured" formControlName="nomineeRelationship" (change)="selectInsureNomineeRelationship(i)" required>
+                                  <mat-select placeholder="Relationship with Insured" formControlName="nomineeRelationship"  required>
                                     <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_child !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
@@ -1271,7 +1271,7 @@
                         <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                       </div>
                       <div class="col-md-6">
-                        <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">/</span> </span></span></h4>
+                        <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit" class="p-2"> {{lists}}</span></span></h4>
                       </div>
                     </div>
                   </div>
@@ -1370,7 +1370,7 @@
                                         <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.personalCountry}}</li>
                                         <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.residencePincode}}</li>
                                         <li class="list-group-item"><strong>City:</strong> {{proposerFormData.residenceCity}}</li>
-                                        <li class="list-group-item"><strong>State:</strong> {{proposerFormData.residenceArea}}</li>
+                                        <li class="list-group-item"><strong>State:</strong> {{proposerFormData.residenceState}}</li>
                                         <li class="list-group-item"><strong>Area:</strong> {{proposerFormData.residenceAreaName}}</li>
                                         <li class="list-group-item" *ngIf="proposerFormData.residenceNearestLandMark != ''"><strong>NearestLandmark:</strong> {{proposerFormData.residenceNearestLandMark}}</li>
                                       </ul>
@@ -1479,7 +1479,7 @@
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyAddress != ''"><strong>Address 1:</strong> {{proposerFormData.personalCompanyAddress}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyAddress2 != ''"><strong>Address 2:</strong> {{proposerFormData.personalCompanyAddress2}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.personalCompanyAddress3}}</li>
-                                  <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalCompanyCountry}}</li>
+
                                 </ul>
                               </div>
                             </div>
@@ -1487,7 +1487,7 @@
                               <div class="p-3">
                                 <h6 class="color-blue mt-4"></h6>
                                 <ul class="m-0 list-group">
-
+                                  <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalCompanyCountry}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalCompanyPincode}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCity != ''"><strong>City Name:</strong> {{proposerFormData.personalCompanyCity}}</li>
                                   <li class="list-group-item" *ngIf="proposerFormData.personalCompanyDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalCompanyDistrict}}</li>
@@ -1546,11 +1546,11 @@
                             <li class="list-group-item"><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
                             <li class="list-group-item" *ngIf="item.personalPhone1 != '' && item.personalPhone1 != 0"><strong>Phone:</strong> {{item.personalPhone1}}</li>
                             <li class="list-group-item"><strong>Passport Number:</strong> {{item.passport}}</li>
-                            <li class="list-group-item" *ngIf="item.insureVisitingCountryName != null"><strong>Visiting Countries:</strong> {{item.insureVisitingCountryName}}</li>
+                            <li class="list-group-item" *ngIf="item.insureVisitingCountryName != ''"><strong>Visiting Countries:</strong> {{item.insureVisitingCountryName}}</li>
                             <li class="list-group-item"><strong>Occupation:</strong> {{item.insureOccupationName}}</li>
                             <li class="list-group-item"><strong>Is Under Medication:</strong> {{item.IsUnderMedication}}</li>
                             <li class="list-group-item" *ngIf="item.insurePreExistingIllnessName != ''"><strong>Pre-Existing Illness:</strong> {{item.insurePreExistingIllnessName}}</li>
-                            <li class="list-group-item" *ngIf="item.SufferingSince != ''"><strong>Suffering Since:</strong> {{item.SufferingSince}}</li>
+                            <li class="list-group-item" *ngIf="item.SufferingSince != ''"><strong>Suffering Since:</strong> {{item.SufferingSince  | date: 'dd/MM/yyyy'}}</li>
                             <li class="list-group-item"><strong>Nominee Name:</strong> {{item.nomineeName}}</li>
                             <li class="list-group-item"><strong>Nominee Relationship:</strong> {{item.insureNomineeRelationshipName}}</li>
                           </ul>
