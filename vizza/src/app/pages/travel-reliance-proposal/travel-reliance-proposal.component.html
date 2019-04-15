@@ -609,7 +609,7 @@
                       <h6 class="color-blue ml-3">DOCTOR DETAILS</h6>
                       <div class="text-left pl-3 w-100">
                         <p>Is Doctor Details</p>
-                        <mat-radio-group formControlName="IsDoctorDetails" >
+                        <mat-radio-group formControlName="IsDoctorDetails" (change)="underDoctorDetail(i)">
                           <mat-radio-button value="true">Yes</mat-radio-button>
                           <mat-radio-button value="false">No</mat-radio-button>
                         </mat-radio-group>
@@ -618,7 +618,7 @@
                     <div class="row" *ngIf="personal['controls'].IsDoctorDetails.value == 'true'">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Doctor Name" formControlName="personalDoctorFullname"  (keypress)="nameValidate($event)"  autocomplete="off">
+                          <input matInput placeholder="Doctor Name" formControlName="personalDoctorFullname"  (keypress)="nameValidate($event)"  autocomplete="off" >
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -719,7 +719,7 @@
               <div formArrayName="items" *ngFor="let item of relianceInsuredTravel.get('items')['controls']; let i = index;">
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
-                    <mat-panel-title> {{relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value}}
+                    <mat-panel-title>INSURED DETAILS FOR {{relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value | uppercase}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS FOR SELF</ng-template>
@@ -923,7 +923,7 @@
                           <ng-template matStepLabel>RISK DETAILS</ng-template>
                           <div class="row mt-1">
                               <div class="col-md-12 box-card pt-3 pb-3" >
-                                <h6 class="color-blue">List Of Travel persons Details</h6>
+                                <h6 class="color-blue">LIST OF TRAVEL PERSONS DETAILS</h6>
                                 <div class="row col-md-12">
                                       <div class="col-md-8">
                                          1.Is Indian Citizen

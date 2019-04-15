@@ -509,6 +509,13 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators(null);
     }
   }
+    underDoctorDetail(i) {
+        if (this.personal['controls'].items['controls'][i]['controls'].IsDoctorDetails.value == 'true') {
+            this.personal['controls'].items['controls'][i]['controls'].personalDoctorFullname.setValidators([Validators.required]);
+        } else {
+            this.personal['controls'].items['controls'][i]['controls'].personalDoctorFullname.setValidators(null);
+        }
+    }
   relianceInsureDetails(stepper: MatStepper, id, value, key) {
       console.log(value,'value');
     sessionStorage.stepper2Details = '';
