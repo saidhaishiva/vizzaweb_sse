@@ -213,13 +213,13 @@ export class TermLifePremiumListComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     if (value.product_id <= 81 && value.product_id >=78) {
-                        this.router.navigate(['/travelproposal'  + '/' + false]);
+                        this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                     }
                 }
             });
         }  else {
             if (value.product_id <= 81 && value.product_id >=78) {
-                this.router.navigate(['/travelproposal'  + '/' + false]);
+                this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
             }
         }
     }

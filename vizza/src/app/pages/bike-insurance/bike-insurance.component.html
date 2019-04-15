@@ -47,37 +47,47 @@
                   <mat-radio-button value="Yes">Yes</mat-radio-button>
                   <mat-radio-button value="No">No</mat-radio-button>
                 </mat-radio-group>
-                <mat-form-field class="w-100" *ngIf="claimAmountDetails">
-                  <input matInput placeholder="Claim Amount:" formControlName="claimamount">
-                  <!--<mat-error *ngIf="bikeInsurance.controls.claimamount.errors?.required">Claimamount is required</mat-error>-->
-                  <!--<mat-error *ngIf="bikeapp.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'">
+                    <mat-select placeholder="Claim Amount"  formControlName="claimamount"  required>
+                        <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                    </mat-select>
                 </mat-form-field>
-                  <!--<mat-form-field class="w-100">-->
-                      <!--<input matInput placeholder="ChasissNumber" formControlName="chasissNumber"  required>-->
-                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">ChasissNumber is required</mat-error>-->
-                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
-                  <!--</mat-form-field>-->
-                  <!--<mat-form-field class="w-100">-->
-                      <!--<input matInput placeholder="Vehicle Manufacture" formControlName="manufacture" maxlength="10" required>-->
-                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle Manufacture is required</mat-error>-->
-                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
-                  <!--</mat-form-field>-->
-                  <!--<mat-form-field class="w-100">-->
-                      <!--<input matInput placeholder="Fuel Type" formControlName="fuelType" maxlength="10" required>-->
-                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Fuel Type is required</mat-error>-->
-                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
-                  <!--</mat-form-field>-->
-                  <!--<mat-form-field class="w-100">-->
-                      <!--<input matInput placeholder="Vehicle CC" formControlName="vehicleCC" maxlength="10" required>-->
-                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>-->
-                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
-                  <!--</mat-form-field>-->
+                  <div *ngIf="listDetails">
+                  <mat-form-field class="w-100">
+                      <input matInput placeholder="ChasissNumber" formControlName="chasissNumber"  required>
+                      <mat-error *ngIf="bikeInsurance.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                  </mat-form-field>
+                  <mat-form-field class="w-100">
+                      <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  required>
+                          <mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                      </mat-select>
+                      <!--<mat-error *ngIf="bikeInsurance.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                  </mat-form-field>
+                  <mat-form-field class="w-100">
+                      <mat-select placeholder="Vehical Model"  formControlName="model"  required>
+                          <mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                      </mat-select>
+                      <!--<mat-error *ngIf="bikeInsurance.controls.fuelType.errors?.required">Fuel Type is required</mat-error>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                  </mat-form-field>
+                  <mat-form-field class="w-100">
+                      <mat-select placeholder="Vehicle CC"  formControlName="vehicleCC"  required>
+                          <mat-option *ngFor="let paCity of ccDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                      </mat-select>
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                  </mat-form-field>
 
-                  <!--<mat-form-field class="w-100">-->
-                      <!--<input matInput placeholder="Variant" formControlName="variant" maxlength="10" required>-->
-                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Variant is required</mat-error>-->
-                      <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
-                  <!--</mat-form-field>-->
+                  <mat-form-field class="w-100">
+                      <mat-select placeholder="Variant"  formControlName="variant"  required>
+                          <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                      </mat-select>
+                      <!--<mat-error *ngIf="bikeInsurance.controls.variant.errors?.required">Variant is required</mat-error>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                  </mat-form-field>
+                  </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-raised-button color="primary" (click)="bike(bikeInsurance.value)">Submit</button>
                   <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
