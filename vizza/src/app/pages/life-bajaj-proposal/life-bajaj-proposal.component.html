@@ -91,6 +91,8 @@
                       </div>
 
 
+
+
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
@@ -115,14 +117,14 @@
                           <mat-error *ngIf="proposer.controls.occupationList.errors?.required">Occupation is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Education" name="education" formControlName="educationList" (change)="occupationListCode(); setOccupationListClass()"required>-->
-                            <!--<mat-option *ngFor="let education of educationCode | keys" [value]="education.key">{{education.value}}</mat-option>-->
-                          <!--</mat-select>-->
-                          <!--<mat-error *ngIf="insured.controls.educationList.errors?.required">Education is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="Education" formControlName="education" (change)="changeEducation()" required  class="w-100">
+                            <mat-option *ngFor="let list of educationList | keys" [value]= list.key> {{list.value}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="proposer.controls.education.errors?.required">Education is required</mat-error>
+                        </mat-form-field>
+                      </div>
 
 
                       <div class="col-md-3">
@@ -540,24 +542,34 @@
                         <mat-error *ngIf="proposer.controls.addressProof.errors?.required">Department is required</mat-error>
                       </mat-form-field>
                     </div>
-                    <div class="col-md-3">
-                      <mat-form-field class="w-100">
-                        <input matInput placeholder="Age Proof" formControlName="ageProof"  maxlength="45" autocomplete="off" required >
-                        <mat-error *ngIf="proposer.controls.ageProof.errors?.required">Age Proof is required</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field class="w-100">
-                        <input matInput placeholder="Income Proof" formControlName="incomeProof"  maxlength="45" autocomplete="off" required >
-                        <mat-error *ngIf="proposer.controls.incomeProof.errors?.required">Income Proof is required</mat-error>
-                      </mat-form-field>
-                    </div>
-                    <div class="col-md-3">
-                      <mat-form-field class="w-100">
-                        <input matInput placeholder="Id Proof" formControlName="idProof"  maxlength="45" autocomplete="off" required >
-                        <mat-error *ngIf="proposer.controls.idProof.errors?.required">Id Proof is required</mat-error>
-                      </mat-form-field>
-                    </div>
+
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="Age Proof" formControlName="ageProof" (change)="changeAgeProof()" required  class="w-100">
+                            <mat-option *ngFor="let list of ageProofsList | keys" [value]= list.key> {{list.value}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="proposer.controls.ageProof.errors?.required">Age Proof is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="Income Proof" formControlName="incomeProof" (change)="changeIncomeProof()"  class="w-100">
+
+                            <mat-option *ngFor="let list of incomeProofList | keys" [value]= list.key> {{list.value}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="proposer.controls.incomeProof.errors?.required">Income Proof is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="Id Proof" formControlName="idProof" (change)="changeIdProof()" required  class="w-100">
+                            <mat-option *ngFor="let list of idProofList | keys" [value]= list.key> {{list.value}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="proposer.controls.idProof.errors?.required">Id Proof is required</mat-error>
+                        </mat-form-field>
+                      </div>
+
+
                     </div>
 
                   </div>
@@ -593,25 +605,25 @@
 
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Account Holder Name"  required formControlName="accountHolderName" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <input matInput placeholder="Account Holder Name"  formControlName="accountHolderName" (keypress)="nameValidate($event)"   autocomplete="off" required>
                         <mat-error *ngIf="bankDetail.controls.accountHolderName.errors?.required">Account Holder Name is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Branch Name"  required formControlName="branchName" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <input matInput placeholder="Branch Name"  formControlName="branchName" (keypress)="nameValidate($event)"   autocomplete="off" required>
                         <mat-error *ngIf="bankDetail.controls.branchName.errors?.required">Branch Name is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Account No"  required formControlName="accountNo" (keypress)="numberValidate($event)"   autocomplete="off">
+                        <input matInput placeholder="Account No" formControlName="accountNo" (keypress)="numberValidate($event)"   autocomplete="off" required>
                         <mat-error *ngIf="bankDetail.controls.accountNo.errors?.required">Account No is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-4">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Account Type"  required formControlName="accountType" (keypress)="nameValidate($event)"   autocomplete="off">
+                        <input matInput placeholder="Account Type" formControlName="accountType" (keypress)="nameValidate($event)"   autocomplete="off" required>
                         <mat-error *ngIf="bankDetail.controls.accountType.errors?.required">Account Type is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -629,7 +641,6 @@
                     </div>
                   </div>
                 </div>
-
 
                 <div class="proposal-buttom mb-3 text-right w-100">
                 <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
@@ -801,9 +812,272 @@
             </mat-expansion-panel>
           </mat-accordion>
         </mat-step>
+
+
+        <mat-step [stepControl]="">
+          <ng-template matStepLabel>SUMMARY</ng-template>
+          <section class="summary-details" *ngIf="summaryData">
+            <div class="row">
+              <!--<div class="col-md-4"> <h4 class="mt-3 text-center"> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>-->
+              <div class="col-md-8">
+                <ul class="summary-head">
+                  <!--<li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 88px;" /> </li>-->
+                  <!--<li><span>Base Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.BasePremium}}</span> /</li>-->
+                  <!--<li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.Tax}}</span> </li>-->
+                  <!--<li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span> </li>-->
+                  <!--<li></li>-->
+                </ul>
+              </div>
+            </div>
+            <section>
+              <h5 class="mt-3 sub-title">PROPOSER / INSURED DETAILS </h5>
+              <div class="row box-card">
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+
+                      <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.firstName}} {{proposerFormData.midName}} {{proposerFormData.lastName}} </li>
+                      <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.gender}} </li>
+                      <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item"><strong>Age:</strong> {{proposerFormData.age}}</li>
+                      <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
+                      <li class="list-group-item"><strong>Alternate Mobile:</strong> {{proposerFormData.alterMobile}}</li>
+                      <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationList}}</li>
+                      <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatus}}</li>
+                      <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}}</li>
+                      <li class="list-group-item"><strong>Education:</strong> {{proposerFormData.education}}</li>
+                      <li class="list-group-item"><strong>Height:</strong> {{proposerFormData.height}}</li>
+                      <li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.weight}}</li>
+                      <li class="list-group-item"><strong>Weight Changed:</strong> {{proposerFormData.weightChanged}}</li>
+                      <li class="list-group-item"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNum}}</li>
+                      <li class="list-group-item"><strong>Language:</strong> {{proposerFormData.language}}</li>
+                      <li class="list-group-item"><strong>Proposer Type:</strong> {{proposerFormData.proposerType}}</li>
+                      <li class="list-group-item"><strong>Document Language:</strong> {{proposerFormData.language2}}</li>
+                      <li class="list-group-item"><strong>Life Benefit:</strong> {{proposerFormData.lifeBenefit}}</li>
+                      <li class="list-group-item"><strong>Benefit Type:</strong> {{proposerFormData.benefitTerm}}</li>
+                      <li class="list-group-item"><strong>Premium Payment Term:</strong> {{proposerFormData.premiumPayTerm}}</li>
+                      <li class="list-group-item"><strong>Premium Frequncy:</strong> {{proposerFormData.premiumfreq}}</li>
+                      <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
+                      <li class="list-group-item"><strong>Country of Residence:</strong> {{proposerFormData.countryOfResid}}</li>
+                      <li class="list-group-item"><strong>Place of birth:</strong> {{proposerFormData.pob}}</li>
+                      <li class="list-group-item"><strong>Citizenship:</strong> {{proposerFormData.citizenship}}</li>
+                      <li class="list-group-item"><strong>Politically Exposed Person:</strong> {{proposerFormData.politicallyExposedPerson}}</li>
+                      <li class="list-group-item"><strong>If Yes Give Details:</strong> {{proposerFormData.ifYesGiveDetails}}</li>
+
+                     </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 >FAMILY DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fatherName}}</li>
+                      <li class="list-group-item"><strong>Mother Name:</strong> {{proposerFormData.motherName}}</li>
+                      <li class="list-group-item"><strong>Spouse Place Of Birth:</strong> {{proposerFormData.spouseBirthPlace}}</li>
+                      <li class="list-group-item"><strong>Spouse Name:</strong> {{proposerFormData.spouseName}}</li>
+                      <li class="list-group-item"><strong>Date Of Birth:</strong> {{proposerFormData.spouseDob}}</li>
+
+                    </ul>
+                  </div>
+                </div>
+
+
+
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 >COMMUNICATION DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Door Number:</strong> {{proposerFormData.comDoorNo}}</li>
+                      <li class="list-group-item"><strong> Building Number:</strong> {{proposerFormData.comBuildingNumber}}</li>
+                      <li class="list-group-item"><strong>Plot Number:</strong> {{proposerFormData.comPlotNumber}}</li>
+                      <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.comLandmark}}</li>
+                      <li class="list-group-item"><strong>Place:</strong> {{proposerFormData.comPlace}}</li>
+                      <li class="list-group-item"><strong>District:</strong> {{proposerFormData.comDistrict}}</li>
+                      <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
+                      <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 >RESIDENCY DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Door Number:</strong> {{proposerFormData.perDoorNo}}</li>
+                      <li class="list-group-item"><strong> Building Number:</strong> {{proposerFormData.perBuildingNumber}}</li>
+                      <li class="list-group-item"><strong>Plot Number:</strong> {{proposerFormData.perPlotNumber}}</li>
+                      <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.perLandmark}}</li>
+                      <li class="list-group-item"><strong>Place:</strong> {{proposerFormData.perPlace}}</li>
+                      <li class="list-group-item"><strong>District:</strong> {{proposerFormData.perDistrict}}</li>
+                      <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.rpincode}}</li>
+                      <li class="list-group-item"><strong>State:</strong> {{proposerFormData.rstate}}</li>
+                    </ul>
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 >OFFICE DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Department:</strong> {{proposerFormData.department}}</li>
+                      <li class="list-group-item"><strong>Office Name:</strong> {{proposerFormData.officeName}}</li>
+                      <li class="list-group-item"><strong>Office Address1:</strong> {{proposerFormData.officeAddress1}}</li>
+                      <li class="list-group-item"><strong>Office Address2:</strong> {{proposerFormData.officeAddress2}}</li>
+                      <li class="list-group-item"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
+                      <li class="list-group-item"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
+                      <li class="list-group-item"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
+                      <li class="list-group-item"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
+                      <li class="list-group-item"><strong>Office Number:</strong> {{proposerFormData.officeNumber}}</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 >OTHER DETAILS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Address Proof:</strong> {{proposerFormData.addressProof}}</li>
+                      <li class="list-group-item"><strong>Id Proof:</strong> {{proposerFormData.idProof}}</li>
+                      <li class="list-group-item"><strong>Income Proof:</strong> {{proposerFormData.incomeProof}}</li>
+                      <li class="list-group-item"><strong>Age Proof:</strong> {{proposerFormData.ageProof}}</li>
+
+                    </ul>
+                  </div>
+                </div>
+
+
+              </div>
+            </section>
+            <section>
+              <h5 class="mt-3 sub-title">BANK DETAILS </h5>
+              <div class="row box-card">
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ul class="m-0 list-group">
+                          <!--<li class="list-group-item"><strong>Name:</strong><span *ngIf="nomineeDataForm.paNomineeTitle == 'MR'">Mr</span><span *ngIf="nomineeDataForm.paNomineeTitle == 'MRS'">Ms</span>.{{nomineeDataForm.paNomineeName}}</li>-->
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ul class="m-0 list-group">
+                          <!--<li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataForm.paRelationshipName}}</li>-->
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 >BANK DETAILS</h6>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item"><strong>Account Holder Name:</strong> {{bankDetailFormData.accountHolderName}}</li>
+                          <li class="list-group-item" ><strong>Branch Name:</strong> {{bankDetailFormData.branchName}}</li>
+                          <li class="list-group-item" ><strong>Account No:</strong> {{bankDetailFormData.accountNo}}</li>
+                          <li class="list-group-item"><strong>Account Type:</strong> {{bankDetailFormData.accountType}}</li>
+                          <li class="list-group-item"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode}}</li>
+                          <li class="list-group-item"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </section>
+              <section>
+                  <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
+                  <div class="row box-card">
+                      <div class="col-md-6">
+                          <div class="p-3">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <ul class="m-0 list-group">
+                                          <!--<li class="list-group-item"><strong>Name:</strong><span *ngIf="nomineeDataForm.paNomineeTitle == 'MR'">Mr</span><span *ngIf="nomineeDataForm.paNomineeTitle == 'MRS'">Ms</span>.{{nomineeDataForm.paNomineeName}}</li>-->
+                                      </ul>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-6">
+                          <div class="p-3">
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <ul class="m-0 list-group">
+                                          <!--<li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataForm.paRelationshipName}}</li>-->
+                                      </ul>
+                                  </div>
+
+                              </div>
+                          </div>
+                      </div>
+
+                      <div class="col-md-6">
+                          <div class="p-3">
+                              <h6 >NOMINEE DETAILS</h6>
+                              <div class="row">
+                                  <div class="col-md-12">
+                                      <ul class="m-0 list-group">
+                                          <li class="list-group-item"><strong>Nominee Name:</strong> {{nomineeDetailFormData.nnName}}</li>
+                                          <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{nomineeDetailFormData.nDob}}</li>
+                                          <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{nomineeDetailFormData.nBirthPlace}}</li>
+                                          <li class="list-group-item"><strong>Nominee Relation:</strong> {{nomineeDetailFormData.nRelation}}</li>
+
+                                      </ul>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
+                  </div>
+              </section>
+
+            <!--<p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all the details provided above is correct</mat-checkbox></p>-->
+            <!--<hr>-->
+            <!--<div class="row">-->
+              <!--<div class="col-md-12 text-center">-->
+                <!--<form action= '{{RediretUrlLink}}' method='post' #form>-->
+
+                  <!--<div>-->
+                    <!--<input type='hidden' name='proposalNum' value={{summaryData.proposalNum}}/>-->
+                    <!--<input type='hidden' name='returnURL' value={{summaryData.returnURL}}/>-->
+                  <!--</div>-->
+                  <div class="col-md-12">
+                    <div class="proposal-buttom mb-3 text-center w-100">
+                      <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                      <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>-->
+                    </div>
+                  </div>
+
+                <!--</form>-->
+          </section>
+        </mat-step>
       </mat-horizontal-stepper>
     </div>
   </div>
+</div>
+              <!--</div>-->
+            <!--</div>-->
+          <!--</section>-->
+          <!--<div class="proposal-buttom mt-3 text-right w-100">-->
+          <!--<button mat-button matStepperPrevious  >Back</button>-->
+          <!--</div>-->
+
 <!--<style>-->
 <!--.nospace{-->
 <!--user-input: no-spac;-->
