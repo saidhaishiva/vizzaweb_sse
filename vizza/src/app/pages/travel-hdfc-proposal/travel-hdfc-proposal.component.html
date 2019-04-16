@@ -85,7 +85,7 @@
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="STD Code"  (keypress)="numberValidate($event)"  minlength="3" maxlength="5" formControlName="stdcode" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.stdcode.errors?.required">STD Code is required</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.stdcode.hasError('minlength')">STD Code isn't long enough, minimum of 5 Digits</mat-error>
+                        <mat-error *ngIf="hdfcTravel.controls.stdcode.hasError('minlength')">STD Code isn't long enough, minimum of 3 Digits</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Telephone Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="telephoneNo" autocomplete="off" >
@@ -95,7 +95,7 @@
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="STD Code(office)"  (keypress)="numberValidate($event)"  minlength="3" maxlength="5" formControlName="stdcodeoffice" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.errors?.required"> STD Code(office) is required</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 5 Digits</mat-error>
+                        <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 3 Digits</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-3 mt-2"><mat-form-field class="w-100">
