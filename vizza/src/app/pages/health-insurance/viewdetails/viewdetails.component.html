@@ -1,4 +1,4 @@
-
+<div class="container">
 <div class="row mb-3" >
   <div class="col-sm-6 text-left">
   <h4 style="margin-left: 35px;">{{productName}}</h4>
@@ -26,7 +26,7 @@
                 <mat-accordion class="w-100">
                   <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i == 0">
                     <mat-expansion-panel-header>
-                      <mat-panel-title *ngIf="keys.type == 1 || keys.type == 0" class="nav-item">
+                      <mat-panel-title style="height: 40px;" *ngIf="keys.type == 1 || keys.type == 0" class="nav-item">
                         <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -338,6 +338,11 @@
     </div>
   </div>
 </div>
+</div>
 
 
-
+<style>
+  .container {
+    padding: 0;
+  }
+</style>

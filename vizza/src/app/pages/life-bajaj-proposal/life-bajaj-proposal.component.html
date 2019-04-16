@@ -40,7 +40,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event, 'proposer')" (dateChange)="addEvent($event, 'proposer')" minlength="10" maxlength="10"
+                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"
                                  autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
@@ -180,13 +180,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Life benefit" formControlName="lifeBenefit" class="nospace"  maxlength="45" autocomplete="off" required >
+                          <input matInput placeholder="Life benefit" formControlName="lifeBenefit" class="nospace"  maxlength="4" (keypress)="numberValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.lifeBenefit.errors?.required">Life Benefit is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Benefit Term" formControlName="benefitTerm" class="nospace"  maxlength="45" autocomplete="off" required >
+                          <input matInput placeholder="Benefit Term" formControlName="benefitTerm" class="nospace"  maxlength="4" (keypress)="numberValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.benefitTerm.errors?.required">Benefit Term is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -200,7 +200,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Premium Frequency" formControlName="premiumfreq" class="nospace"  maxlength="45" autocomplete="off" required >
+                          <input matInput placeholder="Premium Frequency" formControlName="premiumfreq" maxlength="45" autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.premiumfreq.errors?.required">Premium Frequency is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -295,7 +295,7 @@
                       </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker3" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event, 'spouse')"  formControlName="spouseDob" (dateInput)="addEvent($event, 'spouse')" (dateChange)="addEvent($event, 'spouse')" minlength="10" maxlength="10"
+                            <input matInput [matDatepicker]="picker3" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="spouseDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"
                                    autocomplete="off"   required>
                             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                             <mat-datepicker #picker3></mat-datepicker>
