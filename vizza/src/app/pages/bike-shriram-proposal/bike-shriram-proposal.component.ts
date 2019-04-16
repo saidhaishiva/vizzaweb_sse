@@ -230,7 +230,7 @@ export class BikeShriramProposalComponent implements OnInit {
                     this.bikeProposerAge = this.ageCalculate(dob);
                     console.log(this.bikeProposerAge,' agre ');
                     sessionStorage.bkShriramProposerAge = this.bikeProposerAge;
-                    // console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
+                    console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
                     this.proposer.controls['age'].patchValue(this.bikeProposerAge);
                   }
 
@@ -320,12 +320,12 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper1 = JSON.stringify(value);
           console.log(this.proposer.valid, 'checked');
           if(this.proposer.valid) {
-              if(sessionStorage.bkShriramProposerAge >= 18){
+              // if(sessionStorage.bkShriramProposerAge >= 18){
                   stepper.next();
-              } else {
-                  this.toastr.error('Proposer age should be 18 or above');
-
-              }
+              // } else {
+              //     this.toastr.error('Proposer age should be 18 or above');
+              //
+              // }
           }
 
         }
