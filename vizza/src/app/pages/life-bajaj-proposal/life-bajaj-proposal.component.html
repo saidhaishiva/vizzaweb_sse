@@ -40,7 +40,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="($event, 'proposer')" (dateChange)="addEvent($event, 'proposer')" minlength="10" maxlength="10"
+                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event, 'proposer')" (dateChange)="addEvent($event, 'proposer')" minlength="10" maxlength="10"
                                  autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
@@ -295,13 +295,13 @@
                       </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker3" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="spouseDob" (dateInput)="($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"
+                            <input matInput [matDatepicker]="picker3" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event, 'spouse')"  formControlName="spouseDob" (dateInput)="addEvent($event, 'spouse')" (dateChange)="addEvent($event, 'spouse')" minlength="10" maxlength="10"
                                    autocomplete="off"   required>
                             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                             <mat-datepicker #picker3></mat-datepicker>
                             <mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>
                           </mat-form-field>
-                          <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
+                          <div class="error" *ngIf="spouseDobError != ''">{{spouseDobError}}</div>
                           <!--<div class="error" *ngIf="insuredPaDob > minDate">Future Date not allowed</div>-->
                         </div>
                     </div>

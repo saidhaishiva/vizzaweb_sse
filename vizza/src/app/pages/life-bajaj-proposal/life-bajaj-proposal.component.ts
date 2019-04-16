@@ -85,6 +85,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public proposerFormData:any;
   public bankDetailFormData:any;
   public nomineeDetailFormData:any;
+  public spouseDobError:any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -298,7 +299,7 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
 
-  sameAddress() {
+  sameAddress(evnt) {
     if (this.proposer.controls['sameAsProposer'].value) {
       this.proposer.controls['perDoorNo'].patchValue(this.proposer.controls['comDoorNo'].value);
       this.proposer.controls['perBuildingNumber'].patchValue(this.proposer.controls['comBuildingNumber'].value);
