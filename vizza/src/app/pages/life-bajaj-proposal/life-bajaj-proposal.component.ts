@@ -372,7 +372,54 @@ export class LifeBajajProposalComponent implements OnInit {
     return age;
   }
 
-  addEvent(event, type) {
+  // addEvent(event, type) {
+  //   if (event.value != null) {
+  //     let selectedDate = '';
+  //     this.bajajAge = '';
+  //     let dob = '';
+  //     if (typeof event.value._i == 'string') {
+  //       const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+  //       if (pattern.test(event.value._i) && event.value._i.length == 10) {
+  //         this.proposerdateError = '';
+  //       } else {
+  //         this.proposerdateError = 'Enter Valid Date';
+  //       }
+  //       selectedDate = event.value._i;
+  //       dob = this.datepipe.transform(event.value, 'y-MM-dd');
+  //       if (selectedDate.length == 10) {
+  //         this.bajajAge = this.ageCalculate(dob);
+  //         console.log(this.bajajAge, 'agre');
+  //         sessionStorage.bajajproposerAge = this.bajajAge;
+  //         console.log(sessionStorage.bajajproposerAge, 'sessionStorage.bajajproposerAge');
+  //         this.proposer.controls['age'].patchValue(this.bajajAge);
+  //       }
+  //
+  //     } else if (typeof event.value._i == 'object') {
+  //       dob = this.datepipe.transform(event.value, 'y-MM-dd');
+  //       if (dob.length == 10) {
+  //         this.bajajAge = this.ageCalculate(dob);
+  //         sessionStorage.insuredAgePA = this.bajajAge;
+  //         this.proposer.controls['age'].patchValue(this.bajajAge);
+  //       }
+  //       this.proposerdateError = '';
+  //     }
+  //     if (type == 'nominee') {
+  //       this.nomineeAge = this.ageCalculate(dob);
+  //       console.log(this.nomineeAge,'nomineeage');
+  //       if (this.nomineeAge < 18) {
+  //         this.show = true;
+  //       } else {
+  //         this.show = false;
+  //       }
+  //     }
+  //
+  //     //sessionStorage.insuredAgePA = this.bajajAge;
+  //
+  //   }
+  // }
+  //
+
+  addEvent(event) {
     if (event.value != null) {
       let selectedDate = '';
       this.bajajAge = '';
@@ -388,35 +435,24 @@ export class LifeBajajProposalComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
           this.bajajAge = this.ageCalculate(dob);
-          console.log(this.bajajAge, 'agre');
           sessionStorage.bajajproposerAge = this.bajajAge;
-          console.log(sessionStorage.bajajproposerAge, 'sessionStorage.bajajproposerAge');
-          this.proposer.controls['age'].patchValue(this.bajajAge);
+
         }
 
       } else if (typeof event.value._i == 'object') {
+        // dob = this.datepipe.transform(event.value, 'MMM d, y');
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
           this.bajajAge = this.ageCalculate(dob);
-          sessionStorage.insuredAgePA = this.bajajAge;
-          this.proposer.controls['age'].patchValue(this.bajajAge);
+          sessionStorage.bajajproposerAge = this.bajajAge;
+
         }
         this.proposerdateError = '';
       }
-      if (type == 'nominee') {
-        this.nomineeAge = this.ageCalculate(dob);
-        console.log(this.nomineeAge,'nomineeage');
-        if (this.nomineeAge < 18) {
-          this.show = true;
-        } else {
-          this.show = false;
-        }
-      }
-
-      //sessionStorage.insuredAgePA = this.bajajAge;
 
     }
   }
+
 
   // personal details
   proposerDetails(stepper, value) {
