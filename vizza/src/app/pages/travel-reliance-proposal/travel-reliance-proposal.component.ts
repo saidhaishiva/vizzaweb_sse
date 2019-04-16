@@ -141,6 +141,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   public allPreExistingDiseases: any;
   public currentStep: any;
   public placeOfVisit: any;
+  public riskVisitingCountryName: any;
 
 
 
@@ -372,6 +373,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       TravelIsPlusPlan: false,
       riskMaxDaysPerTripFlag: false,
       TravelPlusPlan: '',
+     riskVisitingCountryName: '',
       // TravelIsAllPlan:'',
 
       // overseas: this.overseas,
@@ -623,7 +625,7 @@ export class TravelRelianceProposalComponent implements OnInit {
       "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      "proposal_id":  this.reliance_Travel_proposal_id,
+      "proposal_id": sessionStorage.reliance_Travel_proposal_id == '' || sessionStorage.reliance_Travel_proposal_id == undefined ? '' : sessionStorage.reliance_Travel_proposal_id,
         "UserID": '100002',
         "ClientDetails": {
           'ClientType': '0',
@@ -912,17 +914,31 @@ export class TravelRelianceProposalComponent implements OnInit {
                     this.insuredFormData[i].insureRelationshipName = this.Relationship[j].relation_name;
                 }
             }
+            let country = [];
             for ( let j = 0; j < this.VisitingCountry.length; j++) {
-                if (this.insuredFormData[i].VisitingCountries === this.VisitingCountry[j].visiting_id ) {
-                    this.insuredFormData[i].insureVisitingCountryName = this.VisitingCountry[j].visiting_name;
+                for ( let k = 0; k < this.insuredFormData[i].VisitingCountries.length; k++) {
+                    if (this.insuredFormData[i].VisitingCountries[k] === this.VisitingCountry[j].visiting_id) {
+                        country.push(this.VisitingCountry[j].visiting_name);
+                    }
                 }
             }
+            console.log(country, 'country');
+            this.insuredFormData[i].insureVisitingCountryName = country;
             for ( let j = 0; j < this.PreExistingIllness.length; j++) {
                 if (this.insuredFormData[i].PreExistingIllness === this.PreExistingIllness[j].disease_id ) {
                     this.insuredFormData[i].insurePreExistingIllnessName = this.PreExistingIllness[j].disease_name;
                 }
             }
         }
+
+        let countryRisk = [];
+        for ( let j = 0; j < this.VisitingCountry.length; j++) {
+                if (this.riskFormData.riskVisitingCountries === this.VisitingCountry[j].visiting_id) {
+                    countryRisk.push(this.VisitingCountry[j].visiting_name);
+                }
+            }
+        this.riskFormData.riskVisitingCountryName = countryRisk;
+
       console.log(this.proposerFormData, 'p');
       console.log(this.insuredFormData, 'i');
       console.log(this.riskFormData, 'n');
@@ -1549,6 +1565,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         TravelIsPlusPlan: this.getStepper3.TravelIsPlusPlan,
         riskMaxDaysPerTripFlag: this.getStepper3.riskMaxDaysPerTripFlag,
         TravelPlusPlan: this.getStepper3.TravelPlusPlan,
+        riskVisitingCountryName: this.getStepper3.riskVisitingCountryName
 
         // overseas: this.getStepper3.overseas,
         // riskIsResidingInIndiaTrue: this.getStepper3.riskIsResidingInIndiaTrue,

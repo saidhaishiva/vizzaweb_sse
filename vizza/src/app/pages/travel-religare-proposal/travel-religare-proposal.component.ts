@@ -153,7 +153,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             pannumber: '',
             adharnumber: '',
             phone: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-            sameAsProposer:false,
+            sameAsProposer: false,
             rpincode: ['', Validators.required],
             rcity: ['', Validators.required],
             rcityName: '',

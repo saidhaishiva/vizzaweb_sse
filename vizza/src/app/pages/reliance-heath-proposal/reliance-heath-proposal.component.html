@@ -938,7 +938,7 @@
         <div class="row relianceHealthProposal">
             <div class="col-sm-12 col-xs-12">
                 <mat-accordion>
-                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled>
                         <mat-expansion-panel-header>
                             <mat-panel-title> PROPOSER DETAILS</mat-panel-title>
                         </mat-expansion-panel-header>
@@ -1079,30 +1079,30 @@
                                 </div>
                             </div>
                             <div class="row" fxLayoutAlign="center center">
-                                <div class="col-md-6">
+                                <div class="col-sm-12 col-xs-12">
                                     <div class="box-card addressBox">
                                         <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Address 1" formControlName="personalAddress" (keyup)="typeAddressDeatils()" autocomplete="off" required>
                                                     <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Address 2" formControlName="personalAddress2" (keyup)="typeAddressDeatils()" autocomplete="off" required>
                                                     <mat-error *ngIf="personal.controls.personalAddress2.errors?.required">Address2 is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Address 3" formControlName="personalAddress3" (keyup)="typeAddressDeatils()" autocomplete="off">
                                                     <mat-error *ngIf="personal.controls.personalAddress3.errors?.required">Address3 is required</mat-error>
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" (keyup)="typeAddressDeatils()" minlength="6"   maxlength="6" (input)="get_pincodeDetails($event.target.value, 'proposalP')" formControlName="personalPincode" autocomplete="off" required>
                                                     <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
@@ -1111,26 +1111,26 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="State" formControlName="personalState" autocomplete="off" required readonly>
                                                     <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field  class="w-100">
                                                     <input matInput placeholder="District" formControlName="personalDistrict" autocomplete="off" required readonly>
                                                     <mat-error *ngIf="personal.controls.personalDistrict.errors?.required">District is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field  class="w-100">
                                                     <input matInput placeholder="City" formControlName="personalCity" autocomplete="off" required readonly>
                                                     <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <mat-select  placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" required  class="w-100">
                                                         <mat-option *ngFor="let list of proposalPArea | keys" [value]= 'list.key'> {{list.value}} </mat-option>
@@ -1138,7 +1138,7 @@
                                                     <mat-error *ngIf="personal.controls.personalArea.errors?.required">Area is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Nearest Land Mark" formControlName="personalNearestLandMark" (keyup)="typeAddressDeatils()" autocomplete="off"  >
                                                 </mat-form-field>
@@ -1147,11 +1147,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-sm-12 col-xs-12">
                                     <div class="box-card addressBox">
                                         <div class="row">
-                                            <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
-                                            <div class="text-right w-50">
+                                            <div class="col-sm-12 col-xs-12">
+                                                <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
+                                            </div>
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                                             </div>
                                         </div>
@@ -1159,26 +1161,26 @@
                                             <!--<div class="col-md-12">-->
                                             <!--<mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>-->
                                             <!--</div>-->
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Address 1" formControlName="residenceAddress" required autocomplete="off" [readonly]="inputReadonly">
                                                     <mat-error *ngIf="personal.controls.residenceAddress.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Address 2" formControlName="residenceAddress2" autocomplete="off" [readonly]="inputReadonly" required>
                                                     <mat-error *ngIf="personal.controls.residenceAddress2.errors?.required">Address2 is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Address 3" formControlName="residenceAddress3" autocomplete="off"  [readonly]="inputReadonly">
                                                     <mat-error *ngIf="personal.controls.residenceAddress3.errors?.required">Address3 is required</mat-error>
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6" [readonly]="inputReadonly"    maxlength="6" (input)="get_pincodeDetails($event.target.value, 'proposalR')" formControlName="residencePincode"autocomplete="off"  required>
                                                     <mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
@@ -1187,26 +1189,26 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="State" formControlName="residenceState" autocomplete="off"  required [readonly]="inputReadonly">
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field  class="w-100">
                                                     <input matInput placeholder="District" formControlName="residenceDistrict" autocomplete="off" required [readonly]="inputReadonly">
                                                     <mat-error *ngIf="personal.controls.residenceDistrict.errors?.required">District is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100" >
                                                     <input matInput placeholder="City" formControlName="residenceCity" autocomplete="off" required [readonly]="inputReadonly" >
                                                     <mat-error *ngIf="personal.controls.residenceCity.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <mat-select  placeholder="Area" formControlName="residenceArea" required  class="w-100" (change)="selectResArea()" [disabled]="inputReadonly">
                                                         <mat-option *ngFor="let list of proposalRArea | keys" [value]= 'list.key'> {{list.value}} </mat-option>
@@ -1220,7 +1222,7 @@
                                             <!--<mat-error *ngIf="personal.controls.personalFax.errors?.required">fax is required</mat-error>-->
                                             <!--</mat-form-field>-->
                                             <!--</div>-->
-                                            <div class="col-md-6">
+                                            <div class="col-sm-12 col-xs-12">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Nearest Land Mark" formControlName="residenceNearestLandMark" autocomplete="off"  [readonly]="inputReadonly" >
                                                 </mat-form-field>
@@ -1238,7 +1240,7 @@
                         </div>
                         </form>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled>
                         <mat-expansion-panel-header>
                             <mat-panel-title> INSURED DETAILS</mat-panel-title>
                         </mat-expansion-panel-header>
@@ -1246,7 +1248,7 @@
                         <mat-accordion class="mt-4 w-100">
                             <form [formGroup]="insureArray">
                                 <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-                                    <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
+                                    <mat-expansion-panel class="mt-2"  [formGroupName]="i" [expanded]="i == 0">
                                         <mat-expansion-panel-header>
                                             <mat-panel-title>
                                                 INSURED DETAILS FOR {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}}
@@ -1257,7 +1259,7 @@
                                             <div class="col-sm-12 col-xs-12 box-card pt-3">
                                                 <!--<h6 class="color-blue mt-3">{{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>-->
                                                 <div class="row">
-                                                    <div class="col-md-12 mt-3" *ngIf="i == 0">
+                                                    <div class="col-sm-12 col-xs-12 mt-3" *ngIf="i == 0">
                                                         <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
                                                     </div>
                                                     <div class="col-sm-12 col-xs-12" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}">
@@ -1369,7 +1371,7 @@
                             </form>
                         </mat-accordion>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled>
                         <mat-expansion-panel-header>
                             <mat-panel-title> PREVIOUS INSURANCE DETAILS </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -1420,7 +1422,7 @@
                                 </div>
                         </form>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
+                    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled>
                         <mat-expansion-panel-header>
                             <mat-panel-title> NOMINEE DETAILS </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -1545,7 +1547,7 @@
                             </div>
                         </div>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled hideToggle>
+                    <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled>
                     <mat-expansion-panel-header>
                         <mat-panel-title> SUMMARY DETAILS </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -1553,14 +1555,9 @@
                             <div class="row">
                                 <div class="col-sm-12 col-xs-12">
                                     <h4 class="mt-2"><span style="font-size: 17px; color: #666;">{{summaryData.group_name}} Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
-                                </div>
-                                <div class="col-sm-8 col-xs-8">
-                                    <ul class="summary-head">
-                                        <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;"></li>
-                                        <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></li>
-                                        <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span></li>
-                                        <li></li>
-                                    </ul>
+                                    <h4 class="mt-2"><span style="font-size: 17px; color: #666;"> Insurer: &nbsp; <img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;"/></span></h4>
+                                    <h4 class="mt-2"><span style="font-size: 17px; color: #666;"> Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></h4>
+                                    <h4 class="mt-2"><span style="font-size: 17px; color: #666;"> Total Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span></h4>
                                 </div>
                             </div>
                             <section>

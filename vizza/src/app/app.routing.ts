@@ -125,6 +125,7 @@ import {TermLifePremiumListComponent} from './pages/term-life-premium-list/term-
 import {BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
 import {LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
 import {ShriramMotorPaymentSuccessComponent} from './pages/shriram-motor-payment-success/shriram-motor-payment-success.component';
+import {RoyalSundaramProposalComponent} from './pages/royal-sundaram-proposal/royal-sundaram-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -246,7 +247,8 @@ export const routes: Routes = [
             { path: 'life-premium-list', component: TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} },
             { path: 'bike-shriram-proposal/:stepper', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
             { path: 'life-bajaj-proposal/:stepper', component: LifeBajajProposalComponent, data:{ breadcrumb: 'life-bajaj-proposal'}},
-            { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}}
+            { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
+            { path: 'royal-bike-proposal/:stepper', component: RoyalSundaramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
 
         ]
     },
