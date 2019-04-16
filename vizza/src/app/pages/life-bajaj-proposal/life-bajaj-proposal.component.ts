@@ -13,6 +13,7 @@ import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
 import {element} from 'protractor';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
+import * as moment from 'moment';
 
 export const MY_FORMATS = {
   parse: {
@@ -46,6 +47,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public proposerdateError: any;
   public settings: Settings;
   public bajajAge: any;
+  public spouseAge:any;
   public nomineeAge: any;
   public paIdProofList: any;
   public ageProofList: any;
@@ -86,6 +88,9 @@ export class LifeBajajProposalComponent implements OnInit {
   public bankDetailFormData:any;
   public nomineeDetailFormData:any;
   public spouseDobError:any;
+  public nomineeDobValidError:any;
+  public getDays:any;
+  public getAge:any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -203,6 +208,7 @@ export class LifeBajajProposalComponent implements OnInit {
       nBirthPlace: ['', Validators.required],
       nRelation:['', Validators.required],
       nRelationName:'',
+      nomineeDobValidError: ''
 
     });
 
@@ -276,6 +282,7 @@ export class LifeBajajProposalComponent implements OnInit {
       nBirthPlace:'',
       nRelation: '',
       nRelationName: '',
+      nomineeDobValidError:''
     });
   }
 
@@ -449,11 +456,110 @@ export class LifeBajajProposalComponent implements OnInit {
         }
         this.proposerdateError = '';
       }
+      if(this.bajajAge!='')
+      {
+        this.proposer.controls['age'].patchValue(this.bajajAge);
+      }
 
     }
   }
 
 
+  addEventSpouse(event) {
+    if (event.value != null) {
+      let selectedDate = '';
+      this.spouseAge = '';
+      let dob = '';
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          this.spouseDobError = '';
+        } else {
+          this.spouseDobError = 'Enter Valid Date';
+        }
+        selectedDate = event.value._i;
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (selectedDate.length == 10) {
+          this.spouseAge = this.ageCalculate(dob);
+          sessionStorage.spouseAge = this.spouseAge;
+
+        }
+
+      } else if (typeof event.value._i == 'object') {
+        // dob = this.datepipe.transform(event.value, 'MMM d, y');
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (dob.length == 10) {
+          this.spouseAge = this.ageCalculate(dob);
+          sessionStorage.spouseAge = this.spouseAge;
+
+        }
+        this.spouseDobError = '';
+      }
+
+    }
+  }
+
+
+
+
+
+  addEventInsurer(event,  i) {
+    if (event.value != null) {
+      let selectedDate = '';
+      let dob = '';
+      let dob_days = '';
+      this.getAge = '';
+      this.getDays;
+      dob = this.datepipe.transform(event.value, 'y-MM-dd');
+      dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+          } else {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+          }
+
+        selectedDate = event.value._i;
+
+        if (selectedDate.length == 10) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+            this.getAge = this.ageCalculate(dob);
+            this.getDays = this.ageCalculateInsurer(dob_days);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+
+          }
+
+        }
+       else if (typeof event.value._i == 'object') {
+         if (dob.length == 10) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+            this.getAge = this.ageCalculate(dob);
+            this.getDays = this.ageCalculateInsurer(dob_days);
+          }
+        }
+      }
+
+    }
+
+
+
+ageCalculateInsurer(getDays) {
+  let a = moment(getDays, 'DD/MM/YYYY');
+  let b = moment(new Date(), 'DD/MM/YYYY');
+  let days = b.diff(a, 'days');
+  return days;
+  // let mdate = dob.toString();
+  // let yearThen = parseInt(mdate.substring( 8,10), 10);
+  // let monthThen = parseInt(mdate.substring(5,7), 10);
+  // let dayThen = parseInt(mdate.substring(0,4), 10);
+  // let todays = new Date();
+  // let birthday = new Date( dayThen, monthThen-1, yearThen);
+  // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
+  // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
+  // return Bob_days;
+}
   // personal details
   proposerDetails(stepper, value) {
     console.log(value);
@@ -1518,7 +1624,8 @@ export class LifeBajajProposalComponent implements OnInit {
      this.summaryData = successData.ResponseObject;
      this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
-      this.nomineeDetailFormData = this.nomineeDetail.value;
+      this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
+      console.log(this.nomineeDetailFormData,'dff');
 
     }
   }
@@ -1653,6 +1760,7 @@ export class LifeBajajProposalComponent implements OnInit {
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nlifeBajaj.itemsNominee[i].nDob);
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nlifeBajaj.itemsNominee[i].nBirthPlace);
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nlifeBajaj.itemsNominee[i].nRelation);
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nlifeBajaj.itemsNominee[i].nomineeDobValidError);
 
         }
 

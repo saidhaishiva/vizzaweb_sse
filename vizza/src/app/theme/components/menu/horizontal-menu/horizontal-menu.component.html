@@ -1,3 +1,4 @@
+<section class="d-none d-sm-none d-xl-block d-lg-block d-md-block">
 <div [fxLayout]="(menuParentId == 0) ? 'row' : 'column'" fxLayoutAlign="start center">
     <div *ngFor="let menu of menuItems" class="horizontal-menu-item w-100">
         <a *ngIf="menu.routerLink && !menu.hasSubMenu" mat-button
@@ -29,3 +30,4 @@
         </div>
     </div>
 </div>
+</section>
