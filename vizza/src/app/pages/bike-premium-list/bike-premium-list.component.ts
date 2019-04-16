@@ -43,6 +43,7 @@ export class BikePremiumListComponent implements OnInit {
     }
     ngOnInit()
     {
+        this.premiumlist();
         this.compherhensive = 'Comprehensive_premium';
         this.getCompanyList();
         this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);

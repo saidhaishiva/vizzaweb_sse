@@ -139,6 +139,8 @@ export class TravelRelianceProposalComponent implements OnInit {
   public step: any;
   public seniorCitizenPlans: any;
   public allPreExistingDiseases: any;
+  public currentStep: any;
+  public placeOfVisit: any;
 
 
 
@@ -147,6 +149,22 @@ export class TravelRelianceProposalComponent implements OnInit {
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today = new Date();
+      let stepperindex = 0;
+      this.route.params.forEach((params) => {
+          if(params.stepper == true || params.stepper == 'true') {
+              stepperindex = 3;
+              if(sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined){
+                  this.summaryData = JSON.parse(sessionStorage.summaryData);
+                  this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                  this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+                  this.riskFormData = JSON.parse(sessionStorage.riskFormData);
+                  this.reliance_Travel_proposal_id = sessionStorage.reliance_Travel_proposal_id;
+              }
+
+          }
+      });
+      this.currentStep = stepperindex;
+      console.log(this.currentStep,'hfjhfh');
     this.sameValue = false;
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate() +1);
     this.settings = this.appSettings.settings;
@@ -154,7 +172,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
     this.webhost = this.config.getimgUrl();
-    this.reliance_Travel_proposal_id ='0';
+    this.reliance_Travel_proposal_id = '0';
     this.step = 0;
 
     this.personal = this.fb.group({
@@ -457,7 +475,7 @@ export class TravelRelianceProposalComponent implements OnInit {
           nomineeName: ['', Validators.required],
           nomineeRelationship: ['', Validators.required],
           insureNomineeRelationshipName: '',
-
+            nomineeNameRelation : '',
           // InsuredAge: '',
           ins_age: '',
           ins_days: '',
@@ -484,14 +502,22 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
   }
   // Insure Details
-  // underMedication(i) {
-  //   if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true') {
-  //     this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators([Validators.required]);
-  //   } else {
-  //     this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators(null);
-  //   }
-  // }
+  underMedication(i) {
+    if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true') {
+      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators([Validators.required]);
+    } else {
+      this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators(null);
+    }
+  }
+    underDoctorDetail() {
+        // if (this.personal['controls'].items['controls'][i]['controls'].IsDoctorDetails.value == 'true') {
+        //     this.personal['controls'].items['controls'][i]['controls'].personalDoctorFullname.setValidators([Validators.required]);
+        // } else {
+        //     this.personal['controls'].items['controls'][i]['controls'].personalDoctorFullname.setValidators(null);
+        // }
+    }
   relianceInsureDetails(stepper: MatStepper, id, value, key) {
+      console.log(value,'value');
     sessionStorage.stepper2Details = '';
     sessionStorage.stepper2Details = JSON.stringify(value);
     if (this.relianceInsuredTravel.valid) {
@@ -729,10 +755,10 @@ export class TravelRelianceProposalComponent implements OnInit {
             'Address2': this.personalData.personalDoctorAddress2,
             'Address3': this.personalData.personalDoctorAddress3,
             'CityID': this.personalData.personalCityIdD,
-            'DistrictID':this.personalData.residenceDistrictIdD,
+            'DistrictID': this.personalData.residenceDistrictIdD,
             'StateID': this.personalData.personalStateIdD,
             'AreaID': this.personalData.personalDoctorArea,
-            'NearestLandmark':this.personalData.personalDoctorNearestLandMark,
+            'NearestLandmark': this.personalData.personalDoctorNearestLandMark,
             'Country': this.personalData.personalDoctorCountry,
             'Pincode': this.personalData.personalDoctorPincode,
             'MobileNo': this.personalData.personalDoctorMobileNo,
@@ -851,7 +877,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     this.settings.loadingSpinner = true;
     this.travelservice.createReliancerelainceTravelProposal(data).subscribe(
         (successData) => {
-          this.proposalSuccess(successData,stepper);
+          this.proposalSuccess(successData, stepper);
         },
         (error) => {
           this.proposalFailure(error);
@@ -860,21 +886,43 @@ export class TravelRelianceProposalComponent implements OnInit {
     );
   }
 
-  public proposalSuccess(successData,stepper){
+  public proposalSuccess(successData, stepper){
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess == true) {
       stepper.next();
       this.topScroll();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
-      console.log(this.summaryData,'summaryDatasummaryData');
+      console.log(this.summaryData, 'summaryDatasummaryData');
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposerFormData = this.personal.value;
       this.insuredFormData = this.relianceInsuredTravel.value.items;
+      console.log(this.insuredFormData , ' this.insuredFormData ');
       this.riskFormData = this.riskDetails.value;
       this.reliance_Travel_proposal_id = this.summaryData.policy_id;
       sessionStorage.reliance_Travel_proposal_id = successData.ResponseObject.policy_id;
-
+        for (let i = 0; i < this.insuredFormData.length; i++) {
+            for ( let j = 0; j < this.Relationship.length; j++) {
+               if (this.insuredFormData[i].nomineeRelationship === this.Relationship[j].insured_id ) {
+                   this.insuredFormData[i].insureNomineeRelationshipName = this.Relationship[j].relation_name;
+               }
+            }
+            for ( let j = 0; j < this.Relationship.length; j++) {
+                if (this.insuredFormData[i].relationship === this.Relationship[j].insured_id ) {
+                    this.insuredFormData[i].insureRelationshipName = this.Relationship[j].relation_name;
+                }
+            }
+            for ( let j = 0; j < this.VisitingCountry.length; j++) {
+                if (this.insuredFormData[i].VisitingCountries === this.VisitingCountry[j].visiting_id ) {
+                    this.insuredFormData[i].insureVisitingCountryName = this.VisitingCountry[j].visiting_name;
+                }
+            }
+            for ( let j = 0; j < this.PreExistingIllness.length; j++) {
+                if (this.insuredFormData[i].PreExistingIllness === this.PreExistingIllness[j].disease_id ) {
+                    this.insuredFormData[i].insurePreExistingIllnessName = this.PreExistingIllness[j].disease_name;
+                }
+            }
+        }
       console.log(this.proposerFormData, 'p');
       console.log(this.insuredFormData, 'i');
       console.log(this.riskFormData, 'n');
@@ -1079,6 +1127,7 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
   typeAddressDeatils() {
       this.personal.controls['personalAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
+      this.personal.controls['residenceAreaName'].patchValue(this.proposalPArea[this.personal.controls['personalArea'].value]);
 
       if (this.personal.controls['sameas'].value) {
       this.personal.controls['residenceAddress'].setValue(this.personal.controls['personalAddress'].value);
@@ -1091,8 +1140,9 @@ export class TravelRelianceProposalComponent implements OnInit {
       this.personal.controls['residenceNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
       this.personal.controls['residenceCountry'].setValue(this.personal.controls['personalCountry'].value);
       this.personal.controls['residenceArea'].setValue(this.personal.controls['personalArea'].value);
-    }
-    else if (this.personal.controls['sameasBurglary'].value) {
+
+    } else
+        if (this.personal.controls['sameasBurglary'].value) {
       this.personal.controls['personalBurglaryAddress'].setValue(this.personal.controls['personalAddress'].value);
       this.personal.controls['personalBurglaryAddress2'].setValue(this.personal.controls['personalAddress2'].value);
       this.personal.controls['personalBurglaryAddress3'].setValue(this.personal.controls['residenceAddress3'].value);
@@ -1237,6 +1287,9 @@ export class TravelRelianceProposalComponent implements OnInit {
   }
 
   sessionData() {
+      if (sessionStorage.travelPlan != '' && sessionStorage.travelPlan != undefined) {
+          this.placeOfVisit = JSON.parse(sessionStorage.travelPlan);
+      }
       if (sessionStorage.proposalPArea != '' && sessionStorage.proposalPArea != undefined) {
           this.proposalPArea = JSON.parse(sessionStorage.proposalPArea);
       }
@@ -1514,7 +1567,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         // TravelPlusPlanTrue: this.getStepper3.TravelPlusPlanTrue,
       });
       if (sessionStorage.reliance_Travel_proposal_id != '' && sessionStorage.reliance_Travel_proposal_id != undefined) {
-        this.reliance_Travel_proposal_id = sessionStorage.religare_Travel_proposal_id;
+        this.reliance_Travel_proposal_id = sessionStorage.reliance_Travel_proposal_id;
         console.log(this.reliance_Travel_proposal_id, 'this.religarePAProposal');
       }
     }

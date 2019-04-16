@@ -42,6 +42,14 @@ export class BikeInsuranceComponent implements OnInit {
     public claimAmountDetails : any;
     public bikeList : any;
     public show : any;
+    public claimDetails : any;
+    public enquiry : any;
+    public QuotationList : any;
+    public manifactureDetails : any;
+    public ccDetails : any;
+    public variantDetails : any;
+    public modelDetails : any;
+    public listDetails : boolean;
 
 
     meridian = true;
@@ -57,7 +65,7 @@ export class BikeInsuranceComponent implements OnInit {
             'previousClaim': ['', Validators.required],
             'claimamount': '',
             'enquiry': '',
-            'fuelType': '',
+            'model': '',
             'manufacture':'',
             'vehicleCC':'',
             'variant': '',
@@ -65,8 +73,7 @@ export class BikeInsuranceComponent implements OnInit {
             'previousPolicyExpiry':''
         });
         this.claimAmountDetails = false;
-
-      //   this.bikeapp = this.fb.group({
+        //   this.bikeapp = this.fb.group({
       //     'appdate': ['', Validators.required],
       //     'apptime': '',
       //     'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -82,6 +89,11 @@ export class BikeInsuranceComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.claimpercent();
+      this.manifactureList();
+      this.modelList();
+      this.ccList();
+      this.variantList();
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
@@ -166,14 +178,187 @@ export class BikeInsuranceComponent implements OnInit {
                 if (successData.IsSuccess) {
                     this.bikeList = successData.ResponseObject;
                     console.log(this.bikeList,'hgdj');
+                     this.enquiry = this.bikeList.enquiry_id;
                     sessionStorage.bikeEnquiryDetails = JSON.stringify(this.bikeList);
                     sessionStorage.enquiryFormData = JSON.stringify(data);
-                    this.router.navigate(['/bikepremium']);
+                    if(this.enquiry == 0){
+                        this.listDetails = true;
+                        this.enquiryQuation();
+                    } else {
+                        this.listDetails = false;
+                        this.router.navigate(['/bikepremium']);
+
+                    }
                 }
             }
             public bikeDetailsFailure(error) {
             }
 
+    claimpercent() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.bikeService.getClaimList(data).subscribe(
+            (successData) => {
+                this.claimSuccess(successData);
+            },
+            (error) => {
+                this.claimFailure(error);
+            }
+        );
+    }
+    public claimSuccess(successData){
+        if (successData.IsSuccess) {
+            this.claimDetails = successData.ResponseObject;
+        }
+    }
+    public claimFailure(error) {
+    }
+    enquiryQuation() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'enquiry_id': 0,
+            'vehicle_no':this.bikeInsurance.controls['vehicalNumber'].value,
+            'registration_date': this.bikeInsurance.controls['registrationDate'].value,
+            'previous_policy_expiry_date':this.bikeInsurance.controls['previousPolicyExpiry'].value,
+            'previous_policy_no':"12344556",
+            'previous_claim_YN': this.bikeInsurance.controls['previousClaim'].value == 'No' ? '0' : '1',
+            'claim_amount':this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
+            'vehicle_manufacture':this.bikeInsurance.controls['manufacture'].value,
+            'vehicle_model':this.bikeInsurance.controls['model'].value,
+            'vehicle_variant':this.bikeInsurance.controls['variant'].value,
+            'vehicle_cc':this.bikeInsurance.controls['vehicleCC'].value,
+            'chassis_no':this.bikeInsurance.controls['chasissNumber'].value,
+            'engine_no':"BG4CF1490049",
+            'manu_yr':"2015",
+            'vehicle_category':"2W"
+
+        }
+        this.bikeService.getEnquiryDetails(data).subscribe(
+            (successData) => {
+                this.enquirySuccess(successData);
+            },
+            (error) => {
+                this.enquiryFailure(error);
+            }
+        );
+    }
+    public enquirySuccess(successData){
+        if (successData.IsSuccess) {
+            this.QuotationList = successData.ResponseObject;
+            this.router.navigate(['/bikepremium']);
+
+        }
+    }
+    public enquiryFailure(error) {
+    }
+    /// manufacture
+    manifactureList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.bikeService.getManifactureList(data).subscribe(
+            (successData) => {
+                this.manifactureSuccess(successData);
+            },
+            (error) => {
+                this.manifactureFailure(error);
+            }
+        );
+    }
+    public manifactureSuccess(successData){
+        if (successData.IsSuccess) {
+            this.manifactureDetails = successData.ResponseObject;
+        }
+    }
+    public manifactureFailure(error) {
+    }
+    // model
+    modelList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.bikeService.getModelList(data).subscribe(
+            (successData) => {
+                this.modelSuccess(successData);
+            },
+            (error) => {
+                this.modelFailure(error);
+            }
+        );
+    }
+    public modelSuccess(successData){
+        if (successData.IsSuccess) {
+            this.modelDetails = successData.ResponseObject;
+        }
+    }
+    public modelFailure(error) {
+    }
+    // variant
+    variantList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.bikeService.getvariantList(data).subscribe(
+            (successData) => {
+                this.variantSuccess(successData);
+            },
+            (error) => {
+                this.variantFailure(error);
+            }
+        );
+    }
+    public variantSuccess(successData){
+        if (successData.IsSuccess) {
+            this.variantDetails = successData.ResponseObject;
+        }
+    }
+    public variantFailure(error) {
+    }
+    // cc
+    ccList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.bikeService.getCCList(data).subscribe(
+            (successData) => {
+                this.ccSuccess(successData);
+            },
+            (error) => {
+                this.ccFailure(error);
+            }
+        );
+    }
+    public ccSuccess(successData){
+        if (successData.IsSuccess) {
+            this.ccDetails = successData.ResponseObject;
+        }
+    }
+    public ccFailure(error) {
+    }
     sessionData(){
         if(sessionStorage.bikeEnquiryDetails != '' &&  sessionStorage.bikeEnquiryDetails != undefined) {
             let stepper = JSON.parse(sessionStorage.bikeEnquiryDetails);
