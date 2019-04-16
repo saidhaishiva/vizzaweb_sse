@@ -295,7 +295,7 @@ export class BikeShriramProposalComponent implements OnInit {
             }
 
             driverAgeList() {
-              console.log(this.proposer.controls['driverAge'].value,'eeeeeeeeeeeeeeee')
+              console.log(this.proposer.controls['driverAge'].value,'eeeeeeeeeeeeeeee');
               if (this.proposer.controls['driverAge'].value == 'Yes') {
                 this.driverAgeDetail = true;
               } else {

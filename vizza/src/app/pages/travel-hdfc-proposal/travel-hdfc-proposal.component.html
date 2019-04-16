@@ -85,7 +85,7 @@
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="STD Code"  (keypress)="numberValidate($event)"  minlength="3" maxlength="5" formControlName="stdcode" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.stdcode.errors?.required">STD Code is required</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.stdcode.hasError('minlength')">STD Code isn't long enough, minimum of 5 Digits</mat-error>
+                        <mat-error *ngIf="hdfcTravel.controls.stdcode.hasError('minlength')">STD Code isn't long enough, minimum of 3 Digits</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Telephone Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="telephoneNo" autocomplete="off" >
@@ -95,7 +95,7 @@
                       <div class="col-md-3"><mat-form-field class="w-100">
                         <input matInput placeholder="STD Code(office)"  (keypress)="numberValidate($event)"  minlength="3" maxlength="5" formControlName="stdcodeoffice" autocomplete="off" >
                         <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.errors?.required"> STD Code(office) is required</mat-error>
-                        <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 5 Digits</mat-error>
+                        <mat-error *ngIf="hdfcTravel.controls.stdcodeoffice.hasError('minlength')">STD Code(office) isn't long enough, minimum of 3 Digits</mat-error>
 
                       </mat-form-field></div>
                       <div class="col-md-3 mt-2"><mat-form-field class="w-100">
@@ -167,7 +167,7 @@
                         <mat-form-field class="w-100">
                           <textarea #message maxlength="35" matInput placeholder="Address 1" rows="2" formControlName="address1" autocomplete="off" required></textarea>
                           <mat-hint align="start"></mat-hint>
-                          <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
+                          <mat-hint align="end">{{message.value.length}} / 35</mat-hint>
                           <mat-error *ngIf="hdfcTravel.controls.address1.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -175,7 +175,7 @@
                         <mat-form-field class="w-100">
                           <textarea #message1 maxlength="35" matInput placeholder="Address 2" rows="2" formControlName="address2" autocomplete="off" ></textarea>
                           <mat-hint align="start"></mat-hint>
-                          <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
+                          <mat-hint align="end">{{message1.value.length}} / 35</mat-hint>
                           <!--<mat-error *ngIf="hdfcTravel.controls.address2.errors?.required">Address2 is required</mat-error>-->
 
                         </mat-form-field>
@@ -184,7 +184,7 @@
                         <mat-form-field class="w-100">
                           <textarea #message2 maxlength="35" matInput placeholder="Address 3" rows="2" formControlName="address3" autocomplete="off" ></textarea>
                           <mat-hint align="start"></mat-hint>
-                          <mat-hint align="end">{{message2.value.length}} / 80</mat-hint>
+                          <mat-hint align="end">{{message2.value.length}} / 35</mat-hint>
                           <!--<mat-error *ngIf="hdfcTravel.controls.address3.errors?.required">Address3 is required</mat-error>-->
 
                         </mat-form-field>
@@ -751,7 +751,7 @@
                         <mat-form-field class="w-100">
                           <textarea #message maxlength="35" matInput placeholder="Address 1" rows="2" formControlName="address1" autocomplete="off" required></textarea>
                           <mat-hint align="start"></mat-hint>
-                          <mat-hint align="end">{{message.value.length}} / 80</mat-hint>
+                          <mat-hint align="end">{{message.value.length}} / 35</mat-hint>
                           <mat-error *ngIf="hdfcTravel.controls.address1.errors?.required">Address is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -759,7 +759,7 @@
                         <mat-form-field class="w-100">
                           <textarea #message1 maxlength="35" matInput placeholder="Address 2" rows="2" formControlName="address2" autocomplete="off" ></textarea>
                           <mat-hint align="start"></mat-hint>
-                          <mat-hint align="end">{{message1.value.length}} / 80</mat-hint>
+                          <mat-hint align="end">{{message1.value.length}} / 35</mat-hint>
                           <!--<mat-error *ngIf="hdfcTravel.controls.address2.errors?.required">Address2 is required</mat-error>-->
 
                         </mat-form-field>
@@ -768,7 +768,7 @@
                         <mat-form-field class="w-100">
                           <textarea #message2 maxlength="35" matInput placeholder="Address 3" rows="2" formControlName="address3" autocomplete="off" ></textarea>
                           <mat-hint align="start"></mat-hint>
-                          <mat-hint align="end">{{message2.value.length}} / 80</mat-hint>
+                          <mat-hint align="end">{{message2.value.length}} / 35</mat-hint>
                           <!--<mat-error *ngIf="hdfcTravel.controls.address3.errors?.required">Address3 is required</mat-error>-->
 
                         </mat-form-field>
