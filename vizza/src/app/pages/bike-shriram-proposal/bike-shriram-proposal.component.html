@@ -646,8 +646,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item"><strong>Appointee Name:</strong> {{nomineeFormData.appointeeName}}</li>
-                                                    <li class="list-group-item"><strong>Appointee Relationship:</strong> {{nomineeFormData.appointeeRelationship}}</li>
+                                                    <li class="list-group-item" *ngIf="nomineeFormData.appointeeName != ''"><strong>Appointee Name:</strong> {{nomineeFormData.appointeeName}}</li>
+                                                    <li class="list-group-item" *ngIf="nomineeFormData.appointeeRelationship != ''"><strong>Appointee Relationship:</strong> {{nomineeFormData.appointeeRelationship}}</li>
                                                 </ul>
                                             </div>
                                         </div>

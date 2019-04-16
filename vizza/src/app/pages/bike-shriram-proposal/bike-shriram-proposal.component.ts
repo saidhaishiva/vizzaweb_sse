@@ -320,7 +320,12 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper1 = JSON.stringify(value);
           console.log(this.proposer.valid, 'checked');
           if(this.proposer.valid) {
-            stepper.next();
+              if(sessionStorage.bkShriramProposerAge >= 18){
+                  stepper.next();
+              } else {
+                  this.toastr.error('Proposer age should be 18 or above');
+
+              }
           }
 
         }
