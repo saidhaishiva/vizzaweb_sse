@@ -609,7 +609,7 @@
                       <h6 class="color-blue ml-3">DOCTOR DETAILS</h6>
                       <div class="text-left pl-3 w-100">
                         <p>Is Doctor Details</p>
-                        <mat-radio-group formControlName="IsDoctorDetails" (change)="underDoctorDetail(i)">
+                        <mat-radio-group formControlName="IsDoctorDetails" (change)="underDoctorDetail()">
                           <mat-radio-button value="true">Yes</mat-radio-button>
                           <mat-radio-button value="false">No</mat-radio-button>
                         </mat-radio-group>
@@ -618,7 +618,7 @@
                     <div class="row" *ngIf="personal['controls'].IsDoctorDetails.value == 'true'">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Doctor Name" formControlName="personalDoctorFullname"  (keypress)="nameValidate($event)"  autocomplete="off" >
+                          <input matInput placeholder="Doctor Name" formControlName="personalDoctorFullname"  (keypress)="nameValidate($event)"  autocomplete="off" required="{{personal['controls'].IsDoctorDetails.value}}">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">

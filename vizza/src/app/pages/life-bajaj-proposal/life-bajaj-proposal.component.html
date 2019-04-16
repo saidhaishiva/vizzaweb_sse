@@ -40,7 +40,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"
+                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="($event, 'proposer')" (dateChange)="addEvent($event, 'proposer')" minlength="10" maxlength="10"
                                  autocomplete="off"   required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
@@ -391,7 +391,7 @@
                             <div class="row">
                               <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                               <div class="text-right w-50">
-                                <mat-checkbox formControlName="sameAsProposer" (change)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox>
+                                <mat-checkbox formControlName="sameAsProposer" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                               </div>
                             </div>
                             <div class="row">
