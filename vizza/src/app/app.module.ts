@@ -263,7 +263,7 @@ import { BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-
 import{ ClearSessionTravelService} from './shared/services/clear-session-travel.service';
 import { ShriramMotorPaymentSuccessComponent } from './pages/shriram-motor-payment-success/shriram-motor-payment-success.component';
 import { HelloComponent } from './hello/hello.component';
-import { RoyalSundaramProposalComponent } from './pages/royal-sundaram-proposal/royal-sundaram-proposal.component';
+import { BikeRoyalProposalComponent } from './pages/bike-royal-proposal/bike-royal-proposal.component';
 
 @NgModule({
   imports: [
@@ -486,7 +486,7 @@ import { RoyalSundaramProposalComponent } from './pages/royal-sundaram-proposal/
       BikeShriramProposalComponent,
       ShriramMotorPaymentSuccessComponent,
       HelloComponent,
-      RoyalSundaramProposalComponent
+      BikeRoyalProposalComponent
 
   ],
   providers: [
