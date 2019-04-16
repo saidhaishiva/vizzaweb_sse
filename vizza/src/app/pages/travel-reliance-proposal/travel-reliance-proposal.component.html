@@ -163,7 +163,7 @@
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="PIN Code" formControlName="personalPincode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"  minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalP')" autocomplete="off" required>
-                              <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                              <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                               <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
                               <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                             </mat-form-field>
@@ -215,7 +215,7 @@
                         <div class="row">
                           <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                           <div class="text-right w-50">
-                            <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                            <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication</strong></mat-checkbox>
                           </div>
                         </div>
                         <div class="row">
@@ -240,7 +240,7 @@
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="PIN Code" formControlName="residencePincode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6" [readonly]="inputReadonly"    maxlength="6" (input)="commonPincode($event.target.value, 'proposalR')" autocomplete="off"  required>
-                              <mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                              <!--<mat-error *ngIf="personal.controls.residencePincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                               <mat-error *ngIf="personal.controls.residencePincode.hasError('required')">Pincode required</mat-error>
                               <mat-error *ngIf="personal.controls.residencePincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                             </mat-form-field>
@@ -345,7 +345,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="PIN Code" formControlName="personalBurglaryPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalB')" autocomplete="off" [readonly]="inputBurglaryReadonly">
-                          <mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                          <!--<mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                           <mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                         </mat-form-field>
                       </div>
@@ -490,7 +490,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="PIN Code" formControlName="personalSponsorPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalS')" autocomplete="off" [readonly]="inputSponsorReadonly">
-                          <mat-error *ngIf="personal.controls.personalSponsorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                          <!--<mat-error *ngIf="personal.controls.personalSponsorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                           <mat-error *ngIf="personal.controls.personalSponsorPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                         </mat-form-field>
                       </div>
@@ -564,7 +564,7 @@
                             <div class="col-md-3">
                                 <mat-form-field class="w-100">
                                     <input matInput placeholder="PIN Code" formControlName="personalCompanyPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalC')" autocomplete="off">
-                                    <mat-error *ngIf="personal.controls.personalCompanyPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                    <!--<mat-error *ngIf="personal.controls.personalCompanyPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                     <mat-error *ngIf="personal.controls.personalCompanyPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                 </mat-form-field>
                             </div>
@@ -623,13 +623,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID"   formControlName="personalDoctorEmail"  autocomplete="off">
+                          <input matInput placeholder="Email ID"   formControlName="personalDoctorEmail"  autocomplete="off" required="{{personal['controls'].IsDoctorDetails.value}}">
                           <mat-error *ngIf="personal.controls.personalDoctorEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile No" formControlName="personalDoctorMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                          <input matInput placeholder="Mobile No" formControlName="personalDoctorMobileNo" maxlength="10" minlength="10" required="{{personal['controls'].IsDoctorDetails.value}}" (keypress)="numberValidate($event)" autocomplete="off">
                           <mat-error *ngIf="personal.controls.personalDoctorMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                         </mat-form-field>
@@ -646,12 +646,12 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 1" formControlName="personalDoctorAddress"  autocomplete="off">
+                          <input matInput placeholder="Address 1" formControlName="personalDoctorAddress" required="{{personal['controls'].IsDoctorDetails.value}}" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 2" formControlName="personalDoctorAddress2" autocomplete="off">
+                          <input matInput placeholder="Address 2" formControlName="personalDoctorAddress2" required="{{personal['controls'].IsDoctorDetails.value}}" autocomplete="off">
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -662,26 +662,26 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code" formControlName="personalDoctorPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalD')" autocomplete="off">
-                          <mat-error *ngIf="personal.controls.personalDoctorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                          <input matInput placeholder="PIN Code" formControlName="personalDoctorPincode" required="{{personal['controls'].IsDoctorDetails.value}}" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalD')" autocomplete="off">
+                          <!--<mat-error *ngIf="personal.controls.personalDoctorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                           <mat-error *ngIf="personal.controls.personalDoctorPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                         </mat-form-field>
                       </div>
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="State" formControlName="personalDoctorState" autocomplete="off">
+                          <input matInput placeholder="State" formControlName="personalDoctorState" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
 
                       <div class="col-md-3">
                         <mat-form-field  class="w-100">
-                          <input matInput placeholder="District" formControlName="personalDoctorDistrict" autocomplete="off">
+                          <input matInput placeholder="District" formControlName="personalDoctorDistrict" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field  class="w-100">
-                          <input matInput placeholder="City" formControlName="personalDoctorCity" autocomplete="off">
+                          <input matInput placeholder="City" formControlName="personalDoctorCity" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -1271,7 +1271,7 @@
                         <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                       </div>
                       <div class="col-md-6">
-                        <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit" class="p-2"> {{lists}}</span></span></h4>
+                        <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit; let last = last" class="p-2"> {{lists}} <span *ngIf="!last">,</span></span></span></h4>
                       </div>
                     </div>
                   </div>
@@ -1546,7 +1546,11 @@
                             <li class="list-group-item"><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
                             <li class="list-group-item" *ngIf="item.personalPhone1 != '' && item.personalPhone1 != 0"><strong>Phone:</strong> {{item.personalPhone1}}</li>
                             <li class="list-group-item"><strong>Passport Number:</strong> {{item.passport}}</li>
-                            <li class="list-group-item" *ngIf="item.insureVisitingCountryName != ''"><strong>Visiting Countries:</strong> {{item.insureVisitingCountryName}}</li>
+                            <li class="list-group-item" *ngIf="item.insureVisitingCountryName != ''">
+                              <strong>Visiting Countries:</strong>
+                              <span *ngFor="let lists of item.insureVisitingCountryName; let last = last;" > {{lists}} <span *ngIf="!last">,</span> </span>
+
+                            </li>
                             <li class="list-group-item"><strong>Occupation:</strong> {{item.insureOccupationName}}</li>
                             <li class="list-group-item"><strong>Is Under Medication:</strong> {{item.IsUnderMedication}}</li>
                             <li class="list-group-item" *ngIf="item.insurePreExistingIllnessName != ''"><strong>Pre-Existing Illness:</strong> {{item.insurePreExistingIllnessName}}</li>
@@ -1625,9 +1629,9 @@
                             <span *ngIf="riskFormData.riskIsVisitingUSACanada">Yes</span>
                             <span *ngIf="!riskFormData.riskIsVisitingUSACanada">No</span>
                           </li>
-                          <li class="list-group-item" *ngIf="riskFormData.riskVisitingCountries !=''" >
+                          <li class="list-group-item" *ngIf="riskFormData.riskVisitingCountryName !=''" >
                             <strong>Visiting Countries : </strong>
-                            <span *ngFor="let lists of riskFormData.riskVisitingCountries; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">,</span> </span>
+                            <span *ngFor="let lists of riskFormData.riskVisitingCountryName; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">,</span> </span>
 
                           </li>
                           <li class="list-group-item" *ngIf="riskFormData.riskCoverageTypeName != ''"><strong>Is Visiting Family Coverage Type : </strong> {{riskFormData.riskCoverageTypeName}}</li>

@@ -1216,7 +1216,7 @@ export class RelianceHeathProposalComponent implements OnInit {
         sessionStorage.prevviousInsuranceStepperDetails = JSON.stringify(value);
         stepper.next();
         this.topScroll();
-
+        this.nextStep();
     }
     //Insure Details
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
@@ -1343,7 +1343,7 @@ export class RelianceHeathProposalComponent implements OnInit {
             this.riskData = value;
             stepper.next();
             this.topScroll();
-
+            this.nextStep();
         }
     }
     //Nominee Details
@@ -1353,8 +1353,6 @@ export class RelianceHeathProposalComponent implements OnInit {
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal(stepper);
-            this.nextStep();
-
         }
     }
     selectNomineRelation(){
@@ -1700,7 +1698,6 @@ export class RelianceHeathProposalComponent implements OnInit {
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             stepper.next();
             this.nextStep();
-
         } else {
             this.toastr.error(successData.ErrorObject);
         }
