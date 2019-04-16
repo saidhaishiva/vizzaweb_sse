@@ -262,6 +262,8 @@ import { LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-baja
 import { BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
 import{ ClearSessionTravelService} from './shared/services/clear-session-travel.service';
 import { ShriramMotorPaymentSuccessComponent } from './pages/shriram-motor-payment-success/shriram-motor-payment-success.component';
+import { HelloComponent } from './hello/hello.component';
+import { RoyalSundaramProposalComponent } from './pages/royal-sundaram-proposal/royal-sundaram-proposal.component';
 
 @NgModule({
   imports: [
@@ -482,7 +484,9 @@ import { ShriramMotorPaymentSuccessComponent } from './pages/shriram-motor-payme
       TermLifePremiumListComponent,
       LifeBajajProposalComponent,
       BikeShriramProposalComponent,
-      ShriramMotorPaymentSuccessComponent
+      ShriramMotorPaymentSuccessComponent,
+      HelloComponent,
+      RoyalSundaramProposalComponent
 
   ],
   providers: [
