@@ -161,7 +161,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Proposal Type"  formControlName="proposalType"  required>
+                                                    <mat-select placeholder="Proposal Type"  formControlName="proposalType" (change)="proposalList()" required>
                                                         <mat-option *ngFor="let type of proposalTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="proposer.controls.vehicleType.errors?.required">City is required</mat-error>-->
@@ -178,7 +178,7 @@
 
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Vehicle Colour "  formControlName="vehicleColour"  autocomplete="off">
+                                                <input matInput placeholder="Vehicle Colour "  formControlName="vehicleColour" required autocomplete="off">
                                             </mat-form-field>
                                         </div>
                                             <div class="col-md-3">
@@ -194,8 +194,10 @@
                                                <h6>OTHER ADDONS LIST</h6>
                                             </div>
                                         <div class="row">
+                                            <div class="col-md-6">
                                                 <mat-checkbox  formControlName="nilDepreciationCover">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
+                                        </div>
                                             <div class="row">
                                                 <div class="col-md-6">
                                                 <mat-checkbox  formControlName="electricalAccess">electricalAccess</mat-checkbox>
@@ -261,13 +263,19 @@
                                         </div>
                                         </div>
                                             <div class="row">
+                                                <div class="col-md-6">
                                                 <mat-checkbox  formControlName="lltoPaidDriver">Legal Liability</mat-checkbox>
                                             </div>
-                                            <div class="row">
-                                                <mat-checkbox  formControlName="antiTheft">Anti Theft</mat-checkbox>
                                             </div>
                                             <div class="row">
+                                                <div class="col-md-6">
+                                                    <mat-checkbox  formControlName="antiTheft">Anti Theft</mat-checkbox>
+                                            </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
                                                 <mat-checkbox (change)="financeType($event)">Is vehical in finance</mat-checkbox>
+                                            </div>
                                             </div>
                                         <div class="row" *ngIf="finance">
                                             <div class="col-md-3">
@@ -282,19 +290,19 @@
                                                     <input matInput placeholder="Hypothecation Bank Name"  formControlName="hypothecationBankName"  autocomplete="off">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Hypothecation Address 1" formControlName="hypothecationAddress1" autocomplete="off" maxlength="30" >
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress1.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30" >
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress2.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Hypothecation Address 3"  formControlName="hypothecationAddress3"  autocomplete="off" maxlength="30" >
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress3.errors?.required">Address is required</mat-error>
@@ -355,7 +363,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber"  autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" [required]="pType" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -368,7 +376,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker2"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" [max]="minDate"  formControlName="previousdob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
+                                                    <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date(DD/MM/YYYY)"  (keypress)="dobValidate($event)" [max]="minDate"  formControlName="previousdob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
                                                            autocomplete="off"   required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker2></mat-datepicker>
@@ -378,12 +386,12 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy UW Year"  formControlName="policyUwYear"  autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy UW Year"  formControlName="policyUwYear" [required]="pType" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy IDV"  formControlName="policySi"  autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy IDV"  formControlName="policySi" [required]="pType" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -396,7 +404,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Nil Description "  formControlName="policyNilDescription"  autocomplete="off">
+                                                    <input matInput placeholder="Previous Nil Description "  formControlName="policyNilDescription" [required]="pType" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -465,18 +473,20 @@
                                             <div class="row">
                                                 <p>Apponitee Details</p>
                                             </div>
-                                            <div class="col-md-3">
+                                                <div class="row">
+                                            <div class="col-md-6">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Apponitee Name"  formControlName="appointeeName"  autocomplete="off">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship"  required>
                                                         <mat-option *ngFor="let paCity of nomineeRelation | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
                                                 </mat-form-field>
+                                            </div>
                                         </div>
                                         </div>
                               <div class="proposal-buttom mt-3 text-right w-100">
