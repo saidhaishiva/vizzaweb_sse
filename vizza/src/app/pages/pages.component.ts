@@ -46,7 +46,8 @@ export class PagesComponent implements OnInit {
         this.settings.userId = this.auth.getDmUserId() !=null?this.auth.getDmUserId() : this.userId;
     }
 
-      if(window.innerWidth <= 768){
+      if(window.innerWidth <= 992){
+        this.mHorizontal = false;
       this.settings.menu = 'vertical';
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
@@ -79,7 +80,7 @@ export class PagesComponent implements OnInit {
         if(!this.settings.sidenavIsPinned){
           this.sidenav.close(); 
         }      
-        if(window.innerWidth <= 768){
+        if(window.innerWidth <= 992){
           this.sidenav.close(); 
         } 
       }                
@@ -134,18 +135,19 @@ export class PagesComponent implements OnInit {
         clearInterval(scrollInterval); 
       }
     },10);
-    if(window.innerWidth <= 768){
+    if(window.innerWidth <= 992){
       this.scrolledContent.scrollTop = 0;
     }
   }
 
   @HostListener('window:resize')
   public onWindowResize():void {
-    if(window.innerWidth <= 768){
+    if(window.innerWidth <= 992){
+      this.mHorizontal = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
       this.settings.menu = 'vertical'
-      this.mHorizontal = false;
+
     }
 
     else{
