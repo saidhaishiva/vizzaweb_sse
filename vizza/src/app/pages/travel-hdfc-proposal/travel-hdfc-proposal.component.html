@@ -477,6 +477,20 @@
                   </div>
                 </div>
               </div>
+              <div class="row box-card">
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Travel Days:</strong> {{getEnquiryDetails.day_count}}</li>
+                      <li class="list-group-item"><strong>Purpose Of Visit:</strong> {{travelPurpose}}</li>
+                      <li class="list-group-item"><strong>NoOfAdults:</strong> {{getEnquiryDetails.adult_count}}</li>
+                      <li class="list-group-item"><strong>NoOfKids:</strong>  {{getEnquiryDetails.child_count}}</li>
+                      <li class="list-group-item"><strong>FloaterPlan:</strong> {{getEnquiryDetails.scheme}}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
             </mat-expansion-panel>
             <div>
               <div *ngFor="let item of insuredFormData; let i = index;">

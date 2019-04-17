@@ -83,6 +83,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public getEnquiryDetails: any;
     public placeOfVisit: any;
     public step: any;
+    public travelPurpose: any;
     public mobileView: boolean;
 
 
@@ -164,6 +165,7 @@ export class TravelHdfcProposalComponent implements OnInit {
         this.declinedetails = false;
         this.restrictiondetails = false;
         this.hdfc_Travel_proposal_id = 0;
+        this.travelPurpose = sessionStorage.travelType;
 
     }
 
@@ -721,13 +723,13 @@ export class TravelHdfcProposalComponent implements OnInit {
         sessionStorage.hdfcTravelDetails1 = JSON.stringify(value);
         if (this.hdfcTravel.valid) {
             if (sessionStorage.proposerAgeHdfcTravel >= 18) {
-                if (this.hdfcTravel.controls['ped'].value == 'None') {
+                // if (this.hdfcTravel.controls['ped'].value == 'None') {
                     stepper.next();
                     this.nextStep();
 
-                } else {
-                    this.toastr.error('Existing Disease should Not allow For this insurance');
-                }
+                // } else {
+                //     this.toastr.error('Existing Disease should Not allow For this insurance');
+                // }
 
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
