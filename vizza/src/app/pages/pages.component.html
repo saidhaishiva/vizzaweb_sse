@@ -6,7 +6,7 @@
         <mat-toolbar class="flex-p-x top-nav" style="border-bottom: 1px solid #ccc;">
             <div fxLayout="row" fxLayoutAlign="space-between center" class="w-100">
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <button *ngIf="settings.menu == 'vertical'" class="d-sm-block d-md-none" mat-icon-button (click)="toggleSidenav()">
+                    <button *ngIf="settings.menu == 'vertical'" class="d-sm-block d-md-block d-lg-none" mat-icon-button (click)="toggleSidenav()">
                         <mat-icon>menu</mat-icon>
                     </button>
                     <!--<button fxShow="false" fxShow.gt-xs *ngIf="settings.menu == 'vertical'" mat-icon-button (click)="settings.sidenavUserBlock = !settings.sidenavUserBlock">-->
