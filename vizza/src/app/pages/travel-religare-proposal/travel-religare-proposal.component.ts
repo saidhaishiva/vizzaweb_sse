@@ -103,6 +103,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public sponserAge: any;
     public sponserDobError: any;
     public placeOfVisit: any;
+    public RiskData :any;
 
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public route: ActivatedRoute,
@@ -922,8 +923,26 @@ export class ReliagretravelproposalComponent implements OnInit {
                 sessionStorage.ReligareTravelNomineeDetails = '';
                 sessionStorage.ReligareTravelNomineeDetails = JSON.stringify(value);
                 this.religareTravelproposal(stepper);
+            this.nextStep();
         }
     }
+
+    // religareNomineeDetails(stepper: MatStepper, value) {
+    //     this.RiskData = value;
+    //     console.log(value, 'valuevalue');
+    //     console.log(this.nomineeDetails.valid, 'this.nomineeDetails.valid');
+    //     sessionStorage.stepper3Details = '';
+    //     sessionStorage.stepper3Details = JSON.stringify(value);
+    //     if (this.nomineeDetails.valid) {
+    //         if(this.RiskData.riskIndian == true || this.RiskData.riskIsOverSeasCitizen == true){
+    //             this.lastStepper = stepper;
+    //             this.proposal(stepper);
+    //         } else {
+    //             this.toastr.error('select you are Indian Citizen or Over Seas Citizen');
+    //
+    //         }
+    //     }
+    // }
     // SCROLL PAGE
         topScroll() {
             document.getElementById('main-content').scrollTop = 0;
