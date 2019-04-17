@@ -316,14 +316,14 @@
                             <div class="row">
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea #message maxlength="80" matInput placeholder="Door Number" rows="2" formControlName="comDoorNo"  autocomplete="off" required></textarea>
+                                  <textarea #message maxlength="80" matInput placeholder="Door Number" rows="2" formControlName="comDoorNo"  autocomplete="off" required (keypress)="numberValidate($event)" ></textarea>
                                   <mat-hint align="start"></mat-hint>
                                   <mat-error *ngIf="proposer.controls.comDoorNo.errors?.required">Door No is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea #message1 maxlength="80" matInput placeholder="Building Number" rows="2" formControlName="comBuildingNumber" autocomplete="off" ></textarea>
+                                  <textarea #message1 maxlength="80" matInput placeholder="Building Number" rows="2" formControlName="comBuildingNumber" autocomplete="off"  (keypress)="numberValidate($event)" ></textarea>
                                   <mat-hint align="start"></mat-hint>
                                   <!--<mat-hint align="end">{{message1.value.length}} / 80</mat-hint>-->
                                   <mat-error *ngIf="proposer.controls.comBuildingNumber.errors?.required">Building No is required</mat-error>
@@ -332,7 +332,7 @@
                               </div>
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea maxlength="80" matInput placeholder="Plot Number" rows="2" formControlName="comPlotNumber" autocomplete="off" ></textarea>
+                                  <textarea maxlength="80" matInput placeholder="Plot Number" rows="2" formControlName="comPlotNumber" autocomplete="off" (keypress)="idValidate($event)" ></textarea>
                                   <mat-hint align="start"></mat-hint>
                                   <mat-error *ngIf="proposer.controls.comPlotNumber.errors?.required">Plot Number is required</mat-error>
 
@@ -340,7 +340,7 @@
                               </div>
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea maxlength="80" matInput placeholder="Land Mark" rows="2" formControlName="comLandmark" autocomplete="off" ></textarea>
+                                  <textarea maxlength="80" matInput placeholder="Land Mark" rows="2" formControlName="comLandmark" autocomplete="off" (keypress)="nameValidate($event)"></textarea>
                                   <mat-hint align="start"></mat-hint>
                                   <mat-error *ngIf="proposer.controls.comLandmark.errors?.required">Land Mark is required</mat-error>
 
@@ -348,7 +348,7 @@
                               </div>
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea maxlength="80" matInput placeholder="Place" rows="2" formControlName="comPlace" autocomplete="off" ></textarea>
+                                  <textarea maxlength="80" matInput placeholder="Place" rows="2" formControlName="comPlace" autocomplete="off" (keypress)="nameValidate($event)"></textarea>
                                   <mat-hint align="start"></mat-hint>
                                   <mat-error *ngIf="proposer.controls.comPlace.errors?.required">Land Mark is required</mat-error>
 
@@ -356,7 +356,7 @@
                               </div>
                               <div class="col-md-12">
                                 <mat-form-field class="w-100">
-                                  <textarea maxlength="80" matInput placeholder="District" rows="2" formControlName="comDistrict" autocomplete="off" ></textarea>
+                                  <textarea maxlength="80" matInput placeholder="District" rows="2" formControlName="comDistrict" autocomplete="off" (keypress)="nameValidate($event)"></textarea>
                                   <mat-hint align="start"></mat-hint>
                                   <!--<mat-hint align="end">{{message1.value.length}} / 80</mat-hint>-->
                                   <mat-error *ngIf="proposer.controls.comDistrict.errors?.required">District is required</mat-error>
@@ -461,7 +461,7 @@
                                   <!--<mat-error *ngIf="proposer.controls.rcity.errors?.required">City is required</mat-error>-->
                                 <!--</mat-form-field></div></div>-->
                               <div class="col-md-6"><mat-form-field class="w-100">
-                                <input matInput placeholder="State" formControlName="rstate" [readonly]="this.proposer.controls['sameAsProposer'].value" autocomplete="off" readonly>
+                                <input matInput placeholder="State" formControlName="rstate" [readonly]="this.proposer.controls['sameAsProposer'].value" autocomplete="off" readonly (keypress)="nameValidate($event)">
                                 <mat-error *ngIf="proposer.controls.rstate.errors?.required">State is required</mat-error>
                               </mat-form-field></div>
                             </div>
@@ -476,43 +476,43 @@
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" required >
+                        <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">
                         <mat-error *ngIf="proposer.controls.department.errors?.required">Department is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off" required >
+                        <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">
                         <mat-error *ngIf="proposer.controls.officeName.errors?.required">Office Name is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" required >
+                        <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">
                         <mat-error *ngIf="proposer.controls.officeAddress1.errors?.required">Office Address1 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" required >
+                        <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">
                         <mat-error *ngIf="proposer.controls.officeAddress2.errors?.required">Office Address2 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" required >
+                        <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">
                         <mat-error *ngIf="proposer.controls.officeAddress3.errors?.required">Office Address3 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" required >
+                        <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">
                         <mat-error *ngIf="proposer.controls.officeDistrict.errors?.required">Office Address3 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off" required >
+                        <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">
                         <mat-error *ngIf="proposer.controls.officeState.errors?.required">Office State is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -528,7 +528,7 @@
 
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="45" autocomplete="off" required >
+                        <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="45" autocomplete="off" required (keypress)="numberValidate($event)">
                         <mat-error *ngIf="proposer.controls.officeNumber.errors?.required">Office Number is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -536,12 +536,21 @@
                     <div class="col-md-12 mt-2">
                       <h6 class="color-blue">OTHER DETAILS</h6>
                     </div>
-                    <div class="col-md-3">
-                      <mat-form-field class="w-100">
-                        <input matInput placeholder="Address Proof" formControlName="addressProof"  maxlength="45" autocomplete="off" required >
-                        <mat-error *ngIf="proposer.controls.addressProof.errors?.required">Department is required</mat-error>
-                      </mat-form-field>
-                    </div>
+                    <!--<div class="col-md-3">-->
+                      <!--<mat-form-field class="w-100">-->
+                        <!--<input matInput placeholder="Address Proof" formControlName="addressProof"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">-->
+                        <!--<mat-error *ngIf="proposer.controls.addressProof.errors?.required">Department is required</mat-error>-->
+                      <!--</mat-form-field>-->
+                    <!--</div>-->
+
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="Address Proof" formControlName="addressProof" (change)="changeAddressProof()" required  class="w-100">
+                            <mat-option *ngFor="let list of paIdProofList | keys" [value]= list.key> {{list.value}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="proposer.controls.addressProof.errors?.required">Address Proof is required</mat-error>
+                        </mat-form-field>
+                      </div>
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -665,8 +674,8 @@
                         <div class="col-md-8">
                             {{i+1}}. {{item.des}}
 
-                            <div class="container" *ngIf="item.feild == 'Y/N'">
-                                <div class="row" *ngFor="let subLiss of SubQuesList; let k = index">
+                            <div class="container" *ngIf="item.feild == 'Y/N'" >
+                                <div class="row" *ngFor="let subLiss of item.SubQuesList; let k = index">
 
                                     <div class="col-md-12">
                                         <div *ngIf="subLiss.field == 'Dropdown'">
@@ -680,12 +689,12 @@
                                         </div>
                                         <div *ngIf="subLiss.feild == 'TEXT'">
                                             <mat-form-field class="w-50">
-                                                <input matInput type="number" placeholder="{{subLiss.qus_des}}" [(ngModel)]="subQuestionText" autocomplete="off" required >
+                                                <input matInput placeholder="{{subLiss.qus_des}}" [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >
                                             </mat-form-field>
                                         </div>
                                         <div *ngIf="subLiss.feild == 'NUMBER'">
                                             <mat-form-field class="w-50">
-                                                <input matInput type="number" placeholder="{{subLiss.qus_des}}" [(ngModel)]="subQuestionText" autocomplete="off" required >
+                                                <input matInput type="number" placeholder="{{subLiss.qus_des}}" [(ngModel)]="subLiss.subQuestionText" autocomplete="off" required >
                                             </mat-form-field>
                                         </div>
                                     </div>
@@ -695,24 +704,24 @@
 
                         </div>
                         <div class="col-md-4" *ngIf="item.feild == 'Y/N'">
-                            <mat-slide-toggle (change)="questionYes(item, $event)">{{item.feild}}</mat-slide-toggle>
+                            <mat-slide-toggle (change)="questionYes(item, $event, i)" [(ngModel)]="item.mainQuestionName">{{item.feild}}</mat-slide-toggle>
 
                         </div>
 
                         <div class="col-md-12" *ngIf="item.feild == 'NUMBER'">
                                 <mat-form-field class="w-50">
-                                    <input matInput type="number" placeholder="sampleee" [(ngModel)]="sampleee" autocomplete="off" required >
+                                    <input matInput type="number" placeholder="{{item.des}}" [(ngModel)]="item.mainQuestionName" autocomplete="off" required >
                                 </mat-form-field>
                         </div>
                         <div class="col-md-12" *ngIf="item.feild == 'TEXT'">
                             <mat-form-field class="w-50">
-                                <input matInput type="number" placeholder="Mobile No with country code" [(ngModel)]="mobilecode" autocomplete="off" required >
+                                <input matInput placeholder="{{item.des}}" [(ngModel)]="item.mainQuestionName" autocomplete="off" required >
                             </mat-form-field>
                         </div>
                         <div class="col-md-12" *ngIf="item.feild == 'Dropdown'">
                             <!--<mat-form-field class="w-50">-->
                                 <!--<mat-select>-->
-                                    <!--<mat-option [(ngModel)]="subDropDown" value="rr">-->
+                                    <!--<mat-option [(ngModel)]="item.mainQuestionName" value="rr">-->
                                         <!--kjkkj-->
                                     <!--</mat-option>-->
                                 <!--</mat-select>-->
@@ -722,9 +731,7 @@
 
                   <div class="proposal-buttom mt-3 text-right w-100">
                         <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                    <button mat-button matStepperNext>Next</button>
-
-                    <!--<button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper)">Next</button>-->
+                        <button mat-raised-button color="primaryBlue" (click)="medicalHistoryDetails(stepper)">Next</button>
                       </div>
                   </div>
               </div>
@@ -942,7 +949,7 @@
                   <div class="p-3">
                     <h6 >OTHER DETAILS</h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Address Proof:</strong> {{proposerFormData.addressProof}}</li>
+                      <li class="list-group-item"><strong>Address Proof:</strong> {{proposerFormData.addressProofName}}</li>
                       <li class="list-group-item"><strong>Id Proof:</strong> {{proposerFormData.idProofName}}</li>
                       <li class="list-group-item"><strong>Income Proof:</strong> {{proposerFormData.incomeProofName}}</li>
                       <li class="list-group-item"><strong>Age Proof:</strong> {{proposerFormData.ageProofName}}</li>

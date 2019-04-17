@@ -91,6 +91,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public nomineeDobValidError:any;
   public getDays:any;
   public getAge:any;
+  public slectedIndex:any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -175,6 +176,8 @@ export class LifeBajajProposalComponent implements OnInit {
       officePincode:'',
       officeNumber:'',
       addressProof:'',
+      addressProofName:'',
+
       ageProof:'',
       incomeProof:'',
       incomeProofName:'',
@@ -583,6 +586,36 @@ ageCalculateInsurer(getDays) {
       this.toastr.error('error')
     }
   }
+
+  medicalHistoryDetails(stepper: MatStepper) {
+
+    sessionStorage.lifemedical = '';
+    sessionStorage.lifemedical = JSON.stringify(this.MainQuesList);
+
+    console.log(this.MainQuesList, 'lisyduhs');
+
+   // this.question_details
+    //
+    // let medicalStatus = [];
+    // for (let i = 0; i < this.MainQuesList.length; i++) {
+    //   if(this.MainQuesList[i].mStatus == 'No'){
+    //     medicalStatus.push('No');
+    //   } else if(this.MainQuesList[i].mStatus == 'Yes') {
+    //     medicalStatus.push('Yes');
+    //   }
+    // }
+    //
+    // if (medicalStatus.includes('Yes')) {
+    //   // this.toastr.error('This medical questions is unable to proceed');
+    //   this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
+    // } else {
+    //   stepper.next();
+    //   // this.nextStep();
+    //
+    // }
+
+  }
+
 
   //nominee details
   nomineeDetailNext(stepper, value) {
@@ -1154,10 +1187,10 @@ ageCalculateInsurer(getDays) {
       this.MainQuesList = successData.ResponseObject;
       console.log(this.MainQuesList, 'pro');
       for (let i = 0; i < this.MainQuesList.length; i++) {
-        this.questionId = this.MainQuesList[i].qus_id;
         this.MainQuesList[i].mainQuestionName = '';
+        this.MainQuesList[i].SubQuesList = [];
       }
-      console.log(this.questionId, 'questionId');
+      console.log(this.MainQuesList, 'MainQuesList');
 
     }
   }
@@ -1165,8 +1198,9 @@ ageCalculateInsurer(getDays) {
   public MainQuesFailure(error) {
   }
 
-  questionYes(items, value) {
-    console.log(items, 'kjgkgj');
+  questionYes(items, value, index) {
+    console.log(index, 'index');
+    this.slectedIndex = index;
     if (value.checked) {
       if (items.is_sub_question == '1') {
         const data = {
@@ -1177,22 +1211,27 @@ ageCalculateInsurer(getDays) {
         }
         this.termService.getSubQues(data).subscribe(
             (successData) => {
-              this.SubQuesSuccess(successData);
+              this.SubQuesSuccess(successData, index);
             },
             (error) => {
               this.SubQuesFailure(error);
             }
         );
+      } else {
+        this.MainQuesList[index].SubQuesList = [];
       }
     } else {
-      this.SubQuesList = [];
+      this.MainQuesList[index].SubQuesList = [];
     }
   }
 
-  public SubQuesSuccess(successData) {
+  public SubQuesSuccess(successData, index) {
     if (successData.IsSuccess) {
-      this.SubQuesList = successData.ResponseObject;
-      console.log(this.SubQuesList, 'pro');
+      this.MainQuesList[index].SubQuesList = successData.ResponseObject;
+      for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
+        this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
+      }
+      console.log(this.MainQuesList, 'MainQuesListsubbbb');
     }
   }
 
@@ -1258,6 +1297,10 @@ ageCalculateInsurer(getDays) {
   }
   changeEducation(){
     this.proposer.controls['educationName'].patchValue(this.educationList[this.proposer.controls['education'].value]);
+
+  }
+  changeAddressProof(){
+    this.proposer.controls['addressProofName'].patchValue(this.educationList[this.proposer.controls['addressProof'].value]);
 
   }
   changeNomineeRelation() {
@@ -1662,6 +1705,7 @@ ageCalculateInsurer(getDays) {
         benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
+
         weightChanged: lifeBajaj1.weightChanged,
         weightChangedName: lifeBajaj1.weightChangedName,
         countryOfResidName: lifeBajaj1.countryOfResidName,
@@ -1722,6 +1766,7 @@ ageCalculateInsurer(getDays) {
         officePincode:lifeBajaj1.officePincode,
         officeNumber:lifeBajaj1.officeNumber,
         addressProof:lifeBajaj1.addressProof,
+        addressProofName:lifeBajaj1.addressProofName,
         ageProof:lifeBajaj1.ageProof,
         incomeProof:lifeBajaj1.incomeProof,
         idProof:lifeBajaj1.idProof,
