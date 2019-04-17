@@ -1,5 +1,5 @@
 
-<div class="container dashboard pa-home h-100 d-none d-sm-none d-md-none" *ngIf="firstPage">
+<div class="container dashboard pa-home h-100 d-none d-sm-none d-md-none d-lg-block" *ngIf="firstPage">
     <div class="row ">
         <h3 class="w-100 text-center text-color mb-3"><img src="assets/img/personal-accident.png" class="logo-size"> PERSONAL ACCIDENT</h3>
         <div class="col-lg-6 col-sm-12 col-xs-12">
@@ -448,7 +448,7 @@
 
 
 
-<div class="d-none d-sm-none d-md-none">
+<div class="d-none d-sm-none d-md-none d-lg-block">
 
 <div class="row compar-fix" *ngIf="compareArray != ''">
   <div class="text-right closeBtnClass">
@@ -655,7 +655,7 @@
 
 
 <!--Mobile secondpage-->
-<section class="d-sm-block d-md-block" *ngIf="secondPage">
+<section class="d-sm-block d-md-block d-lg-none" *ngIf="secondPage">
     <!--<div class="row" style="margin:30px;">-->
         <!--<div class="col pr-0"><button mat-raised-button style="background-color: #28a745; color:#ffffff;" class="w-100">Group A</button></div>-->
         <!--<div class="col p-0"><button mat-raised-button  class="w-100">Group B</button></div>-->
@@ -751,11 +751,11 @@
         </div>
 
     </mat-card>
-    <div class="d-sm-block d-md-block"style="margin-top: 200px !important;" >
+    <div class="d-sm-block d-md-block d-lg-none"style="margin-top: 200px !important;" >
         <div class="row compar-mobile" *ngIf="compareArray != ''">
-            <div class="text-right closeBtnClass">
-                <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
-            </div>
+            <!--<div class="text-right closeBtnClass">-->
+                <!--<mat-icon (click)="removeAllCompare(i)">close</mat-icon>-->
+            <!--</div>-->
             <div class="col w-100" *ngFor="let clists of compareArray; let i = index">
                 <div fxLayout="column" class="flex-p">
                     <mat-card class="custom-card compare-icon text-center">
@@ -763,14 +763,14 @@
                             <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
                         </div>
                         <mat-card-content class="p-0 col">
-                            <p class="color-green-mobile mb-0 text-center">{{clists.product_name}}</p>
+                            <!--<p class="color-green-mobile mb-0 text-center">{{clists.product_name}}</p>-->
                             <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" class="w-100">
                         </mat-card-content>
                     </mat-card>
                 </div>
             </div>
             <div class="col text-center" *ngIf="compareArray != ''">
-                <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
+                <button class="mt-5" mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
             </div>
         </div>
     </div>

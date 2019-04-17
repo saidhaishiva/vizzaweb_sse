@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, Inject} from '@angular/core';
+import {Component, OnInit, ViewChild, Inject, HostListener} from '@angular/core';
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import {FormBuilder, FormGroup, FormControl, Validators} from '@angular/forms';
@@ -156,6 +156,9 @@ export class HealthInsuranceComponent implements OnInit {
         }
         this.count = 0;
     }
+
+
+
     numberOnly(event): boolean {
         const charCode = (event.which) ? event.which : event.keyCode;
         if (charCode > 31 && (charCode < 48 || charCode > 57)) {
