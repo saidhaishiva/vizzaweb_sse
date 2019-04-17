@@ -1,7 +1,7 @@
 <!--new-->
 
 
-<div class="container dashboard h-100 d-none d-sm-none d-md-block d-lg-block d-xl-block" fxLayoutAlign="start start" *ngIf="firstPage">
+<div class="container dashboard h-100 d-none d-sm-none d-md-none d-lg-block" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">
     <h3 class="w-100 text-center color-pink mb-3"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
     <div class="col-md-6 col-sm-12 col-xs-12">
@@ -63,7 +63,7 @@
 
 
 <!--second page-->
-<div class="row d-none d-sm-none d-md-block d-lg-block d-xl-block" id="product-list" fxLayoutAlign="start start">
+<div class="row d-none d-sm-none d-md-none d-lg-block" id="product-list" fxLayoutAlign="start start">
   <div class="col-sm-12">
     <div fxLayout="column" *ngIf="secondPage">
       <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
@@ -173,7 +173,7 @@
     </div>
   </div>
 </div>
-<div class="d-none d-sm-none d-md-block ">
+<div class="d-none d-sm-none d-md-none d-lg-block">
 <div class="row compar-fix" *ngIf="compareArray != ''">
   <div class="text-right closeBtnClass">
     <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
@@ -215,10 +215,10 @@
 </style>
 
 <!--Mobile firstpage-->
-<div class="container dashboard h-100 d-block d-sm-block d-md-none d-xl-none d-lg-none" fxLayoutAlign="start start" *ngIf="firstPage">
+<div class="container dashboard h-100 d-block d-sm-block d-md-block d-lg-none" fxLayoutAlign="start start" *ngIf="firstPage">
   <div class="row my-flex-card">
     <h3 class="w-100 text-center color-pink mb-3"><img src="assets/img/Health-Insurance.png" class="logo-size"> Health Insurance</h3>
-    <div class="col-md-6 col-sm-12 col-xs-12" >
+    <div class="col-md-12 col-sm-12 col-xs-12" >
       <mat-card class="p-4" style="background: linear-gradient(to top, #A4AEDD 0%, #F285C0 100%) !important;">
         <!--<h4 class=" text-center">Get Instant Quotes</h4>-->
         <div class="w-100 mb-2 son" >
@@ -263,7 +263,7 @@
 </div>
 
 <!--Mobile secondpage-->
-<section class="d-block d-sm-block d-md-none d-xl-none d-lg-none" *ngIf="secondPage">
+<section class="d-block d-sm-block d-md-block d-lg-none" *ngIf="secondPage">
   <!--<div class="row" style="margin:30px;">-->
     <!--<div class="col pr-0"><button mat-raised-button color="accent" class="w-100">Group A</button></div>-->
     <!--<div class="col p-0"><button mat-raised-button  class="w-100">Group B</button></div>-->
