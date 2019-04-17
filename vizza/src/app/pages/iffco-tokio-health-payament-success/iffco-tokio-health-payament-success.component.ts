@@ -30,8 +30,12 @@ export class IffcoTokioHealthPayamentSuccessComponent implements OnInit {
       this.applicationNo = params.applicationNo;
     });
     let groupDetails = JSON.parse(sessionStorage.groupDetails);
+    console.log(groupDetails.family_groups[sessionStorage.changedTabIndex].name, 'name');
+    console.log(sessionStorage.changedTabIndex, 'indx');
     for(let i = 0; i < groupDetails.family_groups.length; i++) {
+      console.log('in');
       if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+        console.log('outt');
         groupDetails.family_groups[i].status = 1;
       }
     }
@@ -40,11 +44,17 @@ export class IffcoTokioHealthPayamentSuccessComponent implements OnInit {
       this.remainingStatus = true;
     }
     sessionStorage.groupDetails = JSON.stringify(groupDetails);
-
   }
 
 
   ngOnInit() {
+  }
+  retry() {
+    this.router.navigate(['/iffco'  + '/' + true]);
+  }
+  pay(){
+    sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
+    this.router.navigate(['/healthinsurance']);
   }
 
 }

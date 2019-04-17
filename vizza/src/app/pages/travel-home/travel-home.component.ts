@@ -127,6 +127,7 @@ export class TravelHomeComponent implements OnInit {
         this.sumInsuredAmonut();
         this.currentTab = 'self';
         this.travelUserType = false;
+        sessionStorage.travelUserType = this.travelUserType;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate() +1);
 

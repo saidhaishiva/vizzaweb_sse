@@ -117,7 +117,7 @@ import { TravelRelianceProposalComponent} from './pages/travel-reliance-proposal
 import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
 import {BajajDownloadPolicyComponent} from './pages/bajaj-download-policy/bajaj-download-policy.component';
 import {EndowmentLifeInsuranceComponent} from './pages/endowment-life-insurance/endowment-life-insurance.component';
-import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
+// import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
 import {ReligareDownloadPaPolicyComponent} from './pages/religare-download-pa-policy/religare-download-pa-policy.component';
 import {ReliancePaComponent} from './pages/reliance-pa/reliance-pa.component';
 import {BikePremiumListComponent} from './pages/bike-premium-list/bike-premium-list.component';
@@ -125,7 +125,8 @@ import {TermLifePremiumListComponent} from './pages/term-life-premium-list/term-
 import {BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
 import {LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
 import {ShriramMotorPaymentSuccessComponent} from './pages/shriram-motor-payment-success/shriram-motor-payment-success.component';
-import {RoyalSundaramProposalComponent} from './pages/royal-sundaram-proposal/royal-sundaram-proposal.component';
+import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
+import {BikeRoyalProposalComponent} from './pages/bike-royal-proposal/bike-royal-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -248,7 +249,7 @@ export const routes: Routes = [
             { path: 'bike-shriram-proposal/:stepper', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
             { path: 'life-bajaj-proposal/:stepper', component: LifeBajajProposalComponent, data:{ breadcrumb: 'life-bajaj-proposal'}},
             { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
-            { path: 'royal-bike-proposal/:stepper', component: RoyalSundaramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
+            { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},
 
         ]
     },
