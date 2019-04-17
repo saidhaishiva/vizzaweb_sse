@@ -347,7 +347,7 @@
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
-                        <div class="col-md-3" *ngIf="smokeList">
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].Smoke.value == 'Y'">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Smoke Quantity(Per Day)" formControlName="smokeQuantity" [required]="insureArray['controls'].items['controls'][i]['controls'].personalHabits.value == true" (keypress)="numberValidate($event)"  autocomplete="off">
                           </mat-form-field>
@@ -359,7 +359,7 @@
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
-                        <div class="col-md-3" *ngIf="alchocolList" >
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].Alcohol.value == 'Y'" >
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Alcohol Quantity(ml/Per Day)"   [required]="insureArray['controls'].items['controls'][i]['controls'].personalHabits.value == true"  (keypress)="numberValidate($event)" maxlength="2" formControlName="alcoholQuantity" autocomplete="off">
                           </mat-form-field>
@@ -371,7 +371,7 @@
                             <mat-radio-button value="N">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
-                        <div class="col-md-3" *ngIf="tobacoList">
+                        <div class="col-md-3" *ngIf="insureArray['controls'].items['controls'][i]['controls'].Tobacco.value == 'Y'">
                           <mat-form-field class="w-100">
                             <textarea matInput placeholder="Tobacco Quantity(gms/Per Day)" formControlName="tobaccoQuantity"  (keypress)="numberValidate($event)" maxlength="2" [required]="insureArray['controls'].items['controls'][i]['controls'].personalHabits.value == true" autocomplete="off"></textarea>
                           </mat-form-field>
@@ -433,7 +433,7 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="State" formControlName="nomineeState" (change)="stateListname()"  class="w-100" required>
-                            <mat-option  *ngFor="let statedata of stateDetails | keys"  [value]= 'statedata.key'> {{statedata.value}} </mat-option>
+                            <mat-option  *ngFor="let statedata of nomineestateDetails | keys"  [value]= 'statedata.key'> {{statedata.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeState.errors?.required">State is required</mat-error>
                         </mat-form-field>
@@ -441,7 +441,7 @@
                       <div class="col-md-4">
                         <mat-form-field  class="w-100">
                           <mat-select  placeholder="City" formControlName="nomineeCity" (change)="cityListname()"  class="w-100" required>
-                            <mat-option  *ngFor="let citydata of cityDetails | keys"  [value]= 'citydata.key'> {{citydata.value}} </mat-option>
+                            <mat-option  *ngFor="let citydata of nomineecityDetails| keys"  [value]= 'citydata.key'> {{citydata.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="nomineeDetails.controls.nomineeCity.errors?.required">City is required</mat-error>
                         </mat-form-field>
