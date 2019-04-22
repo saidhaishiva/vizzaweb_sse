@@ -35,7 +35,7 @@
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
     <div class="col-sm-12 col-xs-12">
     <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30" (ngSubmit)="login()" fxFlex.sm="60" class="mt-login">
-      <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner" style="border-radius: 10px">
+      <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12" style="border-radius: 10px">
         <span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logoNew.png"> </span>
         <!--<mat-card-subtitle><h3>Login</h3></mat-card-subtitle>-->
         <div class="col-sm-12 col-xs-12">
@@ -56,8 +56,8 @@
         </div>
         <button mat-raised-button color="primary" class="mat-elevation-z12 box-button w-100 mt-2" type="button" type="submit">Login</button>
         <div class="login-options">
-          <div><a [routerLink]="['/dm-forgotpassword']">Forgot Password ?</a></div>
-          <div><span>Want to become a DM agent ?</span> <a [routerLink]="['/dm-register']" > Register Now</a></div>
+          <div><a [routerLink]="['/dm-forgotpassword']">Forgot Password ?</a></div><br/>
+          <div><span>Want to become a DM agent ?</span><br/> <a [routerLink]="['/dm-register']" > Register Now</a></div>
         </div>
       </mat-card>
     </form>
