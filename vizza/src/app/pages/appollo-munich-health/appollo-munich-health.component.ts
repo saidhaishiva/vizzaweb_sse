@@ -170,6 +170,11 @@ export class AppolloMunichComponent implements OnInit {
     proofValid: any;
     public idlistValid: boolean;
     public nomineesame: boolean;
+    public appolloMobileTrue0: boolean;
+    public appolloMobileTrue1: boolean;
+    public appolloMobileTrue2: boolean;
+    public appolloMobileTrue3: boolean;
+    public appolloMobileTrue4: boolean;
 
 
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -224,6 +229,12 @@ export class AppolloMunichComponent implements OnInit {
       this.questions_list = [];
     this.validateprvious = false;
         this.proofValid = true;
+        this.appolloMobileTrue0 = true;
+        this.appolloMobileTrue1 = true;
+        this.appolloMobileTrue2 = true;
+        this.appolloMobileTrue3 = true;
+        this.appolloMobileTrue4 = true;
+
 
         this.proposer = this.fb.group({
           proposerTitle: ['', Validators.required],
@@ -897,7 +908,11 @@ export class AppolloMunichComponent implements OnInit {
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal(stepper);
+
+            //mobile view
             this.nextStep();
+            this.appolloMobileTrue3 = false;
+            this.appolloMobileTrue4 = false;
         }
     }
 
@@ -1914,7 +1929,11 @@ export class AppolloMunichComponent implements OnInit {
                     if(this.proofValid){
                         stepper.next();
                         this.topScroll();
+
+                        //mobile view
                         this.nextStep();
+                        this.appolloMobileTrue0 = false;
+                        this.appolloMobileTrue1 = false;
                     } else{
                         this.toastr.error('Please enter id proof');
                     }
@@ -1948,7 +1967,11 @@ export class AppolloMunichComponent implements OnInit {
             this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
         } else {
             stepper.next();
+
+            //mobile view
             this.nextStep();
+            this.appolloMobileTrue2 = false;
+            this.appolloMobileTrue3 = false;
         }
 
     }
@@ -2131,7 +2154,11 @@ export class AppolloMunichComponent implements OnInit {
 
                                  stepper.next();
                                  this.topScroll();
+
+                                 //mobile view
                                  this.nextStep();
+                                 this.appolloMobileTrue1 = false;
+                                 this.appolloMobileTrue2 = false;
                              } else {
                                  this.toastr.error('Please enter id proof');
                              }
@@ -2340,6 +2367,10 @@ export class AppolloMunichComponent implements OnInit {
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
 
             sessionStorage.appollo_health_proposal_id = this.proposalId;
+
+            //mobile view
+            this.appolloMobileTrue4 = false;
+
         }
         else{
             this.toastr.error(successData.ErrorObject);
