@@ -1,3 +1,5 @@
+<!--Desktop view-->
+<section class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
 <div class="container dashboard h-100" fxLayoutAlign="start start">
   <div class="row my-flex-card">
     <h2 class="w-100 text-center" style="color:#683487;">Point of Sales Person</h2>
@@ -63,7 +65,61 @@
     <!--</div>-->
   </div>
 </div>
+</section>
 
+<!--mobile view-->
+<section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
+  <div class="container dashboard h-100" fxLayoutAlign="start start">
+    <div class="row my-flex-card">
+      <h2 class="w-100 text-center" style="color:#683487;">Point of Sales Person</h2>
+      <div class="col-sm-12 col-xs-12">
+        <div class="card" >
+          <div class="card-block">
+            <mat-card class="col-sm-12 col-xs-12" style="background:#fff !important; height:available;">
+              <form [formGroup]="form" (ngSubmit)="login()">
+                <div class="col-sm-12 col-xs-12 text-center mt-5">
+                  <img class="login-logo" src="assets/img/vizza-logoNew.png">
+                </div>
+                <!--<mat-card-subtitle><h3>Login</h3></mat-card-subtitle>-->
+                <div class="mt-5">
+                  <div class="col-sm-12 col-xs-12 mt-5">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Mobile number" formControlName="username" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                      <mat-icon matSuffix>person</mat-icon>
+                      <mat-error *ngIf="form.controls.username.errors?.required">Mobile number is required</mat-error>
+                      <mat-error *ngIf="form.controls.username.hasError('minlength')">Mobile number isn't long enough, minimum of 10 characters</mat-error>
+                    </mat-form-field >
+                  </div>
+                  <div class="col-sm-12 col-xs-12 mt-5">
+                    <mat-form-field class="w-100">
+                      <input matInput placeholder="Password" formControlName="password" required minlength="6" [type]="hide ? 'password' : 'text'">
+                      <mat-icon style="cursor:pointer;" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+                      <mat-error *ngIf="form.controls.password.errors?.required">Password is required</mat-error>
+                      <mat-error *ngIf="form.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-sm-12 col-xs-12 mt-5" fxLayoutAlign="center center">
+                  <div class="col-sm-12 col-xs-12">
+                    <button mat-raised-button color="primary" class="mat-elevation-z12 box-button w-100 mt-6" type="button" type="submit">Login</button>
+                  </div>
+                </div>
+                <div class="mt-5 col-sm-12 col-md-12 col-xs-12">
+                  <div class="col-sm-12 col-md-12 col-xs-12"><a [routerLink]="['/forgotpassword']">Forgot Password ?</a></div>
+                  <div class="mt-2 col-sm-12 col-md-12 col-xs-12">Want to become a POS agent ?</div>
+                  <div class="mt-2 col-sm-12 col-md-12 col-xs-12"><a [routerLink]="['/register']" > Register Now</a></div>
+                </div>
+                <!--<div class="col-md-4">-->
+                <!--<div class="col-md-12 text-center"> <button mat-raised-button color="primary" routerLink="/about-pos">About POS</button></div>-->
+                <!--</div>-->
+              </form>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <!--<div *ngIf="status!=200" class="bg-map">-->
   <!--<div fxLayout="row" fxLayoutAlign="center center" class="h-100">-->
     <!--<form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30" (ngSubmit)="login()" fxFlex.sm="60" class="mt-login">-->
