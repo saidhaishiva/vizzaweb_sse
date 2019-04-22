@@ -125,6 +125,7 @@ CheckHabits : boolean;
 readonlyProposer : boolean;
     occupationClass1 : boolean;
     rider : boolean;
+    riderList : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
       this.route.params.forEach((params) => {
@@ -163,6 +164,7 @@ readonlyProposer : boolean;
       this.habits = true;
       this.rider = true;
       this.bmiValue = false;
+      this.riderList = true;
 
 
       this.ProposerPa = this.proposerpa.group({
@@ -1229,6 +1231,11 @@ preInsureList() {
     public occupationClassSuccess(successData) {
         if (successData.IsSuccess) {
             this.occupationClass = successData.ResponseObject;
+            if(this.occupationClass.class == '3'){
+                this.riderList = false;
+            } else{
+                this.riderList = true;
+            }
             console.log(this.occupationClass,'this.occupationClass');
             if(this.occupationClass == 'Valid Occupation'){
                 this.occupationClass1 = true;
