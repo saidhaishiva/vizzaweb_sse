@@ -116,6 +116,7 @@ export class StarHealthProposalComponent implements OnInit {
     relationshipListNomine: any;
     total: number;
     public step: any;
+    public gstListType: any;
 
     constructor(public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -176,6 +177,7 @@ export class StarHealthProposalComponent implements OnInit {
             previousinsuranceChecked: '',
             personalAddress2: ['', Validators.required],
             personalPincode: '',
+            personalgstIdType: '',
             personalCity: ['', Validators.required],
             personalCityName: '',
             personalArea: ['', Validators.required],
@@ -204,6 +206,7 @@ export class StarHealthProposalComponent implements OnInit {
         this.setRelationship();
         this.appointeRelationship();
         this.nomineRelationship();
+        this.gstIdList();
         if (sessionStorage.changedTabDetails != '' || sessionStorage.changedTabDetails != undefined ) {
             this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         }
@@ -379,6 +382,8 @@ export class StarHealthProposalComponent implements OnInit {
                 residenceState: this.getStepper1.residenceState,
                 residenceAreaName: this.getStepper1.residenceAreaName,
                 illnessCheck: this.getStepper1.illnessCheck,
+                personalgstIdType: this.getStepper1.personalgstIdType,
+
                 sameas: this.getStepper1.sameas
 
             });
@@ -753,9 +758,17 @@ export class StarHealthProposalComponent implements OnInit {
             if (sessionStorage.proposerAge >= 18 && sessionStorage.proposerAge < 90) {
                 if(this.personal.controls['socialStatus'].value == true || this.personal.controls['socialStatus'].value == 'true') {
                     if(value.socialAnswer1 == '1' || value.socialAnswer2 == '1' || value.socialAnswer3 =='1' || value.socialAnswer4 == '1'){
-                        stepper.next();
-                        this.topScroll()
-                        this.nextStep();
+                        if((this.personal.controls['personalgstIdType'].value == '' && this.personal.controls['personalGst'].value == '') || (this.personal.controls['personalgstIdType'].value != '' && this.personal.controls['personalGst'].value != '')) {
+
+                            stepper.next();
+                            this.topScroll()
+                            this.nextStep();
+                        } else {
+                            if(this.personal.controls['personalgstIdType'].value != '' || this.personal.controls['personalGst'].value != ''){
+                                this.toastr.error('Enter GST Number');
+
+                            }
+                        }
                     } else {
                         this.toastr.error('Select any one Social Status');
                     }
@@ -1434,6 +1447,7 @@ export class StarHealthProposalComponent implements OnInit {
             'prop_pan_no': this.personalData.personalPan.toUpperCase(),
             'prop_aadhar_no': this.personalData.personalAadhar,
             'gst_id_no': this.personalData.personalGst.toUpperCase(),
+            'gstType': this.personalData.personalgstIdType,
             'exist_health_ins_covered_persons_details': '',
             'have_eia_no': '1',
             'eia_no': '',
@@ -1550,6 +1564,33 @@ export class StarHealthProposalComponent implements OnInit {
         console.log(error);
     }
 
+    gstIdList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.proposalservice.getGstId(data).subscribe(
+            (successData) => {
+                this.gstSuccess(successData);
+            },
+            (error) => {
+                this.gstFailure(error);
+            }
+        );
+    }
+    public gstSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.gstListType = successData.ResponseObject;
+            console.log(this.gstListType,'this.gstListType' );
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    public gstFailure(error) {
+    }
 
 
 //
