@@ -619,6 +619,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Doctor Name" formControlName="personalDoctorFullname"  (keypress)="nameValidate($event)"  autocomplete="off" required="{{personal['controls'].IsDoctorDetails.value}}">
+                            <mat-error *ngIf="personal.controls.personalDoctorFullname.errors?.required">Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -631,7 +632,6 @@
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Mobile No" formControlName="personalDoctorMobileNo" maxlength="10" minlength="10" required="{{personal['controls'].IsDoctorDetails.value}}" (keypress)="numberValidate($event)" autocomplete="off">
                             <mat-error *ngIf="personal.controls.personalDoctorMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
-
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -647,11 +647,13 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Address 1" formControlName="personalDoctorAddress" required="{{personal['controls'].IsDoctorDetails.value}}" autocomplete="off">
+                            <mat-error *ngIf="personal.controls.personalDoctorAddress.errors?.required">Address is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Address 2" formControlName="personalDoctorAddress2" required="{{personal['controls'].IsDoctorDetails.value}}" autocomplete="off">
+                            <mat-error *ngIf="personal.controls.personalDoctorAddress2.errors?.required">Address2 is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
