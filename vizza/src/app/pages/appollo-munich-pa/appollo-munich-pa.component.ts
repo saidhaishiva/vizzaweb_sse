@@ -1231,11 +1231,14 @@ preInsureList() {
     public occupationClassSuccess(successData) {
         if (successData.IsSuccess) {
             this.occupationClass = successData.ResponseObject;
-            if(this.occupationClass.class == '3'){
-                this.riderList = false;
-            } else{
-                this.riderList = true;
+            for (let i=0; i < this.occupationClass.length ; i++){
+                if(this.occupationClass[i].class == '3'){
+                    this.riderList = false;
+                } else{
+                    this.riderList = true;
+                }
             }
+
             console.log(this.occupationClass,'this.occupationClass');
             if(this.occupationClass == 'Valid Occupation'){
                 this.occupationClass1 = true;
