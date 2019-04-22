@@ -391,7 +391,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy IDV"  formControlName="policySi" [required]="pType" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy IDV"  formControlName="policySi" [required]="pType" (keypress)="numberValidate($event)" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
