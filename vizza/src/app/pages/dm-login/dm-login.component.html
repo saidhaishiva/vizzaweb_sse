@@ -55,9 +55,10 @@
           </mat-form-field>
         </div>
         <button mat-raised-button color="primary" class="mat-elevation-z12 box-button w-100 mt-2" type="button" type="submit">Login</button>
-        <div class="login-options">
-          <div><a [routerLink]="['/dm-forgotpassword']">Forgot Password ?</a></div><br/>
-          <div><span>Want to become a DM agent ?</span><br/> <a [routerLink]="['/dm-register']" > Register Now</a></div>
+        <div class="col-sm-12 col-xs-12 mt-5">
+          <span><a [routerLink]="['/dm-forgotpassword']">Forgot Password ?</a></span><br/>
+          <span class="mt-2">Want to become a DM agent ?</span><br/>
+            <span class="mt-2"><a [routerLink]="['/dm-register']" > Register Now</a></span>
         </div>
       </mat-card>
     </form>
