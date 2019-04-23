@@ -242,22 +242,22 @@ export class TravelRelianceProposalComponent implements OnInit {
             personalUniversityState: '',
             personalUniversityCountry: '',
 
-            personalBurglaryEmail: ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            personalBurglaryMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+            personalBurglaryEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            personalBurglaryMobileNo: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
             personalBurglaryPhoneNo: '',
             personalBurglaryFax: '',
-            personalBurglaryAddress: '',
-            personalBurglaryAddress2: '',
+            personalBurglaryAddress: ['', Validators.required],
+            personalBurglaryAddress2: ['', Validators.required],
             personalBurglaryAddress3: '',
-            personalBurglaryPincode: '',
-            personalBurglaryCity: '',
+            personalBurglaryPincode: ['', Validators.required],
+            personalBurglaryCity: ['', Validators.required],
             personalyDistrictIdB: '',
-            personalBurglaryArea: '',
+            personalBurglaryArea:['', Validators.required],
             personalBurglaryAreaName: '',
-            personalBurglaryDistrict: '',
-            personalBurglaryState: '',
+            personalBurglaryDistrict: ['', Validators.required],
+            personalBurglaryState: ['', Validators.required],
             personalBurglaryNearestLandMark: '',
-            personalBurglaryCountry: '',
+            personalBurglaryCountry: ['', Validators.required],
 
             personalSponsorFullname: '',
             personalSponsorEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
@@ -994,7 +994,14 @@ export class TravelRelianceProposalComponent implements OnInit {
     // charactor validation
     nameValidate(event: any) {
         this.validation.nameValidate(event);
+
     }
+
+    passportIssueValidation(event: any) {
+        this.validation.passportIssue(event);
+
+    }
+
 
     // Dob validation
     dobValidate(event: any) {
@@ -1237,13 +1244,34 @@ export class TravelRelianceProposalComponent implements OnInit {
     sameBurglaryAddress(values: any) {
         this.sameField = values.checked;
 
+        // if (values.checked) {
+        //     this.commonPincode(this.personal.controls['personalBurglaryPincode'].value, 'proposalB');
+        //     this.selectBurglaryArea();
+        //     this.inputBurglaryReadonly = true;
+        //     this.personal.controls['personalStateIdB'].setValue(this.personal.controls['personalStateIdP'].value);
+        //     this.personal.controls['residenceDistrictIdB'].setValue(this.personal.controls['personalDistrictIdP'].value);
+        //     this.personal.controls['personalCityIdB'].setValue(this.personal.controls['personalCityIdR'].value);
+        //
+        //     this.personal.controls['personalBurglaryAddress'].setValue(this.personal.controls['personalAddress'].value);
+        //     this.personal.controls['personalBurglaryAddress2'].setValue(this.personal.controls['personalAddress2'].value);
+        //     this.personal.controls['personalBurglaryAddress3'].setValue(this.personal.controls['personalAddress3'].value);
+        //     this.personal.controls['personalBurglaryCity'].setValue(this.personal.controls['personalCity'].value);
+        //     this.personal.controls['personalBurglaryPincode'].setValue(this.personal.controls['personalPincode'].value);
+        //     this.personal.controls['personalBurglaryState'].setValue(this.personal.controls['personalState'].value);
+        //     this.personal.controls['personalBurglaryDistrict'].setValue(this.personal.controls['personalDistrict'].value);
+        //     this.personal.controls['personalBurglaryNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
+        //     this.personal.controls['personalBurglaryCountry'].setValue(this.personal.controls['personalCountry'].value);
+        //     this.personal.controls['personalBurglaryArea'].setValue(this.personal.controls['personalArea'].value);
+        //     this.personal.controls['personalBurglaryAreaName'].setValue(this.personal.controls['personalAreaName'].value);
+        //     console.log( this.personal.controls['personalBurglaryAreaName'].value,'jhgfjhjfgh');
+
         if (values.checked) {
-            this.commonPincode(this.personal.controls['personalBurglaryPincode'].value, 'proposalB');
-            this.selectBurglaryArea();
-            this.inputBurglaryReadonly = true;
-            this.personal.controls['personalStateIdB'].setValue(this.personal.controls['personalStateIdP'].value);
-            this.personal.controls['residenceDistrictIdB'].setValue(this.personal.controls['personalDistrictIdP'].value);
-            this.personal.controls['personalCityIdB'].setValue(this.personal.controls['personalCityIdR'].value);
+            this.proposalBArea = JSON.parse(sessionStorage.proposalPArea);
+            sessionStorage.proposalBArea = JSON.stringify(this.proposalBArea);
+            this.inputReadonly = true;
+            this.personal['controls'].residenceDistrictIdB.patchValue(this.personal.controls['personalDistrictIdP'].value);
+            this.personal['controls'].personalCityIdB.patchValue(this.personal.controls['personalCityIdP'].value);
+            this.personal['controls'].personalStateIdB.patchValue(this.personal.controls['personalStateIdP'].value);
 
             this.personal.controls['personalBurglaryAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['personalBurglaryAddress2'].setValue(this.personal.controls['personalAddress2'].value);
@@ -1256,7 +1284,6 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.personal.controls['personalBurglaryCountry'].setValue(this.personal.controls['personalCountry'].value);
             this.personal.controls['personalBurglaryArea'].setValue(this.personal.controls['personalArea'].value);
             this.personal.controls['personalBurglaryAreaName'].setValue(this.personal.controls['personalAreaName'].value);
-            console.log( this.personal.controls['personalBurglaryAreaName'].value,'jhgfjhjfgh');
 
         } else {
             this.inputBurglaryReadonly = false;
@@ -1279,7 +1306,7 @@ export class TravelRelianceProposalComponent implements OnInit {
 
         }
     }
-    sameSponsorAddress(values: any){
+    sameSponsorAddress(values: any) {
         this.sameField = values.checked;
         if (values.checked) {
             this.commonPincode(this.personal.controls['personalSponsorPincode'].value, 'proposalS');
@@ -1290,7 +1317,7 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.personal.controls['personalSponsorState'].setValue(this.personal.controls['personalState'].value);
             this.personal.controls['personalSponsorCountry'].setValue(this.personal.controls['personalCountry'].value);
 
-        }else{
+        } else {
             this.inputSponsorReadonly = false;
             this.personal.controls['personalSponsorAddress'].setValue('');
             this.personal.controls['personalSponsorCity'].setValue('');

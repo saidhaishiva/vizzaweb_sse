@@ -22,6 +22,22 @@ export class ValidationService {
             }
         }
     }
+// travel reliance
+    passportIssue(event) {
+        if (event.code == 'Space') {
+            if (event.target.value.length == 0) {
+                event.preventDefault();
+            }
+        } else {
+            if (event.charCode !== 0) {
+                const pattern = /[/Sa-zA-Z0-9 ]/;
+                const inputChar = String.fromCharCode(event.charCode);
+                if (!pattern.test(inputChar)) {
+                    event.preventDefault();
+                }
+            }
+        }
+    }
 
     nameValidateNospace(event) {
         if (event.charCode !== 0) {
@@ -96,6 +112,23 @@ export class ValidationService {
             }
         }
 
+    }
+    // height weight validation
+    heightValidate(event: any) {
+        console.log(event.target.value.length);
+        if (event.key == '0') {
+            if (event.target.value.length == 0) {
+                event.preventDefault();
+            }
+        } else {
+            if (event.charCode !== 0) {
+                const pattern = /[0-9/]/;
+                const inputChar = String.fromCharCode(event.charCode);
+                if (!pattern.test(inputChar)) {
+                    event.preventDefault();
+                }
+            }
+        }
     }
 }
 
