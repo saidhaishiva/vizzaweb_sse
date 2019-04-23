@@ -1,3 +1,4 @@
+<section class="d-none d-sm-none d-md-none d-lg-block">
 
 <div class="row paScroll" >
     <div class="col-sm-11 text-center" >
@@ -64,7 +65,76 @@
     <!--</div>-->
   </div>
 </div>
+</section>
+<!--mobile view-->
 
+<section class="d-block d-sm-block d-md-block d-lg-none">
+<div class="row paScroll" >
+    <div class="col-11 text-center" >
+        <h5 class="text-capitalize" >
+            <h5 class="text-center text-capitalize color-pink" *ngIf="type == 'health'">{{compareDetails.group_name}} ({{compareDetails.scheme}})</h5>
+            <h5 class="text-center text-capitalize color-pink" *ngIf="type == 'pa'">Compare Details</h5>
+        </h5>
+    </div>
+    <div class="col-1 text-right">
+        <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+    </div>
+</div>
+
+<div mat-dialog-content>
+    <div class="row  scrollmenu paScroll compare-details">
+        <div class="col">
+            <table class="table compare">
+                <tbody>
+                <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
+                    <td>
+                        <p class="text-center" style="margin-top: 30px;">Key Features</p>
+                    </td>
+                </tr>
+                <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
+                    <td >SUM INSURED</td>
+                </tr>
+                <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
+                    <td >PREMIUM</td>
+                </tr>
+                <tr class="table-success1" *ngFor="let names of keyFeatureNames" >
+                    <td >{{names}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col" *ngFor="let clists of compareDetails.productdetails">
+            <table class="table compare">
+                <tbody>
+                <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
+                    <td class="text-center">
+                        <img src="{{webhost + '/' + clists.product_logo}}">
+                        <p class="content-color text-center pt-2">{{clists.product_name}}</p>
+                    </td>
+                </tr>
+                <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
+                    <td >&#8377; {{clists.suminsured_amount}}</td>
+                </tr>
+                <tr [ngClass]="type == 'health'? 'table-warning1': 'table-warning2'">
+                    <td >&#8377; {{clists.premium_amount}}</td>
+                </tr>
+                <tr class="table-success1" *ngFor="let keyValues of clists.key_features;let i = index;" >
+                    <td  *ngIf="keyValues.key_features_value != ''">{{keyValues.key_features_value}}</td>
+                    <td  *ngIf="keyValues.key_features_value == ''"> -- </td>
+                </tr>
+
+                </tbody>
+            </table>
+            <!--<div style="overflow-x: scroll; overflow-y: scroll; -webkit-overflow-scrolling: touch; height: 500px;">Stuff</div>-->
+        </div>
+
+        <!--<div class="col-md-12 text-right">-->
+        <!--<button mat-raised-button color="primary"  [mat-dialog-close]="addnotes" [disabled]="addButton">Ok</button>-->
+        <!--</div>-->
+    </div>
+</div>
+</section>
 <style>
     .color-blue{
         background-color: #0b9444;
