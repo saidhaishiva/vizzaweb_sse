@@ -1,3 +1,5 @@
+<!--Desktop view-->
+<section class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
 <div *ngIf="status!=200" class="bg-map">
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
     <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30" (ngSubmit)="login()" fxFlex.sm="60" class="mt-login">
@@ -25,4 +27,42 @@
     </form>
   </div>
 </div>
+</section>
 
+<!--mobile view-->
+<section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
+  <div *ngIf="status!=200" class="bg-map">
+  <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+    <div class="col-sm-12 col-xs-12">
+    <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30" (ngSubmit)="login()" fxFlex.sm="60" class="mt-login">
+      <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12" style="border-radius: 10px">
+        <span class="box-content-header"><img class="login-logo" src="assets/img/vizza-logoNew.png"> </span>
+        <!--<mat-card-subtitle><h3>Login</h3></mat-card-subtitle>-->
+        <div class="col-sm-12 col-xs-12">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Mobile number" formControlName="username" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+            <mat-icon matSuffix>person</mat-icon>
+            <mat-error *ngIf="form.controls.username.errors?.required">Mobile number is required</mat-error>
+            <mat-error *ngIf="form.controls.username.hasError('minlength')">Mobile number isn't long enough, minimum of 10 characters</mat-error>
+          </mat-form-field >
+        </div>
+        <div class="col-sm-12 col-xs-12">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Password" formControlName="password" required minlength="6" [type]="hide ? 'password' : 'text'">
+            <mat-icon style="cursor:pointer;" matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+            <mat-error *ngIf="form.controls.password.errors?.required">Password is required</mat-error>
+            <mat-error *ngIf="form.controls.password.hasError('minlength')">Password isn't long enough, minimum of 6 characters</mat-error>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary" class="mat-elevation-z12 box-button w-100 mt-2" type="button" type="submit">Login</button>
+        <div class="col-sm-12 col-xs-12 mt-5">
+          <span><a [routerLink]="['/dm-forgotpassword']">Forgot Password ?</a></span><br/>
+          <span class="mt-2">Want to become a DM agent ?</span><br/>
+            <span class="mt-2"><a [routerLink]="['/dm-register']" > Register Now</a></span>
+        </div>
+      </mat-card>
+    </form>
+    </div>
+  </div>
+  </div>
+</section>

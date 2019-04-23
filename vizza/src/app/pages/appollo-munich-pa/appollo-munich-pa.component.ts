@@ -125,6 +125,7 @@ CheckHabits : boolean;
 readonlyProposer : boolean;
     occupationClass1 : boolean;
     rider : boolean;
+    riderList : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
       this.route.params.forEach((params) => {
@@ -163,6 +164,7 @@ readonlyProposer : boolean;
       this.habits = true;
       this.rider = true;
       this.bmiValue = false;
+      this.riderList = true;
 
 
       this.ProposerPa = this.proposerpa.group({
@@ -1229,13 +1231,18 @@ preInsureList() {
     public occupationClassSuccess(successData) {
         if (successData.IsSuccess) {
             this.occupationClass = successData.ResponseObject;
-            console.log(this.occupationClass,'this.occupationClass');
-            if(this.occupationClass == 'Valid Occupation'){
-                this.occupationClass1 = true;
-                console.log(this.occupationClass1,'this.occupationClass1');
-            } else {
-                this.occupationClass1 = false;
+            for (let i=0; i < this.occupationClass.length ; i++){
+                if(this.occupationClass[i].class == '3'){
+                    this.riderList = false;
+                } else{
+                    this.riderList = true;
+                }
+                if(this.occupationClass[i].class == '4'){
+                    this.occupationClass1 = false;
+                } else {
+                    this.occupationClass1 = true;
 
+                }
             }
         } else {
             if (successData.ErrorObject){
@@ -1513,7 +1520,7 @@ preInsureList() {
         sessionStorage.appollo2Detail = '';
         sessionStorage.appollo2Detail = JSON.stringify(value);
         console.log(this.insured.valid, 'check');
-        console.log(this.occupationClass,'this.occupationClass');
+        console.log(this.occupationClass1,'this.occupationClass');
         if (this.insured.valid) {
             if (sessionStorage.insuredAgeP >= 18 && sessionStorage.insuredAgeP < 56) {
                 if(this.occupationClass1 != false) {

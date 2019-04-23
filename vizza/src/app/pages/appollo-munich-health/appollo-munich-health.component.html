@@ -1005,11 +1005,11 @@
 </section>
 
 <!--mobile view-->
-<section class="d-none d-sm-none d-xl-block d-lg-block d-md-block">
+<section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
     <mat-accordion>
         <div class="container-fluid" id="apollo">
             <div class="row apolloMunichHealthProposal">
-                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled>
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" [disabled]="appolloMobileTrue">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
                         PROPOSER DETAILS
@@ -1210,7 +1210,7 @@
                 </form>
             </mat-expansion-panel>
 
-              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled>
+              <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="appolloMobileTrue1">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     INSURED DETAILS
@@ -1669,7 +1669,7 @@
                 </form>
               </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled>
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="appolloMobileTrue2">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     MEDICAL HISTORY
@@ -1715,7 +1715,7 @@
             </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled>
+        <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="appolloMobileTrue3">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     NOMINEE DETAILS
@@ -1816,7 +1816,7 @@
             </div>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled class="w-100">
+        <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" [disabled]="appolloMobileTrue4" class="w-100">
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     SUMMARY DETAILS

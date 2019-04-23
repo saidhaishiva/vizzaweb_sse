@@ -117,6 +117,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.arr = [];
         this.webhost = this.config.getimgUrl();
         this.hdfc_health_proposal_id = 0;
+        this.step = 0;
 
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
