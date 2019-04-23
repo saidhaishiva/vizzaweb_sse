@@ -229,7 +229,7 @@ export class AppolloMunichComponent implements OnInit {
       this.questions_list = [];
     this.validateprvious = false;
         this.proofValid = true;
-        this.appolloMobileTrue0 = true;
+        this.appolloMobileTrue0 = false;
         this.appolloMobileTrue1 = true;
         this.appolloMobileTrue2 = true;
         this.appolloMobileTrue3 = true;
@@ -1932,7 +1932,6 @@ export class AppolloMunichComponent implements OnInit {
 
                         //mobile view
                         this.nextStep();
-                        this.appolloMobileTrue0 = false;
                         this.appolloMobileTrue1 = false;
                     } else{
                         this.toastr.error('Please enter id proof');

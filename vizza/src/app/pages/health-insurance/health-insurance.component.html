@@ -159,7 +159,7 @@
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
               <td class="col-md-2">
-                <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.premium_amount_format}} / Yr</strong></p>
+                <p class="text-center mt-3 change-p"><strong>&#8377;{{plists.premium_amount_format}} / Yr</strong></p>
                 <p class="text-center change-p">(Including GST)</p>
               </td>
               <td class="col-md-1">
@@ -270,7 +270,7 @@
     <!--<div class="col pl-0"><button mat-raised-button  class="w-100">Group C</button></div>-->
   <!--</div>-->
   <div class="pt-0">
-  <div class="sticky-top mt-0">
+  <div class="sticky-top mt-0" style="z-index: -1;">
     <mat-card style="background-color: antiquewhite;">
 <div class="row">
   <div class="col-6">
@@ -294,7 +294,7 @@
     <mat-form-field class="w-100">
       <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
       <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
-        <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
+        <mat-option *ngFor="let amounts of sumInsuredAmountLists" value="{{amounts.si_id}}" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
@@ -304,18 +304,18 @@
 
   <mat-card *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
     <div class="row mt-3" >
-      <div class="col-md-6 col-6">
+      <div class="col-4">
         <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
         <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
       </div>
-      <div class="col-md-3 col-3">
+      <div class="col-4">
         <p style="margin-bottom: 0rem !important;">Sum Insured</p>
         <div>
           <p> &#8377; {{plists.suminsured_amount_format}} </p>
         </div>
       </div>
-      <div class="col-md-3 col-3">
-        <p style="margin-bottom: 0rem !important;">Premium/yr</p>
+      <div class="col-4">
+        <p style="margin-bottom: 0rem !important;">Premium /yr</p>
         <div>
           <p>&#8377;  {{plists.premium_amount_format}}</p>
         </div>
@@ -364,13 +364,13 @@
     <!--</div>-->
     <div class="col-4" *ngFor="let clists of compareArray; let i = index">
       <div fxLayout="column" class="flex-p">
-        <mat-card class="custom-card compare-icon text-center">
+        <mat-card class="custom-card compare-icon text-center pr-3">
           <div class="text-right closeBtnClass">
             <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
           </div>
           <mat-card-content class="p-0 col">
             <!--<p class="color-green-mobile mb-0 text-center">{{clists.product_name}}</p>-->
-            <img  src="{{webhost + '/' + clists.company_logo}}" class="mr-5 w-100" >
+            <img  src="{{webhost + '/' + clists.company_logo}}" class="w-100" >
           </mat-card-content>
         </mat-card>
       </div>
