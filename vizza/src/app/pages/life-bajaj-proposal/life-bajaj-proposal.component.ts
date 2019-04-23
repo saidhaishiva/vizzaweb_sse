@@ -92,6 +92,8 @@ export class LifeBajajProposalComponent implements OnInit {
   public getDays:any;
   public getAge:any;
   public slectedIndex:any;
+  public declaration: any;
+  public requestedUrl: any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -595,24 +597,24 @@ ageCalculateInsurer(getDays) {
     console.log(this.MainQuesList, 'lisyduhs');
 
    // this.question_details
-    //
-    // let medicalStatus = [];
-    // for (let i = 0; i < this.MainQuesList.length; i++) {
-    //   if(this.MainQuesList[i].mStatus == 'No'){
-    //     medicalStatus.push('No');
-    //   } else if(this.MainQuesList[i].mStatus == 'Yes') {
-    //     medicalStatus.push('Yes');
-    //   }
-    // }
-    //
-    // if (medicalStatus.includes('Yes')) {
-    //   // this.toastr.error('This medical questions is unable to proceed');
-    //   this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
-    // } else {
-    //   stepper.next();
-    //   // this.nextStep();
-    //
-    // }
+   //
+    let medicalStatus = [];
+    for (let i = 0; i < this.MainQuesList.length; i++) {
+      if(this.MainQuesList[i].mStatus == 'No'){
+        medicalStatus.push('No');
+      } else if(this.MainQuesList[i].mStatus == 'Yes') {
+        medicalStatus.push('Yes');
+      }
+    }
+    console.log(medicalStatus,'medicalStatus');
+    if (medicalStatus.includes('Yes')) {
+      // this.toastr.error('This medical questions is unable to proceed');
+      this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
+    } else {
+      stepper.next();
+      // this.nextStep();
+
+    }
 
   }
 
@@ -1229,9 +1231,9 @@ ageCalculateInsurer(getDays) {
     if (successData.IsSuccess) {
       this.MainQuesList[index].SubQuesList = successData.ResponseObject;
       for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
-        this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
+        this.MainQuesList[index].subQuestionText = '';
       }
-      console.log(this.MainQuesList, 'MainQuesListsubbbb');
+      console.log(this.MainQuesList, 'MainQuesList');
     }
   }
 
@@ -1665,6 +1667,8 @@ ageCalculateInsurer(getDays) {
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
      this.summaryData = successData.ResponseObject;
+     this.requestedUrl =this.summaryData.biUrlLink;
+
      this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
