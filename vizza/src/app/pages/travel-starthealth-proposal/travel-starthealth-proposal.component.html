@@ -244,7 +244,7 @@
                           <input matInput [matDatepicker]="picker3" [min]="today" placeholder="Passport Expiry (DD/MM/YYYY)"   formControlName="passportExpiry" (dateInput)="addEvent($event, i, 'insurer')" (dateChange)="addEvent($event, i, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required >
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                           <mat-datepicker #picker3></mat-datepicker>
-                          <mat-error *ngIf="insureArray.invalid">Passport expiry date is required</mat-error>
+                          <mat-error *ngIf="insureArray.invalid">Passport expired</mat-error>
                         </mat-form-field>
                             <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.value}}</p>
                             <!--<div class="error" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.value  != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerExpiryValidError.value }}</div>-->
