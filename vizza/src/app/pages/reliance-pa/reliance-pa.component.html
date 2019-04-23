@@ -350,26 +350,24 @@
                                                     <input matInput placeholder="Special Conditions"  formControlName="specialconditions"  autocomplete="off">
                                                 </mat-form-field>
                                             </div>
-                                        <div *ngIf="shwbtnone">
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="shwbtnone">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Medical Expense Extn Rate"  formControlName="extnrate"  autocomplete="off" required>
                                                     <mat-error *ngIf="riskDetails.controls.extnrate.errors?.required">Medical Expense Extn Rate  is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="shwbtnone">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="familydiscount"  formControlName="familydiscount"  autocomplete="off" required>
                                                     <mat-error *ngIf="riskDetails.controls.familydiscount.errors?.required">Family Discount Rate (%)  is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="shwbtnone">
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck7" formControlName="medicalexpense">
                                                     <label class="custom-control-label" for="customCheck7" >Is Medical Expense Extn Applicable?</label>
                                                 </div>
                                             </div>
-                                        </div>
                                             <div class="col-md-3">
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="customCheck8" formControlName="employeerelationship">
