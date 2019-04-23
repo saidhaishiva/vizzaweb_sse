@@ -125,7 +125,6 @@ CheckHabits : boolean;
 readonlyProposer : boolean;
     occupationClass1 : boolean;
     rider : boolean;
-    riderList : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
       this.route.params.forEach((params) => {
@@ -164,7 +163,6 @@ readonlyProposer : boolean;
       this.habits = true;
       this.rider = true;
       this.bmiValue = false;
-      this.riderList = true;
 
 
       this.ProposerPa = this.proposerpa.group({
@@ -271,7 +269,8 @@ readonlyProposer : boolean;
           insuredHeight:'',
           insuredWeight:'',
           ttdrider:false,
-          sameAsProposer:false
+          sameAsProposer:false,
+          riderList: true
       });
       this.nomineeDetail = this.proposerpa.group({
           paNomineeTitle: ['', Validators.required],
@@ -411,6 +410,7 @@ readonlyProposer : boolean;
                 insuredWaive: this.appollo2.insuredWaive,
                 relationshipcd: this.appollo2.relationshipcd,
                 ttdrider: this.appollo2.ttdrider,
+                riderList: this.appollo2.riderList
             });
             if(this.appollo2.insuredPaIdProof != ''){
                 this.panType('insurer');
@@ -1233,9 +1233,10 @@ preInsureList() {
             this.occupationClass = successData.ResponseObject;
             for (let i=0; i < this.occupationClass.length ; i++){
                 if(this.occupationClass[i].class == '3'){
-                    this.riderList = false;
+                    this.insured.controls['riderList'].patchValue(false);
+                    sessionStorage.appollo2Detail ='';
                 } else{
-                    this.riderList = true;
+                    this.insured.controls['riderList'].patchValue(true);
                 }
                 if(this.occupationClass[i].class == '4'){
                     this.occupationClass1 = false;
@@ -1656,7 +1657,12 @@ preInsureList() {
     // }
     // star-health-proposal creation
     createrPoposal(stepper){
+
       let enq_id = this.getAllPremiumDetails.enquiry_id;
+      if(this.insured.controls['riderList'].value) {
+          this.insured.controls['ttdrider'].patchValue('false');
+      }
+        console.log(this.insured.controls['ttdrider'].value,'jhjgdg');
         const data = {
     "enquiry_id": enq_id.toString(),
     'proposal_id': sessionStorage.appolloPAproposalID == '' || sessionStorage.appolloPAproposalID == undefined ? '' : sessionStorage.appolloPAproposalID,

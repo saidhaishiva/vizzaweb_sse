@@ -3,6 +3,8 @@ import {AuthService} from './auth.service';
 import {ConfigurationService} from './configuration.service';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Rx';
+import {Http} from '@angular/http';
+import {catchError} from 'rxjs/operators';
 @Injectable()
 export class PersonalAccidentService {
 
@@ -213,7 +215,6 @@ export class PersonalAccidentService {
     }
 
 // Get city list
-
     getPostal(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -225,8 +226,109 @@ export class PersonalAccidentService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    // Occupation List
+    //Reliance Customertype
+    getCustomertypeList(data){
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'reliance/clienttype_list';
+        return this.http.post(url,json,httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance annualIncome
+    PaAnnualIncome(data){
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'reliance/annualincome_list';
+        return this.http.post(url,json,httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance RelationshipList
+    RelationshipList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'reliance/get_relation_details';
+        return this.http.post(url,json,httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance Nationality List
+    getNationalityList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'reliance/nationality_list';
+        return this.http.post(url,json,httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance OccupationList
+    getRelianceOccupationCodeList(data){
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        }
+        const url = this.configurationService.getHostPa() + 'reliance/occupation_list';
+        return this.http.post(url,json,httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance Maritial status
+    PaRelianceMaritalStatus(data){
+        const json = JSON.stringify(data);
+        const httpoptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'reliance/marital_status_list';
+        return this.http.post(url,json,httpoptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance tenure List
+    tenureList(data) {
+        const json = JSON.stringify(data);
+        const httpoptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        }
+        const url = this.configurationService.getHostPa() + 'reliance/tenture_list';
+        return this.http.post(url,json,httpoptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
 
+    //Reliance coverOptionList
+    covertypeList(data){
+        const json = JSON.stringify(data);
+        const httpoptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        }
+        const url = this.configurationService.getHostPa() + 'reliance/get_cover_type';
+        return this.http.post(url,json,httpoptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance coversubOptionList
+    coverageList(data){
+        const json = JSON.stringify(data);
+        const httpoptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        }
+        const url = this.configurationService.getHostPa() + 'reliance/get_coversub_option';
+        return this.http.post(url,json,httpoptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+
+    // Occupation List
     getOccupationList(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -266,9 +368,10 @@ export class PersonalAccidentService {
         };
         const url = this.configurationService.getHostPa() + 'apollomunich/get_occupation_code';
         return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
+            .map(this.extractData)
             .catch(this.handleError);
     }
+
     // occupation class
     getAppolloOccupationClassList(data) {
         const json = JSON.stringify(data);
@@ -360,6 +463,7 @@ export class PersonalAccidentService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+
     // pre insure List
     preInsure(data) {
         const json = JSON.stringify(data);
@@ -368,9 +472,10 @@ export class PersonalAccidentService {
         };
         const url = this.configurationService.getHostPa() + 'apollomunich/get_previous_insure';
         return this.http.post(url , json, httpOptions)
-            .map(this.extractData )
+            .map(this.extractData)
             .catch(this.handleError);
     }
+
     // State List in Appollo Munich List Personal Accident
    stateListPa(data) {
         const json = JSON.stringify(data);
@@ -385,6 +490,7 @@ export class PersonalAccidentService {
     private extractData(res: Response) {
         const body = res;
         return body || {};
+
     }
 // District List in Appollo Munich List Personal Accident
     districtPaList(data) {
@@ -415,6 +521,17 @@ export class PersonalAccidentService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostPa() + 'apollomunich/get_pincode';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    //  Reliance Pin validate
+    pincodePaList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + 'reliance/get_pincode_details';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

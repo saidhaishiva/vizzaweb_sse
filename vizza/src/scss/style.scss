@@ -106,7 +106,6 @@ button:focus{
 }
 .sidenav{
   width: 300px !important;
-  overflow: auto !important;
 }
 
 .dashboard1{
@@ -1899,7 +1898,6 @@ a:hover {
     margin: 0 !important;
     padding: 0 !important;
     overflow-y: auto !important;
-    overflow-x: auto !important;
   }
   .row{
     margin: 0;
@@ -2553,15 +2551,6 @@ btn-uploade{
   background: antiquewhite;
   padding: 5px 14px;
 }
-.compar-mobile{
-  position: fixed;
-  bottom: 0;
-  z-index: 99;
-  width: 100%;
-  font-size:5px;
-  background: antiquewhite;
-  //margin-bottom: 70px;
-}
 .compar-fix-tr{
   position: fixed;
   bottom: 0;
@@ -3203,14 +3192,7 @@ fieldset {
   .mat-checkbox-layout{
     white-space: pre-wrap;
     margin-top: -11px !important;
-  }
-  .mat-checkbox-inner-container {
-    height: 17px !important;
-    width: 17px !important;
-  }
-
-  .mat-checkbox-layout{
-    white-space: pre-wrap;
+    // margin-left: 20px !important;
   }
 
   .mat-primaryBlue {
@@ -3353,7 +3335,7 @@ fieldset {
   }
 
 }
-.bikeRoyalProposal{
+.reliancePaProposal{
   .mat-checkbox-layout{
     white-space: pre-wrap;
   }
@@ -4063,10 +4045,3 @@ fieldset {
   //}
 }
 
-.mat-drawer-container {
-  padding-bottom: 40px;
-}
-
-.heigt.mat-expansion-panel-header {
-  height: 50px !important;
-}
