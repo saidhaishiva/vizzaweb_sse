@@ -171,20 +171,20 @@
 
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="State" formControlName="personalState" autocomplete="off" required readonly>
+                                <input matInput placeholder="State" formControlName="personalState" autocomplete="off" (keypress)="nameValidate($event)"  required readonly>
                                 <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
                               </mat-form-field>
                             </div>
 
                             <div class="col-md-6">
                               <mat-form-field  class="w-100">
-                                <input matInput placeholder="District" formControlName="personalDistrict" autocomplete="off" required readonly>
+                                <input matInput placeholder="District" formControlName="personalDistrict" autocomplete="off" (keypress)="nameValidate($event)"  required readonly>
                                 <mat-error *ngIf="personal.controls.personalDistrict.errors?.required">District is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field  class="w-100">
-                                <input matInput placeholder="City" formControlName="personalCity" autocomplete="off" required readonly>
+                                <input matInput placeholder="City" formControlName="personalCity" autocomplete="off" (keypress)="nameValidate($event)"  required readonly>
                                 <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
                               </mat-form-field>
                             </div>
@@ -198,7 +198,7 @@
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Nearest Land Mark" formControlName="personalNearestLandMark" (keyup)="typeAddressDeatils()" autocomplete="off">
+                                <input matInput placeholder="Nearest Land Mark" formControlName="personalNearestLandMark" (keypress)="nameValidate($event)" (keyup)="typeAddressDeatils()" autocomplete="off">
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
@@ -248,20 +248,20 @@
 
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="State" formControlName="residenceState" autocomplete="off"  required [readonly]="inputReadonly">
+                                <input matInput placeholder="State" formControlName="residenceState" (keypress)="nameValidate($event)"  autocomplete="off"  required [readonly]="inputReadonly">
                                 <mat-error *ngIf="personal.controls.residenceState.errors?.required">State is required</mat-error>
                               </mat-form-field>
                             </div>
 
                             <div class="col-md-6">
                               <mat-form-field  class="w-100">
-                                <input matInput placeholder="District" formControlName="residenceDistrict" autocomplete="off" required [readonly]="inputReadonly">
+                                <input matInput placeholder="District" formControlName="residenceDistrict" (keypress)="nameValidate($event)"  autocomplete="off" required [readonly]="inputReadonly">
                                 <mat-error *ngIf="personal.controls.residenceDistrict.errors?.required">District is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100" >
-                                <input matInput placeholder="City" formControlName="residenceCity" autocomplete="off" required [readonly]="inputReadonly" >
+                                <input matInput placeholder="City" formControlName="residenceCity" (keypress)="nameValidate($event)"  autocomplete="off" required [readonly]="inputReadonly" >
                                 <mat-error *ngIf="personal.controls.residenceCity.errors?.required">City is required</mat-error>
                               </mat-form-field>
                             </div>
@@ -282,7 +282,7 @@
                             <!--</div>-->
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Nearest Land Mark" formControlName="residenceNearestLandMark" autocomplete="off"  [readonly]="inputReadonly" >
+                                <input matInput placeholder="Nearest Land Mark" formControlName="residenceNearestLandMark" (keypress)="nameValidate($event)" autocomplete="off"  [readonly]="inputReadonly" >
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
@@ -352,18 +352,18 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="personalBurglaryState" autocomplete="off" [readonly]="inputBurglaryReadonly" >
+                            <input matInput placeholder="State" formControlName="personalBurglaryState" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly" >
                           </mat-form-field>
                         </div>
 
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="District" formControlName="personalBurglaryDistrict" autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="District" formControlName="personalBurglaryDistrict" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="City" formControlName="personalBurglaryCity" autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="City" formControlName="personalBurglaryCity" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -375,7 +375,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Nearest Land Mark" formControlName="personalBurglaryNearestLandMark"  [readonly]="inputBurglaryReadonly" autocomplete="off">
+                            <input matInput placeholder="Nearest Land Mark" formControlName="personalBurglaryNearestLandMark" (keypress)="nameValidate($event)" [readonly]="inputBurglaryReadonly" autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -435,12 +435,12 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="City" formControlName="personalUniversityCity" autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="City" formControlName="personalUniversityCity" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="personalUniversityState" autocomplete="off" [readonly]="inputBurglaryReadonly" >
+                            <input matInput placeholder="State" formControlName="personalUniversityState" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly" >
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -594,7 +594,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Nearest Land Mark" formControlName="personalCompanyNearestLandMark" autocomplete="off">
+                            <input matInput placeholder="Nearest Land Mark" formControlName="personalCompanyNearestLandMark" (keypress)="nameValidate($event)" autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -695,7 +695,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Nearest Land Mark" formControlName="personalDoctorNearestLandMark" autocomplete="off">
+                            <input matInput placeholder="Nearest Land Mark" formControlName="personalDoctorNearestLandMark" (keypress)="nameValidate($event)" autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">

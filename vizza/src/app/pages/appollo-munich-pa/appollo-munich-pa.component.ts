@@ -1237,15 +1237,12 @@ preInsureList() {
                 } else{
                     this.riderList = true;
                 }
-            }
+                if(this.occupationClass[i].class == '4'){
+                    this.occupationClass1 = false;
+                } else {
+                    this.occupationClass1 = true;
 
-            console.log(this.occupationClass,'this.occupationClass');
-            if(this.occupationClass == 'Valid Occupation'){
-                this.occupationClass1 = true;
-                console.log(this.occupationClass1,'this.occupationClass1');
-            } else {
-                this.occupationClass1 = false;
-
+                }
             }
         } else {
             if (successData.ErrorObject){
@@ -1523,7 +1520,7 @@ preInsureList() {
         sessionStorage.appollo2Detail = '';
         sessionStorage.appollo2Detail = JSON.stringify(value);
         console.log(this.insured.valid, 'check');
-        console.log(this.occupationClass,'this.occupationClass');
+        console.log(this.occupationClass1,'this.occupationClass');
         if (this.insured.valid) {
             if (sessionStorage.insuredAgeP >= 18 && sessionStorage.insuredAgeP < 56) {
                 if(this.occupationClass1 != false) {
