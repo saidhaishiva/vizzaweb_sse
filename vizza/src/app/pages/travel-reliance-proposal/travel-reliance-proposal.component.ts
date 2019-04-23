@@ -1197,6 +1197,7 @@ export class TravelRelianceProposalComponent implements OnInit {
 
     }
     sameAddress(values: any) {
+
         if (values.checked) {
             this.proposalRArea = JSON.parse(sessionStorage.proposalPArea);
             sessionStorage.proposalRArea = JSON.stringify(this.proposalRArea);
@@ -1235,9 +1236,15 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
     sameBurglaryAddress(values: any) {
         this.sameField = values.checked;
+
         if (values.checked) {
             this.commonPincode(this.personal.controls['personalBurglaryPincode'].value, 'proposalB');
+            this.selectBurglaryArea();
             this.inputBurglaryReadonly = true;
+            this.personal.controls['personalStateIdB'].setValue(this.personal.controls['personalStateIdP'].value);
+            this.personal.controls['residenceDistrictIdB'].setValue(this.personal.controls['personalDistrictIdP'].value);
+            this.personal.controls['personalCityIdB'].setValue(this.personal.controls['personalCityIdR'].value);
+
             this.personal.controls['personalBurglaryAddress'].setValue(this.personal.controls['personalAddress'].value);
             this.personal.controls['personalBurglaryAddress2'].setValue(this.personal.controls['personalAddress2'].value);
             this.personal.controls['personalBurglaryAddress3'].setValue(this.personal.controls['personalAddress3'].value);
@@ -1248,7 +1255,8 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.personal.controls['personalBurglaryNearestLandMark'].setValue(this.personal.controls['personalNearestLandMark'].value);
             this.personal.controls['personalBurglaryCountry'].setValue(this.personal.controls['personalCountry'].value);
             this.personal.controls['personalBurglaryArea'].setValue(this.personal.controls['personalArea'].value);
-
+            this.personal.controls['personalBurglaryAreaName'].setValue(this.personal.controls['personalAreaName'].value);
+            console.log( this.personal.controls['personalBurglaryAreaName'].value,'jhgfjhjfgh');
 
         } else {
             this.inputBurglaryReadonly = false;
@@ -1258,10 +1266,15 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.personal.controls['personalBurglaryCity'].setValue('');
             this.personal.controls['personalBurglaryPincode'].setValue('');
             this.personal.controls['personalBurglaryState'].setValue('');
+            this.personal.controls['personalStateIdB'].setValue('');
             this.personal.controls['personalBurglaryDistrict'].setValue('');
             this.personal.controls['personalBurglaryNearestLandMark'].setValue('');
             this.personal.controls['personalBurglaryCountry'].setValue('');
             this.personal.controls['personalBurglaryArea'].setValue('');
+            this.personal.controls['personalBurglaryAreaName'].setValue('');
+            this.personal.controls['personalStateIdB'].setValue('');
+            this.personal.controls['residenceDistrictIdB'].setValue('');
+            this.personal.controls['personalCityIdB'].setValue('');
 
 
         }
