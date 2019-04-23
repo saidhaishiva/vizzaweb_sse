@@ -651,7 +651,6 @@ export class BikeShriramProposalComponent implements OnInit {
     // proposal Creation
 
   proposal(stepper) {
-      alert();
       console.log( this.vehical.controls['addonPackage'].value,'0987');
       const data = {
           'platform': 'web',
@@ -751,7 +750,9 @@ export class BikeShriramProposalComponent implements OnInit {
           },
       }
       console.log(data,'fileeee');
-          this.bikeInsurance.proposalCreation(data).subscribe(
+      this.settings.loadingSpinner = true;
+
+      this.bikeInsurance.proposalCreation(data).subscribe(
               (successData) => {
                   this.proposalSuccess(successData,stepper);
               },
@@ -761,7 +762,8 @@ export class BikeShriramProposalComponent implements OnInit {
           );
   }
     public proposalSuccess(successData, stepper){
-      if(successData.IsSuccess){
+        this.settings.loadingSpinner = false;
+        if(successData.IsSuccess){
           stepper.next();
           this.toastr.success('Proposal created successfully!!');
           this.summaryData = successData.ResponseObject;
