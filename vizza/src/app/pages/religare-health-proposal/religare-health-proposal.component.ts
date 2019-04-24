@@ -130,6 +130,12 @@ export class ReligareHealthProposalComponent implements OnInit {
     nomineeFormData: any;
     personalmedicalAge: any;
     genderStatus: any;
+    public religareMobileTrue0: boolean;
+    public religareMobileTrue1: boolean;
+    public religareMobileTrue2: boolean;
+    public religareMobileTrue3: boolean;
+    public religareMobileTrue4: boolean;
+
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public validation: ValidationService ,public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -174,6 +180,11 @@ export class ReligareHealthProposalComponent implements OnInit {
         this.proposerInsureData = [];
         this.questions_list = [];
         this.arr = [];
+        this.religareMobileTrue0 = true;
+        this.religareMobileTrue1 = true;
+        this.religareMobileTrue2 = true;
+        this.religareMobileTrue3 = true;
+        this.religareMobileTrue4 = true;
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: new FormControl(''),
@@ -716,6 +727,8 @@ export class ReligareHealthProposalComponent implements OnInit {
                     stepper.next();
                     this.topScroll();
                     this.nextStep();
+                    this.religareMobileTrue0 = false;
+                    this.religareMobileTrue1 = false;
                 }
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
@@ -1414,6 +1427,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             stepper.next();
             this.topScroll();
             this.nextStep();
+            this.religareMobileTrue2 = false;
+            this.religareMobileTrue3 = false;
         }
     }
     subStatus(value: any, i, k, j) {
@@ -1452,6 +1467,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             sessionStorage.nomineeData = JSON.stringify(value);
             this.proposal(stepper);
             this.nextStep();
+            this.religareMobileTrue3 = false;
+            this.religareMobileTrue4 = false;
 
         }
     }
