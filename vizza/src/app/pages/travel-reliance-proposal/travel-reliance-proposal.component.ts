@@ -1270,6 +1270,7 @@ export class TravelRelianceProposalComponent implements OnInit {
             sessionStorage.proposalBArea = JSON.stringify(this.proposalBArea);
             this.inputReadonly = true;
             this.personal['controls'].residenceDistrictIdB.patchValue(this.personal.controls['personalDistrictIdP'].value);
+            console.log(this.personal['controls'].residenceDistrictIdB.value,'hgdahgdghhsd')
             this.personal['controls'].personalCityIdB.patchValue(this.personal.controls['personalCityIdP'].value);
             this.personal['controls'].personalStateIdB.patchValue(this.personal.controls['personalStateIdP'].value);
 
@@ -1295,12 +1296,14 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.personal.controls['personalBurglaryState'].setValue('');
             this.personal.controls['personalStateIdB'].setValue('');
             this.personal.controls['personalBurglaryDistrict'].setValue('');
+            console.log(this.personal.controls['personalBurglaryDistrict'],'eeeeeehghsdhkdnjkn')
             this.personal.controls['personalBurglaryNearestLandMark'].setValue('');
             this.personal.controls['personalBurglaryCountry'].setValue('');
             this.personal.controls['personalBurglaryArea'].setValue('');
             this.personal.controls['personalBurglaryAreaName'].setValue('');
             this.personal.controls['personalStateIdB'].setValue('');
             this.personal.controls['residenceDistrictIdB'].setValue('');
+            console.log(this.personal.controls['residenceDistrictIdB'].value,'gdhsghds')
             this.personal.controls['personalCityIdB'].setValue('');
 
 
@@ -1987,7 +1990,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                     this.personal['controls'].personalBurglaryState.patchValue('');
                     this.personal['controls'].personalBurglaryDistrict.patchValue('');
                     this.personal['controls'].personalBurglaryCity.patchValue('');
-                    this.personal['controls'].personalyDistrictIdB.patchValue('');
+                    this.personal['controls'].residenceDistrictIdB.patchValue('');
                     this.personal['controls'].personalCityIdB.patchValue('');
                     this.personal['controls'].personalStateIdB.patchValue('');
                     this.proposalBArea = '';
@@ -1997,7 +2000,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                     this.personal['controls'].personalBurglaryState.patchValue(this.response.state_name);
                     this.personal['controls'].personalBurglaryDistrict.patchValue(this.response.district_name);
                     this.personal['controls'].personalBurglaryCity.patchValue(this.response.city_village_name);
-                    this.personal['controls'].personalyDistrictIdB.patchValue(this.response.district_id);
+                    this.personal['controls'].residenceDistrictIdB.patchValue(this.response.district_id);
                     this.personal['controls'].personalCityIdB.patchValue(this.response.city_village_id);
                     this.personal['controls'].personalStateIdB.patchValue(this.response.state_id);
                     this.proposalBArea = this.response.area_details;
