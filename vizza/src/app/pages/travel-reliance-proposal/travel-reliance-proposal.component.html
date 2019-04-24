@@ -74,7 +74,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="PAN Number" formControlName="personalPan" minlength="10" class="text-uppercase" (keypress)="idValidate($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" autocomplete="off">
-                            <mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                            <!--<mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
                             <mat-error *ngIf="personal.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                           </mat-form-field>
                         </div>
@@ -221,7 +221,7 @@
                           <div class="row">
                             <div class="col-md-12">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Address 1" formControlName="residenceAddress" required autocomplete="off" [readonly]="inputReadonly">
+                                <input matInput placeholder="Address 1" formControlName="residenceAddress" required autocomplete="off" [readonly]="inputReadonly" >
                                 <mat-error *ngIf="personal.controls.residenceAddress.errors?.required">Address is required</mat-error>
                               </mat-form-field>
                             </div>
@@ -248,20 +248,20 @@
 
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="State" formControlName="residenceState" (keypress)="nameValidate($event)"  autocomplete="off"  required [readonly]="inputReadonly">
+                                <input matInput placeholder="State" formControlName="residenceState" (keypress)="nameValidate($event)"  autocomplete="off"  required  readonly >
                                 <mat-error *ngIf="personal.controls.residenceState.errors?.required">State is required</mat-error>
                               </mat-form-field>
                             </div>
 
                             <div class="col-md-6">
                               <mat-form-field  class="w-100">
-                                <input matInput placeholder="District" formControlName="residenceDistrict" (keypress)="nameValidate($event)"  autocomplete="off" required [readonly]="inputReadonly">
+                                <input matInput placeholder="District" formControlName="residenceDistrict" (keypress)="nameValidate($event)"  autocomplete="off"  readonly>
                                 <mat-error *ngIf="personal.controls.residenceDistrict.errors?.required">District is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100" >
-                                <input matInput placeholder="City" formControlName="residenceCity" (keypress)="nameValidate($event)"  autocomplete="off" required [readonly]="inputReadonly" >
+                                <input matInput placeholder="City" formControlName="residenceCity" (keypress)="nameValidate($event)"  autocomplete="off" required  readonly >
                                 <mat-error *ngIf="personal.controls.residenceCity.errors?.required">City is required</mat-error>
                               </mat-form-field>
                             </div>
@@ -306,13 +306,15 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Email ID"   formControlName="personalBurglaryEmail"  autocomplete="off">
+                            <input matInput placeholder="Email ID"   formControlName="personalBurglaryEmail"  autocomplete="off" required>
+                            <mat-error *ngIf="personal.controls.personalBurglaryEmail.errors?.required">Email ID is required</mat-error>
                             <mat-error *ngIf="personal.controls.personalBurglaryEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Mobile No" formControlName="personalBurglaryMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                            <input matInput placeholder="Mobile No" formControlName="personalBurglaryMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off" required>
+                            <mat-error *ngIf="personal.controls.personalBurglaryMobileNo.errors?.required">Mobile Number is required</mat-error>
                             <mat-error *ngIf="personal.controls.personalBurglaryMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                           </mat-form-field>
                         </div>
@@ -328,12 +330,14 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Address 1" formControlName="personalBurglaryAddress"  autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="Address 1" formControlName="personalBurglaryAddress"  autocomplete="off" [readonly]="inputBurglaryReadonly" required>
+                            <mat-error *ngIf="personal.controls.personalBurglaryAddress.errors?.required">Address is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Address 2" formControlName="personalBurglaryAddress2" autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="Address 2" formControlName="personalBurglaryAddress2" autocomplete="off" [readonly]="inputBurglaryReadonly" required>
+                            <mat-error *ngIf="personal.controls.personalBurglaryAddress2.errors?.required">Address is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
@@ -344,33 +348,38 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code" formControlName="personalBurglaryPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalB')" autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="PIN Code" formControlName="personalBurglaryPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalB')" autocomplete="off" [readonly]="inputBurglaryReadonly" required>
                             <!--<mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
+                            <mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('required')">Pincode required</mat-error>
                             <mat-error *ngIf="personal.controls.personalBurglaryPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field>
                         </div>
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="personalBurglaryState" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly" >
+                            <input matInput placeholder="State" formControlName="personalBurglaryState" (keypress)="nameValidate($event)"  autocomplete="off"  required readonly>
+                            <mat-error *ngIf="personal.controls.personalBurglaryState.errors?.required">State is required</mat-error>
                           </mat-form-field>
                         </div>
 
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="District" formControlName="personalBurglaryDistrict" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="District" formControlName="personalBurglaryDistrict" (keypress)="nameValidate($event)"  autocomplete="off"  required readonly>
+                            <mat-error *ngIf="personal.controls.personalBurglaryDistrict.errors?.required">District is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="City" formControlName="personalBurglaryCity" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="City" formControlName="personalBurglaryCity" (keypress)="nameValidate($event)"  autocomplete="off"  required readonly>
+                            <mat-error *ngIf="personal.controls.personalBurglaryCity.errors?.required">City is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Area" formControlName="personalBurglaryArea" (change)="selectBurglaryArea()" [disabled]="inputBurglaryReadonly">
+                            <mat-select  placeholder="Area" formControlName="personalBurglaryArea" (change)="selectBurglaryArea()" [disabled]="inputBurglaryReadonly" required>
                               <mat-option *ngFor="let list of proposalBArea | keys " [value]= 'list.key'> {{list.value}} </mat-option>
                             </mat-select>
+                            <mat-error *ngIf="personal.controls.personalBurglaryArea.errors?.required">Area is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -380,7 +389,8 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Country Name" formControlName="personalBurglaryCountry" (keypress)="nameValidate($event)" [readonly]="inputBurglaryReadonly" autocomplete="off">
+                            <input matInput placeholder="Country Name" formControlName="personalBurglaryCountry" (keypress)="nameValidate($event)" [readonly]="inputBurglaryReadonly" autocomplete="off" required>
+                            <mat-error *ngIf="personal.controls.personalBurglaryCountry.errors?.required">Country Name is required</mat-error>
                           </mat-form-field>
                         </div>
                       </div>
@@ -435,12 +445,12 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="City" formControlName="personalUniversityCity" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly">
+                            <input matInput placeholder="City" formControlName="personalUniversityCity" (keypress)="nameValidate($event)"  autocomplete="off"  readonly>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="personalUniversityState" (keypress)="nameValidate($event)"  autocomplete="off" [readonly]="inputBurglaryReadonly" >
+                            <input matInput placeholder="State" formControlName="personalUniversityState" (keypress)="nameValidate($event)"  autocomplete="off" readonly >
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -497,12 +507,12 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="personalSponsorState" autocomplete="off" [readonly]="inputSponsorReadonly" >
+                            <input matInput placeholder="State" formControlName="personalSponsorState" autocomplete="off"  readonly >
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="City" formControlName="personalSponsorCity" autocomplete="off" [readonly]="inputSponsorReadonly">
+                            <input matInput placeholder="City" formControlName="personalSponsorCity" autocomplete="off"  readonly>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -571,18 +581,18 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="personalCompanyState" autocomplete="off">
+                            <input matInput placeholder="State" formControlName="personalCompanyState" autocomplete="off" readonly>
                           </mat-form-field>
                         </div>
 
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="District" formControlName="personalCompanyDistrict" autocomplete="off">
+                            <input matInput placeholder="District" formControlName="personalCompanyDistrict" autocomplete="off" readonly>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <input matInput placeholder="City" formControlName="personalCompanyCity" autocomplete="off">
+                            <input matInput placeholder="City" formControlName="personalCompanyCity" autocomplete="off" readonly>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -961,7 +971,7 @@
                         </div>
                         <div class="col-md-12" >
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Passport Issuing Country"  formControlName="riskPassportIssuingCountry" [required]="riskDetails['controls'].riskIndian.value == false && riskDetails['controls'].riskIsResidingInIndia.value == false" (keypress)="idValidate($event)" autocomplete="off">
+                            <input matInput placeholder="Passport Issuing Country"  formControlName="riskPassportIssuingCountry" [required]="riskDetails['controls'].riskIndian.value == false && riskDetails['controls'].riskIsResidingInIndia.value == false" (keypress)="passportIssueValidation($event)" autocomplete="off">
                           </mat-form-field>
                         </div>
                       </div>
@@ -1326,9 +1336,9 @@
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.personalDob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalName}}</li>
 
-                        <li class="list-group-item" *ngIf="proposerFormData.personalPan != ''"><strong>Pan No:</strong> {{proposerFormData.personalPan}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalPan != ''"><strong>Pan No:</strong> {{proposerFormData.personalPan | uppercase }}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalAadhar != ''"><strong>Aadhaar No:</strong> {{proposerFormData.personalAadhar}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalGst != ''"><strong>GST Id:</strong> {{proposerFormData.personalGst}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalGst != ''"><strong>GST Id:</strong> {{proposerFormData.personalGst | uppercase }}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.gstin != ''"><strong>GSTIN Id:</strong> {{proposerFormData.gstin}}</li>
 
                       </ul>
@@ -1337,6 +1347,7 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Email ID:</strong> {{proposerFormData.personalEmail}}</li>
                         <li class="list-group-item"><strong>Mobile No:</strong> {{proposerFormData.personalMobile}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalPhone != ''"><strong>Phone No:</strong> {{proposerFormData.personalPhone}}</li>
                         <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationalName}}</li>
@@ -1353,12 +1364,13 @@
                         <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>
                         <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.personalAddress3}}</li>
-                        <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.personalCountry}}</li>
                         <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.personalPincode}}</li>
-                        <li class="list-group-item"><strong>City:</strong> {{proposerFormData.personalCity}}</li>
                         <li class="list-group-item"><strong>State:</strong> {{proposerFormData.personalState}}</li>
+                        <li class="list-group-item"><strong>District:</strong> {{proposerFormData.personalDistrict}}</li>
+                        <li class="list-group-item"><strong>City:</strong> {{proposerFormData.personalCity}}</li>
                         <li class="list-group-item"><strong>Area:</strong> {{proposerFormData.personalAreaName}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalNearestLandMark != ''"><strong>NearestLandmark:</strong> {{proposerFormData.personalNearestLandMark}}</li>
+                        <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.personalCountry}}</li>
                       </ul>
                     </div>
                   </div>
@@ -1370,12 +1382,13 @@
                         <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.residenceAddress}}</li>
                         <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.residenceAddress2}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.residenceAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.residenceAddress3}}</li>
-                        <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.personalCountry}}</li>
                         <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.residencePincode}}</li>
-                        <li class="list-group-item"><strong>City:</strong> {{proposerFormData.residenceCity}}</li>
                         <li class="list-group-item"><strong>State:</strong> {{proposerFormData.residenceState}}</li>
+                        <li class="list-group-item"><strong>District:</strong> {{proposerFormData.residenceDistrict}}</li>
+                        <li class="list-group-item"><strong>City:</strong> {{proposerFormData.residenceCity}}</li>
                         <li class="list-group-item"><strong>Area:</strong> {{proposerFormData.residenceAreaName}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.residenceNearestLandMark != ''"><strong>NearestLandmark:</strong> {{proposerFormData.residenceNearestLandMark}}</li>
+                        <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.personalCountry}}</li>
                       </ul>
                     </div>
                   </div>
@@ -1409,6 +1422,31 @@
                     </div>
                   </div>
 
+                  <div class="col-md-6" *ngIf="proposerFormData.personalSponsorFullname != ''">
+                    <div class="p-3">
+                      <h6 class="color-blue">SPONSOR DETAILS</h6>
+                      <ul class="m-0 list-group">
+                        <!--<li class="list-group-item"><strong>Is Same As Communication Address:</strong> {{proposerFormData.IsSponserAddressSameasCommAddress}}</li>-->
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorFullname != ''"><strong>Sponsor Name:</strong> {{proposerFormData.personalSponsorFullname}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorEmail != ''"><strong>Email:</strong> {{proposerFormData.personalSponsorEmail}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorMobileNo != ''"><strong>Mobile Number:</strong> {{proposerFormData.personalSponsorMobileNo}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorPhoneNo != ''"><strong>Phone Number:</strong> {{proposerFormData.personalSponsorPhoneNo}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorAddress != ''"><strong>Address 1:</strong> {{proposerFormData.personalSponsorAddress}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="proposerFormData.personalSponsorFullname != ''">
+                    <div class="p-3">
+                      <h6 class="color-blue mt-4"></h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalSponsorPincode}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorState != ''"><strong>State Name:</strong> {{proposerFormData.personalSponsorState}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorCity != ''"><strong>City Name:</strong> {{proposerFormData.personalSponsorCity}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalSponsorCountry}}</li>
+                      </ul>
+                    </div>
+                  </div>
+
 
                   <!--<div class="col-md-6" *ngIf="proposerFormData.personalBurglaryAddress != ''">-->
                   <div class="col-md-6" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code == 'Standard'">
@@ -1422,7 +1460,7 @@
                         <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryAddress != ''"><strong>Address 1:</strong> {{proposerFormData.personalBurglaryAddress}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryAddress2 != ''"><strong>Address 2:</strong> {{proposerFormData.personalBurglaryAddress2}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryAddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.personalBurglaryAddress3}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalBurglaryCountry}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalBurglaryPincode}}</li>
                       </ul>
                     </div>
                   </div>
@@ -1430,12 +1468,12 @@
                     <div class="p-3">
                       <h6 class="color-blue mt-4"></h6>
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalBurglaryPincode}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryCity != ''"><strong>City Name:</strong> {{proposerFormData.personalBurglaryCity}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalBurglaryDistrict}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryState != ''"><strong>State Name:</strong> {{proposerFormData.personalBurglaryState}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalBurglaryDistrict}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryCity != ''"><strong>City Name:</strong> {{proposerFormData.personalBurglaryCity}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryAreaName != ''"><strong>Area Name:</strong> {{proposerFormData.personalBurglaryAreaName}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryNearestLandMark != ''"><strong>Nearest Land mark:</strong> {{proposerFormData.personalBurglaryNearestLandMark}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalBurglaryCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalBurglaryCountry}}</li>
                       </ul>
                     </div>
                   </div>
@@ -1459,14 +1497,13 @@
                     <div class="p-3">
                       <h6 class="color-blue mt-4"></h6>
                       <ul class="m-0 list-group">
-
-                        <li class="list-group-item" *ngIf="proposerFormData.personalDoctorCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalDoctorCountry}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalDoctorPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalDoctorPincode}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalDoctorCity != ''"><strong>City Name:</strong> {{proposerFormData.personalDoctorCity}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalDoctorDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalDoctorDistrict}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalDoctorState != ''"><strong>State Name:</strong> {{proposerFormData.personalDoctorState}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalDoctorDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalDoctorDistrict}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalDoctorCity != ''"><strong>City Name:</strong> {{proposerFormData.personalDoctorCity}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalDoctorAreaName != ''"><strong>Area Name:</strong> {{proposerFormData.personalDoctorAreaName}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalDoctorNearestLandMark != ''"><strong>Nearest Land mark:</strong> {{proposerFormData.personalDoctorNearestLandMark}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalDoctorCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalDoctorCountry}}</li>
                       </ul>
                     </div>
                   </div>
@@ -1490,40 +1527,17 @@
                     <div class="p-3">
                       <h6 class="color-blue mt-4"></h6>
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalCompanyCountry}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalCompanyPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalCompanyPincode}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCity != ''"><strong>City Name:</strong> {{proposerFormData.personalCompanyCity}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalCompanyDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalCompanyDistrict}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalCompanyState != ''"><strong>State Name:</strong> {{proposerFormData.personalCompanyState}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalCompanyDistrict != ''"><strong>District Name:</strong> {{proposerFormData.personalCompanyDistrict}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCity != ''"><strong>City Name:</strong> {{proposerFormData.personalCompanyCity}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalCompanyAreaName != ''"><strong>Area Name:</strong> {{proposerFormData.personalCompanyAreaName}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalCompanyNearestLandMark != ''"><strong>Nearest Land mark:</strong> {{proposerFormData.personalCompanyNearestLandMark}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalCompanyCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalCompanyCountry}}</li>
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6" *ngIf="proposerFormData.personalSponsorFullname != ''">
-                    <div class="p-3">
-                      <h6 class="color-blue">SPONSOR DETAILS</h6>
-                      <ul class="m-0 list-group">
-                        <!--<li class="list-group-item"><strong>Is Same As Communication Address:</strong> {{proposerFormData.IsSponserAddressSameasCommAddress}}</li>-->
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorFullname != ''"><strong>Sponsor Name:</strong> {{proposerFormData.personalSponsorFullname}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorEmail != ''"><strong>Email:</strong> {{proposerFormData.personalSponsorEmail}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorMobileNo != ''"><strong>Mobile Number:</strong> {{proposerFormData.personalSponsorMobileNo}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorPhoneNo != ''"><strong>Phone Number:</strong> {{proposerFormData.personalSponsorPhoneNo}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorAddress != ''"><strong>Address 1:</strong> {{proposerFormData.personalSponsorAddress}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-6" *ngIf="proposerFormData.personalSponsorFullname != ''">
-                    <div class="p-3">
-                      <h6 class="color-blue mt-4"></h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorPincode != ''"><strong>Pincode:</strong> {{proposerFormData.personalSponsorPincode}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorCountry != ''"><strong>Country Name:</strong> {{proposerFormData.personalSponsorCountry}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorCity != ''"><strong>City Name:</strong> {{proposerFormData.personalSponsorCity}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalSponsorState != ''"><strong>State Name:</strong> {{proposerFormData.personalSponsorState}}</li>
-                      </ul>
-                    </div>
-                  </div>
+
                 </div>
               </mat-expansion-panel>
 
@@ -1537,7 +1551,7 @@
                   <div class="row box-card">
                     <div class="col-md-6">
                       <div class="p-3">
-                        <h6 class="color-blue">INSURED DETAILS FOR SELF</h6>
+                        <h6 class="color-blue mt-4"></h6>
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Name:</strong>{{item.personalTitle}} {{item.personalFirstname}} {{item.personalMidname}} {{item.personalLastname}}</li>
                           <li class="list-group-item" *ngIf="item.insurespouseFullname != ''"><strong>Name:</strong>{{item.personalTitle}} {{item.insurespouseFullname}}</li>
@@ -1548,6 +1562,7 @@
                           <li class="list-group-item" *ngIf="item.insureRelationshipName != ''"><strong>RelationShip:</strong> {{item.insureRelationshipName}}</li>
                           <li class="list-group-item"><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
                           <li class="list-group-item" *ngIf="item.personalPhone1 != '' && item.personalPhone1 != 0"><strong>Phone:</strong> {{item.personalPhone1}}</li>
+
                         </ul>
                       </div>
                     </div>
@@ -1561,10 +1576,40 @@
                             <span *ngFor="let lists of item.insureVisitingCountryName; let last = last;" > {{lists}} <span *ngIf="!last">,</span> </span>
                           </li>
                           <li class="list-group-item"><strong>Occupation:</strong> {{item.insureOccupationName}}</li>
-                          <li class="list-group-item"><strong>Is Under Medication:</strong> {{item.IsUnderMedication}}</li>
+                          <li class="list-group-item"><strong>Is Under Medication:</strong><span *ngIf="item.IsUnderMedication">Yes</span>
+                            <span *ngIf="!item.IsUnderMedication">No</span></li>
                           <li class="list-group-item" *ngIf="item.insurePreExistingIllnessName != ''"><strong>Pre-Existing Illness:</strong> {{item.insurePreExistingIllnessName}}</li>
                           <li class="list-group-item" *ngIf="item.SufferingSince != '' && item.SufferingSince != undefined "><strong>Suffering Since:</strong> {{item.SufferingSince  | date: 'dd/MM/yyyy'}}</li>
+
+
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+
+                </mat-expansion-panel>
+              </div>
+              <div *ngFor="let item of insuredFormData; let i = index;">
+                <mat-expansion-panel   [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      NOMINEE DETAILS
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="row box-card">
+                    <div class="col-md-6">
+                      <div class="p-3">
+                        <h6 class="color-blue mt-4"></h6>
+                        <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Nominee Name:</strong> {{item.nomineeName}}</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3">
+                        <h6 class="color-blue mt-4"></h6>
+                        <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Nominee Relationship:</strong> {{item.insureNomineeRelationshipName}}</li>
                         </ul>
                       </div>
@@ -1585,7 +1630,7 @@
                 <div class="row box-card">
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue">List Of Travel persons Details</h6>
+                      <h6 class="color-blue">LIST OF TRAVEL PERSONS DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item">
                           <strong> Is Indian Citizen : </strong>
@@ -1643,7 +1688,7 @@
                           <span>No</span>
                         </li>
 
-                        <li class="list-group-item" *ngIf="riskFormData.riskPreExistDiseaseName">
+                        <li class="list-group-item" *ngIf="riskFormData.riskPreExistDiseaseName!=''">
                           <strong>Pre-Exist Disease : </strong>
                           <span *ngFor="let lists of riskFormData.riskPreExistDiseaseName; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">,</span> </span>
                         </li>
