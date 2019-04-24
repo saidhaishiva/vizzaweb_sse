@@ -127,6 +127,7 @@ import {LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-bajaj
 import {ShriramMotorPaymentSuccessComponent} from './pages/shriram-motor-payment-success/shriram-motor-payment-success.component';
 import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
 import {BikeRoyalProposalComponent} from './pages/bike-royal-proposal/bike-royal-proposal.component';
+import {DownloadPolicyTravelComponent} from './pages/download-policy-travel/download-policy-travel.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -191,6 +192,7 @@ export const routes: Routes = [
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
+            { path: 'downloadPolicyTravel/:id', component: DownloadPolicyTravelComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
             { path: 'religare-health-proposal/:stepper', component: ReligareHealthProposalComponent, data: { breadcrumb: 'Religare' }, canDeactivate: [ReligareHealthDeactivateGuardService] },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' }, canDeactivate: [ResultDeactivateGuard] },

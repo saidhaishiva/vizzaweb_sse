@@ -281,15 +281,15 @@
                           <mat-error *ngIf="proposer.controls.motherName.errors?.required">Mother Name is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Spouse Birth Place" formControlName="spouseBirthPlace" maxlength="45" autocomplete="off" required >
+                          <input matInput placeholder="Spouse Birth Place" formControlName="spouseBirthPlace" maxlength="45" autocomplete="off" required="{{proposer['controls'].maritalStatus.value}}" >
                           <mat-error *ngIf="proposer.controls.spouseBirthPlace.errors?.required">Spouse Birth Place is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Spouse Name" formControlName="spouseName" maxlength="45" autocomplete="off" required >
+                          <input matInput placeholder="Spouse Name" formControlName="spouseName" maxlength="45" autocomplete="off" required="{{proposer['controls'].maritalStatus.value}}" >
                           <mat-error *ngIf="proposer.controls.spouseName.errors?.required">Spouse Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -469,7 +469,7 @@
                         </div>
 
                       </div>
-                    <div class="row">
+                    <div class="row" *ngIf="proposer['controls'].occupationList.value != 'U' && proposer['controls'].occupationList.value != 'T' && proposer['controls'].occupationList.value != 'R' && proposer['controls'].occupationList.value != 'NM' && proposer['controls'].occupationList.value != 'H' && proposer['controls'].occupationList.value != 'A' ">
 
                     <div class="col-md-12 mt-3">
                       <h6 class="color-blue">OFFICE DETAILS</h6>
