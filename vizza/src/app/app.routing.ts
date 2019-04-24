@@ -117,20 +117,15 @@ import { TravelRelianceProposalComponent} from './pages/travel-reliance-proposal
 import {HealthInsuranceResolver} from './pages/health-insurance/health-insurance.resolver';
 import {BajajDownloadPolicyComponent} from './pages/bajaj-download-policy/bajaj-download-policy.component';
 import {EndowmentLifeInsuranceComponent} from './pages/endowment-life-insurance/endowment-life-insurance.component';
-// import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
+import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
 import {ReligareDownloadPaPolicyComponent} from './pages/religare-download-pa-policy/religare-download-pa-policy.component';
 import {ReliancePaComponent} from './pages/reliance-pa/reliance-pa.component';
-import {BikePremiumListComponent} from './pages/bike-premium-list/bike-premium-list.component';
-import {TermLifePremiumListComponent} from './pages/term-life-premium-list/term-life-premium-list.component';
-import {BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
-import {LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
-import {ShriramMotorPaymentSuccessComponent} from './pages/shriram-motor-payment-success/shriram-motor-payment-success.component';
-import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
-import {BikeRoyalProposalComponent} from './pages/bike-royal-proposal/bike-royal-proposal.component';
-import {DownloadPolicyTravelComponent} from './pages/download-policy-travel/download-policy-travel.component';
+import {TravelBajajalianzProposalComponent} from './pages/travel-bajajalianz-proposal/travel-bajajalianz-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: 'bajaj-travel' , component: TravelBajajalianzProposalComponent},
+
     {
         path: '',
         component: PagesComponent, children: [
@@ -192,7 +187,6 @@ export const routes: Routes = [
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
-            { path: 'downloadPolicyTravel/:id', component: DownloadPolicyTravelComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
             { path: 'religare-health-proposal/:stepper', component: ReligareHealthProposalComponent, data: { breadcrumb: 'Religare' }, canDeactivate: [ReligareHealthDeactivateGuardService] },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' }, canDeactivate: [ResultDeactivateGuard] },
@@ -229,29 +223,22 @@ export const routes: Routes = [
             { path: 'appollopa/:stepper',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'},canDeactivate: [AppolloPaproposaldeactivateGuardService]},
             { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
-            { path: 'religaretravel/:stepper', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
-            { path: 'reliancetravel/:stepper', component: TravelRelianceProposalComponent, data:{breadcrumb: 'Reliance Travel Proposal'}},
+            { path: 'religaretravel', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
+            { path: 'reliancetravel', component: TravelRelianceProposalComponent, data:{breadcrumb: 'Reliance Travel Proposal'}},
             { path: 'term-life', component: TermLifeComponent, data:{breadcrumb: 'Term Life Insurance'}},
             { path: 'endowment-life-insurance', component: EndowmentLifeInsuranceComponent, data:{breadcrumb: 'Endowment Life Insurance'}},
             { path: 'hdfc-insurance/:stepper', component: HdfcHealthInsuranceComponent, data:{breadcrumb: 'HDFC Insurance'}, canDeactivate: [HdfcproposaldeactivateGuardService]},
             { path: 'hdfc-personalAccident/:stepper', component: HdfcPersonalaccidentComponent, data:{breadcrumb: 'HDFC PersonalAccident'}, canDeactivate: [HdfcPaproposaldeactivateGuardService]},
-            { path: 'shriram-travel-home/:stepper', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
+            { path: 'shriram-travel-home', component: TravelShriramProposalComponent, data:{breadcrumb: 'Shriram Travel'}},
             { path: 'hdfc-payment-success/:status/:proId/:policyStatus', component: HdfcHealthPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-pa-payment-success/:status/:proId', component: HdfcPaPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'hdfc-travel-payment-success/:status/:proId', component: HdfcTravelPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
-            { path: 'travel-religare-payment-success/:status/:proId/:policyNo/:policyStatus', component: TravelReligarePaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
+            { path: 'travel-religare-payment-success/:status/:proId', component: TravelReligarePaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'shriram-travel-payment-success/:status/:proId', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
-            { path: 'shriram-travel-payment-success/:status/:proId/:mailstatus', component: TravelShriramPaymentSuccessComponent, data:{breadcrumb: 'Payment Success'}},
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
             { path: 'hdfc-travel/:stepper', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
             { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
             { path: 'reliance-pa', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
-            { path: 'bikepremium', component: BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
-            { path: 'life-premium-list', component: TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} },
-            { path: 'bike-shriram-proposal/:stepper', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
-            { path: 'life-bajaj-proposal/:stepper', component: LifeBajajProposalComponent, data:{ breadcrumb: 'life-bajaj-proposal'}},
-            { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
-            { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},
 
         ]
     },
