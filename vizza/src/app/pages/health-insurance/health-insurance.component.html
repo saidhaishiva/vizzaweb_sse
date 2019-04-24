@@ -294,7 +294,7 @@
     <mat-form-field class="w-100">
       <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
       <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
-        <mat-option *ngFor="let amounts of sumInsuredAmountLists" value="{{amounts.si_id}}" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
+        <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
