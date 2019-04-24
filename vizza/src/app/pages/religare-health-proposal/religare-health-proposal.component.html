@@ -943,7 +943,8 @@
     <div class="row religareHealthProposal">
       <div class="col-sm-12 col-xs-12">
         <mat-accordion>
-          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" [disabled]="religareMobileTrue0">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 PROPOSER DETAILS
@@ -1144,7 +1145,8 @@
               </div>
             </form>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
+
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="religareMobileTrue1">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 INSURED DETAILS
@@ -1283,7 +1285,8 @@
               </form>
             </mat-accordion>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
+
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="religareMobileTrue2">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 MEDICAL HISTORY
@@ -1338,7 +1341,8 @@
 
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
+
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="religareMobileTrue3">
             <mat-expansion-panel-header>
               <mat-panel-title> NOMINEE DETAILS</mat-panel-title>
             </mat-expansion-panel-header>
@@ -1374,7 +1378,8 @@
 
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled hideToggle>
+
+          <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" [disabled]="religareMobileTrue4">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 SUMMARY DETAILS
@@ -1558,6 +1563,7 @@
               </div>
             </section>
           </mat-expansion-panel>
+
         </mat-accordion>
       </div>
     </div>

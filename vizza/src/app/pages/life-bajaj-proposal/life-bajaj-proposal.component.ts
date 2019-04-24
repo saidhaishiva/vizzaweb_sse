@@ -254,7 +254,6 @@ export class LifeBajajProposalComponent implements OnInit {
     this.country();
     this.title();
     this.weightChanged();
-    this.occupation();
     this.mainQuestion();
     this.nomineeRelation();
     this.getIncomeProof();
@@ -1119,14 +1118,16 @@ ageCalculateInsurer(getDays) {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pincode': pin
     }
-    this.termService.getPincode(data).subscribe(
-        (successData) => {
-          this.pincodeListSuccess(successData, title);
-        },
-        (error) => {
-          this.pincodeListFailure(error);
-        }
-    );
+    if(pin.length == 6) {
+        this.termService.getPincode(data).subscribe(
+            (successData) => {
+                this.pincodeListSuccess(successData, title);
+            },
+            (error) => {
+                this.pincodeListFailure(error);
+            }
+        );
+    }
   }
 
   public pincodeListSuccess(successData, title) {
@@ -1251,6 +1252,7 @@ ageCalculateInsurer(getDays) {
 
   occupationListCode() {
     this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
+      this.occupation();
   }
 
   changeLanguage() {

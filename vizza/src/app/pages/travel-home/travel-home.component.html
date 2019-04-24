@@ -254,9 +254,9 @@
                             <mat-option value="Holiday">
                               Holiday
                             </mat-option>
-                            <mat-option value="Multi">
-                              Multiple trips in a year
-                            </mat-option>
+                            <!--<mat-option value="Multi">-->
+                              <!--Multiple trips in a year-->
+                            <!--</mat-option>-->
                           </mat-select>
                         </mat-form-field>
                         <div class="error" *ngIf="travelTypeError != ''">Required</div>
@@ -685,6 +685,7 @@
   <div class="row my-flex-card">
     <!--<h2 class="w-100 text-center" style="color: #9769DF"><button mat-icon-button color="accent"><img src="assets/img/travel-insurance.png" class="logo-size"></button> Travel Insurance</h2>-->
     <h2 class="w-100 text-center" fxLayoutAlign="center center" style="color: #9769DF;"><img src="assets/img/travel-insurance.png" class="logo-size">&nbsp;Travel Insurance</h2>
+    <p class="w-100 text-center"> <button class="btn btn-sm" (click)="travelInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
 
     <div *ngIf="show" class="col-md-12 col-sm-12 col-xs-12">
       <div class="card">
@@ -978,12 +979,17 @@
                     <mat-icon matSuffix>place</mat-icon>
                   </mat-form-field>
                   <div *ngIf="pinerror" class="ngError">Required</div>
+                  <!--<div fxLayoutAlign="center center" class="mt-3">-->
+                    <!--<button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed <i class="material-icons">play_arrow</i></button>-->
+                  <!--</div>-->
+                  <!--<div fxLayoutAlign="end center" class="text-right refreshBtn" >-->
+                    <!--<i class="material-icons" (click)="refresh()">refresh</i> Reset-->
+                  <!--</div>-->
                   <div fxLayoutAlign="center center" class="mt-3">
-                    <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed <i class="material-icons">play_arrow</i></button>
+                    <button mat-raised-button color="accent" class="btn-color" type="button" (click)="submit('family')">Proceed</button>
+                    <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons" (click)="refresh()">refresh</i> Reset</button>
                   </div>
-                  <div fxLayoutAlign="end center" class="text-right refreshBtn" >
-                    <i class="material-icons" (click)="refresh()">refresh</i> Reset
-                  </div>
+
                 </div>
               </div>
             </mat-tab>

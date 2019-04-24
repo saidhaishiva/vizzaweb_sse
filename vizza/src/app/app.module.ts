@@ -255,14 +255,7 @@ import { IffcoTokioHealthPayamentSuccessComponent } from './pages/iffco-tokio-he
 import { ReligareDownloadPaPolicyComponent } from './pages/religare-download-pa-policy/religare-download-pa-policy.component';
 import {ReliancePaComponent} from './pages/reliance-pa/reliance-pa.component';
 import { TermLifeCommonService } from './shared/services/term-life-common.service';
-import { BikePremiumListComponent } from './pages/bike-premium-list/bike-premium-list.component';
-import {BikeInsuranceService} from './shared/services/bike-insurance.service';
-import { TermLifePremiumListComponent } from './pages/term-life-premium-list/term-life-premium-list.component';
-import { LifeBajajProposalComponent} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
-import { BikeShriramProposalComponent} from './pages/bike-shriram-proposal/bike-shriram-proposal.component';
-import{ ClearSessionTravelService} from './shared/services/clear-session-travel.service';
-import { ShriramMotorPaymentSuccessComponent } from './pages/shriram-motor-payment-success/shriram-motor-payment-success.component';
-import { BikeRoyalProposalComponent } from './pages/bike-royal-proposal/bike-royal-proposal.component';
+import { TravelBajajalianzProposalComponent } from './pages/travel-bajajalianz-proposal/travel-bajajalianz-proposal.component';
 
 @NgModule({
   imports: [
@@ -348,7 +341,7 @@ import { BikeRoyalProposalComponent } from './pages/bike-royal-proposal/bike-roy
       TravelHomeComponent,
       TravelInsurer,
       PosstatusAlertTravel,
-      // PersonalAccidentProposalComponent,
+      //PersonalAccidentProposalComponent,
       PosCertificateComponent,
       TrainingComponent,
       // RelianceComponent,
@@ -479,12 +472,7 @@ import { BikeRoyalProposalComponent } from './pages/bike-royal-proposal/bike-roy
       IffcoTokioHealthPayamentSuccessComponent,
       ReligareDownloadPaPolicyComponent,
       ReliancePaComponent,
-      BikePremiumListComponent,
-      TermLifePremiumListComponent,
-      LifeBajajProposalComponent,
-      BikeShriramProposalComponent,
-      ShriramMotorPaymentSuccessComponent,
-      BikeRoyalProposalComponent
+      TravelBajajalianzProposalComponent,
 
   ],
   providers: [
@@ -523,8 +511,6 @@ import { BikeRoyalProposalComponent } from './pages/bike-royal-proposal/bike-roy
       LifeService,
       ClearSessionPaService,
       TermLifeCommonService,
-      BikeInsuranceService,
-      ClearSessionTravelService,
 
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
     { provide: OverlayContainer, useClass: CustomOverlayContainer }

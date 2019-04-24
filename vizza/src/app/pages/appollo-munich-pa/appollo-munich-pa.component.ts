@@ -125,7 +125,6 @@ CheckHabits : boolean;
 readonlyProposer : boolean;
     occupationClass1 : boolean;
     rider : boolean;
-    riderList : boolean;
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
       this.route.params.forEach((params) => {
@@ -164,7 +163,6 @@ readonlyProposer : boolean;
       this.habits = true;
       this.rider = true;
       this.bmiValue = false;
-      this.riderList = true;
 
 
       this.ProposerPa = this.proposerpa.group({
@@ -271,7 +269,8 @@ readonlyProposer : boolean;
           insuredHeight:'',
           insuredWeight:'',
           ttdrider:false,
-          sameAsProposer:false
+          sameAsProposer:false,
+          riderList: true
       });
       this.nomineeDetail = this.proposerpa.group({
           paNomineeTitle: ['', Validators.required],
@@ -411,7 +410,11 @@ readonlyProposer : boolean;
                 insuredWaive: this.appollo2.insuredWaive,
                 relationshipcd: this.appollo2.relationshipcd,
                 ttdrider: this.appollo2.ttdrider,
+                riderList: this.appollo2.riderList
             });
+            if(this.appollo2.riderList == false){
+                this.insured.controls['riderList'].patchValue(false);
+            }
             if(this.appollo2.insuredPaIdProof != ''){
                 this.panType('insurer');
             }
@@ -1232,16 +1235,19 @@ preInsureList() {
         if (successData.IsSuccess) {
             this.occupationClass = successData.ResponseObject;
             for (let i=0; i < this.occupationClass.length ; i++){
-                if(this.occupationClass[i].class == '3'){
-                    this.riderList = false;
-                } else{
-                    this.riderList = true;
-                }
-                if(this.occupationClass[i].class == '4'){
-                    this.occupationClass1 = false;
-                } else {
-                    this.occupationClass1 = true;
+                if(this.occupationClass[i].class == '3'|| this.occupationClass[i].class == '4'){
+                    this.insured.controls['riderList'].patchValue(false);
+                    this.insured.controls['ttdrider'].patchValue(false);
+                    if(this.occupationClass[i].class == '3')
+                        sessionStorage.appollo2Detail ='';
 
+
+                } else{
+                    this.insured.controls['riderList'].patchValue(true);
+                }
+
+                if(this.occupationClass[i].class != 4){
+                    this.occupationClass1 = true;
                 }
             }
         } else {
@@ -1252,9 +1258,12 @@ preInsureList() {
             this.toastr.error(successData.ErrorObject);
         }
 
+        console.log(this.insured.controls['riderList'].value,'ooooooo');
+
     }
 
     public occupationClassFailure(error) {
+
     }
 
     // profession List
@@ -1656,14 +1665,19 @@ preInsureList() {
     // }
     // star-health-proposal creation
     createrPoposal(stepper){
+
       let enq_id = this.getAllPremiumDetails.enquiry_id;
+      // if(this.insured.controls['riderList'].value) {
+      //     this.insured.controls['ttdrider'].patchValue(false);
+      // }
+        console.log(this.insured.controls['ttdrider'].value,'jhjgdg');
         const data = {
     "enquiry_id": enq_id.toString(),
     'proposal_id': sessionStorage.appolloPAproposalID == '' || sessionStorage.appolloPAproposalID == undefined ? '' : sessionStorage.appolloPAproposalID,
     "user_id": "0",
     "role_id": "4",
     "pos_status": "0",
-    "ttdrider": this.insured.controls['ttdrider'].value ? '1' : '0',
+    "ttdrider": this.insured.controls['ttdrider'].value == true || this.insured.controls['ttdrider'].value == 'true' ? '1' : '0',
     "ProposalCaptureServiceRequest": {
         "Prospect": {
             "Application": {
@@ -1784,8 +1798,9 @@ preInsureList() {
             },
             "MedicalInformations": 'Nil'
         }
-    }
+    },
 }
+console.log(data,'888888888');
         this.settings.loadingSpinner = true;
         this.personalservice.getPersonalAccidentAppolloProposal(data).subscribe(
             (successData) => {
@@ -1797,7 +1812,6 @@ preInsureList() {
         );
 
     }
-
 
     public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
