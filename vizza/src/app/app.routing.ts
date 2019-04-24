@@ -128,6 +128,7 @@ import {ShriramMotorPaymentSuccessComponent} from './pages/shriram-motor-payment
 import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-health-payament-success/iffco-tokio-health-payament-success.component';
 import {BikeRoyalProposalComponent} from './pages/bike-royal-proposal/bike-royal-proposal.component';
 import {DownloadPolicyTravelComponent} from './pages/download-policy-travel/download-policy-travel.component';
+import {TravelBajajalianzProposalComponent} from './pages/travel-bajajalianz-proposal/travel-bajajalianz-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -252,6 +253,7 @@ export const routes: Routes = [
             { path: 'life-bajaj-proposal/:stepper', component: LifeBajajProposalComponent, data:{ breadcrumb: 'life-bajaj-proposal'}},
             { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
             { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},
+            { path: 'bajaj-travel', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
 
         ]
     },
