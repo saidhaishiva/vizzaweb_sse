@@ -412,6 +412,9 @@ readonlyProposer : boolean;
                 ttdrider: this.appollo2.ttdrider,
                 riderList: this.appollo2.riderList
             });
+            if(this.appollo2.riderList == false){
+                this.insured.controls['riderList'].patchValue(false);
+            }
             if(this.appollo2.insuredPaIdProof != ''){
                 this.panType('insurer');
             }
@@ -1232,17 +1235,13 @@ preInsureList() {
         if (successData.IsSuccess) {
             this.occupationClass = successData.ResponseObject;
             for (let i=0; i < this.occupationClass.length ; i++){
-                if(this.occupationClass[i].class == '3'){
+                if(this.occupationClass[i].class == '3'|| this.occupationClass[i].class == '4'){
                     this.insured.controls['riderList'].patchValue(false);
-                    sessionStorage.appollo2Detail ='';
+                    this.insured.controls['ttdrider'].patchValue(false)
+                    if(this.occupationClass[i].class == '3')
+                        sessionStorage.appollo2Detail ='';
                 } else{
                     this.insured.controls['riderList'].patchValue(true);
-                }
-                if(this.occupationClass[i].class == '4'){
-                    this.occupationClass1 = false;
-                } else {
-                    this.occupationClass1 = true;
-
                 }
             }
         } else {
@@ -1252,6 +1251,8 @@ preInsureList() {
             }
             this.toastr.error(successData.ErrorObject);
         }
+
+        console.log(this.insured.controls['riderList'].value,'ooooooo');
 
     }
 
@@ -1659,9 +1660,9 @@ preInsureList() {
     createrPoposal(stepper){
 
       let enq_id = this.getAllPremiumDetails.enquiry_id;
-      if(this.insured.controls['riderList'].value) {
-          this.insured.controls['ttdrider'].patchValue('false');
-      }
+      // if(this.insured.controls['riderList'].value) {
+      //     this.insured.controls['ttdrider'].patchValue(false);
+      // }
         console.log(this.insured.controls['ttdrider'].value,'jhjgdg');
         const data = {
     "enquiry_id": enq_id.toString(),
@@ -1669,7 +1670,7 @@ preInsureList() {
     "user_id": "0",
     "role_id": "4",
     "pos_status": "0",
-    "ttdrider": this.insured.controls['ttdrider'].value ? '1' : '0',
+    "ttdrider": this.insured.controls['ttdrider'].value == true || this.insured.controls['ttdrider'].value == 'true' ? '1' : '0',
     "ProposalCaptureServiceRequest": {
         "Prospect": {
             "Application": {
@@ -1790,8 +1791,9 @@ preInsureList() {
             },
             "MedicalInformations": 'Nil'
         }
-    }
+    },
 }
+console.log(data,'888888888');
         this.settings.loadingSpinner = true;
         this.personalservice.getPersonalAccidentAppolloProposal(data).subscribe(
             (successData) => {
@@ -1803,7 +1805,6 @@ preInsureList() {
         );
 
     }
-
 
     public proposalSuccess(successData, stepper) {
         this.settings.loadingSpinner = false;
