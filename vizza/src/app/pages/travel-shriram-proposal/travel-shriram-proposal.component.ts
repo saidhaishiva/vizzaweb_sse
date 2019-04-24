@@ -693,12 +693,20 @@ export class TravelShriramProposalComponent implements OnInit {
         sessionStorage.stepper1ShriramTravel = '';
         sessionStorage.stepper1ShriramTravel = JSON.stringify(value);
         this.personalData = value;
+        // if (this.personal.valid) {
+        // if (sessionStorage.proposerAgeForTravel >= 18) {
+        //     stepper.next();
+        //     this.nextStep();
+        //     this.topScroll();
+        //
+        // } else {
+        //     this.toastr.error('Proposer age should be 18 or above');
+        // }
+        // }
         if (this.personal.valid) {
             if (sessionStorage.proposerAgeForTravel >= 18) {
                 stepper.next();
-                this.nextStep();
                 this.topScroll();
-
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
