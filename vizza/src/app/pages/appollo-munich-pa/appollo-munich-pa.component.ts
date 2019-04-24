@@ -1237,11 +1237,17 @@ preInsureList() {
             for (let i=0; i < this.occupationClass.length ; i++){
                 if(this.occupationClass[i].class == '3'|| this.occupationClass[i].class == '4'){
                     this.insured.controls['riderList'].patchValue(false);
-                    this.insured.controls['ttdrider'].patchValue(false)
+                    this.insured.controls['ttdrider'].patchValue(false);
                     if(this.occupationClass[i].class == '3')
                         sessionStorage.appollo2Detail ='';
+
+
                 } else{
                     this.insured.controls['riderList'].patchValue(true);
+                }
+
+                if(this.occupationClass[i].class != 4){
+                    this.occupationClass1 = true;
                 }
             }
         } else {
@@ -1257,6 +1263,7 @@ preInsureList() {
     }
 
     public occupationClassFailure(error) {
+
     }
 
     // profession List

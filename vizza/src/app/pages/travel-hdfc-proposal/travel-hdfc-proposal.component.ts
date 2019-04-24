@@ -430,8 +430,6 @@ export class TravelHdfcProposalComponent implements OnInit {
                         console.log(this.getDays,'kjgjhagdjad');
                         this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
                         this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(dob);
-                } else {
-                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
                 }
             }else if (typeof event.value._i == 'object') {
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
@@ -461,17 +459,17 @@ export class TravelHdfcProposalComponent implements OnInit {
     ageValidation(i, type) {
 console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value,'this.hdfcInsuredTravel[\'controls\'].items[\'controls\'][i][\'controls\'].ins_age.value')
         if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 6574 || this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value >= 25931 && type == 'Self') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 18 years to 70 years');
-            console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value,'this.hdfcInsuredTravel[\'controls\'].items[\'controls\'][i][\'controls\'].ins_age.value')
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Age should be 18 years to 70 years');
+            console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value,'this.hdfcInsuredTravel[\'controls\'].items[\'controls\'][i][\'controls\'].ins_age.value')
 
         } else if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value >= 6574 || this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 25931 && type == 'Self') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
             this.arr.push(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value);
         }
         if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 6574 || this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value >= 25931 && type == 'Spouse') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 18 years to 70 years');
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('Age should be 18 years to 70 years');
         } else if (this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value >= 6574 || this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value <= 25931 && type == 'Spouse') {
-            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
             this.arr.push(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_age.value);
         }
 
