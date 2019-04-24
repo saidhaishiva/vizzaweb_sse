@@ -619,7 +619,8 @@ export class TravelProposalComponent implements OnInit {
         console.log(this.personalData,'hgfsdfdsjfg');
         console.log(this.personal.controls['personalgstIdType'].value,'8809809');
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
-        if (this.personal.valid) {
+        console.log(this.personalDobError);
+        if (this.personal.valid && this.personalDobError== '') {
             if (sessionStorage.proposerAgeForTravel >= 18 || sessionStorage.proposerAgeForTravel <= 90 ) {
                 if((this.personal.controls['physicianName'].value == '' &&  this.personal.controls['physicianContactNumber'].value == '') || (this.personal.controls['physicianName'].value != '' &&  this.personal.controls['physicianContactNumber'].value != '')){
                     if((this.personal.controls['personalgstIdType'].value == '' && this.personal.controls['personalGst'].value == '') || (this.personal.controls['personalgstIdType'].value != '' && this.personal.controls['personalGst'].value != '')){
