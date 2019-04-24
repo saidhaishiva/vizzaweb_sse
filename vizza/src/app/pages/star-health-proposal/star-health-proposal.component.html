@@ -4,6 +4,7 @@
     <div class="col-md-12">
       <mat-horizontal-stepper [linear]="isLinear" #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="personal">
+
           <form [formGroup]="personal" (submit)="personalDetails(stepper, personal.value)">
             <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
             <mat-accordion class="w-100 float-left">
@@ -410,6 +411,7 @@
 
           </mat-accordion>
         </mat-step>
+
         <mat-step [stepControl]="">
           <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
@@ -477,6 +479,7 @@
             </mat-expansion-panel>
           </mat-accordion>
         </mat-step>
+
         <mat-step [stepControl]="">
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
@@ -684,6 +687,7 @@
             </div>
           </div>
         </mat-step>
+
       </mat-horizontal-stepper>
     </div>
   </div>
@@ -696,6 +700,7 @@
     <div class="row starHealthProposal">
       <div class="col-sm-12 col-xs-12">
         <mat-accordion>
+
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title> PROPOSER DETAILS </mat-panel-title>
@@ -959,31 +964,35 @@
                 </div>
             </form>
           </mat-expansion-panel>
+
+
           <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
-            <mat-expansion-panel-header>
+            <mat-expansion-panel-header style="margin-top: 10px;">
               <mat-panel-title>
                 INSURED DETAILS
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <mat-accordion class="w-100 float-left insuredStepper">
-              <div class="col-sm-12 col-xs-12 box-card"  *ngFor="let item of familyMembers; let i = index">
+            <mat-accordion>
+              <div class="row">
+              <div class="col-sm-12 col-12"  *ngFor="let item of familyMembers; let i = index">
                 <mat-expansion-panel [expanded]="i == 0">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
                       {{item.type | uppercase}} DETAILS
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-                  <ng-template matStepLabel>INSURED DETAILS </ng-template>
+                  <!--<ng-template matStepLabel>INSURED DETAILS </ng-template>-->
 
-                  <div class="row" >
+                  <!--<div class="row" >-->
+                    <!--<div class="col">-->
                     <!--<h6 class="color-blue">INSURED DETAILS ({{item.type | uppercase}})</h6>-->
                     <div class="row">
-                      <div class="col-sm-12 col-xs-12">
+                      <div class="col-sm-12 col-12">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Name" [(ngModel)]="item.ins_name"   maxlength="50" (keypress)="nameValidate($event)" required>
                         </mat-form-field>
                       </div>
-                      <div class="col-sm-12 col-xs-12">
+                      <div class="col-sm-12 col-12">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker2" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required>
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -993,7 +1002,7 @@
                         <div class="error" *ngIf="item.insurerDobError != ''">{{item.insurerDobError}}</div>
                       </div>
                       <!--<div class="col-sm-12 col-xs-12" *ngIf="item.type == 'Self'">-->
-                      <div class="col-sm-12 col-xs-12" >
+                      <div class="col-sm-12 col-12" >
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Gender" [(ngModel)]="item.ins_gender" required>
                             <mat-option value="Male">Male</mat-option>
@@ -1006,13 +1015,13 @@
                       <!--<input matInput placeholder="Gender" [(ngModel)]="item.ins_gender" required readonly>-->
                       <!--</mat-form-field>-->
                       <!--</div>-->
-                      <div class="col-sm-12 col-xs-12"><mat-form-field class="w-100">
+                      <div class="col-sm-12 col-12"><mat-form-field class="w-100">
                         <input matInput placeholder="Height(cms)" (keypress)="numberValidate($event)"  maxlength="3"  [(ngModel)]="item.ins_height" autocomplete="off" required >
                       </mat-form-field></div>
-                      <div class="col-sm-12 col-xs-12"><mat-form-field class="w-100">
+                      <div class="col-sm-12 col-12"><mat-form-field class="w-100">
                         <input matInput placeholder="Weight(kgs)" (keypress)="numberValidate($event)"  maxlength="3" [(ngModel)]="item.ins_weight"  autocomplete="off" required >
                       </mat-form-field></div>
-                      <div class="col-sm-12 col-xs-12">
+                      <div class="col-sm-12 col-12">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Occupation" [(ngModel)]="item.ins_occupation_id" required (change)="selectOccupation(i)">
                             <mat-option *ngFor="let occupation of occupationList | keys" value="{{occupation.key}}">
@@ -1021,14 +1030,14 @@
                           </mat-select>
                         </mat-form-field>
                       </div>
-                      <div class="col-sm-12 col-xs-12"><mat-form-field class="w-100">
+                      <div class="col-sm-12 col-12"><mat-form-field class="w-100">
                         <mat-select placeholder="Relationship with Proposer" [(ngModel)]="item.ins_relationship" required (change)="selectProposerRelation(i)">
                           <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" >
                             {{relationship.value}}
                           </mat-option>
                         </mat-select>
                       </mat-form-field></div>
-                      <div class="col-sm-12 col-xs-12" >
+                      <div class="col-sm-12 col-12" >
                         <p class="mr-3" *ngIf="buyProductdetails.product_id != '7'">Do you have any health problem? <span class="error"> *</span></p>
                         <p class="mr-3" *ngIf="buyProductdetails.product_id == '7'">Do you have any health problems? Has the person proposed for insurance been advised for treatment of sub-fertility / infertility? <span class="error"> *</span></p>
                         <div  fxLayoutAlign="start center">
@@ -1041,14 +1050,14 @@
                           </mat-form-field>
                         </div>
                       </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="buyProductdetails.product_id == 6">
+                      <div class="col-sm-12 col-12" *ngIf="buyProductdetails.product_id == 6">
                         <p>Additional premium applicable</p>
                         <mat-radio-group [(ngModel)]="item.ins_hospital_cash" required >
                           <mat-radio-button value="1" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="buyProductdetails.product_id == 6">
+                      <div class="col-sm-12 col-12" *ngIf="buyProductdetails.product_id == 6">
                         <strong>(cash benefit of Rs.1000/- for each and every completed day of hospitalization subject to a maximum of 7 days per hospitalization and 14 days per policy year. Date of admission and Date of discharge not considered.)</strong>
                       </div>
                       <div class="col-sm-12 col-xs-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
@@ -1059,23 +1068,23 @@
                         </mat-radio-group>
                       </div>
                       <hr>
-                      <div class="col-sm-12 col-xs-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
+                      <div class="col-sm-12 cols-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                         <p>Does your occupation require you to engage in manual labour?</p>
                         <mat-radio-group [(ngModel)]="item.engage_manual_status" (change)="engageWinter($event, i, 'manual')" required  >
                           <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
-                        <div class="col-sm-12 col-xs-12"><mat-form-field class="w-100" *ngIf="item.engage_manual_status != '0' ">
+                        <div class="col-sm-12 col-12"><mat-form-field class="w-100" *ngIf="item.engage_manual_status != '0' ">
                           <input matInput placeholder="Engage Manual Labour" (keypress)="nameValidate($event)" [(ngModel)]="item.ins_engage_manual_labour" autocomplete="off" required>
                         </mat-form-field></div>
                       </div>
-                      <div class="col-sm-12 col-xs-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
+                      <div class="col-sm-12 col-12" *ngIf="(buyProductdetails.product_id == 9 || buyProductdetails.product_id == 8) && (item.ins_age >= 18 || item.ins_age == null)">
                         <p>Do you engage in or propose to engage in any activity or sport which is hazardous or adventurous in nature such as racing mountaineering winter sports etc.</p>
                         <mat-radio-group [(ngModel)]="item.engage_winter_status" (change)="engageWinter($event, i, 'winter')" required  >
                           <mat-radio-button value="2" class="mr-3">Yes</mat-radio-button>
                           <mat-radio-button value="0">No</mat-radio-button>
                         </mat-radio-group>
-                        <div class="col-sm-12 col-xs-12"><mat-form-field class="w-100" *ngIf="item.engage_winter_status != '0' ">
+                        <div class="col-sm-12 col-12"><mat-form-field class="w-100" *ngIf="item.engage_winter_status != '0' ">
                           <input matInput placeholder="Engage Winter Sport"  (keypress)="nameValidate($event)" [(ngModel)]="item.ins_engage_winter_sports" autocomplete="off" required>
                         </mat-form-field></div>
                       </div>
@@ -1085,12 +1094,15 @@
                       <button mat-button color="warn" (click)="backAll()">Back</button>
                       <button mat-raised-button color="primaryBlue"  type="submit" (click)="InsureDetails(stepper, i, 'Insured Details')">Next</button>
                     </div>
-                  </div>
+                  <!--</div>-->
+                  <!--</div>-->
                 </mat-expansion-panel>
+              </div>
               </div>
 
             </mat-accordion>
           </mat-expansion-panel>
+
           <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
               <mat-expansion-panel-header>
                 <mat-panel-title>
@@ -1153,6 +1165,7 @@
                 </div>
               </div>
             </mat-expansion-panel>
+
           <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -1364,6 +1377,7 @@
               </div>
             </div>
           </mat-expansion-panel>
+
         </mat-accordion>
       </div>
     </div>
