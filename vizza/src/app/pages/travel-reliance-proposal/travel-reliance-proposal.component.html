@@ -215,7 +215,7 @@
                           <div class="row">
                             <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
                             <div class="text-right w-50">
-                              <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication</strong></mat-checkbox>
+                              <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
                             </div>
                           </div>
                           <div class="row">
@@ -882,7 +882,7 @@
                               </div>
                               <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Self'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship With Insured" formControlName="nomineeRelationship"  required>
+                                  <mat-select placeholder="Relationship With Insured" formControlName="nomineeRelationship"  required readonly>
                                     <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_insured !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
@@ -891,7 +891,7 @@
 
                               <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Spouse'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship with Insured" formControlName="nomineeRelationship"  required>
+                                  <mat-select placeholder="Relationship with Insured" formControlName="nomineeRelationship"  required readonly>
                                     <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_spouse !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
@@ -899,7 +899,7 @@
                               </div>
                               <div class="col-md-6" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Son' || relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Daughter'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relationship with Insured" formControlName="nomineeRelationship"  required>
+                                  <mat-select placeholder="Relationship with Insured" formControlName="nomineeRelationship"  required readonly>
                                     <mat-option  *ngFor="let relation of Relationship" [hidden]="relation.nominee_child !='1'" value="{{relation.insured_id}}">{{relation.relation_name}}</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Nominee Relationship is required</mat-error>
@@ -1309,7 +1309,7 @@
                 <tbody>
                 <tr>
                   <td>
-                    <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 60px;" />
+                    <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 70px;" />
                   </td>
                   <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
                   <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</td>
