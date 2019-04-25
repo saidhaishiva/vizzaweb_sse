@@ -60,12 +60,15 @@ export class BikeShriramProposalComponent implements OnInit {
   public pincodeState : any;
   public pincodeCity : any;
   public pincodeHypoList : any;
+  public pincodeHypoState : any;
+  public pincodeHypoCity : any;
   public previousDateError : any;
   public webhost : any;
   public declaration : any;
   public PaymentRedirect : any;
   public PolicySisID : any;
   public PaymentReturn : any;
+  public hypothecationTypeDetails : any;
     constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -166,6 +169,7 @@ export class BikeShriramProposalComponent implements OnInit {
          this.previousInsureType();
          this.claimpercent();
          this.nomineeRelationShip();
+         this.changehypothecationType();
          this.sessionData();
   }
 
@@ -212,42 +216,43 @@ export class BikeShriramProposalComponent implements OnInit {
 
 
   // date input
-         addEvent(event) {
-              if (event.value != null) {
-                let selectedDate = '';
-                this.bikeProposerAge = '';
-                let dob = '';
-                if (typeof event.value._i == 'string') {
-                  const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                  if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.proposerdateError = '';
-                  } else {
-                    this.proposerdateError = 'Enter Valid Date';
-                  }
-                  selectedDate = event.value._i;
-                  dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                  if (selectedDate.length == 10) {
-                    this.bikeProposerAge = this.ageCalculate(dob);
-                    console.log(this.bikeProposerAge,' agre ');
-                    sessionStorage.bkShriramProposerAge = this.bikeProposerAge;
-                    console.log(sessionStorage.bkShriramProposerAge,'sessionStorage.bkShriramProposerAge');
-                    this.proposer.controls['age'].patchValue(this.bikeProposerAge);
-                  }
 
-                } else if (typeof event.value._i == 'object') {
-                  // dob = this.datepipe.transform(event.value, 'MMM d, y');
-                  dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                  if (dob.length == 10) {
+
+
+    addEvent(event, type) {
+        if (event.value != null) {
+            let selectedDate = '';
+            this.bikeProposerAge = '';
+            let dob = '';
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.insurerdateError = '';
+                } else {
+                    this.insurerdateError = 'Enter Valid Date';
+                }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (selectedDate.length == 10) {
+                    this.bikeProposerAge = this.ageCalculate(dob);
+                    sessionStorage.proposerAge = this.bikeProposerAge;
+
+                }
+
+            } else if (typeof event.value._i == 'object') {
+                // dob = this.datepipe.transform(event.value, 'MMM d, y');
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
                     this.bikeProposerAge = this.ageCalculate(dob);
                     sessionStorage.insuredAgePA = this.bikeProposerAge;
-                    this.proposer.controls['age'].patchValue(this.bikeProposerAge);
-                  }
-                  this.proposerdateError = '';
-                }
-                //sessionStorage.insuredAgePA = this.bikeProposerAge;
 
-              }
-          }
+                }
+                this.insurerdateError = '';
+            }
+            sessionStorage.bkShriramProposerAge = this.bikeProposerAge;
+
+        }
+    }
   // // PINCODE
            getPostalCode(pin) {
               const data = {
@@ -287,7 +292,11 @@ export class BikeShriramProposalComponent implements OnInit {
                       this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
                   }
 
-                }
+                } else{
+                  this.toastr.error(successData.ErrorObject);
+                  this.proposer.controls['state'].patchValue('');
+                  this.proposer.controls['city'].patchValue('');
+              }
               }
 
 
@@ -451,8 +460,34 @@ export class BikeShriramProposalComponent implements OnInit {
         }
         public hypothecationFailure(error) {
         }
+// hypo type
+    changehypothecationType() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
-        // hypo pincode
+        }
+        this.bikeInsurance.getHypothecationType(data).subscribe(
+            (successData) => {
+                this.hypothecationTypeSuccess(successData);
+            },
+            (error) => {
+                this.hypothecationTypeFailure(error);
+            }
+        );
+    }
+    public hypothecationTypeSuccess(successData){
+        if (successData.IsSuccess) {
+            this.hypothecationTypeDetails = successData.ResponseObject;
+        }
+        console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+    }
+    public hypothecationTypeFailure(error) {
+    }
+
+    // hypo pincode
     getHypoPostalCode(pin) {
         const data = {
             'platform': 'web',
@@ -474,8 +509,28 @@ export class BikeShriramProposalComponent implements OnInit {
     public pinListSuccess(successData) {
         if (successData.IsSuccess) {
             this.pincodeHypoList = successData.ResponseObject;
+            console.log(this.pincodeHypoList,'jhgfdghj');
+            for(let key in this.pincodeHypoList.state) {
+                this.pincodeHypoState = key;
+                console.log(key);
+                console.log(this.pincodeHypoList['state'][key]);
+
+                console.log(this.pincodeHypoState, 'kjhfgdghj');
+                this.vehical.controls['state'].patchValue(this.pincodeHypoList['state'][key]);
+            }
+            for(let key in this.pincodeHypoList.city) {
+                this.pincodeHypoCity = key;
+                console.log(key);
+                console.log(this.pincodeHypoCity['city'][key]);
+
+                this.vehical.controls['city'].patchValue(this.pincodeHypoList['city'][key]);
+            }
             this.vehical.controls['state'].patchValue(this.pincodeHypoList.HypothecationState);
                 this.vehical.controls['city'].patchValue(this.pincodeHypoList.HypothecationCity);
+        } else{
+            this.toastr.error(successData.ErrorObject);
+            this.vehical.controls['state'].patchValue('');
+            this.vehical.controls['city'].patchValue('');
         }
     }
 
@@ -487,9 +542,24 @@ export class BikeShriramProposalComponent implements OnInit {
     financeType(value){
     if(value.checked){
       this.finance = true;
+        this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
+        this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
+        this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
+        this.vehical.controls['hypothecationAddress3'].setValidators([Validators.required]);
+        this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
+        this.vehical.controls['pincode'].setValidators([Validators.required]);
+        this.vehical.controls['state'].setValidators([Validators.required]);
+        this.vehical.controls['city'].setValidators([Validators.required]);
     } else{
       this.finance = false;
-
+        this.vehical.controls['hypothecationType'].setValidators(null);
+        this.vehical.controls['hypothecationAddress1'].setValidators(null);
+        this.vehical.controls['hypothecationAddress2'].setValidators(null);
+        this.vehical.controls['hypothecationAddress3'].setValidators(null);
+        this.vehical.controls['hypothecationBankName'].setValidators(null);
+        this.vehical.controls['pincode'].setValidators(null);
+        this.vehical.controls['state'].setValidators(null);
+        this.vehical.controls['city'].setValidators(null);
     }
   }
   // NEXT BUTTON
@@ -651,7 +721,6 @@ export class BikeShriramProposalComponent implements OnInit {
     // proposal Creation
 
   proposal(stepper) {
-      console.log( this.vehical.controls['addonPackage'].value,'0987');
       const data = {
           'platform': 'web',
           'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -707,7 +776,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "AddonPackage": this.vehical.controls['addonPackage'].value,
               "NilDepreciationCoverYN": this.vehical.controls['addonPackage'].value == true ? '1' : '0',
               "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
-              "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value == true ? this.vehical.controls['paforUnnamedSI'].value == true :'',
+              "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
               "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
               "ElectricalaccessSI": this.vehical.controls['electricalAccessSI'].value ? this.vehical.controls['electricalAccessSI'].value : '',
               "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
