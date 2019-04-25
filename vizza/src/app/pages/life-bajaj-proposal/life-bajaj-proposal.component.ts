@@ -587,8 +587,8 @@ export class LifeBajajProposalComponent implements OnInit {
 
   medicalHistoryDetails(stepper: MatStepper) {
 
-    sessionStorage.lifemedical = '';
-    sessionStorage.lifemedical = JSON.stringify(this.MainQuesList);
+    sessionStorage.lifeQuestions = '';
+    sessionStorage.lifeQuestions = JSON.stringify(this.MainQuesList);
 
     console.log(this.MainQuesList, 'lisyduhs');
       this.setQuestionDetails = [];
@@ -1248,8 +1248,8 @@ export class LifeBajajProposalComponent implements OnInit {
     if (successData.IsSuccess) {
       this.MainQuesList[index].SubQuesList = successData.ResponseObject;
       for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
-        this.MainQuesList[index].subQuestionText = '';
-        this.MainQuesList[index].checked = false;
+        this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
+        this.MainQuesList[index].SubQuesList[i].checked = false;
       }
       console.log(this.MainQuesList, 'MainQuesList');
     }
@@ -1824,23 +1824,23 @@ export class LifeBajajProposalComponent implements OnInit {
       });
     }
 
-        if (sessionStorage.lifeBajaj2 != '' && sessionStorage.lifeBajaj2 != undefined) {
-          let lifeBajaj2 = JSON.parse(sessionStorage.lifeBajaj2);
-          this.bankDetail = this.Proposer.group({
-            accountHolderName: lifeBajaj2.accountHolderName,
-            branchName: lifeBajaj2.branchName,
-            accountNo: lifeBajaj2.accountNo,
-            accountType: lifeBajaj2.accountType,
-            ifscCode: lifeBajaj2.ifscCode,
-            micrCode: lifeBajaj2.micrCode,
+    if (sessionStorage.lifeBajaj2 != '' && sessionStorage.lifeBajaj2 != undefined) {
+        let lifeBajaj2 = JSON.parse(sessionStorage.lifeBajaj2);
+        this.bankDetail = this.Proposer.group({
+          accountHolderName: lifeBajaj2.accountHolderName,
+          branchName: lifeBajaj2.branchName,
+          accountNo: lifeBajaj2.accountNo,
+          accountType: lifeBajaj2.accountType,
+          ifscCode: lifeBajaj2.ifscCode,
+          micrCode: lifeBajaj2.micrCode,
+        });
+    }
+    if (sessionStorage.lifeQuestions != '' && sessionStorage.lifeQuestions != undefined) {
+        this.MainQuesList = JSON.parse(sessionStorage.lifeQuestions);
+    }
 
 
-          });
-
-        }
-
-
-    if (sessionStorage.nlifeBajaj!= '' && sessionStorage.nlifeBajaj != undefined) {
+          if (sessionStorage.nlifeBajaj!= '' && sessionStorage.nlifeBajaj != undefined) {
       let nlifeBajaj = JSON.parse(sessionStorage.nlifeBajaj);
       console.log(nlifeBajaj, 'nlifeBajajnlifeBajaj');
         for (let i = 0; i < nlifeBajaj.itemsNominee.length; i++) {
