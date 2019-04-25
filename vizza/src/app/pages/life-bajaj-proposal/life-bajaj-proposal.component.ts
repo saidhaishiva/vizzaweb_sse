@@ -143,13 +143,13 @@ export class LifeBajajProposalComponent implements OnInit {
       pob: '',
       countryOfResid: '',
       nationality: '',
-      premiumfreq: '',
-      premiumPayTerm: '',
-      lifeBenefit: '',
+      // premiumfreq: '',
+      // premiumPayTerm: '',
+      // lifeBenefit: '',
       language2: '',
       proposerType: '',
       language: '',
-      benefitTerm: '',
+      // benefitTerm: '',
       comDoorNo:'',
       comBuildingNumber:'',
       comPlotNumber:'',
@@ -548,45 +548,37 @@ export class LifeBajajProposalComponent implements OnInit {
       }
 
     }
-
-
-
-ageCalculateInsurer(getDays) {
-  let a = moment(getDays, 'DD/MM/YYYY');
-  let b = moment(new Date(), 'DD/MM/YYYY');
-  let days = b.diff(a, 'days');
-  return days;
-  // let mdate = dob.toString();
-  // let yearThen = parseInt(mdate.substring( 8,10), 10);
-  // let monthThen = parseInt(mdate.substring(5,7), 10);
-  // let dayThen = parseInt(mdate.substring(0,4), 10);
-  // let todays = new Date();
-  // let birthday = new Date( dayThen, monthThen-1, yearThen);
-  // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-  // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-  // return Bob_days;
-}
+    ageCalculateInsurer(getDays) {
+      let a = moment(getDays, 'DD/MM/YYYY');
+      let b = moment(new Date(), 'DD/MM/YYYY');
+      let days = b.diff(a, 'days');
+      return days;
+    }
   // personal details
   proposerDetails(stepper, value) {
     console.log(value);
-    sessionStorage.lifeBajaj1 = JSON.stringify(value);
-    console.log(sessionStorage.lifeBajaj1, 'session')
+    sessionStorage.stepperDetails1 = JSON.stringify(value);
+
+    console.log(value, 'valuevalue');
+    console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       stepper.next();
-    } else {
-      this.toastr.error('error')
+      this.topScroll();
     }
+    // else {
+    //   this.toastr.error('error')
+    // }
   }
 
   //Bank Details
   bankDetailNext(stepper, value) {
     console.log(value);
     sessionStorage.lifeBajaj2 = JSON.stringify(value);
-    console.log(sessionStorage.lifeBajaj2, 'session')
+    console.log(sessionStorage.lifeBajaj2, 'session');
     if (this.bankDetail.valid) {
       stepper.next();
     } else {
-      this.toastr.error('error')
+      this.toastr.error('error');
     }
   }
 
@@ -1295,10 +1287,10 @@ ageCalculateInsurer(getDays) {
     this.proposer.controls['language2Name'].patchValue(this.docLanguageList[this.proposer.controls['language2'].value]);
   }
 
-  changePremiumPayTerm() {
-    this.proposer.controls['premiumPayTermName'].patchValue(this.primiumpayList[this.proposer.controls['premiumPayTerm'].value]);
-
-  }
+  // changePremiumPayTerm() {
+  //   this.proposer.controls['premiumPayTermName'].patchValue(this.primiumpayList[this.proposer.controls['premiumPayTerm'].value]);
+  //
+  // }
 
   changeNationality() {
     this.proposer.controls['nationalityName'].patchValue(this.nationalityList[this.proposer.controls['nationality'].value]);
@@ -1717,8 +1709,8 @@ ageCalculateInsurer(getDays) {
   // session Data
   sessionData() {
 
-    if (sessionStorage.lifeBajaj1 != '' && sessionStorage.lifeBajaj1 != undefined) {
-      let lifeBajaj1 = JSON.parse(sessionStorage.lifeBajaj1);
+    if (sessionStorage.stepperDetails1 != '' && sessionStorage.stepperDetails1 != undefined) {
+      let lifeBajaj1 = JSON.parse(sessionStorage.stepperDetails1);
       this.proposer = this.Proposer.group({
         title: lifeBajaj1.title,
         firstName: lifeBajaj1.firstName,
@@ -1735,7 +1727,7 @@ ageCalculateInsurer(getDays) {
         occupationList: lifeBajaj1.occupationList,
         education:lifeBajaj1.education,
         educationName:lifeBajaj1.educationName,
-        benefitTerm: lifeBajaj1.benefitTerm,
+        // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
 
@@ -1783,9 +1775,9 @@ ageCalculateInsurer(getDays) {
         pob: lifeBajaj1.pob,
         countryOfResid: lifeBajaj1.countryOfResid,
         nationality: lifeBajaj1.nationality,
-        premiumfreq: lifeBajaj1.premiumfreq,
-        premiumPayTerm: lifeBajaj1.premiumPayTerm,
-        lifeBenefit: lifeBajaj1.lifeBenefit,
+        // premiumfreq: lifeBajaj1.premiumfreq,
+        // premiumPayTerm: lifeBajaj1.premiumPayTerm,
+        // lifeBenefit: lifeBajaj1.lifeBenefit,
         language2: lifeBajaj1.language2,
         proposerType: lifeBajaj1.proposerType,
         language: lifeBajaj1.language,
@@ -1806,9 +1798,6 @@ ageCalculateInsurer(getDays) {
         idProofName:lifeBajaj1.idProofName,
         ageProofName:lifeBajaj1.ageProofName,
         incomeProofName:lifeBajaj1.incomeProofName,
-
-
-
       });
     }
 
@@ -1831,9 +1820,7 @@ ageCalculateInsurer(getDays) {
     if (sessionStorage.nlifeBajaj!= '' && sessionStorage.nlifeBajaj != undefined) {
       let nlifeBajaj = JSON.parse(sessionStorage.nlifeBajaj);
       console.log(nlifeBajaj, 'nlifeBajajnlifeBajaj');
-
         for (let i = 0; i < nlifeBajaj.itemsNominee.length; i++) {
-
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nlifeBajaj.itemsNominee[i].nnName);
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nlifeBajaj.itemsNominee[i].nDob);
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nlifeBajaj.itemsNominee[i].nBirthPlace);
