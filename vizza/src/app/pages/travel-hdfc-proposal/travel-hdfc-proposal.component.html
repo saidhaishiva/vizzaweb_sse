@@ -311,7 +311,7 @@
                         <div class="col-md-3" [ngStyle]="{'pointer-events': hdfcInsuredTravel['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}" *ngIf="i != 0">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="InsuredRelation" (change)="selectRelation(i)" required >
-                              <mat-option *ngFor="let lists of insuredRelationshipDetails | keys" [hidden]="lists.key == E" value="{{lists.key}}" >
+                              <mat-option *ngFor="let lists of insuredRelationshipDetails | keys" [hidden]="lists.key == 'E'" value="{{lists.key}}" >
                                 {{lists.value}}
                               </mat-option>
                             </mat-select>
