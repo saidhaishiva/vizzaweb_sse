@@ -100,6 +100,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public diseaseLists: any;
   public enquiryFormData: any;
   public setQuestionDetails: any;
+  public apointeRelationList:any;
 
 
   constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -235,6 +236,12 @@ export class LifeBajajProposalComponent implements OnInit {
 
     this.apointeeDetails = this.Proposer.group({
       aName: '',
+      appointeeDob:'',
+      appointeeRelationToNominee:'',
+      relationToInsured:'',
+      relationToInsuredName:'',
+
+
     });
 
     this.questions = this.Proposer.group({});
@@ -266,6 +273,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getageProof();
     this.getIdProof();
     this.education();
+    this.getApointeeRelation();
     this.getDiseaseList();
     if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
         this.mainQuestion();
@@ -514,30 +522,28 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
 
+  addEventNominee(event, i) {
+      if (event.value != null) {
+        let selectedDate = '';
+        let dob = '';
+        let dob_days = '';
+        this.getAge = '';
+        this.getDays;
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
 
-
-
-  addEventInsurer(event,  i) {
-    if (event.value != null) {
-      let selectedDate = '';
-      let dob = '';
-      let dob_days = '';
-      this.getAge = '';
-      this.getDays;
-      dob = this.datepipe.transform(event.value, 'y-MM-dd');
-      dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
-
-      if (typeof event.value._i == 'string') {
-        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (typeof event.value._i == 'string') {
+          const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
           if (pattern.test(event.value._i) && event.value._i.length == 10) {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+
           } else {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
           }
 
-        selectedDate = event.value._i;
+          selectedDate = event.value._i;
 
-        if (selectedDate.length == 10) {
+          if (selectedDate.length == 10) {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
             this.getAge = this.ageCalculate(dob);
             this.getDays = this.ageCalculateInsurer(dob_days);
@@ -546,16 +552,34 @@ export class LifeBajajProposalComponent implements OnInit {
           }
 
         }
-       else if (typeof event.value._i == 'object') {
-         if (dob.length == 10) {
+        else if (typeof event.value._i == 'object') {
+          if (dob.length == 10) {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
             this.getAge = this.ageCalculate(dob);
             this.getDays = this.ageCalculateInsurer(dob_days);
           }
         }
       }
-
+        if (this.getAge < 18) {
+          this.show = true;
+        } else {
+          this.show = false;
+        }
     }
+
+
+
+
+    // if (i == 'nominee') {
+    //         this.nomineeAge = this.ageCalculate();
+    //         console.log(this.nomineeAge,'nomineeage');
+    //         if (this.nomineeAge < 18) {
+    //           this.show = true;
+    //         } else {
+    //           this.show = false;
+    //         }
+    //       }
+    //
     ageCalculateInsurer(getDays) {
       let a = moment(getDays, 'DD/MM/YYYY');
       let b = moment(new Date(), 'DD/MM/YYYY');
@@ -642,6 +666,8 @@ export class LifeBajajProposalComponent implements OnInit {
   nomineeDetailNext(stepper, value) {
     console.log(value);
     sessionStorage.nlifeBajaj = JSON.stringify(value);
+    sessionStorage.apointeeSessiondetail = JSON.stringify(value);
+
     console.log(sessionStorage.nlifeBajaj, 'session');
     // if (this.nomineeDetail.valid) {
       this.proposal(stepper);
@@ -1131,6 +1157,35 @@ export class LifeBajajProposalComponent implements OnInit {
 
   public incomeProofFailure(error) {
   }
+
+  getApointeeRelation() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'occupation_id': this.proposer.controls['occupationList'].value
+    }
+    this.termService.apointeRelation(data).subscribe(
+        (successData) => {
+          this.apointeeRelationSuccess(successData);
+        },
+        (error) => {
+          this.apointeeRelationFailure(error);
+        }
+    );
+  }
+
+  public apointeeRelationSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.apointeRelationList = successData.ResponseObject;
+      console.log(this.apointeRelationList, 'pro');
+    }
+  }
+
+  public apointeeRelationFailure(error) {
+  }
+
   getPostal(pin, title) {
     const data = {
       'platform': 'web',
@@ -1303,6 +1358,10 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
   changeLanguage() {
+    this.proposer.controls['relationToInsuredName'].patchValue(this.languageList[this.proposer.controls['relationToInsured'].value]);
+
+  }
+  changeApointee() {
     this.proposer.controls['languageName'].patchValue(this.languageList[this.proposer.controls['language'].value]);
 
   }
@@ -1667,6 +1726,16 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
 
+    }
+    if (sessionStorage.apointeeSessionDetail != '' && sessionStorage.apointeeSessionDetail != undefined) {
+      let apointeeSessionDetail = JSON.parse(sessionStorage.apointeeSessionDetail);
+      this.bankDetail = this.Proposer.group({
+        aName: apointeeSessionDetail.aName,
+        appointeeDob: apointeeSessionDetail.appointeeDob,
+        appointeeRelationToNominee: apointeeSessionDetail.appointeeRelationToNominee,
+        relationToInsured: apointeeSessionDetail.relationToInsured,
+
+      });
     }
     }
 
