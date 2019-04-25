@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
 import {AppSettings} from '../../app.settings';
@@ -14,6 +14,9 @@ import {ActivatedRoute} from '@angular/router';
 import {element} from 'protractor';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import * as moment from 'moment';
+import {Http} from '@angular/http';
+import {AgeValidate} from '../health-insurance/health-insurance.component';
+
 
 export const MY_FORMATS = {
   parse: {
@@ -99,7 +102,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public setQuestionDetails: any;
 
 
-  constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+  constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -258,15 +261,17 @@ export class LifeBajajProposalComponent implements OnInit {
     this.country();
     this.title();
     this.weightChanged();
-    this.mainQuestion();
     this.nomineeRelation();
     this.occupation();
     this.getageProof();
     this.getIdProof();
     this.education();
     this.getDiseaseList();
+    if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
+        this.mainQuestion();
+    }
 
-    //NOMINEE Details
+          //NOMINEE Details
     // this.itemsNominee = this.nomineeDetail.get('itemsNominee') as FormArray;
     // this.itemsNominee.push(this.nomineeItems());
     //
@@ -1452,223 +1457,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
       },
 
-      "question_details": [{
-        "questionId": "85",
-        "subQuestionId": "1",
-        "answer": "N",
-        "detailAnswer": "",
-        "ipType": "1",
-        "questionFlag": "QUES_HEALTH"
-      },
-        {
-          "questionId": "85",
-          "subQuestionId": "2",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "3",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "4",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "5",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "6",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "7",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "8",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "9",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "10",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "11",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "12",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "13",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "47",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "48",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "57",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "32",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "33",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "34",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "35",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "36",
-          "answer": "",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "39",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "40",
-          "answer": "",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "41",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "42",
-          "answer": "EQUALLY",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        }
-      ],
+      "question_details": this.setQuestionDetails,
 
       "bank_deatils": {
         "accountHolderName": this.bankDetail.controls['accountHolderName'].value,
@@ -1713,7 +1502,9 @@ export class LifeBajajProposalComponent implements OnInit {
      this.summaryData = successData.ResponseObject;
      this.requestedUrl =this.summaryData.biUrlLink;
 
-     this.proposerFormData = this.proposer.value;
+        this.downloadFile(this.requestedUrl);
+
+        this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
       console.log(this.nomineeDetailFormData,'dff');
@@ -1723,6 +1514,28 @@ export class LifeBajajProposalComponent implements OnInit {
   public proposalFailure(error){
 
   }
+
+    downloadFile(value) {
+        this.termService.downloadPdfNew().subscribe(
+            (successData) => {
+              console.log(successData, 'successDatasuccessData');
+
+            },
+            (error) => {
+            }
+        );
+
+
+
+        // this.http.get(
+        //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
+        //     (response) => {
+        //         var mediaType = 'application/pdf';
+        //         var blob = new Blob([response._body], {type: mediaType});
+        //         var filename = 'test.pdf';
+        //         saveAs(blob, filename);
+        //     });
+    }
 
 
 
@@ -1857,6 +1670,80 @@ export class LifeBajajProposalComponent implements OnInit {
     }
     }
 
+    viewDocs() {
+        let dialogRef = this.dialog.open(LifeDocuments, {
+            width: '500px',
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+
+        });
+    }
+
 }
+
+@Component({
+    selector: 'lifedocuments',
+    template: `
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Declaration: </h4>
+                    <p>i) Declaration & Authorisation: I/We hereby declare and agree that </p>
+                    <div >
+                        <p>(a) I/We have read the application/the same was interpreted to me /us by the person filling the Proposal Form whose name is mentioned herein above, and the answers entered in the application are mine / ours;
+                        </p>
+                        <p>(b) I/We hereby certify that I have signed on the Proposal form after fully understanding the content and purport of the nature of the information asked for in this Proposal Form and confirm that each of the above answers is full, complete, and true to the best of my knowledge and nothing has been concealed and suppressed or declared false. I/We understand that Bajaj Allianz Life Insurance Company Ltd. (hereafter called the company) believing on the answers, will rely and act on them in utmost good faith, without verification or confirmation of any of my answers.
+                        </p>
+                        <p>(c) Such application shall not be considered as effected by reason of any money paid or settlement made in payment of or on account of any premium paid, until this application is received by the Company and is finally approved by an authorized officer of the Company during my/our lifetime;
+                        </p>
+                        <p>
+                            (d) Any personal information collected or held by the Company (whether contained in the this application or otherwise obtained) may be held, used and disclosed by the Company to reinsurance companies, claims investigation companies and industry association / federation for doing claim analysis.
+                        </p>
+                    </div>
+                    <p>
+                        ii) I/We hereby irrevocably authorize (a) any organization, institution or individual that has any record of knowledge of my the insured health and medical history or any treatment or advise that has been or may hereafter be consulted or other personal information to disclose to the Company such information and such information shall only be used to decide on the terms of acceptance of this proposal or any claim arising out of the policy of insurance issued in accordance with this proposal. This authorization shall bind my/the insured successors and usages and remain valid not withstanding my/ the insured death or incapacity in so far as legally possible. A photocopy of all relevant information/documents collected on the basis of this authorization shall be valid as the original.
+                    </p>
+                    <p>
+                        iii) And I/We further agree that if after the date of submission of the proposal but before the communication to me/us of issuance of the First Premium Receipt on acceptance of proposal (a) any change in my/insured occupation or any adverse circumstances connected with my/insured financial position or the general health of myself/insured or that of any members of my family, occurs or (b) if a proposal for assurance or any application for revival of a policy on my life made to any office of the Company or any other Company has been withdrawn or dropped, deferred or accepted at an increased premium or subject to a lien or on terms other than as proposed I/we shall forthwith intimate the same to the company in writing to reconsider the terms of acceptance of assurance. In the case of fraud or misrepresentation by me, I/We understand that action will be taken or the policy will be cancelled in accordance with the provisions of Section 45 of the Insurance Act, 1938, as amended from time to time
+                    </p>
+                    <p>
+                        iv)Notwithstanding my registration with the Access Provider under Fully/Partially blocked category, I hereby waive all objections and authorize Bajaj Allianz Life Insurance Company Limited (hereinafter referred to as Company) to call or send SMS on the telephone number mentioned in this proposal form or any other telephone number as may be provided to the Company by me or send emails or communicate through any other means and contact me, through its representatives, for any matter (including ascertaining of feedback) relating to this proposal for insurance or any matter concerning the policy of insurance which may be issued pursuant to this proposal for insurance. I further authorize the Company to mail all service related communications to the email id as mentioned in the application form (applicable only if email id provided).
+                    </p>
+                    <p>
+                        v) Commencement of Cover: I/We understand that the cover applied for under this application will commence after consideration of my/ our application and realization of the required premium. I/We have seen, understood and agree to the companies benefit illustration given to me/us along with this proposal form.
+                    </p>
+                    <p>
+                        vi) I/ we declare that money used by me/ us to pay the premiums under the policy is acquired by legal means and confirms to the AML guidelines as they are updated from time to time. If the proposers signature is in vernacular then the Proposed Insured / Proposer should declare below in his / her own handwriting (in the same language in which the proposal is signed) that the replies were given after fully and properly understanding the questions and declarations mentioned in the proposal form as well as all other supplementary documents incidental to availing this policy of insurance.
+                    </p>
+
+                    <p> I/We fully understand that any personal information collected or held by the Company, may be held, used and disclosed by the Company to reinsurance companies, claims investigation agencies, credit/claim/fraud bureaus or service providers or repositories, and relevant industry associations /federations for the purpose of underwriting or claims processing or for any analysis and to the Bajaj Group of companies for receiving information and offers on various products and services offerings.
+                    </p>
+
+
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
+        </div>
+    `
+})
+export class LifeDocuments {
+    agemsg: any;
+    constructor(
+        public dialogRef: MatDialogRef<LifeDocuments>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+    onClick(result) {
+        if(result == true){
+            this.dialogRef.close(result);
+        } else {
+            this.dialogRef.close(result);
+        }
+    }
+}
+
+
 
 
