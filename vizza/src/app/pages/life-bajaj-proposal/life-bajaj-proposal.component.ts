@@ -94,6 +94,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public slectedIndex:any;
   public declaration: any;
   public requestedUrl: any;
+  public diseaseLists: any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -256,7 +257,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.weightChanged();
     this.mainQuestion();
     this.nomineeRelation();
-    this.getIncomeProof();
+    this.occupation();
     this.getageProof();
     this.getIdProof();
     this.education();
@@ -1240,9 +1241,33 @@ ageCalculateInsurer(getDays) {
 
   public SubQuesFailure(error) {
   }
+    getDiseaseList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.termService.diseaseList(data).subscribe(
+            (successData) => {
+                this.diseaseListSuccess(successData);
+            },
+            (error) => {
+                this.diseaseListFailure(error);
+            }
+        );
+    }
+    public diseaseListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.diseaseLists = successData.ResponseObject;
+            console.log(this.diseaseLists, 'DiseaseLists');
+        }
+    }
+    public diseaseListFailure(error) {
+    }
 
 
-  changeWeightChanged() {
+
+    changeWeightChanged() {
     this.proposer.controls['weightChangedName'].patchValue(this.weightList[this.proposer.controls['weightChanged'].value]);
   }
 
@@ -1252,7 +1277,8 @@ ageCalculateInsurer(getDays) {
 
   occupationListCode() {
     this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
-      this.occupation();
+    this.getIncomeProof();
+
   }
 
   changeLanguage() {
