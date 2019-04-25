@@ -1741,7 +1741,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
     viewDocs() {
         let dialogRef = this.dialog.open(LifeDocuments, {
-            width: '500px',
+            width: '1200px',
         });
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result => {
@@ -1754,7 +1754,7 @@ export class LifeBajajProposalComponent implements OnInit {
 @Component({
     selector: 'lifedocuments',
     template: `
-        <div class="container-fluid">
+        <div class="container">
             <div class="row">
                 <div class="col-sm-12">
                     <h4>Declaration: </h4>
