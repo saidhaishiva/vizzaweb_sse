@@ -261,6 +261,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getageProof();
     this.getIdProof();
     this.education();
+    this.getDiseaseList();
 
     //NOMINEE Details
     // this.itemsNominee = this.nomineeDetail.get('itemsNominee') as FormArray;

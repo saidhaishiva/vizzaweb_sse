@@ -574,7 +574,6 @@
                         </mat-form-field>
                       </div>
 
-
                     </div>
 
                   </div>
@@ -675,13 +674,11 @@
 
                                     <div class="col-md-12">
                                         <div *ngIf="subLiss.field == 'Dropdown'">
-                                            <mat-form-field class="w-50">
-                                                <mat-select placeholder="{{subLiss.qus_des}}">
-                                                    <mat-option value="lll">
-                                                        kjkkj
-                                                    </mat-option>
-                                                </mat-select>
-                                            </mat-form-field>
+                                          <mat-form-field class="w-50">
+                                            <mat-select  placeholder="{{subLiss.qus_des}}"  [(ngModel)]="subLiss.subQuestionText" required class="w-100">
+                                              <mat-option *ngFor="let list of diseaseLists | keys" [value]= list.key> {{list.value}} </mat-option>
+                                            </mat-select>
+                                          </mat-form-field>
                                         </div>
                                         <div *ngIf="subLiss.feild == 'TEXT'">
                                             <mat-form-field class="w-50">
@@ -715,13 +712,11 @@
                             </mat-form-field>
                         </div>
                         <div class="col-md-12" *ngIf="item.feild == 'Dropdown'">
-                            <!--<mat-form-field class="w-50">-->
-                                <!--<mat-select>-->
-                                    <!--<mat-option [(ngModel)]="item.mainQuestionName" value="rr">-->
-                                        <!--kjkkj-->
-                                    <!--</mat-option>-->
-                                <!--</mat-select>-->
-                            <!--</mat-form-field>-->
+                          <mat-form-field class="w-50">
+                            <mat-select  placeholder="{{item.des}}" [(ngModel)]="item.mainQuestionName" required class="w-100">
+                              <mat-option *ngFor="let list of diseaseLists | keys" [value]= list.key> {{list.value}} </mat-option>
+                            </mat-select>
+                          </mat-form-field>
                         </div>
                 </div>
 
