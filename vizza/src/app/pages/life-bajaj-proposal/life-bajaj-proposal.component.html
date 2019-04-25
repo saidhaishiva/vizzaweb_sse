@@ -668,23 +668,23 @@
 
                         </div>
                         <div class="col-md-4" *ngIf="item.feild == 'Y/N'">
-                            <mat-slide-toggle (change)="questionYes(item, $event, i)" [(ngModel)]="item.mainQuestionName">{{item.feild}}</mat-slide-toggle>
+                            <mat-slide-toggle (change)="questionYes(item, $event, i)" [(ngModel)]="item.checked">{{item.feild}}</mat-slide-toggle>
 
                         </div>
 
                         <div class="col-md-12" *ngIf="item.feild == 'NUMBER'">
                                 <mat-form-field class="w-50">
-                                    <input matInput type="number" placeholder="{{item.des}}" [(ngModel)]="item.mainQuestionName" autocomplete="off" required >
+                                    <input matInput type="number" placeholder="{{item.des}}" [(ngModel)]="item.fieldValue" autocomplete="off" required >
                                 </mat-form-field>
                         </div>
                         <div class="col-md-12" *ngIf="item.feild == 'TEXT'">
                             <mat-form-field class="w-50">
-                                <input matInput placeholder="{{item.des}}" [(ngModel)]="item.mainQuestionName" autocomplete="off" required >
+                                <input matInput placeholder="{{item.des}}" [(ngModel)]="item.fieldValue" autocomplete="off" required >
                             </mat-form-field>
                         </div>
                         <div class="col-md-12" *ngIf="item.feild == 'Dropdown'">
                           <mat-form-field class="w-50">
-                            <mat-select  placeholder="{{item.des}}" [(ngModel)]="item.mainQuestionName" required class="w-100">
+                            <mat-select  placeholder="{{item.des}}" [(ngModel)]="item.fieldValue" required class="w-100">
                               <mat-option *ngFor="let list of diseaseLists | keys" [value]= list.key> {{list.value}} </mat-option>
                             </mat-select>
                           </mat-form-field>

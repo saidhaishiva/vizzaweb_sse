@@ -95,6 +95,8 @@ export class LifeBajajProposalComponent implements OnInit {
   public declaration: any;
   public requestedUrl: any;
   public diseaseLists: any;
+  public enquiryFormData: any;
+  public setQuestionDetails: any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -233,11 +235,12 @@ export class LifeBajajProposalComponent implements OnInit {
     });
 
     this.questions = this.Proposer.group({});
+    this.setQuestionDetails = [];
   }
 
 
   ngOnInit() {
-
+      this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
       console.log(this.lifePremiumList, 'kjhgdhgh');
 
@@ -588,26 +591,44 @@ export class LifeBajajProposalComponent implements OnInit {
     sessionStorage.lifemedical = JSON.stringify(this.MainQuesList);
 
     console.log(this.MainQuesList, 'lisyduhs');
-
-   // this.question_details
-   //
-    let medicalStatus = [];
-    for (let i = 0; i < this.MainQuesList.length; i++) {
-      if(this.MainQuesList[i].mStatus == 'No'){
-        medicalStatus.push('No');
-      } else if(this.MainQuesList[i].mStatus == 'Yes') {
-        medicalStatus.push('Yes');
+      this.setQuestionDetails = [];
+      let setMainRes = '';
+      let setSubRes = '';
+      for (let i = 0; i < this.MainQuesList.length; i++) {
+          if(this.MainQuesList[i].feild == 'NUMBER' || this.MainQuesList[i].feild == 'TEXT' || this.MainQuesList[i].feild == 'Dropdown') {
+              setMainRes =  this.MainQuesList[i].fieldValue;
+          } else if(this.MainQuesList[i].feild == 'Y/N') {
+              setMainRes =  this.MainQuesList[i].checked ? 'Y' : 'N';
+          }
+          this.setQuestionDetails.push({
+              "questionId": this.MainQuesList[i].qus_id,
+              "subQuestionId": this.MainQuesList[i].sub_qus_id,
+              "questionFlag": this.MainQuesList[i].qus_flag,
+              "detailAnswer": '',
+              "answer": setMainRes
+          });
       }
-    }
-    console.log(medicalStatus,'medicalStatus');
-    if (medicalStatus.includes('Yes')) {
-      // this.toastr.error('This medical questions is unable to proceed');
-      this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
-    } else {
-      stepper.next();
-      // this.nextStep();
+      for (let i = 0; i < this.MainQuesList.length; i++) {
+        for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
+            this.setQuestionDetails[i].detailAnswer = this.MainQuesList[i].SubQuesList[j].subQuestionText;
+        }
+      }
 
-    }
+      console.log(this.setQuestionDetails,'setQuestionDetailssetQuestionDetails');
+
+      stepper.next();
+      this.topScroll();
+
+
+
+      //   if (medicalStatus.includes('Yes')) {
+    //   // this.toastr.error('This medical questions is unable to proceed');
+    //   this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
+    // } else {
+    //   stepper.next();
+    //   // this.nextStep();
+    //
+    // }
 
   }
 
@@ -1184,7 +1205,8 @@ export class LifeBajajProposalComponent implements OnInit {
       this.MainQuesList = successData.ResponseObject;
       console.log(this.MainQuesList, 'pro');
       for (let i = 0; i < this.MainQuesList.length; i++) {
-        this.MainQuesList[i].mainQuestionName = '';
+        this.MainQuesList[i].fieldValue = '';
+        this.MainQuesList[i].checked = false;
         this.MainQuesList[i].SubQuesList = [];
       }
       console.log(this.MainQuesList, 'MainQuesList');
@@ -1227,6 +1249,7 @@ export class LifeBajajProposalComponent implements OnInit {
       this.MainQuesList[index].SubQuesList = successData.ResponseObject;
       for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
         this.MainQuesList[index].subQuestionText = '';
+        this.MainQuesList[index].checked = false;
       }
       console.log(this.MainQuesList, 'MainQuesList');
     }
@@ -1372,8 +1395,8 @@ export class LifeBajajProposalComponent implements OnInit {
         "preferredLanguage": this.proposer.controls['language'].value,
         "proposer_type": this.proposer.controls['proposerType'].value,
         "documentLanguage": this.proposer.controls['language2'].value,
-        "lifeBenefit": this.proposer.controls['lifeBenefit'].value,
-        "benefitTerm": this.proposer.controls['benefitTerm'].value,
+        "lifeBenefit": this.enquiryFormData.lifePolicy,
+        "benefitTerm": this.enquiryFormData.lifeBenefitTerm,
         "premiumPaymentTerm": "10",
         "premiumFrequency": "12",
         "nationality": this.proposer.controls['nationality'].value,
