@@ -94,6 +94,9 @@ export class LifeBajajProposalComponent implements OnInit {
   public slectedIndex:any;
   public declaration: any;
   public requestedUrl: any;
+  public diseaseLists: any;
+  public enquiryFormData: any;
+  public setQuestionDetails: any;
 
 
   constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -142,13 +145,13 @@ export class LifeBajajProposalComponent implements OnInit {
       pob: '',
       countryOfResid: '',
       nationality: '',
-      premiumfreq: '',
-      premiumPayTerm: '',
-      lifeBenefit: '',
+      // premiumfreq: '',
+      // premiumPayTerm: '',
+      // lifeBenefit: '',
       language2: '',
       proposerType: '',
       language: '',
-      benefitTerm: '',
+      // benefitTerm: '',
       comDoorNo:'',
       comBuildingNumber:'',
       comPlotNumber:'',
@@ -232,11 +235,12 @@ export class LifeBajajProposalComponent implements OnInit {
     });
 
     this.questions = this.Proposer.group({});
+    this.setQuestionDetails = [];
   }
 
 
   ngOnInit() {
-
+      this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
       console.log(this.lifePremiumList, 'kjhgdhgh');
 
@@ -256,10 +260,11 @@ export class LifeBajajProposalComponent implements OnInit {
     this.weightChanged();
     this.mainQuestion();
     this.nomineeRelation();
-    this.getIncomeProof();
+    this.occupation();
     this.getageProof();
     this.getIdProof();
     this.education();
+    this.getDiseaseList();
 
     //NOMINEE Details
     // this.itemsNominee = this.nomineeDetail.get('itemsNominee') as FormArray;
@@ -546,74 +551,84 @@ export class LifeBajajProposalComponent implements OnInit {
       }
 
     }
-
-
-
-ageCalculateInsurer(getDays) {
-  let a = moment(getDays, 'DD/MM/YYYY');
-  let b = moment(new Date(), 'DD/MM/YYYY');
-  let days = b.diff(a, 'days');
-  return days;
-  // let mdate = dob.toString();
-  // let yearThen = parseInt(mdate.substring( 8,10), 10);
-  // let monthThen = parseInt(mdate.substring(5,7), 10);
-  // let dayThen = parseInt(mdate.substring(0,4), 10);
-  // let todays = new Date();
-  // let birthday = new Date( dayThen, monthThen-1, yearThen);
-  // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-  // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-  // return Bob_days;
-}
+    ageCalculateInsurer(getDays) {
+      let a = moment(getDays, 'DD/MM/YYYY');
+      let b = moment(new Date(), 'DD/MM/YYYY');
+      let days = b.diff(a, 'days');
+      return days;
+    }
   // personal details
   proposerDetails(stepper, value) {
     console.log(value);
-    sessionStorage.lifeBajaj1 = JSON.stringify(value);
-    console.log(sessionStorage.lifeBajaj1, 'session')
+    sessionStorage.stepperDetails1 = JSON.stringify(value);
+
+    console.log(value, 'valuevalue');
+    console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       stepper.next();
-    } else {
-      this.toastr.error('error')
+      this.topScroll();
     }
+    // else {
+    //   this.toastr.error('error')
+    // }
   }
 
   //Bank Details
   bankDetailNext(stepper, value) {
     console.log(value);
     sessionStorage.lifeBajaj2 = JSON.stringify(value);
-    console.log(sessionStorage.lifeBajaj2, 'session')
+    console.log(sessionStorage.lifeBajaj2, 'session');
     if (this.bankDetail.valid) {
       stepper.next();
     } else {
-      this.toastr.error('error')
+      this.toastr.error('error');
     }
   }
 
   medicalHistoryDetails(stepper: MatStepper) {
 
-    sessionStorage.lifemedical = '';
-    sessionStorage.lifemedical = JSON.stringify(this.MainQuesList);
+    sessionStorage.lifeQuestions = '';
+    sessionStorage.lifeQuestions = JSON.stringify(this.MainQuesList);
 
     console.log(this.MainQuesList, 'lisyduhs');
-
-   // this.question_details
-   //
-    let medicalStatus = [];
-    for (let i = 0; i < this.MainQuesList.length; i++) {
-      if(this.MainQuesList[i].mStatus == 'No'){
-        medicalStatus.push('No');
-      } else if(this.MainQuesList[i].mStatus == 'Yes') {
-        medicalStatus.push('Yes');
+      this.setQuestionDetails = [];
+      let setMainRes = '';
+      let setSubRes = '';
+      for (let i = 0; i < this.MainQuesList.length; i++) {
+          if(this.MainQuesList[i].feild == 'NUMBER' || this.MainQuesList[i].feild == 'TEXT' || this.MainQuesList[i].feild == 'Dropdown') {
+              setMainRes =  this.MainQuesList[i].fieldValue;
+          } else if(this.MainQuesList[i].feild == 'Y/N') {
+              setMainRes =  this.MainQuesList[i].checked ? 'Y' : 'N';
+          }
+          this.setQuestionDetails.push({
+              "questionId": this.MainQuesList[i].qus_id,
+              "subQuestionId": this.MainQuesList[i].sub_qus_id,
+              "questionFlag": this.MainQuesList[i].qus_flag,
+              "detailAnswer": '',
+              "answer": setMainRes
+          });
       }
-    }
-    console.log(medicalStatus,'medicalStatus');
-    if (medicalStatus.includes('Yes')) {
-      // this.toastr.error('This medical questions is unable to proceed');
-      this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
-    } else {
-      stepper.next();
-      // this.nextStep();
+      for (let i = 0; i < this.MainQuesList.length; i++) {
+        for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
+            this.setQuestionDetails[i].detailAnswer = this.MainQuesList[i].SubQuesList[j].subQuestionText;
+        }
+      }
 
-    }
+      console.log(this.setQuestionDetails,'setQuestionDetailssetQuestionDetails');
+
+      stepper.next();
+      this.topScroll();
+
+
+
+      //   if (medicalStatus.includes('Yes')) {
+    //   // this.toastr.error('This medical questions is unable to proceed');
+    //   this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
+    // } else {
+    //   stepper.next();
+    //   // this.nextStep();
+    //
+    // }
 
   }
 
@@ -1190,7 +1205,8 @@ ageCalculateInsurer(getDays) {
       this.MainQuesList = successData.ResponseObject;
       console.log(this.MainQuesList, 'pro');
       for (let i = 0; i < this.MainQuesList.length; i++) {
-        this.MainQuesList[i].mainQuestionName = '';
+        this.MainQuesList[i].fieldValue = '';
+        this.MainQuesList[i].checked = false;
         this.MainQuesList[i].SubQuesList = [];
       }
       console.log(this.MainQuesList, 'MainQuesList');
@@ -1232,7 +1248,8 @@ ageCalculateInsurer(getDays) {
     if (successData.IsSuccess) {
       this.MainQuesList[index].SubQuesList = successData.ResponseObject;
       for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
-        this.MainQuesList[index].subQuestionText = '';
+        this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
+        this.MainQuesList[index].SubQuesList[i].checked = false;
       }
       console.log(this.MainQuesList, 'MainQuesList');
     }
@@ -1240,9 +1257,33 @@ ageCalculateInsurer(getDays) {
 
   public SubQuesFailure(error) {
   }
+    getDiseaseList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.termService.diseaseList(data).subscribe(
+            (successData) => {
+                this.diseaseListSuccess(successData);
+            },
+            (error) => {
+                this.diseaseListFailure(error);
+            }
+        );
+    }
+    public diseaseListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.diseaseLists = successData.ResponseObject;
+            console.log(this.diseaseLists, 'DiseaseLists');
+        }
+    }
+    public diseaseListFailure(error) {
+    }
 
 
-  changeWeightChanged() {
+
+    changeWeightChanged() {
     this.proposer.controls['weightChangedName'].patchValue(this.weightList[this.proposer.controls['weightChanged'].value]);
   }
 
@@ -1252,7 +1293,8 @@ ageCalculateInsurer(getDays) {
 
   occupationListCode() {
     this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
-      this.occupation();
+    this.getIncomeProof();
+
   }
 
   changeLanguage() {
@@ -1268,10 +1310,10 @@ ageCalculateInsurer(getDays) {
     this.proposer.controls['language2Name'].patchValue(this.docLanguageList[this.proposer.controls['language2'].value]);
   }
 
-  changePremiumPayTerm() {
-    this.proposer.controls['premiumPayTermName'].patchValue(this.primiumpayList[this.proposer.controls['premiumPayTerm'].value]);
-
-  }
+  // changePremiumPayTerm() {
+  //   this.proposer.controls['premiumPayTermName'].patchValue(this.primiumpayList[this.proposer.controls['premiumPayTerm'].value]);
+  //
+  // }
 
   changeNationality() {
     this.proposer.controls['nationalityName'].patchValue(this.nationalityList[this.proposer.controls['nationality'].value]);
@@ -1353,8 +1395,8 @@ ageCalculateInsurer(getDays) {
         "preferredLanguage": this.proposer.controls['language'].value,
         "proposer_type": this.proposer.controls['proposerType'].value,
         "documentLanguage": this.proposer.controls['language2'].value,
-        "lifeBenefit": this.proposer.controls['lifeBenefit'].value,
-        "benefitTerm": this.proposer.controls['benefitTerm'].value,
+        "lifeBenefit": this.enquiryFormData.lifePolicy,
+        "benefitTerm": this.enquiryFormData.lifeBenefitTerm,
         "premiumPaymentTerm": "10",
         "premiumFrequency": "12",
         "nationality": this.proposer.controls['nationality'].value,
@@ -1690,8 +1732,8 @@ ageCalculateInsurer(getDays) {
   // session Data
   sessionData() {
 
-    if (sessionStorage.lifeBajaj1 != '' && sessionStorage.lifeBajaj1 != undefined) {
-      let lifeBajaj1 = JSON.parse(sessionStorage.lifeBajaj1);
+    if (sessionStorage.stepperDetails1 != '' && sessionStorage.stepperDetails1 != undefined) {
+      let lifeBajaj1 = JSON.parse(sessionStorage.stepperDetails1);
       this.proposer = this.Proposer.group({
         title: lifeBajaj1.title,
         firstName: lifeBajaj1.firstName,
@@ -1708,7 +1750,7 @@ ageCalculateInsurer(getDays) {
         occupationList: lifeBajaj1.occupationList,
         education:lifeBajaj1.education,
         educationName:lifeBajaj1.educationName,
-        benefitTerm: lifeBajaj1.benefitTerm,
+        // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
 
@@ -1756,9 +1798,9 @@ ageCalculateInsurer(getDays) {
         pob: lifeBajaj1.pob,
         countryOfResid: lifeBajaj1.countryOfResid,
         nationality: lifeBajaj1.nationality,
-        premiumfreq: lifeBajaj1.premiumfreq,
-        premiumPayTerm: lifeBajaj1.premiumPayTerm,
-        lifeBenefit: lifeBajaj1.lifeBenefit,
+        // premiumfreq: lifeBajaj1.premiumfreq,
+        // premiumPayTerm: lifeBajaj1.premiumPayTerm,
+        // lifeBenefit: lifeBajaj1.lifeBenefit,
         language2: lifeBajaj1.language2,
         proposerType: lifeBajaj1.proposerType,
         language: lifeBajaj1.language,
@@ -1779,34 +1821,29 @@ ageCalculateInsurer(getDays) {
         idProofName:lifeBajaj1.idProofName,
         ageProofName:lifeBajaj1.ageProofName,
         incomeProofName:lifeBajaj1.incomeProofName,
-
-
-
       });
     }
 
-        if (sessionStorage.lifeBajaj2 != '' && sessionStorage.lifeBajaj2 != undefined) {
-          let lifeBajaj2 = JSON.parse(sessionStorage.lifeBajaj2);
-          this.bankDetail = this.Proposer.group({
-            accountHolderName: lifeBajaj2.accountHolderName,
-            branchName: lifeBajaj2.branchName,
-            accountNo: lifeBajaj2.accountNo,
-            accountType: lifeBajaj2.accountType,
-            ifscCode: lifeBajaj2.ifscCode,
-            micrCode: lifeBajaj2.micrCode,
+    if (sessionStorage.lifeBajaj2 != '' && sessionStorage.lifeBajaj2 != undefined) {
+        let lifeBajaj2 = JSON.parse(sessionStorage.lifeBajaj2);
+        this.bankDetail = this.Proposer.group({
+          accountHolderName: lifeBajaj2.accountHolderName,
+          branchName: lifeBajaj2.branchName,
+          accountNo: lifeBajaj2.accountNo,
+          accountType: lifeBajaj2.accountType,
+          ifscCode: lifeBajaj2.ifscCode,
+          micrCode: lifeBajaj2.micrCode,
+        });
+    }
+    if (sessionStorage.lifeQuestions != '' && sessionStorage.lifeQuestions != undefined) {
+        this.MainQuesList = JSON.parse(sessionStorage.lifeQuestions);
+    }
 
 
-          });
-
-        }
-
-
-    if (sessionStorage.nlifeBajaj!= '' && sessionStorage.nlifeBajaj != undefined) {
+          if (sessionStorage.nlifeBajaj!= '' && sessionStorage.nlifeBajaj != undefined) {
       let nlifeBajaj = JSON.parse(sessionStorage.nlifeBajaj);
       console.log(nlifeBajaj, 'nlifeBajajnlifeBajaj');
-
         for (let i = 0; i < nlifeBajaj.itemsNominee.length; i++) {
-
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nlifeBajaj.itemsNominee[i].nnName);
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nlifeBajaj.itemsNominee[i].nDob);
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nlifeBajaj.itemsNominee[i].nBirthPlace);
