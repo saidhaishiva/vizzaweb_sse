@@ -129,6 +129,7 @@ import {IffcoTokioHealthPayamentSuccessComponent} from './pages/iffco-tokio-heal
 import {BikeRoyalProposalComponent} from './pages/bike-royal-proposal/bike-royal-proposal.component';
 import {DownloadPolicyTravelComponent} from './pages/download-policy-travel/download-policy-travel.component';
 import {TravelBajajalianzProposalComponent} from './pages/travel-bajajalianz-proposal/travel-bajajalianz-proposal.component';
+import {DownloadPolicyTravelReligareComponent} from './pages/download-policy-travel-religare/download-policy-travel-religare.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -193,7 +194,7 @@ export const routes: Routes = [
             { path: 'health', component: HealthComponent, data: { breadcrumb: 'Health Form' }},
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
-            { path: 'downloadPolicyTravel/:id', component: DownloadPolicyTravelComponent, data: { breadcrumb: 'Download Policy' } },
+            { path: 'downloadPolicyTravelReligare/:id', component: DownloadPolicyTravelReligareComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
             { path: 'religare-health-proposal/:stepper', component: ReligareHealthProposalComponent, data: { breadcrumb: 'Religare' }, canDeactivate: [ReligareHealthDeactivateGuardService] },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' }, canDeactivate: [ResultDeactivateGuard] },

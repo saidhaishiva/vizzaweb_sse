@@ -26,40 +26,40 @@ export class DownloadPolicyTravelComponent implements OnInit {
 
     }
     ngOnInit() {
-        this.DownloadPdf();
+        // this.DownloadPdf();
     }
-    DownloadPdf() {
-        const data = {
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'mail_status': '0',
-            'proposal_id' : this.proposalId,
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-        }
-        this.travelservice.getDownloadPdf(data).subscribe(
-            (successData) => {
-                this.downloadPdfSuccess(successData);
-            },
-            (error) => {
-                this.downloadPdfFailure(error);
-            }
-        );
-    }
-    public downloadPdfSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.type = successData.ResponseObject.type;
-            this.currenturl = this.config.getimgUrl();
-            if (this.type == 'pdf') {
-                this.path = successData.ResponseObject.path;
-                window.open(this.currenturl + '/' + this.path, '_blank');
-            }
-        } else {
-            this.toast.error(successData.ErrorObject);
-        }
-    }
-    public downloadPdfFailure(error) {
-    }
+    // DownloadPdf() {
+    //     const data = {
+    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+    //         'mail_status': '0',
+    //         'proposal_id' : this.proposalId,
+    //         'platform': 'web',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    //     }
+    //     this.travelservice.getDownloadPdf(data).subscribe(
+    //         (successData) => {
+    //             this.downloadPdfSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.downloadPdfFailure(error);
+    //         }
+    //     );
+    // }
+    // public downloadPdfSuccess(successData) {
+    //     if (successData.IsSuccess == true) {
+    //         this.type = successData.ResponseObject.type;
+    //         this.currenturl = this.config.getimgUrl();
+    //         if (this.type == 'pdf') {
+    //             this.path = successData.ResponseObject.path;
+    //             window.open(this.currenturl + '/' + this.path, '_blank');
+    //         }
+    //     } else {
+    //         this.toast.error(successData.ErrorObject);
+    //     }
+    // }
+    // public downloadPdfFailure(error) {
+    // }
 
 }
 

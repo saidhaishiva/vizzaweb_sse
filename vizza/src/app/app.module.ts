@@ -266,6 +266,7 @@ import { BikeRoyalProposalComponent } from './pages/bike-royal-proposal/bike-roy
 import { DownloadPolicyTravelComponent } from './pages/download-policy-travel/download-policy-travel.component';
 import {TravelBajajalianzProposalComponent} from './pages/travel-bajajalianz-proposal/travel-bajajalianz-proposal.component';
 import {LifeDocuments} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
+import { DownloadPolicyTravelReligareComponent } from './pages/download-policy-travel-religare/download-policy-travel-religare.component';
 
 @NgModule({
     imports: [
@@ -490,7 +491,8 @@ import {LifeDocuments} from './pages/life-bajaj-proposal/life-bajaj-proposal.com
         BikeRoyalProposalComponent,
         DownloadPolicyTravelComponent,
         TravelBajajalianzProposalComponent,
-        LifeDocuments
+        LifeDocuments,
+        DownloadPolicyTravelReligareComponent
 
     ],
     providers: [

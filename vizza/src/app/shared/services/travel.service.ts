@@ -707,6 +707,7 @@ export class TravelService {
             .catch(this.handleError);
     }
     downloadPolicyReligare(data) {
+
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
         const httpOptions = {
