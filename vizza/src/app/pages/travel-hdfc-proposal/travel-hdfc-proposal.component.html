@@ -116,7 +116,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3 mt-2">
                         <mat-form-field class="w-100" >
-                          <mat-select placeholder="PED" formControlName="ped" autocomplete="off" required>
+                          <mat-select placeholder="PED" formControlName="ped" autocomplete="off"  (change)="changePed()" required>
                             <mat-option *ngFor="let item of getpedDetails" value= {{item.pedid}}>
                               {{item.ped}}
                             </mat-option>

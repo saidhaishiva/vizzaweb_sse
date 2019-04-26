@@ -85,6 +85,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public step: any;
     public travelPurpose: any;
     public mobileView: boolean;
+    public pedValid: boolean;
 
 
 
@@ -734,7 +735,18 @@ export class TravelHdfcProposalComponent implements OnInit {
 
     public insuredRelationshipListFailure(error) {
     }
+ changePed(){
+     this.pedValid = true;
+        for(let i = 0; i < this.getpedDetails.length; i++) {
+            if(this.getpedDetails[i].pedid == this.hdfcTravel.controls.ped.value) {
+                if(this.getpedDetails[i].isAcceptable == '0') {
+                   this.pedValid = false;
+                }
+            }
+        }
+        sessionStorage.pedValid = this.pedValid;
 
+    }
     // insured relationship
     nomineeRelationshipList() {
         const data = {
@@ -766,13 +778,13 @@ export class TravelHdfcProposalComponent implements OnInit {
         sessionStorage.hdfcTravelDetails1 = JSON.stringify(value);
         if (this.hdfcTravel.valid) {
             if (sessionStorage.proposerAgeHdfcTravel >= 18) {
-                // if (this.hdfcTravel.controls['ped'].value == 'None') {
+                if (sessionStorage.pedValid == true || sessionStorage.pedValid == 'true') {
                     stepper.next();
                     this.nextStep();
 
-                // } else {
-                //     this.toastr.error('Existing Disease should Not allow For this insurance');
-                // }
+                } else {
+                    this.toastr.error('Existing Disease should Not allow For this insurance');
+                }
 
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
