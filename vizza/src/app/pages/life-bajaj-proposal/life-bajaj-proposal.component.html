@@ -715,90 +715,80 @@
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <form [formGroup]="nomineeDetail">
                     <div formArrayName="itemsNominee" *ngFor="let item of nomineeDetail.get('itemsNominee')['controls']; let i = index;">
+                      <div [formGroupName]="i">
 
-                      <div class="row" [formGroupName]="i">
-
-
-                      <div class="col-md-12 text-right w-100" >
-                        <p *ngIf="i==0 && itemsNominee.value.length<2" (click)="addNominee($event)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Add</p>
-                        <button mat-button *ngIf="i==1" (click)="removeNominee($event,i)">
-                          Remove</button>
-                      </div>
-
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Nominee Name"  required formControlName="nnName" (keypress)="nameValidate($event)"   autocomplete="off">
-                            <!--<mat-error *ngIf="nomineeDetail.controls.nnName.errors?.required">Nominee Name is required</mat-error>-->
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker2" [max]="today"   placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEventNominee($event,i )" (dateChange)="addEventNominee($event,i)" required minlength="10" maxlength="10"
-                                 autocomplete="off"   required>
-                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                          <mat-datepicker #picker2></mat-datepicker>
-                          <!--<mat-error *ngIf="nomineeDetail.nDob.errors?.required">DOB is required</mat-error>-->
-                        </mat-form-field>
-
-
-                        <p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value}}</p>
-
-                      </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Birth Place"  formControlName="nBirthPlace" (keypress)="nameValidate($event)"   autocomplete="off" required>
-                          <!--<mat-error *ngIf="nomineeDetail.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-4">
-                      <mat-form-field class="w-100">
-                      <mat-select  placeholder="Nominee Relation with Insured" formControlName="nRelation" class="w-100" (change)="changeNomineeRelation()" required>
-                       <mat-option *ngFor="let list of nomineeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
-                      </mat-select>
-                      <!--<mat-error *ngIf="nomineeDetail.controls.nRelation.errors?.required">Relation is required</mat-error>-->
-                      </mat-form-field>
-                      </div>
-                    </div>
-                    </div>
-
-                    <div *ngIf="show"  class="col-md-12 box-card pt-3 pb-3">
-                      <div class="row" [formGroup]="apointeeDetails">
+                        <div class="row">
+                            <div class="col-md-12 text-right w-100" >
+                              <p *ngIf="i==0 && itemsNominee.value.length<2" (click)="addNominee($event)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Add</p>
+                              <button mat-button *ngIf="i==1" (click)="removeNominee($event,i)">
+                                Remove</button>
+                            </div>
+                            <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                <input matInput placeholder="Nominee Name" formControlName="nnName" (keypress)="nameValidate($event)"   autocomplete="off">
+                                  <!--<mat-error *ngIf="nomineeDetail.controls.nnName.errors?.required">Nominee Name is required</mat-error>-->
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                <input matInput [matDatepicker]="picker2" [max]="today"   placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEventNominee($event,i )" (dateChange)="addEventNominee($event,i)" required minlength="10" maxlength="10"
+                                       autocomplete="off"   required>
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                                <!--<mat-error *ngIf="nomineeDetail.nDob.errors?.required">DOB is required</mat-error>-->
+                              </mat-form-field>
+                              <p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value}}</p>
+                            </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="apointee Name"  formControlName="aName" (keypress)="nameValidate($event)" required   autocomplete="off">
-                          </mat-form-field>
-
-
-                          <!--<mat-form-field class="w-100">-->
-                            <!--<input matInput placeholder="apointee Name"  formControlName="aName" (keypress)="nameValidate($event)" required   autocomplete="off">-->
-                          <!--</mat-form-field>-->
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker4" [max]="today"   placeholder="Appointee DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="appointeeDob" (dateInput)="addEventNominee($event,i )" (dateChange)="addEventNominee($event,i)" required minlength="10" maxlength="10"
-                                   autocomplete="off"   required>
-                            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                            <mat-datepicker #picker4></mat-datepicker>
-                            <mat-error *ngIf="apointeeDetails.appointeeDob.errors?.required">DOB is required</mat-error>
-                          </mat-form-field>
-
-
-
-                        </div>
-
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Appointee Relation To Nominee"  formControlName="appointeeRelationToNominee" (keypress)="nameValidate($event)"   autocomplete="off" required>
-                            <mat-error *ngIf="apointeeDetails.controls.appointeeRelationToNominee.errors?.required">Appointee Relation To Nominee is required</mat-error>
+                            <input matInput placeholder="Birth Place"  formControlName="nBirthPlace" (keypress)="nameValidate($event)"   autocomplete="off" required>
+                            <!--<mat-error *ngIf="nomineeDetail.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <mat-select  placeholder="Relation To Insured" formControlName="relationToInsured" class="w-100" (change)="changeNomineeRelation()" required>
-                              <mat-option *ngFor="let list of apointeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="apointeeDetails.controls.relationToInsured.errors?.required">Relation is required</mat-error>
-                          </mat-form-field>
+                        <mat-form-field class="w-100">
+                        <mat-select  placeholder="Nominee Relation with Insured" formControlName="nRelation" class="w-100" (change)="changeNomineeRelation()" required>
+                         <mat-option *ngFor="let list of nomineeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
+                        </mat-select>
+                        <!--<mat-error *ngIf="nomineeDetail.controls.nRelation.errors?.required">Relation is required</mat-error>-->
+                        </mat-form-field>
+                        </div>
+                      </div>
+
+                        <div class="row" *ngIf="showAppointee">
+                          <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                              <mat-placeholder >Apointee Name <span class="error">*</span></mat-placeholder>
+                              <input matInput formControlName="aName" (keypress)="nameValidate($event)"  autocomplete="off">
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                              <mat-placeholder >Appointee DOB (DD/MM/YYYY)<span class="error">*</span></mat-placeholder>
+                              <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="appointeeDob" (dateInput)="addEventNominee($event,i )" (dateChange)="addEventNominee($event,i)" minlength="10" maxlength="10"
+                                     autocomplete="off" >
+                              <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                              <mat-datepicker #picker4></mat-datepicker>
+                              <!--<mat-error *ngIf="apointeeDetails.appointeeDob.errors?.required">DOB is required</mat-error>-->
+                            </mat-form-field>
+                          </div>
+
+                          <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                              <mat-placeholder >Appointee Relation To Nominee <span class="error">*</span></mat-placeholder>
+                              <input matInput formControlName="appointeeRelationToNominee" (keypress)="nameValidate($event)"   autocomplete="off">
+                              <!--<mat-error *ngIf="apointeeDetails.controls.appointeeRelationToNominee.errors?.required">Appointee Relation To Nominee is required</mat-error>-->
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                              <mat-placeholder >Relation To Insured <span class="error">*</span></mat-placeholder>
+                              <mat-select formControlName="relationToInsured" class="w-100" (change)="changeNomineeRelation()">
+                                <mat-option *ngFor="let list of apointeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
+                              </mat-select>
+                              <!--<mat-error *ngIf="apointeeDetails.controls.relationToInsured.errors?.required">Relation is required</mat-error>-->
+                            </mat-form-field>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -806,7 +796,8 @@
                       <div class="proposal-buttom mb-3 text-right w-100">
                         <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
                         <button mat-raised-button color="primaryBlue"   (click)="nomineeDetailNext(stepper, nomineeDetail.value)">Next</button>
-                      </div></div>
+                      </div>
+                    </div>
                   </form>
                 </div>
 
