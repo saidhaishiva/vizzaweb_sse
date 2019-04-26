@@ -57,7 +57,7 @@ export class TravelHdfcProposalComponent implements OnInit {
     public insuredRelationshipDetails: any;
     public declinedetails: boolean;
     public restrictiondetails: boolean;
-    public getpedDetails: boolean;
+    public getpedDetails: any;
     public arr: any;
     public nomineeRelationshipDetails: any;
     public insuredTravelData: any;
