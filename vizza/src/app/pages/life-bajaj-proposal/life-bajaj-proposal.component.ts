@@ -66,7 +66,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public weightList: any;
   public occupationList: any;
   public politicalDetails: boolean;
-  public show: boolean;
+  public showAppointee: boolean;
   public MainQuesList: any;
   public SubQuesList: any;
   public questionId: any;
@@ -555,11 +555,12 @@ export class LifeBajajProposalComponent implements OnInit {
           }
         }
       }
+      console.log(this.getAge, 'this.getAgethis.getAge');
         if (this.getAge < 18) {
-        sessionStorage.nomineAge = this.getAge;
-          this.show = true;
+          sessionStorage.nomineAge = this.getAge;
+          this.showAppointee = true;
         } else {
-          this.show = false;
+          this.showAppointee = false;
         }
     }
 
@@ -1723,9 +1724,14 @@ export class LifeBajajProposalComponent implements OnInit {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue(nomineeDetails.itemsNominee[i].appointeeRelationToNominee);
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(nomineeDetails.itemsNominee[i].relationToInsured);
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsuredName.patchValue(nomineeDetails.itemsNominee[i].relationToInsuredName);
-
           }
-
+      }
+      if (sessionStorage.nomineAge!= '' && sessionStorage.nomineAge != undefined) {
+          if (sessionStorage.nomineAge < 18) {
+              this.showAppointee = true;
+          } else {
+              this.showAppointee = false;
+          }
       }
   }
 
