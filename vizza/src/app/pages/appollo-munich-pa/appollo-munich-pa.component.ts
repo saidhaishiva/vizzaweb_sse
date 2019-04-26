@@ -1246,8 +1246,17 @@ preInsureList() {
                     this.insured.controls['riderList'].patchValue(true);
                 }
 
-                if(this.occupationClass[i].class != 4){
-                    this.occupationClass1 = true;
+
+                if(this.getBuyDetails.product_code == '21008'){
+                    if(this.occupationClass[i].class == 4 || this.occupationClass[i].class == 3 ){
+                        this.occupationClass1 = false;
+                        this.toastr.error('Sorry!, Your occupation is not allowed');
+
+                    }
+                } else if(this.getBuyDetails.product_code == '21007') {
+                    if(this.occupationClass[i].class == 4){
+                        this.occupationClass1 = false;
+                    }
                 }
             }
         } else {
