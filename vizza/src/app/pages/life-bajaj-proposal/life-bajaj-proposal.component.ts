@@ -214,13 +214,13 @@ export class LifeBajajProposalComponent implements OnInit {
     this.politicalDetails = false;
 
     this.nomineeDetail = this.Proposer.group({
-      itemsNominee: this.Proposer.array([]),
-      nnName: ['', Validators.required],
-      nDob: ['', Validators.required],
-      nBirthPlace: ['', Validators.required],
-      nRelation:['', Validators.required],
-      nRelationName:'',
-      nomineeDobValidError: ''
+      itemsNominee: this.Proposer.array([])
+      // nnName: ['', Validators.required],
+      // nDob: ['', Validators.required],
+      // nBirthPlace: ['', Validators.required],
+      // nRelation:['', Validators.required],
+      // nRelationName:'',
+      // nomineeDobValidError: ''
 
     });
 
@@ -231,16 +231,6 @@ export class LifeBajajProposalComponent implements OnInit {
       accountType:'',
       ifscCode:'',
       micrCode:'',
-
-    });
-
-    this.apointeeDetails = this.Proposer.group({
-      aName: '',
-      appointeeDob:'',
-      appointeeRelationToNominee:'',
-      relationToInsured:'',
-      relationToInsuredName:'',
-
 
     });
 
@@ -304,7 +294,12 @@ export class LifeBajajProposalComponent implements OnInit {
       nBirthPlace:'',
       nRelation: '',
       nRelationName: '',
-      nomineeDobValidError:''
+      nomineeDobValidError:'',
+      aName: '',
+      appointeeDob:'',
+      appointeeRelationToNominee:'',
+      relationToInsured:'',
+      relationToInsuredName:''
     });
   }
 
@@ -561,6 +556,7 @@ export class LifeBajajProposalComponent implements OnInit {
         }
       }
         if (this.getAge < 18) {
+        sessionStorage.nomineAge = this.getAge;
           this.show = true;
         } else {
           this.show = false;
@@ -605,8 +601,8 @@ export class LifeBajajProposalComponent implements OnInit {
   //Bank Details
   bankDetailNext(stepper, value) {
     console.log(value);
-    sessionStorage.lifeBajaj2 = JSON.stringify(value);
-    console.log(sessionStorage.lifeBajaj2, 'session');
+    sessionStorage.lifeBajajBankDetails = JSON.stringify(value);
+    console.log(sessionStorage.lifeBajajBankDetails, 'session');
     if (this.bankDetail.valid) {
       stepper.next();
     } else {
@@ -665,18 +661,22 @@ export class LifeBajajProposalComponent implements OnInit {
   //nominee details
   nomineeDetailNext(stepper, value) {
     console.log(value);
-    sessionStorage.nlifeBajaj = JSON.stringify(value);
-    sessionStorage.apointeeSessiondetail = JSON.stringify(value);
+    sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
+    console.log(value, 'valuevalue');
+    console.log(this.nomineeDetail.valid, 'this.nomineeDetail.valid');
+      if (this.nomineeDetail.valid) {
+          if (sessionStorage.nomineAge < 18) {
+            if(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
 
-    console.log(sessionStorage.nlifeBajaj, 'session');
+            } else {
+                this.toastr.error('Please fill the appointee details');
+            }
+          } else {
+
+          }
+      }
     // if (this.nomineeDetail.valid) {
-      this.proposal(stepper);
-      alert();
-     // stepper.next();
-
-    // } else {
-    //   this.toastr.error('error')
-    // }
+    //  this.proposal(stepper);
   }
 
   //services
@@ -1423,8 +1423,6 @@ export class LifeBajajProposalComponent implements OnInit {
   // proposal Creation
 
   proposal(stepper) {
-    alert();
-    console.log(this.proposer.controls['occupationList'].value,'jkgjhg');
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -1696,52 +1694,44 @@ export class LifeBajajProposalComponent implements OnInit {
       });
     }
 
-    if (sessionStorage.lifeBajaj2 != '' && sessionStorage.lifeBajaj2 != undefined) {
-        let lifeBajaj2 = JSON.parse(sessionStorage.lifeBajaj2);
+    if (sessionStorage.lifeBajajBankDetails != '' && sessionStorage.lifeBajajBankDetails != undefined) {
+        let lifeBajajBankDetails = JSON.parse(sessionStorage.lifeBajajBankDetails);
         this.bankDetail = this.Proposer.group({
-          accountHolderName: lifeBajaj2.accountHolderName,
-          branchName: lifeBajaj2.branchName,
-          accountNo: lifeBajaj2.accountNo,
-          accountType: lifeBajaj2.accountType,
-          ifscCode: lifeBajaj2.ifscCode,
-          micrCode: lifeBajaj2.micrCode,
+          accountHolderName: lifeBajajBankDetails.accountHolderName,
+          branchName: lifeBajajBankDetails.branchName,
+          accountNo: lifeBajajBankDetails.accountNo,
+          accountType: lifeBajajBankDetails.accountType,
+          ifscCode: lifeBajajBankDetails.ifscCode,
+          micrCode: lifeBajajBankDetails.micrCode,
         });
     }
     if (sessionStorage.lifeQuestions != '' && sessionStorage.lifeQuestions != undefined) {
         this.MainQuesList = JSON.parse(sessionStorage.lifeQuestions);
     }
+     if (sessionStorage.lifeBajaiNomineeDetails!= '' && sessionStorage.lifeBajaiNomineeDetails != undefined) {
+          let nomineeDetails = JSON.parse(sessionStorage.lifeBajaiNomineeDetails);
+          console.log(nomineeDetails, 'nlifeBajajnlifeBajaj');
+          for (let i = 0; i < nomineeDetails.itemsNominee.length; i++) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nomineeDetails.itemsNominee[i].nnName);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nomineeDetails.itemsNominee[i].nDob);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nomineeDetails.itemsNominee[i].nBirthPlace);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nomineeDetails.itemsNominee[i].nRelation);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nomineeDetails.itemsNominee[i].nomineeDobValidError);
 
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(nomineeDetails.itemsNominee[i].aName);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(nomineeDetails.itemsNominee[i].appointeeDob);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue(nomineeDetails.itemsNominee[i].appointeeRelationToNominee);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(nomineeDetails.itemsNominee[i].relationToInsured);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsuredName.patchValue(nomineeDetails.itemsNominee[i].relationToInsuredName);
 
-          if (sessionStorage.nlifeBajaj!= '' && sessionStorage.nlifeBajaj != undefined) {
-      let nlifeBajaj = JSON.parse(sessionStorage.nlifeBajaj);
-      console.log(nlifeBajaj, 'nlifeBajajnlifeBajaj');
-        for (let i = 0; i < nlifeBajaj.itemsNominee.length; i++) {
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nlifeBajaj.itemsNominee[i].nnName);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nlifeBajaj.itemsNominee[i].nDob);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nlifeBajaj.itemsNominee[i].nBirthPlace);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nlifeBajaj.itemsNominee[i].nRelation);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nlifeBajaj.itemsNominee[i].nomineeDobValidError);
+          }
 
-        }
-
-
-
-    }
-    if (sessionStorage.apointeeSessionDetail != '' && sessionStorage.apointeeSessionDetail != undefined) {
-      let apointeeSessionDetail = JSON.parse(sessionStorage.apointeeSessionDetail);
-      this.bankDetail = this.Proposer.group({
-        aName: apointeeSessionDetail.aName,
-        appointeeDob: apointeeSessionDetail.appointeeDob,
-        appointeeRelationToNominee: apointeeSessionDetail.appointeeRelationToNominee,
-        relationToInsured: apointeeSessionDetail.relationToInsured,
-
-      });
-    }
-    }
+      }
+  }
 
     viewDocs() {
         let dialogRef = this.dialog.open(LifeDocuments, {
-            width: '1200px',
+            width: '1200px'
         });
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result => {
