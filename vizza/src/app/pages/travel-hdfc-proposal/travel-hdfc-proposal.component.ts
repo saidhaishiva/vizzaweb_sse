@@ -500,7 +500,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             }
             console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value);
 
-            if((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) <= 8034 && parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) >= 90) && (type == 'Child1' || type == 'Child2')) {
+            if((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) <= 8034 && parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) >= 91) && (type == 'Child1' || type == 'Child2')) {
                 this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             }
             else if(parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 91 && (type == 'Child1' || type == 'Child2'))  {
