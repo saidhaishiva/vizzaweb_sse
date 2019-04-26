@@ -813,6 +813,7 @@ export class TravelHomeComponent implements OnInit {
             let days = this.dyasCalculation();
             console.log(this.courseDuration, 'this.courseDuration');
             console.log(this.sem, 'this.sem');
+
             if (days <= 180 ) {
                 console.log('as');
                 const data = {
@@ -836,6 +837,11 @@ export class TravelHomeComponent implements OnInit {
                     'course_duration': this.travelUserType ? this.courseDuration : '',
                     'semester': this.travelUserType ? this.sem : ''
                 };
+                if(this.travelUserType) {
+                    data.travel_plan_type = '';
+                } else {
+                    data.travel_plan_type = this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType;
+                }
                 this.settings.loadingSpinner = true;
                 console.log(data, 'this.datadata');
                 this.travel.getEnquiryDetails(data).subscribe(
