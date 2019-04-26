@@ -85,6 +85,17 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getHypothecationType(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'shriram/hypothecationTypeList';
+    return this.http.post(url, json,httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getAddonPackage(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -226,7 +237,7 @@ export class BikeInsuranceService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getBikeInsurance() + 'shriram/getHypothenticateAddr';
+    const url = this.configurationService.getBikeInsurance() + 'shriram/get_pincode_details';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);

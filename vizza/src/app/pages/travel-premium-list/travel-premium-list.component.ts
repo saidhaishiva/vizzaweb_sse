@@ -360,7 +360,7 @@ export class TravelPremiumListComponent implements OnInit {
                 if (result) {
                     if (value.product_id <= 37 && value.product_id >=32) {
                         this.router.navigate(['/travelproposal'  + '/' + false]);
-                    }  else if (value.product_id <= 31 && value.product_id >=27) {
+                    }  else if (value.product_id <= 31 && value.product_id >=27 || (value.product_id <= 76 && value.product_id >= 72)) {
                         this.router.navigate(['/hdfc-travel'  + '/' + false]);
                     } else if (value.product_id <= 26 && value.product_id >=24) {
                         this.router.navigate(['/shriram-travel-home' + '/' + false]);
@@ -374,7 +374,7 @@ export class TravelPremiumListComponent implements OnInit {
         }  else {
             if (value.product_id <= 37 && value.product_id >=32) {
                 this.router.navigate(['/travelproposal'  + '/' + false]);
-            }   else if (value.product_id <= 31 && value.product_id >=27) {
+            }   else if (value.product_id <= 31 && value.product_id >=27 || (value.product_id <= 76 && value.product_id >= 72)) {
                 this.router.navigate(['/hdfc-travel'  + '/' + false]);
             } else if (value.product_id <= 26 && value.product_id >=24) {
                 this.router.navigate(['/shriram-travel-home'+ '/' + false]);

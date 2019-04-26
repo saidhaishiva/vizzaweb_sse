@@ -390,7 +390,7 @@
                         <!--</mat-form-field>-->
                       <!--</div>-->
 
-                      <div class="col-md-4" *ngIf="insured.controls['riderList'].value == true">
+                      <div class="col-md-8" *ngIf="insured.controls['riderList'].value == true">
                         <mat-checkbox formControlName="ttdrider"><strong>TTD Rider</strong></mat-checkbox>
                         <p class="mt-1">Temporary total disability is an injury that does not result in death or permanent disability, but makes the injured person unable to perform regular duties or activities.</p>
                       </div>
@@ -543,11 +543,11 @@
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
-              <div class="col-md-4"> <h4 class="mt-3 text-center"> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>
+              <div class="col-md-4"> <h4 class="text-center"> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getBuyDetails.suminsured_amount}}</span></h4></div>
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + getBuyDetails.company_logo}}" class="img-thumbnail" style="width: 88px;" /> </li>
-                  <li><span>Base Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.BasePremium}}</span> /</li>
+                  <li><span>Base Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.BasePremium}}</span> </li>
                   <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.Tax}}</span> </li>
                   <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span> </li>
                   <li></li>
@@ -560,7 +560,7 @@
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Name:</strong><span *ngIf="proposerFormData.insuredPaTitle == 'MR'">Mr</span><span *ngIf="proposerFormData.insuredPaTitle == 'MRS'">Ms</span>.{{proposerFormData.insuredPaFirstname}} {{proposerFormData.insuredPaMidname}} {{proposerFormData.insuredPaLastname}} </li>
+                    <li class="list-group-item"><strong>Name:</strong><span *ngIf="proposerFormData.insuredPaTitle == 'MR'">Mr</span><span *ngIf="proposerFormData.insuredPaTitle == 'MRS'">Ms</span>. {{proposerFormData.insuredPaFirstname}} {{proposerFormData.insuredPaMidname}} {{proposerFormData.insuredPaLastname}} </li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaGender"><strong>Gender:</strong> {{proposerFormData.insuredPaGender}} </li>
                     <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.insuredPaMobile}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.insuredPaDob  | date: 'dd/MM/yyyy'}}</li>
@@ -568,7 +568,7 @@
                     <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.insuredPaEmail}}</li>
                     <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.insuredOccupationListName}}</li>
                     <!--<li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>-->
-                    <li class="list-group-item"><strong>TTD Rider:</strong> {{proposerFormData.ttdrider}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.riderList == true"><strong>TTD Rider:</strong><span *ngIf="proposerFormData.ttdrider == false">No</span><span *ngIf="proposerFormData.ttdrider == true">Yes</span> </li>
                   </ul>
                 </div>
               </div>
@@ -645,7 +645,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong><span *ngIf="nomineeDataForm.paNomineeTitle == 'MR'">Mr</span><span *ngIf="nomineeDataForm.paNomineeTitle == 'MRS'">Ms</span>.{{nomineeDataForm.paNomineeName}}</li>
+                        <li class="list-group-item"><strong>Name:</strong><span *ngIf="nomineeDataForm.paNomineeTitle == 'MR'">Mr</span><span *ngIf="nomineeDataForm.paNomineeTitle == 'MRS'">Ms</span>. {{nomineeDataForm.paNomineeName}}</li>
                       </ul>
                     </div>
 
@@ -1293,7 +1293,7 @@
                           <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.insuredPaEmail}}</li>
                           <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.insuredOccupationListName}}</li>
                           <!--<li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>-->
-                          <li class="list-group-item"><strong>TTD Rider:</strong> {{proposerFormData.ttdrider}}</li>
+                          <li class="list-group-item"><strong>TTD Rider:</strong><span *ngIf="proposerFormData.ttdrider == 'false'">No</span><span *ngIf="proposerFormData.ttdrider == 'true'">Yes</span></li>
                         </ul>
                       </div>
                     </div>

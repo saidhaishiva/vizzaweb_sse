@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
 import {AppSettings} from '../../app.settings';
@@ -14,6 +14,9 @@ import {ActivatedRoute} from '@angular/router';
 import {element} from 'protractor';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import * as moment from 'moment';
+import {Http} from '@angular/http';
+import {AgeValidate} from '../health-insurance/health-insurance.component';
+
 
 export const MY_FORMATS = {
   parse: {
@@ -63,7 +66,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public weightList: any;
   public occupationList: any;
   public politicalDetails: boolean;
-  public show: boolean;
+  public showAppointee: boolean;
   public MainQuesList: any;
   public SubQuesList: any;
   public questionId: any;
@@ -94,9 +97,13 @@ export class LifeBajajProposalComponent implements OnInit {
   public slectedIndex:any;
   public declaration: any;
   public requestedUrl: any;
+  public diseaseLists: any;
+  public enquiryFormData: any;
+  public setQuestionDetails: any;
+  public apointeRelationList:any;
 
 
-  constructor(public Proposer: FormBuilder, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+  constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -142,13 +149,13 @@ export class LifeBajajProposalComponent implements OnInit {
       pob: '',
       countryOfResid: '',
       nationality: '',
-      premiumfreq: '',
-      premiumPayTerm: '',
-      lifeBenefit: '',
+      // premiumfreq: '',
+      // premiumPayTerm: '',
+      // lifeBenefit: '',
       language2: '',
       proposerType: '',
       language: '',
-      benefitTerm: '',
+      // benefitTerm: '',
       comDoorNo:'',
       comBuildingNumber:'',
       comPlotNumber:'',
@@ -207,13 +214,13 @@ export class LifeBajajProposalComponent implements OnInit {
     this.politicalDetails = false;
 
     this.nomineeDetail = this.Proposer.group({
-      itemsNominee: this.Proposer.array([]),
-      nnName: ['', Validators.required],
-      nDob: ['', Validators.required],
-      nBirthPlace: ['', Validators.required],
-      nRelation:['', Validators.required],
-      nRelationName:'',
-      nomineeDobValidError: ''
+      itemsNominee: this.Proposer.array([])
+      // nnName: ['', Validators.required],
+      // nDob: ['', Validators.required],
+      // nBirthPlace: ['', Validators.required],
+      // nRelation:['', Validators.required],
+      // nRelationName:'',
+      // nomineeDobValidError: ''
 
     });
 
@@ -227,16 +234,13 @@ export class LifeBajajProposalComponent implements OnInit {
 
     });
 
-    this.apointeeDetails = this.Proposer.group({
-      aName: '',
-    });
-
     this.questions = this.Proposer.group({});
+    this.setQuestionDetails = [];
   }
 
 
   ngOnInit() {
-
+      this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
       console.log(this.lifePremiumList, 'kjhgdhgh');
 
@@ -254,14 +258,18 @@ export class LifeBajajProposalComponent implements OnInit {
     this.country();
     this.title();
     this.weightChanged();
-    this.mainQuestion();
     this.nomineeRelation();
-    this.getIncomeProof();
+    this.occupation();
     this.getageProof();
     this.getIdProof();
     this.education();
+    this.getApointeeRelation();
+    this.getDiseaseList();
+    if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
+        this.mainQuestion();
+    }
 
-    //NOMINEE Details
+          //NOMINEE Details
     // this.itemsNominee = this.nomineeDetail.get('itemsNominee') as FormArray;
     // this.itemsNominee.push(this.nomineeItems());
     //
@@ -286,7 +294,12 @@ export class LifeBajajProposalComponent implements OnInit {
       nBirthPlace:'',
       nRelation: '',
       nRelationName: '',
-      nomineeDobValidError:''
+      nomineeDobValidError:'',
+      aName: '',
+      appointeeDob:'',
+      appointeeRelationToNominee:'',
+      relationToInsured:'',
+      relationToInsuredName:''
     });
   }
 
@@ -504,30 +517,28 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
 
+  addEventNominee(event, i) {
+      if (event.value != null) {
+        let selectedDate = '';
+        let dob = '';
+        let dob_days = '';
+        this.getAge = '';
+        this.getDays;
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
 
-
-
-  addEventInsurer(event,  i) {
-    if (event.value != null) {
-      let selectedDate = '';
-      let dob = '';
-      let dob_days = '';
-      this.getAge = '';
-      this.getDays;
-      dob = this.datepipe.transform(event.value, 'y-MM-dd');
-      dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
-
-      if (typeof event.value._i == 'string') {
-        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (typeof event.value._i == 'string') {
+          const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
           if (pattern.test(event.value._i) && event.value._i.length == 10) {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+
           } else {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
           }
 
-        selectedDate = event.value._i;
+          selectedDate = event.value._i;
 
-        if (selectedDate.length == 10) {
+          if (selectedDate.length == 10) {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
             this.getAge = this.ageCalculate(dob);
             this.getDays = this.ageCalculateInsurer(dob_days);
@@ -536,84 +547,114 @@ export class LifeBajajProposalComponent implements OnInit {
           }
 
         }
-       else if (typeof event.value._i == 'object') {
-         if (dob.length == 10) {
+        else if (typeof event.value._i == 'object') {
+          if (dob.length == 10) {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
             this.getAge = this.ageCalculate(dob);
             this.getDays = this.ageCalculateInsurer(dob_days);
           }
         }
       }
-
+      console.log(this.getAge, 'this.getAgethis.getAge');
+        if (this.getAge < 18) {
+          sessionStorage.nomineAge = this.getAge;
+          this.showAppointee = true;
+        } else {
+          this.showAppointee = false;
+        }
     }
 
 
 
-ageCalculateInsurer(getDays) {
-  let a = moment(getDays, 'DD/MM/YYYY');
-  let b = moment(new Date(), 'DD/MM/YYYY');
-  let days = b.diff(a, 'days');
-  return days;
-  // let mdate = dob.toString();
-  // let yearThen = parseInt(mdate.substring( 8,10), 10);
-  // let monthThen = parseInt(mdate.substring(5,7), 10);
-  // let dayThen = parseInt(mdate.substring(0,4), 10);
-  // let todays = new Date();
-  // let birthday = new Date( dayThen, monthThen-1, yearThen);
-  // let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-  // let Bob_days = Math.ceil(differenceInMilisecond / (1000 * 60 * 60 * 24));
-  // return Bob_days;
-}
+
+    // if (i == 'nominee') {
+    //         this.nomineeAge = this.ageCalculate();
+    //         console.log(this.nomineeAge,'nomineeage');
+    //         if (this.nomineeAge < 18) {
+    //           this.show = true;
+    //         } else {
+    //           this.show = false;
+    //         }
+    //       }
+    //
+    ageCalculateInsurer(getDays) {
+      let a = moment(getDays, 'DD/MM/YYYY');
+      let b = moment(new Date(), 'DD/MM/YYYY');
+      let days = b.diff(a, 'days');
+      return days;
+    }
   // personal details
   proposerDetails(stepper, value) {
     console.log(value);
-    sessionStorage.lifeBajaj1 = JSON.stringify(value);
-    console.log(sessionStorage.lifeBajaj1, 'session')
+    sessionStorage.stepperDetails1 = JSON.stringify(value);
+
+    console.log(value, 'valuevalue');
+    console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       stepper.next();
-    } else {
-      this.toastr.error('error')
+      this.topScroll();
     }
+    // else {
+    //   this.toastr.error('error')
+    // }
   }
 
   //Bank Details
   bankDetailNext(stepper, value) {
     console.log(value);
-    sessionStorage.lifeBajaj2 = JSON.stringify(value);
-    console.log(sessionStorage.lifeBajaj2, 'session')
+    sessionStorage.lifeBajajBankDetails = JSON.stringify(value);
+    console.log(sessionStorage.lifeBajajBankDetails, 'session');
     if (this.bankDetail.valid) {
       stepper.next();
     } else {
-      this.toastr.error('error')
+      this.toastr.error('error');
     }
   }
 
   medicalHistoryDetails(stepper: MatStepper) {
 
-    sessionStorage.lifemedical = '';
-    sessionStorage.lifemedical = JSON.stringify(this.MainQuesList);
+    sessionStorage.lifeQuestions = '';
+    sessionStorage.lifeQuestions = JSON.stringify(this.MainQuesList);
 
     console.log(this.MainQuesList, 'lisyduhs');
-
-   // this.question_details
-   //
-    let medicalStatus = [];
-    for (let i = 0; i < this.MainQuesList.length; i++) {
-      if(this.MainQuesList[i].mStatus == 'No'){
-        medicalStatus.push('No');
-      } else if(this.MainQuesList[i].mStatus == 'Yes') {
-        medicalStatus.push('Yes');
+      this.setQuestionDetails = [];
+      let setMainRes = '';
+      let setSubRes = '';
+      for (let i = 0; i < this.MainQuesList.length; i++) {
+          if(this.MainQuesList[i].feild == 'NUMBER' || this.MainQuesList[i].feild == 'TEXT' || this.MainQuesList[i].feild == 'Dropdown') {
+              setMainRes =  this.MainQuesList[i].fieldValue;
+          } else if(this.MainQuesList[i].feild == 'Y/N') {
+              setMainRes =  this.MainQuesList[i].checked ? 'Y' : 'N';
+          }
+          this.setQuestionDetails.push({
+              "questionId": this.MainQuesList[i].qus_id,
+              "subQuestionId": this.MainQuesList[i].sub_qus_id,
+              "questionFlag": this.MainQuesList[i].qus_flag,
+              "detailAnswer": '',
+              "answer": setMainRes
+          });
       }
-    }
-    console.log(medicalStatus,'medicalStatus');
-    if (medicalStatus.includes('Yes')) {
-      // this.toastr.error('This medical questions is unable to proceed');
-      this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
-    } else {
-      stepper.next();
-      // this.nextStep();
+      for (let i = 0; i < this.MainQuesList.length; i++) {
+        for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
+            this.setQuestionDetails[i].detailAnswer = this.MainQuesList[i].SubQuesList[j].subQuestionText;
+        }
+      }
 
-    }
+      console.log(this.setQuestionDetails,'setQuestionDetailssetQuestionDetails');
+
+      stepper.next();
+      this.topScroll();
+
+
+
+      //   if (medicalStatus.includes('Yes')) {
+    //   // this.toastr.error('This medical questions is unable to proceed');
+    //   this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy.');
+    // } else {
+    //   stepper.next();
+    //   // this.nextStep();
+    //
+    // }
 
   }
 
@@ -621,16 +662,22 @@ ageCalculateInsurer(getDays) {
   //nominee details
   nomineeDetailNext(stepper, value) {
     console.log(value);
-    sessionStorage.nlifeBajaj = JSON.stringify(value);
-    console.log(sessionStorage.nlifeBajaj, 'session');
-    // if (this.nomineeDetail.valid) {
-      this.proposal(stepper);
-      alert();
-     // stepper.next();
+    sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
+    console.log(value, 'valuevalue');
+    console.log(this.nomineeDetail.valid, 'this.nomineeDetail.valid');
+      if (this.nomineeDetail.valid) {
+          if (sessionStorage.nomineAge < 18) {
+            if(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
 
-    // } else {
-    //   this.toastr.error('error')
-    // }
+            } else {
+                this.toastr.error('Please fill the appointee details');
+            }
+          } else {
+
+          }
+      }
+    // if (this.nomineeDetail.valid) {
+    //  this.proposal(stepper);
   }
 
   //services
@@ -1111,6 +1158,35 @@ ageCalculateInsurer(getDays) {
 
   public incomeProofFailure(error) {
   }
+
+  getApointeeRelation() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'occupation_id': this.proposer.controls['occupationList'].value
+    }
+    this.termService.apointeRelation(data).subscribe(
+        (successData) => {
+          this.apointeeRelationSuccess(successData);
+        },
+        (error) => {
+          this.apointeeRelationFailure(error);
+        }
+    );
+  }
+
+  public apointeeRelationSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.apointeRelationList = successData.ResponseObject;
+      console.log(this.apointeRelationList, 'pro');
+    }
+  }
+
+  public apointeeRelationFailure(error) {
+  }
+
   getPostal(pin, title) {
     const data = {
       'platform': 'web',
@@ -1190,7 +1266,8 @@ ageCalculateInsurer(getDays) {
       this.MainQuesList = successData.ResponseObject;
       console.log(this.MainQuesList, 'pro');
       for (let i = 0; i < this.MainQuesList.length; i++) {
-        this.MainQuesList[i].mainQuestionName = '';
+        this.MainQuesList[i].fieldValue = '';
+        this.MainQuesList[i].checked = false;
         this.MainQuesList[i].SubQuesList = [];
       }
       console.log(this.MainQuesList, 'MainQuesList');
@@ -1232,7 +1309,8 @@ ageCalculateInsurer(getDays) {
     if (successData.IsSuccess) {
       this.MainQuesList[index].SubQuesList = successData.ResponseObject;
       for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
-        this.MainQuesList[index].subQuestionText = '';
+        this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
+        this.MainQuesList[index].SubQuesList[i].checked = false;
       }
       console.log(this.MainQuesList, 'MainQuesList');
     }
@@ -1240,9 +1318,33 @@ ageCalculateInsurer(getDays) {
 
   public SubQuesFailure(error) {
   }
+    getDiseaseList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.termService.diseaseList(data).subscribe(
+            (successData) => {
+                this.diseaseListSuccess(successData);
+            },
+            (error) => {
+                this.diseaseListFailure(error);
+            }
+        );
+    }
+    public diseaseListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.diseaseLists = successData.ResponseObject;
+            console.log(this.diseaseLists, 'DiseaseLists');
+        }
+    }
+    public diseaseListFailure(error) {
+    }
 
 
-  changeWeightChanged() {
+
+    changeWeightChanged() {
     this.proposer.controls['weightChangedName'].patchValue(this.weightList[this.proposer.controls['weightChanged'].value]);
   }
 
@@ -1252,10 +1354,15 @@ ageCalculateInsurer(getDays) {
 
   occupationListCode() {
     this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
-      this.occupation();
+    this.getIncomeProof();
+
   }
 
   changeLanguage() {
+    this.proposer.controls['relationToInsuredName'].patchValue(this.languageList[this.proposer.controls['relationToInsured'].value]);
+
+  }
+  changeApointee() {
     this.proposer.controls['languageName'].patchValue(this.languageList[this.proposer.controls['language'].value]);
 
   }
@@ -1268,10 +1375,10 @@ ageCalculateInsurer(getDays) {
     this.proposer.controls['language2Name'].patchValue(this.docLanguageList[this.proposer.controls['language2'].value]);
   }
 
-  changePremiumPayTerm() {
-    this.proposer.controls['premiumPayTermName'].patchValue(this.primiumpayList[this.proposer.controls['premiumPayTerm'].value]);
-
-  }
+  // changePremiumPayTerm() {
+  //   this.proposer.controls['premiumPayTermName'].patchValue(this.primiumpayList[this.proposer.controls['premiumPayTerm'].value]);
+  //
+  // }
 
   changeNationality() {
     this.proposer.controls['nationalityName'].patchValue(this.nationalityList[this.proposer.controls['nationality'].value]);
@@ -1317,8 +1424,6 @@ ageCalculateInsurer(getDays) {
   // proposal Creation
 
   proposal(stepper) {
-    alert();
-    console.log(this.proposer.controls['occupationList'].value,'jkgjhg');
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -1353,8 +1458,8 @@ ageCalculateInsurer(getDays) {
         "preferredLanguage": this.proposer.controls['language'].value,
         "proposer_type": this.proposer.controls['proposerType'].value,
         "documentLanguage": this.proposer.controls['language2'].value,
-        "lifeBenefit": this.proposer.controls['lifeBenefit'].value,
-        "benefitTerm": this.proposer.controls['benefitTerm'].value,
+        "lifeBenefit": this.enquiryFormData.lifePolicy,
+        "benefitTerm": this.enquiryFormData.lifeBenefitTerm,
         "premiumPaymentTerm": "10",
         "premiumFrequency": "12",
         "nationality": this.proposer.controls['nationality'].value,
@@ -1410,223 +1515,7 @@ ageCalculateInsurer(getDays) {
 
       },
 
-      "question_details": [{
-        "questionId": "85",
-        "subQuestionId": "1",
-        "answer": "N",
-        "detailAnswer": "",
-        "ipType": "1",
-        "questionFlag": "QUES_HEALTH"
-      },
-        {
-          "questionId": "85",
-          "subQuestionId": "2",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "3",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "4",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "5",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "6",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "7",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "8",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "9",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "10",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "11",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "12",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "13",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "47",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "48",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "57",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "32",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "33",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "34",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "35",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "36",
-          "answer": "",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "39",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "40",
-          "answer": "",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "41",
-          "answer": "N",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        },
-        {
-          "questionId": "85",
-          "subQuestionId": "42",
-          "answer": "EQUALLY",
-          "detailAnswer": "",
-          "ipType": "1",
-          "questionFlag": "QUES_HEALTH"
-        }
-      ],
+      "question_details": this.setQuestionDetails,
 
       "bank_deatils": {
         "accountHolderName": this.bankDetail.controls['accountHolderName'].value,
@@ -1671,7 +1560,9 @@ ageCalculateInsurer(getDays) {
      this.summaryData = successData.ResponseObject;
      this.requestedUrl =this.summaryData.biUrlLink;
 
-     this.proposerFormData = this.proposer.value;
+        this.downloadFile(this.requestedUrl);
+
+        this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
       console.log(this.nomineeDetailFormData,'dff');
@@ -1682,6 +1573,28 @@ ageCalculateInsurer(getDays) {
 
   }
 
+    downloadFile(value) {
+        this.termService.downloadPdfNew().subscribe(
+            (successData) => {
+              console.log(successData, 'successDatasuccessData');
+
+            },
+            (error) => {
+            }
+        );
+
+
+
+        // this.http.get(
+        //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
+        //     (response) => {
+        //         var mediaType = 'application/pdf';
+        //         var blob = new Blob([response._body], {type: mediaType});
+        //         var filename = 'test.pdf';
+        //         saveAs(blob, filename);
+        //     });
+    }
+
 
 
 
@@ -1690,8 +1603,8 @@ ageCalculateInsurer(getDays) {
   // session Data
   sessionData() {
 
-    if (sessionStorage.lifeBajaj1 != '' && sessionStorage.lifeBajaj1 != undefined) {
-      let lifeBajaj1 = JSON.parse(sessionStorage.lifeBajaj1);
+    if (sessionStorage.stepperDetails1 != '' && sessionStorage.stepperDetails1 != undefined) {
+      let lifeBajaj1 = JSON.parse(sessionStorage.stepperDetails1);
       this.proposer = this.Proposer.group({
         title: lifeBajaj1.title,
         firstName: lifeBajaj1.firstName,
@@ -1708,7 +1621,7 @@ ageCalculateInsurer(getDays) {
         occupationList: lifeBajaj1.occupationList,
         education:lifeBajaj1.education,
         educationName:lifeBajaj1.educationName,
-        benefitTerm: lifeBajaj1.benefitTerm,
+        // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
 
@@ -1756,9 +1669,9 @@ ageCalculateInsurer(getDays) {
         pob: lifeBajaj1.pob,
         countryOfResid: lifeBajaj1.countryOfResid,
         nationality: lifeBajaj1.nationality,
-        premiumfreq: lifeBajaj1.premiumfreq,
-        premiumPayTerm: lifeBajaj1.premiumPayTerm,
-        lifeBenefit: lifeBajaj1.lifeBenefit,
+        // premiumfreq: lifeBajaj1.premiumfreq,
+        // premiumPayTerm: lifeBajaj1.premiumPayTerm,
+        // lifeBenefit: lifeBajaj1.lifeBenefit,
         language2: lifeBajaj1.language2,
         proposerType: lifeBajaj1.proposerType,
         language: lifeBajaj1.language,
@@ -1779,47 +1692,123 @@ ageCalculateInsurer(getDays) {
         idProofName:lifeBajaj1.idProofName,
         ageProofName:lifeBajaj1.ageProofName,
         incomeProofName:lifeBajaj1.incomeProofName,
-
-
-
       });
     }
 
-        if (sessionStorage.lifeBajaj2 != '' && sessionStorage.lifeBajaj2 != undefined) {
-          let lifeBajaj2 = JSON.parse(sessionStorage.lifeBajaj2);
-          this.bankDetail = this.Proposer.group({
-            accountHolderName: lifeBajaj2.accountHolderName,
-            branchName: lifeBajaj2.branchName,
-            accountNo: lifeBajaj2.accountNo,
-            accountType: lifeBajaj2.accountType,
-            ifscCode: lifeBajaj2.ifscCode,
-            micrCode: lifeBajaj2.micrCode,
-
-
-          });
-
-        }
-
-
-    if (sessionStorage.nlifeBajaj!= '' && sessionStorage.nlifeBajaj != undefined) {
-      let nlifeBajaj = JSON.parse(sessionStorage.nlifeBajaj);
-      console.log(nlifeBajaj, 'nlifeBajajnlifeBajaj');
-
-        for (let i = 0; i < nlifeBajaj.itemsNominee.length; i++) {
-
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nlifeBajaj.itemsNominee[i].nnName);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nlifeBajaj.itemsNominee[i].nDob);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nlifeBajaj.itemsNominee[i].nBirthPlace);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nlifeBajaj.itemsNominee[i].nRelation);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nlifeBajaj.itemsNominee[i].nomineeDobValidError);
-
-        }
-
-
-
+    if (sessionStorage.lifeBajajBankDetails != '' && sessionStorage.lifeBajajBankDetails != undefined) {
+        let lifeBajajBankDetails = JSON.parse(sessionStorage.lifeBajajBankDetails);
+        this.bankDetail = this.Proposer.group({
+          accountHolderName: lifeBajajBankDetails.accountHolderName,
+          branchName: lifeBajajBankDetails.branchName,
+          accountNo: lifeBajajBankDetails.accountNo,
+          accountType: lifeBajajBankDetails.accountType,
+          ifscCode: lifeBajajBankDetails.ifscCode,
+          micrCode: lifeBajajBankDetails.micrCode,
+        });
     }
+    if (sessionStorage.lifeQuestions != '' && sessionStorage.lifeQuestions != undefined) {
+        this.MainQuesList = JSON.parse(sessionStorage.lifeQuestions);
+    }
+     if (sessionStorage.lifeBajaiNomineeDetails!= '' && sessionStorage.lifeBajaiNomineeDetails != undefined) {
+          let nomineeDetails = JSON.parse(sessionStorage.lifeBajaiNomineeDetails);
+          console.log(nomineeDetails, 'nlifeBajajnlifeBajaj');
+          for (let i = 0; i < nomineeDetails.itemsNominee.length; i++) {
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nomineeDetails.itemsNominee[i].nnName);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nomineeDetails.itemsNominee[i].nDob);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nomineeDetails.itemsNominee[i].nBirthPlace);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nomineeDetails.itemsNominee[i].nRelation);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nomineeDetails.itemsNominee[i].nomineeDobValidError);
+
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(nomineeDetails.itemsNominee[i].aName);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(nomineeDetails.itemsNominee[i].appointeeDob);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue(nomineeDetails.itemsNominee[i].appointeeRelationToNominee);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(nomineeDetails.itemsNominee[i].relationToInsured);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsuredName.patchValue(nomineeDetails.itemsNominee[i].relationToInsuredName);
+          }
+      }
+      if (sessionStorage.nomineAge!= '' && sessionStorage.nomineAge != undefined) {
+          if (sessionStorage.nomineAge < 18) {
+              this.showAppointee = true;
+          } else {
+              this.showAppointee = false;
+          }
+      }
+  }
+
+    viewDocs() {
+        let dialogRef = this.dialog.open(LifeDocuments, {
+            width: '1200px'
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+
+        });
     }
 
 }
+
+@Component({
+    selector: 'lifedocuments',
+    template: `
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h4>Declaration: </h4>
+                    <p>i) Declaration & Authorisation: I/We hereby declare and agree that </p>
+                    <div >
+                        <p>(a) I/We have read the application/the same was interpreted to me /us by the person filling the Proposal Form whose name is mentioned herein above, and the answers entered in the application are mine / ours;
+                        </p>
+                        <p>(b) I/We hereby certify that I have signed on the Proposal form after fully understanding the content and purport of the nature of the information asked for in this Proposal Form and confirm that each of the above answers is full, complete, and true to the best of my knowledge and nothing has been concealed and suppressed or declared false. I/We understand that Bajaj Allianz Life Insurance Company Ltd. (hereafter called the company) believing on the answers, will rely and act on them in utmost good faith, without verification or confirmation of any of my answers.
+                        </p>
+                        <p>(c) Such application shall not be considered as effected by reason of any money paid or settlement made in payment of or on account of any premium paid, until this application is received by the Company and is finally approved by an authorized officer of the Company during my/our lifetime;
+                        </p>
+                        <p>
+                            (d) Any personal information collected or held by the Company (whether contained in the this application or otherwise obtained) may be held, used and disclosed by the Company to reinsurance companies, claims investigation companies and industry association / federation for doing claim analysis.
+                        </p>
+                    </div>
+                    <p>
+                        ii) I/We hereby irrevocably authorize (a) any organization, institution or individual that has any record of knowledge of my the insured health and medical history or any treatment or advise that has been or may hereafter be consulted or other personal information to disclose to the Company such information and such information shall only be used to decide on the terms of acceptance of this proposal or any claim arising out of the policy of insurance issued in accordance with this proposal. This authorization shall bind my/the insured successors and usages and remain valid not withstanding my/ the insured death or incapacity in so far as legally possible. A photocopy of all relevant information/documents collected on the basis of this authorization shall be valid as the original.
+                    </p>
+                    <p>
+                        iii) And I/We further agree that if after the date of submission of the proposal but before the communication to me/us of issuance of the First Premium Receipt on acceptance of proposal (a) any change in my/insured occupation or any adverse circumstances connected with my/insured financial position or the general health of myself/insured or that of any members of my family, occurs or (b) if a proposal for assurance or any application for revival of a policy on my life made to any office of the Company or any other Company has been withdrawn or dropped, deferred or accepted at an increased premium or subject to a lien or on terms other than as proposed I/we shall forthwith intimate the same to the company in writing to reconsider the terms of acceptance of assurance. In the case of fraud or misrepresentation by me, I/We understand that action will be taken or the policy will be cancelled in accordance with the provisions of Section 45 of the Insurance Act, 1938, as amended from time to time
+                    </p>
+                    <p>
+                        iv)Notwithstanding my registration with the Access Provider under Fully/Partially blocked category, I hereby waive all objections and authorize Bajaj Allianz Life Insurance Company Limited (hereinafter referred to as Company) to call or send SMS on the telephone number mentioned in this proposal form or any other telephone number as may be provided to the Company by me or send emails or communicate through any other means and contact me, through its representatives, for any matter (including ascertaining of feedback) relating to this proposal for insurance or any matter concerning the policy of insurance which may be issued pursuant to this proposal for insurance. I further authorize the Company to mail all service related communications to the email id as mentioned in the application form (applicable only if email id provided).
+                    </p>
+                    <p>
+                        v) Commencement of Cover: I/We understand that the cover applied for under this application will commence after consideration of my/ our application and realization of the required premium. I/We have seen, understood and agree to the companies benefit illustration given to me/us along with this proposal form.
+                    </p>
+                    <p>
+                        vi) I/ we declare that money used by me/ us to pay the premiums under the policy is acquired by legal means and confirms to the AML guidelines as they are updated from time to time. If the proposers signature is in vernacular then the Proposed Insured / Proposer should declare below in his / her own handwriting (in the same language in which the proposal is signed) that the replies were given after fully and properly understanding the questions and declarations mentioned in the proposal form as well as all other supplementary documents incidental to availing this policy of insurance.
+                    </p>
+
+                    <p> I/We fully understand that any personal information collected or held by the Company, may be held, used and disclosed by the Company to reinsurance companies, claims investigation agencies, credit/claim/fraud bureaus or service providers or repositories, and relevant industry associations /federations for the purpose of underwriting or claims processing or for any analysis and to the Bajaj Group of companies for receiving information and offers on various products and services offerings.
+                    </p>
+
+
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
+        </div>
+    `
+})
+export class LifeDocuments {
+    agemsg: any;
+    constructor(
+        public dialogRef: MatDialogRef<LifeDocuments>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+    onClick(result) {
+        if(result == true){
+            this.dialogRef.close(result);
+        } else {
+            this.dialogRef.close(result);
+        }
+    }
+}
+
+
 
 

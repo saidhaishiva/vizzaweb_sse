@@ -43,6 +43,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
   public getMaritalDetails: any;
   public getRelationDetails: any;
   public pincodeValid: any;
+  public today: any;
+
 
 
     public items: any;
@@ -52,7 +54,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
   constructor(public appsetting: AppSettings ,private toastr: ToastrService, public travelservice: TravelService, public fb: FormBuilder , public datepipe: DatePipe, public validation: ValidationService) {
     this.setting = appsetting.settings;
-
+    this.today = new Date();
     this.bajajProposal = this.fb.group({
       title: ['', Validators.required],
       firstName : ['' , Validators.required],
