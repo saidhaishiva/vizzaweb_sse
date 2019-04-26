@@ -297,7 +297,7 @@ export class BikeShriramProposalComponent implements OnInit {
                   this.proposer.controls['state'].patchValue('');
                   this.proposer.controls['city'].patchValue('');
               }
-              }
+        }
 
 
             public pinProposerListFailure(error) {
@@ -506,33 +506,61 @@ export class BikeShriramProposalComponent implements OnInit {
         }
     }
 
+
+
     public pinListSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.pincodeHypoList = successData.ResponseObject;
-            console.log(this.pincodeHypoList,'jhgfdghj');
-            for(let key in this.pincodeHypoList.state) {
-                this.pincodeHypoState = key;
-                console.log(key);
-                console.log(this.pincodeHypoList['state'][key]);
+        // if (successData.IsSuccess) {
+        //     this.pincodeHypoList = successData.ResponseObject;
+        //     console.log(this.pincodeHypoList,'jhgfdghj');
+        //     for(let key in this.pincodeHypoList.state) {
+        //         this.pincodeHypoState = key;
+        //         console.log(key);
+        //         console.log(this.pincodeHypoList['state'][key]);
+        //
+        //         console.log(this.pincodeHypoState, 'kjhfgdghj');
+        //         this.vehical.controls['state'].patchValue(this.pincodeHypoList['state'][key]);
+        //     }
+        //     for(let key in this.pincodeHypoList.city) {
+        //         this.pincodeHypoCity = key;
+        //         console.log(key);
+        //         console.log(this.pincodeHypoCity,'87878');
+        //         console.log(this.pincodeHypoList['city'][key]);
+        //
+        //         this.vehical.controls['city'].patchValue(this.pincodeHypoList['city'][key]);
+        //     }
+        //     this.vehical.controls['state'].patchValue(this.pincodeHypoList.HypothecationState);
+        //         this.vehical.controls['city'].patchValue(this.pincodeHypoList.HypothecationCity);
+        // } else{
+        //     this.toastr.error(successData.ErrorObject);
+        //     this.vehical.controls['state'].patchValue('');
+        //     this.vehical.controls['city'].patchValue('');
+        // }
+            if (successData.IsSuccess) {
+                this.pincodeList = successData.ResponseObject;
+                console.log(this.pincodeList,'jhgfdghj');
+                for(let key in this.pincodeList.state) {
+                    this.pincodeState = key;
+                    console.log(key);
+                    console.log(this.pincodeList['state'][key]);
 
-                console.log(this.pincodeHypoState, 'kjhfgdghj');
-                this.vehical.controls['state'].patchValue(this.pincodeHypoList['state'][key]);
-            }
-            for(let key in this.pincodeHypoList.city) {
-                this.pincodeHypoCity = key;
-                console.log(key);
-                console.log(this.pincodeHypoCity['city'][key]);
+                    console.log(this.pincodeState, 'kjhfgdghj');
+                    this.vehical.controls['state'].patchValue(this.pincodeList['state'][key]);
+                }
+                for(let key in this.pincodeList.city) {
+                    this.pincodeCity = key;
+                    console.log(key);
+                    console.log(this.pincodeList['state'][key]);
 
-                this.vehical.controls['city'].patchValue(this.pincodeHypoList['city'][key]);
+                    this.vehical.controls['city'].patchValue(this.pincodeList['city'][key]);
+                }
+
+            } else{
+                this.toastr.error(successData.ErrorObject);
+                this.vehical.controls['state'].patchValue('');
+                this.vehical.controls['city'].patchValue('');
             }
-            this.vehical.controls['state'].patchValue(this.pincodeHypoList.HypothecationState);
-                this.vehical.controls['city'].patchValue(this.pincodeHypoList.HypothecationCity);
-        } else{
-            this.toastr.error(successData.ErrorObject);
-            this.vehical.controls['state'].patchValue('');
-            this.vehical.controls['city'].patchValue('');
         }
-    }
+
 
 
     public pinListFailure(error) {
@@ -813,9 +841,9 @@ export class BikeShriramProposalComponent implements OnInit {
               "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value,
               "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value,
               "HypothecationCountry": "",
-              "HypothecationState": "",
-              "HypothecationCity": "",
-              "HypothecationPinCode": ""
+              "HypothecationState":  this.vehical.controls['state'].value,
+              "HypothecationCity":  this.vehical.controls['city'].value,
+              "HypothecationPinCode":  this.vehical.controls['pincode'].value
           },
       }
       console.log(data,'fileeee');

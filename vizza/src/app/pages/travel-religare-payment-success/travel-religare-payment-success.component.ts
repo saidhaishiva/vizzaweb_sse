@@ -51,7 +51,7 @@ export class TravelReligarePaymentSuccessComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
     }
     this.settings.loadingSpinner = true;
-    this.proposalservice.downloadPolicyReliance(data).subscribe(
+    this.proposalservice.downloadPolicyReligare(data).subscribe(
         (successData) => {
           this.downloadPdfSuccess(successData);
         },

@@ -1235,10 +1235,10 @@ preInsureList() {
         if (successData.IsSuccess) {
             this.occupationClass = successData.ResponseObject;
             for (let i=0; i < this.occupationClass.length ; i++){
-                if(this.occupationClass[i].class == '3'|| this.occupationClass[i].class == '4'){
+                if(this.occupationClass[i].class == '3'|| this.occupationClass[i].class == '4' || this.occupationClass[i].class == '5'){
                     this.insured.controls['riderList'].patchValue(false);
                     this.insured.controls['ttdrider'].patchValue(false);
-                    if(this.occupationClass[i].class == '3')
+                    if(this.occupationClass[i].class == '3' || this.occupationClass[i].class == '5')
                         sessionStorage.appollo2Detail ='';
 
 
