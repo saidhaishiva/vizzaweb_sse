@@ -116,7 +116,7 @@
                       </mat-form-field></div>
                       <div class="col-md-3 mt-2">
                         <mat-form-field class="w-100" >
-                          <mat-select placeholder="PED" formControlName="ped" autocomplete="off" required>
+                          <mat-select placeholder="PED" formControlName="ped" autocomplete="off"  (change)="changePed()" required>
                             <mat-option *ngFor="let item of getpedDetails" value= {{item.pedid}}>
                               {{item.ped}}
                             </mat-option>
@@ -218,7 +218,7 @@
                     </div>
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-raised-button color="primaryBlue"  (click)="proposerDetails(stepper, hdfcTravel.value)">Next</button>
+                    <button mat-raised-button color="primaryBlue"  (click)="proposerDpaynowetails(stepper, hdfcTravel.value)">Next</button>
                   </div>
                 </div>
               </mat-expansion-panel>

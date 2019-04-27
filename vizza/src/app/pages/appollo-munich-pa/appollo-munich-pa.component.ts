@@ -312,6 +312,7 @@ readonlyProposer : boolean;
       this.CheckHabits = false;
       this.readonlyProposer = false;
 
+
   }
 
   ngOnInit() {
@@ -1235,19 +1236,32 @@ preInsureList() {
         if (successData.IsSuccess) {
             this.occupationClass = successData.ResponseObject;
             for (let i=0; i < this.occupationClass.length ; i++){
-                if(this.occupationClass[i].class == '3'|| this.occupationClass[i].class == '4' || this.occupationClass[i].class == '5'){
+                    if(this.occupationClass[i].class == '3'|| this.occupationClass[i].class == '4' || this.occupationClass[i].class == '5'){
                     this.insured.controls['riderList'].patchValue(false);
                     this.insured.controls['ttdrider'].patchValue(false);
                     if(this.occupationClass[i].class == '3' || this.occupationClass[i].class == '5')
                         sessionStorage.appollo2Detail ='';
 
-
-                } else{
+                    } else{
                     this.insured.controls['riderList'].patchValue(true);
-                }
+                    }
 
-                if(this.occupationClass[i].class != 4){
-                    this.occupationClass1 = true;
+
+                if(this.getBuyDetails.product_code == '21008'){
+                    if(this.occupationClass[i].class == '4' || this.occupationClass[i].class == '3' ){
+                        this.occupationClass1 = false;
+                        this.toastr.error('Sorry!, Your occupation is not allowed');
+                    } else {
+                        this.occupationClass1 = true;
+
+                    }
+                } else if(this.getBuyDetails.product_code == '21007') {
+                    if(this.occupationClass[i].class == '4'){
+                        this.occupationClass1 = false;
+                    } else {
+                        this.occupationClass1 = true;
+
+                    }
                 }
             }
         } else {
@@ -1258,7 +1272,6 @@ preInsureList() {
             this.toastr.error(successData.ErrorObject);
         }
 
-        console.log(this.insured.controls['riderList'].value,'ooooooo');
 
     }
 
