@@ -242,23 +242,22 @@ export class TravelRelianceProposalComponent implements OnInit {
             personalUniversityState: '',
             personalUniversityCountry: '',
 
-            personalBurglaryEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            personalBurglaryMobileNo: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+            personalBurglaryEmail: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            personalBurglaryMobileNo: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
             personalBurglaryPhoneNo: '',
             personalBurglaryFax: '',
-            personalBurglaryAddress: ['', Validators.required],
-            personalBurglaryAddress2: ['', Validators.required],
+            personalBurglaryAddress: '',
+            personalBurglaryAddress2: '',
             personalBurglaryAddress3: '',
-            personalBurglaryPincode: ['', Validators.required],
-            personalBurglaryCity: ['', Validators.required],
+            personalBurglaryPincode: '',
+            personalBurglaryCity: '',
             personalyDistrictIdB: '',
-            personalBurglaryArea:['', Validators.required],
+            personalBurglaryArea: '',
             personalBurglaryAreaName: '',
-            personalBurglaryDistrict: ['', Validators.required],
-            personalBurglaryState: ['', Validators.required],
+            personalBurglaryDistrict: '',
+            personalBurglaryState: '',
             personalBurglaryNearestLandMark: '',
-            personalBurglaryCountry: ['', Validators.required],
-
+            personalBurglaryCountry: '',
             personalSponsorFullname: '',
             personalSponsorEmail: ['', Validators.compose([Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
             personalSponsorMobileNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
@@ -499,13 +498,14 @@ export class TravelRelianceProposalComponent implements OnInit {
     personalDetails(stepper: MatStepper, value) {
         this.personalData = value;
         console.log(this.personalData, 'this.personalData');
+        console.log(this.personal.valid, 'this.this.personal.valid');
         sessionStorage.stepper1Details = '';
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.personal.valid) {
             if (sessionStorage.personalAge >= 18) {
                 stepper.next();
                 this.topScroll();
-            }else {
+            } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
         }
