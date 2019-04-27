@@ -669,7 +669,7 @@ export class LifeBajajProposalComponent implements OnInit {
       if (this.nomineeDetail.valid) {
           if (sessionStorage.nomineAge < 18) {
             if(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
-
+              this.proposal(stepper);
             } else {
                 this.toastr.error('Please fill the appointee details');
             }
@@ -1491,9 +1491,9 @@ export class LifeBajajProposalComponent implements OnInit {
         "nominee2Relation": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
         "sharePercentage": "",
         "appointeeName": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value,
-        "appointeeDob": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,
+          "appointeeDob": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,
         "appointeeRelationToNominee": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,
-        "RelationToInsured": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].RelationToInsured.value
+        "RelationToInsured": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value
       },
 
       "address_details": {
