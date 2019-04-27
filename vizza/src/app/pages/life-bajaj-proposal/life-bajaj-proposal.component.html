@@ -753,6 +753,12 @@
                         <!--<mat-error *ngIf="nomineeDetail.controls.nRelation.errors?.required">Relation is required</mat-error>-->
                         </mat-form-field>
                         </div>
+                          <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="share Percentage"  formControlName="sharePercentage" (keypress)="nameValidate($event)"   autocomplete="off" required>
+                              <!--<mat-error *ngIf="nomineeDetail.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
+                            </mat-form-field>
+                          </div>
                       </div>
 
                         <div class="row" *ngIf="showAppointee">

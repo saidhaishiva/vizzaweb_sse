@@ -4,8 +4,8 @@
             [class.horizontal-menu]="settings.menu == 'horizontal'" 
             [class.compact]="settings.menuType == 'compact'" 
             [class.mini]="settings.menuType == 'mini'" >
-    <router-outlet *ngIf="mobileView"></router-outlet>
-    <h3 *ngIf="!mobileView" style="display: flex;justify-content: center; align-items: center; height: 100%; background: #ececec; margin: 0;"><span>Hi User!!!</span></h3>
+    <router-outlet></router-outlet>
+    <!--<h3 *ngIf="!mobileView" style="display: flex;justify-content: center; align-items: center; height: 100%; background: #ececec; margin: 0;"><span>Hi User!!!</span></h3>-->
     <div id="app-spinner" [class.hide]="!settings.loadingSpinner">
         <mat-spinner color="primary"></mat-spinner>
         <h4>loading...</h4>
