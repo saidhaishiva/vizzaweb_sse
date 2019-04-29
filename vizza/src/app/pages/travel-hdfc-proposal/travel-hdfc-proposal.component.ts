@@ -851,6 +851,8 @@ export class TravelHdfcProposalComponent implements OnInit {
             // this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelationName.patchValue('');
 
         }
+        this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].insurerDobValidError.patchValue('');
+
 
     }
 

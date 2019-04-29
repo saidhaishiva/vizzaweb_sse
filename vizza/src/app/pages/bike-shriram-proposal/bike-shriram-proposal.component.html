@@ -74,7 +74,8 @@
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100"  >
                                                     <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="pan" (keypress)="idValidate($event)" autocomplete="off" required>
-                                                    <mat-error *ngIf="proposer.controls.pan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+
+                                                    <mat-error *ngIf="proposer.controls.pan.errors?.required">PAN Number is required</mat-error>
                                                     <mat-error *ngIf="proposer.controls.pan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -164,7 +165,7 @@
                                                     <mat-select placeholder="Proposal Type"  formControlName="proposalType" (change)="proposalList()" required>
                                                         <mat-option *ngFor="let type of proposalTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="proposer.controls.vehicleType.errors?.required">City is required</mat-error>-->
+                                                    <mat-error *ngIf="vehical.controls.proposalType.errors?.required">Proposal Type is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                         <div class="col-md-3">
@@ -172,13 +173,15 @@
                                                 <mat-select placeholder="Policy Type"  formControlName="policyType"  required>
                                                     <mat-option *ngFor="let vehiclebk of policyTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                 </mat-select>
-                                                <!--<mat-error *ngIf="proposer.controls.vehicleType.errors?.required">City is required</mat-error>-->
+                                                <mat-error *ngIf="vehical.controls.policyType.errors?.required">Policy Type is required</mat-error>
                                             </mat-form-field>
                                         </div>
 
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Vehicle Colour "  formControlName="vehicleColour" required autocomplete="off">
+                                                <input matInput placeholder="Vehicle Colour "  formControlName="vehicleColour"   (keypress)="numberValidate($event)"  required autocomplete="off">
+                                                <mat-error *ngIf="vehical.controls.vehicleColour.errors?.required">Vehicle Colour is required</mat-error>
+
                                             </mat-form-field>
                                         </div>
                                             <div class="col-md-3">
@@ -186,7 +189,7 @@
                                                     <mat-select placeholder="Addon Package"  formControlName="addonPackage" (change)="addonPackage()" required>
                                                         <mat-option *ngFor="let addonPackagebk of addonPackagedm | keys " value="{{addonPackagebk.key}}" > {{addonPackagebk.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="proposer.controls.vehicleType.errors?.required">City is required</mat-error>-->
+                                                    <mat-error *ngIf="vehical.controls.addonPackage.errors?.required">Addon Package is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -200,11 +203,11 @@
                                         </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                <mat-checkbox  formControlName="electricalAccess">electricalAccess</mat-checkbox>
+                                                <mat-checkbox  formControlName="electricalAccess" (change)="electricalAccess($event)">electricalAccess</mat-checkbox>
                                                 </div>
                                                     <div class="col-md-6" *ngIf="vehical.controls['electricalAccess'].value == '1'">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Electrical Access SI"  formControlName="electricalAccessSI">
+                                                    <mat-select placeholder="Electrical Access SI"  formControlName="electricalAccessSI" [required]="electricalValid">
                                                         <mat-option value="10000"> 10,000 </mat-option>
                                                         <mat-option value="20000"> 20,000 </mat-option>
                                                         <mat-option value="30000"> 30,000 </mat-option>
@@ -214,19 +217,22 @@
                                                         <mat-option value="70000"> 70,000 </mat-option>
                                                         <mat-option value="80000"> 80,000 </mat-option>
                                                         <mat-option value="90000"> 90,000 </mat-option>
+
                                                     </mat-select>
-                                                    </mat-form-field>
+                                                    <mat-error *ngIf="vehical.controls.electricalAccessSI.errors?.required">Electrical Access SI is required</mat-error>
+
+                                                </mat-form-field>
 
                                             </div>
                                             </div>
 
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <mat-checkbox  formControlName="nonElectricalAccess">Non Electrical Access</mat-checkbox>
+                                                <mat-checkbox  formControlName="nonElectricalAccess" (change)="nonElectricalAccess($event)">Non Electrical Access</mat-checkbox>
                                             </div>
                                             <div class="col-md-6" *ngIf="vehical.controls['nonElectricalAccess'].value == '1'">
-                                                <mat-form-field class="w-100" >
-                                                <mat-select placeholder="Non Electrical Access SI "  formControlName="nonElectricalAccessSI">
+                                                <mat-form-field class="w-100"  >
+                                                <mat-select placeholder="Non Electrical Access SI "  formControlName="nonElectricalAccessSI" [required]="nonelectricalValid">
                                                     <mat-option value="10000"> 10,000 </mat-option>
                                                     <mat-option value="20000"> 20,000 </mat-option>
                                                     <mat-option value="30000"> 30,000 </mat-option>
@@ -236,19 +242,22 @@
                                                     <mat-option value="70000"> 70,000 </mat-option>
                                                     <mat-option value="80000"> 80,000 </mat-option>
                                                     <mat-option value="90000"> 90,000 </mat-option>
+
                                                 </mat-select>
+                                                    <mat-error *ngIf="vehical.controls.nonElectricalAccessSI.errors?.required">Non Electrical Access SI is required</mat-error>
+
                                                 </mat-form-field>
 
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                            <mat-checkbox  formControlName="paforUnnamed" >Pa For Unnamed Passenger</mat-checkbox>
+                                            <mat-checkbox  formControlName="paforUnnamed" (change)="changePA($event)">Pa For Unnamed Passenger</mat-checkbox>
                                             </div>
                                         <div class="col-md-6" *ngIf="vehical.controls['paforUnnamed'].value == '1'">
                                             <mat-form-field class="w-100" >
 
-                                            <mat-select placeholder="Pa For Unnamed Passenger SI "  formControlName="paforUnnamedSI">
+                                            <mat-select placeholder="Pa For Unnamed Passenger SI "  formControlName="paforUnnamedSI" [required]="paUnNamed">
                                                 <mat-option value="10000"> 10,000 </mat-option>
                                                 <mat-option value="20000"> 20,000 </mat-option>
                                                 <mat-option value="30000"> 30,000 </mat-option>
@@ -258,7 +267,10 @@
                                                 <mat-option value="70000"> 70,000 </mat-option>
                                                 <mat-option value="80000"> 80,000 </mat-option>
                                                 <mat-option value="90000"> 90,000 </mat-option>
+
                                             </mat-select>
+                                                <mat-error *ngIf="vehical.controls.paforUnnamedSI.errors?.required">Pa For Unnamed Passenger SI is required</mat-error>
+
                                             </mat-form-field>
                                         </div>
                                         </div>
@@ -317,7 +329,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" [required]="finance" maxlength="6" formControlName="pincode" (input)="getHypoPostalCode($event.target.value)" autocomplete="off" >
+                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" [required]="finance" maxlength="6" formControlName="pincode" (input)="getHypoPostalCode($event.target.value)"   autocomplete="off" >
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('required')">Pincode required</mat-error>
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -365,7 +377,9 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" [required]="pType" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" required autocomplete="off">
+                                                    <mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>
+
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -373,7 +387,7 @@
                                                     <mat-select placeholder="Previous Insurer"  formControlName="previousInsured" required>
                                                         <mat-option *ngFor="let paCity of previousList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                    <mat-error *ngIf="previousInsure.controls.previousInsured.errors?.required">Previous Insurer is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -382,18 +396,22 @@
                                                            autocomplete="off"   required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker2></mat-datepicker>
-                                                    <!--<mat-error *ngIf="previousInsure.controls.previousdob.errors?.required">DOB is required</mat-error>-->
+                                                    <mat-error *ngIf="previousInsure.controls.previousdob.errors?.required">Policy Start Date is required</mat-error>
                                                 </mat-form-field>
                                                 <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy UW Year(yyyy)"  formControlName="policyUwYear" [required]="pType" maxlength="4" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy UW Year(yyyy)"  formControlName="policyUwYear" required  maxlength="4" autocomplete="off">
+                                                    <mat-error *ngIf="previousInsure.controls.policyUwYear.errors?.required">Previous Policy UW Year is required</mat-error>
+
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy IDV"  formControlName="policySi" [required]="pType" (keypress)="numberValidate($event)" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy IDV"  formControlName="policySi" required (keypress)="numberValidate($event)" autocomplete="off">
+                                                    <mat-error *ngIf="previousInsure.controls.policySi.errors?.required">PolicySi is required</mat-error>
+
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -401,19 +419,15 @@
                                                     <mat-select placeholder="Previous policy Type"  formControlName="previousPolicyType"  required>
                                                         <mat-option *ngFor="let vehiclebk of policyTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                    <mat-error *ngIf="previousInsure.controls.previousPolicyType.errors?.required">Previous policy Type is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <!--<div class="col-md-3">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<input matInput placeholder="Previous Nil Description "  formControlName="policyNilDescription" [required]="pType" autocomplete="off">-->
-                                                <!--</mat-form-field>-->
-                                            <!--</div>-->
+
                                             <div class="col-md-12">
                                                 <h6 class="color-blue">Previous Nil Description</h6>
                                             </div>
                                             <div class="col-md-3">
-                                                <mat-radio-group  formControlName="policyNilDescription" [required]="pType">
+                                                <mat-radio-group  formControlName="policyNilDescription" required>
                                                     <mat-radio-button value="1">Yes</mat-radio-button>
                                                     <mat-radio-button value="0">No</mat-radio-button>
                                                 </mat-radio-group>
@@ -447,13 +461,17 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Name"  formControlName="nomineeName"  autocomplete="off">
+                                                    <input matInput placeholder="Name"  formControlName="nomineeName" required  (keypress)="nameValidate($event)"  autocomplete="off">
+                                                    <mat-error *ngIf="nomineeDetail.controls.nomineeName.errors?.required">Name is required</mat-error>
+
                                                 </mat-form-field>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Age"  formControlName="nomineeAge" (input)="ageNominee()" autocomplete="off">
+                                                    <input matInput placeholder="Age"  formControlName="nomineeAge" required (input)="ageNominee()"   (keypress)="numberValidate($event)" autocomplete="off">
+                                                    <mat-error *ngIf="nomineeDetail.controls.nomineeAge.errors?.required">Age is required</mat-error>
+
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -461,7 +479,7 @@
                                                     <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship"  required>
                                                         <mat-option *ngFor="let paCity of nomineeRelation | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                    <mat-error *ngIf="nomineeDetail.controls.nomineeRelationship.errors?.required">Nominee Relationship is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -472,15 +490,17 @@
                                                 <div class="row">
                                             <div class="col-md-6">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Apponitee Name"  formControlName="appointeeName"  autocomplete="off">
+                                                    <input matInput placeholder="Apponitee Name"  formControlName="appointeeName"  (keypress)="nameValidate($event)" [required]="apponiteeList" autocomplete="off">
+                                                    <mat-error *ngIf="nomineeDetail.controls.appointeeName.errors?.required">Apponitee Name is required</mat-error>
+
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-6">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship"  required>
+                                                    <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship"  [required]="apponiteeList">
                                                         <mat-option *ngFor="let paCity of nomineeRelation | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                    <mat-error *ngIf="nomineeDetail.controls.appointeeRelationship.errors?.required">Apponitee RelationShip is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -539,11 +559,11 @@
                                         <h6>COMMUNICATION DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
-                                            <li class="list-group-item" ><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
-                                            <li class="list-group-item" *ngIf="proposerFormData.address2 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
+                                            <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
+                                            <li class="list-group-item" *ngIf="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
                                             <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
                                             <li class="list-group-item"><strong>City:</strong> {{proposerFormData.proposerCityName}}</li>
-                                            <li class="list-group-item"><strong>State:</strong> {{proposerFormData.proposerState}}</li>
+                                            <li class="list-group-item"><strong>State:</strong> {{proposerFormData.pincodeState}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -561,26 +581,30 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Policy Type:</strong> {{vehicalFormData.policyType}}</li>
                                             <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
-                                            <li class="list-group-item" ><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
+                                            <li class="list-group-item"><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
                                             <li class="list-group-item"><strong>NilDepreciation Cover:</strong> {{vehicalFormData.nilDepreciationCover}}</li>
-                                            <li class="list-group-item"><strong>Electrical Access:</strong>{{vehicalFormData.electricalAccess}}</li>
-                                            <li class="list-group-item"><strong>ElectricalAccessSI:</strong> {{vehicalFormData.electricalAccessSI}}</li>
-                                            <li class="list-group-item" ><strong>Non Electrical Access :</strong> {{vehicalFormData.nonElectricalAccess }}</li>
-                                            <li class="list-group-item" ><strong>Non Electrical AccessSI:</strong> {{vehicalFormData.nonElectricalAccessSI}}</li>
-                                            <li class="list-group-item" ><strong>Pa For Unnamed:</strong> {{vehicalFormData.paforUnnamed }}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong>{{vehicalFormData.electricalAccess}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.electricalAccessSI != ''"><strong>ElectricalAccessSI:</strong> {{vehicalFormData.electricalAccessSI}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong> {{vehicalFormData.nonElectricalAccess }}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.nonElectricalAccessSI != ''"><strong>Non Electrical AccessSI:</strong> {{vehicalFormData.nonElectricalAccessSI}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> {{vehicalFormData.paforUnnamed }}</li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="p-3">
-                                        <h6>COMMUNICATION DETAILS</h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Pa For Unnamed SI:</strong> {{vehicalFormData.paforUnnamedSI}}</li>
-                                            <li class="list-group-item" ><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
-                                            <li class="list-group-item" ><strong>Hypothecation Address3:</strong> {{proposerFormData.hypothecationAddress3}}</li>
-                                            <li class="list-group-item"><strong>Hypothecation Agreement No:</strong> {{vehicalFormData.hypothecationAgreementNo}}</li>
-                                            <li class="list-group-item"><strong>AntiTheft:</strong> {{vehicalFormData.antiTheft}}</li>
-                                            <li class="list-group-item"><strong>LltoPaid Driver:</strong> {{vehicalFormData.lltoPaidDriver}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamedSI != ''"><strong>Pa For Unnamed SI:</strong> {{vehicalFormData.paforUnnamedSI}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress1 != ''"><strong>Hypothecation Address1:</strong> {{proposerFormData.hypothecationAddress1}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress2 != ''"><strong>Hypothecation Address2:</strong> {{proposerFormData.hypothecationAddress2}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress3 != ''"><strong>Hypothecation Address3:</strong> {{proposerFormData.hypothecationAddress3}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.hypothecationAgreementNo != ''"><strong>Hypothecation Agreement No:</strong> {{vehicalFormData.hypothecationAgreementNo}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>AntiTheft:</strong> {{vehicalFormData.antiTheft}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LltoPaid Driver:</strong> {{vehicalFormData.lltoPaidDriver}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.pincode != ''"><strong>PIN code:</strong> {{vehicalFormData.pincode}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.state != ''"><strong>City:</strong> {{vehicalFormData.proposerState}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.city != ''"><strong>State:</strong> {{vehicalFormData.proposerCityName}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -597,8 +621,7 @@
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                                                     <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
                                                     <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob}}</li>
-                                                    <li class="list-group-item"><strong>Policy UwYear:</strong> {{previousFormData.policyUwYear}}</li>
-                                                    <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>
+
                                                 </ul>
                                             </div>
                                         </div>
@@ -610,8 +633,8 @@
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyType}}</li>
-                                                    <li class="list-group-item"><strong>Previous PolicyNcb:</strong> {{previousFormData.previousPolicyNcb}}</li>
-                                                    <li class="list-group-item"><strong>Policy Claim:</strong> {{previousFormData.policyClaim}}</li>
+                                                    <li class="list-group-item"><strong>Policy UwYear:</strong> {{previousFormData.policyUwYear}}</li>
+                                                    <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>
                                                 </ul>
                                             </div>
                                         </div>
