@@ -375,6 +375,10 @@ export class LifeBajajProposalComponent implements OnInit {
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
+  passportIssue(event: any){
+    this.validation.passportIssue(event);
+
+  }
 
   // proposer page
   changeGender() {
@@ -1491,7 +1495,7 @@ export class LifeBajajProposalComponent implements OnInit {
         "nominee2Relation": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
         "sharePercentage": "",
         "appointeeName": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value,
-          "appointeeDob": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,
+        "appointeeDob": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,
         "appointeeRelationToNominee": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,
         "RelationToInsured": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value
       },
@@ -1626,7 +1630,6 @@ export class LifeBajajProposalComponent implements OnInit {
         // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
-
         weightChanged: lifeBajaj1.weightChanged,
         weightChangedName: lifeBajaj1.weightChangedName,
         countryOfResidName: lifeBajaj1.countryOfResidName,
