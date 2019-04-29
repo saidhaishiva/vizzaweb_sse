@@ -130,6 +130,7 @@ import {BikeRoyalProposalComponent} from './pages/bike-royal-proposal/bike-royal
 import {DownloadPolicyTravelComponent} from './pages/download-policy-travel/download-policy-travel.component';
 import {TravelBajajalianzProposalComponent} from './pages/travel-bajajalianz-proposal/travel-bajajalianz-proposal.component';
 import {DownloadPolicyTravelReligareComponent} from './pages/download-policy-travel-religare/download-policy-travel-religare.component';
+import {CholaHealthProposalComponent} from './pages/chola-health-proposal/chola-health-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -255,6 +256,7 @@ export const routes: Routes = [
             { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
             { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},
             { path: 'bajaj-travel', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
+            { path: 'chola-health-proposal', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
 
         ]
     },
