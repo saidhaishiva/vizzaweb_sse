@@ -753,6 +753,12 @@
                         <!--<mat-error *ngIf="nomineeDetail.controls.nRelation.errors?.required">Relation is required</mat-error>-->
                         </mat-form-field>
                         </div>
+                          <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="share Percentage"  formControlName="sharePercentage" (keypress)="nameValidate($event)"   autocomplete="off" required>
+                              <!--<mat-error *ngIf="nomineeDetail.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
+                            </mat-form-field>
+                          </div>
                       </div>
 
                         <div class="row" *ngIf="showAppointee">
@@ -795,7 +801,7 @@
                     <div class="col-md-12">
                       <div class="proposal-buttom mb-3 text-right w-100">
                         <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                        <button mat-raised-button color="primaryBlue"   (click)="nomineeDetailNext(stepper, nomineeDetail.value)">Next</button>
+                        <button mat-raised-button color="primaryBlue" (click)="nomineeDetailNext(stepper, nomineeDetail.value)">Next</button>
                       </div>
                     </div>
                   </form>
@@ -842,6 +848,17 @@
                       <li class="list-group-item"><strong>Education:</strong> {{proposerFormData.educationName}}</li>
                       <li class="list-group-item"><strong>Height:</strong> {{proposerFormData.height}}</li>
                       <li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.weight}}</li>
+
+                     </ul>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <!--<h6 class="color-blue mt-4"></h6>-->
+                    <ul class="m-0 list-group">
+
+
                       <li class="list-group-item"><strong>Weight Changed:</strong> {{proposerFormData.weightChangedName}}</li>
                       <li class="list-group-item"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNum}}</li>
                       <li class="list-group-item"><strong>Language:</strong> {{proposerFormData.languageName}}</li>
@@ -858,9 +875,14 @@
                       <li class="list-group-item"><strong>Politically Exposed Person:</strong> {{proposerFormData.politicallyExposedPerson}}</li>
                       <li class="list-group-item"><strong>If Yes Give Details:</strong> {{proposerFormData.ifYesGiveDetails}}</li>
 
-                     </ul>
+                    </ul>
                   </div>
                 </div>
+
+
+
+
+
 
                 <div class="col-md-6">
                   <div class="p-3">
@@ -869,9 +891,16 @@
                       <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fatherName}}</li>
                       <li class="list-group-item"><strong>Mother Name:</strong> {{proposerFormData.motherName}}</li>
                       <li class="list-group-item"><strong>Spouse Place Of Birth:</strong> {{proposerFormData.spouseBirthPlace}}</li>
-                      <li class="list-group-item"><strong>Spouse Name:</strong> {{proposerFormData.spouseName}}</li>
-                      <li class="list-group-item"><strong>Date Of Birth:</strong> {{proposerFormData.spouseDob | date: 'dd/MM/yyyy'}}</li>
+                    </ul>
+                  </div>
+                </div>
 
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue mt-4"></h6>
+                    <ul class="m-0 list-group">
+                     <li class="list-group-item"><strong>Spouse Name:</strong> {{proposerFormData.spouseName}}</li>
+                     <li class="list-group-item"><strong>Date Of Birth:</strong> {{proposerFormData.spouseDob | date: 'dd/MM/yyyy'}}</li>
                     </ul>
                   </div>
                 </div>
@@ -880,7 +909,7 @@
 
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 >COMMUNICATION DETAILS</h6>
+                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Door Number:</strong> {{proposerFormData.comDoorNo}}</li>
                       <li class="list-group-item"><strong>Building Number:</strong> {{proposerFormData.comBuildingNumber}}</li>
@@ -895,7 +924,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 >RESIDENCY DETAILS</h6>
+                    <h6 class="color-blue">RESIDENCY DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Door Number:</strong> {{proposerFormData.perDoorNo}}</li>
                       <li class="list-group-item"><strong>Building Number:</strong> {{proposerFormData.perBuildingNumber}}</li>
@@ -912,13 +941,20 @@
 
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 >OFFICE DETAILS</h6>
+                    <h6 class="color-blue">OFFICE DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Department:</strong> {{proposerFormData.department}}</li>
                       <li class="list-group-item"><strong>Office Name:</strong> {{proposerFormData.officeName}}</li>
                       <li class="list-group-item"><strong>Office Address1:</strong> {{proposerFormData.officeAddress1}}</li>
                       <li class="list-group-item"><strong>Office Address2:</strong> {{proposerFormData.officeAddress2}}</li>
                       <li class="list-group-item"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue mt-4"></h6>
+                    <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
                       <li class="list-group-item"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
                       <li class="list-group-item"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
@@ -929,56 +965,49 @@
 
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 >OTHER DETAILS</h6>
+                    <h6 class="color-blue">OTHER DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address Proof:</strong> {{proposerFormData.addressProofName}}</li>
                       <li class="list-group-item"><strong>Id Proof:</strong> {{proposerFormData.idProofName}}</li>
-                      <li class="list-group-item"><strong>Income Proof:</strong> {{proposerFormData.incomeProofName}}</li>
-                      <li class="list-group-item"><strong>Age Proof:</strong> {{proposerFormData.ageProofName}}</li>
-
                     </ul>
                   </div>
                 </div>
-
-
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue mt-4"></h6>
+                    <ul class="m-0 list-group">
+                       <li class="list-group-item"><strong>Income Proof:</strong> {{proposerFormData.incomeProofName}}</li>
+                      <li class="list-group-item"><strong>Age Proof:</strong> {{proposerFormData.ageProofName}}</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
             </section>
+
             <section>
               <h5 class="mt-3 sub-title">BANK DETAILS </h5>
               <div class="row box-card">
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <ul class="m-0 list-group">
-                          <!--<li class="list-group-item"><strong>Name:</strong><span *ngIf="nomineeDataForm.paNomineeTitle == 'MR'">Mr</span><span *ngIf="nomineeDataForm.paNomineeTitle == 'MRS'">Ms</span>.{{nomineeDataForm.paNomineeName}}</li>-->
-                        </ul>
-                      </div>
 
-                    </div>
-                  </div>
-                </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <ul class="m-0 list-group">
-                          <!--<li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataForm.paRelationshipName}}</li>-->
-                        </ul>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <h6 >BANK DETAILS</h6>
+                    <h6 class="color-blue">BANK DETAILS</h6>
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Account Holder Name:</strong> {{bankDetailFormData.accountHolderName}}</li>
                           <li class="list-group-item" ><strong>Branch Name:</strong> {{bankDetailFormData.branchName}}</li>
                           <li class="list-group-item" ><strong>Account No:</strong> {{bankDetailFormData.accountNo}}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue mt-4"></h6>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Account Type:</strong> {{bankDetailFormData.accountType}}</li>
                           <li class="list-group-item"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode}}</li>
                           <li class="list-group-item"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
@@ -996,46 +1025,66 @@
                 <div *ngFor="let item of nomineeDetailFormData; let i = index;">
 
                 <div class="row box-card">
-                      <div class="col-md-6">
-                          <div class="p-3">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <ul class="m-0 list-group">
-                                          <!--<li class="list-group-item"><strong>Name:</strong><span *ngIf="nomineeDataForm.paNomineeTitle == 'MR'">Mr</span><span *ngIf="nomineeDataForm.paNomineeTitle == 'MRS'">Ms</span>.{{nomineeDataForm.paNomineeName}}</li>-->
-                                      </ul>
-                                  </div>
 
-                              </div>
-                          </div>
-                      </div>
                       <div class="col-md-6">
                           <div class="p-3">
-                              <div class="row">
-                                  <div class="col-md-12">
-                                      <ul class="m-0 list-group">
-                                          <!--<li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeDataForm.paRelationshipName}}</li>-->
-                                      </ul>
-                                  </div>
-
-                              </div>
-                          </div>
-                      </div>
-                      <div class="col-md-6">
-                          <div class="p-3">
-                              <h6 >NOMINEE DETAILS</h6>
+                              <h6 class="color-blue">NOMINEE DETAILS</h6>
                               <div class="row">
                                   <div class="col-md-12">
                                       <ul class="m-0 list-group">
                                           <li class="list-group-item"><strong>Nominee Name:</strong> {{item.nnName}}</li>
                                           <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob| date: 'dd/MM/yyyy'}}</li>
-                                          <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{item.nBirthPlace}}</li>
-                                          <li class="list-group-item"><strong>Nominee Relation:</strong> {{item.nRelation}}</li>
-
+                                        <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{item.nBirthPlace}}</li>
                                       </ul>
                                   </div>
                               </div>
                           </div>
                       </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6 class="color-blue mt-4"></h6>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="m-0 list-group">
+                            <li class="list-group-item"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
+                            <li class="list-group-item"><strong>Nominee Relation:</strong> {{item.nRelation}}</li>
+
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6 class="color-blue">APOINTEE DETAILS</h6>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="m-0 list-group">
+
+                            <li class="list-group-item" ><strong>Appointee Name:</strong> {{item.aName}}</li>
+                            <li class="list-group-item"><strong>Appointee Dob:</strong> {{item.appointeeDob}}</li>
+
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6 class="color-blue mt-4"></h6>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <ul class="m-0 list-group">
+
+                            <li class="list-group-item" ><strong>Appointee Relation To Nominee:</strong> {{item.appointeeRelationToNominee}}</li>
+                            <li class="list-group-item"><strong>Relation To Insured:</strong> {{item.relationToInsured}}</li>
+
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                     </div>
 
 

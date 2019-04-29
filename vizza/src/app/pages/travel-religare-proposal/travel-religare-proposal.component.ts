@@ -861,17 +861,45 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'response': setMainRes
                 });
             }
-            for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
-                if(this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'datefield' || this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'textarea') {
-                    setSubRes =  this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue;
-                } else if(this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'checkbox') {
-                    setSubRes =  this.religareTravelQuestionsList[0].sub_questions_list[i].checked ? 'YES' : 'NO';
+            if(this.getEnquiryDetails.travel_user_type == 'student') {
+
+                for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
+                    if (this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'datefield' || this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'textarea' || this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'textbox') {
+                        setSubRes = this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue;
+                    } else if (this.religareTravelQuestionsList[0].sub_questions_list[i].field_type == 'checkbox') {
+                        setSubRes = this.religareTravelQuestionsList[0].sub_questions_list[i].checked ? 'YES' : 'NO';
+                    }
+                    this.questionsListTravel.push({
+                        'questionCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_code,
+                        'questionSetCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_set_code,
+                        'response': setSubRes
+                    });
                 }
-                this.questionsListTravel.push({
-                    'questionCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_code,
-                    'questionSetCd': this.religareTravelQuestionsList[0].sub_questions_list[i].question_set_code,
-                    'response': setSubRes
-                });
+            } else {
+                for (let i = 0; i < this.religareTravelQuestionsList[1].sub_questions_list.length; i++) {
+                    if (this.religareTravelQuestionsList[1].sub_questions_list[i].field_type == 'datefield' || this.religareTravelQuestionsList[1].sub_questions_list[i].field_type == 'textarea' || this.religareTravelQuestionsList[1].sub_questions_list[i].field_type == 'textbox') {
+                        setSubRes = this.religareTravelQuestionsList[1].sub_questions_list[i].fieldValue;
+                    } else if (this.religareTravelQuestionsList[1].sub_questions_list[i].field_type == 'checkbox') {
+                        setSubRes = this.religareTravelQuestionsList[1].sub_questions_list[i].checked ? 'YES' : 'NO';
+                    }
+                    this.questionsListTravel.push({
+                        'questionCd': this.religareTravelQuestionsList[1].sub_questions_list[i].question_code,
+                        'questionSetCd': this.religareTravelQuestionsList[1].sub_questions_list[i].question_set_code,
+                        'response': setSubRes
+                    });
+                }
+                for (let i = 0; i < this.religareTravelQuestionsList[2].sub_questions_list.length; i++) {
+                    if (this.religareTravelQuestionsList[2].sub_questions_list[i].field_type == 'datefield' || this.religareTravelQuestionsList[2].sub_questions_list[i].field_type == 'textarea' || this.religareTravelQuestionsList[2].sub_questions_list[i].field_type == 'textbox') {
+                        setSubRes = this.religareTravelQuestionsList[2].sub_questions_list[i].fieldValue;
+                    } else if (this.religareTravelQuestionsList[2].sub_questions_list[i].field_type == 'checkbox') {
+                        setSubRes = this.religareTravelQuestionsList[2].sub_questions_list[i].checked ? 'YES' : 'NO';
+                    }
+                    this.questionsListTravel.push({
+                        'questionCd': this.religareTravelQuestionsList[2].sub_questions_list[i].question_code,
+                        'questionSetCd': this.religareTravelQuestionsList[2].sub_questions_list[i].question_set_code,
+                        'response': setSubRes
+                    });
+                }
             }
             console.log(this.religareTravelQuestionsList, 'this.religareTravelQuestionsList');
             for (let i = 0; i < this.totalReligareData.length; i++) {
@@ -892,14 +920,28 @@ export class ReliagretravelproposalComponent implements OnInit {
                 fieldValid = true;
             }
             if(fieldValid) {
-                let findQuesCode = this.questionsListTravel.filter(data => data.questionSetCd == 'SPDsponsorDetails');
-                console.log(findQuesCode, 'findQuesCode');
-                let findFieldValid = findQuesCode.filter(data => data.response == '');
-                console.log(findFieldValid, 'findFieldValid11');
                 let required = true;
-                if (findFieldValid != '') {
-                    required = false;
+                if(this.getEnquiryDetails.travel_user_type == 'student') {
+                    let findQuesCode = this.questionsListTravel.filter(data => data.questionSetCd == 'SPDsponsorDetails');
+                    console.log(findQuesCode, 'findQuesCode');
+                    let findFieldValid = findQuesCode.filter(data => data.response == '');
+                    console.log(findFieldValid, 'findFieldValid11');
+                    if (findFieldValid != '') {
+                        required = false;
+                    }
+                } else {
+                    if (this.religareTravelQuestionsList[1].checked && this.religareTravelQuestionsList[1].sub_questions_list[0].fieldValue =='') {
+                        fieldValid = false;
+                    } else {
+                        fieldValid = true;
+                    }
+                    if (this.religareTravelQuestionsList[2].checked && this.religareTravelQuestionsList[1].sub_questions_list[0].fieldValue =='') {
+                        fieldValid = false;
+                    } else {
+                        fieldValid = true;
+                    }
                 }
+
                 console.log(required, 'requiredrequired');
 
                 if(required) {
@@ -1033,6 +1075,9 @@ export class ReliagretravelproposalComponent implements OnInit {
             } else {
                 this.setAddons = [];
             }
+
+            this.religareTravelQuestionsList[4].fieldValue = this.insuretravelRelationList[this.religareTravelQuestionsList[4].fieldValue];
+
         } else {
              this.toastr.error(successData.ErrorObject);
         }

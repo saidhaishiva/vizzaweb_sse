@@ -20,13 +20,13 @@ export class AppComponent {
   ngOnInit() { }
 
 
-@HostListener('window:resize')
-   public onWindowResize():void {
-    if (window.innerWidth <= 992 && window.innerHeight < window.innerWidth ) {
-        this.mobileView = false;
-    } else{
-        this.mobileView = true;
-    }
-}
+// @HostListener('window:resize')
+//    public onWindowResize():void {
+//     if (window.innerWidth <= 992 && window.innerHeight < window.innerWidth ) {
+//         this.mobileView = false;
+//     } else{
+//         this.mobileView = true;
+//     }
+// }
 
 }
