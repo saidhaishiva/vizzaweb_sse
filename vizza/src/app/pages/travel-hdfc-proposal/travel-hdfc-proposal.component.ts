@@ -836,7 +836,9 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredAge.patchValue(age);
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.patchValue('Self');
             // this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelationName.patchValue(this.insuredRelationshipDetails['Self']);
-
+            if(age >= 18 ||age <= 70 ) {
+                this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
+            }
         } else {
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
 
@@ -849,8 +851,10 @@ export class TravelHdfcProposalComponent implements OnInit {
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelation.patchValue('');
             this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredAge.patchValue('');
             // this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].InsuredRelationName.patchValue('');
+            this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
 
         }
+
 
     }
 

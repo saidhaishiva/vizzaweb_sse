@@ -51,6 +51,9 @@ export class BikeShriramProposalComponent implements OnInit {
   public bikeEnquiryDetails: any;
   public ProposalId: any;
   public apponiteeList: boolean;
+  public electricalValid: boolean;
+  public nonelectricalValid: boolean;
+  public paUnNamed: boolean;
   public pType: boolean;
   public proposerFormData : any;
   public vehicalFormData : any;
@@ -90,6 +93,9 @@ export class BikeShriramProposalComponent implements OnInit {
     this.claimList = false;
     this.apponiteeList = false;
     this.pType = false;
+    this.electricalValid = false;
+    this.nonelectricalValid = false;
+    this.paUnNamed = false;
 
     this.proposer = this.fb.group({
       title: ['', Validators.required],
@@ -566,7 +572,39 @@ export class BikeShriramProposalComponent implements OnInit {
     public pinListFailure(error) {
     }
 
+    electricalAccess(value){
+        if(value.checked){
+            this.electricalValid = true;
+            this.vehical.controls['electricalAccessSI'].setValidators([Validators.required]);
+        } else {
+            this.electricalValid = false;
+            this.vehical.controls['electricalAccessSI'].setValidators(null);
+            this.vehical.controls['electricalAccessSI'].patchValue('');
 
+        }
+    }
+    nonElectricalAccess(value){
+        if(value.checked){
+            this.nonelectricalValid = true;
+            this.vehical.controls['nonElectricalAccessSI'].setValidators([Validators.required]);
+        } else {
+            this.nonelectricalValid = false;
+            this.vehical.controls['nonElectricalAccessSI'].setValidators(null);
+            this.vehical.controls['nonElectricalAccessSI'].patchValue('');
+
+        }
+    }
+    changePA(value){
+        if(value.checked){
+            this.paUnNamed = true;
+            this.vehical.controls['paforUnnamedSI'].setValidators([Validators.required]);
+        } else {
+            this.paUnNamed = false;
+            this.vehical.controls['paforUnnamedSI'].setValidators(null);
+            this.vehical.controls['paforUnnamedSI'].patchValue('');
+
+        }
+    }
     financeType(value){
     if(value.checked){
       this.finance = true;
@@ -588,6 +626,14 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['pincode'].setValidators(null);
         this.vehical.controls['state'].setValidators(null);
         this.vehical.controls['city'].setValidators(null);
+        this.vehical.controls['hypothecationType'].patchValue('');
+        this.vehical.controls['hypothecationAddress1'].patchValue('');
+        this.vehical.controls['hypothecationAddress2'].patchValue('');
+        this.vehical.controls['hypothecationAddress3'].patchValue('');
+        this.vehical.controls['hypothecationBankName'].patchValue('');
+        this.vehical.controls['pincode'].patchValue('');
+        this.vehical.controls['state'].patchValue('');
+        this.vehical.controls['city'].patchValue('');
     }
   }
   // NEXT BUTTON
@@ -682,7 +728,9 @@ export class BikeShriramProposalComponent implements OnInit {
   previousDetails(stepper: MatStepper, value){
           sessionStorage.stepper3 = '';
           sessionStorage.stepper3 = JSON.stringify(value);
-          stepper.next();
+          if(this.previousInsure.value){
+              stepper.next();
+          }
         }
 //  fFOURTH sTEPPER (NOMINEE)
       ageNominee(){
@@ -721,7 +769,9 @@ export class BikeShriramProposalComponent implements OnInit {
         nomineeDetails(stepper: MatStepper, value){
           sessionStorage.stepper4 = '';
           sessionStorage.stepper4 = JSON.stringify(value);
-            this.proposal(stepper);
+          if(this.nomineeDetail.valid){
+              this.proposal(stepper);
+          }
 
   }
   // VALIDATION
@@ -759,7 +809,7 @@ export class BikeShriramProposalComponent implements OnInit {
           'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
           "geogrophicalExtensionCover": "false",
           "motorProposalObj": {
-              "PreviousPolicyFromDt": "02/03/2016",
+              "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
               "InsuredPrefix": "1",
               "InsuredName": this.proposer.controls['name'].value,
               "Gender": this.proposer.controls['gender'].value,
