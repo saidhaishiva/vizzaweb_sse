@@ -267,6 +267,7 @@ import { DownloadPolicyTravelComponent } from './pages/download-policy-travel/do
 import {TravelBajajalianzProposalComponent} from './pages/travel-bajajalianz-proposal/travel-bajajalianz-proposal.component';
 import {LifeDocuments} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
 import { DownloadPolicyTravelReligareComponent } from './pages/download-policy-travel-religare/download-policy-travel-religare.component';
+import { CholaHealthProposalComponent } from './pages/chola-health-proposal/chola-health-proposal.component';
 
 @NgModule({
     imports: [
@@ -492,7 +493,8 @@ import { DownloadPolicyTravelReligareComponent } from './pages/download-policy-t
         DownloadPolicyTravelComponent,
         TravelBajajalianzProposalComponent,
         LifeDocuments,
-        DownloadPolicyTravelReligareComponent
+        DownloadPolicyTravelReligareComponent,
+        CholaHealthProposalComponent
 
     ],
     providers: [
