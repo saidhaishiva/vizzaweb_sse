@@ -276,25 +276,25 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Father Name" formControlName="fatherName"  maxlength="45" autocomplete="off" required (change)="nameValidate()"  >
+                            <input matInput placeholder="Father Name" formControlName="fatherName"  maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)"  >
                             <mat-error *ngIf="proposer.controls.fatherName.errors?.required">Father Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Mother Name" formControlName="motherName" maxlength="45" autocomplete="off" required (change)="nameValidate()">
+                            <input matInput placeholder="Mother Name" formControlName="motherName" maxlength="45" autocomplete="off" required (keypress)="nameValidate($event)">
                             <mat-error *ngIf="proposer.controls.motherName.errors?.required">Mother Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Spouse Birth Place" formControlName="spouseBirthPlace" maxlength="45" (change)="nameValidate()" autocomplete="off" required="{{proposer['controls'].maritalStatus.value}}" >
+                            <input matInput placeholder="Spouse Birth Place" formControlName="spouseBirthPlace" maxlength="45" (keypress)="nameValidate($event)" autocomplete="off" required="{{proposer['controls'].maritalStatus.value}}" >
                             <mat-error *ngIf="proposer.controls.spouseBirthPlace.errors?.required">Spouse Birth Place is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Spouse Name" formControlName="spouseName" maxlength="45" autocomplete="off" (change)="nameValidate()" required="{{proposer['controls'].maritalStatus.value}}" >
+                            <input matInput placeholder="Spouse Name" formControlName="spouseName" maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" required="{{proposer['controls'].maritalStatus.value}}" >
                             <mat-error *ngIf="proposer.controls.spouseName.errors?.required">Spouse Name is required</mat-error>
                           </mat-form-field>
                         </div>
