@@ -562,12 +562,14 @@
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong><span *ngIf="proposerFormData.insuredPaTitle == 'MR'">Mr</span><span *ngIf="proposerFormData.insuredPaTitle == 'MRS'">Ms</span>. {{proposerFormData.insuredPaFirstname}} {{proposerFormData.insuredPaMidname}} {{proposerFormData.insuredPaLastname}} </li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaGender"><strong>Gender:</strong> {{proposerFormData.insuredPaGender}} </li>
-                    <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.insuredPaMobile}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.insuredPaDob  | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Age:</strong> {{proposerFormData.insuredPaAge}}</li>
+                    <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.insuredPaMobile}}</li>
                     <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.insuredPaEmail}}</li>
                     <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.insuredOccupationListName}}</li>
                     <!--<li class="list-group-item"><strong>Medical Information:</strong> {{proposerFormData.MedicalInformations}}</li>-->
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredProfessionListName !='' && proposerFormData.insuredProfessionListName != null"><strong>Profession:</strong> {{proposerFormData.insuredProfessionListName}}</li>
+
                     <li class="list-group-item" *ngIf="proposerFormData.riderList == true"><strong>TTD Rider:</strong><span *ngIf="proposerFormData.ttdrider == false">No</span><span *ngIf="proposerFormData.ttdrider == true">Yes</span> </li>
                   </ul>
                 </div>
@@ -576,14 +578,13 @@
                 <div class="p-3">
 
                   <ul class="m-0 list-group">
+                    <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.insuredAnnual}}</li>
                     <li class="list-group-item"><strong>Height:</strong> {{proposerFormData.insuredHeight}}</li>
                     <li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.insuredWeight}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredProfessionListName !='' && proposerFormData.insuredProfessionListName != null"><strong>Profession:</strong> {{proposerFormData.insuredProfessionListName}}</li>
                     <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
                     <li class="list-group-item" *ngIf="proposerFormData.insuredPaIdProofName != '' && proposerFormData.insuredPaIdProof != null"><strong>ID Proof:</strong> {{proposerFormData.insuredPaIdProofName}}</li>
                     <li class="list-group-item" *ngIf="idListDetailsinsured !=''"><strong>ID Proof Number:</strong> {{idListDetailsinsured | uppercase}}</li>
-                    <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.insuredAnnual}}</li>
-                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaGst != '' && proposerFormData.insuredPaGst != null"><strong>Gst Number:</strong> {{proposerFormData.insuredPaGst | uppercase}}</li>
+                    <li class="list-group-item" *ngIf="proposerFormData.insuredPaGst != '' && proposerFormData.insuredPaGst != null"><strong>GST Number:</strong> {{proposerFormData.insuredPaGst | uppercase}}</li>
                   </ul>
                 </div>
               </div>

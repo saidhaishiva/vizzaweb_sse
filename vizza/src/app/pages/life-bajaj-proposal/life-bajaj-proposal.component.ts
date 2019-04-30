@@ -375,6 +375,10 @@ export class LifeBajajProposalComponent implements OnInit {
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
+  passportIssue(event: any){
+    this.validation.passportIssue(event);
+
+  }
 
   // proposer page
   changeGender() {
@@ -669,7 +673,7 @@ export class LifeBajajProposalComponent implements OnInit {
       if (this.nomineeDetail.valid) {
           if (sessionStorage.nomineAge < 18) {
             if(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
-
+              this.proposal(stepper);
             } else {
                 this.toastr.error('Please fill the appointee details');
             }
@@ -1493,7 +1497,7 @@ export class LifeBajajProposalComponent implements OnInit {
         "appointeeName": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value,
         "appointeeDob": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,
         "appointeeRelationToNominee": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,
-        "RelationToInsured": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].RelationToInsured.value
+        "RelationToInsured": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value
       },
 
       "address_details": {
@@ -1626,7 +1630,6 @@ export class LifeBajajProposalComponent implements OnInit {
         // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
-
         weightChanged: lifeBajaj1.weightChanged,
         weightChangedName: lifeBajaj1.weightChangedName,
         countryOfResidName: lifeBajaj1.countryOfResidName,

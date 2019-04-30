@@ -302,7 +302,7 @@
 
 
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>SUMMARAY</ng-template>
+          <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
               <div class="row">
                   <div class="col-md-6">
@@ -311,7 +311,7 @@
                               <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                           </div>
                           <div class="col-md-6">
-                              <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> >{{ proposerFormData.placeOfVisitName}}</span></h4>
+                              <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of proposerFormData.placeOfVisitName; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">/</span> </span></span></h4>
                           </div>
                       </div>
                   </div>
@@ -734,7 +734,7 @@
                                         <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getEnquiryDetails.sum_insured_amount}}</span></h4>
                                     </div>
                                     <div class="col-sm-12 col-12">
-                                        <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> {{proposerFormData.placeOfVisitName}}</span></h4>
+                                        <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of proposerFormData.placeOfVisitName; let last = last;" class="p-2"> {{lists}} <span *ngIf="!last">/</span> </span></span></h4>
                                         <!--<span *ngFor="let lists of placeOfVisitName">-->
                                         <!--</span>-->
                                     </div>
