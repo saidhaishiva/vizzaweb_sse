@@ -101,7 +101,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public enquiryFormData: any;
   public setQuestionDetails: any;
   public apointeRelationList:any;
-
+  public incomeList: boolean;
 
   constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
 
@@ -1157,7 +1157,11 @@ export class LifeBajajProposalComponent implements OnInit {
   public incomeProofSuccess(successData) {
     if (successData.IsSuccess) {
       this.incomeProofList = successData.ResponseObject;
+        this.incomeList = true;
       console.log(this.incomeProofList, 'pro');
+    } else {
+      this.incomeList = false;
+
     }
   }
 
@@ -1493,7 +1497,7 @@ export class LifeBajajProposalComponent implements OnInit {
         "nominee2BirthPlace":this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nBirthPlace.value : '',
         "nominee2Dob": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nDob.value : '',
         "nominee2Relation": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-        "sharePercentage": "",
+        "sharePercentage": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].sharePercentage.value,
         "appointeeName": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value,
         "appointeeDob": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,
         "appointeeRelationToNominee": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,

@@ -276,25 +276,25 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Father Name" formControlName="fatherName"  maxlength="45" autocomplete="off" required (change)="nameValidation()"  >
+                            <input matInput placeholder="Father Name" formControlName="fatherName"  maxlength="45" autocomplete="off" required (change)="nameValidate()"  >
                             <mat-error *ngIf="proposer.controls.fatherName.errors?.required">Father Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Mother Name" formControlName="motherName" maxlength="45" autocomplete="off" required (change)="nameValidation()">
+                            <input matInput placeholder="Mother Name" formControlName="motherName" maxlength="45" autocomplete="off" required (change)="nameValidate()">
                             <mat-error *ngIf="proposer.controls.motherName.errors?.required">Mother Name is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Spouse Birth Place" formControlName="spouseBirthPlace" maxlength="45" (change)="nameValidation()" autocomplete="off" required="{{proposer['controls'].maritalStatus.value}}" >
+                            <input matInput placeholder="Spouse Birth Place" formControlName="spouseBirthPlace" maxlength="45" (change)="nameValidate()" autocomplete="off" required="{{proposer['controls'].maritalStatus.value}}" >
                             <mat-error *ngIf="proposer.controls.spouseBirthPlace.errors?.required">Spouse Birth Place is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Spouse Name" formControlName="spouseName" maxlength="45" autocomplete="off" (change)="nameValidation()" required="{{proposer['controls'].maritalStatus.value}}" >
+                            <input matInput placeholder="Spouse Name" formControlName="spouseName" maxlength="45" autocomplete="off" (change)="nameValidate()" required="{{proposer['controls'].maritalStatus.value}}" >
                             <mat-error *ngIf="proposer.controls.spouseName.errors?.required">Spouse Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -451,43 +451,43 @@
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" (keypress)="nameValidate($event)">
+                        <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
                         <mat-error *ngIf="proposer.controls.department.errors?.required">Department is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" (keypress)="nameValidate($event)">
+                        <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
                         <mat-error *ngIf="proposer.controls.officeName.errors?.required">Office Name is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  (keypress)="nameValidate($event)">
+                        <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
                         <mat-error *ngIf="proposer.controls.officeAddress1.errors?.required">Office Address1 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  (keypress)="nameValidate($event)">
+                        <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
                         <mat-error *ngIf="proposer.controls.officeAddress2.errors?.required">Office Address2 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  (keypress)="nameValidate($event)">
+                        <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
                         <mat-error *ngIf="proposer.controls.officeAddress3.errors?.required">Office Address3 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  (keypress)="nameValidate($event)">
+                        <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
                         <mat-error *ngIf="proposer.controls.officeDistrict.errors?.required">Office Address3 is required</mat-error>
                       </mat-form-field>
                     </div>
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  (keypress)="nameValidate($event)">
+                        <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
                         <mat-error *ngIf="proposer.controls.officeState.errors?.required">Office State is required</mat-error>
                       </mat-form-field>
                     </div>
@@ -503,11 +503,12 @@
 
                     <div class="col-md-3">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  (keypress)="numberValidate($event)">
+                        <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
                         <mat-error *ngIf="proposer.controls.officeNumber.errors?.required">Office Number is required</mat-error>
                       </mat-form-field>
                     </div>
-
+                    </div>
+                    <div class="row">
                     <div class="col-md-12 mt-2">
                       <h6 class="color-blue">OTHER DETAILS</h6>
                     </div>
@@ -535,7 +536,7 @@
                           <mat-error *ngIf="proposer.controls.ageProof.errors?.required">Age Proof is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="incomeList">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Income Proof" formControlName="incomeProof" (change)="changeIncomeProof()"  class="w-100">
 
@@ -682,17 +683,17 @@
 
                         <div class="col-md-12" *ngIf="item.feild == 'NUMBER'">
                                 <mat-form-field class="w-50">
-                                    <input matInput type="number" placeholder="{{item.des}}" [(ngModel)]="item.fieldValue" autocomplete="off" required >
+                                    <input matInput type="number" placeholder="{{item.des}}" [(ngModel)]="item.fieldValue" autocomplete="off"  >
                                 </mat-form-field>
                         </div>
                         <div class="col-md-12" *ngIf="item.feild == 'TEXT'">
                             <mat-form-field class="w-50">
-                                <input matInput placeholder="{{item.des}}" [(ngModel)]="item.fieldValue" autocomplete="off" required >
+                                <input matInput placeholder="{{item.des}}" [(ngModel)]="item.fieldValue" autocomplete="off"  >
                             </mat-form-field>
                         </div>
                         <div class="col-md-12" *ngIf="item.feild == 'Dropdown'">
                           <mat-form-field class="w-50">
-                            <mat-select  placeholder="{{item.des}}" [(ngModel)]="item.fieldValue" required class="w-100">
+                            <mat-select  placeholder="{{item.des}}" [(ngModel)]="item.fieldValue"  class="w-100">
                               <mat-option *ngFor="let list of diseaseLists | keys" [value]= list.key> {{list.value}} </mat-option>
                             </mat-select>
                           </mat-form-field>
@@ -761,12 +762,7 @@
                         <!--<mat-error *ngIf="nomineeDetail.controls.nRelation.errors?.required">Relation is required</mat-error>-->
                         </mat-form-field>
                         </div>
-                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="share Percentage"  formControlName="sharePercentage" (keypress)="numberValidate($event)"   autocomplete="off" required>
-                              <!--<mat-error *ngIf="nomineeDetail.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
-                            </mat-form-field>
-                          </div>
+
                       </div>
 
                         <div class="row" *ngIf="showAppointee">
@@ -801,6 +797,12 @@
                                 <mat-option *ngFor="let list of apointeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
                               </mat-select>
                               <!--<mat-error *ngIf="apointeeDetails.controls.relationToInsured.errors?.required">Relation is required</mat-error>-->
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                              <input matInput placeholder="share Percentage"  formControlName="sharePercentage" (keypress)="numberValidate($event)"   autocomplete="off" required>
+                              <!--<mat-error *ngIf="nomineeDetail.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
                             </mat-form-field>
                           </div>
                         </div>
