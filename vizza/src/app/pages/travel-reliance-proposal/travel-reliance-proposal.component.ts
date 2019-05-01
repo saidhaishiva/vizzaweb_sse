@@ -132,6 +132,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     public rediretUrlLink :any;
 
     public response :any;
+    public userTypes :any;
 
     public proposerFormData: any;
     public insuredFormData: any;
@@ -380,6 +381,8 @@ export class TravelRelianceProposalComponent implements OnInit {
             riskMaxDaysPerTripFlag: false,
             TravelPlusPlan: '',
             riskVisitingCountryName: '',
+            TravelCoverageTrue: false,
+
             // TravelIsAllPlan:'',
 
             // overseas: this.overseas,
@@ -449,6 +452,7 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.items.push(this.initItemRows());
             this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
         }
+        this.userTypes = this.getEnquiryDetails.travel_user_type;
         this.sessionData();
     }
 
@@ -527,6 +531,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
         console.log(value,'value');
+
         sessionStorage.stepper2Details = '';
         sessionStorage.stepper2Details = JSON.stringify(value);
         if (this.relianceInsuredTravel.valid) {
@@ -595,6 +600,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                 }
             }
             if(!ageValidate.includes(1)){
+                this.riskDetails.controls['riskVisitingCountries'].patchValue(value.items[0].VisitingCountries);
                 stepper.next();
                 this.topScroll();
             } else {
@@ -832,55 +838,55 @@ export class TravelRelianceProposalComponent implements OnInit {
                 'PlanName': this.getTravelPremiumList.plan_code,
                 'AddOnBnifitsOpted': this.RiskData.riskSeniorCitizen.toString()
             },
-            'LstTravelCoverDetails': {
+             'LstTravelCoverDetails': {
+            //     'LstTravelCovers': {
+            //         'CoverageName': '',
+            //         'CoverageDisplayName': '',
+            //         'StandardLimit': '',
+            //         'SilverLimit': '',
+            //         'GoldLimit': '',
+            //         'PlatinumLimit': '',
+            //         'BasicLimit': '',
+            //         'EliteLimit': '',
+            //         'PlusLimit': '',
+            //         'StandardDeductible': '',
+            //         'SilverDeductible': '',
+            //         'GoldDeductible': '',
+            //         'PlatinumDeductible': '',
+            //         'BasicDeductible': '',
+            //         'IsStandardPlan': 'false',
+            //         'IsSilverPlan': 'false',
+            //         'IsGoldPlan': 'false',
+            //         'IsPlatinumPlan': 'false',
+            //         'IsBasicPlan': 'false',
+            //         'IsElitePlan': 'false',
+            //         'IsPlusPlan': 'false',
+            //         'IsChecked': 'false'
+            //     }
                 'LstTravelCovers': {
-                    'CoverageName': '',
-                    'CoverageDisplayName': '',
-                    'StandardLimit': '',
-                    'SilverLimit': '',
-                    'GoldLimit': '',
-                    'PlatinumLimit': '',
-                    'BasicLimit': '',
-                    'EliteLimit': '',
-                    'PlusLimit': '',
+                    'CoverageName': this.RiskData.TravelCoverageName,
+                    'CoverageDisplayName': this.RiskData.TravelCoverageDisplayName,
+                    'StandardLimit': this.RiskData.TravelStandardLimited,
+                    'SilverLimit': this.RiskData.TravelSilverPlan,
+                    'GoldLimit': this.RiskData.TravelGoldPlan,
+                    'PlatinumLimit': this.RiskData.TravelPlatinumPlan,
+                    'BasicLimit': this.RiskData.TravelBasicPlan,
+                    'EliteLimit': this.RiskData.TravelElitePlan,
+                    'PlusLimit': this.RiskData.TravelPlusPlan,
                     'StandardDeductible': '',
                     'SilverDeductible': '',
                     'GoldDeductible': '',
                     'PlatinumDeductible': '',
-                    'BasicDeductible': '',
-                    'IsStandardPlan': 'false',
-                    'IsSilverPlan': 'false',
-                    'IsGoldPlan': 'false',
-                    'IsPlatinumPlan': 'false',
-                    'IsBasicPlan': 'false',
-                    'IsElitePlan': 'false',
-                    'IsPlusPlan': 'false',
+                    'BasicDeductible': this.RiskData.TravelStandardDeductiblePlan.toString(),
+                    'IsStandardPlan': this.RiskData.TravelStandardLimitedPlan.toString(),
+                    'IsSilverPlan': this.RiskData.TravelIsSilverPlan.toString(),
+                    'IsGoldPlan': this.RiskData.TravelIsGoldPlan.toString(),
+                    'IsPlatinumPlan': this.RiskData.TravelIsPlatinumPlan.toString(),
+                    'IsBasicPlan': this.RiskData.TravelIsBasicPlan.toString(),
+                    'IsElitePlan': this.RiskData.TravelIsElitePlan.toString(),
+                    'IsPlusPlan': this.RiskData.TravelIsPlusPlan.toString(),
                     'IsChecked': 'false'
                 }
-                // 'LstTravelCovers': {
-                //     'CoverageName': this.RiskData.TravelCoverageName,
-                //     'CoverageDisplayName': this.RiskData.TravelCoverageDisplayName,
-                //     'StandardLimit': this.RiskData.TravelStandardLimited,
-                //     'SilverLimit': this.RiskData.TravelSilverPlan,
-                //     'GoldLimit': this.RiskData.TravelGoldPlan,
-                //     'PlatinumLimit': this.RiskData.TravelPlatinumPlan,
-                //     'BasicLimit': this.RiskData.TravelBasicPlan,
-                //     'EliteLimit': this.RiskData.TravelElitePlan,
-                //     'PlusLimit': this.RiskData.TravelPlusPlan,
-                //     'StandardDeductible': '',
-                //     'SilverDeductible': '',
-                //     'GoldDeductible': '',
-                //     'PlatinumDeductible': '',
-                //     'BasicDeductible': this.RiskData.TravelStandardDeductiblePlan.toString(),
-                //     'IsStandardPlan': this.RiskData.TravelStandardLimitedPlan.toString(),
-                //     'IsSilverPlan': this.RiskData.TravelIsSilverPlan.toString(),
-                //     'IsGoldPlan': this.RiskData.TravelIsGoldPlan.toString(),
-                //     'IsPlatinumPlan': this.RiskData.TravelIsPlatinumPlan.toString(),
-                //     'IsBasicPlan': this.RiskData.TravelIsBasicPlan.toString(),
-                //     'IsElitePlan': this.RiskData.TravelIsElitePlan.toString(),
-                //     'IsPlusPlan': this.RiskData.TravelIsPlusPlan.toString(),
-                //     'IsChecked': 'false'
-                // }
             }
         }
         this.settings.loadingSpinner = true;
@@ -1592,6 +1598,7 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.riskDetails.controls['riskPreExistDiseaseName'].patchValue(this.getStepper3.riskPreExistDiseaseName);
             this.riskDetails.controls['riskVisitingCountries'].patchValue(this.getStepper3.riskVisitingCountries);
             this.riskDetails.controls['riskVisitingCountryName'].patchValue(this.getStepper3.riskVisitingCountryName);
+            this.riskDetails.controls['TravelCoverageTrue'].patchValue(this.getStepper3.TravelCoverageTrue);
 
             this.riskDetails.controls['riskIndian'].patchValue(this.getStepper3.riskIndian);
             this.riskDetails.controls['riskIsOverSeasCitizen'].patchValue(this.getStepper3.riskIsOverSeasCitizen);
