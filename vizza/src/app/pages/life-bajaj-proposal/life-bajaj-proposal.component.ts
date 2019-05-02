@@ -92,6 +92,8 @@ export class LifeBajajProposalComponent implements OnInit {
   public nomineeDetailFormData:any;
   public spouseDobError:any;
   public nomineeDobValidError:any;
+  public appointeeDobValidError:any;
+
   public getDays:any;
   public getAge:any;
   public slectedIndex:any;
@@ -295,6 +297,7 @@ export class LifeBajajProposalComponent implements OnInit {
       nRelation: '',
       nRelationName: '',
       nomineeDobValidError:'',
+      appointeeDobValidError:'',
       sharePercentage:'',
       aName: '',
       appointeeDob:'',
@@ -570,7 +573,43 @@ export class LifeBajajProposalComponent implements OnInit {
         }
       } else if(type == 'appointee') {
 
+        if (event.value != null) {
+          let selectedDate = '';
+          let dob = '';
+          let dob_days = '';
+          this.getAge = '';
+          this.getDays;
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
+          dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
 
+          if (typeof event.value._i == 'string') {
+            const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+            if (pattern.test(event.value._i) && event.value._i.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+
+            } else {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
+            }
+
+            selectedDate = event.value._i;
+
+            if (selectedDate.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+              this.getAge = this.ageCalculate(dob);
+              this.getDays = this.ageCalculateInsurer(dob_days);
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(dob);
+
+            }
+
+          }
+          else if (typeof event.value._i == 'object') {
+            if (dob.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+              this.getAge = this.ageCalculate(dob);
+              this.getDays = this.ageCalculateInsurer(dob_days);
+            }
+          }
+        }
 
       }
     }
@@ -1561,6 +1600,7 @@ export class LifeBajajProposalComponent implements OnInit {
       },
     }
     console.log(data,'fileeee');
+    this.settings.loadingSpinner = true;
     this.termService.proposalCreation(data).subscribe(
         (successData) => {
           this.proposalSuccess(successData,stepper);
@@ -1571,6 +1611,8 @@ export class LifeBajajProposalComponent implements OnInit {
     );
   }
   public proposalSuccess(successData, stepper){
+    this.settings.loadingSpinner = false;
+
     if(successData.IsSuccess){
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
@@ -1739,6 +1781,8 @@ export class LifeBajajProposalComponent implements OnInit {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(nomineeDetails.itemsNominee[i].aName);
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(nomineeDetails.itemsNominee[i].appointeeDob);
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue(nomineeDetails.itemsNominee[i].appointeeRelationToNominee);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue(nomineeDetails.itemsNominee[i].appointeeDobValidError);
+
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(nomineeDetails.itemsNominee[i].relationToInsured);
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsuredName.patchValue(nomineeDetails.itemsNominee[i].relationToInsuredName);
           }
