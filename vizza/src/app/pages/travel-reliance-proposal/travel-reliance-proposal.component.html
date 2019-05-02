@@ -66,7 +66,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select  placeholder="Occupation" formControlName="occupation" required (change)="selectOccupation()" class="w-100">
-                              <mat-option *ngFor="let list of PersonalOccupation | keys " value ='{{list.key}}' [hidden]="travelUserType && list.key == '36'"> {{list.value}} </mat-option>
+                              <mat-option *ngFor="let list of PersonalOccupation | keys " value ='{{list.key}}' [hidden]="travelUserType == false && list.key == '36'"> {{list.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
                           </mat-form-field>
@@ -295,6 +295,7 @@
                         </div>
                       </div>
                     </div>
+                    <!--family = 2818, senior citi = 2819, multi travel = 2837-->
 
                     <div class="col-md-12 box-card pt-3" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code == 'Standard'">
                       <div class="row">
@@ -404,13 +405,13 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-placeholder >Course Name <span class="error">*</span></mat-placeholder>
-                            <input matInput formControlName="personalCourseName"  (keypress)="nameValidate($event)"  autocomplete="off">
+                            <mat-placeholder >Course Duration <span class="error">*</span></mat-placeholder>
+                            <input matInput formControlName="personalCourseName" maxlength="25" (keypress)="numberValidate($event)"  autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-placeholder >Tuition Fees Per Sem <span class="error">*</span></mat-placeholder>
+                            <mat-placeholder >Tuition Fees Per Sem </mat-placeholder>
                             <input matInput formControlName="personalTutionFeePerSem" maxlength="25"  (keypress)="numberValidate($event)"  autocomplete="off">
                           </mat-form-field>
                         </div>
@@ -486,18 +487,21 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Sponsor Name" formControlName="personalSponsorFullname"  (keypress)="nameValidate($event)"  autocomplete="off">
+                            <mat-placeholder >Sponsor Name <span class="error">*</span></mat-placeholder>
+                            <input matInput formControlName="personalSponsorFullname"  (keypress)="nameValidate($event)"  autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Email ID"   formControlName="personalSponsorEmail"  autocomplete="off">
+                            <mat-placeholder >Email ID <span class="error">*</span></mat-placeholder>
+                            <input matInput    formControlName="personalSponsorEmail"  autocomplete="off">
                             <mat-error *ngIf="personal.controls.personalSponsorEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Mobile No" formControlName="personalSponsorMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
+                            <mat-placeholder >Mobile No <span class="error">*</span></mat-placeholder>
+                            <input matInput  formControlName="personalSponsorMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
                             <mat-error *ngIf="personal.controls.personalSponsorMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
 
                           </mat-form-field>
@@ -509,12 +513,14 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
+                            <mat-placeholder >Address <span class="error">*</span></mat-placeholder>
                             <input matInput placeholder="Address" formControlName="personalSponsorAddress"  autocomplete="off" [readonly]="inputSponsorReadonly">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code" formControlName="personalSponsorPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalS')" autocomplete="off" [readonly]="inputSponsorReadonly">
+                            <mat-placeholder >PIN Code<span class="error">*</span></mat-placeholder>
+                            <input matInput  formControlName="personalSponsorPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalS')" autocomplete="off" [readonly]="inputSponsorReadonly">
                             <!--<mat-error *ngIf="personal.controls.personalSponsorPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                             <mat-error *ngIf="personal.controls.personalSponsorPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field>
@@ -1083,7 +1089,7 @@
                         <!--<p class="days-count">Travel Days : {{riskdaysCount}}</p>-->
                         <!--</div>-->
                       <!--</div>-->
-                      <div class="row col-md-12">
+                      <div class="row col-md-12" *ngIf="getTravelPremiumList.product_code == '2818'">
                         <div class="col-md-8">
                           8.Is Visiting Family :
                         </div>
@@ -1142,7 +1148,7 @@
                         <!--<input matInput placeholder="Senior Citizen Plan Name" (keypress)="nameValidate($event)"  formControlName="riskSeniorCitizenPlanName" autocomplete="off">-->
                         <!--</mat-form-field>-->
                         <!--</div>-->
-                        <div class="col-md-12 text-left">
+                        <div class="col-md-12 text-left" *ngIf="getTravelPremiumList.product_code == '2819'">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Senior Citizen Plan" formControlName="riskSeniorCitizenPlanID" (change)="selectseniorPlan()">
                               <mat-option  *ngFor="let plans of seniorCitizenPlans | keys"  value="{{plans.key}}">{{plans.value}}</mat-option>
