@@ -507,8 +507,22 @@ export class TravelRelianceProposalComponent implements OnInit {
         sessionStorage.stepper1Details = JSON.stringify(value);
         if (this.personal.valid) {
             if (sessionStorage.personalAge >= 18) {
-                stepper.next();
-                this.topScroll();
+                let studentValid = true;
+                if (this.personal['controls'].occupation.value == '36') {
+                    if (this.personal['controls'].personalCourseName.value == '' || this.personal['controls'].personalUniversityName.value == '' || this.personal['controls'].personalUniversityEmail.value == ''|| this.personal['controls'].personalUniversityMobileNo.value == '' || this.personal['controls'].personalSponsorFullname.value == '' || this.personal['controls'].personalSponsorEmail.value == '' || this.personal['controls'].personalSponsorMobileNo.value == '' ) {
+                        studentValid = false;
+                    }
+                }
+
+                if(studentValid) {
+                    stepper.next();
+                    this.topScroll();
+                } else {
+                    this.toastr.error('Please fill Course Detail,University Detail and Sponsor Detail');
+                }
+
+
+
             } else {
                 this.toastr.error('Proposer age should be 18 or above');
             }
