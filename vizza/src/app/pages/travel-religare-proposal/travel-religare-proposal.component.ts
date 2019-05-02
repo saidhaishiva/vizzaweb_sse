@@ -893,7 +893,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     this.questionsListTravel.push({
                         'questionCd': this.religareTravelQuestionsList[i].sub_questions_list[j].question_code,
                         'questionSetCd': this.religareTravelQuestionsList[i].sub_questions_list[j].question_set_code,
-                        'response': setSubRes
+                        'response': setSubRes == undefined || setSubRes == null ? '' :  setSubRes
                     });
                 }
             }

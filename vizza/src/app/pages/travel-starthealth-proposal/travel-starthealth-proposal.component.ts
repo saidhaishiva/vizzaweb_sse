@@ -358,6 +358,7 @@ export class TravelProposalComponent implements OnInit {
             }
 
         }
+        sessionStorage.personalDobError = this.personalDobError;
     }
     addEventInsurer(event,  i, type) {
 
@@ -569,6 +570,13 @@ export class TravelProposalComponent implements OnInit {
                 sessionStorage.proposerAgeForTravel = age;
             }
 
+            if (sessionStorage.personalDobError != '' && sessionStorage.personalDobError != undefined) {
+                this.personalDobError = sessionStorage.personalDobError;
+            } else {
+                this.personalDobError = '';
+            }
+
+
             setTimeout(() => {
                 if (this.getStepper1.personalPincode != '') {
                     this.getPostal(this.getStepper1.personalPincode, 'personal');
@@ -620,7 +628,7 @@ export class TravelProposalComponent implements OnInit {
         console.log(this.personal.controls['personalgstIdType'].value,'8809809');
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
         console.log(this.personalDobError);
-        if (this.personal.valid && this.personalDobError== '') {
+        if (this.personal.valid && this.personalDobError == '') {
             if (sessionStorage.proposerAgeForTravel >= 18 || sessionStorage.proposerAgeForTravel <= 90 ) {
                 if((this.personal.controls['physicianName'].value == '' &&  this.personal.controls['physicianContactNumber'].value == '') || (this.personal.controls['physicianName'].value != '' &&  this.personal.controls['physicianContactNumber'].value != '')){
                     if((this.personal.controls['personalgstIdType'].value == '' && this.personal.controls['personalGst'].value == '') || (this.personal.controls['personalgstIdType'].value != '' && this.personal.controls['personalGst'].value != '')){
@@ -750,11 +758,16 @@ export class TravelProposalComponent implements OnInit {
             sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             console.log(this.proposerFormData,' this.proposerFormData');
-            for(let i=0; i < this.placeOfVisiLists.length; i++){
-                if(this.placeOfVisiLists[i].country_code === this.proposerFormData.placeOfVisit) {
-                    this.proposerFormData.placeOfVisitName = this.placeOfVisiLists[i].country_name;
+            let places = [];
+            for(let j=0; j < this.proposerFormData.placeOfVisit.length; j++) {
+                for(let i=0; i < this.placeOfVisiLists.length; i++){
+                    if (this.proposerFormData.placeOfVisit[j] == this.placeOfVisiLists[i].country_code) {
+                        places.push(this.placeOfVisiLists[i].country_name);
+                    }
                 }
             }
+            console.log(places, 'places');
+            this.proposerFormData.placeOfVisitName = places;
             console.log( this.proposerFormData.placeOfVisitName,'iuhgdk');
             console.log(this.proposerFormData.placeOfVisit,'code');
         } else {

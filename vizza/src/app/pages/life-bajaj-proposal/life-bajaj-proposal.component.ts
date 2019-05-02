@@ -92,6 +92,8 @@ export class LifeBajajProposalComponent implements OnInit {
   public nomineeDetailFormData:any;
   public spouseDobError:any;
   public nomineeDobValidError:any;
+  public appointeeDobValidError:any;
+
   public getDays:any;
   public getAge:any;
   public slectedIndex:any;
@@ -101,7 +103,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public enquiryFormData: any;
   public setQuestionDetails: any;
   public apointeRelationList:any;
-
+  public incomeList: boolean;
 
   constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
 
@@ -295,6 +297,7 @@ export class LifeBajajProposalComponent implements OnInit {
       nRelation: '',
       nRelationName: '',
       nomineeDobValidError:'',
+      appointeeDobValidError:'',
       sharePercentage:'',
       aName: '',
       appointeeDob:'',
@@ -522,51 +525,93 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
 
-  addEventNominee(event, i) {
-      if (event.value != null) {
-        let selectedDate = '';
-        let dob = '';
-        let dob_days = '';
-        this.getAge = '';
-        this.getDays;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+  addEventNominee(event, i, type) {
+      if(type == 'nominee') {
+        if (event.value != null) {
+          let selectedDate = '';
+          let dob = '';
+          let dob_days = '';
+          this.getAge = '';
+          this.getDays;
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
+          dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
 
-        if (typeof event.value._i == 'string') {
-          const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-          if (pattern.test(event.value._i) && event.value._i.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+          if (typeof event.value._i == 'string') {
+            const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+            if (pattern.test(event.value._i) && event.value._i.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
 
-          } else {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+            } else {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+            }
+
+            selectedDate = event.value._i;
+
+            if (selectedDate.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+              this.getAge = this.ageCalculate(dob);
+              this.getDays = this.ageCalculateInsurer(dob_days);
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+
+            }
+
           }
-
-          selectedDate = event.value._i;
-
-          if (selectedDate.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculateInsurer(dob_days);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
-
+          else if (typeof event.value._i == 'object') {
+            if (dob.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+              this.getAge = this.ageCalculate(dob);
+              this.getDays = this.ageCalculateInsurer(dob_days);
+            }
           }
-
         }
-        else if (typeof event.value._i == 'object') {
-          if (dob.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculateInsurer(dob_days);
-          }
-        }
-      }
-      console.log(this.getAge, 'this.getAgethis.getAge');
+        console.log(this.getAge, 'this.getAgethis.getAge');
+        sessionStorage.nomineAge = this.getAge;
         if (this.getAge < 18) {
-          sessionStorage.nomineAge = this.getAge;
           this.showAppointee = true;
         } else {
           this.showAppointee = false;
         }
+      } else if(type == 'appointee') {
+
+        if (event.value != null) {
+          let selectedDate = '';
+          let dob = '';
+          let dob_days = '';
+          this.getAge = '';
+          this.getDays;
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
+          dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
+          if (typeof event.value._i == 'string') {
+            const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+            if (pattern.test(event.value._i) && event.value._i.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+
+            } else {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
+            }
+
+            selectedDate = event.value._i;
+
+            if (selectedDate.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+              this.getAge = this.ageCalculate(dob);
+              this.getDays = this.ageCalculateInsurer(dob_days);
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(dob);
+
+            }
+
+          }
+          else if (typeof event.value._i == 'object') {
+            if (dob.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+              this.getAge = this.ageCalculate(dob);
+              this.getDays = this.ageCalculateInsurer(dob_days);
+            }
+          }
+        }
+
+      }
     }
 
 
@@ -669,6 +714,7 @@ export class LifeBajajProposalComponent implements OnInit {
     console.log(value);
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
     console.log(value, 'valuevalue');
+    console.log(sessionStorage.nomineAge, 'sessionStorage.nomineAge');
     console.log(this.nomineeDetail.valid, 'this.nomineeDetail.valid');
       if (this.nomineeDetail.valid) {
           if (sessionStorage.nomineAge < 18) {
@@ -1157,7 +1203,11 @@ export class LifeBajajProposalComponent implements OnInit {
   public incomeProofSuccess(successData) {
     if (successData.IsSuccess) {
       this.incomeProofList = successData.ResponseObject;
+        this.incomeList = true;
       console.log(this.incomeProofList, 'pro');
+    } else {
+      this.incomeList = false;
+
     }
   }
 
@@ -1493,7 +1543,7 @@ export class LifeBajajProposalComponent implements OnInit {
         "nominee2BirthPlace":this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nBirthPlace.value : '',
         "nominee2Dob": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nDob.value : '',
         "nominee2Relation": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-        "sharePercentage": "",
+        "sharePercentage": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].sharePercentage.value,
         "appointeeName": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value,
         "appointeeDob": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,
         "appointeeRelationToNominee": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,
@@ -1550,6 +1600,7 @@ export class LifeBajajProposalComponent implements OnInit {
       },
     }
     console.log(data,'fileeee');
+    this.settings.loadingSpinner = true;
     this.termService.proposalCreation(data).subscribe(
         (successData) => {
           this.proposalSuccess(successData,stepper);
@@ -1560,6 +1611,8 @@ export class LifeBajajProposalComponent implements OnInit {
     );
   }
   public proposalSuccess(successData, stepper){
+    this.settings.loadingSpinner = false;
+
     if(successData.IsSuccess){
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
@@ -1728,6 +1781,8 @@ export class LifeBajajProposalComponent implements OnInit {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(nomineeDetails.itemsNominee[i].aName);
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(nomineeDetails.itemsNominee[i].appointeeDob);
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue(nomineeDetails.itemsNominee[i].appointeeRelationToNominee);
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue(nomineeDetails.itemsNominee[i].appointeeDobValidError);
+
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(nomineeDetails.itemsNominee[i].relationToInsured);
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsuredName.patchValue(nomineeDetails.itemsNominee[i].relationToInsuredName);
           }

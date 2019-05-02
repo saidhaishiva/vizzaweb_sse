@@ -54,6 +54,11 @@ export class ClearSessionTravelService {
         sessionStorage.personalCitys = '';
         sessionStorage.residenceCitys = '';
 
+        // reliance
+        sessionStorage.travelUserType = '';
+
+
+
     }
 
 
