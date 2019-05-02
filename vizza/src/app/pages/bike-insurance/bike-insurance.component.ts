@@ -489,12 +489,12 @@ export class BikeInsuranceComponent implements OnInit {
     //
     // public getPincodeDetailsFailure(error) {
     // }
-    // BikeInsurer(){
-    //     const dialogRef = this.dialog.open(BikeInsurer, {
-    //         width: '1200px',
-    //     });
-    //     dialogRef.disableClose = true;
-    // }
+    BikeInsurer(){
+        // const dialogRef = this.dialog.open(BikeInsurer, {
+        //     width: '1200px',
+        // });
+        // dialogRef.disableClose = true;
+    }
 }
 @Component({
     selector: 'bikeinsurer',

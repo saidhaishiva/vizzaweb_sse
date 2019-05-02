@@ -400,7 +400,7 @@ export class ReliagretravelproposalComponent implements OnInit {
         this.insureReligareArray.controls['rcityName'].patchValue(this.rPersonalCitys[this.insureReligareArray.controls['rcity'].value]);
     }
     religareTravelRelationshipList() {
-        this.nomineeDetails.controls['religareNomineeRelationshipName'].patchValue(this.insuretravelRelationList[this.nomineeDetails.controls['religareTravelRelationship'].value]);
+       // this.nomineeDetails.controls['religareNomineeRelationshipName'].patchValue(this.insuretravelRelationList[this.nomineeDetails.controls['religareTravelRelationship'].value]);
     }
     studentRelationshipList() {
         this.religarePersonal.controls['studentRelationShipName'].patchValue(this.insuretravelRelationList[this.religarePersonal.controls['studentRelationShip'].value]);
@@ -744,10 +744,10 @@ export class ReliagretravelproposalComponent implements OnInit {
 
     // MEDICAL THIRD PAGE
     // OuestionList
-    changereligareTravelQuestions(value, index, type) {
+    changereligareTravelQuestions(value, index, type, pi) {
         if(index == 5 && this.religareTravelQuestionsList[0].sub_questions_list[index].checked) {
             this.diseaseFieldView = true;
-        } else {
+        } else if(index == 5 && this.religareTravelQuestionsList[0].sub_questions_list[index].checked == false) {
             this.diseaseFieldView = false;
         }
         sessionStorage.diseaseFieldView = this.diseaseFieldView;
@@ -793,12 +793,17 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.religareTravelQuestionsList[index].status = 'Yes';
             } else {
                 this.religareTravelQuestionsList[index].status = 'No';
+                for (let i = 0; i < this.religareTravelQuestionsList[index].sub_questions_list.length; i++) {
+                    this.religareTravelQuestionsList[index].sub_questions_list[i].fieldValue = '';
+                    this.religareTravelQuestionsList[index].sub_questions_list[i].checked = false;
+                    this.religareTravelQuestionsList[index].sub_questions_list[i].status = 'No';
+                }
             }
         } else if(type == 'sub') {
             if(value.checked){
-                this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'Yes';
+                this.religareTravelQuestionsList[index].sub_questions_list[index].status = 'Yes';
             } else {
-                this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'No';
+                this.religareTravelQuestionsList[index].sub_questions_list[index].status = 'No';
             }
         }
         console.log(this.religareTravelQuestionsList, 'this.religareTravelQuestionsLis');
@@ -1042,7 +1047,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'nominee_name':this.nomineeDetails.controls['religareTravelNomineeName'].value,
-            'nominee_relationship': this.nomineeDetails.controls['religareTravelNomineeName'].value,
+            'nominee_relationship': this.nomineeDetails.controls['religareTravelRelationship'].value,
             'medical_status': mcondition != '' ? 'Yes' : 'No',
             'sponser_dob':this.religarePersonal.controls['sponserdob'].value ? this.datepipe.transform(this.religarePersonal.controls['sponserdob'].value,'y-MM-dd') : '',
             'sponser_name':this.religarePersonal.controls['sponsername'].value ? this.religarePersonal.controls['sponsername'].value : '',
