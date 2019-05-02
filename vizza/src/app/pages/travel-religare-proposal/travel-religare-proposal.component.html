@@ -373,7 +373,7 @@
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  SECURE DETAILS
+                  MEDICAL DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matStepLabel>MEDICAL DETAILS</ng-template>
@@ -486,8 +486,8 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Insured"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()">
-                          <mat-option *ngFor="let lists of insuretravelRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.key}}" required>
+                        <mat-select placeholder="Relationship with Insured"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()" required>
+                          <mat-option *ngFor="let lists of insuretravelRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.key}}" >
                             {{lists.value}}
                           </mat-option>
                         </mat-select>
@@ -665,7 +665,7 @@
             <mat-expansion-panel [expanded]="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  QUESTION DETAILS
+                  MEDICAL DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="row box-card">
@@ -681,8 +681,8 @@
                             </div>
                             <div class="col-md-6" *ngIf="list.field_type == 'checkbox'">
                               <strong>
-                                <span *ngIf="item.checked">Yes</span>
-                                <span *ngIf="!item.checked">No</span>
+                                <span *ngIf="list.checked">Yes</span>
+                                <span *ngIf="!list.checked">No</span>
                               </strong>
                             </div>
                             <div class="col-md-6" *ngIf="list.field_type == 'textarea'">

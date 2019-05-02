@@ -863,7 +863,7 @@
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Relationship with insured:</strong>
-                          <span *ngIf="nomineeFormData.religareRelationship !=''">{{nomineeFormData.religareRelationship}}</span> <span *ngIf="nomineeFormData.religareRelationship == null || nomineeFormData.religareRelationship == undefined"> Nil</span>
+                          <span *ngIf="nomineeFormData.religareRelationship !=''">{{nomineeFormData.religareRelationship}}</span> <span *ngIf="nomineeFormData.religareRelationship == '' || nomineeFormData.religareRelationship == undefined"> Nil</span>
                          </li>
                       </ul>
                     </div>
@@ -875,7 +875,7 @@
 
             </div>
           <div>
-            <h5 class="mt-3 sub-title" >ADDONS</h5>
+            <h5 class="mt-3 sub-title" *ngIf="buyProductdetails.product_id == '1' && (buyProductdetails.suminsured_amount == 300000.00 || buyProductdetails.suminsured_amount == 300000)">ADDONS</h5>
             <div class="row box-card" *ngIf="buyProductdetails.product_id == '1' && (buyProductdetails.suminsured_amount == 300000.00 || buyProductdetails.suminsured_amount == 300000)">
               <div class="col-md-6">
                 <div class="p-3">

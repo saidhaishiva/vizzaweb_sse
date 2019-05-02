@@ -25,30 +25,30 @@
 
               <div class="row">
                   <mat-form-field class="w-100">
-                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" required>
+                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" (keyup)="vehicalNum()" required>
                   <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
                   <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" [max]="minDate" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                    <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keyup)="policyDate()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                     <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
 
                   </mat-form-field>
                   <mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [max]="minDate" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" (keyup)="policyEndDate()" [max]="minDate" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                       <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
 
                   </mat-form-field>
                 <p class="mt-2">Previous Claim: </p>
-                <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="claim()">
+                <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (keyup)="previousclaim()" (change)="claim()">
                   <mat-radio-button value="Yes">Yes</mat-radio-button>
                   <mat-radio-button value="No">No</mat-radio-button>
                 </mat-radio-group>
-                <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'">
+                <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="claimAmount()">
                     <mat-select placeholder="Claim Amount"  formControlName="claimamount"  required>
                         <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                     </mat-select>
