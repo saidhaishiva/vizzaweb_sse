@@ -863,7 +863,7 @@
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Relationship with insured:</strong>
-                          <span *ngIf="nomineeFormData.religareRelationship !=''">{{nomineeFormData.religareRelationship}}</span> <span *ngIf="nomineeFormData.religareRelationship == null || nomineeFormData.religareRelationship == undefined"> Nil</span>
+                          <span *ngIf="nomineeFormData.religareRelationship !=''">{{nomineeFormData.religareRelationship}}</span> <span *ngIf="nomineeFormData.religareRelationship == '' || nomineeFormData.religareRelationship == undefined"> Nil</span>
                          </li>
                       </ul>
                     </div>
