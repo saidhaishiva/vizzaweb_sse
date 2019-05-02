@@ -61,6 +61,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public nomineeFormData : any;
   public buyBikeDetails : any;
   public pincodeState : any;
+  public stateList : any;
   public pincodeCity : any;
   public pincodeHypoList : any;
   public pincodeHypoState : any;
@@ -285,8 +286,9 @@ export class BikeShriramProposalComponent implements OnInit {
                 for(let key in this.pincodeList.state) {
                     this.pincodeState = key;
                     console.log(key);
+                    console.log(this.pincodeState,'sswdesers');
                     console.log(this.pincodeList['state'][key]);
-
+                    this.stateList = this.pincodeList['state'][key];
                     console.log(this.pincodeState, 'kjhfgdghj');
                     this.proposer.controls['state'].patchValue(this.pincodeList['state'][key]);
                 }
@@ -294,6 +296,7 @@ export class BikeShriramProposalComponent implements OnInit {
                       this.pincodeCity = key;
                       console.log(key);
                       console.log(this.pincodeList['state'][key]);
+                      console.log(this.pincodeCity,'ciytyer');
 
                       this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
                   }

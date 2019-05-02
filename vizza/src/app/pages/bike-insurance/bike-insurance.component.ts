@@ -49,6 +49,7 @@ export class BikeInsuranceComponent implements OnInit {
     public ccDetails : any;
     public variantDetails : any;
     public modelDetails : any;
+    public vehicalnumber : any;
     public listDetails : boolean;
 
 
@@ -100,12 +101,25 @@ export class BikeInsuranceComponent implements OnInit {
           console.log(params.id);
           this.productName = params.id;
       });
-      // this.sessionData();
+      this.sessionData();
 
 
   }
-    BikeInsurer(){
 
+    vehicalNum(){
+        sessionStorage.vehicalnumber = this.bikeInsurance.controls['vehicalNumber'].value;
+    }
+    policyDate(){
+        sessionStorage.registrationdate = this.bikeInsurance.controls['registrationDate'].value;
+    }
+    previousclaim(){
+        sessionStorage.previousclaim = this.bikeInsurance.controls['previousClaim'].value;
+    }
+    claimAmount(){
+        sessionStorage.claimAmount = this.bikeInsurance.controls['claimamount'].value;
+    }
+    policyEndDate(){
+        sessionStorage.previousPolicyExpiry = this.bikeInsurance.controls['previousPolicyExpiry'].value;
     }
     claim(){
         if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
@@ -379,6 +393,11 @@ export class BikeInsuranceComponent implements OnInit {
         if(sessionStorage.claimDetail != '' &&  sessionStorage.claimDetail != undefined){
             this.claimAmountDetails =  sessionStorage.claimDetail;
         }
+        if (sessionStorage.vehicalnumber != undefined && sessionStorage.vehicalnumber != '') {
+            this.vehicalnumber = sessionStorage.vehicalnumber;
+            this.bikeInsurance.controls['vehicalNumber'].patchValue(this.vehicalnumber);
+        }
+
     }
     // bikeKeeper(values) {
     //     if (this.bikeapp.valid) {
