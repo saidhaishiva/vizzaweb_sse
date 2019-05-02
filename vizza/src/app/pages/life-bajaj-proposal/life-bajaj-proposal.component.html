@@ -433,25 +433,25 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off"  >
                           <mat-error *ngIf="proposer.controls.officeAddress1.errors?.required">Office Address1 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress2.errors?.required">Office Address2 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress3.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeDistrict.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -723,6 +723,8 @@
                               <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                               <mat-datepicker #picker4></mat-datepicker>
                               <!--<mat-error *ngIf="apointeeDetails.appointeeDob.errors?.required">DOB is required</mat-error>-->
+                              <p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value}}</p>
+
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
@@ -874,11 +876,11 @@
                   <div class="p-3">
                     <h6 class="color-blue">OFFICE DETAILS</h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Department:</strong> {{proposerFormData.department}}</li>
-                      <li class="list-group-item"><strong>Office Name:</strong> {{proposerFormData.officeName}}</li>
-                      <li class="list-group-item"><strong>Office Address1:</strong> {{proposerFormData.officeAddress1}}</li>
-                      <li class="list-group-item"><strong>Office Address2:</strong> {{proposerFormData.officeAddress2}}</li>
-                      <li class="list-group-item"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.department != ''"><strong>Department:</strong> {{proposerFormData.department}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeName !=''"><strong>Office Name:</strong> {{proposerFormData.officeName}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeAddress1 !=''"><strong>Office Address1:</strong> {{proposerFormData.officeAddress1}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeAddress2 !=''"><strong>Office Address2:</strong> {{proposerFormData.officeAddress2}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeAddress3!=''"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
                     </ul>
                   </div>
                 </div>
@@ -886,10 +888,10 @@
                   <div class="p-3">
                     <h6 class="color-blue mt-4"></h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
-                      <li class="list-group-item"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
-                      <li class="list-group-item"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
-                      <li class="list-group-item"><strong>Office Number:</strong> {{proposerFormData.officeNumber}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeDistrict!=''"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeState!=''"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officePincode!=''"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeNumber!=''"><strong>Office Number:</strong> {{proposerFormData.officeNumber}}</li>
                     </ul>
                   </div>
                 </div>
