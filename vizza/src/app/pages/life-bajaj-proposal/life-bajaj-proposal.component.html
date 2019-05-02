@@ -677,7 +677,7 @@
 
                         </div>
                         <div class="col-md-4" *ngIf="item.feild == 'Y/N'">
-                            <mat-slide-toggle (change)="question  Yes(item, $event, i)" [(ngModel)]="item.checked">{{item.feild}}</mat-slide-toggle>
+                            <mat-slide-toggle (change)="questionYes(item, $event, i)" [(ngModel)]="item.checked">{{item.feild}}</mat-slide-toggle>
 
                         </div>
 
