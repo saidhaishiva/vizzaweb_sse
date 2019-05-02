@@ -522,51 +522,57 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
 
-  addEventNominee(event, i) {
-      if (event.value != null) {
-        let selectedDate = '';
-        let dob = '';
-        let dob_days = '';
-        this.getAge = '';
-        this.getDays;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+  addEventNominee(event, i, type) {
+      if(type == 'nominee') {
+        if (event.value != null) {
+          let selectedDate = '';
+          let dob = '';
+          let dob_days = '';
+          this.getAge = '';
+          this.getDays;
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
+          dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
 
-        if (typeof event.value._i == 'string') {
-          const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-          if (pattern.test(event.value._i) && event.value._i.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+          if (typeof event.value._i == 'string') {
+            const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+            if (pattern.test(event.value._i) && event.value._i.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
 
-          } else {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+            } else {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+            }
+
+            selectedDate = event.value._i;
+
+            if (selectedDate.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+              this.getAge = this.ageCalculate(dob);
+              this.getDays = this.ageCalculateInsurer(dob_days);
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+
+            }
+
           }
-
-          selectedDate = event.value._i;
-
-          if (selectedDate.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculateInsurer(dob_days);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
-
+          else if (typeof event.value._i == 'object') {
+            if (dob.length == 10) {
+              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+              this.getAge = this.ageCalculate(dob);
+              this.getDays = this.ageCalculateInsurer(dob_days);
+            }
           }
-
         }
-        else if (typeof event.value._i == 'object') {
-          if (dob.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
-            this.getAge = this.ageCalculate(dob);
-            this.getDays = this.ageCalculateInsurer(dob_days);
-          }
-        }
-      }
-      console.log(this.getAge, 'this.getAgethis.getAge');
+        console.log(this.getAge, 'this.getAgethis.getAge');
+        sessionStorage.nomineAge = this.getAge;
         if (this.getAge < 18) {
-          sessionStorage.nomineAge = this.getAge;
           this.showAppointee = true;
         } else {
           this.showAppointee = false;
         }
+      } else if(type == 'appointee') {
+
+
+
+      }
     }
 
 
@@ -669,6 +675,7 @@ export class LifeBajajProposalComponent implements OnInit {
     console.log(value);
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
     console.log(value, 'valuevalue');
+    console.log(sessionStorage.nomineAge, 'sessionStorage.nomineAge');
     console.log(this.nomineeDetail.valid, 'this.nomineeDetail.valid');
       if (this.nomineeDetail.valid) {
           if (sessionStorage.nomineAge < 18) {
