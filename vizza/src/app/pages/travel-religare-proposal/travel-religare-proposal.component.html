@@ -383,7 +383,6 @@
                     <div class="row col-md-12" *ngFor="let item of religareTravelQuestionsList; let i = index ">
                       <div class="col-md-8">
                         <p >{{i+1}}. {{item.question_name}} <span class="error" *ngIf="item.checked">*</span> </p>
-                        <p >{{i+1}}. {{item.question_name}} <span class="error" *ngIf="item.checked">*</span> </p>
                         <div *ngIf="item.checked">
                           <div class="" *ngIf="item.checked">
                             <div class="row col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">
@@ -508,7 +507,7 @@
           </mat-accordion>
         </mat-step>
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>SUMMARAY</ng-template>
+          <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-6">
