@@ -92,6 +92,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public nomineeDetailFormData:any;
   public spouseDobError:any;
   public nomineeDobValidError:any;
+  public proposalNextList:any;
   public appointeeDobValidError:any;
 
   public getDays:any;
@@ -231,7 +232,7 @@ export class LifeBajajProposalComponent implements OnInit {
       branchName:'',
       accountNo:'',
       accountType:'',
-      ifscCode:'',
+      ifscCode:['',Validators.compose([Validators.minLength(12)])],
       micrCode:'',
 
     });
@@ -267,6 +268,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.education();
     this.getApointeeRelation();
     this.getDiseaseList();
+    // this.getProposalNext();
     if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
         this.mainQuestion();
     }
@@ -641,8 +643,14 @@ export class LifeBajajProposalComponent implements OnInit {
     console.log(value, 'valuevalue');
     console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
-      stepper.next();
-      this.topScroll();
+      if(sessionStorage.bajajproposerAge >= 18){
+        stepper.next();
+        this.topScroll();
+      } else {
+          this.toastr.error('Proposer age should be greater than equal to 18');
+
+      }
+
     }
     // else {
     //   this.toastr.error('error')
@@ -1156,6 +1164,34 @@ export class LifeBajajProposalComponent implements OnInit {
   public ageProofsFailure(error) {
   }
 
+
+  getProposalNext() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': '0',
+      'policy_id': this.getEnquiryDetials.policy_id
+    }
+    this.termService.getProposalNext(data).subscribe(
+        (successData) => {
+          this.ProposalNextSuccess(successData);
+        },
+        (error) => {
+          this.ProposalNextFailure(error);
+        }
+    );
+  }
+
+  public ProposalNextSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.proposalNextList = successData.ResponseObject;
+      console.log(this.proposalNextList, 'proposalnext');
+    }
+  }
+
+  public ProposalNextFailure(error) {
+  }
   getIdProof() {
     const data = {
       'platform': 'web',
@@ -1399,7 +1435,8 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
 
-    changeWeightChanged() {
+
+  changeWeightChanged() {
     this.proposer.controls['weightChangedName'].patchValue(this.weightList[this.proposer.controls['weightChanged'].value]);
   }
 
