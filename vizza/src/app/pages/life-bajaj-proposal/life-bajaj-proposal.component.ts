@@ -232,7 +232,7 @@ export class LifeBajajProposalComponent implements OnInit {
       branchName:'',
       accountNo:'',
       accountType:'',
-      ifscCode:['',Validators.compose([Validators.minLength(12)])],
+      ifscCode:'',
       micrCode:'',
 
     });
