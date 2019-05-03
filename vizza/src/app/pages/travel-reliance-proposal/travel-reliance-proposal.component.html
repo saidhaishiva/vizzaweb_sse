@@ -297,7 +297,7 @@
                     </div>
                     <!--family = 2818, senior citi = 2819, multi travel = 2837-->
 
-                    <div class="col-md-12 box-card pt-3" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code == 'Standard'">
+                    <div class="col-md-12 box-card pt-3" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2813' || getTravelPremiumList.product_code == '2837' || getTravelPremiumList.product_code == '2816') && getTravelPremiumList.plan_code != 'Standard'">
                       <div class="row">
                         <h6 class="color-blue ml-3">HOME BURGLARY DETAILS</h6>
                         <div class="text-right w-50">
@@ -905,7 +905,7 @@
                               </div>
                               <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness"  required="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'}}">
+                                  <mat-select placeholder="Pre Existing Illness" formControlName="PreExistingIllness" >
                                     <mat-option  *ngFor="let disease of PreExistingIllness " value="{{disease.disease_id}}">{{disease.disease_name}}</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Pre Existing Illness is required</mat-error>
@@ -913,7 +913,7 @@
                               </div>
                               <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'" >
                                 <mat-form-field class="w-100">
-                                  <input matInput [max]="minDate" [min]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.value" [matDatepicker]="picker2" placeholder="Suffering Since (DD/MM/YYYY)"   formControlName="SufferingSince"  (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sufferingDate')"  (dateChange)="addEvent($event, 'sufferingDate')"  minlength="10"  maxlength="10" autocomplete="off" required="{{relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true'}}" >
+                                  <input matInput [max]="minDate" [min]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.value" [matDatepicker]="picker2" placeholder="Suffering Since (DD/MM/YYYY)"   formControlName="SufferingSince"  (keypress)="dobValidate($event)" (dateInput)="addEvent($event, 'sufferingDate')"  (dateChange)="addEvent($event, 'sufferingDate')"  minlength="10"  maxlength="10" autocomplete="off"  >
                                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                   <mat-datepicker #picker2></mat-datepicker>
                                   <mat-error *ngIf="relianceInsuredTravel.invalid">Suffering is required</mat-error>
@@ -1184,7 +1184,7 @@
                           </mat-form-field>
                         </div>
                       </div>
-                      <div class="row col-md-12" *ngIf="getTravelPremiumList.product_code == '2819'">
+                      <div class="row col-md-12" *ngIf="getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2816' || getTravelPremiumList.product_code == '2813'">
                         <div class="col-md-8">
                           * Senior Citizens Add On Benefits :
                         </div>
@@ -1196,7 +1196,7 @@
                         <!--<input matInput placeholder="Senior Citizen Plan Name" (keypress)="nameValidate($event)"  formControlName="riskSeniorCitizenPlanName" autocomplete="off">-->
                         <!--</mat-form-field>-->
                         <!--</div>-->
-                        <div class="col-md-12 text-left" *ngIf="getTravelPremiumList.product_code == '2819'">
+                        <div class="col-md-12 text-left" *ngIf="getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2816' || getTravelPremiumList.product_code == '2813'">
                           <mat-form-field class="w-100">
                               <mat-placeholder >Senior Citizen Plan <span class="error">*</span></mat-placeholder>
                               <mat-select formControlName="riskSeniorCitizenPlanID" (change)="selectseniorPlan()">
@@ -1539,7 +1539,7 @@
 
 
                   <!--<div class="col-md-6" *ngIf="proposerFormData.personalBurglaryAddress != ''">-->
-                  <div class="col-md-6" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code == 'Standard'">
+                  <div class="col-md-6" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2813' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code != 'Standard'">
                     <div class="p-3">
                       <h6 class="color-blue">HOME BURGLARY DETAILS</h6>
                       <ul class="m-0 list-group">
@@ -1554,7 +1554,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code == 'Standard'">
+                  <div class="col-md-6" *ngIf="(getTravelPremiumList.product_code == '2818' || getTravelPremiumList.product_code == '2819' || getTravelPremiumList.product_code == '2813' || getTravelPremiumList.product_code == '2837') && getTravelPremiumList.plan_code != 'Standard'">
                     <div class="p-3">
                       <h6 class="color-blue mt-4"></h6>
                       <ul class="m-0 list-group">
@@ -1705,7 +1705,7 @@
                       <div class="p-3">
                         <h6 class="color-blue mt-4"></h6>
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Nominee Relationship:</strong> {{item.insureNomineeRelationshipName}}</li>
+                          <li class="list-group-item"><strong>Relationship with insured:</strong> {{item.insureNomineeRelationshipName}}</li>
                         </ul>
                       </div>
                     </div>
