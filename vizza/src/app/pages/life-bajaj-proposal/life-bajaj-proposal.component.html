@@ -573,15 +573,15 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Ifsc Code"  required formControlName="ifscCode" maxlength="12" (keypress)="idValidate($event)" pattern="[A-Za-z]{4}\d{7}$"  autocomplete="off">
+                            <input matInput placeholder="IFSC Code"  required formControlName="ifscCode" maxlength="12" (keypress)="idValidate($event)" autocomplete="off">
                             <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
-                            <mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>
+                            <!--<mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>-->
 
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Micr Code"  required formControlName="micrCode" maxlength="9" (keypress)="numberValidate($event)"   autocomplete="off">
+                            <input matInput placeholder="MICR Code"  formControlName="micrCode" maxlength="9" (keypress)="numberValidate($event)"   autocomplete="off">
                             <mat-error *ngIf="bankDetail.controls.micrCode.errors?.required">Micro Code is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -811,16 +811,16 @@
                       <li class="list-group-item"><strong>Language:</strong> {{proposerFormData.languageName}}</li>
                       <li class="list-group-item"><strong>Proposer Type:</strong> {{proposerFormData.proposerTypeName}}</li>
                       <li class="list-group-item"><strong>Document Language:</strong> {{proposerFormData.language2Name}}</li>
-                      <li class="list-group-item"><strong>Life Benefit:</strong> {{proposerFormData.lifeBenefit}}</li>
-                      <li class="list-group-item"><strong>Benefit Type:</strong> {{proposerFormData.benefitTerm}}</li>
-                      <li class="list-group-item"><strong>Premium Payment Term:</strong> {{proposerFormData.premiumPayTermName}}</li>
-                      <li class="list-group-item"><strong>Premium Frequncy:</strong> {{proposerFormData.premiumfreq}}</li>
+                      <li class="list-group-item"><strong>Life Benefit:</strong> {{enquiryFormData.lifePolicy}}</li>
+                      <li class="list-group-item"><strong>Benefit Type:</strong> {{enquiryFormData.lifeBenefitTerm}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.premiumPayTermName!=''"><strong>Premium Payment Term:</strong> {{proposerFormData.premiumPayTermName}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.premiumfreq !=''"><strong>Premium Frequncy:</strong> {{proposerFormData.premiumfreq}}</li>
                       <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationalityName}}</li>
                       <li class="list-group-item"><strong>Country of Residence:</strong> {{proposerFormData.countryOfResidName}}</li>
                       <li class="list-group-item"><strong>Place of birth:</strong> {{proposerFormData.pob}}</li>
                       <li class="list-group-item"><strong>Citizenship:</strong> {{proposerFormData.citizenshipName}}</li>
-                      <li class="list-group-item"><strong>Politically Exposed Person:</strong> {{proposerFormData.politicallyExposedPerson}}</li>
-                      <li class="list-group-item"><strong>If Yes Give Details:</strong> {{proposerFormData.ifYesGiveDetails}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.politicallyExposedPerson!=''"><strong>Politically Exposed Person:</strong> {{proposerFormData.politicallyExposedPerson}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.ifYesGiveDetails!=''"><strong>If Yes Give Details:</strong> {{proposerFormData.ifYesGiveDetails}}</li>
                     </ul>
                   </div>
                 </div>
