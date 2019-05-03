@@ -522,7 +522,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-placeholder >Address <span class="error">*</span></mat-placeholder>
-                            <input matInput placeholder="Address" formControlName="personalSponsorAddress"  autocomplete="off" [readonly]="inputSponsorReadonly">
+                            <input matInput formControlName="personalSponsorAddress"  autocomplete="off" [readonly]="inputSponsorReadonly">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -883,7 +883,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="i == 0">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Phone Number"  (keypress)="numberValidate($event)"  maxlength="12" formControlName="personalPhone1" autocomplete="off" [readonly]="sameValue">
+                              <input matInput placeholder="Phone Number"  (keypress)="numberValidate($event)"  maxlength="12" formControlName="personalPhone1" autocomplete="off" >
                             </mat-form-field>
                           </div>
                           <div class="col-md-3" *ngIf="i == 0">
@@ -1138,7 +1138,7 @@
 
                       <div class="row col-md-12" *ngIf="travelUserType == true">
                         <div class="col-md-8">
-                          <span>* Is Add On Cover Only Student <span class="error">*</span> </span>
+                          <span>* Is Add On Cover Only Student </span>
                         </div>
                         <div class="col-md-4 text-right">
                           <mat-slide-toggle formControlName="riskIsVisitingStudent" (change)="riskDetailsChange($event,'IsVisitingStudent')"></mat-slide-toggle>
@@ -1639,7 +1639,7 @@
                 <mat-expansion-panel   [expanded]="true">
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      INSURED DETAILS
+                     INSURED DETAILS FOR {{item.type | uppercase}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div class="row box-card">
@@ -1647,15 +1647,15 @@
                       <div class="p-3">
                         <h6 class="color-blue mt-4"></h6>
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Name:</strong>{{item.personalTitle}} {{item.personalFirstname}} {{item.personalMidname}} {{item.personalLastname}}</li>
-                          <li class="list-group-item" *ngIf="item.insurespouseFullname != ''"><strong>Name:</strong>{{item.personalTitle}} {{item.insurespouseFullname}}</li>
-                          <li class="list-group-item" *ngIf="item.insurechildFullname != ''"><strong>Name:</strong>{{item.personalTitle}} {{item.insurechildFullname}}</li>
-                          <li class="list-group-item"><strong>Gender:</strong> {{item.personalGender}}</li>
+                          <li class="list-group-item" *ngIf="i ==0"><strong>Name:</strong>{{item.personalTitle}} {{item.personalFirstname}} {{item.personalMidname}} {{item.personalLastname}}</li>
+                          <li class="list-group-item" *ngIf="i !=0 && item.insurespouseFullname != ''"><strong>Name:</strong>{{item.personalTitle}} {{item.insurespouseFullname}}</li>
+                          <li class="list-group-item" *ngIf="i !=0 && item.insurechildFullname != ''"><strong>Name:</strong>{{item.personalTitle}} {{item.insurechildFullname}}</li>
+                          <li class="list-group-item" *ngIf="i ==0"><strong>Gender:</strong> {{item.personalGender}}</li>
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.InsDOB | date: 'dd/MM/yyyy'}}</li>
-                          <li class="list-group-item"><strong>Email:</strong> {{item.personalEmail}}</li>
+                          <li class="list-group-item" *ngIf="i ==0"><strong>Email:</strong> {{item.personalEmail}}</li>
                           <li class="list-group-item" *ngIf="item.insureRelationshipName != ''"><strong>Relationship with proposer:</strong> {{item.insureRelationshipName}}</li>
-                          <li class="list-group-item"><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
-                          <li class="list-group-item" *ngIf="item.personalPhone1 != '' && item.personalPhone1 != 0"><strong>Phone:</strong> {{item.personalPhone1}}</li>
+                          <li class="list-group-item" *ngIf="i ==0"><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
+                          <li class="list-group-item" *ngIf="i ==0 && item.personalPhone1 != '' && item.personalPhone1 != 0"><strong>Phone:</strong> {{item.personalPhone1}}</li>
 
                         </ul>
                       </div>
@@ -1669,10 +1669,10 @@
                             <strong>Visiting Countries:</strong>
                             <span *ngFor="let lists of item.insureVisitingCountryName; let last = last;" > {{lists}} <span *ngIf="!last">,</span> </span>
                           </li>
-                          <li class="list-group-item"><strong>Occupation:</strong> {{item.insureOccupationName}}</li>
+                          <li class="list-group-item"  *ngIf="i ==0" ><strong>Occupation:</strong> {{item.insureOccupationName}}</li>
                           <li class="list-group-item"><strong>Is Under Medication:</strong>
-                              <span *ngIf="item.IsUnderMedication == true">Yes</span>
-                            <span *ngIf="item.IsUnderMedication == false">No</span></li>
+                              <span *ngIf="item.IsUnderMedication == true || item.IsUnderMedication == 'true'">Yes</span>
+                            <span *ngIf="item.IsUnderMedication == false || item.IsUnderMedication == 'false'">No</span></li>
                           <li class="list-group-item" *ngIf="item.insurePreExistingIllnessName != ''"><strong>Pre-Existing Illness:</strong> {{item.insurePreExistingIllnessName}}</li>
                           <li class="list-group-item" *ngIf="item.SufferingSince != '' && item.SufferingSince != undefined "><strong>Suffering Since:</strong> {{item.SufferingSince  | date: 'dd/MM/yyyy'}}</li>
 
