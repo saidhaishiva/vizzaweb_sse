@@ -645,7 +645,7 @@
                               <td width="50%" *ngIf="item.display_question == '1'">
                                 {{j + 1}}) {{subQes.question_details.question_description}}
                               </td>
-                              <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" checked="checked" >{{fGroup.type}}
+                              <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" disabled readonly >{{fGroup.type}}
 
                               </mat-checkbox>
                                 <section class="w-100" *ngIf="fGroup.status">
