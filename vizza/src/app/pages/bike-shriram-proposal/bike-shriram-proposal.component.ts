@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
-import {MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
@@ -10,10 +10,27 @@ import {AuthService} from '../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
+
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-bike-shriram-proposal',
   templateUrl: './bike-shriram-proposal.component.html',
-  styleUrls: ['./bike-shriram-proposal.component.scss']
+  styleUrls: ['./bike-shriram-proposal.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class BikeShriramProposalComponent implements OnInit {
   public proposer: FormGroup;
