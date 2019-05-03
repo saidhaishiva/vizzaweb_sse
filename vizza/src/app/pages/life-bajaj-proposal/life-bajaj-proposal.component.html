@@ -243,13 +243,30 @@
                       <div class="col-md-3">
                         <mat-radio-group formControlName="politicallyExposedPerson" (change)="politicalReson()">
                           <p>Politically Exposed Person</p>
-                          <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                          <mat-radio-button value="No">No</mat-radio-button>
+                          <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
+                          <mat-radio-button value="N">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
                       <div class="col-md-3" *ngIf="politicalDetails">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="If Yes Give Details" formControlName="ifYesGiveDetails" class="nospace"  maxlength="45" autocomplete="off">
+                        </mat-form-field>
+                      </div>
+                      <!--<div class="col-md-3">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<input matInput placeholder="Political Details" formControlName="politicalDetails"  maxlength="45" autocomplete="off" (keypress)="nameValidate($event)"  >-->
+                          <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.politicalDetails.errors?.required">Political Details is required</mat-error>&ndash;&gt;-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
+                        <div class="col-md-3">
+                        <mat-checkbox formControlName="sameAsInsured" (change)="sameInsured($event)" ><strong>Same as Insured</strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3" *ngIf="proposer.controls['sameAsInsured'].value == false">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="RelationShip with Insured" formControlName="IpRelation"   class="w-100">
+                            <mat-option *ngFor="let list of relationInsured | keys" [value]= list.key> {{list.value}} </mat-option>
+                          </mat-select>
+                          <!--<mat-error *ngIf="proposer.controls.addressProof.errors?.required">Address Proof is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-12 mt-2">
@@ -565,7 +582,7 @@
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <mat-select matInput placeholder="Account Type" formControlName="accountType" autocomplete="off" required>
-                              <mat-option value="SAVINGS">SAVINGS</mat-option>
+                              <mat-option value="SAVING">SAVING</mat-option>
                               <mat-option value="CURRENT">CURRENT</mat-option>
                             </mat-select>
                             <mat-error *ngIf="bankDetail.controls.accountType.errors?.required">Account Type is required</mat-error>
@@ -1024,9 +1041,54 @@
             <div class="col-md-12">
               <div class="proposal-buttom mb-3 text-center w-100">
                 <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext()">Pay Now</button>
+                <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext()">Next</button>
               </div>
             </div>
+
+            <div *ngIf="proposalNextList">
+              <pdf-viewer src="{{proposalNextList.proposal_form}}"
+                          [render-text]="true"
+                          style="display: block;"
+              ></pdf-viewer>
+              <hr>
+
+              <div class="col-md-12">
+                <div class="proposal-buttom mb-3 text-center w-100">
+                  <button mat-raised-button color="primaryBlue" (click)="otpGen()">Next</button>
+                </div>
+              </div>
+
+            </div>
+            <div *ngIf="otpGenList">
+              <div class="col-md-4">
+                <mat-form-field class="w-100">
+                  <!--<mat-label>OTP</mat-label>-->
+                  <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
+                </mat-form-field>
+              </div>
+
+              <div class="col-md-12">
+                <div class="proposal-buttom mb-3 text-center w-100">
+                  <button mat-raised-button color="primaryBlue" (click)="otpVal()">Submit</button>
+                </div>
+              </div>
+
+            </div>
+
+
+
+            <div class="row" *ngIf="proposalNextList">
+              <div class="col-sm-12 col-xs-12 text-center">
+                <form action={{proposalNextList.payment_link}}  method='post' #form>
+
+                  <!--<button mat-button color="warn" (click)="backAll()" >Back</button>-->
+                  <button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>
+                </form>
+
+
+              </div>
+            </div>
+
 
 
           </section>
