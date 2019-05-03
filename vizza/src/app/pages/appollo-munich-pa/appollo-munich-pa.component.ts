@@ -559,6 +559,9 @@ readonlyProposer : boolean;
     dobValidate(event: any){
         this.validation.dobValidate(event);
     }
+    heightValidate(event: any){
+        this.validation.heightValidate(event);
+    }
     // Number validation
     numberValidate(event: any){
         this.validation.numberValidate(event);
