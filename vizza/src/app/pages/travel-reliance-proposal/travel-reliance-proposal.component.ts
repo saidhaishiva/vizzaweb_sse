@@ -433,6 +433,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.PersonalOccupation = [];
         this.relianceOccupation();
         this.relainceRelation();
         this.relainceNationality();
@@ -458,12 +459,12 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.patchValue(this.insuredTravelPerson[i].type);
         }
         this.userTypes = this.getEnquiryDetails.travel_user_type;
+
         this.sessionData();
+
         if(this.travelUserType == true ) {
             this.personal['controls'].occupation.patchValue('36');
             this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].occupation.patchValue('36');
-            this.personal.controls['occupationName'].patchValue(this.PersonalOccupation[this.personal.controls['occupation'].value]);
-
         }
         if(sessionStorage.duration !='' && sessionStorage.duration !=undefined) {
             this.duration = sessionStorage.duration;
@@ -574,9 +575,9 @@ export class TravelRelianceProposalComponent implements OnInit {
     // Insure Details
     underMedication(i) {
         if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].IsUnderMedication.value == 'true') {
-            this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators([Validators.required]);
+           // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators([Validators.required]);
         } else {
-            this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators(null);
+            // this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].PreExistingIllness.setValidators(null);
         }
     }
     underDoctorDetail(values) {
@@ -605,21 +606,19 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.insurerData = value.items;
 
             let medicationData = [];
-            for(let a=0; a < this.insurerData.length; a++) {
+            for (let a = 0; a < this.insurerData.length; a++) {
                 if (this.insurerData[a].IsUnderMedication == 'true') {
-                    if(this.insurerData[a].IsUnderMedication == '' || this.insurerData[a].SufferingSince == '' || this.insurerData[a].IsUnderMedication == null || this.insurerData[a].SufferingSince == null) {
+                    if (this.insurerData[a].IsUnderMedication == '' || this.insurerData[a].SufferingSince == '' || this.insurerData[a].IsUnderMedication == null || this.insurerData[a].SufferingSince == null) {
                         medicationData.push('1');
                     }
                 }
             }
             console.log(medicationData, 'medicationData');
-            if(medicationData.includes('1')) {
-                alert();
-            }
+            if (medicationData.includes('1')) {
+                this.toastr.error('Please fill the medication details');
+            } else {
 
-
-
-            for(let a=0; a < this.insurerData.length; a++) {
+                for (let a = 0; a < this.insurerData.length; a++) {
                 if (this.insurerData[a].type == 'Self') {
                     this.totalInsureDetails = {};
                     this.totalInsureDetails = {
@@ -659,7 +658,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                     }
                 }
                 if (this.insurerData[a].type == 'Child1' || this.insurerData[a].type == 'Child2') {
-                    this.insurerData[a].type == 'Child1' ? this.totalInsureChildDetails = [] : '' ;
+                    this.insurerData[a].type == 'Child1' ? this.totalInsureChildDetails = [] : '';
                     this.totalInsureChildDetails.push({
                         'ChildName': this.insurerData[a].insurechildFullname,
                         'ChildRelationID': this.insurerData[a].nomineeRelationship,
@@ -675,14 +674,14 @@ export class TravelRelianceProposalComponent implements OnInit {
             }
             //age validation
             let ageValidate = [];
-            for (let i = 0; i< this.insurerData.length; i++){
-                if ( this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
+            for (let i = 0; i < this.insurerData.length; i++) {
+                if (this.relianceInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
                     ageValidate.push(1);
                 } else {
                     ageValidate.push(0);
                 }
             }
-            if(!ageValidate.includes(1)){
+            if (!ageValidate.includes(1)) {
                 this.riskDetails.controls['riskVisitingCountries'].patchValue(value.items[0].VisitingCountries);
                 stepper.next();
                 this.topScroll();
@@ -690,6 +689,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                 this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
             }
+        }
         }
     }
 
@@ -864,7 +864,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                     'Address2': this.personalData.personalDoctorAddress2,
                     'Address3': this.personalData.personalDoctorAddress3,
                     'CityID': this.personalData.personalCityIdD,
-                    'DistrictID': this.personalData.residenceDistrictIdD,
+                    'DistrictID': this.personalData.personalyDistrictIdD,
                     'StateID': this.personalData.personalStateIdD,
                     'AreaID': this.personalData.personalDoctorArea,
                     'NearestLandmark': this.personalData.personalDoctorNearestLandMark,
@@ -933,54 +933,54 @@ export class TravelRelianceProposalComponent implements OnInit {
                 'AddOnBnifitsOpted': this.RiskData.riskSeniorCitizen.toString()
             },
              'LstTravelCoverDetails': {
-            //     'LstTravelCovers': {
-            //         'CoverageName': '',
-            //         'CoverageDisplayName': '',
-            //         'StandardLimit': '',
-            //         'SilverLimit': '',
-            //         'GoldLimit': '',
-            //         'PlatinumLimit': '',
-            //         'BasicLimit': '',
-            //         'EliteLimit': '',
-            //         'PlusLimit': '',
-            //         'StandardDeductible': '',
-            //         'SilverDeductible': '',
-            //         'GoldDeductible': '',
-            //         'PlatinumDeductible': '',
-            //         'BasicDeductible': '',
-            //         'IsStandardPlan': 'false',
-            //         'IsSilverPlan': 'false',
-            //         'IsGoldPlan': 'false',
-            //         'IsPlatinumPlan': 'false',
-            //         'IsBasicPlan': 'false',
-            //         'IsElitePlan': 'false',
-            //         'IsPlusPlan': 'false',
-            //         'IsChecked': 'false'
-            //     }
                 'LstTravelCovers': {
-                    'CoverageName': this.RiskData.TravelCoverageName,
-                    'CoverageDisplayName': this.RiskData.TravelCoverageDisplayName,
-                    'StandardLimit': this.RiskData.TravelStandardLimited,
-                    'SilverLimit': this.RiskData.TravelSilverPlan,
-                    'GoldLimit': this.RiskData.TravelGoldPlan,
-                    'PlatinumLimit': this.RiskData.TravelPlatinumPlan,
-                    'BasicLimit': this.RiskData.TravelBasicPlan,
-                    'EliteLimit': this.RiskData.TravelElitePlan,
-                    'PlusLimit': this.RiskData.TravelPlusPlan,
+                    'CoverageName': '',
+                    'CoverageDisplayName': '',
+                    'StandardLimit': '',
+                    'SilverLimit': '',
+                    'GoldLimit': '',
+                    'PlatinumLimit': '',
+                    'BasicLimit': '',
+                    'EliteLimit': '',
+                    'PlusLimit': '',
                     'StandardDeductible': '',
                     'SilverDeductible': '',
                     'GoldDeductible': '',
                     'PlatinumDeductible': '',
-                    'BasicDeductible': this.RiskData.TravelStandardDeductiblePlan.toString(),
-                    'IsStandardPlan': this.RiskData.TravelStandardLimitedPlan.toString(),
-                    'IsSilverPlan': this.RiskData.TravelIsSilverPlan.toString(),
-                    'IsGoldPlan': this.RiskData.TravelIsGoldPlan.toString(),
-                    'IsPlatinumPlan': this.RiskData.TravelIsPlatinumPlan.toString(),
-                    'IsBasicPlan': this.RiskData.TravelIsBasicPlan.toString(),
-                    'IsElitePlan': this.RiskData.TravelIsElitePlan.toString(),
-                    'IsPlusPlan': this.RiskData.TravelIsPlusPlan.toString(),
+                    'BasicDeductible': '',
+                    'IsStandardPlan': 'false',
+                    'IsSilverPlan': 'false',
+                    'IsGoldPlan': 'false',
+                    'IsPlatinumPlan': 'false',
+                    'IsBasicPlan': 'false',
+                    'IsElitePlan': 'false',
+                    'IsPlusPlan': 'false',
                     'IsChecked': 'false'
                 }
+                // 'LstTravelCovers': {
+                //     'CoverageName': this.RiskData.TravelCoverageName,
+                //     'CoverageDisplayName': this.RiskData.TravelCoverageDisplayName,
+                //     'StandardLimit': this.RiskData.TravelStandardLimited,
+                //     'SilverLimit': this.RiskData.TravelSilverPlan,
+                //     'GoldLimit': this.RiskData.TravelGoldPlan,
+                //     'PlatinumLimit': this.RiskData.TravelPlatinumPlan,
+                //     'BasicLimit': this.RiskData.TravelBasicPlan,
+                //     'EliteLimit': this.RiskData.TravelElitePlan,
+                //     'PlusLimit': this.RiskData.TravelPlusPlan,
+                //     'StandardDeductible': '',
+                //     'SilverDeductible': '',
+                //     'GoldDeductible': '',
+                //     'PlatinumDeductible': '',
+                //     'BasicDeductible': this.RiskData.TravelStandardDeductiblePlan.toString(),
+                //     'IsStandardPlan': this.RiskData.TravelStandardLimitedPlan.toString(),
+                //     'IsSilverPlan': this.RiskData.TravelIsSilverPlan.toString(),
+                //     'IsGoldPlan': this.RiskData.TravelIsGoldPlan.toString(),
+                //     'IsPlatinumPlan': this.RiskData.TravelIsPlatinumPlan.toString(),
+                //     'IsBasicPlan': this.RiskData.TravelIsBasicPlan.toString(),
+                //     'IsElitePlan': this.RiskData.TravelIsElitePlan.toString(),
+                //     'IsPlusPlan': this.RiskData.TravelIsPlusPlan.toString(),
+                //     'IsChecked': 'false'
+                // }
             }
         }
         this.settings.loadingSpinner = true;
@@ -1870,6 +1870,13 @@ export class TravelRelianceProposalComponent implements OnInit {
     public PersonalOccupationListSuccess(successData) {
         if (successData.IsSuccess) {
             this.PersonalOccupation = successData.ResponseObject;
+            console.log(this.PersonalOccupation, 'kkkkkkkkk');
+            if(this.travelUserType == true ) {
+                this.personal.controls['occupationName'].patchValue(this.PersonalOccupation[this.personal.controls['occupation'].value]);
+            }
+            console.log(this.personal.value, 'bnbbnnbbn');
+
+
         }
     }
 
