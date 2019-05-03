@@ -7,14 +7,24 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {MY_FORMATS} from '../endowment-life-insurance/life-call-back/life-call-back.component';
 import {ValidationService} from '../../shared/services/validation.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {AuthService} from '../../shared/services/auth.service';
 
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
 
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-bike-insurance',
   templateUrl: './bike-insurance.component.html',
@@ -50,6 +60,10 @@ export class BikeInsuranceComponent implements OnInit {
     public variantDetails : any;
     public modelDetails : any;
     public vehicalnumber : any;
+    public registrationDate : any;
+    public claimamount : any;
+    public previousClaim : any;
+    public previousPolicyExpiry : any;
     public listDetails : boolean;
 
 
@@ -110,7 +124,7 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.vehicalnumber = this.bikeInsurance.controls['vehicalNumber'].value;
     }
     policyDate(){
-        sessionStorage.registrationdate = this.bikeInsurance.controls['registrationDate'].value;
+        sessionStorage.registrationdate = this.datepipe.transform(this.bikeInsurance.controls['registrationDate'].value, 'y-MM-dd');
     }
     previousclaim(){
         sessionStorage.previousclaim = this.bikeInsurance.controls['previousClaim'].value;
@@ -119,7 +133,7 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.claimAmount = this.bikeInsurance.controls['claimamount'].value;
     }
     policyEndDate(){
-        sessionStorage.previousPolicyExpiry = this.bikeInsurance.controls['previousPolicyExpiry'].value;
+        sessionStorage.previouspolicyexpiry = this.datepipe.transform(this.bikeInsurance.controls['previousPolicyExpiry'].value, 'y-MM-dd');
     }
     claim(){
         if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
@@ -203,6 +217,9 @@ export class BikeInsuranceComponent implements OnInit {
                         this.router.navigate(['/bikepremium']);
 
                     }
+                } else {
+                    this.toastr.error(successData.ErrorObject);
+
                 }
             }
             public bikeDetailsFailure(error) {
@@ -397,8 +414,24 @@ export class BikeInsuranceComponent implements OnInit {
             this.vehicalnumber = sessionStorage.vehicalnumber;
             this.bikeInsurance.controls['vehicalNumber'].patchValue(this.vehicalnumber);
         }
-
+        if (sessionStorage.registrationdate != undefined && sessionStorage.registrationdate != '') {
+            this.registrationDate = sessionStorage.registrationdate;
+            this.bikeInsurance.controls['registrationDate'].patchValue(this.registrationDate);
+        }
+        if (sessionStorage.previousclaim != undefined && sessionStorage.previousclaim != '') {
+            this.previousClaim = sessionStorage.previousclaim;
+            this.bikeInsurance.controls['previousClaim'].patchValue(this.previousClaim);
+        }
+        if (sessionStorage.claimAmount != undefined && sessionStorage.claimAmount != '') {
+            this.claimamount = sessionStorage.claimAmount;
+            this.bikeInsurance.controls['claimamount'].patchValue(this.claimamount);
+        }
+        if (sessionStorage.previouspolicyexpiry != undefined && sessionStorage.previouspolicyexpiry != '') {
+            this.previousPolicyExpiry = sessionStorage.previouspolicyexpiry;
+            this.bikeInsurance.controls['previousPolicyExpiry'].patchValue(this.previousPolicyExpiry);
+        }
     }
+
     // bikeKeeper(values) {
     //     if (this.bikeapp.valid) {
     //         //date
