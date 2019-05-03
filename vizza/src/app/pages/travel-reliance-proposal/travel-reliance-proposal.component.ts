@@ -145,6 +145,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     public riskVisitingCountryName: any;
     public travelUserType: boolean;
     public acceptSummaryDeclaration: boolean;
+    public duration: any;
 
 
 
@@ -461,6 +462,12 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.personal['controls'].occupation.patchValue('36');
             this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].occupation.patchValue('36');
         }
+        if(sessionStorage.duration !='' && sessionStorage.duration !=undefined) {
+            this.duration = sessionStorage.duration;
+        }
+        if(this.getTravelPremiumList.product_code == '2837') {
+            this.riskDetails.controls['riskMaxDaysPerTrip'].patchValue(this.duration);
+        }
     }
 
     initItemRows() {
@@ -516,7 +523,7 @@ export class TravelRelianceProposalComponent implements OnInit {
             if (sessionStorage.personalAge >= 18) {
                 let isDoctorValid = true;
                 if (this.personal['controls'].IsDoctorDetails.value == 'true') {
-                    if (this.personal['controls'].personalDoctorFullname.value == '' || this.personal['controls'].personalDoctorEmail.value == '' || this.personal['controls'].personalDoctorMobileNo.value == ''|| this.personal['controls'].personalDoctorPhoneNo.value == '' || this.personal['controls'].personalDoctorAddress.value == '' || this.personal['controls'].personalDoctorAddress2.value == '' || this.personal['controls'].personalDoctorPincode.value == '' || this.personal['controls'].personalDoctorState.value == ''  || this.personal['controls'].personalDoctorDistrict.value == ''  || this.personal['controls'].personalDoctorCity.value == '' || this.personal['controls'].personalDoctorArea.value == '' || this.personal['controls'].personalDoctorCountry.value == '' ) {
+                    if (this.personal['controls'].personalDoctorFullname.value == '' || this.personal['controls'].personalDoctorEmail.value == '' || this.personal['controls'].personalDoctorMobileNo.value == '' || this.personal['controls'].personalDoctorAddress.value == '' || this.personal['controls'].personalDoctorAddress2.value == '' || this.personal['controls'].personalDoctorPincode.value == '' || this.personal['controls'].personalDoctorState.value == ''  || this.personal['controls'].personalDoctorDistrict.value == ''  || this.personal['controls'].personalDoctorCity.value == '' || this.personal['controls'].personalDoctorArea.value == '' || this.personal['controls'].personalDoctorCountry.value == '' ) {
                         isDoctorValid = false;
                     } else {
                         isDoctorValid = true;
@@ -1019,6 +1026,16 @@ export class TravelRelianceProposalComponent implements OnInit {
                 }
             }
             this.riskFormData.riskVisitingCountryName = countryRisk;
+            let sportsActivities = [];
+            for (let j = 0; j < this.SportsActivities.length; j++) {
+                for (let k = 0; k < this.riskFormData.riskSportsActivities.length; k++) {
+                    if (this.riskFormData.riskSportsActivities[k] == this.SportsActivities[j].sportsactivity_id) {
+                        sportsActivities.push(this.SportsActivities[j].sportsactivity_name);
+                    }
+                }
+            }
+            console.log(sportsActivities,'sportsActivities');
+            this.riskFormData.riskSportsActivitiesName = sportsActivities;
             let diseases = [];
             for (let j = 0; j < this.allPreExistingDiseases.length; j++) {
                 for (let k = 0; k < this.riskFormData.riskPreExistDiseaseValue.length; k++) {
@@ -1435,6 +1452,8 @@ export class TravelRelianceProposalComponent implements OnInit {
             this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalGender.patchValue('');
             this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalMobile.patchValue('');
             this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].personalPhone1.patchValue('');
+            this.relianceInsuredTravel['controls'].items['controls'][0]['controls'].relationship.patchValue('');
+
         }
 
     }

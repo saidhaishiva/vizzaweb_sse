@@ -130,7 +130,7 @@ export class TravelHomeComponent implements OnInit {
         sessionStorage.travelUserType = this.travelUserType;
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate() +1);
-        this.endDate = this.today;
+        this.maxDate = this.today;
 
         this.fireapp = this.fb.group({
             'appdate': ['', Validators.required],
@@ -261,9 +261,9 @@ export class TravelHomeComponent implements OnInit {
         this.travelPlan = '';
         this.duration = '';
         this.startDate = '';
-        this.endDate = this.today;
+        this.endDate = '';
         this.daysCount = '';
-        this.maxDate = '';
+        this.maxDate = this.today;
         this.medicalCondition = '';
         this.pincode = '';
         this.travelUserType = false;
