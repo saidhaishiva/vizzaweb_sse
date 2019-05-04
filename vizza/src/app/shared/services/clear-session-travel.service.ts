@@ -53,6 +53,26 @@ export class ClearSessionTravelService {
 
         sessionStorage.personalCitys = '';
         sessionStorage.residenceCitys = '';
+        sessionStorage.setAddons = '';
+
+        // reliance
+       // sessionStorage.travelUserType = '';
+
+        sessionStorage.stepper1Details = '';
+        sessionStorage.stepper2Details = '';
+        sessionStorage.stepper3Details = '';
+        sessionStorage.personalAge = '';
+        sessionStorage.reliance_Travel_proposal_id = '';
+        sessionStorage.proposerFormData = '';
+        sessionStorage.insuredFormData = '';
+        sessionStorage.riskFormData = '';
+        sessionStorage.proposalPArea = '';
+        sessionStorage.proposalRArea = '';
+        sessionStorage.proposalBArea = '';
+        sessionStorage.proposalCArea = '';
+        sessionStorage.proposalDArea = '';
+
+
 
     }
 

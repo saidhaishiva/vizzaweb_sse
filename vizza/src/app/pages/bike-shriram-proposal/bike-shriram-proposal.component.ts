@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
-import {MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
@@ -10,10 +10,27 @@ import {AuthService} from '../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
+
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-bike-shriram-proposal',
   templateUrl: './bike-shriram-proposal.component.html',
-  styleUrls: ['./bike-shriram-proposal.component.scss']
+  styleUrls: ['./bike-shriram-proposal.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ]
 })
 export class BikeShriramProposalComponent implements OnInit {
   public proposer: FormGroup;
@@ -61,6 +78,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public nomineeFormData : any;
   public buyBikeDetails : any;
   public pincodeState : any;
+  public stateList : any;
   public pincodeCity : any;
   public pincodeHypoList : any;
   public pincodeHypoState : any;
@@ -285,8 +303,9 @@ export class BikeShriramProposalComponent implements OnInit {
                 for(let key in this.pincodeList.state) {
                     this.pincodeState = key;
                     console.log(key);
+                    console.log(this.pincodeState,'sswdesers');
                     console.log(this.pincodeList['state'][key]);
-
+                    this.stateList = this.pincodeList['state'][key];
                     console.log(this.pincodeState, 'kjhfgdghj');
                     this.proposer.controls['state'].patchValue(this.pincodeList['state'][key]);
                 }
@@ -294,6 +313,7 @@ export class BikeShriramProposalComponent implements OnInit {
                       this.pincodeCity = key;
                       console.log(key);
                       console.log(this.pincodeList['state'][key]);
+                      console.log(this.pincodeCity,'ciytyer');
 
                       this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
                   }
@@ -728,7 +748,7 @@ export class BikeShriramProposalComponent implements OnInit {
   previousDetails(stepper: MatStepper, value){
           sessionStorage.stepper3 = '';
           sessionStorage.stepper3 = JSON.stringify(value);
-          if(this.previousInsure.value){
+          if(this.previousInsure.valid){
               stepper.next();
           }
         }
@@ -770,7 +790,12 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper4 = '';
           sessionStorage.stepper4 = JSON.stringify(value);
           if(this.nomineeDetail.valid){
-              this.proposal(stepper);
+              if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
+                  this.proposal(stepper);
+              } else {
+                  this.toastr.success('Please fill the appointee details');
+
+              }
           }
 
   }

@@ -373,7 +373,7 @@
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  SECURE DETAILS
+                  MEDICAL DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <ng-template matStepLabel>MEDICAL DETAILS</ng-template>
@@ -382,7 +382,7 @@
                   <div class="row">
                     <div class="row col-md-12" *ngFor="let item of religareTravelQuestionsList; let i = index ">
                       <div class="col-md-8">
-                        <p >{{i+1}}. {{item.question_name}} <span class="error" *ngIf="item.checked">*</span> </p>
+                        <p >{{i+1}}. {{item.question_name}} <span class="error" *ngIf="item.question_code == 'sponsorsName' || item.question_code == 'relationwithInsured' ">*</span> <span class="error" *ngIf="item.checked">*</span> </p>
                         <div *ngIf="item.checked">
                           <div class="" *ngIf="item.checked">
                             <div class="row col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">
@@ -391,7 +391,7 @@
                                 <p *ngIf="si == 6 && diseaseFieldView">{{si+1}}. {{list.question_name}} </p>
                               </div>
                               <div class="col-md-6" >
-                                <mat-checkbox [(ngModel)]="list.checked" (change)="changereligareTravelQuestions($event, si, 'sub')"  *ngIf="list.field_type == 'checkbox'">
+                                <mat-checkbox [(ngModel)]="list.checked" (change)="changereligareTravelQuestions($event, si, 'sub', i)"  *ngIf="list.field_type == 'checkbox'">
                                 </mat-checkbox>
                               </div>
                               <div class="col-md-12" *ngIf="si != 6">
@@ -415,7 +415,7 @@
                       </div>
                       <div class="col-md-4">
                         <div class="row col-md-6" >
-                          <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i, 'main')"  *ngIf="item.field_type == 'checkbox'">
+                          <mat-checkbox [(ngModel)]="item.checked" (change)="changereligareTravelQuestions($event, i, 'main', '0')"  *ngIf="item.field_type == 'checkbox'">
                           </mat-checkbox>
                         </div>
                       </div>
@@ -486,8 +486,8 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Relationship with Insured"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()">
-                          <mat-option *ngFor="let lists of insuretravelRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.key}}" required>
+                        <mat-select placeholder="Relationship with Insured"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()" required>
+                          <mat-option *ngFor="let lists of insuretravelRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.value}}" >
                             {{lists.value}}
                           </mat-option>
                         </mat-select>
@@ -564,11 +564,11 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.title}} {{item.firstname}} {{item.lastname}}</li>
+                        <li class="list-group-item"><strong>Name:</strong> {{item.title | titlecase}}. {{item.firstname}} {{item.lastname}}</li>
                         <li class="list-group-item"><strong>Gender:</strong>{{item.gender}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item" *ngIf="item.adharnumber != ''"><strong>Aadhar No:</strong> {{item.adharnumber}}</li>
-                        <li class="list-group-item" *ngIf="item.pannumber != ''"><strong>Pan No:</strong> {{item.pannumber}}</li>
+                        <li class="list-group-item" *ngIf="item.pannumber != ''"><strong>Pan No:</strong> {{item.pannumber | uppercase}}</li>
                       </ul>
                     </div>
                   </div>
@@ -590,7 +590,7 @@
                         <li class="list-group-item" *ngIf="item.address1"><strong>Address 1:</strong> {{item.address1}}</li>
                         <li class="list-group-item" *ngIf="item.address2"><strong>Address 2:</strong> {{item.address2}}</li>
                         <li class="list-group-item" *ngIf="item.pincode"><strong>PIN code:</strong>  {{item.pincode}}</li>
-                        <li class="list-group-item" *ngIf="item.cityName"><strong>City:</strong> {{item.cityName}}</li>
+                        <li class="list-group-item" *ngIf="item.city"><strong>City:</strong> {{item.city}}</li>
                         <li class="list-group-item" *ngIf="item.state"><strong>State:</strong> {{item.state}}</li>
                       </ul>
                     </div>
@@ -602,7 +602,7 @@
                         <li class="list-group-item" *ngIf="item.raddress1"><strong>Address 1:</strong> {{item.raddress1}}</li>
                         <li class="list-group-item" *ngIf="item.raddress2"><strong>Address 2:</strong> {{item.raddress2}}</li>
                         <li class="list-group-item" *ngIf="item.rpincode"><strong>PIN code:</strong>  {{item.rpincode}}</li>
-                        <li class="list-group-item" *ngIf="item.rcityName"><strong>City:</strong> {{item.rcityName}}</li>
+                        <li class="list-group-item" *ngIf="item.rcity"><strong>City:</strong> {{item.rcity}}</li>
                         <li class="list-group-item" *ngIf="item.rstate"><strong>State:</strong> {{item.rstate}}</li>
                       </ul>
                     </div>
@@ -643,7 +643,7 @@
                       <h6 class="color-blue">ADDON DETAILS</h6>
 
                       <div class="row box-card" *ngFor="let lists of setAddons;">
-                        <div class="col-md-6" *ngIf="lists.checked">
+                        <div class="col-md-12" *ngIf="lists.checked">
                           <div class="p-3">
                             <div class="row">
                               <div class="col-md-12">
@@ -665,7 +665,7 @@
             <mat-expansion-panel [expanded]="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  QUESTION DETAILS
+                  MEDICAL DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="row box-card">
@@ -681,8 +681,8 @@
                             </div>
                             <div class="col-md-6" *ngIf="list.field_type == 'checkbox'">
                               <strong>
-                                <span *ngIf="item.checked">Yes</span>
-                                <span *ngIf="!item.checked">No</span>
+                                <span *ngIf="list.checked">Yes</span>
+                                <span *ngIf="!list.checked">No</span>
                               </strong>
                             </div>
                             <div class="col-md-6" *ngIf="list.field_type == 'textarea'">
@@ -749,7 +749,7 @@
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Relationship with Insured:</strong>
-                            {{nomineeFormData.religareNomineeRelationshipName}}
+                            {{nomineeFormData.religareTravelRelationship}}
                           </li>
                         </ul>
                       </div>

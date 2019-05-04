@@ -99,7 +99,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Appintment Date(DD/MM/YYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                    <input matInput [matDatepicker]="picker" placeholder="Appintment Date(DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
                     <mat-error *ngIf="TermLifeapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -131,7 +131,7 @@
               <form [formGroup]="TermLife">
                 <div class="col-md-12">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker1" placeholder="Date Of Birth (DD/MM/YYY)" formControlName="lifedob" [max]="today" (keypress)="dobValidate($event)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                    <input matInput [matDatepicker]="picker1" placeholder="Date Of Birth (DD/MM/YYYY)" formControlName="lifedob" [max]="today" (keypress)="dobValidate($event)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
                     <mat-error *ngIf="TermLife.controls.lifedob.errors?.required">Date Of Birth is required</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
@@ -145,6 +145,7 @@
                       <mat-option value="f">Female</mat-option>
                     </mat-select>
                     <mat-error *ngIf="TermLife.controls.lifeGender.errors?.required">Gender is required</mat-error>
+
                   </mat-form-field>
                 </div>
                 <div class="col-md-12">
@@ -190,6 +191,8 @@
                 </div>
                 <div fxLayoutAlign="center center" class="mt-4">
                   <button mat-raised-button style="color:#fff; Background:#3c9bc4; border: 1px solid #fff;line-height: 28px;font-size: 10px; padding: 0 10px;"  class="ml-2 mr-2" type="button" (click)="productListEnquiry(TermLife.value)">Proceed</button>
+                  <button mat-button type="reset" style="color: #000; position: absolute; right: 10px"><i class="material-icons">refresh</i> Reset</button>
+
                 </div>
               </form>
             </mat-card>

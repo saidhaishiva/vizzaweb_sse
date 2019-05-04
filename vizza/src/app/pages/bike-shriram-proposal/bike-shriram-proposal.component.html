@@ -147,15 +147,15 @@
                     </mat-accordion>
                 </mat-step>
                 <mat-step [stepControl]="">
-                    <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+                    <ng-template matStepLabel>VEHICLE DETAILS</ng-template>
                     <mat-accordion class="w-100 float-left ">
                         <mat-expansion-panel expanded>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    VEHICAL DETAILS
+                                    VEHICLE DETAILS
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+                            <ng-template matStepLabel>VEHICLE DETAILS</ng-template>
                             <div class="row mt-3">
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <form [formGroup]="vehical">
@@ -179,7 +179,7 @@
 
                                         <div class="col-md-3">
                                             <mat-form-field class="w-100">
-                                                <input matInput placeholder="Vehicle Colour "  formControlName="vehicleColour"   (keypress)="numberValidate($event)"  required autocomplete="off">
+                                                <input matInput placeholder="Vehicle Colour "  formControlName="vehicleColour"   (keypress)="nameValidate($event)"  required autocomplete="off">
                                                 <mat-error *ngIf="vehical.controls.vehicleColour.errors?.required">Vehicle Colour is required</mat-error>
 
                                             </mat-form-field>
@@ -402,7 +402,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy UW Year(yyyy)"  formControlName="policyUwYear" required  maxlength="4" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy UW Year(yyyy)"  formControlName="policyUwYear" required  (keypress)="numberValidate($event)" maxlength="4" autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policyUwYear.errors?.required">Previous Policy UW Year is required</mat-error>
 
                                                 </mat-form-field>
@@ -424,7 +424,7 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <h6 class="color-blue">Previous Nil Description</h6>
+                                                <h6 class="color-blue">Previous Nil Description <span class="error">*</span></h6>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-radio-group  formControlName="policyNilDescription" required>
@@ -469,7 +469,7 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Age"  formControlName="nomineeAge" required (input)="ageNominee()"   (keypress)="numberValidate($event)" autocomplete="off">
+                                                    <input matInput placeholder="Age"  formControlName="nomineeAge" required maxlength="3" (input)="ageNominee()"   (keypress)="numberValidate($event)" autocomplete="off">
                                                     <mat-error *ngIf="nomineeDetail.controls.nomineeAge.errors?.required">Age is required</mat-error>
 
                                                 </mat-form-field>
@@ -485,19 +485,21 @@
                                         </div>
                                             <div *ngIf="apponiteeList">
                                             <div class="row">
-                                                <p>Apponitee Details</p>
+                                                <h6 class="color-blue">APPONITEE DETAILS</h6>
                                             </div>
                                                 <div class="row">
                                             <div class="col-md-6">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Apponitee Name"  formControlName="appointeeName"  (keypress)="nameValidate($event)" [required]="apponiteeList" autocomplete="off">
+                                                    <mat-placeholder >Apponitee Name <span class="error">*</span></mat-placeholder>
+                                                    <input matInput formControlName="appointeeName"  (keypress)="nameValidate($event)" autocomplete="off">
                                                     <mat-error *ngIf="nomineeDetail.controls.appointeeName.errors?.required">Apponitee Name is required</mat-error>
 
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-6">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship"  [required]="apponiteeList">
+                                                    <mat-placeholder >Apponitee RelationShip<span class="error">*</span></mat-placeholder>
+                                                    <mat-select formControlName="appointeeRelationship" >
                                                         <mat-option *ngFor="let paCity of nomineeRelation | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetail.controls.appointeeRelationship.errors?.required">Apponitee RelationShip is required</mat-error>
@@ -542,12 +544,12 @@
                                     <div class="p-3">
                                         <h6>PROPOSER DETAILS</h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.name}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
+                                            <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}}. {{proposerFormData.name}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                             <li class="list-group-item" ><strong>Email Id:</strong> {{proposerFormData.email}}</li>
                                             <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
-                                            <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
-                                            <li class="list-group-item"><strong>Alternative Number:</strong> {{proposerFormData.alterMobile}}</li>
+                                            <li class="list-group-item"><strong>Gender:</strong><span *ngIf="proposerFormData.gender == 'M'">Male</span><span *ngIf="proposerFormData.gender == 'F'">Female</span></li>
+                                            <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternative Number:</strong> {{proposerFormData.alterMobile}}</li>
                                             <li class="list-group-item" ><strong> PAN :</strong> {{proposerFormData.pan  | uppercase }}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>GST:</strong> {{proposerFormData.gst  | uppercase}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.fax != ''"><strong>FAX:</strong> {{proposerFormData.fax }}</li>
@@ -562,8 +564,8 @@
                                             <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
                                             <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
-                                            <li class="list-group-item"><strong>City:</strong> {{proposerFormData.proposerCityName}}</li>
-                                            <li class="list-group-item"><strong>State:</strong> {{proposerFormData.pincodeState}}</li>
+                                            <li class="list-group-item"><strong>City:</strong> {{pincodeCity}}</li>
+                                            <li class="list-group-item"><strong>State:</strong> {{stateList}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -582,7 +584,7 @@
                                             <li class="list-group-item"><strong>Policy Type:</strong> {{vehicalFormData.policyType}}</li>
                                             <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
                                             <li class="list-group-item"><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
-                                            <li class="list-group-item"><strong>NilDepreciation Cover:</strong> {{vehicalFormData.nilDepreciationCover}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''">><strong>NilDepreciation Cover:</strong> {{vehicalFormData.nilDepreciationCover}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong>{{vehicalFormData.electricalAccess}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccessSI != ''"><strong>ElectricalAccessSI:</strong> {{vehicalFormData.electricalAccessSI}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong> {{vehicalFormData.nonElectricalAccess }}</li>
@@ -603,8 +605,8 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>AntiTheft:</strong> {{vehicalFormData.antiTheft}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LltoPaid Driver:</strong> {{vehicalFormData.lltoPaidDriver}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.pincode != ''"><strong>PIN code:</strong> {{vehicalFormData.pincode}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.state != ''"><strong>City:</strong> {{vehicalFormData.proposerState}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.city != ''"><strong>State:</strong> {{vehicalFormData.proposerCityName}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.state != ''"><strong>City:</strong> {{state}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.city != ''"><strong>State:</strong> {{city}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -620,7 +622,7 @@
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                                                     <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
-                                                    <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob}}</li>
+                                                    <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob | date: 'dd/MM/yyyy'}}</li>
 
                                                 </ul>
                                             </div>

@@ -75,7 +75,7 @@
                       </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Annual Income"    (keypress)="numberValidate($event)" formControlName="insuredAnnual" maxlength="20" autocomplete="off" required>
+                                <input matInput placeholder="Annual Income"    (keypress)="heightValidate($event)" formControlName="insuredAnnual" maxlength="20" autocomplete="off" required>
                               <mat-error *ngIf="insured.controls.insuredAnnual.errors?.required">Annual Income is required</mat-error>
                             </mat-form-field>
                         </div>
@@ -156,14 +156,14 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Height"    (keypress)="numberValidate($event)" formControlName="insuredHeight" maxlength="3" autocomplete="off" required>
+                          <input matInput placeholder="Height"    (keypress)="heightValidate($event)" formControlName="insuredHeight" maxlength="3" autocomplete="off" required>
                           <mat-error *ngIf="insured.controls.insuredHeight.errors?.required">Height is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Weight"    (keypress)="numberValidate($event)" formControlName="insuredWeight" maxlength="3" autocomplete="off" required>
+                          <input matInput placeholder="Weight"    (keypress)="heightValidate($event)" formControlName="insuredWeight" maxlength="3" autocomplete="off" required>
                           <mat-error *ngIf="insured.controls.insuredWeight.errors?.required">Weight is required</mat-error>
 
                         </mat-form-field>
