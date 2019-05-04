@@ -1089,33 +1089,66 @@
             </div>
 
             <div class="row" *ngIf="skipUploadStatus && optValidStatus == false">
-              <div class="col-md-4">
-              </div>
-              <div class="col-md-4">
+
+              <div class="col-md-12">
                 <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span>
-                <div class="text-center w-100">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="readUrl($event)"   aria-describedby="inputGroupFileAddon01" multiple>
-                    <label class="custom-file-label"><span class="error">*</span> Upload Proof Documents</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
                 <div class="proposal-buttom mb-3 text-left w-100">
                   <button mat-button style="line-height: 28px;font-size: 11px;color:blue;" (click)="skipUplod()">Skip</button>
                 </div>
               </div>
-            </div>
 
-            <div class="row" *ngIf="skipUploadStatus && optValidStatus == false">
-              <div class="col-md-12" >
-                <div *ngFor="let images of fileUploadPath">
-                    <span class="imageclose mr-2" >
-                        <img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
-                    </span>
+              <div class="col-md-4">
+                <div class="text-center w-100">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
+                    <label class="custom-file-label"><span class="error">*</span> Upload Address Proof</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="text-center w-100">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >
+                    <label class="custom-file-label"><span class="error">*</span> Upload Age Proof</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="text-center w-100">
+                  <div class="custom-file">
+                    <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >
+                    <label class="custom-file-label"><span class="error">*</span> Upload ID Proof</label>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="proposal-buttom mb-3 text-center w-100">
+                  <button mat-raised-button color="primaryBlue" (click)="onUploadFinished()">Upload</button>
+                </div>
+              </div>
+            </div>
+
+            <!--<div class="row" >-->
+              <!--<div class="col-md-4" >-->
+                    <!--<span class="imageclose mr-2" >-->
+                        <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
+                    <!--</span>-->
+              <!--</div>-->
+              <!--<div class="col-md-4" >-->
+                    <!--<span class="imageclose mr-2" >-->
+                        <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
+                    <!--</span>-->
+              <!--</div>-->
+              <!--<div class="col-md-4" >-->
+                    <!--<span class="imageclose mr-2" >-->
+                        <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
+                    <!--</span>-->
+              <!--</div>-->
+            <!--</div>-->
+
+
 
             <div class="row" *ngIf="skipUploadStatus == false">
               <div class="col-sm-12 col-xs-12 text-center">

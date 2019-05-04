@@ -1266,8 +1266,9 @@ samerelationShip(){
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': '0',
       'policy_id': this.getEnquiryDetials.policy_id
-    }
-    this.termService.getProposalNext(data).subscribe(
+    };
+      this.settings.loadingSpinner = true;
+      this.termService.getProposalNext(data).subscribe(
         (successData) => {
           this.ProposalNextSuccess(successData);
         },
@@ -1278,7 +1279,8 @@ samerelationShip(){
   }
 
   public ProposalNextSuccess(successData) {
-    if (successData.IsSuccess) {
+      this.settings.loadingSpinner = false;
+      if (successData.IsSuccess) {
       this.proposalGenStatus = false;
       this.proposalNextList = successData.ResponseObject;
       this.proposalFormPdf = this.proposalNextList.proposal_form;
@@ -1286,8 +1288,8 @@ samerelationShip(){
         this.proposalGenStatus = true;
     }
   }
-
   public ProposalNextFailure(error) {
+      this.settings.loadingSpinner = false;
   }
   getIdProof() {
     const data = {
@@ -1397,10 +1399,12 @@ samerelationShip(){
 
   public otpValidationListSuccess(successData) {
     if (successData.IsSuccess) {
+        this.toastr.success(successData.ResponseObject);
         this.optValidStatus = false;
-      this.otpValList = successData.ResponseObject;
-      console.log(this.otpValList, 'otpGenList');
+        this.otpValList = successData.ResponseObject;
+        console.log(this.otpValList, 'otpGenList');
     } else {
+        this.toastr.error(successData.ErrorObject);
         this.optValidStatus = true;
     }
   }
@@ -2005,57 +2009,58 @@ samerelationShip(){
         });
     }
 
-    readUrl(event: any) {
-        this.getUrl = '';
-        console.log(event.target.files, 'event.target.files[i].files');
-            let getUrlEdu = [];
-            this.fileDetails = [];
-            for (let i = 0; i < event.target.files.length; i++) {
-                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
-            }
-            for (let i = 0; i < event.target.files.length; i++) {
+    uploadProof(event: any, type) {
+        if(type == 'address_proof') {
+            if (event.target.files && event.target.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (event: any) => {
                     this.url = event.target.result;
-                    getUrlEdu.push(this.url.split(','));
-                    this.onUploadFinished(getUrlEdu);
+                    this.getUrl = this.url.split(',');
+                    this.allImage.push({'base64': this.getUrl,'proofType' : type, 'fileExt': 'png' });
+
                 };
-                reader.readAsDataURL(event.target.files[i]);
+                reader.readAsDataURL(event.target.files[0]);
             }
+        } else if(type == 'age_proof') {
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    this.getUrl = this.url.split(',');
+                    this.allImage.push({'base64': this.getUrl,'proofType' : type, 'fileExt': 'png' });
+
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        } else if(type == 'id_proof') {
+            if (event.target.files && event.target.files[0]) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    this.getUrl = this.url.split(',');
+                    this.allImage.push({'base64': this.getUrl,'proofType' : type, 'fileExt': 'png' });
+
+                };
+                reader.readAsDataURL(event.target.files[0]);
+            }
+        }
+
     }
-    onUploadFinished(event) {
-        this.allImage.push(event);
-        console.log(this.allImage, 'this.fileDetails');
+
+    onUploadFinished() {
         const data = {
-            "user_id": "0",
-            "role_id": "4",
-            "pos_status": "0",
+            "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
             "platform": "web",
-            "policy_id": "8",
+            "policy_id": this.getEnquiryDetials.policy_id,
             "Persons": [{
-                "Documents": [{
-                    "base64": "sdws",
-                    "proofType": "age_proof",
-                    "fileExt": "png"
-                },
-                    {
-                        "base64": "uytrfds",
-                        "proofType": "id_proof",
-                        "fileExt": "png"
-                    }
-                ],
-                "Type": "PH"
+                "Documents": this.allImage
             }]
         };
-            let length = this.allImage.length-1;
-            console.log(length, 'this.lengthlength');
 
-            for (let k = 0; k < this.allImage[length].length; k++) {
-                this.fileDetails[k].image = this.allImage[length][k][1];
-            }
-            data.Persons[0].Documents = this.fileDetails;
         console.log(data, 'dattattatata');
-        this.common.fileUpload(data).subscribe(
+        this.termService.fileUpload(data).subscribe(
             (successData) => {
                 this.fileUploadSuccess(successData);
             },
@@ -2068,8 +2073,8 @@ samerelationShip(){
 
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
-            this.fileUploadPath = successData.ResponseObject.imagePath;
-
+            this.toastr.success(successData.ResponseObject, 'Success');
+            // this.fileUploadPath = successData.ResponseObject.imagePath;
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
