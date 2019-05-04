@@ -1052,10 +1052,10 @@
               </div>
             </section>
               <p class="mt-2 pl-3" *ngIf="proposalGenStatus">
-                <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct.</mat-checkbox>
-                <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span>
+                <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>
+
               </p>
-              <hr >
+              <hr>
               <div class="col-md-12" *ngIf="proposalGenStatus">
                 <div class="proposal-buttom mb-3 text-center w-100">
                   <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
@@ -1063,7 +1063,7 @@
                 </div>
               </div>
               <div >
-                <pdf-viewer src="{{proposalFormPdf}}"
+                <pdf-viewer src="{{proposalNextList.proposal_form}}"
                             [render-text]="true"
                             style="display: block;"
 
@@ -1091,41 +1091,49 @@
             <div class="row" *ngIf="skipUploadStatus && optValidStatus == false">
 
               <div class="col-md-12">
-                <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span>
-                <div class="proposal-buttom mb-3 text-left w-100">
-                  <button mat-button style="line-height: 28px;font-size: 11px;color:blue;" (click)="skipUplod()">Skip</button>
-                </div>
+                <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
+                    <span>
+                        <button mat-button style="line-height: 28px;font-size: 13px;color:blue;" (click)="skipUplod()">Skip</button>
+                    </span>
+                </span>
+                <!--<div class="proposal-buttom mb-3 text-left w-100">-->
+                  <!--<button mat-button style="line-height: 28px;font-size: 11px;color:blue;" (click)="skipUplod()">Skip</button>-->
+                <!--</div>-->
               </div>
 
               <div class="col-md-4">
                 <div class="text-center w-100">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
-                    <label class="custom-file-label"><span class="error">*</span> Upload Address Proof</label>
+                    <label class="custom-file-label"> Upload Address Proof</label>
                   </div>
                 </div>
+                  <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
               </div>
               <div class="col-md-4">
                 <div class="text-center w-100">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >
-                    <label class="custom-file-label"><span class="error">*</span> Upload Age Proof</label>
+                    <label class="custom-file-label"> Upload Age Proof</label>
                   </div>
                 </div>
+                  <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
+
               </div>
               <div class="col-md-4">
                 <div class="text-center w-100">
                   <div class="custom-file">
                     <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >
-                    <label class="custom-file-label"><span class="error">*</span> Upload ID Proof</label>
+                    <label class="custom-file-label"> Upload ID Proof</label>
                   </div>
                 </div>
+                  <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
               </div>
             </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="proposal-buttom mb-3 text-center w-100">
-                  <button mat-raised-button color="primaryBlue" (click)="onUploadFinished()">Upload</button>
+            <div class="row mt-2" *ngIf="skipUploadStatus && optValidStatus == false">
+              <div class="col-md-12" [hidden]="fileUploadStatus == false || skipUploadStatus == false">
+                <div class="proposal-buttom text-center w-100">
+                  <button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>
                 </div>
               </div>
             </div>
@@ -1150,7 +1158,7 @@
 
 
 
-            <div class="row" *ngIf="skipUploadStatus == false">
+            <div class="row mt-4" *ngIf="skipUploadStatus == false || fileUploadStatus == false">
               <div class="col-sm-12 col-xs-12 text-center">
                 <form action={{proposalNextList.payment_link}}  method='post' #form>
                   <!--<button mat-button color="warn" (click)="backAll()" >Back</button>-->
