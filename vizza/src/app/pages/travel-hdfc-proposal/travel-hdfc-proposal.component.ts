@@ -876,7 +876,7 @@ export class TravelHdfcProposalComponent implements OnInit {
             'proposal_id': sessionStorage.hdfc_Travel_proposal_id ? sessionStorage.hdfc_Travel_proposal_id : this.hdfc_Travel_proposal_id,
             "InsuranceDetails": {
                 "PlanDetails": {
-                    'TotalSumInsured': this.getEnquiryDetails.sum_insured_amount,//From main page
+                    'TotalSumInsured': this.getTravelPremiumList.sum_insured_amount,//From main page
                     'PlanCd': this.getTravelPremiumList.plan_id,
                     'DepartureDate': this.getEnquiryDetails.start_date,
                     'ArrivalDate': this.getEnquiryDetails.end_date,
