@@ -93,6 +93,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public spouseDobError:any;
   public nomineeDobValidError:any;
   public proposalNextList:any;
+  public proposalFormPdf:any;
   public appointeeDobValidError:any;
 
   public getDays:any;
@@ -245,6 +246,9 @@ export class LifeBajajProposalComponent implements OnInit {
 
     this.questions = this.Proposer.group({});
     this.setQuestionDetails = [];
+    this.proposalNextList = '';
+    this.otpGenList = '';
+    this.otpValList = '';
   }
 
 
@@ -1227,6 +1231,7 @@ samerelationShip(){
   public ProposalNextSuccess(successData) {
     if (successData.IsSuccess) {
       this.proposalNextList = successData.ResponseObject;
+      this.proposalFormPdf = this.proposalNextList.proposal_form;
 
 
       console.log(this.proposalNextList, 'proposalnext');
