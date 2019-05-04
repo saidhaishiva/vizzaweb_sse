@@ -748,7 +748,7 @@ export class BikeShriramProposalComponent implements OnInit {
   previousDetails(stepper: MatStepper, value){
           sessionStorage.stepper3 = '';
           sessionStorage.stepper3 = JSON.stringify(value);
-          if(this.previousInsure.value){
+          if(this.previousInsure.valid){
               stepper.next();
           }
         }
@@ -790,7 +790,12 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper4 = '';
           sessionStorage.stepper4 = JSON.stringify(value);
           if(this.nomineeDetail.valid){
-              this.proposal(stepper);
+              if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
+                  this.proposal(stepper);
+              } else {
+                  this.toastr.success('Please fill the appointee details');
+
+              }
           }
 
   }

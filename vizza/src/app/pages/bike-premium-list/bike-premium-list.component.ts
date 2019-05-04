@@ -233,7 +233,7 @@ export class BikePremiumListComponent implements OnInit {
         sessionStorage.buyProductDetails =  JSON.stringify(value);
         if (value.company_id == 7) {
             this.router.navigate(['/bike-shriram-proposal'  + '/' + false]);
-        } else if (value.company_id == 7){
+        } else if (value.company_id == 12){
             this.router.navigate(['/bike-royal-proposal'  + '/' + false]);
 
         }

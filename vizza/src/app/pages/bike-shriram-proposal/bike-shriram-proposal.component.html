@@ -147,15 +147,15 @@
                     </mat-accordion>
                 </mat-step>
                 <mat-step [stepControl]="">
-                    <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+                    <ng-template matStepLabel>VEHICLE DETAILS</ng-template>
                     <mat-accordion class="w-100 float-left ">
                         <mat-expansion-panel expanded>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    VEHICAL DETAILS
+                                    VEHICLE DETAILS
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+                            <ng-template matStepLabel>VEHICLE DETAILS</ng-template>
                             <div class="row mt-3">
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <form [formGroup]="vehical">
@@ -402,7 +402,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy UW Year(yyyy)"  formControlName="policyUwYear" required  maxlength="4" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy UW Year(yyyy)"  formControlName="policyUwYear" required  (keypress)="numberValidate($event)" maxlength="4" autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policyUwYear.errors?.required">Previous Policy UW Year is required</mat-error>
 
                                                 </mat-form-field>
@@ -424,7 +424,7 @@
                                             </div>
 
                                             <div class="col-md-12">
-                                                <h6 class="color-blue">Previous Nil Description</h6>
+                                                <h6 class="color-blue">Previous Nil Description <span class="error">*</span></h6>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-radio-group  formControlName="policyNilDescription" required>
@@ -469,7 +469,7 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Age"  formControlName="nomineeAge" required (input)="ageNominee()"   (keypress)="numberValidate($event)" autocomplete="off">
+                                                    <input matInput placeholder="Age"  formControlName="nomineeAge" required maxlength="3" (input)="ageNominee()"   (keypress)="numberValidate($event)" autocomplete="off">
                                                     <mat-error *ngIf="nomineeDetail.controls.nomineeAge.errors?.required">Age is required</mat-error>
 
                                                 </mat-form-field>
@@ -485,19 +485,21 @@
                                         </div>
                                             <div *ngIf="apponiteeList">
                                             <div class="row">
-                                                <p>Apponitee Details</p>
+                                                <h6 class="color-blue">APPONITEE DETAILS</h6>
                                             </div>
                                                 <div class="row">
                                             <div class="col-md-6">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Apponitee Name"  formControlName="appointeeName"  (keypress)="nameValidate($event)" [required]="apponiteeList" autocomplete="off">
+                                                    <mat-placeholder >Apponitee Name <span class="error">*</span></mat-placeholder>
+                                                    <input matInput formControlName="appointeeName"  (keypress)="nameValidate($event)" autocomplete="off">
                                                     <mat-error *ngIf="nomineeDetail.controls.appointeeName.errors?.required">Apponitee Name is required</mat-error>
 
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-6">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship"  [required]="apponiteeList">
+                                                    <mat-placeholder >Apponitee RelationShip<span class="error">*</span></mat-placeholder>
+                                                    <mat-select formControlName="appointeeRelationship" >
                                                         <mat-option *ngFor="let paCity of nomineeRelation | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetail.controls.appointeeRelationship.errors?.required">Apponitee RelationShip is required</mat-error>
@@ -620,7 +622,7 @@
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                                                     <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
-                                                    <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob}}</li>
+                                                    <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob | date: 'dd/MM/yyyy'}}</li>
 
                                                 </ul>
                                             </div>
