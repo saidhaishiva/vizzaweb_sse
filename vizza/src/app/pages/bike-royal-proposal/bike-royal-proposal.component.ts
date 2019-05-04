@@ -7,11 +7,29 @@ import {AuthService} from '../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-bike-royal-proposal',
   templateUrl: './bike-royal-proposal.component.html',
-  styleUrls: ['./bike-royal-proposal.component.scss']
+  styleUrls: ['./bike-royal-proposal.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ]
 })
 export class BikeRoyalProposalComponent implements OnInit {
 public proposer: FormGroup;
@@ -20,6 +38,12 @@ public settings: any;
 public webhost: any;
 public titleList: any;
 public occupationList: any;
+public insurerdateError: any;
+public bikeRoyalProposerAge: any;
+public pincodeList: any;
+public pincodeState: any;
+public pincodeCity: any;
+public stateList: any;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -135,6 +159,104 @@ public occupationList: any;
   }
   public occupationFailure(error){
   }
+  // pincode
+  getPostalCode(pin) {
+    const data = {
+      'platform': 'web',
+      'pin_code': pin
+    };
+    console.log(data,'jhgjh');
+    if (pin.length == 6) {
+      this.bikeInsurance.getPincodeList(data).subscribe(
+          (successData) => {
+            this.pinProposerListSuccess(successData);
+          },
+          (error) => {
+            this.pinProposerListFailure(error);
+          }
+      );
+    }
+  }
+
+  public pinProposerListSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.pincodeList = successData.ResponseObject;
+      console.log(this.pincodeList,'jhgfdghj');
+      for(let key in this.pincodeList.state) {
+        this.pincodeState = key;
+        console.log(key);
+        console.log(this.pincodeState,'sswdesers');
+        console.log(this.pincodeList['state'][key]);
+        this.stateList = this.pincodeList['state'][key];
+        console.log(this.pincodeState, 'kjhfgdghj');
+        this.proposer.controls['state'].patchValue(this.pincodeList['state'][key]);
+      }
+      for(let key in this.pincodeList.city) {
+        this.pincodeCity = key;
+        console.log(key);
+        console.log(this.pincodeList['state'][key]);
+        console.log(this.pincodeCity,'ciytyer');
+
+        this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
+      }
+
+    } else{
+      this.toastr.error(successData.ErrorObject);
+      this.proposer.controls['state'].patchValue('');
+      this.proposer.controls['city'].patchValue('');
+    }
+  }
+
+
+  public pinProposerListFailure(error) {
+  }
+
+  // dob validation
+  addEvent(event,type) {
+    if (event.value != null) {
+      let selectedDate = '';
+      this.bikeRoyalProposerAge = '';
+      let dob = '';
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          this.insurerdateError = '';
+        } else {
+          this.insurerdateError = 'Enter Valid Date';
+        }
+        selectedDate = event.value._i;
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (selectedDate.length == 10) {
+          this.bikeRoyalProposerAge = this.ageCalculate(dob);
+
+        }
+
+      } else if (typeof event.value._i == 'object') {
+        // dob = this.datepipe.transform(event.value, 'MMM d, y');
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (dob.length == 10) {
+          this.bikeRoyalProposerAge = this.ageCalculate(dob);
+
+        }
+        this.insurerdateError = '';
+      }
+      sessionStorage.bkRoyalProposerAge = this.bikeRoyalProposerAge;
+
+    }
+  }
+  ageCalculate(dob) {
+    let today = new Date();
+    let birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    let dd = today.getDate()- birthDate.getDate();
+    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+      age = age-1;
+    }
+    return age;
+  }
+
+
   proposerDetails(value){
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
