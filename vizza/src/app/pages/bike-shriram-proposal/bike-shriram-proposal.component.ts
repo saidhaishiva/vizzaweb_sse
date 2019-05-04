@@ -70,6 +70,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public apponiteeList: boolean;
   public electricalValid: boolean;
   public nonelectricalValid: boolean;
+  public policyTypeDetails: boolean;
   public paUnNamed: boolean;
   public pType: boolean;
   public proposerFormData : any;
@@ -114,6 +115,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.electricalValid = false;
     this.nonelectricalValid = false;
     this.paUnNamed = false;
+    this.policyTypeDetails = false;
 
     this.proposer = this.fb.group({
       title: ['', Validators.required],
@@ -657,7 +659,13 @@ export class BikeShriramProposalComponent implements OnInit {
     }
   }
     selectPolicy(){
+        // MOT-PLT-002
+        if( this.vehical.controls['policyType'].value == 'MOT-PLT-002'){
+            this.policyTypeDetails = true;
+        } else {
+            this.policyTypeDetails = false;
 
+        }
     }
   // NEXT BUTTON
           vehicalDetails(stepper: MatStepper, value){
