@@ -656,6 +656,9 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['city'].patchValue('');
     }
   }
+    selectPolicy(){
+
+    }
   // NEXT BUTTON
           vehicalDetails(stepper: MatStepper, value){
               sessionStorage.stepper2 = '';

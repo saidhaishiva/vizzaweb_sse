@@ -7,7 +7,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 export const MY_FORMATS = {
   parse: {
@@ -257,7 +257,7 @@ public stateList: any;
   }
 
 
-  proposerDetails(value){
+  proposerDetails(stepper: MatStepper,value){
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
   }
