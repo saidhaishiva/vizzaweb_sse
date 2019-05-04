@@ -112,6 +112,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public optGenStatus: boolean;
   public optValidStatus: boolean;
   public skipUploadStatus: boolean;
+  public fileUploadStatus: boolean;
   public otpValList: any;
   public otpGenList: any;
   public otpCode: any;
@@ -121,6 +122,9 @@ export class LifeBajajProposalComponent implements OnInit {
   public url: any;
   public fileUploadPath: any;
     public webhost: any;
+    public uploadIdProofName: any;
+    public uploadAgeProofName: any;
+    public uploadAddressProofName: any;
 
 
     constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -268,6 +272,8 @@ export class LifeBajajProposalComponent implements OnInit {
     this.optGenStatus = true;
     this.optValidStatus = true;
       this.skipUploadStatus = true;
+        this.fileUploadStatus = true;
+
 
 
 
@@ -1368,11 +1374,12 @@ samerelationShip(){
 
   public otpGenerationlListSuccess(successData) {
     if (successData.IsSuccess) {
+        this.toastr.success(successData.ResponseObject);
         this.optGenStatus = false;
       this.otpGenList = successData.ResponseObject;
     } else {
         this.optGenStatus = true;
-        // this.toastr.error(successData.ErrorObject);
+        this.toastr.error(successData.ErrorObject);
     }
   }
 
@@ -2010,44 +2017,95 @@ samerelationShip(){
     }
 
     uploadProof(event: any, type) {
+
+
+        let getUrlEdu = [];
+        this.fileDetails = [];
         if(type == 'address_proof') {
-            if (event.target.files && event.target.files[0]) {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
                 const reader = new FileReader();
                 reader.onload = (event: any) => {
                     this.url = event.target.result;
-                    this.getUrl = this.url.split(',');
-                    this.allImage.push({'base64': this.getUrl,'proofType' : type, 'fileExt': 'png' });
-
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu);
                 };
-                reader.readAsDataURL(event.target.files[0]);
+                reader.readAsDataURL(event.target.files[i]);
             }
+            this.uploadAddressProofName = this.fileDetails[0].name;
+
         } else if(type == 'age_proof') {
-            if (event.target.files && event.target.files[0]) {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
                 const reader = new FileReader();
                 reader.onload = (event: any) => {
                     this.url = event.target.result;
-                    this.getUrl = this.url.split(',');
-                    this.allImage.push({'base64': this.getUrl,'proofType' : type, 'fileExt': 'png' });
-
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu);
                 };
-                reader.readAsDataURL(event.target.files[0]);
+                reader.readAsDataURL(event.target.files[i]);
             }
+            this.uploadAgeProofName = this.fileDetails[0].name;
+
         } else if(type == 'id_proof') {
-            if (event.target.files && event.target.files[0]) {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
                 const reader = new FileReader();
                 reader.onload = (event: any) => {
                     this.url = event.target.result;
-                    this.getUrl = this.url.split(',');
-                    this.allImage.push({'base64': this.getUrl,'proofType' : type, 'fileExt': 'png' });
-
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu);
                 };
-                reader.readAsDataURL(event.target.files[0]);
+                reader.readAsDataURL(event.target.files[i]);
             }
+            this.uploadIdProofName = this.fileDetails[0].name;
         }
 
     }
+    onUploadFinished(values, basecode) {
+        console.log(basecode, 'this.eventeventevent');
+        values[0].base64 = basecode[0][1];
 
-    onUploadFinished() {
+        console.log(values, 'valuesvalues');
+
+        for (let k = 0; k < values.length; k++) {
+            if (this.allImage.indexOf(values[k].name) == -1) {
+                this.allImage.push(values[k]);
+            }
+        }
+        console.log(this.allImage, 'this.fileDetails');
+
+
+
+    }
+
+    uploadAll() {
+        console.log(this.allImage, 'this.fileDetails2323');
+
         const data = {
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -2055,7 +2113,8 @@ samerelationShip(){
             "platform": "web",
             "policy_id": this.getEnquiryDetials.policy_id,
             "Persons": [{
-                "Documents": this.allImage
+                "Documents": this.allImage,
+                "Type": "PH"
             }]
         };
 
@@ -2074,9 +2133,10 @@ samerelationShip(){
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.toastr.success(successData.ResponseObject, 'Success');
-            // this.fileUploadPath = successData.ResponseObject.imagePath;
+            this.fileUploadStatus = false;
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
+            this.fileUploadStatus = true;
         }
     }
 

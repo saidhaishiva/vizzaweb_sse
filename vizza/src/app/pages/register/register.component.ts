@@ -265,7 +265,7 @@ export class RegisterComponent implements OnInit {
                 reader.readAsDataURL(event.target.files[i]);
             }
         } else {
-           // this.size = event.srcElement.files[0].size;
+            // this.size = event.srcElement.files[0].size;
             if (event.target.files && event.target.files[0]) {
                 const reader = new FileReader();
                 reader.onload = (event: any) => {
@@ -345,34 +345,34 @@ export class RegisterComponent implements OnInit {
         console.log(error);
     }
     getReferral(event) {
-            this.getUrl = event[1];
-            const data = {
-                'platform': 'web',
-                'pos_id': 'single',
-                'pos_referral_code': event.target.value,
-                'roleid': this.auth.getPosUserId()
-            };
-            this.common.getReferral(data).subscribe(
-                (successData) => {
-                    this.referralSuccess(successData);
-                },
-                (error) => {
-                    this.referralFailure(error);
-                }
-            );
-        }
+        this.getUrl = event[1];
+        const data = {
+            'platform': 'web',
+            'pos_id': 'single',
+            'pos_referral_code': event.target.value,
+            'roleid': this.auth.getPosUserId()
+        };
+        this.common.getReferral(data).subscribe(
+            (successData) => {
+                this.referralSuccess(successData);
+            },
+            (error) => {
+                this.referralFailure(error);
+            }
+        );
+    }
 
     public referralSuccess(successData) {
-            if (successData.IsSuccess == true) {
-                this.fileUploadPath = successData.ResponseObject.imagePath;
-            } else {
-                this.toastr.error(successData.ErrorObject, 'Failed');
-            }
+        if (successData.IsSuccess == true) {
+            this.fileUploadPath = successData.ResponseObject.imagePath;
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
         }
+    }
 
     public referralFailure(error) {
-            console.log(error);
-        }
+        console.log(error);
+    }
 
 
     submit(value) {
@@ -613,7 +613,7 @@ export class RegisterComponent implements OnInit {
             // this.toastr.error('Invalid pincode');
 
         }
-            }
+    }
 
     public getPinlFailure(error) {
     }
@@ -621,4 +621,4 @@ export class RegisterComponent implements OnInit {
 
     }
 
-    }
+}
