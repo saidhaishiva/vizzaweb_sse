@@ -804,8 +804,7 @@ export class BikeShriramProposalComponent implements OnInit {
               if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
                   this.proposal(stepper);
               } else {
-                  this.toastr.success('Please fill the appointee details');
-
+                  this.toastr.error('Please fill the appointee details');
               }
           }
 
