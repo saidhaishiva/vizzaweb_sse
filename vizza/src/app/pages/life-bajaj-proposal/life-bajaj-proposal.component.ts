@@ -246,6 +246,9 @@ export class LifeBajajProposalComponent implements OnInit {
 
     this.questions = this.Proposer.group({});
     this.setQuestionDetails = [];
+    this.proposalNextList = '';
+    this.otpGenList = '';
+    this.otpValList = '';
   }
 
 
