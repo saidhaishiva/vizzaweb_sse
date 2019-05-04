@@ -265,7 +265,6 @@ export class IffcoTokioComponent implements OnInit {
         this.occupationList();
         this.stateList();
         this.nomineestateList();
-        // this.nomineecityList();
         this.sessionData();
         console.log(this.proposer.controls['proposerState'].value,'stateee');
         console.log(this.nomineeDetails.controls['nomineeState'].value,'nominee');
@@ -395,8 +394,6 @@ export class IffcoTokioComponent implements OnInit {
     public stateListSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.stateDetails = successData.ResponseObject;
-            this.cityList();
-            // this.nomineecityList();
 
         }
     }
@@ -451,7 +448,6 @@ export class IffcoTokioComponent implements OnInit {
     public nomineestateListSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.nomineestateDetails = successData.ResponseObject;
-            this.nomineecityList();
            console.log(this.nomineeDetails.controls['nomineeState'].value,'state');
 
         }
@@ -980,6 +976,7 @@ export class IffcoTokioComponent implements OnInit {
 
 
     stateListname(){
+        this.nomineecityList();
         this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
     }
     cityListname(){

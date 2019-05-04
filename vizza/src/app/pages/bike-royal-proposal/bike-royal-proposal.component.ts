@@ -62,6 +62,7 @@ public occupationList: any;
   ngOnInit() {
     this.title();
     this.getOccupation();
+    this.sessionData();
   }
   // validation
 
@@ -134,5 +135,37 @@ public occupationList: any;
   }
   public occupationFailure(error){
   }
+  proposerDetails(value){
+    console.log(value);
+    sessionStorage.stepper1 = JSON.stringify(value);
+  }
+//session Data
+  sessionData(){
+    if(sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
+      let stepper1 = JSON.parse(sessionStorage.stepper1);
+      this.proposer = this.fb.group({
+        title: stepper1.title,
+        firstname: stepper1.firstname,
+        lastname:stepper1.lastname,
+        dob :  this.datepipe.transform(stepper1.dob, 'y-MM-dd'),
+        email:stepper1.email,
+        mobile: stepper1.mobile,
+        pincode: stepper1.pincode,
+        gender : stepper1.gender,
+        occupation: stepper1.occupation,
+        address: stepper1.address,
+        address2: stepper1.address2,
+        address3: stepper1.address3,
+        state:stepper1.state,
+        city: stepper1.city,
+        raddress: stepper1.raddress,
+        raddress2: stepper1.raddress2,
+        rpincode: stepper1.rpincode,
+        rstate:stepper1.rstate,
+        rcity: stepper1.rcity,
 
+
+      });
+    }
+  }
 }
