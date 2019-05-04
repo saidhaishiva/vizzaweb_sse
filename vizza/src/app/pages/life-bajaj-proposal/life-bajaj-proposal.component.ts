@@ -16,6 +16,7 @@ import {TermLifeCommonService} from '../../shared/services/term-life-common.serv
 import * as moment from 'moment';
 import {Http} from '@angular/http';
 import {AgeValidate} from '../health-insurance/health-insurance.component';
+import {CommonService} from '../../shared/services/common.service';
 
 
 export const MY_FORMATS = {
@@ -107,15 +108,28 @@ export class LifeBajajProposalComponent implements OnInit {
   public apointeRelationList:any;
   public relationInsured:any;
   public incomeList: boolean;
+  public proposalGenStatus: boolean;
+  public optGenStatus: boolean;
+  public optValidStatus: boolean;
+  public skipUploadStatus: boolean;
   public otpValList: any;
   public otpGenList: any;
   public otpCode: any;
+  public getUrl: any;
+  public fileDetails: any;
+  public allImage: any;
+  public url: any;
+  public fileUploadPath: any;
+    public webhost: any;
 
-  constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+
+    constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    this.proposer = this.Proposer.group({
+        this.webhost = this.config.getimgUrl();
+
+        this.proposer = this.Proposer.group({
       title: ['', Validators.required],
       firstName: ['', Validators.required],
       midName: '',
@@ -246,9 +260,44 @@ export class LifeBajajProposalComponent implements OnInit {
 
     this.questions = this.Proposer.group({});
     this.setQuestionDetails = [];
+    this.allImage = [];
     this.proposalNextList = '';
     this.otpGenList = '';
     this.otpValList = '';
+    this.proposalGenStatus = true;
+    this.optGenStatus = true;
+    this.optValidStatus = true;
+      this.skipUploadStatus = true;
+
+
+
+        const data = {
+            "user_id": "0",
+            "role_id": "4",
+            "pos_status": "0",
+            "platform": "web",
+            "policy_id": "8",
+            "Persons": [{
+                "Documents": [],
+                "Type": "PH"
+            }]
+        };
+
+        let test = [{
+            "base64": "sdws",
+            "proofType": "age_proof",
+            "fileExt": "png"
+        },
+            {
+                "base64": "uytrfds",
+                "proofType": "id_proof",
+                "fileExt": "png"
+            }
+        ];
+
+        data.Persons[0].Documents = test;
+
+        console.log(data, 'datadata');
   }
 
 
@@ -1230,11 +1279,11 @@ samerelationShip(){
 
   public ProposalNextSuccess(successData) {
     if (successData.IsSuccess) {
+      this.proposalGenStatus = false;
       this.proposalNextList = successData.ResponseObject;
       this.proposalFormPdf = this.proposalNextList.proposal_form;
-
-
-      console.log(this.proposalNextList, 'proposalnext');
+    } else {
+        this.proposalGenStatus = true;
     }
   }
 
@@ -1317,12 +1366,11 @@ samerelationShip(){
 
   public otpGenerationlListSuccess(successData) {
     if (successData.IsSuccess) {
+        this.optGenStatus = false;
       this.otpGenList = successData.ResponseObject;
-      console.log(this.otpGenList, 'otpGenList');
-    }
-    else
-    {
-      this.toastr.error(successData.ErrorObject);
+    } else {
+        this.optGenStatus = true;
+        // this.toastr.error(successData.ErrorObject);
     }
   }
 
@@ -1349,8 +1397,11 @@ samerelationShip(){
 
   public otpValidationListSuccess(successData) {
     if (successData.IsSuccess) {
+        this.optValidStatus = false;
       this.otpValList = successData.ResponseObject;
       console.log(this.otpValList, 'otpGenList');
+    } else {
+        this.optValidStatus = true;
     }
   }
 
@@ -1954,14 +2005,92 @@ samerelationShip(){
         });
     }
 
+    readUrl(event: any) {
+        this.getUrl = '';
+        console.log(event.target.files, 'event.target.files[i].files');
+            let getUrlEdu = [];
+            this.fileDetails = [];
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+    }
+    onUploadFinished(event) {
+        this.allImage.push(event);
+        console.log(this.allImage, 'this.fileDetails');
+        const data = {
+            "user_id": "0",
+            "role_id": "4",
+            "pos_status": "0",
+            "platform": "web",
+            "policy_id": "8",
+            "Persons": [{
+                "Documents": [{
+                    "base64": "sdws",
+                    "proofType": "age_proof",
+                    "fileExt": "png"
+                },
+                    {
+                        "base64": "uytrfds",
+                        "proofType": "id_proof",
+                        "fileExt": "png"
+                    }
+                ],
+                "Type": "PH"
+            }]
+        };
+            let length = this.allImage.length-1;
+            console.log(length, 'this.lengthlength');
+
+            for (let k = 0; k < this.allImage[length].length; k++) {
+                this.fileDetails[k].image = this.allImage[length][k][1];
+            }
+            data.Persons[0].Documents = this.fileDetails;
+        console.log(data, 'dattattatata');
+        this.common.fileUpload(data).subscribe(
+            (successData) => {
+                this.fileUploadSuccess(successData);
+            },
+            (error) => {
+                this.fileUploadFailure(error);
+            }
+        );
+    }
+
+
+    public fileUploadSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.fileUploadPath = successData.ResponseObject.imagePath;
+
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
+        }
+    }
+
+    public fileUploadFailure(error) {
+        console.log(error);
+    }
+    skipUplod(){
+      this.skipUploadStatus = false;
+    }
+
 }
 
 @Component({
     selector: 'lifedocuments',
     template: `
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
+        <div fxLayout="column">
+            <div class="container">
+                <div class="row">
+                <div mat-dialog-content class="col-sm-12">
                     <h4>Declaration: </h4>
                     <p>i) Declaration & Authorisation: I/We hereby declare and agree that </p>
                     <div >
@@ -1997,10 +2126,11 @@ samerelationShip(){
 
                 </div>
             </div>
+            <div mat-dialog-actions style="justify-content: center">
+                 <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
+            </div>
         </div>
-        <div mat-dialog-actions style="justify-content: center">
-             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
-        </div>
+      </div>
     `
 })
 export class LifeDocuments {

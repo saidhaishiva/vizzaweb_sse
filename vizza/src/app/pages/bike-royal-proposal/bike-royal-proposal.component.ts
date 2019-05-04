@@ -134,5 +134,8 @@ public occupationList: any;
   }
   public occupationFailure(error){
   }
+    addEvent(event){
+
+    }
 
 }
