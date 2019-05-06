@@ -33,6 +33,7 @@ export const MY_FORMATS = {
 })
 export class BikeRoyalProposalComponent implements OnInit {
 public proposer: FormGroup;
+public vehical: FormGroup;
 public minDate: any;
 public settings: any;
 public webhost: any;
@@ -78,7 +79,30 @@ public stateList: any;
       rcity: ['', Validators.required],
     });
 
-
+    this.vehical = this.fb.group({
+      vehicleMostlyDrivenOn: ['', Validators.required],
+      vehicleRegisteredName:'' ,
+      registrationchargesRoadtax: ['', Validators.required],
+      cover_elec_acc: '',
+      drivingExperience: '',
+      idv: '',
+      nonElectricalAccess: '',
+      nonElectricalAccessSI: '',
+      paforUnnamed: '',
+      paforUnnamedSI: '',
+      hypothecationType: '',
+      hypothecationAddress1: '',
+      hypothecationAddress2: '',
+      hypothecationAddress3: '',
+      hypothecationAgreementNo: '',
+      antiTheft: '',
+      lltoPaidDriver: '',
+      addonPackage:'',
+      hypothecationBankName:'',
+      pincode:'',
+      state:'',
+      city:'',
+    });
 
 
 
@@ -260,6 +284,12 @@ public stateList: any;
   proposerDetails(stepper: MatStepper,value){
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
+    stepper.next();
+
+  }
+  // vehical details
+  vehicalDetails(stepper: MatStepper,value){
+
   }
 //session Data
   sessionData(){
