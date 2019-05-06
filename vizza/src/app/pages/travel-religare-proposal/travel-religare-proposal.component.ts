@@ -391,8 +391,9 @@ export class ReliagretravelproposalComponent implements OnInit {
     selectResCity() {
         // this.religarePersonal.controls['rcityName'].patchValue(this.residenceCitys[this.religarePersonal.controls['rcity'].value]);
     }
-    insureTravelRelationListName() {
-        this.insureReligareArray.controls['relationshipName'].patchValue(this.insuretravelRelationList[this.insureReligareArray.controls['relationship'].value]);
+    insureTravelRelationListName(i) {
+        this.insureReligareArray['controls'].items['controls'][i]['controls'].relationshipName.patchValue(this.insuretravelRelationList[this.insureReligareArray['controls'].items['controls'][i]['controls'].relationship]);
+
     }
 
     iPersonalCitysName() {
@@ -769,7 +770,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'prop_dob': this.datepipe.transform(this.proposerInsureData[i].dob, 'y-MM-dd'),
                     'prop_gender': this.proposerInsureData[i].gender,
                     // 'relationship_cd': this.proposerInsureData[i].type == "Student1" ? 'Self' : this.proposerInsureData[i].type,
-                    'relationship_cd': this.proposerInsureData[i].relationship,
+                    'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].relationship,
                     'role_cd': this.proposerInsureData[i].rolecd
                 });
             }

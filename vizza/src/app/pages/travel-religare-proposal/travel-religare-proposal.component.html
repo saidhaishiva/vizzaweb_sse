@@ -319,7 +319,7 @@
                         </div>
 
                         <div class="col-md-4"  [ngStyle]="{'pointer-events': insureReligareArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}"><mat-form-field class="w-100">
-                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="insureTravelRelationListName()" required>
+                          <mat-select placeholder="Relationship with Proposer"  formControlName="relationship" (change)="insureTravelRelationListName(i)" required>
                             <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.key}}" >
                               {{lists.value}}
                             </mat-option>
@@ -427,7 +427,7 @@
                       </div>
                       <div class=" col-md-12" *ngIf="item.field_type == 'dropdown'">
                         <mat-form-field class="w-50" >
-                          <mat-select [(ngModel)]="item.fieldValue" (change)="studentRelationshipList()" required="{{item.question_set_code == 'SPDsponsorDetails'}}">
+                          <mat-select [(ngModel)]="item.fieldValue"  required="{{item.question_set_code == 'SPDsponsorDetails'}}">
                             <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.key}}" >
                               {{lists.value}}
                             </mat-option>
