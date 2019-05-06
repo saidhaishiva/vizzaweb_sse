@@ -761,6 +761,7 @@ samerelationShip(){
     console.log(sessionStorage.lifeBajajBankDetails, 'session');
     if (this.bankDetail.valid) {
       stepper.next();
+      this.topScroll();
     } else {
       this.toastr.error('error');
     }
@@ -1285,6 +1286,7 @@ samerelationShip(){
       this.settings.loadingSpinner = false;
       if (successData.IsSuccess) {
           stepper.next();
+          this.topScroll();
           this.proposalGenStatus = false;
           this.proposalNextList = successData.ResponseObject;
           this.proposalFormPdf = this.proposalNextList.proposal_form;
@@ -1802,6 +1804,7 @@ samerelationShip(){
 
     if(successData.IsSuccess){
       stepper.next();
+      this.topScroll();
       this.toastr.success('Proposal created successfully!!');
      this.summaryData = successData.ResponseObject;
      this.requestedUrl =this.summaryData.biUrlLink;
@@ -2125,6 +2128,10 @@ samerelationShip(){
     skipUplod(){
       this.skipUploadStatus = false;
     }
+  nextDocUpload(stepper) {
+    stepper.next();
+    this.topScroll();
+  }
 
 }
 
@@ -2222,6 +2229,10 @@ export class BajajLifeOpt {
         this.otpCode = '';
 
     }
+  // Number validation
+  numberValidate(event: any) {
+    this.validation.numberValidate(event);
+  }
 
     onNoClick(): void {
         this.dialogRef.close(true);

@@ -1077,13 +1077,17 @@
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
 
-                              <pdf-viewer src="{{proposalNextList.proposal_form}}"
+                              <pdf-viewer src="https://balicuat.bajajallianz.com/combipdf/PdfCreator.jsp?applicationNo=1000000239"
                                           [render-text]="true"
                                           style="display: block;"
 
                               ></pdf-viewer>
 
-
+                            <div class="col-md-12">
+                              <div class="proposal-buttom text-center w-100">
+                                <button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>
+                              </div>
+                            </div>
 
                           </div>
                       </div>
