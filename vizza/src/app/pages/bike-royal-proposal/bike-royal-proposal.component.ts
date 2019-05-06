@@ -45,6 +45,8 @@ public pincodeList: any;
 public pincodeState: any;
 public pincodeCity: any;
 public stateList: any;
+public hypothecationTypeDetails: any;
+public hypothecationTypedm: any;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -86,8 +88,8 @@ public stateList: any;
       cover_elec_acc: '',
       drivingExperience: '',
       idv: '',
-      nonElectricalAccess: '',
-      nonElectricalAccessSI: '',
+      isTwoWheelerFinancedValue: '',
+      financierName: '',
       paforUnnamed: '',
       paforUnnamedSI: '',
       hypothecationType: '',
@@ -98,10 +100,7 @@ public stateList: any;
       antiTheft: '',
       lltoPaidDriver: '',
       addonPackage:'',
-      hypothecationBankName:'',
-      pincode:'',
-      state:'',
-      city:'',
+
     });
 
 
@@ -291,6 +290,57 @@ public stateList: any;
   vehicalDetails(stepper: MatStepper,value){
 
   }
+  changehypothecation() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.bikeInsurance.getHypothecation(data).subscribe(
+        (successData) => {
+          this.hypothecationSuccess(successData);
+        },
+        (error) => {
+          this.hypothecationFailure(error);
+        }
+    );
+  }
+  public hypothecationSuccess(successData){
+    if (successData.IsSuccess) {
+      this.hypothecationTypedm = successData.ResponseObject;
+    }
+    console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+  }
+  public hypothecationFailure(error) {
+  }
+// hypo type
+  changehypothecationType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.bikeInsurance.getHypothecationType(data).subscribe(
+        (successData) => {
+          this.hypothecationTypeSuccess(successData);
+        },
+        (error) => {
+          this.hypothecationTypeFailure(error);
+        }
+    );
+  }
+  public hypothecationTypeSuccess(successData){
+    if (successData.IsSuccess) {
+      this.hypothecationTypeDetails = successData.ResponseObject;
+    }
+  }
+  public hypothecationTypeFailure(error) {
+  }
+
 //session Data
   sessionData(){
     if(sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {

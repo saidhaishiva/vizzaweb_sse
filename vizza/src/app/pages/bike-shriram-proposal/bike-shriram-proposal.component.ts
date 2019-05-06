@@ -116,6 +116,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.nonelectricalValid = false;
     this.paUnNamed = false;
     this.policyTypeDetails = false;
+        this.vehical.controls['policyType'].patchValue('Renewal');
 
     this.proposer = this.fb.group({
       title: ['', Validators.required],
@@ -138,7 +139,7 @@ export class BikeShriramProposalComponent implements OnInit {
       breakIn: '',
     });
     this.vehical = this.fb.group({
-      policyType: ['', Validators.required],
+      policyType: 'Renewal',
       proposalType:'' ,
       vehicleColour: ['', Validators.required],
       nilDepreciationCover: '',
@@ -289,7 +290,7 @@ export class BikeShriramProposalComponent implements OnInit {
               if (pin.length == 6) {
                 this.bikeInsurance.getPincodeList(data).subscribe(
                     (successData) => {
-                      this.pinProposerListSuccess(successData);
+                      this.pinProposerListSuccess(successData, pin);
                     },
                     (error) => {
                       this.pinProposerListFailure(error);
@@ -298,10 +299,14 @@ export class BikeShriramProposalComponent implements OnInit {
               }
             }
 
-            public pinProposerListSuccess(successData) {
+            public pinProposerListSuccess(successData, pin) {
               if (successData.IsSuccess) {
                 this.pincodeList = successData.ResponseObject;
-                console.log(this.pincodeList,'jhgfdghj');
+                console.log(pin,'jhgfdghj');
+                  if(pin.length == '' || pin.length == 0 || pin.length != 6){
+                      this.proposer.controls['state'].patchValue('');
+                      this.proposer.controls['city'].patchValue('');
+                  }
                 for(let key in this.pincodeList.state) {
                     this.pincodeState = key;
                     console.log(key);
@@ -324,6 +329,7 @@ export class BikeShriramProposalComponent implements OnInit {
                   this.toastr.error(successData.ErrorObject);
                   this.proposer.controls['state'].patchValue('');
                   this.proposer.controls['city'].patchValue('');
+
               }
         }
 
@@ -804,7 +810,11 @@ export class BikeShriramProposalComponent implements OnInit {
               if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
                   this.proposal(stepper);
               } else {
-                  this.toastr.error('Please fill the appointee details');
+                  if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
+                      this.proposal(stepper);
+                  }   else {
+                      this.toastr.error('Please fill the appointee details');
+                  }
               }
           }
 
