@@ -65,13 +65,16 @@ export class BikeInsuranceComponent implements OnInit {
     public previousClaim : any;
     public previousPolicyExpiry : any;
     public listDetails : boolean;
+    public expiry : boolean;
 
 
     meridian = true;
 
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
         const minDate = new Date();
-        this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+        // this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate() + 365);
+        this.minDate = new Date(minDate.getFullYear()+ 1, minDate.getMonth(), minDate.getDate());
+        console.log(this.minDate,'  this.minDate  this.minDate');
         this.settings = this.appSettings.settings;
 
         this.bikeInsurance = this.fb.group({
@@ -82,12 +85,15 @@ export class BikeInsuranceComponent implements OnInit {
             'enquiry': '',
             'model': '',
             'manufacture':'',
+            'manufactureYear':'',
             'vehicleCC':'',
             'variant': '',
             'chasissNumber':'',
             'previousPolicyExpiry':''
         });
         this.claimAmountDetails = false;
+        this.expiry = false;
+
         //   this.bikeapp = this.fb.group({
       //     'appdate': ['', Validators.required],
       //     'apptime': '',
@@ -143,6 +149,14 @@ export class BikeInsuranceComponent implements OnInit {
 
         }
         sessionStorage.claimDetail = this.claimAmountDetails;
+    }
+    policyStartDate(){
+        if(this.minDate > new Date()){
+            this.expiry = true;
+        } else {
+            this.expiry = false;
+
+        }
     }
     nameValidate(event: any){
         this.validation.nameValidate(event);
@@ -401,6 +415,7 @@ export class BikeInsuranceComponent implements OnInit {
                 'enquiry': stepper.enquiry,
                 'fuelType': stepper.fuelType,
                 'manufacture': stepper.manufacture,
+                'manufactureYear': stepper.manufactureYear,
                 'vehicleCC': stepper.vehicleCC,
                 'variant': stepper.variant,
                 'chasissNumber': stepper.chasissNumber,

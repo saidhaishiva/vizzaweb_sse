@@ -334,9 +334,6 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getApointeeRelation();
     this.getDiseaseList();
     this.samerelationShip();
-    this.otpGen();
-    this.otpVal();
-    // this.getProposalNext();
 
     if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
         this.mainQuestion();
@@ -1265,7 +1262,7 @@ samerelationShip(){
   }
 
 
-  getProposalNext() {
+  getProposalNext(stepper) {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -1276,7 +1273,7 @@ samerelationShip(){
       this.settings.loadingSpinner = true;
       this.termService.getProposalNext(data).subscribe(
         (successData) => {
-          this.ProposalNextSuccess(successData);
+          this.ProposalNextSuccess(successData,stepper);
         },
         (error) => {
           this.ProposalNextFailure(error);
@@ -1284,15 +1281,17 @@ samerelationShip(){
     );
   }
 
-  public ProposalNextSuccess(successData) {
+  public ProposalNextSuccess(successData,stepper) {
       this.settings.loadingSpinner = false;
       if (successData.IsSuccess) {
-      this.proposalGenStatus = false;
-      this.proposalNextList = successData.ResponseObject;
-      this.proposalFormPdf = this.proposalNextList.proposal_form;
-    } else {
-        this.proposalGenStatus = true;
-    }
+          stepper.next();
+          this.proposalGenStatus = false;
+          this.proposalNextList = successData.ResponseObject;
+          this.proposalFormPdf = this.proposalNextList.proposal_form;
+          this.otpGen();
+      } else {
+            this.proposalGenStatus = true;
+      }
   }
   public ProposalNextFailure(error) {
       this.settings.loadingSpinner = false;
@@ -1377,6 +1376,18 @@ samerelationShip(){
         this.toastr.success(successData.ResponseObject);
         this.optGenStatus = false;
       this.otpGenList = successData.ResponseObject;
+
+        let dialogRef = this.dialog.open(BajajLifeOpt, {
+            width: '1200px'
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+          if(result) {
+
+          }
+
+        });
+
     } else {
         this.optGenStatus = true;
         this.toastr.error(successData.ErrorObject);
@@ -1386,38 +1397,6 @@ samerelationShip(){
   public otpGenerationListFailure(error) {
   }
 
-  otpVal() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'policy_id':this.getEnquiryDetials.policy_id,
-      'otp': this.otpCode
-    }
-    this.termService.otpValidation(data).subscribe(
-        (successData) => {
-          this.otpValidationListSuccess(successData);
-        },
-        (error) => {
-          this.otpValidationListFailure(error);
-        }
-    );
-  }
-
-  public otpValidationListSuccess(successData) {
-    if (successData.IsSuccess) {
-        this.toastr.success(successData.ResponseObject);
-        this.optValidStatus = false;
-        this.otpValList = successData.ResponseObject;
-        console.log(this.otpValList, 'otpGenList');
-    } else {
-        this.toastr.error(successData.ErrorObject);
-        this.optValidStatus = true;
-    }
-  }
-
-  public otpValidationListFailure(error) {
-  }
 
   getApointeeRelation() {
     const data = {
@@ -2211,6 +2190,75 @@ export class LifeDocuments {
             this.dialogRef.close(result);
         }
     }
+}
+
+@Component({
+    selector: 'bajajlifeopt',
+    template: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <mat-form-field class="w-50">
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
+                    </mat-form-field>
+                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="otpVal()" >Ok</button>
+        </div>
+    `
+})
+export class BajajLifeOpt {
+    otpCode: any;
+    constructor(
+        public dialogRef: MatDialogRef<BajajLifeOpt>,
+        @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
+        this.otpCode = '';
+
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close(true);
+    }
+
+    otpVal() {
+        let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'policy_id': getEnquiryDetials.policy_id,
+            'otp': this.otpCode
+        }
+        this.termService.otpValidation(data).subscribe(
+            (successData) => {
+                this.otpValidationListSuccess(successData);
+            },
+            (error) => {
+                this.otpValidationListFailure(error);
+            }
+        );
+    }
+
+    public otpValidationListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.dialogRef.close(true);
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public otpValidationListFailure(error) {
+    }
+
+
 }
 
 

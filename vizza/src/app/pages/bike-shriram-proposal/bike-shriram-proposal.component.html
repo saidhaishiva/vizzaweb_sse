@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="col-md-3 mt-1">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Alternate Contact"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="alterMobile" autocomplete="off" >
+                                                    <input matInput placeholder="Alternate No"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="alterMobile" autocomplete="off" >
                                                     <mat-error *ngIf="proposer.controls.alterMobile.errors?.required">Mobile Number is required</mat-error>
                                                     <mat-error *ngIf="proposer.controls.alterMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                                                 </mat-form-field>
@@ -162,9 +162,11 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Proposal Type"  formControlName="proposalType" (change)="proposalList()" required>
-                                                        <mat-option *ngFor="let type of proposalTypeList | keys" value="{{type.key}}" (select)="type.value == 'MOT-PLT-001'"> {{type.value}} </mat-option>
-                                                    </mat-select>
+                                                    <input matInput placeholder="Proposal Type "  formControlName="proposalType" required autocomplete="off" readonly>
+
+                                                    <!--<mat-select placeholder="Proposal Type"  formControlName="proposalType" (change)="proposalList()" required>-->
+                                                        <!--<mat-option *ngFor="let type of proposalTypeList | keys" value="{{type.key}}" (select)="type.value == 'MOT-PLT-001'"> {{type.value}} </mat-option>-->
+                                                    <!--</mat-select>-->
                                                     <mat-error *ngIf="vehical.controls.proposalType.errors?.required">Proposal Type is required</mat-error>
                                                 </mat-form-field>
                                             </div>
