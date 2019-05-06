@@ -1383,7 +1383,7 @@ samerelationShip(){
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result => {
           if(result) {
-            this.otpVal();
+
           }
 
         });
@@ -1397,38 +1397,6 @@ samerelationShip(){
   public otpGenerationListFailure(error) {
   }
 
-  otpVal() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'policy_id':this.getEnquiryDetials.policy_id,
-      'otp': this.otpCode
-    }
-    this.termService.otpValidation(data).subscribe(
-        (successData) => {
-          this.otpValidationListSuccess(successData);
-        },
-        (error) => {
-          this.otpValidationListFailure(error);
-        }
-    );
-  }
-
-  public otpValidationListSuccess(successData) {
-    if (successData.IsSuccess) {
-        this.toastr.success(successData.ResponseObject);
-        this.optValidStatus = false;
-        this.otpValList = successData.ResponseObject;
-        console.log(this.otpValList, 'otpGenList');
-    } else {
-        this.toastr.error(successData.ErrorObject);
-        this.optValidStatus = true;
-    }
-  }
-
-  public otpValidationListFailure(error) {
-  }
 
   getApointeeRelation() {
     const data = {
@@ -2242,18 +2210,55 @@ export class LifeDocuments {
             </div>
         </div>
         <div mat-dialog-actions style="justify-content: center">
-            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Ok</button>
+            <button mat-button class="secondary-bg-color" (click)="otpVal()" >Ok</button>
         </div>
     `
 })
 export class BajajLifeOpt {
+    otpCode: any;
     constructor(
         public dialogRef: MatDialogRef<BajajLifeOpt>,
-        @Inject(MAT_DIALOG_DATA) public data: any) { }
+        @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
+        this.otpCode = '';
+
+    }
 
     onNoClick(): void {
         this.dialogRef.close(true);
     }
+
+    otpVal() {
+        let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'policy_id': getEnquiryDetials.policy_id,
+            'otp': this.otpCode
+        }
+        this.termService.otpValidation(data).subscribe(
+            (successData) => {
+                this.otpValidationListSuccess(successData);
+            },
+            (error) => {
+                this.otpValidationListFailure(error);
+            }
+        );
+    }
+
+    public otpValidationListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.dialogRef.close(true);
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public otpValidationListFailure(error) {
+    }
+
+
 }
 
 
