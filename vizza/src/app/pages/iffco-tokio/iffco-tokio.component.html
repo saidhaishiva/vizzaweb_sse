@@ -255,9 +255,9 @@
                   <div class="row mt-3">
                     <div class="col-md-12 box-card pt-3">
                       <div class="row">
-                        <div class="col-md-12 mb-3" *ngIf="i == 0">
-                          <mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>
-                        </div>
+                        <!--<div class="col-md-12 mb-3" *ngIf="i == 0">-->
+                          <!--<mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>-->
+                        <!--</div>-->
                         <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" required>
