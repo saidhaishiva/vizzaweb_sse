@@ -710,8 +710,15 @@ export class LifeBajajProposalComponent implements OnInit {
     console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       if(sessionStorage.bajajproposerAge >= 18){
-        stepper.next();
-        this.topScroll();
+
+        if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
+        {
+          this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
+        }else {
+          stepper.next();
+          this.topScroll();
+        }
+
       } else {
           this.toastr.error('Proposer age should be greater than equal to 18');
 
@@ -1595,8 +1602,16 @@ samerelationShip(){
   }
 
   occupationListCode() {
-    this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
-    this.getIncomeProof();
+
+      if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
+      {
+        this.toastr.error('Sorry, you are not allowed to purchase policy ');
+      }else {
+        this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
+        this.getIncomeProof();
+      }
+
+
 
   }
 

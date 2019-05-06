@@ -438,49 +438,49 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.department.errors?.required">Department is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.officeName.errors?.required">Office Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress1.errors?.required">Office Address1 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}">
+                          <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress2.errors?.required">Office Address2 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}">
+                          <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress3.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeDistrict.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off"  >
                           <mat-error *ngIf="proposer.controls.officeState.errors?.required">Office State is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Pincode"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="officePincode" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office Pincode"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="officePincode" autocomplete="off"   >
                           <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode Is Required</mat-error>
                           <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -488,7 +488,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.officeNumber.errors?.required">Office Number is required</mat-error>
                         </mat-form-field>
                       </div>
