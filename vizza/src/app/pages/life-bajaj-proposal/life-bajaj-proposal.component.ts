@@ -2244,10 +2244,10 @@ export class BajajLifeOpt {
         this.otpCode = '';
 
     }
-  // Number validation
-  numberValidate(event: any) {
-    this.validation.numberValidate(event);
-  }
+  // // Number validation
+  // numberValidate(event: any) {
+  //   this.validation.numberValidate(event);
+  // }
 
     onNoClick(): void {
         this.dialogRef.close(true);
