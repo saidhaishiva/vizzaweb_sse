@@ -422,6 +422,7 @@ export class IffcoTokioComponent implements OnInit {
     public cityListSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.cityDetails = successData.ResponseObject;
+            sessionStorage.cityDetails = JSON.stringify(this.cityDetails);
 
         }
     }
@@ -476,6 +477,7 @@ export class IffcoTokioComponent implements OnInit {
     public nomineecityListSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.nomineecityDetails = successData.ResponseObject;
+            sessionStorage.nomineecityDetails = JSON.stringify(this.nomineecityDetails);
             console.log(this.nomineecityDetails,' this.nomineecityDetails');
         }
     }
@@ -980,7 +982,7 @@ export class IffcoTokioComponent implements OnInit {
         this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
     }
     cityListname(){
-        this.nomineeDetails.controls['nomineeCityName'].patchValue(this.cityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+        this.nomineeDetails.controls['nomineeCityName'].patchValue(this.nomineecityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
     }
     public objectToXml(xmlData){
         var xml = '';
@@ -1015,7 +1017,10 @@ export class IffcoTokioComponent implements OnInit {
 
     sessionData() {
         console.log('inside');
-        if (sessionStorage.stepper1IffcoDetails != '' && sessionStorage.stepper1IffcoDetails != undefined) {
+            if (sessionStorage.cityDetails != '' && sessionStorage.cityDetails != undefined) {
+                this.cityDetails = JSON.parse(sessionStorage.cityDetails);
+            }
+            if (sessionStorage.stepper1IffcoDetails != '' && sessionStorage.stepper1IffcoDetails != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1IffcoDetails);
             this.proposer.patchValue({
                 proposerTitle: this.getStepper1.proposerTitle,
@@ -1089,7 +1094,9 @@ export class IffcoTokioComponent implements OnInit {
             }
         }
 
-
+        if (sessionStorage.nomineecityDetails != '' && sessionStorage.nomineecityDetails != undefined) {
+            this.nomineecityDetails = JSON.parse(sessionStorage.nomineecityDetails);
+        }
         if (sessionStorage.nomineeData1 != '' && sessionStorage.nomineeData1 != undefined) {
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData1);
             this.nomineeDetails = this.fb.group({

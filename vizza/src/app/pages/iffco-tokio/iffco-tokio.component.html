@@ -462,7 +462,7 @@
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-4">
-                <h4><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
               </div>
               <div class="col-md-8">
                 <ul class="summary-head">
@@ -490,6 +490,7 @@
                       <li class="list-group-item"  *ngIf="personalFormData.proposerOfficePhone !=''"><strong>Office Phone Number:</strong> {{personalFormData.proposerOfficePhone}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{personalFormData.proposerGender}}</li>
                       <li class="list-group-item"><strong>Marital Status:</strong><span *ngIf="personalFormData.proposerMaritalStatus == 'M'">Married</span><span *ngIf="personalFormData.proposerMaritalStatus == 'U'">Unmarried</span><span *ngIf="personalFormData.proposerMaritalStatus == 'S'">Single</span><span *ngIf="personalFormData.proposerMaritalStatus == 'N'">Not Known</span></li>
+                      <li class="list-group-item"><strong>Occupation:</strong> {{personalFormData.proposerOccupationName}}</li>
                     </ul>
                   </div>
                 </div>
@@ -497,7 +498,6 @@
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <!--<li class="list-group-item"><strong>Marital Status:</strong> {{personalFormData.proposerMarital}}</li>-->
-                      <li class="list-group-item"><strong>Occupation:</strong> {{personalFormData.proposerOccupationName}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerPassport !=''"><strong>Pass Port:</strong> {{personalFormData.proposerPassport | uppercase}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerPan !=''"><strong>PAN Number:</strong> {{personalFormData.proposerPan | uppercase}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerEmergencyName !=''"><strong>Emergency Name:</strong> {{personalFormData.proposerEmergencyName}}</li>
@@ -511,13 +511,20 @@
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6>PROPOSER COMMUNICATION DETAILS</h6>
+                    <h5 class="">COMMUNICATION DETAILS</h5>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address Type:</strong> <span *ngIf="personalFormData.typeAddress == 'P'">Postal</span><span *ngIf="personalFormData.typeAddress == 'R'">Residential</span><span *ngIf="personalFormData.typeAddress == 'B'">Business</span></li>
                       <li class="list-group-item"><strong>Address 1:</strong> {{personalFormData.proposerAddress}}</li>
                       <li class="list-group-item"><strong>Address 2:</strong> {{personalFormData.proposerAddress2}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerAddress3 !=''"><strong>Address 3:</strong> {{personalFormData.proposerAddress3}}</li>
                       <li class="list-group-item"  *ngIf="personalFormData.proposerAddress4 !=''"><strong>Address 4:</strong> {{personalFormData.proposerAddress4}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h5 class="mt-4"></h5>
+                    <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>PIN code:</strong> {{personalFormData.proposerPincode}}</li>
                       <li class="list-group-item"><strong>City:</strong> {{personalFormData.proposerCityName}}</li>
                       <li class="list-group-item"><strong>State:</strong> {{personalFormData.proposerStateName}}</li>
@@ -525,6 +532,8 @@
                     </ul>
                   </div>
                 </div>
+
+
               </div>
             </section>
             <section *ngFor="let items of insuredFormData;  let i = index;">
@@ -816,14 +825,14 @@
                     </div>
                     <div class="col-sm-12 col-xs-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3"  maxlength="30" autocomplete="off" required></textarea>
+                        <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3"  maxlength="30" autocomplete="off" ></textarea>
                         <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address3 is required</mat-error>
 
                       </mat-form-field>
                     </div>
                     <div class="col-sm-12 col-xs-12">
                       <mat-form-field class="w-100">
-                        <textarea matInput placeholder="Address 4" rows="2" formControlName="proposerAddress4"  maxlength="30" autocomplete="off" required></textarea>
+                        <textarea matInput placeholder="Address 4" rows="2" formControlName="proposerAddress4"  maxlength="30" autocomplete="off" ></textarea>
                         <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address4 is required</mat-error>
 
                       </mat-form-field>

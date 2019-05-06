@@ -334,9 +334,6 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getApointeeRelation();
     this.getDiseaseList();
     this.samerelationShip();
-    this.otpGen();
-    this.otpVal();
-    // this.getProposalNext();
 
     if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
         this.mainQuestion();
@@ -1265,7 +1262,7 @@ samerelationShip(){
   }
 
 
-  getProposalNext() {
+  getProposalNext(stepper) {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -1276,7 +1273,7 @@ samerelationShip(){
       this.settings.loadingSpinner = true;
       this.termService.getProposalNext(data).subscribe(
         (successData) => {
-          this.ProposalNextSuccess(successData);
+          this.ProposalNextSuccess(successData,stepper);
         },
         (error) => {
           this.ProposalNextFailure(error);
@@ -1284,15 +1281,17 @@ samerelationShip(){
     );
   }
 
-  public ProposalNextSuccess(successData) {
+  public ProposalNextSuccess(successData,stepper) {
       this.settings.loadingSpinner = false;
       if (successData.IsSuccess) {
-      this.proposalGenStatus = false;
-      this.proposalNextList = successData.ResponseObject;
-      this.proposalFormPdf = this.proposalNextList.proposal_form;
-    } else {
-        this.proposalGenStatus = true;
-    }
+          stepper.next();
+          this.proposalGenStatus = false;
+          this.proposalNextList = successData.ResponseObject;
+          this.proposalFormPdf = this.proposalNextList.proposal_form;
+          this.otpGen();
+      } else {
+            this.proposalGenStatus = true;
+      }
   }
   public ProposalNextFailure(error) {
       this.settings.loadingSpinner = false;
@@ -1377,6 +1376,18 @@ samerelationShip(){
         this.toastr.success(successData.ResponseObject);
         this.optGenStatus = false;
       this.otpGenList = successData.ResponseObject;
+
+        let dialogRef = this.dialog.open(BajajLifeOpt, {
+            width: '1200px'
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+          if(result) {
+            this.otpVal();
+          }
+
+        });
+
     } else {
         this.optGenStatus = true;
         this.toastr.error(successData.ErrorObject);
@@ -2210,6 +2221,38 @@ export class LifeDocuments {
         } else {
             this.dialogRef.close(result);
         }
+    }
+}
+
+@Component({
+    selector: 'bajajlifeopt',
+    template: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <mat-form-field class="w-50">
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
+                    </mat-form-field>
+                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="onNoClick()" >Ok</button>
+        </div>
+    `
+})
+export class BajajLifeOpt {
+    constructor(
+        public dialogRef: MatDialogRef<BajajLifeOpt>,
+        @Inject(MAT_DIALOG_DATA) public data: any) { }
+
+    onNoClick(): void {
+        this.dialogRef.close(true);
     }
 }
 
