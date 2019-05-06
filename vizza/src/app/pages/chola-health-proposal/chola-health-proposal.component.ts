@@ -52,9 +52,13 @@ export class CholaHealthProposalComponent implements OnInit {
   public insurePersons: any;
   public today: any;
   public arr : any;
+  public minDate: any;
+  public maxDate: any;
   constructor(public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService ) {
 
-    const today = new Date();
+    const minDate = new Date();
+    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    let today  = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
     this.mobileNumber = 'true';
     this.taxRequired = '';
@@ -62,17 +66,17 @@ export class CholaHealthProposalComponent implements OnInit {
     this.totalInsureDetails = [];
     this.arr = [];
     this.personal = this.fb.group({
-      personalFirstname: '',
-      personalLastname: '',
-      personalDob: '',
-      personalGender: '',
+      personalFirstname: ['', Validators.required],
+      personalLastname: ['', Validators.required],
+      personalDob: ['', Validators.compose([Validators.required])],
+      personalGender: ['', Validators.compose([Validators.required])],
       maritalStatus: '',
       occupation: '',
       personalIncome: '',
-      personalEmail: ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       personalMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
       personalLandlineno: '',
-      personalAddress: '',
+      personalAddress: ['', Validators.required],
       personalAddress2: '',
       personalCity: '',
       personalPincode: '',
@@ -147,6 +151,7 @@ export class CholaHealthProposalComponent implements OnInit {
           personalrelationship: '',
           personalrelationshipName: '',
           sumInsured: '',
+          sameasreadonly:false,
 
         }
     );
@@ -417,7 +422,7 @@ export class CholaHealthProposalComponent implements OnInit {
         this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
         this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.getStepper2.items[i].personalrelationshipName);
         this.insureArray['controls'].items['controls'][i]['controls'].sumInsured.patchValue(this.getStepper2.items[i].sumInsured);
-
+        this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
       }
     }
     // if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
