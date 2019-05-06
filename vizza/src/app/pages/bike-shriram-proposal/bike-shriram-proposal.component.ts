@@ -116,7 +116,6 @@ export class BikeShriramProposalComponent implements OnInit {
     this.nonelectricalValid = false;
     this.paUnNamed = false;
     this.policyTypeDetails = false;
-        this.vehical.controls['policyType'].patchValue('Renewal');
 
     this.proposer = this.fb.group({
       title: ['', Validators.required],
@@ -197,7 +196,9 @@ export class BikeShriramProposalComponent implements OnInit {
          this.claimpercent();
          this.nomineeRelationShip();
          this.changehypothecationType();
-         this.sessionData();
+      this.vehical.controls['policyType'].patchValue('Renewal');
+
+      this.sessionData();
   }
 
 
