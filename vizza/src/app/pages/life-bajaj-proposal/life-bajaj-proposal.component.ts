@@ -2258,7 +2258,9 @@ export class BajajLifeOpt {
     public otpValidationListFailure(error) {
     }
 
-
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
+    }
 }
 
 
