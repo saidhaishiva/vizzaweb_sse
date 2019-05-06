@@ -382,7 +382,7 @@
                   <div class="row">
                     <div class="row col-md-12" *ngFor="let item of religareTravelQuestionsList; let i = index ">
                       <div class="col-md-8">
-                        <p >{{i+1}}. {{item.question_name}} <span class="error" *ngIf="item.question_code == 'sponsorsName' || item.question_code == 'relationwithInsured' ">*</span> <span class="error" *ngIf="item.checked">*</span> </p>
+                        <p >{{i+1}}. {{item.question_name}} <span class="error" *ngIf="item.question_code == 'sponsorsName' || item.question_code == 'dateofBirth' || item.question_code == 'relationwithInsured' ">*</span> <span class="error" *ngIf="item.checked">*</span> </p>
                         <div *ngIf="item.checked">
                           <div class="" *ngIf="item.checked">
                             <div class="row col-md-12" *ngFor="let list of item.sub_questions_list; let si = index;">
@@ -437,7 +437,7 @@
 
                       <div class=" col-md-12" *ngIf="item.field_type == 'datefield'">
                         <mat-form-field class="w-50" >
-                          <input matInput [matDatepicker]="picker2" [max]="today" placeholder="{{item.question_name}}" [(ngModel)]="item.fieldValue" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required="{{item.question_set_code == 'SPDsponsorDetails'}}">
+                          <input matInput [matDatepicker]="picker2" [max]="today" [(ngModel)]="item.fieldValue" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required="{{item.question_set_code == 'SPDsponsorDetails'}}">
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
@@ -491,7 +491,7 @@
                             {{lists.value}}
                           </mat-option>
                         </mat-select>
-                        <mat-error *ngIf="nomineeDetails.controls.religareTravelRelationship.errors?.required">Relationship with Proposer is required</mat-error>
+                        <mat-error *ngIf="nomineeDetails.controls.religareTravelRelationship.errors?.required">Relationship with Insured is required</mat-error>
                       </mat-form-field></div>
                       <div class="col-md-4">
                         <div class="proposal-buttom mb-3 text-right w-100">
