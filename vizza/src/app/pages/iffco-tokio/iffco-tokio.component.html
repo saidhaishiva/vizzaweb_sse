@@ -160,10 +160,10 @@
 
                   <div class="col-md-12 box-card pt-3">
                     <div class="row">
-                        <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
+                        <h6 class="color-blue ml-2">COMMUNICATION ADDRESS</h6>
                     </div>
                     <div class="row">
-                      <div class="col-md-3">
+                      <div class="col-md-12">
                         <p>Address Type: <span class="error">*</span></p>
                         <mat-radio-group formControlName="typeAddress">
                           <mat-radio-button value="P" class="mr-2">Postal</mat-radio-button>
@@ -171,7 +171,6 @@
                           <mat-radio-button value="B" class="mr-2">Business</mat-radio-button>
                         </mat-radio-group>
                         <mat-error *ngIf="proposer.controls.typeAddress.errors?.required">AddressType is required</mat-error>
-
                       </div>
                     </div>
 
@@ -338,7 +337,7 @@
                           </mat-radio-group>
                         </div>
                         <div class="col-md-12">
-                          <h4 class="color-green">Personal Habits</h4>
+                          <h4 class="color-blue">PERSONAL HABITS</h4>
                         </div>
                         <div class="col-md-3">
                           <p>smoke: <span class="error">*</span></p>
@@ -398,7 +397,6 @@
               <mat-expansion-panel-header>
                 <mat-panel-title> NOMINEE DETAILS </mat-panel-title>
               </mat-expansion-panel-header>
-              <ng-template matStepLabel>INSURED DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <form [formGroup]="nomineeDetails">
@@ -549,7 +547,7 @@
                       <li class="list-group-item"><strong>D.O.B:</strong> {{items.DateOfBirth | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Age:</strong> {{items.Age}}</li>
                       <li class="list-group-item"><strong>Occupation:</strong> {{items.Occupation}}</li>
-                      <li class="list-group-item"><strong>Relationship:</strong> {{items.RelationtoInsured}}</li>
+                      <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{items.RelationtoInsured}}</li>
                     </ul>
                   </div>
                 </div>

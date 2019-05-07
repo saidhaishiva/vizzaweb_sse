@@ -1107,18 +1107,17 @@
 
                               <div class="row">
 
-                                  <div class="col-md-12">
+                                  <div class="col-md-6">
                                       <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
-                                            <span>
-                                                <!--<button mat-button style="line-height: 28px;font-size: 13px;color:blue;" (click)="skipUplod()">Skip & Continue to Pay</button>-->
+                                        </span>
+                                      </p>
+                                  </div>
+                                  <div class="col-md-6 text-left">
+                                        <span>
                                              <form action={{proposalNextList.payment_link}}  method='post' #form>
                                                 <button mat-raised-button color="primaryBlue" style="line-height: 28px;font-size: 13px;" (click)="form.submit()">Skip & Continue to Pay</button>
                                               </form>
-                                            </span>
                                         </span>
-                                          <!--<div class="proposal-buttom mb-3 text-left w-100">-->
-                                          <!--<button mat-button style="line-height: 28px;font-size: 11px;color:blue;" (click)="skipUplod()">Skip</button>-->
-                                          <!--</div>-->
                                   </div>
 
                                   <div class="col-md-4">
@@ -1151,12 +1150,15 @@
                                   </div>
                               </div>
                               <div class="row mt-2">
-                                  <div class="col-md-12">
-                                      <div class="proposal-buttom text-center w-100">
+                                  <div class="col-md-6">
+                                      <div class="proposal-buttom text-right w-100">
                                           <button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="proposal-buttom text-left w-100">
                                           <form action={{proposalNextList.payment_link}}  method='post' #form>
-                                            <!--<button mat-button color="warn" (click)="backAll()" >Back</button>-->
-                                            <button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>
+                                              <button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>
                                           </form>
                                       </div>
                                   </div>
