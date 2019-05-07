@@ -171,6 +171,7 @@ export class BikeShriramProposalComponent implements OnInit {
       previousPolicyNcb: '',
       policyClaim: '',
       previousdob:'',
+      previousPolicyTypeName:''
 
     });
 
@@ -445,6 +446,11 @@ export class BikeShriramProposalComponent implements OnInit {
                     this.previousInsure.controls['policyNilDescription'].setValidators(null);
                 }
             }
+    policyDetail(){
+            this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
+
+
+    }
         policyType() {
               const data = {
                 'platform': 'web',
