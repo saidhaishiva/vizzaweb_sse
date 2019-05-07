@@ -537,7 +537,7 @@
               </div>
             </section>
             <section *ngFor="let items of insuredFormData;  let i = index;">
-              <h5 class="mt-3 sub-title">{{items.RelationtoInsured | uppercase}} DETAILS </h5>
+              <h5 class="mt-3 sub-title"> INSURED DETAILS FOR {{items.RelationtoInsured | uppercase}}  </h5>
               <div class="row box-card">
                 <div class="col-md-12">
                 </div>
@@ -578,7 +578,7 @@
                     <div class="col-md-12">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Nominee name:</strong>{{nomineeFormData.nomineeFirstName}}</li>
-                        <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{nomineeFormData.nomineeRelationship}}</li>
+                        <li class="list-group-item"><strong>Relationship with Insured:</strong> {{nomineeFormData.nomineeRelationship}}</li>
                       </ul>
                     </div>
                   </div>
