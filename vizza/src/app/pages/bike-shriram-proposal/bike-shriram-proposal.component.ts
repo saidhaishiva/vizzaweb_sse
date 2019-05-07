@@ -196,7 +196,6 @@ export class BikeShriramProposalComponent implements OnInit {
          this.claimpercent();
          this.nomineeRelationShip();
          this.changehypothecationType();
-      this.vehical.controls['policyType'].patchValue('Renewal');
 
       this.sessionData();
   }
@@ -366,6 +365,8 @@ export class BikeShriramProposalComponent implements OnInit {
           if(this.proposer.valid) {
               // if(sessionStorage.bkShriramProposerAge >= 18){
                   stepper.next();
+              this.vehical.controls['proposalType'].patchValue('Renewal');
+
               // } else {
               //     this.toastr.error('Proposer age should be 18 or above');
               //

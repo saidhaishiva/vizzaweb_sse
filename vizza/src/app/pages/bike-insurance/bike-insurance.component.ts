@@ -73,8 +73,9 @@ export class BikeInsuranceComponent implements OnInit {
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
         const minDate = new Date();
         // this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate() + 365);
-        this.minDate = new Date(minDate.getFullYear()+ 1, minDate.getMonth(), minDate.getDate());
-        console.log(this.minDate,'  this.minDate  this.minDate');
+        this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+        const maxDate = new Date(minDate.getFullYear()+1, minDate.getMonth(), minDate.getDate());
+        console.log(maxDate,'  this.minDate  this.minDate');
         this.settings = this.appSettings.settings;
 
         this.bikeInsurance = this.fb.group({
@@ -176,6 +177,9 @@ export class BikeInsuranceComponent implements OnInit {
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
+            // if(this.minDate < event.value){
+            //
+            // }
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
@@ -183,13 +187,30 @@ export class BikeInsuranceComponent implements OnInit {
                 } else {
                     this.dobError = 'Enter Valid Date';
                 }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (selectedDate.length == 10) {
+                    let yearValid = this.yearCalculate(dob);
+                    console.log(yearValid,'987978');
+                }
+
             } else {
                 this.dobError = '';
             }
 
         }
     }
-
+    yearCalculate(dob) {
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
+    }
     // home bike
     bike(value){
         sessionStorage.enquiryFormData = JSON.stringify(value);
