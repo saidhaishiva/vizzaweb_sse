@@ -31,6 +31,8 @@ export class RelianceMotorProposalComponent implements OnInit {
   public perAddressList: any;
   public checkcomm: boolean;
   public checkperm: boolean;
+  public minDate: any;
+  public today: any;
 
 
   //dob
