@@ -527,6 +527,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 dob: ['', Validators.required],
                 gender: ['', Validators.compose([Validators.required])],
                 relationship: ['', Validators.required],
+                relationshipName: '',
                 insurerDobError: '',
                 insurerDobValidError: '',
                 passport: ['', Validators.compose([Validators.minLength(8)])],
@@ -1232,6 +1233,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].adharnumber.patchValue(this.religareTravel2.items[i].adharnumber);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].phone.patchValue(this.religareTravel2.items[i].phone);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.religareTravel2.items[i].ins_days);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].relationshipName.patchValue(this.religareTravel2.items[i].relationshipName);
 
             }
         }
