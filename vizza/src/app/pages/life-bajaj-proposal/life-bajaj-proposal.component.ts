@@ -1831,7 +1831,10 @@ samerelationShip(){
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
       console.log(this.nomineeDetailFormData,'dff');
 
+    } else {
+        this.toastr.error(successData.ErrorObject, 'Failed');
     }
+
   }
   public proposalFailure(error){
 

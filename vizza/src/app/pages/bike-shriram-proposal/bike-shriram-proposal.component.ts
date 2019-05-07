@@ -171,6 +171,7 @@ export class BikeShriramProposalComponent implements OnInit {
       previousPolicyNcb: '',
       policyClaim: '',
       previousdob:'',
+      previousPolicyTypeName:''
 
     });
 
@@ -196,7 +197,6 @@ export class BikeShriramProposalComponent implements OnInit {
          this.claimpercent();
          this.nomineeRelationShip();
          this.changehypothecationType();
-      this.vehical.controls['policyType'].patchValue('Renewal');
 
       this.sessionData();
   }
@@ -366,6 +366,8 @@ export class BikeShriramProposalComponent implements OnInit {
           if(this.proposer.valid) {
               // if(sessionStorage.bkShriramProposerAge >= 18){
                   stepper.next();
+              this.vehical.controls['proposalType'].patchValue('Renewal');
+
               // } else {
               //     this.toastr.error('Proposer age should be 18 or above');
               //
@@ -444,6 +446,11 @@ export class BikeShriramProposalComponent implements OnInit {
                     this.previousInsure.controls['policyNilDescription'].setValidators(null);
                 }
             }
+    policyDetail(){
+            this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
+
+
+    }
         policyType() {
               const data = {
                 'platform': 'web',
@@ -735,7 +742,6 @@ export class BikeShriramProposalComponent implements OnInit {
                 }
             }
             //sessionStorage.insuredAgePA = this.bikeProposerAge;
-
         }
     }
   previousInsureType() {

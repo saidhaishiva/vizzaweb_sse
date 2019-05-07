@@ -196,9 +196,9 @@
                                             </div>
                                         </div>
                                             <div class="row">
-                                               <h6 class="color-blue">OTHER ADDONS LIST</h6>
+                                               <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
                                             </div>
-                                        <div class="row" *ngIf="!policyTypeDetails">
+                                        <div class="row mt-2" *ngIf="!policyTypeDetails">
                                             <div class="col-md-6">
                                                 <mat-checkbox  formControlName="nilDepreciationCover">Nil Depreciation Cover(Bumper to Bumper)</mat-checkbox>
                                             </div>
@@ -288,7 +288,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                <mat-checkbox (change)="financeType($event)">Is vehical in finance</mat-checkbox>
+                                                <mat-checkbox (change)="financeType($event)">Is Vehicle in finance</mat-checkbox>
                                             </div>
                                             </div>
                                         <div class="row" *ngIf="finance">
@@ -379,7 +379,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" required autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" maxlength="20" required autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>
 
                                                 </mat-form-field>
@@ -411,14 +411,14 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy IDV"  formControlName="policySi" required (keypress)="numberValidate($event)" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy IDV" maxlength="7"  formControlName="policySi" required (keypress)="numberValidate($event)" autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policySi.errors?.required">PolicySi is required</mat-error>
 
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Previous policy Type"  formControlName="previousPolicyType"  required>
+                                                    <mat-select placeholder="Previous policy Type"  formControlName="previousPolicyType" (change)="policyDetail()"  required>
                                                         <mat-option *ngFor="let vehiclebk of policyTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="previousInsure.controls.previousPolicyType.errors?.required">Previous policy Type is required</mat-error>

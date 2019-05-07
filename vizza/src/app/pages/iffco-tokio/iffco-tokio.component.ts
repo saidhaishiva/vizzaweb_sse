@@ -201,6 +201,7 @@ export class IffcoTokioComponent implements OnInit {
             nomineeCity:  '',
             nomineeCityName:'',
         });
+        this.proposer.controls['typeAddress'].patchValue('P');
 
     }
 
