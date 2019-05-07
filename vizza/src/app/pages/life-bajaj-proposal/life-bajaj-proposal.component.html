@@ -1066,18 +1066,17 @@
         </mat-step>
 
           <mat-step [stepControl]="">
-              <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
+              <ng-template matStepLabel>PROPOSAL FORM DETAILS</ng-template>
               <mat-accordion class="mt-4 w-100 float-left">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
-                          <mat-panel-title>NOMINEE DETAILS
+                          <mat-panel-title>PROPOSAL FORM DETAILS
                           </mat-panel-title>
                       </mat-expansion-panel-header>
-                      <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
 
-                              <pdf-viewer src="https://balicuat.bajajallianz.com/combipdf/PdfCreator.jsp?applicationNo=1000000239"
+                            <pdf-viewer src="{{proposalNextList.proposal_form}}"
                                           [render-text]="true"
                                           style="display: block;"
 
@@ -1096,14 +1095,13 @@
           </mat-step>
 
           <mat-step [stepControl]="">
-              <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
+              <ng-template matStepLabel>DOCUMENTS DETAILS</ng-template>
               <mat-accordion class="mt-4 w-100 float-left">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
-                          <mat-panel-title>NOMINEE DETAILS
+                          <mat-panel-title>DOCUMENTS DETAILS
                           </mat-panel-title>
                       </mat-expansion-panel-header>
-                      <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
 
