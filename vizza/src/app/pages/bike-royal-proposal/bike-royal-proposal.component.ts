@@ -33,6 +33,7 @@ export const MY_FORMATS = {
 })
 export class BikeRoyalProposalComponent implements OnInit {
 public proposer: FormGroup;
+public vehical: FormGroup;
 public minDate: any;
 public settings: any;
 public webhost: any;
@@ -44,6 +45,8 @@ public pincodeList: any;
 public pincodeState: any;
 public pincodeCity: any;
 public stateList: any;
+public hypothecationTypeDetails: any;
+public hypothecationTypedm: any;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -78,7 +81,27 @@ public stateList: any;
       rcity: ['', Validators.required],
     });
 
+    this.vehical = this.fb.group({
+      vehicleMostlyDrivenOn: ['', Validators.required],
+      vehicleRegisteredName:'' ,
+      registrationchargesRoadtax: ['', Validators.required],
+      cover_elec_acc: '',
+      drivingExperience: '',
+      idv: '',
+      isTwoWheelerFinancedValue: '',
+      financierName: '',
+      paforUnnamed: '',
+      paforUnnamedSI: '',
+      hypothecationType: '',
+      hypothecationAddress1: '',
+      hypothecationAddress2: '',
+      hypothecationAddress3: '',
+      hypothecationAgreementNo: '',
+      antiTheft: '',
+      lltoPaidDriver: '',
+      addonPackage:'',
 
+    });
 
 
 
@@ -260,7 +283,64 @@ public stateList: any;
   proposerDetails(stepper: MatStepper,value){
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
+    stepper.next();
+
   }
+  // vehical details
+  vehicalDetails(stepper: MatStepper,value){
+
+  }
+  changehypothecation() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.bikeInsurance.getHypothecation(data).subscribe(
+        (successData) => {
+          this.hypothecationSuccess(successData);
+        },
+        (error) => {
+          this.hypothecationFailure(error);
+        }
+    );
+  }
+  public hypothecationSuccess(successData){
+    if (successData.IsSuccess) {
+      this.hypothecationTypedm = successData.ResponseObject;
+    }
+    console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+  }
+  public hypothecationFailure(error) {
+  }
+// hypo type
+  changehypothecationType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.bikeInsurance.getHypothecationType(data).subscribe(
+        (successData) => {
+          this.hypothecationTypeSuccess(successData);
+        },
+        (error) => {
+          this.hypothecationTypeFailure(error);
+        }
+    );
+  }
+  public hypothecationTypeSuccess(successData){
+    if (successData.IsSuccess) {
+      this.hypothecationTypeDetails = successData.ResponseObject;
+    }
+  }
+  public hypothecationTypeFailure(error) {
+  }
+
 //session Data
   sessionData(){
     if(sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {

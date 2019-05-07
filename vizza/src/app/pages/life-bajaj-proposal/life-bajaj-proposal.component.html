@@ -438,49 +438,49 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.department.errors?.required">Department is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.officeName.errors?.required">Office Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress1.errors?.required">Office Address1 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}">
+                          <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress2.errors?.required">Office Address2 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}">
+                          <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress3.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeDistrict.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off"  >
                           <mat-error *ngIf="proposer.controls.officeState.errors?.required">Office State is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Pincode"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="officePincode" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office Pincode"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="officePincode" autocomplete="off"   >
                           <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode Is Required</mat-error>
                           <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -488,7 +488,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.officeNumber.errors?.required">Office Number is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -1052,117 +1052,154 @@
               </div>
             </section>
               <p class="mt-2 pl-3" *ngIf="proposalGenStatus">
-                <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct.</mat-checkbox>
-                <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span>
+                <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>
               </p>
-              <hr >
+              <hr>
               <div class="col-md-12" *ngIf="proposalGenStatus">
                 <div class="proposal-buttom mb-3 text-center w-100">
                   <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext()">Next</button>
+                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>
                 </div>
               </div>
-              <div >
-                <pdf-viewer src="{{proposalFormPdf}}"
-                            [render-text]="true"
-                            style="display: block;"
-
-                ></pdf-viewer>
-                <hr>
-                <div class="col-md-12" *ngIf="proposalGenStatus == false && optGenStatus">
-                  <div class="proposal-buttom mb-3 text-center w-100">
-                    <button mat-raised-button color="primaryBlue" (click)="otpGen()">Next</button>
-                  </div>
-                </div>
-              </div>
-            <div class="row" *ngIf="optGenStatus == false && optValidStatus">
-              <div class="col-md-12 text-center w-100">
-                <mat-form-field class="w-50">
-                  <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
-                </mat-form-field>
-              </div>
-              <div class="col-md-12">
-                <div class="proposal-buttom mb-3 text-center w-100">
-                  <button mat-raised-button color="primaryBlue" (click)="otpVal()">Submit</button>
-                </div>
-              </div>
-            </div>
-
-            <div class="row" *ngIf="skipUploadStatus && optValidStatus == false">
-
-              <div class="col-md-12">
-                <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span></span>
-                <div class="proposal-buttom mb-3 text-left w-100">
-                  <button mat-button style="line-height: 28px;font-size: 11px;color:blue;" (click)="skipUplod()">Skip</button>
-                </div>
-              </div>
-
-              <div class="col-md-4">
-                <div class="text-center w-100">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
-                    <label class="custom-file-label"><span class="error">*</span> Upload Address Proof</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="text-center w-100">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >
-                    <label class="custom-file-label"><span class="error">*</span> Upload Age Proof</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="text-center w-100">
-                  <div class="custom-file">
-                    <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >
-                    <label class="custom-file-label"><span class="error">*</span> Upload ID Proof</label>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-12">
-                <div class="proposal-buttom mb-3 text-center w-100">
-                  <button mat-raised-button color="primaryBlue" (click)="onUploadFinished()">Upload</button>
-                </div>
-              </div>
-            </div>
-
-            <!--<div class="row" >-->
-              <!--<div class="col-md-4" >-->
-                    <!--<span class="imageclose mr-2" >-->
-                        <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                    <!--</span>-->
-              <!--</div>-->
-              <!--<div class="col-md-4" >-->
-                    <!--<span class="imageclose mr-2" >-->
-                        <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                    <!--</span>-->
-              <!--</div>-->
-              <!--<div class="col-md-4" >-->
-                    <!--<span class="imageclose mr-2" >-->
-                        <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                    <!--</span>-->
-              <!--</div>-->
-            <!--</div>-->
-
-
-
-            <div class="row" *ngIf="skipUploadStatus == false">
-              <div class="col-sm-12 col-xs-12 text-center">
-                <form action={{proposalNextList.payment_link}}  method='post' #form>
-                  <!--<button mat-button color="warn" (click)="backAll()" >Back</button>-->
-                  <button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>
-                </form>
-              </div>
-            </div>
-
-
 
           </section>
         </mat-step>
+
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel>PROPOSAL FORM DETAILS</ng-template>
+              <mat-accordion class="mt-4 w-100 float-left">
+                  <mat-expansion-panel expanded>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>PROPOSAL FORM DETAILS
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="row mt-3">
+                          <div class="col-md-12 box-card pt-3 pb-3" >
+
+                            <pdf-viewer src="{{proposalNextList.proposal_form}}"
+                                          [render-text]="true"
+                                          style="display: block;"
+
+                              ></pdf-viewer>
+
+                            <div class="col-md-12">
+                              <div class="proposal-buttom text-center w-100">
+                                <button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>
+                              </div>
+                            </div>
+
+                          </div>
+                      </div>
+                  </mat-expansion-panel>
+              </mat-accordion>
+          </mat-step>
+
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel>DOCUMENTS DETAILS</ng-template>
+              <mat-accordion class="mt-4 w-100 float-left">
+                  <mat-expansion-panel expanded>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>DOCUMENTS DETAILS
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <div class="row mt-3">
+                          <div class="col-md-12 box-card pt-3 pb-3" >
+
+                              <div class="row">
+
+                                  <div class="col-md-6">
+                                      <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
+                                        </span>
+                                      </p>
+                                  </div>
+                                  <div class="col-md-6 text-left">
+                                        <span>
+                                             <form action={{proposalNextList.payment_link}}  method='post' #form>
+                                                <button mat-raised-button color="primaryBlue" style="line-height: 28px;font-size: 13px;" (click)="form.submit()">Skip & Continue to Pay</button>
+                                              </form>
+                                        </span>
+                                  </div>
+
+                                  <div class="col-md-4">
+                                      <div class="text-center w-100">
+                                          <div class="custom-file">
+                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <label class="custom-file-label"> Upload Address Proof</label>
+                                          </div>
+                                      </div>
+                                      <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
+                                  </div>
+                                  <div class="col-md-4">
+                                      <div class="text-center w-100">
+                                          <div class="custom-file">
+                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <label class="custom-file-label"> Upload Age Proof</label>
+                                          </div>
+                                      </div>
+                                      <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
+
+                                  </div>
+                                  <div class="col-md-4">
+                                      <div class="text-center w-100">
+                                          <div class="custom-file">
+                                              <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                              <label class="custom-file-label"> Upload ID Proof</label>
+                                          </div>
+                                      </div>
+                                      <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
+                                  </div>
+                              </div>
+                              <div class="row mt-2">
+                                  <div class="col-md-6">
+                                      <div class="proposal-buttom text-right w-100">
+                                          <button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="proposal-buttom text-left w-100">
+                                          <form action={{proposalNextList.payment_link}}  method='post' #form>
+                                              <button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>
+                                          </form>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <!--<div class="row" >-->
+                              <!--<div class="col-md-4" >-->
+                              <!--<span class="imageclose mr-2" >-->
+                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
+                              <!--</span>-->
+                              <!--</div>-->
+                              <!--<div class="col-md-4" >-->
+                              <!--<span class="imageclose mr-2" >-->
+                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
+                              <!--</span>-->
+                              <!--</div>-->
+                              <!--<div class="col-md-4" >-->
+                              <!--<span class="imageclose mr-2" >-->
+                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
+                              <!--</span>-->
+                              <!--</div>-->
+                              <!--</div>-->
+
+
+
+                              <!--<div class="row mt-4" >-->
+                                  <!--<div class="col-sm-12 col-xs-12 text-center">-->
+                                      <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
+                                          <!--&lt;!&ndash;<button mat-button color="warn" (click)="backAll()" >Back</button>&ndash;&gt;-->
+                                          <!--<button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>-->
+                                      <!--</form>-->
+                                  <!--</div>-->
+                              <!--</div>-->
+
+                          </div>
+                      </div>
+                  </mat-expansion-panel>
+              </mat-accordion>
+          </mat-step>
+
+
       </mat-horizontal-stepper>
     </div>
   </div>

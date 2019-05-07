@@ -70,6 +70,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public apponiteeList: boolean;
   public electricalValid: boolean;
   public nonelectricalValid: boolean;
+  public policyTypeDetails: boolean;
   public paUnNamed: boolean;
   public pType: boolean;
   public proposerFormData : any;
@@ -114,6 +115,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.electricalValid = false;
     this.nonelectricalValid = false;
     this.paUnNamed = false;
+    this.policyTypeDetails = false;
 
     this.proposer = this.fb.group({
       title: ['', Validators.required],
@@ -136,7 +138,7 @@ export class BikeShriramProposalComponent implements OnInit {
       breakIn: '',
     });
     this.vehical = this.fb.group({
-      policyType: ['', Validators.required],
+      policyType: 'Renewal',
       proposalType:'' ,
       vehicleColour: ['', Validators.required],
       nilDepreciationCover: '',
@@ -169,6 +171,7 @@ export class BikeShriramProposalComponent implements OnInit {
       previousPolicyNcb: '',
       policyClaim: '',
       previousdob:'',
+      previousPolicyTypeName:''
 
     });
 
@@ -194,7 +197,8 @@ export class BikeShriramProposalComponent implements OnInit {
          this.claimpercent();
          this.nomineeRelationShip();
          this.changehypothecationType();
-         this.sessionData();
+
+      this.sessionData();
   }
 
 
@@ -287,7 +291,7 @@ export class BikeShriramProposalComponent implements OnInit {
               if (pin.length == 6) {
                 this.bikeInsurance.getPincodeList(data).subscribe(
                     (successData) => {
-                      this.pinProposerListSuccess(successData);
+                      this.pinProposerListSuccess(successData, pin);
                     },
                     (error) => {
                       this.pinProposerListFailure(error);
@@ -296,10 +300,14 @@ export class BikeShriramProposalComponent implements OnInit {
               }
             }
 
-            public pinProposerListSuccess(successData) {
+            public pinProposerListSuccess(successData, pin) {
               if (successData.IsSuccess) {
                 this.pincodeList = successData.ResponseObject;
-                console.log(this.pincodeList,'jhgfdghj');
+                console.log(pin,'jhgfdghj');
+                  if(pin.length == '' || pin.length == 0 || pin.length != 6){
+                      this.proposer.controls['state'].patchValue('');
+                      this.proposer.controls['city'].patchValue('');
+                  }
                 for(let key in this.pincodeList.state) {
                     this.pincodeState = key;
                     console.log(key);
@@ -322,6 +330,7 @@ export class BikeShriramProposalComponent implements OnInit {
                   this.toastr.error(successData.ErrorObject);
                   this.proposer.controls['state'].patchValue('');
                   this.proposer.controls['city'].patchValue('');
+
               }
         }
 
@@ -357,6 +366,8 @@ export class BikeShriramProposalComponent implements OnInit {
           if(this.proposer.valid) {
               // if(sessionStorage.bkShriramProposerAge >= 18){
                   stepper.next();
+              this.vehical.controls['proposalType'].patchValue('Renewal');
+
               // } else {
               //     this.toastr.error('Proposer age should be 18 or above');
               //
@@ -435,6 +446,11 @@ export class BikeShriramProposalComponent implements OnInit {
                     this.previousInsure.controls['policyNilDescription'].setValidators(null);
                 }
             }
+    policyDetail(){
+            this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
+
+
+    }
         policyType() {
               const data = {
                 'platform': 'web',
@@ -657,7 +673,13 @@ export class BikeShriramProposalComponent implements OnInit {
     }
   }
     selectPolicy(){
+        // MOT-PLT-002
+        if( this.vehical.controls['policyType'].value == 'MOT-PLT-002'){
+            this.policyTypeDetails = true;
+        } else {
+            this.policyTypeDetails = false;
 
+        }
     }
   // NEXT BUTTON
           vehicalDetails(stepper: MatStepper, value){
@@ -795,8 +817,11 @@ export class BikeShriramProposalComponent implements OnInit {
               if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
                   this.proposal(stepper);
               } else {
-                  this.toastr.success('Please fill the appointee details');
-
+                  if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
+                      this.proposal(stepper);
+                  }   else {
+                      this.toastr.error('Please fill the appointee details');
+                  }
               }
           }
 

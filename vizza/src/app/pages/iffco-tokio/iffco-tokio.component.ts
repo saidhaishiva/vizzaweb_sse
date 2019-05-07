@@ -201,6 +201,7 @@ export class IffcoTokioComponent implements OnInit {
             nomineeCity:  '',
             nomineeCityName:'',
         });
+        this.proposer.controls['typeAddress'].patchValue('P');
 
     }
 
@@ -422,6 +423,7 @@ export class IffcoTokioComponent implements OnInit {
     public cityListSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.cityDetails = successData.ResponseObject;
+            sessionStorage.cityDetails = JSON.stringify(this.cityDetails);
 
         }
     }
@@ -476,6 +478,7 @@ export class IffcoTokioComponent implements OnInit {
     public nomineecityListSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.nomineecityDetails = successData.ResponseObject;
+            sessionStorage.nomineecityDetails = JSON.stringify(this.nomineecityDetails);
             console.log(this.nomineecityDetails,' this.nomineecityDetails');
         }
     }
@@ -743,6 +746,24 @@ export class IffcoTokioComponent implements OnInit {
         if (this.proposer.valid) {
             if (sessionStorage.proposerAgeiffco >= 18 && sessionStorage.proposerAgeiffco <= 55) {
                 stepper.next();
+                this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
+                this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
+                this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value)
+                this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
+                this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAgeiffco);
+                this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue(this.proposer.controls['proposerOccupation'].value);
+                this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
+                this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('Self');
+                // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.proposer.controls['sameas'].value);
+
+                let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
+                this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
+
+                if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
+                    this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('Age between 18 to 55');
+                } else {
+                    this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
+                }
                 this.topScroll();
                 this.nextStep();
             } else {
@@ -980,7 +1001,7 @@ export class IffcoTokioComponent implements OnInit {
         this.nomineeDetails.controls['nomineeStateName'].patchValue(this.stateDetails[this.nomineeDetails.controls['nomineeState'].value]);
     }
     cityListname(){
-        this.nomineeDetails.controls['nomineeCityName'].patchValue(this.cityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
+        this.nomineeDetails.controls['nomineeCityName'].patchValue(this.nomineecityDetails[this.nomineeDetails.controls['nomineeCity'].value]);
     }
     public objectToXml(xmlData){
         var xml = '';
@@ -1015,7 +1036,10 @@ export class IffcoTokioComponent implements OnInit {
 
     sessionData() {
         console.log('inside');
-        if (sessionStorage.stepper1IffcoDetails != '' && sessionStorage.stepper1IffcoDetails != undefined) {
+            if (sessionStorage.cityDetails != '' && sessionStorage.cityDetails != undefined) {
+                this.cityDetails = JSON.parse(sessionStorage.cityDetails);
+            }
+            if (sessionStorage.stepper1IffcoDetails != '' && sessionStorage.stepper1IffcoDetails != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1IffcoDetails);
             this.proposer.patchValue({
                 proposerTitle: this.getStepper1.proposerTitle,
@@ -1089,7 +1113,9 @@ export class IffcoTokioComponent implements OnInit {
             }
         }
 
-
+        if (sessionStorage.nomineecityDetails != '' && sessionStorage.nomineecityDetails != undefined) {
+            this.nomineecityDetails = JSON.parse(sessionStorage.nomineecityDetails);
+        }
         if (sessionStorage.nomineeData1 != '' && sessionStorage.nomineeData1 != undefined) {
             this.getNomineeData = JSON.parse(sessionStorage.nomineeData1);
             this.nomineeDetails = this.fb.group({
