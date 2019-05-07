@@ -269,6 +269,7 @@ import {LifeDocuments} from './pages/life-bajaj-proposal/life-bajaj-proposal.com
 import { DownloadPolicyTravelReligareComponent } from './pages/download-policy-travel-religare/download-policy-travel-religare.component';
 import { CholaHealthProposalComponent } from './pages/chola-health-proposal/chola-health-proposal.component';
 import { RelianceMotorProposalComponent } from './pages/reliance-motor-proposal/reliance-motor-proposal.component';
+import {BajajLifeOpt} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
 
 @NgModule({
     imports: [
@@ -496,7 +497,8 @@ import { RelianceMotorProposalComponent } from './pages/reliance-motor-proposal/
         LifeDocuments,
         DownloadPolicyTravelReligareComponent,
         CholaHealthProposalComponent,
-        RelianceMotorProposalComponent
+        RelianceMotorProposalComponent,
+        BajajLifeOpt
 
     ],
     providers: [
@@ -546,7 +548,7 @@ import { RelianceMotorProposalComponent } from './pages/reliance-motor-proposal/
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage,DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,BajajLifeOpt
     ]
 })
 export class AppModule { }
