@@ -742,7 +742,6 @@ export class BikeShriramProposalComponent implements OnInit {
                 }
             }
             //sessionStorage.insuredAgePA = this.bikeProposerAge;
-
         }
     }
   previousInsureType() {
