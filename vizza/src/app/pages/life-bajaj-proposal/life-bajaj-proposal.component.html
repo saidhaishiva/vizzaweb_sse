@@ -438,49 +438,49 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.department.errors?.required">Department is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.officeName.errors?.required">Office Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Address1" formControlName="officeAddress1"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress1.errors?.required">Office Address1 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}">
+                          <input matInput placeholder="Office Address2" formControlName="officeAddress2"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress2.errors?.required">Office Address2 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}">
+                          <input matInput placeholder="Office Address3" formControlName="officeAddress3"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeAddress3.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeDistrict.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off"  >
                           <mat-error *ngIf="proposer.controls.officeState.errors?.required">Office State is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Pincode"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="officePincode" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}"  >
+                          <input matInput placeholder="Office Pincode"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="officePincode" autocomplete="off"   >
                           <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode Is Required</mat-error>
                           <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -488,7 +488,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off" required="{{proposer['controls'].occupationList.value != 'B' || proposer['controls'].occupationList.value != 'SG' || proposer['controls'].occupationList.value != 'SN' }}" >
+                          <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.officeNumber.errors?.required">Office Number is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -1066,24 +1066,27 @@
         </mat-step>
 
           <mat-step [stepControl]="">
-              <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
+              <ng-template matStepLabel>PROPOSAL FORM DETAILS</ng-template>
               <mat-accordion class="mt-4 w-100 float-left">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
-                          <mat-panel-title>NOMINEE DETAILS
+                          <mat-panel-title>PROPOSAL FORM DETAILS
                           </mat-panel-title>
                       </mat-expansion-panel-header>
-                      <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
 
-                              <pdf-viewer src="{{proposalNextList.proposal_form}}"
+                            <pdf-viewer src="{{proposalNextList.proposal_form}}"
                                           [render-text]="true"
                                           style="display: block;"
 
                               ></pdf-viewer>
 
-
+                            <div class="col-md-12">
+                              <div class="proposal-buttom text-center w-100">
+                                <button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>
+                              </div>
+                            </div>
 
                           </div>
                       </div>
@@ -1092,14 +1095,13 @@
           </mat-step>
 
           <mat-step [stepControl]="">
-              <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
+              <ng-template matStepLabel>DOCUMENTS DETAILS</ng-template>
               <mat-accordion class="mt-4 w-100 float-left">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
-                          <mat-panel-title>NOMINEE DETAILS
+                          <mat-panel-title>DOCUMENTS DETAILS
                           </mat-panel-title>
                       </mat-expansion-panel-header>
-                      <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
                       <div class="row mt-3">
                           <div class="col-md-12 box-card pt-3 pb-3" >
 
@@ -1180,14 +1182,14 @@
 
 
 
-                              <div class="row mt-4" >
-                                  <div class="col-sm-12 col-xs-12 text-center">
-                                      <form action={{proposalNextList.payment_link}}  method='post' #form>
-                                          <!--<button mat-button color="warn" (click)="backAll()" >Back</button>-->
-                                          <button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>
-                                      </form>
-                                  </div>
-                              </div>
+                              <!--<div class="row mt-4" >-->
+                                  <!--<div class="col-sm-12 col-xs-12 text-center">-->
+                                      <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
+                                          <!--&lt;!&ndash;<button mat-button color="warn" (click)="backAll()" >Back</button>&ndash;&gt;-->
+                                          <!--<button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>-->
+                                      <!--</form>-->
+                                  <!--</div>-->
+                              <!--</div>-->
 
                           </div>
                       </div>

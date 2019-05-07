@@ -710,8 +710,15 @@ export class LifeBajajProposalComponent implements OnInit {
     console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       if(sessionStorage.bajajproposerAge >= 18){
-        stepper.next();
-        this.topScroll();
+
+        if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
+        {
+          this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
+        }else {
+          stepper.next();
+          this.topScroll();
+        }
+
       } else {
           this.toastr.error('Proposer age should be greater than equal to 18');
 
@@ -761,6 +768,7 @@ samerelationShip(){
     console.log(sessionStorage.lifeBajajBankDetails, 'session');
     if (this.bankDetail.valid) {
       stepper.next();
+      this.topScroll();
     } else {
       this.toastr.error('error');
     }
@@ -1285,6 +1293,7 @@ samerelationShip(){
       this.settings.loadingSpinner = false;
       if (successData.IsSuccess) {
           stepper.next();
+          this.topScroll();
           this.proposalGenStatus = false;
           this.proposalNextList = successData.ResponseObject;
           this.proposalFormPdf = this.proposalNextList.proposal_form;
@@ -1593,8 +1602,16 @@ samerelationShip(){
   }
 
   occupationListCode() {
-    this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
-    this.getIncomeProof();
+
+      if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
+      {
+        this.toastr.error('Sorry, you are not allowed to purchase policy ');
+      }else {
+        this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
+        this.getIncomeProof();
+      }
+
+
 
   }
 
@@ -1802,6 +1819,7 @@ samerelationShip(){
 
     if(successData.IsSuccess){
       stepper.next();
+      this.topScroll();
       this.toastr.success('Proposal created successfully!!');
      this.summaryData = successData.ResponseObject;
      this.requestedUrl =this.summaryData.biUrlLink;
@@ -2125,6 +2143,10 @@ samerelationShip(){
     skipUplod(){
       this.skipUploadStatus = false;
     }
+  nextDocUpload(stepper) {
+    stepper.next();
+    this.topScroll();
+  }
 
 }
 
@@ -2222,6 +2244,10 @@ export class BajajLifeOpt {
         this.otpCode = '';
 
     }
+  // // Number validation
+  // numberValidate(event: any) {
+  //   this.validation.numberValidate(event);
+  // }
 
     onNoClick(): void {
         this.dialogRef.close(true);
@@ -2258,7 +2284,9 @@ export class BajajLifeOpt {
     public otpValidationListFailure(error) {
     }
 
-
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
+    }
 }
 
 
