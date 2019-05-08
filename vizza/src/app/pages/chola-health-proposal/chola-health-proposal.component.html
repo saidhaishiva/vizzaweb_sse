@@ -48,18 +48,18 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="selectMarital()"   class="w-100">
-                              <!--<mat-option *ngFor="let status of Marital | keys" [value]= 'status.key'> {{status.value}} </mat-option>-->
+                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
+                              <mat-option *ngFor="let list of maritalStatusList | keys" [value]= list.key> {{list.value}} </mat-option>
                             </mat-select>
-                            <!--<mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>-->
+                            <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Occupation" formControlName="occupation"  (change)="selectOccupation()" class="w-100">
-                              <!--<mat-option *ngFor="let list of PersonalOccupation | keys " value ='{{list.key}}' [hidden]="travelUserType && list.key == '36'"> {{list.value}} </mat-option>-->
+                            <mat-select placeholder="Occupation" formControlName="occupation" (change)="occupationListCode()"required>
+                              <mat-option *ngFor="let list of occupationList | keys" [value]="list.key">{{list.value}}</mat-option>
                             </mat-select>
-                            <!--<mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>-->
+                            <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
@@ -133,16 +133,16 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code" formControlName="personalPincode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"  minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalP')" autocomplete="off" >
-                            <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-                            <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>-->
-                            <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
+                            <input matInput placeholder="PIN Code" formControlName="personalPincode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"  minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" autocomplete="off" >
+                            <mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                            <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
+                            <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field  class="w-100">
                             <input matInput placeholder="City" formControlName="personalCity" autocomplete="off" (keypress)="nameValidate($event)"   readonly>
-                            <!--<mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>-->
+                            <mat-error *ngIf="personal.controls.personalCity.errors?.required">City is required</mat-error>
                           </mat-form-field>
                         </div>
 
@@ -206,11 +206,11 @@
                           </div>
                           <div class="col-md-3"><mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="personalrelationship" >
-                              <!--<mat-option *ngFor="let relationship of insureRelationList | keys" value="{{relationship.key}}" >-->
-                                <!--{{relationship.value}}-->
-                              <!--</mat-option>-->
+                              <mat-option *ngFor="let relationship of insureRelationList | keys" value="{{relationship.key}}" >
+                                {{relationship.value}}
+                              </mat-option>
                             </mat-select>
-                            <!--<mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>-->
+                            <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                           </mat-form-field></div>
 
                           <div class="col-md-3">
