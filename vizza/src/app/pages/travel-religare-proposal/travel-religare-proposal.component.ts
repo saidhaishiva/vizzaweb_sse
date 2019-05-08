@@ -106,6 +106,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public placeOfVisit: any;
     public RiskData :any;
     public diseaseFieldView :any;
+    public sponserRelationList :any;
 
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public route: ActivatedRoute,
@@ -210,6 +211,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.insureReligareArray['controls'].items['controls'][i]['controls'].type.patchValue(this.insureReligarePerson[i].type);
         }
         this.RelationShipListTravel();
+        this.sponserRelationship();
         if (sessionStorage.ReligareTravelDetails3 == '' || sessionStorage.ReligareTravelDetails3 == undefined) {
             this.religareTravelQuestions();
         }
@@ -302,7 +304,8 @@ export class ReliagretravelproposalComponent implements OnInit {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            "type": "self"
         };
         this.travelservice.religareTravelRelationshipList(data).subscribe(
             (successData) => {
@@ -321,6 +324,32 @@ export class ReliagretravelproposalComponent implements OnInit {
     }
 
     public relationShipFailure(error) {
+    }
+
+    sponserRelationship() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            "type": "sponser"
+        };
+        this.travelservice.religareTravelRelationshipList(data).subscribe(
+            (successData) => {
+                this.sponserRelationShipSuccess(successData);
+            },
+            (error) => {
+                this.sponserRelationFailure(error);
+            }
+        );
+    }
+    public sponserRelationShipSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.sponserRelationList = successData.ResponseObject;
+
+        }
+    }
+    public sponserRelationFailure(error) {
     }
 
     // postal code in religareproposal
@@ -392,7 +421,10 @@ export class ReliagretravelproposalComponent implements OnInit {
         // this.religarePersonal.controls['rcityName'].patchValue(this.residenceCitys[this.religarePersonal.controls['rcity'].value]);
     }
     insureTravelRelationListName(i) {
-        this.insureReligareArray['controls'].items['controls'][i]['controls'].relationshipName.patchValue(this.insuretravelRelationList[this.insureReligareArray['controls'].items['controls'][i]['controls'].relationship]);
+        console.log(i, 'innn');
+        console.log(this.insureReligareArray['controls'].items['controls'][i]['controls'].relationship.value, 'ffff');
+        console.log(this.insuretravelRelationList, 'insuretravelRelationList');
+        this.insureReligareArray['controls'].items['controls'][i]['controls'].relationshipName.patchValue(this.insuretravelRelationList[this.insureReligareArray['controls'].items['controls'][i]['controls'].relationship.value]);
 
     }
 
@@ -690,7 +722,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.insureReligareArray['controls'].items['controls'][0]['controls'].adharnumber.patchValue(this.religarePersonal.controls['adharnumber'].value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].phone.patchValue(this.religarePersonal.controls['phone'].value);
 
-            this.insureReligareArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuretravelRelationList[this.insureReligareArray.controls['relationship'].value]);
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuretravelRelationList['SELF']);
 
         } else {
             this.insureReligareArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);

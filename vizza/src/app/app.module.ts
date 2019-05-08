@@ -268,6 +268,7 @@ import {TravelBajajalianzProposalComponent} from './pages/travel-bajajalianz-pro
 import {LifeDocuments} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
 import { DownloadPolicyTravelReligareComponent } from './pages/download-policy-travel-religare/download-policy-travel-religare.component';
 import { CholaHealthProposalComponent } from './pages/chola-health-proposal/chola-health-proposal.component';
+import { RelianceMotorProposalComponent } from './pages/reliance-motor-proposal/reliance-motor-proposal.component';
 import {BajajLifeOpt} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
 
 @NgModule({
@@ -496,6 +497,7 @@ import {BajajLifeOpt} from './pages/life-bajaj-proposal/life-bajaj-proposal.comp
         LifeDocuments,
         DownloadPolicyTravelReligareComponent,
         CholaHealthProposalComponent,
+        RelianceMotorProposalComponent,
         BajajLifeOpt
 
     ],

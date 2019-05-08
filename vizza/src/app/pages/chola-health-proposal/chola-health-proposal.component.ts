@@ -58,6 +58,9 @@ export class CholaHealthProposalComponent implements OnInit {
   public agecal: any;
   public getAge: any;
   public getDays: any;
+  public personalAge: any;
+  public dobError: any;
+  public sameValue: any;
   constructor(public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService ) {
 
     const minDate = new Date();
@@ -90,8 +93,8 @@ export class CholaHealthProposalComponent implements OnInit {
       personalIsdn: '',
       });
     this.nomineeDetails = this.fb.group({
-      nomineeName:'',
-      nomineeRelationship:'',
+      nomineeName: '',
+      nomineeRelationship: '',
     });
   }
 
@@ -126,18 +129,18 @@ export class CholaHealthProposalComponent implements OnInit {
     this.topScroll();
     this.prevStep();
   }
-  nameValidate(event: any){
+  nameValidate(event: any) {
     this.validation.nameValidate(event);
   }
   // Dob validation
-  dobValidate(event: any){
+  dobValidate(event: any) {
     this.validation.dobValidate(event);
   }
   // Number validation
-  numberValidate(event: any){
+  numberValidate(event: any) {
     this.validation.numberValidate(event);
   }
-  idValidate(event: any){
+  idValidate(event: any) {
     this.validation.idValidate(event);
   }
   topScroll() {
@@ -166,12 +169,50 @@ export class CholaHealthProposalComponent implements OnInit {
         }
     );
   }
+
+  addEvent(event, type) {
+    this.maxDate = '';
+    if (event.value != null) {
+      let selectedDate = '';
+      let dob_days = '';
+      this.personalAge = '';
+      let dob = '';
+      dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+
+        selectedDate = event.value._i;
+        console.log(selectedDate, 'selectedDate');
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (selectedDate.length == 10) {
+          if (type == 'proposer') {
+            this.personalAge = this.ageCalculate(dob);
+            sessionStorage.personalAge = this.personalAge;
+          } else if (type == 'sDate') {
+            console.log('inst');
+            this.maxDate = event.value;
+          }
+        }
+      } else if (typeof event.value._i == 'object') {
+        dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (dob.length == 10) {
+          if (type == 'proposer') {
+            this.personalAge = this.ageCalculate(dob);
+            sessionStorage.personalAge = this.personalAge;
+          }
+        }
+        this.dobError = '';
+
+      }
+    }
+  }
   // insured dob
   addEventInsurer(event,  i, type, name) {
     if (event.value != null) {
       let selectedDate = '';
       let dob = '';
       let dob_days = '';
+      this.personalAge = '';
       let getAge;
       let getDays;
       dob = this.datepipe.transform(event.value, 'y-MM-dd');
@@ -346,30 +387,15 @@ export class CholaHealthProposalComponent implements OnInit {
     sessionStorage.stepper1Details = '';
     sessionStorage.stepper1Details = JSON.stringify(value);
     if (this.personal.valid) {
-      // if (sessionStorage.personalAge >= 18) {
-      //   if (this.mobileNumber == '' || this.mobileNumber == 'true'){
-      //
-      //     if(this.personal.controls['serviceTax'].value == 'No') {
-      //       this.personal.controls['ServicesTaxId'].patchValue('');
-      //       this.taxRequired = '';
-      //       stepper.next();
-      //       this.topScroll();
-      //       this.nextStep();
-      //     } else {
-      //       if(this.personal.controls['ServicesTaxId'].value != '') {
-      //         this.taxRequired = '';
+       if (sessionStorage.personalAge >= 18) {
+           if (this.mobileNumber == '' || this.mobileNumber == 'true'){
               stepper.next();
               this.topScroll();
               this.nextStep();
-      //       } else {
-      //         this.taxRequired = 'Services Tax is required';
-      //       }
-      //     }
-      //   }
-      //
-      // } else {
-      //   this.toastr.error('Proposer age should be 18 or above');
-      // }
+           }
+       } else {
+       this.toastr.error('Proposer age should be 18 or above');
+      }
     }
   }
   //Insure Details
@@ -473,10 +499,15 @@ export class CholaHealthProposalComponent implements OnInit {
     }
 
   }
-  sameProposer() {
+ sameAsInsure(i) {
+  // if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
+  //       this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = 'Age between 18 to 55';
+  //     } else {
+  //       this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = '';
+  //     }
     if (this.insureArray['controls'].items['controls'][0]['controls'].sameAsProposer.value) {
 
-      this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
+      // this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
 
       this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['proposerFirstname'].value);
 
@@ -490,11 +521,11 @@ export class CholaHealthProposalComponent implements OnInit {
       this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipName.patchValue(this.relationshipList['1']);
 
 
-      if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
-        this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = 'Age between 18 to 55';
-      } else {
-        this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = '';
-      }
+      // if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
+      //   this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = 'Age between 18 to 55';
+      // } else {
+      //   this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = '';
+      // }
 
     } else {
 
