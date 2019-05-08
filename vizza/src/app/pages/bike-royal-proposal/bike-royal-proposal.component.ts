@@ -34,6 +34,8 @@ export const MY_FORMATS = {
 export class BikeRoyalProposalComponent implements OnInit {
 public proposer: FormGroup;
 public vehical: FormGroup;
+public previousInsure: FormGroup;
+public nomineeDetail: FormGroup;
 public minDate: any;
 public settings: any;
 public webhost: any;
@@ -47,6 +49,10 @@ public pincodeCity: any;
 public stateList: any;
 public hypothecationTypeDetails: any;
 public hypothecationTypedm: any;
+public previousList: any;
+public drivenList: any;
+public nomineeRelation: any;
+public apponiteeList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -85,31 +91,55 @@ public hypothecationTypedm: any;
       vehicleMostlyDrivenOn: ['', Validators.required],
       vehicleRegisteredName:'' ,
       registrationchargesRoadtax: ['', Validators.required],
-      cover_elec_acc: '',
+      coverelectricalaccesss: '',
       drivingExperience: '',
       idv: '',
       isTwoWheelerFinancedValue: '',
       financierName: '',
-      paforUnnamed: '',
-      paforUnnamedSI: '',
+      fuelType: '',
+      isTwoWheelerFinanced: '',
       hypothecationType: '',
-      hypothecationAddress1: '',
+        hypothecationBankName: '',
       hypothecationAddress2: '',
       hypothecationAddress3: '',
-      hypothecationAgreementNo: '',
-      antiTheft: '',
-      lltoPaidDriver: '',
-      addonPackage:'',
+        noncoverelectricalaccesss: '',
+        vechileOwnerShipChanged: '',
+        claimsMadeInPreviousPolicy: '',
+        noClaimBonusPercent: '',
+        ncbcurrent: '',
+        claimAmountReceived: '',
+        claimsReported: '',
+        idvFor2Year: '',
+        idvFor3Year: '',
 
     });
 
+    this.previousInsure = this.fb.group({
+      policyNumber: '',
+      previousInsured: '',
+      previousdob:'',
+      isPreviousPolicyHolder:''
 
-
+    });
+      this.nomineeDetail = this.fb.group({
+          nomineeName: '',
+          nomineeAge: '',
+          nomineeRelationship: '',
+          appointeeName: '',
+          appointeeRelationship: ''
+      });
   }
+
+
+
   ngOnInit() {
     this.title();
     this.getOccupation();
     this.sessionData();
+    this.changehypothecation();
+    this.changehypothecationType();
+    this.changePreviousInsureType();
+    this.getVehicalMostly();
   }
   // validation
 
@@ -181,6 +211,29 @@ public hypothecationTypedm: any;
     }
   }
   public occupationFailure(error){
+  }
+  //
+  getVehicalMostly(){
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.bikeInsurance.getvehicelList(data).subscribe(
+        (successData) => {
+          this.drivenSuccess(successData);
+        },
+        (error) => {
+          this.drivenFailure(error);
+        }
+    );
+  }
+  public drivenSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.drivenList = successData.ResponseObject;
+    }
+  }
+  public drivenFailure(error){
   }
   // pincode
   getPostalCode(pin) {
@@ -288,6 +341,7 @@ public hypothecationTypedm: any;
   }
   // vehical details
   vehicalDetails(stepper: MatStepper,value){
+    stepper.next();
 
   }
   changehypothecation() {
@@ -341,6 +395,91 @@ public hypothecationTypedm: any;
   public hypothecationTypeFailure(error) {
   }
 
+
+  // third page
+
+  changePreviousInsureType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.bikeInsurance.getPreviousLists(data).subscribe(
+        (successData) => {
+          this.previousInsureTypeSuccess(successData);
+        },
+        (error) => {
+          this.previousInsureTypeFailure(error);
+        }
+    );
+  }
+  public previousInsureTypeSuccess(successData){
+    if (successData.IsSuccess) {
+      this.previousList = successData.ResponseObject;
+    }
+  }
+  public previousInsureTypeFailure(error) {
+  }
+   // next
+    previousDetails(stepper: MatStepper,value){
+        stepper.next();
+
+    }
+
+
+    // fourth page
+
+    ageNominee(){
+        if(this.nomineeDetail.controls['nomineeAge'].value <= 17){
+            this.apponiteeList = true;
+        }  else{
+            this.apponiteeList = false;
+
+        }
+    }
+    //RELATIONSHIP
+    nomineeRelationShip(){
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.bikeInsurance.getNomineeRelationship(data).subscribe(
+            (successData) => {
+                this.nomineeRelationSuccess(successData);
+            },
+            (error) => {
+                this.nomineeRelationFailure(error);
+            }
+        );
+    }
+    public nomineeRelationSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.nomineeRelation = successData.ResponseObject;
+            console.log(this.nomineeRelation, 'this.nomineeRelation');
+        }
+    }
+    public nomineeRelationFailure(error){
+    }
+
+    nomineeDetails(stepper: MatStepper, value){
+        sessionStorage.stepper4 = '';
+        sessionStorage.stepper4 = JSON.stringify(value);
+        // if(this.nomineeDetail.valid){
+        //     if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
+        //         this.proposal(stepper);
+        //     } else {
+        //         if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
+        //             this.proposal(stepper);
+        //         }   else {
+        //             this.toastr.error('Please fill the appointee details');
+        //         }
+        //     }
+        // }
+
+    }
 //session Data
   sessionData(){
     if(sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
