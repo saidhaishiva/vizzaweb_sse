@@ -9,6 +9,7 @@ import {DatePipe} from '@angular/common';
 import * as moment from 'moment';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import {HealthService} from '../../shared/services/health.service';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -61,7 +62,9 @@ export class CholaHealthProposalComponent implements OnInit {
   public personalAge: any;
   public dobError: any;
   public sameValue: any;
-  constructor(public fb: FormBuilder, public auth: AuthService, public http: HttpClient, public datepipe: DatePipe, public validation: ValidationService, private toastr: ToastrService ) {
+  public maritalDetail: any;
+  public pincodeList: any;
+  constructor(public fb: FormBuilder, public authservice: AuthService, public http: HttpClient, public datepipe: DatePipe, public validation: ValidationService, public termService: HealthService, private toastr: ToastrService ) {
 
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -78,7 +81,9 @@ export class CholaHealthProposalComponent implements OnInit {
       personalDob: ['', Validators.compose([Validators.required])],
       personalGender: ['', Validators.compose([Validators.required])],
       maritalStatus: '',
+      maritalStatusName: '',
       occupation: '',
+      occupationName: '',
       personalIncome: '',
       personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       personalMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
@@ -429,6 +434,8 @@ export class CholaHealthProposalComponent implements OnInit {
         personalDob: this.datepipe.transform(this.getStepper1.personalDob, 'y-MM-dd'),
         personalGender: this.getStepper1.personalGender,
         maritalStatus: this.getStepper1.maritalStatus,
+        maritalStatusName: this.getStepper1.maritalStatusName,
+        occupationName: this.getStepper1.occupationName,
         occupation: this.getStepper1.occupation,
         personalIncome: this.getStepper1.personalIncome,
         personalEmail: this.getStepper1.personalEmail,
@@ -509,12 +516,12 @@ export class CholaHealthProposalComponent implements OnInit {
 
       // this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
 
-      this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['proposerFirstname'].value);
+      this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
 
-      this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['proposerLastname'].value);
-      this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['proposerDob'].value);
+      this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
+      this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
 
-      this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['proposerGender'].value);
+      this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
 
       this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('1');
 
@@ -541,8 +548,62 @@ export class CholaHealthProposalComponent implements OnInit {
 
     }
 
-
-
   }
+    getPostal(pin, title) {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pincode': pin
+        }
+        if (pin.length == 6) {
+            this.termService.getCheckpincodeChola(data).subscribe(
+                (successData) => {
+                    this.pincodeListSuccess(successData, title);
+                },
+                (error) => {
+                    this.pincodeListFailure(error);
+                }
+            );
+        }
+    }
+    public pincodeListSuccess(successData, title) {
+        if (successData.IsSuccess) {
+            this.pincodeList = successData.ResponseObject;
+            if(title == 'personal') {
+                this.personal.controls['personalCity'].setValue(this.pincodeList.personalCity);
+                // this.personal.controls['state'].setValue(this.pincodeList.state);
+            }
+            // else {
+            //     this.personal.controls['rcity'].setValue(this.pincodeList.rcity);
+            //     this.personal.controls['rstate'].setValue(this.pincodeList.rstate);
+            // }
+            console.log(this.pincodeList, 'pro');
+        } else {
+            this.toastr.error('In valid Pincode');
+            if(title == 'personal') {
+                this.personal.controls['city'].setValue('');
+                // this.personal.controls['state'].setValue('');
+            }
+            // else {
+            //     this.personal.controls['rcity'].setValue('');
+            //     this.personal.controls['rstate'].setValue('');
+            // }
+
+        }
+    }
+
+    public pincodeListFailure(error) {
+    }
+    //Summary residence detail
+
+    changeMarital() {
+        this.personal.controls['maritalStatusName'].patchValue(this.maritalDetail[this.personal.controls['maritalStatus'].value]);
+
+    }
+    occupationListCode() {
+        this.personal.controls['occupationName'].patchValue(this.maritalDetail[this.personal.controls['occupation'].value]);
+
+    }
 
 }
