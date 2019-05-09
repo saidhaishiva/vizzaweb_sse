@@ -142,9 +142,16 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNum"  autocomplete="off" required>
+                        <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNum"  autocomplete="off" >
                         <mat-error *ngIf="proposer.controls.aadharNum.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
                       </mat-form-field></div>
+                      <div class="col-md-3" >
+                        <mat-form-field class="w-100"  >
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" required formControlName="panNum"  (keypress)="idValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="proposer.controls.panNum.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                          <mat-error *ngIf="proposer.controls.panNum.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+                        </mat-form-field>
+                      </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Language" formControlName="language" (change)="changeLanguage()" required  class="w-100">
@@ -247,7 +254,7 @@
                           <mat-radio-button value="N">No</mat-radio-button>
                         </mat-radio-group>
                       </div>
-                      <div class="col-md-3" *ngIf="politicalDetails">
+                      <div class="col-md-3" *ngIf="proposer.controls['politicallyExposedPerson'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="If Yes Give Details" formControlName="ifYesGiveDetails" class="nospace"  maxlength="45" autocomplete="off">
                         </mat-form-field>
@@ -547,74 +554,6 @@
             </form>
           </mat-accordion>
         </mat-step>
-        <mat-step [stepControl]="">
-          <ng-template matStepLabel>BANK DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel expanded>
-              <mat-expansion-panel-header>
-                <mat-panel-title>BANK DETAILS
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <ng-template matStepLabel>BANK DETAILS</ng-template>
-              <div class="row mt-3">
-                <div class="col-md-12 box-card pt-3 pb-3" >
-                  <form [formGroup]="bankDetail">
-                    <div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Account Holder Name"  formControlName="accountHolderName" (keypress)="nameValidate($event)"   autocomplete="off" required>
-                            <mat-error *ngIf="bankDetail.controls.accountHolderName.errors?.required">Account Holder Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Branch Name"  formControlName="branchName" (keypress)="nameValidate($event)"   autocomplete="off" required>
-                            <mat-error *ngIf="bankDetail.controls.branchName.errors?.required">Branch Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Account No" formControlName="accountNo" maxlength="10" (keypress)="numberValidate($event)"   autocomplete="off" required>
-                            <mat-error *ngIf="bankDetail.controls.accountNo.errors?.required">Account No is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <mat-select matInput placeholder="Account Type" formControlName="accountType" autocomplete="off" required>
-                              <mat-option value="SAVING">SAVING</mat-option>
-                              <mat-option value="CURRENT">CURRENT</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="bankDetail.controls.accountType.errors?.required">Account Type is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="IFSC Code"  required formControlName="ifscCode" maxlength="12" (keypress)="idValidate($event)" autocomplete="off">
-                            <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
-                            <!--<mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="MICR Code"  formControlName="micrCode" maxlength="9" (keypress)="numberValidate($event)"   autocomplete="off">
-                            <mat-error *ngIf="bankDetail.controls.micrCode.errors?.required">Micro Code is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="proposal-buttom mb-3 text-right w-100">
-                      <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                      <!--<button mat-button matStepperNext>Next</button>-->
-                      <button mat-raised-button color="primaryBlue"   (click)="bankDetailNext(stepper, bankDetail.value)">Next</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </mat-step>
 
 
 
@@ -688,6 +627,81 @@
           </mat-accordion>
         </mat-step>
 
+        <mat-step [stepControl]="">
+          <ng-template matStepLabel>BANK DETAILS</ng-template>
+          <mat-accordion class="mt-4 w-100 float-left">
+            <mat-expansion-panel expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title>BANK DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-template matStepLabel>BANK DETAILS</ng-template>
+              <div class="row mt-3">
+                <div class="col-md-12 box-card pt-3 pb-3" >
+                  <form [formGroup]="bankDetail">
+                    <div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Bank Name"  formControlName="bankName" (keypress)="nameValidate($event)"   autocomplete="off" required>
+                            <mat-error *ngIf="bankDetail.controls.bankName.errors?.required">Bank Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Branch Name"  formControlName="branchName" (keypress)="nameValidate($event)"   autocomplete="off" >
+                            <mat-error *ngIf="bankDetail.controls.branchName.errors?.required">Branch Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Account Holder Name"  formControlName="accountHolderName" (keypress)="nameValidate($event)"   autocomplete="off" >
+                            <mat-error *ngIf="bankDetail.controls.accountHolderName.errors?.required">Account Holder Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Account No" formControlName="accountNo" maxlength="10" (keypress)="numberValidate($event)"   autocomplete="off" >
+                            <mat-error *ngIf="bankDetail.controls.accountNo.errors?.required">Account No is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <mat-select matInput placeholder="Account Type" formControlName="accountType" autocomplete="off" >
+                              <mat-option value="SAVING">SAVING</mat-option>
+                              <mat-option value="CURRENT">CURRENT</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="bankDetail.controls.accountType.errors?.required">Account Type is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="IFSC Code"  required formControlName="ifscCode" maxlength="12" (keypress)="idValidate($event)" autocomplete="off">
+                            <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
+                            <!--<mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="MICR Code"  formControlName="micrCode" maxlength="9" (keypress)="numberValidate($event)"   autocomplete="off">
+                            <mat-error *ngIf="bankDetail.controls.micrCode.errors?.required">Micro Code is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="proposal-buttom mb-3 text-right w-100">
+                      <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                      <!--<button mat-button matStepperNext>Next</button>-->
+                      <button mat-raised-button color="primaryBlue"   (click)="bankDetailNext(stepper, bankDetail.value)">Next</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-step>
 
 
 
@@ -797,6 +811,7 @@
             </mat-expansion-panel>
           </mat-accordion>
         </mat-step>
+
         <mat-step [stepControl]="">
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
@@ -1107,12 +1122,12 @@
 
                               <div class="row">
 
-                                  <div class="col-md-6">
+                                  <div class="col-md-6 mb-4">
                                       <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
                                         </span>
                                       </p>
                                   </div>
-                                  <div class="col-md-6 text-left">
+                                  <div class="col-md-6 text-left mb-4">
                                         <span>
                                              <form action={{proposalNextList.payment_link}}  method='post' #form>
                                                 <button mat-raised-button color="primaryBlue" style="line-height: 28px;font-size: 13px;" (click)="form.submit()">Skip & Continue to Pay</button>

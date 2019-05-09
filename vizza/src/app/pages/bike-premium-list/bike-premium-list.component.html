@@ -29,6 +29,8 @@
                                     </mat-select>
                                 </mat-form-field>
                             </th>
+                            <th class="col-md-1" style="padding: 15px 5px !important;">IDV</th>
+
                             <th class="sun-insured col-md-2">
                                 <mat-form-field >
                                     <mat-placeholder class="myclass font-weight-bold">Premium type ($)</mat-placeholder>
@@ -39,10 +41,23 @@
 
                                 </mat-form-field>
                             </th>
-                            <th class="col-md-2" style="padding: 15px 5px !important;">IDV</th>
-                            <th class="col-md-2" style="padding: 15px 5px !important;">Compare</th>
-                            <th class="col-md-2" style="padding: 15px 5px !important;">Premiun ( &#8377; )</th>
-                            <th class="col-md-2" style="padding: 15px 5px !important;">Buy </th>
+                            <th class="sun-insured col-md-2">
+                                <mat-form-field >
+                                    <mat-placeholder class="myclass font-weight-bold">Policy Term</mat-placeholder>
+                                    <mat-select [(ngModel)]="policyTerm" (change)="premiumlist()">
+                                        <mat-option value="1">One Year</mat-option>
+                                        <mat-option value="2">Two Year</mat-option>
+                                        <mat-option value="3">Three Year</mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+                            </th>
+                            <th class="col-md-1" style="padding: 15px 5px !important;">Key Feature1</th>
+                            <th class="col-md-1" style="padding: 15px 5px !important;">Key Feature2</th>
+                            <th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>
+
+                            <th class="col-md-1" style="padding: 15px 5px !important;">Premiun ( &#8377; )</th>
+                            <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -51,25 +66,36 @@
                                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
                                 <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
                             </td>
+
+
+                            <td class="col-md-1 text-center">
+                                <p class="mt-4"><strong> &#8377; {{plists.Idv}}
+                                </strong></p>
+                            </td>
                             <td class="col-md-2 text-center">
                                 <p class="mt-4" *ngIf="comphensivePremium">Comprehensive Premium</p>
                                 <p class="mt-4" *ngIf="thirdParty">ThridParty Premium</p>
 
                             </td>
                             <td class="col-md-2 text-center">
-                                <p class="mt-4"><strong> &#8377; {{plists.Idv}}
-                                </strong></p>
+                                <!--<p class="mt-4" *ngIf="plists[i].Comprehensive_premium.one_year">Comprehensive Premium</p>-->
+                                <!--<p class="mt-4" *ngIf="thirdParty">ThridParty Premium</p>-->
+
                             </td>
-                            <td class="col-md-2 text-center">
+                            <td class="col-md-1 text-center">  -
+                            </td>
+                            <td class="col-md-1 text-center">  -
+                            </td>
+                            <td class="col-md-1 text-center">
                                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button color="primary" [hidden]="plists.compare"  (click)="addCompare(plists,i)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                                 <p class="mt-2" style="margin-bottom: 0.3rem;line-height: 1.4;"><button mat-raised-button disabled *ngIf="plists.compare"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Compare</button></p>
                                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                             </td>
-                            <td class="col-md-2">
+                            <td class="col-md-1">
                                 <p class="text-center change-p mt-2" ><strong>&#8377; <span  *ngIf="comphensivePremium">{{plists.Comprehensive_premium}}</span> <span  *ngIf="thirdParty">{{plists.ThridParty_premium}}</span>  / Yr</strong></p>
                                 <p class="text-center change-p">(Including GST)</p>
                             </td>
-                            <td class="col-md-2">
+                            <td class="col-md-1">
                                 <p class="text-center mt-4"><button mat-raised-button color="accent" (click)="buyProduct(plists)">Buy</button></p>
                             </td>
                         </tr>
