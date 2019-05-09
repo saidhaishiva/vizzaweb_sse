@@ -152,7 +152,7 @@ export class LifeBajajProposalComponent implements OnInit {
       weight: '',
       weightChanged: '',
       weightChangedName: '',
-      aadharNum: ['', Validators.required],
+      aadharNum: '',
       spouseDob: '',
       maritalStatusName: '',
       occupationListName: '',
@@ -168,6 +168,7 @@ export class LifeBajajProposalComponent implements OnInit {
       motherName: '',
       fatherName: '',
       ifYesGiveDetails: '',
+      panNum:['', Validators.compose([ Validators.minLength(10)])],
       politicallyExposedPerson: '',
       countryIpMailing: '',
       relation: '',
@@ -254,6 +255,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
     this.bankDetail = this.Proposer.group({
       accountHolderName:'',
+      bankName:['', Validators.required],
       branchName:'',
       accountNo:'',
       accountType:'',
@@ -1292,7 +1294,9 @@ samerelationShip(){
   public ProposalNextSuccess(successData,stepper) {
       this.settings.loadingSpinner = false;
       if (successData.IsSuccess) {
-          stepper.next();
+        this.toastr.success(successData.ResponseObject);
+
+        stepper.next();
           this.topScroll();
           this.proposalGenStatus = false;
           this.proposalNextList = successData.ResponseObject;
@@ -1300,6 +1304,8 @@ samerelationShip(){
           this.otpGen();
       } else {
             this.proposalGenStatus = true;
+        this.toastr.error(successData.ErrorObject);
+
       }
   }
   public ProposalNextFailure(error) {
@@ -1710,6 +1716,8 @@ samerelationShip(){
         "weight": this.proposer.controls['weight'].value,
         "weightChanged":this.proposer.controls['weightChanged'].value,
         "aadhaar": this.proposer.controls['aadharNum'].value,
+        "pan": this.proposer.controls['panNum'].value,
+
         "smoker": "N",
         "sameAsProposer": this.proposer.controls['sameAsInsured'].value == 'true'  || this.proposer.controls['sameAsInsured'].value == true ? "Y":"N" ,
         "modeOfComm": "E",
@@ -1778,6 +1786,7 @@ samerelationShip(){
 
       "bank_deatils": {
         "accountHolderName": this.bankDetail.controls['accountHolderName'].value,
+        "bankName": this.bankDetail.controls['bankName'].value,
         "branchName": this.bankDetail.controls['branchName'].value,
         "accountNo": this.bankDetail.controls['accountNo'].value,
         "accountType": this.bankDetail.controls['accountType'].value,
@@ -1930,6 +1939,7 @@ samerelationShip(){
         motherName: lifeBajaj1.motherName,
         fatherName: lifeBajaj1.fatherName,
         ifYesGiveDetails: lifeBajaj1.ifYesGiveDetails,
+        panNum: lifeBajaj1.panNum,
         politicallyExposedPerson: lifeBajaj1.politicallyExposedPerson,
         countryIpMailing: lifeBajaj1.countryIpMailing,
         relation: lifeBajaj1.relation,
@@ -1967,6 +1977,7 @@ samerelationShip(){
         let lifeBajajBankDetails = JSON.parse(sessionStorage.lifeBajajBankDetails);
         this.bankDetail = this.Proposer.group({
           accountHolderName: lifeBajajBankDetails.accountHolderName,
+          bankName: lifeBajajBankDetails.bankName,
           branchName: lifeBajajBankDetails.branchName,
           accountNo: lifeBajajBankDetails.accountNo,
           accountType: lifeBajajBankDetails.accountType,
