@@ -1830,15 +1830,13 @@ samerelationShip(){
       stepper.next();
       this.topScroll();
       this.toastr.success('Proposal created successfully!!');
-     this.summaryData = successData.ResponseObject;
-     this.requestedUrl =this.summaryData.biUrlLink;
-
-        this.downloadFile(this.requestedUrl);
-
-        this.proposerFormData = this.proposer.value;
+      this.summaryData = successData.ResponseObject;
+      this.requestedUrl =this.summaryData.biUrlLink;
+      this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
       console.log(this.nomineeDetailFormData,'dff');
+      this.downloadFile(this.requestedUrl);
 
     } else {
         this.toastr.error(successData.ErrorObject, 'Failed');
@@ -1848,28 +1846,27 @@ samerelationShip(){
   public proposalFailure(error){
 
   }
+  downloadFile(value) {
+      this.termService.downloadPdfNew().subscribe(
+          (successData) => {
+            console.log(successData, 'successDatasuccessData');
 
-    downloadFile(value) {
-        this.termService.downloadPdfNew().subscribe(
-            (successData) => {
-              console.log(successData, 'successDatasuccessData');
-
-            },
-            (error) => {
-            }
-        );
-
+          },
+          (error) => {
+          }
+      );
 
 
-        // this.http.get(
-        //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
-        //     (response) => {
-        //         var mediaType = 'application/pdf';
-        //         var blob = new Blob([response._body], {type: mediaType});
-        //         var filename = 'test.pdf';
-        //         saveAs(blob, filename);
-        //     });
-    }
+
+      // this.http.get(
+      //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
+      //     (response) => {
+      //         var mediaType = 'application/pdf';
+      //         var blob = new Blob([response._body], {type: mediaType});
+      //         var filename = 'test.pdf';
+      //         saveAs(blob, filename);
+      //     });
+  }
 
 
 

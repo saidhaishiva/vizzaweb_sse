@@ -64,6 +64,7 @@ export class BikeInsuranceComponent implements OnInit {
     public claimamount : any;
     public previousClaim : any;
     public previousPolicyExpiry : any;
+    public bussinessList : any;
     public listDetails : boolean;
     public expiry : boolean;
 
@@ -86,6 +87,8 @@ export class BikeInsuranceComponent implements OnInit {
             'enquiry': '',
             'model': '',
             'manufacture':'',
+            'bussinessType':'',
+            'ncb':'',
             'manufactureYear':'',
             'vehicleCC':'',
             'variant': '',
@@ -116,6 +119,7 @@ export class BikeInsuranceComponent implements OnInit {
       this.modelList();
       this.ccList();
       this.variantList();
+      this.bussinessType();
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
@@ -225,6 +229,8 @@ export class BikeInsuranceComponent implements OnInit {
                 "registration_date": this.bikeInsurance.controls['registrationDate'].value,
                 "previous_claim_YN":this.bikeInsurance.controls['previousClaim'].value == 'No' ? '0' : '1',
                 "previous_policy_expiry_date":this.bikeInsurance.controls['previousPolicyExpiry'].value,
+                "business_type":this.bikeInsurance.controls['bussinessType'].value,
+                "ncb_amount": this.bikeInsurance.controls['ncb'].value,
                 "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
             }
             this.bikeService.getMotorHomeDetails(data).subscribe(
@@ -284,6 +290,30 @@ export class BikeInsuranceComponent implements OnInit {
     }
     public claimFailure(error) {
     }
+    bussinessType() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+        }
+        this.bikeService.getBuissnessList(data).subscribe(
+            (successData) => {
+                this.typeSuccess(successData);
+            },
+            (error) => {
+                this.typeFailure(error);
+            }
+        );
+    }
+    public typeSuccess(successData){
+        if (successData.IsSuccess) {
+            this.bussinessList = successData.ResponseObject;
+        }
+    }
+    public typeFailure(error) {
+    }
     enquiryQuation() {
         const data = {
             'platform': 'web',
@@ -304,7 +334,7 @@ export class BikeInsuranceComponent implements OnInit {
             'chassis_no':this.bikeInsurance.controls['chasissNumber'].value,
             'engine_no':"BG4CF1490049",
             'manu_yr':"2015",
-            'vehicle_category':"2W"
+            'vehicle_category':"2W",
 
         }
         this.bikeService.getEnquiryDetails(data).subscribe(
