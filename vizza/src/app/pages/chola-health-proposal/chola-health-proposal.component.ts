@@ -481,7 +481,7 @@ export class CholaHealthProposalComponent implements OnInit {
       this.proposal(stepper);
 
       // mobile view
-      // this.nextStep();
+  this.nextStep();
       // this.appolloMobileTrue3 = false;
       // this.appolloMobileTrue4 = false;
     }
