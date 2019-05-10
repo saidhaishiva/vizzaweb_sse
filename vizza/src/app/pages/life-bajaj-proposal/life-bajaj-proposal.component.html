@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row bajajLifeProposal">
     <div class="col-md-12">
-      <mat-horizontal-stepper  #stepper>
+      <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="">
           <ng-template matStepLabel >PROPOSER DETAILS</ng-template>
           <mat-accordion class=" w-100 float-left">
@@ -38,7 +38,7 @@
                           <mat-error *ngIf="proposer.controls.lastName.errors?.required">Last Name is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" [ngStyle]="{'pointer-events': requestedUrl !='' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"
                                  autocomplete="off"   required>
@@ -124,7 +124,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Height"    (keypress)="numberValidate($event)" formControlName="height" maxlength="3" autocomplete="off" required>
+                          <input matInput placeholder="Height (cm) "    (keypress)="numberValidate($event)" formControlName="height" maxlength="3" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.height.errors?.required">Height is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -136,9 +136,25 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Weight Changed" formControlName="weightChanged" (change)="changeWeightChanged()" required  class="w-100">
-                            <mat-option *ngFor="let list of weightList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>
+                          <mat-select  placeholder="In the past six months has your body weight changed" formControlName="weightChanged" (change)="changeWeightChanged()" required  class="w-100">
+                            <mat-option value="SAME"> SAME </mat-option>
+                            <mat-option value="GAINED"> GAINED </mat-option>
+                            <mat-option value="LOST"> LOST </mat-option>
+                          </mat-select>
                           <mat-error *ngIf="proposer.controls.weightChanged.errors?.required">Weight changed is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value != 'SAME'">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Changed Weight" maxlength="3" formControlName="inbetweenweight" (keypress)="numberValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="proposer.controls.inbetweenweight.errors?.required">Enter changed Weight</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value != 'SAME'">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="Weight Changed for reason" formControlName="weightChangedreason" (change)="changeWeightChanged()" class="w-100">
+                            <mat-option *ngFor="let list of weightList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>
+                          <mat-error *ngIf="proposer.controls.weightChangedreason.errors?.required">Weight changed is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3"><mat-form-field class="w-100">
@@ -628,84 +644,6 @@
         </mat-step>
 
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>BANK DETAILS</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel expanded>
-              <mat-expansion-panel-header>
-                <mat-panel-title>BANK DETAILS
-                </mat-panel-title>
-              </mat-expansion-panel-header>
-              <ng-template matStepLabel>BANK DETAILS</ng-template>
-              <div class="row mt-3">
-                <div class="col-md-12 box-card pt-3 pb-3" >
-                  <form [formGroup]="bankDetail">
-                    <div>
-                      <div class="row">
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Bank Name"  formControlName="bankName" (keypress)="nameValidate($event)"   autocomplete="off" required>
-                            <mat-error *ngIf="bankDetail.controls.bankName.errors?.required">Bank Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Branch Name"  formControlName="branchName" (keypress)="nameValidate($event)"   autocomplete="off" >
-                            <mat-error *ngIf="bankDetail.controls.branchName.errors?.required">Branch Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Account Holder Name"  formControlName="accountHolderName" (keypress)="nameValidate($event)"   autocomplete="off" >
-                            <mat-error *ngIf="bankDetail.controls.accountHolderName.errors?.required">Account Holder Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Account No" formControlName="accountNo" maxlength="10" (keypress)="numberValidate($event)"   autocomplete="off" >
-                            <mat-error *ngIf="bankDetail.controls.accountNo.errors?.required">Account No is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <mat-select matInput placeholder="Account Type" formControlName="accountType" autocomplete="off" >
-                              <mat-option value="SAVING">SAVING</mat-option>
-                              <mat-option value="CURRENT">CURRENT</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="bankDetail.controls.accountType.errors?.required">Account Type is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="IFSC Code"  required formControlName="ifscCode" maxlength="12" (keypress)="idValidate($event)" autocomplete="off">
-                            <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
-                            <!--<mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="MICR Code"  formControlName="micrCode" maxlength="9" (keypress)="numberValidate($event)"   autocomplete="off">
-                            <mat-error *ngIf="bankDetail.controls.micrCode.errors?.required">Micro Code is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="proposal-buttom mb-3 text-right w-100">
-                      <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                      <!--<button mat-button matStepperNext>Next</button>-->
-                      <button mat-raised-button color="primaryBlue"   (click)="bankDetailNext(stepper, bankDetail.value)">Next</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </mat-expansion-panel>
-          </mat-accordion>
-        </mat-step>
-
-
-
-        <mat-step [stepControl]="">
           <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <mat-expansion-panel expanded>
@@ -813,6 +751,84 @@
         </mat-step>
 
         <mat-step [stepControl]="">
+          <ng-template matStepLabel>BANK DETAILS</ng-template>
+          <mat-accordion class="mt-4 w-100 float-left">
+            <mat-expansion-panel expanded>
+              <mat-expansion-panel-header>
+                <mat-panel-title>BANK DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <ng-template matStepLabel>BANK DETAILS</ng-template>
+              <div class="row mt-3">
+                <div class="col-md-12 box-card pt-3 pb-3" >
+                  <form [formGroup]="bankDetail">
+                    <div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Bank Name"  formControlName="bankName" (keypress)="nameValidate($event)"   autocomplete="off" required>
+                            <mat-error *ngIf="bankDetail.controls.bankName.errors?.required">Bank Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Branch Name"  formControlName="branchName" (keypress)="nameValidate($event)"   autocomplete="off" >
+                            <mat-error *ngIf="bankDetail.controls.branchName.errors?.required">Branch Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Account Holder Name"  formControlName="accountHolderName" (keypress)="nameValidate($event)"   autocomplete="off" >
+                            <mat-error *ngIf="bankDetail.controls.accountHolderName.errors?.required">Account Holder Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Account No" formControlName="accountNo" maxlength="10" (keypress)="numberValidate($event)"   autocomplete="off" >
+                            <mat-error *ngIf="bankDetail.controls.accountNo.errors?.required">Account No is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <mat-select matInput placeholder="Account Type" formControlName="accountType" autocomplete="off" >
+                              <mat-option value="SAVING">SAVING</mat-option>
+                              <mat-option value="CURRENT">CURRENT</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="bankDetail.controls.accountType.errors?.required">Account Type is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="IFSC Code" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" maxlength="11"  autocomplete="off">
+                            <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
+                            <mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>
+
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="MICR Code"  formControlName="micrCode" maxlength="9" (keypress)="numberValidate($event)"   autocomplete="off">
+                            <mat-error *ngIf="bankDetail.controls.micrCode.errors?.required">Micro Code is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="proposal-buttom mb-3 text-right w-100">
+                      <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                      <!--<button mat-button matStepperNext>Next</button>-->
+                      <button mat-raised-button color="primaryBlue"   (click)="bankDetailNext(stepper, bankDetail.value)">Next</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </mat-step>
+
+
+
+        <mat-step [stepControl]="">
           <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
@@ -827,7 +843,6 @@
                 </ul>
               </div>
             </div>
-            <section>
               <h5 class="mt-3 sub-title">PROPOSER / INSURED DETAILS </h5>
               <div class="row box-card">
                 <div class="col-md-6">
@@ -839,7 +854,7 @@
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Age:</strong> {{proposerFormData.age}}</li>
                       <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Mobile:</strong> {{proposerFormData.alterMobile}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.alterMobile != '' && proposerFormData.alterMobile != undefined"><strong>Alternate Mobile:</strong> {{proposerFormData.alterMobile}}</li>
                       <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationListName}}</li>
                       <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}}</li>
@@ -853,15 +868,15 @@
                   <div class="p-3">
                     <!--<h6 class="color-blue mt-4"></h6>-->
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Weight Changed:</strong> {{proposerFormData.weightChangedName}}</li>
-                      <li class="list-group-item"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNum}}</li>
+                      <li class="list-group-item"><strong>In the past six months has your body weight changed:</strong> {{proposerFormData.weightChanged}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.aadharNum != ''"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNum}}</li>
                       <li class="list-group-item"><strong>Language:</strong> {{proposerFormData.languageName}}</li>
                       <li class="list-group-item"><strong>Proposer Type:</strong> {{proposerFormData.proposerTypeName}}</li>
                       <li class="list-group-item"><strong>Document Language:</strong> {{proposerFormData.language2Name}}</li>
                       <li class="list-group-item"><strong>Life Benefit:</strong> {{enquiryFormData.lifePolicy}}</li>
                       <li class="list-group-item"><strong>Benefit Type:</strong> {{enquiryFormData.lifeBenefitTerm}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.premiumPayTermName!=''"><strong>Premium Payment Term:</strong> {{proposerFormData.premiumPayTermName}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.premiumfreq !=''"><strong>Premium Frequncy:</strong> {{proposerFormData.premiumfreq}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.premiumfreq !='' && proposerFormData.premiumfreq != undefined"><strong>Premium Frequncy:</strong> {{proposerFormData.premiumfreq}}</li>
                       <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationalityName}}</li>
                       <li class="list-group-item"><strong>Country of Residence:</strong> {{proposerFormData.countryOfResidName}}</li>
                       <li class="list-group-item"><strong>Place of birth:</strong> {{proposerFormData.pob}}</li>
@@ -873,11 +888,11 @@
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 >FAMILY DETAILS</h6>
+                    <h6 class="color-blue">FAMILY DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fatherName}}</li>
                       <li class="list-group-item"><strong>Mother Name:</strong> {{proposerFormData.motherName}}</li>
-                      <li class="list-group-item"><strong>Spouse Place Of Birth:</strong> {{proposerFormData.spouseBirthPlace}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.spouseBirthPlace!=''"><strong>Spouse Place Of Birth:</strong> {{proposerFormData.spouseBirthPlace}}</li>
                     </ul>
                   </div>
                 </div>
@@ -885,8 +900,8 @@
                   <div class="p-3">
                     <h6 class="color-blue mt-4"></h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Spouse Name:</strong> {{proposerFormData.spouseName}}</li>
-                      <li class="list-group-item"><strong>Date Of Birth:</strong> {{proposerFormData.spouseDob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.spouseName!=''"><strong>Spouse Name:</strong> {{proposerFormData.spouseName}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.spouseDob!=''"><strong>Date Of Birth:</strong> {{proposerFormData.spouseDob | date: 'dd/MM/yyyy'}}</li>
                     </ul>
                   </div>
                 </div>
@@ -920,7 +935,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="proposerFormData.department != '' || proposerFormData.officeName !='' || proposerFormData.officeAddress1 !='' || proposerFormData.officeAddress2 !='' || proposerFormData.officeAddress3 !='' || proposerFormData.officeDistrict !='' || proposerFormData.officeState !='' || proposerFormData.officePincode !='' || proposerFormData.officeNumber !='' ">
                   <div class="p-3">
                     <h6 class="color-blue">OFFICE DETAILS</h6>
                     <ul class="m-0 list-group">
@@ -928,18 +943,18 @@
                       <li class="list-group-item" *ngIf="proposerFormData.officeName !=''"><strong>Office Name:</strong> {{proposerFormData.officeName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.officeAddress1 !=''"><strong>Office Address1:</strong> {{proposerFormData.officeAddress1}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.officeAddress2 !=''"><strong>Office Address2:</strong> {{proposerFormData.officeAddress2}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.officeAddress3!=''"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeAddress3 !=''"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="proposerFormData.department != '' || proposerFormData.officeName !='' || proposerFormData.officeAddress1 !='' || proposerFormData.officeAddress2 !='' || proposerFormData.officeAddress3 !='' || proposerFormData.officeDistrict !='' || proposerFormData.officeState !='' || proposerFormData.officePincode !='' || proposerFormData.officeNumber !='' ">
                   <div class="p-3">
                     <h6 class="color-blue mt-4"></h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item" *ngIf="proposerFormData.officeDistrict!=''"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.officeState!=''"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.officePincode!=''"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.officeNumber!=''"><strong>Office Number:</strong> {{proposerFormData.officeNumber}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeDistrict !=''"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeState !=''"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officePincode !=''"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeNumber !=''"><strong>Office Number:</strong> {{proposerFormData.officeNumber}}</li>
                     </ul>
                   </div>
                 </div>
@@ -956,25 +971,23 @@
                   <div class="p-3">
                     <h6 class="color-blue mt-4"></h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Income Proof:</strong> {{proposerFormData.incomeProofName}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.incomeProofName !=''"><strong>Income Proof:</strong> {{proposerFormData.incomeProofName}}</li>
                       <li class="list-group-item"><strong>Age Proof:</strong> {{proposerFormData.ageProofName}}</li>
                     </ul>
                   </div>
                 </div>
               </div>
-            </section>
-            <section>
               <h5 class="mt-3 sub-title">BANK DETAILS </h5>
               <div class="row box-card">
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 class="color-blue">BANK DETAILS</h6>
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Account Holder Name:</strong> {{bankDetailFormData.accountHolderName}}</li>
-                          <li class="list-group-item" ><strong>Branch Name:</strong> {{bankDetailFormData.branchName}}</li>
-                          <li class="list-group-item" ><strong>Account No:</strong> {{bankDetailFormData.accountNo}}</li>
+                          <li class="list-group-item" ><strong>Bank Name:</strong> {{bankDetailFormData.bankName}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.accountHolderName!=''"><strong>Account Holder Name:</strong> {{bankDetailFormData.accountHolderName}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.branchName!=''"><strong>Branch Name:</strong> {{bankDetailFormData.branchName}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.accountNo!=''"><strong>Account No:</strong> {{bankDetailFormData.accountNo}}</li>
                         </ul>
                       </div>
                     </div>
@@ -982,33 +995,28 @@
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 class="color-blue mt-4"></h6>
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Account Type:</strong> {{bankDetailFormData.accountType}}</li>
-                          <li class="list-group-item"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode}}</li>
-                          <li class="list-group-item"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.accountType!=''"><strong>Account Type:</strong> {{bankDetailFormData.accountType}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.micrCode!=''"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
                         </ul>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </section>
-            <section>
               <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
               <div *ngFor="let item of nomineeDetailFormData; let i = index;">
                 <div class="row box-card">
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue">NOMINEE DETAILS</h6>
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                             <li class="list-group-item"><strong>Nominee Name:</strong> {{item.nnName}}</li>
-                            <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob| date: 'dd/MM/yyyy'}}</li>
-                            <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{item.nBirthPlace}}</li>
+                            <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
                           </ul>
                         </div>
                       </div>
@@ -1016,25 +1024,25 @@
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue mt-4"></h6>
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
+                            <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{item.nBirthPlace}}</li>
                             <li class="list-group-item"><strong>Nominee Relation:</strong> {{item.nRelation}}</li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6" *ngIf="item.aName!='' || item.appointeeDob!='' || item.sharePercentage!='' || item.appointeeRelationToNominee!='' || item.relationToInsured!=''">
                     <div class="p-3">
                       <h6 class="color-blue">APOINTEE DETAILS</h6>
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item" ><strong>Appointee Name:</strong> {{item.aName}}</li>
-                            <li class="list-group-item"><strong>Appointee Dob:</strong> {{item.appointeeDob}}</li>
+                            <li class="list-group-item" *ngIf="item.aName!=''"><strong>Appointee Name:</strong> {{item.aName}}</li>
+                            <li class="list-group-item" *ngIf="item.appointeeDob!=''"><strong>Appointee Dob:</strong> {{item.appointeeDob | date: 'dd/MM/yyyy' }}</li>
+                            <li class="list-group-item" *ngIf="item.sharePercentage!=''"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
                           </ul>
                         </div>
                       </div>
@@ -1046,8 +1054,8 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item" ><strong>Appointee Relation To Nominee:</strong> {{item.appointeeRelationToNominee}}</li>
-                            <li class="list-group-item"><strong>Relation To Insured:</strong> {{item.relationToInsured}}</li>
+                            <li class="list-group-item" *ngIf="item.appointeeRelationToNominee!=''"><strong>Appointee Relation To Nominee:</strong> {{item.appointeeRelationToNominee}}</li>
+                            <li class="list-group-item" *ngIf="item.relationToInsured!=''"><strong>Relation To Insured:</strong> {{item.relationToInsured}}</li>
                           </ul>
                         </div>
                       </div>
@@ -1065,7 +1073,6 @@
                             style="display: block;"
                 ></pdf-viewer>
               </div>
-            </section>
               <p class="mt-2 pl-3" *ngIf="proposalGenStatus">
                 <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>
               </p>
@@ -1081,11 +1088,11 @@
         </mat-step>
 
           <mat-step [stepControl]="">
-              <ng-template matStepLabel>PROPOSAL FORM DETAILS</ng-template>
+              <ng-template matStepLabel>PROPOSAL FORM</ng-template>
               <mat-accordion class="mt-4 w-100 float-left">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
-                          <mat-panel-title>PROPOSAL FORM DETAILS
+                          <mat-panel-title>PROPOSAL FORM
                           </mat-panel-title>
                       </mat-expansion-panel-header>
                       <div class="row mt-3">
@@ -1110,11 +1117,11 @@
           </mat-step>
 
           <mat-step [stepControl]="">
-              <ng-template matStepLabel>DOCUMENTS DETAILS</ng-template>
+              <ng-template matStepLabel>DOCUMENTS</ng-template>
               <mat-accordion class="mt-4 w-100 float-left">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
-                          <mat-panel-title>DOCUMENTS DETAILS
+                          <mat-panel-title>DOCUMENTS
                           </mat-panel-title>
                       </mat-expansion-panel-header>
                       <div class="row mt-3">
@@ -1164,7 +1171,17 @@
                                       <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
                                   </div>
                               </div>
-                              <div class="row mt-2">
+
+                            <div class="row" *ngIf="documentPath">
+                              <div  class="col-md-6" *ngFor="let images of documentPath">
+                                <p class="color-blue">{{images.file_type | uppercase}}</p>
+                                <span class="imageclose mr-2" >
+                                        <img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
+                                    </span>
+                              </div>
+                            </div>
+
+                            <div class="row mt-2">
                                   <div class="col-md-6">
                                       <div class="proposal-buttom text-right w-100">
                                           <button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>
@@ -1179,23 +1196,8 @@
                                   </div>
                               </div>
 
-                              <!--<div class="row" >-->
-                              <!--<div class="col-md-4" >-->
-                              <!--<span class="imageclose mr-2" >-->
-                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                              <!--</span>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-4" >-->
-                              <!--<span class="imageclose mr-2" >-->
-                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                              <!--</span>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-4" >-->
-                              <!--<span class="imageclose mr-2" >-->
-                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                              <!--</span>-->
-                              <!--</div>-->
-                              <!--</div>-->
+
+
 
 
 

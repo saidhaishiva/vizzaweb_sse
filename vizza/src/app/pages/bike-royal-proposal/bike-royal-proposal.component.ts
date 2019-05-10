@@ -286,6 +286,9 @@ public apponiteeList: boolean;
 
   public pinProposerListFailure(error) {
   }
+    addEventPrevious(evnt){
+
+    }
 
   // dob validation
   addEvent(event,type) {

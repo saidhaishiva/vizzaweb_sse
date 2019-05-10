@@ -33,6 +33,7 @@ export class TermLifePremiumListComponent implements OnInit {
       this.settings.sidenavIsPinned = false;
       this.webhost = this.config.getimgUrl();
       this.compareArray = [];
+      this.selectedAmountTravel = '5000000';
   }
   ngOnInit() {
       this.getCompanyList();
@@ -47,6 +48,9 @@ export class TermLifePremiumListComponent implements OnInit {
         }
         if(sessionStorage.allProductLists != '' && sessionStorage.allProductLists !=undefined) {
             this.allProductLists  = JSON.parse(sessionStorage.allProductLists);
+        }
+        if(sessionStorage.selectedAmountTravel != '' && sessionStorage.selectedAmountTravel !=undefined) {
+            this.selectedAmountTravel  = JSON.parse(sessionStorage.selectedAmountTravel);
         }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);
@@ -85,7 +89,7 @@ export class TermLifePremiumListComponent implements OnInit {
           console.log(sessionStorage.allProductLists, 'ppp');
           if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
               console.log('inn');
-              this.getProductList(this.allCompanyList);
+              this.getProductList(this.allCompanyList, '5000000');
           }
 
       }
@@ -94,7 +98,7 @@ export class TermLifePremiumListComponent implements OnInit {
       console.log(error);
   }
 
-    public getProductList(companyList): void {
+    public getProductList(companyList, sum_assured): void {
         this.productListArray = [];
         this.allProductLists = [];
         let sum_amount = '';
@@ -104,6 +108,7 @@ export class TermLifePremiumListComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'policy_id': this.getEnquiryDetials.policy_id,
+            'sum_assured': sum_assured,
             'company_id': ''
         };
         this.settings.loadingSpinner = true;
@@ -160,6 +165,8 @@ export class TermLifePremiumListComponent implements OnInit {
         return age;
     }
     updateSumInsured(){
+        sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
+        this.getProductList(this.allCompanyList, this.selectedAmountTravel);
 
     }
     // filter by product
