@@ -129,11 +129,18 @@ export class LifeBajajProposalComponent implements OnInit {
 
     constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
 
+        this.requestedUrl = '';
+        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+            let summaryData = JSON.parse(sessionStorage.summaryData);
+            this.summaryData = summaryData;
+            this.requestedUrl = summaryData.biUrlLink;
+        }
+
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        this.webhost = this.config.getimgUrl();
+      this.webhost = this.config.getimgUrl();
 
-        this.proposer = this.Proposer.group({
+      this.proposer = this.Proposer.group({
       title: ['', Validators.required],
       firstName: ['', Validators.required],
       midName: '',
@@ -450,6 +457,16 @@ export class LifeBajajProposalComponent implements OnInit {
   }
   passportIssue(event: any){
     this.validation.passportIssue(event);
+
+  }
+  ifscValidate(event: any) {
+      if (event.charCode !== 0) {
+          const pattern = /^[A-Za-z]{4}0[A-Z0-9]{6}$/;
+          const inputChar = String.fromCharCode(event.charCode);
+          if (!pattern.test(inputChar)) {
+              event.preventDefault();
+          }
+      }
 
   }
 
@@ -769,10 +786,7 @@ samerelationShip(){
     sessionStorage.lifeBajajBankDetails = JSON.stringify(value);
     console.log(sessionStorage.lifeBajajBankDetails, 'session');
     if (this.bankDetail.valid) {
-      stepper.next();
-      this.topScroll();
-    } else {
-      this.toastr.error('error');
+        this.proposal(stepper);
     }
   }
 
@@ -834,16 +848,16 @@ samerelationShip(){
       if (this.nomineeDetail.valid) {
           if (sessionStorage.nomineAge < 18) {
             if(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
-              this.proposal(stepper);
+                stepper.next();
+                this.topScroll();
             } else {
                 this.toastr.error('Please fill the appointee details');
             }
           } else {
-            this.proposal(stepper);
+              stepper.next();
+              this.topScroll();
           }
       }
-    // if (this.nomineeDetail.valid) {
-    //  this.proposal(stepper);
   }
 
   //services
@@ -1831,10 +1845,11 @@ samerelationShip(){
       this.topScroll();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
-      this.requestedUrl =this.summaryData.biUrlLink;
+      this.requestedUrl = this.summaryData.biUrlLink;
       this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
+      sessionStorage.summaryData = JSON.stringify(this.summaryData);
       console.log(this.nomineeDetailFormData,'dff');
       this.downloadFile(this.requestedUrl);
 
