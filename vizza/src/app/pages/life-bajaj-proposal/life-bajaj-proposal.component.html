@@ -1,7 +1,7 @@
 <div class="container-fluid">
   <div class="row bajajLifeProposal">
     <div class="col-md-12">
-      <mat-horizontal-stepper  #stepper>
+      <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="">
           <ng-template matStepLabel >PROPOSER DETAILS</ng-template>
           <mat-accordion class=" w-100 float-left">
@@ -124,7 +124,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Height"    (keypress)="numberValidate($event)" formControlName="height" maxlength="3" autocomplete="off" required>
+                          <input matInput placeholder="Height (cm) "    (keypress)="numberValidate($event)" formControlName="height" maxlength="3" autocomplete="off" required>
                           <mat-error *ngIf="proposer.controls.height.errors?.required">Height is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -136,9 +136,25 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Weight Changed" formControlName="weightChanged" (change)="changeWeightChanged()" required  class="w-100">
-                            <mat-option *ngFor="let list of weightList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>
+                          <mat-select  placeholder="In the past six months has your body weight changed" formControlName="weightChanged" (change)="changeWeightChanged()" required  class="w-100">
+                            <mat-option value="SAME"> SAME </mat-option>
+                            <mat-option value="GAINED"> GAINED </mat-option>
+                            <mat-option value="LOST"> LOST </mat-option>
+                          </mat-select>
                           <mat-error *ngIf="proposer.controls.weightChanged.errors?.required">Weight changed is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value != 'SAME'">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Changed Weight" maxlength="3" formControlName="inbetweenweight" (keypress)="numberValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="proposer.controls.inbetweenweight.errors?.required">Enter changed Weight</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value != 'SAME'">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="Weight Changed for reason" formControlName="weightChangedreason" (change)="changeWeightChanged()" class="w-100">
+                            <mat-option *ngFor="let list of weightList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>
+                          <mat-error *ngIf="proposer.controls.weightChangedreason.errors?.required">Weight changed is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3"><mat-form-field class="w-100">
@@ -827,7 +843,6 @@
                 </ul>
               </div>
             </div>
-            <section>
               <h5 class="mt-3 sub-title">PROPOSER / INSURED DETAILS </h5>
               <div class="row box-card">
                 <div class="col-md-6">
@@ -839,7 +854,7 @@
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Age:</strong> {{proposerFormData.age}}</li>
                       <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Mobile:</strong> {{proposerFormData.alterMobile}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.alterMobile != '' && proposerFormData.alterMobile != undefined"><strong>Alternate Mobile:</strong> {{proposerFormData.alterMobile}}</li>
                       <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationListName}}</li>
                       <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
                       <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}}</li>
@@ -853,7 +868,7 @@
                   <div class="p-3">
                     <!--<h6 class="color-blue mt-4"></h6>-->
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Weight Changed:</strong> {{proposerFormData.weightChangedName}}</li>
+                      <li class="list-group-item"><strong>In the past six months has your body weight changed:</strong> {{proposerFormData.weightChanged}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.aadharNum != ''"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNum}}</li>
                       <li class="list-group-item"><strong>Language:</strong> {{proposerFormData.languageName}}</li>
                       <li class="list-group-item"><strong>Proposer Type:</strong> {{proposerFormData.proposerTypeName}}</li>
@@ -861,7 +876,7 @@
                       <li class="list-group-item"><strong>Life Benefit:</strong> {{enquiryFormData.lifePolicy}}</li>
                       <li class="list-group-item"><strong>Benefit Type:</strong> {{enquiryFormData.lifeBenefitTerm}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.premiumPayTermName!=''"><strong>Premium Payment Term:</strong> {{proposerFormData.premiumPayTermName}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.premiumfreq !=''"><strong>Premium Frequncy:</strong> {{proposerFormData.premiumfreq}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.premiumfreq !='' && proposerFormData.premiumfreq != undefined"><strong>Premium Frequncy:</strong> {{proposerFormData.premiumfreq}}</li>
                       <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationalityName}}</li>
                       <li class="list-group-item"><strong>Country of Residence:</strong> {{proposerFormData.countryOfResidName}}</li>
                       <li class="list-group-item"><strong>Place of birth:</strong> {{proposerFormData.pob}}</li>
@@ -920,7 +935,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="proposerFormData.department != '' || proposerFormData.officeName !='' || proposerFormData.officeAddress1 !='' || proposerFormData.officeAddress2 !='' || proposerFormData.officeAddress3 !='' || proposerFormData.officeDistrict !='' || proposerFormData.officeState !='' || proposerFormData.officePincode !='' || proposerFormData.officeNumber !='' ">
                   <div class="p-3">
                     <h6 class="color-blue">OFFICE DETAILS</h6>
                     <ul class="m-0 list-group">
@@ -928,18 +943,18 @@
                       <li class="list-group-item" *ngIf="proposerFormData.officeName !=''"><strong>Office Name:</strong> {{proposerFormData.officeName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.officeAddress1 !=''"><strong>Office Address1:</strong> {{proposerFormData.officeAddress1}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.officeAddress2 !=''"><strong>Office Address2:</strong> {{proposerFormData.officeAddress2}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.officeAddress3!=''"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeAddress3 !=''"><strong>Office Address3:</strong> {{proposerFormData.officeAddress3}}</li>
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6" *ngIf="proposerFormData.department != '' || proposerFormData.officeName !='' || proposerFormData.officeAddress1 !='' || proposerFormData.officeAddress2 !='' || proposerFormData.officeAddress3 !='' || proposerFormData.officeDistrict !='' || proposerFormData.officeState !='' || proposerFormData.officePincode !='' || proposerFormData.officeNumber !='' ">
                   <div class="p-3">
                     <h6 class="color-blue mt-4"></h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item" *ngIf="proposerFormData.officeDistrict!=''"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.officeState!=''"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.officePincode!=''"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.officeNumber!=''"><strong>Office Number:</strong> {{proposerFormData.officeNumber}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeDistrict !=''"><strong>Office District:</strong> {{proposerFormData.officeDistrict}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeState !=''"><strong>Office State:</strong> {{proposerFormData.officeState}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officePincode !=''"><strong>Office Pincode:</strong> {{proposerFormData.officePincode}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.officeNumber !=''"><strong>Office Number:</strong> {{proposerFormData.officeNumber}}</li>
                     </ul>
                   </div>
                 </div>
@@ -956,19 +971,16 @@
                   <div class="p-3">
                     <h6 class="color-blue mt-4"></h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Income Proof:</strong> {{proposerFormData.incomeProofName}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.incomeProofName !=''"><strong>Income Proof:</strong> {{proposerFormData.incomeProofName}}</li>
                       <li class="list-group-item"><strong>Age Proof:</strong> {{proposerFormData.ageProofName}}</li>
                     </ul>
                   </div>
                 </div>
               </div>
-            </section>
-            <section>
               <h5 class="mt-3 sub-title">BANK DETAILS </h5>
               <div class="row box-card">
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 class="color-blue">BANK DETAILS</h6>
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
@@ -983,7 +995,6 @@
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 class="color-blue mt-4"></h6>
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
@@ -996,19 +1007,16 @@
                   </div>
                 </div>
               </div>
-            </section>
-            <section>
               <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
               <div *ngFor="let item of nomineeDetailFormData; let i = index;">
                 <div class="row box-card">
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue">NOMINEE DETAILS</h6>
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                             <li class="list-group-item"><strong>Nominee Name:</strong> {{item.nnName}}</li>
-                            <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob| date: 'dd/MM/yyyy'}}</li>
+                            <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
                           </ul>
                         </div>
                       </div>
@@ -1016,7 +1024,6 @@
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue mt-4"></h6>
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
@@ -1027,14 +1034,14 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6" *ngIf="item.aName!='' || item.appointeeDob!='' || item.sharePercentage!='' || item.appointeeRelationToNominee!='' || item.relationToInsured!=''">
                     <div class="p-3">
                       <h6 class="color-blue">APOINTEE DETAILS</h6>
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                             <li class="list-group-item" *ngIf="item.aName!=''"><strong>Appointee Name:</strong> {{item.aName}}</li>
-                            <li class="list-group-item" *ngIf="item.appointeeDob!=''"><strong>Appointee Dob:</strong> {{item.appointeeDob}}</li>
+                            <li class="list-group-item" *ngIf="item.appointeeDob!=''"><strong>Appointee Dob:</strong> {{item.appointeeDob | date: 'dd/MM/yyyy' }}</li>
                             <li class="list-group-item" *ngIf="item.sharePercentage!=''"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
                           </ul>
                         </div>
@@ -1066,7 +1073,6 @@
                             style="display: block;"
                 ></pdf-viewer>
               </div>
-            </section>
               <p class="mt-2 pl-3" *ngIf="proposalGenStatus">
                 <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>
               </p>
@@ -1082,11 +1088,11 @@
         </mat-step>
 
           <mat-step [stepControl]="">
-              <ng-template matStepLabel>PROPOSAL FORM DETAILS</ng-template>
+              <ng-template matStepLabel>PROPOSAL FORM</ng-template>
               <mat-accordion class="mt-4 w-100 float-left">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
-                          <mat-panel-title>PROPOSAL FORM DETAILS
+                          <mat-panel-title>PROPOSAL FORM
                           </mat-panel-title>
                       </mat-expansion-panel-header>
                       <div class="row mt-3">
@@ -1111,11 +1117,11 @@
           </mat-step>
 
           <mat-step [stepControl]="">
-              <ng-template matStepLabel>DOCUMENTS DETAILS</ng-template>
+              <ng-template matStepLabel>DOCUMENTS</ng-template>
               <mat-accordion class="mt-4 w-100 float-left">
                   <mat-expansion-panel expanded>
                       <mat-expansion-panel-header>
-                          <mat-panel-title>DOCUMENTS DETAILS
+                          <mat-panel-title>DOCUMENTS
                           </mat-panel-title>
                       </mat-expansion-panel-header>
                       <div class="row mt-3">
@@ -1165,7 +1171,17 @@
                                       <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
                                   </div>
                               </div>
-                              <div class="row mt-2">
+
+                            <div class="row" *ngIf="documentPath">
+                              <div  class="col-md-6" *ngFor="let images of documentPath">
+                                <p class="color-blue">{{images.file_type | uppercase}}</p>
+                                <span class="imageclose mr-2" >
+                                        <img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
+                                    </span>
+                              </div>
+                            </div>
+
+                            <div class="row mt-2">
                                   <div class="col-md-6">
                                       <div class="proposal-buttom text-right w-100">
                                           <button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>
@@ -1180,23 +1196,8 @@
                                   </div>
                               </div>
 
-                              <!--<div class="row" >-->
-                              <!--<div class="col-md-4" >-->
-                              <!--<span class="imageclose mr-2" >-->
-                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                              <!--</span>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-4" >-->
-                              <!--<span class="imageclose mr-2" >-->
-                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                              <!--</span>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-4" >-->
-                              <!--<span class="imageclose mr-2" >-->
-                              <!--<img src="{{webhost + '/' + images}}" class="img-thumbnail" style="height:150px;width: 250px;"/>-->
-                              <!--</span>-->
-                              <!--</div>-->
-                              <!--</div>-->
+
+
 
 
 

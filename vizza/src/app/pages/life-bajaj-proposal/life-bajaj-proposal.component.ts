@@ -125,16 +125,28 @@ export class LifeBajajProposalComponent implements OnInit {
     public uploadIdProofName: any;
     public uploadAgeProofName: any;
     public uploadAddressProofName: any;
+    public currentStep: any;
+    public documentPath: any;
 
 
     constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
-
         this.requestedUrl = '';
-        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
-            let summaryData = JSON.parse(sessionStorage.summaryData);
-            this.summaryData = summaryData;
-            this.requestedUrl = summaryData.biUrlLink;
-        }
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 6;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    let summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.summaryData = summaryData;
+                    this.requestedUrl = summaryData.biUrlLink;
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.bankDetailFormData = JSON.parse(sessionStorage.bankDetailFormData);
+                    this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
+                }
+
+            }
+        });
+        this.currentStep = stepperindex;
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -157,6 +169,8 @@ export class LifeBajajProposalComponent implements OnInit {
       occupationList: ['', Validators.compose([Validators.required])],
       height: ['', Validators.compose([Validators.minLength(3)])],
       weight: '',
+      inbetweenweight: '',
+      weightChangedreason: '',
       weightChanged: '',
       weightChangedName: '',
       aadharNum: '',
@@ -1308,7 +1322,7 @@ samerelationShip(){
   public ProposalNextSuccess(successData,stepper) {
       this.settings.loadingSpinner = false;
       if (successData.IsSuccess) {
-        this.toastr.success(successData.ResponseObject);
+        // this.toastr.success(successData.ResponseObject);
 
         stepper.next();
           this.topScroll();
@@ -1728,7 +1742,9 @@ samerelationShip(){
         "education": this.proposer.controls['education'].value,
         "height": this.proposer.controls['height'].value,
         "weight": this.proposer.controls['weight'].value,
-        "weightChanged":this.proposer.controls['weightChanged'].value,
+        "ifPastSixWeightChange":this.proposer.controls['weightChanged'].value,
+        "changedWeight":this.proposer.controls['inbetweenweight'].value,
+        "weightChangedReason":this.proposer.controls['weightChangedreason'].value,
         "aadhaar": this.proposer.controls['aadharNum'].value,
         "pan": this.proposer.controls['panNum'].value,
 
@@ -1850,7 +1866,10 @@ samerelationShip(){
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
-      console.log(this.nomineeDetailFormData,'dff');
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.bankDetailFormData = JSON.stringify(this.bankDetailFormData);
+      sessionStorage.nomineeDetailFormData = JSON.stringify(this.nomineeDetailFormData);
+      console.log(this.proposerFormData,'proposerFormData');
       this.downloadFile(this.requestedUrl);
 
     } else {
@@ -1913,7 +1932,9 @@ samerelationShip(){
         // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
+        inbetweenweight: lifeBajaj1.inbetweenweight,
         weightChanged: lifeBajaj1.weightChanged,
+        weightChangedreason: lifeBajaj1.weightChangedreason,
         weightChangedName: lifeBajaj1.weightChangedName,
         countryOfResidName: lifeBajaj1.countryOfResidName,
         citizenshipName: lifeBajaj1.citizenshipName,
@@ -2155,7 +2176,8 @@ samerelationShip(){
 
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
-            this.toastr.success(successData.ResponseObject, 'Success');
+            this.documentPath = successData.ResponseObject.filePath;
+            this.toastr.success(successData.ResponseObject.message, 'Success');
             this.fileUploadStatus = false;
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');

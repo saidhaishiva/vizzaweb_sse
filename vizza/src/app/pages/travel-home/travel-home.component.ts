@@ -818,50 +818,72 @@ export class TravelHomeComponent implements OnInit {
 
             if (days <= 180 ) {
 
-                let familyCountValid = true;
-                if(groupname == 'family' && getFiledData.length < 2) {
-                    familyCountValid = false;
-                }
-                console.log('as');
-                if(familyCountValid) {
-                    const data = {
-                        'platform': 'web',
-                        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-                        'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
-                        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-                        'sum_insured_id': this.selectedAmountTravel,
-                        'sum_insured_amount': sum_amount,
-                        'family_members': this.finalData,
-                        'travel_place': this.travelPlan,
-                        'travel_plan_type': this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType,
-                        'enquiry_id': '',
-                        'start_date': sDate,
-                        'end_date': eDate,
-                        'day_count': days,
-                        'pincode': this.pincode,
-                        'duration': this.duration ? this.duration : '',
-                        'travel_user_type': this.travelUserType ? 'student' : groupname,
-                        'medical_condition': this.medicalCondition,
-                        'course_duration': this.travelUserType ? this.courseDuration : '',
-                        'semester': this.travelUserType ? this.sem : ''
-                    };
-                    if (this.travelUserType) {
-                        data.travel_plan_type = '';
+                let isStudentAgeValid = true;
+                let isMulititripAgeValid = true;
+                if(this.travelUserType) {
+                    if(this.selfArray[0].age > 12) {
+                        isStudentAgeValid = true;
                     } else {
-                        data.travel_plan_type = this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType;
+                        isStudentAgeValid = false;
+                        this.toast.error('Student Age should be 12 and above');
                     }
-                    this.settings.loadingSpinner = true;
-                    console.log(data, 'this.datadata');
-                    this.travel.getEnquiryDetails(data).subscribe(
-                        (successData) => {
-                            this.getTravelPremiumCalSuccess(successData);
-                        },
-                        (error) => {
-                            this.getTravelPremiumCalFailure(error);
-                        }
-                    );
                 } else {
-                    this.toast.error('Please select minimum two members');
+                    if(this.selfArray[0].age >= 18) {
+                        isMulititripAgeValid = true;
+                    } else {
+                        isMulititripAgeValid = false;
+                        this.toast.error('Multiple trip traveler age should be 16 and above');
+                    }
+                }
+
+                if(isStudentAgeValid && isMulititripAgeValid) {
+
+
+                    let familyCountValid = true;
+                    if (groupname == 'family' && getFiledData.length < 2) {
+                        familyCountValid = false;
+                    }
+                    console.log('as');
+                    if (familyCountValid) {
+                        const data = {
+                            'platform': 'web',
+                            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                            'user_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '0',
+                            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                            'sum_insured_id': this.selectedAmountTravel,
+                            'sum_insured_amount': sum_amount,
+                            'family_members': this.finalData,
+                            'travel_place': this.travelPlan,
+                            'travel_plan_type': this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType,
+                            'enquiry_id': '',
+                            'start_date': sDate,
+                            'end_date': eDate,
+                            'day_count': days,
+                            'pincode': this.pincode,
+                            'duration': this.duration ? this.duration : '',
+                            'travel_user_type': this.travelUserType ? 'student' : groupname,
+                            'medical_condition': this.medicalCondition,
+                            'course_duration': this.travelUserType ? this.courseDuration : '',
+                            'semester': this.travelUserType ? this.sem : ''
+                        };
+                        if (this.travelUserType) {
+                            data.travel_plan_type = '';
+                        } else {
+                            data.travel_plan_type = this.travelType == 'Business' ? 'Single' : this.travelType == 'Holiday' ? 'Single' : this.travelType;
+                        }
+                        this.settings.loadingSpinner = true;
+                        console.log(data, 'this.datadata');
+                        this.travel.getEnquiryDetails(data).subscribe(
+                            (successData) => {
+                                this.getTravelPremiumCalSuccess(successData);
+                            },
+                            (error) => {
+                                this.getTravelPremiumCalFailure(error);
+                            }
+                        );
+                    } else {
+                        this.toast.error('Please select minimum two members');
+                    }
                 }
             } else {
                 this.toast.error('Travel period shoud not be greater than 180 days');
