@@ -854,7 +854,7 @@
                     <!--<h6 class="color-blue mt-4"></h6>-->
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Weight Changed:</strong> {{proposerFormData.weightChangedName}}</li>
-                      <li class="list-group-item"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNum}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.aadharNum != ''"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNum}}</li>
                       <li class="list-group-item"><strong>Language:</strong> {{proposerFormData.languageName}}</li>
                       <li class="list-group-item"><strong>Proposer Type:</strong> {{proposerFormData.proposerTypeName}}</li>
                       <li class="list-group-item"><strong>Document Language:</strong> {{proposerFormData.language2Name}}</li>
@@ -873,11 +873,11 @@
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 >FAMILY DETAILS</h6>
+                    <h6 class="color-blue">FAMILY DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fatherName}}</li>
                       <li class="list-group-item"><strong>Mother Name:</strong> {{proposerFormData.motherName}}</li>
-                      <li class="list-group-item"><strong>Spouse Place Of Birth:</strong> {{proposerFormData.spouseBirthPlace}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.spouseBirthPlace!=''"><strong>Spouse Place Of Birth:</strong> {{proposerFormData.spouseBirthPlace}}</li>
                     </ul>
                   </div>
                 </div>
@@ -885,8 +885,8 @@
                   <div class="p-3">
                     <h6 class="color-blue mt-4"></h6>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Spouse Name:</strong> {{proposerFormData.spouseName}}</li>
-                      <li class="list-group-item"><strong>Date Of Birth:</strong> {{proposerFormData.spouseDob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.spouseName!=''"><strong>Spouse Name:</strong> {{proposerFormData.spouseName}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.spouseDob!=''"><strong>Date Of Birth:</strong> {{proposerFormData.spouseDob | date: 'dd/MM/yyyy'}}</li>
                     </ul>
                   </div>
                 </div>
@@ -972,9 +972,10 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Account Holder Name:</strong> {{bankDetailFormData.accountHolderName}}</li>
-                          <li class="list-group-item" ><strong>Branch Name:</strong> {{bankDetailFormData.branchName}}</li>
-                          <li class="list-group-item" ><strong>Account No:</strong> {{bankDetailFormData.accountNo}}</li>
+                          <li class="list-group-item" ><strong>Bank Name:</strong> {{bankDetailFormData.bankName}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.accountHolderName!=''"><strong>Account Holder Name:</strong> {{bankDetailFormData.accountHolderName}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.branchName!=''"><strong>Branch Name:</strong> {{bankDetailFormData.branchName}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.accountNo!=''"><strong>Account No:</strong> {{bankDetailFormData.accountNo}}</li>
                         </ul>
                       </div>
                     </div>
@@ -986,9 +987,9 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Account Type:</strong> {{bankDetailFormData.accountType}}</li>
-                          <li class="list-group-item"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode}}</li>
-                          <li class="list-group-item"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.accountType!=''"><strong>Account Type:</strong> {{bankDetailFormData.accountType}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.micrCode!=''"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
                         </ul>
                       </div>
                     </div>
@@ -1008,7 +1009,6 @@
                           <ul class="m-0 list-group">
                             <li class="list-group-item"><strong>Nominee Name:</strong> {{item.nnName}}</li>
                             <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob| date: 'dd/MM/yyyy'}}</li>
-                            <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{item.nBirthPlace}}</li>
                           </ul>
                         </div>
                       </div>
@@ -1020,7 +1020,7 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
+                            <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{item.nBirthPlace}}</li>
                             <li class="list-group-item"><strong>Nominee Relation:</strong> {{item.nRelation}}</li>
                           </ul>
                         </div>
@@ -1033,8 +1033,9 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item" ><strong>Appointee Name:</strong> {{item.aName}}</li>
-                            <li class="list-group-item"><strong>Appointee Dob:</strong> {{item.appointeeDob}}</li>
+                            <li class="list-group-item" *ngIf="item.aName!=''"><strong>Appointee Name:</strong> {{item.aName}}</li>
+                            <li class="list-group-item" *ngIf="item.appointeeDob!=''"><strong>Appointee Dob:</strong> {{item.appointeeDob}}</li>
+                            <li class="list-group-item" *ngIf="item.sharePercentage!=''"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
                           </ul>
                         </div>
                       </div>
@@ -1046,8 +1047,8 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item" ><strong>Appointee Relation To Nominee:</strong> {{item.appointeeRelationToNominee}}</li>
-                            <li class="list-group-item"><strong>Relation To Insured:</strong> {{item.relationToInsured}}</li>
+                            <li class="list-group-item" *ngIf="item.appointeeRelationToNominee!=''"><strong>Appointee Relation To Nominee:</strong> {{item.appointeeRelationToNominee}}</li>
+                            <li class="list-group-item" *ngIf="item.relationToInsured!=''"><strong>Relation To Insured:</strong> {{item.relationToInsured}}</li>
                           </ul>
                         </div>
                       </div>
