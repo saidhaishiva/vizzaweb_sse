@@ -132,6 +132,9 @@ import {TravelBajajalianzProposalComponent} from './pages/travel-bajajalianz-pro
 import {DownloadPolicyTravelReligareComponent} from './pages/download-policy-travel-religare/download-policy-travel-religare.component';
 import {CholaHealthProposalComponent} from './pages/chola-health-proposal/chola-health-proposal.component';
 import {RelianceMotorProposalComponent} from './pages/reliance-motor-proposal/reliance-motor-proposal.component';
+import {TravelBajajalianzDownloadPolicyComponent} from './pages/travel-bajajalianz-download-policy/travel-bajajalianz-download-policy.component';
+import {TravelBajajPaymentSuccessComponent} from './pages/travel-bajaj-payment-success/travel-bajaj-payment-success.component';
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -256,9 +259,10 @@ export const routes: Routes = [
             { path: 'life-bajaj-proposal/:stepper', component: LifeBajajProposalComponent, data:{ breadcrumb: 'life-bajaj-proposal'}},
             { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
             { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},
-            { path: 'bajaj-travel', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
+            { path: 'bajaj-travel/:stepper', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
             { path: 'chola-health-proposal', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
             { path: 'reliance-motor-proposal', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
+            { path: 'bajaj-travel-payment-success/:status/:proId', component: TravelBajajPaymentSuccessComponent, data:{ breadcrumb: 'travel Bajaj'}},
 
         ]
     },
