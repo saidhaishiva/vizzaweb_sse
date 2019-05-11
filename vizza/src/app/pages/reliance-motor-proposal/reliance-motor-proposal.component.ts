@@ -29,6 +29,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public occupationList: any;
   public commAddressList: any;
   public perAddressList: any;
+  public regAddressList: any;
   public checkcomm: boolean;
   public checkperm: boolean;
   public minDate: any;
@@ -376,6 +377,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   //pincode  details
   pincode(pin,type){
+    console.log(pin,'pinvalue');
     const data = {
       'platform': 'web',
       'pincode': pin
@@ -403,6 +405,11 @@ export class RelianceMotorProposalComponent implements OnInit {
         this.relianceProposal.controls['pcity'].patchValue(this.perAddressList.city_village_name);
         this.relianceProposal.controls['pstate'].patchValue(this.perAddressList.state_name);
         this.relianceProposal.controls['pdistrict'].patchValue(this.perAddressList.district_name);
+      }else if(type == 'registration'){
+        this.regAddressList = successData.ResponseObject;
+        this.relianceProposal.controls['rcity'].patchValue(this.regAddressList.city_village_name);
+        this.relianceProposal.controls['rstate'].patchValue(this.regAddressList.state_name);
+        this.relianceProposal.controls['rdistrict'].patchValue(this.regAddressList.district_name);
       }
     } else if (successData.IsSuccess != true ){
       if (type == 'comm') {
@@ -415,6 +422,11 @@ export class RelianceMotorProposalComponent implements OnInit {
         this.relianceProposal.controls['pcity'].patchValue('');
         this.relianceProposal.controls['pstate'].patchValue('');
         this.relianceProposal.controls['pdistrict'].patchValue('');
+      }else if (type == 'registration'){
+        this.toastr.error('Fill Valid Pincode');
+        this.relianceProposal.controls['rcity'].patchValue('');
+        this.relianceProposal.controls['rstate'].patchValue('');
+        this.relianceProposal.controls['rdistrict'].patchValue('');
       }
     }
 
