@@ -54,8 +54,8 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        // const url = this.configurationService.getHostHealth() + 'bajajalianz/get_policypdf';
-        const url = 'http://localhost/vizza/api/index.php/travel/bajajalianz/get_policypdf';
+        const url = this.configurationService.getHostHealth() + 'bajajalianz/get_policypdf';
+        // const url = 'http://localhost/vizza/api/index.php/travel/bajajalianz/get_policypdf';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -67,8 +67,8 @@ export class TravelService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        // const url = this.configurationService.getHostHealth() + 'bajajalianz/get_policypdf';
-        const url = 'http://localhost/vizza/api/index.php/travel/bajajalianz/proposal_creation';
+        const url = this.configurationService.getHostHealth() + 'bajajalianz/get_policypdf';
+        // const url = 'http://localhost/vizza/api/index.php/travel/bajajalianz/proposal_creation';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
