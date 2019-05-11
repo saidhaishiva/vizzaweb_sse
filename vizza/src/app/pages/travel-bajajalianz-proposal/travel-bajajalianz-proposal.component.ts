@@ -205,7 +205,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 firstName: this.getStepper1.firstName,
                 lastName: this.getStepper1.lastName,
                 gender: this.getStepper1.gender,
-                dob: this.getStepper1.dob,
+                dob: this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
                 email: this.getStepper1.email,
                 mobile: this.getStepper1.mobile,
                 passportNumber: this.getStepper1.passportNumber,
@@ -230,7 +230,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2[i].name);
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.patchValue(this.getStepper2[i].passportNo);
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2[i].sex);
-                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.getStepper2[i].idob);
+                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2[i].idob, 'y-MM-dd'));
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2[i].age);            }
         }else{
                 alert('no');
