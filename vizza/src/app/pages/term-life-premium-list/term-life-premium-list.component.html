@@ -31,7 +31,7 @@
               <th class="sun-insured col-md-1">
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass font-weight-bold" >Sum Insured </mat-placeholder>
-                  <input matInput [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()"  maxlength="10" autocomplete="off" (keypress)="nameValidate($event)" required >
+                  <input matInput [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()"  maxlength="10" autocomplete="off" (keypress)="numberValidate($event)" >
                 </mat-form-field>
                 <!--<mat-form-field >-->
                   <!--<mat-placeholder class="myclass font-weight-bold" >Sum Insured </mat-placeholder>-->

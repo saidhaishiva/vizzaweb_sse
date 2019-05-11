@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {PosstatusAlertTravel} from '../travel-premium-list/travel-premium-list.component';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {ValidationService} from '../../shared/services/validation.service';
 
 @Component({
   selector: 'app-term-life-premium-list',
@@ -26,7 +27,7 @@ export class TermLifePremiumListComponent implements OnInit {
     compareArray: any;
     selectedAmountTravel: any;
     checkAllStatus: boolean;
-  constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService) {
+  constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
@@ -61,6 +62,10 @@ export class TermLifePremiumListComponent implements OnInit {
             }
         }
 
+    }
+    // Number validation
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
     }
     getCompanyList() {
     const data = {

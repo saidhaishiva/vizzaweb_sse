@@ -821,19 +821,22 @@ export class TravelHomeComponent implements OnInit {
                 let isStudentAgeValid = true;
                 let isMulititripAgeValid = true;
                 if(this.travelUserType) {
-                    if(this.selfArray[0].age > 12) {
+                    if(this.selfArray[0].age >= 12) {
                         isStudentAgeValid = true;
                     } else {
                         isStudentAgeValid = false;
                         this.toast.error('Student Age should be 12 and above');
                     }
                 } else {
-                    if(this.selfArray[0].age >= 18) {
-                        isMulititripAgeValid = true;
-                    } else {
-                        isMulititripAgeValid = false;
-                        this.toast.error('Multiple trip traveler age should be 16 and above');
+                    if(this.travelType == 'Multi') {
+                        if(this.selfArray[0].age >= 18) {
+                            isMulititripAgeValid = true;
+                        } else {
+                            isMulititripAgeValid = false;
+                            this.toast.error('Multiple trip traveler age should be 18 and above');
+                        }
                     }
+
                 }
 
                 if(isStudentAgeValid && isMulititripAgeValid) {

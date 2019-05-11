@@ -1173,10 +1173,10 @@
                               </div>
 
                             <div class="row" *ngIf="documentPath">
-                              <div  class="col-md-6" *ngFor="let images of documentPath">
+                              <div  class="col-md-4" *ngFor="let images of documentPath">
                                 <p class="color-blue">{{images.file_type | uppercase}}</p>
                                 <span class="imageclose mr-2" >
-                                        <img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
+                                        <img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:200px;width: 350px;"/>
                                     </span>
                               </div>
                             </div>
