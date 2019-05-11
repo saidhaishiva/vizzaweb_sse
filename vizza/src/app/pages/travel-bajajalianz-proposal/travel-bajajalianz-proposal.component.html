@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row" bajajProposal>
+  <div class="row hdfcHealthProposal" >
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
         <mat-step [stepControl]="bajajProposal">
@@ -19,7 +19,7 @@
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required>
                             <mat-option value="Mr">Mr</mat-option>
-                            <mat-option value="Ms">Ms</mat-option>
+                            <mat-option value="Mrs">Mrs</mat-option>
                           </mat-select>
                           <mat-error *ngIf="bajajProposal.controls.title.errors?.required">title is required</mat-error>
                         </mat-form-field>
@@ -47,7 +47,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event,i,'proposor')" (dateChange)="addEvent($event,i,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="bajajProposal.controls.dob.errors?.required">DOB is required</mat-error>
@@ -136,17 +136,19 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Country" formControlName="country" readonly>
+                          <input matInput placeholder="Country" formControlName="country" readonly required>
                           <mat-error *ngIf="bajajProposal.controls.country.errors?.required">country is required</mat-error>
                         </mat-form-field>
                       </div>
-                      </div>
                   </div>
-                  <div class="proposal-buttom mt-3 text-right w-100">
-                    <button mat-button matStepperNext (click)="sameasInsurerDetails(0)" (click)="getRelation()">next</button>
 
-<!--                    <button mat-raised-button color="primaryBlue" (click)="stepper1(stepper,bajajProposal.value)">Next</button>-->
+                  <div class="proposal-buttom mt-3 text-right w-100">
+<!--                   (click)="createProposal(bajajProposal.value)"-->
+                    <button mat-raised-button *ngIf="showInsure"  color="primaryBlue"  (click)="nextTab(stepper,bajajProposal.value,'proposar')" >Next</button>
+                    <button mat-raised-button color="primaryBlue" *ngIf="!showInsure" (click)="createProposal(stepper,bajajProposal.value)">Next</button>
+
                   </div>
+                </div>
                 </div>
               </mat-expansion-panel>
             </form>
@@ -155,7 +157,7 @@
 
 
 
-        <mat-step [stepControl]="">
+        <mat-step *ngIf="showInsure" [stepControl]="">
 
           <ng-template matStepLabel >INSURER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
@@ -163,7 +165,7 @@
               <div formArrayName="items" *ngFor="let item of bajajInsuredTravel.get('items')['controls']; let i = index;">
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
-                    <mat-panel-title > INSURED DETAILS FOR
+                    <mat-panel-title > INSURED DETAILS FOR {{getEnquiryDetails.family_members[i].type}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
@@ -193,7 +195,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEvent($event,'insurer')" (dateChange)="addEvent($event,'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEvent($event,i,'insurer')" (dateChange)="addEvent($event,i,'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.errors?.required">DOB is required</mat-error>
@@ -203,7 +205,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Age" formControlName="age"   autocomplete="off"  readonly required>
-<!--                            <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls']age.errors?.required">Age is required</mat-error>-->
+                            <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.errors?.required">Age is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
@@ -223,38 +225,154 @@
                       </div>
                     </div>
                   </div>
-                  <div class="proposal-buttom mt-3 text-right w-100" >
-<!--                    <button mat-button (click)="addInsured()">add details</button>-->
-
-<!--                    <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
-
-                    <!--                    <button mat-raised-button color="primaryBlue"  (click)="InsureDetails(stepper, hdfcInsuredTravel.value)">Next</button>-->
-                  </div>
                 </mat-expansion-panel>
+              </div>
+              <div class="proposal-buttom mt-3 text-right w-100" >
+               <button *ngIf="showInsure" mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+
+                <button *ngIf="showInsure" mat-raised-button color="primaryBlue"  (click)="createProposal(stepper, bajajInsuredTravel.value)">Next</button>
               </div>
             </form>
           </mat-accordion>
         </mat-step>
 
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>Summary Details</ng-template>
-          <mat-accordion class="mt-4 w-100 float-left">
-            <mat-expansion-panel expanded>
+          <ng-template matStepLabel>SUMMARY</ng-template>
+          <!--{{summaryData | json}}iuiy-->
+          <section class="summary-details" *ngIf="summaryData">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-4">
+                    <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.sum_insured_amount}}</span></h4>
+                  </div>
+<!--                  <div class="col-md-8">-->
+<!--                    <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit; let last = last" class="p-2"> {{lists}} <span *ngIf="!last">,</span></span></span></h4>-->
+<!--                  </div>-->
+                </div>
+              </div>
+              <div class="col-md-6">
+                <ul class="summary-head">
+                  <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
+                  <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date| date: 'dd/MM/yyyy'}} </li>
+                  <li></li>
+                </ul>
+              </div>
+            </div>
+            <table class="table table-bordered">
+              <thead class="thead-light">
+              <tr>
+                <th>Insurer</th>
+                <th>Plan Name</th>
+                <th>Premium</th>
+                <th>Service Tax</th>
+                <th>Total Premium</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr>
+                <td>
+                  <img src="{{webhost + '/' + getTravelPremiumList.company_logo}}" class="img-thumbnail" style="width: 70px;" />
+                </td>
+                <td class="align-middle">{{getTravelPremiumList.plan_name}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.serviceTax}}</td>
+                <td class="align-middle"><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</td>
+              </tr>
+              </tbody>
+            </table>
+
+            <mat-expansion-panel   [expanded]="true">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  summary
+                  PROPOSER DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <ng-template matStepLabel>summary</ng-template>
-              <div class="row mt-3">
-                <div class="col-md-12 box-card pt-3 pb-3" >
-                  <p>jkgjh</p>
-                  <button mat-button matStepperPrevious >Back</button>
 
+              <div class="row box-card">
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <!--<h6 class="color-blue">Proposer Details</h6>-->
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}} {{proposerFormData.firstName}}  {{proposerFormData.lastName}}</li>
+                      <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.gender}}</li>
+                      <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatus}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Email ID:</strong> {{proposerFormData.email}}</li>
+                      <li class="list-group-item"><strong>Mobile No:</strong> {{proposerFormData.mobile}}</li>
+                      <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item"><strong>Street Name:</strong> {{proposerFormData.streetName}}</li>
+                      <li class="list-group-item"><strong>Building :</strong> {{proposerFormData.building}}</li>
+                      <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
+                      <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
+                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
+                      <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.country}}</li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </mat-expansion-panel>
-          </mat-accordion>
+
+            <div *ngIf="showInsureSummary">
+              <div *ngFor="let item of insuredFormData; let i = index;">
+                <mat-expansion-panel   [expanded]="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      INSURED DETAILS FOR {{item.relation | uppercase}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <div class="row box-card">
+                    <div class="col-md-6">
+                      <div class="p-3">
+                        <h6 class="color-blue mt-4"></h6>
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item" ><strong>Name:</strong>{{item.name}}</li>
+                          <li class="list-group-item" ><strong>Asignee Name:</strong> {{item.assigneeName}}</li>
+                          <li class="list-group-item" ><strong>Gender:</strong> {{item.sex}}</li>
+                          <li class="list-group-item" ><strong>passport number:</strong> {{item.passportNo}}</li>
+
+                          <li class="list-group-item"><strong>D.O.B:</strong> {{item.idob | date: 'dd/MM/yyyy'}}</li>
+                          <li class="list-group-item" *ngIf="item.relation != ''"><strong>Relationship with proposer:</strong> {{item.relation}}</li>
+                          <li class="list-group-item" ><strong>Age:</strong> {{item.age}}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+
+
+            <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
+          </section>
+          <hr>
+          <div class="row"  *ngIf="summaryData">
+            <div class="col-md-12 text-center">
+              <form action={{summaryData.RediretUrlLink}}  method='post' #form>
+                <div class="col-md-12">
+                  <div class="proposal-buttom mb-3 text-center w-100">
+                    <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                    <button mat-raised-button color="primaryBlue" [disabled]="!acceptSummaryDeclaration" (click)="form.submit()">Pay Now</button>
+                  </div>
+                </div>
+              </form>
+
+            </div>
+          </div>
+
         </mat-step>
 
 
