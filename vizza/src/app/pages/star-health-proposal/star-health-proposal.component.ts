@@ -1473,7 +1473,7 @@ export class StarHealthProposalComponent implements OnInit {
             'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
             'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'created_by': '0',
+            'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'insured_details': this.familyMembers
         }];
         console.log(data, 'alldata');
