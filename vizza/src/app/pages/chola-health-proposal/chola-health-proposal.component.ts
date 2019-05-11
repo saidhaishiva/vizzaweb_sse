@@ -473,7 +473,7 @@ export class CholaHealthProposalComponent implements OnInit {
   }
 
   //Nominee Details
-  religareNomineeDetails(stepper: MatStepper, value) {
+  cholaNomineeDetails(stepper: MatStepper, value) {
     sessionStorage.nomineeData = '';
     sessionStorage.nomineeData = JSON.stringify(value);
     if (this.nomineeDetails.valid) {
@@ -481,7 +481,7 @@ export class CholaHealthProposalComponent implements OnInit {
       this.proposal(stepper);
 
       // mobile view
-      // this.nextStep();
+  this.nextStep();
       // this.appolloMobileTrue3 = false;
       // this.appolloMobileTrue4 = false;
     }
@@ -496,185 +496,32 @@ export class CholaHealthProposalComponent implements OnInit {
   // proposal Creation
 
   proposal(stepper) {
-    // console.log(this.proposer.controls['sameAsInsured'].value, 'kjkkj');
-    // const data = {
-    //   "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-    //   "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-    //   "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-    //   "platform": "web",
-    //   "product_id": this.lifePremiumList.product_id,
-    //   "suminsured_id":  this.getEnquiryDetials.sum_assured_id,
-    //   "policy_id": this.getEnquiryDetials.policy_id,
-    //   "insurer_proposer": {
-    //     "title": this.proposer.controls['title'].value,
-    //     "firstName": this.proposer.controls['firstName'].value,
-    //     "middleName": this.proposer.controls['midName'].value,
-    //     "lastName": this.proposer.controls['lastName'].value,
-    //     "dob":this.datepipe.transform(this.proposer.controls['dob'].value,'yyyy/MM/dd'),
-    //     "age": this.proposer.controls['age'].value,
-    //     "gender": this.proposer.controls['gender'].value,
-    //     "mobile": this.proposer.controls['mobile'].value,
-    //     "email": this.proposer.controls['email'].value,
-    //     "alternate_contact": this.proposer.controls['alterMobile'].value,
-    //     "maritalStatus": this.proposer.controls['maritalStatus'].value,
-    //     "annualIncome": this.proposer.controls['annualIncome'].value,
-    //     "occupation": this.proposer.controls['occupationList'].value,
-    //     "education": this.proposer.controls['education'].value,
-    //     "height": this.proposer.controls['height'].value,
-    //     "weight": this.proposer.controls['weight'].value,
-    //     "weightChanged":this.proposer.controls['weightChanged'].value,
-    //     "aadhaar": this.proposer.controls['aadharNum'].value,
-    //     "smoker": "N",
-    //     "sameAsProposer": this.proposer.controls['sameAsInsured'].value == 'true'  || this.proposer.controls['sameAsInsured'].value == true ? "Y":"N" ,
-    //     "modeOfComm": "E",
-    //     "commMail/SMS": "",
-    //     "preferredLanguage": this.proposer.controls['language'].value,
-    //     "proposer_type": this.proposer.controls['proposerType'].value,
-    //     "documentLanguage": this.proposer.controls['language2'].value,
-    //     "lifeBenefit": this.enquiryFormData.lifePolicy,
-    //     "benefitTerm": this.enquiryFormData.lifeBenefitTerm,
-    //     "premiumPaymentTerm": "10",
-    //     "premiumFrequency": "12",
-    //     "nationality": this.proposer.controls['nationality'].value,
-    //     "countryOfResidence": this.proposer.controls['countryOfResid'].value,
-    //     "placeOfBirth": this.proposer.controls['pob'].value,
-    //     "cititzenship": this.proposer.controls['citizenship'].value,
-    //     "IpRelation": this.proposer.controls['sameAsInsured'].value == 'true' || this.proposer.controls['sameAsInsured'].value == true ? 'SELF' : this.proposer.controls['IpRelation'].value,
-    //     "CountryIpMailing":"IN",
-    //     "politicallyExposedPerson": this.proposer.controls['politicallyExposedPerson'].value,
-    //     "ifYesGiveDetails": this.proposer.controls['ifYesGiveDetails'].value,
-    //   },
-    //   "family_details": {
-    //     "fatherName": this.proposer.controls['fatherName'].value,
-    //     "motherName": this.proposer.controls['motherName'].value,
-    //     "spouseBirthPlace": this.proposer.controls['spouseBirthPlace'].value,
-    //     "spouseName": this.proposer.controls['spouseName'].value == null ? '' : this.proposer.controls['spouseName'].value,
-    //     "spouseDob":this.datepipe.transform(this.proposer.controls['spouseDob'].value,'yyyy/MM/dd')== null ? '' : this.datepipe.transform(this.proposer.controls['spouseDob'].value,'yyyy/MM/dd'),
-    //   },
-    //   "nominee_details": {
-    //     "nominee1Name": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nnName.value,
-    //     "nominee1BirthPlace": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nBirthPlace.value,
-    //     "nominee1Dob":  this.datepipe.transform(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nDob.value,'yyyy/MM/dd'),
-    //     "nominee1Relation": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nRelation.value,
-    //     "nominee2Name": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-    //     "nominee2BirthPlace":this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nBirthPlace.value : '',
-    //     "nominee2Dob": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nDob.value : '',
-    //     "nominee2Relation": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-    //     "sharePercentage": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].sharePercentage.value,
-    //     "appointeeName": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value,
-    //     "appointeeDob":this.datepipe.transform(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd')== null ? '': this.datepipe.transform(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd'),
-    //     "appointeeRelationToNominee": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,
-    //     "RelationToInsured": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value
-    //   },
-    //
-    //   "address_details": {
-    //     "comDoorNo": this.proposer.controls['comDoorNo'].value,
-    //     "comBuildingNumber": this.proposer.controls['comBuildingNumber'].value,
-    //     "comPlotNumber":this.proposer.controls['comPlotNumber'].value,
-    //     "comLandmark": this.proposer.controls['comLandmark'].value,
-    //     "comPlace": this.proposer.controls['comPlace'].value,
-    //     "comDistrict": this.proposer.controls['comDistrict'].value,
-    //     "comState": this.proposer.controls['state'].value,
-    //     "comPincode": this.proposer.controls['pincode'].value,
-    //     "perDoorNo": this.proposer.controls['perDoorNo'].value,
-    //     "perBuildingNumber": this.proposer.controls['perBuildingNumber'].value,
-    //     "perPlotNumber": this.proposer.controls['perPlotNumber'].value,
-    //     "perLandmark": this.proposer.controls['perLandmark'].value,
-    //     "perPlace": this.proposer.controls['perPlace'].value,
-    //     "perDistrict": this.proposer.controls['perDistrict'].value,
-    //     "perState": this.proposer.controls['rstate'].value,
-    //     "perPincode": this.proposer.controls['rpincode'].value,
-    //     "comSameAsPer": this.proposer.controls['sameAsProposer'].value ? "Y" : "N",
-    //
-    //   },
-    //
-    //
-    //
-    //   "bank_deatils": {
-    //     "accountHolderName": this.bankDetail.controls['accountHolderName'].value,
-    //     "branchName": this.bankDetail.controls['branchName'].value,
-    //     "accountNo": this.bankDetail.controls['accountNo'].value,
-    //     "accountType": this.bankDetail.controls['accountType'].value,
-    //     "ifscCode": this.bankDetail.controls['ifscCode'].value,
-    //     "micrCode": this.bankDetail.controls['micrCode'].value,
-    //   },
-    //   "office_details": {
-    //     "department":this.proposer.controls['department'].value == null ? '' : this.proposer.controls['department'].value,
-    //     "officeName": this.proposer.controls['officeName'].value ==null ? '' : this.proposer.controls['officeName'].value,
-    //     "officeAddress1": this.proposer.controls['officeAddress1'].value ==null ? '':this.proposer.controls['officeAddress1'].value,
-    //     "officeAddress2": this.proposer.controls['officeAddress2'].value ==null ?'':this.proposer.controls['officeAddress2'].value,
-    //     "officeAddress3": this.proposer.controls['officeAddress3'].value == null ? '' :this.proposer.controls['officeAddress3'].value,
-    //     "officeDistrict": this.proposer.controls['officeDistrict'].value == null ? '':this.proposer.controls['officeDistrict'].value,
-    //     "officeState": this.proposer.controls['officeState'].value == null ? '':this.proposer.controls['officeState'].value,
-    //     "officePincode": this.proposer.controls['officePincode'].value == null ? '' :this.proposer.controls['officePincode'].value,
-    //     "officeNumber": this.proposer.controls['officeNumber'].value == null ? '': this.proposer.controls['officeNumber'].value,
-    //   },
-    //   "other_details": {
-    //     "addressProof": this.proposer.controls['addressProof'].value,
-    //     "ageProof": this.proposer.controls['ageProof'].value,
-    //     "incomeProof": this.proposer.controls['incomeProof'].value,
-    //     "idProof": this.proposer.controls['idProof'].value,
-    //   },
-    //   "question_details": this.setQuestionDetails
-    // }
-    // console.log(data,'fileeee');
-    // this.settings.loadingSpinner = true;
-    // this.termService.proposalCreation(data).subscribe(
-    //     (successData) => {
-    //       this.proposalSuccess(successData,stepper);
-    //     },
-    //     (error) => {
-    //       this.proposalFailure(error);
-    //     }
-    // );
+    console.log(this.personal.controls['sameAsInsured'].value, 'kjkkj');
+    const data = {
+     "enquiry_id": "1240",
+     "proposal_id": "3",
+     "user_id": "0",
+     "role_id": "4",
+     "pos_status": "0",
+     "product_id": "72",
+     "suminsured_id": "4",
+     "group_name": "Group A",
+        "PremiumComputation": {
+            "objClsCHLserviceResult": {
+                "NoOfAdult": "1",
+                "NoOfChild": "0",
+                "TotalSumInsured": "200000",
+                "Relation": "Self",
+                "InsuranceDetails": "Family",
+                "DOB": "10/03/1988",
+                "Year": "3",
+                "CustMailStateCd": "18",
+                "GSTNumber": "",
+                "ISDNNumber": ""
+            }
+        }
+    };
   }
-  // public proposalSuccess(successData, stepper){
-  //   this.settings.loadingSpinner = false;
-  //
-  //   if(successData.IsSuccess){
-  //     stepper.next();
-  //     this.topScroll();
-  //     this.toastr.success('Proposal created successfully!!');
-  //     this.summaryData = successData.ResponseObject;
-  //     this.requestedUrl =this.summaryData.biUrlLink;
-  //
-  //     this.downloadFile(this.requestedUrl);
-  //
-  //     this.proposerFormData = this.proposer.value;
-  //     this.bankDetailFormData = this.bankDetail.value;
-  //     this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
-  //     console.log(this.nomineeDetailFormData,'dff');
-  //
-  //   } else {
-  //     this.toastr.error(successData.ErrorObject, 'Failed');
-  //   }
-  //
-  // }
-  // public proposalFailure(error){
-  //
-  // }
-  //
-  // downloadFile(value) {
-  //   this.termService.downloadPdfNew().subscribe(
-  //       (successData) => {
-  //         console.log(successData, 'successDatasuccessData');
-  //
-  //       },
-  //       (error) => {
-  //       }
-  //   );
-  //
-  //
-  //
-  //   // this.http.get(
-  //   //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
-  //   //     (response) => {
-  //   //         var mediaType = 'application/pdf';
-  //   //         var blob = new Blob([response._body], {type: mediaType});
-  //   //         var filename = 'test.pdf';
-  //   //         saveAs(blob, filename);
-  //   //     });
-  // }
 
   // Session Details
 
@@ -780,8 +627,8 @@ export class CholaHealthProposalComponent implements OnInit {
       this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
       this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
       this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-      this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('1');
-      this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipName.patchValue(this.relationshipList['1']);
+      this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('Self');
+      this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipName.patchValue(this.relationshipList['Self']);
       // if(this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
       //   this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.value = 'Age between 18 to 55';
       // } else {
@@ -824,21 +671,14 @@ export class CholaHealthProposalComponent implements OnInit {
             if (title == 'personal') {
                 this.personal.controls['personalCity'].setValue(this.pincodeList.personalCity);
                 this.personal.controls['personalState'].setValue(this.pincodeList.personalState);
-            } else {
-                this.personal.controls['rcity'].setValue(this.pincodeList.rcity);
-                this.personal.controls['rstate'].setValue(this.pincodeList.rstate);
             }
-            console.log(this.pincodeList, 'pro');
+            console.log(this.pincodeList, 'pincodeeeeeee');
         } else {
             this.toastr.error('In valid Pincode');
             if (title == 'personal') {
                 this.personal.controls['personalCity'].setValue('');
                 this.personal.controls['personalState'].setValue('');
-            } else {
-                this.personal.controls['rcity'].setValue('');
-                this.personal.controls['rstate'].setValue('');
             }
-
         }
     }
   public pincodeListFailure(error) {
@@ -847,7 +687,6 @@ export class CholaHealthProposalComponent implements OnInit {
   maritalStatus() {
     const data = {
       'platform': 'web',
-      'product_id': '11',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
@@ -873,7 +712,6 @@ export class CholaHealthProposalComponent implements OnInit {
   setOccupationList() {
     const data = {
       'platform': 'web',
-      'product_id': '11',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
@@ -902,7 +740,6 @@ export class CholaHealthProposalComponent implements OnInit {
   setRelationship() {
     const data = {
       'platform': 'web',
-      'product_id': '11',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
@@ -917,7 +754,10 @@ export class CholaHealthProposalComponent implements OnInit {
   }
 
   public setRelationshipSuccess(successData) {
-    this.relationshipList = successData.ResponseObject;
+    if (successData.IsSuccess == true) {
+      this.relationshipList = successData.ResponseObject;
+    }
+
 
   }
   public setRelationshipFailure(error) {
