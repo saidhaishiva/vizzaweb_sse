@@ -186,7 +186,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     // patch same proposar details to first insured
     sameasInsurerDetails(id) {
-            console.log(this.bajajProposal.controls.assigneeName.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].assigneeName.patchValue(this.bajajProposal.controls.assigneeName.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].relation.patchValue('SELF');
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].name.patchValue(this.bajajProposal.controls.firstName.value + this.bajajProposal.controls.lastName.value);
@@ -222,9 +221,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         }
             if (sessionStorage.insuredFormData != '' && sessionStorage.insuredFormData != undefined){
             this.getStepper2 = JSON.parse(sessionStorage.insuredFormData);
-            console.log(this.getStepper2,'items');
             for (let i = 0; i < this.getStepper2.length; i++) {
-                console.log(this.getStepper2[i].assigneeName,'111assvalue');
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2[i].assigneeName);
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2[i].relation);
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2[i].name);
@@ -232,14 +229,11 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2[i].sex);
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2[i].idob, 'y-MM-dd'));
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2[i].age);            }
-        }else{
-                alert('no');
-            }
+        }
     }
 
     // get pincode details
     pincodevalidationBajaj(pin) {
-        console.log(pin, 'pin');
         if (pin == '') {
             this.pincodeValid = true;
         }
@@ -318,7 +312,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     public getMaritalStatusSuccess(successData) {
         if (successData.IsSuccess) {
             this.getMaritalDetails = successData.ResponseObject;
-            console.log(this.getMaritalDetails);
 
         }
     }
@@ -345,9 +338,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         }else{
             this.insuredDataArray = [''];
         }
-        console.log(this.getTravelPremiumList,'tpremium');
-        console.log(this.getTravelPremiumList.area,'area');
-        console.log(this.getTravelPremiumList.plan,'plam');
         const data = {
             "platform": "web",
             "proposal_id": sessionStorage.bajajTravelproposalID != '' && sessionStorage.bajajTravelproposalID !=undefined ? sessionStorage.bajajTravelproposalID : '',
@@ -389,12 +379,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 "WeoTrvFamilyParamInUser": this.insuredDataArray
             }
         };
-        console.log(data.proposal_id,'proidddd');
         if (this.bajajProposal.valid) {
-            alert('1');
             this.travelservice.getProposal(data).subscribe(
                 (successData) => {
-                    alert('2');
                     this.getProposalSuccess(successData,stepper);
                 },
                 (error) => {
