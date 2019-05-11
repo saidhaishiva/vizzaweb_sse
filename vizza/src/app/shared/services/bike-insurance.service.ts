@@ -163,6 +163,17 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getBuissnessList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'reliance/businessType';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getManifactureList(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -265,6 +276,17 @@ export class BikeInsuranceService {
         .map(this.extractData )
         .catch(this.handleError);
   }
+  // previousInsure
+  getPreviousLists(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'royalsundarampreviousInsurerList' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
+        .catch(this.handleError);
+  }
   // Occupation
   getOccupationList(data) {
     const json = JSON.stringify(data);
@@ -276,6 +298,27 @@ export class BikeInsuranceService {
         .map(this.extractData )
         .catch(this.handleError);
   }
+  // vichecal driven
+  getvehicelList(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'royalsundaram/vehicleMostlyDrivenOnList' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
+        .catch(this.handleError);
+  }
+  // getvehicelList(data) {
+  //   const json = JSON.stringify(data);
+  //   const httpOptions = {
+  //     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+  //   };
+  //   const url = this.configurationService.getBikeInsurance() + 'royalsundaram/vehicleMostlyDrivenOnList' ;
+  //   return this.http.post(url , json, httpOptions)
+  //       .map(this.extractData )
+  //       .catch(this.handleError);
+  // }
   private extractData(res: Response) {
     const body = res;
     return body || {};

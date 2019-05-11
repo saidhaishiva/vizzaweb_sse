@@ -32,6 +32,7 @@ export class BikePremiumListComponent implements OnInit {
     thirdParty: boolean;
     comphensivePremium: boolean;
     compherhensive: any;
+    policyTerm: any;
     constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -227,6 +228,7 @@ export class BikePremiumListComponent implements OnInit {
 
         }
     }
+
 
     buyProduct(value) {
         console.log(value,'value');

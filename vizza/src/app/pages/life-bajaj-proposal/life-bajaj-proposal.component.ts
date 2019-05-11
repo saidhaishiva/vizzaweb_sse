@@ -125,15 +125,34 @@ export class LifeBajajProposalComponent implements OnInit {
     public uploadIdProofName: any;
     public uploadAgeProofName: any;
     public uploadAddressProofName: any;
+    public currentStep: any;
+    public documentPath: any;
 
 
     constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+        this.requestedUrl = '';
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 6;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    let summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.summaryData = summaryData;
+                    this.requestedUrl = summaryData.biUrlLink;
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.bankDetailFormData = JSON.parse(sessionStorage.bankDetailFormData);
+                    this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
+                }
+
+            }
+        });
+        this.currentStep = stepperindex;
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-        this.webhost = this.config.getimgUrl();
+      this.webhost = this.config.getimgUrl();
 
-        this.proposer = this.Proposer.group({
+      this.proposer = this.Proposer.group({
       title: ['', Validators.required],
       firstName: ['', Validators.required],
       midName: '',
@@ -150,9 +169,11 @@ export class LifeBajajProposalComponent implements OnInit {
       occupationList: ['', Validators.compose([Validators.required])],
       height: ['', Validators.compose([Validators.minLength(3)])],
       weight: '',
+      inbetweenweight: '',
+      weightChangedreason: '',
       weightChanged: '',
       weightChangedName: '',
-      aadharNum: ['', Validators.required],
+      aadharNum: '',
       spouseDob: '',
       maritalStatusName: '',
       occupationListName: '',
@@ -168,6 +189,7 @@ export class LifeBajajProposalComponent implements OnInit {
       motherName: '',
       fatherName: '',
       ifYesGiveDetails: '',
+      panNum:['', Validators.compose([ Validators.minLength(10)])],
       politicallyExposedPerson: '',
       countryIpMailing: '',
       relation: '',
@@ -254,6 +276,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
     this.bankDetail = this.Proposer.group({
       accountHolderName:'',
+      bankName:['', Validators.required],
       branchName:'',
       accountNo:'',
       accountType:'',
@@ -448,6 +471,16 @@ export class LifeBajajProposalComponent implements OnInit {
   }
   passportIssue(event: any){
     this.validation.passportIssue(event);
+
+  }
+  ifscValidate(event: any) {
+      if (event.charCode !== 0) {
+          const pattern = /^[A-Za-z]{4}0[A-Z0-9]{6}$/;
+          const inputChar = String.fromCharCode(event.charCode);
+          if (!pattern.test(inputChar)) {
+              event.preventDefault();
+          }
+      }
 
   }
 
@@ -767,10 +800,7 @@ samerelationShip(){
     sessionStorage.lifeBajajBankDetails = JSON.stringify(value);
     console.log(sessionStorage.lifeBajajBankDetails, 'session');
     if (this.bankDetail.valid) {
-      stepper.next();
-      this.topScroll();
-    } else {
-      this.toastr.error('error');
+        this.proposal(stepper);
     }
   }
 
@@ -832,16 +862,16 @@ samerelationShip(){
       if (this.nomineeDetail.valid) {
           if (sessionStorage.nomineAge < 18) {
             if(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
-              this.proposal(stepper);
+                stepper.next();
+                this.topScroll();
             } else {
                 this.toastr.error('Please fill the appointee details');
             }
           } else {
-            this.proposal(stepper);
+              stepper.next();
+              this.topScroll();
           }
       }
-    // if (this.nomineeDetail.valid) {
-    //  this.proposal(stepper);
   }
 
   //services
@@ -1292,7 +1322,9 @@ samerelationShip(){
   public ProposalNextSuccess(successData,stepper) {
       this.settings.loadingSpinner = false;
       if (successData.IsSuccess) {
-          stepper.next();
+        // this.toastr.success(successData.ResponseObject);
+
+        stepper.next();
           this.topScroll();
           this.proposalGenStatus = false;
           this.proposalNextList = successData.ResponseObject;
@@ -1300,6 +1332,8 @@ samerelationShip(){
           this.otpGen();
       } else {
             this.proposalGenStatus = true;
+        this.toastr.error(successData.ErrorObject);
+
       }
   }
   public ProposalNextFailure(error) {
@@ -1708,8 +1742,12 @@ samerelationShip(){
         "education": this.proposer.controls['education'].value,
         "height": this.proposer.controls['height'].value,
         "weight": this.proposer.controls['weight'].value,
-        "weightChanged":this.proposer.controls['weightChanged'].value,
+        "ifPastSixWeightChange":this.proposer.controls['weightChanged'].value,
+        "changedWeight":this.proposer.controls['inbetweenweight'].value,
+        "weightChangedReason":this.proposer.controls['weightChangedreason'].value,
         "aadhaar": this.proposer.controls['aadharNum'].value,
+        "pan": this.proposer.controls['panNum'].value,
+
         "smoker": "N",
         "sameAsProposer": this.proposer.controls['sameAsInsured'].value == 'true'  || this.proposer.controls['sameAsInsured'].value == true ? "Y":"N" ,
         "modeOfComm": "E",
@@ -1778,6 +1816,7 @@ samerelationShip(){
 
       "bank_deatils": {
         "accountHolderName": this.bankDetail.controls['accountHolderName'].value,
+        "bankName": this.bankDetail.controls['bankName'].value,
         "branchName": this.bankDetail.controls['branchName'].value,
         "accountNo": this.bankDetail.controls['accountNo'].value,
         "accountType": this.bankDetail.controls['accountType'].value,
@@ -1821,15 +1860,17 @@ samerelationShip(){
       stepper.next();
       this.topScroll();
       this.toastr.success('Proposal created successfully!!');
-     this.summaryData = successData.ResponseObject;
-     this.requestedUrl =this.summaryData.biUrlLink;
-
-        this.downloadFile(this.requestedUrl);
-
-        this.proposerFormData = this.proposer.value;
+      this.summaryData = successData.ResponseObject;
+      this.requestedUrl = this.summaryData.biUrlLink;
+      this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
-      console.log(this.nomineeDetailFormData,'dff');
+      sessionStorage.summaryData = JSON.stringify(this.summaryData);
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.bankDetailFormData = JSON.stringify(this.bankDetailFormData);
+      sessionStorage.nomineeDetailFormData = JSON.stringify(this.nomineeDetailFormData);
+      console.log(this.proposerFormData,'proposerFormData');
+      this.downloadFile(this.requestedUrl);
 
     } else {
         this.toastr.error(successData.ErrorObject, 'Failed');
@@ -1839,28 +1880,27 @@ samerelationShip(){
   public proposalFailure(error){
 
   }
+  downloadFile(value) {
+      this.termService.downloadPdfNew().subscribe(
+          (successData) => {
+            console.log(successData, 'successDatasuccessData');
 
-    downloadFile(value) {
-        this.termService.downloadPdfNew().subscribe(
-            (successData) => {
-              console.log(successData, 'successDatasuccessData');
-
-            },
-            (error) => {
-            }
-        );
-
+          },
+          (error) => {
+          }
+      );
 
 
-        // this.http.get(
-        //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
-        //     (response) => {
-        //         var mediaType = 'application/pdf';
-        //         var blob = new Blob([response._body], {type: mediaType});
-        //         var filename = 'test.pdf';
-        //         saveAs(blob, filename);
-        //     });
-    }
+
+      // this.http.get(
+      //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
+      //     (response) => {
+      //         var mediaType = 'application/pdf';
+      //         var blob = new Blob([response._body], {type: mediaType});
+      //         var filename = 'test.pdf';
+      //         saveAs(blob, filename);
+      //     });
+  }
 
 
 
@@ -1892,7 +1932,9 @@ samerelationShip(){
         // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
+        inbetweenweight: lifeBajaj1.inbetweenweight,
         weightChanged: lifeBajaj1.weightChanged,
+        weightChangedreason: lifeBajaj1.weightChangedreason,
         weightChangedName: lifeBajaj1.weightChangedName,
         countryOfResidName: lifeBajaj1.countryOfResidName,
         citizenshipName: lifeBajaj1.citizenshipName,
@@ -1930,6 +1972,7 @@ samerelationShip(){
         motherName: lifeBajaj1.motherName,
         fatherName: lifeBajaj1.fatherName,
         ifYesGiveDetails: lifeBajaj1.ifYesGiveDetails,
+        panNum: lifeBajaj1.panNum,
         politicallyExposedPerson: lifeBajaj1.politicallyExposedPerson,
         countryIpMailing: lifeBajaj1.countryIpMailing,
         relation: lifeBajaj1.relation,
@@ -1967,6 +2010,7 @@ samerelationShip(){
         let lifeBajajBankDetails = JSON.parse(sessionStorage.lifeBajajBankDetails);
         this.bankDetail = this.Proposer.group({
           accountHolderName: lifeBajajBankDetails.accountHolderName,
+          bankName: lifeBajajBankDetails.bankName,
           branchName: lifeBajajBankDetails.branchName,
           accountNo: lifeBajajBankDetails.accountNo,
           accountType: lifeBajajBankDetails.accountType,
@@ -2132,7 +2176,8 @@ samerelationShip(){
 
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess == true) {
-            this.toastr.success(successData.ResponseObject, 'Success');
+            this.documentPath = successData.ResponseObject.filePath;
+            this.toastr.success(successData.ResponseObject.message, 'Success');
             this.fileUploadStatus = false;
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');

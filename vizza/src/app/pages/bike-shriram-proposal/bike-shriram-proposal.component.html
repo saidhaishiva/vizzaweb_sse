@@ -125,13 +125,13 @@
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="State" formControlName="state"  autocomplete="off" readonly required >
-                                                    <mat-error *ngIf="proposer.controls.state.errors?.required">State is required</mat-error>
+                                                    <!--<mat-error *ngIf="proposer.controls.state.errors?.required">State is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="City" formControlName="city"  autocomplete="off" readonly required>
-                                                    <mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>
+                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
 
@@ -399,6 +399,16 @@
                                                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker2></mat-datepicker>
                                                     <mat-error *ngIf="previousInsure.controls.previousdob.errors?.required">Policy Start Date is required</mat-error>
+                                                </mat-form-field>
+                                                <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput [matDatepicker]="picker3"  placeholder="Policy End Date(DD/MM/YYYY)"  (keypress)="dobValidate($event)"   formControlName="previousdEndob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
+                                                           autocomplete="off"   required>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker3" ></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker3></mat-datepicker>
+                                                    <mat-error *ngIf="previousInsure.controls.previousdEndob.errors?.required">Policy End Date is required</mat-error>
                                                 </mat-form-field>
                                                 <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
                                             </div>

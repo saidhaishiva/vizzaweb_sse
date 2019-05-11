@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {PosstatusAlertTravel} from '../travel-premium-list/travel-premium-list.component';
 import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {ValidationService} from '../../shared/services/validation.service';
 
 @Component({
   selector: 'app-term-life-premium-list',
@@ -26,13 +27,14 @@ export class TermLifePremiumListComponent implements OnInit {
     compareArray: any;
     selectedAmountTravel: any;
     checkAllStatus: boolean;
-  constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService) {
+  constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
       this.webhost = this.config.getimgUrl();
       this.compareArray = [];
+      this.selectedAmountTravel = '5000000';
   }
   ngOnInit() {
       this.getCompanyList();
@@ -48,6 +50,9 @@ export class TermLifePremiumListComponent implements OnInit {
         if(sessionStorage.allProductLists != '' && sessionStorage.allProductLists !=undefined) {
             this.allProductLists  = JSON.parse(sessionStorage.allProductLists);
         }
+        if(sessionStorage.selectedAmountTravel != '' && sessionStorage.selectedAmountTravel !=undefined) {
+            this.selectedAmountTravel  = JSON.parse(sessionStorage.selectedAmountTravel);
+        }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);
             if(this.filterCompany.includes('All')) {
@@ -57,6 +62,10 @@ export class TermLifePremiumListComponent implements OnInit {
             }
         }
 
+    }
+    // Number validation
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
     }
     getCompanyList() {
     const data = {
@@ -85,7 +94,7 @@ export class TermLifePremiumListComponent implements OnInit {
           console.log(sessionStorage.allProductLists, 'ppp');
           if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
               console.log('inn');
-              this.getProductList(this.allCompanyList);
+              this.getProductList(this.allCompanyList, '5000000');
           }
 
       }
@@ -94,7 +103,7 @@ export class TermLifePremiumListComponent implements OnInit {
       console.log(error);
   }
 
-    public getProductList(companyList): void {
+    public getProductList(companyList, sum_assured): void {
         this.productListArray = [];
         this.allProductLists = [];
         let sum_amount = '';
@@ -104,6 +113,7 @@ export class TermLifePremiumListComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'policy_id': this.getEnquiryDetials.policy_id,
+            'sum_assured': sum_assured,
             'company_id': ''
         };
         this.settings.loadingSpinner = true;
@@ -160,6 +170,8 @@ export class TermLifePremiumListComponent implements OnInit {
         return age;
     }
     updateSumInsured(){
+        sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
+        this.getProductList(this.allCompanyList, this.selectedAmountTravel);
 
     }
     // filter by product

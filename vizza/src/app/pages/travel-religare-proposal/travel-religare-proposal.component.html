@@ -101,7 +101,7 @@
                           </div>
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Student"  formControlName="studentRelationShip" (change)="studentRelationshipList()" required>
-                              <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.key}}" >
+                              <mat-option *ngFor="let lists of sponserRelationList | keys" value="{{lists.key}}" >
                                 {{lists.value}}
                               </mat-option>
                             </mat-select>
@@ -428,7 +428,7 @@
                       <div class=" col-md-12" *ngIf="item.field_type == 'dropdown'">
                         <mat-form-field class="w-50" >
                           <mat-select [(ngModel)]="item.fieldValue"  required="{{item.question_set_code == 'SPDsponsorDetails'}}">
-                            <mat-option *ngFor="let lists of insuretravelRelationList | keys" value="{{lists.key}}" >
+                            <mat-option *ngFor="let lists of sponserRelationList | keys" value="{{lists.key}}" >
                               {{lists.value}}
                             </mat-option>
                           </mat-select>
@@ -487,7 +487,7 @@
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <mat-select placeholder="Relationship with Insured"  formControlName="religareTravelRelationship" (change)="religareTravelRelationshipList()" required>
-                          <mat-option *ngFor="let lists of insuretravelRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.value}}" >
+                          <mat-option *ngFor="let lists of sponserRelationList | keys" [hidden]="sameRelationship == lists.relation_id" value="{{lists.value}}" >
                             {{lists.value}}
                           </mat-option>
                         </mat-select>
@@ -568,7 +568,7 @@
                         <li class="list-group-item"><strong>Gender:</strong>{{item.gender}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.dob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item" *ngIf="item.adharnumber != ''"><strong>Aadhar No:</strong> {{item.adharnumber}}</li>
-                        <li class="list-group-item" *ngIf="item.pannumber != ''"><strong>Pan No:</strong> {{item.pannumber | uppercase}}</li>
+                        <li class="list-group-item" *ngIf="item.pannumber != ''"><strong>PAN No:</strong> {{item.pannumber | uppercase}}</li>
                         <li class="list-group-item"><strong>Email:</strong> {{item.email}}</li>
 
                       </ul>
@@ -577,7 +577,7 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Realionship with Proposer:</strong> {{item.relationshipName}}</li>
+                        <li class="list-group-item" *ngIf="i != 0"> <strong>Relationship with Proposer:</strong> {{item.relationshipName}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile}}</li>
                         <li class="list-group-item" *ngIf="item.phone != '' && item.phone != null"><strong>Phone:</strong> {{item.phone}}</li>
                         <li class="list-group-item" *ngIf="item.passport != ''"><strong>PassPort:</strong> {{item.passport}}</li>
