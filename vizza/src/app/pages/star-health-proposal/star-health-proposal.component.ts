@@ -1452,7 +1452,7 @@ export class StarHealthProposalComponent implements OnInit {
             'have_eia_no': '1',
             'eia_no': '',
             'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
-            'critical_illness': 'NO   ',
+            'critical_illness': 'NO',
             'social_status': this.personalData.socialStatus == true || this.personalData.socialStatus == 'true' ? 1 : 0,
             'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? '0' : this.personalData. socialAnswer1,
             'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? '0' : this.personalData. socialAnswer2,
