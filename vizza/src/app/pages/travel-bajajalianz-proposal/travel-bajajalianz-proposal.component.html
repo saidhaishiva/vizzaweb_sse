@@ -165,7 +165,7 @@
               <div formArrayName="items" *ngFor="let item of bajajInsuredTravel.get('items')['controls']; let i = index;">
                 <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                   <mat-expansion-panel-header>
-                    <mat-panel-title > INSURED DETAILS FOR {{getEnquiryDetails.family_members[i].type}}
+                    <mat-panel-title > INSURED DETAILS FOR {{ getEnquiryDetails.family_members[i].type | uppercase}}
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <ng-template matStepLabel>INSURED DETAILS </ng-template>
@@ -337,13 +337,17 @@
                   <div class="row box-card">
                     <div class="col-md-6">
                       <div class="p-3">
-                        <h6 class="color-blue mt-4"></h6>
                         <ul class="m-0 list-group">
                           <li class="list-group-item" ><strong>Name:</strong>{{item.name}}</li>
                           <li class="list-group-item" ><strong>Asignee Name:</strong> {{item.assigneeName}}</li>
                           <li class="list-group-item" ><strong>Gender:</strong> {{item.sex}}</li>
                           <li class="list-group-item" ><strong>passport number:</strong> {{item.passportNo}}</li>
-
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="p-3">
+                        <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.idob | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item" *ngIf="item.relation != ''"><strong>Relationship with proposer:</strong> {{item.relation}}</li>
                           <li class="list-group-item" ><strong>Age:</strong> {{item.age}}</li>
@@ -355,9 +359,10 @@
               </div>
             </div>
 
+            <p class="mt-4"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
 
-            <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
           </section>
+
           <hr>
           <div class="row"  *ngIf="summaryData">
             <div class="col-md-12 text-center">

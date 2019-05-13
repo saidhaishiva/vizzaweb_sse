@@ -5,13 +5,34 @@ import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ToastrService} from 'ngx-toastr';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 
 
 @Component({
   selector: 'app-reliance-motor-proposal',
   templateUrl: './reliance-motor-proposal.component.html',
-  styleUrls: ['./reliance-motor-proposal.component.scss']
+  styleUrls: ['./reliance-motor-proposal.component.scss'],
+  providers: [
+
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class RelianceMotorProposalComponent implements OnInit {
 
@@ -97,15 +118,16 @@ export class RelianceMotorProposalComponent implements OnInit {
 
     this.coverDetails = this.fb.group({
       UnnamedPassengerCovered: [''],
-      AutomobileAssociationMember: [''],
       PAToOwnerDriverCoverd: [''],
+      NilDepreciationCoverage: [''],
       LiabilityToPaidDriverCovered: [''],
-      AntiTheftDeviceFitted: [''],
       TPPDCover: [''],
       BasicODCoverage: [''],
       BasicLiability: [''],
-      InsurancePremium: [''],
       NewVehicle: [''],
+      PACoverToOwner: [''],
+      cappointeeName: [''],
+      cnomineeName: [''],
       fuelType: ['',Validators.required],
     });
     this.nationalityList = {
@@ -218,7 +240,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         firstName : this.getStepper1.firstName,
         lastName : this.getStepper1.lastName,
         middleName : this.getStepper1.middleName,
-        dob : this.getStepper1.dob,
+        dob : this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
         title : this.getStepper1.title,
         occupation : this.getStepper1.occupation,
         maritalStatus : this.getStepper1.maritalStatus,

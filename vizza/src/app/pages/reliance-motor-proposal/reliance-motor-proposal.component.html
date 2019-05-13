@@ -312,16 +312,13 @@
                                 <mat-checkbox  formControlName="UnnamedPassengerCovered">UnnamedPassengerCovered</mat-checkbox>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="AutomobileAssociationMember">AutomobileAssociationMember</mat-checkbox>
-                            </div>
-                            <div class="col-md-3">
                                 <mat-checkbox  formControlName="PAToOwnerDriverCoverd">PAToOwnerDriverCoverd</mat-checkbox>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="LiabilityToPaidDriverCovered">LiabilityToPaidDriverCovered</mat-checkbox>
+                                <mat-checkbox  formControlName="NilDepreciationCoverage">NilDepreciationCoverage</mat-checkbox>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="AntiTheftDeviceFitted">AntiTheftDeviceFitted</mat-checkbox>
+                                <mat-checkbox  formControlName="LiabilityToPaidDriverCovered">LiabilityToPaidDriverCovered</mat-checkbox>
                             </div>
                             <div class="col-md-3">
                                 <mat-checkbox  formControlName="TPPDCover">TPPDCover</mat-checkbox>
@@ -333,8 +330,22 @@
                                 <mat-checkbox  formControlName="BasicLiability">BasicLiability</mat-checkbox>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="InsurancePremium">InsurancePremium</mat-checkbox>
+                                <mat-checkbox  formControlName="PACoverToOwner">PACoverToOwner</mat-checkbox>
                             </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                        <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Appointee Name" formControlName="cappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+<!--                                <mat-error *ngIf="relianceProposal.controls.firstName.errors?.required">FirstName is required</mat-error>-->
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                                <!--                                <mat-error *ngIf="relianceProposal.controls.firstName.errors?.required">FirstName is required</mat-error>-->
+                            </mat-form-field>
                         </div>
                     </div>
 

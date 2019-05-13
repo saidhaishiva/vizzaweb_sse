@@ -186,13 +186,14 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     // patch same proposar details to first insured
     sameasInsurerDetails(id) {
+        console.log(sessionStorage.proposerAgeForTravel,'ageeeeeeeeee');
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].assigneeName.patchValue(this.bajajProposal.controls.assigneeName.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].relation.patchValue('SELF');
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].name.patchValue(this.bajajProposal.controls.firstName.value + this.bajajProposal.controls.lastName.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].passportNo.patchValue(this.bajajProposal.controls.passportNumber.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].sex.patchValue(this.bajajProposal.controls.gender.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].idob.patchValue(this.bajajProposal.controls.dob.value);
-            this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].age.patchValue(this.proposerAge);
+            this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].age.patchValue(sessionStorage.proposerAgeForTravel);
         }
 
     // session
@@ -222,14 +223,17 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             if (sessionStorage.insuredFormData != '' && sessionStorage.insuredFormData != undefined){
             this.getStepper2 = JSON.parse(sessionStorage.insuredFormData);
             for (let i = 0; i < this.getStepper2.length; i++) {
-                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2[i].assigneeName);
-                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2[i].relation);
-                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2[i].name);
-                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.patchValue(this.getStepper2[i].passportNo);
-                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2[i].sex);
-                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2[i].idob, 'y-MM-dd'));
-                this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2[i].age);            }
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2[i].assigneeName);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2[i].relation);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2[i].name);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.patchValue(this.getStepper2[i].passportNo);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2[i].sex);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2[i].idob, 'y-MM-dd'));
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2[i].age);
+                }
         }
+        console.log(this.bajajInsuredTravel['controls'].items['controls'][0]['controls'].age,'ddddd');
+
     }
 
     // get pincode details
@@ -321,6 +325,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     // create proposal
     createProposal(stepper, value) {
+        console.log(this.proposerAge,'proposerAge');
+        console.log(sessionStorage.proposerAge,'sesionAGE');
         if(this.getEnquiryDetails.travel_user_type == 'family') {
             this.insurerData = value;
             this.insuredDataArray = [];
@@ -380,14 +386,18 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             }
         };
         if (this.bajajProposal.valid) {
-            this.travelservice.getProposal(data).subscribe(
-                (successData) => {
-                    this.getProposalSuccess(successData,stepper);
-                },
-                (error) => {
-                    this.getProposalFailure(error);
-                }
-            );
+            if (sessionStorage.proposerAgeForTravel > 0){
+                this.travelservice.getProposal(data).subscribe(
+                    (successData) => {
+                        this.getProposalSuccess(successData,stepper);
+                    },
+                    (error) => {
+                        this.getProposalFailure(error);
+                    }
+                );
+            }else{
+                this.toastr.error('Proposer Age should be greater than 0');
+            }
         }
     }
 
@@ -441,7 +451,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10 && type == 'proposor') {
                     this.proposerAge = this.ageCalculate(dob);
-                    // sessionStorage.proposerAgeForTravel = this.proposerAge;
+                    // sessionStorage.proposerAge = this.proposerAge;
+                    sessionStorage.proposerAgeForTravel = this.proposerAge;
                 } else if (selectedDate.length == 10 && type == 'insurer') {
                     this.inusurerAge = this.ageCalculate(dob);
                     this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].age.patchValue(this.inusurerAge);
@@ -452,8 +463,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10 && type == 'proposor') {
                     this.proposerAge = this.ageCalculate(dob);
+                    // sessionStorage.proposerAge = this.proposerAge;
                     this.personalDobError = '';
-                    // sessionStorage.proposerAgeForTravel = this.proposerAge;
+                    sessionStorage.proposerAgeForTravel = this.proposerAge;
                 } else if (dob.length == 10 && type == 'insurer') {
                     this.inusurerAge = this.ageCalculate(dob);
                     this.personalDobError = '';
