@@ -66,12 +66,15 @@ export class CholaHealthProposalComponent implements OnInit {
   public maritalStatusList: any;
   public pincodeList: any;
   public occupationList: any;
+  public CholaCityList: any;
   public summaryData: any;
   public RediretUrlLink: any;
   public proposalId: any;
-  public proposerFormData : any;
-  public nomineeFormData : any;
-  public insuredFormData : any;
+  public proposerFormData: any;
+  public nomineeFormData: any;
+  public insuredFormData: any;
+  public enquiryId: any;
+  public response: any;
   constructor(public fb: FormBuilder, public authservice: AuthService, public http: HttpClient,public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, public termService: HealthService, private toastr: ToastrService ) {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -80,10 +83,10 @@ export class CholaHealthProposalComponent implements OnInit {
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
           this.RediretUrlLink = this.summaryData.PaymentURL;
-          this.proposalId = this.summaryData.ProposalId;
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
           this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+          this.proposalId = this.summaryData.ProposalId;
           sessionStorage.chola_health_proposal_id = this.proposalId;
         }
       }
@@ -120,26 +123,31 @@ export class CholaHealthProposalComponent implements OnInit {
       custMailStateCd: '',
       personalGst: ['', Validators.compose([Validators.minLength(15)])],
       personalIsdn: '',
+      personalCityName: '',
+      state_cd: '',
+      state_desc: '',
       });
     this.nomineeDetails = this.fb.group({
       nomineeName: '',
       nomineeRelationship: '',
+      nomineeRelationshipName: '',
+
     });
   }
 
   ngOnInit() {
-
     this.setOccupationList();
     this.maritalStatus();
     this.setRelationship();
 
-    // this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
-    // this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
-    // this.insurePersons = this.getFamilyDetails.family_members;
+
+      this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+      this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
+      this.insurePersons = this.getFamilyDetails.family_members;
     this.insureArray = this.fb.group({
       items: this.fb.array([])
     });
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < this.getFamilyDetails.family_members.length; i++) {
       this.items = this.insureArray.get('items') as FormArray;
       console.log(this.items , 'jkgghhfghjf');
       this.items.push(this.initItemRows());
@@ -199,6 +207,7 @@ export class CholaHealthProposalComponent implements OnInit {
           insurerDobValidError: '',
           dobErrorStartDate: '',
           type: '',
+          personalStateIdP: '',
 
         }
     );
@@ -441,6 +450,7 @@ export class CholaHealthProposalComponent implements OnInit {
     this.personalData = value;
     sessionStorage.stepper1Details = '';
     sessionStorage.stepper1Details = JSON.stringify(value);
+      console.log(this.personal, 'this.personal');
     if (this.personal.valid) {
        if (sessionStorage.personalAge >= 18) {
            if (this.mobileNumber == '' || this.mobileNumber == 'true'){
@@ -448,20 +458,36 @@ export class CholaHealthProposalComponent implements OnInit {
               this.topScroll();
               this.nextStep();
            }
+           console.log(this.personal, 'this.personal');
        } else {
        this.toastr.error('Proposer age should be 18 or above');
       }
     }
   }
   //Insure Details
-  cholaInsureDetails(stepper: MatStepper, id, value, key) {
+  cholaInsureDetails(stepper: MatStepper, value) {
     sessionStorage.stepper2Details = '';
     sessionStorage.stepper2Details = JSON.stringify(value);
-    console.log(this.insureArray, 'this.insureArray');
+    console.log(value, 'this.value');
     console.log(this.insureArray.valid, 'this.valid');
     if (this.insureArray.valid) {
-      // this.insurerData = value.items;
-      // this.totalInsureDetails = [];
+        this.insurerData = value.items;
+        console.log(this.insurerData,'this.insurerData');
+        this.totalInsureDetails = [];
+        for (let i = 0; i < this.insurePersons.length; i++) {
+            this.totalInsureDetails.push({
+                'Title': this.insurerData[i].personalTitle,
+                'FirstName': this.insurerData[i].proposerFirstname,
+                'Lastname': this.insurerData[i].personalLastname,
+                'Gender': this.insurerData[i].personalGender,
+                'Dob': this.insurerData[i].personalDob,
+                'Relationship': this.insurerData[i].personalrelationship,
+                'SumInsured': this.insurerData[i].sumInsured == undefined ? 0 : (this.insurerData[i].sumInsured ? this.insurerData[i].sumInsured : 0) ,
+
+            });
+        }
+
+
 
           stepper.next();
           this.topScroll();
@@ -476,12 +502,14 @@ export class CholaHealthProposalComponent implements OnInit {
   cholaNomineeDetails(stepper: MatStepper, value) {
     sessionStorage.nomineeData = '';
     sessionStorage.nomineeData = JSON.stringify(value);
+
     if (this.nomineeDetails.valid) {
-      this.nomineeData = value;
-      this.proposal(stepper);
+        this.nomineeData = value;
+        console.log(this.nomineeData,'this.nomineeData');
+        this.proposal(stepper);
 
       // mobile view
-  this.nextStep();
+     this.nextStep();
       // this.appolloMobileTrue3 = false;
       // this.appolloMobileTrue4 = false;
     }
@@ -493,35 +521,6 @@ export class CholaHealthProposalComponent implements OnInit {
   //   this.prevStep();
   // }
 
-  // proposal Creation
-
-  proposal(stepper) {
-    console.log(this.personal.controls['sameAsInsured'].value, 'kjkkj');
-    const data = {
-     "enquiry_id": "1240",
-     "proposal_id": "3",
-     "user_id": "0",
-     "role_id": "4",
-     "pos_status": "0",
-     "product_id": "72",
-     "suminsured_id": "4",
-     "group_name": "Group A",
-        "PremiumComputation": {
-            "objClsCHLserviceResult": {
-                "NoOfAdult": "1",
-                "NoOfChild": "0",
-                "TotalSumInsured": "200000",
-                "Relation": "Self",
-                "InsuranceDetails": "Family",
-                "DOB": "10/03/1988",
-                "Year": "3",
-                "CustMailStateCd": "18",
-                "GSTNumber": "",
-                "ISDNNumber": ""
-            }
-        }
-    };
-  }
 
   // Session Details
 
@@ -554,6 +553,7 @@ export class CholaHealthProposalComponent implements OnInit {
         personalIsdn: this.getStepper1.personalIsdn,
         sameAsProposer: this.getStepper1.sameAsProposer,
         sameas: this.getStepper1.sameas,
+        proposerStateIdP: this.getStepper1.proposerStateIdP,
 
       });
       let age = this.ageCalculate(this.datepipe.transform(this.getStepper1.proposerDob, 'y-MM-dd'));
@@ -578,6 +578,7 @@ export class CholaHealthProposalComponent implements OnInit {
         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
+        this.insureArray['controls'].items['controls'][i]['controls'].proposerStateIdP.patchValue(this.getStepper2.items[i].proposerStateIdP);
       }
     }
     // if (sessionStorage.stepper3Details != '' && sessionStorage.stepper1Details != undefined) {
@@ -667,17 +668,29 @@ export class CholaHealthProposalComponent implements OnInit {
     }
     public pincodeListSuccess(successData, title) {
         if (successData.IsSuccess) {
-            this.pincodeList = successData.ResponseObject;
+            this.response = successData.ResponseObject;
             if (title == 'personal') {
-                this.personal.controls['personalCity'].setValue(this.pincodeList.personalCity);
-                this.personal.controls['personalState'].setValue(this.pincodeList.personalState);
+                if (Object.keys(this.response).length === 0) {
+                   this.personal.controls['personalCity'].setValue('');
+                    this.personal.controls['personalState'].setValue('');
+                    this.personal.controls['personalStateIdP'].setValue('');
+                    this.CholaCityList = {};
+                } else {
+                  this.personal.controls['personalState'].setValue(this.response.state);
+                  this.personal.controls['personalStateIdP'].setValue(this.response.state_code);
+                  this.CholaCityList = this.response.city;
+                }
             }
-            console.log(this.pincodeList, 'pincodeeeeeee');
+            sessionStorage.CholaCityList = JSON.stringify(this.CholaCityList);
         } else {
-            this.toastr.error('In valid Pincode');
+            this.toastr.error('Invalid Pincode');
             if (title == 'personal') {
+                sessionStorage.CholaCityList = '';
+                this.CholaCityList = {};
                 this.personal.controls['personalCity'].setValue('');
                 this.personal.controls['personalState'].setValue('');
+              this.personal.controls['personalStateIdP'].setValue('');
+
             }
         }
     }
@@ -709,6 +722,34 @@ export class CholaHealthProposalComponent implements OnInit {
 
   public setMaritalStatusFailure(error) {
   }
+    //City
+    cholaCityList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        }
+        this.termService.cityListChola(data).subscribe(
+            (successData) => {
+                this.setCityListSuccess(successData);
+            },
+            (error) => {
+                this.setCityListFailure(error);
+            }
+        );
+    }
+
+    public setCityListSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.CholaCityList = successData.ResponseObject;
+
+        }
+    }
+
+    public setCityListFailure(error) {
+    }
+
+
   setOccupationList() {
     const data = {
       'platform': 'web',
@@ -762,6 +803,122 @@ export class CholaHealthProposalComponent implements OnInit {
   }
   public setRelationshipFailure(error) {
   }
+
+    // proposal Creation
+
+    proposal(stepper) {
+
+        const data = {
+            "enquiry_id": this.getFamilyDetails.enquiry_id,
+            "proposal_id": sessionStorage.chola_health_proposal_id == '' || sessionStorage.chola_health_proposal_id == undefined ? '' : sessionStorage.chola_health_proposal_id,
+            "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "pos_status": "0",
+            "product_id": this.buyProductdetails.product_id,
+            "suminsured_id": "4",
+            "group_name": this.getFamilyDetails.name,
+            "ProposalSave": {
+                "ObjProposalService": {
+                    "NoOfAdult": "2",
+                    "NoOfChild": "0",
+                    "TotalSumInsured": "500000",
+                    "DOB": "10/08/1990",
+                    "Relation": "Self",
+                    "Year": "1",
+                    "PreexistingDisease": "No",
+                    "InsuranceDetails": "Family",
+                    "ProposalDetails": {
+                        "ClsMIBLProposalDetails": {
+                            "FirstName": this.personal.controls['personalFirstname'].value,
+                            "LastName":this.personal.controls['personalLastname'].value,
+                            "DOB": "10/08/1990",
+                            "Maritalstatus": this.personal.controls['maritalStatus'].value,
+                            "Occupation": this.personal.controls['occupation'].value,
+                            "Income": this.personal.controls['personalIncome'].value,
+                            "Email": this.personal.controls['personalEmail'].value,
+                            "Address1": this.personal.controls['personalAddress'].value,
+                            "Address2":this.personal.controls['personalAddress2'].value,
+                            "City": "Chennai",
+                            "Pincode": "600001",
+                            "STDCode":this.personal.controls['personalstdcode'].value,
+                            "Landlineno": this.personal.controls['personalLandlineno'].value,
+                            "MobileNumber": this.personal.controls['personalMobile'].value,
+                            "Gender": this.personal.controls['personalGender'].value,
+                            "CustMailStateCd": this.personal.controls['custMailStateCd'].value,
+                            "GSTNumber":this.personal.controls['personalGst'].value,
+                            "ISDNNumber":this.personal.controls['personalIsdn'].value,
+                        }
+                    },
+                    "InsuredDetails": {
+                        "clsInsuredDetails": [{
+                            "Relationship": this.totalInsureDetails[0].Relationship,
+                            "DOB": this.totalInsureDetails[0].Dob,
+                            "Gender": this.totalInsureDetails[0].Gender,
+                            "SumInsured":this.totalInsureDetails[0].SumInsured,
+                            "FirstName": this.totalInsureDetails[0].FirstName,
+                            "LastName": this.totalInsureDetails[0].LastName,
+                        },
+                            {
+                                "Relationship": this.totalInsureDetails[0].Relationship,
+                                "DOB": this.totalInsureDetails[0].Dob,
+                                "Gender": this.totalInsureDetails[0].Gender,
+                                "SumInsured": this.totalInsureDetails[0].SumInsured,
+                                "FirstName": this.totalInsureDetails[0].FirstName,
+                                "LastName": this.totalInsureDetails[0].LastName,
+                            }
+
+                        ]
+                    },
+                    "NomineeDetails": {
+                        "ClsMIBLNomineeDetails": {
+                            "NomineeName": this.nomineeData.nomineeName,
+                            "NomineeRelationship": this.nomineeData.nomineeRelationship,
+                        }
+                    },
+                    "MIBLTransID": "ksakasjaiqw4a"
+                }
+
+            }
+        };
+
+        this.termService.getCholaProposal(data).subscribe(
+            (successData) => {
+                this.setCholaProposalSuccess(successData,stepper);
+            },
+            (error) => {
+                this.setCholaProposalFailure(error);
+            }
+        );
+
+    }
+    public setCholaProposalSuccess(successData,stepper) {
+
+        if (successData.IsSuccess) {
+            stepper.next();
+            this.toastr.success('Proposal created successfully!!');
+            this.summaryData = successData.ResponseObject;
+            sessionStorage.summaryData = JSON.stringify(this.summaryData);
+            this.RediretUrlLink = this.summaryData.PaymentURL;
+            this.proposalId = this.summaryData.ProposalId;
+            this.proposerFormData = this.personal.value;
+            this.nomineeFormData = this.nomineeDetails.value;
+            this.insuredFormData = this.insurerData;
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+            sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+            sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+
+            sessionStorage.chola_health_proposal_id = this.proposalId;
+
+
+
+        }
+        else{
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+    public setCholaProposalFailure(error) {
+    }
+
     //Summary residence detail
 
     changeMarital() {
@@ -769,6 +926,9 @@ export class CholaHealthProposalComponent implements OnInit {
     }
     occupationListCode() {
         this.personal.controls['occupationName'].patchValue(this.occupationList[this.personal.controls['occupation'].value]);
+    }
+    changeCity() {
+        this.personal.controls['personalCityName'].patchValue(this.CholaCityList[this.personal.controls['personalCity'].value]);
     }
 
   changeNomineeRelation() {
