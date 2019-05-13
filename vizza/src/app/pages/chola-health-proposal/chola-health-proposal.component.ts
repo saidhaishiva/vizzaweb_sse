@@ -553,7 +553,7 @@ export class CholaHealthProposalComponent implements OnInit {
         personalIsdn: this.getStepper1.personalIsdn,
         sameAsProposer: this.getStepper1.sameAsProposer,
         sameas: this.getStepper1.sameas,
-        proposerStateIdP: this.getStepper1.proposerStateIdP,
+          personalStateIdP: this.getStepper1.personalStateIdP
 
       });
       let age = this.ageCalculate(this.datepipe.transform(this.getStepper1.proposerDob, 'y-MM-dd'));
@@ -671,14 +671,14 @@ export class CholaHealthProposalComponent implements OnInit {
             this.response = successData.ResponseObject;
             if (title == 'personal') {
                 if (Object.keys(this.response).length === 0) {
-                   this.personal.controls['personalCity'].setValue('');
-                    this.personal.controls['personalState'].setValue('');
-                    this.personal.controls['personalStateIdP'].setValue('');
+                   this.personal.controls['personalCity'].patchValue('');
+                    this.personal.controls['personalState'].patchValue('');
+                    this.personal.controls['personalStateIdP'].patchValue('');
                     this.CholaCityList = {};
                 } else {
-                  this.personal.controls['personalState'].setValue(this.response.state);
-                  this.personal.controls['personalStateIdP'].setValue(this.response.state_code);
-                  this.CholaCityList = this.response.city;
+                    this.CholaCityList = this.response.city;
+                    this.personal.controls['personalState'].patchValue(this.response.state);
+                    this.personal.controls['personalStateIdP'].patchValue(this.response.state_code);
                 }
             }
             sessionStorage.CholaCityList = JSON.stringify(this.CholaCityList);
@@ -687,9 +687,9 @@ export class CholaHealthProposalComponent implements OnInit {
             if (title == 'personal') {
                 sessionStorage.CholaCityList = '';
                 this.CholaCityList = {};
-                this.personal.controls['personalCity'].setValue('');
-                this.personal.controls['personalState'].setValue('');
-              this.personal.controls['personalStateIdP'].setValue('');
+                this.personal.controls['personalCity'].patchValue('');
+                this.personal.controls['personalState'].patchValue('');
+              this.personal.controls['personalStateIdP'].patchValue('');
 
             }
         }
