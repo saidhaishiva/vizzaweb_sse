@@ -380,14 +380,18 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             }
         };
         if (this.bajajProposal.valid) {
-            this.travelservice.getProposal(data).subscribe(
-                (successData) => {
-                    this.getProposalSuccess(successData,stepper);
-                },
-                (error) => {
-                    this.getProposalFailure(error);
-                }
-            );
+            if (this.proposerAge > 0){
+                this.travelservice.getProposal(data).subscribe(
+                    (successData) => {
+                        this.getProposalSuccess(successData,stepper);
+                    },
+                    (error) => {
+                        this.getProposalFailure(error);
+                    }
+                );
+            }else{
+                this.toastr.error('Proposer Age should be greater than 0');
+            }
         }
     }
 
