@@ -30,13 +30,19 @@
                   <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keyup)="policyDate()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                    <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" [max]="minDate" (keyup)="policyDate()" (keypress)="dobValidate($event); policyStartDate() " formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
                     <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                     <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
 
                   </mat-form-field>
                   <mat-form-field class="w-100">
+                      <mat-select placeholder="Bussiness Type"  formControlName="bussinessType"  required>
+                          <mat-option *ngFor="let paCity of bussinessList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  <mat-form-field class="w-100">
+                  <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussinessType'].value != '1'" >-->
                       <input matInput [matDatepicker]="picker2" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" (keyup)="policyEndDate()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
@@ -48,8 +54,11 @@
                   <mat-radio-button value="Yes">Yes</mat-radio-button>
                   <mat-radio-button value="No">No</mat-radio-button>
                 </mat-radio-group>
-                <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="claimAmount()">
-                    <mat-select placeholder="Claim Amount"  formControlName="claimamount"  required>
+                  <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="claimAmount()">
+                          <input matInput placeholder="Claim Amount" formControlName="claimamount" maxlength="15" required>
+                  </mat-form-field>
+                <mat-form-field class="w-100">
+                    <mat-select placeholder="NCB Percent(%)"  formControlName="ncb"  required>
                         <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -80,7 +89,12 @@
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>-->
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
+                      <mat-form-field class="w-100">
+                          <input matInput placeholder="Manufacture Year(YYYY)"  formControlName="manufactureYear"  required>
 
+                          <!--<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>-->
+                          <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                      </mat-form-field>
                   <mat-form-field class="w-100">
                       <mat-select placeholder="Variant"  formControlName="variant"  required>
                           <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>

@@ -1452,7 +1452,7 @@ export class StarHealthProposalComponent implements OnInit {
             'have_eia_no': '1',
             'eia_no': '',
             'previous_medical_insurance': this.personalData.previousinsurance == 'No' ? '' : this.personalData.previousinsurance,
-            'critical_illness': 'NO   ',
+            'critical_illness': 'NO',
             'social_status': this.personalData.socialStatus == true || this.personalData.socialStatus == 'true' ? 1 : 0,
             'social_status_bpl': this.personalData.socialAnswer1 == '' || this.personalData.socialAnswer1 == null ? '0' : this.personalData. socialAnswer1,
             'social_status_disabled': this.personalData.socialAnswer2 == '' || this.personalData.socialAnswer2 == null ? '0' : this.personalData. socialAnswer2,
@@ -1473,7 +1473,7 @@ export class StarHealthProposalComponent implements OnInit {
             'appointee_age_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].aage : '',
             'appointee_relationship_two': this.nomineeDate[0].nominee.length > 1 ? this.nomineeDate[0].nominee[1].arelationship : '',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'created_by': '0',
+            'created_by': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'insured_details': this.familyMembers
         }];
         console.log(data, 'alldata');

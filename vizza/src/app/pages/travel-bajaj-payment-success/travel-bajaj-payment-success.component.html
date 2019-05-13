@@ -1,18 +1,10 @@
-
 <div class="success-message">
   <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
     <mat-card class="text-center">
       <div *ngIf="paymentStatus == 'success'">
         <img src="assets/img/success.gif" alt="">
         <h5>Thank you! Your payment is processed successfully.</h5>
-        <p>Your Policy Number : {{policyNo}}</p>
         <p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
-        <button mat-raised-button color="primary" routerLink="/home"> Done</button>
-      </div>
-      <div *ngIf="paymentStatus == 'uwt'">
-        <img src="assets/img/success.gif" alt="">
-        <p>Your policy proposal is under process and you will be contacted within 72 hours for any medical test (if applicable). An appointment will be made at your preferred time.
-          For any assistance, please call our 24 hour toll-free helpline - 1800-102-4488. Religare will contact you shortly</p>
         <button mat-raised-button color="primary" routerLink="/home"> Done</button>
       </div>
       <div *ngIf="paymentStatus == 'failure'">
@@ -32,6 +24,7 @@
     </mat-card>
   </div>
 </div>
+
 <style>
   .retryClass{
     color: #3e65d4 !important;
@@ -39,6 +32,3 @@
   }
 
 </style>
-
-
-

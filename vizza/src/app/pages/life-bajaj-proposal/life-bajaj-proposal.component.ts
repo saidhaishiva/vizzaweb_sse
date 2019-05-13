@@ -16,6 +16,7 @@ import {TermLifeCommonService} from '../../shared/services/term-life-common.serv
 import * as moment from 'moment';
 import {Http} from '@angular/http';
 import {AgeValidate} from '../health-insurance/health-insurance.component';
+import {CommonService} from '../../shared/services/common.service';
 
 
 export const MY_FORMATS = {
@@ -107,15 +108,51 @@ export class LifeBajajProposalComponent implements OnInit {
   public apointeRelationList:any;
   public relationInsured:any;
   public incomeList: boolean;
+  public proposalGenStatus: boolean;
+  public optGenStatus: boolean;
+  public optValidStatus: boolean;
+  public skipUploadStatus: boolean;
+  public fileUploadStatus: boolean;
   public otpValList: any;
   public otpGenList: any;
   public otpCode: any;
+  public getUrl: any;
+  public fileDetails: any;
+  public allImage: any;
+  public url: any;
+  public fileUploadPath: any;
+    public webhost: any;
+    public uploadIdProofName: any;
+    public uploadAgeProofName: any;
+    public uploadAddressProofName: any;
+    public currentStep: any;
+    public documentPath: any;
 
-  constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+
+    constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+        this.requestedUrl = '';
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 6;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    let summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.summaryData = summaryData;
+                    this.requestedUrl = summaryData.biUrlLink;
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.bankDetailFormData = JSON.parse(sessionStorage.bankDetailFormData);
+                    this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
+                }
+
+            }
+        });
+        this.currentStep = stepperindex;
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-    this.proposer = this.Proposer.group({
+      this.webhost = this.config.getimgUrl();
+
+      this.proposer = this.Proposer.group({
       title: ['', Validators.required],
       firstName: ['', Validators.required],
       midName: '',
@@ -132,9 +169,11 @@ export class LifeBajajProposalComponent implements OnInit {
       occupationList: ['', Validators.compose([Validators.required])],
       height: ['', Validators.compose([Validators.minLength(3)])],
       weight: '',
+      inbetweenweight: '',
+      weightChangedreason: '',
       weightChanged: '',
       weightChangedName: '',
-      aadharNum: ['', Validators.required],
+      aadharNum: '',
       spouseDob: '',
       maritalStatusName: '',
       occupationListName: '',
@@ -150,6 +189,7 @@ export class LifeBajajProposalComponent implements OnInit {
       motherName: '',
       fatherName: '',
       ifYesGiveDetails: '',
+      panNum:['', Validators.compose([ Validators.minLength(10)])],
       politicallyExposedPerson: '',
       countryIpMailing: '',
       relation: '',
@@ -236,6 +276,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
     this.bankDetail = this.Proposer.group({
       accountHolderName:'',
+      bankName:['', Validators.required],
       branchName:'',
       accountNo:'',
       accountType:'',
@@ -246,6 +287,46 @@ export class LifeBajajProposalComponent implements OnInit {
 
     this.questions = this.Proposer.group({});
     this.setQuestionDetails = [];
+    this.allImage = [];
+    this.proposalNextList = '';
+    this.otpGenList = '';
+    this.otpValList = '';
+    this.proposalGenStatus = true;
+    this.optGenStatus = true;
+    this.optValidStatus = true;
+      this.skipUploadStatus = true;
+        this.fileUploadStatus = true;
+
+
+
+
+        const data = {
+            "user_id": "0",
+            "role_id": "4",
+            "pos_status": "0",
+            "platform": "web",
+            "policy_id": "8",
+            "Persons": [{
+                "Documents": [],
+                "Type": "PH"
+            }]
+        };
+
+        let test = [{
+            "base64": "sdws",
+            "proofType": "age_proof",
+            "fileExt": "png"
+        },
+            {
+                "base64": "uytrfds",
+                "proofType": "id_proof",
+                "fileExt": "png"
+            }
+        ];
+
+        data.Persons[0].Documents = test;
+
+        console.log(data, 'datadata');
   }
 
 
@@ -276,9 +357,6 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getApointeeRelation();
     this.getDiseaseList();
     this.samerelationShip();
-    this.otpGen();
-    this.otpVal();
-    // this.getProposalNext();
 
     if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
         this.mainQuestion();
@@ -393,6 +471,16 @@ export class LifeBajajProposalComponent implements OnInit {
   }
   passportIssue(event: any){
     this.validation.passportIssue(event);
+
+  }
+  ifscValidate(event: any) {
+      if (event.charCode !== 0) {
+          const pattern = /^[A-Za-z]{4}0[A-Z0-9]{6}$/;
+          const inputChar = String.fromCharCode(event.charCode);
+          if (!pattern.test(inputChar)) {
+              event.preventDefault();
+          }
+      }
 
   }
 
@@ -655,8 +743,15 @@ export class LifeBajajProposalComponent implements OnInit {
     console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       if(sessionStorage.bajajproposerAge >= 18){
-        stepper.next();
-        this.topScroll();
+
+        if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
+        {
+          this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
+        }else {
+          stepper.next();
+          this.topScroll();
+        }
+
       } else {
           this.toastr.error('Proposer age should be greater than equal to 18');
 
@@ -705,9 +800,7 @@ samerelationShip(){
     sessionStorage.lifeBajajBankDetails = JSON.stringify(value);
     console.log(sessionStorage.lifeBajajBankDetails, 'session');
     if (this.bankDetail.valid) {
-      stepper.next();
-    } else {
-      this.toastr.error('error');
+        this.proposal(stepper);
     }
   }
 
@@ -769,16 +862,16 @@ samerelationShip(){
       if (this.nomineeDetail.valid) {
           if (sessionStorage.nomineAge < 18) {
             if(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
-              this.proposal(stepper);
+                stepper.next();
+                this.topScroll();
             } else {
                 this.toastr.error('Please fill the appointee details');
             }
           } else {
-            this.proposal(stepper);
+              stepper.next();
+              this.topScroll();
           }
       }
-    // if (this.nomineeDetail.valid) {
-    //  this.proposal(stepper);
   }
 
   //services
@@ -1207,17 +1300,18 @@ samerelationShip(){
   }
 
 
-  getProposalNext() {
+  getProposalNext(stepper) {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': '0',
       'policy_id': this.getEnquiryDetials.policy_id
-    }
-    this.termService.getProposalNext(data).subscribe(
+    };
+      this.settings.loadingSpinner = true;
+      this.termService.getProposalNext(data).subscribe(
         (successData) => {
-          this.ProposalNextSuccess(successData);
+          this.ProposalNextSuccess(successData,stepper);
         },
         (error) => {
           this.ProposalNextFailure(error);
@@ -1225,17 +1319,25 @@ samerelationShip(){
     );
   }
 
-  public ProposalNextSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.proposalNextList = successData.ResponseObject;
-      this.proposalFormPdf = this.proposalNextList.proposal_form;
+  public ProposalNextSuccess(successData,stepper) {
+      this.settings.loadingSpinner = false;
+      if (successData.IsSuccess) {
+        // this.toastr.success(successData.ResponseObject);
 
+        stepper.next();
+          this.topScroll();
+          this.proposalGenStatus = false;
+          this.proposalNextList = successData.ResponseObject;
+          this.proposalFormPdf = this.proposalNextList.proposal_form;
+          this.otpGen();
+      } else {
+            this.proposalGenStatus = true;
+        this.toastr.error(successData.ErrorObject);
 
-      console.log(this.proposalNextList, 'proposalnext');
-    }
+      }
   }
-
   public ProposalNextFailure(error) {
+      this.settings.loadingSpinner = false;
   }
   getIdProof() {
     const data = {
@@ -1314,45 +1416,30 @@ samerelationShip(){
 
   public otpGenerationlListSuccess(successData) {
     if (successData.IsSuccess) {
+        this.toastr.success(successData.ResponseObject);
+        this.optGenStatus = false;
       this.otpGenList = successData.ResponseObject;
-      console.log(this.otpGenList, 'otpGenList');
-    }
-    else
-    {
-      this.toastr.error(successData.ErrorObject);
+
+        let dialogRef = this.dialog.open(BajajLifeOpt, {
+            width: '1200px'
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+          if(result) {
+
+          }
+
+        });
+
+    } else {
+        this.optGenStatus = true;
+        this.toastr.error(successData.ErrorObject);
     }
   }
 
   public otpGenerationListFailure(error) {
   }
 
-  otpVal() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'policy_id':this.getEnquiryDetials.policy_id,
-      'otp': this.otpCode
-    }
-    this.termService.otpValidation(data).subscribe(
-        (successData) => {
-          this.otpValidationListSuccess(successData);
-        },
-        (error) => {
-          this.otpValidationListFailure(error);
-        }
-    );
-  }
-
-  public otpValidationListSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.otpValList = successData.ResponseObject;
-      console.log(this.otpValList, 'otpGenList');
-    }
-  }
-
-  public otpValidationListFailure(error) {
-  }
 
   getApointeeRelation() {
     const data = {
@@ -1549,8 +1636,16 @@ samerelationShip(){
   }
 
   occupationListCode() {
-    this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
-    this.getIncomeProof();
+
+      if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
+      {
+        this.toastr.error('Sorry, you are not allowed to purchase policy ');
+      }else {
+        this.proposer.controls['occupationListName'].patchValue(this.occupationList[this.proposer.controls['occupationList'].value]);
+        this.getIncomeProof();
+      }
+
+
 
   }
 
@@ -1647,8 +1742,12 @@ samerelationShip(){
         "education": this.proposer.controls['education'].value,
         "height": this.proposer.controls['height'].value,
         "weight": this.proposer.controls['weight'].value,
-        "weightChanged":this.proposer.controls['weightChanged'].value,
+        "ifPastSixWeightChange":this.proposer.controls['weightChanged'].value,
+        "changedWeight":this.proposer.controls['inbetweenweight'].value,
+        "weightChangedReason":this.proposer.controls['weightChangedreason'].value,
         "aadhaar": this.proposer.controls['aadharNum'].value,
+        "pan": this.proposer.controls['panNum'].value,
+
         "smoker": "N",
         "sameAsProposer": this.proposer.controls['sameAsInsured'].value == 'true'  || this.proposer.controls['sameAsInsured'].value == true ? "Y":"N" ,
         "modeOfComm": "E",
@@ -1717,6 +1816,7 @@ samerelationShip(){
 
       "bank_deatils": {
         "accountHolderName": this.bankDetail.controls['accountHolderName'].value,
+        "bankName": this.bankDetail.controls['bankName'].value,
         "branchName": this.bankDetail.controls['branchName'].value,
         "accountNo": this.bankDetail.controls['accountNo'].value,
         "accountType": this.bankDetail.controls['accountType'].value,
@@ -1758,44 +1858,49 @@ samerelationShip(){
 
     if(successData.IsSuccess){
       stepper.next();
+      this.topScroll();
       this.toastr.success('Proposal created successfully!!');
-     this.summaryData = successData.ResponseObject;
-     this.requestedUrl =this.summaryData.biUrlLink;
-
-        this.downloadFile(this.requestedUrl);
-
-        this.proposerFormData = this.proposer.value;
+      this.summaryData = successData.ResponseObject;
+      this.requestedUrl = this.summaryData.biUrlLink;
+      this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
-      console.log(this.nomineeDetailFormData,'dff');
+      sessionStorage.summaryData = JSON.stringify(this.summaryData);
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.bankDetailFormData = JSON.stringify(this.bankDetailFormData);
+      sessionStorage.nomineeDetailFormData = JSON.stringify(this.nomineeDetailFormData);
+      console.log(this.proposerFormData,'proposerFormData');
+      this.downloadFile(this.requestedUrl);
 
+    } else {
+        this.toastr.error(successData.ErrorObject, 'Failed');
     }
+
   }
   public proposalFailure(error){
 
   }
+  downloadFile(value) {
+      this.termService.downloadPdfNew().subscribe(
+          (successData) => {
+            console.log(successData, 'successDatasuccessData');
 
-    downloadFile(value) {
-        this.termService.downloadPdfNew().subscribe(
-            (successData) => {
-              console.log(successData, 'successDatasuccessData');
-
-            },
-            (error) => {
-            }
-        );
-
+          },
+          (error) => {
+          }
+      );
 
 
-        // this.http.get(
-        //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
-        //     (response) => {
-        //         var mediaType = 'application/pdf';
-        //         var blob = new Blob([response._body], {type: mediaType});
-        //         var filename = 'test.pdf';
-        //         saveAs(blob, filename);
-        //     });
-    }
+
+      // this.http.get(
+      //     'https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102').subscribe(
+      //     (response) => {
+      //         var mediaType = 'application/pdf';
+      //         var blob = new Blob([response._body], {type: mediaType});
+      //         var filename = 'test.pdf';
+      //         saveAs(blob, filename);
+      //     });
+  }
 
 
 
@@ -1827,7 +1932,9 @@ samerelationShip(){
         // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
+        inbetweenweight: lifeBajaj1.inbetweenweight,
         weightChanged: lifeBajaj1.weightChanged,
+        weightChangedreason: lifeBajaj1.weightChangedreason,
         weightChangedName: lifeBajaj1.weightChangedName,
         countryOfResidName: lifeBajaj1.countryOfResidName,
         citizenshipName: lifeBajaj1.citizenshipName,
@@ -1865,6 +1972,7 @@ samerelationShip(){
         motherName: lifeBajaj1.motherName,
         fatherName: lifeBajaj1.fatherName,
         ifYesGiveDetails: lifeBajaj1.ifYesGiveDetails,
+        panNum: lifeBajaj1.panNum,
         politicallyExposedPerson: lifeBajaj1.politicallyExposedPerson,
         countryIpMailing: lifeBajaj1.countryIpMailing,
         relation: lifeBajaj1.relation,
@@ -1902,6 +2010,7 @@ samerelationShip(){
         let lifeBajajBankDetails = JSON.parse(sessionStorage.lifeBajajBankDetails);
         this.bankDetail = this.Proposer.group({
           accountHolderName: lifeBajajBankDetails.accountHolderName,
+          bankName: lifeBajajBankDetails.bankName,
           branchName: lifeBajajBankDetails.branchName,
           accountNo: lifeBajajBankDetails.accountNo,
           accountType: lifeBajajBankDetails.accountType,
@@ -1951,14 +2060,151 @@ samerelationShip(){
         });
     }
 
+    uploadProof(event: any, type) {
+
+
+        let getUrlEdu = [];
+        this.fileDetails = [];
+        if(type == 'address_proof') {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+            this.uploadAddressProofName = this.fileDetails[0].name;
+
+        } else if(type == 'age_proof') {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+            this.uploadAgeProofName = this.fileDetails[0].name;
+
+        } else if(type == 'id_proof') {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+            this.uploadIdProofName = this.fileDetails[0].name;
+        }
+
+    }
+    onUploadFinished(values, basecode) {
+        console.log(basecode, 'this.eventeventevent');
+        values[0].base64 = basecode[0][1];
+
+        console.log(values, 'valuesvalues');
+
+        for (let k = 0; k < values.length; k++) {
+            if (this.allImage.indexOf(values[k].name) == -1) {
+                this.allImage.push(values[k]);
+            }
+        }
+        console.log(this.allImage, 'this.fileDetails');
+
+
+
+    }
+
+    uploadAll() {
+        console.log(this.allImage, 'this.fileDetails2323');
+
+        const data = {
+            "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            "platform": "web",
+            "policy_id": this.getEnquiryDetials.policy_id,
+            "Persons": [{
+                "Documents": this.allImage,
+                "Type": "PH"
+            }]
+        };
+
+        console.log(data, 'dattattatata');
+        this.termService.fileUpload(data).subscribe(
+            (successData) => {
+                this.fileUploadSuccess(successData);
+            },
+            (error) => {
+                this.fileUploadFailure(error);
+            }
+        );
+    }
+
+
+    public fileUploadSuccess(successData) {
+        if (successData.IsSuccess == true) {
+            this.documentPath = successData.ResponseObject.filePath;
+            this.toastr.success(successData.ResponseObject.message, 'Success');
+            this.fileUploadStatus = false;
+        } else {
+            this.toastr.error(successData.ErrorObject, 'Failed');
+            this.fileUploadStatus = true;
+        }
+    }
+
+    public fileUploadFailure(error) {
+        console.log(error);
+    }
+    skipUplod(){
+      this.skipUploadStatus = false;
+    }
+  nextDocUpload(stepper) {
+    stepper.next();
+    this.topScroll();
+  }
+
 }
 
 @Component({
     selector: 'lifedocuments',
     template: `
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
+        <div fxLayout="column">
+            <div class="container">
+                <div class="row">
+                <div mat-dialog-content class="col-sm-12">
                     <h4>Declaration: </h4>
                     <p>i) Declaration & Authorisation: I/We hereby declare and agree that </p>
                     <div >
@@ -1994,10 +2240,11 @@ samerelationShip(){
 
                 </div>
             </div>
+            <div mat-dialog-actions style="justify-content: center">
+                 <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
+            </div>
         </div>
-        <div mat-dialog-actions style="justify-content: center">
-             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
-        </div>
+      </div>
     `
 })
 export class LifeDocuments {
@@ -2012,6 +2259,81 @@ export class LifeDocuments {
         } else {
             this.dialogRef.close(result);
         }
+    }
+}
+
+@Component({
+    selector: 'bajajlifeopt',
+    template: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <mat-form-field class="w-50">
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
+                    </mat-form-field>
+                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+            <button mat-button class="secondary-bg-color" (click)="otpVal()" >Ok</button>
+        </div>
+    `
+})
+export class BajajLifeOpt {
+    otpCode: any;
+    constructor(
+        public dialogRef: MatDialogRef<BajajLifeOpt>,
+        @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
+        this.otpCode = '';
+
+    }
+  // // Number validation
+  // numberValidate(event: any) {
+  //   this.validation.numberValidate(event);
+  // }
+
+    onNoClick(): void {
+        this.dialogRef.close(true);
+    }
+
+    otpVal() {
+        let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'policy_id': getEnquiryDetials.policy_id,
+            'otp': this.otpCode
+        }
+        this.termService.otpValidation(data).subscribe(
+            (successData) => {
+                this.otpValidationListSuccess(successData);
+            },
+            (error) => {
+                this.otpValidationListFailure(error);
+            }
+        );
+    }
+
+    public otpValidationListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.dialogRef.close(true);
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public otpValidationListFailure(error) {
+    }
+
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
     }
 }
 

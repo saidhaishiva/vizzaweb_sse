@@ -70,6 +70,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public apponiteeList: boolean;
   public electricalValid: boolean;
   public nonelectricalValid: boolean;
+  public policyTypeDetails: boolean;
   public paUnNamed: boolean;
   public pType: boolean;
   public proposerFormData : any;
@@ -90,6 +91,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public PolicySisID : any;
   public PaymentReturn : any;
   public hypothecationTypeDetails : any;
+  public enquiryFormData : any;
     constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -114,6 +116,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.electricalValid = false;
     this.nonelectricalValid = false;
     this.paUnNamed = false;
+    this.policyTypeDetails = false;
 
     this.proposer = this.fb.group({
       title: ['', Validators.required],
@@ -136,8 +139,8 @@ export class BikeShriramProposalComponent implements OnInit {
       breakIn: '',
     });
     this.vehical = this.fb.group({
-      policyType: ['', Validators.required],
-      proposalType:'' ,
+      policyType: 'Renewal',
+      proposalType: ['', Validators.required],
       vehicleColour: ['', Validators.required],
       nilDepreciationCover: '',
       electricalAccess: '',
@@ -169,6 +172,8 @@ export class BikeShriramProposalComponent implements OnInit {
       previousPolicyNcb: '',
       policyClaim: '',
       previousdob:'',
+      previousPolicyTypeName:'',
+        previousdEndob:''
 
     });
 
@@ -185,6 +190,7 @@ export class BikeShriramProposalComponent implements OnInit {
   ngOnInit() {
       this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+      this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
          this.changeGender();
          this.changehypothecation();
          this.policyType();
@@ -194,7 +200,8 @@ export class BikeShriramProposalComponent implements OnInit {
          this.claimpercent();
          this.nomineeRelationShip();
          this.changehypothecationType();
-         this.sessionData();
+
+      this.sessionData();
   }
 
 
@@ -287,7 +294,7 @@ export class BikeShriramProposalComponent implements OnInit {
               if (pin.length == 6) {
                 this.bikeInsurance.getPincodeList(data).subscribe(
                     (successData) => {
-                      this.pinProposerListSuccess(successData);
+                      this.pinProposerListSuccess(successData, pin);
                     },
                     (error) => {
                       this.pinProposerListFailure(error);
@@ -296,10 +303,14 @@ export class BikeShriramProposalComponent implements OnInit {
               }
             }
 
-            public pinProposerListSuccess(successData) {
+            public pinProposerListSuccess(successData, pin) {
               if (successData.IsSuccess) {
                 this.pincodeList = successData.ResponseObject;
-                console.log(this.pincodeList,'jhgfdghj');
+                console.log(pin,'jhgfdghj');
+                  if(pin.length == '' || pin.length == 0 || pin.length != 6){
+                      this.proposer.controls['state'].patchValue('');
+                      this.proposer.controls['city'].patchValue('');
+                  }
                 for(let key in this.pincodeList.state) {
                     this.pincodeState = key;
                     console.log(key);
@@ -322,6 +333,7 @@ export class BikeShriramProposalComponent implements OnInit {
                   this.toastr.error(successData.ErrorObject);
                   this.proposer.controls['state'].patchValue('');
                   this.proposer.controls['city'].patchValue('');
+
               }
         }
 
@@ -355,12 +367,14 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper1 = JSON.stringify(value);
           console.log(this.proposer.valid, 'checked');
           if(this.proposer.valid) {
-              // if(sessionStorage.bkShriramProposerAge >= 18){
+              if(sessionStorage.bkShriramProposerAge >= 18){
                   stepper.next();
-              // } else {
-              //     this.toastr.error('Proposer age should be 18 or above');
-              //
-              // }
+              this.vehical.controls['proposalType'].patchValue('Renewal');
+
+              } else {
+                  this.toastr.error('Proposer age should be 18 or above');
+
+              }
           }
 
         }
@@ -435,6 +449,11 @@ export class BikeShriramProposalComponent implements OnInit {
                     this.previousInsure.controls['policyNilDescription'].setValidators(null);
                 }
             }
+    policyDetail(){
+            this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
+
+
+    }
         policyType() {
               const data = {
                 'platform': 'web',
@@ -656,12 +675,22 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['city'].patchValue('');
     }
   }
+    selectPolicy(){
+        // MOT-PLT-002
+        if( this.vehical.controls['policyType'].value == 'MOT-PLT-002'){
+            this.policyTypeDetails = true;
+        } else {
+            this.policyTypeDetails = false;
+
+        }
+    }
   // NEXT BUTTON
           vehicalDetails(stepper: MatStepper, value){
               sessionStorage.stepper2 = '';
               sessionStorage.stepper2 = JSON.stringify(value);
               if(this.vehical.valid){
                 stepper.next();
+                this.previousInsure.controls['previousdEndob'].patchValue(this.datepipe.transform(this.enquiryFormData.previous_policy_expiry_date, 'y-MM-dd'));
               }
           }
 
@@ -717,7 +746,6 @@ export class BikeShriramProposalComponent implements OnInit {
                 }
             }
             //sessionStorage.insuredAgePA = this.bikeProposerAge;
-
         }
     }
   previousInsureType() {
@@ -746,9 +774,11 @@ export class BikeShriramProposalComponent implements OnInit {
       }
 
   previousDetails(stepper: MatStepper, value){
+        console.log(value,'vvvvvv');
           sessionStorage.stepper3 = '';
           sessionStorage.stepper3 = JSON.stringify(value);
           if(this.previousInsure.valid){
+              this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date);
               stepper.next();
           }
         }
@@ -793,8 +823,11 @@ export class BikeShriramProposalComponent implements OnInit {
               if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
                   this.proposal(stepper);
               } else {
-                  this.toastr.success('Please fill the appointee details');
-
+                  if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
+                      this.proposal(stepper);
+                  }   else {
+                      this.toastr.error('Please fill the appointee details');
+                  }
               }
           }
 
@@ -1023,7 +1056,8 @@ export class BikeShriramProposalComponent implements OnInit {
         policyNilDescription: stepper3.policyNilDescription,
         previousPolicyNcb:stepper3.previousPolicyNcb,
         policyClaim: stepper3.policyClaim,
-        previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd')
+        previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
+          previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'y-MM-dd')
       });
 
     }

@@ -106,6 +106,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public placeOfVisit: any;
     public RiskData :any;
     public diseaseFieldView :any;
+    public sponserRelationList :any;
 
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public route: ActivatedRoute,
@@ -210,6 +211,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.insureReligareArray['controls'].items['controls'][i]['controls'].type.patchValue(this.insureReligarePerson[i].type);
         }
         this.RelationShipListTravel();
+        this.sponserRelationship();
         if (sessionStorage.ReligareTravelDetails3 == '' || sessionStorage.ReligareTravelDetails3 == undefined) {
             this.religareTravelQuestions();
         }
@@ -302,7 +304,8 @@ export class ReliagretravelproposalComponent implements OnInit {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            "type": "self"
         };
         this.travelservice.religareTravelRelationshipList(data).subscribe(
             (successData) => {
@@ -321,6 +324,32 @@ export class ReliagretravelproposalComponent implements OnInit {
     }
 
     public relationShipFailure(error) {
+    }
+
+    sponserRelationship() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            "type": "sponser"
+        };
+        this.travelservice.religareTravelRelationshipList(data).subscribe(
+            (successData) => {
+                this.sponserRelationShipSuccess(successData);
+            },
+            (error) => {
+                this.sponserRelationFailure(error);
+            }
+        );
+    }
+    public sponserRelationShipSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.sponserRelationList = successData.ResponseObject;
+
+        }
+    }
+    public sponserRelationFailure(error) {
     }
 
     // postal code in religareproposal
@@ -391,8 +420,12 @@ export class ReliagretravelproposalComponent implements OnInit {
     selectResCity() {
         // this.religarePersonal.controls['rcityName'].patchValue(this.residenceCitys[this.religarePersonal.controls['rcity'].value]);
     }
-    insureTravelRelationListName() {
-        this.insureReligareArray.controls['relationshipName'].patchValue(this.insuretravelRelationList[this.insureReligareArray.controls['relationship'].value]);
+    insureTravelRelationListName(i) {
+        console.log(i, 'innn');
+        console.log(this.insureReligareArray['controls'].items['controls'][i]['controls'].relationship.value, 'ffff');
+        console.log(this.insuretravelRelationList, 'insuretravelRelationList');
+        this.insureReligareArray['controls'].items['controls'][i]['controls'].relationshipName.patchValue(this.insuretravelRelationList[this.insureReligareArray['controls'].items['controls'][i]['controls'].relationship.value]);
+
     }
 
     iPersonalCitysName() {
@@ -526,6 +559,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 dob: ['', Validators.required],
                 gender: ['', Validators.compose([Validators.required])],
                 relationship: ['', Validators.required],
+                relationshipName: '',
                 insurerDobError: '',
                 insurerDobValidError: '',
                 passport: ['', Validators.compose([Validators.minLength(8)])],
@@ -688,6 +722,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.insureReligareArray['controls'].items['controls'][0]['controls'].adharnumber.patchValue(this.religarePersonal.controls['adharnumber'].value);
             this.insureReligareArray['controls'].items['controls'][0]['controls'].phone.patchValue(this.religarePersonal.controls['phone'].value);
 
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue(this.insuretravelRelationList['SELF']);
 
         } else {
             this.insureReligareArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(false);
@@ -703,6 +738,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.insureReligareArray['controls'].items['controls'][0]['controls'].pannumber.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].adharnumber.patchValue('');
             this.insureReligareArray['controls'].items['controls'][0]['controls'].phone.patchValue('');
+            this.insureReligareArray['controls'].items['controls'][0]['controls'].relationshipName.patchValue('');
 
         }
     }
@@ -766,7 +802,8 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'proposer_comm_pincode': this.proposerInsureData[0].rpincode,
                     'prop_dob': this.datepipe.transform(this.proposerInsureData[i].dob, 'y-MM-dd'),
                     'prop_gender': this.proposerInsureData[i].gender,
-                    'relationship_cd': this.proposerInsureData[i].type == "Student1" ? 'Self' : this.proposerInsureData[i].type,
+                    // 'relationship_cd': this.proposerInsureData[i].type == "Student1" ? 'Self' : this.proposerInsureData[i].type,
+                    'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].relationship,
                     'role_cd': this.proposerInsureData[i].rolecd
                 });
             }
@@ -780,7 +817,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 }
             }
             if (ageValidate.includes(1)) {
-                this.toastr.error('Insurer Date of birth date should be atleast 5 months old');
+               // this.toastr.error('Insurer Date of birth date should be atleast 5 months old');
             } else if (ageValidate.includes(2)) {
                 stepper.next();
                 this.topScroll();
@@ -1228,6 +1265,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].adharnumber.patchValue(this.religareTravel2.items[i].adharnumber);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].phone.patchValue(this.religareTravel2.items[i].phone);
                 this.insureReligareArray['controls'].items['controls'][i]['controls'].ins_days.patchValue(this.religareTravel2.items[i].ins_days);
+                this.insureReligareArray['controls'].items['controls'][i]['controls'].relationshipName.patchValue(this.religareTravel2.items[i].relationshipName);
 
             }
         }

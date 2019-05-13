@@ -48,6 +48,32 @@ export class TravelService {
             .catch(this.handleError);
     }
 
+    //travel bajajalianz Download policy
+    getDownloadPdfBajaj(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'bajajalianz/get_policypdf';
+        // const url = 'http://localhost/vizza/api/index.php/travel/bajajalianz/get_policypdf';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
+    ///bajajtravel create  Proposal
+    getProposal(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'bajajalianz/proposal_creation';
+        // const url = 'http://localhost/vizza/api/index.php/travel/bajajalianz/proposal_creation';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
     // travel bajajpincode list
 
     pincodeDetails(data) {
