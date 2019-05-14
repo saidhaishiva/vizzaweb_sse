@@ -38,7 +38,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="gender" required >
+                          <mat-select placeholder="Gender" formControlName="gender"  required disabled>
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
                           </mat-select>
@@ -47,7 +47,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event,i,'proposor')" (dateChange)="addEvent($event,i,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
                           <mat-error *ngIf="bajajProposal.controls.dob.errors?.required">DOB is required</mat-error>
@@ -92,7 +92,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Assingnee Name" formControlName="assigneeName" required>
+                        <input matInput placeholder="Assingnee Name" formControlName="assigneeName" required >
                           <mat-error *ngIf="bajajProposal.controls.assigneeName.errors?.required">Assignee Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -110,8 +110,8 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea #message maxlength="80" matInput placeholder="Building" rows="2" formControlName="building"  autocomplete="off" required></textarea>
-                          <mat-error *ngIf="bajajProposal.controls.building.errors?.required">building name is required</mat-error>
+                          <textarea #message maxlength="80" matInput placeholder="Building Details" rows="2" formControlName="building"  autocomplete="off" required></textarea>
+                          <mat-error *ngIf="bajajProposal.controls.building.errors?.required">Building detail is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
@@ -124,7 +124,7 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="City" formControlName="city" autocomplete="off" readonly>
+                          <input matInput placeholder="City" formControlName="city" autocomplete="off" readonly required>
                           <mat-error *ngIf="bajajProposal.controls.city.errors?.required">City is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -174,17 +174,11 @@
                       <div class="row">
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="assigneeName" formControlName="assigneeName" (keypress)="nameValidate($event)" required>
-                            <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.errors?.required">assigneeName is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="name" formControlName="name" (keypress)="nameValidate($event)" required>
+                            <input matInput placeholder="name" formControlName="name" (keypress)="nameValidate($event)" required readonly="{{i==0}}">
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.errors?.required">assigneeName is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Gender" formControlName="sex" required >
                               <mat-option value="Male">Male</mat-option>
@@ -195,31 +189,38 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEvent($event,i,'insurer')" (dateChange)="addEvent($event,i,'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEventInsurer($event, i,'insurer')" (dateChange)="addEventInsurer($event, i,'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required readonly="{{i==0}}">
                             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                             <mat-datepicker #picker></mat-datepicker>
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.errors?.required">DOB is required</mat-error>
                           </mat-form-field>
-                          <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
+                          <p class="error mb-0" *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
+                          <p class="error mb-0" *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Age" formControlName="age"   autocomplete="off"  readonly required>
+                            <input matInput placeholder="Age" formControlName="age"   autocomplete="off"  readonly required readonly="{{i==0}}">
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.errors?.required">Age is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNo" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
+                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNo" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required readonly="{{i==0}}">
                           <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>
                           <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>
                         </mat-form-field></div>
-                        <div class="col-md-3">
+                        <div class="col-md-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Relationship with Proposer"  formControlName="relation" required disabled="{{i == 0}}">
+                            <mat-select placeholder="Relationship with Proposer"  formControlName="relation" required >
                               <mat-option *ngFor="let relation of getRelationDetails | keys" value="{{relation.value}}">{{relation.value}}
                               </mat-option>
                             </mat-select>
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].errors?.required">Relationship is required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Assignee Name" formControlName="assigneeName" (keypress)="nameValidate($event)" required readonly="{{i==0}}">
+                            <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.errors?.required">assigneeName is required</mat-error>
                           </mat-form-field>
                         </div>
                       </div>
@@ -230,7 +231,7 @@
               <div class="proposal-buttom mt-3 text-right w-100" >
                <button *ngIf="showInsure" mat-button matStepperPrevious  (click)="topScroll()">Back</button>
 
-                <button *ngIf="showInsure" mat-raised-button color="primaryBlue"  (click)="createProposal(stepper, bajajInsuredTravel.value)">Next</button>
+                <button *ngIf="showInsure" mat-raised-button color="primaryBlue"  (click)="createProposal(stepper, bajajInsuredTravel.value,'insurer')">Next</button>
               </div>
             </form>
           </mat-accordion>
@@ -311,12 +312,18 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="p-3">
-                    <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
+                  <h4 class="color-blue">COMMUNICATION ADDRESS</h4>
+                  <div>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Street Name:</strong> {{proposerFormData.streetName}}</li>
                       <li class="list-group-item"><strong>Building :</strong> {{proposerFormData.building}}</li>
                       <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
+                    </ul>
+                  </div>
+                </div>
+                    <div class="col-md-6">
+                     <div>
+                     <ul class="mt-1 list-group">
                       <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
                       <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
                       <li class="list-group-item"><strong>Country:</strong> {{proposerFormData.country}}</li>
