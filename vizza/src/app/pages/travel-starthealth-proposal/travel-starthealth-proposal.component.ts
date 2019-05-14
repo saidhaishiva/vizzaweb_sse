@@ -689,6 +689,8 @@ export class TravelProposalComponent implements OnInit {
                 'title': this.personalData.personalTitle,
                 'gender': this.personalData.personalGender,
                 'enquiry_id': this.getEnquiryDetails.enquiry_id,
+                'product_id': this.getTravelPremiumList.product_id,
+                'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
                 'proposal_id': sessionStorage.travel_proposal_id == '' || sessionStorage.travel_proposal_id == undefined ? '' : sessionStorage.travel_proposal_id,
                 'travelStartOn': this.datepipe.transform(this.getEnquiryDetails.start_date, 'MMM d, y'),
                 'travelEndOn': this.datepipe.transform(this.getEnquiryDetails.end_date, 'MMM d, y'),

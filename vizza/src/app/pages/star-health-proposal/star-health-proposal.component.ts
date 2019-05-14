@@ -1418,6 +1418,7 @@ export class StarHealthProposalComponent implements OnInit {
             'policy_end_on': '',
             'policy_period': '1',
             'sum_insured_id': this.buyProductdetails.suminsured_id,
+            'sum_insured_amount': this.buyProductdetails.suminsured_amount,
             'scheme_id': this.buyProductdetails.scheme,
             'title': this.personalData.personalTitle,
             'proposer_fname': this.personalData.personalFirstname,

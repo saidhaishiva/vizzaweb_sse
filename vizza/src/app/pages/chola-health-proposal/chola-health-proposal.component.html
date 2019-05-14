@@ -1,441 +1,441 @@
-<section class="d-none d-sm-none d-md-block">
-  <div class="container-fluid">
-    <div class="row relianceHealthProposal">
-      <div class="col-md-12">
-        <mat-horizontal-stepper #stepper >
-          <mat-step [stepControl]="personal">
-            <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
-            <mat-accordion class="w-100 float-left">
-              <form [formGroup]="personal">
-                <mat-expansion-panel expanded>
-                  <mat-expansion-panel-header>
-                    <mat-panel-title>PROPOSER DETAILS</mat-panel-title>
-                  </mat-expansion-panel-header>
-                  <div class="row mt-3">
-                    <div class="col-md-12 box-card pt-3">
-                      <div class="row">
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>
-                              <mat-option value="Mr.">Mr</mat-option>
-                              <mat-option value="Ms.">Ms</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>
-                          </mat-form-field>
-                        </div>
+<!--<section class="d-none d-sm-none d-md-block">-->
+  <!--<div class="container-fluid">-->
+    <!--<div class="row relianceHealthProposal">-->
+      <!--<div class="col-md-12">-->
+        <!--<mat-horizontal-stepper #stepper >-->
+          <!--<mat-step [stepControl]="personal">-->
+            <!--<ng-template matStepLabel>PROPOSER DETAILS</ng-template>-->
+            <!--<mat-accordion class="w-100 float-left">-->
+              <!--<form [formGroup]="personal">-->
+                <!--<mat-expansion-panel expanded>-->
+                  <!--<mat-expansion-panel-header>-->
+                    <!--<mat-panel-title>PROPOSER DETAILS</mat-panel-title>-->
+                  <!--</mat-expansion-panel-header>-->
+                  <!--<div class="row mt-3">-->
+                    <!--<div class="col-md-12 box-card pt-3">-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<mat-select placeholder="Title" formControlName="personalTitle" (change)="changeGender()" required>-->
+                              <!--<mat-option value="Mr.">Mr</mat-option>-->
+                              <!--<mat-option value="Ms.">Ms</mat-option>-->
+                            <!--</mat-select>-->
+                            <!--<mat-error *ngIf="personal.controls.personalTitle.errors?.required">Title is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
 
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)"  autocomplete="off" required >
-                            <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)"  autocomplete="off" required >-->
+                            <!--<mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
 
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)"   autocomplete="off" required >
-                            <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)" formControlName="personalDob" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')"  (keypress)="dobValidate($event)" autocomplete="off" maxlength="10" minlength="10" required >
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
-                          </mat-form-field>
-                          <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Gender" formControlName="personalGender" required readonly>
-                            <mat-error *ngIf="personal.controls.personalGender.errors?.required">Gender is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()"   class="w-100">
-                              <mat-option *ngFor="let list of maritalStatusList | keys" [value]= list.key> {{list.value}} </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <mat-select placeholder="Occupation" formControlName="occupation" (change)="occupationListCode()">
-                              <mat-option *ngFor="let list of occupationList | keys" [value]="list.key">{{list.value}}</mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Annual Income" formControlName="personalIncome"  (keypress)="numberValidate($event)" maxlength="10"  autocomplete="off" required>
-                                <mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>
-                            </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)"   autocomplete="off" required >-->
+                            <!--<mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput [matDatepicker]="picker" [max]="minDate" placeholder="DOB (DD/MM/YYYY)" formControlName="personalDob" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')"  (keypress)="dobValidate($event)" autocomplete="off" maxlength="10" minlength="10" required >-->
+                            <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+                            <!--<mat-datepicker #picker></mat-datepicker>-->
+                            <!--<mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                          <!--<div class="error" *ngIf="dobError != ''">{{dobError}}</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Gender" formControlName="personalGender" required readonly>-->
+                            <!--<mat-error *ngIf="personal.controls.personalGender.errors?.required">Gender is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()"   class="w-100">-->
+                              <!--<mat-option *ngFor="let list of maritalStatusList | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                            <!--</mat-select>-->
+                            <!--<mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<mat-select placeholder="Occupation" formControlName="occupation" (change)="occupationListCode()">-->
+                              <!--<mat-option *ngFor="let list of occupationList | keys" [value]="list.key">{{list.value}}</mat-option>-->
+                            <!--</mat-select>-->
+                            <!--<mat-error *ngIf="personal.controls.occupation.errors?.required">Occupation is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                            <!--<mat-form-field class="w-100">-->
+                                <!--<input matInput placeholder="Annual Income" formControlName="personalIncome"  (keypress)="numberValidate($event)" maxlength="10"  autocomplete="off" required>-->
+                                <!--<mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                        <!--</div>-->
 
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" required>
-                            <mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>
-                            <mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="STD Code" formControlName="personalstdcode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"    autocomplete="off" >
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Email ID"   formControlName="personalEmail"  autocomplete="off" required>-->
+                            <!--<mat-error *ngIf="personal.controls.personalEmail.errors?.required">Email ID is required</mat-error>-->
+                            <!--<mat-error *ngIf="personal.controls.personalEmail.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="STD Code" formControlName="personalstdcode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"    autocomplete="off" >-->
 
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" minlength="10" formControlName="personalMobile" autocomplete="off" required>
-                            <mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>
-                            <mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="LandLine Number"  (keypress)="numberValidate($event)"   maxlength="12" minlength="12" formControlName="personalLandlineno" autocomplete="off" >
-                            <mat-error *ngIf="personal.controls.personalLandlineno.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="CustMailStateCd" formControlName="custMailStateCd"   autocomplete="off" >
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" minlength="10" formControlName="personalMobile" autocomplete="off" required>-->
+                            <!--<mat-error *ngIf="personal.controls.personalMobile.errors?.required">Mobile Number is required</mat-error>-->
+                            <!--<mat-error *ngIf="personal.controls.personalMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="LandLine Number"  (keypress)="numberValidate($event)"   maxlength="12" minlength="12" formControlName="personalLandlineno" autocomplete="off" >-->
+                            <!--<mat-error *ngIf="personal.controls.personalLandlineno.hasError('pattern')">Enter Valid  Mobile Number</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="CustMailStateCd" formControlName="custMailStateCd"   autocomplete="off" >-->
 
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="GST Number" class="text-uppercase"   minlength="15"  maxlength="15" formControlName="personalGst" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$" autocomplete="off" required>
-                            <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
-                            <mat-error *ngIf="personal.controls.personalGst.hasError('pattern')">Enter Vaild GST</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="ISDN Number"     maxlength="10" formControlName="personalIsdn" autocomplete="off">
-                          </mat-form-field>
-                        </div>
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="GST Number" class="text-uppercase"   minlength="15"  maxlength="15" formControlName="personalGst" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$" autocomplete="off" required>-->
+                            <!--<mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>-->
+                            <!--<mat-error *ngIf="personal.controls.personalGst.hasError('pattern')">Enter Vaild GST</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-3">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="ISDN Number"     maxlength="10" formControlName="personalIsdn" autocomplete="off">-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
 
-                        <div class="col-md-12">
-                          <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
-                        </div>
+                        <!--<div class="col-md-12">-->
+                          <!--<h6 class="color-blue">COMMUNICATION ADDRESS</h6>-->
+                        <!--</div>-->
 
-                        <div class="col-md-6">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Address 1" formControlName="personalAddress" maxlength="30" autocomplete="off" required>
-                            <mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-6">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Address 2" formControlName="personalAddress2" maxlength="30" autocomplete="off" required>
-                            <mat-error *ngIf="personal.controls.personalAddress2.errors?.required">Address2 is required</mat-error>
-                          </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-6">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Address 1" formControlName="personalAddress" maxlength="30" autocomplete="off" required>-->
+                            <!--<mat-error *ngIf="personal.controls.personalAddress.errors?.required">Address is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-6">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Address 2" formControlName="personalAddress2" maxlength="30" autocomplete="off" required>-->
+                            <!--<mat-error *ngIf="personal.controls.personalAddress2.errors?.required">Address2 is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
 
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="PIN Code" formControlName="personalPincode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"  minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" autocomplete="off" required>
-                            <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-                            <mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>
-                            <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="State" formControlName="personalState" autocomplete="off" (keypress)="nameValidate($event)"   readonly>
-                            <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field  class="w-100">
-                            <mat-select placeholder="City"  formControlName="personalCity" (change)="changeCity()" required>
-                              <mat-option *ngFor="let CityList of CholaCityList | keys" value="{{CityList.key}}" > {{CityList.value}} </mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="PIN Code" formControlName="personalPincode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"  minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" autocomplete="off" required>-->
+                            <!--&lt;!&ndash;<mat-error *ngIf="personal.controls.personalPincode.hasError('minlength')">Pin should be 6 digits</mat-error>&ndash;&gt;-->
+                            <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('required')">Pincode required</mat-error>-->
+                            <!--<mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="State" formControlName="personalState" autocomplete="off" (keypress)="nameValidate($event)"   readonly>-->
+                            <!--<mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field  class="w-100">-->
+                            <!--<mat-select placeholder="City"  formControlName="personalCity" (change)="changeCity()" required>-->
+                              <!--<mat-option *ngFor="let CityList of CholaCityList | keys" value="{{CityList.key}}" > {{CityList.value}} </mat-option>-->
+                            <!--</mat-select>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
 
-                        <div class="proposal-buttom mt-3 text-right w-100">
-                          <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" >Next</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </mat-expansion-panel>
-              </form>
-            </mat-accordion>
-          </mat-step>
-          <mat-step [stepControl]="">
-            <ng-template matStepLabel >INSURED DETAILS</ng-template>
-            <mat-accordion class="w-100 float-left">
-              <form [formGroup]="insureArray">
-                <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-                  <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
-                    <mat-expansion-panel-header>
-                      <mat-panel-title>
-                        {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <ng-template matStepLabel>INSURED DETAILS </ng-template>
-                    <div class="row" >
-                      <div class="col-md-12 box-card pt-3">
-                        <h6 class="color-blue"> {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>
-                        <div class="col-md-12 mt-3" >
-                          <mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure(i)" ><strong>Same as proposer</strong></mat-checkbox>
-                        </div>
-                        <div class="row">
-                          <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
-                            <mat-form-field class="w-100">
-                              <mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" [required]="i == 0">
-                                <mat-option value="Mr.">Mr</mat-option>
-                                <mat-option value="Ms.">Ms</mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                         <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off"  required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}" >
-                              <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}" >
-                              <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-3" *ngIf="i == 0">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Gender" formControlName="personalGender" [required]="i == 0" readonly autocomplete="off">
-                              <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
-                            </mat-form-field>
-                          </div>
-                          <div class="col-md-3"><mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event, i, item.type)"  minlength="10"  maxlength="10" autocomplete="off"  required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                            <mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>
-                          </mat-form-field>
-                            <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
-                            <p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
-                          </div>
-                          <div class="col-md-3">
-                            <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
-                              <mat-select placeholder="Relationship" (change)="changeRelationShipList(i)" formControlName="personalrelationship"   required >
-                                <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
-                            </mat-form-field>
-                          </div>
+                        <!--<div class="proposal-buttom mt-3 text-right w-100">-->
+                          <!--<button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" >Next</button>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</mat-expansion-panel>-->
+              <!--</form>-->
+            <!--</mat-accordion>-->
+          <!--</mat-step>-->
+          <!--<mat-step [stepControl]="">-->
+            <!--<ng-template matStepLabel >INSURED DETAILS</ng-template>-->
+            <!--<mat-accordion class="w-100 float-left">-->
+              <!--<form [formGroup]="insureArray">-->
+                <!--<div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">-->
+                  <!--<mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">-->
+                    <!--<mat-expansion-panel-header>-->
+                      <!--<mat-panel-title>-->
+                        <!--{{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS-->
+                      <!--</mat-panel-title>-->
+                    <!--</mat-expansion-panel-header>-->
+                    <!--<ng-template matStepLabel>INSURED DETAILS </ng-template>-->
+                    <!--<div class="row" >-->
+                      <!--<div class="col-md-12 box-card pt-3">-->
+                        <!--<h6 class="color-blue"> {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>-->
+                        <!--<div class="col-md-12 mt-3" >-->
+                          <!--<mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure(i)" ><strong>Same as proposer</strong></mat-checkbox>-->
+                        <!--</div>-->
+                        <!--<div class="row">-->
+                          <!--<div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<mat-select placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" [required]="i == 0">-->
+                                <!--<mat-option value="Mr.">Mr</mat-option>-->
+                                <!--<mat-option value="Ms.">Ms</mat-option>-->
+                              <!--</mat-select>-->
+                              <!--<mat-error *ngIf="insureArray.invalid">Title is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                         <!--<div class="col-md-3">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off"  required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}" >-->
+                              <!--<mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-3">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}" >-->
+                              <!--<mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-3" *ngIf="i == 0">-->
+                            <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Gender" formControlName="personalGender" [required]="i == 0" readonly autocomplete="off">-->
+                              <!--<mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-3"><mat-form-field class="w-100">-->
+                            <!--<input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event, i, item.type)"  minlength="10"  maxlength="10" autocomplete="off"  required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}">-->
+                            <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
+                            <!--<mat-datepicker #picker></mat-datepicker>-->
+                            <!--<mat-error *ngIf="insureArray.invalid">DOB is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                            <!--<p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>-->
+                            <!--<p class="error mb-0" *ngIf="insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>-->
+                          <!--</div>-->
+                          <!--<div class="col-md-3">-->
+                            <!--<mat-form-field class="w-100"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">-->
+                              <!--<mat-select placeholder="Relationship" (change)="changeRelationShipList(i)" formControlName="personalrelationship"   required >-->
+                                <!--<mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>-->
+                              <!--</mat-select>-->
+                              <!--<mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                          <!--</div>-->
 
-                          <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                            <input matInput placeholder="SumInsured"  formControlName="sumInsured" autocomplete="off" >
+                          <!--<div class="col-md-3">-->
+                            <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="SumInsured"  formControlName="sumInsured" autocomplete="off" >-->
 
-                           </mat-form-field>
-                          </div>
+                           <!--</mat-form-field>-->
+                          <!--</div>-->
 
-                        </div>
-                      </div>
-
-
-
-                      <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
-                        <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                        <button mat-raised-button color="primaryBlue"  (click)="cholaInsureDetails(stepper, insureArray.value)">Next</button>
-                      </div>
-                    </div>
-                  </mat-expansion-panel>
-                </div>
-              </form>
-            </mat-accordion>
-          </mat-step>
-
-
-          <mat-step [stepControl]="">
-            <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
-            <mat-accordion class="w-100 float-left">
-              <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
-                  <mat-panel-title>
-                    NOMINEE DETAILS                </mat-panel-title>
-                </mat-expansion-panel-header>
-                <ng-template matStepLabel>NOMINEE DETAILS   </ng-template>
-                <div class="row mt-3">
-                  <div class="col-md-12 box-card pt-3 pb-3" >
-                    <form [formGroup]="nomineeDetails">
-                      <div class="row">
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="Name of Nominee"  formControlName="nomineeName" autocomplete="off" (keypress)="nameValidate($event)" required >
-                            <mat-error *ngIf="nomineeDetails.controls.nomineeName.errors?.required">Name of Nominee is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <mat-select placeholder="Nominee Relationship"  formControlName="nomineeRelationship" (change)="changeNomineeRelation()" required >
-                              <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
-                            </mat-select>
-                            <mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-4">
-                          <div class="proposal-buttom mb-3 text-right w-100">
-                            <button mat-button matStepperPrevious  (click)="quesback()">Back</button>
-                            <button mat-raised-button color="primaryBlue"   (click)="cholaNomineeDetails(stepper, nomineeDetails.value)">Next</button>
-                          </div></div>
-                      </div>
-                    </form>
-                  </div>
-
-                </div>
-              </mat-expansion-panel>
-            </mat-accordion>
-          </mat-step>
-          <mat-step [stepControl]="">
-            <ng-template matStepLabel>SUMMARY</ng-template>
-            <section class="summary-details" *ngIf="summaryData">
-              <div class="row">
-                <div class="col-md-4">
-                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
-                </div>
-                <div class="col-md-8">
-                  <ul class="summary-head">
-                    <li><span>Insurer:</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
-                    <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>
-                    <li></li>
-                  </ul>
-                </div>
-              </div>
-              <section>
-                <h5 class="mt-3 sub-title">PROPOSER DETAILS</h5>
-                <div class="row box-card">
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.personalTitle}} {{proposerFormData.personalFirstname}} {{proposerFormData.personalLastname}} </li>
-                        <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.personalGender}} </li>
-                        <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
-                        <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.personalDob  | date: 'dd/MM/yyyy'}}</li>
-
-                        <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.personalEmail}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Mobile:</strong> {{proposerFormData.personalLandlineno}}</li>
-                        <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationListName}}</li>
-                        <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
-                        <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.personalIncome}}</li>
-                        <li class="list-group-item"><strong>GST No:</strong> {{proposerFormData.personalGst}}</li>
-                        <li class="list-group-item"><strong>custMailStateCd:</strong> {{proposerFormData.custMailStateCd}}</li>
-
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div class="col-md-12">
-                    <div class="p-3">
-                      <h6 class="color-blue">COMMUNICATION DETAILS</h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>
-                        <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
-                        <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.personalPincode}}</li>
-                        <li class="list-group-item"><strong>State:</strong> {{proposerFormData.personalState}}</li>
-                        <li class="list-group-item"><strong>City:</strong> {{proposerFormData.personalCity}}</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                </div>
-              </section>
-              <section *ngFor="let item of insuredFormData; let i = index;">
-                <h5 class="mt-3 sub-title">{{item.type | uppercase}} DETAILS</h5>
-                <div class="row box-card">
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <h6>INSURED DETAILS</h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.personalTitle}} {{item.personalFirstname}} {{item.personalLastname}}</li>
-                        <li class="list-group-item"><strong>D.O.B:</strong> {{item.personalDob | date: 'dd/MM/yyyy'}}</li>
-                        <li class="list-group-item"><strong>Gender:</strong> {{item.personalGender}} </li>
-
-
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <h6 class="mt-4" ></h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>
-                        <li class="list-group-item" *ngIf="item.sumInsured != '' && item.sumInsured != null"><strong>SumInsured:</strong> {{item.sumInsured }}</li>
-
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </section>
-              <section>
-                <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
-                <div class="row box-card">
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Nominee name:</strong> {{nomineeFormData.nomineeName}}</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationshipName}}</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-                <div>
-                  <!--<p>https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102-->
-                  <!--</p>-->
-                  <!--<iframe src="https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102">-->
-                  <!--</iframe>-->
-                  <pdf-viewer src="{{requestedUrl}}"
-                              [render-text]="true"
-                              style="display: block;"
-                  ></pdf-viewer>
-                </div>
-              </section>
-              <p class="mt-2 pl-3" *ngIf="proposalGenStatus">
-                <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>
-              </p>
-              <hr>
-              <div class="col-md-12" *ngIf="proposalGenStatus">
-                <div class="proposal-buttom mb-3 text-center w-100">
-                  <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>
-                </div>
-              </div>
-
-            </section>
-          </mat-step>
+                        <!--</div>-->
+                      <!--</div>-->
 
 
 
+                      <!--<div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">-->
+                        <!--<button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
+                        <!--<button mat-raised-button color="primaryBlue"  (click)="cholaInsureDetails(stepper, insureArray.value)">Next</button>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</mat-expansion-panel>-->
+                <!--</div>-->
+              <!--</form>-->
+            <!--</mat-accordion>-->
+          <!--</mat-step>-->
 
-        </mat-horizontal-stepper>
-      </div>
-    </div>
-  </div>
-</section>
+
+          <!--<mat-step [stepControl]="">-->
+            <!--<ng-template matStepLabel>NOMINEE DETAILS</ng-template>-->
+            <!--<mat-accordion class="w-100 float-left">-->
+              <!--<mat-expansion-panel expanded>-->
+                <!--<mat-expansion-panel-header>-->
+                  <!--<mat-panel-title>-->
+                    <!--NOMINEE DETAILS                </mat-panel-title>-->
+                <!--</mat-expansion-panel-header>-->
+                <!--<ng-template matStepLabel>NOMINEE DETAILS   </ng-template>-->
+                <!--<div class="row mt-3">-->
+                  <!--<div class="col-md-12 box-card pt-3 pb-3" >-->
+                    <!--<form [formGroup]="nomineeDetails">-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<input matInput placeholder="Name of Nominee"  formControlName="nomineeName" autocomplete="off" (keypress)="nameValidate($event)" required >-->
+                            <!--<mat-error *ngIf="nomineeDetails.controls.nomineeName.errors?.required">Name of Nominee is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<mat-form-field class="w-100">-->
+                            <!--<mat-select placeholder="Nominee Relationship"  formControlName="nomineeRelationship" (change)="changeNomineeRelation()" required >-->
+                              <!--<mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.key}}" > {{relationship.value}} </mat-option>-->
+                            <!--</mat-select>-->
+                            <!--<mat-error *ngIf="nomineeDetails.controls.nomineeRelationship.errors?.required">Relationship is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
+                        <!--<div class="col-md-4">-->
+                          <!--<div class="proposal-buttom mb-3 text-right w-100">-->
+                            <!--<button mat-button matStepperPrevious  (click)="quesback()">Back</button>-->
+                            <!--<button mat-raised-button color="primaryBlue"   (click)="cholaNomineeDetails(stepper, nomineeDetails.value)">Next</button>-->
+                          <!--</div></div>-->
+                      <!--</div>-->
+                    <!--</form>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+              <!--</mat-expansion-panel>-->
+            <!--</mat-accordion>-->
+          <!--</mat-step>-->
+          <!--<mat-step [stepControl]="">-->
+            <!--<ng-template matStepLabel>SUMMARY</ng-template>-->
+            <!--<section class="summary-details" *ngIf="summaryData">-->
+              <!--<div class="row">-->
+                <!--<div class="col-md-4">-->
+                  <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;">{{getFamilyDetails.name}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>-->
+                <!--</div>-->
+                <!--<div class="col-md-8">-->
+                  <!--<ul class="summary-head">-->
+                    <!--<li><span>Insurer:</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
+                    <!--<li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>-->
+                    <!--<li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>-->
+                    <!--<li></li>-->
+                  <!--</ul>-->
+                <!--</div>-->
+              <!--</div>-->
+              <!--<section>-->
+                <!--<h5 class="mt-3 sub-title">PROPOSER DETAILS</h5>-->
+                <!--<div class="row box-card">-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Name:</strong>{{proposerFormData.personalTitle}} {{proposerFormData.personalFirstname}} {{proposerFormData.personalLastname}} </li>-->
+                        <!--<li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.personalGender}} </li>-->
+                        <!--<li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>-->
+                        <!--<li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.personalDob  | date: 'dd/MM/yyyy'}}</li>-->
+
+                        <!--<li class="list-group-item"><strong>Email:</strong> {{proposerFormData.personalEmail}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Mobile:</strong> {{proposerFormData.personalLandlineno}}</li>-->
+                        <!--<li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationListName}}</li>-->
+                        <!--<li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>-->
+                        <!--<li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.personalIncome}}</li>-->
+                        <!--<li class="list-group-item"><strong>GST No:</strong> {{proposerFormData.personalGst}}</li>-->
+                        <!--<li class="list-group-item"><strong>custMailStateCd:</strong> {{proposerFormData.custMailStateCd}}</li>-->
+
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-12">-->
+                    <!--<div class="p-3">-->
+                      <!--<h6 class="color-blue">COMMUNICATION DETAILS</h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>-->
+                        <!--<li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>-->
+                        <!--<li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.personalPincode}}</li>-->
+                        <!--<li class="list-group-item"><strong>State:</strong> {{proposerFormData.personalState}}</li>-->
+                        <!--<li class="list-group-item"><strong>City:</strong> {{proposerFormData.personalCity}}</li>-->
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+              <!--</section>-->
+              <!--<section *ngFor="let item of insuredFormData; let i = index;">-->
+                <!--<h5 class="mt-3 sub-title">{{item.type | uppercase}} DETAILS</h5>-->
+                <!--<div class="row box-card">-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<h6>INSURED DETAILS</h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Name:</strong> {{item.personalTitle}} {{item.personalFirstname}} {{item.personalLastname}}</li>-->
+                        <!--<li class="list-group-item"><strong>D.O.B:</strong> {{item.personalDob | date: 'dd/MM/yyyy'}}</li>-->
+                        <!--<li class="list-group-item"><strong>Gender:</strong> {{item.personalGender}} </li>-->
+
+
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<h6 class="mt-4" ></h6>-->
+                      <!--<ul class="m-0 list-group">-->
+                        <!--<li class="list-group-item"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>-->
+                        <!--<li class="list-group-item" *ngIf="item.sumInsured != '' && item.sumInsured != null"><strong>SumInsured:</strong> {{item.sumInsured }}</li>-->
+
+                      <!--</ul>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+              <!--</section>-->
+              <!--<section>-->
+                <!--<h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>-->
+                <!--<div class="row box-card">-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-12">-->
+                          <!--<ul class="m-0 list-group">-->
+                            <!--<li class="list-group-item"><strong>Nominee name:</strong> {{nomineeFormData.nomineeName}}</li>-->
+                          <!--</ul>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--<div class="col-md-6">-->
+                    <!--<div class="p-3">-->
+                      <!--<div class="row">-->
+                        <!--<div class="col-md-12">-->
+                          <!--<ul class="m-0 list-group">-->
+                            <!--<li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationshipName}}</li>-->
+                          <!--</ul>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</div>-->
+
+                <!--</div>-->
+                <!--<div>-->
+                  <!--&lt;!&ndash;<p>https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102&ndash;&gt;-->
+                  <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                  <!--&lt;!&ndash;<iframe src="https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102">&ndash;&gt;-->
+                  <!--&lt;!&ndash;</iframe>&ndash;&gt;-->
+                  <!--<pdf-viewer src="{{requestedUrl}}"-->
+                              <!--[render-text]="true"-->
+                              <!--style="display: block;"-->
+                  <!--&gt;</pdf-viewer>-->
+                <!--</div>-->
+              <!--</section>-->
+              <!--<p class="mt-2 pl-3" *ngIf="proposalGenStatus">-->
+                <!--<mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>-->
+              <!--</p>-->
+              <!--<hr>-->
+              <!--<div class="col-md-12" *ngIf="proposalGenStatus">-->
+                <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                  <!--<button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
+                  <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>-->
+                <!--</div>-->
+              <!--</div>-->
+
+            <!--</section>-->
+          <!--</mat-step>-->
+
+
+
+
+        <!--</mat-horizontal-stepper>-->
+      <!--</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</section>-->
