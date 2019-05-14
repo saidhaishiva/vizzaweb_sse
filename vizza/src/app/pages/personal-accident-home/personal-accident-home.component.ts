@@ -185,6 +185,7 @@ export class PersonalaccidentComponent implements OnInit {
             }
         }
     }
+
     painsurance() {
         this.firstPage = true;
         this.secondPage = false;
@@ -226,7 +227,7 @@ export class PersonalaccidentComponent implements OnInit {
         }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);
-            if(this.filterCompany.includes('All')) {
+            if (this.filterCompany.includes('All')) {
                 this.checkAllStatus = true;
             } else {
                 this.checkAllStatus = false;
@@ -239,7 +240,6 @@ export class PersonalaccidentComponent implements OnInit {
         if (sessionStorage.sumInsuredAmountLists != undefined && sessionStorage.sumInsuredAmountLists != '') {
             this.sumInsuredAmountLists = JSON.parse(sessionStorage.sumInsuredAmountLists);
         }
-
 
 
     }
@@ -297,6 +297,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     public getProfessionalFailure(error) {
     }
+
     // get company list
     public companyList(): void {
         const data = {
@@ -314,6 +315,7 @@ export class PersonalaccidentComponent implements OnInit {
             }
         );
     }
+
     public getCompanySuccess(successData) {
         if (successData.IsSuccess) {
             this.allCompanyList = successData.ResponseObject;
@@ -324,6 +326,7 @@ export class PersonalaccidentComponent implements OnInit {
             this.filterCompany = all;
         }
     }
+
     public getCompanyFailure(error) {
     }
 
@@ -461,34 +464,36 @@ export class PersonalaccidentComponent implements OnInit {
         if (successData.IsSuccess) {
             this.enquiryDetails = successData.ResponseObject;
             sessionStorage.enquiryDetailsPa = JSON.stringify(this.enquiryDetails);
-            this.selectedAmountP= "6";
+            this.selectedAmountP = "6";
             this.sumInsuredAmonut(this.enquiryDetails.age);
             this.productListArray = [];
             this.allProductLists = [];
             // this.settings.loadingSpinner = true;
-            for(let i = 0; i < this.allCompanyList.length; i++) {
+            for (let i = 0; i < this.allCompanyList.length; i++) {
                 this.policyLists(this.allCompanyList[i].company_id);
             }
 
         }
     }
-    public createEnquiryFailure(err){
+
+    public createEnquiryFailure(err) {
         this.settings.loadingSpinner = false;
     }
+
     updateSumInsured() {
         this.settings.loadingSpinner = true;
         sessionStorage.selectedAmountP = this.selectedAmountP;
         this.productListArray = [];
         this.allProductLists = [];
         let getCompanyCount = [];
-        for(let i = 0; i < this.allCompanyList.length; i++) {
-            for(let j = 0; j < this.filterCompany.length; j++) {
-                if(this.filterCompany[j] == this.allCompanyList[i].company_name) {
+        for (let i = 0; i < this.allCompanyList.length; i++) {
+            for (let j = 0; j < this.filterCompany.length; j++) {
+                if (this.filterCompany[j] == this.allCompanyList[i].company_name) {
                     getCompanyCount.push(this.allCompanyList[i].company_id);
                 }
             }
         }
-        for(let i = 0; i < getCompanyCount.length; i++) {
+        for (let i = 0; i < getCompanyCount.length; i++) {
             this.policyLists(getCompanyCount[i]);
         }
 
@@ -515,7 +520,8 @@ export class PersonalaccidentComponent implements OnInit {
             }
         );
     }
-    public getPolicyListsSuccess(successData){
+
+    public getPolicyListsSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.firstPage = false;
@@ -546,16 +552,18 @@ export class PersonalaccidentComponent implements OnInit {
             this.toast.error(successData.ErrorObject);
         }
     }
-    public getPolicyListsFailure(error){
+
+    public getPolicyListsFailure(error) {
     }
-    public  numberWithCommas(x) {
-        return x.toString().substring(0,x.toString().split('.')[0].length-3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length-3);
+
+    public numberWithCommas(x) {
+        return x.toString().substring(0, x.toString().split('.')[0].length - 3).replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + x.toString().substring(x.toString().split('.')[0].length - 3);
     }
 
     // filter by product
     filterByProducts() {
 
-        if(this.filterCompany.includes('All')){
+        if (this.filterCompany.includes('All')) {
             console.log('fi');
             this.checkAllStatus = true;
             this.allProductLists = this.setAllProductLists;
@@ -564,14 +572,12 @@ export class PersonalaccidentComponent implements OnInit {
                 all.push(this.allCompanyList[i].company_name);
             }
             this.filterCompany = all;
-        }
-        else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+        } else if (!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length) {
             console.log('sec');
             this.checkAllStatus = false;
             this.allProductLists = [];
             this.filterCompany = [];
-        }
-        else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
+        } else if (!this.filterCompany.includes('All') && this.filterCompany.length > 0) {
             console.log('third');
             this.checkAllStatus = false;
             let cmpy = [];
@@ -583,7 +589,7 @@ export class PersonalaccidentComponent implements OnInit {
                 }
             }
             this.allProductLists = cmpy;
-        } else if(this.filterCompany.length == 0){
+        } else if (this.filterCompany.length == 0) {
             console.log('frth');
             this.checkAllStatus = false;
             this.allProductLists = [];
@@ -596,9 +602,10 @@ export class PersonalaccidentComponent implements OnInit {
 
     }
 
-    numberValidate(event: any){
+    numberValidate(event: any) {
         this.validation.numberValidate(event);
     }
+
     //// compare Details
     compareDetails(value, index) {
         console.log(value, 'valuevalue1');
@@ -625,8 +632,9 @@ export class PersonalaccidentComponent implements OnInit {
         }
 
     }
+
     // remove compare
-    removeCompare(index , pindex) {
+    removeCompare(index, pindex) {
         this.compareArray.splice(index, 1);
         console.log(this.compareArray, 'this.compareArray');
         let getCount;
@@ -644,6 +652,7 @@ export class PersonalaccidentComponent implements OnInit {
         }
 
     }
+
     removeAllCompare() {
         for (let i = 0; i < this.allProductLists.length; i++) {
             this.allProductLists[i].compare = false;
@@ -653,46 +662,54 @@ export class PersonalaccidentComponent implements OnInit {
 
     // comparelist
     compareList(value) {
-            this.productData = [];
-            let scheme = value[0].scheme;
-            for (let i = 0; i < value.length; i++) {
-                this.productData.push({product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
-            }
-            const data = {
-                'platform': 'web',
-                'scheme': scheme,
-                'group_name': 'GROUP A',
-                'enquiry_id': this.enquiryDetails.enquiry_id,
-                'product_lists': this.productData,
-                'created_by': 0,
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+        this.productData = [];
+        let scheme = value[0].scheme;
+        for (let i = 0; i < value.length; i++) {
+            this.productData.push({
+                product_id: value[i].product_id,
+                premium_amount: value[i].premium_amount,
+                suminsured_amount: value[i].suminsured_amount,
+                prod_suminsuredid: value[i].suminsured_id
+            });
+        }
+        const data = {
+            'platform': 'web',
+            'scheme': scheme,
+            'group_name': 'GROUP A',
+            'enquiry_id': this.enquiryDetails.enquiry_id,
+            'product_lists': this.productData,
+            'created_by': 0,
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
 
-            };
-            this.settings.loadingSpinner = true;
-            this.personalService.addtoCompare(data).subscribe(
-                (successData) => {
-                    this.compareSuccess(successData);
-                },
-                (error) => {
-                    this.compareFailure(error);
-                }
-            );
-        }
-        public compareSuccess(successData) {
-            this.settings.loadingSpinner = false;
-            if (successData.IsSuccess) {
-                let dialogRef = this.dialog.open(ComparelistComponent, {
-                    width: '1500px', data: {comparedata: successData.ResponseObject, type: 'pa'}});
-                dialogRef.disableClose = true;
-
-                dialogRef.afterClosed().subscribe(result => {
-                });
+        };
+        this.settings.loadingSpinner = true;
+        this.personalService.addtoCompare(data).subscribe(
+            (successData) => {
+                this.compareSuccess(successData);
+            },
+            (error) => {
+                this.compareFailure(error);
             }
+        );
+    }
+
+    public compareSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            let dialogRef = this.dialog.open(ComparelistComponent, {
+                width: '1500px', data: {comparedata: successData.ResponseObject, type: 'pa'}
+            });
+            dialogRef.disableClose = true;
+
+            dialogRef.afterClosed().subscribe(result => {
+            });
         }
-        public compareFailure(error) {
-            this.settings.loadingSpinner = false;
-        }
+    }
+
+    public compareFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
 
 
     // fire functions
@@ -700,6 +717,7 @@ export class PersonalaccidentComponent implements OnInit {
         this.selectDate = event.value;
         this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
     }
+
     fireKeeper(values) {
 
         if (this.fireapp.valid) {
@@ -711,7 +729,7 @@ export class PersonalaccidentComponent implements OnInit {
                 'company_name': this.fireapp.controls['name'].value,
                 'customer_mobile': this.fireapp.controls['mobile'].value,
                 'customer_email': this.fireapp.controls['email'].value,
-                'contact_person' : this.fireapp.controls['contactperson'].value,
+                'contact_person': this.fireapp.controls['contactperson'].value,
                 'pincode': this.fireapp.controls['pincode'].value,
                 'product_name': this.fireapp.controls['insurance'].value,
                 'appointment_with': this.fireapp.controls['appointmentwith'].value,
@@ -728,10 +746,13 @@ export class PersonalaccidentComponent implements OnInit {
             );
         }
     }
+
     fixAppointmentSuccess(successData) {
     }
+
     fixAppointmentFailure(error) {
     }
+
     getPincodeDetails(pin, title) {
         this.pin = pin;
         this.title = title;
@@ -750,6 +771,7 @@ export class PersonalaccidentComponent implements OnInit {
             );
         }
     }
+
     public getPincodeDetailsSuccess(successData) {
         if (successData.ErrorObject) {
             this.toastr.error(successData.ErrorObject);
@@ -775,19 +797,18 @@ export class PersonalaccidentComponent implements OnInit {
 
     // buy details
     buyProduct(value) {
-        sessionStorage.buyProductsPa =  JSON.stringify(value);
+        sessionStorage.buyProductsPa = JSON.stringify(value);
         if (value.product_id == 14 || value.product_id == 15) {
             this.router.navigate(['/appollopa' + '/' + false]);
         } else if (value.product_id == 3) {
-                this.router.navigate(['/personal-accident-religare' +'/' + false]);
-            } else {
-            if (value.product_id == 23) {
-                this.router.navigate(['/hdfc-personalAccident'+'/' + false]);
-            }
+            this.router.navigate(['/personal-accident-religare' + '/' + false]);
+        } else if (value.product_id == 88 || value.product_id == 89) {
+            this.router.navigate(['/reliance-pa' + '/' + false]);
+        } else if (value.product_id == 23) {
+            this.router.navigate(['/hdfc-personalAccident' + '/' + false]);
         }
-
-
     }
+
     // view key features details
     viewKeyList(value) {
         let dialogRef = this.dialog.open(ViewProductDetailsComponent, {
