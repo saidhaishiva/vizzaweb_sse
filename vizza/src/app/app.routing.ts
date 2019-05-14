@@ -260,7 +260,7 @@ export const routes: Routes = [
             { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
             { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},
             { path: 'bajaj-travel/:stepper', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
-            { path: 'chola-health-proposal', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
+            { path: 'chola-health-proposal/:stepper', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
             { path: 'reliance-motor-proposal', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
             { path: 'bajaj-travel-payment-success/:status/:proId', component: TravelBajajPaymentSuccessComponent, data:{ breadcrumb: 'travel Bajaj'}},
 

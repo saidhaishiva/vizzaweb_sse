@@ -72,6 +72,13 @@ export class ClearSessionTravelService {
         sessionStorage.proposalCArea = '';
         sessionStorage.proposalDArea = '';
 
+        // bajaj
+        sessionStorage.bajajTravelproposalID = '';
+        sessionStorage.bajajTravelproposalID = '';
+        sessionStorage.proposerAge = '';
+        sessionStorage.stepper1bajajDetails = '';
+        sessionStorage.stepper2bajajDetails = '';
+
 
 
     }
