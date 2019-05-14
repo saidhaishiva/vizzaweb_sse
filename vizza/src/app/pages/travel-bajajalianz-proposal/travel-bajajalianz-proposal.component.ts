@@ -236,8 +236,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 assigneeName: this.getStepper1.assigneeName,
             });
         }
-            if (sessionStorage.insuredFormData != '' && sessionStorage.insuredFormData != undefined){
-            this.getStepper2 = JSON.parse(sessionStorage.insuredFormData);
+        if (sessionStorage.stepper2bajajDetails != '' && sessionStorage.stepper2bajajDetails != undefined){
+            this.getStepper2 = JSON.parse(sessionStorage.stepper2bajajDetails);
             for (let i = 0; i < this.getStepper2.length; i++) {
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2[i].assigneeName);
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2[i].relation);
@@ -340,6 +340,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     // create proposal
     createProposal(stepper, value,type) {
+        sessionStorage.stepper2bajajDetails = '';
+        sessionStorage.stepper2bajajDetails = JSON.stringify(value);
         console.log(this.proposerAge,'proposerAge');
         console.log(sessionStorage.proposerAge,'sesionAGE');
         if(this.getEnquiryDetails.travel_user_type == 'family') {
