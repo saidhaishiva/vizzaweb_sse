@@ -371,6 +371,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'product_id': this.getTravelPremiumList.product_id,
+            'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
             "totalPremium": this.getTravelPremiumList.total_premium,
             "serviceTax": this.getTravelPremiumList.serviceTax,
             "premium": this.getTravelPremiumList.premium,

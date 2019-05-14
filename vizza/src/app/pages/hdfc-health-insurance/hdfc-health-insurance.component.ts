@@ -908,6 +908,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 'enquiry_id': this.getFamilyDetails.enquiry_id,
                 'group_name': this.getFamilyDetails.name,
                 'product_id': this.getHdfcHealthPremiumList.product_id,
+                'sum_insured_amount': this.getHdfcHealthPremiumList.suminsured_amount,
                 'proposal_id': sessionStorage.hdfc_health_proposal_id == '' || sessionStorage.hdfc_health_proposal_id == undefined ? '' : sessionStorage.hdfc_health_proposal_id,
                 'InsuranceDetails': {
                     'CustDetails': {

@@ -875,6 +875,7 @@ export class IffcoTokioComponent implements OnInit {
             'proposal_id': sessionStorage.iffco_health_proposal_id == '' || sessionStorage.iffco_health_proposal_id == undefined ? '' : sessionStorage.iffco_health_proposal_id,
             // 'proposal_id': 0,
             'product_id': this.buyProductdetails.product_id,
+            'sum_insured_amount': this.buyProductdetails.suminsured_amount,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
