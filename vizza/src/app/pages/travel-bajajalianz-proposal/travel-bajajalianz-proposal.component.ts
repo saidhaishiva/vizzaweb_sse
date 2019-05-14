@@ -80,13 +80,16 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         this.bajajProposal = this.fb.group({
             title: ['', Validators.required],
             firstName: ['', Validators.required],
+            middlename: ['', Validators.required],
             lastName: ['', Validators.required],
             gender: ['', Validators.required],
             dob: ['', Validators.required],
             email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
             mobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+            telephone: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
             passportNumber: ['', Validators.required],
             streetName: ['', Validators.required],
+            fax: [''],
             building: ['', Validators.required],
             country: ['', Validators.required],
             pincode: ['', Validators.required],
@@ -205,7 +208,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         console.log(sessionStorage.proposerAge,'ageeeeeeeeee');
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].assigneeName.patchValue(this.bajajProposal.controls.assigneeName.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].relation.patchValue('SELF');
-            this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].name.patchValue(this.bajajProposal.controls.firstName.value + this.bajajProposal.controls.lastName.value);
+            this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].name.patchValue(this.bajajProposal.controls.firstName.value +this.bajajProposal.controls.middlename.value + this.bajajProposal.controls.lastName.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].passportNo.patchValue(this.bajajProposal.controls.passportNumber.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].sex.patchValue(this.bajajProposal.controls.gender.value);
             this.bajajInsuredTravel['controls'].items['controls'][id]['controls'].idob.patchValue(this.bajajProposal.controls.dob.value);
@@ -368,13 +371,19 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'product_id': this.getTravelPremiumList.product_id,
+            'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
             "totalPremium": this.getTravelPremiumList.total_premium,
             "serviceTax": this.getTravelPremiumList.serviceTax,
             "premium": this.getTravelPremiumList.premium,
+            "productId": this.getTravelPremiumList.product_id,
+            "planName": this.getTravelPremiumList.plan,
+            "sumInsured": this.getTravelPremiumList.sum_insured_amount,
             "pTrvPartnerDtls_inout": {
                 "sex": this.bajajProposal.controls['gender'].value,
                 "state": this.bajajProposal.controls['state'].value,
                 "lastname": this.bajajProposal.controls['lastName'].value,
+                "middlename": this.bajajProposal.controls['middlename'].value,
                 "city": this.bajajProposal.controls['city'].value,
                 "title": this.bajajProposal.controls['title'].value,
                 "maritalstatus": this.bajajProposal.controls['maritalStatus'].value,
@@ -388,7 +397,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 "nationality": this.bajajProposal.controls['nationality'].value,
                 "email": this.bajajProposal.controls['email'].value,
                 "dob": this.bajajProposal.controls['dob'].value,
-                "mobileNo": this.bajajProposal.controls['mobile'].value
+                "mobileNo": this.bajajProposal.controls['mobile'].value,
+                "telephone": this.bajajProposal.controls['telephone'].value,
+                "fax": this.bajajProposal.controls['fax'].value
                 // "1983-09-25"
             },
             "pTrvPolDtls_inout": {

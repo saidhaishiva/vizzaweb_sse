@@ -3540,15 +3540,16 @@ fieldset {
     th {
       text-align: center;
       border-collapse: collapse;
-      border: 1px solid #efecec !important;
+      //border: 1px solid #efecec !important;
       padding: 5px !important;
     }
     td{
       vertical-align: middle;
       color: rgba(4, 78, 67, 0.87);
       font-size: 13px;
-      border: 1px solid #efecec;
+      //border: 1px solid #efecec;
       text-align: left;
+      border-top: 1px solid #ef6d73 !important;
 
     }
     .mat-raised-button.mat-primary {
