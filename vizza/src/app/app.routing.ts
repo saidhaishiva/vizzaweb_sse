@@ -252,7 +252,7 @@ export const routes: Routes = [
             { path: 'claim-assistance', component: ClaimAssistanceComponent, data:{breadcrumb: 'Claim Assistance'}},
             { path: 'hdfc-travel/:stepper', component: TravelHdfcProposalComponent, data:{breadcrumb: 'HDFC Travel'}, canDeactivate: [TravelhdfcdeactivateGuardService]},
             { path: 'religareDownloadPaPolicy/:status/:proId', component: ReligareDownloadPaPolicyComponent, data: { breadcrumb: 'Religare Pa Download Policy' } },
-            { path: 'reliance-pa', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
+            { path: 'reliance-pa/:stepper', component: ReliancePaComponent, data:{breadcrumb: 'Reliance-pa'}},
             { path: 'bikepremium', component: BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
             { path: 'life-premium-list', component: TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} },
             { path: 'bike-shriram-proposal/:stepper', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
