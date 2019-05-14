@@ -3503,16 +3503,45 @@ fieldset {
     background: #e1e6e2 !important;
 
   }
-  .health-table {
+  .health-table{
+    button{
+      font-size: 12px;
+      padding: 0 4px;
+      line-height: 1.6;
+
+    }
+    .w-100 {
+      width: 92% !important;
+    }
+    .sun-insured{
+      .mat-form-field-infix {
+        display: block;
+        position: relative;
+        flex: auto;
+        min-width: 0;
+        width: 105px !important;
+      }
+      ::-webkit-scrollbar-thumb:vertical {
+        background-color: #F16D73 !important;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #cfcfcf !important;
+      }
+    }
+    .pTitle {
+      margin-top: 3px !important;
+      color: #28a745 !important;
+      font-weight: 500 !important;
+    }
+
     td:nth-child(3){
       text-align: left !important;
     }
-
     th {
       text-align: center;
       border-collapse: collapse;
       //border: 1px solid #efecec !important;
-      padding: 7px !important;
+      padding: 5px !important;
     }
     td{
       vertical-align: middle;
@@ -3520,14 +3549,13 @@ fieldset {
       font-size: 13px;
       //border: 1px solid #efecec;
       text-align: left;
-      border-top: 1px solid #ce397c !important;
-
+      border-top: 1px solid #ef6d73 !important;
 
     }
     .mat-raised-button.mat-primary {
-      background-color: #FFE4F2;
-      border: 1px solid #ce397c;
-      color: #ce397c;
+      background-color: #efb6b5;
+      border: 1px solid #ed3835;
+      color: #ed3835;
     }
     .mat-raised-button.mat-primary1 {
       background-color: #ca8845db;
@@ -3544,7 +3572,7 @@ fieldset {
       border: none;
       vertical-align: text-bottom;
       border-bottom: 2px solid #dee2e6;
-      background: #ce367c;
+      background: #F16D73;
       color: #fff;
       font-weight: normal;
       font-size: 12px;
@@ -3558,7 +3586,9 @@ fieldset {
     .mat-form-field-underline{
       background-color:#ffffff !important;
     }
-    // ------ health-insurance color End-------
+    p {
+      margin-bottom: 0rem !important;
+    }
   }
   .mat-tab-label-container{
     margin-bottom: 5px;
