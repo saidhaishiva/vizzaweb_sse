@@ -1665,6 +1665,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             'suminsured_amount': this.buyProductdetails.suminsured_amount,
             'proposer_insurer_details': this.totalReligareData,
             'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
             'policy_term': this.buyProductdetails.product_id == 4 ? '3' : '1',
             'scheme_id': this.buyProductdetails.scheme,
             'terms_condition': '1',

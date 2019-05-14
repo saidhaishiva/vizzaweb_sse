@@ -139,8 +139,9 @@ export class BikeShriramProposalComponent implements OnInit {
       breakIn: '',
     });
     this.vehical = this.fb.group({
-      policyType: 'Renewal',
-      proposalType: ['', Validators.required],
+        proposalType: 'Renewal',
+        policyTypeName: '',
+      policyType: ['', Validators.required],
       vehicleColour: ['', Validators.required],
       nilDepreciationCover: '',
       electricalAccess: '',
@@ -677,6 +678,8 @@ export class BikeShriramProposalComponent implements OnInit {
   }
     selectPolicy(){
         // MOT-PLT-002
+        this.vehical.controls['policyTypeName'].patchValue(this.policyTypeList[this.vehical.controls['policyType'].value]);
+
         if( this.vehical.controls['policyType'].value == 'MOT-PLT-002'){
             this.policyTypeDetails = true;
         } else {
@@ -1019,6 +1022,7 @@ export class BikeShriramProposalComponent implements OnInit {
       let stepper2 = JSON.parse(sessionStorage.stepper2);
       this.vehical = this.fb.group({
         policyType: stepper2.policyType,
+        policyTypeName: stepper2.policyTypeName,
         proposalType:stepper2.proposalType ,
         vehicleColour: stepper2.vehicleColour,
         nilDepreciationCover: stepper2.nilDepreciationCover,

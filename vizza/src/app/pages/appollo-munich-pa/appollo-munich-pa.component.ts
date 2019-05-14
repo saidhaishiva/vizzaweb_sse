@@ -1694,6 +1694,7 @@ preInsureList() {
     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
     'product_id': this.getBuyDetails.product_id,
+    'plan_name': this.getBuyDetails.product_name,
     'sum_insured_amount': this.getBuyDetails.suminsured_amount,
     "ttdrider": this.insured.controls['ttdrider'].value == true || this.insured.controls['ttdrider'].value == 'true' ? '1' : '0',
     "ProposalCaptureServiceRequest": {
@@ -1918,9 +1919,7 @@ console.log(data,'888888888');
 
     }
 
-    // document.getElementById("myAnchor").addEventListener("click", function(event){
-    //     event.preventDefault()
-    // });
+
 }
 
 

@@ -3,13 +3,13 @@
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
         <mat-step [stepControl]="bajajProposal">
-          <ng-template matStepLabel>PROPOSER / INSURER DETAILS</ng-template>
+          <ng-template matStepLabel>PROPOSER / INSURED DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="bajajProposal" >
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    PROPOSER / INSURER DETAILS
+                    PROPOSER / INSURED DETAILS
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row ">
@@ -20,6 +20,7 @@
                           <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required>
                             <mat-option value="Mr">Mr</mat-option>
                             <mat-option value="Mrs">Mrs</mat-option>
+                            <mat-option value="Mrs">Miss</mat-option>
                           </mat-select>
                           <mat-error *ngIf="bajajProposal.controls.title.errors?.required">title is required</mat-error>
                         </mat-form-field>
@@ -32,13 +33,19 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" required>
-                          <mat-error *ngIf="bajajProposal.controls.lastName.errors?.required">lastName is required</mat-error>
+                          <input matInput placeholder="Middle Name" formControlName="middlename" (keypress)="nameValidate($event)" required>
+                          <mat-error *ngIf="bajajProposal.controls.middlename.errors?.required">Middlename is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="gender"  required disabled>
+                          <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" required>
+                          <mat-error *ngIf="bajajProposal.controls.lastName.errors?.required">LastName is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4" [ngStyle]="{'pointer-events':'none'}">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Gender" formControlName="gender" required>
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
                           </mat-select>
@@ -67,6 +74,12 @@
                           <mat-error *ngIf="bajajProposal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                       </div>
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Alternate Contact Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="telephone">
+                          <mat-error *ngIf="bajajProposal.controls.telephone.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                        </mat-form-field>
+                      </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
                         <mat-error *ngIf="bajajProposal.controls.passportNumber.errors?.required">Passport number is required</mat-error>
@@ -83,7 +96,13 @@
                           <mat-option value="Indian">Indian</mat-option>
                         </mat-select>
                         <mat-error *ngIf="bajajProposal.controls.nationality.errors?.required">Nationality is required</mat-error>
-                      </mat-form-field></div>
+                      </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Fax"  pattern="^(\+?\d{1,}(\s?|\-?)\d*(\s?|\-?)\(?\d{2,}\)?(\s?|\-?)\d{3,}\s?\d{3,})$" maxlength="10" formControlName="fax" (keypress)="numberValidate($event)">
+                        </mat-form-field>
+                      </div>
 
                     </div>
                   </div>
@@ -159,7 +178,7 @@
 
         <mat-step *ngIf="showInsure" [stepControl]="">
 
-          <ng-template matStepLabel >INSURER DETAILS</ng-template>
+          <ng-template matStepLabel >INSURED DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="bajajInsuredTravel">
               <div formArrayName="items" *ngFor="let item of bajajInsuredTravel.get('items')['controls']; let i = index;">
@@ -187,11 +206,11 @@
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.errors?.required">Gender is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEventInsurer($event, i,'insurer')" (dateChange)="addEventInsurer($event, i,'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required readonly="{{i==0}}">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
+                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEventInsurer($event, i,'insurer')" (dateChange)="addEventInsurer($event, i,'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                            <mat-datepicker #picker ></mat-datepicker>
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.errors?.required">DOB is required</mat-error>
                           </mat-form-field>
                           <p class="error mb-0" *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
@@ -199,7 +218,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Age" formControlName="age"   autocomplete="off"  readonly required readonly="{{i==0}}">
+                            <input matInput placeholder="Age" formControlName="age"   autocomplete="off"  readonly required readonly>
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.errors?.required">Age is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -295,19 +314,23 @@
                   <div class="p-3">
                     <!--<h6 class="color-blue">Proposer Details</h6>-->
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}} {{proposerFormData.firstName}}  {{proposerFormData.lastName}}</li>
+                      <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}} {{proposerFormData.firstName}} {{proposerFormData.middlename}} {{proposerFormData.lastName}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.gender}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatus}}</li>
+                      <li class="list-group-item"><strong>Email ID:</strong> {{proposerFormData.email}}</li>
+                      <li class="list-group-item"><strong>Mobile No:</strong> {{proposerFormData.mobile}}</li>
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Email ID:</strong> {{proposerFormData.email}}</li>
-                      <li class="list-group-item"><strong>Mobile No:</strong> {{proposerFormData.mobile}}</li>
+                      <li class="list-group-item"><strong>Alternate No:</strong> {{proposerFormData.telephone}}</li>
+                      <li class="list-group-item"><strong>Fax:</strong> {{proposerFormData.fax}}</li>
                       <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
+                      <li class="list-group-item"><strong>Assignee Name:</strong> {{proposerFormData.assigneeName}}</li>
+                      <li class="list-group-item"><strong>Passport No:</strong> {{proposerFormData.passportNumber}}</li>
                     </ul>
                   </div>
                 </div>

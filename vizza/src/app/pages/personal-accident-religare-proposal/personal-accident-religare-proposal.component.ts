@@ -1164,6 +1164,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             'enquiry_id': this.getAllPremiumDetails.enquiry_id,
             'group_name': 'Group A',
             'company_name': this.getBuyDetails.company_name,
+            'plan_name': this.getBuyDetails.product_name,
             'suminsured_amount':this.getBuyDetails.suminsured_amount,
 
         "policy": {
