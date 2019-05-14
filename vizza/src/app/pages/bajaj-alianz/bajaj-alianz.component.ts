@@ -780,6 +780,7 @@ export class BajajAlianzComponent implements OnInit {
         const data  = {
             'platform': 'web',
             'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
             'sum_insured_amount': this.buyProductdetails.suminsured_amount,
             'proposal_id': sessionStorage.bajaj_health_proposalid ? sessionStorage.bajaj_health_proposalid.toString(): this.proposalId.toString(),
             'enquiry_id': this.getFamilyDetails.enquiry_id,
