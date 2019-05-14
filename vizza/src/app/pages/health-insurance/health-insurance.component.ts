@@ -1087,9 +1087,12 @@ export class HealthInsuranceComponent implements OnInit {
                             this.router.navigate(['/bajaj'  + '/' + false]);
                         } else if (value.product_id == 77) {
                             this.router.navigate(['/iffco'  + '/' + false]);
+                        } else if (value.product_id == 90 || value.product_id == 91) {
+                            this.router.navigate(['/chola-health-proposal'  + '/' + false]);
                         } else {
                             this.router.navigate(['/proposal'  + '/' + false]);
                         }
+
                     } else {
                     }
                 });
@@ -1182,6 +1185,8 @@ export class HealthInsuranceComponent implements OnInit {
 
                 } else if (value.product_id == 77) {
                         this.router.navigate(['/iffco'  + '/' + false]);
+                } else if (value.product_id == 90 || value.product_id == 91) {
+                    this.router.navigate(['/chola-health-proposal'  + '/' + false]);
                 } else {
                     this.router.navigate(['/proposal'  + '/' + false]);
                 }

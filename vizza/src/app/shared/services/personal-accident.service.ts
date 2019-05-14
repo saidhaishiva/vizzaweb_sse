@@ -270,8 +270,30 @@ export class PersonalAccidentService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    //Reliance OccupationList
-    getRelianceOccupationCodeList(data){
+    //Reliance ProposerOccupationList
+    OccupationList(data){
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        }
+        const url = this.configurationService.getHostPa() + 'reliance/occupation_client';
+        return this.http.post(url,json,httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //PreviousInsure insurecmpny
+    companyList(data){
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        }
+        const url = this.configurationService.getHostPa() + 'reliance/previous_insure_company';
+        return this.http.post(url,json,httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance InsurerOccupationList
+    InsurerOccupationList(data){
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
@@ -322,6 +344,29 @@ export class PersonalAccidentService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         }
         const url = this.configurationService.getHostPa() + 'reliance/get_coversub_option';
+        return this.http.post(url,json,httpoptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    //Reliance excemptionList
+    exemptionList(data){
+      const json = JSON.stringify(data);
+      const httpoptions = {
+          headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+      }
+      const url = this.configurationService.getHostPa() + 'reliance/servicetax_excemption';
+       return this.http.post(url,json,httpoptions)
+           .map(this.extractData)
+           .catch(this.handleError);
+    }
+    //Reliance Proposal Creation
+    createproposal(data){
+      console.log(data,'364');
+        const json = JSON.stringify(data);
+        const httpoptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        }
+        const url = this.configurationService.getHostPa() + 'reliance/proposalcreation';
         return this.http.post(url,json,httpoptions)
             .map(this.extractData)
             .catch(this.handleError);

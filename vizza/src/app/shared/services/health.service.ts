@@ -1048,7 +1048,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'cholahealth/get_pincode';
+        const url = this.configurationService.getHostHealth() + 'cholahealth/pincode';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -1109,6 +1109,16 @@ export class HealthService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostHealth() + 'cholahealth/NomineeRelationshipList';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getCholaProposal(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostHealth() + 'cholahealth/proposal';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
