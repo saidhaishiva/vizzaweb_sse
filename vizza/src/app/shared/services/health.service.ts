@@ -1068,7 +1068,7 @@ export class HealthService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostHealth() + 'apollomunich/get_material_status';
+        const url = this.configurationService.getHostHealth() + 'cholahealth/Maritalstatus';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

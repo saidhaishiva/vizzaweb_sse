@@ -733,6 +733,7 @@ export class TravelRelianceProposalComponent implements OnInit {
             "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'product_id': this.getTravelPremiumList.product_id,
+            'plan_name': this.getTravelPremiumList.plan_name,
             'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
             "proposal_id": sessionStorage.reliance_Travel_proposal_id == '' || sessionStorage.reliance_Travel_proposal_id == undefined ? '' : sessionStorage.reliance_Travel_proposal_id,
             "UserID": '100002',
