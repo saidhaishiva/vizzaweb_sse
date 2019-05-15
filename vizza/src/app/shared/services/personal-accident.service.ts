@@ -276,7 +276,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         }
-        const url = this.configurationService.getHostPa() + 'reliance/occupation_client';
+        const url = this.configurationService.getHostPa() + 'reliance/occupation_list';
         return this.http.post(url,json,httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
@@ -606,6 +606,17 @@ export class PersonalAccidentService {
 
     // Download Pdf
     getAppolloPersonalAccidentDownloadPdf(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostPa() + '';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    //Download pdf
+    getReliancePaDownloadpdf(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
