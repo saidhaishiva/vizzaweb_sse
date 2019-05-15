@@ -144,6 +144,8 @@ export class TravelProposalComponent implements OnInit {
     currentStep: any;
     getEnquiryDetails: any;
     gstListType: any;
+    public passportPattern: any;
+    public patternError: any;
 
     constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -161,6 +163,7 @@ export class TravelProposalComponent implements OnInit {
 
             }
         });
+        this.passportPattern = '^[A-PR-WYa-pr-wy]{0,1}[0-9]{1,6}[1-9]{0,1}$';
         this.currentStep = stepperindex;
         console.log(this.currentStep,' this.currentStep');
         this.stopNext = false;
@@ -174,6 +177,7 @@ export class TravelProposalComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.selectDate = '';
+        this.patternError = '';
         this.proposalId = 0;
         this.step = 0;
         this.mobileNumber = 'true';
@@ -290,7 +294,7 @@ export class TravelProposalComponent implements OnInit {
                 assigneeName: ['', Validators.required],
                 assigneeRelationship: ['', Validators.required],
                 assigneeRelationshipName: '',
-                passportNumber: ['', Validators.required],
+                passportNumber: ['', Validators.compose([Validators.required])],
                 passportExpiry: ['', Validators.required],
                 visaType: ['', Validators.required],
                 visaTypeName: '',
@@ -303,6 +307,16 @@ export class TravelProposalComponent implements OnInit {
             }
         );
     }
+    // testPattern(index) {
+    //     console.log(this.insureArray['controls'].items['controls'][index]['controls'].passportNumber.value, 'value');
+    //     if (/^[A-PR-WYa-pr-wy]{1,1}[0-9]{6}[1-9]{1,1}$/.test(this.insureArray['controls'].items['controls'][index]['controls'].passportNumber.value)) {
+    //         console.log('valid');
+    //         this.patternError = '';
+    //     } else {
+    //         console.log('invalid');
+    //         this.patternError = 'Enter Valid Passport Number'
+    //     }
+    // }
 
     acceptDeclaration() {
         if (this.personal.controls['travelDeclaration'].value) {
@@ -657,93 +671,96 @@ export class TravelProposalComponent implements OnInit {
     }
     //Create Proposal
     createProposal(stepper: MatStepper, value, key) {
-        sessionStorage.stepper2DetailsForTravel = '';
-        sessionStorage.stepper2DetailsForTravel = JSON.stringify(value);
-        this.insurerData = value;
-        this.allInsuredData = [];
-        for (let i = 0; i < value.items.length; i++) {
-            this.allInsuredData.push({
-                'title': value.items[i].insurerTitle,
-                'name': value.items[i].insurerName,
-                'dob': this.datepipe.transform(value.items[i].insurerDob, 'MMM d, y'),
-                'sex': value.items[i].insurerGender,
-                'relationshipId': value.items[i].insurerRelationship,
-                'passportNumber': value.items[i].passportNumber,
-                'visaType': value.items[i].visaType,
-                'passportExpiry': this.datepipe.transform(value.items[i].passportExpiry, 'MMM d, y'),
-                'assigneeName': value.items[i].assigneeName,
-                'assigneeRelationshipId': value.items[i].assigneeRelationship,
-                'illness': value.items[i].illness.toString()
-            });
+        // if (this.patternError == '') {
+            sessionStorage.stepper2DetailsForTravel = '';
+            sessionStorage.stepper2DetailsForTravel = JSON.stringify(value);
+            this.insurerData = value;
+            this.allInsuredData = [];
+            for (let i = 0; i < value.items.length; i++) {
+                this.allInsuredData.push({
+                    'title': value.items[i].insurerTitle,
+                    'name': value.items[i].insurerName,
+                    'dob': this.datepipe.transform(value.items[i].insurerDob, 'MMM d, y'),
+                    'sex': value.items[i].insurerGender,
+                    'relationshipId': value.items[i].insurerRelationship,
+                    'passportNumber': value.items[i].passportNumber,
+                    'visaType': value.items[i].visaType,
+                    'passportExpiry': this.datepipe.transform(value.items[i].passportExpiry, 'MMM d, y'),
+                    'assigneeName': value.items[i].assigneeName,
+                    'assigneeRelationshipId': value.items[i].assigneeRelationship,
+                    'illness': value.items[i].illness.toString()
+                });
 
-
-        }
-
-        if (this.insureArray.valid) {
-            let valid = false;
-            const data = {
-                'platform': 'web',
-                'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-                'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-                'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-                'title': this.personalData.personalTitle,
-                'gender': this.personalData.personalGender,
-                'enquiry_id': this.getEnquiryDetails.enquiry_id,
-                'product_id': this.getTravelPremiumList.product_id,
-                'plan_name': this.getTravelPremiumList.plan_name,
-                'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
-                'proposal_id': sessionStorage.travel_proposal_id == '' || sessionStorage.travel_proposal_id == undefined ? '' : sessionStorage.travel_proposal_id,
-                'travelStartOn': this.datepipe.transform(this.getEnquiryDetails.start_date, 'MMM d, y'),
-                'travelEndOn': this.datepipe.transform(this.getEnquiryDetails.end_date, 'MMM d, y'),
-                'proposerName': this.personalData.personalFirstname,
-                'proposerDob': this.datepipe.transform(this.personalData.personalDob, 'MMM d, y'),
-                'proposerEmail': this.personalData.personalEmail,
-                'gstIdNumber': this.personalData.personalGst,
-                'proposerPhone': this.personalData.personalMobile,
-                'planId': this.getTravelPremiumList.plan_id,
-                'travelPurposeId': this.personalData.travelPurpose,
-                'aadharIdNumber': this.personalData.personalAadhar,
-                'gstType': this.personalData.personalgstIdType,
-                'placeOfVisit': this.personalData.placeOfVisit.toString(),
-                'proposerAddressOne': this.personalData.personalAddress,
-                'proposerAddressTwo': this.personalData.personalAddress2,
-                'proposerAreaId': this.personalData.personalArea,
-
-                'physicianName': this.personalData.physicianName,
-                'physicianContactNumber': this.personalData.physicianContactNumber,
-                'travelDeclaration': this.personalData.travelDeclaration ? 1 : 0,
-
-                'personalCity': this.personalData.personalCity,
-                'personalState': this.personalData.personalState,
-                'insureds': this.allInsuredData
 
             }
-            let ageValidate = [];
-            for(let i=0;i<this.insurerData.items.length; i++) {
-                if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
-                    ageValidate.push(1);
-                } else if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value == '') {
-                    ageValidate.push(2);
+
+            if (this.insureArray.valid) {
+                let valid = false;
+                const data = {
+                    'platform': 'web',
+                    'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+                    'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+                    'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+                    'title': this.personalData.personalTitle,
+                    'gender': this.personalData.personalGender,
+                    'enquiry_id': this.getEnquiryDetails.enquiry_id,
+                    'product_id': this.getTravelPremiumList.product_id,
+                    'plan_name': this.getTravelPremiumList.plan_name,
+                    'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
+                    'proposal_id': sessionStorage.travel_proposal_id == '' || sessionStorage.travel_proposal_id == undefined ? '' : sessionStorage.travel_proposal_id,
+                    'travelStartOn': this.datepipe.transform(this.getEnquiryDetails.start_date, 'MMM d, y'),
+                    'travelEndOn': this.datepipe.transform(this.getEnquiryDetails.end_date, 'MMM d, y'),
+                    'proposerName': this.personalData.personalFirstname,
+                    'proposerDob': this.datepipe.transform(this.personalData.personalDob, 'MMM d, y'),
+                    'proposerEmail': this.personalData.personalEmail,
+                    'gstIdNumber': this.personalData.personalGst,
+                    'proposerPhone': this.personalData.personalMobile,
+                    'planId': this.getTravelPremiumList.plan_id,
+                    'travelPurposeId': this.personalData.travelPurpose,
+                    'aadharIdNumber': this.personalData.personalAadhar,
+                    'gstType': this.personalData.personalgstIdType,
+                    'placeOfVisit': this.personalData.placeOfVisit.toString(),
+                    'proposerAddressOne': this.personalData.personalAddress,
+                    'proposerAddressTwo': this.personalData.personalAddress2,
+                    'proposerAreaId': this.personalData.personalArea,
+
+                    'physicianName': this.personalData.physicianName,
+                    'physicianContactNumber': this.personalData.physicianContactNumber,
+                    'travelDeclaration': this.personalData.travelDeclaration ? 1 : 0,
+
+                    'personalCity': this.personalData.personalCity,
+                    'personalState': this.personalData.personalState,
+                    'insureds': this.allInsuredData
+
+                }
+                let ageValidate = [];
+                for(let i=0;i<this.insurerData.items.length; i++) {
+                    if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
+                        ageValidate.push(1);
+                    } else if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value == '') {
+                        ageValidate.push(2);
+                    }
+                }
+                if (ageValidate.includes(1)) {
+                    this.toastr.error(' Insured Date Of Birth should be at least 5 months old');
+                } else if(ageValidate.includes(2)){
+                    valid = true;
+                }
+
+                if (valid) {
+                    this.settings.loadingSpinner = true;
+                    this.travelservice.createTravelProposal(data).subscribe(
+                        (successData) => {
+                            this.proposalSuccess(successData, stepper);
+                        },
+                        (error) => {
+                            this.proposalFailure(error);
+                        }
+                    );
                 }
             }
-            if (ageValidate.includes(1)) {
-                this.toastr.error(' Insured Date Of Birth should be at least 5 months old');
-            } else if(ageValidate.includes(2)){
-                valid = true;
-            }
+        // }
 
-            if (valid) {
-                this.settings.loadingSpinner = true;
-                this.travelservice.createTravelProposal(data).subscribe(
-                    (successData) => {
-                        this.proposalSuccess(successData, stepper);
-                    },
-                    (error) => {
-                        this.proposalFailure(error);
-                    }
-                );
-            }
-            }
     }
 
     public proposalSuccess(successData, stepper) {
@@ -1145,6 +1162,11 @@ export class TravelProposalComponent implements OnInit {
     }
     idValidate(event: any){
         this.validation.idValidate(event);
+
+    }
+
+    passPortValidate(event: any){
+        this.validation.passPortValidate(event);
 
     }
     validateNospace(event: any){
