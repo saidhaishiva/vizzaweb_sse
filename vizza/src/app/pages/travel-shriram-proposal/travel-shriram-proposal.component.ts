@@ -724,6 +724,9 @@ export class TravelShriramProposalComponent implements OnInit {
                 'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
                 'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
                 'enquiry_id': this.getTravelPremiumList.enquiry_id,
+                'product_id': this.getTravelPremiumList.product_id,
+                'plan_name': this.getTravelPremiumList.plan_name,
+                'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
                 'proposal_id': sessionStorage.travel_shriram_proposal_id == '' || sessionStorage.travel_shriram_proposal_id == undefined ? '' : sessionStorage.travel_shriram_proposal_id,
                 'objTravelProposalEntryETT': {
                     'PolicyFromDt': this.datepipe.transform(this.getEnquiryDetails.start_date, 'dd-MM-yyy'),

@@ -240,6 +240,14 @@
                            </mat-form-field>
                           </div>
 
+                        <div class="col-md-4">
+                            <p>Pre Existing Disease</p>
+                            <mat-radio-group formControlName="preExistingDisease" >
+                                <mat-radio-button value="Yes" [checked]="insureArray['controls'].items['controls'][i]['controls'].preExistingDisease.value == 'Yes'" class="mr-2">Yes</mat-radio-button>
+                                <mat-radio-button value="No" [checked]="insureArray['controls'].items['controls'][i]['controls'].preExistingDisease.value == 'No'">No</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+
                         </div>
                       </div>
 
@@ -286,7 +294,7 @@
                         </div>
                         <div class="col-md-4">
                           <div class="proposal-buttom mb-3 text-right w-100">
-                            <button mat-button matStepperPrevious  (click)="quesback()">Back</button>
+                            <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                             <button mat-raised-button color="primaryBlue"   (click)="cholaNomineeDetails(stepper, nomineeDetails.value)">Next</button>
                           </div></div>
                       </div>

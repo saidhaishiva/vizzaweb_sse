@@ -444,6 +444,8 @@ export class HdfcPersonalaccidentComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'product_id': this.getBuyDetails.product_id,
+            'sum_insured_amount': this.getBuyDetails.suminsured_amount,
             'enquiry_id': this.getAllPremiumDetails.enquiry_id,
             'proposal_id': sessionStorage.hdfc_PA_proposal_id == '' || sessionStorage.hdfc_PA_proposal_id == undefined ? '' : sessionStorage.hdfc_PA_proposal_id,
             'InsuranceDetails': {

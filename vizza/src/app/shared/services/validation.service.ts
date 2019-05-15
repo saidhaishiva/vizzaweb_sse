@@ -90,6 +90,15 @@ export class ValidationService {
         }
     }
 
+    passPortValidate(event) {
+        if (event.charCode !== 0) {
+            const pattern = /^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
     space(event) {
         if (event.charCode !== 0) {
             const pattern = /[a-zA-Z0-9 ]/;

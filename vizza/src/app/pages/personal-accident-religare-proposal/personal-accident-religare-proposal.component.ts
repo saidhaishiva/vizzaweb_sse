@@ -1156,14 +1156,15 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             'policy_term': '1',
             'scheme_id': this.getBuyDetails.scheme,
             'terms_condition': '1',
-            'user_id': '0',
-            'role_id': '4',
-            'pos_status': '0',
+             'user_id' : this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'platform': 'web',
             'proposal_id': sessionStorage.pa_religare_proposal_id == '' || sessionStorage.pa_religare_proposal_id == undefined ? '' : sessionStorage.pa_religare_proposal_id,
             'enquiry_id': this.getAllPremiumDetails.enquiry_id,
             'group_name': 'Group A',
             'company_name': this.getBuyDetails.company_name,
+            'plan_name': this.getBuyDetails.product_name,
             'suminsured_amount':this.getBuyDetails.suminsured_amount,
 
         "policy": {

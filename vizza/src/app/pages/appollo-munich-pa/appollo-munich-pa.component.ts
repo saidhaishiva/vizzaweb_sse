@@ -1690,9 +1690,12 @@ preInsureList() {
         const data = {
     "enquiry_id": enq_id.toString(),
     'proposal_id': sessionStorage.appolloPAproposalID == '' || sessionStorage.appolloPAproposalID == undefined ? '' : sessionStorage.appolloPAproposalID,
-    "user_id": "0",
-    "role_id": "4",
-    "pos_status": "0",
+    'user_id' : this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    'product_id': this.getBuyDetails.product_id,
+    'plan_name': this.getBuyDetails.product_name,
+    'sum_insured_amount': this.getBuyDetails.suminsured_amount,
     "ttdrider": this.insured.controls['ttdrider'].value == true || this.insured.controls['ttdrider'].value == 'true' ? '1' : '0',
     "ProposalCaptureServiceRequest": {
         "Prospect": {
@@ -1916,9 +1919,7 @@ console.log(data,'888888888');
 
     }
 
-    // document.getElementById("myAnchor").addEventListener("click", function(event){
-    //     event.preventDefault()
-    // });
+
 }
 
 

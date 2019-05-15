@@ -67,6 +67,7 @@ export class BikeInsuranceComponent implements OnInit {
     public bussinessList : any;
     public listDetails : boolean;
     public expiry : boolean;
+    public previousDate : boolean;
 
 
     meridian = true;
@@ -97,6 +98,8 @@ export class BikeInsuranceComponent implements OnInit {
         });
         this.claimAmountDetails = false;
         this.expiry = false;
+        this.previousDate = true;
+
 
         //   this.bikeapp = this.fb.group({
       //     'appdate': ['', Validators.required],
@@ -454,6 +457,14 @@ export class BikeInsuranceComponent implements OnInit {
         }
     }
     public ccFailure(error) {
+    }
+    typeOfBussiness(){
+        if(this.bikeInsurance.controls['bussinessType'].value == '1'){
+            this.previousDate = true;
+        } else {
+            this.previousDate = false;
+
+        }
     }
     sessionData(){
         if(sessionStorage.bikeEnquiryDetails != '' &&  sessionStorage.bikeEnquiryDetails != undefined) {

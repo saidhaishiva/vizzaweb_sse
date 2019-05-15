@@ -237,9 +237,12 @@
                         </mat-form-field></div>
 
                         <div class="col-md-6"><mat-form-field class="w-100">
-                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" required>
-                          <mat-error *ngIf="insureArray.invalid">Enter Valid Passport number</mat-error>
-                        </mat-form-field></div>
+                            <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" required>
+                            <mat-error *ngIf="insureArray.invalid">Enter Valid Passport number</mat-error>
+                        </mat-form-field>
+                            <!--<div *ngIf="patternError != ''" style="color: #ff5252">{{patternError}}</div>-->
+                        </div>
+
                         <div class="col-md-6"><mat-form-field class="w-100">
                           <input matInput [matDatepicker]="picker3" [min]="today" placeholder="Passport Expiry (DD/MM/YYYY)"   formControlName="passportExpiry" (dateInput)="addEvent($event, i, 'insurer')" (dateChange)="addEvent($event, i, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required >
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
@@ -664,7 +667,7 @@
                                                 </mat-form-field></div>
 
                                                 <div class="col-sm-12 col-12"><mat-form-field class="w-100">
-                                                    <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" required>
+                                                    <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" required>
                                                     <mat-error *ngIf="insureArray.invalid">Enter Valid Passport number</mat-error>
                                                 </mat-form-field></div>
                                                 <div class="col-sm-12 col-12"><mat-form-field class="w-100">

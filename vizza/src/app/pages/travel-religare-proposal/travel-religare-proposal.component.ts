@@ -1133,6 +1133,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             'trip_end_on': this.datepipe.transform( this.getEnquiryDetails.end_date , 'y-MM-dd'),
             'baseProductId': this.getTravelPremiumList.geography_code,
             'trip_type': this.getEnquiryDetails.travel_plan_type,
+            'plan_name': this.getTravelPremiumList.plan_name,
             'company_name': this.getTravelPremiumList.company_name,
             'suminsured_amount': this.getEnquiryDetails.sum_insured_amount,
             'proposer_insurer_details': this.totalReligareData,
