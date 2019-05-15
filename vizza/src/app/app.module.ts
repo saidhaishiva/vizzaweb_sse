@@ -273,6 +273,9 @@ import {TravelBajajalianzDownloadPolicyComponent} from './pages/travel-bajajalia
 import { TravelBajajPaymentSuccessComponent } from './pages/travel-bajaj-payment-success/travel-bajaj-payment-success.component';
 import {DownloadMessageTravelBajaj} from './pages/travel-bajaj-payment-success/travel-bajaj-payment-success.component';
 import {BajajLifeOpt} from './pages/life-bajaj-proposal/life-bajaj-proposal.component';
+import { ReliancePaPaymentSuccessComponent } from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
+import { ReliancePaDownloadPolicyComponent } from './pages/reliance-pa-download-policy/reliance-pa-download-policy.component';
+import { DownloadReliancePersonalAccident} from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
 
 @NgModule({
     imports: [
@@ -504,8 +507,10 @@ import {BajajLifeOpt} from './pages/life-bajaj-proposal/life-bajaj-proposal.comp
         TravelBajajalianzDownloadPolicyComponent,
         TravelBajajPaymentSuccessComponent,
         DownloadMessageTravelBajaj,
-        BajajLifeOpt
-
+        BajajLifeOpt,
+        ReliancePaPaymentSuccessComponent,
+        ReliancePaDownloadPolicyComponent,
+        DownloadReliancePersonalAccident
     ],
     providers: [
         AppSettings,
@@ -554,7 +559,7 @@ import {BajajLifeOpt} from './pages/life-bajaj-proposal/life-bajaj-proposal.comp
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage,DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident
     ]
 })
 export class AppModule { }
