@@ -51,7 +51,7 @@ export class ReliancePaPaymentSuccessComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
     }
     this.settings.loadingSpinner = true;
-    this.personalService.getAppolloPersonalAccidentDownloadPdf(data).subscribe(
+    this.personalService.getReliancePaDownloadpdf(data).subscribe(
         (successData) => {
           this.downloadPdfSuccess(successData);
         },
