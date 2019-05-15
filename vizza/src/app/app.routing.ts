@@ -201,6 +201,7 @@ export const routes: Routes = [
             { path: 'paymentSuccess', component: PaymentSuccessComponent, data: { breadcrumb: 'Payment Success' } },
             { path: 'downloadPolicy/:id', component: DownloadPolicyComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'downloadPolicyTravelReligare/:id', component: DownloadPolicyTravelReligareComponent, data: { breadcrumb: 'Download Policy' } },
+            { path: 'downloadPolicyTravelStar/:id', component: DownloadPolicyTravelComponent, data: { breadcrumb: 'Download Policy' } },
             { path: 'religareDownloadPolicy/:status/:proId', component: ReligareDownloadPolicyComponent, data: { breadcrumb: 'Religare Download Policy' } },
             { path: 'religare-health-proposal/:stepper', component: ReligareHealthProposalComponent, data: { breadcrumb: 'Religare' }, canDeactivate: [ReligareHealthDeactivateGuardService] },
             { path: 'viewresult', component: ViewresultComponent, data: { breadcrumb: 'Result' }, canDeactivate: [ResultDeactivateGuard] },

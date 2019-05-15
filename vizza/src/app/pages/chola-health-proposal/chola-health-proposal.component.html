@@ -177,13 +177,11 @@
                   <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS
+                        <span> INSURED DETAILS FOR {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} </span>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <ng-template matStepLabel>INSURED DETAILS </ng-template>
                     <div class="row" >
                       <div class="col-md-12 box-card pt-3">
-                        <h6 class="color-blue"> {{insureArray['controls'].items['controls'][i]['controls'].type.value | uppercase}} DETAILS</h6>
                         <div class="col-md-12 mt-3" >
                           <mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure(i)" ><strong>Same as proposer</strong></mat-checkbox>
                         </div>
@@ -242,7 +240,7 @@
 
                         <div class="col-md-4">
                             <p>Pre Existing Disease</p>
-                            <mat-radio-group formControlName="preExistingDisease" >
+                            <mat-radio-group formControlName="preExistingDisease"  >
                                 <mat-radio-button value="Yes" [checked]="insureArray['controls'].items['controls'][i]['controls'].preExistingDisease.value == 'Yes'" class="mr-2">Yes</mat-radio-button>
                                 <mat-radio-button value="No" [checked]="insureArray['controls'].items['controls'][i]['controls'].preExistingDisease.value == 'No'">No</mat-radio-button>
                             </mat-radio-group>
@@ -255,7 +253,7 @@
 
                       <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                         <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                        <button mat-raised-button color="primaryBlue"  (click)="cholaInsureDetails(stepper, insureArray.value)">Next</button>
+                        <button mat-raised-button color="primaryBlue"  (click)="cholaInsureDetails(stepper, insureArray.value,i)">Next</button>
                       </div>
                     </div>
                   </mat-expansion-panel>
@@ -329,28 +327,40 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.personalTitle}} {{proposerFormData.personalFirstname}} {{proposerFormData.personalLastname}} </li>
                         <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.personalGender}} </li>
-                        <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
+                        <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.personalMobile}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.personalDob  | date: 'dd/MM/yyyy'}}</li>
-
                         <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.personalEmail}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Mobile:</strong> {{proposerFormData.personalLandlineno}}</li>
-                        <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationListName}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalLandlineno != ''"><strong>Alternate Mobile:</strong> {{proposerFormData.personalLandlineno}}</li>
+                       </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationName}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
                         <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.personalIncome}}</li>
                         <li class="list-group-item"><strong>GST No:</strong> {{proposerFormData.personalGst}}</li>
                         <li class="list-group-item"><strong>custMailStateCd:</strong> {{proposerFormData.custMailStateCd}}</li>
-
                       </ul>
                     </div>
                   </div>
 
-                  <div class="col-md-12">
+                  <div class="col-md-6">
                     <div class="p-3">
                       <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>
                         <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
                         <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.personalPincode}}</li>
+
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>State:</strong> {{proposerFormData.personalState}}</li>
                         <li class="list-group-item"><strong>City:</strong> {{proposerFormData.personalCity}}</li>
                       </ul>
@@ -359,18 +369,17 @@
 
                 </div>
               </section>
+
               <section *ngFor="let item of insuredFormData; let i = index;">
-                <h5 class="mt-3 sub-title">{{item.type | uppercase}} DETAILS</h5>
+                <h5 class="mt-3 sub-title">INSURED DETAILS FOR {{item.type | uppercase}}</h5>
                 <div class="row box-card">
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6>INSURED DETAILS</h6>
+                      <h6></h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{item.personalTitle}} {{item.personalFirstname}} {{item.personalLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.personalDob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Gender:</strong> {{item.personalGender}} </li>
-
-
                       </ul>
                     </div>
                   </div>
@@ -381,12 +390,14 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>
                         <li class="list-group-item" *ngIf="item.sumInsured != '' && item.sumInsured != null"><strong>SumInsured:</strong> {{item.sumInsured }}</li>
-
+                        <li class="list-group-item" *ngIf="item.preExistingDisease == 'No'"><strong >Pre Existing Disease :  </strong> No </li>
+                        <li class="list-group-item"  *ngIf="item.preExistingDisease == 'Yes'"><strong >Pre Existing Disease :  </strong> Yes </li>
                       </ul>
                     </div>
                   </div>
                 </div>
               </section>
+
               <section>
                 <h5 class="mt-3 sub-title">NOMINEE DETAILS </h5>
                 <div class="row box-card">
@@ -412,27 +423,20 @@
                       </div>
                     </div>
                   </div>
-
-                </div>
-                <div>
-                  <!--<p>https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102-->
-                  <!--</p>-->
-                  <!--<iframe src="https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102">-->
-                  <!--</iframe>-->
-                  <pdf-viewer src="{{requestedUrl}}"
-                              [render-text]="true"
-                              style="display: block;"
-                  ></pdf-viewer>
                 </div>
               </section>
-              <p class="mt-2 pl-3" *ngIf="proposalGenStatus">
-                <mat-checkbox [(ngModel)]="declaration" >I hereby declare all the details provided above is correct. <span (click)="viewDocs()" style="color: blue;"> Terms and conditions..</span></mat-checkbox>
-              </p>
+
+              <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
               <hr>
-              <div class="col-md-12" *ngIf="proposalGenStatus">
-                <div class="proposal-buttom mb-3 text-center w-100">
-                  <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>
+
+              <div class="row">
+                <div class="col-md-12 text-center">
+                  <form action={{summaryData.PaymentActionUrl}}  method='post' #form>
+
+
+                    <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                    <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                  </form>
                 </div>
               </div>
 
