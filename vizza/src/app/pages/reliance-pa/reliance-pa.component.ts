@@ -11,6 +11,7 @@ import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
 import {MY_FORMATS} from '../appollo-munich-pa/appollo-munich-pa.component';
 import {validate} from 'codelyzer/walkerFactory/walkerFn';
+import { ConfigurationService} from '../../shared/services/configuration.service';
 
 
 @Component({
@@ -29,8 +30,6 @@ export class ReliancePaComponent implements OnInit {
   public riskDetails: FormGroup;
   public currentStep: any;
   public settings: Settings;
-  // public minDate: any;
-  // public today: any;
   public insureAgeP: any;
   public paMaritalList: any;
   public proposerdateError: any;
@@ -38,8 +37,6 @@ export class ReliancePaComponent implements OnInit {
   public nomineedateError: any;
   public proposeroccupation: any;
   public insureroccupation: any;
-  public shwbtn: boolean;
-  public shwbtnone: boolean;
   public proposerpaPinList: any;
   public paPincodeList: any;
   public paNationalList: any;
@@ -59,54 +56,52 @@ export class ReliancePaComponent implements OnInit {
   public proposerAgeP: any;
   public proposerdata: any;
   public insuredata: any;
-  public visible: boolean;
   public companylist: any;
   public riskdata: any;
   public nomineedata: any;
   public summaryData: any;
-  public checkA: boolean;
-  public checkB: boolean;
-  public checkC: boolean;
-  public checkD: boolean;
-  public appear: boolean;
   public valueA: any;
   public valueB: any;
   public valueC: any;
   public valueD: any;
-  public shwchck: any;
-  public shows: any
   public policystart: any;
   public policyend: any;
   public RediretUrlLink: any;
   public reliancePAproposalID: any;
+  public getBuyDetails: any;
+  public webhost: any;
+  public other: any;
+  public getStepper1: any;
+  public getStepper2: any;
+  public getStepper3: any;
+  public getStepper4: any;
+  public declaration: any;
 
-  constructor(public fb: FormBuilder, public validation: ValidationService, public datepipe: DatePipe, public authservice: AuthService, public personalservice: PersonalAccidentService, private toastr: ToastrService, public appSettings: AppSettings) {
+  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public  datepipe: DatePipe, public authservice: AuthService, public personalservice: PersonalAccidentService, private toastr: ToastrService, public appSettings: AppSettings) {
     let stepperindex = 0;
     this.currentStep = stepperindex;
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
-    // this.summaryData = JSON.parse(sessionStorage.summarydata);
-    // sessionStorage.reliancePAproposalID = this.summaryData.policy_id;
+    // if(sessionStorage.summarydata != '' && sessionStorage.summarydata != undefined) {
+    //   this.summaryData = JSON.parse(sessionStorage.summarydata);
+    //   console.log(this.summaryData,'100');
+    //   this.proposerdata = JSON.parse(sessionStorage.Paproposer);
+    //   console.log(this.proposerdata,'100');
+    //   this.riskdata = JSON.parse(sessionStorage.Parisk);
+    //   console.log(this.riskdata,'100');
+    //   this.insuredata = JSON.parse(sessionStorage.Painsured);
+    //   console.log(this.insuredata,'100');
+    //   this.nomineedata = JSON.parse(sessionStorage.Panominee);
+    //   console.log(this.nomineedata,'100');
+    // }
+    this.webhost = this.config.getimgUrl();
     let today = new Date();
     this.policystart = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-    console.log(this.policystart,'start');
     let minDate = new Date();
     this.policyend = new Date(minDate.getFullYear() + 1 , minDate.getMonth(), minDate.getDate());
-    // let d = new Date();
-    // let year = d.getFullYear();
-    // let month = d.getMonth();
-    // let day = d.getDate();
-    // this.policyend = new Date(year + 1, month, day - 1);
-    console.log(this.policyend,'end');
     this.proposerAgeP = '';
-    this.checkA = false;
-    this.checkB = false;
-    this.checkC = false;
-    this.checkD = false;
-    this.appear = false;
-    this.shwbtnone = false;
 
     this.proposer = this.fb.group({
       proposerPaTitle: ['', Validators.required],
@@ -120,10 +115,10 @@ export class ReliancePaComponent implements OnInit {
       proposerPaEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       proposerPaMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       maritalStatus: ['', Validators.required],
+      maritalStatusname: '',
       proposerPaPan: ['', Validators.compose([Validators.minLength(10)])],
       proposerPaPassport: '',
       proposerPaAadhar: '',
-      proposercorporatename: ['',Validators.required],
       proposerPaGst: '',
       proposerPaAddressone: ['', Validators.required],
       proposerPaAddresstwo: ['', Validators.required],
@@ -175,6 +170,7 @@ export class ReliancePaComponent implements OnInit {
       relationshipWithProposer: ['', Validators.required],
       otherinformation: '',
       insureOccupationList: ['', Validators.required],
+      insureOccupationListname: '',
       physicaldefectdetail: '',
       insuredclaimdetails: '',
       earningmember: '',
@@ -183,6 +179,7 @@ export class ReliancePaComponent implements OnInit {
       personalaccident: '',
       insurancecover: '',
       annualincome1: '',
+      annualincome1name: '',
       TotalCapital: '',
       annualincome: '',
       tableA: '',
@@ -232,6 +229,7 @@ export class ReliancePaComponent implements OnInit {
       nomineePaCountry: ['', Validators.required],
       nomineenearestLandmark: '',
       relationshipWithInsure: ['', Validators.required],
+      relationshipname: '',
       ifothersPleaseSpecify: ['', Validators.required],
     });
   }
@@ -249,6 +247,8 @@ export class ReliancePaComponent implements OnInit {
     this.coverageSubID();
     this.exemption();
     this.insurecompny();
+    this.sessionData();
+    this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
   }
 
   insurechangeGender(type) {
@@ -447,6 +447,10 @@ export class ReliancePaComponent implements OnInit {
 
   }
 
+  annual(){
+    this.insure.controls['annualincome1name'].patchValue(this.annualList[this.insure.controls['annualincome1'].value]);
+  }
+
   // Marital Status
   paMaritalStatusList() {
     const data = {
@@ -472,6 +476,7 @@ export class ReliancePaComponent implements OnInit {
   public paMaritalListFailure(error) {
 
   }
+
 
   // Proposer Occupation List
   ProposerOccupationListCode() {
@@ -523,6 +528,11 @@ export class ReliancePaComponent implements OnInit {
 
   }
 
+  insureOccupationList(){
+    this.insure.controls['insureOccupationListname'].patchValue(this.insureroccupation[this.insure.controls['insureOccupationList'].value]);
+  }
+
+
   public InsureroccupationCodeFailure(error) {
   }
 
@@ -544,7 +554,6 @@ export class ReliancePaComponent implements OnInit {
     }
   }
 
-  f
 
   public pinPaInsuredListSuccess(successData, type) {
     if (successData.IsSuccess) {
@@ -743,15 +752,28 @@ export class ReliancePaComponent implements OnInit {
 
   }
 
-  showcheck(event) {
-    if (event == true) {
-      this.visible = true;
+   showcheck(event) {
+     if (event.checked) {
+       this.riskDetails.controls['exemptionreason'].setValidators([Validators.required]);
+       this.riskDetails.controls['exemptionreason'].updateValueAndValidity()
     } else {
-      this.visible = false;
       this.riskDetails.controls['exemptionreason'].patchValue('');
       this.riskDetails.controls['exemptionreason'].setValidators(null);
-      this.riskDetails.controls['exemptionreason'].updateValueAndValidity();
+      this.riskDetails.controls['exemptionreason'].updateValueAndValidity()
     }
+  }
+
+  medical(event) {
+    if(event.checked) {
+      this.riskDetails.controls['extnrate'].setValidators([Validators.required]);
+      this.riskDetails.controls['extnrate'].updateValueAndValidity()
+    }else {
+      this.riskDetails.controls['extnrate'].patchValue('');
+      this.riskDetails.controls['extnrate'].setValidators(null);
+      this.riskDetails.controls['extnrate'].updateValueAndValidity()
+
+    }
+
   }
 
   // nominee City
@@ -832,8 +854,9 @@ export class ReliancePaComponent implements OnInit {
   }
 
 
-  sameAsCurrentAddress(value) {
-    if (value) {
+  sameAsCurrentAddress(value: any) {
+    console.log(value,'same asss');
+    if (value.checked) {
       this.proposer.controls['PaAddress1'].patchValue(this.proposer.controls['proposerPaAddressone'].value);
       this.proposer.controls['PaAddress2'].patchValue(this.proposer.controls['proposerPaAddresstwo'].value);
       this.proposer.controls['PaAddress3'].patchValue(this.proposer.controls['proposerPaAddressthree'].value);
@@ -863,105 +886,89 @@ export class ReliancePaComponent implements OnInit {
       this.proposer.controls['PaCountry'].patchValue('');
     }
   }
+
   phychckbox(event) {
-    if (event) {
-      this.shwchck = true;
+    if (event.checked) {
       this.insure.controls['physicaldefectdetail'].setValidators([Validators.required]);
       this.insure.controls['physicaldefectdetail'].updateValueAndValidity();
     }else{
-      this.shwchck = false;
+      this.insure.controls['physicaldefectdetail'].patchValue('');
       this.insure.controls['physicaldefectdetail'].setValidators(null);
       this.insure.controls['physicaldefectdetail'].updateValueAndValidity();
     }
   }
-  insclaim(event){
-    if(event){
-      this.shows = true;
+  insclaim(event) {
+    if(event.checked){
       this.insure.controls['insuredclaimdetails'].setValidators([Validators.required]);
       this.insure.controls['insuredclaimdetails'].updateValueAndValidity();
     }else{
-      this.shows = false;
+      this.insure.controls['insuredclaimdetails'].patchValue('');
       this.insure.controls['insuredclaimdetails'].setValidators(null);
       this.insure.controls['insuredclaimdetails'].updateValueAndValidity();
     }
 
   }
 
-  show() {
-    if (this.riskDetails.controls['CoverageOptionID'].value == '1901') {
-      this.shwbtnone = true;
-      this.appear = false;
-      this.shwbtn = false;
-    } else {
-      this.shwbtn = true;
-      this.appear = true;
-      this.shwbtnone = false;
-    }
-  }
+  // show() {
+  //   if (this.riskDetails.controls['CoverageOptionID'].value == '1901') {
+  //     this.shwbtnone = true;
+  //     this.appear = false;
+  //     this.shwbtn = false;
+  //   } else {
+  //     this.shwbtn = true;
+  //     this.appear = true;
+  //     this.shwbtnone = false;
+  //   }
+  // }
 
   checkone(event) {
-    if (event) {
-      this.checkA = true;
-      this.checkB = false;
-      this.checkC = false;
-      this.checkD = false;
+    if (event.checked) {
+      this.insure.controls['SIforA'].setValidators([Validators.required]);
     } else {
-      this.checkA = false;
-      this.checkB = false
-      this.checkC = false;
-      this.checkD = false;
       this.insure.controls['SIforA'].patchValue('');
+      this.insure.controls['SIforA'].setValidators(null);
       this.insure.controls['TotalCapitalSI'].patchValue('');
     }
   }
 
   checktwo(event) {
-    if (event) {
-      this.checkA = false;
-      this.checkB = true;
-      this.checkC = false;
-      this.checkD = false;
+    if (event.checked) {
+      this.insure.controls['SIforB'].setValidators([Validators.required]);
     } else {
-      this.checkA = false;
-      this.checkB = false
-      this.checkC = false;
-      this.checkD = false;
       this.insure.controls['SIforB'].patchValue('');
+      this.insure.controls['SIforB'].setValidators(null);
       this.insure.controls['TotalCapitalSI'].patchValue('');
     }
   }
 
   checkthree(event) {
-    if (event) {
-      this.checkA = false;
-      this.checkB = false;
-      this.checkC = true;
-      this.checkD = false;
+    if (event.checked) {
+      this.insure.controls['SIforC'].setValidators([Validators.required]);
     } else {
-      this.checkA = false;
-      this.checkB = false
-      this.checkC = false;
-      this.checkD = false;
       this.insure.controls['SIforC'].patchValue('');
+      this.insure.controls['SIforC'].setValidators(null);
       this.insure.controls['TotalCapitalSI'].patchValue('');
     }
   }
 
   checkfour(event) {
-    if (event) {
-      this.checkA = false;
-      this.checkB = false;
-      this.checkC = false;
-      this.checkD = true;
+    if (event.checked) {
+      this.insure.controls['SIforD'].setValidators([Validators.required]);
     } else {
-      this.checkA = false;
-      this.checkB = false
-      this.checkC = false;
-      this.checkD = false;
       this.insure.controls['SIforD'].patchValue('');
+      this.insure.controls['SIforD'].setValidators(null);
       this.insure.controls['TotalCapitalSI'].patchValue('');
     }
   }
+  choose(){
+    if(this.nominee.controls['relationshipWithInsure'].value == '325') {
+      this.other = true;
+    }else{
+      this.other = false;
+    }
+    this.nominee.controls['relationshipname'].patchValue(this.RelationshipList[this.nominee.controls['relationshipWithInsure'].value]);
+  }
+
 
   // proposer next button
   proposerDetails(stepper: MatStepper, value) {
@@ -984,12 +991,18 @@ export class ReliancePaComponent implements OnInit {
     if (this.riskDetails.valid) {
       let riskValid = true;
       if (this.riskDetails.controls['CoverageOptionID'].value == '1901') {
-        if (this.riskDetails.controls['extnrate'].value == '') {
-          riskValid = false;
-        } else if (this.riskDetails.controls['familydiscount'].value == '') {
-          riskValid = false;
-        }
-      } else if (this.riskDetails.controls['CoverageOptionID'].value == '1902') {
+        alert('1901');
+        if (this.riskDetails.controls['medicalexpense'].value == true) {
+          alert('checked');
+          if (this.riskDetails.controls['extnrate'].value == '') {
+            alert('extn empty');
+            riskValid = false;
+          }
+        }else if (this.riskDetails.controls['familydiscount'].value == '') {
+            alert('family');
+            riskValid = false;
+          }
+        }else if (this.riskDetails.controls['CoverageOptionID'].value == '1902') {
         if (this.riskDetails.controls['coveragesubOptionID'].value == '') {
           riskValid = false;
         }
@@ -997,8 +1010,10 @@ export class ReliancePaComponent implements OnInit {
       if (riskValid) {
         stepper.next();
       } else {
-        this.toastr.error('Please Fill All The Mandatory fields')
+        this.toastr.error('Please Fill All The Mandatory Fields')
       }
+    }else{
+      this.toastr.error('please Fill All The Mandatory Fields')
     }
   }
 
@@ -1048,7 +1063,6 @@ export class ReliancePaComponent implements OnInit {
     sessionStorage.nomineeDetails = '';
     sessionStorage.nomineeDetails = JSON.stringify(value);
     if (this.nominee.valid) {
-        alert('in');
       this.createproposal(stepper);
     }
   }
@@ -1081,13 +1095,151 @@ export class ReliancePaComponent implements OnInit {
     document.getElementById('main-content').scrollTop = 0;
   }
 
+  sessionData() {
 
+    if (sessionStorage.proposerDetails != '' && sessionStorage.proposerDetails != undefined) {
+      this.getStepper1 = JSON.parse(sessionStorage.proposerDetails);
+      this.proposer = this.fb.group({
+        proposerPaTitle: this.getStepper1.proposerPaTitle,
+        proposerPaFirstname: this.getStepper1.proposerPaFirstname,
+        proposerPaMidname: this.getStepper1.proposerPaMidname,
+        proposerPaLastname: this.getStepper1.proposerPaLastname,
+        proposerPaGender: this.getStepper1.proposerPaGender,
+        proposerPaGenderId: this.getStepper1.proposerPaGenderId,
+        proposerPaDob: this.datepipe.transform(this.getStepper1.proposerPaDob, 'y-MM-dd'),
+        proposercustomertype: this.getStepper1.proposercustomertype,
+        proposerPaEmail: this.getStepper1.proposerPaEmail,
+        proposerPaMobile: this.getStepper1.proposerPaMobile,
+        maritalStatus: this.getStepper1.maritalStatus,
+        maritalStatusName: this.getStepper1.maritalStatusName,
+        proposerPaPan: this.getStepper1.proposerPaPan,
+        proposerPaPassport: this.getStepper1.proposerPaPassport,
+        proposerPaAadhar: this.getStepper1.proposerPaAadhar,
+        proposerPaGst: this.getStepper1.proposerPaGst,
+        proposerPaAddressone: this.getStepper1.proposerPaAddressone,
+        proposerPaAddresstwo: this.getStepper1.proposerPaAddresstwo,
+        proposerPaAddressthree: this.getStepper1.proposerPaAddressthree,
+        proposerPaPincode: this.getStepper1.proposerPaPincode,
+        nearestLandmark: this.getStepper1.nearestLandmark,
+        proposerPaCountry: this.getStepper1.proposerPaCountry,
+        commaddrsEmail: this.getStepper1.commaddrsEmail,
+        commaddrsMobile: this.getStepper1.commaddrsMobile,
+        nationality: this.getStepper1.nationality,
+        proposerPaArea: this.getStepper1.proposerPaArea,
+        proposerPaState: this.getStepper1.proposerPaState,
+        proposerPaStatecode: this.getStepper1.proposerPaStatecode,
+        proposerPaCity: this.getStepper1.proposerPaCity,
+        proposerPaCitycode: this.getStepper1.proposerPaCitycode,
+        proposerPaDistrict: this.getStepper1.proposerPaDistrict,
+        proposerPaDistrictcode: this.getStepper1.proposerPaDistrictcode,
+        PaAddress1: this.getStepper1.PaAddress1,
+        PaAddress2: this.getStepper1.PaAddress2,
+        PaAddress3: this.getStepper1.PaAddress3,
+        PaPincode1: this.getStepper1.PaPincode1,
+        nearestLandmark1: this.getStepper1.nearestLandmark1,
+        PaCountry: this.getStepper1.PaCountry,
+        PaArea1: this.getStepper1.PaArea1,
+        PaState1: this.getStepper1.PaState1,
+        PaState1code: this.getStepper1.PaState1code,
+        PaCity1: this.getStepper1.PaCity1,
+        PaCity1code: this.getStepper1.PaCity1code,
+        PaDistrict1: this.getStepper1.PaDistrict1,
+        PaDistrict1code: this.getStepper1.PaDistrict1code,
+        proposerOccupationList: this.getStepper1.proposerOccupationList,
+        sameAsProposer: this.getStepper1.sameAsProposer,
+        InsuredName: this.getStepper1.InsuredName,
+        PolicyNo: this.getStepper1.PolicyNo,
+        PreInsstartDob: this.getStepper1.PreInsstartDob,
+        PreInsendDob: this.getStepper1.PreInsendDob,
+        insurancecompny: this.getStepper1.insurancecompny,
+        Address: this.getStepper1.Address,
+        residenceNearestLandMark: this.getStepper1.residenceNearestLandMark,
+      });
+    }
+    if (sessionStorage.riskDetails != '' && sessionStorage.riskDetails != undefined) {
+      this.getStepper2 = JSON.parse(sessionStorage.riskDetails);
+      this.riskDetails = this.fb.group({
+        CoverageOptionID: this.getStepper2.CoverageOptionID,
+        coveragesubOptionID: this.getStepper2.coveragesubOptionID,
+        MembertoInsure: this.getStepper2.MembertoInsure,
+        Tenure: this.getStepper2.Tenure,
+        employername: this.getStepper2.employername,
+        exemptionreason: this.getStepper2.exemptionreason,
+        specialconditions: this.getStepper2.specialconditions,
+        capitalsuminsured: this.getStepper2.capitalsuminsured,
+        medicalexpense: this.getStepper2.medicalexpense,
+        extnrate: this.getStepper2.extnrate,
+        familydiscount: this.getStepper2.familydiscount,
+        employeerelationship: this.getStepper2.employeerelationship,
+        servicetax: this.getStepper2.servicetax,
+      });
+    }
+    if (sessionStorage.insureDetails != '' && sessionStorage.insureDetails != undefined) {
+      this.getStepper3 = JSON.parse(sessionStorage.insureDetails);
+      this.insure = this.fb.group({
+        insurePaTitle: this.getStepper3.insurePaTitle,
+        insurePaFirstname: this.getStepper3.insurePaFirstname,
+        insurePaMidname: this.getStepper3.insurePaMidname,
+        insurePaLastname: this.getStepper3.insurePaLastname,
+        insurePaGender: this.getStepper3.insurePaGender,
+        insurePaGenderId: this.getStepper3.insurePaGenderId,
+        insurePaDob: this.getStepper3.insurePaDob,
+        insurePaAge: this.getStepper3.insurePaAge,
+        relationshipWithProposer: this.getStepper3.relationshipWithProposer,
+        otherinformation: this.getStepper3.otherinformation,
+        insureOccupationList: this.getStepper3.insureOccupationList,
+        physicaldefectdetail: this.getStepper3.physicaldefectdetail,
+        insuredclaimdetails: this.getStepper3.insuredclaimdetails,
+        earningmember: this.getStepper3.earningmember,
+        physicaldefect: this.getStepper3.physicaldefect,
+        previousinsurer: this.getStepper3.previousinsurer,
+        personalaccident: this.getStepper3.personalaccident,
+        insurancecover: this.getStepper3.insurancecover,
+        annualincome1: this.getStepper3.annualincome1,
+        TotalCapital: this.getStepper3.TotalCapital,
+        annualincome: this.getStepper3.annualincome,
+        tableA: this.getStepper3.tableA,
+        tableB: this.getStepper3.tableB,
+        tableC: this.getStepper3.tableC,
+        tableD: this.getStepper3.tableD,
+        SIforA: this.getStepper3.SIforA,
+        SIforB: this.getStepper3.SIforB,
+        SIforC: this.getStepper3.SIforC,
+        SIforD: this.getStepper3.SIforD,
+        TotalCapitalSI: this.getStepper3.TotalCapitalSI,
+      });
+    }
+    if (sessionStorage.nomineeDetails != '' && sessionStorage.nomineeDetails != undefined) {
+      this.getStepper4 = JSON.parse(sessionStorage.nomineeDetails);
+      this.nominee = this.fb.group({
+        nomineePaTitle: this.getStepper4.nomineePaTitle,
+        nomineePaFirstname: this.getStepper4.nomineePaFirstname,
+        nomineePaMidname: this.getStepper4.nomineePaMidname,
+        nomineePaLastname: this.getStepper4.nomineePaLastname,
+        nomineePaDob: this.getStepper4.nomineePaDob,
+        nomineePaAddress1: this.getStepper4.nomineePaAddress1,
+        nomineePaAddress2: this.getStepper4.nomineePaAddress2,
+        nomineePaAddress3: this.getStepper4.nomineePaAddress3,
+        nomineePaPincode: this.getStepper4.nomineePaPincode,
+        nomineePaState: this.getStepper4.nomineePaState,
+        nomineePaStatecode: this.getStepper4.nomineePaStatecode,
+        nomineePaDistrict: this.getStepper4.nomineePaDistrict,
+        nomineePaDistrictcode: this.getStepper4.nomineePaDistrictcode,
+        nomineePaCity: this.getStepper4.nomineePaCity,
+        nomineePaCitycode: this.getStepper4.nomineePaCitycode,
+        nomineePaArea: this.getStepper4.nomineePaArea,
+        nomineePaCountry: this.getStepper4.nomineePaCountry,
+        nomineenearestLandmark: this.getStepper4.nomineenearestLandmark,
+        relationshipWithInsure: this.getStepper4.relationshipWithInsure,
+        ifothersPleaseSpecify: this.getStepper4.ifothersPleaseSpecify,
+      });
+    }
+  }
   //Proposal Creation
   createproposal(stepper) {
-    alert('proposal');
     const data = {
       "proposal_id":sessionStorage.reliancePAproposalID == '' || sessionStorage.reliancePAproposalID == undefined ? '' : sessionStorage.reliancePAproposalID,
-      "enquiry_id":"120",
+      "enquiry_id":"180",
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "pos_status":"3",
@@ -1110,7 +1262,7 @@ export class ReliancePaComponent implements OnInit {
         "RegisteredUnderGST": "1",
         "RelatedParty": "1",
         "GSTIN": this.proposer.controls['proposerPaGst'].value,
-        "GroupCorpID": this.proposer.controls['proposercorporatename'].value,
+        "GroupCorpID": '',
         "ClientAddress": {
           "CommunicationAddress": {
             "Address1": this.proposer.controls['proposerPaAddressone'].value,
@@ -1157,14 +1309,14 @@ export class ReliancePaComponent implements OnInit {
           "SumInsuedTableC": this.insure.controls['SIforC'].value,
           "SumInsuedTableD": this.insure.controls['SIforD'].value,
           "Gender": this.insure.controls['insurePaGenderId'].value,
-          "Age": this.insure.controls['insurePaAge'].value,
+          "Age": this.insure.controls['insurePaAge'].value.toString(),
           "DOB": this.datepipe.transform(this.insure.controls['insurePaDob'].value,'dd-MM-y'),
           "MaritalStatusID": this.proposer.controls['maritalStatus'].value,
           "OccupationID": this.insure.controls['insureOccupationList'].value,
           "OtherInsuranceList": this.insure.controls['otherinformation'].value,
           "ISPersonEarningMember": this.insure.controls['earningmember'].value,
           "AnnualIncome": this.insure.controls['annualincome1'].value,
-          "TotalCapitalSI": this.insure.controls['TotalCapital'].value,
+          "TotalCapitalSI": this.insure.controls['TotalCapital'].value ,
           "NationalityId": "1949",
           "DoesInsuredSmokeOrConsumeAlchohol": "false"
         }
@@ -1196,7 +1348,7 @@ export class ReliancePaComponent implements OnInit {
         "ServiceTaxExemptionID": this.riskDetails.controls['exemptionreason'].value,
         "CoverageOptionID": this.riskDetails.controls['CoverageOptionID'].value,
         "CoverageSubOptionID": this.riskDetails.controls['coveragesubOptionID'].value,
-        "IsMedicalExpenseExtnApplicable": this.riskDetails.controls['coveragesubOptionID'].value,
+        "IsMedicalExpenseExtnApplicable": this.riskDetails.controls['medicalexpense'].value,
         "SpecialConditions": this.riskDetails.controls['specialconditions'].value,
         "FamilyDiscountRate": this.riskDetails.controls['familydiscount'].value,
         "MembertoInsure": this.riskDetails.controls['MembertoInsure'].value,
@@ -1207,7 +1359,7 @@ export class ReliancePaComponent implements OnInit {
         "Salutation": this.nominee.controls['nomineePaTitle'].value,
         "MiddleName": this.nominee.controls['nomineePaMidname'].value,
         "LastName": this.nominee.controls['nomineePaLastname'].value,
-        "DOB": this.nominee.controls['nomineePaDob'].value,
+        "DOB": this.datepipe.transform(this.nominee.controls['nomineePaDob'].value,'dd-MM-y'),
         "NomineeRelationshipID": this.nominee.controls['relationshipWithInsure'].value,
         "NomineeRelationshipOther": this.nominee.controls['ifothersPleaseSpecify'].value,
         "NomineeAddress": {
@@ -1242,6 +1394,7 @@ export class ReliancePaComponent implements OnInit {
       "CIServicePreviousInsuraceDetailsList": "",
       "ValidateFlag": "false"
     };
+    console.log(data,'1245');
     this.personalservice.createproposal(data).subscribe(
         (successData) => {
           this.proposalSuccess(successData,stepper);
@@ -1259,13 +1412,19 @@ export class ReliancePaComponent implements OnInit {
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
+      console.log(this.summaryData,'response');
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
+      this.RediretUrlLink = this.summaryData.RediretUrlLink;
       sessionStorage.reliancePAproposalID = successData.ResponseObject.policy_id ;
-      this.reliancePAproposalID = successData.ResponseObject.policy_id;
       this.proposerdata = this.proposer.value;
       this.riskdata = this.riskDetails.value;
       this.insuredata = this.insure.value;
       this.nomineedata = this.nominee.value;
+      this.reliancePAproposalID = this.summaryData.policy_id;
+      sessionStorage.Paproposer = JSON.stringify(this.proposerdata);
+      sessionStorage.Parisk = JSON.stringify(this.riskdata);
+      sessionStorage.Painsured = JSON.stringify(this.insuredata);
+      sessionStorage.Panominee = JSON.stringify(this.nomineedata);
     } else {
       this.toastr.error(successData.ErrorObject);
     }
@@ -1273,6 +1432,9 @@ export class ReliancePaComponent implements OnInit {
 
   public proposalFailure(error) {
 
+  }
+  maritalstatusname() {
+    this.proposer.controls['maritalStatusname'].patchValue(this.paMaritalList[this.proposer.controls['maritalStatus'].value]);
   }
 }
 

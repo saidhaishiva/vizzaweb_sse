@@ -34,7 +34,7 @@
                             <th class="sun-insured col-md-2">
                                 <mat-form-field >
                                     <mat-placeholder class="myclass font-weight-bold">Premium type ($)</mat-placeholder>
-                                    <mat-select [(ngModel)]="compherhensive" (change)="premiumlist()">
+                                    <mat-select [(ngModel)]="compherhensive" (change)="premiumlist()" >
                                         <mat-option value="Comprehensive_premium">Comprehensive Premium</mat-option>
                                         <mat-option value="ThridParty_premium">ThridParty Premium</mat-option>
                                     </mat-select>
@@ -61,7 +61,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr  *ngFor="let plists of allProductLists;let i = index">
+
+
+                        <tr  *ngFor="let plists of initialProductList;let i = index">
+
                             <td align="center"  class="col-md-2 text-center">
                                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
                                 <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
@@ -73,14 +76,12 @@
                                 </strong></p>
                             </td>
                             <td class="col-md-2 text-center">
-                                <p class="mt-4" *ngIf="comphensivePremium">Comprehensive Premium</p>
-                                <p class="mt-4" *ngIf="thirdParty">ThridParty Premium</p>
+                                <p class="mt-4" *ngIf="compherhensive == 'Comprehensive_premium'">Comprehensive Premium</p>
+                                <p class="mt-4" *ngIf="compherhensive == 'ThridParty_premium'">ThridParty Premium</p>
 
                             </td>
                             <td class="col-md-2 text-center">
-                                <!--<p class="mt-4" *ngIf="plists[i].Comprehensive_premium.one_year">Comprehensive Premium</p>-->
-                                <!--<p class="mt-4" *ngIf="thirdParty">ThridParty Premium</p>-->
-
+                                <p class="mt-4" >{{policyTerm}} Year</p>
                             </td>
                             <td class="col-md-1 text-center">  -
                             </td>
@@ -92,7 +93,7 @@
                                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
                             </td>
                             <td class="col-md-1">
-                                <p class="text-center change-p mt-2" ><strong>&#8377; <span  *ngIf="comphensivePremium">{{plists.Comprehensive_premium}}</span> <span  *ngIf="thirdParty">{{plists.ThridParty_premium}}</span>  / Yr</strong></p>
+                                <p class="text-center change-p mt-2" ><strong>&#8377; <span  *ngIf="compherhensive == 'Comprehensive_premium'">{{plists.Comprehensive_premium}}</span> <span  *ngIf="compherhensive == 'ThridParty_premium'">{{plists.ThridParty_premium}}</span>  / Yr</strong></p>
                                 <p class="text-center change-p">(Including GST)</p>
                             </td>
                             <td class="col-md-1">

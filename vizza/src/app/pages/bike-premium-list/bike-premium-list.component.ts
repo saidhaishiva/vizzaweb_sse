@@ -33,6 +33,7 @@ export class BikePremiumListComponent implements OnInit {
     comphensivePremium: boolean;
     compherhensive: any;
     policyTerm: any;
+    initialProductList: any;
     constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -40,12 +41,13 @@ export class BikePremiumListComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.webhost = this.config.getimgUrl();
         this.compareArray = [];
+        this.initialProductList = [];
         this.thirdParty = false;
+        this.policyTerm = '1';
+        this.compherhensive = 'Comprehensive_premium';
     }
     ngOnInit()
     {
-        this.premiumlist();
-        this.compherhensive = 'Comprehensive_premium';
         this.getCompanyList();
         this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
 
@@ -58,8 +60,8 @@ export class BikePremiumListComponent implements OnInit {
         if(sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists !=undefined) {
             this.setAllProductLists  = JSON.parse(sessionStorage.setAllProductLists);
         }
-        if(sessionStorage.allProductLists != '' && sessionStorage.allProductLists !=undefined) {
-            this.allProductLists  = JSON.parse(sessionStorage.allProductLists);
+        if(sessionStorage.initialProductList != '' && sessionStorage.initialProductList !=undefined) {
+            this.initialProductList  = JSON.parse(sessionStorage.initialProductList);
         }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);
@@ -153,12 +155,17 @@ export class BikePremiumListComponent implements OnInit {
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
                 //this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
             }
+
+            for (let i = 0; i < this.allProductLists.length; i++) {
+                this.allProductLists[i].year_type == '1';
+            }
+
+
+           this.initialProductList = this.allProductLists.filter(data => data.year_type == '1');
             this.setAllProductLists = this.allProductLists;
             sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
-            sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
-            // if(this.allProductLists.length > 0) {
-            //     this.enquiryDetails.sum_insured_amount = this.allProductLists[0].sum_insured_amount;
-            // }
+            sessionStorage.initialProductList = JSON.stringify(this.initialProductList);
+
         }
     }
     public getProductListFailure(error) {
@@ -219,15 +226,25 @@ export class BikePremiumListComponent implements OnInit {
 
     }
     premiumlist(){
-        if(this.compherhensive == 'ThridParty_premium'){
-            this.thirdParty = true;
-            this.comphensivePremium = false;
-        } else{
-            this.thirdParty = false;
-            this.comphensivePremium = true;
+        // if(this.compherhensive == 'ThridParty_premium'){
+        //     this.thirdParty = true;
+        //     this.comphensivePremium = false;
+        // } else{
+        //     this.thirdParty = false;
+        //     this.comphensivePremium = true;
+        //
+        // }
+        if(this.policyTerm == '2'){
+            this.initialProductList = this.allProductLists.filter(data => data.year_type == '2');
+         } else if(this.policyTerm == '3'){
+                this.initialProductList = this.allProductLists.filter(data => data.year_type == '3');
+            }
+        else{
+            this.initialProductList = this.allProductLists.filter(data => data.year_type == '1');
 
         }
-    }
+        }
+
 
 
     buyProduct(value) {

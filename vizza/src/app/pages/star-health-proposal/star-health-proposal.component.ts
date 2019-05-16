@@ -1412,6 +1412,7 @@ export class StarHealthProposalComponent implements OnInit {
             'group_name':  this.getFamilyDetails.name,
             'company_name': this.buyProductdetails.company_name,
             'product_id': this.buyProductdetails.product_id,
+            'plan_name': this.buyProductdetails.product_name,
             'policy_type_name': this.buyProductdetails.prod_shortform,
             'policy_category': 'fresh',
             'policy_started_on': '',
