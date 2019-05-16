@@ -3,13 +3,20 @@
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper>
         <mat-step [stepControl]="bajajProposal">
-          <ng-template matStepLabel>PROPOSER / INSURED DETAILS</ng-template>
+          <ng-template matStepLabel *ngIf="!showInsure">PROPOSER / INSURED DETAILS</ng-template>
+          <ng-template matStepLabel *ngIf="showInsure">PROPOSER DETAILS</ng-template>
+
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="bajajProposal" >
               <mat-expansion-panel expanded>
-                <mat-expansion-panel-header>
+                <mat-expansion-panel-header *ngIf="!showInsure">
                   <mat-panel-title>
                     PROPOSER / INSURED DETAILS
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-expansion-panel-header *ngIf="showInsure">
+                  <mat-panel-title>
+                    PROPOSER  DETAILS
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row ">
@@ -163,8 +170,8 @@
 
                   <div class="proposal-buttom mt-3 text-right w-100">
 <!--                   (click)="createProposal(bajajProposal.value)"-->
-                    <button mat-raised-button *ngIf="showInsure"  color="primaryBlue"  (click)="nextTab(stepper,bajajProposal.value,'proposar')" >Next</button>
-                    <button mat-raised-button color="primaryBlue" *ngIf="!showInsure" (click)="createProposal(stepper,bajajProposal.value)">Next</button>
+                    <button mat-raised-button *ngIf="showInsure"  color="primaryBlue"  (click)="nextTab(stepper,bajajProposal.value,'insurer')" >Next</button>
+                    <button mat-raised-button color="primaryBlue" *ngIf="!showInsure" (click)="createProposal(stepper, bajajProposal.value, 'proposer')">Next</button>
 
                   </div>
                 </div>
@@ -303,12 +310,16 @@
             </table>
 
             <mat-expansion-panel   [expanded]="true">
-              <mat-expansion-panel-header>
+              <mat-expansion-panel-header *ngIf="!showInsure">
                 <mat-panel-title>
-                  PROPOSER DETAILS
+                  PROPOSER / INSURED DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
-
+              <mat-expansion-panel-header *ngIf="showInsure">
+                <mat-panel-title>
+                  PROPOSER  DETAILS
+                </mat-panel-title>
+              </mat-expansion-panel-header>
               <div class="row box-card">
                 <div class="col-md-6">
                   <div class="p-3">
@@ -326,8 +337,8 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Alternate No:</strong> {{proposerFormData.telephone}}</li>
-                      <li class="list-group-item"><strong>Fax:</strong> {{proposerFormData.fax}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.fax !='' "><strong>Alternate No:</strong> {{proposerFormData.telephone}}</li>
+                      <li class="list-group-item" *ngIf = "proposerFormData.fax !=''"><strong>Fax:</strong> {{proposerFormData.fax}}</li>
                       <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
                       <li class="list-group-item"><strong>Assignee Name:</strong> {{proposerFormData.assigneeName}}</li>
                       <li class="list-group-item"><strong>Passport No:</strong> {{proposerFormData.passportNumber}}</li>
