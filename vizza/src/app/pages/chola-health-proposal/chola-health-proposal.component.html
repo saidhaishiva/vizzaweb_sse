@@ -84,8 +84,9 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="STD Code" formControlName="personalstdcode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)"    autocomplete="off" >
-
+                            <input matInput placeholder="STD Code"  (keypress)="numberValidate($event)"  minlength="3" maxlength="5" formControlName="personalstdcode" autocomplete="off" >
+                            <mat-error *ngIf="personal.controls.stdcode.errors?.required">STD Code is required</mat-error>
+                            <mat-error *ngIf="personal.controls.stdcode.hasError('minlength')">STD Code isn't long enough, minimum of 3 Digits</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
