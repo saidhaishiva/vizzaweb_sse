@@ -92,6 +92,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public PaymentReturn : any;
   public hypothecationTypeDetails : any;
   public enquiryFormData : any;
+  public genderList: boolean;
     constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
     const minDate = new Date();
@@ -184,7 +185,9 @@ export class BikeShriramProposalComponent implements OnInit {
       appointeeName: '',
       appointeeRelationship: ''
     });
-  }
+        this.genderList = false;
+
+    }
 
   ngOnInit() {
       this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
@@ -230,10 +233,17 @@ export class BikeShriramProposalComponent implements OnInit {
         }
         changeGender() {
         if (this.proposer.controls['title'].value == 'Mr') {
-            this.proposer.controls['title'].patchValue('MALE');
+            this.genderList = false;
+            this.proposer.controls['gender'].patchValue('Male');
+        } else if(this.proposer.controls['title'].value == 'Ms' || this.proposer.controls['title'].value == 'Mrs' )  {
+            this.genderList = false;
+            this.proposer.controls['gender'].patchValue('Female');
         } else {
-            this.proposer.controls['title'].patchValue('FEMALE');
-        }
+            if(this.proposer.controls['title'].value == 'Dr'){
+                this.genderList = true;
+            }
+            }
+
     }
 
     // AGE VALIDATION
@@ -386,7 +396,7 @@ export class BikeShriramProposalComponent implements OnInit {
  // SECOND STEPPER
 
     addonPackage() {
-        this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_code);
+        this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
 
         // const data = {
           //   'platform': 'web',
@@ -659,6 +669,7 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
         this.vehical.controls['hypothecationAddress3'].setValidators([Validators.required]);
         this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
+        this.vehical.controls['hypothecationAgreementNo'].setValidators([Validators.required]);
         this.vehical.controls['pincode'].setValidators([Validators.required]);
         this.vehical.controls['state'].setValidators([Validators.required]);
         this.vehical.controls['city'].setValidators([Validators.required]);
@@ -669,6 +680,7 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['hypothecationAddress2'].setValidators(null);
         this.vehical.controls['hypothecationAddress3'].setValidators(null);
         this.vehical.controls['hypothecationBankName'].setValidators(null);
+        this.vehical.controls['hypothecationAgreementNo'].setValidators(null);
         this.vehical.controls['pincode'].setValidators(null);
         this.vehical.controls['state'].setValidators(null);
         this.vehical.controls['city'].setValidators(null);
@@ -677,6 +689,7 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['hypothecationAddress2'].patchValue('');
         this.vehical.controls['hypothecationAddress3'].patchValue('');
         this.vehical.controls['hypothecationBankName'].patchValue('');
+        this.vehical.controls['hypothecationAgreementNo'].patchValue('');
         this.vehical.controls['pincode'].patchValue('');
         this.vehical.controls['state'].patchValue('');
         this.vehical.controls['city'].patchValue('');
@@ -699,22 +712,23 @@ export class BikeShriramProposalComponent implements OnInit {
               sessionStorage.stepper2 = JSON.stringify(value);
               if(this.vehical.valid){
                 stepper.next();
-                this.previousInsure.controls['previousdEndob'].patchValue(this.datepipe.transform(this.enquiryFormData.previous_policy_expiry_date, 'y-MM-dd'));
+                this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date );
+                this.previousInsure.controls['previousdob'].patchValue(this.enquiryFormData.previouspolicyStart);
               }
           }
 
 
 
   // THIRD STEPPER
-        previousClaim(){
-            if(this.previousInsure.controls['policyClaim'].value == 1) {
-              this.claimList = true;
-              this.claimpercent();
-            }  else {
-              this.claimList = false;
-
-            }
-        }
+  //       previousClaim(){
+  //           if(this.previousInsure.controls['policyClaim'].value == 1) {
+  //             this.claimList = true;
+  //             this.claimpercent();
+  //           }  else {
+  //             this.claimList = false;
+  //
+  //           }
+  //       }
         claimpercent() {
           const data = {
             'platform': 'web',
@@ -797,7 +811,7 @@ export class BikeShriramProposalComponent implements OnInit {
           sessionStorage.stepper3 = JSON.stringify(value);
 
           if(this.previousInsure.valid){
-              this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date);
+              // this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date);
               stepper.next();
           }
         }
@@ -892,7 +906,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
               "InsuredPrefix": "1",
               "InsuredName": this.proposer.controls['name'].value,
-              "Gender": this.proposer.controls['gender'].value,
+              "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
               "Address1": this.proposer.controls['address'].value,
               "Address2": this.proposer.controls['address2'].value,
               "Address3": this.proposer.controls['address3'].value,
@@ -960,7 +974,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
               "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
               "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
-              "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
+              // "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
               "PreviousPolicyNCBPerc": this.previousInsure.controls['previousPolicyNcb'].value ? this.previousInsure.controls['previousPolicyNcb'].value : 0,
               "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
               "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
@@ -1078,9 +1092,9 @@ export class BikeShriramProposalComponent implements OnInit {
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
         previousPolicyNcb:stepper3.previousPolicyNcb,
-        policyClaim: stepper3.policyClaim,
-        previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
-          previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'y-MM-dd')
+        // policyClaim: stepper3.policyClaim,
+        previousdob: this.datepipe.transform(stepper3.previousdob, 'dd/mm/yyyy'),
+          previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'dd/mm/yyyy')
       });
 
     }
