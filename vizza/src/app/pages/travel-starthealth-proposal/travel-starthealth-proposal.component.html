@@ -55,13 +55,22 @@
                             <input matInput placeholder="Aadhar Number(Last Four Digits)" (keypress)="numberValidate($event)"  minlength="4"  maxlength="4" formControlName="personalAadhar"  autocomplete="off">
                             <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 4 characters</mat-error>
                         </mat-form-field></div>
-                        <div class="col-md-4"><mat-form-field class="w-100" >
-                            <mat-select placeholder="GST Type ID" formControlName="personalgstIdType"  autocomplete="off" >
-                                <mat-option *ngFor="let city of gstListType | keys" [value]= 'city.key'>
-                                    {{city.value}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field></div>
+                        <div class="col-md-4">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <mat-form-field class="w-100" >
+                                    <mat-select placeholder="GST Type ID" formControlName="personalgstIdType"  autocomplete="off" >
+                                        <mat-option *ngFor="let city of gstListType | keys" [value]= 'city.key'>
+                                            {{city.value}}
+                                        </mat-option>
+                                    </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-md-2">
+                                    <i class="material-icons mt-3" style="cursor: pointer;" (click)="resetofgstType()">refresh</i>
+                                </div>
+                            </div>
+                        </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
                         <input matInput placeholder="GST Number" (keypress)="idValidate($event)" class="text-uppercase" minlength="15"  maxlength="15" formControlName="personalGst"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off">
                         <!--<mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>-->

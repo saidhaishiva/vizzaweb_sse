@@ -195,7 +195,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
         this.getProposerAgeDays = this.DobDaysCalculate(dob_days);
         console.log(this.getProposerAgeDays,'agedaysss');
-        if (this.bajajProposal.valid && this.personalDobError =='') {
+        if (this.bajajProposal.valid) {
             if (type == 'insurer'){
                     stepper.next();
                     this.sameasInsurerDetails(0);
@@ -448,7 +448,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
             }
         }else{
-            if (this.bajajProposal.valid && this.personalDobError =='') {
+            if (this.bajajProposal.valid) {
                     this.setting.loadingSpinner = true;
                     this.travelservice.getProposal(data).subscribe(
                         (successData) => {

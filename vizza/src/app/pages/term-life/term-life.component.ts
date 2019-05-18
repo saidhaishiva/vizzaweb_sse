@@ -220,6 +220,9 @@ export class TermLifeComponent implements OnInit {
             }
         }
     }
+    typingPolicyTerm() {
+        this.TermLife.controls['lifePolicy'].patchValue(this.TermLife.controls['lifeBenefitTerm'].value);
+    }
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }
@@ -275,6 +278,8 @@ export class TermLifeComponent implements OnInit {
                     this.toastr.error('Age should be 18 or above');
                 }
             }
+        } else {
+            this.toastr.error('Please fill the all mandatory fields');
         }
     }
     productListEnquirySuccess(successData, data) {

@@ -164,7 +164,7 @@ export class StarHealthProposalComponent implements OnInit {
             personalOccupation: ['', Validators.required],
             personalOccupationName: '',
             personalIncome: [''],
-            personalAadhar: ['', Validators.compose([ Validators.minLength(12)])],
+            personalAadhar: ['', Validators.compose([ Validators.minLength(4)])],
             personalPan: ['', Validators.compose([ Validators.minLength(10)])],
             personalGst: ['', Validators.compose([ Validators.minLength(15)])],
             socialStatus: '',
