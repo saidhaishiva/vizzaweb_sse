@@ -127,7 +127,7 @@ export class BikeShriramProposalComponent implements OnInit {
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pincode: ['', Validators.required],
       radio: ' ',
-      alterMobile: '',
+      alterMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       fax: '',
       pan: ['', Validators.compose([ Validators.minLength(10)])],
       gst: ['', Validators.compose([Validators.minLength(15)])],
@@ -164,17 +164,15 @@ export class BikeShriramProposalComponent implements OnInit {
       city:'',
     });
     this.previousInsure = this.fb.group({
-      policyNumber: '',
-      previousInsured: '',
-      policyUwYear: '',
-      policySi: '',
-      previousPolicyType: '',
-      policyNilDescription: '',
-      previousPolicyNcb: '',
-      policyClaim: '',
-      previousdob:'',
-      previousPolicyTypeName:'',
-        previousdEndob:''
+      policyNumber:['', Validators.required],
+      previousInsured: ['', Validators.required],
+      policyUwYear: ['', Validators.required],
+      previousPolicyType: ['', Validators.required],
+      policyNilDescription: ['', Validators.required],
+      previousdob:['', Validators.required],
+      previousPolicyTypeName:['', Validators.required],
+        previousdEndob:['', Validators.required],
+        policySi:['', Validators.required]
 
     });
 
@@ -192,7 +190,7 @@ export class BikeShriramProposalComponent implements OnInit {
       this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-         this.changeGender();
+         this.changeTitle();
          this.changehypothecation();
          this.policyType();
          this.proposalType();
@@ -210,7 +208,7 @@ export class BikeShriramProposalComponent implements OnInit {
   // FIRST STEPPER
 
   // title change function
-      changeGender() {
+      changeTitle() {
         const data = {
           'platform': 'web',
           'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -230,8 +228,13 @@ export class BikeShriramProposalComponent implements OnInit {
         }
         public failureSuccess(error) {
         }
-
-
+        changeGender() {
+        if (this.proposer.controls['title'].value == 'Mr') {
+            this.proposer.controls['title'].patchValue('MALE');
+        } else {
+            this.proposer.controls['title'].patchValue('FEMALE');
+        }
+    }
 
     // AGE VALIDATION
         ageCalculate(dob) {
@@ -383,29 +386,32 @@ export class BikeShriramProposalComponent implements OnInit {
  // SECOND STEPPER
 
     addonPackage() {
-          const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+        this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_code);
 
-          }
-                this.bikeInsurance.getAddonPackage(data).subscribe(
-                    (successData) => {
-                      this.addonPackageSuccess(successData);
-                    },
-                    (error) => {
-                      this.addonPackageFailure(error);
-                    }
-                );
-              }
-                  public addonPackageSuccess(successData) {
-                    if (successData.IsSuccess) {
-                      this.addonPackagedm = successData.ResponseObject;
-                      console.log(this.addonPackagedm, 'this.addonPackagedm');
-                    }
-                  }
-                public addonPackageFailure(error) {
+        // const data = {
+          //   'platform': 'web',
+          //   'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          //   'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+          //   'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+          //
+          // }
+          //       this.bikeInsurance.getAddonPackage(data).subscribe(
+          //           (successData) => {
+          //             this.addonPackageSuccess(successData);
+          //           },
+          //           (error) => {
+          //             this.addonPackageFailure(error);
+          //           }
+          //       );
+          //     }
+          //         public addonPackageSuccess(successData) {
+          //           if (successData.IsSuccess) {
+          //             this.addonPackagedm = successData.ResponseObject;
+          //
+          //             console.log(this.addonPackagedm, 'this.addonPackagedm');
+          //           }
+          //         }
+          //       public addonPackageFailure(error) {
 
   }
           proposalType() {
@@ -775,16 +781,16 @@ export class BikeShriramProposalComponent implements OnInit {
       }
       public previousInsureFailure(error) {
       }
- date(){
-     //    let ddd = this.previousInsure.controls['previousdob'].value;
-     //    let ss = ddd.getFullYear();
-     // console.log(ss);
-
-     let eee = this.previousInsure.controls['previousdEndob'].value;
-     let oo = eee.getFullYear();
-
-     console.log(oo);
- }
+ // date(){
+ //     //    let ddd = this.previousInsure.controls['previousdob'].value;
+ //     //    let ss = ddd.getFullYear();
+ //     // console.log(ss);
+ //
+ //     let eee = this.previousInsure.controls['previousdEndob'].value;
+ //     let oo = eee.getFullYear();
+ //
+ //     console.log(oo);
+ // }
   previousDetails(stepper: MatStepper, value){
         console.log(value,'vvvvvv');
           sessionStorage.stepper3 = '';
