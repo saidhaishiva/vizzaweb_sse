@@ -775,11 +775,21 @@ export class BikeShriramProposalComponent implements OnInit {
       }
       public previousInsureFailure(error) {
       }
+ date(){
+     //    let ddd = this.previousInsure.controls['previousdob'].value;
+     //    let ss = ddd.getFullYear();
+     // console.log(ss);
 
+     let eee = this.previousInsure.controls['previousdEndob'].value;
+     let oo = eee.getFullYear();
+
+     console.log(oo);
+ }
   previousDetails(stepper: MatStepper, value){
         console.log(value,'vvvvvv');
           sessionStorage.stepper3 = '';
           sessionStorage.stepper3 = JSON.stringify(value);
+
           if(this.previousInsure.valid){
               this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date);
               stepper.next();

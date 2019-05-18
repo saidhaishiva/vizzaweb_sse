@@ -394,7 +394,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date(DD/MM/YYYY)"  (keypress)="dobValidate($event)" [max]="minDate"  formControlName="previousdob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
+                                                    <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date(DD/MM/YYYY)"  (keypress)="dobValidate($event); date()" [max]="minDate"  formControlName="previousdob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
                                                            autocomplete="off"   required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                                     <mat-datepicker #picker2></mat-datepicker>
