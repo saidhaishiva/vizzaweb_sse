@@ -72,7 +72,7 @@ export class BikeInsuranceComponent implements OnInit {
 
     meridian = true;
 
-    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
+    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
         const minDate = new Date();
         // this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate() + 365);
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -465,6 +465,9 @@ export class BikeInsuranceComponent implements OnInit {
             this.previousDate = false;
 
         }
+    }
+    idValidate(event: any) {
+        this.validation.idValidate(event);
     }
     sessionData(){
         if(sessionStorage.bikeEnquiryDetails != '' &&  sessionStorage.bikeEnquiryDetails != undefined) {

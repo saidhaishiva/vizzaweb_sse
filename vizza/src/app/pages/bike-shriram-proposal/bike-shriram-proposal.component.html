@@ -5,12 +5,12 @@
 
                 <mat-step [stepControl]="">
 
-                    <ng-template matStepLabel >PROPOSER </ng-template>
+                    <ng-template matStepLabel >PROPOSER DETAILS</ng-template>
                     <mat-accordion class=" w-100 float-left">
                         <form [formGroup]="proposer" >
                             <mat-expansion-panel expanded>
                                 <mat-expansion-panel-header>
-                                    <mat-panel-title> PROPOSER  </mat-panel-title>
+                                    <mat-panel-title>PROPOSER DETAILS  </mat-panel-title>
                                 </mat-expansion-panel-header>
                                 <div class="row mt-1">
                                     <div class="col-md-12 box-card pt-3">
@@ -87,7 +87,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Fax"  (keypress)="numberValidate($event)"   formControlName="fax" autocomplete="off">
+                                                    <input matInput placeholder="Fax"  (keypress)="numberValidate($event)"  maxlength="10" formControlName="fax" autocomplete="off">
                                                     <!--<mat-error *ngIf="proposer.controls.fax.errors?.required">fax is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
@@ -379,7 +379,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" maxlength="20" required autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" maxlength="20" (keypress)="idValidate($event)" required autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>
 
                                                 </mat-form-field>
