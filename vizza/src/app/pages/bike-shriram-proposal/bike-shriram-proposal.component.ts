@@ -712,8 +712,8 @@ export class BikeShriramProposalComponent implements OnInit {
               sessionStorage.stepper2 = JSON.stringify(value);
               if(this.vehical.valid){
                 stepper.next();
-                this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date );
-                this.previousInsure.controls['previousdob'].patchValue(this.enquiryFormData.previouspolicyStart);
+                // this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date );
+                // this.previousInsure.controls['previousdob'].patchValue(this.enquiryFormData.previouspolicyStart);
               }
           }
 
@@ -1093,8 +1093,8 @@ export class BikeShriramProposalComponent implements OnInit {
         policyNilDescription: stepper3.policyNilDescription,
         previousPolicyNcb:stepper3.previousPolicyNcb,
         // policyClaim: stepper3.policyClaim,
-        previousdob: this.datepipe.transform(stepper3.previousdob, 'dd/mm/yyyy'),
-          previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'dd/mm/yyyy')
+        previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
+          previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'y-MM-dd')
       });
 
     }
