@@ -125,7 +125,7 @@ export class CholaHealthProposalComponent implements OnInit {
       occupationName: '',
       personalIncome: '',
       personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      personalMobile: ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+      personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       personalLandlineno: '',
       personalAddress: ['', Validators.required],
       personalAddress2: '',
@@ -133,12 +133,10 @@ export class CholaHealthProposalComponent implements OnInit {
       personalCity: ['', Validators.required],
       personalPincode: ['', Validators.required],
       personalstdcode: '',
-      custMailStateCd: '',
-      personalGst: ['', Validators.compose([Validators.required, Validators.minLength(15)])],
+      personalGst: ['', Validators.compose([Validators.minLength(15)])],
       personalIsdn: '',
       personalCityName: '',
-      state_cd: '',
-      state_desc: '',
+        personalStateIdP: ''
       });
     this.nomineeDetails = this.fb.group({
       nomineeName: ['', Validators.required],
@@ -218,8 +216,6 @@ export class CholaHealthProposalComponent implements OnInit {
           personalGender: ['', Validators.compose([Validators.required])],
           personalrelationship: ['', Validators.required],
           personalrelationshipName: '',
-          sumInsured: '',
-          sumInsuredName: '',
           sameasreadonly: false,
           sameAsProposer: false,
           sameas: false,
@@ -227,7 +223,6 @@ export class CholaHealthProposalComponent implements OnInit {
           insurerDobValidError: '',
           dobErrorStartDate: '',
           type: '',
-          personalStateIdP: '',
           preExistingDisease: 'No',
 
         }
@@ -411,10 +406,6 @@ export class CholaHealthProposalComponent implements OnInit {
   changeRelationShipList(index){
     this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.patchValue(this.relationshipList[this.insureArray['controls'].items['controls'][index]['controls'].personalrelationship.value]);
   }
-  changeSumInsuredList(index){
-    this.insureArray['controls'].items['controls'][index]['controls'].sumInsuredName.patchValue(this.sumInsuredList[this.insureArray['controls'].items['controls'][index]['controls'].sumInsured.value]);
-  }
-
 
 
     ageCalculate(dob) {
@@ -485,8 +476,8 @@ export class CholaHealthProposalComponent implements OnInit {
                 'Gender': this.insurerData[i].personalGender,
                 'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
                 'Relationship': this.insurerData[i].personalrelationship,
-                'SumInsured': this.insurerData[i].sumInsured == undefined ? 0 : (this.insurerData[i].sumInsured ? this.insurerData[i].sumInsured : 0),
-                'PreExistingDisease': this.insurerData[i].preExistingDisease,
+                'SumInsured': this.buyProductdetails.suminsured_amount,
+                'PreExistingDisease': this.insurerData[i].preExistingDisease
             });
         }
             stepper.next();
@@ -555,12 +546,11 @@ console.log( sessionStorage.stepper3Details);
         personalCityName: this.getStepper1.personalCityName,
         personalPincode: this.getStepper1.personalPincode,
         personalstdcode: this.getStepper1.personalstdcode,
-        custMailStateCd: this.getStepper1.custMailStateCd,
         personalGst: this.getStepper1.personalGst,
         personalIsdn: this.getStepper1.personalIsdn,
         sameAsProposer: this.getStepper1.sameAsProposer,
         sameas: this.getStepper1.sameas,
-        personalStateIdP: this.getStepper1.personalStateIdP
+          personalStateIdP: this.getStepper1.personalStateIdP
 
       });
 
@@ -576,8 +566,6 @@ console.log( sessionStorage.stepper3Details);
         this.insureArray['controls'].items['controls'][i]['controls'].personalGender.patchValue(this.getStepper2.items[i].personalGender);
         this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue(this.getStepper2.items[i].personalrelationship);
         this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.getStepper2.items[i].personalrelationshipName);
-        this.insureArray['controls'].items['controls'][i]['controls'].sumInsuredName.patchValue(this.getStepper2.items[i].sumInsuredName);
-        this.insureArray['controls'].items['controls'][i]['controls'].sumInsured.patchValue(this.getStepper2.items[i].sumInsured);
         this.insureArray['controls'].items['controls'][i]['controls'].preExistingDisease.patchValue(this.getStepper2.items[i].preExistingDisease);
         this.insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.patchValue(this.getStepper2.items[i].sameasreadonly);
         this.insureArray['controls'].items['controls'][i]['controls'].sameas.patchValue(this.getStepper2.items[i].sameas);
@@ -585,7 +573,6 @@ console.log( sessionStorage.stepper3Details);
         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue(this.getStepper2.items[i].insurerDobValidError);
         this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue(this.getStepper2.items[i].insurerDobError);
         this.insureArray['controls'].items['controls'][i]['controls'].dobErrorStartDate.patchValue(this.getStepper2.items[i].dobErrorStartDate);
-        this.insureArray['controls'].items['controls'][i]['controls'].personalStateIdP.patchValue(this.getStepper2.items[i].personalStateIdP);
         this.insureArray['controls'].items['controls'][i]['controls'].type.patchValue(this.getStepper2.items[i].type);
       }
     }
@@ -661,7 +648,7 @@ console.log( sessionStorage.stepper3Details);
     public pincodeListSuccess(successData, title) {
         if (successData.IsSuccess) {
             this.response = successData.ResponseObject;
-            this.personal.controls['custMailStateCd'].patchValue(this.response.state_code);
+            // this.personal.controls['custMailStateCd'].patchValue(this.response.state_code);
             if (title == 'personal') {
                 if (Object.keys(this.response).length === 0) {
                    this.personal.controls['personalCity'].patchValue('');
@@ -890,7 +877,7 @@ console.log( sessionStorage.stepper3Details);
                             "Landlineno": this.personal.controls['personalLandlineno'].value,
                             "MobileNumber": this.personal.controls['personalMobile'].value,
                             "Gender": this.personal.controls['personalGender'].value,
-                            "CustMailStateCd": this.personal.controls['custMailStateCd'].value,
+                            "CustMailStateCd": this.personal.controls['personalStateIdP'].value,
                             "GSTNumber": this.personal.controls['personalGst'].value,
                             "ISDNNumber": this.personal.controls['personalIsdn'].value,
                         }
