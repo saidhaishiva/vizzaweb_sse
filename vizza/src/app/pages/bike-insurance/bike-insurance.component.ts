@@ -35,7 +35,7 @@ export const MY_FORMATS = {
     ]
 })
 export class BikeInsuranceComponent implements OnInit {
-    // public bikeapp: FormGroup;
+    public bikeapp: FormGroup;
     public bikeInsurance: FormGroup;
     public settings: Settings;
     public setDate: any;
@@ -72,7 +72,7 @@ export class BikeInsuranceComponent implements OnInit {
 
     meridian = true;
 
-    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog, public validation: ValidationService,public appSettings: AppSettings, public router: Router) {
+    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog,public appSettings: AppSettings, public router: Router) {
         const minDate = new Date();
         // this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate() + 365);
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -119,7 +119,6 @@ export class BikeInsuranceComponent implements OnInit {
   ngOnInit() {
       this.claimpercent();
       this.manifactureList();
-      this.modelList();
       this.ccList();
       this.variantList();
       this.bussinessType();
@@ -317,6 +316,7 @@ export class BikeInsuranceComponent implements OnInit {
     }
     public typeFailure(error) {
     }
+
     enquiryQuation() {
         const data = {
             'platform': 'web',
@@ -336,9 +336,10 @@ export class BikeInsuranceComponent implements OnInit {
             'vehicle_cc':this.bikeInsurance.controls['vehicleCC'].value,
             'chassis_no':this.bikeInsurance.controls['chasissNumber'].value,
             'engine_no':"BG4CF1490049",
-            'manu_yr':"2015",
+            'manu_yr':this.bikeInsurance.controls['manufactureYear'].value,
             'vehicle_category':"2W",
-
+            'ncb_amount':this.bikeInsurance.controls['ncb'].value,
+            'business_type': this.bikeInsurance.controls['bussinessType'].value,
         }
         this.bikeService.getEnquiryDetails(data).subscribe(
             (successData) => {
@@ -379,6 +380,7 @@ export class BikeInsuranceComponent implements OnInit {
     public manifactureSuccess(successData){
         if (successData.IsSuccess) {
             this.manifactureDetails = successData.ResponseObject;
+            this.modelList();
         }
     }
     public manifactureFailure(error) {
@@ -389,7 +391,8 @@ export class BikeInsuranceComponent implements OnInit {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            'manufacture': this.bikeInsurance.controls['manufacture'].value
 
         }
         this.bikeService.getModelList(data).subscribe(
@@ -465,6 +468,9 @@ export class BikeInsuranceComponent implements OnInit {
             this.previousDate = false;
 
         }
+    }
+    idValidate(event: any) {
+        this.validation.idValidate(event);
     }
     sessionData(){
         if(sessionStorage.bikeEnquiryDetails != '' &&  sessionStorage.bikeEnquiryDetails != undefined) {

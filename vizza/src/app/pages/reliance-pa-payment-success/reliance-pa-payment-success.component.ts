@@ -28,6 +28,7 @@ export class ReliancePaPaymentSuccessComponent implements OnInit {
     this.settings = this.appSettings.settings;
 
     this.route.params.forEach((params) => {
+      console.log(params);
       this.paymentStatus = params.status;
       this.proposalId = params.proId;
       this.applicationNo = params.applicationNo;
