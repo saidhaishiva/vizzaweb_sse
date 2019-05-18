@@ -161,9 +161,8 @@ export class LifeBajajProposalComponent implements OnInit {
       dob: ['', Validators.compose([Validators.required])],
       age: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      mobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+      mobile: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
       alterMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
-
       maritalStatus: ['', Validators.required],
       annualIncome: '',
       occupationList: ['', Validators.compose([Validators.required])],
@@ -419,7 +418,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
 
   sameAddress(evnt) {
-    if (this.proposer.controls['sameAsProposer'].value) {
+    if (evnt.checked) {
       this.proposer.controls['perDoorNo'].patchValue(this.proposer.controls['comDoorNo'].value);
       this.proposer.controls['perBuildingNumber'].patchValue(this.proposer.controls['comBuildingNumber'].value);
       this.proposer.controls['perLandmark'].patchValue(this.proposer.controls['comLandmark'].value);
@@ -441,6 +440,22 @@ export class LifeBajajProposalComponent implements OnInit {
       this.proposer.controls['rpincode'].patchValue('');
       this.proposer.controls['rcity'].patchValue('');
       this.proposer.controls['rstate'].patchValue('');
+
+
+    }
+  }
+  typeAddress(event) {
+      console.log(event.checked, 'hh');
+    if(this.proposer.controls['sameAsProposer'].value) {
+      this.proposer.controls['perDoorNo'].patchValue(this.proposer.controls['comDoorNo'].value);
+      this.proposer.controls['perBuildingNumber'].patchValue(this.proposer.controls['comBuildingNumber'].value);
+      this.proposer.controls['perLandmark'].patchValue(this.proposer.controls['comLandmark'].value);
+      this.proposer.controls['perPlotNumber'].patchValue(this.proposer.controls['comPlotNumber'].value);
+      this.proposer.controls['perPlace'].patchValue(this.proposer.controls['comPlace'].value);
+      this.proposer.controls['perDistrict'].patchValue(this.proposer.controls['comDistrict'].value);
+      this.proposer.controls['rpincode'].patchValue(this.proposer.controls['pincode'].value);
+      this.proposer.controls['rcity'].patchValue(this.proposer.controls['city'].value);
+      this.proposer.controls['rstate'].patchValue(this.proposer.controls['state'].value);
 
 
     }
@@ -469,7 +484,7 @@ export class LifeBajajProposalComponent implements OnInit {
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
-  passportIssue(event: any){
+  addressValidate(event: any){
     this.validation.passportIssue(event);
 
   }
@@ -670,6 +685,10 @@ export class LifeBajajProposalComponent implements OnInit {
         if (this.getAge < 18) {
           this.showAppointee = true;
         } else {
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue('');
+          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
           this.showAppointee = false;
         }
       } else if(type == 'appointee') {
@@ -748,13 +767,25 @@ export class LifeBajajProposalComponent implements OnInit {
         {
           this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
         }else {
-          stepper.next();
-          this.topScroll();
+          let validMarital = true;
+          if(this.proposer['controls'].maritalStatus.value == 'M'){
+            if(this.proposer.controls['spouseBirthPlace'].value == '' || this.proposer.controls['spouseName'].value == '' || this.proposer.controls['spouseDob'].value == '') {
+              validMarital = false;
+              this.toastr.error('Proposer age should be greater than equal to 18');
+            } else {
+              validMarital = true;
+            }
+          }
+
+          if(validMarital) {
+            stepper.next();
+            this.topScroll();
+          }
+
         }
 
       } else {
           this.toastr.error('Proposer age should be greater than equal to 18');
-
       }
 
     }
@@ -1495,8 +1526,8 @@ samerelationShip(){
         this.proposer.controls['city'].setValue(this.pincodeList.city);
         this.proposer.controls['state'].setValue(this.pincodeList.state);
       } else {
-        this.proposer.controls['rcity'].setValue(this.pincodeList.rcity);
-        this.proposer.controls['rstate'].setValue(this.pincodeList.rstate);
+        this.proposer.controls['rcity'].setValue(this.pincodeList.city);
+        this.proposer.controls['rstate'].setValue(this.pincodeList.state);
       }
       console.log(this.pincodeList, 'pro');
     } else {
@@ -1703,7 +1734,7 @@ samerelationShip(){
 
   }
   changeAddressProof(){
-    this.proposer.controls['addressProofName'].patchValue(this.educationList[this.proposer.controls['addressProof'].value]);
+    this.proposer.controls['addressProofName'].patchValue(this.paIdProofList[this.proposer.controls['addressProof'].value]);
 
   }
   changeNomineeRelation() {
@@ -1723,7 +1754,7 @@ samerelationShip(){
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
-      "suminsured_id":  this.getEnquiryDetials.sum_assured_id,
+      "suminsured_amount":  sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "insurer_proposer": {
         "title": this.proposer.controls['title'].value,
@@ -1784,7 +1815,7 @@ samerelationShip(){
         "nominee2BirthPlace":this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nBirthPlace.value : '',
         "nominee2Dob": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nDob.value : '',
         "nominee2Relation": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-        "sharePercentage": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].sharePercentage.value,
+        "sharePercentage": this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].sharePercentage.value,
         "appointeeName": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value,
         "appointeeDob":this.datepipe.transform(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd')== null ? '': this.datepipe.transform(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd'),
         "appointeeRelationToNominee": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,

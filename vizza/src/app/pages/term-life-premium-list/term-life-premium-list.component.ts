@@ -35,6 +35,7 @@ export class TermLifePremiumListComponent implements OnInit {
       this.webhost = this.config.getimgUrl();
       this.compareArray = [];
       this.selectedAmountTravel = '5000000';
+      sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
   }
   ngOnInit() {
       this.getCompanyList();
@@ -51,7 +52,7 @@ export class TermLifePremiumListComponent implements OnInit {
             this.allProductLists  = JSON.parse(sessionStorage.allProductLists);
         }
         if(sessionStorage.selectedAmountTravel != '' && sessionStorage.selectedAmountTravel !=undefined) {
-            this.selectedAmountTravel  = JSON.parse(sessionStorage.selectedAmountTravel);
+            this.selectedAmountTravel  = sessionStorage.selectedAmountTravel;
         }
         if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
             this.filterCompany = JSON.parse(sessionStorage.filterCompany);

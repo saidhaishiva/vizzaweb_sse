@@ -531,7 +531,7 @@ export class TravelProposalComponent implements OnInit {
         this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationshipName.patchValue(this.assigneeRelationList[this.insureArray['controls'].items['controls'][i]['controls'].assigneeRelationship.value]);
     }
     selectVisaType(i){
-        this.insureArray['controls'].items['controls'][i]['controls'].visaTypeName.patchValue(this.assigneeRelationList[this.insureArray['controls'].items['controls'][i]['controls'].visaType.value]);
+        this.insureArray['controls'].items['controls'][i]['controls'].visaTypeName.patchValue(this.visaTypeAllList[this.insureArray['controls'].items['controls'][i]['controls'].visaType.value]);
     }
 
 
@@ -1222,6 +1222,9 @@ export class TravelProposalComponent implements OnInit {
 
     public getPolicyTokenFailure(error) {
         this.settings.loadingSpinner = false;
+    }
+    resetofgstType() {
+        this.personal.controls['personalgstIdType'].patchValue('');
     }
 
 }
