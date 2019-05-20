@@ -66,11 +66,16 @@ export class BikeInsuranceComponent implements OnInit {
     public previousPolicyExpiry : any;
     public previousPolicyStart : any;
     public bussinessList : any;
+    public getVehicleCC : any;
+    public getccNumber : any;
+    public getNcb : any;
+    public getmodelList : any;
+    public manufactureDetails : any;
+    public bussiness : any;
+    public getvariant : any;
     public listDetails : boolean;
     public expiry : boolean;
     public previousDate : boolean;
-
-
     meridian = true;
 
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog,public appSettings: AppSettings, public router: Router) {
@@ -152,7 +157,24 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.previouspolicyStart = this.datepipe.transform(this.bikeInsurance.controls['previousPolicyStart'].value, 'y-MM-dd');
     }
 
-
+    // modelDetail(){
+    //     sessionStorage.model = this.bikeInsurance.controls['model'].value;
+    // }
+    // manufactureList(){
+    //     sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
+    // }
+    // bussinessDetails(){
+    //     sessionStorage.bussinessType = this.bikeInsurance.controls['bussinessType'].value;
+    // }
+    keyPress(){
+        sessionStorage.bussinessType = this.bikeInsurance.controls['bussinessType'].value;
+        sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
+        sessionStorage.model = this.bikeInsurance.controls['model'].value;
+        sessionStorage.ncb = this.bikeInsurance.controls['ncb'].value;
+        sessionStorage.vehicleCC = this.bikeInsurance.controls['vehicleCC'].value;
+        sessionStorage.variant = this.bikeInsurance.controls['variant'].value;
+        sessionStorage.chasissNumber = this.bikeInsurance.controls['chasissNumber'].value;
+    }
     claim(){
         if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
             this.claimAmountDetails = true;
@@ -520,8 +542,36 @@ export class BikeInsuranceComponent implements OnInit {
             this.bikeInsurance.controls['previousPolicyExpiry'].patchValue(this.previousPolicyExpiry);
         }
         if (sessionStorage.previousPolicyStart != undefined && sessionStorage.previousPolicyStart != '') {
-            this.previousPolicyStart = sessionStorage.previouspolicyexpiry;
+            this.previousPolicyStart = sessionStorage.previousPolicyStart;
             this.bikeInsurance.controls['previousPolicyStart'].patchValue(this.previousPolicyStart);
+        }
+        if (sessionStorage.bussinessType != undefined && sessionStorage.bussinessType != '') {
+            this.bussiness = sessionStorage.bussinessType;
+            this.bikeInsurance.controls['bussinessType'].patchValue(this.bussiness);
+        }
+        if (sessionStorage.manufacture != undefined && sessionStorage.manufacture != '') {
+            this.manufactureDetails = sessionStorage.manufacture;
+            this.bikeInsurance.controls['manufacture'].patchValue(this.manufactureDetails);
+        }
+        if (sessionStorage.model != undefined && sessionStorage.model != '') {
+            this.getmodelList = sessionStorage.model;
+            this.bikeInsurance.controls['model'].patchValue(this.getmodelList);
+        }
+        if (sessionStorage.ncb != undefined && sessionStorage.ncb != '') {
+            this.getNcb = sessionStorage.ncb;
+            this.bikeInsurance.controls['ncb'].patchValue(this.getNcb);
+        }
+        if (sessionStorage.vehicleCC != undefined && sessionStorage.vehicleCC != '') {
+            this.getVehicleCC = sessionStorage.getVehicleCC;
+            this.bikeInsurance.controls['vehicleCC'].patchValue(this.getVehicleCC);
+        }
+        if (sessionStorage.variant != undefined && sessionStorage.variant != '') {
+            this.getvariant = sessionStorage.variant;
+            this.bikeInsurance.controls['variant'].patchValue(this.getvariant);
+        }
+        if (sessionStorage.chasissNumber != undefined && sessionStorage.chasissNumber != '') {
+            this.getccNumber = sessionStorage.variant;
+            this.bikeInsurance.controls['chasissNumber'].patchValue(this.getccNumber);
         }
     }
 
