@@ -34,9 +34,7 @@ export const MY_FORMATS = {
   templateUrl: './travel-bajajalianz-proposal.component.html',
   styleUrls: ['./travel-bajajalianz-proposal.component.scss'],
     providers: [
-
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
@@ -73,6 +71,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     public showInsureSummary: boolean;
     public webhost: any;
     public acceptSummaryDeclaration: any;
+    public placeOfVisit: any;
 
     constructor(public appsetting: AppSettings,public auth: AuthService,public route: ActivatedRoute,public config: ConfigurationService, private toastr: ToastrService, public travelservice: TravelService, public fb: FormBuilder, public datepipe: DatePipe, public validation: ValidationService) {
 
@@ -131,7 +130,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             this.showInsure = true;
             this.showInsureSummary = true;
         } else {
-            this.studentdetails = false;
+            this.showInsure = false;
             this.showInsureSummary = false;
         }
         this.insureReligarePerson = this.getEnquiryDetails.family_members;
@@ -196,12 +195,12 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         this.getProposerAgeDays = this.DobDaysCalculate(dob_days);
         console.log(this.getProposerAgeDays,'agedaysss');
         if (this.bajajProposal.valid) {
-            if(this.getProposerAgeDays > 150 && this.getProposerAgeDays < 25568){
+            if(this.getProposerAgeDays > 6573 ){
                 stepper.next();
                 this.sameasInsurerDetails(0);
                 this.getRelation();
-            }else{
-                this.toastr.error('Age should be 5 months to 70 years');
+            } else{
+                this.toastr.error('Age should be 18 years and above');
             }
 
         } else{
@@ -223,6 +222,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     // session
     session() {
+        if (sessionStorage.travelPlan != '' && sessionStorage.travelPlan != undefined) {
+            this.placeOfVisit = JSON.parse(sessionStorage.travelPlan);
+        }
         if (sessionStorage.stepper1bajajDetails != '' && sessionStorage.stepper1bajajDetails != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1bajajDetails);
             this.bajajProposal = this.fb.group({
@@ -356,8 +358,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         sessionStorage.stepper1bajajDetails = JSON.stringify(value);
         sessionStorage.stepper2bajajDetails = '';
         sessionStorage.stepper2bajajDetails = JSON.stringify(value);
-        console.log(this.proposerAge,'proposerAge');
-        console.log(sessionStorage.proposerAge,'sesionAGE');
         if(this.getEnquiryDetails.travel_user_type == 'family') {
             this.insurerData = value;
             this.insuredDataArray = [];
@@ -372,7 +372,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                     'pvdob': this.insurerData.items[i].idob
                 });
             }
-        }else{
+        } else{
             this.insuredDataArray = [''];
         }
         const data = {
@@ -407,7 +407,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 "pincode": this.bajajProposal.controls['pincode'].value,
                 "nationality": this.bajajProposal.controls['nationality'].value,
                 "email": this.bajajProposal.controls['email'].value,
-                "dob": this.bajajProposal.controls['dob'].value,
+                "dob": this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'y-MM-dd'),
                 "mobileNo": this.bajajProposal.controls['mobile'].value,
                 "telephone": this.bajajProposal.controls['telephone'].value,
                 "fax": this.bajajProposal.controls['fax'].value
@@ -425,7 +425,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             }
         };
         if(type =='insurer'){
-            //age validation
             let ageValidate = [];
             for (let i = 0; i< this.insureReligarePerson.length; i++){
                 if ( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
@@ -450,6 +449,18 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             }
         }else{
             if (this.bajajProposal.valid) {
+                let dob_days = '';
+                dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
+                let getProposerAgeDays = this.DobDaysCalculate(dob_days);
+
+                let ageValidStatus = true;
+                if(getProposerAgeDays > 150 && getProposerAgeDays < 25568){
+                    ageValidStatus = true;
+                } else{
+                    ageValidStatus = false;
+                    this.toastr.error('Age should be 5 months to 70 years');
+                }
+                if(ageValidStatus) {
                     this.setting.loadingSpinner = true;
                     this.travelservice.getProposal(data).subscribe(
                         (successData) => {
@@ -459,7 +470,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                             this.getProposalFailure(error);
                         }
                     );
-            }else{
+                }
+
+            } else {
                 this.toastr.error('please enter all the fields');
 
             }
@@ -505,7 +518,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.personalDobError = '';
-
                 } else {
                     this.personalDobError = 'Enter Valid Date';
                 }
