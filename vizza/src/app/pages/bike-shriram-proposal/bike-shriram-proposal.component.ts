@@ -92,6 +92,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public PaymentReturn : any;
   public hypothecationTypeDetails : any;
   public enquiryFormData : any;
+
   public genderList: boolean;
     constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
@@ -128,7 +129,7 @@ export class BikeShriramProposalComponent implements OnInit {
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pincode: ['', Validators.required],
       radio: ' ',
-      alterMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+      alterMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       fax: '',
       pan: ['', Validators.compose([ Validators.minLength(10)])],
       gst: ['', Validators.compose([Validators.minLength(15)])],
@@ -193,6 +194,7 @@ export class BikeShriramProposalComponent implements OnInit {
       this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+
          this.changeTitle();
          this.changehypothecation();
          this.policyType();
@@ -469,7 +471,6 @@ export class BikeShriramProposalComponent implements OnInit {
     policyDetail(){
             this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
 
-
     }
         policyType() {
               const data = {
@@ -712,8 +713,8 @@ export class BikeShriramProposalComponent implements OnInit {
               sessionStorage.stepper2 = JSON.stringify(value);
               if(this.vehical.valid){
                 stepper.next();
-                // this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date );
-                // this.previousInsure.controls['previousdob'].patchValue(this.enquiryFormData.previouspolicyStart);
+                this.previousInsure.controls['previousdEndob'].patchValue(this.bikeEnquiryDetails.previouspolicyexpiry);
+                this.previousInsure.controls['previousdob'].patchValue(this.bikeEnquiryDetails.previouspolicyStart);
               }
           }
 
@@ -904,6 +905,7 @@ export class BikeShriramProposalComponent implements OnInit {
           "geogrophicalExtensionCover": "false",
           "motorProposalObj": {
               "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
+              "start_date": this.previousInsure.controls['previousdob'].value,
               "InsuredPrefix": "1",
               "InsuredName": this.proposer.controls['name'].value,
               "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
@@ -946,7 +948,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "PreInspection": "",
               "BreakIn": "NO",
               "AddonPackage": this.vehical.controls['addonPackage'].value,
-              "NilDepreciationCoverYN": this.vehical.controls['addonPackage'].value == true ? '1' : '0',
+              "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
               "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
               "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
               "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
@@ -975,7 +977,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
               "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
               // "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
-              "PreviousPolicyNCBPerc": this.previousInsure.controls['previousPolicyNcb'].value ? this.previousInsure.controls['previousPolicyNcb'].value : 0,
+             // / "PreviousPolicyNCBPerc": this.previousInsure.controls['previousPolicyNcb'].value ? this.previousInsure.controls['previousPolicyNcb'].value : 0,
               "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
               "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
               "HypothecationType": this.vehical.controls['hypothecationType'].value,
@@ -1048,6 +1050,9 @@ export class BikeShriramProposalComponent implements OnInit {
         address3: stepper1.address3,
         state:stepper1.state,
         city: stepper1.city,
+        pincodeCity: stepper1.pincodeCity,
+          stateList:stepper1.stateList,
+
       });
 
     }
@@ -1091,7 +1096,7 @@ export class BikeShriramProposalComponent implements OnInit {
         policySi: stepper3.policySi,
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
-        previousPolicyNcb:stepper3.previousPolicyNcb,
+        // previousPolicyNcb:stepper3.previousPolicyNcb,
         // policyClaim: stepper3.policyClaim,
         previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
           previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'y-MM-dd')
