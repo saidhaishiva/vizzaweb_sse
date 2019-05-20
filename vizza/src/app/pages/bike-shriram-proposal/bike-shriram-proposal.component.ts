@@ -905,7 +905,6 @@ export class BikeShriramProposalComponent implements OnInit {
           "geogrophicalExtensionCover": "false",
           "motorProposalObj": {
               "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
-              "start_date": this.previousInsure.controls['previousdob'].value,
               "InsuredPrefix": "1",
               "InsuredName": this.proposer.controls['name'].value,
               "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
