@@ -94,7 +94,7 @@ export class BikeInsuranceComponent implements OnInit {
             'enquiry': '',
             'model': '',
             'manufacture':'',
-            'bussinessType':'',
+            'bussiness':'',
             'ncb':'',
             'manufactureYear':'',
             'vehicleCC':'',
@@ -129,17 +129,16 @@ export class BikeInsuranceComponent implements OnInit {
       this.bussinessType();
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
-      this.route.params.forEach((params) => {
-          console.log(params.id);
-          this.productName = params.id;
-      });
       this.sessionData();
 
 
   }
-
     vehicalNum(){
         sessionStorage.vehicalnumber = this.bikeInsurance.controls['vehicalNumber'].value;
+    }
+    bussinessData(){
+        alert();
+        sessionStorage.bussiness = this.bikeInsurance.controls['bussiness'].value;
     }
     policyDate(){
         sessionStorage.registrationdate = this.datepipe.transform(this.bikeInsurance.controls['registrationDate'].value, 'y-MM-dd');
@@ -157,19 +156,19 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.previouspolicyStart = this.datepipe.transform(this.bikeInsurance.controls['previousPolicyStart'].value, 'y-MM-dd');
     }
 
-    // modelDetail(){
-    //     sessionStorage.model = this.bikeInsurance.controls['model'].value;
-    // }
-    // manufactureList(){
-    //     sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
-    // }
+    modelDetail(){
+        sessionStorage.model = this.bikeInsurance.controls['model'].value;
+    }
+    manufactureList(){
+        sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
+    }
     // bussinessDetails(){
-    //     sessionStorage.bussinessType = this.bikeInsurance.controls['bussinessType'].value;
+    //     sessionStorage.bussiness = this.bikeInsurance.controls['bussiness'].value;
     // }
     keyPress(){
-        sessionStorage.bussinessType = this.bikeInsurance.controls['bussinessType'].value;
-        sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
-        sessionStorage.model = this.bikeInsurance.controls['model'].value;
+        // sessionStorage.bussinessType = this.bikeInsurance.controls['bussinessType'].value;
+        // sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
+        // sessionStorage.model = this.bikeInsurance.controls['model'].value;
         sessionStorage.ncb = this.bikeInsurance.controls['ncb'].value;
         sessionStorage.vehicleCC = this.bikeInsurance.controls['vehicleCC'].value;
         sessionStorage.variant = this.bikeInsurance.controls['variant'].value;
@@ -252,10 +251,11 @@ export class BikeInsuranceComponent implements OnInit {
                 "previous_claim_YN":this.bikeInsurance.controls['previousClaim'].value == 'No' ? '0' : '1',
                 "previous_policy_expiry_date":this.bikeInsurance.controls['previousPolicyExpiry'].value ? this.bikeInsurance.controls['previousPolicyExpiry'].value : '',
                 "previous_policy_start_date":this.bikeInsurance.controls['previousPolicyStart'].value ? this.bikeInsurance.controls['previousPolicyStart'].value : '',
-                "business_type":this.bikeInsurance.controls['bussinessType'].value,
+                "business_type":this.bikeInsurance.controls['bussiness'].value,
                 "ncb_amount": this.bikeInsurance.controls['ncb'].value,
                 "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
             }
+            console.log(data,'data');
             this.bikeService.getMotorHomeDetails(data).subscribe(
                 (successData) => {
                         this.bikeDetailsSuccess(successData,data);
@@ -360,7 +360,9 @@ export class BikeInsuranceComponent implements OnInit {
             'manu_yr':this.bikeInsurance.controls['manufactureYear'].value,
             'vehicle_category':"2W",
             'ncb_amount':this.bikeInsurance.controls['ncb'].value,
-            'business_type': this.bikeInsurance.controls['bussinessType'].value,
+            'business_type': this.bikeInsurance.controls['bussiness'].value,
+            "previous_policy_start_date":this.bikeInsurance.controls['previousPolicyStart'].value ? this.bikeInsurance.controls['previousPolicyStart'].value : '',
+
         }
         this.bikeService.getEnquiryDetails(data).subscribe(
             (successData) => {
@@ -401,15 +403,13 @@ export class BikeInsuranceComponent implements OnInit {
     public manifactureSuccess(successData){
         if (successData.IsSuccess) {
             this.manifactureDetails = successData.ResponseObject;
-            this.modelList();
-            this.ccList();
-            this.variantList();
         }
     }
     public manifactureFailure(error) {
     }
     // model
-    modelList() {
+    modelList1() {
+        alert();
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -489,7 +489,7 @@ export class BikeInsuranceComponent implements OnInit {
     public ccFailure(error) {
     }
     typeOfBussiness(){
-        if(this.bikeInsurance.controls['bussinessType'].value == '1'){
+        if(this.bikeInsurance.controls['bussiness'].value == '1'){
             this.previousDate = true;
         } else {
             this.previousDate = false;
@@ -499,8 +499,8 @@ export class BikeInsuranceComponent implements OnInit {
     idValidate(event: any) {
         this.validation.idValidate(event);
     }
-    sessionData(){
-        if(sessionStorage.bikeEnquiryDetails != '' &&  sessionStorage.bikeEnquiryDetails != undefined) {
+    sessionData() {
+        if (sessionStorage.bikeEnquiryDetails != '' && sessionStorage.bikeEnquiryDetails != undefined) {
             let stepper = JSON.parse(sessionStorage.bikeEnquiryDetails);
             this.bikeInsurance = this.fb.group({
                 'vehicalNumber': stepper.vehicalNumber,
@@ -509,6 +509,7 @@ export class BikeInsuranceComponent implements OnInit {
                 'claimamount': stepper.claimamount,
                 'enquiry': stepper.enquiry,
                 'fuelType': stepper.fuelType,
+                'bussiness': stepper.bussiness,
                 'manufacture': stepper.manufacture,
                 'manufactureYear': stepper.manufactureYear,
                 'vehicleCC': stepper.vehicleCC,
@@ -518,8 +519,9 @@ export class BikeInsuranceComponent implements OnInit {
                 'previousPolicyStart': stepper.previousPolicyStart
             });
         }
-        if(sessionStorage.claimDetail != '' &&  sessionStorage.claimDetail != undefined){
-            this.claimAmountDetails =  sessionStorage.claimDetail;
+
+        if (sessionStorage.claimDetail != '' && sessionStorage.claimDetail != undefined) {
+            this.claimAmountDetails = sessionStorage.claimDetail;
         }
         if (sessionStorage.vehicalnumber != undefined && sessionStorage.vehicalnumber != '') {
             this.vehicalnumber = sessionStorage.vehicalnumber;
@@ -545,9 +547,10 @@ export class BikeInsuranceComponent implements OnInit {
             this.previousPolicyStart = sessionStorage.previousPolicyStart;
             this.bikeInsurance.controls['previousPolicyStart'].patchValue(this.previousPolicyStart);
         }
-        if (sessionStorage.bussinessType != undefined && sessionStorage.bussinessType != '') {
-            this.bussiness = sessionStorage.bussinessType;
-            this.bikeInsurance.controls['bussinessType'].patchValue(this.bussiness);
+        if (sessionStorage.bussiness != undefined && sessionStorage.bussiness != '') {
+            this.bussiness = sessionStorage.bussiness;
+            console.log(this.bussiness,'this.bussiness');
+            this.bikeInsurance.controls['bussiness'].patchValue(this.bussiness);
         }
         if (sessionStorage.manufacture != undefined && sessionStorage.manufacture != '') {
             this.manufactureDetails = sessionStorage.manufacture;
@@ -559,6 +562,7 @@ export class BikeInsuranceComponent implements OnInit {
         }
         if (sessionStorage.ncb != undefined && sessionStorage.ncb != '') {
             this.getNcb = sessionStorage.ncb;
+            console.log(this.getNcb,'  this.getNcb');
             this.bikeInsurance.controls['ncb'].patchValue(this.getNcb);
         }
         if (sessionStorage.vehicleCC != undefined && sessionStorage.vehicleCC != '') {
@@ -570,7 +574,7 @@ export class BikeInsuranceComponent implements OnInit {
             this.bikeInsurance.controls['variant'].patchValue(this.getvariant);
         }
         if (sessionStorage.chasissNumber != undefined && sessionStorage.chasissNumber != '') {
-            this.getccNumber = sessionStorage.variant;
+            this.getccNumber = sessionStorage.chasissNumber;
             this.bikeInsurance.controls['chasissNumber'].patchValue(this.getccNumber);
         }
     }

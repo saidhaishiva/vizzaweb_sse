@@ -398,32 +398,32 @@ export class BikeShriramProposalComponent implements OnInit {
  // SECOND STEPPER
 
     addonPackage() {
-        this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
+        // this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
 
-        // const data = {
-          //   'platform': 'web',
-          //   'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-          //   'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-          //   'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
-          //
-          // }
-          //       this.bikeInsurance.getAddonPackage(data).subscribe(
-          //           (successData) => {
-          //             this.addonPackageSuccess(successData);
-          //           },
-          //           (error) => {
-          //             this.addonPackageFailure(error);
-          //           }
-          //       );
-          //     }
-          //         public addonPackageSuccess(successData) {
-          //           if (successData.IsSuccess) {
-          //             this.addonPackagedm = successData.ResponseObject;
-          //
-          //             console.log(this.addonPackagedm, 'this.addonPackagedm');
-          //           }
-          //         }
-          //       public addonPackageFailure(error) {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+          }
+                this.bikeInsurance.getAddonPackage(data).subscribe(
+                    (successData) => {
+                      this.addonPackageSuccess(successData);
+                    },
+                    (error) => {
+                      this.addonPackageFailure(error);
+                    }
+                );
+              }
+                  public addonPackageSuccess(successData) {
+                    if (successData.IsSuccess) {
+                      this.addonPackagedm = successData.ResponseObject;
+
+                      console.log(this.addonPackagedm, 'this.addonPackagedm');
+                    }
+                  }
+                public addonPackageFailure(error) {
 
   }
           proposalType() {
