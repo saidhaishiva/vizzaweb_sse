@@ -339,7 +339,7 @@
                         <li class="list-group-item"><strong>Occupation:</strong> {{proposerFormData.occupationName}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatusName}}</li>
                         <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.personalIncome}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.personalGst != ''"><strong>GST No:</strong> {{proposerFormData.personalGst}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalGst != ''"><strong>GST No:</strong> {{proposerFormData.personalGst | uppercase}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.personalIsdn != ''"><strong>ISDN Number:</strong> {{proposerFormData.personalIsdn}}</li>
                       </ul>
                     </div>
