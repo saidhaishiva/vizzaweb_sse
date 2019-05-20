@@ -200,11 +200,11 @@
                                         </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Addon Package "  formControlName="addonPackage" (change)="addonPackage()" readonly   required autocomplete="off">
+                                                    <!--<input matInput placeholder="Addon Package "  formControlName="addonPackage" (change)="addonPackage()" readonly   required autocomplete="off">-->
 
-                                                    <!--<mat-select placeholder="Addon Package"  formControlName="addonPackage" (change)="addonPackage()" required>-->
-                                                        <!--<mat-option *ngFor="let addonPackagebk of addonPackagedm | keys " value="{{addonPackagebk.key}}" > {{addonPackagebk.value}} </mat-option>-->
-                                                    <!--</mat-select>-->
+                                                    <mat-select placeholder="Addon Package"  formControlName="addonPackage" (change)="addonPackage()" required>
+                                                        <mat-option *ngFor="let addonPackagebk of addonPackagedm | keys " value="{{addonPackagebk.key}}" > {{addonPackagebk.value}} </mat-option>
+                                                    </mat-select>
                                                     <mat-error *ngIf="vehical.controls.addonPackage.errors?.required">Addon Package is required</mat-error>
                                                 </mat-form-field>
                                             </div>
