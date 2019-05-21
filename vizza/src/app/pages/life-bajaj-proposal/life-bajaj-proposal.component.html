@@ -166,6 +166,7 @@
                           <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" required formControlName="panNum"  (keypress)="idValidate($event)" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.panNum.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
                           <mat-error *ngIf="proposer.controls.panNum.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+                          <mat-error *ngIf="proposer.controls.panNum.errors?.required">PAN Number is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -309,13 +310,6 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                         <mat-form-field class="w-100">
-                          <mat-placeholder >Spouse Birth Place <span class="error">*</span></mat-placeholder>
-                          <input matInput formControlName="spouseBirthPlace" maxlength="45" (keypress)="nameValidate($event)" autocomplete="off" >
-                          <mat-error *ngIf="proposer.controls.spouseBirthPlace.errors?.required">Spouse Birth Place is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
-                        <mat-form-field class="w-100">
                           <mat-placeholder >Spouse Name <span class="error">*</span></mat-placeholder>
                           <input matInput formControlName="spouseName" maxlength="45" autocomplete="off" (keypress)="nameValidate($event)" >
                           <mat-error *ngIf="proposer.controls.spouseName.errors?.required">Spouse Name is required</mat-error>
@@ -323,14 +317,21 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                         <mat-form-field class="w-100">
-                          <mat-placeholder >DOB (DD/MM/YYYY) <span class="error">*</span></mat-placeholder>
+                          <mat-placeholder >Spouse DOB (DD/MM/YYYY) <span class="error">*</span></mat-placeholder>
                           <input matInput [matDatepicker]="picker3" [max]="today" id="datepicker" (keypress)="dobValidate($event)"  formControlName="spouseDob" (dateInput)="addEventSpouse($event)" (dateChange)="addEventSpouse($event)" minlength="10" maxlength="10"
                                  autocomplete="off">
                           <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                           <mat-datepicker #picker3></mat-datepicker>
-                          <mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.spouseDob.errors?.required">Spouse DOB is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="spouseDobError != ''">{{spouseDobError}}</div>
+                      </div>
+                      <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
+                        <mat-form-field class="w-100">
+                          <mat-placeholder >Spouse Birth Place <span class="error">*</span></mat-placeholder>
+                          <input matInput formControlName="spouseBirthPlace" maxlength="45" (keypress)="nameValidate($event)" autocomplete="off" >
+                          <mat-error *ngIf="proposer.controls.spouseBirthPlace.errors?.required">Spouse Birth Place is required</mat-error>
+                        </mat-form-field>
                       </div>
                       <!--</div>-->
                     </div>
