@@ -485,10 +485,13 @@ export class LifeBajajProposalComponent implements OnInit {
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
-  addressValidate(event: any){
-    this.validation.passportIssue(event);
-
+  addressValidate(event: any) {
+    this.validation.addressValidate(event);
   }
+  // addressValidate(event: any){
+  //   this.validation.passportIssue(event);
+  //
+  // }
   ifscValidate(event: any) {
       if (event.charCode !== 0) {
           const pattern = /^[A-Za-z]{4}0[A-Z0-9]{6}$/;
@@ -1802,10 +1805,10 @@ samerelationShip(){
         "preferredLanguage": this.proposer.controls['language'].value,
         "proposer_type": this.proposer.controls['proposerType'].value,
         "documentLanguage": this.proposer.controls['language2'].value,
-        "lifeBenefit": this.enquiryFormData.lifePolicy,
-        "benefitTerm": this.enquiryFormData.lifeBenefitTerm,
-        "premiumPaymentTerm": "10",
-        "premiumFrequency": "12",
+        "lifeBenefit": '1',
+        "benefitTerm": this.enquiryFormData.lifePolicy,
+        "premiumPaymentTerm": this.enquiryFormData.lifeBenefitTerm,
+        "premiumFrequency": this.enquiryFormData.lifePayment,
         "nationality": this.proposer.controls['nationality'].value,
         "countryOfResidence": this.proposer.controls['countryOfResid'].value,
         "placeOfBirth": this.proposer.controls['pob'].value,
