@@ -701,12 +701,12 @@
                         </div>
                         <div class="row" *ngIf="showAppointee">
                           <div class="col-md-4">
-                            <mat-form-field class="w-100">
+                            <mat-form-field class="w-100" *ngIf="i ==0">
                               <mat-placeholder >Apointee Name </mat-placeholder>
                               <input matInput formControlName="aName" (keypress)="nameValidate($event)"  autocomplete="off">
                             </mat-form-field>
                           </div>
-                          <div class="col-md-4">
+                          <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
                               <mat-placeholder >Appointee DOB (DD/MM/YYYY)</mat-placeholder>
                               <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="appointeeDob" (dateInput)="addEventNominee($event,i ,'appointee')" (dateChange)="addEventNominee($event,i, 'appointee')" minlength="10" maxlength="10"
@@ -717,14 +717,14 @@
                             </mat-form-field>
                             <p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value}}</p>
                           </div>
-                          <div class="col-md-4">
+                          <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
                               <mat-placeholder >Appointee Relation To Nominee </mat-placeholder>
                               <input matInput formControlName="appointeeRelationToNominee" (keypress)="nameValidate($event)"   autocomplete="off">
                               <!--<mat-error *ngIf="apointeeDetails.controls.appointeeRelationToNominee.errors?.required">Appointee Relation To Nominee is required</mat-error>-->
                             </mat-form-field>
                           </div>
-                          <div class="col-md-4">
+                          <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
                               <mat-placeholder >Relation To Insured </mat-placeholder>
                               <mat-select formControlName="relationToInsured" class="w-100" (change)="changeNomineeRelation()">

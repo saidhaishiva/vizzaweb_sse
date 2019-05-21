@@ -200,11 +200,11 @@
                                         </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Addon Package "  formControlName="addonPackage" (change)="addonPackage()" readonly   required autocomplete="off">
+                                                    <!--<input matInput placeholder="Addon Package "  formControlName="addonPackage" (change)="addonPackage()" readonly   required autocomplete="off">-->
 
-                                                    <!--<mat-select placeholder="Addon Package"  formControlName="addonPackage" (change)="addonPackage()" required>-->
-                                                        <!--<mat-option *ngFor="let addonPackagebk of addonPackagedm | keys " value="{{addonPackagebk.key}}" > {{addonPackagebk.value}} </mat-option>-->
-                                                    <!--</mat-select>-->
+                                                    <mat-select placeholder="Addon Package"  formControlName="addonPackage" (change)="addonPackage()" required>
+                                                        <mat-option *ngFor="let addonPackagebk of addonPackagedm | keys " value="{{addonPackagebk.key}}" > {{addonPackagebk.value}} </mat-option>
+                                                    </mat-select>
                                                     <mat-error *ngIf="vehical.controls.addonPackage.errors?.required">Addon Package is required</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -429,7 +429,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy UW Year(YYYY)"  formControlName="policyUwYear" required  (keypress)="numberValidate($event)" maxlength="4" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy UW Year(YYYY)"  formControlName="policyUwYear" required  (keypress)="numberValidate($event)" (input)="uvYear()"  maxlength="4" autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policyUwYear.errors?.required">Previous Policy UW Year is required</mat-error>
 
                                                 </mat-form-field>
@@ -458,7 +458,7 @@
                                                     <mat-radio-button value="1">Yes</mat-radio-button>
                                                     <mat-radio-button value="0">No</mat-radio-button>
                                                 </mat-radio-group>
-                                                <mat-error *ngIf="previousInsure.controls.policyNilDescription.errors?.required">Previous Nil Description is required</mat-error>
+                                                <!--<mat-error *ngIf="previousInsure.controls.policyNilDescription.errors?.required">Previous Nil Description is required</mat-error>-->
 
                                             </div>
                                         </div>

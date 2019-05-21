@@ -178,7 +178,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     changeGender() {
         if (this.bajajProposal.controls['title'].value == 'Mr') {
             this.bajajProposal.controls['gender'].patchValue('Male');
-        } else {
+        } else if ( this.bajajProposal.controls['title'].value == 'Mrs') {
+            this.bajajProposal.controls['gender'].patchValue('Female');
+        }else{
             this.bajajProposal.controls['gender'].patchValue('Female');
         }
     }
@@ -252,14 +254,17 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         }
         if (sessionStorage.stepper2bajajDetails != '' && sessionStorage.stepper2bajajDetails != undefined){
             this.getStepper2 = JSON.parse(sessionStorage.stepper2bajajDetails);
-            for (let i = 0; i < this.getStepper2.length; i++) {
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2[i].assigneeName);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2[i].relation);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2[i].name);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.patchValue(this.getStepper2[i].passportNo);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2[i].sex);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2[i].idob, 'y-MM-dd'));
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2[i].age);
+            for (let i = 0; i < this.getStepper2.items.length; i++) {
+                if( i > 0 ){
+                    alert('3');
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2.items[i].assigneeName);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2.items[i].relation);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2.items[i].name);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.patchValue(this.getStepper2.items[i].passportNo);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2.items[i].sex);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2.items[i].idob, 'y-MM-dd'));
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2.items[i].age);
+                }
                 }
         }
 
@@ -354,11 +359,12 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     // create proposal
     createProposal(stepper, value,type) {
-        sessionStorage.stepper1bajajDetails = '';
-        sessionStorage.stepper1bajajDetails = JSON.stringify(value);
-        sessionStorage.stepper2bajajDetails = '';
-        sessionStorage.stepper2bajajDetails = JSON.stringify(value);
+        console.log(this.bajajProposal.controls['dob'].value,'dob valuee');
+        console.log(value,'value');
+
         if(this.getEnquiryDetails.travel_user_type == 'family') {
+            sessionStorage.stepper2bajajDetails = '';
+            sessionStorage.stepper2bajajDetails = JSON.stringify(value);
             this.insurerData = value;
             this.insuredDataArray = [];
             for (let i = 0; i < this.insurerData.items.length; i++) {
@@ -373,6 +379,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 });
             }
         } else{
+            sessionStorage.stepper1bajajDetails = '';
+            sessionStorage.stepper1bajajDetails = JSON.stringify(value);
             this.insuredDataArray = [''];
         }
         const data = {
@@ -427,13 +435,13 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         if(type =='insurer'){
             let ageValidate = [];
             for (let i = 0; i< this.insureReligarePerson.length; i++){
-                if ( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
+                if ( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value  == '') {
                     ageValidate.push(1);
                 } else{
                     ageValidate.push(0);
                 }
             }
-            if (this.bajajProposal.valid && this.bajajInsuredTravel.valid && !ageValidate.includes(1)) {
+            if (this.bajajProposal.valid && this.bajajInsuredTravel.valid && ageValidate.includes(1)) {
                     this.setting.loadingSpinner = true;
                     this.travelservice.getProposal(data).subscribe(
                         (successData) => {

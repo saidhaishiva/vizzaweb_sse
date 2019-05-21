@@ -261,6 +261,8 @@ export class BikeShriramProposalComponent implements OnInit {
           return age;
         }
 
+         // validation previous page
+
 
   // date input
 
@@ -398,32 +400,32 @@ export class BikeShriramProposalComponent implements OnInit {
  // SECOND STEPPER
 
     addonPackage() {
-        this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
+        // this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
 
-        // const data = {
-          //   'platform': 'web',
-          //   'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-          //   'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-          //   'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
-          //
-          // }
-          //       this.bikeInsurance.getAddonPackage(data).subscribe(
-          //           (successData) => {
-          //             this.addonPackageSuccess(successData);
-          //           },
-          //           (error) => {
-          //             this.addonPackageFailure(error);
-          //           }
-          //       );
-          //     }
-          //         public addonPackageSuccess(successData) {
-          //           if (successData.IsSuccess) {
-          //             this.addonPackagedm = successData.ResponseObject;
-          //
-          //             console.log(this.addonPackagedm, 'this.addonPackagedm');
-          //           }
-          //         }
-          //       public addonPackageFailure(error) {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+          }
+                this.bikeInsurance.getAddonPackage(data).subscribe(
+                    (successData) => {
+                      this.addonPackageSuccess(successData);
+                    },
+                    (error) => {
+                      this.addonPackageFailure(error);
+                    }
+                );
+              }
+                  public addonPackageSuccess(successData) {
+                    if (successData.IsSuccess) {
+                      this.addonPackagedm = successData.ResponseObject;
+
+                      console.log(this.addonPackagedm, 'this.addonPackagedm');
+                    }
+                  }
+                public addonPackageFailure(error) {
 
   }
           proposalType() {
@@ -713,8 +715,7 @@ export class BikeShriramProposalComponent implements OnInit {
               sessionStorage.stepper2 = JSON.stringify(value);
               if(this.vehical.valid){
                 stepper.next();
-                this.previousInsure.controls['previousdEndob'].patchValue(this.bikeEnquiryDetails.previouspolicyexpiry);
-                this.previousInsure.controls['previousdob'].patchValue(this.bikeEnquiryDetails.previouspolicyStart);
+
               }
           }
 
@@ -796,25 +797,51 @@ export class BikeShriramProposalComponent implements OnInit {
       }
       public previousInsureFailure(error) {
       }
- // date(){
- //     //    let ddd = this.previousInsure.controls['previousdob'].value;
- //     //    let ss = ddd.getFullYear();
- //     // console.log(ss);
- //
- //     let eee = this.previousInsure.controls['previousdEndob'].value;
- //     let oo = eee.getFullYear();
- //
- //     console.log(oo);
- // }
+
+    uvYear(){
+       if(this.previousInsure.controls['policyUwYear'].value > 2000){
+
+       }
+
+    }
   previousDetails(stepper: MatStepper, value){
         console.log(value,'vvvvvv');
           sessionStorage.stepper3 = '';
           sessionStorage.stepper3 = JSON.stringify(value);
+      let start =  this.datepipe.transform(new Date(value.previousdob), 'y-MM-dd');
+      console.log(start);
+      let end = this.datepipe.transform(new Date(value.previousdEndob), 'y-MM-dd');
+      console.log(end);
+      // const date1 = new Date(start);
+      // const date2 = new Date(end);
+      // const diffTime = Math.abs(date2.getFullYear() - date1.getFullYear());
+      // const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      // console.log(diffDays);
+      // const diffTimem = Math.abs(date2.getMonth() - date1.getMonth());
+      // const diffDaysm = Math.ceil(diffTimem / (1000 * 60 * 60 * 24));
+      // console.log(diffDaysm);
+      // const diffTimed = Math.abs(date2.getDate() - date1.getDate());
+      // const diffDaysd = Math.ceil(diffTimed / (1000 * 60 * 60 * 24));
+      // console.log(diffDaysd);
+      let today = new Date(start);
+      let birthDate = new Date(end);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let m = today.getMonth() - birthDate.getMonth();
+      let dd = today.getDate()- birthDate.getDate();
+      console.log(age);
+      console.log(m);
+      console.log(dd);
 
-          if(this.previousInsure.valid){
-              // this.previousInsure.controls['previousdEndob'].patchValue(this.enquiryFormData.previous_policy_expiry_date);
+
+      if(this.previousInsure.valid){
+          if(age == -1 && m == 0 && dd == 1){
               stepper.next();
           }
+          else{
+              this.toastr.error('Previous Policy Start Date and End Date between 1 years to allowed ')
+          }
+
+      }
         }
 //  fFOURTH sTEPPER (NOMINEE)
       ageNominee(){
