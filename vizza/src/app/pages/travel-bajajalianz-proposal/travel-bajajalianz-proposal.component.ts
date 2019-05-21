@@ -256,7 +256,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             this.getStepper2 = JSON.parse(sessionStorage.stepper2bajajDetails);
             for (let i = 0; i < this.getStepper2.items.length; i++) {
                 if( i > 0 ){
-                    alert('3');
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2.items[i].assigneeName);
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2.items[i].relation);
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2.items[i].name);
