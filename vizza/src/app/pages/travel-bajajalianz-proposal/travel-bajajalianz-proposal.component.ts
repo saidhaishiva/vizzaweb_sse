@@ -462,7 +462,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 let getProposerAgeDays = this.DobDaysCalculate(dob_days);
 
                 let ageValidStatus = true;
-                if(getProposerAgeDays > 150 && getProposerAgeDays < 25568){
+                if(getProposerAgeDays > 178 && getProposerAgeDays < 25929){
                     ageValidStatus = true;
                 } else{
                     ageValidStatus = false;
@@ -634,7 +634,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         if(this.getEnquiryDetails.travel_user_type == 'family'){
             console.log('in');
             console.log(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value,'valueeee');
-            if(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 150 && this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 25568) {
+            if(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 178 && this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 25929) {
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             } else {
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 5 months to 70 years');
