@@ -342,37 +342,37 @@
                           <div class="row">
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Door Number" formControlName="comDoorNo" maxlength="10" autocomplete="off" required (keypress)="idValidate($event);typeAddress($event);">
+                                <input matInput placeholder="Door Number" formControlName="comDoorNo" maxlength="10" autocomplete="off" required (keypress)="addressValidate($event);typeAddress($event);">
                                 <mat-error *ngIf="proposer.controls.comDoorNo.errors?.required">Door No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Building Number" formControlName="comBuildingNumber" maxlength="10" autocomplete="off" required (keypress)="idValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Building Number" formControlName="comBuildingNumber" maxlength="10" autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
                                 <mat-error *ngIf="proposer.controls.comBuildingNumber.errors?.required">Building No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Plot Number" formControlName="comPlotNumber" maxlength="10" autocomplete="off" required (keypress)="idValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Plot Number/Street name" formControlName="comPlotNumber" maxlength="10" autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
                                 <mat-error *ngIf="proposer.controls.comPlotNumber.errors?.required">Plot Number is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Place" formControlName="comPlace" autocomplete="off" required (keypress)="addressValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Place" formControlName="comPlace" autocomplete="off" required (keypress)="nameValidate($event);typeAddress($event)">
                                 <mat-error *ngIf="proposer.controls.comPlace.errors?.required">Land Mark is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-12">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Land Mark" formControlName="comLandmark" maxlength="50" autocomplete="off" required (keypress)="addressValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Land Mark" formControlName="comLandmark" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event);typeAddress($event)">
                                 <mat-error *ngIf="proposer.controls.comLandmark.errors?.required">Land Mark is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="District" formControlName="comDistrict" maxlength="50" autocomplete="off" required (keypress)="addressValidate($event);typeAddress($event)">
+                                <input matInput placeholder="District" formControlName="comDistrict" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event);typeAddress($event)">
                                 <mat-error *ngIf="proposer.controls.comDistrict.errors?.required">District is required</mat-error>
                               </mat-form-field>
                             </div>
@@ -406,37 +406,37 @@
                           <div class="row">
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Door Number" formControlName="perDoorNo" maxlength="10" autocomplete="off" required (keypress)="idValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Door Number" formControlName="perDoorNo" maxlength="10" autocomplete="off" required (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perDoorNo.errors?.required">Door No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Building Number" formControlName="perBuildingNumber" maxlength="10" autocomplete="off" required (keypress)="idValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Building Number" formControlName="perBuildingNumber" maxlength="10" autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perBuildingNumber.errors?.required">Building No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Plot Number" formControlName="perPlotNumber" maxlength="10" autocomplete="off" required (keypress)="idValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Plot Number/Street name" formControlName="perPlotNumber" maxlength="10" autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perPlotNumber.errors?.required">Plot No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Place" formControlName="perPlace"  autocomplete="off" required (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Place" formControlName="perPlace"  autocomplete="off" required (keypress)="nameValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perPlace.errors?.required">Place is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-12">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Land Mark" formControlName="perLandmark" maxlength="50" autocomplete="off" required (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Land Mark" formControlName="perLandmark" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perLandmark.errors?.required">Land Mark is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="District" formControlName="perDistrict" maxlength="50" autocomplete="off" required (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="District" formControlName="perDistrict" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perDistrict.errors?.required">District is required</mat-error>
                               </mat-form-field>
                             </div>
@@ -465,13 +465,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Department" formControlName="department"  maxlength="45" autocomplete="off" >
+                          <input matInput placeholder="Department" formControlName="department" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.department.errors?.required">Department is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Name" formControlName="officeName"  maxlength="45" autocomplete="off">
+                          <input matInput placeholder="Office Name" formControlName="officeName" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.officeName.errors?.required">Office Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -495,19 +495,19 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office District" formControlName="officeDistrict"  maxlength="50" autocomplete="off" >
+                          <input matInput placeholder="Office District" formControlName="officeDistrict"  (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" >
                           <mat-error *ngIf="proposer.controls.officeDistrict.errors?.required">Office Address3 is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office State" formControlName="officeState"  maxlength="45" autocomplete="off"  >
+                          <input matInput placeholder="Office State" formControlName="officeState"  (keypress)="nameValidate($event)" maxlength="45" autocomplete="off"  >
                           <mat-error *ngIf="proposer.controls.officeState.errors?.required">Office State is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Pincode"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="officePincode" autocomplete="off"   >
+                          <input matInput placeholder="Office Pincode"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'office')" formControlName="officePincode" autocomplete="off"   >
                           <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                           <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode Is Required</mat-error>
                           <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
