@@ -40,8 +40,8 @@
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Middle Name" formControlName="middlename" (keypress)="nameValidate($event)" required>
-                          <mat-error *ngIf="bajajProposal.controls.middlename.errors?.required">Middlename is required</mat-error>
+                          <input matInput placeholder="Middle Name" formControlName="middlename" (keypress)="nameValidate($event)" >
+<!--                          <mat-error *ngIf="bajajProposal.controls.middlename.errors?.required">Middlename is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
@@ -130,13 +130,13 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea #message maxlength="80" matInput placeholder="Street Name" rows="2" formControlName="streetName"  autocomplete="off" required></textarea>
+                          <input matInput matInput placeholder="Street Name" rows="2" formControlName="streetName"  autocomplete="off" required>
                           <mat-error *ngIf="bajajProposal.controls.streetName.errors?.required">streetname is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <textarea #message maxlength="80" matInput placeholder="Building Details" rows="2" formControlName="building"  autocomplete="off" required></textarea>
+                          <input matInput matInput placeholder="Building Details" rows="2" formControlName="building"  autocomplete="off" required>
                           <mat-error *ngIf="bajajProposal.controls.building.errors?.required">Building detail is required</mat-error>
                         </mat-form-field>
                       </div>
