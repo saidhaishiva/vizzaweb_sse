@@ -429,7 +429,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy UW Year(YYYY)"  formControlName="policyUwYear" required  (keypress)="numberValidate($event)" maxlength="4" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy UW Year(YYYY)"  formControlName="policyUwYear" required  (keypress)="numberValidate($event)" (input)="uvYear()"  maxlength="4" autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policyUwYear.errors?.required">Previous Policy UW Year is required</mat-error>
 
                                                 </mat-form-field>
