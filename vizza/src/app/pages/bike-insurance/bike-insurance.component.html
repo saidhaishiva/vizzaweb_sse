@@ -73,7 +73,7 @@
                 </mat-form-field>
                   <div *ngIf="listDetails">
                   <mat-form-field class="w-100">
-                      <input matInput placeholder="Chasiss Number" formControlName="chasissNumber" (keyup)="keyPress()" (keypress)="numberValidate($event)" required>
+                      <input matInput placeholder="Chasiss Number" formControlName="chasissNumber" (keyup)="keyPress()" maxlength= "17" (keypress)="numberValidate($event)" required>
                       <mat-error *ngIf="bikeInsurance.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
