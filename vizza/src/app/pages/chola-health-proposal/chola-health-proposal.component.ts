@@ -334,14 +334,14 @@ export class CholaHealthProposalComponent implements OnInit {
         console.log(type, 'type');
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value, 'days');
 
-        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Self') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Self')) {
-            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age between 18 to 55');
+        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Self') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 65 && type == 'Self')) {
+            this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Self age between 18 to 65');
         } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Self')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
 
-        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value < 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value > 55 && type == 'Spouse')) {
-           this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age between 18 to 55');
+        if ((this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value <= 18 && type == 'Spouse') || (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 65 && type == 'Spouse')) {
+           this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Spouse age between 18 to 65');
         } else if (this.insureArray['controls'].items['controls'][i]['controls'].ins_age.value >= 18 && type == 'Spouse')  {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
@@ -458,29 +458,35 @@ export class CholaHealthProposalComponent implements OnInit {
     console.log(this.insureArray.valid, 'this.valid');
 
     if (this.insureArray.valid) {
-        if ( this.insureArray['controls'].items['controls'][i]['controls'].preExistingDisease.value == 'Yes') {
-        this.toastr.error(' Sorry, PreExistingDisease are not allowed to purchase policy ');
-    } else {
-
-        this.insurerData = value.items;
-        console.log(this.insurerData, 'this.insurerData');
-        this.totalInsureDetails = [];
-        for (let i = 0; i < this.insurePersons.length; i++) {
-            this.totalInsureDetails.push({
-                'Title': this.insurerData[i].personalTitle,
-                'FirstName': this.insurerData[i].personalFirstname,
-                'LastName': this.insurerData[i].personalLastname,
-                'Gender': this.insurerData[i].personalGender,
-                'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
-                'Relationship': this.insurerData[i].personalrelationship,
-                'SumInsured': this.buyProductdetails.suminsured_amount,
-                'PreExistingDisease': this.insurerData[i].preExistingDisease
-            });
+            let pedValid = true;
+        for (let i= 0; i < this.insureArray.value.items.length; i++) {
+            if (this.insureArray['controls'].items['controls'][i]['controls'].preExistingDisease.value == 'Yes') {
+                pedValid = false;
+            }
         }
+        console.log(pedValid, 'pedValid');
+        if (pedValid) {
+            this.insurerData = value.items;
+            console.log(this.insurerData, 'this.insurerData');
+            this.totalInsureDetails = [];
+            for (let i = 0; i < this.insurePersons.length; i++) {
+                this.totalInsureDetails.push({
+                    'Title': this.insurerData[i].personalTitle,
+                    'FirstName': this.insurerData[i].personalFirstname,
+                    'LastName': this.insurerData[i].personalLastname,
+                    'Gender': this.insurerData[i].personalGender,
+                    'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
+                    'Relationship': this.insurerData[i].personalrelationship,
+                    'SumInsured': this.buyProductdetails.suminsured_amount,
+                    'PreExistingDisease': this.insurerData[i].preExistingDisease
+                });
+            }
             stepper.next();
             this.topScroll();
-
+        } else {
+            this.toastr.error(' Sorry, PreExistingDisease are not allowed to purchase policy ');
         }
+
 
 
 
