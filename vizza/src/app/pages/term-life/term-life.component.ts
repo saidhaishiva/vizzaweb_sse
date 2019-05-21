@@ -288,6 +288,8 @@ export class TermLifeComponent implements OnInit {
             sessionStorage.enquiryFromDetials = JSON.stringify(data);
             sessionStorage.getEnquiryDetials = JSON.stringify(successData.ResponseObject);
             this.router.navigate(['/life-premium-list']);
+        } else {
+            this.toastr.error(successData.ErrorObject);
         }
     }
     productListEnquiryFailure(error) {

@@ -705,10 +705,26 @@ export class TravelRelianceProposalComponent implements OnInit {
 
             if ((this.RiskData.riskIndian != '' || this.RiskData.riskIndian == true ) || (this.RiskData.riskIsOverSeasCitizen != '' || this.RiskData.riskIsOverSeasCitizen == true)){
 
-                if(this.RiskData.riskIsInsuredOnImmigrantVisa =='' || this.RiskData.riskIsTravelInvolvesSportingActivities =='' || this.RiskData.riskIsSufferingFromPEMC =='' || this.RiskData.riskPreExistDisease =='' || this.RiskData.riskIsVisitingUSACanada =='' || this.RiskData.riskIsVisitingStudent =='' || this.RiskData.riskMaxDaysPerTripFlag =='' ){
-                    this.toastr.error('Select all the risk details');
+                if(this.RiskData.riskIsInsuredOnImmigrantVisa !='' && this.RiskData.riskIsTravelInvolvesSportingActivities !='' && this.RiskData.riskIsSufferingFromPEMC !='' && this.RiskData.riskPreExistDisease !='' ){
+                   let validRiskField = true;
+                    if(this.getTravelPremiumList.product_code == '2837') {
+                       if(this.RiskData.riskMaxDaysPerTripFlag =='') {
+                           validRiskField = false;
+                       }
+                    } else if(this.travelUserType == true) {
+                        if(this.RiskData.riskIsVisitingStudent =='') {
+                            validRiskField = false;
+                        }
+                    }
+                    if(validRiskField) {
+                        this.proposal(stepper);
+
+                    } else {
+                        this.toastr.error('Select all the risk details');
+                    }
+
                 } else {
-                    this.proposal(stepper);
+                    this.toastr.error('Select all the risk details');
                 }
             } else {
                 this.toastr.error('select you are Indian Citizen or Overseas Citizen');
@@ -914,7 +930,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                 'SportsActivitiesID': this.RiskData.riskSportsActivities,
                 'IsSufferingFromPEMC': this.RiskData.riskIsSufferingFromPEMC.toString(),
                 'PreExistDiseaseID': this.RiskData.riskPreExistDiseaseValue.toString(),
-                'IsVisitingUSACanada': this.RiskData.riskIsVisitingUSACanada,
+                'IsVisitingUSACanada': this.getTravelPremiumList.isUSCanada,
                 'VisitingCountriesID': this.RiskData.riskVisitingCountries.toString(),
                 'JourneyStartDate': this.datepipe.transform(this.getEnquiryDetails.start_date, 'dd/MM/y'),
                 'JourneyEndDate': this.datepipe.transform(this.getEnquiryDetails.end_date, 'dd/MM/y'),
