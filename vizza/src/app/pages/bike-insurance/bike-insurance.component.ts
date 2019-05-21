@@ -513,6 +513,7 @@ export class BikeInsuranceComponent implements OnInit {
                 'vehicleCC': stepper.vehicleCC,
                 'variant': stepper.variant,
                 'chasissNumber': stepper.chasissNumber,
+                'ncb':stepper.ncb,
                 'previousPolicyExpiry': stepper.previousPolicyExpiry,
                 'previousPolicyStart': stepper.previousPolicyStart
             });
