@@ -454,7 +454,35 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 this.toastr.error('please enter all the fields');
 
             }
-        }else{
+        } else if (this.getEnquiryDetails.travel_user_type == 'student'){
+            if (this.bajajProposal.valid) {
+                let dob_days = '';
+                dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
+                let getProposerAgeDays = this.DobDaysCalculate(dob_days);
+                let ageValidStatus = true;
+                if(getProposerAgeDays > 5843 && getProposerAgeDays < 13146){
+                    ageValidStatus = true;
+                } else{
+                    ageValidStatus = false;
+                    this.toastr.error('student Age should be 16 years to 35 years');
+                }
+                if(ageValidStatus) {
+                    this.setting.loadingSpinner = true;
+                    this.travelservice.getProposal(data).subscribe(
+                        (successData) => {
+                            this.getProposalSuccess(successData,stepper);
+                        },
+                        (error) => {
+                            this.getProposalFailure(error);
+                        }
+                    );
+                }
+
+            } else {
+                this.toastr.error('please enter all the fields');
+
+            }
+        } else{
             if (this.bajajProposal.valid) {
                 let dob_days = '';
                 dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
