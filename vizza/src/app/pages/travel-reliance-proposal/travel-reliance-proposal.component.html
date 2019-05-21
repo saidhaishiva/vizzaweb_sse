@@ -993,39 +993,51 @@
                           * Is Indian Citizen
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle formControlName="riskIndian" (change)="riskDetailsChange($event,'india')"></mat-slide-toggle>
+                          <mat-radio-group formControlName="riskIndian" (change)="riskDetailsChange($event,'india')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle formControlName="riskIndian" (change)="riskDetailsChange($event,'india')"></mat-slide-toggle>-->
                         </div>
                       </div>
-                      <div class="row col-md-12">
+                      <div class="row col-md-12" *ngIf="riskDetails['controls'].riskIndian.value == false || riskDetails['controls'].riskIndian.value == 'false'">
                         <div class="col-md-8">
-                          * Is Over Seas Citizen
+                          * Is Overseas Citizen
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle  formControlName="riskIsOverSeasCitizen" (change)="riskDetailsChange($event,'overseas')"></mat-slide-toggle>
+<!--                          <mat-radio-group formControlName="riskIsOverSeasCitizen" (change)="riskDetailsChange($event,'overseas')">-->
+<!--                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>-->
+<!--                            <mat-radio-button value="false">No</mat-radio-button>-->
+<!--                          </mat-radio-group>-->
+<!--                          <mat-slide-toggle  formControlName="riskIsOverSeasCitizen" (change)="riskDetailsChange($event,'overseas')"></mat-slide-toggle>-->
                         </div>
                       </div>
-                      <div class="row col-md-12 ml-2" *ngIf="overseas">
+                      <div class="row col-md-12 ml-2" *ngIf="riskDetails['controls'].riskIndian.value !='' && riskDetails['controls'].riskIndian.value == 'false'">
                         <div class="col-md-8">
                           * Is Residing In India
                         </div>
-                        <div class="col-md-2 text-left">
-                          <mat-slide-toggle  formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')"></mat-slide-toggle>
+                        <div class="col-md-4 text-left">
+                          <mat-radio-group formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle  formControlName="riskIsResidingInIndia" (change)="riskDetailsChange($event,'residingIndia')"></mat-slide-toggle>-->
                         </div>
                         <div class="col-md-12" >
                           <mat-form-field class="w-100">
-                              <mat-placeholder >Permanent Residence Country Name <span class="error" *ngIf="riskDetails['controls'].riskIndian.value == false && riskDetails['controls'].riskIsResidingInIndia.value">*</span></mat-placeholder>
+                              <mat-placeholder >Permanent Residence Country Name <span class="error" *ngIf="riskDetails['controls'].riskIndian.value == 'false' && riskDetails['controls'].riskIsResidingInIndia.value == 'true'">*</span></mat-placeholder>
                               <input matInput formControlName="riskPermanentResidenceCountry" (keypress)="nameValidate($event)" autocomplete="off">
                           </mat-form-field >
                         </div>
                         <div class="col-md-12" >
                           <mat-form-field class="w-100">
-                              <mat-placeholder >OCI Number <span class="error" *ngIf="riskDetails['controls'].riskIndian.value == false && riskDetails['controls'].riskIsResidingInIndia.value">*</span></mat-placeholder>
+                              <mat-placeholder >OCI Number <span class="error" *ngIf="riskDetails['controls'].riskIndian.value == 'false' && riskDetails['controls'].riskIsResidingInIndia.value == 'true'">*</span></mat-placeholder>
                               <input matInput formControlName="riskOCINumber" (keypress)="idValidate($event)" autocomplete="off">
                           </mat-form-field>
                         </div>
                         <div class="col-md-12" >
                           <mat-form-field class="w-100">
-                              <mat-placeholder >Passport Issuing Country <span class="error" *ngIf="riskDetails['controls'].riskIndian.value == false && riskDetails['controls'].riskIsResidingInIndia.value == false">*</span></mat-placeholder>
+                              <mat-placeholder >Passport Issuing Country <span class="error" *ngIf="riskDetails['controls'].riskIndian.value == 'false' && riskDetails['controls'].riskIsResidingInIndia.value == 'false'">*</span></mat-placeholder>
                               <input matInput formControlName="riskPassportIssuingCountry"  (keypress)="passportIssueValidation($event)" autocomplete="off">
                           </mat-form-field>
                         </div>
@@ -1036,7 +1048,11 @@
                           <!--<span class="error">*</span>-->
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle  formControlName="riskIsInsuredOnImmigrantVisa" (change)="riskDetailsChange($event,'ImmigrantVisa')"></mat-slide-toggle>
+                          <mat-radio-group formControlName="riskIsInsuredOnImmigrantVisa" (change)="riskDetailsChange($event,'ImmigrantVisa')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle  formControlName="riskIsInsuredOnImmigrantVisa" (change)="riskDetailsChange($event,'ImmigrantVisa')"></mat-slide-toggle>-->
                         </div>
                       </div>
                       <div class="row col-md-12">
@@ -1045,12 +1061,17 @@
                           <!--<span class="error">*</span>-->
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle  formControlName="riskIsTravelInvolvesSportingActivities" (change)="riskDetailsChange($event,'TravelInvolvesSporting')"></mat-slide-toggle>
+                          <mat-radio-group formControlName="riskIsTravelInvolvesSportingActivities" (change)="riskDetailsChange($event,'TravelInvolvesSporting')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle  formControlName="riskIsTravelInvolvesSportingActivities" (change)="riskDetailsChange($event,'TravelInvolvesSporting')"></mat-slide-toggle>-->
                         </div>
-                        <div class="col-md-12" *ngIf="riskDetails['controls'].riskIsTravelInvolvesSportingActivities.value">
+                        <div class="col-md-12" *ngIf="riskDetails['controls'].riskIsTravelInvolvesSportingActivities.value == 'true'">
                           <div class="col-md-6">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Sports Name" formControlName="riskSportsActivities"  multiple required>
+                              <mat-placeholder >Sports Name <span class="error">*</span></mat-placeholder>
+                              <mat-select formControlName="riskSportsActivities"  multiple >
                                 <mat-option  *ngFor="let sports of SportsActivities"  value="{{sports.sportsactivity_id}}">{{sports.sportsactivity_name}}</mat-option>
                               </mat-select>
                             </mat-form-field>
@@ -1062,7 +1083,11 @@
                           * Is Suffering From Pre-Existing Medical Conditions
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle  formControlName="riskIsSufferingFromPEMC" (change)="riskDetailsChange($event,'IsSufferingFromPEMC')"></mat-slide-toggle>
+                          <mat-radio-group formControlName="riskIsSufferingFromPEMC" (change)="riskDetailsChange($event,'IsSufferingFromPEMC')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle  formControlName="riskIsSufferingFromPEMC" (change)="riskDetailsChange($event,'IsSufferingFromPEMC')"></mat-slide-toggle>-->
                         </div>
                       </div>
                       <div class="row col-md-12">
@@ -1070,13 +1095,17 @@
                           * Is Pre-Existing Disease
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle  formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')"></mat-slide-toggle>
+                          <mat-radio-group formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle  formControlName="riskPreExistDisease" (change)="riskDetailsChange($event,'PreExistDisease')"></mat-slide-toggle>-->
                         </div>
-                        <div class="col-md-12" *ngIf="riskDetails['controls'].riskPreExistDisease.value ">
+                        <div class="col-md-12" *ngIf="riskDetails['controls'].riskPreExistDisease.value == 'true' ">
                           <div class="col-md-6">
-
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Diseases" formControlName="riskPreExistDiseaseValue"  multiple required>
+                              <mat-placeholder >Diseases <span class="error">*</span></mat-placeholder>
+                              <mat-select formControlName="riskPreExistDiseaseValue"  multiple>
                                 <mat-option  *ngFor="let list of allPreExistingDiseases"  value="{{list.disease_id}}">{{list.disease_name}}</mat-option>
                               </mat-select>
                             </mat-form-field>
@@ -1088,7 +1117,11 @@
                           * Is Visiting USA Canada
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle  formControlName="riskIsVisitingUSACanada" (change)="riskDetailsChange($event,'IsVisitingUSACanada')"></mat-slide-toggle>
+                          <mat-radio-group formControlName="riskIsVisitingUSACanada" (change)="riskDetailsChange($event,'IsVisitingUSACanada')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle  formControlName="riskIsVisitingUSACanada" (change)="riskDetailsChange($event,'IsVisitingUSACanada')"></mat-slide-toggle>-->
                         </div>
                       </div>
 
@@ -1142,7 +1175,11 @@
                           <span>* Is Add On Cover Only Student </span>
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle formControlName="riskIsVisitingStudent" (change)="riskDetailsChange($event,'IsVisitingStudent')"></mat-slide-toggle>
+                          <mat-radio-group formControlName="riskIsVisitingStudent" (change)="riskDetailsChange($event,'IsVisitingStudent')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle formControlName="riskIsVisitingStudent" (change)="riskDetailsChange($event,'IsVisitingStudent')"></mat-slide-toggle>-->
                         </div>
                       </div>
                       <div class="row col-md-12" *ngIf="getTravelPremiumList.product_code == '2837'">
@@ -1150,9 +1187,13 @@
                           <span>* Is Annual Multi-trip Individual <span class="error">*</span> </span>
                         </div>
                         <div class="col-md-4 text-right">
-                          <mat-slide-toggle formControlName="riskMaxDaysPerTripFlag" (change)="riskDetailsChange($event,'IsMultitripIndividual')"></mat-slide-toggle>
+                          <mat-radio-group formControlName="riskMaxDaysPerTripFlag" (change)="riskDetailsChange($event,'IsMultitripIndividual')">
+                            <mat-radio-button value="true" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="false">No</mat-radio-button>
+                          </mat-radio-group>
+<!--                          <mat-slide-toggle formControlName="riskMaxDaysPerTripFlag" (change)="riskDetailsChange($event,'IsMultitripIndividual')"></mat-slide-toggle>-->
                         </div>
-                        <div class="col-md-6" *ngIf="riskDetails['controls'].riskMaxDaysPerTripFlag.value">
+                        <div class="col-md-6" *ngIf="riskDetails['controls'].riskMaxDaysPerTripFlag.value == 'true'">
 
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Enter The Maximum Days Per Trip" formControlName="riskMaxDaysPerTrip" >
