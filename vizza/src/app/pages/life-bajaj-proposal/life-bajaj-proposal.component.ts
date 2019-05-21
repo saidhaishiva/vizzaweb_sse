@@ -172,6 +172,7 @@ export class LifeBajajProposalComponent implements OnInit {
       weightChangedreason: '',
       weightChanged: '',
       weightChangedName: '',
+      weightChangedReasonName: '',
       aadharNum: '',
       spouseDob: '',
       maritalStatusName: '',
@@ -859,10 +860,25 @@ samerelationShip(){
           });
       }
       for (let i = 0; i < this.MainQuesList.length; i++) {
+        let details = [];
         for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
-            this.setQuestionDetails[i].detailAnswer = this.MainQuesList[i].SubQuesList[j].subQuestionText;
+            details.push(this.MainQuesList[i].SubQuesList[j].subQuestionText);
+          this.setQuestionDetails[i].detailAnswer = details.toString();
         }
+
       }
+      let subQuedtionValid = true;
+      for (let i = 0; i < this.MainQuesList.length; i++) {
+
+          if(this.MainQuesList[i].checked) {
+            for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
+              if(this.MainQuesList[i].SubQuesList[j].subQuestionText == '') {
+                subQuedtionValid = false;
+              }
+            }
+          }
+      }
+      console.log(subQuedtionValid, 'subQuedtionValid');
 
       console.log(this.setQuestionDetails,'setQuestionDetailssetQuestionDetails');
 
@@ -1659,7 +1675,7 @@ samerelationShip(){
 
 
   changeWeightChanged() {
-    this.proposer.controls['weightChangedName'].patchValue(this.weightList[this.proposer.controls['weightChanged'].value]);
+    this.proposer.controls['weightChangedReasonName'].patchValue(this.weightList[this.proposer.controls['weightChangedreason'].value]);
   }
 
   changeMarital() {
@@ -1967,6 +1983,7 @@ samerelationShip(){
         weightChanged: lifeBajaj1.weightChanged,
         weightChangedreason: lifeBajaj1.weightChangedreason,
         weightChangedName: lifeBajaj1.weightChangedName,
+        weightChangedReasonName: lifeBajaj1.weightChangedReasonName,
         countryOfResidName: lifeBajaj1.countryOfResidName,
         citizenshipName: lifeBajaj1.citizenshipName,
         aadharNum: lifeBajaj1.aadharNum,

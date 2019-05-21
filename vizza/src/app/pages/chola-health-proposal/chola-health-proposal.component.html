@@ -103,7 +103,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                           <input matInput placeholder="LandLine Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="personalLandlineno" autocomplete="off" >
-                          <mat-error *ngIf="personal.controls.personalLandlineno.hasError('minlength')">LandLine Number isn't long enough, minimum of 8 Digits</mat-error>
+                          <mat-error *ngIf="personal.controls.personalLandlineno.hasError('minlength')">LandLine Number isn't long enough, maximum of 8 Digits</mat-error>
                         </mat-form-field>
                         </div>
                         <div class="col-md-3">

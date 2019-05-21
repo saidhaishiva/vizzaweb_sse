@@ -200,11 +200,11 @@
                                         </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <!--<input matInput placeholder="Addon Package "  formControlName="addonPackage" (change)="addonPackage()" readonly   required autocomplete="off">-->
+                                                    <input matInput placeholder="Addon Package "  formControlName="addonPackage"  readonly   required autocomplete="off">
 
-                                                    <mat-select placeholder="Addon Package"  formControlName="addonPackage" (change)="addonPackage()" required>
-                                                        <mat-option *ngFor="let addonPackagebk of addonPackagedm | keys " value="{{addonPackagebk.key}}" > {{addonPackagebk.value}} </mat-option>
-                                                    </mat-select>
+                                                    <!--<mat-select placeholder="Addon Package"  formControlName="addonPackage" (change)="addonPackage()" required>-->
+                                                        <!--<mat-option *ngFor="let addonPackagebk of addonPackagedm | keys " value="{{addonPackagebk.key}}" > {{addonPackagebk.value}} </mat-option>-->
+                                                    <!--</mat-select>-->
                                                     <mat-error *ngIf="vehical.controls.addonPackage.errors?.required">Addon Package is required</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -429,8 +429,9 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy UW Year(YYYY)"  formControlName="policyUwYear" required  (keypress)="numberValidate($event)" (input)="uvYear()"  maxlength="4" autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy UW Year(YYYY)"  formControlName="policyUwYear" required  (keypress)="numberValidate($event)"   maxlength="4" autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policyUwYear.errors?.required">Previous Policy UW Year is required</mat-error>
+                                                    <mat-error *ngIf="previousInsure.controls.policyUwYear.hasError('pattern')">Enter Valid Previous Policy UW Year</mat-error>
 
                                                 </mat-form-field>
                                             </div>
@@ -580,7 +581,8 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Gender:</strong><span *ngIf="proposerFormData.gender == 'M'">Male</span><span *ngIf="proposerFormData.gender == 'F'">Female</span></li>
+                                            <!--<li class="list-group-item"><strong>Gender:</strong><span *ngIf="proposerFormData.gender == 'M'">Male</span><span *ngIf="proposerFormData.gender == 'F'">Female</span></li>-->
+                                            <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Number:</strong> {{proposerFormData.alterMobile}}</li>
                                             <li class="list-group-item" ><strong> PAN Number :</strong> {{proposerFormData.pan  | uppercase }}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>GST Number:</strong> {{proposerFormData.gst  | uppercase}}</li>
