@@ -398,10 +398,10 @@ export class TravelPremiumListComponent implements OnInit {
         return Math.floor(diff / 86400000);
     }
     // view key features details
-    viewKeyList(value, type) {
+    viewKeyList(value) {
         console.log(value, 'valuevaluevaluevalue');
         let dialogRef = this.dialog.open(TravelViewKeyFeaturesComponent, {
-            width: '1500px', data:{ planName: value.plan_name, type: type, product_id: value.product_id }
+            width: '1500px', data:{ planName: value.plan_name, type: value.travel_user_type, product_id: value.product_id }
         });
         dialogRef.disableClose = true;
 
@@ -458,7 +458,9 @@ export class TravelPremiumListComponent implements OnInit {
             'product_lists': this.productLists,
             'created_by': 0,
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+
 
         };
         this.settings.loadingSpinner = true;

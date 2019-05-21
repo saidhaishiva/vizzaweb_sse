@@ -119,7 +119,7 @@
                           </mat-form-field>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-12 mt-4">
                           <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                         </div>
 
@@ -185,35 +185,35 @@
                           <!--<mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure(i)" ><strong>Same as proposer</strong></mat-checkbox>-->
                         <!--</div>-->
                         <div class="row">
-                          <div class="col-md-4" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value ? 'none' : ''}" *ngIf="i == 0">
-                            <mat-form-field class="w-100">
-                              <mat-select  placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender()"   class="w-100" required>
+                          <div class="col-md-4" >
+                            <mat-form-field class="w-100" [ngStyle]="{'pointer-events': i == 0 ? 'none' : ''}">
+                              <mat-select  placeholder="Title" formControlName="personalTitle" (change)="insureChangeGender(i)"   class="w-100" required >
                                 <mat-option *ngFor="let Title of genderTitleList | keys" [value]= Title.key> {{Title.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                             </mat-form-field>
                           </div>
                          <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off"  required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}" >
+                            <mat-form-field class="w-100" [ngStyle]="{'pointer-events': i == 0  ? 'none' : ''}">
+                              <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameValidate($event)" autocomplete="off"   required  >
                               <mat-error *ngIf="insureArray.invalid">First Name is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off" required readonly="{{insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value}}" >
+                            <mat-form-field class="w-100" [ngStyle]="{'pointer-events': i == 0 ? 'none' : ''}">
+                              <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)" autocomplete="off"  required  >
                               <mat-error *ngIf="insureArray.invalid">Last Name is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
-                            <mat-form-field class="w-100">
-                              <input matInput placeholder="Gender" formControlName="personalGender" [required]="i == 0" readonly autocomplete="off">
+                            <mat-form-field class="w-100" >
+                              <input matInput placeholder="Gender" formControlName="personalGender" required readonly autocomplete="off">
                               <mat-error *ngIf="insureArray.invalid">Gender is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
-                            <mat-form-field class="w-100" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameAsProposer.value && i == 0 ? 'none' : ''}">
-                              <input matInput [max]="minDate" [matDatepicker]="picker1" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,insureArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required >
+                            <mat-form-field class="w-100" [ngStyle]="{'pointer-events':  i == 0 ? 'none' : ''}">
+                              <input matInput [max]="minDate" [matDatepicker]="picker1" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEventInsurer($event, i, insureArray['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,insureArray['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off"   required >
                               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                               <mat-datepicker #picker1></mat-datepicker>
                               <!--<mat-error *ngIf="insureArray.invalid">Date is required</mat-error>-->
@@ -223,8 +223,8 @@
                           </div>
 
                           <div class="col-md-4">
-                            <mat-form-field class="w-100"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
-                              <mat-select placeholder="Relationship with Proposer" (change)="changeRelationShipList(i)" formControlName="personalrelationship"   required >
+                            <mat-form-field class="w-100"  [ngStyle]="{'pointer-events':  i == 0 ? 'none' : ''}">
+                              <mat-select placeholder="Relationship with Proposer" (change)="changeRelationShipList(i)" formControlName="personalrelationship"  required  >
                                 <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
@@ -350,7 +350,7 @@
                       <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.personalAddress}}</li>
-                        <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.personalAddress2 != ''" ><strong>Address 2:</strong> {{proposerFormData.personalAddress2}}</li>
                         <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.personalPincode}}</li>
 
                       </ul>
