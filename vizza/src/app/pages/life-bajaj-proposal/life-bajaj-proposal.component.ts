@@ -172,6 +172,7 @@ export class LifeBajajProposalComponent implements OnInit {
       weightChangedreason: '',
       weightChanged: '',
       weightChangedName: '',
+      weightChangedReasonName: '',
       aadharNum: '',
       spouseDob: '',
       maritalStatusName: '',
@@ -484,10 +485,13 @@ export class LifeBajajProposalComponent implements OnInit {
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
-  addressValidate(event: any){
-    this.validation.passportIssue(event);
-
+  addressValidate(event: any) {
+    this.validation.addressValidate(event);
   }
+  // addressValidate(event: any){
+  //   this.validation.passportIssue(event);
+  //
+  // }
   ifscValidate(event: any) {
       if (event.charCode !== 0) {
           const pattern = /^[A-Za-z]{4}0[A-Z0-9]{6}$/;
@@ -859,10 +863,25 @@ samerelationShip(){
           });
       }
       for (let i = 0; i < this.MainQuesList.length; i++) {
+        let details = [];
         for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
-            this.setQuestionDetails[i].detailAnswer = this.MainQuesList[i].SubQuesList[j].subQuestionText;
+            details.push(this.MainQuesList[i].SubQuesList[j].subQuestionText);
+          this.setQuestionDetails[i].detailAnswer = details.toString();
         }
+
       }
+      let subQuedtionValid = true;
+      for (let i = 0; i < this.MainQuesList.length; i++) {
+
+          if(this.MainQuesList[i].checked) {
+            for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
+              if(this.MainQuesList[i].SubQuesList[j].subQuestionText == '') {
+                subQuedtionValid = false;
+              }
+            }
+          }
+      }
+      console.log(subQuedtionValid, 'subQuedtionValid');
 
       console.log(this.setQuestionDetails,'setQuestionDetailssetQuestionDetails');
 
@@ -1659,7 +1678,7 @@ samerelationShip(){
 
 
   changeWeightChanged() {
-    this.proposer.controls['weightChangedName'].patchValue(this.weightList[this.proposer.controls['weightChanged'].value]);
+    this.proposer.controls['weightChangedReasonName'].patchValue(this.weightList[this.proposer.controls['weightChangedreason'].value]);
   }
 
   changeMarital() {
@@ -1786,10 +1805,10 @@ samerelationShip(){
         "preferredLanguage": this.proposer.controls['language'].value,
         "proposer_type": this.proposer.controls['proposerType'].value,
         "documentLanguage": this.proposer.controls['language2'].value,
-        "lifeBenefit": this.enquiryFormData.lifePolicy,
-        "benefitTerm": this.enquiryFormData.lifeBenefitTerm,
-        "premiumPaymentTerm": "10",
-        "premiumFrequency": "12",
+        "lifeBenefit": '1',
+        "benefitTerm": this.enquiryFormData.lifePolicy,
+        "premiumPaymentTerm": this.enquiryFormData.lifeBenefitTerm,
+        "premiumFrequency": this.enquiryFormData.lifePayment,
         "nationality": this.proposer.controls['nationality'].value,
         "countryOfResidence": this.proposer.controls['countryOfResid'].value,
         "placeOfBirth": this.proposer.controls['pob'].value,
@@ -1967,6 +1986,7 @@ samerelationShip(){
         weightChanged: lifeBajaj1.weightChanged,
         weightChangedreason: lifeBajaj1.weightChangedreason,
         weightChangedName: lifeBajaj1.weightChangedName,
+        weightChangedReasonName: lifeBajaj1.weightChangedReasonName,
         countryOfResidName: lifeBajaj1.countryOfResidName,
         citizenshipName: lifeBajaj1.citizenshipName,
         aadharNum: lifeBajaj1.aadharNum,
