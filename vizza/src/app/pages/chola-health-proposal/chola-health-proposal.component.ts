@@ -260,7 +260,7 @@ export class CholaHealthProposalComponent implements OnInit {
         console.log(selectedDate, 'selectedDate');
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
-          if (type == 'personal') {
+          if (type == 'proposer') {
             this.personalAge = this.ageCalculate(dob);
             sessionStorage.personalAge = this.personalAge;
           } else if (type == 'sDate') {
@@ -271,7 +271,7 @@ export class CholaHealthProposalComponent implements OnInit {
       } else if (typeof event.value._i == 'object') {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
-          if (type == 'personal') {
+          if (type == 'proposer') {
             this.personalAge = this.ageCalculate(dob);
             sessionStorage.personalAge = this.personalAge;
           }
@@ -443,7 +443,7 @@ export class CholaHealthProposalComponent implements OnInit {
       console.log(this.personal, 'this.personal');
     if (this.personal.valid) {
        if (sessionStorage.personalAge >= 18) {
-           if (this.mobileNumber == '' || this.mobileNumber == 'true') {
+          if (this.mobileNumber == '' || this.mobileNumber == 'true') {
              this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
              this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
              this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
