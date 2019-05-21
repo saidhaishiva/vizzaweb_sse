@@ -137,7 +137,6 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.vehicalnumber = this.bikeInsurance.controls['vehicalNumber'].value;
     }
     bussinessData(){
-        alert();
         sessionStorage.bussiness = this.bikeInsurance.controls['bussiness'].value;
     }
     policyDate(){
@@ -162,14 +161,13 @@ export class BikeInsuranceComponent implements OnInit {
     manufactureList(){
         sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
     }
-    // bussinessDetails(){
-    //     sessionStorage.bussiness = this.bikeInsurance.controls['bussiness'].value;
-    // }
+    ncb(){
+        sessionStorage.ncb = this.bikeInsurance.controls['ncb'].value;
+    }
     keyPress(){
         // sessionStorage.bussinessType = this.bikeInsurance.controls['bussinessType'].value;
         // sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
         // sessionStorage.model = this.bikeInsurance.controls['model'].value;
-        sessionStorage.ncb = this.bikeInsurance.controls['ncb'].value;
         sessionStorage.vehicleCC = this.bikeInsurance.controls['vehicleCC'].value;
         sessionStorage.variant = this.bikeInsurance.controls['variant'].value;
         sessionStorage.chasissNumber = this.bikeInsurance.controls['chasissNumber'].value;
