@@ -85,6 +85,9 @@ export class CholaHealthProposalComponent implements OnInit {
   public declaration: boolean;
   public totalPermiumlist: any;
   public webhost: any;
+
+  public relationsame1: any;
+
   constructor(public fb: FormBuilder, public authservice: AuthService, public config: ConfigurationService, public appSettings: AppSettings, public http: HttpClient, public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, public termService: HealthService, private toastr: ToastrService ) {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -198,6 +201,9 @@ export class CholaHealthProposalComponent implements OnInit {
   // Number validation
   numberValidate(event: any) {
     this.validation.numberValidate(event);
+  }
+  heightValidate(event: any) {
+     this.validation.heightValidate(event);
   }
   idValidate(event: any) {
     this.validation.idValidate(event);
@@ -402,6 +408,7 @@ export class CholaHealthProposalComponent implements OnInit {
   // insured page
   changeRelationShipList(index) {
     this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.patchValue(this.relationshipList[this.insureArray['controls'].items['controls'][index]['controls'].personalrelationship.value]);
+ this.relationsame1 = this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.value
   }
 
 

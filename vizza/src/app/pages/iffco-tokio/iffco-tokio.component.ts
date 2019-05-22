@@ -884,7 +884,7 @@ export class IffcoTokioComponent implements OnInit {
             'group_name':this.getFamilyDetails.name,
             'company_name': 'Iffco-Tokiyo',
             'Policy': {
-                'Product': this.buyProductdetails.product_name == 'IFFCO-TOKIO(FAMILY HEALTH PROTECTOR) Individual' ? 'FHP' : 'IHP',
+                'Product': this.buyProductdetails.product_name == 'Family Health Protector Individual' ? 'FHP' : 'IHP',
                 'GrossPremium': this.buyProductdetails.base_premium,
                 'NetPremiumPayable': this.buyProductdetails.service_tax,
                 'ServiceTax': this.buyProductdetails.total_premium,
@@ -949,12 +949,10 @@ export class IffcoTokioComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData, 'this.summaryData');
-            this.policy =  this.summaryData.XML_DATA.Request.Policy;
+            // this.policy =  this.summaryData.XML_DATA.Request.Policy;
             this.xmlData =  this.summaryData.XML_DATA;
             this.xmlString = this.objectToXml(this.xmlData);
 
-            console.log(this.xmlData,'xmlData');
-            console.log(this.xmlString,'xmlString');
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
             this.proposalId = this.summaryData.UNIQUE_QUOTEID;
