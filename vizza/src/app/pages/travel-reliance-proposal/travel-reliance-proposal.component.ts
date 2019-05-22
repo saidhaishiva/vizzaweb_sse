@@ -341,51 +341,51 @@ export class TravelRelianceProposalComponent implements OnInit {
         });
 
         this.riskDetails = this.fb.group({
-            riskIndian: true,
-            riskIsOverSeasCitizen: false,
-            riskIsResidingInIndia: false,
+            riskIndian: '',
+            riskIsOverSeasCitizen: '',
+            riskIsResidingInIndia: '',
             riskPermanentResidenceCountry: '',
             riskOCINumber: '',
             riskPassportIssuingCountry: '',
-            riskIsInsuredOnImmigrantVisa: false,
-            riskIsTravelInvolvesSportingActivities: false,
+            riskIsInsuredOnImmigrantVisa: '',
+            riskIsTravelInvolvesSportingActivities: '',
             riskSportsActivities: '',
             riskSportsActivitiesName: '',
-            riskIsSufferingFromPEMC: false,
-            riskPreExistDisease: false,
+            riskIsSufferingFromPEMC: '',
+            riskPreExistDisease: '',
             riskPreExistDiseaseValue: '',
             riskPreExistDiseaseName: '',
-            riskIsVisitingUSACanada: false,
+            riskIsVisitingUSACanada: '',
             riskVisitingCountries: '',
             riskVisitingCountriesName: '',
             riskCoverageType: '',
             riskCoverageTypeName: '',
-            riskIsVisitingStudent: false,
+            riskIsVisitingStudent: '',
             riskMaxDaysPerTrip: '',
             riskNoOfYears: '',
-            riskSeniorCitizen: false,
+            riskSeniorCitizen: '',
             riskSeniorCitizenPlanID: '',
             TravelStandardLimited: '',
             riskSeniorCitizenPlanIDName: '',
             TravelCoverageName:'',
             TravelCoverageDisplayName: '',
-            TravelStandardLimitedPlan: false,
+            TravelStandardLimitedPlan: '',
             TravelStandardDeductiblePlan:'',
-            TravelIsSilverPlan: false,
+            TravelIsSilverPlan: '',
             TravelSilverPlan: '',
-            TravelIsGoldPlan: false,
+            TravelIsGoldPlan: '',
             TravelGoldPlan: '',
-            TravelIsPlatinumPlan: false,
+            TravelIsPlatinumPlan: '',
             TravelPlatinumPlan: '',
-            TravelIsBasicPlan: false,
+            TravelIsBasicPlan: '',
             TravelBasicPlan: '',
-            TravelIsElitePlan: false,
+            TravelIsElitePlan: '',
             TravelElitePlan: '',
-            TravelIsPlusPlan: false,
-            riskMaxDaysPerTripFlag: false,
+            TravelIsPlusPlan: '',
+            riskMaxDaysPerTripFlag: '',
             TravelPlusPlan: '',
             riskVisitingCountryName: '',
-            TravelCoverageTrue: false,
+            TravelCoverageTrue: '',
 
             // TravelIsAllPlan:'',
 
@@ -702,23 +702,32 @@ export class TravelRelianceProposalComponent implements OnInit {
         sessionStorage.stepper3Details = '';
         sessionStorage.stepper3Details = JSON.stringify(value);
         if (this.riskDetails.valid) {
-            if (this.RiskData.riskIndian == true || this.RiskData.riskIsOverSeasCitizen == true){
-                // let passportCountryValid = true;
-                // if(this.riskDetails['controls'].riskIndian.value == false && this.riskDetails['controls'].riskIsResidingInIndia.value) {
-                //     if(this.riskDetails['controls'].riskPassportIssuingCountry.value == '') {
-                //         passportCountryValid = false;
-                //     }
-                // }
-                // if(passportCountryValid) {
-                //     this.lastStepper = stepper;
-                //     this.proposal(stepper);
-                // } else {
-                //     this.toastr.error('Please Enter Passport Issuing Country');
-                // }
-                this.proposal(stepper);
 
+            if ((this.RiskData.riskIndian != '' || this.RiskData.riskIndian == true ) || (this.RiskData.riskIsOverSeasCitizen != '' || this.RiskData.riskIsOverSeasCitizen == true)){
+
+                if(this.RiskData.riskIsInsuredOnImmigrantVisa !='' && this.RiskData.riskIsTravelInvolvesSportingActivities !='' && this.RiskData.riskIsSufferingFromPEMC !='' && this.RiskData.riskPreExistDisease !='' ){
+                   let validRiskField = true;
+                    if(this.getTravelPremiumList.product_code == '2837') {
+                       if(this.RiskData.riskMaxDaysPerTripFlag =='') {
+                           validRiskField = false;
+                       }
+                    } else if(this.travelUserType == true) {
+                        if(this.RiskData.riskIsVisitingStudent =='') {
+                            validRiskField = false;
+                        }
+                    }
+                    if(validRiskField) {
+                        this.proposal(stepper);
+
+                    } else {
+                        this.toastr.error('Select all the risk details');
+                    }
+
+                } else {
+                    this.toastr.error('Select all the risk details');
+                }
             } else {
-                this.toastr.error('select you are Indian Citizen or Over Seas Citizen');
+                this.toastr.error('select you are Indian Citizen or Overseas Citizen');
             }
         }
     }
@@ -921,7 +930,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                 'SportsActivitiesID': this.RiskData.riskSportsActivities,
                 'IsSufferingFromPEMC': this.RiskData.riskIsSufferingFromPEMC.toString(),
                 'PreExistDiseaseID': this.RiskData.riskPreExistDiseaseValue.toString(),
-                'IsVisitingUSACanada': this.RiskData.riskIsVisitingUSACanada,
+                'IsVisitingUSACanada': this.getTravelPremiumList.isUSCanada,
                 'VisitingCountriesID': this.RiskData.riskVisitingCountries.toString(),
                 'JourneyStartDate': this.datepipe.transform(this.getEnquiryDetails.start_date, 'dd/MM/y'),
                 'JourneyEndDate': this.datepipe.transform(this.getEnquiryDetails.end_date, 'dd/MM/y'),
@@ -2333,147 +2342,148 @@ export class TravelRelianceProposalComponent implements OnInit {
     }
     riskDetailsChange(value: any, title) {
         if (title == 'india') {
-            if (value.checked == true) {
-                this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue(false);
+            if (this.riskDetails['controls'].riskIndian.value == 'true') {
+                this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue('false');
                 this.riskDetails['controls'].riskIsResidingInIndia.patchValue('');
                 this.overseas = false;
-            } else if (value.checked == false) {
-                this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue(true);
-                this.riskDetails['controls'].riskIsResidingInIndia.patchValue(false);
+            } else if (this.riskDetails['controls'].riskIndian.value == 'false') {
+                this.riskDetails['controls'].riskIsOverSeasCitizen.patchValue('true');
+                this.riskDetails['controls'].riskIsResidingInIndia.patchValue('');
                 this.overseas = true;
             }
 
         }
+        console.log(this.riskDetails['controls'].riskIndian.value,'riskIndian.');
         console.log(this.riskDetails['controls'].riskIsOverSeasCitizen.value,'riskIsOverSeasCitizen.');
         if (title == 'overseas') {
-            if (value.checked == true) {
-                this.riskDetails['controls'].riskIndian.patchValue(false);
+            if (this.riskDetails['controls'].riskIsOverSeasCitizen.value == 'true') {
+                this.riskDetails['controls'].riskIndian.patchValue('false');
                 this.overseas = true;
-            } else if (value.checked == false) {
-                this.riskDetails['controls'].riskIndian.patchValue(true);
+            } else if (this.riskDetails['controls'].riskIsOverSeasCitizen.value == 'false') {
+                this.riskDetails['controls'].riskIndian.patchValue('true');
                 this.overseas = false;
             }
         }
-        if (title == 'residingIndia') {
-            if (value.checked == true) {
-                this.riskIsResidingInIndiaTrue = true;
-            } else if (value.checked == false) {
-                this.riskIsResidingInIndiaTrue = false;
-                this.riskDetails['controls'].riskPassportIssuingCountry.patchValue('');
-                this.riskDetails['controls'].riskPassportIssuingCountry.patchValue(null);
-            }
-        }
-        if (title == 'ImmigrantVisa') {
-            if (value.checked == true) {
-            } else if (value.checked == false) {
-            }
-        }
-        if (title == 'IsSufferingFromPEMC') {
-            if (value.checked == true) {
-            } else if (value.checked == false) {
-            }
-        }
-        if (title == 'PreExistDisease') {
-            if (value.checked == true) {
-            } else if (value.checked == false) {
-            }
-        }
-        if (title == 'TravelInvolvesSporting') {
-            if (value.checked == true) {
-                this.riskSportsActivitiesTrue = true;
-            } else if (value.checked == false) {
-                this.riskSportsActivitiesTrue = false;
-            }
-        }
-        if (title == 'IsVisitingUSACanada') {
-            if (value.checked == true) {
-                this.VisitingListTure = true;
-            } else if (value.checked == false) {
-                this.VisitingListTure = false;
-            }
-        }
-        if (title == 'IsVisitingFamily') {
-            if (value.checked == true) {
-                this.riskCoverageTypeTrue = true;
-            } else if (value.checked == false) {
-                this.riskCoverageTypeTrue = false;
-            }
-        }
-        if (title == 'IsVisitingStudent') {
-            if (value.checked == true) {
-            } else if (value.checked == false) {
-            }
-        }
-        if (title == 'IsMultitripIndividual') {
-            if (value.checked == true) {
-                this.riskMaxDaysPerTripTrue = true;
-            } else if (value.checked == false) {
-                this.riskMaxDaysPerTripTrue = false;
-            }
-        }
-        if (title == 'IsSeniorCitizen') {
-            if (value.checked == true) {
-                this.riskSeniorCitizenTrue = true;
-            } else if (value.checked == false) {
-                this.riskSeniorCitizenTrue = false;
-            }
-        }
-        if (title == 'TravelCoverage') {
-            if (value.checked == true) {
-                this.TravelCoverageTrue = true;
-            } else if (value.checked == false) {
-                this.TravelCoverageTrue = false;
-            }
-        }
-        if (title == 'TravelStandardLimit') {
-            if (value.checked == true) {
-                this.TravelStandardLimitTrue = true;
-            } else if (value.checked == false) {
-                this.TravelStandardLimitTrue = false;
-            }
-        }
-        if (title == 'TravelSilverPlan') {
-            if (value.checked == true) {
-                this.TravelSilverPlanTrue = true;
-            } else if (value.checked == false) {
-                this.TravelSilverPlanTrue = false;
-            }
-        }
-        if (title == 'TravelGoldPlan') {
-            if (value.checked == true) {
-                this.TravelGoldPlanTrue = true;
-            } else if (value.checked == false) {
-                this.TravelGoldPlanTrue = false;
-            }
-        }
-        if (title == 'TravelPlatinumPlan') {
-            if (value.checked == true) {
-                this.TravelPlatinumPlanTrue = true;
-            } else if (value.checked == false) {
-                this.TravelPlatinumPlanTrue = false;
-            }
-        }
-        if (title == 'TravelBasicPlan') {
-            if (value.checked == true) {
-                this.TravelBasicPlanTrue = true;
-            } else if (value.checked == false) {
-                this.TravelBasicPlanTrue = false;
-            }
-        }
-        if (title == 'TravelElitePlan') {
-            if (value.checked == true) {
-                this.TravelElitePlanTrue = true;
-            } else if (value.checked == false) {
-                this.TravelElitePlanTrue = false;
-            }
-        }
-        if (title == 'TravelPlusPlan') {
-            if (value.checked == true) {
-                this.TravelPlusPlanTrue = true;
-            } else if (value.checked == false) {
-                this.TravelPlusPlanTrue = false;
-            }
-        }
+        // if (title == 'residingIndia') {
+        //     if (value.checked == true) {
+        //         this.riskIsResidingInIndiaTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.riskIsResidingInIndiaTrue = false;
+        //         this.riskDetails['controls'].riskPassportIssuingCountry.patchValue('');
+        //         this.riskDetails['controls'].riskPassportIssuingCountry.patchValue(null);
+        //     }
+        // }
+        // if (title == 'ImmigrantVisa') {
+        //     if (value.checked == true) {
+        //     } else if (value.checked == false) {
+        //     }
+        // }
+        // if (title == 'IsSufferingFromPEMC') {
+        //     if (value.checked == true) {
+        //     } else if (value.checked == false) {
+        //     }
+        // }
+        // if (title == 'PreExistDisease') {
+        //     if (value.checked == true) {
+        //     } else if (value.checked == false) {
+        //     }
+        // }
+        // if (title == 'TravelInvolvesSporting') {
+        //     if (value.checked == true) {
+        //         this.riskSportsActivitiesTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.riskSportsActivitiesTrue = false;
+        //     }
+        // }
+        // if (title == 'IsVisitingUSACanada') {
+        //     if (value.checked == true) {
+        //         this.VisitingListTure = true;
+        //     } else if (value.checked == false) {
+        //         this.VisitingListTure = false;
+        //     }
+        // }
+        // if (title == 'IsVisitingFamily') {
+        //     if (value.checked == true) {
+        //         this.riskCoverageTypeTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.riskCoverageTypeTrue = false;
+        //     }
+        // }
+        // if (title == 'IsVisitingStudent') {
+        //     if (value.checked == true) {
+        //     } else if (value.checked == false) {
+        //     }
+        // }
+        // if (title == 'IsMultitripIndividual') {
+        //     if (value.checked == true) {
+        //         this.riskMaxDaysPerTripTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.riskMaxDaysPerTripTrue = false;
+        //     }
+        // }
+        // if (title == 'IsSeniorCitizen') {
+        //     if (value.checked == true) {
+        //         this.riskSeniorCitizenTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.riskSeniorCitizenTrue = false;
+        //     }
+        // }
+        // if (title == 'TravelCoverage') {
+        //     if (value.checked == true) {
+        //         this.TravelCoverageTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.TravelCoverageTrue = false;
+        //     }
+        // }
+        // if (title == 'TravelStandardLimit') {
+        //     if (value.checked == true) {
+        //         this.TravelStandardLimitTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.TravelStandardLimitTrue = false;
+        //     }
+        // }
+        // if (title == 'TravelSilverPlan') {
+        //     if (value.checked == true) {
+        //         this.TravelSilverPlanTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.TravelSilverPlanTrue = false;
+        //     }
+        // }
+        // if (title == 'TravelGoldPlan') {
+        //     if (value.checked == true) {
+        //         this.TravelGoldPlanTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.TravelGoldPlanTrue = false;
+        //     }
+        // }
+        // if (title == 'TravelPlatinumPlan') {
+        //     if (value.checked == true) {
+        //         this.TravelPlatinumPlanTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.TravelPlatinumPlanTrue = false;
+        //     }
+        // }
+        // if (title == 'TravelBasicPlan') {
+        //     if (value.checked == true) {
+        //         this.TravelBasicPlanTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.TravelBasicPlanTrue = false;
+        //     }
+        // }
+        // if (title == 'TravelElitePlan') {
+        //     if (value.checked == true) {
+        //         this.TravelElitePlanTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.TravelElitePlanTrue = false;
+        //     }
+        // }
+        // if (title == 'TravelPlusPlan') {
+        //     if (value.checked == true) {
+        //         this.TravelPlusPlanTrue = true;
+        //     } else if (value.checked == false) {
+        //         this.TravelPlusPlanTrue = false;
+        //     }
+        // }
     }
     medicalHistoryDetails(vvv){
 

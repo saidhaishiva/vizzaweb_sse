@@ -25,78 +25,87 @@
 
               <div class="row">
                   <mat-form-field class="w-100">
-                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" (keyup)="vehicalNum()" required>
+                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10"  (keypress)="idValidate($event)" (keyup)="vehicalNum()" required>
                   <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
                   <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
-                  <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" [max]="minDate" (keyup)="policyDate()" (keypress)="dobValidate($event); policyStartDate() " formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
-                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                    <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
 
-                  </mat-form-field>
                   <mat-form-field class="w-100">
-                      <mat-select placeholder="Bussiness Type"  formControlName="bussinessType" (change)="typeOfBussiness()" required>
+                      <mat-select placeholder="Bussiness Type"  formControlName="bussiness"  (change)="bussinessData()" required>
                           <mat-option *ngFor="let paCity of bussinessList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                   </mat-form-field>
-                  <mat-form-field class="w-100" *ngIf="!previousDate">
-                  <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussinessType'].value != '1'" >-->
-                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" (keyup)="policyEndDate()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
-                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                      <mat-datepicker #picker2></mat-datepicker>
-                      <mat-error *ngIf="bikeInsurance.controls.previousPolicyExpiry.errors?.required">Registration Date is required</mat-error>
+                  <mat-form-field class="w-100">
+                      <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" [max]="minDate" (keyup)="policyDate()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                      <mat-datepicker #picker1></mat-datepicker>
+                      <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
 
                   </mat-form-field>
-                <p class="mt-2">Previous Claim: </p>
-                <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (keyup)="previousclaim()" (change)="claim()">
+                  <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">
+                      <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussinessType'].value != '1'" >-->
+                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" (keyup)="policyStartDate()"  (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                      <mat-datepicker #picker2></mat-datepicker>
+                      <mat-error *ngIf="bikeInsurance.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
+
+                  </mat-form-field>
+                  <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">
+                  <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussinessType'].value != '1'" >-->
+                      <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" (keyup)="policyEndDate()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                      <mat-datepicker #picker3></mat-datepicker>
+                      <mat-error *ngIf="bikeInsurance.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
+
+                  </mat-form-field>
+                <p class="mt-2" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">Previous Claim: <span class="error">*</span></p>
+                  <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="previousclaim() ; claim()" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">
                   <mat-radio-button value="Yes">Yes</mat-radio-button>
                   <mat-radio-button value="No">No</mat-radio-button>
                 </mat-radio-group>
                   <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="claimAmount()">
-                          <input matInput placeholder="Claim Amount" formControlName="claimamount" maxlength="15" required>
+                          <input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>
                   </mat-form-field>
                 <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value">
-                    <mat-select placeholder="NCB Percent(%)"  formControlName="ncb"  required>
+                    <mat-select placeholder="NCB Percent(%)" (change)="ncb()" formControlName="ncb"  required>
                         <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                     </mat-select>
                 </mat-form-field>
                   <div *ngIf="listDetails">
                   <mat-form-field class="w-100">
-                      <input matInput placeholder="ChasissNumber" formControlName="chasissNumber"  required>
+                      <input matInput placeholder="Chasiss Number" formControlName="chasissNumber" (keyup)="keyPress()" maxlength= "17" (keypress)="numberValidate($event)" required>
                       <mat-error *ngIf="bikeInsurance.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
                   <mat-form-field class="w-100">
-                      <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  required>
+                      <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (change)="manufactureList();modelList1(); variantList(); ccList()" (click)="modelList1()"  required>
                           <mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                       <!--<mat-error *ngIf="bikeInsurance.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>-->
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
                   <mat-form-field class="w-100">
-                      <mat-select placeholder="Vehical Model"  formControlName="model"  required>
+                      <mat-select placeholder="Vehicle Model"  formControlName="model" (change)="modelDetail()"  required>
                           <mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                       <!--<mat-error *ngIf="bikeInsurance.controls.fuelType.errors?.required">Fuel Type is required</mat-error>-->
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
                   <mat-form-field class="w-100">
-                      <mat-select placeholder="Vehicle CC"  formControlName="vehicleCC"  required>
+                      <mat-select placeholder="Vehicle CC"  formControlName="vehicleCC" (change)="keyPress()"  required>
                           <mat-option *ngFor="let paCity of ccDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>-->
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
                       <mat-form-field class="w-100">
-                          <input matInput placeholder="Manufacture Year(YYYY)"  formControlName="manufactureYear"  required>
+                          <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4" (keyup)="keyPress()" (keypress)="numberValidate($event)" formControlName="manufactureYear"  required>
 
                           <!--<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>-->
                           <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                       </mat-form-field>
                   <mat-form-field class="w-100">
-                      <mat-select placeholder="Variant"  formControlName="variant"  required>
+                      <mat-select placeholder="Variant"  formControlName="variant" (change)="keyPress()" required>
                           <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                       <!--<mat-error *ngIf="bikeInsurance.controls.variant.errors?.required">Variant is required</mat-error>-->
@@ -120,95 +129,196 @@
 
 
 <!--mobile view-->
-<div class="container dashboard h-100 d-block d-sm-block d-md-block d-lg-none" fxLayoutAlign="start start">
-    <div class="row my-flex-card">
-        <h2 class="w-100 text-center" style="color:#6A6477;"><img src="assets/img/bike-insurance.png" class="logo-size">&nbsp;Motor Bike Insurance</h2>
-        <div class="col-12">
-            <div class="card">
-                <div class="card-block AllFormView">
-                    <mat-card class="p-4" style="background: linear-gradient(to top, #6CBCD5 0%, #7F8688 100%) !important; color:#fff;">
-                        <h2 class="w-100 text-center" >Get Instant Quotes</h2>
-                        <form [formGroup]="bikeInsurance">
+<!--<div class="container dashboard h-100 d-block d-sm-block d-md-block d-lg-none" fxLayoutAlign="start start">-->
+    <!--<div class="row my-flex-card">-->
+        <!--<h2 class="w-100 text-center" style="color:#6A6477;"><img src="assets/img/bike-insurance.png" class="logo-size">&nbsp;Motor Bike Insurance</h2>-->
+        <!--<div class="col-12">-->
+            <!--<div class="card">-->
+                <!--<div class="card-block AllFormView">-->
+                    <!--<mat-card class="p-4" style="background: linear-gradient(to top, #6CBCD5 0%, #7F8688 100%) !important; color:#fff;">-->
+                        <!--<h2 class="w-100 text-center" >Get Instant Quotes</h2>-->
+                        <!--<form [formGroup]="bikeInsurance">-->
 
-                            <div class="row">
-                                <mat-form-field class="w-100">
-                                    <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" required>
-                                    <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
-                                    <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                                </mat-form-field>
-                                <mat-form-field class="w-100">
-                                    <input matInput [matDatepicker]="picker11" placeholder="Registration Date (DD/MM/YYYY)" [max]="minDate" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
-                                    <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker11></mat-datepicker>
-                                    <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
+                            <!--&lt;!&ndash;<div class="row">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" required>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-select placeholder="Bussiness Type"  formControlName="bussiness" (change)="typeOfBussiness()" (keyup)="bussinessData()" required>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-option *ngFor="let paCity of bussinessList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<input matInput [matDatepicker]="picker11" placeholder="Registration Date (DD/MM/YYYY)" [max]="minDate" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-datepicker #picker11></mat-datepicker>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>&ndash;&gt;-->
 
-                                </mat-form-field>
-                                <mat-form-field class="w-100">
-                                    <input matInput [matDatepicker]="picker12" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [max]="minDate" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
-                                    <mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker12></mat-datepicker>
-                                    <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
+                                <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<input matInput [matDatepicker]="picker12" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [max]="minDate" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-datepicker-toggle matSuffix [for]="picker12"></mat-datepicker-toggle>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-datepicker #picker12></mat-datepicker>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>&ndash;&gt;-->
 
-                                </mat-form-field>
-                                <p class="mt-2">Previous Claim: </p>
-                                <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="claim()">
-                                    <mat-radio-button value="Yes">Yes</mat-radio-button>
-                                    <mat-radio-button value="No">No</mat-radio-button>
-                                </mat-radio-group>
-                                <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'">
-                                    <mat-select placeholder="Claim Amount"  formControlName="claimamount"  required>
-                                        <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                                <div *ngIf="listDetails">
-                                    <mat-form-field class="w-100">
-                                        <input matInput placeholder="ChasissNumber" formControlName="chasissNumber"  required>
-                                        <mat-error *ngIf="bikeInsurance.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                                    </mat-form-field>
-                                    <mat-form-field class="w-100">
-                                        <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  required>
-                                            <mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-                                        </mat-select>
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>-->
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                                    </mat-form-field>
-                                    <mat-form-field class="w-100">
-                                        <mat-select placeholder="Vehical Model"  formControlName="model"  required>
-                                            <mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-                                        </mat-select>
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.fuelType.errors?.required">Fuel Type is required</mat-error>-->
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                                    </mat-form-field>
-                                    <mat-form-field class="w-100">
-                                        <mat-select placeholder="Vehicle CC"  formControlName="vehicleCC"  required>
-                                            <mat-option *ngFor="let paCity of ccDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-                                        </mat-select>
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>-->
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                                    </mat-form-field>
+                                <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<p class="mt-2">Previous Claim: <span class="error">*</span></p>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="claim()">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-radio-button value="Yes">Yes</mat-radio-button>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-radio-button value="No">No</mat-radio-button>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</mat-radio-group>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-select placeholder="Claim Amount"  formControlName="claimamount"  required>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div *ngIf="listDetails">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<input matInput placeholder="ChasissNumber" formControlName="chasissNumber"  required>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<h1>fnhjkghdfkn</h1>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (change)="modelList1()" (click)="modelList1()"  required>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-select placeholder="Vehical Model"  formControlName="model"  required>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.fuelType.errors?.required">Fuel Type is required</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-select placeholder="Vehicle CC"  formControlName="vehicleCC"  required>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<mat-option *ngFor="let paCity of ccDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
 
-                                    <mat-form-field class="w-100">
-                                        <mat-select placeholder="Variant"  formControlName="variant"  required>
-                                            <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-                                        </mat-select>
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.variant.errors?.required">Variant is required</mat-error>-->
-                                        <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-12 text-center mt-3">
-                                    <button mat-raised-button color="primary" (click)="bike(bikeInsurance.value)">Submit</button>
-                                    <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
-                                </div>
-                            </div>
-                        </form>
-                    </mat-card>
-                </div>
-            </div>
-        </div>
+                                    <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-select placeholder="Variant"  formControlName="variant"  required>&ndash;&gt;-->
+                                            <!--&lt;!&ndash;<mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;</mat-select>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.variant.errors?.required">Variant is required</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                        <!--&lt;!&ndash;&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;&ndash;&gt;-->
+                                    <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                <!--&lt;!&ndash;<div class="col-12 text-center mt-3">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<button mat-raised-button color="primary" (click)="bike(bikeInsurance.value)">Submit</button>&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--<div class="row">-->
+                                <!--<mat-form-field class="w-100">-->
+                                    <!--<input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10"  (keypress)="idValidate($event)" (keyup)="vehicalNum()" required>-->
+                                    <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>-->
+                                    <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                                <!--</mat-form-field>-->
+
+                                <!--<mat-form-field class="w-100">-->
+                                    <!--<mat-select placeholder="Bussiness Type"  formControlName="bussiness"  (keyup)="bussinessData()" required>-->
+                                        <!--<mat-option *ngFor="let paCity of bussinessList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                    <!--</mat-select>-->
+                                <!--</mat-form-field>-->
+                                <!--<mat-form-field class="w-100">-->
+                                    <!--<input matInput [matDatepicker]="picker7" placeholder="Registration Date (DD/MM/YYYY)" [max]="minDate" (keyup)="policyDate()" (keypress)="dobValidate($event); policyStartDate() " formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>-->
+                                    <!--<mat-datepicker-toggle matSuffix [for]="picker7"></mat-datepicker-toggle>-->
+                                    <!--<mat-datepicker #picker7></mat-datepicker>-->
+                                    <!--<mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>-->
+
+                                <!--</mat-form-field>-->
+                                <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">-->
+                                    <!--&lt;!&ndash;<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussinessType'].value != '1'" >&ndash;&gt;-->
+                                    <!--<input matInput [matDatepicker]="picker5" placeholder="Previous Policy StartDate (DD/MM/YYYY)" (keyup)="policyStartDate()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>-->
+                                    <!--<mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>-->
+                                    <!--<mat-datepicker #picker5></mat-datepicker>-->
+                                    <!--<mat-error *ngIf="bikeInsurance.controls.previousPolicyStart.errors?.required">Registration Date is required</mat-error>-->
+
+                                <!--</mat-form-field>-->
+                                <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">-->
+                                    <!--&lt;!&ndash;<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussinessType'].value != '1'" >&ndash;&gt;-->
+                                    <!--<input matInput [matDatepicker]="picker6" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" (keyup)="policyEndDate()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>-->
+                                    <!--<mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>-->
+                                    <!--<mat-datepicker #picker6></mat-datepicker>-->
+                                    <!--<mat-error *ngIf="bikeInsurance.controls.previousPolicyExpiry.errors?.required">Registration Date is required</mat-error>-->
+
+                                <!--</mat-form-field>-->
+                                <!--<p class="mt-2" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">Previous Claim: <span class="error">*</span></p>-->
+                                <!--<mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (keyup)="previousclaim()" (change)="claim()" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">-->
+                                    <!--<mat-radio-button value="Yes">Yes</mat-radio-button>-->
+                                    <!--<mat-radio-button value="No">No</mat-radio-button>-->
+                                <!--</mat-radio-group>-->
+                                <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="claimAmount()">-->
+                                    <!--<input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>-->
+                                <!--</mat-form-field>-->
+                                <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value">-->
+                                    <!--<mat-select placeholder="NCB Percent(%)" (keyup)="keyPress()" formControlName="ncb"  required>-->
+                                        <!--<mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                    <!--</mat-select>-->
+                                <!--</mat-form-field>-->
+                                <!--<div *ngIf="listDetails">-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<input matInput placeholder="Chasiss Number" formControlName="chasissNumber" (keyup)="keyPress()" (keypress)="numberValidate($event)" required>-->
+                                        <!--<mat-error *ngIf="bikeInsurance.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                                    <!--</mat-form-field>-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (keyup)="manufactureList()"  (change)="modelList1(); variantList(); ccList()" (click)="modelList1()"  required>-->
+                                            <!--<mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                        <!--</mat-select>-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                                    <!--</mat-form-field>-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<mat-select placeholder="Vehicle Model"  formControlName="model" (keyup)="modelDetail()"  required>-->
+                                            <!--<mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                        <!--</mat-select>-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.fuelType.errors?.required">Fuel Type is required</mat-error>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                                    <!--</mat-form-field>-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<mat-select placeholder="Vehicle CC"  formControlName="vehicleCC" (keyup)="keyPress()"  required>-->
+                                            <!--<mat-option *ngFor="let paCity of ccDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                        <!--</mat-select>-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                                    <!--</mat-form-field>-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<input matInput placeholder="Manufacture Year(YYYY)" maxlength="4" (keyup)="keyPress()" (keypress)="numberValidate($event)" formControlName="manufactureYear"  required>-->
+
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                                    <!--</mat-form-field>-->
+                                    <!--<mat-form-field class="w-100">-->
+                                        <!--<mat-select placeholder="Variant"  formControlName="variant" (keyup)="keyPress()" required>-->
+                                            <!--<mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                        <!--</mat-select>-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.variant.errors?.required">Variant is required</mat-error>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>&ndash;&gt;-->
+                                    <!--</mat-form-field>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-12 text-center mt-3">-->
+                                    <!--<button mat-raised-button color="primary" (click)="bike(bikeInsurance.value)">Submit</button>-->
+                                    <!--<button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>-->
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        <!--</form>-->
+                    <!--</mat-card>-->
+                <!--</div>-->
+            <!--</div>-->
         <!--</div>-->
-    </div>
-</div>
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+<!--</div>-->
 
 
 <!--<div class="col-md-6 mt-3">-->

@@ -68,7 +68,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Aadhar Number(Last Four Digits)" (keypress)="numberValidate($event)"  minlength="4"  maxlength="4" formControlName="personalAadhar" autocomplete="off">
-                          <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
+                          <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 4 characters</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -318,6 +318,7 @@
                         <mat-select  placeholder="Gender" [(ngModel)]="item.ins_gender" required>
                           <mat-option value="Male">Male</mat-option>
                           <mat-option value="Female">Female</mat-option>
+                          <mat-option value="Third Gender">Third Gender</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
@@ -758,8 +759,8 @@
                       </div>
                       <div class="col-sm-12 col-xs-12">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" autocomplete="off">
-                          <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
+                          <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="4"  maxlength="4" formControlName="personalAadhar" autocomplete="off">
+                          <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 4 characters</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-sm-12 col-xs-12">
@@ -1007,6 +1008,7 @@
                           <mat-select  placeholder="Gender" [(ngModel)]="item.ins_gender" required>
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
+                            <mat-option value="Third Gender">Third Gender</mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>

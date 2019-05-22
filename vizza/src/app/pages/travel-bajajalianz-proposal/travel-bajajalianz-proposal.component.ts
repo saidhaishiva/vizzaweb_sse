@@ -34,9 +34,7 @@ export const MY_FORMATS = {
   templateUrl: './travel-bajajalianz-proposal.component.html',
   styleUrls: ['./travel-bajajalianz-proposal.component.scss'],
     providers: [
-
         {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-
         {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
 })
@@ -73,6 +71,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     public showInsureSummary: boolean;
     public webhost: any;
     public acceptSummaryDeclaration: any;
+    public placeOfVisit: any;
 
     constructor(public appsetting: AppSettings,public auth: AuthService,public route: ActivatedRoute,public config: ConfigurationService, private toastr: ToastrService, public travelservice: TravelService, public fb: FormBuilder, public datepipe: DatePipe, public validation: ValidationService) {
 
@@ -131,7 +130,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             this.showInsure = true;
             this.showInsureSummary = true;
         } else {
-            this.studentdetails = false;
+            this.showInsure = false;
             this.showInsureSummary = false;
         }
         this.insureReligarePerson = this.getEnquiryDetails.family_members;
@@ -179,7 +178,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     changeGender() {
         if (this.bajajProposal.controls['title'].value == 'Mr') {
             this.bajajProposal.controls['gender'].patchValue('Male');
-        } else {
+        } else if ( this.bajajProposal.controls['title'].value == 'Mrs') {
+            this.bajajProposal.controls['gender'].patchValue('Female');
+        }else{
             this.bajajProposal.controls['gender'].patchValue('Female');
         }
     }
@@ -195,16 +196,17 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
         this.getProposerAgeDays = this.DobDaysCalculate(dob_days);
         console.log(this.getProposerAgeDays,'agedaysss');
-        if (this.bajajProposal.valid && this.personalDobError =='') {
-            if (type == 'insurer'){
-                    stepper.next();
-                    this.sameasInsurerDetails(0);
-                    this.getRelation();
+        if (this.bajajProposal.valid) {
+            if(this.getProposerAgeDays > 6573 ){
+                stepper.next();
+                this.sameasInsurerDetails(0);
+                this.getRelation();
+            } else{
+                this.toastr.error('Age should be 18 years and above');
             }
-        }else{
+
+        } else{
             this.toastr.error('Please enter all the  fields');
-
-
         }
     }
 
@@ -222,6 +224,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     // session
     session() {
+        if (sessionStorage.travelPlan != '' && sessionStorage.travelPlan != undefined) {
+            this.placeOfVisit = JSON.parse(sessionStorage.travelPlan);
+        }
         if (sessionStorage.stepper1bajajDetails != '' && sessionStorage.stepper1bajajDetails != undefined) {
             this.getStepper1 = JSON.parse(sessionStorage.stepper1bajajDetails);
             this.bajajProposal = this.fb.group({
@@ -249,14 +254,16 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         }
         if (sessionStorage.stepper2bajajDetails != '' && sessionStorage.stepper2bajajDetails != undefined){
             this.getStepper2 = JSON.parse(sessionStorage.stepper2bajajDetails);
-            for (let i = 0; i < this.getStepper2.length; i++) {
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2[i].assigneeName);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2[i].relation);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2[i].name);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.patchValue(this.getStepper2[i].passportNo);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2[i].sex);
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2[i].idob, 'y-MM-dd'));
-                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2[i].age);
+            for (let i = 0; i < this.getStepper2.items.length; i++) {
+                if( i > 0 ){
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.patchValue(this.getStepper2.items[i].assigneeName);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].relation.patchValue(this.getStepper2.items[i].relation);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.patchValue(this.getStepper2.items[i].name);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.patchValue(this.getStepper2.items[i].passportNo);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.patchValue(this.getStepper2.items[i].sex);
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.patchValue(this.datepipe.transform(this.getStepper2.items[i].idob, 'y-MM-dd'));
+                    this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.patchValue(this.getStepper2.items[i].age);
+                }
                 }
         }
 
@@ -351,13 +358,12 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     // create proposal
     createProposal(stepper, value,type) {
-        sessionStorage.stepper1bajajDetails = '';
-        sessionStorage.stepper1bajajDetails = JSON.stringify(value);
-        sessionStorage.stepper2bajajDetails = '';
-        sessionStorage.stepper2bajajDetails = JSON.stringify(value);
-        console.log(this.proposerAge,'proposerAge');
-        console.log(sessionStorage.proposerAge,'sesionAGE');
+        console.log(this.bajajProposal.controls['dob'].value,'dob valuee');
+        console.log(value,'value');
+
         if(this.getEnquiryDetails.travel_user_type == 'family') {
+            sessionStorage.stepper2bajajDetails = '';
+            sessionStorage.stepper2bajajDetails = JSON.stringify(value);
             this.insurerData = value;
             this.insuredDataArray = [];
             for (let i = 0; i < this.insurerData.items.length; i++) {
@@ -371,7 +377,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                     'pvdob': this.insurerData.items[i].idob
                 });
             }
-        }else{
+        } else{
+            sessionStorage.stepper1bajajDetails = '';
+            sessionStorage.stepper1bajajDetails = JSON.stringify(value);
             this.insuredDataArray = [''];
         }
         const data = {
@@ -406,7 +414,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 "pincode": this.bajajProposal.controls['pincode'].value,
                 "nationality": this.bajajProposal.controls['nationality'].value,
                 "email": this.bajajProposal.controls['email'].value,
-                "dob": this.bajajProposal.controls['dob'].value,
+                "dob": this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'y-MM-dd'),
                 "mobileNo": this.bajajProposal.controls['mobile'].value,
                 "telephone": this.bajajProposal.controls['telephone'].value,
                 "fax": this.bajajProposal.controls['fax'].value
@@ -424,16 +432,15 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             }
         };
         if(type =='insurer'){
-            //age validation
             let ageValidate = [];
             for (let i = 0; i< this.insureReligarePerson.length; i++){
-                if ( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value  != '') {
+                if ( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value  == '') {
                     ageValidate.push(1);
                 } else{
                     ageValidate.push(0);
                 }
             }
-            if (this.bajajProposal.valid && this.bajajInsuredTravel.valid && !ageValidate.includes(1)) {
+            if (this.bajajProposal.valid && this.bajajInsuredTravel.valid && ageValidate.includes(1)) {
                     this.setting.loadingSpinner = true;
                     this.travelservice.getProposal(data).subscribe(
                         (successData) => {
@@ -447,8 +454,19 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 this.toastr.error('please enter all the fields');
 
             }
-        }else{
-            if (this.bajajProposal.valid && this.personalDobError =='') {
+        } else if (this.getEnquiryDetails.travel_user_type == 'student'){
+            if (this.bajajProposal.valid) {
+                let dob_days = '';
+                dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
+                let getProposerAgeDays = this.DobDaysCalculate(dob_days);
+                let ageValidStatus = true;
+                if(getProposerAgeDays > 5843 && getProposerAgeDays < 13146){
+                    ageValidStatus = true;
+                } else{
+                    ageValidStatus = false;
+                    this.toastr.error('student Age should be 16 years to 35 years');
+                }
+                if(ageValidStatus) {
                     this.setting.loadingSpinner = true;
                     this.travelservice.getProposal(data).subscribe(
                         (successData) => {
@@ -458,7 +476,38 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                             this.getProposalFailure(error);
                         }
                     );
-            }else{
+                }
+
+            } else {
+                this.toastr.error('please enter all the fields');
+
+            }
+        } else{
+            if (this.bajajProposal.valid) {
+                let dob_days = '';
+                dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
+                let getProposerAgeDays = this.DobDaysCalculate(dob_days);
+
+                let ageValidStatus = true;
+                if(getProposerAgeDays > 178 && getProposerAgeDays < 25929){
+                    ageValidStatus = true;
+                } else{
+                    ageValidStatus = false;
+                    this.toastr.error('Age should be 5 months to 70 years');
+                }
+                if(ageValidStatus) {
+                    this.setting.loadingSpinner = true;
+                    this.travelservice.getProposal(data).subscribe(
+                        (successData) => {
+                            this.getProposalSuccess(successData,stepper);
+                        },
+                        (error) => {
+                            this.getProposalFailure(error);
+                        }
+                    );
+                }
+
+            } else {
                 this.toastr.error('please enter all the fields');
 
             }
@@ -504,7 +553,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
                     this.personalDobError = '';
-
                 } else {
                     this.personalDobError = 'Enter Valid Date';
                 }
@@ -512,68 +560,20 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
                     this.proposerAge = this.ageCalculate(dob);
-                    if (this.getEnquiryDetails.travel_user_type != 'family'){
-                        this.getDays = this.DobDaysCalculate(dob_days);
-                        if(this.getDays < 150 && this.getDays < 25932  ){
-                            this.personalDobError = 'Age should be 5 months to 70 years'
-                        }else{
-                            this.personalDobError = '';
-                        }
-                    }else {
-                        this.getDays = this.DobDaysCalculate(dob_days);
-                        if(this.getDays < 6573 && this.getDays < 25932){
-                            this.personalDobError = 'Age should be 18 to 70 years';
-                        }else{
-                            this.personalDobError = '';
-                        }
-                    }
+                    this.getDays = this.DobDaysCalculate(dob_days);
+                    sessionStorage.proposerAge = this.proposerAge;
                 }
             } else if (typeof event.value._i == 'object') {
+                this.personalDobError = '';
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
                 if (dob.length == 10) {
                     this.proposerAge = this.ageCalculate(dob);
-                    if (this.getEnquiryDetails.travel_user_type != 'family'){
-                        this.getDays = this.DobDaysCalculate(dob_days);
-                        if(this.getDays < 150 && this.getDays < 25932  ){
-                            this.personalDobError = 'Age should be 5 months to 70 years'
-                        }else{
-                            this.personalDobError = '';
-                        }
-                    }else {
-                        this.getDays = this.DobDaysCalculate(dob_days);
-                        if(this.getDays < 6573 && this.getDays < 25932){
-                            this.personalDobError = 'Age should be 18 to 70 years';
-                        }else{
-                            this.personalDobError = '';
-                        }
-                    }
+                    this.getDays = this.DobDaysCalculate(dob_days);
+                    sessionStorage.proposerAge = this.proposerAge;
+
                 }
-                // this.personalDobError = '';
             }
-
-
-            // if (this.getEnquiryDetails.travel_user_type != 'family'){
-            //     this.getDays = this.DobDaysCalculate(dob_days);
-            //     if(this.getDays < 150 && this.getDays < 25932  ){
-            //         this.personalDobError = 'Age should be 5 months to 70 years'
-            //     }else{
-            //         this.personalDobError = '';
-            //     }
-            // }else {
-            //     this.getDays = this.DobDaysCalculate(dob_days);
-            //     if(this.getDays < 6573 && this.getDays < 25932){
-            //         this.personalDobError = 'Age should be 18 to 70 years';
-            //     }else{
-            //         this.personalDobError = '';
-            //     }
-            // }
-
-            if ( this.proposerAge != '' ){
-                console.log(this.proposerAge,'PROPAGEEEE');
-                sessionStorage.proposerAge = this.proposerAge;
-            }
-
 
         }
     }
@@ -610,13 +610,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 selectedDate = event.value._i;
                 console.log(selectedDate.length, 'selectedDateselectedDate');
                 if (selectedDate.length == 10) {
-                    // this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.patchValue('');
-                    // this.getAge = this.ageCalculate(dob);
-                    // console.log(this.getAge,'ageeee');
-                    // this.getDays = this.DobDaysCalculate(dob_days);
-                    // console.log(this.getDays,'kjgjhagdjad');
-                    // this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsuredAge.patchValue(this.getAge);
-                    // this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].InsDOB.patchValue(dob);
                     this.getAge = this.ageCalculate(dob);
                     console.log(this.getAge,'agee');
                     this.getDays = this.DobDaysCalculate(dob_days);
@@ -643,14 +636,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
                 }
             }
-
-            // if(this.getAge != '' ){
-            //     console.log(this.getAge,'GETAGE');
-            //     sessionStorage.proposerAge = this.getAge;
-            // }
             console.log(this.getAge, 'abcd');
 
-            if(this.getAge >= 0) {
+            if(this.getAge) {
                 this.ageValidation(i, type);
             } else {
                 console.log("SDSDSDSDSd");
@@ -670,49 +658,21 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     ageValidation(i, type) {
         console.log(type,'hfgjfj');
-        // if (this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 6574 || this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 25931 && type == 'Self') {
-        //     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 18 years to 70 years');
-        //
-        // } else if (this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 6574 && this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value <= 25931 && type == 'Self') {
-        //     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        // }
         if(this.getEnquiryDetails.travel_user_type == 'family'){
             console.log('in');
             console.log(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value,'valueeee');
-            if(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 150 && this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 25931) {
+            if(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 178 && this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 25929) {
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-
             } else {
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 5 months to 70 years');
-
             }
             // if((this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 6574 && type == 'Spouse') || (this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 22279 && type == 'Spouse')) {
             //     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 18 years to 60 years');
             // } else if(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 6574 && type == 'Spouse')  {
             //     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             // }
-            // console.log(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value);
-            //
-            // if((parseInt(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) <= 8034 && parseInt(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) >= 91) && (type == 'Child1' || type == 'Child2')) {
-            //     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-            // }
-            // else if(parseInt(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 91 && (type == 'Child1' || type == 'Child2'))  {
-            //     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 21 years');
-            // } else if(parseInt(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 8034 && (type == 'Child1' || type == 'Child2'))  {
-            //     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 21 years');
-            // }
-            // console.log( this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value);
-
 
         }
-            // else {
-        //     if((parseInt(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 150 && type == 'Self') || (parseInt(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 25931 && type == 'Self')) {
-        //         this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 5 months to 70 years');
-        //     } else if(parseInt(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 150 && type == 'Self')  {
-        //         this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
-        //     }
-        //
-        // }
 
     }
 
