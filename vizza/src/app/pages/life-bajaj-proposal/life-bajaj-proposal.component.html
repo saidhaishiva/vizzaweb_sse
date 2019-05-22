@@ -342,19 +342,19 @@
                           <div class="row">
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Door Number" formControlName="comDoorNo" maxlength="10" autocomplete="off" required (keypress)="addressValidate($event);typeAddress($event);">
+                                <input matInput placeholder="Door Number" formControlName="comDoorNo" maxlength="10" autocomplete="off" (keypress)="addressValidate($event);typeAddress($event);">
                                 <mat-error *ngIf="proposer.controls.comDoorNo.errors?.required">Door No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Building Number" formControlName="comBuildingNumber" maxlength="10" autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Building Number" formControlName="comBuildingNumber" maxlength="10" required autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
                                 <mat-error *ngIf="proposer.controls.comBuildingNumber.errors?.required">Building No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Plot Number/Street name" formControlName="comPlotNumber" maxlength="10" autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Plot Number/Street name" formControlName="comPlotNumber" maxlength="10" required autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
                                 <mat-error *ngIf="proposer.controls.comPlotNumber.errors?.required">Plot Number is required</mat-error>
                               </mat-form-field>
                             </div>
@@ -406,19 +406,19 @@
                           <div class="row">
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Door Number" formControlName="perDoorNo" maxlength="10" autocomplete="off" required (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Door Number" formControlName="perDoorNo" maxlength="10" autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perDoorNo.errors?.required">Door No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Building Number" formControlName="perBuildingNumber" maxlength="10" autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Building Number" formControlName="perBuildingNumber" maxlength="10" required autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perBuildingNumber.errors?.required">Building No is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Plot Number/Street name" formControlName="perPlotNumber" maxlength="10" autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Plot Number/Street name" formControlName="perPlotNumber" maxlength="10" required autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perPlotNumber.errors?.required">Plot No is required</mat-error>
                               </mat-form-field>
                             </div>

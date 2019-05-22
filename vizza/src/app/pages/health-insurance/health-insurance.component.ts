@@ -90,7 +90,7 @@ export class HealthInsuranceComponent implements OnInit {
     checkAllStatus : any;
     getSumInsureId : any;
     sumInsuredAmount : any;
-
+    healthProceed : any;
 
     private keyUp = new Subject<string>();
     constructor(public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService) {
@@ -108,6 +108,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.updateFlag = false;
         this.ageUpdateFlag = false;
         this.nonEditable = false;
+        this.healthProceed = true;
         this.sbtn = false;
         this.setArray = [];
         this.memberLength = [];
@@ -445,6 +446,7 @@ export class HealthInsuranceComponent implements OnInit {
 
     // new policy lists
     getPolicyQuotationList() {
+        this.healthProceed = false;
         this.selectedAmount = ''
         if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
             this.pinerror = true;
@@ -524,6 +526,7 @@ export class HealthInsuranceComponent implements OnInit {
             this.policyLists(this.allCompanyList);
 
         } else {
+            this.healthProceed = true;
             this.toast.error(successData.ErrorObject);
         }
     }
