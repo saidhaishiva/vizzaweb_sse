@@ -80,7 +80,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         this.bajajProposal = this.fb.group({
             title: ['', Validators.required],
             firstName: ['', Validators.required],
-            middlename: ['', Validators.required],
+            middlename: [''],
             lastName: ['', Validators.required],
             gender: ['', Validators.required],
             dob: ['', Validators.required],
