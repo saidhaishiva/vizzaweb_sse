@@ -843,7 +843,7 @@ export class BikeShriramProposalComponent implements OnInit {
       // var day = d.getDate();
       // var c = new Date(year+1, month, day-1)
       if(this.previousInsure.valid){
-      if(m < 0 || m == 0 && fromDate.getDate() < endDate.getDate() && year >= 1){
+      if(m == 0 && year >= 1){
               stepper.next();
           }
           else{

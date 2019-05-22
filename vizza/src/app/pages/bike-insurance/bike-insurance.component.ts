@@ -407,7 +407,6 @@ export class BikeInsuranceComponent implements OnInit {
     }
     // model
     modelList1() {
-        alert();
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
