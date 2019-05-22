@@ -42,7 +42,7 @@
                       <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
 
                   </mat-form-field>
-                  <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">
+                  <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
                       <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussinessType'].value != '1'" >-->
                       <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" (keyup)="policyStartDate()"  (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
@@ -50,7 +50,7 @@
                       <mat-error *ngIf="bikeInsurance.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
 
                   </mat-form-field>
-                  <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">
+                  <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
                   <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussinessType'].value != '1'" >-->
                       <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" (keyup)="policyEndDate()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
@@ -58,8 +58,8 @@
                       <mat-error *ngIf="bikeInsurance.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
 
                   </mat-form-field>
-                <p class="mt-2" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">Previous Claim: <span class="error">*</span></p>
-                  <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="previousclaim() ; claim()" *ngIf="bikeInsurance.controls['bussiness'].value != '1'">
+                <p class="mt-2" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">Previous Claim: <span class="error">*</span></p>
+                  <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="previousclaim() ; claim()" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
                   <mat-radio-button value="Yes">Yes</mat-radio-button>
                   <mat-radio-button value="No">No</mat-radio-button>
                 </mat-radio-group>
