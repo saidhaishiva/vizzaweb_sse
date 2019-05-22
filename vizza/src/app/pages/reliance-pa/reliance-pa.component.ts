@@ -949,7 +949,7 @@ export class ReliancePaComponent implements OnInit {
       this.insure.controls['insurePaLastname'].patchValue(this.proposer.controls['proposerPaLastname'].value);
       this.insure.controls['insurePaGender'].patchValue(this.proposer.controls['proposerPaGender'].value);
       this.insure.controls['insurePaDob'].patchValue(this.proposer.controls['proposerPaDob'].value);
-      this.insure.controls['insurePaAge'].patchValue( this.datepipe.transform(JSON.parse(sessionStorage.proposerAgeP)));
+      this.insure.controls['insurePaAge'].patchValue(JSON.parse(sessionStorage.proposerAgeP));
       this.insure.controls['insureOccupationList'].patchValue(this.proposer.controls['proposerOccupationList'].value);
       this.insure.controls['insureOccupationListname'].patchValue(this.insureroccupation[this.insure.controls['insureOccupationList'].value]);
       this.insure.controls['insurePaGenderId'].patchValue(this.proposer.controls['proposerPaGenderId'].value);
@@ -1047,8 +1047,7 @@ export class ReliancePaComponent implements OnInit {
     console.log(value, 'proposer');
     sessionStorage.proposerDetails = '';
     sessionStorage.proposerDetails = JSON.stringify(value);
-    console.log(sessionStorage.proposerAgep,'ses1');
-    this.sessionAge = JSON.parse(sessionStorage.proposerAgep);
+    this.sessionAge = JSON.parse(sessionStorage.proposerAgeP);
     console.log(this.sessionAge,'se222');
     if (this.proposer.valid) {
       if (this.sessionAge >= 18) {
