@@ -543,26 +543,24 @@ export class TravelRelianceProposalComponent implements OnInit {
                         studentValid = false;
                     }
                 }
-
                 console.log(isDoctorValid, 'isDoctorValid');
                 console.log(studentValid, 'studentValid');
-                if(isDoctorValid && studentValid) {
-                    stepper.next();
-                    this.topScroll();
-                } else if(isDoctorValid && studentValid == false) {
-                    stepper.next();
-                    this.topScroll();
-                } else {
-                    if(isDoctorValid == false) {
-                        this.toastr.error('Please fill Doctor Details');
 
-                    }
+                if(isDoctorValid) {
                     if(this.travelUserType == true ) {
                         if (studentValid == false) {
                             this.toastr.error('Please fill Course, University and Sponsor Details');
+                        } else {
+                            stepper.next();
+                            this.topScroll();
                         }
+                    } else {
+                        stepper.next();
+                        this.topScroll();
                     }
 
+                } else {
+                    this.toastr.error('Please fill Doctor Details');
                 }
 
 
