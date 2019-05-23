@@ -337,12 +337,14 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     enquiryQuation() {
+        let enquiryyy = JSON.parse(sessionStorage.bikeEnquiryDetails);
+
         const data = {
             'platform': 'web',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            'enquiry_id': 0,
+            'enquiry_id': enquiryyy.enquiry,
             'vehicle_no':this.bikeInsurance.controls['vehicalNumber'].value,
             'registration_date': this.bikeInsurance.controls['registrationDate'].value,
             'previous_policy_expiry_date':this.bikeInsurance.controls['previousPolicyExpiry'].value,
