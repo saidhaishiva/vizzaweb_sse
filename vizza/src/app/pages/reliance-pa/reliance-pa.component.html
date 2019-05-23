@@ -1,5 +1,6 @@
 <section class="d-none d-sm-none d-xl-block d-lg-block d-md-block">
     <div class="container-fluid">
+<!--        reliancePaProposal-->
     <div class="row reliancePaProposal">
         <div class="col-md-12">
             <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
@@ -371,7 +372,10 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Capital Sum Insured "  formControlName="capitalsuminsured" (keypress)="numberValidate($event)" autocomplete="off" required>
+                                                    <mat-select placeholder="Capital Sum Insured "  formControlName="capitalsuminsured"  required>
+                                                        <mat-option value="1">{{getBuyDetails.suminsured_amount}}</mat-option>
+                                                    </mat-select>
+<!--                                                    <input matInput placeholder="Capital Sum Insured "  formControlName="capitalsuminsured" (keypress)="numberValidate($event)" autocomplete="off" required>-->
                                                     <mat-error *ngIf="riskDetails.controls.capitalsuminsured.errors?.required">CapitalSumInsured is required</mat-error>
                                                 </mat-form-field>
                                             </div>

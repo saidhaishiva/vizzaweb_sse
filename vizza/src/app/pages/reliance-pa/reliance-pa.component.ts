@@ -265,6 +265,7 @@ export class ReliancePaComponent implements OnInit {
     this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
     console.log(this.getBuyDetails,'sum insurd amount');
     this.riskDetails.controls['capitalsuminsured'].patchValue(this.getBuyDetails.suminsured_amount)
+    // product_name: "Individual Personal Accident - Standard";
     this.insure.controls['TotalCapital'].patchValue(this.getBuyDetails.suminsured_amount);
   }
 
@@ -344,6 +345,7 @@ export class ReliancePaComponent implements OnInit {
             // this.proposer.controls['proposerPaDob'].patchValue(dob);
             this.proposerAgeP = this.ageCalculate(dob);
             console.log(this.proposerAgeP,'proposerage');
+            sessionStorage.proposerAgeP = JSON.stringify(this.proposerAgeP);
             this.proposer.controls['proposerPaAge'].patchValue(this.proposerAgeP);
           } else if (type == 'insure') {
             this.insuredateError = '';
@@ -353,7 +355,7 @@ export class ReliancePaComponent implements OnInit {
             this.nomineedateError = '';
           }
           if (type == 'proposer') {
-            sessionStorage.proposerAgep = JSON.stringify(this.proposerAgeP);
+            sessionStorage.proposerAgeP = JSON.stringify(this.proposerAgeP);
           }
         }
       } else if (typeof event.value._i == 'object') {
@@ -362,6 +364,7 @@ export class ReliancePaComponent implements OnInit {
           if (type == 'proposer') {
             this.proposerdateError = '';
             this.proposerAgeP = this.ageCalculate(dob);
+            sessionStorage.proposerAgeP = JSON.stringify(this.proposerAgeP);
           } else if (type == 'insure') {
             this.insuredateError = '';
             this.insureAgeP = this.ageCalculate(dob);
@@ -370,7 +373,7 @@ export class ReliancePaComponent implements OnInit {
             this.nomineedateError = '';
           }
           if (type == 'proposer') {
-          sessionStorage.proposerAgep = JSON.stringify(this.proposerAgeP)
+            sessionStorage.proposerAgeP = JSON.stringify(this.proposerAgeP);
           }
         }
       }
@@ -946,7 +949,7 @@ export class ReliancePaComponent implements OnInit {
       this.insure.controls['insurePaLastname'].patchValue(this.proposer.controls['proposerPaLastname'].value);
       this.insure.controls['insurePaGender'].patchValue(this.proposer.controls['proposerPaGender'].value);
       this.insure.controls['insurePaDob'].patchValue(this.proposer.controls['proposerPaDob'].value);
-      this.insure.controls['insurePaAge'].patchValue(this.proposer.controls['proposerPaAge'].value);
+      this.insure.controls['insurePaAge'].patchValue(JSON.parse(sessionStorage.proposerAgeP));
       this.insure.controls['insureOccupationList'].patchValue(this.proposer.controls['proposerOccupationList'].value);
       this.insure.controls['insureOccupationListname'].patchValue(this.insureroccupation[this.insure.controls['insureOccupationList'].value]);
       this.insure.controls['insurePaGenderId'].patchValue(this.proposer.controls['proposerPaGenderId'].value);
@@ -1044,8 +1047,7 @@ export class ReliancePaComponent implements OnInit {
     console.log(value, 'proposer');
     sessionStorage.proposerDetails = '';
     sessionStorage.proposerDetails = JSON.stringify(value);
-    console.log(sessionStorage.proposerAgep,'ses1');
-    this.sessionAge = JSON.parse(sessionStorage.proposerAgep);
+    this.sessionAge = JSON.parse(sessionStorage.proposerAgeP);
     console.log(this.sessionAge,'se222');
     if (this.proposer.valid) {
       if (this.sessionAge >= 18) {
@@ -1058,9 +1060,15 @@ export class ReliancePaComponent implements OnInit {
 
   riskDetail(stepper: MatStepper, value) {
     console.log(value, 'risk');
+
+    console.log(this.insure.controls['tableA'].value,'tableA');
+    console.log(this.getBuyDetails.sub_plan_code,'plancode');
+    console.log(this.getBuyDetails,'plansss');
+
     sessionStorage.riskDetails = '';
     sessionStorage.riskDetails = JSON.stringify(value);
     if (this.riskDetails.valid) {
+      console.log(this.getBuyDetails,'sum insurd amount');
       let riskValid = true;
       if (this.riskDetails.controls['CoverageOptionID'].value == '1901') {
         alert('1901');
@@ -1078,6 +1086,25 @@ export class ReliancePaComponent implements OnInit {
         if (this.riskDetails.controls['coveragesubOptionID'].value == '') {
           riskValid = false;
         }
+      }
+      if(this.getBuyDetails.sub_plan_code == 'IsTableA'){
+        alert('1');
+        console.log(this.insure.controls.tableA,'tableA');
+        this.insure.controls['tableA'].patchValue('true');
+        this.insure.controls['SIforA'].patchValue(this.getBuyDetails.suminsured_amount);
+        this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
+      }else if(this.getBuyDetails.sub_plan_code == 'IsTableA') {
+        alert('2');
+        console.log(this.insure.controls.tableA,'tableC');
+        this.insure.controls['tableB'].patchValue('true');
+        this.insure.controls['SIforB'].patchValue(this.getBuyDetails.suminsured_amount);
+        this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
+      } else {
+        alert('3');
+        console.log(this.insure.controls.tableA,'tableC');
+        this.insure.controls['tableC'].patchValue('true');
+        this.insure.controls['SIforC'].patchValue(this.getBuyDetails.suminsured_amount);
+        this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
       }
       if (riskValid) {
         stepper.next();

@@ -118,7 +118,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Assingnee Name" formControlName="assigneeName" required >
+                        <input matInput placeholder="Assingnee Name" formControlName="assigneeName" (keypress)="nameValidate($event)" required >
                           <mat-error *ngIf="bajajProposal.controls.assigneeName.errors?.required">Assignee Name is required</mat-error>
                         </mat-form-field>
                       </div>
