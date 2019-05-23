@@ -155,9 +155,17 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.previouspolicyexpiry = this.datepipe.transform(this.bikeInsurance.controls['previousPolicyExpiry'].value, 'y-MM-dd');
     }
     policyStartDate(){
+
         sessionStorage.previouspolicyStart = this.datepipe.transform(this.bikeInsurance.controls['previousPolicyStart'].value, 'y-MM-dd');
     }
-
+    manufactureYear(){
+        let start = new Date(this.bikeInsurance.controls['previousPolicyStart'].value);
+        let getPolicyYear = start.getFullYear();
+        console.log(getPolicyYear,'getPolicyYear');
+        // if(getPolicyYear < this.bikeInsurance.controls['manufactureYear'].value){
+        //
+        // }
+    }
     modelDetail(){
         sessionStorage.getmodelList = this.bikeInsurance.controls['vehicleModel'].value;
         console.log(sessionStorage.getmodelList,'sessionStorage.getmodelList');
@@ -174,7 +182,7 @@ export class BikeInsuranceComponent implements OnInit {
     keyPress(){
         // sessionStorage.bussinessType = this.bikeInsurance.controls['bussinessType'].value;
         // sessionStorage.manufacture = this.bikeInsurance.controls['manufacture'].value;
-        sessionStorage.engine = this.bikeInsurance.controls['engine'].value;
+        sessionStorage.manufactureYear = this.bikeInsurance.controls['manufactureYear'].value;
         sessionStorage.vehicleCC = this.bikeInsurance.controls['vehicleCC'].value;
         sessionStorage.variant = this.bikeInsurance.controls['variant'].value;
         sessionStorage.chasissNumber = this.bikeInsurance.controls['chasissNumber'].value;
@@ -565,6 +573,9 @@ export class BikeInsuranceComponent implements OnInit {
         }
         if (sessionStorage.manufacture != undefined && sessionStorage.manufacture != '') {
             this.bikeInsurance.controls['manufacture'].patchValue(sessionStorage.manufacture);
+        }
+        if (sessionStorage.manufactureYear != undefined && sessionStorage.manufactureYear != '') {
+            this.bikeInsurance.controls['manufactureYear'].patchValue(sessionStorage.manufactureYear);
         }
         if (sessionStorage.getmodelList != undefined && sessionStorage.getmodelList != '') {
             this.bikeInsurance.controls['model'].patchValue(sessionStorage.getmodelList);
