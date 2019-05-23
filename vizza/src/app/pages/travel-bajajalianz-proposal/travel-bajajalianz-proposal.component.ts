@@ -691,7 +691,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         this.validation.dobValidate(event);
     }
 
-    idValidate(event: any) {
+    idValidate(event: any){
         this.validation.idValidate(event);
     }
 
