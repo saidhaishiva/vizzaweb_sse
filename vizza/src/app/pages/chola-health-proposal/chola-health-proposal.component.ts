@@ -456,10 +456,10 @@ export class CholaHealthProposalComponent implements OnInit {
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
                   } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') {
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Child1');
-                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Son']);
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue('Son');
                   } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter') {
                       this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Child2');
-                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Daughter']);
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue('Daughter');
                   }
               }
               console.log(this.insureArray.value.items,"relationship length")
