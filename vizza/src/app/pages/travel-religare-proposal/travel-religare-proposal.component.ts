@@ -310,9 +310,9 @@ export class ReliagretravelproposalComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            "trip_start_on": this.religarePersonal.controls['startDate'].value,
+            "trip_start_on": this.datepipe.transform(sessionStorage.startDate, 'y-MM-dd'),
             "month": this.religarePersonal.controls['betweenMonth'].value
-        };
+        }
         this.travelservice.travelMonthDuration(data).subscribe(
             (successData) => {
                 this.travelMonthDurationSuccess(successData);

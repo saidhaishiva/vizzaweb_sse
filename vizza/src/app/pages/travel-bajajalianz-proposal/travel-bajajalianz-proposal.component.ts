@@ -460,7 +460,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
                 let getProposerAgeDays = this.DobDaysCalculate(dob_days);
                 let ageValidStatus = true;
-                if(getProposerAgeDays > 5843 && getProposerAgeDays < 13146){
+                if(getProposerAgeDays > 5843 && getProposerAgeDays < 13149){
                     ageValidStatus = true;
                 } else{
                     ageValidStatus = false;
@@ -691,7 +691,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         this.validation.dobValidate(event);
     }
 
-    idValidate(event: any) {
+    idValidate(event: any){
         this.validation.idValidate(event);
     }
 
