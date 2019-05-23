@@ -182,7 +182,8 @@ export class ReliagretravelproposalComponent implements OnInit {
             relationshipName:'',
             startDate:'',
             betweenMonth:'',
-            endDate:''
+            endDate:'',
+            endDateFormat:''
 
         });
         this.nomineeDetails = this.fb.group({
@@ -325,6 +326,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public travelMonthDurationSuccess(successData) {
         if (successData.IsSuccess) {
             this.religarePersonal.controls['endDate'].patchValue(this.datepipe.transform(successData.ResponseObject.end_date , 'dd/MM/yyyy'));
+            this.religarePersonal.controls['endDateFormat'].patchValue(successData.ResponseObject.end_date);
         }
     }
 
@@ -1163,7 +1165,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             'product_id': this.getTravelPremiumList.product_id,
             'enquiry_id': this.getEnquiryDetails.enquiry_id,
             'trip_start_on': this.datepipe.transform( this.getEnquiryDetails.start_date , 'y-MM-dd'),
-            'trip_end_on': this.datepipe.transform(this.religarePersonal.controls['endDate'].value , 'y-MM-dd'),
+            'trip_end_on': this.religarePersonal.controls['endDateFormat'].value,
             'baseProductId': this.getTravelPremiumList.geography_code,
             'trip_type': this.getEnquiryDetails.travel_plan_type,
             'plan_name': this.getTravelPremiumList.plan_name,
@@ -1280,6 +1282,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 startDate: getProposerDetails.startDate,
                 betweenMonth: getProposerDetails.betweenMonth,
                 endDate: getProposerDetails.endDate,
+                endDateFormat: getProposerDetails.endDateFormat,
                 rolecd: getProposerDetails.rolecd == null ? 'PROPOSER' : 'PROPOSER'
 
             });

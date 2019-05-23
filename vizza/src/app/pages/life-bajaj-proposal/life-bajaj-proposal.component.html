@@ -674,14 +674,14 @@
                                      autocomplete="off"   required>
                               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                               <mat-datepicker #picker2></mat-datepicker>
-                              <!--<mat-error *ngIf="nomineeDetail.nDob.errors?.required">DOB is required</mat-error>-->
+                              <!--<mat-error *ngIf="nomineeDetails.nDob.errors?.required">DOB is required</mat-error>-->
                             </mat-form-field>
-                            <p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value}}</p>
+                            <p class="error mb-0" *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value != ''">{{nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value}}</p>
                           </div>
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Birth Place"  formControlName="nBirthPlace" (keypress)="nameValidate($event)"   autocomplete="off" required>
-                              <!--<mat-error *ngIf="nomineeDetail.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
+                              <!--<mat-error *ngIf="nomineeDetails.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
@@ -689,13 +689,13 @@
                               <mat-select  placeholder="Nominee Relation with Insured" formControlName="nRelation" class="w-100" (change)="changeNomineeRelation()" required>
                                 <mat-option *ngFor="let list of nomineeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
                               </mat-select>
-                              <!--<mat-error *ngIf="nomineeDetail.controls.nRelation.errors?.required">Relation is required</mat-error>-->
+                              <!--<mat-error *ngIf="nomineeDetails.controls.nRelation.errors?.required">Relation is required</mat-error>-->
                             </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="i == 1">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="share Percentage"  formControlName="sharePercentage" (keypress)="numberValidate($event)"   autocomplete="off">
-                              <!--<mat-error *ngIf="nomineeDetail.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
+                              <!--<mat-error *ngIf="nomineeDetails.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
                             </mat-form-field>
                           </div>
 
@@ -716,7 +716,7 @@
                               <mat-datepicker #picker4></mat-datepicker>
                               <!--<mat-error *ngIf="apointeeDetails.appointeeDob.errors?.required">DOB is required</mat-error>-->
                             </mat-form-field>
-                            <p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value}}</p>
+                            <p class="error mb-0" *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value != ''">{{nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value}}</p>
                           </div>
                           <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
@@ -740,7 +740,7 @@
                     <div class="col-md-12">
                       <div class="proposal-buttom mb-3 text-right w-100">
                         <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                        <button mat-raised-button color="primaryBlue" (click)="nomineeDetailNext(stepper, nomineeDetail.value)">Next</button>
+                        <button mat-raised-button color="primaryBlue" (click)="nomineeDetailNext(stepper, nomineeDetails.value)">Next</button>
                       </div>
                     </div>
                   </form>
