@@ -66,7 +66,7 @@
                   <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="claimAmount()">
                           <input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>
                   </mat-form-field>
-                <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value">
+                <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
                     <mat-select placeholder="NCB Percent(%)" (change)="ncb()" formControlName="ncb"  required>
                         <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                     </mat-select>
@@ -90,7 +90,7 @@
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
                   <mat-form-field class="w-100">
-                      <mat-select placeholder="Vehicle Model"  formControlName="model" (change)="modelDetail()"  required>
+                      <mat-select placeholder="Vehicle Model"  formControlName="vehicleModel" (change)="modelDetail()"  required>
                           <mat-option *ngFor="let paCity of modelDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                       <!--<mat-error *ngIf="bikeInsurance.controls.fuelType.errors?.required">Fuel Type is required</mat-error>-->
@@ -118,7 +118,8 @@
                   </mat-form-field>
                   </div>
                 <div class="col-md-12 text-center mt-3">
-                  <button mat-raised-button color="primary" (click)="bike(bikeInsurance.value)">Submit</button>
+                  <button mat-raised-button color="primary" *ngIf="!listDetails" (click)="quationFirstStep(bikeInsurance.value)">Submit</button>
+                  <button mat-raised-button color="primary" *ngIf="listDetails" (click)="enquiryQuation(bikeInsurance.value)">Submit</button>
                   <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
