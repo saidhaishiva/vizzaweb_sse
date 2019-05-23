@@ -27,11 +27,12 @@ export class BikePremiumListComponent implements OnInit {
     setAllProductLists: any;
     getEnquiryDetials: any;
     compareArray: any;
-    bikeEnquiryDetails: any;
+    bikeEnquiryId: any;
     checkAllStatus: boolean;
     thirdParty: boolean;
     comphensivePremium: boolean;
     compherhensive: any;
+    getEnquiry: any;
     policyTerm: any;
     initialProductList: any;
     constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public bikeService: BikeInsuranceService, public config: ConfigurationService) {
@@ -49,7 +50,7 @@ export class BikePremiumListComponent implements OnInit {
     ngOnInit()
     {
         this.getCompanyList();
-        this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
+        this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
 
         this.sessionData();
     }
@@ -121,7 +122,7 @@ export class BikePremiumListComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'enquiry_id': this.bikeEnquiryDetails.enquiry_id,
+            'enquiry_id': this.bikeEnquiryId,
             'company_id':''
 
         };
