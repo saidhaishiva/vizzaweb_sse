@@ -43,48 +43,48 @@ export class ReliancePaPaymentSuccessComponent implements OnInit {
         this.router.navigate(['/appollopa'  + '/' + true]);
     }
 
-  DownloadPdf() {
-    const data = {
-      'mail_status': '1',
-      'proposal_id': this.proposalId,
-      'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-    }
-    this.settings.loadingSpinner = true;
-    this.personalService.getReliancePaDownloadpdf(data).subscribe(
-        (successData) => {
-          this.downloadPdfSuccess(successData);
-        },
-        (error) => {
-          this.downloadPdfFailure(error);
-        }
-    );
-  }
-
-  public downloadPdfSuccess(successData) {
-    this.type = successData.ResponseObject.type;
-    this.path = successData.ResponseObject.path;
-    this.settings.loadingSpinner = false;
-
-    if (successData.IsSuccess == true) {
-
-      this.currenturl = this.config.getimgUrl();
-      if (this.type == 'pdf') {
-        window.open(this.currenturl + '/' + this.path, '_blank');
-      } else if (this.type === 'pdf') {
-        window.open(this.currenturl + '/' + this.path, '_blank');
-      } else {
-        this.downloadMessage();
-      }
-    } else {
-      this.toast.error(successData.ErrorObject);
-    }
-
-  }
-
-  public downloadPdfFailure(error) {
-  }
+  // DownloadPdf() {
+  //   const data = {
+  //     'mail_status': '1',
+  //     'proposal_id': this.proposalId,
+  //     'platform': 'web',
+  //     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+  //     'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+  //   }
+  //   this.settings.loadingSpinner = true;
+  //   this.personalService.getReliancePaDownloadpdf(data).subscribe(
+  //       (successData) => {
+  //         this.downloadPdfSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.downloadPdfFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // public downloadPdfSuccess(successData) {
+  //   this.type = successData.ResponseObject.type;
+  //   this.path = successData.ResponseObject.path;
+  //   this.settings.loadingSpinner = false;
+  //
+  //   if (successData.IsSuccess == true) {
+  //
+  //     this.currenturl = this.config.getimgUrl();
+  //     if (this.type == 'pdf') {
+  //       window.open(this.currenturl + '/' + this.path, '_blank');
+  //     } else if (this.type === 'pdf') {
+  //       window.open(this.currenturl + '/' + this.path, '_blank');
+  //     } else {
+  //       this.downloadMessage();
+  //     }
+  //   } else {
+  //     this.toast.error(successData.ErrorObject);
+  //   }
+  //
+  // }
+  //
+  // public downloadPdfFailure(error) {
+  // }
 
   downloadMessage() {
     const dialogRef = this.dialog.open(DownloadReliancePersonalAccident, {
