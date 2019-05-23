@@ -460,6 +460,8 @@ export class PersonalaccidentComponent implements OnInit {
                     this.createEnquiryFailure(error);
                 }
             );
+        } else {
+            this.paProceed = true;
         }
     }
 

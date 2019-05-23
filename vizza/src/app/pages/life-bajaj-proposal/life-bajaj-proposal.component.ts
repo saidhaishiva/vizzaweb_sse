@@ -1,5 +1,5 @@
 import {Component, Inject, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup,FormArray,FormBuilder, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
@@ -44,7 +44,7 @@ export const MY_FORMATS = {
 export class LifeBajajProposalComponent implements OnInit {
   public proposer: FormGroup;
   public questions: FormGroup;
-  public nomineeDetail: FormGroup;
+  public nomineeDetails: FormGroup;
   public bankDetail: FormGroup;
   public apointeeDetails: FormGroup;
   public itemsNominee: any;
@@ -236,7 +236,6 @@ export class LifeBajajProposalComponent implements OnInit {
       officeNumber:'',
       addressProof:'',
       addressProofName:'',
-
       ageProof:'',
       incomeProof:'',
       incomeProofName:'',
@@ -245,35 +244,18 @@ export class LifeBajajProposalComponent implements OnInit {
       ageProofName:'',
       educationName:'',
       education:'',
-
-
-
-
     });
     this.proposer.controls['sameAsInsured'].patchValue(true);
-    // this.nomineeDetail = this.Proposer.group({
-    //   nName: ['', Validators.required],
-    //   nDob: ['', Validators.required],
-    //   nBirthPlace: ['', Validators.required],
-    //   nRelation: ['', Validators.required],
-    // });
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
     this.politicalDetails = false;
-
-    this.nomineeDetail = this.Proposer.group({
-      itemsNominee: this.Proposer.array([])
-      // nnName: ['', Validators.required],
-      // nDob: ['', Validators.required],
-      // nBirthPlace: ['', Validators.required],
-      // nRelation:['', Validators.required],
-      // nRelationName:'',
-      // nomineeDobValidError: ''
-
-    });
-
+    this.nomineeDetails = new FormGroup({
+            'itemsNominee' : new FormArray([
+            this.nomineeItems()
+        ])
+      });
     this.bankDetail = this.Proposer.group({
       accountHolderName:'',
       bankName:['', Validators.required],
@@ -295,48 +277,15 @@ export class LifeBajajProposalComponent implements OnInit {
     this.optGenStatus = true;
     this.optValidStatus = true;
       this.skipUploadStatus = true;
-        this.fileUploadStatus = true;
+      this.fileUploadStatus = true;
 
-
-
-
-        const data = {
-            "user_id": "0",
-            "role_id": "4",
-            "pos_status": "0",
-            "platform": "web",
-            "policy_id": "8",
-            "Persons": [{
-                "Documents": [],
-                "Type": "PH"
-            }]
-        };
-
-        let test = [{
-            "base64": "sdws",
-            "proofType": "age_proof",
-            "fileExt": "png"
-        },
-            {
-                "base64": "uytrfds",
-                "proofType": "id_proof",
-                "fileExt": "png"
-            }
-        ];
-
-        data.Persons[0].Documents = test;
-
-        console.log(data, 'datadata');
   }
 
 
   ngOnInit() {
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-      console.log(this.lifePremiumList, 'kjhgdhgh');
-
-    this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-
+      this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.paIdList();
     this.ageProof();
     this.maritalStatus();
@@ -357,64 +306,41 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getApointeeRelation();
     this.getDiseaseList();
     this.samerelationShip();
-
     if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
         this.mainQuestion();
     }
-
-          //NOMINEE Details
-    // this.itemsNominee = this.nomineeDetail.get('itemsNominee') as FormArray;
-    // this.itemsNominee.push(this.nomineeItems());
-    //
-    // console.log(this.itemsNominee,'var');
-    // console.log(this.nomineeDetail.get('itemsNominee')['controls'],'controls');
-
-    for (let i = 0; i < 1; i++) {
-      this.itemsNominee = this.nomineeDetail.get('itemsNominee') as FormArray;
-      this.itemsNominee.push(this.nomineeItems());
-    }
-
-
     this.sessionData();
-
-
   }
 
   nomineeItems() {
-    return this.Proposer.group({
-      nnName: '',
-      nDob: '',
-      nBirthPlace:'',
-      nRelation: '',
-      nRelationName: '',
-      nomineeDobValidError:'',
-      appointeeDobValidError:'',
-      sharePercentage:'',
-      aName: '',
-      appointeeDob:'',
-      appointeeRelationToNominee:'',
-      relationToInsured:'',
-      relationToInsuredName:''
+    return new FormGroup({
+      nnName: new FormControl(),
+      nDob: new FormControl(),
+      nBirthPlace: new FormControl(),
+      nRelation: new FormControl(),
+      nRelationName: new FormControl(),
+      nomineeDobValidError: new FormControl(),
+      appointeeDobValidError: new FormControl(),
+      sharePercentage: new FormControl(),
+      aName: new FormControl(),
+      appointeeDob: new FormControl(),
+      appointeeRelationToNominee: new FormControl(),
+      relationToInsured: new FormControl(),
+      relationToInsuredName: new FormControl()
     });
   }
 
   // add NOmineee
   addNominee(event) {
-    console.log(this.itemsNominee.value, 'val');
-    console.log(this.itemsNominee.valid, 'valddd');
     if(this.itemsNominee.valid) {
-      this.itemsNominee.push(this.nomineeItems());
+      let nomineeForm = this.itemsNominee.get('itemsNominee') as FormArray;
+      nomineeForm.push(this.nomineeItems());
     }
-    // if (this.itemsNominee.length < 2) {
-    //   this.itemsNominee.push(this.nomineeItems());
-    // }
   }
 
   removeNominee(event, index) {
-    if (index == 1) {
-      this.itemsNominee.removeAt(1);
-    }
-
+    let nomineeForm = this.itemsNominee.get('itemsNominee') as FormArray;
+    nomineeForm.removeAt(1);
   }
 
 
@@ -659,26 +585,26 @@ export class LifeBajajProposalComponent implements OnInit {
           if (typeof event.value._i == 'string') {
             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
             if (pattern.test(event.value._i) && event.value._i.length == 10) {
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
 
             } else {
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
             }
 
             selectedDate = event.value._i;
 
             if (selectedDate.length == 10) {
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
               this.getAge = this.ageCalculate(dob);
               this.getDays = this.ageCalculateInsurer(dob_days);
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
 
             }
 
           }
           else if (typeof event.value._i == 'object') {
             if (dob.length == 10) {
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
               this.getAge = this.ageCalculate(dob);
               this.getDays = this.ageCalculateInsurer(dob_days);
             }
@@ -689,10 +615,10 @@ export class LifeBajajProposalComponent implements OnInit {
         if (this.getAge < 18) {
           this.showAppointee = true;
         } else {
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue('');
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue('');
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
           this.showAppointee = false;
         }
       } else if(type == 'appointee') {
@@ -709,26 +635,26 @@ export class LifeBajajProposalComponent implements OnInit {
           if (typeof event.value._i == 'string') {
             const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
             if (pattern.test(event.value._i) && event.value._i.length == 10) {
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
 
             } else {
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
             }
 
             selectedDate = event.value._i;
 
             if (selectedDate.length == 10) {
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
               this.getAge = this.ageCalculate(dob);
               this.getDays = this.ageCalculateInsurer(dob_days);
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(dob);
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(dob);
 
             }
 
           }
           else if (typeof event.value._i == 'object') {
             if (dob.length == 10) {
-              this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+              this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
               this.getAge = this.ageCalculate(dob);
               this.getDays = this.ageCalculateInsurer(dob_days);
             }
@@ -908,10 +834,10 @@ samerelationShip(){
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
     console.log(value, 'valuevalue');
     console.log(sessionStorage.nomineAge, 'sessionStorage.nomineAge');
-    console.log(this.nomineeDetail.valid, 'this.nomineeDetail.valid');
-      if (this.nomineeDetail.valid) {
+    console.log(this.nomineeDetails.valid, 'this.nomineeDetail.valid');
+      if (this.nomineeDetails.valid) {
           if (sessionStorage.nomineAge < 18) {
-            if(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
+            if(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
                 stepper.next();
                 this.topScroll();
             } else {
@@ -1826,19 +1752,19 @@ samerelationShip(){
         "spouseDob":this.datepipe.transform(this.proposer.controls['spouseDob'].value,'yyyy/MM/dd')== null ? '' : this.datepipe.transform(this.proposer.controls['spouseDob'].value,'yyyy/MM/dd'),
       },
       "nominee_details": {
-        "nominee1Name": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nnName.value,
-        "nominee1BirthPlace": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nBirthPlace.value,
-        "nominee1Dob":  this.datepipe.transform(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nDob.value,'yyyy/MM/dd'),
-        "nominee1Relation": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nRelation.value,
-        "nominee2Name": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-        "nominee2BirthPlace":this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nBirthPlace.value : '',
-        "nominee2Dob": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nDob.value : '',
-        "nominee2Relation": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-        "sharePercentage": this.nomineeDetail.value.itemsNominee.length > 1 ? this.nomineeDetail['controls'].itemsNominee['controls'][1]['controls'].sharePercentage.value : '',
-        "appointeeName": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value,
-        "appointeeDob":this.datepipe.transform(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd')== null ? '': this.datepipe.transform(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd'),
-        "appointeeRelationToNominee": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,
-        "RelationToInsured": this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value
+        "nominee1Name": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nnName.value,
+        "nominee1BirthPlace": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nBirthPlace.value,
+        "nominee1Dob":  this.datepipe.transform(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nDob.value,'yyyy/MM/dd'),
+        "nominee1Relation": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nRelation.value,
+        "nominee2Name": this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
+        "nominee2BirthPlace":this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].nBirthPlace.value : '',
+        "nominee2Dob": this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].nDob.value : '',
+        "nominee2Relation": this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
+        "sharePercentage": this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].sharePercentage.value : '',
+        "appointeeName": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value,
+        "appointeeDob":this.datepipe.transform(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd')== null ? '': this.datepipe.transform(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd'),
+        "appointeeRelationToNominee": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,
+        "RelationToInsured": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value
       },
 
       "address_details": {
@@ -1914,7 +1840,7 @@ samerelationShip(){
       this.requestedUrl = this.summaryData.biUrlLink;
       this.proposerFormData = this.proposer.value;
       this.bankDetailFormData = this.bankDetail.value;
-      this.nomineeDetailFormData = this.nomineeDetail.value.itemsNominee;
+      this.nomineeDetailFormData = this.nomineeDetails.value.itemsNominee;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.bankDetailFormData = JSON.stringify(this.bankDetailFormData);
@@ -2076,20 +2002,20 @@ samerelationShip(){
           let nomineeDetails = JSON.parse(sessionStorage.lifeBajaiNomineeDetails);
           console.log(nomineeDetails, 'nlifeBajajnlifeBajaj');
           for (let i = 0; i < nomineeDetails.itemsNominee.length; i++) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nomineeDetails.itemsNominee[i].nnName);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nomineeDetails.itemsNominee[i].nDob);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nomineeDetails.itemsNominee[i].nBirthPlace);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nomineeDetails.itemsNominee[i].nRelation);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nomineeDetails.itemsNominee[i].nomineeDobValidError);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.patchValue(nomineeDetails.itemsNominee[i].sharePercentage);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nomineeDetails.itemsNominee[i].nnName);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nomineeDetails.itemsNominee[i].nDob);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nomineeDetails.itemsNominee[i].nBirthPlace);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nomineeDetails.itemsNominee[i].nRelation);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nomineeDetails.itemsNominee[i].nomineeDobValidError);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.patchValue(nomineeDetails.itemsNominee[i].sharePercentage);
 
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(nomineeDetails.itemsNominee[i].aName);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(nomineeDetails.itemsNominee[i].appointeeDob);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue(nomineeDetails.itemsNominee[i].appointeeRelationToNominee);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue(nomineeDetails.itemsNominee[i].appointeeDobValidError);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(nomineeDetails.itemsNominee[i].aName);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(nomineeDetails.itemsNominee[i].appointeeDob);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue(nomineeDetails.itemsNominee[i].appointeeRelationToNominee);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue(nomineeDetails.itemsNominee[i].appointeeDobValidError);
 
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(nomineeDetails.itemsNominee[i].relationToInsured);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsuredName.patchValue(nomineeDetails.itemsNominee[i].relationToInsuredName);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(nomineeDetails.itemsNominee[i].relationToInsured);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsuredName.patchValue(nomineeDetails.itemsNominee[i].relationToInsuredName);
           }
       }
       if (sessionStorage.nomineAge!= '' && sessionStorage.nomineAge != undefined) {
