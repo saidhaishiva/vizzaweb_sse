@@ -354,7 +354,7 @@ export class TravelService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-// religare-health-proposal travel-home
+// religare-proposal travel-home
     // Religare RelationShipList
     religareTravelRelationshipList(data) {
         const json = JSON.stringify(data);
@@ -363,6 +363,17 @@ export class TravelService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostTravel() + 'religare/get_relationship_details' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    travelMonthDuration(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTravel() + 'religare/travel_duration' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

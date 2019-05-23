@@ -417,7 +417,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-placeholder >No Of Semester<span class="error">*</span></mat-placeholder>
+                            <mat-placeholder >No Of Semester <span class="error">*</span></mat-placeholder>
                             <input matInput formControlName="personalNoOfSems" maxlength="2"  (keypress)="numberValidate($event)"  autocomplete="off">
                           </mat-form-field>
                         </div>
@@ -434,14 +434,14 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-placeholder >Email ID <span class="error">*</span></mat-placeholder>
+                            <mat-placeholder >Email ID </mat-placeholder>
                             <input matInput formControlName="personalUniversityEmail"  autocomplete="off">
                             <mat-error *ngIf="personal.controls.personalUniversityEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-placeholder >Mobile Number <span class="error">*</span></mat-placeholder>
+                            <mat-placeholder >Mobile Number </mat-placeholder>
                             <input matInput formControlName="personalUniversityMobileNo" maxlength="10" minlength="10" (keypress)="numberValidate($event)" autocomplete="off">
                             <mat-error *ngIf="personal.controls.personalUniversityMobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                           </mat-form-field>
@@ -457,28 +457,20 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <mat-placeholder >PIN Code<span class="error">*</span></mat-placeholder>
-                            <input matInput  formControlName="personalUniversityPincode" pattern="[1-9][0-9]{5}" minlength="6"   maxlength="6" (input)="commonPincode($event.target.value, 'proposalU')" autocomplete="off" >
-                            <mat-error *ngIf="personal.controls.personalUniversityPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
-                          </mat-form-field>
-                        </div>
-
-                        <div class="col-md-3">
                           <mat-form-field  class="w-100">
-                            <mat-placeholder >City <span class="error">*</span></mat-placeholder>
-                            <input matInput formControlName="personalUniversityCity" (keypress)="nameValidate($event)"  autocomplete="off"  readonly>
+                            <mat-placeholder >City </mat-placeholder>
+                            <input matInput formControlName="personalUniversityCity" (keypress)="nameValidate($event)"  autocomplete="off"  >
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-placeholder >State <span class="error">*</span></mat-placeholder>
-                            <input matInput formControlName="personalUniversityState" (keypress)="nameValidate($event)"  autocomplete="off" readonly >
+                            <mat-placeholder >State </mat-placeholder>
+                            <input matInput formControlName="personalUniversityState" (keypress)="nameValidate($event)"  autocomplete="off"  >
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-placeholder >Country Name <span class="error">*</span></mat-placeholder>
+                            <mat-placeholder >Country Name </mat-placeholder>
                             <input matInput formControlName="personalUniversityCountry" (keypress)="nameValidate($event)"  autocomplete="off">
                           </mat-form-field>
                         </div>
