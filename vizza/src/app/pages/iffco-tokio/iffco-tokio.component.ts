@@ -884,7 +884,7 @@ export class IffcoTokioComponent implements OnInit {
             'group_name':this.getFamilyDetails.name,
             'company_name': 'Iffco-Tokiyo',
             'Policy': {
-                'Product': this.buyProductdetails.product_name == 'Family Health Protector Individual' ? 'FHP' : 'IHP',
+                'Product': this.buyProductdetails.product_name == 'Family Health Protector Family' ? 'FHP' : 'IHP',
                 'GrossPremium': this.buyProductdetails.base_premium,
                 'NetPremiumPayable': this.buyProductdetails.service_tax,
                 'ServiceTax': this.buyProductdetails.total_premium,
