@@ -223,7 +223,7 @@
                           </div>
 
                           <div class="col-md-4">
-                            <mat-form-field class="w-100"  [ngStyle]="{'pointer-events':  i == 0 ? 'none' : ''}">
+                            <mat-form-field class="w-100"  [ngStyle]="{'pointer-events':  i == 0  ? 'none' : 'none' }">
                               <mat-select placeholder="Relationship with Proposer" (change)="changeRelationShipList(i)" formControlName="personalrelationship"  required  >
                                 <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="relationship.key == 'Self'" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                               </mat-select>

@@ -154,7 +154,12 @@ export class CholaHealthProposalComponent implements OnInit {
     this.maritalStatus();
     this.setRelationship();
     this.cholaTitlegender();
-
+    //   for (let i = 0; i < this.relationsame1.length; i++) {
+    //       if (this.relationsame1 = 'Spouse') {
+    //           this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Spouse');
+    //           this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
+    //       }
+    //   }
     // this.cholaTotalsuminsuredList();
 
 
@@ -164,7 +169,6 @@ export class CholaHealthProposalComponent implements OnInit {
       this.totalPermiumlist = this.getFamilyDetails.product_id;
       // for (let i = 0; i < this.getFamilyDetails.product_id.length; i++) {
       // }
-
       this.insureArray = this.fb.group({
       items: this.fb.array([])
     });
@@ -173,8 +177,7 @@ export class CholaHealthProposalComponent implements OnInit {
       this.items.push(this.initItemRows());
         this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
     }
-
-    this.sessionData();
+      this.sessionData();
 
   }
   setStep(index: number) {
@@ -408,7 +411,7 @@ export class CholaHealthProposalComponent implements OnInit {
   // insured page
   changeRelationShipList(index) {
     this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.patchValue(this.relationshipList[this.insureArray['controls'].items['controls'][index]['controls'].personalrelationship.value]);
- this.relationsame1 = this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.value
+ this.relationsame1 = this.insureArray['controls'].items['controls'][index]['controls'].personalrelationshipName.value;
   }
 
 
@@ -440,17 +443,31 @@ export class CholaHealthProposalComponent implements OnInit {
     if (this.personal.valid) {
        if (sessionStorage.personalAge >= 18) {
           if (this.mobileNumber == '' || this.mobileNumber == 'true') {
-             this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
-             this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
-             this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
-             this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
-             this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
-             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('Self');
-             this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipName.patchValue(this.relationshipList['Self']);
+              this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
+              this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
+              this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.personal.controls['personalLastname'].value);
+              this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.personal.controls['personalDob'].value);
+              this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.personal.controls['personalGender'].value);
+              this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('Self');
+              this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipName.patchValue(this.relationshipList['Self']);
+              for (let i= 0; i < this.insureArray.value.items.length; i++) {
+                  if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Spouse') {
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Spouse');
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
+                  } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') {
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Child1');
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Son']);
+                  } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter') {
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Child2');
+                      this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Daughter']);
+                  }
+              }
+              console.log(this.insureArray.value.items,"relationship length")
+
               stepper.next();
               this.topScroll();
               this.nextStep();
-           }
+          }
            console.log(this.personal, 'this.personal');
        } else {
        this.toastr.error('Proposer age should be 18 or above');
