@@ -72,6 +72,7 @@ export class BikeInsuranceComponent implements OnInit {
     public getmodelList : any;
     public manufactureDetails : any;
     public bussiness : any;
+    public engine : any;
     public getvariant : any;
     public listDetails : boolean;
     public expiry : boolean;
@@ -100,6 +101,7 @@ export class BikeInsuranceComponent implements OnInit {
             'vehicleCC':'',
             'variant': '',
             'chasissNumber':'',
+            'engine':'',
             'previousPolicyExpiry':'',
             'previousPolicyStart':''
         });
@@ -163,6 +165,9 @@ export class BikeInsuranceComponent implements OnInit {
     }
     ncb(){
         sessionStorage.ncb = this.bikeInsurance.controls['ncb'].value;
+    }
+    engineList(){
+        sessionStorage.engine = this.bikeInsurance.controls['engine'].value;
     }
     keyPress(){
         // sessionStorage.bussinessType = this.bikeInsurance.controls['bussinessType'].value;
@@ -344,7 +349,7 @@ export class BikeInsuranceComponent implements OnInit {
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            'enquiry_id': enquiryyy.enquiry,
+            'enquiry_id': 0,
             'vehicle_no':this.bikeInsurance.controls['vehicalNumber'].value,
             'registration_date': this.bikeInsurance.controls['registrationDate'].value,
             'previous_policy_expiry_date':this.bikeInsurance.controls['previousPolicyExpiry'].value,
@@ -376,6 +381,7 @@ export class BikeInsuranceComponent implements OnInit {
     public enquirySuccess(successData){
         if (successData.IsSuccess) {
             this.QuotationList = successData.ResponseObject;
+            console.log(this.QuotationList,'jhkhjgkj');
             this.router.navigate(['/bikepremium']);
 
         }
@@ -514,6 +520,7 @@ export class BikeInsuranceComponent implements OnInit {
                 'vehicleCC': stepper.vehicleCC,
                 'variant': stepper.variant,
                 'chasissNumber': stepper.chasissNumber,
+                'engine': stepper.engine,
                 'ncb':stepper.ncb,
                 'previousPolicyExpiry': stepper.previousPolicyExpiry,
                 'previousPolicyStart': stepper.previousPolicyStart
@@ -576,6 +583,10 @@ export class BikeInsuranceComponent implements OnInit {
         if (sessionStorage.chasissNumber != undefined && sessionStorage.chasissNumber != '') {
             this.getccNumber = sessionStorage.chasissNumber;
             this.bikeInsurance.controls['chasissNumber'].patchValue(this.getccNumber);
+        }
+        if (sessionStorage.engine != undefined && sessionStorage.engine != '') {
+            this.engine = sessionStorage.engine;
+            this.bikeInsurance.controls['engine'].patchValue(this.engine);
         }
     }
 
