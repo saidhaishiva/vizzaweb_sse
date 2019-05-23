@@ -539,7 +539,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                 let studentValid = false;
                 if (this.personal['controls'].occupation.value == '36') {
                     studentValid = true;
-                    if (this.personal['controls'].personalCourseName.value == '' || this.personal['controls'].personalUniversityName.value == '' || this.personal['controls'].personalUniversityEmail.value == ''|| this.personal['controls'].personalUniversityMobileNo.value == '' || this.personal['controls'].personalSponsorFullname.value == '' || this.personal['controls'].personalSponsorEmail.value == '' || this.personal['controls'].personalSponsorMobileNo.value == '' ) {
+                    if (this.personal['controls'].personalCourseName.value == '' || this.personal['controls'].personalNoOfSems.value == '' || this.personal['controls'].personalUniversityName.value == '' || this.personal['controls'].personalSponsorFullname.value == '' || this.personal['controls'].personalSponsorEmail.value == '' || this.personal['controls'].personalSponsorMobileNo.value == '' || this.personal['controls'].personalSponsorAddress.value == '' || this.personal['controls'].personalSponsorPincode.value == ''  ) {
                         studentValid = false;
                     }
                 }

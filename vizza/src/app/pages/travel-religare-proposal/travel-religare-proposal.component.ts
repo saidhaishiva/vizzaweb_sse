@@ -107,6 +107,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public RiskData :any;
     public diseaseFieldView :any;
     public sponserRelationList :any;
+    public getEndDate :any;
 
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public route: ActivatedRoute,
@@ -179,6 +180,9 @@ export class ReliagretravelproposalComponent implements OnInit {
             addon:'',
             studentRelationShipName:'',
             relationshipName:'',
+            startDate:'',
+            betweenMonth:'',
+            endDate:''
 
         });
         this.nomineeDetails = this.fb.group({
@@ -187,6 +191,8 @@ export class ReliagretravelproposalComponent implements OnInit {
             'religareNomineeRelationshipName': ''
 
         });
+        let sDate = this.datepipe.transform(sessionStorage.startDate, 'dd/MM/yyyy');
+        this.religarePersonal.controls['startDate'].patchValue(sDate);
     }
 
     ngOnInit() {
@@ -298,6 +304,33 @@ export class ReliagretravelproposalComponent implements OnInit {
             }
         }
     }
+    selectMonths(){
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            "trip_start_on": this.religarePersonal.controls['startDate'].value,
+            "month": this.religarePersonal.controls['betweenMonth'].value
+        };
+        this.travelservice.travelMonthDuration(data).subscribe(
+            (successData) => {
+                this.travelMonthDurationSuccess(successData);
+            },
+            (error) => {
+                this.travelMonthDurationFailure(error);
+            }
+        );
+    }
+    public travelMonthDurationSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.religarePersonal.controls['endDate'].patchValue(this.datepipe.transform(successData.ResponseObject.end_date , 'dd/MM/yyyy'));
+        }
+    }
+
+    public travelMonthDurationFailure(error) {
+    }
+
     // RelationShip List
     RelationShipListTravel() {
         const data = {
@@ -1130,7 +1163,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             'product_id': this.getTravelPremiumList.product_id,
             'enquiry_id': this.getEnquiryDetails.enquiry_id,
             'trip_start_on': this.datepipe.transform( this.getEnquiryDetails.start_date , 'y-MM-dd'),
-            'trip_end_on': this.datepipe.transform( this.getEnquiryDetails.end_date , 'y-MM-dd'),
+            'trip_end_on': this.datepipe.transform(this.religarePersonal.controls['endDate'].value , 'y-MM-dd'),
             'baseProductId': this.getTravelPremiumList.geography_code,
             'trip_type': this.getEnquiryDetails.travel_plan_type,
             'plan_name': this.getTravelPremiumList.plan_name,
@@ -1185,6 +1218,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             if (sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined) {
                 this.setAddons = JSON.parse(sessionStorage.setAddons);
             }
+            this.getEndDate = this.datepipe.transform(this.religarePersonal.controls['endDate'].value , 'y-MM-dd');
             // else {
             //     this.setAddons = [];
             // }
@@ -1243,6 +1277,9 @@ export class ReliagretravelproposalComponent implements OnInit {
                 addon: getProposerDetails.addon,
                 studentRelationShipName: getProposerDetails.studentRelationShipName,
                 relationshipName: getProposerDetails.relationshipName,
+                startDate: getProposerDetails.startDate,
+                betweenMonth: getProposerDetails.betweenMonth,
+                endDate: getProposerDetails.endDate,
                 rolecd: getProposerDetails.rolecd == null ? 'PROPOSER' : 'PROPOSER'
 
             });
