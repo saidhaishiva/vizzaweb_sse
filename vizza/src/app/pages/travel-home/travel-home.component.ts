@@ -913,6 +913,7 @@ export class TravelHomeComponent implements OnInit {
             this.router.navigate(['/travelpremium']);
         }
         else {
+            this.travelProceed = true;
             this.toast.error(successData.ErrorObject);
         }
     }

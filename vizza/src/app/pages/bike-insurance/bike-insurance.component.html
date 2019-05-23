@@ -31,7 +31,7 @@
                   </mat-form-field>
 
                   <mat-form-field class="w-100">
-                      <mat-select placeholder="Bussiness Type"  formControlName="bussiness"  (change)="bussinessData()" required>
+                      <mat-select placeholder="Business  Type"  formControlName="bussiness"  (change)="bussinessData()" required>
                           <mat-option *ngFor="let paCity of bussinessList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                   </mat-form-field>
@@ -77,8 +77,13 @@
                       <mat-error *ngIf="bikeInsurance.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
+                      <mat-form-field class="w-100">
+                          <input matInput placeholder="Engine number " formControlName="engine" (keyup)="engineList()" maxlength= "15" (keypress)="idValidate($event)" required>
+                          <mat-error *ngIf="bikeInsurance.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>
+                          <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+                      </mat-form-field>
                   <mat-form-field class="w-100">
-                      <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (change)="manufactureList();modelList1(); variantList(); ccList()" (click)="modelList1()"  required>
+                      <mat-select placeholder="Vehicle Manufacture"  formControlName="manufacture"  (change)="manufactureList();modelList1(); variantList(); ccList()"  required>
                           <mat-option *ngFor="let paCity of manifactureDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                       <!--<mat-error *ngIf="bikeInsurance.controls.manufacture.errors?.required">Vehicle Manufacture is required</mat-error>-->

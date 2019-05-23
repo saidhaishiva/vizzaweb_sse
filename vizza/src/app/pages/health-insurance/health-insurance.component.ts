@@ -496,8 +496,13 @@ export class HealthInsuranceComponent implements OnInit {
                     );
 
                 } else {
+                    this.healthProceed = true;
                 }
+            } else {
+                this.healthProceed = true;
             }
+        } else {
+            this.healthProceed = true;
         }
     }
 

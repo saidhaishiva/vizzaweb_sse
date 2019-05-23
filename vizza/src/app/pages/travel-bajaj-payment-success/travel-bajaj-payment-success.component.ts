@@ -32,7 +32,7 @@ export class TravelBajajPaymentSuccessComponent implements OnInit {
   ngOnInit() {
   }
   retry() {
-    this.router.navigate(['/shriram-travel-home'  + '/' + true]);
+    this.router.navigate(['/bajaj-travel'  + '/' + true]);
   }
 
   DownloadPdf() {
@@ -56,8 +56,8 @@ export class TravelBajajPaymentSuccessComponent implements OnInit {
   }
   public downloadPdfSuccess(successData) {
     console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
-    // this.type = successData.ResponseObject.type;
-    // this.path = successData.ResponseObject.path;
+    this.type = successData.ResponseObject.type;
+    this.path = successData.ResponseObject.path;
     this.settings.loadingSpinner = false;
 
     if (successData.IsSuccess == true) {
