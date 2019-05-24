@@ -850,6 +850,20 @@ export class BikeShriramProposalComponent implements OnInit {
           }
 
       }
+
+    }
+    manufactureYear(){
+        let start = new Date(this.previousInsure.controls['previousdob'].value);
+        let getPolicyYear = start.getFullYear();
+        console.log(getPolicyYear,'getPolicyYear');
+        let getLength = this.previousInsure.controls['policyUwYear'].value;
+        if(getLength.length == 4) {
+            if(getPolicyYear >= this.bikeInsurance.controls['policyUwYear'].value){
+            }  else {
+                this.toastr.error('Manufacture Year should be less than Registration Year');
+            }
+        }
+
     }
 //  fFOURTH sTEPPER (NOMINEE)
       ageNominee(){
@@ -934,7 +948,7 @@ export class BikeShriramProposalComponent implements OnInit {
           'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
           'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
           'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-          'enquiry_id': this.bikeEnquiryDetails.enquiry_id,
+          'enquiry_id': this.enquiryFormData.enquiry_id,
           "created_by": "",
           'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
           "geogrophicalExtensionCover": "false",
