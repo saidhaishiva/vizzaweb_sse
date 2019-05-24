@@ -419,7 +419,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker3"  placeholder="Policy End Date(DD/MM/YYYY)"  (keypress)="dobValidate($event)" [min]="bikeInsurance.controls['previousdob'].value"  formControlName="previousdEndob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
+                                                    <input matInput [matDatepicker]="picker3"  placeholder="Policy End Date(DD/MM/YYYY)"  (keypress)="dobValidate($event)" [min]="previousInsure.controls['previousdob'].value"  formControlName="previousdEndob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
                                                            autocomplete="off"   required>
                                                     <mat-datepicker-toggle matSuffix [for]="picker3" ></mat-datepicker-toggle>
                                                     <mat-datepicker #picker3></mat-datepicker>
