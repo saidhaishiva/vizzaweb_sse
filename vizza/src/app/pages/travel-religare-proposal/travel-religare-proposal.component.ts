@@ -1165,7 +1165,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             'product_id': this.getTravelPremiumList.product_id,
             'enquiry_id': this.getEnquiryDetails.enquiry_id,
             'trip_start_on': this.datepipe.transform( this.getEnquiryDetails.start_date , 'y-MM-dd'),
-            'trip_end_on': this.religarePersonal.controls['endDateFormat'].value,
+            'trip_end_on': this.getEnquiryDetails.travel_user_type == 'student' ? this.religarePersonal.controls['endDateFormat'].value : this.datepipe.transform(this.getEnquiryDetails.end_date , 'y-MM-dd'),
             'baseProductId': this.getTravelPremiumList.geography_code,
             'trip_type': this.getEnquiryDetails.travel_plan_type,
             'plan_name': this.getTravelPremiumList.plan_name,
@@ -1220,11 +1220,11 @@ export class ReliagretravelproposalComponent implements OnInit {
             if (sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined) {
                 this.setAddons = JSON.parse(sessionStorage.setAddons);
             }
-            this.getEndDate = this.datepipe.transform(this.religarePersonal.controls['endDate'].value , 'y-MM-dd');
-            // else {
-            //     this.setAddons = [];
-            // }
-
+            if(this.getEnquiryDetails.travel_user_type == 'student') {
+                this.getEndDate = this.religarePersonal.controls['endDate'].value;
+            } else {
+                this.getEndDate = this.getEnquiryDetails.end_date;
+            }
             this.religareTravelQuestionsList[4].fieldValue = this.insuretravelRelationList[this.religareTravelQuestionsList[4].fieldValue];
 
         } else {
