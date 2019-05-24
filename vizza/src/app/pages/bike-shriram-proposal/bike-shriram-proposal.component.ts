@@ -191,7 +191,6 @@ export class BikeShriramProposalComponent implements OnInit {
     }
 
   ngOnInit() {
-      this.bikeEnquiryDetails = JSON.parse(sessionStorage.bikeEnquiryDetails);
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
 
