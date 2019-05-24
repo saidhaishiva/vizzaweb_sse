@@ -13,6 +13,7 @@ import {MY_FORMATS} from '../appollo-munich-pa/appollo-munich-pa.component';
 import {validate} from 'codelyzer/walkerFactory/walkerFn';
 import { ConfigurationService} from '../../shared/services/configuration.service';
 import {jsonpCallbackContext} from '@angular/common/http/src/module';
+import { ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -50,7 +51,7 @@ export class ReliancePaComponent implements OnInit {
   public paCityNomineeList: any;
   public paNomineedistrictList: any;
   public tenureList: any;
-  public coverOptList: any;
+  // public coverOptList: any;
   public coverSubList: any;
   public Exemptionlist: any;
   public annualList: any;
@@ -83,7 +84,7 @@ export class ReliancePaComponent implements OnInit {
   public sessionAge: any;
   public getAllPremiumDetails: any;
 
-  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public  datepipe: DatePipe, public authservice: AuthService, public personalservice: PersonalAccidentService, private toastr: ToastrService, public appSettings: AppSettings) {
+  constructor(public fb: FormBuilder,public route: ActivatedRoute, public validation: ValidationService, public config: ConfigurationService, public  datepipe: DatePipe, public authservice: AuthService, public personalservice: PersonalAccidentService, private toastr: ToastrService, public appSettings: AppSettings) {
     let stepperindex = 0;
     this.currentStep = stepperindex;
     this.settings = this.appSettings.settings;
@@ -93,18 +94,23 @@ export class ReliancePaComponent implements OnInit {
     const miniDate = new Date();
     this.minDate= new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
     this.maxdate = this.minDate;
-    // if(sessionStorage.summarydata != '' && sessionStorage.summarydata != undefined) {
-    //   this.summaryData = JSON.parse(sessionStorage.summarydata);
-    //   console.log(this.summaryData,'100');
-    //   this.proposerdata = JSON.parse(sessionStorage.Paproposer);
-    //   console.log(this.proposerdata,'100');
-    //   this.riskdata = JSON.parse(sessionStorage.Parisk);
-    //   console.log(this.riskdata,'100');
-    //   this.insuredata = JSON.parse(sessionStorage.Painsured);
-    //   console.log(this.insuredata,'100');
-    //   this.nomineedata = JSON.parse(sessionStorage.Panominee);
-    //   console.log(this.nomineedata,'100');
-    // }
+    this.route.params.forEach((params) => {
+      if(params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+          this.summaryData = JSON.parse(sessionStorage.summarydata);
+          this.RediretUrlLink = this.summaryData.RediretUrlLink;
+          this.reliancePAproposalID = this.summaryData.ProposalId;
+          this.proposerdata = JSON.parse(sessionStorage.Paproposer);
+          this.riskdata = JSON.parse(sessionStorage.Parisk);
+          this.insuredata = JSON.parse(sessionStorage.Painsured);
+          this.nomineedata = JSON.parse(sessionStorage.Panominee);
+          sessionStorage.reliancePAproposalID = this.reliancePAproposalID;
+        }
+      }
+    });
+    this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
+    console.log(this.getBuyDetails, 'sum insurd amount');
     this.webhost = this.config.getimgUrl();
     let today = new Date();
     this.policystart = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
@@ -112,7 +118,6 @@ export class ReliancePaComponent implements OnInit {
     this.policyend = new Date(minDate.getFullYear() + 1 , minDate.getMonth(), minDate.getDate());
     this.proposerAgeP = '';
     this.inputReadonly = false;
-
 
     this.proposer = this.fb.group({
       proposerPaTitle: ['', Validators.required],
@@ -138,8 +143,6 @@ export class ReliancePaComponent implements OnInit {
       proposerPaPincode: ['', Validators.required],
       nearestLandmark: '',
       proposerPaCountry: ['', Validators.required],
-      commaddrsEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      commaddrsMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       nationality: '',
       proposerPaArea: ['', Validators.required],
       proposerPaState: ['', Validators.required],
@@ -186,7 +189,7 @@ export class ReliancePaComponent implements OnInit {
       insureOccupationListname: '',
       physicaldefectdetail: '',
       insuredclaimdetails: '',
-      earningmember: '',
+      earningmember: ['', Validators.required],
       physicaldefect: '',
       previousinsurer: '',
       personalaccident: '',
@@ -207,7 +210,7 @@ export class ReliancePaComponent implements OnInit {
     });
 
     this.riskDetails = this.fb.group({
-      CoverageOptionID: ['', Validators.required],
+      // CoverageOptionID: ['', Validators.required],
       coveragesubOptionID: '',
       MembertoInsure: '',
       Tenure: ['', Validators.required],
@@ -227,7 +230,7 @@ export class ReliancePaComponent implements OnInit {
       nomineePaFirstname: ['', Validators.required],
       nomineePaMidname: '',
       nomineePaLastname: ['', Validators.required],
-      nomineePaDob: '',
+      nomineePaDob: ['', Validators.required],
       nomineePaAddress1: ['', Validators.required],
       nomineePaAddress2: ['', Validators.required],
       nomineePaAddress3: '',
@@ -255,18 +258,20 @@ export class ReliancePaComponent implements OnInit {
     this.paCustomertypeList();
     this.tenure();
     this.PaAnnualIncome();
-    this.relationship();
-    this.coverOptId();
+    // this.coverOptId();
     this.coverageSubID();
     this.exemption();
     this.insurecompny();
+    this.relationship();
     this.sessionData();
     this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
-    this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
-    console.log(this.getBuyDetails,'sum insurd amount');
     this.riskDetails.controls['capitalsuminsured'].patchValue(this.getBuyDetails.suminsured_amount)
-    // product_name: "Individual Personal Accident - Standard";
     this.insure.controls['TotalCapital'].patchValue(this.getBuyDetails.suminsured_amount);
+    this.proposer.controls['proposerPaCountry'].patchValue('India');
+    this.proposer.controls['PaCountry'].patchValue('India');
+    this.nominee.controls['nomineePaCountry'].patchValue('India');
+    this.insure.controls['relationshipWithProposer'].patchValue('Self');
+
   }
 
   insurechangeGender(type) {
@@ -556,9 +561,7 @@ export class ReliancePaComponent implements OnInit {
   }
 
   insureOccupationList(){
-    alert('in');
     this.insure.controls['insureOccupationListname'].patchValue(this.insureroccupation[this.insure.controls['insureOccupationList'].value]);
-    console.log(this.insure.controls['insureOccupationListname'].value,'ocuupation');
   }
 
 
@@ -731,32 +734,32 @@ export class ReliancePaComponent implements OnInit {
 
   }
 
-  //Risk CoveroptionsList
-  coverOptId() {
-    const data = {
-      'platform': 'web',
-      'product_id': '11',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
-    this.personalservice.covertypeList(data).subscribe(
-        (successData) => {
-          this.CoverListSuccess(successData);
-        },
-        (error) => {
-          this.CoverListFailure(error);
-        }
-    );
-  }
-
-  CoverListSuccess(successData) {
-    this.coverOptList = successData.ResponseObject;
-
-  }
-
-  CoverListFailure(error) {
-
-  }
+  // //Risk CoveroptionsList
+  // coverOptId() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'product_id': '11',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //   };
+  //   this.personalservice.covertypeList(data).subscribe(
+  //       (successData) => {
+  //         this.CoverListSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.CoverListFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // CoverListSuccess(successData) {
+  //   this.coverOptList = successData.ResponseObject;
+  //
+  // }
+  //
+  // CoverListFailure(error) {
+  //
+  // }
 
   //Riskdetails coverageSubOptionId
   coverageSubID() {
@@ -888,6 +891,7 @@ export class ReliancePaComponent implements OnInit {
 
   sameAsCurrentAddress(value: any) {
     if (value.checked) {
+      this.paAreaList = JSON.parse(sessionStorage.proposeraArealist);
       this.proposer.controls['PaAddress1'].patchValue(this.proposer.controls['proposerPaAddressone'].value);
       this.proposer.controls['PaAddress2'].patchValue(this.proposer.controls['proposerPaAddresstwo'].value);
       this.proposer.controls['PaAddress3'].patchValue(this.proposer.controls['proposerPaAddressthree'].value);
@@ -896,9 +900,9 @@ export class ReliancePaComponent implements OnInit {
       this.proposer.controls['PaState1code'].patchValue(this.proposer.controls['proposerPaStatecode'].value);
       this.proposer.controls['PaDistrict1'].patchValue(this.proposer.controls['proposerPaDistrict'].value);
       this.proposer.controls['PaDistrict1code'].patchValue(this.proposer.controls['proposerPaDistrictcode'].value);
-      this.proposer.controls['PaCity1'].patchValue(this.proposer.controls['proposerPaCity'].value)
-      this.proposer.controls['PaCity1code'].patchValue(this.proposer.controls['proposerPaCitycode'].value);
+      this.proposer.controls['PaCity1'].patchValue(this.proposer.controls['proposerPaCity'].value);
       this.proposer.controls['PaArea1'].patchValue(this.proposer.controls['proposerPaArea'].value);
+      this.proposer.controls['PaCity1code'].patchValue(this.proposer.controls['proposerPaCitycode'].value);
       this.proposer.controls['nearestLandmark1'].patchValue(this.proposer.controls['nearestLandmark'].value);
       this.proposer.controls['PaCountry'].patchValue(this.proposer.controls['proposerPaCountry'].value);
     } else {
@@ -967,7 +971,6 @@ export class ReliancePaComponent implements OnInit {
     }
   }
 
-
   // show() {
   //   if (this.riskDetails.controls['CoverageOptionID'].value == '1901') {
   //     this.shwbtnone = true;
@@ -980,56 +983,54 @@ export class ReliancePaComponent implements OnInit {
   //   }
   // }
 
-  checkone(event) {
-    if (event.checked) {
-      this.insure.controls['SIforA'].setValidators([Validators.required]);
-      this.insure.controls['SIforA'].updateValueAndValidity()
-    } else {
-      this.insure.controls['SIforA'].patchValue('');
-      this.insure.controls['SIforA'].setValidators(null);
-      this.insure.controls['SIforA'].updateValueAndValidity();
-      this.insure.controls['TotalCapitalSI'].patchValue('');
-    }
-  }
-
-  checktwo(event) {
-    if (event.checked) {
-      this.insure.controls['SIforB'].setValidators([Validators.required]);
-      this.insure.controls['SIforB'].updateValueAndValidity()
-    } else {
-      this.insure.controls['SIforB'].patchValue('');
-      this.insure.controls['SIforB'].setValidators(null);
-      this.insure.controls['SIforB'].updateValueAndValidity();
-      this.insure.controls['TotalCapitalSI'].patchValue('');
-    }
-  }
-
-  checkthree(event) {
-    if (event.checked) {
-      this.insure.controls['SIforC'].setValidators([Validators.required]);
-      this.insure.controls['SIforC'].updateValueAndValidity()
-    } else {
-      this.insure.controls['SIforC'].patchValue('');
-      this.insure.controls['SIforC'].setValidators(null);
-      this.insure.controls['SIforC'].updateValueAndValidity()
-      this.insure.controls['TotalCapitalSI'].patchValue('');
-    }
-  }
-
-  checkfour(event) {
-    if (event.checked) {
-      this.insure.controls['SIforD'].setValidators([Validators.required]);
-      this.insure.controls['SIforD'].updateValueAndValidity()
-    } else {
-      this.insure.controls['SIforD'].patchValue('');
-      this.insure.controls['SIforD'].setValidators(null);
-      this.insure.controls['SIforD'].updateValueAndValidity();
-      this.insure.controls['TotalCapitalSI'].patchValue('');
-    }
-  }
+  // checkone(event) {
+  //   if (event.checked) {
+  //     this.insure.controls['SIforA'].setValidators([Validators.required]);
+  //     this.insure.controls['SIforA'].updateValueAndValidity()
+  //   } else {
+  //     this.insure.controls['SIforA'].patchValue('');
+  //     this.insure.controls['SIforA'].setValidators(null);
+  //     this.insure.controls['SIforA'].updateValueAndValidity();
+  //     this.insure.controls['TotalCapitalSI'].patchValue('');
+  //   }
+  // }
+  //
+  // checktwo(event) {
+  //   if (event.checked) {
+  //     this.insure.controls['SIforB'].setValidators([Validators.required]);
+  //     this.insure.controls['SIforB'].updateValueAndValidity()
+  //   } else {
+  //     this.insure.controls['SIforB'].patchValue('');
+  //     this.insure.controls['SIforB'].setValidators(null);
+  //     this.insure.controls['SIforB'].updateValueAndValidity();
+  //     this.insure.controls['TotalCapitalSI'].patchValue('');
+  //   }
+  // }
+  //
+  // checkthree(event) {
+  //   if (event.checked) {
+  //     this.insure.controls['SIforC'].setValidators([Validators.required]);
+  //     this.insure.controls['SIforC'].updateValueAndValidity()
+  //   } else {
+  //     this.insure.controls['SIforC'].patchValue('');
+  //     this.insure.controls['SIforC'].setValidators(null);
+  //     this.insure.controls['SIforC'].updateValueAndValidity()
+  //     this.insure.controls['TotalCapitalSI'].patchValue('');
+  //   }
+  // }
+  //
+  // checkfour(event) {
+  //   if (event.checked) {
+  //     this.insure.controls['SIforD'].setValidators([Validators.required]);
+  //     this.insure.controls['SIforD'].updateValueAndValidity()
+  //   } else {
+  //     this.insure.controls['SIforD'].patchValue('');
+  //     this.insure.controls['SIforD'].setValidators(null);
+  //     this.insure.controls['SIforD'].updateValueAndValidity();
+  //     this.insure.controls['TotalCapitalSI'].patchValue('');
+  //   }
+  // }
   choose(){
-    this.nominee.controls['relationshipname'].patchValue(this.RelationshipList[this.nominee.controls['relationshipWithInsure'].value]);
-    console.log(this.nominee.controls['relationshipname'].value,'relationnoinee');
     if(this.nominee.controls['relationshipWithInsure'].value == '325') {
       this.other = true;
       this.nominee.controls['ifothersPleaseSpecify'].setValidators([Validators.required]);
@@ -1039,6 +1040,7 @@ export class ReliancePaComponent implements OnInit {
       this.nominee.controls['ifothersPleaseSpecify'].setValidators(null);
       this.nominee.controls['ifothersPleaseSpecify'].updateValueAndValidity()
     }
+
   }
 
 
@@ -1070,37 +1072,30 @@ export class ReliancePaComponent implements OnInit {
     if (this.riskDetails.valid) {
       console.log(this.getBuyDetails,'sum insurd amount');
       let riskValid = true;
-      if (this.riskDetails.controls['CoverageOptionID'].value == '1901') {
-        alert('1901');
+      if (this.getBuyDetails.plan_code == '1901') {
         if (this.riskDetails.controls['medicalexpense'].value == true) {
-          alert('checked');
           if (this.riskDetails.controls['extnrate'].value == '') {
-            alert('extn empty');
             riskValid = false;
           }
         }else if (this.riskDetails.controls['familydiscount'].value == '') {
-            alert('family');
             riskValid = false;
           }
-        }else if (this.riskDetails.controls['CoverageOptionID'].value == '1902') {
+        }else if (this.getBuyDetails.plan_code == '1902') {
         if (this.riskDetails.controls['coveragesubOptionID'].value == '') {
           riskValid = false;
         }
       }
       if(this.getBuyDetails.sub_plan_code == 'IsTableA'){
-        alert('1');
         console.log(this.insure.controls.tableA,'tableA');
         this.insure.controls['tableA'].patchValue('true');
         this.insure.controls['SIforA'].patchValue(this.getBuyDetails.suminsured_amount);
         this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
-      }else if(this.getBuyDetails.sub_plan_code == 'IsTableA') {
-        alert('2');
+      }else if(this.getBuyDetails.sub_plan_code == 'IsTableB') {
         console.log(this.insure.controls.tableA,'tableC');
         this.insure.controls['tableB'].patchValue('true');
         this.insure.controls['SIforB'].patchValue(this.getBuyDetails.suminsured_amount);
         this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
       } else {
-        alert('3');
         console.log(this.insure.controls.tableA,'tableC');
         this.insure.controls['tableC'].patchValue('true');
         this.insure.controls['SIforC'].patchValue(this.getBuyDetails.suminsured_amount);
@@ -1122,7 +1117,7 @@ export class ReliancePaComponent implements OnInit {
     sessionStorage.insureDetails = JSON.stringify(value);
     if (this.insure.valid) {
       let riskValid = true;
-      if (this.riskDetails.controls['CoverageOptionID'].value == '1901') {
+      if (this.getBuyDetails.plan_code == '1901') {
         if (this.insure.controls['annualincome'].value == '') {
           riskValid = false
         } else if (this.insure.controls['tableA'].value == true) {
@@ -1142,15 +1137,16 @@ export class ReliancePaComponent implements OnInit {
             riskValid = false;
           }
         }
-      } else if (this.riskDetails.controls['CoverageOptionID'].value == '1902') {
+      } else if (this.getBuyDetails.plan_code == '1902') {
         if (this.insure.controls['annualincome1'].value == '') {
           riskValid = false;
         } else if (this.insure.controls['TotalCapital'].value == '') {
           riskValid = false;
         }
-      } else if (this.insure.controls['relationshipWithProposer'].value == '345') {
-        alert('1125');
+      }
+      if (this.insure.controls['relationshipWithProposer'].value == '345') {
         if (this.insure.controls['earningmember'].value == false) {
+          riskValid = false;
           this.toastr.error('Is Earning Member Should Be Checked');
         }
       }
@@ -1235,8 +1231,6 @@ export class ReliancePaComponent implements OnInit {
         proposerPaPincode: this.getStepper1.proposerPaPincode,
         nearestLandmark: this.getStepper1.nearestLandmark,
         proposerPaCountry: this.getStepper1.proposerPaCountry,
-        commaddrsEmail: this.getStepper1.commaddrsEmail,
-        commaddrsMobile: this.getStepper1.commaddrsMobile,
         nationality: this.getStepper1.nationality,
         proposerPaArea: this.getStepper1.proposerPaArea,
         proposerPaState: this.getStepper1.proposerPaState,
@@ -1277,7 +1271,7 @@ export class ReliancePaComponent implements OnInit {
     if (sessionStorage.riskDetails != '' && sessionStorage.riskDetails != undefined) {
       this.getStepper2 = JSON.parse(sessionStorage.riskDetails);
       this.riskDetails = this.fb.group({
-        CoverageOptionID: this.getStepper2.CoverageOptionID,
+        CoverageOptionID: this.getBuyDetails.plan_code,
         coveragesubOptionID: this.getStepper2.coveragesubOptionID,
         MembertoInsure: this.getStepper2.MembertoInsure,
         Tenure: this.getStepper2.Tenure,
@@ -1356,6 +1350,12 @@ export class ReliancePaComponent implements OnInit {
         ifothersPleaseSpecify: this.getStepper4.ifothersPleaseSpecify,
       });
     }
+    // if(sessionStorage.enquiryDetailsPa != '' && sessionStorage.enquiryDetailsPa != undefined) {
+    //   this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
+    // }
+    // if(sessionStorage.buyProductsPa != '' && sessionStorage.buyProductsPa != undefined) {
+    //   this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
+    // }
   }
   //Proposal Creation
   createproposal(stepper) {
@@ -1471,7 +1471,7 @@ export class ReliancePaComponent implements OnInit {
         "SumInsured": this.riskDetails.controls['capitalsuminsured'].value,
         "IsServiceTaxExemptionApplicable": this.riskDetails.controls['servicetax'].value,
         "ServiceTaxExemptionID": this.riskDetails.controls['exemptionreason'].value,
-        "CoverageOptionID": this.riskDetails.controls['CoverageOptionID'].value,
+        "CoverageOptionID": this.getBuyDetails.plan_code,
         "CoverageSubOptionID": this.riskDetails.controls['coveragesubOptionID'].value,
         "IsMedicalExpenseExtnApplicable": this.riskDetails.controls['medicalexpense'].value,
         "SpecialConditions": this.riskDetails.controls['specialconditions'].value,
@@ -1531,29 +1531,37 @@ export class ReliancePaComponent implements OnInit {
   }
 
   public proposalSuccess(successData, stepper) {
-      console.log(successData,'response');
+    console.log(successData, 'response');
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess == true) {
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
-      console.log(this.summaryData,'response');
-      sessionStorage.summaryData = JSON.stringify(this.summaryData);
-      this.RediretUrlLink = this.summaryData.RediretUrlLink;
-      sessionStorage.reliancePAproposalID = successData.ResponseObject.policy_id ;
-      this.proposerdata = this.proposer.value;
-      this.riskdata = this.riskDetails.value;
-      this.insuredata = this.insure.value;
-      this.nomineedata = this.nominee.value;
-      this.reliancePAproposalID = this.summaryData.policy_id;
-      sessionStorage.Paproposer = JSON.stringify(this.proposerdata);
-      sessionStorage.Parisk = JSON.stringify(this.riskdata);
-      sessionStorage.Painsured = JSON.stringify(this.insuredata);
-      sessionStorage.Panominee = JSON.stringify(this.nomineedata);
-    } else {
-      this.toastr.error(successData.ErrorObject);
+      for (let i = 0; i < this.RelationshipList.length; i++) {
+        if (this.RelationshipList[i].relationship_id == this.nominee.controls['relationshipWithInsure'].value) {
+          this.nominee.controls['relationshipname'].patchValue(this.RelationshipList[i].relatinship_name);
+        }
+      }
+      console.log(this.nominee.controls['relationshipname'].value,'relation');
+        console.log(this.summaryData, 'response');
+        sessionStorage.summaryData = JSON.stringify(this.summaryData);
+        this.RediretUrlLink = this.summaryData.RediretUrlLink;
+        sessionStorage.reliancePAproposalID = successData.ResponseObject.policy_id;
+        this.proposerdata = this.proposer.value;
+        this.riskdata = this.riskDetails.value;
+        this.insuredata = this.insure.value;
+        this.nomineedata = this.nominee.value;
+        this.reliancePAproposalID = this.summaryData.policy_id;
+        sessionStorage.Paproposer = JSON.stringify(this.proposerdata);
+        sessionStorage.Parisk = JSON.stringify(this.riskdata);
+        sessionStorage.Painsured = JSON.stringify(this.insuredata);
+        sessionStorage.Panominee = JSON.stringify(this.nomineedata);
+      }
+    else
+      {
+        this.toastr.error(successData.ErrorObject);
+      }
     }
-  }
 
   public proposalFailure(error) {
 

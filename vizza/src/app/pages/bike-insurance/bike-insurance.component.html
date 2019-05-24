@@ -104,7 +104,7 @@
                       <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                   </mat-form-field>
                       <mat-form-field class="w-100">
-                          <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4" (keyup)="keyPress()" (keypress)="numberValidate($event)" formControlName="manufactureYear"  required>
+                          <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4" (keyup)="keyPress(); manufactureYear()" (keypress)="numberValidate($event)" formControlName="manufactureYear"  required>
 
                           <!--<mat-error *ngIf="bikeInsurance.controls.vehicleCC.errors?.required">Vehicle No is required</mat-error>-->
                           <!--<mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
