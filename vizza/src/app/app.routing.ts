@@ -135,6 +135,7 @@ import {RelianceMotorProposalComponent} from './pages/reliance-motor-proposal/re
 import {TravelBajajalianzDownloadPolicyComponent} from './pages/travel-bajajalianz-download-policy/travel-bajajalianz-download-policy.component';
 import {TravelBajajPaymentSuccessComponent} from './pages/travel-bajaj-payment-success/travel-bajaj-payment-success.component';
 import {ReliancePaPaymentSuccessComponent} from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
+import {BikeTataaigProposalComponent} from './pages/bike-tataaig-proposal/bike-tataaig-proposal.component';
 
 
 export const routes: Routes = [
@@ -265,7 +266,8 @@ export const routes: Routes = [
             { path: 'chola-health-proposal/:stepper', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
             { path: 'reliance-motor-proposal', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
             { path: 'bajaj-travel-payment-success/:status/:proId', component: TravelBajajPaymentSuccessComponent, data:{ breadcrumb: 'travel Bajaj'}},
-            { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}}
+            { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}},
+            { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}}
 
         ]
     },
