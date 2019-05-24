@@ -860,7 +860,7 @@ export class BikeShriramProposalComponent implements OnInit {
         console.log(getPolicyYear,'getPolicyYear');
         let getLength = this.previousInsure.controls['policyUwYear'].value;
         if(getLength.length == 4) {
-            if(getPolicyYear >= this.bikeInsurance.controls['policyUwYear'].value){
+            if(getPolicyYear >= this.previousInsure.controls['policyUwYear'].value){
             }  else {
                 this.toastr.error('Manufacture Year should be less than Registration Year');
             }
