@@ -276,6 +276,7 @@ import {BajajLifeOpt} from './pages/life-bajaj-proposal/life-bajaj-proposal.comp
 import { ReliancePaPaymentSuccessComponent } from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
 import { ReliancePaDownloadPolicyComponent } from './pages/reliance-pa-download-policy/reliance-pa-download-policy.component';
 import { DownloadReliancePersonalAccident} from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
+import { BikeTataaigProposalComponent } from './pages/bike-tataaig-proposal/bike-tataaig-proposal.component';
 
 @NgModule({
     imports: [
@@ -510,7 +511,8 @@ import { DownloadReliancePersonalAccident} from './pages/reliance-pa-payment-suc
         BajajLifeOpt,
         ReliancePaPaymentSuccessComponent,
         ReliancePaDownloadPolicyComponent,
-        DownloadReliancePersonalAccident
+        DownloadReliancePersonalAccident,
+        BikeTataaigProposalComponent
     ],
     providers: [
         AppSettings,
