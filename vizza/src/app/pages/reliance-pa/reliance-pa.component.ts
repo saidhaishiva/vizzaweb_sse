@@ -901,7 +901,6 @@ export class ReliancePaComponent implements OnInit {
       this.proposer.controls['PaArea1'].patchValue(this.proposer.controls['proposerPaArea'].value);
       this.proposer.controls['PaCity1code'].patchValue(this.proposer.controls['proposerPaCitycode'].value);
       this.proposer.controls['nearestLandmark1'].patchValue(this.proposer.controls['nearestLandmark'].value);
-      this.proposer.controls['PaCountry'].patchValue(this.proposer.controls['proposerPaCountry'].value);
     } else {
       this.proposer.controls['PaAddress1'].patchValue('');
       this.proposer.controls['PaAddress2'].patchValue('');
@@ -915,7 +914,6 @@ export class ReliancePaComponent implements OnInit {
       this.proposer.controls['PaCity1code'].patchValue('');
       this.proposer.controls['PaArea1'].patchValue('');
       this.proposer.controls['nearestLandmark1'].patchValue('');
-      this.proposer.controls['PaCountry'].patchValue('');
     }
   }
 
@@ -999,8 +997,9 @@ export class ReliancePaComponent implements OnInit {
     console.log(value, 'proposer');
     sessionStorage.proposerDetails = '';
     sessionStorage.proposerDetails = JSON.stringify(value);
-    this.sessionAge = JSON.parse(sessionStorage.proposerAgeP);
-    console.log(this.sessionAge,'se222');
+    if(sessionStorage.proposerAgeP != '' && sessionStorage.proposerAgeP != undefined) {
+      this.sessionAge = JSON.parse(sessionStorage.proposerAgeP);
+    }
     if (this.proposer.valid) {
       if (this.sessionAge >= 18) {
         stepper.next();
