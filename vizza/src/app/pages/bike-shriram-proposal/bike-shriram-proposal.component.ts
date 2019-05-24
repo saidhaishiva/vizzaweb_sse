@@ -92,6 +92,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public PaymentReturn : any;
   public hypothecationTypeDetails : any;
   public enquiryFormData : any;
+  public bikeEnquiryId : any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -193,6 +194,7 @@ export class BikeShriramProposalComponent implements OnInit {
   ngOnInit() {
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+      this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
 
          this.changeTitle();
          this.changehypothecation();
@@ -948,7 +950,7 @@ export class BikeShriramProposalComponent implements OnInit {
           'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
           'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
           'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-          'enquiry_id': this.enquiryFormData.enquiry_id,
+          'enquiry_id': this.bikeEnquiryId,
           "created_by": "",
           'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
           "geogrophicalExtensionCover": "false",
