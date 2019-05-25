@@ -80,7 +80,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="PassPort Number"  class="text-uppercase" (keypress)="idValidate($event)" maxlength="8" minlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="proposerPassport"  autocomplete="off">
+                          <input matInput placeholder="PassPort Number"  class="text-uppercase" (keypress)="idValidate($event)" maxlength="8" minlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="proposerPassport"  autocomplete="off">
                           <mat-error *ngIf="proposer.controls.proposerPassport.hasError('pattern')"> Enter Valid PassPort Number </mat-error>
                         </mat-form-field>
                       </div>
@@ -254,9 +254,7 @@
                   <div class="row mt-3">
                     <div class="col-md-12 box-card pt-3">
                       <div class="row">
-                        <!--<div class="col-md-12 mb-3" *ngIf="i == 0">-->
-                          <!--<mat-checkbox formControlName="sameAsProposer" (change)="sameProposer($event)"><strong>Same as proposer</strong></mat-checkbox>-->
-                        <!--</div>-->
+
                         <div class="col-md-3" [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" required>
@@ -267,6 +265,7 @@
                             <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                           </mat-form-field>
                         </div>
+
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="First Name" formControlName="proposerFirstname" maxlength="23"  (keypress)="nameValidate($event)"  autocomplete="off" required [readonly]="insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value" >
@@ -303,7 +302,7 @@
                         </div>
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" required class="w-100">
+                            <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" (change)="getOccupationName()" required class="w-100">
                               <mat-option  *ngFor="let occupation of occupationDetails | keys"  [value]= 'occupation.key'> {{occupation.value}} </mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
@@ -509,7 +508,7 @@
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h4 class="color-blue">COMMUNICATION DETAILS</h4>
+                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address Type:</strong> <span *ngIf="personalFormData.typeAddress == 'P'">Postal</span><span *ngIf="personalFormData.typeAddress == 'R'">Residential</span><span *ngIf="personalFormData.typeAddress == 'B'">Business</span></li>
                       <li class="list-group-item"><strong>Address 1:</strong> {{personalFormData.proposerAddress}}</li>
@@ -546,7 +545,7 @@
                       <li class="list-group-item"><strong>Gender:</strong><span *ngIf="items.Gender == 'M'">Male</span><span *ngIf="items.Gender == 'F'">Female</span></li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{items.DateOfBirth | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Age:</strong> {{items.Age}}</li>
-                      <li class="list-group-item"><strong>Occupation:</strong> {{items.Occupation}}</li>
+                      <li class="list-group-item"><strong>Occupation:</strong> {{items.proposerInsureOccupationName}}</li>
                       <li class="list-group-item"><strong>Relationship with Proposer:</strong> {{items.RelationtoInsured}}</li>
                     </ul>
                   </div>
@@ -560,9 +559,9 @@
                       <li class="list-group-item"><strong>smoke:</strong><span *ngIf="items.Smoke == 'N'">No</span><span *ngIf="items.Smoke == 'Y'">Yes</span></li>
                       <li class="list-group-item"><strong>Alcohol:</strong><span *ngIf="items.Alcohol == 'N'">No</span><span *ngIf="items.Alcohol == 'Y'">Yes</span> </li>
                       <li class="list-group-item"><strong>Tobacco:</strong><span *ngIf="items.Tobacco == 'N'">No</span><span *ngIf="items.Tobacco == 'Y'">Yes</span></li>
-                      <!--<li class="list-group-item"><strong>Smoke Quantity:</strong> {{item.SmokeQuantity}}</li>-->
-                      <!--<li class="list-group-item"><strong>Alcohol Quantity:</strong> {{item.AlcoholQuantity}}</li>-->
-                      <!--<li class="list-group-item"><strong>Tobacco Quantity:</strong> {{item.TobaccoQuantity}}</li>-->
+                      <li class="list-group-item"><strong>Smoke Quantity:</strong> {{items.SmokeQuantity}}</li>
+                      <li class="list-group-item"><strong>Alcohol Quantity:</strong> {{items.AlcoholQuantity}}</li>
+                      <li class="list-group-item"><strong>Tobacco Quantity:</strong> {{items.TobaccoQuantity}}</li>
                     </ul>
                   </div>
                 </div>
@@ -713,7 +712,7 @@
                     </div>
                     <div class="col-sm-12 col-xs-12">
                       <mat-form-field class="w-100">
-                        <input matInput placeholder="PassPort Number"  class="text-uppercase" (keypress)="idValidate($event)" maxlength="8" minlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="proposerPassport"  autocomplete="off">
+                        <input matInput placeholder="PassPort Number"  class="text-uppercase" (keypress)="idValidate($event)" maxlength="8" minlength="8"  pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="proposerPassport"  autocomplete="off">
                         <mat-error *ngIf="proposer.controls.proposerPassport.hasError('pattern')"> Enter Valid PassPort Number </mat-error>
                       </mat-form-field>
                     </div>
@@ -1167,7 +1166,7 @@
                         <li class="list-group-item"><strong>Gender:</strong><span *ngIf="items.Gender == 'M'">Male</span><span *ngIf="items.Gender == 'F'">Female</span></li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{items.DateOfBirth | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Age:</strong> {{items.Age}}</li>
-                        <li class="list-group-item"><strong>Occupation:</strong> {{items.Occupation}}</li>
+                        <li class="list-group-item"><strong>Occupation:</strong> {{items.proposerInsureOccupationName}}</li>
                         <li class="list-group-item"><strong>Relationship:</strong> {{items.RelationtoInsured}}</li>
                       </ul>
                     </div>
@@ -1181,9 +1180,9 @@
                         <li class="list-group-item"><strong>smoke:</strong><span *ngIf="items.Smoke == 'N'">No</span><span *ngIf="items.Smoke == 'Y'">Yes</span></li>
                         <li class="list-group-item"><strong>Alcohol:</strong><span *ngIf="items.Alcohol == 'N'">No</span><span *ngIf="items.Alcohol == 'Y'">Yes</span> </li>
                         <li class="list-group-item"><strong>Tobacco:</strong><span *ngIf="items.Tobacco == 'N'">No</span><span *ngIf="items.Tobacco == 'Y'">Yes</span></li>
-                        <!--<li class="list-group-item"><strong>Smoke Quantity:</strong> {{item.SmokeQuantity}}</li>-->
-                        <!--<li class="list-group-item"><strong>Alcohol Quantity:</strong> {{item.AlcoholQuantity}}</li>-->
-                        <!--<li class="list-group-item"><strong>Tobacco Quantity:</strong> {{item.TobaccoQuantity}}</li>-->
+                        <li class="list-group-item"><strong>Smoke Quantity:</strong> {{items.SmokeQuantity}}</li>
+                        <li class="list-group-item"><strong>Alcohol Quantity:</strong> {{items.AlcoholQuantity}}</li>
+                        <li class="list-group-item"><strong>Tobacco Quantity:</strong> {{items.TobaccoQuantity}}</li>
                       </ul>
                     </div>
                   </div>

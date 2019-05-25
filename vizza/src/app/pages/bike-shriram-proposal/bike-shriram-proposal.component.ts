@@ -787,10 +787,28 @@ export class BikeShriramProposalComponent implements OnInit {
                 } else {
                     this.previousDateError = 'Enter Valid Date';
                 }
+                selectedDate = event.value._i;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (selectedDate.length == 10) {
+                    let year = new Date(dob);
+                    let getPolicyYear = year.getFullYear();
+                    this.previousInsure.controls['policyUwYear'].patchValue(getPolicyYear);
+                }
+
+                //sessionStorage.insuredAgePA = this.bikeProposerAge;
+            }   else if (typeof event.value._i == 'object') {
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                if (dob.length == 10) {
+                    let year = new Date(dob);
+                    let getPolicyYear = year.getFullYear();
+                    this.previousInsure.controls['policyUwYear'].patchValue(getPolicyYear);
+
+                }
             }
-            //sessionStorage.insuredAgePA = this.bikeProposerAge;
+
         }
     }
+
   previousInsureType() {
         const data = {
           'platform': 'web',
@@ -1069,7 +1087,10 @@ export class BikeShriramProposalComponent implements OnInit {
          this.vehicalFormData = this.vehical.value;
          this.previousFormData = this.previousInsure.value;
          this.nomineeFormData = this.nomineeDetail.value;
-      }
+      } else{
+            this.toastr.error(successData.ErrorObject);
+
+        }
     }
     public proposalFailure(error){
 
@@ -1156,6 +1177,7 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
       let stepper4 = JSON.parse(sessionStorage.stepper4);
+      this.ageNominee();
       this.nomineeDetail = this.fb.group({
         nomineeName: stepper4.nomineeName,
         nomineeAge: stepper4.nomineeAge,
