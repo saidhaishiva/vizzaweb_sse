@@ -189,7 +189,7 @@ export class ReliancePaComponent implements OnInit {
       insureOccupationListname: '',
       physicaldefectdetail: '',
       insuredclaimdetails: '',
-      earningmember: ['', Validators.required],
+      earningmember: false,
       physicaldefect: '',
       previousinsurer: '',
       personalaccident: '',
@@ -210,7 +210,6 @@ export class ReliancePaComponent implements OnInit {
     });
 
     this.riskDetails = this.fb.group({
-      // CoverageOptionID: ['', Validators.required],
       coveragesubOptionID: '',
       MembertoInsure: '',
       Tenure: ['', Validators.required],
@@ -270,8 +269,6 @@ export class ReliancePaComponent implements OnInit {
     this.proposer.controls['proposerPaCountry'].patchValue('India');
     this.proposer.controls['PaCountry'].patchValue('India');
     this.nominee.controls['nomineePaCountry'].patchValue('India');
-    this.insure.controls['relationshipWithProposer'].patchValue('Self');
-
   }
 
   insurechangeGender(type) {
@@ -904,7 +901,6 @@ export class ReliancePaComponent implements OnInit {
       this.proposer.controls['PaArea1'].patchValue(this.proposer.controls['proposerPaArea'].value);
       this.proposer.controls['PaCity1code'].patchValue(this.proposer.controls['proposerPaCitycode'].value);
       this.proposer.controls['nearestLandmark1'].patchValue(this.proposer.controls['nearestLandmark'].value);
-      this.proposer.controls['PaCountry'].patchValue(this.proposer.controls['proposerPaCountry'].value);
     } else {
       this.proposer.controls['PaAddress1'].patchValue('');
       this.proposer.controls['PaAddress2'].patchValue('');
@@ -918,7 +914,6 @@ export class ReliancePaComponent implements OnInit {
       this.proposer.controls['PaCity1code'].patchValue('');
       this.proposer.controls['PaArea1'].patchValue('');
       this.proposer.controls['nearestLandmark1'].patchValue('');
-      this.proposer.controls['PaCountry'].patchValue('');
     }
   }
 
@@ -971,18 +966,6 @@ export class ReliancePaComponent implements OnInit {
     }
   }
 
-  // show() {
-  //   if (this.riskDetails.controls['CoverageOptionID'].value == '1901') {
-  //     this.shwbtnone = true;
-  //     this.appear = false;
-  //     this.shwbtn = false;
-  //   } else {
-  //     this.shwbtn = true;
-  //     this.appear = true;
-  //     this.shwbtnone = false;
-  //   }
-  // }
-
   // checkone(event) {
   //   if (event.checked) {
   //     this.insure.controls['SIforA'].setValidators([Validators.required]);
@@ -994,42 +977,7 @@ export class ReliancePaComponent implements OnInit {
   //     this.insure.controls['TotalCapitalSI'].patchValue('');
   //   }
   // }
-  //
-  // checktwo(event) {
-  //   if (event.checked) {
-  //     this.insure.controls['SIforB'].setValidators([Validators.required]);
-  //     this.insure.controls['SIforB'].updateValueAndValidity()
-  //   } else {
-  //     this.insure.controls['SIforB'].patchValue('');
-  //     this.insure.controls['SIforB'].setValidators(null);
-  //     this.insure.controls['SIforB'].updateValueAndValidity();
-  //     this.insure.controls['TotalCapitalSI'].patchValue('');
-  //   }
-  // }
-  //
-  // checkthree(event) {
-  //   if (event.checked) {
-  //     this.insure.controls['SIforC'].setValidators([Validators.required]);
-  //     this.insure.controls['SIforC'].updateValueAndValidity()
-  //   } else {
-  //     this.insure.controls['SIforC'].patchValue('');
-  //     this.insure.controls['SIforC'].setValidators(null);
-  //     this.insure.controls['SIforC'].updateValueAndValidity()
-  //     this.insure.controls['TotalCapitalSI'].patchValue('');
-  //   }
-  // }
-  //
-  // checkfour(event) {
-  //   if (event.checked) {
-  //     this.insure.controls['SIforD'].setValidators([Validators.required]);
-  //     this.insure.controls['SIforD'].updateValueAndValidity()
-  //   } else {
-  //     this.insure.controls['SIforD'].patchValue('');
-  //     this.insure.controls['SIforD'].setValidators(null);
-  //     this.insure.controls['SIforD'].updateValueAndValidity();
-  //     this.insure.controls['TotalCapitalSI'].patchValue('');
-  //   }
-  // }
+
   choose(){
     if(this.nominee.controls['relationshipWithInsure'].value == '325') {
       this.other = true;
@@ -1049,8 +997,9 @@ export class ReliancePaComponent implements OnInit {
     console.log(value, 'proposer');
     sessionStorage.proposerDetails = '';
     sessionStorage.proposerDetails = JSON.stringify(value);
-    this.sessionAge = JSON.parse(sessionStorage.proposerAgeP);
-    console.log(this.sessionAge,'se222');
+    if(sessionStorage.proposerAgeP != '' && sessionStorage.proposerAgeP != undefined) {
+      this.sessionAge = JSON.parse(sessionStorage.proposerAgeP);
+    }
     if (this.proposer.valid) {
       if (this.sessionAge >= 18) {
         stepper.next();
@@ -1085,22 +1034,6 @@ export class ReliancePaComponent implements OnInit {
           riskValid = false;
         }
       }
-      if(this.getBuyDetails.sub_plan_code == 'IsTableA'){
-        console.log(this.insure.controls.tableA,'tableA');
-        this.insure.controls['tableA'].patchValue('true');
-        this.insure.controls['SIforA'].patchValue(this.getBuyDetails.suminsured_amount);
-        this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
-      }else if(this.getBuyDetails.sub_plan_code == 'IsTableB') {
-        console.log(this.insure.controls.tableA,'tableC');
-        this.insure.controls['tableB'].patchValue('true');
-        this.insure.controls['SIforB'].patchValue(this.getBuyDetails.suminsured_amount);
-        this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
-      } else {
-        console.log(this.insure.controls.tableA,'tableC');
-        this.insure.controls['tableC'].patchValue('true');
-        this.insure.controls['SIforC'].patchValue(this.getBuyDetails.suminsured_amount);
-        this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
-      }
       if (riskValid) {
         stepper.next();
       } else {
@@ -1108,6 +1041,22 @@ export class ReliancePaComponent implements OnInit {
       }
     }else{
       this.toastr.error('please Fill All The Mandatory Fields')
+    }
+    if(this.getBuyDetails.sub_plan_code == 'IsTableA'){
+      console.log(this.insure.controls.tableA,'tableA');
+      this.insure.controls['tableA'].patchValue(true);
+      this.insure.controls['SIforA'].patchValue(this.getBuyDetails.suminsured_amount);
+      this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
+    }else if(this.getBuyDetails.sub_plan_code == 'IsTableB') {
+      console.log(this.insure.controls.tableA,'tableC');
+      this.insure.controls['tableB'].patchValue(true);
+      this.insure.controls['SIforB'].patchValue(this.getBuyDetails.suminsured_amount);
+      this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
+    } else {
+      console.log(this.insure.controls.tableA,'tableC');
+      this.insure.controls['tableC'].patchValue(true);
+      this.insure.controls['SIforC'].patchValue(this.getBuyDetails.suminsured_amount);
+      this.insure.controls['TotalCapitalSI'].patchValue(this.getBuyDetails.suminsured_amount);
     }
   }
 
@@ -1117,37 +1066,20 @@ export class ReliancePaComponent implements OnInit {
     sessionStorage.insureDetails = JSON.stringify(value);
     if (this.insure.valid) {
       let riskValid = true;
+      console.log(this.getBuyDetails.plan_code, 'plan');
       if (this.getBuyDetails.plan_code == '1901') {
         if (this.insure.controls['annualincome'].value == '') {
-          riskValid = false
-        } else if (this.insure.controls['tableA'].value == true) {
-          if (this.insure.controls['SIforA'].value == '') {
-            riskValid = false;
-          }
-        } else if (this.insure.controls['tableB'].value == true) {
-          if (this.insure.controls['SIforB'].value == '') {
-            riskValid = false;
-          }
-        } else if (this.insure.controls['tableC'].value == true) {
-          if (this.insure.controls['SIforC'].value == '') {
-            riskValid = false;
-          }
-        } else if (this.insure.controls['tableD'].value == true) {
-          if (this.insure.controls['SIforD'].value == '') {
-            riskValid = false;
-          }
+          riskValid = false;
+        } else if (this.insure.controls['earningmember'].value == false) {
+          console.log('1901');
+          riskValid = false;
         }
       } else if (this.getBuyDetails.plan_code == '1902') {
         if (this.insure.controls['annualincome1'].value == '') {
           riskValid = false;
-        } else if (this.insure.controls['TotalCapital'].value == '') {
+        } else if (this.insure.controls['earningmember'].value == false) {
+          console.log('1902');
           riskValid = false;
-        }
-      }
-      if (this.insure.controls['relationshipWithProposer'].value == '345') {
-        if (this.insure.controls['earningmember'].value == false) {
-          riskValid = false;
-          this.toastr.error('Is Earning Member Should Be Checked');
         }
       }
       if (riskValid) {
@@ -1167,29 +1099,12 @@ export class ReliancePaComponent implements OnInit {
     }
   }
 
-  siforA(event) {
-    console.log(event, 'a');
-    this.valueA = event;
-    this.insure.controls['TotalCapitalSI'].patchValue(this.valueA);
-  }
+  // siforA(event) {
+  //   console.log(event, 'a');
+  //   this.valueA = event;
+  //   this.insure.controls['TotalCapitalSI'].patchValue(this.valueA);
+  // }
 
-  siforB(event) {
-    console.log(event, 'b');
-    this.valueB = event;
-    this.insure.controls['TotalCapitalSI'].patchValue(this.valueB);
-  }
-
-  siforC(event) {
-    console.log(event, 'c');
-    this.valueC = event;
-    this.insure.controls['TotalCapitalSI'].patchValue(this.valueC);
-  }
-
-  siforD(event) {
-    console.log(event, 'd');
-    this.valueD = event;
-    this.insure.controls['TotalCapitalSI'].patchValue(this.valueD);
-  }
 
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
@@ -1350,12 +1265,6 @@ export class ReliancePaComponent implements OnInit {
         ifothersPleaseSpecify: this.getStepper4.ifothersPleaseSpecify,
       });
     }
-    // if(sessionStorage.enquiryDetailsPa != '' && sessionStorage.enquiryDetailsPa != undefined) {
-    //   this.getAllPremiumDetails = JSON.parse(sessionStorage.enquiryDetailsPa);
-    // }
-    // if(sessionStorage.buyProductsPa != '' && sessionStorage.buyProductsPa != undefined) {
-    //   this.getBuyDetails = JSON.parse(sessionStorage.buyProductsPa);
-    // }
   }
   //Proposal Creation
   createproposal(stepper) {
