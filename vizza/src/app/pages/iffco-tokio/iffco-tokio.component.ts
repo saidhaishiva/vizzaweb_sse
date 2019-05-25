@@ -955,7 +955,7 @@ export class IffcoTokioComponent implements OnInit {
 
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.RediretUrlLink = this.summaryData.PaymentURL;
-            this.proposalId = this.summaryData.UNIQUE_QUOTEID;
+            this.proposalId = this.summaryData.policy_id;
             sessionStorage.iffco_health_proposal_id = this.proposalId;
             console.log(this.proposalId,' this.proposalId');
             console.log(sessionStorage.iffco_health_proposal_id ,'sessionStorage.iffco_health_proposal_id ');
