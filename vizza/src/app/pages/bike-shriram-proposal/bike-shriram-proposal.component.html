@@ -381,16 +381,25 @@
                                                 </mat-form-field>
                                                 <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
                                             </div>
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput [matDatepicker]="picker3"  placeholder="Policy End Date(DD/MM/YYYY)"  (keypress)="dobValidate($event)" [min]="previousInsure.controls['previousdob'].value"  formControlName="previousdEndob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"-->
+                                                           <!--autocomplete="off"   required>-->
+                                                    <!--<mat-datepicker-toggle matSuffix [for]="picker3" ></mat-datepicker-toggle>-->
+                                                    <!--<mat-datepicker #picker3></mat-datepicker>-->
+                                                    <!--<mat-error *ngIf="previousInsure.controls.previousdEndob.errors?.required">Policy End Date is required</mat-error>-->
+                                                <!--</mat-form-field>-->
+                                                <!--<div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>-->
+                                            <!--</div>-->
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker3"  placeholder="Policy End Date(DD/MM/YYYY)"  (keypress)="dobValidate($event)" [min]="previousInsure.controls['previousdob'].value"  formControlName="previousdEndob" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
-                                                           autocomplete="off"   required>
-                                                    <mat-datepicker-toggle matSuffix [for]="picker3" ></mat-datepicker-toggle>
-                                                    <mat-datepicker #picker3></mat-datepicker>
+                                                    <mat-select placeholder="Policy End Date"  formControlName="previousdEndob"  required>
+                                                        <mat-option *ngFor="let vehiclebk of policyDatevalidate" value="{{vehiclebk}}" > {{vehiclebk |date: 'dd/MM/yyyy'}} </mat-option>
+                                                    </mat-select>
                                                     <mat-error *ngIf="previousInsure.controls.previousdEndob.errors?.required">Policy End Date is required</mat-error>
                                                 </mat-form-field>
-                                                <div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>
                                             </div>
+
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Previous Policy UW Year(YYYY)"  formControlName="policyUwYear" required  readonly   maxlength="4" autocomplete="off">
@@ -558,7 +567,7 @@
 
                                 <div class="col-md-6">
                                     <div class="p-3">
-                                        <h5>COMMUNICATION DETAILS</h5>
+                                        <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
                                             <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
