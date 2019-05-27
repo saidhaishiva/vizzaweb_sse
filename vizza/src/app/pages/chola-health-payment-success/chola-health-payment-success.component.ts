@@ -106,7 +106,7 @@ export class CholaHealthPaymentSuccessComponent implements OnInit {
     console.log(error);
   }
   retry() {
-    this.router.navigate(['/hdfc-insurance'  + '/' + true]);
+    this.router.navigate(['/chola-health-proposal'  + '/' + true]);
   }
   pay(){
     sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
