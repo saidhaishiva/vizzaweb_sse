@@ -1174,7 +1174,6 @@ export class BikeShriramProposalComponent implements OnInit {
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
         console.log('inside stepper 3')
       let stepper3 = JSON.parse(sessionStorage.stepper3);
-        console.log(stepper3, 'stepper3');
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
         previousInsured: stepper3.previousInsured,
@@ -1183,9 +1182,9 @@ export class BikeShriramProposalComponent implements OnInit {
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
         // previousPolicyNcb:stepper3.previousPolicyNcb,
-          previousPolicyTypeName: stepper3.previousPolicyTypeName,
+        previousPolicyTypeName: stepper3.previousPolicyTypeName,
         previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
-          previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'y-MM-dd')
+        previousdEndob: stepper3.previousdEndob
       });
 
     }
