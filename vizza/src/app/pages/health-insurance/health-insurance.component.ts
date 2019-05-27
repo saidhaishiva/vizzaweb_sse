@@ -445,7 +445,7 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     // new policy lists
-    getPolicyQuotationList() {
+    getPolicyQuotationList(type) {
         this.healthProceed = false;
         this.selectedAmount = ''
         if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
@@ -488,7 +488,7 @@ export class HealthInsuranceComponent implements OnInit {
                     this.settings.loadingSpinner = true;
                     this.common.getFamilyLists(data).subscribe(
                         (successData) => {
-                            this.getFamilyListsSuccess(successData, 0);
+                            this.getFamilyListsSuccess(successData, 0, type);
                         },
                         (error) => {
                             this.getFamilyListsFailure(error);
@@ -506,7 +506,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
     }
 
-    public getFamilyListsSuccess(successData, index) {
+    public getFamilyListsSuccess(successData, index, type) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.groupDetails = successData.ResponseObject;
@@ -522,6 +522,14 @@ export class HealthInsuranceComponent implements OnInit {
                 dialogRef.disableClose = true;
                 dialogRef.afterClosed().subscribe(result => {
                 });
+                if(type == 'mobile'){
+                    let dialogRef = this.dialog.open(GrouppopupComponent, {
+                        width: '700px', data: {comparedata: successData.ResponseObject.family_groups}});
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
+                    });
+                }
+
             }
             this.productListArray = [];
             this.allProductLists = [];
