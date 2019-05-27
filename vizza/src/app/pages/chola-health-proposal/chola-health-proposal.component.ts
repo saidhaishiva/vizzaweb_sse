@@ -92,7 +92,7 @@ export class CholaHealthProposalComponent implements OnInit {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
-        stepperindex = 4;
+        stepperindex = 3;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
           this.RediretUrlLink = this.summaryData.PaymentURL;
