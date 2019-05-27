@@ -217,7 +217,7 @@ export class CholaHealthProposalComponent implements OnInit {
   initItemRows() {
     return this.fb.group(
         {
-          rolecd: 'PRIMARY',
+         rolecd: 'PRIMARY',
           personalTitle: ['', Validators.required],
           personalFirstname: ['', Validators.required],
           personalLastname: ['', Validators.required],
@@ -685,11 +685,15 @@ console.log( sessionStorage.stepper3Details);
                     this.CholaCityList = {};
                 } else {
                     this.CholaCityList = this.response.city;
+                    console.log(this.CholaCityList,'this.CholaCityList')
                     this.personal.controls['personalState'].patchValue(this.response.state);
+                    console.log(this.personal.controls['personalState'].value,'this.state')
                     this.personal.controls['personalStateIdP'].patchValue(this.response.state_code);
+                    console.log(this.personal.controls['personalStateIdP'].value,'this.statecode')
                 }
             }
             sessionStorage.CholaCityList = JSON.stringify(this.CholaCityList);
+
         } else {
             this.toastr.error('Invalid Pincode');
             if (title == 'personal') {
