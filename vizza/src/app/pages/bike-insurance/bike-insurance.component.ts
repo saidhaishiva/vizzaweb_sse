@@ -339,6 +339,9 @@ export class BikeInsuranceComponent implements OnInit {
             console.log(this.QuotationList,'jhkhjgkj');
             this.router.navigate(['/bikepremium']);
 
+        } else {
+            this.toastr.error(successData.ErrorObject);
+
         }
     }
     public enquiryFailure(error) {
