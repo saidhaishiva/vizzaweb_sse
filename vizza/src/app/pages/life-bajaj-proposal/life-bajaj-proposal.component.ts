@@ -68,7 +68,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public occupationList: any;
   public politicalDetails: boolean;
   public showAppointee: boolean;
-  public MainQuesList: any;
+  public allQuestionList: any;
   public SubQuesList: any;
   public questionId: any;
   public status: any;
@@ -251,11 +251,12 @@ export class LifeBajajProposalComponent implements OnInit {
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
     this.politicalDetails = false;
-    this.nomineeDetails = new FormGroup({
-            'itemsNominee' : new FormArray([
-            this.nomineeItems()
-        ])
+    this.nomineeDetails = this.Proposer.group({
+            'itemsNominee' : this.Proposer.array([
+              this.nomineeItems()
+            ])
       });
+    console.log(this.nomineeDetails, 'this.nomineeDetails');
     this.bankDetail = this.Proposer.group({
       accountHolderName:'',
       bankName:['', Validators.required],
@@ -306,27 +307,24 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getApointeeRelation();
     this.getDiseaseList();
     this.samerelationShip();
-    if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
-        this.mainQuestion();
-    }
     this.sessionData();
   }
 
   nomineeItems() {
-    return new FormGroup({
-      nnName: new FormControl(),
-      nDob: new FormControl(),
-      nBirthPlace: new FormControl(),
-      nRelation: new FormControl(),
-      nRelationName: new FormControl(),
-      nomineeDobValidError: new FormControl(),
-      appointeeDobValidError: new FormControl(),
-      sharePercentage: new FormControl(),
-      aName: new FormControl(),
-      appointeeDob: new FormControl(),
-      appointeeRelationToNominee: new FormControl(),
-      relationToInsured: new FormControl(),
-      relationToInsuredName: new FormControl()
+    return this.Proposer.group({
+      nnName: ['', Validators.required],
+      nDob: ['', Validators.required],
+      nBirthPlace: ['', Validators.required],
+      nRelation: ['', Validators.required],
+      nRelationName: '',
+      nomineeDobValidError: '',
+      appointeeDobValidError: '',
+      sharePercentage: '',
+      aName: '',
+      appointeeDob: '',
+      appointeeRelationToNominee: '',
+      relationToInsured: '',
+      relationToInsuredName: ''
     });
   }
 
@@ -614,7 +612,11 @@ export class LifeBajajProposalComponent implements OnInit {
         sessionStorage.nomineAge = this.getAge;
         if (this.getAge < 18) {
           this.showAppointee = true;
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
+
         } else {
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators(null);
+
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue('');
@@ -687,12 +689,10 @@ export class LifeBajajProposalComponent implements OnInit {
   proposerDetails(stepper, value) {
     console.log(value);
     sessionStorage.stepperDetails1 = JSON.stringify(value);
-
     console.log(value, 'valuevalue');
     console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       if(sessionStorage.bajajproposerAge >= 18){
-
         if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
         {
           this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
@@ -708,6 +708,7 @@ export class LifeBajajProposalComponent implements OnInit {
           }
 
           if(validMarital) {
+            this.mainQuestion();
             stepper.next();
             this.topScroll();
           }
@@ -768,44 +769,49 @@ samerelationShip(){
   medicalHistoryDetails(stepper: MatStepper) {
 
     sessionStorage.lifeQuestions = '';
-    sessionStorage.lifeQuestions = JSON.stringify(this.MainQuesList);
+    sessionStorage.lifeQuestions = JSON.stringify(this.allQuestionList);
 
-    console.log(this.MainQuesList, 'lisyduhs');
+    console.log(this.allQuestionList, 'lisyduhs');
       this.setQuestionDetails = [];
       let setMainRes = '';
       let setSubRes = '';
-      for (let i = 0; i < this.MainQuesList.length; i++) {
-          if(this.MainQuesList[i].feild == 'NUMBER' || this.MainQuesList[i].feild == 'TEXT' || this.MainQuesList[i].feild == 'Dropdown') {
-              setMainRes =  this.MainQuesList[i].fieldValue;
-          } else if(this.MainQuesList[i].feild == 'Y/N') {
-              setMainRes =  this.MainQuesList[i].checked ? 'Y' : 'N';
+      for (let j = 0; j < this.allQuestionList.length; j++) {
+        for (let i = 0; i < this.allQuestionList[j].mainQuestion.length; i++) {
+          if (this.allQuestionList[i].feild == 'NUMBER' || this.allQuestionList[j].mainQuestion[i].feild == 'TEXT' || this.allQuestionList[j].mainQuestion[i].feild == 'Dropdown') {
+            setMainRes = this.allQuestionList[j].mainQuestion[i].fieldValue;
+          } else if (this.allQuestionList[j].mainQuestion[i].feild == 'Y/N') {
+            setMainRes = this.allQuestionList[j].mainQuestion[i].checked ? 'Y' : 'N';
           }
           this.setQuestionDetails.push({
-              "questionId": this.MainQuesList[i].qus_id,
-              "subQuestionId": this.MainQuesList[i].sub_qus_id,
-              "questionFlag": this.MainQuesList[i].qus_flag,
-              "detailAnswer": '',
-              "answer": setMainRes
+            "questionId": this.allQuestionList[j].mainQuestion[i].qus_id,
+            "subQuestionId": this.allQuestionList[j].mainQuestion[i].sub_qus_id,
+            "questionFlag": this.allQuestionList[j].mainQuestion[i].qus_flag,
+            "detailAnswer": '',
+            "answer": setMainRes
           });
+        }
       }
-      for (let i = 0; i < this.MainQuesList.length; i++) {
-        let details = [];
-        for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
-            details.push(this.MainQuesList[i].SubQuesList[j].subQuestionText);
-          this.setQuestionDetails[i].detailAnswer = details.toString();
+      for (let i = 0; i < this.allQuestionList.length; i++) {
+        for (let j = 0; j < this.allQuestionList[i].mainQuestion.length; j++) {
+          let details = [];
+          for (let k = 0; k < this.allQuestionList[i].mainQuestion[j].subQuestion.length; k++) {
+            details.push(this.allQuestionList[i].mainQuestion[j].subQuestion[k].subQuestionText);
+            this.setQuestionDetails[j].detailAnswer = details.toString();
+          }
         }
 
       }
       let subQuedtionValid = true;
-      for (let i = 0; i < this.MainQuesList.length; i++) {
-
-          if(this.MainQuesList[i].checked) {
-            for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
-              if(this.MainQuesList[i].SubQuesList[j].subQuestionText == '') {
+      for (let i = 0; i < this.allQuestionList.length; i++) {
+        for (let j = 0; j < this.allQuestionList[i].mainQuestion.length; j++) {
+          if (this.allQuestionList[i].mainQuestion[j].checked) {
+            for (let k = 0; k < this.allQuestionList[i].mainQuestion[j].subQuestion.length; k++) {
+              if (this.allQuestionList[i].mainQuestion[j].subQuestion[k].subQuestionText == '') {
                 subQuedtionValid = false;
               }
             }
           }
+        }
       }
       console.log(subQuedtionValid, 'subQuedtionValid');
 
@@ -1503,10 +1509,15 @@ samerelationShip(){
   }
 
   mainQuestion() {
+      alert();
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "gender": this.proposer.controls['gender'].value == 'Male'? 'M' : 'F' ,
+      "country": this.proposer.controls['countryOfResid'].value
+
     }
     this.termService.getMainQues(data).subscribe(
         (successData) => {
@@ -1521,14 +1532,20 @@ samerelationShip(){
 
   public MainQuesSuccess(successData) {
     if (successData.IsSuccess) {
-      this.MainQuesList = successData.ResponseObject;
-      console.log(this.MainQuesList, 'pro');
-      for (let i = 0; i < this.MainQuesList.length; i++) {
-        this.MainQuesList[i].fieldValue = '';
-        this.MainQuesList[i].checked = false;
-        this.MainQuesList[i].SubQuesList = [];
+      this.allQuestionList = successData.ResponseObject;
+      console.log(this.allQuestionList, 'pro');
+      for (let i = 0; i < this.allQuestionList.length; i++) {
+        for (let j = 0; j < this.allQuestionList[i].mainQuestion.length; j++) {
+          this.allQuestionList[i].mainQuestion[j].fieldValue = '';
+          this.allQuestionList[i].mainQuestion[j].checked = false;
+          for (let k = 0; k < this.allQuestionList[i].mainQuestion[j].subQuestion.length; k++) {
+            this.allQuestionList[i].mainQuestion[j].subQuestion[k].subQuestionText = '';
+            this.allQuestionList[i].mainQuestion[j].subQuestion[k].checked = false;
+          }
+        }
       }
-      console.log(this.MainQuesList, 'MainQuesList');
+
+      console.log(this.allQuestionList, 'allQuestionList');
 
     }
   }
@@ -1536,46 +1553,46 @@ samerelationShip(){
   public MainQuesFailure(error) {
   }
 
-  questionYes(items, value, index) {
-    console.log(index, 'index');
-    this.slectedIndex = index;
-    if (value.checked) {
-      if (items.is_sub_question == '1') {
-        const data = {
-          'platform': 'web',
-          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-          'questionid': items.id
-        }
-        this.termService.getSubQues(data).subscribe(
-            (successData) => {
-              this.SubQuesSuccess(successData, index);
-            },
-            (error) => {
-              this.SubQuesFailure(error);
-            }
-        );
-      } else {
-        this.MainQuesList[index].SubQuesList = [];
-      }
-    } else {
-      this.MainQuesList[index].SubQuesList = [];
-    }
-  }
-
-  public SubQuesSuccess(successData, index) {
-    if (successData.IsSuccess) {
-      this.MainQuesList[index].SubQuesList = successData.ResponseObject;
-      for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
-        this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
-        this.MainQuesList[index].SubQuesList[i].checked = false;
-      }
-      console.log(this.MainQuesList, 'MainQuesList');
-    }
-  }
-
-  public SubQuesFailure(error) {
-  }
+  // questionYes(items, value, index) {
+  //   console.log(index, 'index');
+  //   this.slectedIndex = index;
+  //   if (value.checked) {
+  //     if (items.is_sub_question == '1') {
+  //       const data = {
+  //         'platform': 'web',
+  //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //         'questionid': items.id
+  //       }
+  //       this.termService.getSubQues(data).subscribe(
+  //           (successData) => {
+  //             this.SubQuesSuccess(successData, index);
+  //           },
+  //           (error) => {
+  //             this.SubQuesFailure(error);
+  //           }
+  //       );
+  //     } else {
+  //       this.MainQuesList[index].SubQuesList = [];
+  //     }
+  //   } else {
+  //     this.MainQuesList[index].SubQuesList = [];
+  //   }
+  // }
+  //
+  // public SubQuesSuccess(successData, index) {
+  //   if (successData.IsSuccess) {
+  //     this.allQuestionList[index].SubQuesList = successData.ResponseObject;
+  //     for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
+  //       this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
+  //       this.MainQuesList[index].SubQuesList[i].checked = false;
+  //     }
+  //     console.log(this.MainQuesList, 'MainQuesList');
+  //   }
+  // }
+  //
+  // public SubQuesFailure(error) {
+  // }
     getDiseaseList() {
         const data = {
             'platform': 'web',
@@ -1996,7 +2013,7 @@ samerelationShip(){
         });
     }
     if (sessionStorage.lifeQuestions != '' && sessionStorage.lifeQuestions != undefined) {
-        this.MainQuesList = JSON.parse(sessionStorage.lifeQuestions);
+        this.allQuestionList = JSON.parse(sessionStorage.lifeQuestions);
     }
      if (sessionStorage.lifeBajaiNomineeDetails!= '' && sessionStorage.lifeBajaiNomineeDetails != undefined) {
           let nomineeDetails = JSON.parse(sessionStorage.lifeBajaiNomineeDetails);

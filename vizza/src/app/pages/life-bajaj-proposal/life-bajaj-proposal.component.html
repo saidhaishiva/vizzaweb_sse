@@ -582,12 +582,14 @@
               </mat-expansion-panel-header>
               <ng-template matStepLabel>MEDICAL HISTORY</ng-template>
               <div class="row mt-3">
-                <div class="col-md-12 box-card pt-3 pb-3" >
-                  <div class="row" *ngFor="let item of MainQuesList; let i = index">
+                <div class="col-md-12 box-card pt-3 pb-3" *ngFor="let lists of allQuestionList;let i = index">
+                  <h5 class="sub-title">{{lists.displayTittle}}</h5>
+
+                  <div class="row" *ngFor="let item of lists.mainQuestion; let i = index">
                     <div class="col-md-8">
                       {{i+1}}. {{item.des}}
                       <div class="container" *ngIf="item.feild == 'Y/N'" >
-                        <div class="row" *ngFor="let subLiss of item.SubQuesList; let k = index">
+                        <div class="row" *ngFor="let subLiss of item.subQuestion; let k = index">
                           <div class="col-md-12">
                             <div *ngIf="subLiss.feild == 'Dropdown'">
                               <mat-form-field class="w-50">
@@ -654,18 +656,19 @@
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <form [formGroup]="nomineeDetails">
-                    <div formArrayName="itemsNominee" *ngFor="let item of nomineeDetails.get('itemsNominee')['controls']; let i = index;">
+                    <div formArrayName="itemsNominee" *ngFor="let item of nomineeDetails.get('itemsNominee').controls; let i = index;">
                       <div [formGroupName]="i">
                         <div class="row">
                           <div class="col-md-12 text-right w-100" >
-                            <button mat-button color="primaryBlue" *ngIf="i==0 && itemsNominee.value.length<2" (click)="addNominee($event)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Add</button>
+                            {{nomineeDetails.get('itemsNominee').value.length}}
+                            <button mat-button color="primaryBlue" *ngIf="i==0" (click)="addNominee($event)"><i style="font-size:15px;" class="material-icons">add_circle_outline</i> Add</button>
                             <button mat-button color="primaryBlue" *ngIf="i==1" (click)="removeNominee($event,i)">
                               Remove</button>
                           </div>
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Nominee Name" formControlName="nnName" (keypress)="nameValidate($event)" required  autocomplete="off">
-                              <mat-error *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i].nnName.errors?.required">Nominee Name is required</mat-error>
+                              <mat-error *ngIf="nomineeDetails.invalid">Nominee Name is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
@@ -674,14 +677,14 @@
                                      autocomplete="off"   required>
                               <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                               <mat-datepicker #picker2></mat-datepicker>
-                              <!--<mat-error *ngIf="nomineeDetails.nDob.errors?.required">DOB is required</mat-error>-->
+                              <mat-error *ngIf="nomineeDetails.invalid">DOB is required</mat-error>
                             </mat-form-field>
                             <p class="error mb-0" *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value != ''">{{nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.value}}</p>
                           </div>
                           <div class="col-md-4">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Birth Place"  formControlName="nBirthPlace" (keypress)="nameValidate($event)"   autocomplete="off" required>
-                              <!--<mat-error *ngIf="nomineeDetails.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
+                              <mat-error *ngIf="nomineeDetails.invalid">Nominee birthplace is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-4">
@@ -689,7 +692,7 @@
                               <mat-select  placeholder="Nominee Relation with Insured" formControlName="nRelation" class="w-100" (change)="changeNomineeRelation()" required>
                                 <mat-option *ngFor="let list of nomineeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
                               </mat-select>
-                              <!--<mat-error *ngIf="nomineeDetails.controls.nRelation.errors?.required">Relation is required</mat-error>-->
+                              <mat-error *ngIf="nomineeDetails.invalid">Relation is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="i == 1">
