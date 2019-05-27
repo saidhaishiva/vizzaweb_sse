@@ -1,0 +1,149 @@
+import {Component, Inject, OnInit} from '@angular/core';
+import {Settings} from '../../app.settings.model';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {HealthService} from '../../shared/services/health.service';
+import {AppSettings} from '../../app.settings';
+import {ToastrService} from 'ngx-toastr';
+import {AuthService} from '../../shared/services/auth.service';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+
+@Component({
+  selector: 'app-chola-health-payment-success',
+  templateUrl: './chola-health-payment-success.component.html',
+  styleUrls: ['./chola-health-payment-success.component.scss']
+})
+export class CholaHealthPaymentSuccessComponent implements OnInit {
+
+  public paymentStatus: any
+  public currenturl: any
+  public type: any
+  public path: any
+  public proposalId: any
+  public policyStatus: any
+  public remainingStatus: any
+  public settings: Settings;
+
+  constructor(public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+    this.settings = this.appSettings.settings;
+    this.remainingStatus = false;
+    this.route.params.forEach((params) => {
+      console.log(params.id);
+      this.paymentStatus = params.status;
+      this.proposalId = params.proId;
+      this.policyStatus = params.policyStatus;
+    });
+    let groupDetails = JSON.parse(sessionStorage.groupDetails);
+    for(let i = 0; i < groupDetails.family_groups.length; i++) {
+      if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
+        groupDetails.family_groups[i].status = 1;
+      }
+    }
+    let status = groupDetails.family_groups.filter(data => data.status == 0);
+    if(status.length > 0) {
+      this.remainingStatus = true;
+    }
+    sessionStorage.groupDetails = JSON.stringify(groupDetails);
+
+  }
+  ngOnInit() {
+    // sessionStorage.hdfc_health_proposal_id = '';
+    // sessionStorage.hdfcStep1 = '';
+    // sessionStorage.hdfcStep2 = '';
+    // sessionStorage.hdfcHealthNomineeDetails = '';
+    // sessionStorage.sameAsinsure = '';
+    // sessionStorage.pincodeValid = '';
+    // sessionStorage.hdfcHealthProposerAge = '';
+    // sessionStorage.hdfcHealthInsurerAge = '';
+    // sessionStorage.buyProductdetails = '';
+    // sessionStorage.changedTabDetails = '';
+
+  }
+
+  DownloadPdf() {
+    const data = {
+      'mail_status': '1',
+      'proposal_id' : this.proposalId,
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    }
+    this.settings.loadingSpinner = true;
+    this.proposalservice.getDownloadPdfHdfc(data).subscribe(
+        (successData) => {
+          this.downloadPdfSuccess(successData);
+        },
+        (error) => {
+          this.downloadPdfFailure(error);
+        }
+    );
+
+  }
+  public downloadPdfSuccess(successData) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess == true) {
+      this.type = successData.ResponseObject.type;
+      this.path = successData.ResponseObject.path;
+
+      this.currenturl = this.config.getimgUrl();
+      if (this.type == 'pdf') {
+        console.log(successData.ResponseObject, 'www333');
+        window.open(this.currenturl + '/' +  this.path,'_blank');
+      } else if (this.type === 'pdf') {
+        console.log(successData.ResponseObject, 'www3444');
+        window.open(this.currenturl + '/' +  this.path,'_blank');
+      } else {
+        this.downloadMessage();
+      }
+    } else {
+      this.toast.error(successData.ErrorObject);
+
+    }
+
+  }
+  public downloadPdfFailure(error) {
+    this.settings.loadingSpinner = false;
+    console.log(error);
+  }
+  retry() {
+    this.router.navigate(['/hdfc-insurance'  + '/' + true]);
+  }
+  pay(){
+    sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
+    this.router.navigate(['/healthinsurance']);
+  }
+
+  downloadMessage() {
+    const dialogRef = this.dialog.open(DownloadMessageCholaHealth, {
+      width: '400px',
+      data: this.path
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+
+}
+@Component({
+  selector: 'downloadmessagecholahealth',
+  template: `<div mat-dialog-content class="text-center">
+        <label> {{data}} </label>
+    </div>
+    <div mat-dialog-actions style="justify-content: center">
+        <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
+    </div>`,
+})
+export class DownloadMessageCholaHealth {
+
+  constructor(
+      public dialogRef: MatDialogRef<DownloadMessageCholaHealth>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+}
