@@ -84,6 +84,33 @@
                         <mat-error *ngIf="religarePersonal.controls.adharnumber.errors?.required">Aadhar Number is required</mat-error>
                         <mat-error *ngIf="religarePersonal.controls.adharnumber.hasError('pattern')">Enter Valid  Aadhar Number</mat-error>
                       </mat-form-field></div>
+
+                            <div class="col-md-4" *ngIf="studentdetails">
+                                <mat-form-field class="w-100">
+                                    <input matInput placeholder="Start Date" formControlName="startDate" autocomplete="off" readonly>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4" *ngIf="studentdetails">
+                                <mat-form-field class="w-100">
+                                    <mat-select placeholder="Months" formControlName="betweenMonth" (change)="selectMonths()" required>
+                                        <mat-option value="1">1</mat-option>
+                                        <mat-option value="3">3</mat-option>
+                                        <mat-option value="6">6</mat-option>
+                                        <mat-option value="9">9</mat-option>
+                                        <mat-option value="12">12</mat-option>
+                                        <mat-option value="15">15</mat-option>
+                                        <mat-option value="18">18</mat-option>
+                                        <mat-option value="24">24</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="religarePersonal.controls.betweenMonth.errors?.required">Months is required</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div class="col-md-4" *ngIf="studentdetails">
+                                <mat-form-field class="w-100">
+                                    <input matInput placeholder="End Date" formControlName="endDate" autocomplete="off" readonly>
+                                </mat-form-field>
+                            </div>
+
                       <div class="col-md-12 box-card pt-3">
                         <div class="row" *ngIf="studentdetails">
                           <h6 class="col-md-12 color-blue mt-3 mb-4">SPONSER DETAILS</h6>
@@ -153,6 +180,8 @@
                               </span>
                           </div>
                         </div>
+
+
                       </div>
 
 
@@ -528,7 +557,7 @@
               <div class="col-md-6">
                 <ul class="summary-head">
                   <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
-                  <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date | date: 'dd/MM/yyyy' }} </li>
+                  <li><span>End Date:</span> &nbsp; {{getEndDate | date: 'dd/MM/yyyy' }} </li>
                   <li></li>
                 </ul>
               </div>

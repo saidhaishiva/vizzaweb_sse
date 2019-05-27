@@ -539,30 +539,28 @@ export class TravelRelianceProposalComponent implements OnInit {
                 let studentValid = false;
                 if (this.personal['controls'].occupation.value == '36') {
                     studentValid = true;
-                    if (this.personal['controls'].personalCourseName.value == '' || this.personal['controls'].personalUniversityName.value == '' || this.personal['controls'].personalUniversityEmail.value == ''|| this.personal['controls'].personalUniversityMobileNo.value == '' || this.personal['controls'].personalSponsorFullname.value == '' || this.personal['controls'].personalSponsorEmail.value == '' || this.personal['controls'].personalSponsorMobileNo.value == '' ) {
+                    if (this.personal['controls'].personalCourseName.value == '' || this.personal['controls'].personalNoOfSems.value == '' || this.personal['controls'].personalUniversityName.value == '' || this.personal['controls'].personalSponsorFullname.value == '' || this.personal['controls'].personalSponsorEmail.value == '' || this.personal['controls'].personalSponsorMobileNo.value == '' || this.personal['controls'].personalSponsorAddress.value == '' || this.personal['controls'].personalSponsorPincode.value == ''  ) {
                         studentValid = false;
                     }
                 }
-
                 console.log(isDoctorValid, 'isDoctorValid');
                 console.log(studentValid, 'studentValid');
-                if(isDoctorValid && studentValid) {
-                    stepper.next();
-                    this.topScroll();
-                } else if(isDoctorValid && studentValid == false) {
-                    stepper.next();
-                    this.topScroll();
-                } else {
-                    if(isDoctorValid == false) {
-                        this.toastr.error('Please fill Doctor Details');
 
-                    }
+                if(isDoctorValid) {
                     if(this.travelUserType == true ) {
                         if (studentValid == false) {
                             this.toastr.error('Please fill Course, University and Sponsor Details');
+                        } else {
+                            stepper.next();
+                            this.topScroll();
                         }
+                    } else {
+                        stepper.next();
+                        this.topScroll();
                     }
 
+                } else {
+                    this.toastr.error('Please fill Doctor Details');
                 }
 
 

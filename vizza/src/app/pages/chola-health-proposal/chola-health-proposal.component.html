@@ -102,7 +102,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                          <input matInput placeholder="LandLine Number"  (keypress)="numberValidate($event)"  minlength="8" maxlength="8" formControlName="personalLandlineno" autocomplete="off" >
+                          <input matInput placeholder="LandLine Number"  (keypress)="heightValidate($event)"  minlength="8" maxlength="8" formControlName="personalLandlineno" autocomplete="off" >
                           <mat-error *ngIf="personal.controls.personalLandlineno.hasError('minlength')">LandLine Number isn't long enough, maximum of 8 Digits</mat-error>
                         </mat-form-field>
                         </div>
@@ -223,9 +223,9 @@
                           </div>
 
                           <div class="col-md-4">
-                            <mat-form-field class="w-100"  [ngStyle]="{'pointer-events':  i == 0 ? 'none' : ''}">
+                            <mat-form-field class="w-100"  [ngStyle]="{'pointer-events':  i == 0  ? 'none' : 'none' }">
                               <mat-select placeholder="Relationship with Proposer" (change)="changeRelationShipList(i)" formControlName="personalrelationship"  required  >
-                                <mat-option *ngFor="let relationship of relationshipList | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
+                                <mat-option *ngFor="let relationship of relationshipList | keys" [hidden]="relationship.key == 'Self'" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                               </mat-select>
                               <mat-error *ngIf="insureArray.invalid">Relationship is required</mat-error>
                             </mat-form-field>
@@ -322,7 +322,7 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.personalTitle}} {{proposerFormData.personalFirstname}} {{proposerFormData.personalLastname}} </li>
+                        <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.personalTitle}}.{{proposerFormData.personalFirstname}} {{proposerFormData.personalLastname}} </li>
                         <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.personalGender}} </li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.personalMobile}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.personalDob  | date: 'dd/MM/yyyy'}}</li>
@@ -376,7 +376,7 @@
                     <div class="p-3">
                       <h6 class="color-blue"></h6>
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.personalTitle}} {{item.personalFirstname}} {{item.personalLastname}}</li>
+                        <li class="list-group-item"><strong>Name:</strong> {{item.personalTitle}}.{{item.personalFirstname}} {{item.personalLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{item.personalDob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Gender:</strong> {{item.personalGender}} </li>
                       </ul>

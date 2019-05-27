@@ -39,10 +39,12 @@ export class RelianceMotorProposalComponent implements OnInit {
   relianceProposal : FormGroup;
   previousInsurance : FormGroup;
   coverDetails : FormGroup;
+  riskDetails : FormGroup;
   public titleList: any;
   public proposerData: any;
   public getStepper1: any;
   public fuelTypeList: any;
+  public relationListData: any;
   public prevInsurerList: any;
   public maritalList: any;
   public nationalityList: any;
@@ -128,8 +130,19 @@ export class RelianceMotorProposalComponent implements OnInit {
       PACoverToOwner: [''],
       cappointeeName: [''],
       cnomineeName: [''],
+      cnDob: [''],
+      nrelation: [''],
+      cnAddress: [''],
+      cnOtherRelation: [''],
       fuelType: ['',Validators.required],
     });
+
+    this.riskDetails = this.fb.group({
+      AgentName: ['', Validators.required],
+      OtherSystemName: ['', Validators.required],
+      IDV: ['', Validators.required],
+        }
+    );
     this.nationalityList = {
       '1949': 'Indian',
       '1950': 'others',
@@ -352,7 +365,27 @@ export class RelianceMotorProposalComponent implements OnInit {
     public fuelTypeListFailure(error) {
     }
 
-
+///nominee RelationList
+  relationList() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    };
+    this.bikeInsurance.relationListDetails(data).subscribe(
+        (successData) => {
+          this.relationListSucccess(successData);
+        },
+        (error) => {
+          this.relationListFailure(error);
+        }
+    );
+  }
+  public relationListSucccess(successData){
+    this.relationListData = successData.ResponseObject;
+  }
+  public relationListFailure(error) {
+  }
     ///previous year insurer
   prevInsurer() {
     const data = {

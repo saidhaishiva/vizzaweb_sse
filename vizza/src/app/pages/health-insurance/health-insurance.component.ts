@@ -90,7 +90,7 @@ export class HealthInsuranceComponent implements OnInit {
     checkAllStatus : any;
     getSumInsureId : any;
     sumInsuredAmount : any;
-
+    healthProceed : any;
 
     private keyUp = new Subject<string>();
     constructor(public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService) {
@@ -108,6 +108,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.updateFlag = false;
         this.ageUpdateFlag = false;
         this.nonEditable = false;
+        this.healthProceed = true;
         this.sbtn = false;
         this.setArray = [];
         this.memberLength = [];
@@ -444,7 +445,8 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     // new policy lists
-    getPolicyQuotationList() {
+    getPolicyQuotationList(type) {
+        this.healthProceed = false;
         this.selectedAmount = ''
         if (this.pincoce == '' || this.pincoce == undefined || this.pincoce.length < 6) {
             this.pinerror = true;
@@ -486,7 +488,7 @@ export class HealthInsuranceComponent implements OnInit {
                     this.settings.loadingSpinner = true;
                     this.common.getFamilyLists(data).subscribe(
                         (successData) => {
-                            this.getFamilyListsSuccess(successData, 0);
+                            this.getFamilyListsSuccess(successData, 0, type);
                         },
                         (error) => {
                             this.getFamilyListsFailure(error);
@@ -494,12 +496,17 @@ export class HealthInsuranceComponent implements OnInit {
                     );
 
                 } else {
+                    this.healthProceed = true;
                 }
+            } else {
+                this.healthProceed = true;
             }
+        } else {
+            this.healthProceed = true;
         }
     }
 
-    public getFamilyListsSuccess(successData, index) {
+    public getFamilyListsSuccess(successData, index, type) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.groupDetails = successData.ResponseObject;
@@ -515,6 +522,14 @@ export class HealthInsuranceComponent implements OnInit {
                 dialogRef.disableClose = true;
                 dialogRef.afterClosed().subscribe(result => {
                 });
+                if(type == 'mobile'){
+                    let dialogRef = this.dialog.open(GrouppopupComponent, {
+                        width: '700px', data: {comparedata: successData.ResponseObject.family_groups}});
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
+                    });
+                }
+
             }
             this.productListArray = [];
             this.allProductLists = [];
@@ -524,6 +539,7 @@ export class HealthInsuranceComponent implements OnInit {
             this.policyLists(this.allCompanyList);
 
         } else {
+            this.healthProceed = true;
             this.toast.error(successData.ErrorObject);
         }
     }

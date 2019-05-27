@@ -1,6 +1,6 @@
 <div class="container-fluid">
 <!--    apolloMunichProposal-->
-  <div class="row ">
+  <div class="row apolloMunichProposal ">
     <div class="col-md-12">
       <mat-horizontal-stepper #stepper>
         <mat-step [stepControl]="">
@@ -296,7 +296,61 @@
         </mat-step>
 
 
-        <mat-step [stepControl]="">
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel>Policy/Risk Details</ng-template>
+              <mat-accordion class="mt-4 w-100 float-left">
+                  <mat-expansion-panel expanded>
+                      <mat-expansion-panel-header>
+                          <mat-panel-title>
+                              Policy/Risk Details
+                          </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <form [formGroup]="riskDetails">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <div class="col-md-6">
+                                      <mat-form-field class="w-100">
+                                          <mat-select placeholder="Agent Name" formControlName="AgentName" required>
+<!--                                              <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>-->
+                                          </mat-select>
+                                          <mat-error *ngIf="riskDetails.controls.AgentName.errors?.required">agent name  is required</mat-error>
+                                      </mat-form-field>
+                                  </div>
+
+                                  <div class="col-md-6">
+                                      <mat-form-field class="w-100">
+                                          <mat-select placeholder="Other System Name" formControlName="OtherSystemName" required>
+                                              <!--                                              <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>-->
+                                          </mat-select>
+                                          <mat-error *ngIf="riskDetails.controls.OtherSystemName.errors?.required">OtherSystemName  is required</mat-error>
+                                      </mat-form-field>
+                                  </div>
+                              </div>
+                              <div class="col-md-12 mt-2">
+                                  <h6 class="color-blue">Risk Details</h6>
+                              </div>
+                              <div class="col-md-12 ">
+                                  <div class="row">
+                                      <div class="col-md-4">
+                                          <mat-form-field class="w-100">
+                                              <input matInput placeholder="IDV"  formControlName="IDV" required autocomplete="off" required>
+                                              <mat-error *ngIf="riskDetails.controls.IDV.errors?.required">IDV is required</mat-error>
+                                          </mat-form-field>
+                                      </div>
+                                  </div>
+                                  <button mat-raised-button color="primaryBlue"  (click)="stepper.back()" >Back</button>
+
+                                  <button mat-raised-button color="primaryBlue"  (click)="stepper.next()" >Next</button>
+                              </div>
+                          </div>
+                      </form>
+                  </mat-expansion-panel>
+              </mat-accordion>
+          </mat-step>
+
+
+
+          <mat-step [stepControl]="">
           <ng-template matStepLabel>Vehicle/Cover Details</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <mat-expansion-panel expanded>
@@ -331,11 +385,17 @@
                                 <mat-checkbox  formControlName="BasicLiability">BasicLiability</mat-checkbox>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="PACoverToOwner">PACoverToOwner</mat-checkbox>
+                                <mat-checkbox  formControlName="PACoverToOwner" >PACoverToOwner</mat-checkbox>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 mt-2">
+                    <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PACoverToOwner.value == true">
+
+                        <div class="row">
+                            <div class="col-md-12 mt-2">
+                                <h6 class="color-blue">Insured Details</h6>
+                            </div>
+                        </div>
                         <div class="col-md-4">
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Appointee Name" formControlName="cappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
@@ -348,7 +408,33 @@
                                 <!--                                <mat-error *ngIf="relianceProposal.controls.firstName.errors?.required">FirstName is required</mat-error>-->
                             </mat-form-field>
                         </div>
+                        <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                                <input matInput [matDatepicker]="picker" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="cnDob" (dateInput)="addEvent($event,'nominee')" (dateChange)="addEvent($event,'nominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="coverDetails.controls.cnDob.errors?.required">DOB is required</mat-error>
+                            </mat-form-field>
+                            <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                                <mat-select placeholder="Nominee Relation" formControlName="nrelation" required>
+                                    <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="coverDetails.controls.nrelation.errors?.required">Relation  is required</mat-error>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="col-md-4">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Nominee Address" formControlName="cnAddress"  autocomplete="off" required >
+                                <mat-error *ngIf="coverDetails.controls.cnAddress.errors?.required">nominee Address is required</mat-error>
+                            </mat-form-field>
+                        </div>
                     </div>
+
 
                     <div class="col-md-12 mt-2">
                         <h6 class="color-blue">Vehicle Details</h6>
@@ -382,7 +468,7 @@
         </mat-step>
 
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>Previous Insure Details</ng-template>
+          <ng-template matStepLabel>Previous Insurance Details</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="previousInsurance">
             <mat-expansion-panel expanded>

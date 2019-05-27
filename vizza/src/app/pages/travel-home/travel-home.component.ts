@@ -112,6 +112,7 @@ export class TravelHomeComponent implements OnInit {
     public travelTypeError: boolean;
     public enquiryDetails: any;
     public studentDuration: boolean;
+    public travelProceed: boolean;
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute) {
         this.settings = this.appSettings.settings;
@@ -167,6 +168,8 @@ export class TravelHomeComponent implements OnInit {
         this.plcaeOfVisitError = false;
         this.travelTypeError = false;
         this.studentDuration = false;
+        this.travelProceed = true;
+
 
         this.Child3BTn = true;
         this.FatherBTn = true;
@@ -677,6 +680,7 @@ export class TravelHomeComponent implements OnInit {
     submit(groupname) {
         console.log(groupname, 'groupname');
         this.medicalerror = true;
+        this.travelProceed = false;
         this.finalData = [];
         if (this.selectedAmountTravel == '' || this.selectedAmountTravel == undefined) {
             this.sumerror = true;
@@ -885,12 +889,18 @@ export class TravelHomeComponent implements OnInit {
                             }
                         );
                     } else {
+                        this.travelProceed = true;
                         this.toast.error('Please select minimum two members');
                     }
+                } else {
+                    this.travelProceed = true;
                 }
             } else {
+                this.travelProceed = true;
                 this.toast.error('Travel period shoud not be greater than 180 days');
             }
+        } else {
+            this.travelProceed = true;
         }
 
     }
@@ -903,6 +913,7 @@ export class TravelHomeComponent implements OnInit {
             this.router.navigate(['/travelpremium']);
         }
         else {
+            this.travelProceed = true;
             this.toast.error(successData.ErrorObject);
         }
     }

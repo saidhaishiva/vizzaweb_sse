@@ -26,16 +26,13 @@ export class IffcoTokioHealthPayamentSuccessComponent implements OnInit {
     this.remainingStatus = false;
     this.route.params.forEach((params) => {
       this.paymentStatus = params.status;
-      this.proposalId = params.proId;
       this.applicationNo = params.applicationNo;
+      this.proposalId = params.proId;
+
     });
     let groupDetails = JSON.parse(sessionStorage.groupDetails);
-    console.log(groupDetails.family_groups[sessionStorage.changedTabIndex].name, 'name');
-    console.log(sessionStorage.changedTabIndex, 'indx');
     for(let i = 0; i < groupDetails.family_groups.length; i++) {
-      console.log('in');
       if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
-        console.log('outt');
         groupDetails.family_groups[i].status = 1;
       }
     }

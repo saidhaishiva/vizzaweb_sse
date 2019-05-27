@@ -107,6 +107,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public RiskData :any;
     public diseaseFieldView :any;
     public sponserRelationList :any;
+    public getEndDate :any;
 
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public route: ActivatedRoute,
@@ -180,6 +181,10 @@ export class ReliagretravelproposalComponent implements OnInit {
             addon:'',
             studentRelationShipName:'',
             relationshipName:'',
+            startDate:'',
+            betweenMonth:'',
+            endDate:'',
+            endDateFormat:''
 
         });
         this.nomineeDetails = this.fb.group({
@@ -188,6 +193,8 @@ export class ReliagretravelproposalComponent implements OnInit {
             'religareNomineeRelationshipName': ''
 
         });
+        let sDate = this.datepipe.transform(sessionStorage.startDate, 'dd/MM/yyyy');
+        this.religarePersonal.controls['startDate'].patchValue(sDate);
     }
 
     ngOnInit() {
@@ -299,6 +306,34 @@ export class ReliagretravelproposalComponent implements OnInit {
             }
         }
     }
+    selectMonths(){
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+            "trip_start_on": this.datepipe.transform(sessionStorage.startDate, 'y-MM-dd'),
+            "month": this.religarePersonal.controls['betweenMonth'].value
+        }
+        this.travelservice.travelMonthDuration(data).subscribe(
+            (successData) => {
+                this.travelMonthDurationSuccess(successData);
+            },
+            (error) => {
+                this.travelMonthDurationFailure(error);
+            }
+        );
+    }
+    public travelMonthDurationSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.religarePersonal.controls['endDate'].patchValue(this.datepipe.transform(successData.ResponseObject.end_date , 'dd/MM/yyyy'));
+            this.religarePersonal.controls['endDateFormat'].patchValue(successData.ResponseObject.end_date);
+        }
+    }
+
+    public travelMonthDurationFailure(error) {
+    }
+
     // RelationShip List
     RelationShipListTravel() {
         const data = {
@@ -1131,7 +1166,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             'product_id': this.getTravelPremiumList.product_id,
             'enquiry_id': this.getEnquiryDetails.enquiry_id,
             'trip_start_on': this.datepipe.transform( this.getEnquiryDetails.start_date , 'y-MM-dd'),
-            'trip_end_on': this.datepipe.transform( this.getEnquiryDetails.end_date , 'y-MM-dd'),
+            'trip_end_on': this.getEnquiryDetails.travel_user_type == 'student' ? this.religarePersonal.controls['endDateFormat'].value : this.datepipe.transform(this.getEnquiryDetails.end_date , 'y-MM-dd'),
             'baseProductId': this.getTravelPremiumList.geography_code,
             'trip_type': this.getEnquiryDetails.travel_plan_type,
             'plan_name': this.getTravelPremiumList.plan_name,
@@ -1186,10 +1221,11 @@ export class ReliagretravelproposalComponent implements OnInit {
             if (sessionStorage.setAddons != '' && sessionStorage.setAddons != undefined) {
                 this.setAddons = JSON.parse(sessionStorage.setAddons);
             }
-            // else {
-            //     this.setAddons = [];
-            // }
-
+            if(this.getEnquiryDetails.travel_user_type == 'student') {
+                this.getEndDate = this.religarePersonal.controls['endDate'].value;
+            } else {
+                this.getEndDate = this.getEnquiryDetails.end_date;
+            }
             this.religareTravelQuestionsList[4].fieldValue = this.insuretravelRelationList[this.religareTravelQuestionsList[4].fieldValue];
 
         } else {
@@ -1244,6 +1280,10 @@ export class ReliagretravelproposalComponent implements OnInit {
                 addon: getProposerDetails.addon,
                 studentRelationShipName: getProposerDetails.studentRelationShipName,
                 relationshipName: getProposerDetails.relationshipName,
+                startDate: getProposerDetails.startDate,
+                betweenMonth: getProposerDetails.betweenMonth,
+                endDate: getProposerDetails.endDate,
+                endDateFormat: getProposerDetails.endDateFormat,
                 rolecd: getProposerDetails.rolecd == null ? 'PROPOSER' : 'PROPOSER'
 
             });

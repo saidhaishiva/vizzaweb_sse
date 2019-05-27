@@ -71,9 +71,11 @@ export class ReliancePaPaymentSuccessComponent implements OnInit {
 
       this.currenturl = this.config.getimgUrl();
       if (this.type == 'pdf') {
-        window.open(this.currenturl + '/' + this.path, '_blank');
+        console.log(successData.ResponseObject, 'www333');
+        window.open( this.path, '_blank');
       } else if (this.type === 'pdf') {
-        window.open(this.currenturl + '/' + this.path, '_blank');
+        console.log(successData.ResponseObject, 'www3444');
+        window.open( this.path, '_blank');
       } else {
         this.downloadMessage();
       }
@@ -84,7 +86,9 @@ export class ReliancePaPaymentSuccessComponent implements OnInit {
   }
 
   public downloadPdfFailure(error) {
+    console.log(error);
   }
+
 
   downloadMessage() {
     const dialogRef = this.dialog.open(DownloadReliancePersonalAccident, {

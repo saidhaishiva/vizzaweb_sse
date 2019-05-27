@@ -276,6 +276,8 @@ import {BajajLifeOpt} from './pages/life-bajaj-proposal/life-bajaj-proposal.comp
 import { ReliancePaPaymentSuccessComponent } from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
 import { ReliancePaDownloadPolicyComponent } from './pages/reliance-pa-download-policy/reliance-pa-download-policy.component';
 import { DownloadReliancePersonalAccident} from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
+import { BikeTataaigProposalComponent } from './pages/bike-tataaig-proposal/bike-tataaig-proposal.component';
+import {CholaHealthPaymentSuccessComponent, DownloadMessageCholaHealth} from './pages/chola-health-payment-success/chola-health-payment-success.component';
 
 @NgModule({
     imports: [
@@ -510,7 +512,10 @@ import { DownloadReliancePersonalAccident} from './pages/reliance-pa-payment-suc
         BajajLifeOpt,
         ReliancePaPaymentSuccessComponent,
         ReliancePaDownloadPolicyComponent,
-        DownloadReliancePersonalAccident
+        DownloadReliancePersonalAccident,
+        BikeTataaigProposalComponent,
+        CholaHealthPaymentSuccessComponent,
+        DownloadMessageCholaHealth
     ],
     providers: [
         AppSettings,
@@ -556,10 +561,10 @@ import { DownloadReliancePersonalAccident} from './pages/reliance-pa-payment-suc
     ],
     bootstrap: [AppComponent],
     entryComponents: [
-        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage,DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
-        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer,GroupHealthInsurer,GroupTermLifeInsurer,GroupPersonalAccidentInsurer,MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
-        ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel,PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident
+        ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
+        DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
+        ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth
     ]
 })
 export class AppModule { }

@@ -326,17 +326,17 @@ export class PersonalAccidentService {
             .catch(this.handleError);
     }
 
-    //Reliance coverOptionList
-    covertypeList(data){
-        const json = JSON.stringify(data);
-        const httpoptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        }
-        const url = this.configurationService.getHostPa() + 'reliance/get_cover_type';
-        return this.http.post(url,json,httpoptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+    // //Reliance coverOptionList
+    // covertypeList(data){
+    //     const json = JSON.stringify(data);
+    //     const httpoptions = {
+    //         headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    //     }
+    //     const url = this.configurationService.getHostPa() + 'reliance/get_cover_type';
+    //     return this.http.post(url,json,httpoptions)
+    //         .map(this.extractData)
+    //         .catch(this.handleError);
+    // }
     //Reliance coversubOptionList
     coverageList(data){
         const json = JSON.stringify(data);
@@ -621,7 +621,7 @@ export class PersonalAccidentService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostPa() + '';
+        const url = this.configurationService.getHostPa() + 'reliance/schedule_policy_pdf';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

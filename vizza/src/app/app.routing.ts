@@ -135,6 +135,8 @@ import {RelianceMotorProposalComponent} from './pages/reliance-motor-proposal/re
 import {TravelBajajalianzDownloadPolicyComponent} from './pages/travel-bajajalianz-download-policy/travel-bajajalianz-download-policy.component';
 import {TravelBajajPaymentSuccessComponent} from './pages/travel-bajaj-payment-success/travel-bajaj-payment-success.component';
 import {ReliancePaPaymentSuccessComponent} from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
+import {BikeTataaigProposalComponent} from './pages/bike-tataaig-proposal/bike-tataaig-proposal.component';
+import {CholaHealthPaymentSuccessComponent} from './pages/chola-health-payment-success/chola-health-payment-success.component';
 
 
 export const routes: Routes = [
@@ -231,7 +233,7 @@ export const routes: Routes = [
             { path: 'religare-payment-success-pa/:status/:proId', component:ReligarePaymentSuccessPaComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'travel-reliance-payment-success/:status/:proId/:mailStatus', component:TravelReliancePaymentSuccessComponent, data: { breadcrumb: 'Travel reliance payment success'} },
             { path: 'apollomunich-pa-payment-success/:status/:proId/:applicationNo', component:ApollomunichPaPaymentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
-            { path: 'iffco-tokio-health-payament-success/:status/:proId/:applicationNo', component:IffcoTokioHealthPayamentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
+            { path: 'iffco-tokio-health-payament-success/:status/:applicationNo/:proId', component:IffcoTokioHealthPayamentSuccessComponent, data: { breadcrumb: 'personalAccidentPayment Success'} },
             { path: 'bajaj/:stepper', component: BajajAlianzComponent, data: { breadcrumb: 'Bajaj Alianz'}, canDeactivate: [BajajHealthDeactivateGuardService]},
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
             { path: 'bajaj-download-policy/:proId', component: BajajDownloadPolicyComponent, data: { breadcrumb: 'Bajaj Alianz Download Policy'} },
@@ -265,7 +267,9 @@ export const routes: Routes = [
             { path: 'chola-health-proposal/:stepper', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
             { path: 'reliance-motor-proposal', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
             { path: 'bajaj-travel-payment-success/:status/:proId', component: TravelBajajPaymentSuccessComponent, data:{ breadcrumb: 'travel Bajaj'}},
-            { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}}
+            { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}},
+            { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}},
+            { path: 'app-chola-health-payment-success/:status/:proId/:policyStatus', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
 
         ]
     },

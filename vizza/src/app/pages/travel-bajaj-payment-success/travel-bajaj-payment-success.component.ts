@@ -32,7 +32,7 @@ export class TravelBajajPaymentSuccessComponent implements OnInit {
   ngOnInit() {
   }
   retry() {
-    this.router.navigate(['/shriram-travel-home'  + '/' + true]);
+    this.router.navigate(['/bajaj-travel'  + '/' + true]);
   }
 
   DownloadPdf() {
@@ -56,26 +56,26 @@ export class TravelBajajPaymentSuccessComponent implements OnInit {
   }
   public downloadPdfSuccess(successData) {
     console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
-    // this.type = successData.ResponseObject.type;
-    // this.path = successData.ResponseObject.path;
+    this.type = successData.ResponseObject.type;
+    this.path = successData.ResponseObject.path;
     this.settings.loadingSpinner = false;
 
-    // if (successData.IsSuccess == true) {
-    //   console.log(this.type, 'ww22');
-    //
-    //   this.currenturl = this.config.getimgUrl();
-    //   if (this.type == 'pdf') {
-    //     console.log(successData.ResponseObject, 'www333');
-    //     window.open(this.path,'_blank');
-    //   } else if (this.type === 'pdf') {
-    //     console.log(successData.ResponseObject, 'www3444');
-    //     window.open(this.path,'_blank');
-    //   } else {
-    //     this.downloadMessage();
-    //   }
-    // } else {
-    //   this.toast.error(successData.ErrorObject);
-    // }
+    if (successData.IsSuccess == true) {
+      console.log(this.type, 'ww22');
+
+      this.currenturl = this.config.getimgUrl();
+      if (this.type == 'pdf') {
+        console.log(successData.ResponseObject, 'www333');
+        window.open(this.path,'_blank');
+      } else if (this.type === 'pdf') {
+        console.log(successData.ResponseObject, 'www3444');
+        window.open(this.path,'_blank');
+      } else {
+        this.downloadMessage();
+      }
+    } else {
+      this.toast.error(successData.ErrorObject);
+    }
 
   }
   public downloadPdfFailure(error) {

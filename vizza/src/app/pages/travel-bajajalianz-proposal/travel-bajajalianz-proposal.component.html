@@ -90,7 +90,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4"><mat-form-field class="w-100">
-                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
+                        <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
                         <mat-error *ngIf="bajajProposal.controls.passportNumber.errors?.required">Passport number is required</mat-error>
                         <mat-error *ngIf="bajajProposal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>
                       </mat-form-field></div>
@@ -120,7 +120,7 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                        <input matInput placeholder="Assingnee Name" formControlName="assigneeName" required >
+                        <input matInput placeholder="Assingnee Name" formControlName="assigneeName" (keypress)="nameValidate($event)" required >
                           <mat-error *ngIf="bajajProposal.controls.assigneeName.errors?.required">Assignee Name is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -132,14 +132,14 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput matInput placeholder="Street Name" rows="2" formControlName="streetName"  autocomplete="off" required>
-                          <mat-error *ngIf="bajajProposal.controls.streetName.errors?.required">streetname is required</mat-error>
+                          <input matInput matInput placeholder="Building Details" rows="2" formControlName="building"  autocomplete="off" required>
+                          <mat-error *ngIf="bajajProposal.controls.building.errors?.required">Building detail is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput matInput placeholder="Building Details" rows="2" formControlName="building"  autocomplete="off" required>
-                          <mat-error *ngIf="bajajProposal.controls.building.errors?.required">Building detail is required</mat-error>
+                          <input matInput matInput placeholder="Street Name" rows="2" formControlName="streetName"  autocomplete="off" required>
+                          <mat-error *ngIf="bajajProposal.controls.streetName.errors?.required">streetname is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
@@ -217,7 +217,7 @@
                         </div>
                         <div class="col-md-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEventInsurer($event, i,'insurer')" (dateChange)="addEventInsurer($event, i,'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEventInsurer($event, i,bajajInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (dateChange)="addEventInsurer($event, i,bajajInsuredTravel['controls'].items['controls'][i]['controls'].type.value)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
                             <mat-datepicker #picker ></mat-datepicker>
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].idob.errors?.required">DOB is required</mat-error>
@@ -232,7 +232,7 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNo" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required readonly="{{i==0}}">
+                          <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][0-9]\d\s?\d{4}[1-9]$" formControlName="passportNo" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required readonly="{{i==0}}">
                           <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>
                           <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>
                         </mat-form-field></div>
@@ -327,7 +327,7 @@
                   <div class="p-3">
                     <!--<h6 class="color-blue">Proposer Details</h6>-->
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}.{{proposerFormData.firstName}} {{proposerFormData.middlename}} {{proposerFormData.lastName}}</li>
+                      <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}.{{proposerFormData.firstName}}{{' '}} {{proposerFormData.middlename}} {{' '}}{{proposerFormData.lastName}}</li>
                       <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.gender}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatus}}</li>
@@ -342,8 +342,9 @@
                       <li class="list-group-item" *ngIf="proposerFormData.fax !='' "><strong>Alternate No:</strong> {{proposerFormData.telephone}}</li>
                       <li class="list-group-item" *ngIf = "proposerFormData.fax !=''"><strong>Fax:</strong> {{proposerFormData.fax}}</li>
                       <li class="list-group-item"><strong>Nationality:</strong> {{proposerFormData.nationality}}</li>
-                      <li class="list-group-item"><strong>Assignee Name:</strong> {{proposerFormData.assigneeName}}</li>
                       <li class="list-group-item"><strong>Passport No:</strong> {{proposerFormData.passportNumber}}</li>
+                      <li class="list-group-item"><strong>Assignee Name:</strong> {{proposerFormData.assigneeName}}</li>
+
                     </ul>
                   </div>
                 </div>
@@ -351,8 +352,8 @@
                   <h4 class="color-blue">COMMUNICATION ADDRESS</h4>
                   <div>
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Street Name:</strong> {{proposerFormData.streetName}}</li>
                       <li class="list-group-item"><strong>Building :</strong> {{proposerFormData.building}}</li>
+                      <li class="list-group-item"><strong>Street Name:</strong> {{proposerFormData.streetName}}</li>
                       <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.pincode}}</li>
                     </ul>
                   </div>
@@ -381,8 +382,8 @@
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item" ><strong>Name:</strong>{{item.name}}</li>
-                          <li class="list-group-item" ><strong>Asignee Name:</strong> {{item.assigneeName}}</li>
                           <li class="list-group-item" ><strong>Gender:</strong> {{item.sex}}</li>
+                          <li class="list-group-item"><strong>D.O.B:</strong> {{item.idob | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item" ><strong>passport number:</strong> {{item.passportNo}}</li>
                         </ul>
                       </div>
@@ -390,9 +391,9 @@
                     <div class="col-md-6">
                       <div class="p-3">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>D.O.B:</strong> {{item.idob | date: 'dd/MM/yyyy'}}</li>
                           <li class="list-group-item" *ngIf="item.relation != ''"><strong>Relationship with proposer:</strong> {{item.relation}}</li>
                           <li class="list-group-item" ><strong>Age:</strong> {{item.age}}</li>
+                          <li class="list-group-item" ><strong>Asignee Name:</strong> {{item.assigneeName}}</li>
                         </ul>
                       </div>
                     </div>

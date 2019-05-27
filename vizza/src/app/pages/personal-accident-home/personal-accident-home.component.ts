@@ -85,6 +85,7 @@ export class PersonalaccidentComponent implements OnInit {
     public setAllProductLists: any;
     public professionerr: any;
     public checkAllStatus: any;
+    public paProceed: boolean;
 
     constructor(public appSettings: AppSettings, public clearSession: ClearSessionPaService, public validation: ValidationService, public toastr: ToastrService, public datepipe: DatePipe, public commonservices: CommonService, public personalService: PersonalAccidentService, public router: Router, public route: ActivatedRoute, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public toast: ToastrService, public auth: AuthService) {
 
@@ -124,6 +125,8 @@ export class PersonalaccidentComponent implements OnInit {
         this.sumInsuredAmountLists = 0;
         this.compareArray = [];
         this.annualerror = false;
+        this.paProceed = true;
+
     }
 
     ngOnInit() {
@@ -394,6 +397,7 @@ export class PersonalaccidentComponent implements OnInit {
 
     // create enguiry
     createEnquiryDetails() {
+        this.paProceed = false;
         if (this.Age < 18) {
             this.toast.error('Personal age should be 18 or above');
             return false;
@@ -456,6 +460,8 @@ export class PersonalaccidentComponent implements OnInit {
                     this.createEnquiryFailure(error);
                 }
             );
+        } else {
+            this.paProceed = true;
         }
     }
 
@@ -473,6 +479,8 @@ export class PersonalaccidentComponent implements OnInit {
                 this.policyLists(this.allCompanyList[i].company_id);
             }
 
+        } else {
+            this.paProceed = true;
         }
     }
 

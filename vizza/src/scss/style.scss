@@ -881,6 +881,10 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.3) !important;
   height: 265px;
 }
+.card-group-pop1{
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  height: 100px;
+}
 
 .horizontal-menu-item .horizontal-sub-menu{
   background: #93acb6;
@@ -2179,6 +2183,7 @@ a:hover {
     cursor: pointer;
     display: block;
     text-align: center;
+    margin-bottom: 40px;
 
     &:nth-child(1):hover i{
       background:#55acee;
@@ -3335,80 +3340,6 @@ fieldset {
   }
 
 }
-.reliancePaProposal{
-  .mat-checkbox-layout{
-    white-space: pre-wrap;
-  }
-
-  .mat-primaryBlue {
-    background-color: #467f8b !important;
-  }
-  .mat-raised-button.mat-primaryBlue {
-    background-color: #467f8b !important;
-    color: #ffff;
-  }
-
-  .mat-horizontal-stepper-header{
-    pointer-events: none !important;
-  }
-  mat-expansion-panel-header{
-    background: #467f8b !important;
-    mat-panel-title, .mat-expansion-indicator::after{
-      color: white !important;
-    }
-  }
-  .color-blue{
-    color:  #467f8b !important;
-    font-size: 12px;
-  }
-
-  .mat-expansion-panel-body{
-    border: 1px solid #467f8b;
-  }
-  .mat-step-header .mat-step-icon{
-    background-color: #467f8b !important;
-  }
-  .mat-step-label.mat-step-label-active.mat-step-label-selected{
-    color: #467f8b !important;
-
-  }
-  .box-card{
-    background: #ffffff;
-    border-left: 5px solid #fff;
-    margin-bottom: 15px;
-    position: relative;
-    text-transform: capitalize;
-  }
-  .summary-details {
-    .sub-title {
-      font-size: 14px;
-    }
-    .box-card {
-      border: none;
-    }
-    h6 {
-      text-align: center;
-      color: #467f8b;
-    }
-    h5 {
-      background: #467f8b;
-      color: #fff;
-      padding: 8px;
-      margin-bottom: 0;
-    }
-    li{
-      padding-bottom: 8px;
-      margin-right: 10px;
-
-      strong{
-        width: 190px;
-        float: left;
-      }
-    }
-  }
-
-}
-
 
 .table-scroll{
   width: 100%;

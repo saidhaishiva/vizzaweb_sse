@@ -70,7 +70,7 @@
                 <p class="linkClor change-p" style="cursor: pointer;" (click)="viewKeyList(plists)"><strong>View Details</strong></p>
               </td>
               <td class="col-md-2">
-                <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.total_premium}} / Yr</strong></p>
+                <p class="text-center mt-3 change-p"><strong>&#8377;  {{plists.total_premium}} / {{plists.coverageDays}}</strong></p>
                 <p class="text-center change-p">(Including GST)</p>
               </td>
               <td class="col-md-1">
@@ -253,22 +253,22 @@
             <li>Daily Allowance:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0">{{keys.key_features_value}}</a></li>
           </ul>
         </div>
-        <div class="col-md-2 col-2" style="font-size: 10px !important;">
-          <ul style="list-style: none;">
-            <li><i class="material-icons">
-              help_outline
-            </i></li>
-            <li><i class="material-icons">
-              help_outline
-            </i></li>
-            <li><i class="material-icons">
-              help_outline
-            </i></li>
-            <li><i class="material-icons">
-              help_outline
-            </i></li>
-          </ul>
-        </div>
+        <!--<div class="col-md-2 col-2" style="font-size: 10px !important;">-->
+          <!--<ul style="list-style: none;">-->
+            <!--<li><i class="material-icons">-->
+              <!--help_outline-->
+            <!--</i></li>-->
+            <!--<li><i class="material-icons">-->
+              <!--help_outline-->
+            <!--</i></li>-->
+            <!--<li><i class="material-icons">-->
+              <!--help_outline-->
+            <!--</i></li>-->
+            <!--<li><i class="material-icons">-->
+              <!--help_outline-->
+            <!--</i></li>-->
+          <!--</ul>-->
+        <!--</div>-->
       </div>
 
       <div class="row">
