@@ -132,6 +132,7 @@ export class ReliagretravelproposalComponent implements OnInit {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.arr = [];
+        this.step = 0;
         this.setAddons = [];
         this.sameinsure = false;
         this.studentdetails = false;
