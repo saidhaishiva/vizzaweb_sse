@@ -783,6 +783,8 @@ export class BikeShriramProposalComponent implements OnInit {
 
         // from date
     addEventPrevious(event) {
+        this.policyDatevalidate = [];
+
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
@@ -813,6 +815,17 @@ export class BikeShriramProposalComponent implements OnInit {
             }
 
         }
+        // let start = this.datepipe.transform(new Date(this.previousInsure.controls['previousdob'].value), 'y-MM-dd');
+        // let end = this.datepipe.transform(new Date(this.previousInsure.controls['previousdEndob'].value), 'y-MM-dd');
+        var d = new Date(this.previousInsure.controls['previousdob'].value);
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var day = d.getDate();
+        for (let i = 1; i <= 3; i++) {
+            this.policyDatevalidate.push(this.getFormattedDate(new Date(year + i, month, day - 1)));
+        }
+        console.log(this.policyDatevalidate, 'this.policyDatevalidate');
+        sessionStorage.policyDatevalidateArray = JSON.stringify(this.policyDatevalidate);
     }
 
   previousInsureType() {
@@ -851,10 +864,10 @@ export class BikeShriramProposalComponent implements OnInit {
         var month = newdate .getMonth() + 1;
         var day = newdate .getDate();
         var year =newdate .getFullYear();
-        return year + "-" + this.pad(month,2, 0) + "-" + this.pad(day,2, 0);
+        return year + "-" + this.changeValidate(month,2, 0) + "-" + this.changeValidate(day,2, 0);
     }
 
-     pad(n, width, z) {
+     changeValidate(n, width, z) {
         z = z || '0';
         n = n + '';
         return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
@@ -862,44 +875,13 @@ export class BikeShriramProposalComponent implements OnInit {
 
 
     previousDetails(stepper: MatStepper, value) {
-        this.policyDatevalidate = [];
         console.log(value, 'vvvvvv');
         sessionStorage.stepper3 = '';
         sessionStorage.stepper3 = JSON.stringify(value);
-        let start = this.datepipe.transform(new Date(value.previousdob), 'y-MM-dd');
-        console.log(start);
-        let end = this.datepipe.transform(new Date(value.previousdEndob), 'y-MM-dd');
-        console.log(end);
-        // let fromDate = new Date(start);
-        // let endDate = new Date(end);
-        // let year = endDate.getFullYear() - fromDate.getFullYear();
-        // let m = fromDate.getMonth() - endDate.getMonth();
-        // let dd = fromDate.getDate()- endDate.getDate();
-        // console.log(year);
-        // console.log(m);
-        // console.log(dd);
-        // var d = new Date(start);
-        // var year = d.getFullYear();
-        // var month = d.getMonth();
-        // var day = d.getDate();
-        // var c = new Date(year+1, month, day-1)
-        var d = new Date(start);
-        var year = d.getFullYear();
-        var month = d.getMonth();
-        var day = d.getDate();
-        for (let i = 1; i <= 3; i++) {
-
-            this.policyDatevalidate.push(this.getFormattedDate(new Date(year + i, month, day - 1)));
-
-        }
-        console.log(this.policyDatevalidate, 'this.policyDatevalidate');
 
         if (this.previousInsure.valid) {
-            if (this.policyDatevalidate.indexOf(end) >= 0) {
                 stepper.next();
-            } else {
-                this.toastr.error('your Policy End date should be' + this.policyDatevalidate.toString())
-            }
+
 
         }
 
@@ -1189,10 +1171,12 @@ export class BikeShriramProposalComponent implements OnInit {
       });
 
     }
+      if (sessionStorage.policyDatevalidateArray != '' && sessionStorage.policyDatevalidateArray != undefined) {
+        this.policyDatevalidate = JSON.parse(sessionStorage.policyDatevalidateArray);
+
+    }
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
-        console.log('inside stepper 3')
       let stepper3 = JSON.parse(sessionStorage.stepper3);
-        console.log(stepper3, 'stepper3');
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
         previousInsured: stepper3.previousInsured,
@@ -1201,9 +1185,9 @@ export class BikeShriramProposalComponent implements OnInit {
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
         // previousPolicyNcb:stepper3.previousPolicyNcb,
-          previousPolicyTypeName: stepper3.previousPolicyTypeName,
+        previousPolicyTypeName: stepper3.previousPolicyTypeName,
         previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
-          previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'y-MM-dd')
+        previousdEndob: stepper3.previousdEndob
       });
 
     }
