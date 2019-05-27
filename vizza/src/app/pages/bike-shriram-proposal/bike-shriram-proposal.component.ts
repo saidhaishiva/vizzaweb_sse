@@ -825,7 +825,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.policyDatevalidate.push(this.getFormattedDate(new Date(year + i, month, day - 1)));
         }
         console.log(this.policyDatevalidate, 'this.policyDatevalidate');
-
+        sessionStorage.policyDatevalidateArray = JSON.stringify(this.policyDatevalidate);
     }
 
   previousInsureType() {
@@ -1171,8 +1171,11 @@ export class BikeShriramProposalComponent implements OnInit {
       });
 
     }
+      if (sessionStorage.policyDatevalidateArray != '' && sessionStorage.policyDatevalidateArray != undefined) {
+        this.policyDatevalidate = JSON.parse(sessionStorage.policyDatevalidateArray);
+
+    }
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
-        console.log('inside stepper 3')
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
