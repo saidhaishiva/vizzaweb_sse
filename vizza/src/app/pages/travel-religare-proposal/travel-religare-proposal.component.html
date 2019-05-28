@@ -1,3 +1,4 @@
+<!--Desktop View-->
 <div class="d-none d-sm-none d-md-none d-lg-block">
   <div class="container-fluid">
   <div class="row religareTavelProposal">
@@ -1099,10 +1100,10 @@
             INSURED DETAILS
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-accordion class="mt-4 w-100 float-left">
           <form [formGroup]="insureReligareArray">
             <div formArrayName="items" *ngFor="let item of insureReligareArray.get('items')['controls']; let i = index;">
-              <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
+              <mat-accordion>
+              <mat-expansion-panel class="mt-2" [formGroupName]="i" [expanded]="i == 0">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     INSURED DETAILS FOR {{insureReligareArray['controls'].items['controls'][i]['controls'].type.value | uppercase}}
@@ -1196,9 +1197,10 @@
                   </div>
                 </div>
               </mat-expansion-panel>
+              </mat-accordion>
+
             </div>
           </form>
-        </mat-accordion>
 
       </mat-expansion-panel>
 
@@ -1331,7 +1333,7 @@
         </div>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled hideToggle class="w-100">
         <mat-expansion-panel-header>
           <mat-panel-title>
             SUMMARY
@@ -1378,6 +1380,8 @@
 
             </tbody>
           </table>
+          <!--<mat-accordion>-->
+
           <div *ngFor="let item of proposerInsureData; let i = index;">
 
             <mat-expansion-panel   [expanded]="true">
@@ -1590,7 +1594,7 @@
               </div>
             </div>
           </mat-expansion-panel>
-
+          <!--</mat-accordion>-->
           <br>
           <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
         </section>
