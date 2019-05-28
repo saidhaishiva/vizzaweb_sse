@@ -1266,6 +1266,8 @@ export class ReligareHealthProposalComponent implements OnInit {
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
+                this.religareMobileTrue1 = false;
+                this.religareMobileTrue2 = false;
             }
         }
         if(this.insurePersons.length == 1) {
@@ -1429,6 +1431,7 @@ export class ReligareHealthProposalComponent implements OnInit {
             this.nextStep();
             this.religareMobileTrue2 = false;
             this.religareMobileTrue3 = false;
+            this.religareMobileTrue4 = false;
         }
     }
     subStatus(value: any, i, k, j) {
@@ -1711,7 +1714,9 @@ export class ReligareHealthProposalComponent implements OnInit {
             stepper.next();
             this.topScroll();
             this.nextStep();
-
+            this.religareMobileTrue2 = false;
+            this.religareMobileTrue3 = false;
+            this.religareMobileTrue4 = false;
         } else {
             this.toastr.error(successData.ErrorObject);
         }
