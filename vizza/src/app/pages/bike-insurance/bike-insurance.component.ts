@@ -234,7 +234,6 @@ export class BikeInsuranceComponent implements OnInit {
                     sessionStorage.enquiryFormData = JSON.stringify(data);
                     if(this.enquiry == 0){
                         this.listDetails = true;
-                        this.enquiryQuation();
                     } else {
                         this.listDetails = false;
                         this.router.navigate(['/bikepremium']);
