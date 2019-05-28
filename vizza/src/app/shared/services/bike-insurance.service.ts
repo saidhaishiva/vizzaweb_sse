@@ -431,6 +431,20 @@ export class BikeInsuranceService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+
+  // CREATE PROPOSAL
+  getProposal(data){
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'reliance/proposal';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
   private handleError(error: Response | any) {
     let errMsg: string;
     if (error instanceof Response) {

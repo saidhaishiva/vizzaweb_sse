@@ -265,7 +265,7 @@ export const routes: Routes = [
             { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},
             { path: 'bajaj-travel/:stepper', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
             { path: 'chola-health-proposal/:stepper', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
-            { path: 'reliance-motor-proposal', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
+            { path: 'reliance-motor-proposal/:stepper', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
             { path: 'bajaj-travel-payment-success/:status/:proId', component: TravelBajajPaymentSuccessComponent, data:{ breadcrumb: 'travel Bajaj'}},
             { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}},
             { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}},
