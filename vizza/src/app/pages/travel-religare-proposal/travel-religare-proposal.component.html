@@ -114,16 +114,16 @@
 
                       <div class="col-md-12 box-card pt-3">
                         <div class="row" *ngIf="studentdetails">
-                          <h6 class="col-md-12 color-blue mt-3 mb-4">SPONSER DETAILS</h6>
+                          <h6 class="col-md-12 color-blue mt-3 mb-4">SPONSOR DETAILS</h6>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <input matInput placeholder="Sponser Name"  formControlName="sponsername" (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required>
-                            <mat-error *ngIf="religarePersonal.controls.sponsername.errors?.required">Sponser Name is required</mat-error>
+                            <input matInput placeholder="Sponsor Name"  formControlName="sponsername" (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required>
+                            <mat-error *ngIf="religarePersonal.controls.sponsername.errors?.required">Sponsor Name is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker1"  placeholder="Sponser DOB (DD/MM/YYYY)" [max]="today"  formControlName="sponserdob"  (dateInput)="addEvent($event, 'sponser')" (dateChange)="addEvent($event, 'sponser')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker1"  placeholder="Sponsor DOB (DD/MM/YYYY)" [max]="today"  formControlName="sponserdob"  (dateInput)="addEvent($event, 'sponser')" (dateChange)="addEvent($event, 'sponser')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
-                            <mat-error *ngIf="religarePersonal.controls.sponserdob.errors?.required">Sponser Dob is required</mat-error>
+                            <mat-error *ngIf="religarePersonal.controls.sponserdob.errors?.required">Sponsor Dob is required</mat-error>
                           </mat-form-field>
                             <div class="error" *ngIf="sponserDobError !=''">{{sponserDobError}}</div>
 
@@ -558,7 +558,7 @@
               <div class="col-md-6">
                 <ul class="summary-head">
                   <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
-                  <li><span>End Date:</span> &nbsp; {{getEndDate | date: 'dd/MM/yyyy' }} </li>
+                  <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date | date: 'dd/MM/yyyy' }} </li>
                   <li></li>
                 </ul>
               </div>
@@ -614,6 +614,9 @@
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile}}</li>
                         <li class="list-group-item" *ngIf="item.phone != '' && item.phone != null"><strong>Phone:</strong> {{item.phone}}</li>
                         <li class="list-group-item" *ngIf="item.passport != ''"><strong>PassPort:</strong> {{item.passport}}</li>
+                        <li class="list-group-item" *ngIf="studentdetails"><strong>Month:</strong> {{item.betweenMonth}}</li>
+                        <li class="list-group-item" *ngIf="studentdetails"><strong>StartDate:</strong> {{item.startDate }}</li>
+                        <li class="list-group-item" *ngIf="studentdetails"><strong>EndDate:</strong> {{item.endDate }}</li>
                       </ul>
                     </div>
                   </div>
@@ -645,7 +648,7 @@
 
                   <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
                     <div class="p-3">
-                      <h6 class="color-blue">SPONSER DETAILS</h6>
+                      <h6 class="color-blue">SPONSOR DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"  *ngIf="item.sponsername != ''"><strong>Name:</strong> {{item.sponsername}}</li>
                         <li class="list-group-item"  *ngIf="item.sponserdob != ''"><strong>D.O.B:</strong> {{item.sponserdob | date: 'dd/MM/yyyy'}}</li>
@@ -664,27 +667,30 @@
                     </div>
                   </div>
 
-                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
-                    <div class="p-3">
-                      <h6 class="color-blue">GUIDE DETAILS</h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.guidetitle}}. {{item.guidefirstname}} {{item.guidelastname}}</li>
-                        <li class="list-group-item"><strong>Address:</strong> {{item.guideAddress}}</li>
-                      </ul>
+                  <div class="row col-md-12">
+                    <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
+                      <div class="p-3">
+                        <h6 class="color-blue">GUIDE DETAILS</h6>
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item"><strong>Name:</strong> {{item.guidetitle}}. {{item.guidefirstname}} {{item.guidelastname}}</li>
+                          <li class="list-group-item"><strong>Address:</strong> {{item.guideAddress}}</li>
+                        </ul>
+                      </div>
                     </div>
-                  </div>
-                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">
-                    <div class="p-3">
-                      <h6 class="color-blue">ADDON DETAILS</h6>
 
-                      <div class="row box-card" *ngFor="let lists of setAddons;">
-                        <div class="col-md-12" *ngIf="lists.checked">
-                          <div class="p-3">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <ul class="m-0 list-group">
-                                  <li class="list-group-item"><strong>Addon's:</strong> {{lists.addon_description}}</li>
-                                </ul>
+                    <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">
+                      <div class="p-3">
+                        <h6 class="color-blue">ADDON DETAILS</h6>
+
+                        <div class="row box-card" *ngFor="let lists of setAddons;">
+                          <div class="col-md-12" *ngIf="lists.checked">
+                            <div class="p-3">
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <ul class="m-0 list-group">
+                                    <li class="list-group-item"><strong>Addon's:</strong> {{lists.addon_description}}</li>
+                                  </ul>
+                                </div>
                               </div>
                             </div>
                           </div>
