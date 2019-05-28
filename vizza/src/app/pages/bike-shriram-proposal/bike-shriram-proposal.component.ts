@@ -71,6 +71,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public electricalValid: boolean;
   public nonelectricalValid: boolean;
   public policyTypeDetails: boolean;
+  public perviousDate: boolean;
   public paUnNamed: boolean;
   public pType: boolean;
   public proposerFormData : any;
@@ -93,6 +94,8 @@ export class BikeShriramProposalComponent implements OnInit {
   public hypothecationTypeDetails : any;
   public enquiryFormData : any;
   public bikeEnquiryId : any;
+  public siValue : any;
+  public policyDatevalidate : any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -120,7 +123,7 @@ export class BikeShriramProposalComponent implements OnInit {
     this.nonelectricalValid = false;
     this.paUnNamed = false;
     this.policyTypeDetails = false;
-
+    this.policyDatevalidate = [];
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       name: new FormControl(''),
@@ -719,7 +722,6 @@ export class BikeShriramProposalComponent implements OnInit {
     selectPolicy(){
         // MOT-PLT-002
         this.vehical.controls['policyTypeName'].patchValue(this.policyTypeList[this.vehical.controls['policyType'].value]);
-
         if( this.vehical.controls['policyType'].value == 'MOT-PLT-002'){
             this.policyTypeDetails = true;
         } else {
@@ -731,8 +733,12 @@ export class BikeShriramProposalComponent implements OnInit {
           vehicalDetails(stepper: MatStepper, value){
               sessionStorage.stepper2 = '';
               sessionStorage.stepper2 = JSON.stringify(value);
+              let valid = 20/100;
+              this.siValue = valid * this.buyBikeDetails.Idv;
+              console.log(this.siValue, 'sdfdfdadf');
               if(this.vehical.valid){
-                stepper.next();
+                       stepper.next();
+
 
               }
           }
@@ -777,6 +783,8 @@ export class BikeShriramProposalComponent implements OnInit {
 
         // from date
     addEventPrevious(event) {
+        this.policyDatevalidate = [];
+
         if (event.value != null) {
             let selectedDate = '';
             let dob = '';
@@ -807,6 +815,17 @@ export class BikeShriramProposalComponent implements OnInit {
             }
 
         }
+        // let start = this.datepipe.transform(new Date(this.previousInsure.controls['previousdob'].value), 'y-MM-dd');
+        // let end = this.datepipe.transform(new Date(this.previousInsure.controls['previousdEndob'].value), 'y-MM-dd');
+        var d = new Date(this.previousInsure.controls['previousdob'].value);
+        var year = d.getFullYear();
+        var month = d.getMonth();
+        var day = d.getDate();
+        for (let i = 1; i <= 3; i++) {
+            this.policyDatevalidate.push(this.getFormattedDate(new Date(year + i, month, day - 1)));
+        }
+        console.log(this.policyDatevalidate, 'this.policyDatevalidate');
+        sessionStorage.policyDatevalidateArray = JSON.stringify(this.policyDatevalidate);
     }
 
   previousInsureType() {
@@ -840,36 +859,31 @@ export class BikeShriramProposalComponent implements OnInit {
        }
 
     }
-  previousDetails(stepper: MatStepper, value){
-        console.log(value,'vvvvvv');
-          sessionStorage.stepper3 = '';
-          sessionStorage.stepper3 = JSON.stringify(value);
-      let start =  this.datepipe.transform(new Date(value.previousdob), 'y-MM-dd');
-      console.log(start);
-      let end = this.datepipe.transform(new Date(value.previousdEndob), 'y-MM-dd');
-      console.log(end);
-      let fromDate = new Date(start);
-      let endDate = new Date(end);
-      let year = endDate.getFullYear() - fromDate.getFullYear();
-      let m = fromDate.getMonth() - endDate.getMonth();
-      let dd = fromDate.getDate()- endDate.getDate();
-      console.log(year);
-      // console.log(m);
-      // console.log(dd);
-      // var d = new Date(start);
-      // var year = d.getFullYear();
-      // var month = d.getMonth();
-      // var day = d.getDate();
-      // var c = new Date(year+1, month, day-1)
-      if(this.previousInsure.valid){
-      if(m == 0 && year >= 1){
-              stepper.next();
-          }
-          else{
-              this.toastr.error('Previous Policy Start Date and End Date between 1 years to allowed ')
-          }
+     getFormattedDate(newdate) {
+        var todayTime = new Date();
+        var month = newdate .getMonth() + 1;
+        var day = newdate .getDate();
+        var year =newdate .getFullYear();
+        return year + "-" + this.changeValidate(month,2, 0) + "-" + this.changeValidate(day,2, 0);
+    }
 
-      }
+     changeValidate(n, width, z) {
+        z = z || '0';
+        n = n + '';
+        return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+    }
+
+
+    previousDetails(stepper: MatStepper, value) {
+        console.log(value, 'vvvvvv');
+        sessionStorage.stepper3 = '';
+        sessionStorage.stepper3 = JSON.stringify(value);
+
+        if (this.previousInsure.valid) {
+                stepper.next();
+
+
+        }
 
     }
     manufactureYear(){
@@ -994,7 +1008,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "DateOfBirth": this.proposer.controls['dob'].value,
               "CoverNoteNo": "",
               "CoverNoteDt": "",
-              "IDV_of_Vehicle": "",
+              "IDV_of_Vehicle": this.buyBikeDetails.Idv,
               "Colour": this.vehical.controls['vehicleColour'].value,
               "NoEmpCoverLL": "",
               "VehiclePurposeYN": "",
@@ -1018,11 +1032,11 @@ export class BikeShriramProposalComponent implements OnInit {
               "AddonPackage": this.buyBikeDetails.plan_code,
               "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
               "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
-              "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamedSI'].value,
+              "PAforUnnamedPassengerSI": this.siValue,
               "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
-              "ElectricalaccessSI": this.vehical.controls['electricalAccessSI'].value ? this.vehical.controls['electricalAccessSI'].value : '',
+              "ElectricalaccessSI": this.siValue,
               "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
-              "NonElectricalaccessSI": this.vehical.controls['nonElectricalAccessSI'].value ? this.vehical.controls['nonElectricalAccessSI'].value : '',
+              "NonElectricalaccessSI": this.siValue,
               "PAPaidDriverConductorCleanerYN": "0",
               "PAPaidDriverConductorCleanerSI": "",
               "PAPaidDriverCount": "",
@@ -1157,10 +1171,12 @@ export class BikeShriramProposalComponent implements OnInit {
       });
 
     }
+      if (sessionStorage.policyDatevalidateArray != '' && sessionStorage.policyDatevalidateArray != undefined) {
+        this.policyDatevalidate = JSON.parse(sessionStorage.policyDatevalidateArray);
+
+    }
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
-        console.log('inside stepper 3')
       let stepper3 = JSON.parse(sessionStorage.stepper3);
-        console.log(stepper3, 'stepper3');
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
         previousInsured: stepper3.previousInsured,
@@ -1169,9 +1185,9 @@ export class BikeShriramProposalComponent implements OnInit {
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
         // previousPolicyNcb:stepper3.previousPolicyNcb,
-          previousPolicyTypeName: stepper3.previousPolicyTypeName,
+        previousPolicyTypeName: stepper3.previousPolicyTypeName,
         previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
-          previousdEndob: this.datepipe.transform(stepper3.previousdEndob, 'y-MM-dd')
+        previousdEndob: stepper3.previousdEndob
       });
 
     }

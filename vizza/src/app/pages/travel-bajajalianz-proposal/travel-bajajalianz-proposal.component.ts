@@ -56,6 +56,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     public getStepper2: any;
     public showInsure: any;
     public studentdetails: boolean;
+    public bajajTravelMobileTrue0: boolean;
+    public bajajTravelMobileTrue1: boolean;
+    public bajajTravelMobileTrue2: boolean;
     public today: any;
     public items: any;
     public proposerAge: any;
@@ -66,17 +69,23 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     public insuredFormData: any;
     public summaryData: any;
     public getAge: any;
+    public step: any;
     public getDays: any;
     public getProposerAgeDays: any;
     public showInsureSummary: boolean;
     public webhost: any;
     public acceptSummaryDeclaration: any;
     public placeOfVisit: any;
+    // public bajajTravelMobileTrue0 = boolean;
 
     constructor(public appsetting: AppSettings,public auth: AuthService,public route: ActivatedRoute,public config: ConfigurationService, private toastr: ToastrService, public travelservice: TravelService, public fb: FormBuilder, public datepipe: DatePipe, public validation: ValidationService) {
 
         this.setting = appsetting.settings;
         this.today = new Date();
+        this.step = 0;
+        this.bajajTravelMobileTrue0 = false;
+        this.bajajTravelMobileTrue1 = true;
+        this.bajajTravelMobileTrue2 = true;
         this.bajajProposal = this.fb.group({
             title: ['', Validators.required],
             firstName: ['', Validators.required],
@@ -155,6 +164,25 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         document.getElementById('main-content').scrollTop = 0;
     }
 
+    setStep(index) {
+        this.step = index;
+    }
+
+    nextStep() {
+        this.step++;
+    }
+
+    prevStep() {
+        this.step--;
+    }
+
+
+    backAll(){
+        this.topScroll();
+        this.prevStep();
+    }
+
+
 
     initItemRows() {
         return this.fb.group(
@@ -202,11 +230,14 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         if (this.bajajProposal.valid) {
             if(this.getProposerAgeDays > 6573 ){
                 stepper.next();
+                this.nextStep();
                 this.sameasInsurerDetails(0);
                 this.getRelation();
             } else{
                 this.toastr.error('Age should be 18 years and above');
             }
+            this.bajajTravelMobileTrue1 = false;
+            this.bajajTravelMobileTrue2 = false;
 
         } else{
             this.toastr.error('Please enter all the  fields');
@@ -537,7 +568,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
              sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
              stepper.next();
              this.topScroll();
-            // this.nextStep();
+            this.nextStep();
 
         } else {
             this.toastr.error(successData.ErrorObject);

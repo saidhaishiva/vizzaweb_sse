@@ -85,6 +85,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
     public personlData: any;
     public insuredFormData: any;
     public nomineeFromData: any;
+    public hdfcMobileTrue0: boolean;
+    public hdfcMobileTrue1: boolean;
+    public hdfcMobileTrue2: boolean;
+    public hdfcMobileTrue3: boolean;
 
 
     constructor(public proposalservice: HealthService, public validation: ValidationService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -118,6 +122,10 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.webhost = this.config.getimgUrl();
         this.hdfc_health_proposal_id = 0;
         this.step = 0;
+        this.hdfcMobileTrue0 = false;
+        this.hdfcMobileTrue1 = true;
+        this.hdfcMobileTrue2 = true;
+        this.hdfcMobileTrue3 = true;
 
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -750,6 +758,7 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                     stepper.next();
                     this.topScroll();
                     this.nextStep();
+                    this.hdfcMobileTrue1 = false;
                 } else {
                     this.toastr.error('Enter valid pincode');
                 }
@@ -872,6 +881,8 @@ export class HdfcHealthInsuranceComponent implements OnInit {
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
+                this.hdfcMobileTrue1 = false;
+                this.hdfcMobileTrue2 = false;
             } else {
                 //  this.toastr.error('Insured age should be 18 or above');
             }
@@ -892,6 +903,9 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         if (this.nomineeDetails.valid) {
             this.createProposal(stepper);
             this.nextStep();
+            this.hdfcMobileTrue1 = false;
+            this.hdfcMobileTrue2 = false;
+            this.hdfcMobileTrue3 = false;
         }
     }
 // star-health-proposal Creation

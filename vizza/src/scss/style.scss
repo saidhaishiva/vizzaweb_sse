@@ -881,6 +881,10 @@ a:hover {
   background-color: rgba(255, 255, 255, 0.3) !important;
   height: 265px;
 }
+.card-group-pop1{
+  background-color: rgba(255, 255, 255, 0.3) !important;
+  height: 100px;
+}
 
 .horizontal-menu-item .horizontal-sub-menu{
   background: #93acb6;
@@ -2179,6 +2183,7 @@ a:hover {
     cursor: pointer;
     display: block;
     text-align: center;
+    margin-bottom: 40px;
 
     &:nth-child(1):hover i{
       background:#55acee;
