@@ -438,7 +438,7 @@
     <div class="row bajajLifeProposal" >
       <!--<div class="col-md-12">-->
 
-        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+        <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" [disabled]="bajajTravelMobileTrue0">
           <mat-expansion-panel-header>
             <mat-panel-title *ngIf="!showInsure">PROPOSER / INSURED DETAILS</mat-panel-title>
             <mat-panel-title *ngIf="showInsure">PROPOSER DETAILS</mat-panel-title>
@@ -600,7 +600,7 @@
           </form>
         </mat-expansion-panel>
 
-        <mat-expansion-panel *ngIf="showInsure" [expanded]="step === 1" (opened)="setStep(1)">
+        <mat-expansion-panel *ngIf="showInsure" [expanded]="step === 1" (opened)="setStep(1)" [disabled]="bajajTravelMobileTrue1">
           <mat-expansion-panel-header>
             <mat-panel-title > INSURED DETAILS </mat-panel-title>
           </mat-expansion-panel-header>
@@ -681,7 +681,7 @@
           </mat-accordion>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle class="w-100">
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="bajajTravelMobileTrue2" class="w-100">
           <mat-expansion-panel-header>
             <mat-panel-title > SUMMARY </mat-panel-title>
           </mat-expansion-panel-header>

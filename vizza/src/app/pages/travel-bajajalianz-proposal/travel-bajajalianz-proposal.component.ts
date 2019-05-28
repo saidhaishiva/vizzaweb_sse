@@ -56,9 +56,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     public getStepper2: any;
     public showInsure: any;
     public studentdetails: boolean;
-    // public bajajTravelMobileTrue0: boolean;
-    // public bajajTravelMobileTrue1: boolean;
-    // public bajajTravelMobileTrue2: boolean;
+    public bajajTravelMobileTrue0: boolean;
+    public bajajTravelMobileTrue1: boolean;
+    public bajajTravelMobileTrue2: boolean;
     public today: any;
     public items: any;
     public proposerAge: any;
@@ -83,9 +83,9 @@ export class TravelBajajalianzProposalComponent implements OnInit {
         this.setting = appsetting.settings;
         this.today = new Date();
         this.step = 0;
-        // this.bajajTravelMobileTrue0 = false;
-        // this.bajajTravelMobileTrue1 = true;
-        // this.bajajTravelMobileTrue2 = true;
+        this.bajajTravelMobileTrue0 = false;
+        this.bajajTravelMobileTrue1 = true;
+        this.bajajTravelMobileTrue2 = true;
         this.bajajProposal = this.fb.group({
             title: ['', Validators.required],
             firstName: ['', Validators.required],
@@ -573,6 +573,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
              stepper.next();
              this.topScroll();
             this.nextStep();
+            this.bajajTravelMobileTrue2 = false;
 
         } else {
             this.toastr.error(successData.ErrorObject);
