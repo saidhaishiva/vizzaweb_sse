@@ -553,10 +553,12 @@ export class TravelRelianceProposalComponent implements OnInit {
                         } else {
                             stepper.next();
                             this.topScroll();
+                            this.nextStep();
                         }
                     } else {
                         stepper.next();
                         this.topScroll();
+                        this.nextStep();
                     }
 
                 } else {
@@ -683,6 +685,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                 this.riskDetails.controls['riskVisitingCountries'].patchValue(value.items[0].VisitingCountries);
                 stepper.next();
                 this.topScroll();
+                this.nextStep();
             } else {
                 this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -1009,6 +1012,7 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
             stepper.next();
+            this.nextStep();
             this.topScroll();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
@@ -1847,19 +1851,19 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.step = index;
     }
 
-    // nextStep() {
-    //   this.step++;
-    // }
-    //
-    // prevStep() {
-    //   this.step--;
-    // }
+    nextStep() {
+      this.step++;
+    }
+
+    prevStep() {
+      this.step--;
+    }
 
 
-    // backAll(){
-    //   this.topScroll();
-    //   this.prevStep();
-    // }
+    backAll(){
+      this.topScroll();
+      this.prevStep();
+    }
     relianceOccupation() {
         const data = {
             'platform': 'web',
