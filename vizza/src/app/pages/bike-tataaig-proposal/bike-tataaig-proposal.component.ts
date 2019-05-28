@@ -6,7 +6,7 @@ import { BikeInsuranceService } from '../../shared/services/bike-insurance.servi
 import { AppSettings } from '../../app.settings';
 import { Settings } from '../../app.settings.model';
 import { ToastrService} from 'ngx-toastr';
-import {error} from 'selenium-webdriver';
+import { AuthService} from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-bike-tataaig-proposal',
@@ -35,7 +35,7 @@ export class BikeTataaigProposalComponent implements OnInit {
   public getstepper4: any;
 
 
-  constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService) {
+  constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService,public authservice: AuthService) {
     let stepperindex = 0;
     this.currentStep = stepperindex;
     this.settings = this.appSettings.settings;
@@ -205,6 +205,7 @@ export class BikeTataaigProposalComponent implements OnInit {
 
   //Proposer PincodeList
   getPostalCode(pin, type) {
+    console.log(pin,type,'pincode');
     const data = {
       'platform': 'web',
       'pincode': pin,
@@ -383,7 +384,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     sessionStorage.tatanominee = JSON.stringify(value);
     if(this.nominee.valid) {
       console.log(value,'nominee');
-      stepper.next();
+      this.createproposal(stepper);
     }
   }
 
@@ -457,10 +458,80 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
   }
 
-  //Nominee RelationList
+  //Proposal Creation
   createproposal(stepper: MatStepper) {
     const data = {
-      'platform': 'web',
+      "platform": "web",
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": "0",
+      "enquiry_id": 740,
+      "created_by": "",
+      "proposal_id": "",
+      "motorproposalObj": {
+        "pol_sdate": "20192405",
+        "sp_name": "Name",
+        "sp_license": "Lino12345566",
+        "sp_place": "Mahbubnagar",
+        "customer": {
+          "salutation": this.proposer.controls['proposerTitle'].value,
+          "first_name": this.proposer.controls['proposerFirstname'].value,
+          "middle_name": this.proposer.controls['proposerMidname'].value,
+          "last_name": this.proposer.controls['proposerLastname'].value,
+          "gender": this.proposer.controls['proposerGender'].value,
+          "dob": this.proposer.controls['proposerDob'].value,
+          "marital_status": this.proposer.controls['maritalStatus'].value,
+          "address_1": this.proposer.controls['Addressone'].value,
+          "address_2": this.proposer.controls['Addresstwo'].value,
+          "address_3": this.proposer.controls['Addressthree'].value,
+          "address_4": "",
+          "pincode": this.proposer.controls['proposerPincode'].value,
+
+          "cust_aadhaar": this.proposer.controls['proposerAadhar'].value,
+          "mobile_no": this.proposer.controls['proposerMobile'].value,
+          "email_id": this.proposer.controls['proposerEmail'].value
+        },
+        "vehicle": {
+          "engine_no": this.vehicle.controls['engine'].value,
+          "chassis_no": this.vehicle.controls['chassis'].value
+        },
+        "prevpolicy": {
+          "flag": this.previouspolicy.controls['preflag'].value,
+          "code": this.previouspolicy.controls['precode'].value,
+          "name": this.previouspolicy.controls['preName'].value,
+          "address1": this.previouspolicy.controls['preAddressone'].value,
+          "address2": this.previouspolicy.controls['preAddresstwo'].value,
+          "address3": this.previouspolicy.controls['preAddressthree'].value,
+          "polno": this.previouspolicy.controls['prepolno'].value,
+          "pincode": this.previouspolicy.controls['prepincode'].value
+        },
+        "financier": {
+          "type": this.vehicle.controls['Financetype'].value,
+          "name": this.vehicle.controls['FinanceName'].value,
+          "address": this.vehicle.controls['Address'].value,
+          "loanacno": ""
+        },
+        "automobile": {
+          "flag": this.vehicle.controls['autoflag'].value,
+          "number": this.vehicle.controls['autoNumber'].value,
+          "name": this.vehicle.controls['autoName'].value,
+          "expiry_date": this.vehicle.controls['autoDob'].value,
+        },
+        "nominee": {
+          "name": this.nominee.controls['nomieeName'].value,
+          "age": this.nominee.controls['nomineeAge'].value,
+          "relation": this.nominee.controls['nomineerelation'].value
+        },
+        "driver": {
+          "flag": this.vehicle.controls['driveflag'].value,
+          "fname": this.vehicle.controls['driveFirstname'].value,
+          "lname": this.vehicle.controls['driveLastname'].value,
+          "gender": this.vehicle.controls['driveGender'].value,
+          "age": this.vehicle.controls['driveAge'].value,
+          "drivingexp": this.vehicle.controls['drivingexp'].value,
+          "marital_status":this.vehicle.controls['drivemaritalStatus'].value,
+        }
+      }
     };
     this.bikeinsurance.proposal(data).subscribe(
         (successData) => {
