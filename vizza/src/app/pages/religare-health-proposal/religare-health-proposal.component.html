@@ -1330,6 +1330,7 @@
                       <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i">
                         <button mat-button color="warn" (click)="backAll()">Back</button>
                         <button mat-raised-button color="primaryBlue"  (click)="religareInsureDetails(stepper, insureArray.value)">Next</button>
+
                       </div>
                     </div>
                   </mat-expansion-panel>
@@ -1440,15 +1441,23 @@
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
                 <div class="col-sm-12 col-xs-12"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
-                <div class="col-sm-8 col-xs-8">
-                  <ul class="summary-head">
-                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
-                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> </li>
-                    <li></li>
-                  </ul>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12 summary-head">
+                    <a><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" > </a>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12 summary-head">
+                    <a><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12 summary-head">
+                    <a><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> </a>
+
+                </div>
+                </div>
               <section *ngFor="let item of proposerInsureData; let i = index;">
                 <h5 class="mt-3 sub-title"><span *ngIf="i == 0">PROPOSER DETAILS</span> <span *ngIf="i != 0"> INSURED DETAILS FOR {{item.type | uppercase}} </span> </h5>
                 <div class="row box-card">

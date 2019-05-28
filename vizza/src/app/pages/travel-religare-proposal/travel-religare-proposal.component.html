@@ -845,7 +845,7 @@
   <div class="container-fluid">
     <div class="row religareTavelProposal">
       <!--<div class="col-md-12">-->
-      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"  [disabled]="religareTravelMobileTrue0">
           <mat-expansion-panel-header>
             <mat-panel-title>
               PROPOSER DETAILS
@@ -1100,7 +1100,7 @@
         </form>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="religareTravelMobileTrue1">
         <mat-expansion-panel-header>
           <mat-panel-title>
             INSURED DETAILS
@@ -1210,7 +1210,7 @@
 
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="religareTravelMobileTrue2">
         <mat-expansion-panel-header>
           <mat-panel-title>
             MEDICAL DETAILS
@@ -1302,7 +1302,7 @@
 
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="religareTravelMobileTrue3">
         <mat-expansion-panel-header>
           <mat-panel-title>
             NOMINEE DETAILS
@@ -1339,7 +1339,7 @@
         </div>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled hideToggle class="w-100">
+      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" [disabled]="religareTravelMobileTrue4" class="w-100">
         <mat-expansion-panel-header>
           <mat-panel-title>
             SUMMARY
