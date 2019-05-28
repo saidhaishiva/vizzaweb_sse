@@ -1429,6 +1429,7 @@ export class ReliancePaComponent implements OnInit {
       "ValidateFlag": "false"
     };
     console.log(data,'1245');
+    this.settings.loadingSpinner = true;
     this.personalservice.createproposal(data).subscribe(
         (successData) => {
           this.proposalSuccess(successData,stepper);

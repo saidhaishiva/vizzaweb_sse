@@ -85,6 +85,7 @@ public apponiteeList: boolean;
       rpincode: ['', Validators.required],
       rstate: ['', Validators.required],
       rcity: ['', Validators.required],
+      sameas:''
     });
 
     this.vehical = this.fb.group({
@@ -335,7 +336,22 @@ public apponiteeList: boolean;
     return age;
   }
 
-
+  sameAddress(value){
+      if(this.proposer.controls['sameas'].patchValue(true)){
+        this.proposer.controls['raddress'].patchValue( this.proposer.controls['address'].value),
+        this.proposer.controls['raddress2'].patchValue( this.proposer.controls['address2'].value),
+        this.proposer.controls['rpincode'].patchValue( this.proposer.controls['pincode'].value),
+        this.proposer.controls['rstate'].patchValue( this.proposer.controls['state'].value),
+        this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value)
+      } else {
+            this.proposer.controls['sameas'].patchValue(false),
+            this.proposer.controls['raddress'].patchValue(''),
+            this.proposer.controls['raddress2'].patchValue(''),
+            this.proposer.controls['rpincode'].patchValue(''),
+            this.proposer.controls['rstate'].patchValue(''),
+            this.proposer.controls['rcity'].patchValue('')
+      }
+  }
   proposerDetails(stepper: MatStepper,value){
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
@@ -458,14 +474,14 @@ public apponiteeList: boolean;
             }
         );
     }
-    public nomineeRelationSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.nomineeRelation = successData.ResponseObject;
-            console.log(this.nomineeRelation, 'this.nomineeRelation');
-        }
-    }
-    public nomineeRelationFailure(error){
-    }
+      public nomineeRelationSuccess(successData) {
+          if (successData.IsSuccess) {
+              this.nomineeRelation = successData.ResponseObject;
+              console.log(this.nomineeRelation, 'this.nomineeRelation');
+          }
+      }
+      public nomineeRelationFailure(error){
+      }
 
     nomineeDetails(stepper: MatStepper, value){
         sessionStorage.stepper4 = '';
