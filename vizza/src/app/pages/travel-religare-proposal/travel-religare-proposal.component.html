@@ -1,3 +1,4 @@
+<!--Desktop View-->
 <div class="d-none d-sm-none d-md-none d-lg-block">
   <div class="container-fluid">
   <div class="row religareTavelProposal">
@@ -113,16 +114,16 @@
 
                       <div class="col-md-12 box-card pt-3">
                         <div class="row" *ngIf="studentdetails">
-                          <h6 class="col-md-12 color-blue mt-3 mb-4">SPONSER DETAILS</h6>
+                          <h6 class="col-md-12 color-blue mt-3 mb-4">SPONSOR DETAILS</h6>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <input matInput placeholder="Sponser Name"  formControlName="sponsername" (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required>
-                            <mat-error *ngIf="religarePersonal.controls.sponsername.errors?.required">Sponser Name is required</mat-error>
+                            <input matInput placeholder="Sponsor Name"  formControlName="sponsername" (keypress)="nameValidate($event)" maxlength="50" autocomplete="off" required>
+                            <mat-error *ngIf="religarePersonal.controls.sponsername.errors?.required">Sponsor Name is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker1"  placeholder="Sponser DOB (DD/MM/YYYY)" [max]="today"  formControlName="sponserdob"  (dateInput)="addEvent($event, 'sponser')" (dateChange)="addEvent($event, 'sponser')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker1"  placeholder="Sponsor DOB (DD/MM/YYYY)" [max]="today"  formControlName="sponserdob"  (dateInput)="addEvent($event, 'sponser')" (dateChange)="addEvent($event, 'sponser')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
-                            <mat-error *ngIf="religarePersonal.controls.sponserdob.errors?.required">Sponser Dob is required</mat-error>
+                            <mat-error *ngIf="religarePersonal.controls.sponserdob.errors?.required">Sponsor Dob is required</mat-error>
                           </mat-form-field>
                             <div class="error" *ngIf="sponserDobError !=''">{{sponserDobError}}</div>
 
@@ -557,7 +558,7 @@
               <div class="col-md-6">
                 <ul class="summary-head">
                   <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
-                  <li><span>End Date:</span> &nbsp; {{getEndDate | date: 'dd/MM/yyyy' }} </li>
+                  <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date | date: 'dd/MM/yyyy' }} </li>
                   <li></li>
                 </ul>
               </div>
@@ -613,6 +614,9 @@
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{item.mobile}}</li>
                         <li class="list-group-item" *ngIf="item.phone != '' && item.phone != null"><strong>Phone:</strong> {{item.phone}}</li>
                         <li class="list-group-item" *ngIf="item.passport != ''"><strong>PassPort:</strong> {{item.passport}}</li>
+                        <li class="list-group-item" *ngIf="studentdetails"><strong>Month:</strong> {{item.betweenMonth}}</li>
+                        <li class="list-group-item" *ngIf="studentdetails"><strong>StartDate:</strong> {{item.startDate }}</li>
+                        <li class="list-group-item" *ngIf="studentdetails"><strong>EndDate:</strong> {{item.endDate }}</li>
                       </ul>
                     </div>
                   </div>
@@ -644,7 +648,7 @@
 
                   <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
                     <div class="p-3">
-                      <h6 class="color-blue">SPONSER DETAILS</h6>
+                      <h6 class="color-blue">SPONSOR DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"  *ngIf="item.sponsername != ''"><strong>Name:</strong> {{item.sponsername}}</li>
                         <li class="list-group-item"  *ngIf="item.sponserdob != ''"><strong>D.O.B:</strong> {{item.sponserdob | date: 'dd/MM/yyyy'}}</li>
@@ -663,33 +667,42 @@
                     </div>
                   </div>
 
-                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
-                    <div class="p-3">
-                      <h6 class="color-blue">GUIDE DETAILS</h6>
-                      <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{item.guidetitle}}. {{item.guidefirstname}} {{item.guidelastname}}</li>
-                        <li class="list-group-item"><strong>Address:</strong> {{item.guideAddress}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">
-                    <div class="p-3">
-                      <h6 class="color-blue">ADDON DETAILS</h6>
-
-                      <div class="row box-card" *ngFor="let lists of setAddons;">
-                        <div class="col-md-12" *ngIf="lists.checked">
-                          <div class="p-3">
-                            <div class="row">
-                              <div class="col-md-12">
-                                <ul class="m-0 list-group">
-                                  <li class="list-group-item"><strong>Addon's:</strong> {{lists.addon_description}}</li>
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
+                  <div class="row col-md-12">
+                    <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
+                      <div class="p-3">
+                        <h6 class="color-blue">GUIDE DETAILS</h6>
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item"><strong>Name:</strong> {{item.guidetitle}}. {{item.guidefirstname}} {{item.guidelastname}}</li>
+                          <li class="list-group-item"><strong>Address:</strong> {{item.guideAddress}}</li>
+                        </ul>
                       </div>
                     </div>
+
+                      <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">
+                          <div class="p-3">
+                              <h6 class="color-blue">ADDON DETAILS</h6>
+                              <ul class="m-0 list-group" *ngFor="let lists of setAddons;">
+                                  <li class="list-group-item" *ngIf="lists.checked"></li>
+                                  <li class="list-group-item"><strong>Addon's:</strong> {{lists.addon_description}}</li>
+                              </ul>
+                          </div>
+                      </div>
+
+                    <!--<div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">-->
+                      <!--<div class="p-1">-->
+                        <!--<h6 class="color-blue">ADDON DETAILS</h6>-->
+
+                        <!--<div class="row box-card" *ngFor="let lists of setAddons;">-->
+                              <!--<div class="row" *ngIf="lists.checked">-->
+                                <!--<div class="col-md-12">-->
+                                  <!--<ul class="m-0 list-group">-->
+                                    <!--<li class="list-group-item"><strong>Addon's:</strong> {{lists.addon_description}}</li>-->
+                                  <!--</ul>-->
+                                <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
                   </div>
                 </div>
               </mat-expansion-panel>
@@ -838,7 +851,7 @@
   <div class="container-fluid">
     <div class="row religareTavelProposal">
       <!--<div class="col-md-12">-->
-      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)"  [disabled]="religareTravelMobileTrue0">
           <mat-expansion-panel-header>
             <mat-panel-title>
               PROPOSER DETAILS
@@ -1093,16 +1106,16 @@
         </form>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="religareTravelMobileTrue1">
         <mat-expansion-panel-header>
           <mat-panel-title>
             INSURED DETAILS
           </mat-panel-title>
         </mat-expansion-panel-header>
-        <mat-accordion class="mt-4 w-100 float-left">
           <form [formGroup]="insureReligareArray">
             <div formArrayName="items" *ngFor="let item of insureReligareArray.get('items')['controls']; let i = index;">
-              <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
+              <mat-accordion>
+              <mat-expansion-panel class="mt-2" [formGroupName]="i" [expanded]="i == 0">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     INSURED DETAILS FOR {{insureReligareArray['controls'].items['controls'][i]['controls'].type.value | uppercase}}
@@ -1196,13 +1209,14 @@
                   </div>
                 </div>
               </mat-expansion-panel>
+              </mat-accordion>
+
             </div>
           </form>
-        </mat-accordion>
 
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="religareTravelMobileTrue2">
         <mat-expansion-panel-header>
           <mat-panel-title>
             MEDICAL DETAILS
@@ -1294,7 +1308,7 @@
 
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="religareTravelMobileTrue3">
         <mat-expansion-panel-header>
           <mat-panel-title>
             NOMINEE DETAILS
@@ -1331,7 +1345,7 @@
         </div>
       </mat-expansion-panel>
 
-      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled hideToggle>
+      <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" [disabled]="religareTravelMobileTrue4" class="w-100">
         <mat-expansion-panel-header>
           <mat-panel-title>
             SUMMARY
@@ -1378,6 +1392,8 @@
 
             </tbody>
           </table>
+          <!--<mat-accordion>-->
+
           <div *ngFor="let item of proposerInsureData; let i = index;">
 
             <mat-expansion-panel   [expanded]="true">
@@ -1590,7 +1606,7 @@
               </div>
             </div>
           </mat-expansion-panel>
-
+          <!--</mat-accordion>-->
           <br>
           <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
         </section>

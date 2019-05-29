@@ -792,6 +792,12 @@ a:hover {
     overflow-y: scroll !important;
     overflow-x: scroll !important;
   }
+#view-details .mat-dialog-content1 {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-y: scroll !important;
+  overflow-x: scroll !important;
+}
   #view-details .row {
     margin: 0; }
   #view-details .mat-list .mat-list-item .mat-list-text > *, #view-details .mat-list .mat-list-option .mat-list-text > *, #view-details .mat-nav-list .mat-list-item .mat-list-text > *, #view-details .mat-nav-list .mat-list-option .mat-list-text > *, #view-details .mat-selection-list .mat-list-item .mat-list-text > *, #view-details .mat-selection-list .mat-list-option .mat-list-text > * {
