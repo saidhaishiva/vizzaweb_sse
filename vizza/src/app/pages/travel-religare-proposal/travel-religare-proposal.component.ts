@@ -235,7 +235,9 @@ export class ReliagretravelproposalComponent implements OnInit {
         if (sessionStorage.ReligareTravelDetails3 == '' || sessionStorage.ReligareTravelDetails3 == undefined) {
             this.religareTravelQuestions();
         }
-        this.getAddon();
+        if (sessionStorage.setAddons == '' || sessionStorage.setAddons == undefined) {
+            this.getAddon();
+        }
         this.sessionData();
         if (sessionStorage.travelPlan != '' && sessionStorage.travelPlan != undefined) {
             this.placeOfVisit = JSON.parse(sessionStorage.travelPlan);
@@ -1189,6 +1191,7 @@ export class ReliagretravelproposalComponent implements OnInit {
         );
     }
     public proposalSuccess(successData, stepper) {
+        console.log(this.setAddons,'this.setAddons');
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();

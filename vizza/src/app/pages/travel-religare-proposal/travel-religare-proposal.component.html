@@ -678,25 +678,31 @@
                       </div>
                     </div>
 
-                    <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">
-                      <div class="p-3">
-                        <h6 class="color-blue">ADDON DETAILS</h6>
-
-                        <div class="row box-card" *ngFor="let lists of setAddons;">
-                          <div class="col-md-12" *ngIf="lists.checked">
-                            <div class="p-3">
-                              <div class="row">
-                                <div class="col-md-12">
-                                  <ul class="m-0 list-group">
-                                    <li class="list-group-item"><strong>Addon's:</strong> {{lists.addon_description}}</li>
-                                  </ul>
-                                </div>
-                              </div>
-                            </div>
+                      <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">
+                          <div class="p-3">
+                              <h6 class="color-blue">ADDON DETAILS</h6>
+                              <ul class="m-0 list-group" *ngFor="let lists of setAddons;">
+                                  <!--<li class="list-group-item" ></li>-->
+                                  <li class="list-group-item" *ngIf="lists.checked"><strong>Addon's:</strong> {{lists.addon_description}}</li>
+                              </ul>
                           </div>
-                        </div>
                       </div>
-                    </div>
+
+                    <!--<div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && setAddons !='' && i == 0">-->
+                      <!--<div class="p-1">-->
+                        <!--<h6 class="color-blue">ADDON DETAILS</h6>-->
+
+                        <!--<div class="row box-card" *ngFor="let lists of setAddons;">-->
+                              <!--<div class="row" *ngIf="lists.checked">-->
+                                <!--<div class="col-md-12">-->
+                                  <!--<ul class="m-0 list-group">-->
+                                    <!--<li class="list-group-item"><strong>Addon's:</strong> {{lists.addon_description}}</li>-->
+                                  <!--</ul>-->
+                                <!--</div>-->
+                          <!--</div>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
                   </div>
                 </div>
               </mat-expansion-panel>
