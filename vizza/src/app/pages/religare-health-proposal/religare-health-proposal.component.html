@@ -1439,14 +1439,11 @@
             </mat-expansion-panel-header>
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
-                <div class="col-sm-12 col-xs-12"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
-                <div class="col-sm-8 col-xs-8">
-                  <ul class="summary-head">
-                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
-                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> </li>
-                    <li></li>
-                  </ul>
+                <div class="col-sm-12 col-xs-12">
+                  <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Insurer: &nbsp;</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /></h4>
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></h4>
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Total Premium:: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></h4>
                 </div>
               </div>
               <section *ngFor="let item of proposerInsureData; let i = index;">
