@@ -136,6 +136,7 @@ import {TravelBajajalianzDownloadPolicyComponent} from './pages/travel-bajajalia
 import {TravelBajajPaymentSuccessComponent} from './pages/travel-bajaj-payment-success/travel-bajaj-payment-success.component';
 import {ReliancePaPaymentSuccessComponent} from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
 import {BikeTataaigProposalComponent} from './pages/bike-tataaig-proposal/bike-tataaig-proposal.component';
+import {CholaHealthPaymentSuccessComponent} from './pages/chola-health-payment-success/chola-health-payment-success.component';
 
 
 export const routes: Routes = [
@@ -264,10 +265,11 @@ export const routes: Routes = [
             { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},
             { path: 'bajaj-travel/:stepper', component: TravelBajajalianzProposalComponent, data:{ breadcrumb: 'Travel Bajajalianz '}},
             { path: 'chola-health-proposal/:stepper', component: CholaHealthProposalComponent, data:{ breadcrumb: 'Chola Health'}},
-            { path: 'reliance-motor-proposal', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
+            { path: 'reliance-motor-proposal/:stepper', component: RelianceMotorProposalComponent, data:{ breadcrumb: 'Reliance Motor'}},
             { path: 'bajaj-travel-payment-success/:status/:proId', component: TravelBajajPaymentSuccessComponent, data:{ breadcrumb: 'travel Bajaj'}},
             { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}},
-            { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}}
+            { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}},
+            { path: 'app-chola-health-payment-success/:status/:proId/:policyStatus', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
 
         ]
     },

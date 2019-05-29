@@ -1466,10 +1466,6 @@ export class ReligareHealthProposalComponent implements OnInit {
             sessionStorage.nomineeData = '';
             sessionStorage.nomineeData = JSON.stringify(value);
             this.proposal(stepper);
-            this.nextStep();
-            this.religareMobileTrue3 = false;
-            this.religareMobileTrue4 = false;
-
         }
     }
     // selectNomineeRelation(){
@@ -1711,6 +1707,8 @@ export class ReligareHealthProposalComponent implements OnInit {
             stepper.next();
             this.topScroll();
             this.nextStep();
+            this.religareMobileTrue3 = false;
+            this.religareMobileTrue4 = false;
 
         } else {
             this.toastr.error(successData.ErrorObject);

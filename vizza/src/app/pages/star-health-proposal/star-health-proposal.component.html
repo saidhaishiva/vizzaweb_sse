@@ -702,7 +702,7 @@
       <div class="col-sm-12 col-xs-12">
         <mat-accordion>
 
-          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" [disabled]="healthStarTrue0">
             <mat-expansion-panel-header>
               <mat-panel-title> PROPOSER DETAILS </mat-panel-title>
             </mat-expansion-panel-header>
@@ -967,7 +967,7 @@
           </mat-expansion-panel>
 
 
-          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="healthStarTrue1">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 INSURED DETAILS
@@ -1105,7 +1105,7 @@
             </mat-accordion>
           </mat-expansion-panel>
 
-          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="healthStarTrue2">
               <mat-expansion-panel-header>
                 <mat-panel-title>
                   NOMINEE DETAILS
@@ -1168,23 +1168,35 @@
               </div>
             </mat-expansion-panel>
 
-          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="healthStarTrue3">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 SUMMARY DETAILS
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <section class="summary-details" *ngIf="summaryData">
+            <section class="summary-details1" *ngIf="summaryData">
               <div class="row">
-                <div class="col-sm-4 col-xs-4"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4></div>
-                <div class="col-sm-8 col-xs-8">
-                  <ul class="summary-head">
-                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
-                    <li><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span> /</li>
-                    <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
-                    <li></li>
-                  </ul>
+                <div class="col-sm-12 col-xs-12"> <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12 summary-head1">
+                  <a><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;"> </a>
+                </div>
+              </div>
+              <div class="row">
+              <div class="col-sm-12 col-xs-12 summary-head1">
+                    <a><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12  summary-head1">
+                    <a><span>GST:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span></a>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 col-xs-12  summary-head1">
+                  <a><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span></a>
                 </div>
               </div>
 

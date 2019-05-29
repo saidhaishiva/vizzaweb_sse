@@ -688,13 +688,18 @@ a:hover {
   justify-content: flex-end;
   align-items: center;
   margin-bottom: 0; }
-  .summary-details .summary-head li {
+  .summary-details .summary-head a{
     font-size: 16px; }
   .summary-details .summary-head span {
     font-weight: bold; }
   .summary-details .summary-head span:last-child {
     color: #f16d0d;
     font-size: 20px; }
+.summary-details1 .summary-head1 {
+  /*display: flex;*/
+  /*justify-content: flex-end;*/
+  align-items: center;
+  margin-bottom: 0; }
 
 .mt-viwe-profile .user-name {
   font-size: 15px;
@@ -787,6 +792,12 @@ a:hover {
     overflow-y: scroll !important;
     overflow-x: scroll !important;
   }
+#view-details .mat-dialog-content1 {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-y: scroll !important;
+  overflow-x: scroll !important;
+}
   #view-details .row {
     margin: 0; }
   #view-details .mat-list .mat-list-item .mat-list-text > *, #view-details .mat-list .mat-list-option .mat-list-text > *, #view-details .mat-nav-list .mat-list-item .mat-list-text > *, #view-details .mat-nav-list .mat-list-option .mat-list-text > *, #view-details .mat-selection-list .mat-list-item .mat-list-text > *, #view-details .mat-selection-list .mat-list-option .mat-list-text > * {

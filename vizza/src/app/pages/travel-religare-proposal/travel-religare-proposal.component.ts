@@ -108,6 +108,13 @@ export class ReliagretravelproposalComponent implements OnInit {
     public diseaseFieldView :any;
     public sponserRelationList :any;
     public getEndDate :any;
+    public religareTravelMobileTrue0: boolean;
+    public religareTravelMobileTrue1: boolean;
+    public religareTravelMobileTrue2: boolean;
+    public religareTravelMobileTrue3: boolean;
+    public religareTravelMobileTrue4: boolean;
+
+
 
 
     constructor(public travelservice: TravelService,public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,public route: ActivatedRoute,
@@ -133,6 +140,12 @@ export class ReliagretravelproposalComponent implements OnInit {
         let today = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.arr = [];
+        this.step = 0;
+        this.religareTravelMobileTrue0 = false;
+        this.religareTravelMobileTrue1 = true;
+        this.religareTravelMobileTrue2 = true;
+        this.religareTravelMobileTrue3 = true;
+        this.religareTravelMobileTrue4 = true;
         this.setAddons = [];
         this.sameinsure = false;
         this.studentdetails = false;
@@ -222,7 +235,9 @@ export class ReliagretravelproposalComponent implements OnInit {
         if (sessionStorage.ReligareTravelDetails3 == '' || sessionStorage.ReligareTravelDetails3 == undefined) {
             this.religareTravelQuestions();
         }
-        this.getAddon();
+        if (sessionStorage.setAddons == '' || sessionStorage.setAddons == undefined) {
+            this.getAddon();
+        }
         this.sessionData();
         if (sessionStorage.travelPlan != '' && sessionStorage.travelPlan != undefined) {
             this.placeOfVisit = JSON.parse(sessionStorage.travelPlan);
@@ -575,6 +590,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                     stepper.next();
                     this.topScroll();
                     this.nextStep();
+                    this.religareTravelMobileTrue1 = false;
                 } else {
                     this.toastr.error('Sponser age should be 18 or above');
                 }
@@ -857,6 +873,8 @@ export class ReliagretravelproposalComponent implements OnInit {
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
+                this.religareTravelMobileTrue2 = false;
+                // this.religareTravelMobileTrue3 = false;
 
 
             }
@@ -877,42 +895,6 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.diseaseFieldView = false;
         }
         sessionStorage.diseaseFieldView = this.diseaseFieldView;
-        // let valid = false;
-        // if (this.getEnquiryDetails.travel_user_type == 'student') {
-        //     if(type == 'main') {
-        //         console.log(index, 'indexindex');
-        //         console.log(this.getEnquiryDetails.sum_insured_amount, 'this.getEnquiryDetails.sum_insured_amount');
-        //         if ((index == 0 || index == 1 || index == 2 || index == 3) && this.getEnquiryDetails.sum_insured_amount < 50000) {
-        //             alert('in');
-        //             valid = true;
-        //         } else {
-        //             alert('outtt');
-        //
-        //             valid = false;
-        //             this.toastr.error('Sorry! If you have any pre existing disease not allowed to purchase.');
-        //         }
-        //     } else {
-        //         valid = true;
-        //     }
-        // } else {
-        //     valid = true;
-        // }
-        // console.log(valid,'validvalid');
-        // if(valid) {
-        //     if(type == 'main') {
-        //         if(value.checked){
-        //             this.religareTravelQuestionsList[index].status = 'Yes';
-        //         } else {
-        //             this.religareTravelQuestionsList[index].status = 'No';
-        //         }
-        //     } else if(type == 'sub') {
-        //         if(value.checked){
-        //             this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'Yes';
-        //         } else {
-        //             this.religareTravelQuestionsList[0].sub_questions_list[index].status = 'No';
-        //         }
-        //     }
-        // }
 
         if(type == 'main') {
             if(value.checked){
@@ -1088,6 +1070,7 @@ export class ReliagretravelproposalComponent implements OnInit {
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
+                this.religareTravelMobileTrue3 = false;
             } else {
                 this.toastr.error('Please fill the required fields');
             }
@@ -1106,6 +1089,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             sessionStorage.ReligareTravelNomineeDetails = JSON.stringify(value);
             this.religareTravelproposal(stepper);
             this.nextStep();
+            this.religareTravelMobileTrue4 = false;
         }
     }
 
@@ -1207,6 +1191,7 @@ export class ReliagretravelproposalComponent implements OnInit {
         );
     }
     public proposalSuccess(successData, stepper) {
+        console.log(this.setAddons,'this.setAddons');
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
