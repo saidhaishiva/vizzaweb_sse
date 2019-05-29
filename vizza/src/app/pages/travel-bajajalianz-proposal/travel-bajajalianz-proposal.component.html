@@ -447,7 +447,7 @@
             <div class="row">
               <div class="col-12 box-card pt-3">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <mat-select placeholder="Title" formControlName="title" (change)="changeGender()" required>
                         <mat-option value="Mr">Mr</mat-option>
@@ -457,24 +457,24 @@
                       <mat-error *ngIf="bajajProposal.controls.title.errors?.required">title is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="First Name" formControlName="firstName"  (keypress)="nameValidate($event)" autocomplete="off" required >
                       <mat-error *ngIf="bajajProposal.controls.firstName.errors?.required">Name is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Middle Name" formControlName="middlename" (keypress)="nameValidate($event)" >
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" required>
                       <mat-error *ngIf="bajajProposal.controls.lastName.errors?.required">LastName is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4" [ngStyle]="{'pointer-events':'none'}">
+                  <div class="col-12" [ngStyle]="{'pointer-events':'none'}">
                     <mat-form-field class="w-100">
                       <mat-select placeholder="Gender" formControlName="gender" required>
                         <mat-option value="Male">Male</mat-option>
@@ -483,7 +483,7 @@
                       <mat-error *ngIf="bajajProposal.controls.gender.errors?.required">Gender is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput [matDatepicker]="picker01" [max]="today" placeholder="DOB (DD/MM/YYYY)" formControlName="dob" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                       <mat-datepicker-toggle matSuffix [for]="picker01"></mat-datepicker-toggle>
@@ -492,44 +492,44 @@
                     </mat-form-field>
                     <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
                   </div>
-                  <div class="col-4"><mat-form-field class="w-100">
+                  <div class="col-12"><mat-form-field class="w-100">
                     <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required>
                     <mat-error *ngIf="bajajProposal.controls.email.errors?.required">Email ID is required</mat-error>
                     <mat-error *ngIf="bajajProposal.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                   </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="mobile" autocomplete="off" required>
                       <mat-error *ngIf="bajajProposal.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                       <mat-error *ngIf="bajajProposal.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Alternate Contact Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="telephone">
                       <mat-error *ngIf="bajajProposal.controls.telephone.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4"><mat-form-field class="w-100">
+                  <div class="col-12"><mat-form-field class="w-100">
                     <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNumber" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required>
                     <mat-error *ngIf="bajajProposal.controls.passportNumber.errors?.required">Passport number is required</mat-error>
                     <mat-error *ngIf="bajajProposal.controls.passportNumber.hasError('pattern')">Enter Valid  Passport number</mat-error>
                   </mat-form-field></div>
-                  <div class="col-4"><mat-form-field class="w-100">
+                  <div class="col-12"><mat-form-field class="w-100">
                     <mat-select matInput placeholder="Marital Status"  formControlName="maritalStatus" autocomplete="off" required>
                       <mat-option *ngFor="let  marital of getMaritalDetails | keys" value="{{marital.value}}">{{marital.value}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="bajajProposal.controls.maritalStatus.errors?.required">MaritalStatus is required</mat-error>
                   </mat-form-field></div>
-                  <div class="col-4"><mat-form-field class="w-100" >
+                  <div class="col-12"><mat-form-field class="w-100" >
                     <mat-select matInput placeholder="Nationality"  formControlName="nationality"  required >
                       <mat-option value="Indian">Indian</mat-option>
                     </mat-select>
                     <mat-error *ngIf="bajajProposal.controls.nationality.errors?.required">Nationality is required</mat-error>
                   </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Fax"  pattern="^(\+?\d{1,}(\s?|\-?)\d*(\s?|\-?)\(?\d{2,}\)?(\s?|\-?)\d{3,}\s?\d{3,})$" maxlength="10" formControlName="fax" (keypress)="numberValidate($event)">
                     </mat-form-field>
@@ -540,7 +540,7 @@
               <div class="col-12 box-card pt-3">
                 <h6 class="color-blue">ASSIGNEE DETAILS</h6>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Assingnee Name" formControlName="assigneeName" required >
                       <mat-error *ngIf="bajajProposal.controls.assigneeName.errors?.required">Assignee Name is required</mat-error>
@@ -552,19 +552,19 @@
               <div class="col-12 box-card pt-3">
                 <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput matInput placeholder="Street Name" rows="2" formControlName="streetName"  autocomplete="off" required>
                       <mat-error *ngIf="bajajProposal.controls.streetName.errors?.required">streetname is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Building Details" rows="2" formControlName="building"  autocomplete="off" required>
                       <mat-error *ngIf="bajajProposal.controls.building.errors?.required">Building detail is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="pincode" (input)="pincodevalidationBajaj($event.target.value)" autocomplete="off" required>
                       <mat-error *ngIf="bajajProposal.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
@@ -572,19 +572,19 @@
                       <mat-error *ngIf="bajajProposal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100" >
                       <input matInput placeholder="City" formControlName="city" autocomplete="off" readonly required>
                       <mat-error *ngIf="bajajProposal.controls.city.errors?.required">City is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="State" formControlName="state" required readonly>
                       <mat-error *ngIf="bajajProposal.controls.state.errors?.required">State is required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Country" formControlName="country" readonly required>
                       <mat-error *ngIf="bajajProposal.controls.country.errors?.required">country is required</mat-error>
@@ -616,13 +616,13 @@
                   <div class="row">
                     <div class="col-12 box-card pt-3">
                       <div class="row">
-                        <div class="col-4">
+                        <div class="col-12">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="name" formControlName="name" (keypress)="nameValidate($event)" required readonly="{{i==0}}">
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].name.errors?.required">assigneeName is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
+                        <div class="col-12" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Gender" formControlName="sex" required >
                               <mat-option value="Male">Male</mat-option>
@@ -631,7 +631,7 @@
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].sex.errors?.required">Gender is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
+                        <div class="col-12" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <input matInput [matDatepicker]="picker02" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="idob" (dateInput)="addEventInsurer($event, i,'insurer')" (dateChange)="addEventInsurer($event, i,'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker02" ></mat-datepicker-toggle>
@@ -641,18 +641,18 @@
                           <p class="error mb-0" *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
                           <p class="error mb-0" *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value != ''">{{bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobValidError.value}}</p>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Age" formControlName="age"   autocomplete="off"  readonly required readonly>
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].age.errors?.required">Age is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-4"><mat-form-field class="w-100">
+                        <div class="col-12"><mat-form-field class="w-100">
                           <input matInput placeholder="Passport Number"  minlength="8"  maxlength="8" pattern="^[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]$" formControlName="passportNo" autocomplete="off" (keypress)="idValidate($event)" style="text-transform: uppercase" required readonly="{{i==0}}">
                           <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.errors?.required">Passport number is required</mat-error>
                           <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].passportNo.hasError('pattern')">Enter Valid  Passport number</mat-error>
                         </mat-form-field></div>
-                        <div class="col-4" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
+                        <div class="col-12" [ngStyle]="{'pointer-events': i==0 ? 'none' : ''}">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Relationship with Proposer"  formControlName="relation" required >
                               <mat-option *ngFor="let relation of getRelationDetails | keys" value="{{relation.value}}">{{relation.value}}
@@ -661,7 +661,7 @@
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].errors?.required">Relationship is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-4">
+                        <div class="col-12">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Assignee Name" formControlName="assigneeName" (keypress)="nameValidate($event)" required readonly="{{i==0}}">
                             <mat-error *ngIf="bajajInsuredTravel['controls'].items['controls'][i]['controls'].assigneeName.errors?.required">assigneeName is required</mat-error>
@@ -681,23 +681,23 @@
           </mat-accordion>
         </mat-expansion-panel>
 
-        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="bajajTravelMobileTr2e0">
+        <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="bajajTravelMobileTrue2" class="w-100">
           <mat-expansion-panel-header>
             <mat-panel-title > SUMMARY </mat-panel-title>
           </mat-expansion-panel-header>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
-              <div class="col-6">
+              <div class="col-12">
                 <div class="row">
-                  <div class="col-4">
+                  <div class="col-12">
                     <h4> <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{getTravelPremiumList.sum_insured_amount}}</span></h4>
                   </div>
-                  <div class="col-8">
+                  <div class="col-12">
                     <h4> <span style="font-size: 17px; color: #666;">Place Of Visit: &nbsp;<i class="fa fa-map-marker" aria-hidden="true"></i> <span *ngFor="let lists of placeOfVisit; let last = last" class="p-2"> {{lists}} <span *ngIf="!last">,</span></span></span></h4>
                   </div>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col-12">
                 <ul class="summary-head">
                   <li><span>Start Date:</span> &nbsp;{{getEnquiryDetails.start_date | date: 'dd/MM/yyyy' }} </li>
                   <li><span>End Date:</span> &nbsp; {{getEnquiryDetails.end_date| date: 'dd/MM/yyyy'}} </li>
@@ -727,6 +727,7 @@
               </tr>
               </tbody>
             </table>
+            <mat-accordion>
 
             <mat-expansion-panel   [expanded]="true">
               <mat-expansion-panel-header *ngIf="!showInsure">
@@ -740,7 +741,7 @@
                 </mat-panel-title>
               </mat-expansion-panel-header>
               <div class="row box-card">
-                <div class="col-6">
+                <div class="col-12">
                   <div class="p-3">
                     <!--<h6 class="color-blue">Proposer Details</h6>-->
                     <ul class="m-0 list-group">
@@ -753,7 +754,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-12">
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item" *ngIf="proposerFormData.fax !='' "><strong>Alternate No:</strong> {{proposerFormData.telephone}}</li>
@@ -764,7 +765,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-12">
                   <h4 class="color-blue">COMMUNICATION ADDRESS</h4>
                   <div>
                     <ul class="m-0 list-group">
@@ -774,7 +775,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-6">
+                <div class="col-12">
                   <h4 class="mt-4"></h4>
                   <ul class="mt-1 list-group">
                     <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
@@ -794,7 +795,7 @@
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <div class="row box-card">
-                    <div class="col-6">
+                    <div class="col-12">
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item" ><strong>Name:</strong>{{item.name}}</li>
@@ -804,7 +805,7 @@
                         </ul>
                       </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-12">
                       <div class="p-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>D.O.B:</strong> {{item.idob | date: 'dd/MM/yyyy'}}</li>
@@ -817,6 +818,7 @@
                 </mat-expansion-panel>
               </div>
             </div>
+              </mat-accordion>
 
             <p class="mt-4"><mat-checkbox [(ngModel)]="acceptSummaryDeclaration">I hereby declare all  the  details provided above is correct</mat-checkbox></p>
 

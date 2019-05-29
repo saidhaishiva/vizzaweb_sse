@@ -165,7 +165,11 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     }
 
     setStep(index) {
-        this.step = index;
+        if(this.showInsure) {
+            this.step = index + 1;
+        } else {
+            this.step = index;
+        }
     }
 
     nextStep() {
@@ -236,8 +240,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             } else{
                 this.toastr.error('Age should be 18 years and above');
             }
-            this.bajajTravelMobileTrue1 = false;
-            this.bajajTravelMobileTrue2 = false;
+            // this.bajajTravelMobileTrue1 = false;
+            // this.bajajTravelMobileTrue2 = false;
 
         } else{
             this.toastr.error('Please enter all the  fields');
@@ -569,6 +573,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
              stepper.next();
              this.topScroll();
             this.nextStep();
+            this.bajajTravelMobileTrue2 = false;
 
         } else {
             this.toastr.error(successData.ErrorObject);
