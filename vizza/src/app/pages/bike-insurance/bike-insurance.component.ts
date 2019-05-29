@@ -147,6 +147,7 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.claimDetail = this.claimAmountDetails;
     }
 
+
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }

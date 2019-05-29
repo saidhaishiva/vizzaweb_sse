@@ -73,6 +73,20 @@ export class EnquiryPopupComponent implements OnInit {
   }
   public manifactureFailure(error) {
   }
+  nameValidate(event: any){
+    this.validation.nameValidate(event);
+  }
+  // Dob validation
+  dobValidate(event: any){
+    this.validation.dobValidate(event);
+  }
+  // Number validation
+  numberValidate(event: any){
+    this.validation.numberValidate(event);
+  }
+  idValidate(event: any) {
+    this.validation.idValidate(event);
+  }
   // model
   modelList1() {
     const data = {
