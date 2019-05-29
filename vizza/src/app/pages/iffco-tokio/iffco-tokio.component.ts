@@ -119,6 +119,11 @@ export class IffcoTokioComponent implements OnInit {
     public nomineestateDetails: any;
     public xmlString: any;
     public numberValidateErr: boolean;
+
+    public healthIffcoTrue0: boolean;
+    public healthIffcoTrue1: boolean;
+    public healthIffcoTrue2: boolean;
+    public healthIffcoTrue3: boolean;
     constructor(public proposalservice: HealthService, public datepipe: DatePipe, public validation: ValidationService, public route: ActivatedRoute, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -150,6 +155,11 @@ export class IffcoTokioComponent implements OnInit {
         this.smokeList = false;
         this.tobacoList = false;
         this.alchocolList = false;
+
+        this.healthIffcoTrue0 = false;
+        this.healthIffcoTrue1 = true;
+        this.healthIffcoTrue2 = true;
+        this.healthIffcoTrue3 = true;
 
         this.proposer = this.fb.group({
             proposerTitle: ['', Validators.required],
@@ -767,6 +777,8 @@ export class IffcoTokioComponent implements OnInit {
                 }
                 this.topScroll();
                 this.nextStep();
+                this.healthIffcoTrue1 = false;
+
             } else {
                 this.toastr.error('Proposer age should be  greater than 18 and lesser than equal to 55');
             }
@@ -826,6 +838,7 @@ export class IffcoTokioComponent implements OnInit {
                  stepper.next();
                  this.topScroll();
                  this.nextStep();
+                 this.healthIffcoTrue2 = false;
              }
 
 
@@ -838,7 +851,6 @@ export class IffcoTokioComponent implements OnInit {
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal(stepper);
-            this.nextStep();
         }
     }
     pincodevalidationiffco(pin) {
@@ -974,6 +986,8 @@ export class IffcoTokioComponent implements OnInit {
             console.log(this.personalFormData,'personalFormData');
             stepper.next();
             this.nextStep();
+            this.topScroll();
+            this.healthIffcoTrue3 = false;
         }
         else{
             this.toastr.error(successData.ErrorObject);
