@@ -12,6 +12,7 @@ import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {AuthService} from '../../shared/services/auth.service';
+import {EnquiryPopupComponent} from './enquiry-popup/enquiry-popup.component';
 
 export const MY_FORMATS = {
     parse: {
@@ -232,17 +233,22 @@ export class BikeInsuranceComponent implements OnInit {
                     // sessionStorage.bikeEnquiryDetails = JSON.stringify(this.bikeList);
                     sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
                     sessionStorage.enquiryFormData = JSON.stringify(data);
-                    if(this.enquiry == 0){
-                        this.listDetails = true;
-                    } else {
-                        this.listDetails = false;
-                        this.router.navigate(['/bikepremium']);
-
-                    }
-                } else {
-                    this.toastr.error(successData.ErrorObject);
-
+                    // if(this.enquiry == 0){
+                    //     this.listDetails = true;
+                    // } else {
+                    //     this.listDetails = false;
+                    //     this.router.navigate(['/bikepremium']);
+                    //
+                    // }
+                    let dialogRef = this.dialog.open(EnquiryPopupComponent, {
+                        width: '1500px',
+                        height: '500'
+                    })
                 }
+                // else {
+                //     this.toastr.error(successData.ErrorObject);
+                //
+                // }
             }
             public bikeDetailsFailure(error) {
             }
@@ -296,55 +302,6 @@ export class BikeInsuranceComponent implements OnInit {
     public typeFailure(error) {
     }
 
-    enquiryQuation() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            'enquiry_id': 0,
-            'vehicle_no':this.bikeInsurance.controls['vehicalNumber'].value,
-            'registration_date': this.bikeInsurance.controls['registrationDate'].value,
-            'previous_policy_expiry_date':this.bikeInsurance.controls['previousPolicyExpiry'].value,
-            'previous_policy_no':"12344556",
-            'previous_claim_YN': this.bikeInsurance.controls['previousClaim'].value == 'No' ? '0' : '1',
-            'claim_amount':this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
-            'vehicle_manufacture':this.bikeInsurance.controls['manufacture'].value,
-            'vehicle_model':this.bikeInsurance.controls['vehicleModel'].value,
-            'vehicle_variant':this.bikeInsurance.controls['variant'].value,
-            'vehicle_cc':this.bikeInsurance.controls['vehicleCC'].value,
-            'chassis_no':this.bikeInsurance.controls['chasissNumber'].value,
-            'engine_no':this.bikeInsurance.controls['engine'].value,
-            'manu_yr':this.bikeInsurance.controls['manufactureYear'].value,
-            'vehicle_category':"2W",
-            'ncb_amount':this.bikeInsurance.controls['ncb'].value,
-            'business_type': this.bikeInsurance.controls['bussiness'].value,
-            'previous_policy_start_date':this.bikeInsurance.controls['previousPolicyStart'].value
-
-        }
-        this.bikeService.getEnquiryDetails(data).subscribe(
-            (successData) => {
-                this.enquirySuccess(successData);
-            },
-            (error) => {
-                this.enquiryFailure(error);
-            }
-        );
-    }
-    public enquirySuccess(successData){
-        if (successData.IsSuccess) {
-            this.QuotationList = successData.ResponseObject;
-            sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
-            console.log(this.QuotationList,'jhkhjgkj');
-            this.router.navigate(['/bikepremium']);
-
-        } else {
-            this.toastr.error(successData.ErrorObject);
-
-        }
-    }
-    public enquiryFailure(error) {
-    }
     /// manufacture
     manifactureList() {
         const data = {
