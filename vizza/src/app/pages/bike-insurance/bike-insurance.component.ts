@@ -234,22 +234,11 @@ export class BikeInsuranceComponent implements OnInit {
                     sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
                     sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
                     sessionStorage.enquiryFormData = JSON.stringify(data);
-                    // if(this.enquiry == 0){
-                    //     this.listDetails = true;
-                    // } else {
-                    //     this.listDetails = false;
-                    //     this.router.navigate(['/bikepremium']);
-                    //
-                    // }
                     let dialogRef = this.dialog.open(EnquiryPopupComponent, {
-                        width: '1500px',
+                        width: '1500px',data: {listData: successData.ResponseObject},
                         height: '500'
                     })
                 }
-                // else {
-                //     this.toastr.error(successData.ErrorObject);
-                //
-                // }
             }
             public bikeDetailsFailure(error) {
             }

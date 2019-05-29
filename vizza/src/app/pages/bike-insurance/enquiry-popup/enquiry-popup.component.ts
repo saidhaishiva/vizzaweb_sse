@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BikeInsuranceService} from '../../../shared/services/bike-insurance.service';
 import {DatePipe} from '@angular/common';
@@ -6,6 +6,9 @@ import {ValidationService} from '../../../shared/services/validation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ComparelistComponent} from '../../health-insurance/comparelist/comparelist.component';
+import {ConfigurationService} from '../../../shared/services/configuration.service';
 
 @Component({
   selector: 'app-enquiry-popup',
@@ -22,7 +25,12 @@ export class EnquiryPopupComponent implements OnInit {
   public QuotationList : any;
   public claimDetails : any;
   public claimAmountDetails : any;
-  constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService) {
+  public ListDetails : any;
+  public data: any;
+  constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService
+) {
+    this.ListDetails = this.data;
+  console.log(this.ListDetails, 'this.ListDetails');
     this.vehicalDetails = this.fb.group({
       'vehicalNumber': '',
       'registrationDate': '',
@@ -46,7 +54,6 @@ export class EnquiryPopupComponent implements OnInit {
   ngOnInit() {
     this.claimpercent();
     this.manifactureList();
-    this.sessionData();
 
   }
   /// manufacture
@@ -254,27 +261,6 @@ export class EnquiryPopupComponent implements OnInit {
   }
   public enquiryFailure(error) {
   }
-  sessionData() {
-    if (sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData != undefined) {
-      let stepper = JSON.parse(sessionStorage.enquiryFormData);
-      this.vehicalDetails = this.fb.group({
-        'enquiry': stepper.enquiry,
-        'manufacture': stepper.manufacture,
-        'manufactureYear': stepper.manufactureYear,
-        'vehicleCC': stepper.vehicleCC,
-        'variant': stepper.variant,
-        'chasissNumber': stepper.chasissNumber,
-        'engine': stepper.engine,
-        'ncb':stepper.ncb,
-        'previousPolicyExpiry':this.datePipe.transform(stepper.previousPolicyExpiry, 'y-MM-dd'),
-        'previousPolicyStart': this.datePipe.transform(stepper.previousPolicyStart, 'y-MM-dd'),
-        'vehicleModel': stepper.vehicleModel,
-      });
-    }
-    if (sessionStorage.bikeEnquiryId != '' && sessionStorage.bikeEnquiryId != undefined) {
-      this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-    }
 
-  }
 
 }
