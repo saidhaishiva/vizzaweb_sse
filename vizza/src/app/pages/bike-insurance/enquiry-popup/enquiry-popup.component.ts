@@ -21,6 +21,7 @@ export class EnquiryPopupComponent implements OnInit {
   public bikeEnquiryId : any;
   public QuotationList : any;
   public claimDetails : any;
+  public claimAmountDetails : any;
   constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService) {
     this.vehicalDetails = this.fb.group({
       'vehicalNumber': '',
@@ -73,6 +74,32 @@ export class EnquiryPopupComponent implements OnInit {
   }
   public manifactureFailure(error) {
   }
+  nameValidate(event: any){
+    this.validation.nameValidate(event);
+  }
+  // Dob validation
+  dobValidate(event: any){
+    this.validation.dobValidate(event);
+  }
+  // Number validation
+  numberValidate(event: any){
+    this.validation.numberValidate(event);
+  }
+  idValidate(event: any) {
+    this.validation.idValidate(event);
+  }
+
+  claim(){
+    if(this.vehicalDetails.controls['previousClaim'].value == 'Yes'){
+      this.claimAmountDetails = true;
+    } else {
+      this.claimAmountDetails = false;
+
+    }
+    sessionStorage.claimDetail = this.claimAmountDetails;
+  }
+
+
   // model
   modelList1() {
     const data = {
