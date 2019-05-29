@@ -230,8 +230,8 @@ export class BikeInsuranceComponent implements OnInit {
                 if (successData.IsSuccess) {
                     this.bikeList = successData.ResponseObject;
                     console.log(this.bikeList,'hgdj');
-                     this.enquiry = this.bikeList.enquiry_id;
-                    // sessionStorage.bikeEnquiryDetails = JSON.stringify(this.bikeList);
+                     this.enquiry = this.bikeList;
+                    sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
                     sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
                     sessionStorage.enquiryFormData = JSON.stringify(data);
                     // if(this.enquiry == 0){
