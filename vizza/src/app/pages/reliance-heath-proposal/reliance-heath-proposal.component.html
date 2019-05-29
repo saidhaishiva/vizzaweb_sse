@@ -938,7 +938,7 @@
         <div class="row relianceHealthProposal">
             <div class="col-sm-12 col-xs-12">
                 <mat-accordion>
-                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" disabled>
+                    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" [disabled]="healthRelianceTrue0">
                         <mat-expansion-panel-header>
                             <mat-panel-title> PROPOSER DETAILS</mat-panel-title>
                         </mat-expansion-panel-header>
@@ -1240,7 +1240,7 @@
                         </div>
                         </form>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled>
+                    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="healthRelianceTrue1">
                         <mat-expansion-panel-header>
                             <mat-panel-title> INSURED DETAILS</mat-panel-title>
                         </mat-expansion-panel-header>
@@ -1371,7 +1371,7 @@
                             </form>
                         </mat-accordion>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled>
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="healthRelianceTrue2">
                         <mat-expansion-panel-header>
                             <mat-panel-title> PREVIOUS INSURANCE DETAILS </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -1422,7 +1422,7 @@
                                 </div>
                         </form>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled>
+                    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="healthRelianceTrue3">
                         <mat-expansion-panel-header>
                             <mat-panel-title> NOMINEE DETAILS </mat-panel-title>
                         </mat-expansion-panel-header>
@@ -1547,7 +1547,7 @@
                             </div>
                         </div>
                     </mat-expansion-panel>
-                    <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" disabled>
+                    <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)" [disabled]="healthRelianceTrue4">
                     <mat-expansion-panel-header>
                         <mat-panel-title> SUMMARY DETAILS </mat-panel-title>
                     </mat-expansion-panel-header>

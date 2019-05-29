@@ -902,10 +902,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         sessionStorage.hdfcHealthNomineeDetails = JSON.stringify(value);
         if (this.nomineeDetails.valid) {
             this.createProposal(stepper);
-            this.nextStep();
-            this.hdfcMobileTrue1 = false;
-            this.hdfcMobileTrue2 = false;
-            this.hdfcMobileTrue3 = false;
         }
     }
 // star-health-proposal Creation
@@ -971,7 +967,6 @@ export class HdfcHealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess == true) {
             this.toastr.success('Proposal created successfully!!');
-            stepper.next();
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);
             this.personlData = this.hdfcPersonal.value;
@@ -980,12 +975,15 @@ export class HdfcHealthInsuranceComponent implements OnInit {
             sessionStorage.personlData = JSON.stringify(this.personlData);
             sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
             sessionStorage.nomineeFromData = JSON.stringify(this.nomineeFromData);
-
             sessionStorage.hdfc_health_proposal_id = successData.ResponseObject.ProposalId;
             this.fullName = this.personlData.firstname +' '+ this.personlData.lastname;
             this.totalAmount = parseFloat(this.summaryData.totalPremium);
 
+            stepper.next();
+            this.nextStep();
             this.topScroll();
+            this.hdfcMobileTrue2 = false;
+            this.hdfcMobileTrue3 = false;
         } else {
             this.toastr.error(successData.ErrorObject);
         }

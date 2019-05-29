@@ -138,6 +138,13 @@ export class RelianceHeathProposalComponent implements OnInit {
     public insuredFormData : any;
     public previousInsuranceFromData : any;
     public nomineeFormData : any;
+
+    public healthRelianceTrue0: boolean;
+    public healthRelianceTrue1: boolean;
+    public healthRelianceTrue2: boolean;
+    public healthRelianceTrue3: boolean;
+    public healthRelianceTrue4: boolean;
+
     // public personalAge: any;
     public agecal: any;
     constructor(public proposalservice: HealthService,public route: ActivatedRoute, public datepipe: DatePipe,public validation: ValidationService, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -182,6 +189,13 @@ export class RelianceHeathProposalComponent implements OnInit {
         this.questions_list = [];
         this.arr = [];
         this.taxRequired = '';
+
+        this.healthRelianceTrue0 = false;
+        this.healthRelianceTrue1 = true;
+        this.healthRelianceTrue2 = true;
+        this.healthRelianceTrue3 = true;
+        this.healthRelianceTrue4 = true;
+
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: ['', Validators.required],
@@ -771,12 +785,14 @@ export class RelianceHeathProposalComponent implements OnInit {
                         stepper.next();
                         this.topScroll();
                         this.nextStep();
+                        this.healthRelianceTrue1 = false;
                     } else {
                         if(this.personal.controls['ServicesTaxId'].value != '') {
                             this.taxRequired = '';
                             stepper.next();
                             this.topScroll();
                             this.nextStep();
+                            this.healthRelianceTrue1 = false;
                         } else {
                             this.taxRequired = 'Services Tax is required';
                         }
@@ -1217,6 +1233,9 @@ export class RelianceHeathProposalComponent implements OnInit {
         stepper.next();
         this.topScroll();
         this.nextStep();
+        this.healthRelianceTrue2 = false;
+        this.healthRelianceTrue3 = false;
+
     }
     //Insure Details
     relianceInsureDetails(stepper: MatStepper, id, value, key) {
@@ -1287,6 +1306,9 @@ export class RelianceHeathProposalComponent implements OnInit {
                     stepper.next();
                     this.topScroll();
                     this.nextStep();
+                    this.healthRelianceTrue1 = false;
+                    this.healthRelianceTrue2 = false;
+
                 } else {
                     this.toastr.error('Sorry, you are not allowed to purchase policy ');
 
@@ -1700,6 +1722,10 @@ export class RelianceHeathProposalComponent implements OnInit {
             sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
             stepper.next();
             this.nextStep();
+            this.topScroll();
+            this.healthRelianceTrue3 = false;
+            this.healthRelianceTrue4 = false;
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }

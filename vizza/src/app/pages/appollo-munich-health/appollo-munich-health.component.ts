@@ -908,11 +908,6 @@ export class AppolloMunichComponent implements OnInit {
         if (this.nomineeDetails.valid) {
             this.nomineeData = value;
             this.proposal(stepper);
-
-            //mobile view
-            this.nextStep();
-            this.appolloMobileTrue3 = false;
-            this.appolloMobileTrue4 = false;
         }
     }
 
@@ -2355,6 +2350,8 @@ export class AppolloMunichComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
+            this.nextStep();
+            this.topScroll();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);

@@ -638,7 +638,7 @@
     <div class="row iffcoHealthProposal">
       <div class="col-sm-12 col-xs-12">
         <mat-accordion>
-          <mat-expansion-panel  [expanded]="step === 0" (opened)="setStep(0)" disabled hideToggle>
+          <mat-expansion-panel  [expanded]="step === 0" (opened)="setStep(0)" [disabled]="healthIffcoTrue0">
             <mat-expansion-panel-header >
               <mat-panel-title> PROPOSER DETAILS</mat-panel-title>
             </mat-expansion-panel-header>
@@ -872,7 +872,7 @@
               </div>
           </form>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" [disabled]="healthIffcoTrue1">
             <mat-expansion-panel-header>
               <mat-panel-title> INSURED DETAILS</mat-panel-title>
             </mat-expansion-panel-header>
@@ -1021,7 +1021,7 @@
               </form>
             </mat-accordion>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" [disabled]="healthIffcoTrue2">
             <mat-expansion-panel-header>
             <mat-panel-title> NOMINEE DETAILS </mat-panel-title>
             </mat-expansion-panel-header>
@@ -1082,23 +1082,17 @@
               </div>
             </div>
           </mat-expansion-panel>
-          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" disabled hideToggle>
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" [disabled]="healthIffcoTrue3">
             <mat-expansion-panel-header>
               <mat-panel-title> SUMMARY DETAILS </mat-panel-title>
             </mat-expansion-panel-header>
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
-                <div class="col-sm-4 col-xs-4">
+                <div class="col-sm-12 col-xs-12">
                   <h4><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
-                </div>
-                <div class="col-sm-8 col-xs-8">
-                  <ul class="summary-head">
-                    <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Total Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{buyProductdetails.total_premium}}</span> /</li>
-                    <!--<li><span>Gross Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{policy.GrossPremium}}</span> </li>-->
-                    <li><span>Service Tax:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{buyProductdetails.service_tax}}</span> </li>
-                    <li></li>
-                  </ul>
+                  <h4><span style="font-size: 17px; color: #666;">Insurer: &nbsp;</span> <img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /></h4>
+                  <h4><span style="font-size: 17px; color: #666;">Total Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.total_premium}}</span></h4>
+                  <h4><span style="font-size: 17px; color: #666;">Service Tax: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.service_tax}}</span></h4>
                 </div>
               </div>
               <section>
