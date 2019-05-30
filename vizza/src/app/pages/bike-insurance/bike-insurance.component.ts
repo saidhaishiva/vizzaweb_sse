@@ -218,10 +218,8 @@ export class BikeInsuranceComponent implements OnInit {
                             width: '1500px',data: {listData: successData.ResponseObject},
                             height: '500'
                         })
-                    dialogRef.afterClosed().subscribe(res => {
-                        if (res) {
-                          this.router.navigate(['/bikepremium']);
-                        }
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
                     });
 
                     } else {
@@ -229,14 +227,9 @@ export class BikeInsuranceComponent implements OnInit {
                         width: '1500px',data: {listData: successData.ResponseObject},
                         height: '500'
                     })
-                    dialogRef.afterClosed().subscribe(res => {
-                        if (res) {
-                            this.router.navigate(['/bikepremium']);
-
-                        }
-
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
                     });
-
                 }
            }
 

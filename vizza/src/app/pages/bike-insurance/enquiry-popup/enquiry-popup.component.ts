@@ -316,13 +316,14 @@ export class EnquiryPopupComponent implements OnInit {
     );
   }
   public enquirySuccess(successData){
-    alert();
     if (successData.IsSuccess) {
       this.QuotationList = successData.ResponseObject;
-      console.log(this.QuotationList, ' this.QuotationList')
+      console.log(this.QuotationList, ' this.QuotationList');
       sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
       console.log(this.QuotationList,'jhkhjgkj');
       if(successData.status == true){
+        this.dialogRef.close();
+
         this.router.navigate(['/bikepremium']);
       }
 
