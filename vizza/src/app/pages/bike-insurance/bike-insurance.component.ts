@@ -220,10 +220,8 @@ export class BikeInsuranceComponent implements OnInit {
                         })
                     dialogRef.afterClosed().subscribe(res => {
                         if (res) {
-                          // /  this.router.navigate(['/bikepremium']);
-
+                          this.router.navigate(['/bikepremium']);
                         }
-
                     });
 
                     } else {
@@ -233,6 +231,8 @@ export class BikeInsuranceComponent implements OnInit {
                     })
                     dialogRef.afterClosed().subscribe(res => {
                         if (res) {
+                            this.router.navigate(['/bikepremium']);
+
                         }
 
                     });
