@@ -189,15 +189,15 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3"  maxlength="30" autocomplete="off" ></textarea>
-<!--                          <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address3 is required</mat-error>-->
+                          <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3"  maxlength="30" autocomplete="off" required></textarea>
+                          <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address3 is required</mat-error>
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 4" rows="2" formControlName="proposerAddress4"  maxlength="30" autocomplete="off" ></textarea>
-<!--                          <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address4 is required</mat-error>-->
+                          <textarea matInput placeholder="Address 4" rows="2" formControlName="proposerAddress4"  maxlength="30" autocomplete="off" required></textarea>
+                          <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address4 is required</mat-error>
 
                         </mat-form-field>
                       </div>
