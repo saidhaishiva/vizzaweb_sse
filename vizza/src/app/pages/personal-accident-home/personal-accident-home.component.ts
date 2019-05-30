@@ -192,6 +192,7 @@ export class PersonalaccidentComponent implements OnInit {
     painsurance() {
         this.firstPage = true;
         this.secondPage = false;
+        this.paProceed = true;
     }
 
 // this function will get the session data
