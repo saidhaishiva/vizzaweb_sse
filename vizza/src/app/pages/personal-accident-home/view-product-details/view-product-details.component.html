@@ -52,7 +52,7 @@
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
                   <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
-                    <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'">
+                    <mat-list-item *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" >
                       <i class="material-icons">keyboard_arrow_right</i>
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                     </mat-list-item>
@@ -112,7 +112,7 @@
               </mat-accordion>
             </div>
             <!--disktop view-->
-            <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block d-xl-block">
             <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
@@ -181,13 +181,13 @@
             </div>
 
             <!--disktop view-->
-            <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-block d-xl-block">
+            <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block d-xl-block">
             <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
 
                   <mat-nav-list *ngFor="let keys of getKeyList;let i = index">
-                    <mat-list-item *ngIf="keys.type == 2" class="nav-item" (click)="selectClaim('form1')" [style.background-color]="selectedClaimDetails == 'form1' ? '#F16D73' : 'rgb(230, 195, 196)'">
+                    <mat-list-item *ngIf="keys.type == 2" class="nav-item" (click)="selectClaim('form1')" [style.background-color]="selectedClaimDetails == 'form1' ? '#F16D73' : 'rgb(230, 195, 196)'" >
                       <i class="material-icons">keyboard_arrow_right</i>
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                     </mat-list-item>

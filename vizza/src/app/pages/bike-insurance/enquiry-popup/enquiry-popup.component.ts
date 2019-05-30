@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BikeInsuranceService} from '../../../shared/services/bike-insurance.service';
 import {DatePipe} from '@angular/common';
@@ -6,11 +6,29 @@ import {ValidationService} from '../../../shared/services/validation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 @Component({
   selector: 'app-enquiry-popup',
   templateUrl: './enquiry-popup.component.html',
-  styleUrls: ['./enquiry-popup.component.scss']
+  styleUrls: ['./enquiry-popup.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ]
 })
 export class EnquiryPopupComponent implements OnInit {
   vehicalDetails: FormGroup;
@@ -22,7 +40,13 @@ export class EnquiryPopupComponent implements OnInit {
   public QuotationList : any;
   public claimDetails : any;
   public claimAmountDetails : any;
-  constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService) {
+  public ListDetails : any;
+  public bussinessList : any;
+  constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
+  public dialogRef: MatDialogRef<EnquiryPopupComponent>,
+  @Inject(MAT_DIALOG_DATA) public data: any) {
+    this.ListDetails = this.data.listData;
+  console.log(this.ListDetails, 'this.ListDetails');
     this.vehicalDetails = this.fb.group({
       'vehicalNumber': '',
       'registrationDate': '',
@@ -41,15 +65,40 @@ export class EnquiryPopupComponent implements OnInit {
       'previousPolicyExpiry':'',
       'previousPolicyStart':''
     });
+   console.log(this.dataList, 'hgfgdjgh');
   }
 
   ngOnInit() {
     this.claimpercent();
     this.manifactureList();
-    this.sessionData();
+    this.bussinessType();
+    this.dataList();
+    this.modelList1();
+
 
   }
-  /// manufacture
+  dataList(){
+    this.vehicalDetails.patchValue({
+      'vehicalNumber': this.ListDetails.vehicle_no,
+      'registrationDate': this.ListDetails.registration_date,
+      'previousClaim': this.ListDetails.previous_claim_YN,
+      'claimamount': this.ListDetails.claim_amount,
+      'enquiry': this.ListDetails.enquiry_id,
+      'vehicleModel': this.ListDetails.vehicle_model,
+      'manufacture': this.ListDetails.vehicle_manufacture,
+      'bussiness': this.ListDetails.business_type,
+      'ncb': this.ListDetails.ncb_amount,
+      'manufactureYear': this.ListDetails.manu_yr,
+      'vehicleCC': this.ListDetails.vehicle_cc,
+      'variant': this.ListDetails.vehicle_variant,
+      'chasissNumber': this.ListDetails.chassis_no,
+      'engine': this.ListDetails.engine_no,
+      'previousPolicyExpiry': this.ListDetails.previous_policy_expiry_date,
+      'previousPolicyStart': this.ListDetails.previous_policy_start_date
+    });
+}
+
+                             /// manufacture
   manifactureList() {
     const data = {
       'platform': 'web',
@@ -206,6 +255,31 @@ export class EnquiryPopupComponent implements OnInit {
   }
   public claimFailure(error) {
   }
+
+  bussinessType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+
+    }
+    this.bikeService.getBuissnessList(data).subscribe(
+        (successData) => {
+          this.typeSuccess(successData);
+        },
+        (error) => {
+          this.typeFailure(error);
+        }
+    );
+  }
+  public typeSuccess(successData){
+    if (successData.IsSuccess) {
+      this.bussinessList = successData.ResponseObject;
+    }
+  }
+  public typeFailure(error) {
+  }
   enquiryQuation() {
     const data = {
       'platform': 'web',
@@ -227,8 +301,9 @@ export class EnquiryPopupComponent implements OnInit {
       'engine_no':this.vehicalDetails.controls['engine'].value,
       'manu_yr':this.vehicalDetails.controls['manufactureYear'].value,
       'vehicle_category':"2W",
-      'ncb_amount': '',
-      'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value
+      'ncb_amount': '20',
+      'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value,
+      'business_type': this.vehicalDetails.controls['bussiness'].value
 
     }
     this.bikeService.getEnquiryDetails(data).subscribe(
@@ -243,9 +318,12 @@ export class EnquiryPopupComponent implements OnInit {
   public enquirySuccess(successData){
     if (successData.IsSuccess) {
       this.QuotationList = successData.ResponseObject;
+      console.log(this.QuotationList, ' this.QuotationList')
       sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
       console.log(this.QuotationList,'jhkhjgkj');
-      this.router.navigate(['/bikepremium']);
+      if(successData.status == true){
+        this.router.navigate(['/bikepremium']);
+      }
 
     } else {
       this.toastr.error(successData.ErrorObject);
@@ -254,27 +332,6 @@ export class EnquiryPopupComponent implements OnInit {
   }
   public enquiryFailure(error) {
   }
-  sessionData() {
-    if (sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData != undefined) {
-      let stepper = JSON.parse(sessionStorage.enquiryFormData);
-      this.vehicalDetails = this.fb.group({
-        'enquiry': stepper.enquiry,
-        'manufacture': stepper.manufacture,
-        'manufactureYear': stepper.manufactureYear,
-        'vehicleCC': stepper.vehicleCC,
-        'variant': stepper.variant,
-        'chasissNumber': stepper.chasissNumber,
-        'engine': stepper.engine,
-        'ncb':stepper.ncb,
-        'previousPolicyExpiry':this.datePipe.transform(stepper.previousPolicyExpiry, 'y-MM-dd'),
-        'previousPolicyStart': this.datePipe.transform(stepper.previousPolicyStart, 'y-MM-dd'),
-        'vehicleModel': stepper.vehicleModel,
-      });
-    }
-    if (sessionStorage.bikeEnquiryId != '' && sessionStorage.bikeEnquiryId != undefined) {
-      this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-    }
 
-  }
 
 }
