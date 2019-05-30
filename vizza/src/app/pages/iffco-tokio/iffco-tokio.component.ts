@@ -1049,7 +1049,6 @@ export class IffcoTokioComponent implements OnInit {
     }
 
     getOccupationName(i){
-        alert('s');
         console.log(i,'indexx')
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation,'val2222');
         console.log(this.occupationDetails,'val4444444')
