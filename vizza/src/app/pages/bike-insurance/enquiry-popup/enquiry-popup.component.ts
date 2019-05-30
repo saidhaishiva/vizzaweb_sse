@@ -316,7 +316,6 @@ export class EnquiryPopupComponent implements OnInit {
     );
   }
   public enquirySuccess(successData){
-    alert();
     if (successData.IsSuccess) {
       this.QuotationList = successData.ResponseObject;
       console.log(this.QuotationList, ' this.QuotationList')

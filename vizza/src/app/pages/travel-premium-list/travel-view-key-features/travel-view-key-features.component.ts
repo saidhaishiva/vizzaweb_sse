@@ -20,7 +20,7 @@ export class TravelViewKeyFeaturesComponent implements OnInit {
     webhost: any;
     compareDetails: any;
     keyFeatureNames: any;
-    id : any;
+    id : any;  id2 : any;
     productId : any;
     getKeyList : any;
     productDocLists : any;
