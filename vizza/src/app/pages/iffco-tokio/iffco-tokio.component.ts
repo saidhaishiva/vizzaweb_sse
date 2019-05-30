@@ -177,7 +177,7 @@ export class IffcoTokioComponent implements OnInit {
             proposerPan: '',
             proposerMarital: '',
             proposerAddress: ['', Validators.required],
-            proposerAddress2: '',
+            proposerAddress2: ['',Validators.required],
             proposerAddress3: '',
             proposerAddress4: '',
             proposerFax: '',
@@ -327,7 +327,7 @@ export class IffcoTokioComponent implements OnInit {
                 ins_days: '',
                 insurerDobError: '',
                 insurerDobValidError: '',
-                proposerInsureOccupationName:''
+                proposerInsureOccupationName:'',
             }
         );
     }
@@ -1049,7 +1049,11 @@ export class IffcoTokioComponent implements OnInit {
     }
 
     getOccupationName(i){
+        console.log(i,'indexx')
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation,'val2222');
+        console.log(this.occupationDetails,'val4444444')
         this.insureArray['controls'].items['controls'][i]['controls'].proposerInsureOccupationName.patchValue(this.occupationDetails[this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation]);
+        console.log(this.insureArray['controls'].items['controls'][i]['controls'].proposerInsureOccupationName,'valueee');
     }
     sessionData() {
         console.log('inside');

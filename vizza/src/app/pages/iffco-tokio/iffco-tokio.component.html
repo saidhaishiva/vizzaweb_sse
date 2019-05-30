@@ -189,15 +189,15 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3"  maxlength="30" autocomplete="off" required></textarea>
-                          <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address3 is required</mat-error>
+                          <textarea matInput placeholder="Address 3" rows="2" formControlName="proposerAddress3"  maxlength="30" autocomplete="off" ></textarea>
+<!--                          <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address3 is required</mat-error>-->
 
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address 4" rows="2" formControlName="proposerAddress4"  maxlength="30" autocomplete="off" required></textarea>
-                          <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address4 is required</mat-error>
+                          <textarea matInput placeholder="Address 4" rows="2" formControlName="proposerAddress4"  maxlength="30" autocomplete="off" ></textarea>
+<!--                          <mat-error *ngIf="proposer.controls.proposerAddress2.errors?.required">Address4 is required</mat-error>-->
 
                         </mat-form-field>
                       </div>
@@ -302,8 +302,9 @@
                         </div>
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" (change)="getOccupationName()" required class="w-100">
+                            <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" (change)="getOccupationName(i)" required class="w-100">
                               <mat-option  *ngFor="let occupation of occupationDetails | keys"  [value]= 'occupation.key'> {{occupation.value}} </mat-option>
+
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Occupation is required</mat-error>
                           </mat-form-field>
@@ -455,7 +456,7 @@
           </mat-accordion>
         </mat-step>
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>SUMMARAY</ng-template>
+          <ng-template matStepLabel>SUMMARY</ng-template>
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-4">
@@ -480,7 +481,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{personalFormData.proposerTitle}} {{personalFormData.proposerFirstname}} {{personalFormData.proposerLastname}}</li>
+                      <li class="list-group-item"><strong>Name:</strong> {{personalFormData.proposerTitle}}{{'. '}} {{personalFormData.proposerFirstname}}{{' '}} {{personalFormData.proposerLastname}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{personalFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Personal Email Id:</strong> {{personalFormData.proposerEmail}}</li>
                       <li class="list-group-item"><strong>Mobile Number:</strong> {{personalFormData.proposerMobile}}</li>
@@ -1092,9 +1093,8 @@
                 <div class="col-sm-12 col-xs-12">
                   <h4><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
                   <h4><span style="font-size: 17px; color: #666;">Insurer: &nbsp;</span> <img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /></h4>
-                  <h4><span style="font-size: 17px; color: #666;">Total Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.net_premium_payable}}</span></h4>
-                  <h4><span style="font-size: 17px; color: #666;">Gross Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.gross_premium}}</span></h4>
-                  <h4><span style="font-size: 17px; color: #666;">Service Tax: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.service_tax}}</span></h4>
+                  <h4><span style="font-size: 17px; color: #666;">Total Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.total_premium}}</span></h4>
+                  <h4><span style="font-size: 17px; color: #666;">Service Tax: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.service_tax}}</span></h4>
                 </div>
               </div>
               <section>
