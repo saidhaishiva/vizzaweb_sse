@@ -1,4 +1,4 @@
-
+<h5>Verify Your Vehicle Details</h5>
 <form [formGroup]="vehicalDetails">
   <div class="row">
     <div class="col-md-3">
@@ -96,7 +96,7 @@
       </mat-form-field>
     </div>
     <div class="col-md-3">
-      <mat-form-field class="w-50">
+      <mat-form-field class="w-100">
         <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event)" formControlName="manufactureYear"  required>
         <mat-error *ngIf="vehicalDetails.controls.manufactureYear.errors?.required">Manufacture Year is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
