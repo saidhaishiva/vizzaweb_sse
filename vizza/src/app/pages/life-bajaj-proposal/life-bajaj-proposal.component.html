@@ -641,14 +641,14 @@
                                       <mat-select  placeholder="Family Member" formControlName="family_member" class="w-100"  required>
                                         <mat-option *ngFor="let list of familyMemberList | keys" [value]= list.value> {{list.value}} </mat-option>
                                       </mat-select>
-                                      <mat-error *ngIf="familyDiseaseForm.get('family').controls[i].controls.age.invalid">Family Member is required</mat-error>
+                                      <!--<mat-error *ngIf="familyDiseaseForm.get('family').controls[i].controls.family_member.invalid">Family Member is required</mat-error>-->
                                     </mat-form-field>
                                   </div>
 
                                   <div class="col-md-3">
                                     <mat-form-field class="w-100">
                                       <input matInput placeholder="Age"  formControlName="age" (keypress)="numberValidate($event)" maxlength="3"  autocomplete="off" required>
-                                      <mat-error *ngIf="familyDiseaseForm.get('family').controls[i].controls.age.errors.required">Age is required</mat-error>
+                                      <!--<mat-error *ngIf="familyDiseaseForm.get('family').controls[i].controls.age.invalid">Age is required</mat-error>-->
                                     </mat-form-field>
                                   </div>
                                   <div class="col-md-3">
@@ -656,13 +656,13 @@
                                       <mat-select  placeholder="Health Status" formControlName="health_status" class="w-100" (change)="changeHealthStatus(i)" required>
                                         <mat-option *ngFor="let list of healthStatusList | keys" [value]= list.value> {{list.value}} </mat-option>
                                       </mat-select>
-                                      <mat-error *ngIf="familyDiseaseForm.invalid">Health Status is required</mat-error>
+                                      <!--<mat-error *ngIf="familyDiseaseForm.invalid">Health Status is required</mat-error>-->
                                     </mat-form-field>
                                   </div>
                                   <div class="col-md-3" *ngIf="familyDiseaseForm['controls'].family['controls'][i]['controls'].health_status.value == 'Not Alive'">
                                     <mat-form-field class="w-100">
                                       <input matInput placeholder="Died Age"  formControlName="died_age" (keypress)="numberValidate($event)"  maxlength="3" autocomplete="off" >
-                                      <mat-error *ngIf="familyDiseaseForm.invalid">Died Age is required</mat-error>
+                                      <!--<mat-error *ngIf="familyDiseaseForm.invalid">Died Age is required</mat-error>-->
                                     </mat-form-field>
                                   </div>
                                   <div class="col-md-3" *ngIf="familyDiseaseForm['controls'].family['controls'][i]['controls'].health_status.value == 'Not Alive'">
@@ -670,7 +670,7 @@
                                       <mat-select  placeholder="Cause Of Death" formControlName="cause_death" (change)="changeCauseOfDeath()" class="w-100"  >
                                         <mat-option *ngFor="let list of causeOfDeathList | keys" [value]= list.key> {{list.value}} </mat-option>
                                       </mat-select>
-                                      <mat-error *ngIf="familyDiseaseForm.invalid">Cause Of Death is required</mat-error>
+                                      <!--<mat-error *ngIf="familyDiseaseForm.invalid">Cause Of Death is required</mat-error>-->
                                     </mat-form-field>
                                   </div>
                                   </div>
