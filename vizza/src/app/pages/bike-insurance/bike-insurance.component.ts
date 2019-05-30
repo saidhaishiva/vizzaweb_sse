@@ -115,6 +115,11 @@ export class BikeInsuranceComponent implements OnInit {
     setSession(){
         sessionStorage.enquiryFormData = JSON.stringify(this.bikeInsurance.value);
     }
+    changeNcbAmt(){
+      if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
+          this.bikeInsurance.controls['ncb'].patchValue('0');
+      }
+    }
     manufactureYear(){
         let start = new Date(this.bikeInsurance.controls['previousPolicyStart'].value);
         let getPolicyYear = start.getFullYear();
@@ -215,7 +220,7 @@ export class BikeInsuranceComponent implements OnInit {
                     sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
                     sessionStorage.enquiryFormData = JSON.stringify(data);
                         let dialogRef = this.dialog.open(EnquiryPopupComponent, {
-                            width: '1500px',data: {listData: successData.ResponseObject},
+                            width: '1500px',data: {listData: successData.ResponseObject, disableClose: true },
                             height: '500'
                         })
                     dialogRef.disableClose = true;
@@ -224,7 +229,7 @@ export class BikeInsuranceComponent implements OnInit {
 
                     } else {
                     let dialogRef = this.dialog.open(EnquiryPopupComponent, {
-                        width: '1500px',data: {listData: successData.ResponseObject},
+                        width: '1500px',data: {listData: successData.ResponseObject, disableClose: true},
                         height: '500'
                     })
                     dialogRef.disableClose = true;
