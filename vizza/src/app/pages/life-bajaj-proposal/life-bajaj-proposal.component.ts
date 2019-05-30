@@ -1864,7 +1864,10 @@ samerelationShip(){
 
   }
   changeCauseOfDeath(i) {
+      console.log(this.causeOfDeathList[this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.value]);
       this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death_name.patchValue(this.causeOfDeathList[this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.value]);
+
+ console.log(this.familyDiseaseForm.value.family, 'this.familyDiseaseForm');
   }
   changeBank() {
     if(this.bankDetail.controls['bankName'].value == 'OTHER') {

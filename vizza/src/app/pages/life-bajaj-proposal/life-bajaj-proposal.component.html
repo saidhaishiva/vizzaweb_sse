@@ -591,10 +591,10 @@
                     <div class="" *ngFor="let item of lists; let j = index">
                             <div class="row">
                               <div class="col-md-12">
-                                <h6 class="color-blue" *ngIf="j == 0">{{item.displayTittle}}</h6>
+                                <h6 class="color-blue" *ngIf="j == 0">{{item.displayTittle | uppercase}}</h6>
                               </div>
                             <div class="col-md-10">
-                              {{j+1}}. {{item.mainQuestion.question | uppercase}}
+                              {{j+1}}. {{item.mainQuestion.question}}
                               <div class="container" *ngIf="item.mainQuestion.feild == 'Y/N'" >
                                 <div class="row" *ngFor="let subLiss of item.mainQuestion.subQuestion; let k = index">
                                   <div class="col-md-12" *ngIf="item.mainQuestion.checked">
@@ -641,14 +641,14 @@
                                       <mat-select  placeholder="Family Member" formControlName="family_member" class="w-100"  required>
                                         <mat-option *ngFor="let list of familyMemberList | keys" [value]= list.value> {{list.value}} </mat-option>
                                       </mat-select>
-                                      <mat-error *ngIf="familyDiseaseForm.invalid">Family Member is required</mat-error>
+                                      <mat-error *ngIf="familyDiseaseForm.get('family').controls[i].controls.age.invalid">Family Member is required</mat-error>
                                     </mat-form-field>
                                   </div>
 
                                   <div class="col-md-3">
                                     <mat-form-field class="w-100">
                                       <input matInput placeholder="Age"  formControlName="age" (keypress)="numberValidate($event)" maxlength="3"  autocomplete="off" required>
-                                      <mat-error *ngIf="familyDiseaseForm.invalid">Age is required</mat-error>
+                                      <mat-error *ngIf="familyDiseaseForm.get('family').controls[i].controls.age.errors.required">Age is required</mat-error>
                                     </mat-form-field>
                                   </div>
                                   <div class="col-md-3">
