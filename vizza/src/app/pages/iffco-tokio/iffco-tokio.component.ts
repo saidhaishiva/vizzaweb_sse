@@ -838,7 +838,7 @@ export class IffcoTokioComponent implements OnInit {
                     'Occupation': this.insuredDetails.items[i].proposerOccupation,
                     'PreviousPolicyFlag': "N",
                     'InsuredPrimaryFlag': "Y",
-                    'SumInsured': "300000",
+                    'SumInsured': this.buyProductdetails.suminsured_amount,
                     'LastName': this.insuredDetails.items[i].proposerLastname,
                     'Salutation': this.insuredDetails.items[i].proposerTitle,
                     'MemberId': "17680879",
