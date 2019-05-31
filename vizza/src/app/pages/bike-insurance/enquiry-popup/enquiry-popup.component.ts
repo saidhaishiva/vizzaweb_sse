@@ -314,7 +314,7 @@ export class EnquiryPopupComponent implements OnInit {
       'engine_no':this.vehicalDetails.controls['engine'].value,
       'manu_yr':this.vehicalDetails.controls['manufactureYear'].value,
       'vehicle_category':"2W",
-      'ncb_amount': '20',
+      'ncb_percent': this.vehicalDetails.controls['ncb'].value,
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value,
       'business_type': this.vehicalDetails.controls['bussiness'].value
 
