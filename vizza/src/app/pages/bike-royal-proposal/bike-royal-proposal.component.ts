@@ -499,6 +499,118 @@ public apponiteeList: boolean;
         // }
 
     }
+    // proposal creation
+proposal(){
+  const data = {
+
+    "CALCULATEPREMIUMREQUEST": {
+    "proposerDetails": {
+          'title': this.proposer.controls['title'].value,
+          'firstName': this.proposer.controls['firstname'].value,
+          'lastName':  this.proposer.controls['lastname'].value,
+          'emailId':  this.proposer.controls['email'].value,
+          'mobileNo':  this.proposer.controls['mobile'].value,
+          'dateOfBirth':  this.proposer.controls['dob'].value,
+          'occupation':  this.proposer.controls['occupation'].value,
+          'nomineeName': "nomineename",
+          'nomineeAge': "43",
+          'relationshipWithNominee': "Cousin",
+          'guardianName': "guardianname",
+          'guardianAge': "54",
+          'relationshipwithGuardian': "Mother",
+          'permanentAddress1':  this.proposer.controls['address'].value,
+          'permanentAddress2':  this.proposer.controls['address2'].value,
+          'permanentAddress3':  this.proposer.controls['address3'].value,
+          'permanentAddress4':  this.proposer.controls['address4'].value,
+          'permanentCity': this.proposer.controls['city'].value,
+          'permanentPincode':  this.proposer.controls['pincode'].value,
+          'sameAdressReg': this.proposer.controls['sameas'].value,
+          'ResidenceAddressOne':  this.proposer.controls['raddress'].value,
+          'ResidenceAddressTwo':  this.proposer.controls['raddress2'].value,
+          'ResidenceAddressThree':  this.proposer.controls['raddress3'].value,
+          'ResidenceAddressFour':  this.proposer.controls['raddress2'].value,
+          'ResidenceCity': this.proposer.controls['rcity'].value,
+          'ResidencePinCode':  this.proposer.controls['rpincode'].value,
+          'passwordResetted': "",
+          'strStdCode': "044",
+          'strPhoneNo': "2456984"
+    },
+    "vehicleDetails": {
+      "vehicleModelCode": "ZWTV301",
+          "planOpted": "Flexi Plan",
+          "yearOfManufacture": "2018",
+          "drivingExperience": "1",
+          "voluntaryDeductible": "",
+          "vehicleManufacturerName": "MAHINDRA",
+          "engineProtectorPremium": "",
+          "idv": "50360",
+          "vehicleMostlyDrivenOn": "City roads",
+          "vehicleRegisteredInTheNameOf": "individual",
+          "modelName": "Activa 3G",
+          "vehicleRegDate": "15/04/2018",
+          "isPreviousPolicyHolder": "True",
+          "previousPolicyExpiryDate": "16/05/2019",
+          "previousPolicyNo": "",
+          "policyTerm": "3",
+          "idvFor2Year": "50360",
+          "idvFor3Year": "50360",
+          "previousInsurerName": "Bharti AXA General Insurance Co. Ltd.",
+          "registrationNumber": "MH-01-AA-1234",
+          "productName": "RolloverTwoWheeler",
+          "engineProtector": "off",
+          "depreciationWaiver": "off",
+          "companyNameForCar": "xerago",
+          "engineNumber": "565465466",
+          "chassisNumber": "5654656",
+          "previousPolicyType": "Comprehensive",
+          "isTwoWheelerFinanced": "",
+          "isTwoWheelerFinancedValue": "",
+          "financierName": "",
+          "vehicleSubLine": "motorCycle",
+          "registrationchargesRoadtax": "off",
+          "fuelType": "Petrol",
+          "automobileAssociationMembership": "no",
+          "region": "West Region",
+          "carRegisteredCity": "MUMBAI",
+          "averageMonthlyMileageRun": "1000",
+          "isProductCheck": "true",
+          "product": "",
+          "engineCapacityAmount": "109.2 CC",
+          "personalAccidentCoverForUnnamedPassengers": [
+        "",
+        "100000"
+      ],
+          "accidentCoverForPaidDriver": [
+        "",
+        "100000"
+      ],
+          "legalliabilityToPaidDriver": "Yes",
+          "legalliabilityToEmployees": "No",
+          "policyStartDate": "17/04/2019",
+          "cover_elec_acc": "No",
+          "nonElectricalAccesories": {
+        "nonelectronicAccessoriesDetails": {
+          "NameOfElectronicAccessories": "Tyre",
+              "MakeModel": "TVS",
+              "Value": "0"
+        }
+      },
+      "electricalAccessories": {
+        "electronicAccessoriesDetails": {
+          "NameOfElectronicAccessories": "Headlight",
+              "MakeModel": "Philips",
+              "Value": "0"
+        }
+      },
+      "vechileOwnerShipChanged": "No",
+          "claimsMadeInPreviousPolicy": "no",
+          "claimAmountReceived": "0",
+          "claimsReported": "0",
+          "ncbprevious": "1"
+    }
+  }
+  }
+}
 //session Data
   sessionData(){
     if(sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
