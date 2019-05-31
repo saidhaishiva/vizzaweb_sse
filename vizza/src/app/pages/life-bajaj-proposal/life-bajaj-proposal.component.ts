@@ -195,7 +195,7 @@ export class LifeBajajProposalComponent implements OnInit {
       motherName: '',
       fatherName: '',
       ifYesGiveDetails: '',
-      panNum:['', Validators.compose([ Validators.minLength(10)])],
+      panNum:['', Validators.compose([Validators.required, Validators.minLength(10)])],
       politicallyExposedPerson: '',
       countryIpMailing: '',
       relation: '',
