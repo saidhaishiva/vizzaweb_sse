@@ -129,7 +129,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="In the past six months has your body weight changed" formControlName="weightChanged" required  class="w-100">
+                          <mat-select  placeholder="Past six months has your body weight changed" formControlName="weightChanged" required  class="w-100">
                             <mat-option value="SAME"> SAME </mat-option>
                             <mat-option value="GAINED"> GAINED </mat-option>
                             <mat-option value="LOST"> LOST </mat-option>
@@ -150,87 +150,6 @@
                           <mat-error *ngIf="proposer.controls.weightChangedreason.errors?.required">Weight changed is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3"><mat-form-field class="w-100">
-                        <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNum"  autocomplete="off" >
-                        <mat-error *ngIf="proposer.controls.aadharNum.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
-                      </mat-form-field></div>
-                      <div class="col-md-3 mt-4">
-                        <mat-checkbox formControlName="isPancard" (change)="isPancardChecked($event)" ><strong>If PAN Card </strong></mat-checkbox>
-                      </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value">
-                        <mat-form-field class="w-100" >
-                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="panNum"  (keypress)="idValidate($event)" autocomplete="off">
-                          <mat-error *ngIf="proposer.controls.panNum.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
-                          <mat-error *ngIf="proposer.controls.panNum.hasError('pattern')"> Enter Valid PAN Number </mat-error>
-                          <mat-error *ngIf="proposer.controls.panNum.errors?.required">PAN Number is required</mat-error>
-                        </mat-form-field>
-                      </div>
-
-                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
-                        <mat-form-field class="w-100">
-                            <input matInput placeholder="Amount of transaction" formControlName="amtTransaction" (keypress)="numberValidate($event)"  readonly autocomplete="off">
-<!--                            <mat-error *ngIf="proposer.controls.amtTransaction.errors?.required">Enter changed Weight</mat-error>-->
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
-                        <mat-form-field class="w-100">
-                            <input matInput placeholder="In case of transaction in joint names" formControlName="jointAcName" (keypress)="numberValidate($event)"  autocomplete="off">
-<!--                            <mat-error *ngIf="proposer.controls.jointAcName.errors?.required">Enter changed Weight</mat-error>-->
-                        </mat-form-field>
-                      </div>
-
-                        <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
-                            <mat-form-field class="w-100">
-                                <mat-select  placeholder="Mode Of Transaction" formControlName="modeOfTransaction" class="w-100">
-                                    <mat-option *ngFor="let list of modeOfTransactionList | keys" [value]= list.value> {{list.value}} </mat-option>
-                                </mat-select>
-    <!--                        <mat-error *ngIf="proposer.controls.modeOfTransaction.errors?.required">Proposer Type is required</mat-error>-->
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-md-3 mt-4" *ngIf="proposer.controls['isPancard'].value == false">
-                            <mat-checkbox formControlName="isAppliedPan"  ><strong>If applied for PAN and it is not yet </strong></mat-checkbox>
-                        </div>
-
-                        <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == true">
-                            <mat-form-field class="w-100">
-                                <input matInput [matDatepicker]="picker3" [max]="today"  placeholder="Date Of Application (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dateofapplication" (dateInput)="dateOfApplicationEvent($event)" (dateChange)="dateOfApplicationEvent($event)" minlength="10" maxlength="10"
-                                       autocomplete="off"  >
-                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                <mat-datepicker #picker3></mat-datepicker>
-<!--                            <mat-error *ngIf="proposer.controls.dateofapplication.errors?.required">DOB is required</mat-error>-->
-                            </mat-form-field>
-                            <div class="error" *ngIf="dopDateError != ''">{{dopDateError}}</div>
-                        </div>
-
-                        <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == true">
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Acknowledgement Number" formControlName="ackNumber" maxlength="15" (keypress)="idValidate($event)"  autocomplete="off">
-                                <!--  <mat-error *ngIf="proposer.controls.ackNumber.errors?.required">Enter changed Weight</mat-error>-->
-                            </mat-form-field>
-                        </div>
-                        <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == false">
-                           <strong>fill estimated total income (including income of spouse, minor child etc. as per section 64 of Income-tax Act, 1961) for the financial year in which the above transaction is held</strong>
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Total Income" formControlName="totalIncome" maxlength="30" (keypress)="numberValidate($event)"  autocomplete="off">
-                                <!--  <mat-error *ngIf="proposer.controls.totalIncome.errors?.required">Enter changed Weight</mat-error>-->
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && (proposer['controls'].occupationList.value == 'A' || proposer['controls'].nationality.value != 'IN')">
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Agricultural Income" formControlName="agriculturalIncome" maxlength="30" (keypress)="numberValidate($event)"  autocomplete="off">
-                                <!--  <mat-error *ngIf="proposer.controls.agriculturalIncome.errors?.required">Enter changed Weight</mat-error>-->
-                            </mat-form-field>
-                        </div>
-
-                        <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && (proposer['controls'].occupationList.value == 'A' || proposer['controls'].nationality.value != 'IN')">
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Other Than Agricultural Income" formControlName="otherAgriculturalIncome" maxlength="30" (keypress)="numberValidate($event)"  autocomplete="off">
-                                <!--  <mat-error *ngIf="proposer.controls.agriculturalIncome.errors?.required">Enter changed Weight</mat-error>-->
-                            </mat-form-field>
-                        </div>
-
 
 
                         <div class="col-md-3">
@@ -295,6 +214,89 @@
                       <div class="col-md-3" *ngIf="proposer.controls['politicallyExposedPerson'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="If Yes Give Details" formControlName="ifYesGiveDetails" class="nospace"  maxlength="45" autocomplete="off">
+                        </mat-form-field>
+                      </div>
+
+
+                      <div class="col-md-3 mt-4">
+                        <mat-checkbox formControlName="isPancard" (change)="isPancardChecked($event)" ><strong>If PAN Card </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value">
+                        <mat-form-field class="w-100" >
+                          <input matInput placeholder="PAN Number"  minlength="10" class="text-uppercase"   maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="panNum"  (keypress)="idValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="proposer.controls.panNum.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                          <mat-error *ngIf="proposer.controls.panNum.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+                          <mat-error *ngIf="proposer.controls.panNum.errors?.required">PAN Number is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3"><mat-form-field class="w-100">
+                        <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNum"  autocomplete="off" >
+                        <mat-error *ngIf="proposer.controls.aadharNum.errors?.required">Aadhar Number is required</mat-error>
+                        <mat-error *ngIf="proposer.controls.aadharNum.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
+                      </mat-form-field></div>
+
+                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Amount of transaction" formControlName="amtTransaction" (keypress)="numberValidate($event)"  readonly autocomplete="off">
+                          <!--  <mat-error *ngIf="proposer.controls.amtTransaction.errors?.required">Enter changed Weight</mat-error>-->
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="In case of transaction in joint names" formControlName="jointAcName" (keypress)="numberValidate($event)"  autocomplete="off">
+                          <!--                            <mat-error *ngIf="proposer.controls.jointAcName.errors?.required">Enter changed Weight</mat-error>-->
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
+                        <mat-form-field class="w-100">
+                          <mat-select  placeholder="Mode Of Transaction" formControlName="modeOfTransaction" class="w-100">
+                            <mat-option *ngFor="let list of modeOfTransactionList | keys" [value]= list.value> {{list.value}} </mat-option>
+                          </mat-select>
+                          <!--                        <mat-error *ngIf="proposer.controls.modeOfTransaction.errors?.required">Proposer Type is required</mat-error>-->
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-6 mt-4" *ngIf="proposer.controls['isPancard'].value == false">
+                        <mat-checkbox formControlName="isAppliedPan"  ><strong>If applied for PAN and it is not yet </strong></mat-checkbox>
+                      </div>
+
+                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput [matDatepicker]="picker3" [max]="today"  placeholder="Date Of Application (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dateofapplication" (dateInput)="dateOfApplicationEvent($event)" (dateChange)="dateOfApplicationEvent($event)" minlength="10" maxlength="10"
+                                 autocomplete="off"  >
+                          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                          <mat-datepicker #picker3></mat-datepicker>
+                          <!--                            <mat-error *ngIf="proposer.controls.dateofapplication.errors?.required">DOB is required</mat-error>-->
+                        </mat-form-field>
+                        <div class="error" *ngIf="dopDateError != ''">{{dopDateError}}</div>
+                      </div>
+
+                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == true">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Acknowledgement Number" formControlName="ackNumber" maxlength="15" (keypress)="idValidate($event)"  autocomplete="off">
+                          <!--  <mat-error *ngIf="proposer.controls.ackNumber.errors?.required">Enter changed Weight</mat-error>-->
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-12" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == false">
+                        <note>fill estimated total income (including income of spouse, minor child etc. as per section 64 of Income-tax Act, 1961) for the financial year in which the above transaction is held</note>
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Total Income" formControlName="totalIncome" maxlength="30" (keypress)="numberValidate($event)"  autocomplete="off">
+                          <!--  <mat-error *ngIf="proposer.controls.totalIncome.errors?.required">Enter changed Weight</mat-error>-->
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && (proposer['controls'].occupationList.value == 'A' || proposer['controls'].nationality.value != 'IN')">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Agricultural Income" formControlName="agriculturalIncome" maxlength="30" (keypress)="numberValidate($event)"  autocomplete="off">
+                          <!--  <mat-error *ngIf="proposer.controls.agriculturalIncome.errors?.required">Enter changed Weight</mat-error>-->
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && (proposer['controls'].occupationList.value == 'A' || proposer['controls'].nationality.value != 'IN')">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Other Than Agricultural Income" formControlName="otherAgriculturalIncome" maxlength="30" (keypress)="numberValidate($event)"  autocomplete="off">
+                          <!--  <mat-error *ngIf="proposer.controls.agriculturalIncome.errors?.required">Enter changed Weight</mat-error>-->
                         </mat-form-field>
                       </div>
 

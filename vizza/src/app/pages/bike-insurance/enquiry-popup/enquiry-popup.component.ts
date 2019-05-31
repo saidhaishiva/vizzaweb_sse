@@ -280,7 +280,7 @@ export class EnquiryPopupComponent implements OnInit {
   }
   public typeFailure(error) {
   }
-  enquiryQuation() {
+  enquiryQuation(value) {
     const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
