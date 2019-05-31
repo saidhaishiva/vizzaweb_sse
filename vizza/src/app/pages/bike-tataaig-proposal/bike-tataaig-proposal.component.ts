@@ -381,36 +381,36 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
 
-    financiertype(event: any) {
-        console.log(event.length,'length');
-        if (event.length >= 3) {
-            if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
-                const data = {
-                    'platform': 'web',
-                    'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-                    'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-                    'type': this.vehicle.controls['banktype'].value,
-                    'name': event,
-                };
-                this.bikeinsurance.Finacetype(data).subscribe(
-                    (successData) => {
-                        this.FinanceSuccess(successData);
-                    },
-                    (error) => {
-                        this.FinanceFailure(error);
-                    }
-                );
-            }
-        }
-    }
-
-    FinanceSuccess(successData) {
-        this.banklist = successData.ResponseObject;
-    }
-
-    FinanceFailure(error) {
-
-    }
+    // financiertype(event: any) {
+    //     console.log(event.length,'length');
+    //     if (event.length >= 3) {
+    //         if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
+    //             const data = {
+    //                 'platform': 'web',
+    //                 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //                 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    //                 'type': this.vehicle.controls['banktype'].value,
+    //                 'name': event,
+    //             };
+    //             this.bikeinsurance.Finacetype(data).subscribe(
+    //                 (successData) => {
+    //                     this.FinanceSuccess(successData);
+    //                 },
+    //                 (error) => {
+    //                     this.FinanceFailure(error);
+    //                 }
+    //             );
+    //         }
+    //     }
+    // }
+    //
+    // FinanceSuccess(successData) {
+    //     this.banklist = successData.ResponseObject;
+    // }
+    //
+    // FinanceFailure(error) {
+    //
+    // }
 
 
     chooseflag(event: any) {
@@ -507,7 +507,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatanominee = '';
         sessionStorage.tatanominee = JSON.stringify(value);
         if (this.nominee.valid) {
-            this.QuoteList(stepper);
+            // this.QuoteList(stepper);
         }
     }
 
@@ -587,32 +587,32 @@ export class BikeTataaigProposalComponent implements OnInit {
         }
     }
 
-    QuoteList(stepper) {
-        const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-        };
-        this.bikeinsurance.QuoteList(data).subscribe(
-            (successData) => {
-                this.QuoteSuccess(successData,stepper);
-            },
-            (error) => {
-                this.QuoteFailure(error);
-            }
-        );
-    }
-
-    QuoteSuccess(successData,stepper) {
-        if (successData.IsSuccess) {
-            this.Quotelist = successData.ResponseObject;
-            this.createproposal(stepper);
-        }
-    }
-
-    QuoteFailure(error) {
-
-    }
+    // QuoteList(stepper) {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    //     };
+    //     this.bikeinsurance.QuoteList(data).subscribe(
+    //         (successData) => {
+    //             this.QuoteSuccess(successData,stepper);
+    //         },
+    //         (error) => {
+    //             this.QuoteFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // QuoteSuccess(successData,stepper) {
+    //     if (successData.IsSuccess) {
+    //         this.Quotelist = successData.ResponseObject;
+    //         this.createproposal(stepper);
+    //     }
+    // }
+    //
+    // QuoteFailure(error) {
+    //
+    // }
 
     //Proposal Creation
     createproposal(stepper: MatStepper) {

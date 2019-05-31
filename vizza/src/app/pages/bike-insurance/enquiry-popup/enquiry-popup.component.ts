@@ -336,4 +336,7 @@ export class EnquiryPopupComponent implements OnInit {
   }
 
 
+  close(): void {
+    this.dialogRef.close();
+  }
 }
