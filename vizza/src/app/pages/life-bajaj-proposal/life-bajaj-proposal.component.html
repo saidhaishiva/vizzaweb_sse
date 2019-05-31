@@ -279,7 +279,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-12" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == false">
-                        <note>fill estimated total income (including income of spouse, minor child etc. as per section 64 of Income-tax Act, 1961) for the financial year in which the above transaction is held</note>
+                        <span>fill estimated total income (including income of spouse, minor child etc. as per section 64 of Income-tax Act, 1961) for the financial year in which the above transaction is held</span>
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Total Income" formControlName="totalIncome" maxlength="30" (keypress)="numberValidate($event)"  autocomplete="off">
                           <!--  <mat-error *ngIf="proposer.controls.totalIncome.errors?.required">Enter changed Weight</mat-error>-->
