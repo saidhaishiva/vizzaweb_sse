@@ -248,9 +248,9 @@
                               </mat-form-field>
                           </div>
                         <div class="col-md-4"><mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
-                          <mat-datepicker-toggle matSuffix [for]="picker" disabled="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}"></mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker>
+                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
+                          <mat-datepicker-toggle matSuffix [for]="picker1" disabled="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="hdfcInsureArray.invalid">DOB is required</mat-error>
                         </mat-form-field>
                           <p class="error mb-0" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
@@ -515,7 +515,7 @@
               <mat-panel-title> PROPOSER DETAILS</mat-panel-title>
             </mat-expansion-panel-header>
             <form [formGroup]="hdfcPersonal" >
-              <div class="row ">
+              <div class="row">
                 <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3">
                   <!--<h6 class="color-blue">PROPOSER DETAILS</h6>-->
                   <div class="row">
@@ -553,9 +553,9 @@
 
                     <div class="col-sm-12 col-xs-12 col-md-12">
                       <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, 'index', 'Self', 'personal')" (dateChange)="addEvent($event, 'index', 'Self', 'personal')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
+                        <input matInput [matDatepicker]="picker3" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, 'index', 'Self', 'personal')" (dateChange)="addEvent($event, 'index', 'Self', 'personal')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                        <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                        <mat-datepicker #picker3></mat-datepicker>
                         <mat-error *ngIf="hdfcPersonal.controls.dob.errors?.required">DOB is required</mat-error>
                       </mat-form-field>
                       <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
@@ -583,6 +583,20 @@
                         <mat-error *ngIf="hdfcPersonal.controls.paymentmode.errors?.required">Payment Mode is required</mat-error>
                       </mat-form-field>
                     </div>
+                    <!--<div class="col-sm-12 col-xs-12 col-md-12" *ngIf="IsCustomerAcceptedPPCPED">-->
+                    <!--<div class="row">-->
+                    <!--<div class="col-sm-12 col-xs-12 col-md-12 text-left">-->
+                    <!--<mat-checkbox formControlName="accepted" (change)="checkAccepted()" required="{{IsCustomerAcceptedPPCPED}}"></mat-checkbox>-->
+                    <!--</div>-->
+                    <!--<div class="col-sm-12 col-xs-12 col-md-12 text-left">-->
+                    <!--<strong>-->
+                    <!--Any Eligible Person above the age of 45 Years will have to accept PED and PPC .<br>-->
+                    <!--</strong>-->
+                    <!--</div>-->
+                    <!--<div class="error" *ngIf="IsCustomerAccepted">Please Check the field before next button</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+
 
                   </div>
                 </div>
@@ -641,6 +655,9 @@
                         <mat-error *ngIf="hdfcPersonal.controls.city.errors?.required">City is required</mat-error>
                       </mat-form-field>
                     </div>
+                    <!--<div class="row">-->
+                    <!--<div class="col-sm-12 col-xs-12 col-md-12 mb-3"><mat-checkbox formControlName="sameAsinsure" ><strong>Same as proposer</strong></mat-checkbox></div>-->
+                    <!--</div>-->
                   </div>
                   <div class="proposal-buttom mt-3 text-right w-100">
                     <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, hdfcPersonal.value)">Next</button>
@@ -675,6 +692,15 @@
                           <mat-error *ngIf="hdfcInsureArray.invalid">Title is required</mat-error>
                         </mat-form-field>
                       </div>
+                      <!--<div class="col-sm-12 col-xs-12 col-md-12" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">-->
+                      <!--<mat-form-field class="w-100">-->
+                      <!--<mat-select placeholder="Title" formControlName="title" required>-->
+                      <!--<mat-option value="Mr">Mr</mat-option>-->
+                      <!--<mat-option value="Ms">Ms</mat-option>-->
+                      <!--</mat-select>-->
+                      <!--<mat-error *ngIf="hdfcInsureArray.invalid">Title is required</mat-error>-->
+                      <!--</mat-form-field>-->
+                      <!--</div>-->
                       <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Title" formControlName="title"  required readonly>
@@ -719,9 +745,9 @@
                         </mat-form-field>
                       </div>
                       <div class="col-sm-12 col-xs-12 col-md-12"><mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="picker2" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
-                        <mat-datepicker-toggle matSuffix [for]="picker2" disabled="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}"></mat-datepicker-toggle>
-                        <mat-datepicker #picker2></mat-datepicker>
+                        <input matInput [matDatepicker]="picker4" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (dateChange)="addEvent($event, i, hdfcInsureArray['controls'].items['controls'][i]['controls'].type.value, 'insurer')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required readonly="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}">
+                        <mat-datepicker-toggle matSuffix [for]="picker4" disabled="{{hdfcInsureArray['controls'].items['controls'][i]['controls'].sameasInsurer.value}}"></mat-datepicker-toggle>
+                        <mat-datepicker #picker4></mat-datepicker>
                         <mat-error *ngIf="hdfcInsureArray.invalid">DOB is required</mat-error>
                       </mat-form-field>
                         <p class="error mb-0" *ngIf="hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != ''">{{hdfcInsureArray['controls'].items['controls'][i]['controls'].insurerDobError.value}}</p>
@@ -741,10 +767,10 @@
 
                       <div class="col-sm-12 col-xs-12 col-md-12" *ngIf="IsCustomerAcceptedPPCPED && i == 0">
                         <div class="row">
-                          <div class="col-sm-1 col-xs-1 text-left mt-4">
+                          <div class="col-sm-2 col-xs-2 col-md-2 text-left mt-4">
                             <mat-checkbox formControlName="accepted" (change)="checkAccepted()" ></mat-checkbox>
                           </div>
-                          <div class="col-sm-11 col-xs-11 text-left">
+                          <div class="col-sm-10 col-xs-10 col-md-10 text-left">
                             <strong>
                               Any Eligible Person above the age of 45 Years will have to accept PED and PPC .<br>
                             </strong>
@@ -775,7 +801,7 @@
                 NOMINEE DETAILS
               </mat-panel-title>
             </mat-expansion-panel-header>
-            <ng-template matStepLabel>INSURED DETAILS</ng-template>
+            <ng-template matStepLabel>NOMINEE DETAILS</ng-template>
             <div class="row mt-3">
               <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3 pb-3" >
                 <h6 class="color-blue" >NOMINEE DETAILS </h6>
@@ -869,8 +895,6 @@
                           <li class="list-group-item" *ngIf="item.preexdisease !=''"><strong>Pre Existing Disease:</strong> {{item.preexdisease}}</li>
                           <!--<li class="list-group-item" *ngIf="proposalDtails.isCustomerAccepted !='' && i == 0"><strong>Is Customer Accepted PED and PPC :</strong> Yes</li>-->
                           <!--<li class="list-group-item"><strong>Same As Insurer:</strong> <span *ngIf="proposalDtails.sameAsInsurer == 'Y' && i == 0">Yes</span><span *ngIf="proposalDtails.sameAsInsurer == 'N' && i == 0">No</span></li>-->
-
-
                         </ul>
                       </div>
                     </div>
