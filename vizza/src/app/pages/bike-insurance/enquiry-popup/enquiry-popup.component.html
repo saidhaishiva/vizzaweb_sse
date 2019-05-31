@@ -14,7 +14,6 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <!--<input matInput placeholder="Business  Type" formControlName="bussiness" maxlength="10"  required>-->
         <mat-select placeholder="Business  Type"  formControlName="bussiness"   required>
           <mat-option *ngFor="let paCity of bussinessList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
         </mat-select>
@@ -102,7 +101,7 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event)" formControlName="manufactureYear"  required>
+        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event); manufactureYear()" formControlName="manufactureYear"  required>
         <mat-error *ngIf="vehicalDetails.controls.manufactureYear.errors?.required">Manufacture Year is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>

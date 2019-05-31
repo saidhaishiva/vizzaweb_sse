@@ -120,19 +120,7 @@ export class BikeInsuranceComponent implements OnInit {
           this.bikeInsurance.controls['ncb'].patchValue('0');
       }
     }
-    manufactureYear(){
-        let start = new Date(this.bikeInsurance.controls['previousPolicyStart'].value);
-        let getPolicyYear = start.getFullYear();
-        console.log(getPolicyYear,'getPolicyYear');
-        let getLength = this.bikeInsurance.controls['manufactureYear'].value;
-        if(getLength.length == 4) {
-            if(getPolicyYear >= this.bikeInsurance.controls['manufactureYear'].value){
-            }  else {
-                this.toastr.error('Manufacture Year should be less than Registration Year');
-            }
-        }
 
-    }
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }

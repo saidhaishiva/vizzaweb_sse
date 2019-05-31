@@ -735,9 +735,9 @@
                       </div>
                       <div class="col-sm-12 col-xs-12 col-md-12">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required>
-                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker>
+                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="personalDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  (keypress)="dobValidate($event)"  minlength="10"  maxlength="10" autocomplete="off" required>
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="personal.controls.personalDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
@@ -1002,9 +1002,9 @@
                     </div>
                     <div class="col-sm-12 col-xs-12 col-md-12">
                       <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="insureddob" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required>
-                        <mat-datepicker-toggle matSuffix [for]="insureddob"></mat-datepicker-toggle>
-                        <mat-datepicker #insureddob></mat-datepicker>
+                        <input matInput [matDatepicker]="insureddob1" [max]="today" [(ngModel)]="item.ins_dob" placeholder="DOB (DD/MM/YYYY)" (dateInput)="addEventInsurerSelect($event, i, item.type)" (dateChange)="addEventInsurerSelect($event, i, item.type)" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"  required>
+                        <mat-datepicker-toggle matSuffix [for]="insureddob1"></mat-datepicker-toggle>
+                        <mat-datepicker #insureddob1></mat-datepicker>
                       </mat-form-field>
                       <div class="error" *ngIf="item.ageRestriction != ''">{{item.ageRestriction}}</div>
                       <div class="error" *ngIf="item.insurerDobError != ''">{{item.insurerDobError}}</div>
@@ -1184,7 +1184,7 @@
               <div class="row">
                 <div class="col-sm-12 col-xs-12 col-md-12">
                   <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
-                  <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Insurer: &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;"></h4>
+                  <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Insurer: &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;"></span></h4>
                   <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></h4>
                   <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">GST: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.servicetax}}</span></h4>
                   <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Total Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span></h4>
