@@ -156,6 +156,12 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
     insuredDescriptionValidator: boolean;
     codeList: boolean;
     questionId : any;
+
+    public religarePATrue0: boolean;
+    public religarePATrue1: boolean;
+    public religarePATrue2: boolean;
+    public religarePATrue3: boolean;
+
     constructor(private fb: FormBuilder, public proposalservice: HealthService, public route: ActivatedRoute, public validation: ValidationService, public personalservice: PersonalAccidentService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -213,6 +219,11 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.readonlyproposer = false;
         this.insuredDescriptionValidator = false;
         this.codeList = false;
+
+        this.religarePATrue0 = false;
+        this.religarePATrue1 = true;
+        this.religarePATrue2 = true;
+        this.religarePATrue3 = true;
 
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
@@ -517,6 +528,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     stepper.next();
                     this.topScroll();
                     this.nextStep();
+                    this.religarePATrue1 = false;
                 } else {
                     this.toastr.error('Invalid Annual Income');
 
@@ -1096,6 +1108,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
             stepper.next();
             this.topScroll();
             this.nextStep();
+            this.religarePATrue2 = false;
 
             let setMainRes = '';
             let setSubRes = '';
@@ -1325,6 +1338,9 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.lastStepper.next();
+            this.topScroll();
+            this.nextStep();
+            this.religarePATrue3 = false;
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             this.religarePAProposal = this.summaryData.proposal_id;

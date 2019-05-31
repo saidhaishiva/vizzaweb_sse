@@ -80,7 +80,7 @@ export class EnquiryPopupComponent implements OnInit {
   dataList(){
     this.vehicalDetails.patchValue({
       'vehicalNumber': this.ListDetails.vehicle_no,
-      'registrationDate': this.ListDetails.registration_date,
+      'registrationDate': this.datePipe.transform(this.ListDetails.registration_date, 'y-MM-dd'),
       'previousClaim': this.ListDetails.previous_claim_YN,
       'claimamount': this.ListDetails.claim_amount,
       'enquiry': this.ListDetails.enquiry_id,
@@ -93,8 +93,8 @@ export class EnquiryPopupComponent implements OnInit {
       'variant': this.ListDetails.vehicle_variant,
       'chasissNumber': this.ListDetails.chassis_no,
       'engine': this.ListDetails.engine_no,
-      'previousPolicyExpiry': this.ListDetails.previous_policy_expiry_date,
-      'previousPolicyStart': this.ListDetails.previous_policy_start_date
+      'previousPolicyExpiry': this.datePipe.transform(this.ListDetails.previous_policy_expiry_date, 'y-MM-dd'),
+      'previousPolicyStart': this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd')
     });
 }
 
@@ -280,6 +280,19 @@ export class EnquiryPopupComponent implements OnInit {
   }
   public typeFailure(error) {
   }
+  manufactureYear(){
+    let start = new Date(this.vehicalDetails.controls['previousPolicyStart'].value);
+    let getPolicyYear = start.getFullYear();
+    console.log(getPolicyYear,'getPolicyYear');
+    let getLength = this.vehicalDetails.controls['manufactureYear'].value;
+    if(getLength.length == 4) {
+      if(getPolicyYear >= this.vehicalDetails.controls['manufactureYear'].value){
+      }  else {
+        this.toastr.error('Manufacture Year should be less than Registration Year');
+      }
+    }
+
+  }
   enquiryQuation() {
     const data = {
       'platform': 'web',
@@ -316,13 +329,13 @@ export class EnquiryPopupComponent implements OnInit {
     );
   }
   public enquirySuccess(successData){
-    alert();
     if (successData.IsSuccess) {
       this.QuotationList = successData.ResponseObject;
-      console.log(this.QuotationList, ' this.QuotationList')
+      console.log(this.QuotationList, ' this.QuotationList');
       sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
       console.log(this.QuotationList,'jhkhjgkj');
       if(successData.status == true){
+        this.dialogRef.close();
         this.router.navigate(['/bikepremium']);
       }
 
@@ -335,4 +348,7 @@ export class EnquiryPopupComponent implements OnInit {
   }
 
 
+  close(): void {
+    this.dialogRef.close();
+  }
 }

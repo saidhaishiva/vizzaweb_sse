@@ -1,4 +1,9 @@
-
+<h5>Verify Your Vehicle Details</h5>
+<div class="col-md-12 text-right" >
+  <i class="material-icons" (click)="close()" style="cursor: pointer">
+    clear
+  </i>
+</div>
 <form [formGroup]="vehicalDetails">
   <div class="row">
     <div class="col-md-3">
@@ -9,7 +14,6 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <!--<input matInput placeholder="Business  Type" formControlName="bussiness" maxlength="10"  required>-->
         <mat-select placeholder="Business  Type"  formControlName="bussiness"   required>
           <mat-option *ngFor="let paCity of bussinessList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
         </mat-select>
@@ -18,7 +22,7 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+        <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keypress)="dobValidate($event)" formControlName="registrationDate"   maxlength="10" minlength="10" required>
         <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
         <mat-datepicker #picker1></mat-datepicker>
         <mat-error *ngIf="vehicalDetails.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
@@ -26,7 +30,7 @@
     </div>
     <div class="col-md-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
       <mat-form-field class="w-100">
-        <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="vehicalDetails.controls['registrationDate'].value" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+        <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="vehicalDetails.controls['registrationDate'].value" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  maxlength="10" minlength="10" required>
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
         <mat-error *ngIf="vehicalDetails.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
@@ -34,7 +38,7 @@
     </div>
      <div class="col-md-3" *ngIf="vehicalDetails.controls['bussiness'].value != '1' && vehicalDetails.controls['bussiness'].value != ''">
        <mat-form-field class="w-100">
-         <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+         <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"    maxlength="10" minlength="10" required>
            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
            <mat-datepicker #picker3></mat-datepicker>
            <mat-error *ngIf="vehicalDetails.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
@@ -96,8 +100,8 @@
       </mat-form-field>
     </div>
     <div class="col-md-3">
-      <mat-form-field class="w-50">
-        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event)" formControlName="manufactureYear"  required>
+      <mat-form-field class="w-100">
+        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event);manufactureYear()" formControlName="manufactureYear"  required>
         <mat-error *ngIf="vehicalDetails.controls.manufactureYear.errors?.required">Manufacture Year is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>

@@ -1218,6 +1218,7 @@ export class HealthInsuranceComponent implements OnInit {
     headinghealthinsurance(){
         this.firstPage = true;
         this.secondPage = false;
+        this.healthProceed = true;
     }
 }
 

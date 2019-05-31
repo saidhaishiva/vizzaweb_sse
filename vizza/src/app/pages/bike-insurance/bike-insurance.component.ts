@@ -115,19 +115,12 @@ export class BikeInsuranceComponent implements OnInit {
     setSession(){
         sessionStorage.enquiryFormData = JSON.stringify(this.bikeInsurance.value);
     }
-    manufactureYear(){
-        let start = new Date(this.bikeInsurance.controls['previousPolicyStart'].value);
-        let getPolicyYear = start.getFullYear();
-        console.log(getPolicyYear,'getPolicyYear');
-        let getLength = this.bikeInsurance.controls['manufactureYear'].value;
-        if(getLength.length == 4) {
-            if(getPolicyYear >= this.bikeInsurance.controls['manufactureYear'].value){
-            }  else {
-                this.toastr.error('Manufacture Year should be less than Registration Year');
-            }
-        }
-
+    changeNcbAmt(){
+      if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
+          this.bikeInsurance.controls['ncb'].patchValue('0');
+      }
     }
+
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }
@@ -215,28 +208,21 @@ export class BikeInsuranceComponent implements OnInit {
                     sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
                     sessionStorage.enquiryFormData = JSON.stringify(data);
                         let dialogRef = this.dialog.open(EnquiryPopupComponent, {
-                            width: '1500px',data: {listData: successData.ResponseObject},
+                            width: '1500px',data: {listData: successData.ResponseObject, disableClose: true },
                             height: '500'
                         })
-                    dialogRef.afterClosed().subscribe(res => {
-                        if (res) {
-                          // /  this.router.navigate(['/bikepremium']);
-
-                        }
-
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
                     });
 
                     } else {
                     let dialogRef = this.dialog.open(EnquiryPopupComponent, {
-                        width: '1500px',data: {listData: successData.ResponseObject},
+                        width: '1500px',data: {listData: successData.ResponseObject, disableClose: true},
                         height: '500'
                     })
-                    dialogRef.afterClosed().subscribe(res => {
-                        if (res) {
-                        }
-
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
                     });
-
                 }
            }
 
