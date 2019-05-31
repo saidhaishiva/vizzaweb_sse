@@ -882,12 +882,12 @@
                         </div>
 
                         <div class="row">
-                          <div class="col-sm-12 col-xs-12 col-md-12">
+                          <div class="col-sm-12 col-xs-12">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Address 1" rows="2" formControlName="residenceAddress" autocomplete="off" [readonly]="inputReadonly">
                             </mat-form-field>
                           </div>
-                          <div class="col-sm-12 col-xs-12 col-md-12">
+                          <div class="col-sm-12 col-xs-12">
                             <mat-form-field class="w-100">
                               <input matInput placeholder="Address 2" rows="2" formControlName="residenceAddress2" autocomplete="off" [readonly]="inputReadonly">
                             </mat-form-field>
@@ -1342,6 +1342,8 @@
                       </div>
                       <div class="col-sm-12 col-xs-12 col-md-12">
                         <div class="p-3">
+                      <div class="col-sm-12 col-xs-12 p-3">
+                        <div>
                           <ul class="m-0 list-group">
                             <li class="list-group-item" *ngIf="list.arelationship !=''"><strong>Relationship with insured:</strong> {{list.arelationship}}</li>
                             <!--<li class="list-group-item" ><strong>% of Claim:</strong> <span *ngIf="list.nclaim == '' || list.nclaim == 0">Nil</span> <span *ngIf="list.nclaim != ''">{{list.nclaim | limitTo : 3}}</span></li>-->
@@ -1352,7 +1354,8 @@
                   </div>
                 </div>
               </div>
-
+                </div>
+              </div>
               <p class="pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
             </section>
             <hr>
