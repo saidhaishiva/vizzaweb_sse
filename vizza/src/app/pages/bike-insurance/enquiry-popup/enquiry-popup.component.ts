@@ -293,7 +293,7 @@ export class EnquiryPopupComponent implements OnInit {
     }
 
   }
-  enquiryQuation() {
+  enquiryQuation(value) {
     const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',

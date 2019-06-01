@@ -770,14 +770,13 @@ samerelationShip(){
 
   isPancardChecked(event) {
       if(event.checked) {
-          this.proposer.controls['aadharNum'].clearValidators();
-          this.proposer.controls['aadharNum'].updateValueAndValidity();
-
-      } else {
-        this.proposer.controls['panNum'].patchValue('');
         this.proposer.controls['aadharNum'].setValidators([Validators.required]);
         this.proposer.controls['aadharNum'].updateValueAndValidity();
 
+      } else {
+        this.proposer.controls['panNum'].patchValue('');
+        this.proposer.controls['aadharNum'].clearValidators();
+        this.proposer.controls['aadharNum'].updateValueAndValidity();
       }
   }
 
