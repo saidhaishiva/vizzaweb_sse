@@ -345,7 +345,8 @@ export class EnquiryPopupComponent implements OnInit {
       'business_type': this.vehicalDetails.controls['bussiness'].value,
       'registration_city': this.vehicalDetails.controls['city'].value
 
-    }
+    };
+    sessionStorage.vehicledetails = JSON.stringify(data);
     this.bikeService.getEnquiryDetails(data).subscribe(
         (successData) => {
           this.enquirySuccess(successData);
