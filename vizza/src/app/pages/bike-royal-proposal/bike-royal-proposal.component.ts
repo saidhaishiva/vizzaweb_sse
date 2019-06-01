@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormControlName, FormGroup, Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {DatePipe} from '@angular/common';
@@ -52,6 +52,11 @@ public hypothecationTypedm: any;
 public previousList: any;
 public drivenList: any;
 public nomineeRelation: any;
+public addElectrical: any;
+public registrationNameList: any;
+public fuelTypeList: any;
+public addnonElectrical: any;
+public summaryData: any;
 public apponiteeList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
@@ -65,7 +70,6 @@ public apponiteeList: boolean;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
 
-
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       firstname: ['', Validators.required],
@@ -76,12 +80,16 @@ public apponiteeList: boolean;
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       occupation: ' ',
       address: ['', Validators.required],
-      address2: '',
+      address2: ['', Validators.required],
+      address3: '',
+      address4: '',
       pincode: ['', Validators.required],
       state: ['', Validators.required],
       city: ['', Validators.required],
       raddress: ['', Validators.required],
-      raddress2: '',
+      raddress2: ['', Validators.required],
+      raddress3: '',
+      raddress4: '',
       rpincode: ['', Validators.required],
       rstate: ['', Validators.required],
       rcity: ['', Validators.required],
@@ -101,18 +109,14 @@ public apponiteeList: boolean;
       isTwoWheelerFinanced: '',
       hypothecationType: '',
         hypothecationBankName: '',
-      hypothecationAddress2: '',
-      hypothecationAddress3: '',
         noncoverelectricalaccesss: '',
         vechileOwnerShipChanged: '',
-        claimsMadeInPreviousPolicy: '',
-        noClaimBonusPercent: '',
-        ncbcurrent: '',
-        claimAmountReceived: '',
-        claimsReported: '',
-        idvFor2Year: '',
-        idvFor3Year: '',
-
+      electricalAccess : new FormArray([
+        this.create()
+      ]),
+      nonelectricalAccess : new FormArray([
+        this.createnonElectrical()
+      ]),
     });
 
     this.previousInsure = this.fb.group({
@@ -136,11 +140,15 @@ public apponiteeList: boolean;
   ngOnInit() {
     this.title();
     this.getOccupation();
-    this.sessionData();
     this.changehypothecation();
     this.changehypothecationType();
     this.changePreviousInsureType();
     this.getVehicalMostly();
+    this.changeVehicleName();
+     this.changeFuelType();
+     this.nomineeRelationShip();
+    this.sessionData();
+
   }
   // validation
 
@@ -165,7 +173,38 @@ public apponiteeList: boolean;
     document.getElementById('main-content').scrollTop = 0;
   }
   // proposer page
-
+  create(){
+    return new FormGroup({
+      namesOfElectrical: new FormControl('', Validators.required),
+      model :  new FormControl('', Validators.required),
+      value :  new FormControl('', Validators.required),
+    });
+  }
+  addItems(){
+    this.addElectrical =  this.vehical.get('electricalAccess') as FormArray;
+    this.addElectrical.push(this.create());
+    console.log(this.addElectrical, 'this.addElectrical');
+  }
+  removeItems(index){
+    let ssss =  this.vehical.get('electricalAccess') as FormArray;
+    ssss.removeAt(index);
+  }
+  // non  electrical
+  createnonElectrical(){
+    return new FormGroup({
+      namesOfNonElectrical: new FormControl('', Validators.required),
+      modelnonElectrical :  new FormControl('', Validators.required),
+      valuenonelectrical :  new FormControl('', Validators.required),
+    });
+  }
+  addnonEelctricalItems(){
+    this.addnonElectrical =  this.vehical.get('nonelectricalAccess') as FormArray;
+    this.addnonElectrical.push(this.createnonElectrical());
+  }
+  removenonEelctricalItems(index){
+    let ssss =  this.vehical.get('nonelectricalAccess') as FormArray;
+    ssss.removeAt(index);
+  }
   // title
 
   title(){
@@ -360,6 +399,8 @@ public apponiteeList: boolean;
   }
   // vehical details
   vehicalDetails(stepper: MatStepper,value){
+    console.log(value);
+    sessionStorage.stepper2 = JSON.stringify(value);
     stepper.next();
 
   }
@@ -414,6 +455,54 @@ public apponiteeList: boolean;
   public hypothecationTypeFailure(error) {
   }
 
+  changeVehicleName() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.bikeInsurance.getRegNameLists(data).subscribe(
+        (successData) => {
+          this.nameListSuccess(successData);
+        },
+        (error) => {
+          this.nameListFailure(error);
+        }
+    );
+  }
+  public nameListSuccess(successData){
+    if (successData.IsSuccess) {
+      this.registrationNameList = successData.ResponseObject;
+    }
+  }
+  public nameListFailure(error) {
+  }
+  changeFuelType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.bikeInsurance.getFuelLists(data).subscribe(
+        (successData) => {
+          this.fuelListSuccess(successData);
+        },
+        (error) => {
+          this.fuelListFailure(error);
+        }
+    );
+  }
+  public fuelListSuccess(successData){
+    if (successData.IsSuccess) {
+      this.fuelTypeList = successData.ResponseObject;
+    }
+  }
+  public fuelListFailure(error) {
+  }
 
   // third page
 
@@ -486,7 +575,9 @@ public apponiteeList: boolean;
     nomineeDetails(stepper: MatStepper, value){
         sessionStorage.stepper4 = '';
         sessionStorage.stepper4 = JSON.stringify(value);
-        // if(this.nomineeDetail.valid){
+        this.proposal(stepper);
+
+      // if(this.nomineeDetail.valid){
         //     if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
         //         this.proposal(stepper);
         //     } else {
@@ -499,6 +590,154 @@ public apponiteeList: boolean;
         // }
 
     }
+    // proposal creation
+proposal(stepper){
+  const data = {
+
+    "CALCULATEPREMIUMREQUEST": {
+    "proposerDetails": {
+          'title': this.proposer.controls['title'].value,
+          'firstName': this.proposer.controls['firstname'].value,
+          'lastName':  this.proposer.controls['lastname'].value,
+          'emailId':  this.proposer.controls['email'].value,
+          'mobileNo':  this.proposer.controls['mobile'].value,
+          'dateOfBirth':  this.proposer.controls['dob'].value,
+          'occupation':  this.proposer.controls['occupation'].value,
+          'nomineeName': "nomineename",
+          'nomineeAge': "43",
+          'relationshipWithNominee': "Cousin",
+          'guardianName': "guardianname",
+          'guardianAge': "54",
+          'relationshipwithGuardian': "Mother",
+          'permanentAddress1':  this.proposer.controls['address'].value,
+          'permanentAddress2':  this.proposer.controls['address2'].value,
+          'permanentAddress3':  this.proposer.controls['address3'].value,
+          'permanentAddress4':  this.proposer.controls['address4'].value,
+          'permanentCity': this.proposer.controls['city'].value,
+          'permanentPincode':  this.proposer.controls['pincode'].value,
+          'sameAdressReg': this.proposer.controls['sameas'].value,
+          'ResidenceAddressOne':  this.proposer.controls['raddress'].value,
+          'ResidenceAddressTwo':  this.proposer.controls['raddress2'].value,
+          'ResidenceAddressThree':  this.proposer.controls['raddress3'].value,
+          'ResidenceAddressFour':  this.proposer.controls['raddress2'].value,
+          'ResidenceCity': this.proposer.controls['rcity'].value,
+          'ResidencePinCode':  this.proposer.controls['rpincode'].value,
+          'passwordResetted': "",
+          'strStdCode': "044",
+          'strPhoneNo': "2456984"
+    },
+    "vehicleDetails": {
+      "vehicleModelCode": "ZWTV301",
+          "planOpted": "Flexi Plan",
+          "yearOfManufacture": "2018",
+          "drivingExperience":  this.vehical.controls['drivingExperience'].value,
+          "voluntaryDeductible": '',
+          "vehicleManufacturerName":  '',
+          "engineProtectorPremium": "",
+          "idv": "50360",
+          "vehicleMostlyDrivenOn":  this.vehical.controls['vehicleMostlyDrivenOn'].value,
+          "vehicleRegisteredInTheNameOf":  this.vehical.controls['vehicleRegisteredName'].value,
+          "modelName": "Activa 3G",
+          "vehicleRegDate": "15/04/2018",
+          "isPreviousPolicyHolder": this.vehical.controls['isPreviousPolicyHolder'].value,
+          "previousPolicyExpiryDate": "16/05/2019",
+          "previousPolicyNo": "",
+          "policyTerm": "3",
+          "previousInsurerName":  this.previousInsure.controls['previousInsured'].value,
+          "registrationNumber": "MH-01-AA-1234",
+          "productName": "RolloverTwoWheeler",
+          "engineProtector": "off",
+          "depreciationWaiver": "off",
+          "companyNameForCar": "xerago",
+          "engineNumber": "565465466",
+          "chassisNumber": "5654656",
+          "previousPolicyType": '',
+          "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value,
+          "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
+          "financierName":  this.vehical.controls['financierName'].value,
+          "vehicleSubLine": "motorCycle",
+          "registrationchargesRoadtax": "off",
+          "fuelType":  this.vehical.controls['fuelType'].value,
+          "automobileAssociationMembership": "no",
+          "region": "West Region",
+          "carRegisteredCity": "MUMBAI",
+          "averageMonthlyMileageRun":  '',
+          "isProductCheck": "true",
+          "product": "",
+          "engineCapacityAmount": "109.2 CC",
+          "personalAccidentCoverForUnnamedPassengers": [
+        "",
+        "100000"
+      ],
+          "accidentCoverForPaidDriver": [
+        "",
+        "100000"
+      ],
+          "legalliabilityToPaidDriver": "Yes",
+          "legalliabilityToEmployees": "No",
+          "policyStartDate": "17/04/2019",
+          "cover_elec_acc": "No",
+          "nonElectricalAccesories": {
+        "nonelectronicAccessoriesDetails": [{
+          "NameOfElectronicAccessories": "Tyre",
+              "MakeModel": "TVS",
+              "Value": "0"
+        }]
+      },
+      "electricalAccessories": {
+        "electronicAccessoriesDetails": {
+          "NameOfElectronicAccessories": "Headlight",
+              "MakeModel": "Philips",
+              "Value": "0"
+        }
+      },
+      "vechileOwnerShipChanged": "No",
+          "claimsMadeInPreviousPolicy": "no",
+          "claimAmountReceived": "0",
+          "claimsReported": "0",
+          "ncbprevious": "1"
+    }
+  }
+  }
+  console.log(data,'fileeee');
+  this.settings.loadingSpinner = true;
+
+  this.bikeInsurance.proposalCreationRoyal(data).subscribe(
+      (successData) => {
+        this.proposalSuccess(successData, stepper);
+      },
+      (error) => {
+        this.proposalFailure(error);
+      }
+  );
+}
+  public proposalSuccess(successData, stepper){
+    this.settings.loadingSpinner = false;
+    if(successData.IsSuccess){
+      stepper.next();
+      this.toastr.success('Proposal created successfully!!');
+      this.summaryData = successData.ResponseObject;
+      // this.ProposalId =   this.summaryData.ProposalId;
+      // this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+      // this.PolicySisID =   this.summaryData.PolicySisID;
+      // this.PaymentReturn =   this.summaryData.PaymentReturn;
+      // sessionStorage.shiramBikeproposalID = this.ProposalId;
+      // this.proposerFormData = this.proposer.value;
+      // this.vehicalFormData = this.vehical.value;
+      // this.previousFormData = this.previousInsure.value;
+      // this.nomineeFormData = this.nomineeDetail.value;
+    } else{
+      this.toastr.error(successData.ErrorObject);
+
+    }
+  }
+  public proposalFailure(error){
+
+  }
+
+
+
+
 //session Data
   sessionData(){
     if(sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
@@ -516,15 +755,46 @@ public apponiteeList: boolean;
         address: stepper1.address,
         address2: stepper1.address2,
         address3: stepper1.address3,
+        address4: stepper1.address4,
         state:stepper1.state,
         city: stepper1.city,
         raddress: stepper1.raddress,
         raddress2: stepper1.raddress2,
+        raddress3: stepper1.raddress3,
+        raddress4: stepper1.raddress4,
         rpincode: stepper1.rpincode,
         rstate:stepper1.rstate,
         rcity: stepper1.rcity,
+        sameas: stepper1.sameas,
 
 
+      });
+    }
+    if(sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
+      let stepper2 = JSON.parse(sessionStorage.stepper2);
+      this.proposer = this.fb.group({
+        vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
+        vehicleRegisteredName: stepper2.vehicleRegisteredName,
+        registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
+        coverelectricalaccesss:stepper2.coverelectricalaccesss,
+        drivingExperience: stepper2.drivingExperience,
+        idv: stepper2.idv,
+        isTwoWheelerFinancedValue : stepper2.isTwoWheelerFinancedValue,
+        financierName: stepper2.financierName,
+        fuelType: stepper2.fuelType,
+        isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
+        hypothecationType: stepper2.hypothecationType,
+        hypothecationBankName: stepper2.hypothecationBankName,
+        noncoverelectricalaccesss:stepper2.noncoverelectricalaccesss,
+        vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
+        electricalAccess: stepper2.electricalAccess,
+        nonelectricalAccess: stepper2.nonelectricalAccess,
+        namesOfElectrical: stepper2.namesOfElectrical,
+        model: stepper2.model,
+        value: stepper2.value,
+        namesOfNonElectrical: stepper2.namesOfNonElectrical,
+        modelnonElectrical: stepper2.modelnonElectrical,
+        valuenonelectrical: stepper2.valuenonelectrical,
       });
     }
   }

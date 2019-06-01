@@ -1125,8 +1125,10 @@
                   <div class="col-sm-12 col-xs-12 col-md-12">
                     <div class="box-card addressBox">
                       <div class="row">
+                        <div class="col-sm-12 col-xs-12 col-md-12">
                         <h6 class="color-blue ml-3">RESIDENCE ADDRESS</h6>
-                        <div class="text-right w-50">
+                        </div>
+                        <div class="col-sm-12 col-xs-12 col-md-12">
                           <mat-checkbox formControlName="sameas" (change)="sameAddress($event)" [disabled]="isDisable"><strong>Same as Communication Address</strong></mat-checkbox>
                         </div>
                       </div>
@@ -1348,30 +1350,32 @@
                         <mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
                       </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <table class="qesTable able table-striped mt-3">
-                      <tr *ngFor="let subQes of item.sub_questions_list; let j = index">
-                        <td width="50%" *ngIf="item.display_question == '1'">
-                          {{j + 1}}) {{subQes.question_details.question_description}}
-                        </td>
-                        <td width="100px" *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" >{{fGroup.type}}
+                    <div class="table-responsive">
+                      <table class="table table-striped mt-3" id="Queue">
+                        <tr *ngFor="let subQes of item.sub_questions_list; let j = index">
+                          <td *ngIf="item.display_question == '1'">
+                            {{j + 1}}) {{subQes.question_details.question_description}}
+                          </td>
+                          <td *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" >{{fGroup.type}}
 
-                        </mat-checkbox>
-                          <section class="w-100" *ngIf="fGroup.status">
-                            <div class="w-100" *ngIf="subQes.question_details.existing_question_code != ''"><mat-form-field>
-                              <input matInput [matDatepicker]="picker6" [max]="today" placeholder="Existing Since (DD/MM/YYYY)" maxlength="10" minlength="10" (dateInput)="existingDob($event,i,j,k)" (dateChange)="existingDob($event,i,j,k)"  [(ngModel)]="fGroup.existingSince" (keypress)="dobValidate($event)" autocomplete="off">
-                              <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
-                              <mat-datepicker #picker6></mat-datepicker>
-                            </mat-form-field>
-                              <p class="error" *ngIf="fGroup.dobError != '' "> Enter valid Date</p>
+                          </mat-checkbox>
+                            <section class="w-100" *ngIf="fGroup.status">
+                              <div class="w-100" *ngIf="subQes.question_details.existing_question_code != ''"><mat-form-field>
+                                <input matInput [matDatepicker]="picker6" [max]="today" placeholder="Existing Since (DD/MM/YYYY)" maxlength="10" minlength="10" (dateInput)="existingDob($event,i,j,k)" (dateChange)="existingDob($event,i,j,k)"  [(ngModel)]="fGroup.existingSince" (keypress)="dobValidate($event)" autocomplete="off">
+                                <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
+                                <mat-datepicker #picker6></mat-datepicker>
+                              </mat-form-field>
+                                <p class="error" *ngIf="fGroup.dobError != '' "> Enter valid Date</p>
 
-                            </div>
-                            <div class="w-100" *ngIf="subQes.question_details.description_textarea == '1'"><mat-form-field class="w-100">
-                              <textarea matInput placeholder="other Description"  [(ngModel)]="fGroup.diseasesDescription"></textarea>
-                            </mat-form-field></div>
-                          </section>
-                        </td>
-                      </tr>
-                    </table>
+                              </div>
+                              <div class="w-100" *ngIf="subQes.question_details.description_textarea == '1'"><mat-form-field class="w-100">
+                                <textarea matInput placeholder="other Description"  [(ngModel)]="fGroup.diseasesDescription"></textarea>
+                              </mat-form-field></div>
+                            </section>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
                   </mat-expansion-panel>
                 </mat-accordion>
                 <div class="proposal-buttom mt-3 text-right w-100">
@@ -1431,7 +1435,8 @@
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
                 <div class="col-sm-12 col-xs-12 col-md-12">
-                  <h4 class="mt-4">{{summaryData.group_name}} / <span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
+                  <h4 class="mt-4">{{summaryData.group_name}}</h4>
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProductdetails.suminsured_amount}}</span></h4>
                   <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Insurer: &nbsp;</span><img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /></h4>
                   <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Premium: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></h4>
                   <h4 class="mt-4"><span style="font-size: 17px; color: #666;">Total Premium:: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></h4>

@@ -125,6 +125,12 @@ CheckHabits : boolean;
 readonlyProposer : boolean;
     occupationClass1 : boolean;
     rider : boolean;
+
+    public appolloPATrue0: boolean;
+    public appolloPATrue1: boolean;
+    public appolloPATrue2: boolean;
+    public appolloPATrue3: boolean;
+
   constructor(public proposerpa: FormBuilder, public datepipe: DatePipe,public route: ActivatedRoute, public validation: ValidationService,public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public personalservice: PersonalAccidentService,) {
       let stepperindex = 0;
       this.route.params.forEach((params) => {
@@ -164,6 +170,10 @@ readonlyProposer : boolean;
       this.rider = true;
       this.bmiValue = false;
 
+      this.appolloPATrue0 = false;
+      this.appolloPATrue1 = true;
+      this.appolloPATrue2 = true;
+      this.appolloPATrue3 = true;
 
       this.ProposerPa = this.proposerpa.group({
           proposerPaTitle: ['', Validators.required],
@@ -1586,6 +1596,7 @@ preInsureList() {
                     }
                     this.topScroll();
                     this.nextStep();
+                    this.appolloPATrue1 = false;
                 } else{
                     if(this.occupationClass1 == false){
                         this.toastr.error('Sorry!, Your occupation is not allowed');
@@ -1628,6 +1639,8 @@ preInsureList() {
         } else {
             stepper.next();
             this.nextStep();
+            this.topScroll();
+            this.appolloPATrue2 = false;
 
         }
 
@@ -1837,6 +1850,8 @@ console.log(data,'888888888');
         if (successData.IsSuccess) {
             stepper.next();
             this.nextStep();
+            this.topScroll();
+            this.appolloPATrue3 = false;
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryData = JSON.stringify(this.summaryData);

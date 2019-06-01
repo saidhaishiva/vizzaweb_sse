@@ -265,6 +265,18 @@ export class BikeInsuranceService {
         .catch(this.handleError);
   }
 // royal insurance
+  // calculate premium
+  proposalCreationRoyal(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'shriram/proposal';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   // title
   getTitle(data) {
     const json = JSON.stringify(data);
@@ -282,7 +294,29 @@ export class BikeInsuranceService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getBikeInsurance() + 'royalsundarampreviousInsurerList' ;
+    const url = this.configurationService.getBikeInsurance() + 'royalsundaram/previousInsurerList' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
+        .catch(this.handleError);
+  }
+  // registration name
+  getRegNameLists(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'royalsundaram/vehicleRegisteredNameList' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
+        .catch(this.handleError);
+  }
+  // fuel List
+  getFuelLists(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'royalsundaram/fuelType' ;
     return this.http.post(url , json, httpOptions)
         .map(this.extractData )
         .catch(this.handleError);
@@ -304,7 +338,7 @@ export class BikeInsuranceService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getBikeInsurance() + 'royalsundaram/vehicleMostlyDrivenOnList' ;
+    const url = this.configurationService.getBikeInsurance() + 'royalsundaram/vehicleDrivenList' ;
     return this.http.post(url , json, httpOptions)
         .map(this.extractData )
         .catch(this.handleError);
