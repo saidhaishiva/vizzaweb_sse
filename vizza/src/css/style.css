@@ -1320,9 +1320,9 @@ footer {
   background: #f5deff; }
 
 .h-testimonial .carousel-control-prev {
-  left: -140px !important; }
+  left: -80px !important; }
 .h-testimonial .carousel-control-next {
-  right: -120px !important; }
+  right: -80px !important; }
 
 .mat-drawer-container, .mat-toolbar, .navbar.bg-light {
   background-color: #fff !important; }

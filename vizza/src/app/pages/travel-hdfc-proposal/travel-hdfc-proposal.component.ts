@@ -501,23 +501,44 @@ export class TravelHdfcProposalComponent implements OnInit {
             }
             console.log(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value);
 
-            if((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) <= 8034 && parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) >= 91) && (type == 'Child1' || type == 'Child2')) {
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            if(this.travelPurpose == 'Multi') {
+                if ((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) <= 8034 && parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) >= 6574) && (type == 'Child1' || type == 'Child2')) {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+                } else if (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 6574 && (type == 'Child1' || type == 'Child2')) {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 18 years');
+                } else if (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 8034 && (type == 'Child1' || type == 'Child2')) {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 18 years');
+                }
+
+            } else {
+                if ((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) <= 8034 && parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) >= 91) && (type == 'Child1' || type == 'Child2')) {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+                } else if (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 91 && (type == 'Child1' || type == 'Child2')) {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 21 years');
+                } else if (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 8034 && (type == 'Child1' || type == 'Child2')) {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 21 years');
+                }
             }
-            else if(parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 91 && (type == 'Child1' || type == 'Child2'))  {
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 21 years');
-            } else if(parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 8034 && (type == 'Child1' || type == 'Child2'))  {
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age between 91 days to 21 years');
-            }
-            console.log( this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.value);
+
+
 
 
         } else {
-            if((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 181 && type == 'Self') || (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 25931 && type == 'Self')) {
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 6 months to 70 years');
-            } else if(parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 180 && type == 'Self')  {
-                this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+            if(this.travelPurpose == 'Multi') {
+                if ((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 6574 && type == 'Self')) {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 18 years and above');
+                } else if (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) >= 6574 && type == 'Self') {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+                }
+
+            } else {
+                if ((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 181 && type == 'Self') || (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 25931 && type == 'Self')) {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 6 months to 70 years');
+                } else if (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 180 && type == 'Self') {
+                    this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
+                }
             }
+
 
             // if((parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) < 6574 && type == 'Self') || (parseInt(this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value) > 25931 && type == 'Self')) {
             //     this.hdfcInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 18 years to 70 years');
