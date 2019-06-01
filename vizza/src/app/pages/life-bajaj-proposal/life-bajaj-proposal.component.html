@@ -80,10 +80,12 @@
                       </div>
                       <div class="col-md-3 mt-1">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Alternate Contact"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="alterMobile" autocomplete="off">
+                          <input matInput placeholder="Alternate Mobile"  (keypress)="numberValidate($event)"  maxlength="10" formControlName="alterMobile" (keyup)="alternateChange($event)"  autocomplete="off">
                           <mat-error *ngIf="proposer.controls.alterMobile.errors?.required">Mobile Number is required</mat-error>
                           <mat-error *ngIf="proposer.controls.alterMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
+                        <div class="error" *ngIf="proposer.controls['alterMobileError'].value !=''">{{proposer.controls['alterMobileError'].value}}</div>
+
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
@@ -129,7 +131,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Past six months has your body weight changed" formControlName="weightChanged" required  class="w-100">
+                          <mat-select  placeholder="Change in weight past 6 months" formControlName="weightChanged" required  class="w-100">
                             <mat-option value="SAME"> SAME </mat-option>
                             <mat-option value="GAINED"> GAINED </mat-option>
                             <mat-option value="LOST"> LOST </mat-option>
@@ -213,7 +215,9 @@
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['politicallyExposedPerson'].value == 'Y'">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="If Yes Give Details" formControlName="ifYesGiveDetails" class="nospace"  maxlength="45" autocomplete="off">
+                          <input matInput placeholder="If Yes Give Details" formControlName="ifYesGiveDetails" class="nospace" [required]="proposer.controls['politicallyExposedPerson'].value == 'Y'" autocomplete="off">
+                          <mat-error *ngIf="proposer.controls.ifYesGiveDetails.errors?.required">Details is required</mat-error>
+
                         </mat-form-field>
                       </div>
 
@@ -627,7 +631,7 @@
                               <mat-slide-toggle [(ngModel)]="item.mainQuestion.checked"></mat-slide-toggle>
                             </div>
 
-                              <div class="col-md-12 familyBox mt-2" *ngIf="j == 0 && item.mainQuestion.checked">
+                              <div class="col-md-12 familyBox mt-2" *ngIf="i == 0 && item.mainQuestion.checked">
                                 <form [formGroup]="familyDiseaseForm" >
                                 <div class="container" formArrayName="family" *ngFor="let lists of familyDiseaseForm.get('family').controls; let i = index">
 
@@ -979,7 +983,7 @@
                         <span *ngIf="proposerFormData.isPancard">Yes</span>
                         <span *ngIf="!proposerFormData.isPancard">No</span>
                       </li>
-                      <li class="list-group-item" *ngIf="proposerFormData.isPancard && proposerFormData.panNum !=''"><strong>PAN Number:</strong> {{proposerFormData.panNum}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.isPancard && proposerFormData.panNum !=''"><strong>PAN Number:</strong> {{proposerFormData.panNum | uppercase}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.amtTransaction != ''"><strong>Amount of transaction:</strong> {{proposerFormData.amtTransaction}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.jointAcName != ''"><strong>In case of transaction in joint names:</strong> {{proposerFormData.jointAcName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.modeOfTransaction != ''"><strong>Mode Of Transaction:</strong> {{proposerFormData.modeOfTransaction}}</li>
@@ -1026,7 +1030,10 @@
                       <li class="list-group-item"><strong>Country of Residence:</strong> {{proposerFormData.countryOfResidName}}</li>
                       <li class="list-group-item"><strong>Place of birth:</strong> {{proposerFormData.pob}}</li>
                       <li class="list-group-item"><strong>Citizenship:</strong> {{proposerFormData.citizenshipName}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.politicallyExposedPerson!=''"><strong>Politically Exposed Person:</strong> {{proposerFormData.politicallyExposedPerson}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.politicallyExposedPerson!=''"><strong>Politically Exposed Person:</strong>
+                        <span *ngIf="proposerFormData.politicallyExposedPerson == 'Y'">Yes</span>
+                        <span *ngIf="proposerFormData.politicallyExposedPerson == 'N'">No</span>
+                      </li>
                       <li class="list-group-item" *ngIf="proposerFormData.ifYesGiveDetails!=''"><strong>If Yes Give Details:</strong> {{proposerFormData.ifYesGiveDetails}}</li>
 
                     </ul>
@@ -1057,7 +1064,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Door Number:</strong> {{proposerFormData.comDoorNo}}</li>
                       <li class="list-group-item"><strong>Building Number:</strong> {{proposerFormData.comBuildingNumber}}</li>
-                      <li class="list-group-item"><strong>Plot Number:</strong> {{proposerFormData.comPlotNumber}}</li>
+                      <li class="list-group-item"><strong>Plot Number / Street Name:</strong> {{proposerFormData.comPlotNumber}}</li>
                       <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.comLandmark}}</li>
                       <li class="list-group-item"><strong>Place:</strong> {{proposerFormData.comPlace}}</li>
                       <li class="list-group-item"><strong>District:</strong> {{proposerFormData.comDistrict}}</li>
@@ -1072,7 +1079,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Door Number:</strong> {{proposerFormData.perDoorNo}}</li>
                       <li class="list-group-item"><strong>Building Number:</strong> {{proposerFormData.perBuildingNumber}}</li>
-                      <li class="list-group-item"><strong>Plot Number:</strong> {{proposerFormData.perPlotNumber}}</li>
+                      <li class="list-group-item"><strong>Plot Number / Street Name:</strong> {{proposerFormData.perPlotNumber}}</li>
                       <li class="list-group-item"><strong>Landmark:</strong> {{proposerFormData.perLandmark}}</li>
                       <li class="list-group-item"><strong>Place:</strong> {{proposerFormData.perPlace}}</li>
                       <li class="list-group-item"><strong>District:</strong> {{proposerFormData.perDistrict}}</li>

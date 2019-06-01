@@ -89,7 +89,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="GST Number" class="text-uppercase" (keypress)="idValidate($event)"  minlength="15"  maxlength="15" formControlName="personalGst" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$" autocomplete="off">
-                          <mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
+                          <!--<mat-error *ngIf="personal.controls.personalGst.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>-->
                           <mat-error *ngIf="personal.controls.personalGst.hasError('pattern')">Enter Vaild GST</mat-error>
                         </mat-form-field>
                       </div>
@@ -539,12 +539,30 @@
                 <div class=" p-3">
                   <h6 class="color-blue">RESIDENCE DETAILS</h6>
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.residenceAddress}}</li>
-                    <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.residenceAddress2}}</li>
-                    <li class="list-group-item"><strong>PIN code:</strong>  {{proposerFormData.residencePincode}}</li>
-                    <li class="list-group-item"><strong>City:</strong> {{proposerFormData.residenceCityName}}</li>
-                    <li class="list-group-item"><strong>Area:</strong> {{proposerFormData.residenceAreaName}}</li>
-                    <li class="list-group-item"><strong>State:</strong> {{proposerFormData.residenceState}}</li>
+                    <li class="list-group-item" ><strong>Address 1:</strong>
+                      <span *ngIf="proposerFormData.residenceAddress !=''">{{proposerFormData.residenceAddress}}</span>
+                      <span *ngIf="proposerFormData.residenceAddress ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>Address 2:</strong>
+                      <span *ngIf="proposerFormData.residenceAddress2 !=''">{{proposerFormData.residenceAddress2}}</span>
+                      <span *ngIf="proposerFormData.residenceAddress2 ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>PIN code:</strong>
+                      <span *ngIf="proposerFormData.residencePincode !=''">{{proposerFormData.residencePincode}}</span>
+                      <span *ngIf="proposerFormData.residencePincode ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>City:</strong>
+                      <span *ngIf="proposerFormData.residenceCityName !=''">{{proposerFormData.residenceCityName}}</span>
+                      <span *ngIf="proposerFormData.residenceCityName ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>Area:</strong>
+                      <span *ngIf="proposerFormData.residenceAreaName !=''">{{proposerFormData.residenceAreaName}}</span>
+                      <span *ngIf="proposerFormData.residenceAreaName ==''">Nil</span>
+                    </li>
+                    <li class="list-group-item"><strong>State:</strong>
+                      <span *ngIf="proposerFormData.residenceState !=''">{{proposerFormData.residenceState}}</span>
+                      <span *ngIf="proposerFormData.residenceState ==''">Nil</span>
+                    </li>
                   </ul>
                 </div>
               </div>
