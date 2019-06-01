@@ -375,7 +375,7 @@ public apponiteeList: boolean;
     return age;
   }
 
-  sameAddress(){
+  sameAddress(event){
       if(this.proposer.controls['sameas'].patchValue(true)){
         this.proposer.controls['raddress'].patchValue( this.proposer.controls['address'].value),
         this.proposer.controls['raddress2'].patchValue( this.proposer.controls['address2'].value),

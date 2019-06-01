@@ -545,6 +545,19 @@ export class BikeInsuranceService {
         .catch(this.handleError);
   }
 
+  // Tataaig QuoteList
+
+  QuoteList(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'tata/fullQuote';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
   // Tataaig ProposalCreation
 
   proposal(data) {
@@ -553,6 +566,31 @@ export class BikeInsuranceService {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     const url = this.configurationService.getBikeInsurance() + 'tata/proposal';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  //Tataaig FinancierType
+
+  Finacetype(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'tata/financerDetails';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  //
+  getDownloadPdfTataaig(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'tata/financerDetails';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
