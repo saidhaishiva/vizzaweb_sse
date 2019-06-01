@@ -276,6 +276,16 @@ export class BikeInsuranceService {
         .catch(this.handleError);
   }
 // royal insurance
+  getDownloadPdfRoyal(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'royalsundaram/policy_download' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
+        .catch(this.handleError);
+  }
   // calculate premium
   proposalCreationRoyal(data) {
     const json = JSON.stringify(data);

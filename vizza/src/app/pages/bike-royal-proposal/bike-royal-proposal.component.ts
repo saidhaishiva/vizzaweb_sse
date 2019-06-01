@@ -74,7 +74,15 @@ public ProposalId: any;
 public referenceId: any;
 public declaration: any;
 public summaryData1: any;
+public AgentId: any;
+public Apikey: any;
+public PaymentRedirect: any;
+public PaymentReturn: any;
+public ElcValue: any;
+public VehicleSubLine: any;
+public VersionNo: any;
 public ComprehensivePremium: any;
+public Comprehensivepremium: any;
 public apponiteeList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
@@ -93,7 +101,6 @@ public apponiteeList: boolean;
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       dob: ['', Validators.compose([Validators.required])],
-      gender: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       occupation: ' ',
@@ -446,9 +453,9 @@ public apponiteeList: boolean;
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-    if(this.vehical.valid){
+    // if(this.vehical.valid){
       stepper.next();
-    }
+    // }
   }
 
   changehypothecation() {
@@ -701,9 +708,9 @@ public apponiteeList: boolean;
    // next
     previousDetails(stepper: MatStepper,value){
       sessionStorage.stepper3 = JSON.stringify(value);
-      if(this.previousInsure.valid){
+      // if(this.previousInsure.valid){
         stepper.next();
-      }
+      // }
 
     }
 
@@ -746,9 +753,9 @@ public apponiteeList: boolean;
     nomineeDetails(stepper: MatStepper, value){
         sessionStorage.stepper4 = '';
         sessionStorage.stepper4 = JSON.stringify(value);
-        if(this.nomineeDetail.valid){
+        // if(this.nomineeDetail.valid){
           this.proposal(stepper);
-        }
+        // }
   }
     // proposal creation
 proposal(stepper){
@@ -811,7 +818,7 @@ proposal(stepper){
           "financierName":  this.vehical.controls['financierName'].value,
           "carRegisteredCity": "MUMBAI",
           "averageMonthlyMileageRun":  this.vehical.controls['averageMonthlyMileageRun'].value,
-          "personalAccidentCoverForUnnamedPassengers": this.vehical.controls['personalAccidentCover'].value,
+          "personalAccidentCoverForUnnamedPassengers": '',
           "accidentCoverForPaidDriver": '',
           "policyStartDate": '2019-04-01',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
@@ -931,7 +938,7 @@ proposal(stepper){
           "financierName":  this.vehical.controls['financierName'].value,
           "carRegisteredCity": "MUMBAI",
           "averageMonthlyMileageRun":  this.vehical.controls['averageMonthlyMileageRun'].value,
-          "personalAccidentCoverForUnnamedPassengers": this.vehical.controls['personalAccidentCover'].value,
+          "personalAccidentCoverForUnnamedPassengers": '',
           "accidentCoverForPaidDriver": '',
           "policyStartDate": '2019-04-01',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
@@ -967,6 +974,15 @@ proposal(stepper){
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData1 = successData.ResponseObject;
+      this.AgentId =  this.summaryData1.AgentId;
+      this.Apikey =  this.summaryData1.Apikey;
+      this.PaymentRedirect =  this.summaryData1.PaymentRedirect;
+      this.PaymentReturn =  this.summaryData1.PaymentReturn;
+      this.ElcValue =  this.summaryData1.ElcValue;
+      this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
+      this.VersionNo =  this.summaryData1.VersionNo;
+      this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
+
     } else{
       this.toastr.error(successData.ErrorObject);
 
@@ -1028,6 +1044,7 @@ proposal(stepper){
         vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,
+        accidentPaid: stepper2.accidentPaid,
         NameOfElectronicAccessories: stepper2.NameOfElectronicAccessories,
         MakeModel: stepper2.MakeModel,
         Value: stepper2.Value,
