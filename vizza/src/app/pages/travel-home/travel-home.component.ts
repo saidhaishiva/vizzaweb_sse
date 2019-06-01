@@ -1161,7 +1161,7 @@ export class TravelHomeComponent implements OnInit {
                 <li>Personal Liability</li>
             </ul>
            <p>The Premium depends on the Age-band, Trip-band and Country of visits.  The Insurance also allows extension  on original policy for a further period if the stay is extended  and is   subject to declaration of good health by the insured. The policy is to be taken prior to departure from India. It is also essential that if there has been a pre issuance medical examination of the travelling person the medical records have to be taken along with the travel documents.</p>
-           <p>The Premium depends on the Age-band, Trip-band and Country of visits.  The Insurance also allows extension  on original policy for a further period if the stay is extended  and is   subject to declaration of good health by the insured. The policy is to be taken prior to departure from India. It is also essential that if there has been a pre issuance medical examination of the travelling person the medical records have to be taken along with the travel documents.</p>
+          
          </div>
         </div>`,
 })

@@ -138,6 +138,7 @@ import {ReliancePaPaymentSuccessComponent} from './pages/reliance-pa-payment-suc
 import {BikeTataaigProposalComponent} from './pages/bike-tataaig-proposal/bike-tataaig-proposal.component';
 import {CholaHealthPaymentSuccessComponent} from './pages/chola-health-payment-success/chola-health-payment-success.component';
 import {EnquiryPopupComponent} from './pages/bike-insurance/enquiry-popup/enquiry-popup.component';
+import { BikeTataaigPaymentSuccesssComponent} from './pages/bike-tataaig-payment-successs/bike-tataaig-payment-successs.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -271,6 +272,7 @@ export const routes: Routes = [
             { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}},
             { path: 'app-chola-health-payment-success/:status/:proId/:policyStatus', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
             // { path: 'enquiryPop', component: EnquiryPopupComponent, data: {breadcrumb: 'Vehicle List'}},
+            { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'Tataaig Payment'} }
 
         ]
     },
