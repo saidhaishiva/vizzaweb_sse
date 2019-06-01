@@ -318,7 +318,8 @@ export class EnquiryPopupComponent implements OnInit {
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value,
       'business_type': this.vehicalDetails.controls['bussiness'].value
 
-    }
+    };
+    sessionStorage.vehicledetails = JSON.stringify(data);
     this.bikeService.getEnquiryDetails(data).subscribe(
         (successData) => {
           this.enquirySuccess(successData);
