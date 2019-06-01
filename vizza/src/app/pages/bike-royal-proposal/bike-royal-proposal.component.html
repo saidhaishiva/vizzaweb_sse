@@ -20,7 +20,7 @@
                           <mat-select placeholder="Title" formControlName="title" required>
                             <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
+                          <!--<mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -195,51 +195,29 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="vehicle Mostly DrivenOn"  formControlName="vehicleMostlyDrivenOn"  required>
+                          <mat-select placeholder="vehicle Mostly DrivenOn"  formControlName="vehicleMostlyDrivenOn" (change)="getVehicalMostly()" required>
                             <mat-option *ngFor="let type of drivenList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                           </mat-select>
-                          <!--<mat-error *ngIf="proposer.controls.vehicleType.errors?.required">City is required</mat-error>-->
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName"  required>
-                            <mat-option *ngFor="let vehiclebk of drivenList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
+                          <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (change)="changeVehicleName()"  required>
+                            <mat-option *ngFor="let vehiclebk of registrationNameList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                           </mat-select>
-                          <!--<mat-error *ngIf="proposer.controls.vehicleType.errors?.required">City is required</mat-error>-->
                         </mat-form-field>
                       </div>
 
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Driving Experience "  formControlName="drivingExperience" required autocomplete="off">
+                                <input matInput placeholder="Driving Experience "  formControlName="drivingExperience"  autocomplete="off">
                             </mat-form-field>
                         </div>
-                        <!--<div class="col-md-3">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="IDV "  formControlName="idv" required autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-3">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Idv For2Year "  formControlName="idvFor2Year" required autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-3">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="Idv For3Year "  formControlName="idvFor3Year" required autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="registrationchargesRoadtax "  formControlName="registrationchargesRoadtax" required autocomplete="off">-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
 
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
                                 <mat-select placeholder="Fuel Type"  formControlName="fuelType"  required>
-                                    <mat-option *ngFor="let vehiclebk of drivenList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
+                                    <mat-option *ngFor="let vehiclebk of fuelTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                 </mat-select>
                             </mat-form-field>
                         </div>
@@ -248,117 +226,107 @@
                                 <input matInput placeholder="vechileOwnerShipChanged "  formControlName="vechileOwnerShipChanged" required autocomplete="off">
                             </mat-form-field>
                         </div>
-                        <!--<div class="col-md-3">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="claimsMadeInPreviousPolicy "  formControlName="claimsMadeInPreviousPolicy" required autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-3">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="noClaimBonusPercent "  formControlName="noClaimBonusPercent" required autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-3">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="ncbcurrent "  formControlName="ncbcurrent" required autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-3">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="claimAmountReceived "  formControlName="claimAmountReceived" required autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
-                        <!--<div class="col-md-3">-->
-                            <!--<mat-form-field class="w-100">-->
-                                <!--<input matInput placeholder="claimsReported "  formControlName="claimsReported" required autocomplete="off">-->
-                            <!--</mat-form-field>-->
-                        <!--</div>-->
+
                     </div>
                     <div class="row">
                         <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
                     </div>
-                    <div class="row">
+                      <div class="row">
+
                       <div class="col-md-6">
                         <mat-checkbox  formControlName="coverelectricalaccesss">Cover Electrical Accessories</mat-checkbox>
                       </div>
-                    </div>
+                      </div>
+                          <div formArrayName="electricalAccess" *ngFor="let item of vehical.get('electricalAccess').controls; let i = index;">
+                              <div [formGroupName]="i">
                       <div class="row" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
-                      <div class="col-md-3">
+
+                       <div class="col-md-3">
                           <mat-form-field class="w-100">
-                              <input matInput placeholder="NameOfElectronicAccessories "  formControlName="NameOfElectronicAccessories" required autocomplete="off">
+                              <input matInput placeholder="NameOfElectronicAccessories "  formControlName="namesOfElectrical" required autocomplete="off">
                           </mat-form-field>
                       </div>
                       <div class="col-md-3">
                           <mat-form-field class="w-100">
-                              <input matInput placeholder="MakeModel "  formControlName="MakeModel" required autocomplete="off">
+                              <input matInput placeholder="MakeModel "  formControlName="model" required autocomplete="off">
                           </mat-form-field>
                       </div>
                       <div class="col-md-3">
                           <mat-form-field class="w-100">
-                              <input matInput placeholder="Value "  formControlName="Value" required autocomplete="off">
+                              <input matInput placeholder="Value "  formControlName="value" required autocomplete="off">
                           </mat-form-field>
                       </div>
-                      </div>  <div class="row">
+                          <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>
+                          <button mat-mini-fab	*ngIf="i != 0" color="accent" (click)="removeItems(i)">-</button>
+
+                      </div>
+                      </div>
+                      </div>
+                      <div class="row">
                       <div class="col-md-6">
                           <mat-checkbox  formControlName="noncoverelectricalaccesss">Cover Non Electrical Accessories</mat-checkbox>
                       </div>
                   </div>
+                      <div formArrayName="nonelectricalAccess" *ngFor="let item of vehical.get('nonelectricalAccess').controls; let i = index;">
+                          <div [formGroupName]="i">
                       <div class="row" *ngIf="vehical.controls['noncoverelectricalaccesss'].value == true">
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="NameOfElectronicAccessories "  formControlName="NameOfElectronicAccessories" required autocomplete="off">
+                                  <input matInput placeholder="NameOfElectronicAccessories "  formControlName="namesOfNonElectrical" required autocomplete="off">
                               </mat-form-field>
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="MakeModel "  formControlName="MakeModel" required autocomplete="off">
+                                  <input matInput placeholder="MakeModel "  formControlName="modelnonElectrical" required autocomplete="off">
                               </mat-form-field>
                           </div>
                           <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Value "  formControlName="Value" required autocomplete="off">
+                                  <input matInput placeholder="Value "  formControlName="valuenonelectrical" required autocomplete="off">
                               </mat-form-field>
+                          </div>
+                          <!--<button mat-mini-fab	 color="accent" (click)="addItems()">+</button>-->
+
+                              <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addnonEelctricalItems()">+</button>
+                              <button mat-mini-fab	*ngIf="i != 0" color="accent" (click)="removenonEelctricalItems(i)">-</button>
+
                           </div>
                       </div>
+                      </div>
+
                       <div class="row">
                           <div class="col-md-6">
                               <mat-checkbox   formControlName="isTwoWheelerFinanced" >isTwoWheelerFinanced</mat-checkbox>
                           </div>
-                          <div class="col-md-3" *ngIf="vehical.controls['isTwoWheelerFinanced'].value == true">
+                      </div>
+                      <div class="row" *ngIf="vehical.controls['isTwoWheelerFinanced'].value == true">
+                          <div class="col-md-3" >
                               <mat-form-field class="w-100">
                                   <input matInput placeholder="isTwoWheelerFinancedValue "  formControlName="isTwoWheelerFinancedValue" required autocomplete="off">
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (change)="changehypothecation()" >
+                                      <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
+                                  </mat-select>
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Hypothecation Bank Name"  formControlName="hypothecationBankName"  autocomplete="off">
+                              </mat-form-field>
+                          </div>
+                          <div class="col-md-3">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Financier Name"  formControlName="financierName"  autocomplete="off">
                               </mat-form-field>
                           </div>
                       </div>
 
 
-                    <div class="row" >
-                        <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                                <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (change)="changehypothecation()" >
-                                    <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-                        </div>
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (change)="changehypothecation()" >-->
-                            <!--<mat-option *ngFor="let hypothecationTypebk of hypothecationTypedm | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>-->
-                          <!--</mat-select>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Hypothecation Bank Name"  formControlName="hypothecationBankName"  autocomplete="off">
-                        </mat-form-field>
-                      </div>
-
-                        <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Financier Name"  formControlName="financierName"  autocomplete="off">
-                            </mat-form-field>
-                        </div>
-                    <div class="proposal-buttom mt-3 text-right w-100">
+                    <div class="row">
+                        <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                       <button mat-raised-button color="primaryBlue" (click)="vehicalDetails(stepper,vehical.value)">Next</button>
                     </div>
@@ -407,29 +375,6 @@
                         </mat-form-field>
                         <!--<div class="error" *ngIf="proposerdateError != ''">{{proposerdateError}}</div>-->
                       </div>
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Previous Policy UW Year"  formControlName="policyUwYear" [required]="pType" autocomplete="off">-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Previous Policy IDV"  formControlName="policySi" [required]="pType" autocomplete="off">-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<mat-select placeholder="Previous policy Type"  formControlName="previousPolicyType"  required>-->
-                            <!--<mat-option *ngFor="let vehiclebk of policyTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>-->
-                          <!--</mat-select>-->
-                          <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>&ndash;&gt;-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Previous Nil Description "  formControlName="policyNilDescription" [required]="pType" autocomplete="off">-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
                       <div class="col-md-3">
                         <p>Previous Policy Claim</p>
                         <mat-radio-group formControlName="isPreviousPolicyHolder">
@@ -517,8 +462,8 @@
 
         </mat-step>
 
-        <!--<mat-step [stepControl]="">-->
-          <!--<ng-template matStepLabel>SUMMARY</ng-template>-->
+        <mat-step [stepControl]="">
+          <ng-template matStepLabel>SUMMARY</ng-template>
           <!--<section class="summary-details" *ngIf="summaryData">-->
             <!--<div class="row">-->
               <!--<div class="col-md-4">-->
@@ -688,7 +633,7 @@
               <!--</div>-->
             <!--</div>-->
           <!--</section>-->
-        <!--</mat-step>-->
+        </mat-step>
       </mat-horizontal-stepper>
     </div>
   </div>
