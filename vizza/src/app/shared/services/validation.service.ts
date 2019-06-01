@@ -140,11 +140,17 @@ export class ValidationService {
         }
     }
     addressValidate(event) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z0-9-/,()]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
+        if (event.code == 'Space') {
+            if (event.target.value.length == 0) {
                 event.preventDefault();
+            }
+        } else {
+            if (event.charCode !== 0) {
+                const pattern = /[a-zA-Z0-9-/,() ]/;
+                const inputChar = String.fromCharCode(event.charCode);
+                if (!pattern.test(inputChar)) {
+                    event.preventDefault();
+                }
             }
         }
     }

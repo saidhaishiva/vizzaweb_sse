@@ -137,7 +137,7 @@ import {TravelBajajPaymentSuccessComponent} from './pages/travel-bajaj-payment-s
 import {ReliancePaPaymentSuccessComponent} from './pages/reliance-pa-payment-success/reliance-pa-payment-success.component';
 import {BikeTataaigProposalComponent} from './pages/bike-tataaig-proposal/bike-tataaig-proposal.component';
 import {CholaHealthPaymentSuccessComponent} from './pages/chola-health-payment-success/chola-health-payment-success.component';
-import {EnquiryPopupComponent} from './pages/bike-insurance/enquiry-popup/enquiry-popup.component';
+import {RoyalsundaramMotorPaymentSuccessComponent} from './pages/royalsundaram-motor-payment-success/royalsundaram-motor-payment-success.component';
 import { BikeTataaigPaymentSuccesssComponent} from './pages/bike-tataaig-payment-successs/bike-tataaig-payment-successs.component';
 
 export const routes: Routes = [
@@ -261,6 +261,7 @@ export const routes: Routes = [
             { path: 'bikepremium', component: BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
             { path: 'life-premium-list', component: TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} },
             { path: 'bike-shriram-proposal/:stepper', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
+            { path: 'royalsundaram-motor-payment-success/:stepper', component: RoyalsundaramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Bike-Royal-Payment'}},
             { path: 'life-bajaj-proposal/:stepper', component: LifeBajajProposalComponent, data:{ breadcrumb: 'life-bajaj-proposal'}},
             { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
             { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},

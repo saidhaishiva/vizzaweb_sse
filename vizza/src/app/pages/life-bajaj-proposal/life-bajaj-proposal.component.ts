@@ -171,6 +171,7 @@ export class LifeBajajProposalComponent implements OnInit {
       alterMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       maritalStatus: ['', Validators.required],
       annualIncome: '',
+        alterMobileError: '',
       occupationList: ['', Validators.compose([Validators.required])],
       height: ['', Validators.compose([Validators.minLength(3)])],
       weight: '',
@@ -195,7 +196,7 @@ export class LifeBajajProposalComponent implements OnInit {
       motherName: '',
       fatherName: '',
       ifYesGiveDetails: '',
-      panNum:['', Validators.compose([ Validators.minLength(10)])],
+      panNum:['', Validators.compose([Validators.required, Validators.minLength(10)])],
       politicallyExposedPerson: '',
       countryIpMailing: '',
       relation: '',
@@ -215,7 +216,7 @@ export class LifeBajajProposalComponent implements OnInit {
       pincode: '',
       city: '',
       state: '',
-      sameAsProposer: '',
+      sameAsProposer: false,
       perDoorNo:'',
       perBuildingNumber:'',
       perPlotNumber:'',
@@ -265,7 +266,6 @@ export class LifeBajajProposalComponent implements OnInit {
               this.nomineeItems()
             ])
       });
-    console.log(this.nomineeDetails, 'this.nomineeDetails');
     this.bankDetail = this.Proposer.group({
       accountHolderName:'',
       bankName:['', Validators.required],
@@ -285,7 +285,6 @@ export class LifeBajajProposalComponent implements OnInit {
           this.getFamilyContols()
         ])
       });
-      console.log(this.familyDiseaseForm.value, 'this.familyDiseaseForm');
 
     this.questions = this.Proposer.group({});
     this.setQuestionDetails = [];
@@ -380,7 +379,6 @@ export class LifeBajajProposalComponent implements OnInit {
   }
   // add Family Member
   addFamilyMember(event) {
-        console.log(this.familyDiseaseForm.valid, 'st');
     if(this.familyDiseaseForm.valid) {
         let familyForm = this.familyDiseaseForm.get('family') as FormArray;
         familyForm.push(this.getFamilyContols());
@@ -434,7 +432,6 @@ export class LifeBajajProposalComponent implements OnInit {
     }
   }
   typeAddress(event) {
-      console.log(event.checked, 'hh');
     if(this.proposer.controls['sameAsProposer'].value) {
       this.proposer.controls['perDoorNo'].patchValue(this.proposer.controls['comDoorNo'].value);
       this.proposer.controls['perBuildingNumber'].patchValue(this.proposer.controls['comBuildingNumber'].value);
@@ -497,6 +494,18 @@ export class LifeBajajProposalComponent implements OnInit {
       this.proposer.controls['gender'].patchValue('MALE');
     } else {
       this.proposer.controls['gender'].patchValue('FEMALE');
+    }
+  }
+
+  alternateChange(event) {
+    if (event.target.value.length == 10) {
+      if(event.target.value == this.proposer.get('mobile').value) {
+        this.proposer.controls['alterMobileError'].patchValue('Alternate number should be different from mobile number');
+      } else {
+        this.proposer.controls['alterMobileError'].patchValue('');
+      }
+    } else {
+      this.proposer.controls['alterMobileError'].patchValue('');
     }
   }
 
@@ -623,7 +632,6 @@ export class LifeBajajProposalComponent implements OnInit {
             }
           }
         }
-        console.log(this.getAge, 'this.getAgethis.getAge');
         sessionStorage.nomineAge = this.getAge;
         if (this.getAge < 18) {
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(true);
@@ -707,7 +715,6 @@ export class LifeBajajProposalComponent implements OnInit {
   proposerDetails(stepper, value) {
     console.log(value);
     sessionStorage.stepperDetails1 = JSON.stringify(value);
-    console.log(value, 'valuevalue');
     console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       if(sessionStorage.bajajproposerAge >= 18){
@@ -761,7 +768,6 @@ samerelationShip(){
     public relationShipSuccess(successData) {
         if (successData.IsSuccess) {
           this.relationInsured = successData.ResponseObject;
-          console.log(this.relationInsured, 'relatrion');
         }
       }
 
@@ -770,14 +776,17 @@ samerelationShip(){
 
   isPancardChecked(event) {
       if(event.checked) {
-          this.proposer.controls['aadharNum'].clearValidators();
-          this.proposer.controls['aadharNum'].updateValueAndValidity();
+        this.proposer.controls['aadharNum'].clearValidators();
+        this.proposer.controls['aadharNum'].updateValueAndValidity();
+        this.proposer.controls['panNum'].setValidators([Validators.required]);
+        this.proposer.controls['panNum'].updateValueAndValidity();
 
       } else {
         this.proposer.controls['panNum'].patchValue('');
+        this.proposer.controls['panNum'].clearValidators();
+        this.proposer.controls['panNum'].updateValueAndValidity();
         this.proposer.controls['aadharNum'].setValidators([Validators.required]);
         this.proposer.controls['aadharNum'].updateValueAndValidity();
-
       }
   }
 
@@ -797,7 +806,6 @@ samerelationShip(){
     let familyMembers = this.familyDiseaseForm.value.family;
     sessionStorage.familyMemberDetails = JSON.stringify(familyMembers);
 
-    console.log(this.allQuestionList, 'lisyduhs');
       this.setQuestionDetails = [];
       let setMainRes = '';
       let setSubRes = '';
@@ -842,7 +850,6 @@ samerelationShip(){
       // }
       // console.log(subQuedtionValid, 'subQuedtionValid');
 
-      console.log(this.setQuestionDetails,'setQuestionDetailssetQuestionDetails');
 
       stepper.next();
       this.topScroll();
@@ -865,8 +872,6 @@ samerelationShip(){
   nomineeDetailNext(stepper, value) {
     console.log(value);
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
-    console.log(value, 'valuevalue');
-    console.log(sessionStorage.nomineAge, 'sessionStorage.nomineAge');
     console.log(this.nomineeDetails.valid, 'this.nomineeDetail.valid');
       if (this.nomineeDetails.valid) {
           if (sessionStorage.nomineAge < 18) {
@@ -904,7 +909,6 @@ samerelationShip(){
   public paIdProofListSuccess(successData) {
     if (successData.IsSuccess) {
       this.paIdProofList = successData.ResponseObject;
-      console.log(this.paIdProofList, 'dfgh');
     }
   }
 
@@ -931,7 +935,6 @@ samerelationShip(){
   public ageProofListSuccess(successData) {
     if (successData.IsSuccess) {
       this.ageProofList = successData.ResponseObject;
-      console.log(this.ageProofList, '7656');
     }
   }
 
@@ -958,7 +961,6 @@ samerelationShip(){
   public maritalListSuccess(successData) {
     if (successData.IsSuccess) {
       this.maritalStatusList = successData.ResponseObject;
-      console.log(this.maritalStatusList, '7656');
     }
   }
 
@@ -985,7 +987,6 @@ samerelationShip(){
   public languageListSuccess(successData) {
     if (successData.IsSuccess) {
       this.languageList = successData.ResponseObject;
-      console.log(this.languageList, '7656');
     }
   }
 
@@ -1012,7 +1013,6 @@ samerelationShip(){
   public proposerTypeSuccess(successData) {
     if (successData.IsSuccess) {
       this.proposerTypeList = successData.ResponseObject;
-      console.log(this.proposerTypeList, 'pro');
     }
   }
 
@@ -1040,7 +1040,6 @@ samerelationShip(){
   public docLanguageSuccess(successData) {
     if (successData.IsSuccess) {
       this.docLanguageList = successData.ResponseObject;
-      console.log(this.docLanguageList, 'pro');
     }
   }
 
@@ -1067,7 +1066,6 @@ samerelationShip(){
   public primiumListSuccess(successData) {
     if (successData.IsSuccess) {
       this.primiumpayList = successData.ResponseObject;
-      console.log(this.primiumpayList, 'pro');
     }
   }
 
@@ -1093,7 +1091,6 @@ samerelationShip(){
   public nationalityListSuccess(successData) {
     if (successData.IsSuccess) {
       this.nationalityList = successData.ResponseObject;
-      console.log(this.nationalityList, 'pro');
     }
   }
 
@@ -1119,7 +1116,6 @@ samerelationShip(){
   public citizenshipListSuccess(successData) {
     if (successData.IsSuccess) {
       this.citizenshipList = successData.ResponseObject;
-      console.log(this.citizenshipList, 'pro');
     }
   }
 
@@ -1146,7 +1142,6 @@ samerelationShip(){
   public countrySuccess(successData) {
     if (successData.IsSuccess) {
       this.countryList = successData.ResponseObject;
-      console.log(this.countryList, 'pro');
     }
   }
 
@@ -1171,7 +1166,6 @@ samerelationShip(){
   public educationSuccess(successData) {
     if (successData.IsSuccess) {
       this.educationList = successData.ResponseObject;
-      console.log(this.educationList, 'pro');
     }
   }
 
@@ -1197,7 +1191,6 @@ samerelationShip(){
   public weightSuccess(successData) {
     if (successData.IsSuccess) {
       this.weightList = successData.ResponseObject;
-      console.log(this.weightList, 'pro');
     }
   }
 
@@ -1223,7 +1216,6 @@ samerelationShip(){
   public TitleListSuccess(successData) {
     if (successData.IsSuccess) {
       this.TitleList = successData.ResponseObject;
-      console.log(this.TitleList, 'title');
     }
   }
 
@@ -1249,7 +1241,6 @@ samerelationShip(){
   public occupationListSuccess(successData) {
     if (successData.IsSuccess) {
       this.occupationList = successData.ResponseObject;
-      console.log(this.occupationList, 'pro');
     }
   }
 
@@ -1275,7 +1266,6 @@ samerelationShip(){
   public nomineeRelationSuccess(successData) {
     if (successData.IsSuccess) {
       this.nomineeRelationList = successData.ResponseObject;
-      console.log(this.nomineeRelationList, 'pro');
     }
   }
 
@@ -1370,7 +1360,6 @@ samerelationShip(){
   public ageProofsSuccess(successData) {
     if (successData.IsSuccess) {
       this.ageProofsList = successData.ResponseObject;
-      console.log(this.ageProofsList, 'pro');
     }
   }
 
@@ -1485,7 +1474,6 @@ samerelationShip(){
   public idProofSuccess(successData) {
     if (successData.IsSuccess) {
       this.idProofList = successData.ResponseObject;
-      console.log(this.idProofList, 'pro');
     }
   }
 
@@ -1514,7 +1502,6 @@ samerelationShip(){
     if (successData.IsSuccess) {
       this.incomeProofList = successData.ResponseObject;
         this.incomeList = true;
-      console.log(this.incomeProofList, 'pro');
     } else {
       this.incomeList = false;
 
@@ -1589,7 +1576,6 @@ samerelationShip(){
   public apointeeRelationSuccess(successData) {
     if (successData.IsSuccess) {
       this.apointeRelationList = successData.ResponseObject;
-      console.log(this.apointeRelationList, 'pro');
     }
   }
   public apointeeRelationFailure(error) {
@@ -1624,7 +1610,6 @@ samerelationShip(){
         this.proposer.controls['rcity'].setValue(this.pincodeList.city);
         this.proposer.controls['rstate'].setValue(this.pincodeList.state);
       }
-      console.log(this.pincodeList, 'pro');
     } else {
       this.toastr.error('In valid Pincode');
       if(title == 'personal') {
@@ -1644,12 +1629,12 @@ samerelationShip(){
 
 
   politicalReson() {
-    console.log(this.proposer.controls['politicallyExposedPerson'].value, 'reson');
     if (this.proposer.controls['politicallyExposedPerson'].value == 'Yes') {
-      this.politicalDetails = true;
+      this.proposer.controls['ifYesGiveDetails'].setValidators([Validators.required]);
+      this.proposer.controls['ifYesGiveDetails'].updateValueAndValidity();
     } else {
-      this.politicalDetails = false;
-
+      this.proposer.controls['ifYesGiveDetails'].clearValidators();
+      this.proposer.controls['ifYesGiveDetails'].updateValueAndValidity();
     }
   }
 
@@ -1663,9 +1648,9 @@ samerelationShip(){
       "country": this.proposer.controls['countryOfResid'].value
 
     }
+    this.settings.loadingSpinner = true;
     this.termService.getMainQues(data).subscribe(
         (successData) => {
-          console.log('ok');
           this.MainQuesSuccess(successData);
         },
         (error) => {
@@ -1675,9 +1660,9 @@ samerelationShip(){
   }
 
   public MainQuesSuccess(successData) {
+    this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       this.allQuestionList = successData.ResponseObject;
-      console.log(this.allQuestionList, 'pro11');
       for (let i = 0; i < this.allQuestionList.length; i++) {
         for (let j = 0; j < this.allQuestionList[i].length; j++) {
           this.allQuestionList[i][j].mainQuestion.fieldValue = '';
@@ -1695,6 +1680,8 @@ samerelationShip(){
   }
 
   public MainQuesFailure(error) {
+    this.settings.loadingSpinner = false;
+
   }
 
   // questionYes(items, value, index) {
@@ -1755,7 +1742,6 @@ samerelationShip(){
     public diseaseListSuccess(successData) {
         if (successData.IsSuccess) {
             this.diseaseLists = successData.ResponseObject;
-            console.log(this.diseaseLists, 'DiseaseLists');
         }
     }
     public diseaseListFailure(error) {
@@ -1864,10 +1850,7 @@ samerelationShip(){
 
   }
   changeCauseOfDeath(i) {
-      console.log(this.causeOfDeathList[this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.value]);
       this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death_name.patchValue(this.causeOfDeathList[this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.value]);
-
- console.log(this.familyDiseaseForm.value.family, 'this.familyDiseaseForm');
   }
   changeBank() {
     if(this.bankDetail.controls['bankName'].value == 'OTHER') {
@@ -2055,7 +2038,6 @@ samerelationShip(){
       sessionStorage.bankDetailFormData = JSON.stringify(this.bankDetailFormData);
       sessionStorage.nomineeDetailFormData = JSON.stringify(this.nomineeDetailFormData);
       sessionStorage.familyDiseaseFormData = JSON.stringify(this.familyDiseaseFormData);
-      console.log(this.proposerFormData,'proposerFormData');
       this.downloadFile(this.requestedUrl);
 
     } else {
@@ -2069,7 +2051,6 @@ samerelationShip(){
   downloadFile(value) {
       this.termService.downloadPdfNew().subscribe(
           (successData) => {
-            console.log(successData, 'successDatasuccessData');
 
           },
           (error) => {
@@ -2119,6 +2100,7 @@ samerelationShip(){
         alterMobile: lifeBajaj1.alterMobile,
         maritalStatus: lifeBajaj1.maritalStatus,
         annualIncome: lifeBajaj1.annualIncome,
+        alterMobileError: lifeBajaj1.alterMobileError,
         occupationList: lifeBajaj1.occupationList,
         education:lifeBajaj1.education,
         isPancard:lifeBajaj1.isPancard,
@@ -2209,7 +2191,6 @@ samerelationShip(){
     }
     if (sessionStorage.lifeQuestions != '' && sessionStorage.lifeQuestions != undefined) {
       this.allQuestionList = JSON.parse(sessionStorage.lifeQuestions);
-      console.log(this.allQuestionList, 'sesssdsfsfsfs');
     }
 
     if (sessionStorage.lifeBajajBankDetails != '' && sessionStorage.lifeBajajBankDetails != undefined) {
@@ -2231,7 +2212,6 @@ samerelationShip(){
 
      if (sessionStorage.lifeBajaiNomineeDetails!= '' && sessionStorage.lifeBajaiNomineeDetails != undefined) {
           let nomineeDetails = JSON.parse(sessionStorage.lifeBajaiNomineeDetails);
-          console.log(nomineeDetails, 'nlifeBajajnlifeBajaj');
           for (let i = 0; i < nomineeDetails.itemsNominee.length; i++) {
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nomineeDetails.itemsNominee[i].nnName);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nomineeDetails.itemsNominee[i].nDob);
@@ -2365,10 +2345,7 @@ samerelationShip(){
 
     }
     onUploadFinished(values, basecode) {
-        console.log(basecode, 'this.eventeventevent');
         values[0].base64 = basecode[0][1];
-
-        console.log(values, 'valuesvalues');
 
         for (let k = 0; k < values.length; k++) {
             if (this.allImage.indexOf(values[k].name) == -1) {
@@ -2376,14 +2353,9 @@ samerelationShip(){
             }
         }
         console.log(this.allImage, 'this.fileDetails');
-
-
-
     }
 
     uploadAll() {
-        console.log(this.allImage, 'this.fileDetails2323');
-
         const data = {
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -2395,7 +2367,6 @@ samerelationShip(){
                 "Type": "PH"
             }]
         };
-
         console.log(data, 'dattattatata');
         this.termService.fileUpload(data).subscribe(
             (successData) => {

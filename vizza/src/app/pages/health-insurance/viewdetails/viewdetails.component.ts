@@ -41,6 +41,7 @@ export class ViewdetailsComponent implements OnInit {
     fileUploadPath: any;
     productName: any;
     sumInsuredAmount: any;
+    step: any;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
@@ -137,6 +138,13 @@ export class ViewdetailsComponent implements OnInit {
         }
 
     }
+    setStep(index: number) {
+        this.step = index;
+    }
+    nextStep() {
+        this.step++;
+    }
+
     viewKeyFeatures(value, maxAge) {
         const data = {
             'platform': 'web',

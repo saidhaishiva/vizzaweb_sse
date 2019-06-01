@@ -22,28 +22,33 @@
             </ng-template>
               <div class="row">
                 <!--mobile view-->
-                <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
-                <mat-accordion class="w-100">
-                  <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i == 0">
-                    <mat-expansion-panel-header class="heigt">
-                      <mat-panel-title style="height: 40px;" *ngIf="keys.type == 1 || keys.type == 0" class="nav-item">
-                        <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
-                      <div class="row" *ngIf="id === i">
-                        <div class="col-md-12">
-                          <div fxLayoutAlign="left start">
-                            <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
-                          </div>
-                          <p style="color: #000;text-align: right; font-size: 13px;">*Note: As per insurer issued Brochure</p>
-                        </div>
-                      </div>
-                    </div>
 
-                  </mat-expansion-panel>
-                </mat-accordion>
-                </div>
+
+
+                  <div class="row">
+                      <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
+                          <mat-accordion class="w-100">
+                              <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i === 0">
+                                  <mat-expansion-panel-header class="heigt">
+                                      <mat-panel-title style="height: 40px;" *ngIf="keys.type == 1 || keys.type == 0" class="nav-item">
+                                          <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                                      </mat-panel-title>
+                                  </mat-expansion-panel-header>
+                                  <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
+                                      <div class="row" *ngIf="id === i">
+                                          <div class="col-md-12">
+                                              <div fxLayoutAlign="left start">
+                                                  <div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>
+                                              </div>
+                                              <p style="color: #000;text-align: right; font-size: 13px;">*Note: As per insurer issued Brochure</p>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </mat-expansion-panel>
+                          </mat-accordion>
+                      </div>
+                      </div>
+
 
 
                 <!--disktop view-->
@@ -120,30 +125,39 @@
             </div>
 
 
-              <!--mobile view-->
-              <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
-                <mat-accordion class="w-100">
-                  <mat-expansion-panel *ngFor="let keys of productDocLists;let i = index" [expanded]="i == 0" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#e8ccdb' : '#d81b60'" >
-                    <mat-expansion-panel-header class="heigt">
-                      <mat-panel-title *ngIf="keys.status == 1 || keys.status == 0">
-                        <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
-                      </mat-panel-title>
-                    </mat-expansion-panel-header>
 
-                      <div class="h-100" *ngFor="let keys of productDocLists;let i = index">
-                        <div fxLayoutAlign="center center" class="well" *ngIf="id1 == i">
-                          <h4>{{keys.product_name}}</h4>
-                        </div>
-                        <div class="row" *ngIf="id1 == i">
-                          <div class="text-center w-100 mb-3">
-                            <iframe [src]="webhost +'/'+ keys.kf_path | safe" width="100%" height="430" ></iframe>
-                          </div>
-                        </div>
-                      </div>
-                  </mat-expansion-panel>
-                </mat-accordion>
-              </div>
             </div>
+              <!--mobile view-->
+              <ng-template mat-tab-label class="border border-dark">
+                  <mat-icon >assignment</mat-icon>
+                  PRODUCT DOCUMENTS
+              </ng-template>
+              <div class="row">
+                  <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
+                      <mat-accordion class="w-100">
+                          <mat-expansion-panel *ngFor="let keys of productDocLists;let i = index" [expanded]="i == 0" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#e8ccdb' : '#d81b60'" >
+                              <mat-expansion-panel-header class="heigt">
+                                  <mat-panel-title *ngIf="keys.status == 1 || keys.status == 0" class="nav-item">
+                                      <!--{{i}}klklkl-->
+                                      <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
+                                  </mat-panel-title>
+                              </mat-expansion-panel-header>
+
+                              <div class="h-100" *ngFor="let keys of productDocLists;let i = index">
+                                  <div fxLayoutAlign="center center" class="well" *ngIf="id1 == i">
+                                      <h4>{{keys.product_name}}</h4>
+                                  </div>
+                                  <div class="row" *ngIf="id1 == i">
+                                      <div class="text-center w-100 mb-3">
+                                          <iframe [src]="webhost +'/'+ keys.kf_path | safe" width="100%" height="430" ></iframe>
+                                      </div>
+                                  </div>
+                              </div>
+                          </mat-expansion-panel>
+                      </mat-accordion>
+                  </div>
+              </div>
+
 
           </mat-tab>
 
@@ -340,6 +354,34 @@
 </div>
 </div>
 
+<!--mobile view-->
+<!--<mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)">-->
+    <!--<mat-tab>-->
+        <!--<ng-template mat-tab-label class="border border-dark">-->
+            <!--<mat-icon >vpn_key</mat-icon>-->
+            <!--KEY POLICY FEATURES-->
+        <!--</ng-template>-->
+        <!--<mat-accordion class="w-100">-->
+            <!--<mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i == 0">-->
+                <!--<mat-expansion-panel-header class="heigt">-->
+                    <!--<mat-panel-title style="height: 40px;" *ngIf="keys.type == 1 || keys.type == 0" class="nav-item">-->
+                        <!--<a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>-->
+                    <!--</mat-panel-title>-->
+                <!--</mat-expansion-panel-header>-->
+                <!--<div class="h-100" *ngFor="let keys of getKeyList;let i = index">-->
+                    <!--<div class="row" *ngIf="id === i">-->
+                        <!--<div class="col-md-12">-->
+                            <!--<div fxLayoutAlign="left start">-->
+                                <!--<div class="text-justify spaceContent" [innerHtml]="keys.kf_details"> </div>-->
+                            <!--</div>-->
+                            <!--<p style="color: #000;text-align: right; font-size: 13px;">*Note: As per insurer issued Brochure</p>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</mat-expansion-panel>-->
+        <!--</mat-accordion>-->
+    <!--</mat-tab>-->
+<!--</mat-tab-group>-->
 
 <style>
   .container {
