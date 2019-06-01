@@ -970,10 +970,7 @@ export class BikeShriramProposalComponent implements OnInit {
         topScroll() {
           document.getElementById('main-content').scrollTop = 0;
         }
-    // dateValidate(value){
-    //     if(this.previousInsure.controls['policyUwYear'].value <= this.previousInsure.controls['previousdEndob'].value){
-    //     }
-    // }
+
     // proposal Creation
 
   proposal(stepper) {

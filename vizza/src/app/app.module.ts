@@ -279,6 +279,7 @@ import { DownloadReliancePersonalAccident} from './pages/reliance-pa-payment-suc
 import { BikeTataaigProposalComponent } from './pages/bike-tataaig-proposal/bike-tataaig-proposal.component';
 import {CholaHealthPaymentSuccessComponent, DownloadMessageCholaHealth} from './pages/chola-health-payment-success/chola-health-payment-success.component';
 import { EnquiryPopupComponent } from './pages/bike-insurance/enquiry-popup/enquiry-popup.component';
+import { RoyalsundaramMotorPaymentSuccessComponent } from './pages/royalsundaram-motor-payment-success/royalsundaram-motor-payment-success.component';
 
 @NgModule({
     imports: [
@@ -517,7 +518,8 @@ import { EnquiryPopupComponent } from './pages/bike-insurance/enquiry-popup/enqu
         BikeTataaigProposalComponent,
         CholaHealthPaymentSuccessComponent,
         DownloadMessageCholaHealth,
-        EnquiryPopupComponent
+        EnquiryPopupComponent,
+        RoyalsundaramMotorPaymentSuccessComponent
     ],
     providers: [
         AppSettings,

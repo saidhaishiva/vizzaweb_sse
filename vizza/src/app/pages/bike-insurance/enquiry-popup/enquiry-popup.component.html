@@ -114,6 +114,14 @@
         <mat-error *ngIf="vehicalDetails.controls.variant.errors?.required">Variant is required</mat-error>
       </mat-form-field>
     </div>
+    <div class="col-md-3">
+      <mat-form-field class="w-100">
+        <mat-select placeholder="Registration City"  formControlName="city"  required>
+          <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+        </mat-select>
+        <mat-error *ngIf="vehicalDetails.controls.city.errors?.required">Variant is required</mat-error>
+      </mat-form-field>
+    </div>
     <div class="col-md-12 text-center mt-3">
       <button mat-raised-button color="primary"  (click)="enquiryQuation(vehicalDetails.value)">Submit</button>
     </div>
