@@ -675,21 +675,21 @@
 
     <mat-card class="metacard" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
         <div class="row mb-5 mt-3" >
-            <div class="col-md-4 col-4">
+            <div class="col-md-6 col-6">
                 <img class="mt-1 w-75" src="{{webhost + '/' + plists.company_logo}}">
                 <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
             </div>
-            <div class="col-md-4 col-4">
+            <div class="col-md-3 col-3">
                 <p style="margin-bottom: 0rem !important;">Sum Insured</p>
                 <div>
-                    <p> &#8377; {{plists.suminsured_amount_format}} </p>
+                    <p style="font-size: 10px!important; font-weight: bold;"> &#8377; {{plists.suminsured_amount_format}} </p>
                 </div>
             </div>
-            <div class="col-md-4 col-4">
+            <div class="col-md-3 col-3">
                 <p style="margin-bottom: 0rem !important;">Premium /yr</p>
                 <div>
-                    <p>&#8377;{{plists.premium_amount_format}}</p>
-                    <p>(Including GST)</p>
+                    <p style="font-size: 10px!important; font-weight: bold;">&#8377;{{plists.premium_amount_format}}</p>
+                    <p style="font-size: 10px!important;">(Including GST)</p>
                 </div>
             </div>
         </div>
