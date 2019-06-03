@@ -98,6 +98,8 @@ export class BajajAlianzComponent implements OnInit {
     public zonepanvalue: any;
     public sameRelationship: any;
     public insuredFormData: any;
+    public healthBajajTrue0: boolean;
+    public healthBajajTrue1: boolean;
 
 
     constructor(public proposalservice: HealthService, public route: ActivatedRoute, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
@@ -125,6 +127,8 @@ export class BajajAlianzComponent implements OnInit {
         this.zonepanvalue = false;
         this.copaymentShow = false;
         this.zonemessage = '';
+        this.healthBajajTrue0 = false;
+        this.healthBajajTrue1 = true;
 
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -359,6 +363,7 @@ export class BajajAlianzComponent implements OnInit {
                         this.proposal(stepper);
                         this.topScroll();
                         this.nextStep();
+                        this.healthBajajTrue1 = false;
                     }  else{
                         this.toastr.error('Insurer and Nominee relationship should be different');
                     }

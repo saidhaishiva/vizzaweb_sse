@@ -257,6 +257,8 @@ export class BikePremiumListComponent implements OnInit {
             this.router.navigate(['/bike-royal-proposal'  + '/' + false]);
         }else if (value.company_id ==3){
             this.router.navigate(['/reliance-motor-proposal' + '/'+ false]);
+        }else if(value.company_id == 13){
+            this.router.navigate(['/bike-tataaig-proposal'+ '/' + false]);
         }
 
 

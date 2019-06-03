@@ -118,6 +118,11 @@ export class StarHealthProposalComponent implements OnInit {
     public step: any;
     public gstListType: any;
 
+    public healthStarTrue0: boolean;
+    public healthStarTrue1: boolean;
+    public healthStarTrue2: boolean;
+    public healthStarTrue3: boolean;
+
     constructor(public proposalservice: HealthService,public route: ActivatedRoute ,public validation: ValidationService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public auth: AuthService, public http:HttpClient, @Inject(LOCALE_ID) private locale: string) {
         let stepperindex = 0;
@@ -156,6 +161,12 @@ export class StarHealthProposalComponent implements OnInit {
         this.step = 0;
         this.mobileNumber = 'true';
         this.ageRestriction = 'true';
+
+        this.healthStarTrue0 = false;
+        this.healthStarTrue1 = true;
+        this.healthStarTrue2 = true;
+        this.healthStarTrue3 = true;
+
         this.personal = this.fb.group({
             personalTitle: ['', Validators.required],
             personalFirstname: ['', Validators.required],
@@ -761,8 +772,9 @@ export class StarHealthProposalComponent implements OnInit {
                         if((this.personal.controls['personalgstIdType'].value == '' && this.personal.controls['personalGst'].value == '') || (this.personal.controls['personalgstIdType'].value != '' && this.personal.controls['personalGst'].value != '')) {
 
                             stepper.next();
-                            this.topScroll()
+                            this.topScroll();
                             this.nextStep();
+                            this.healthStarTrue1 = false;
                         } else {
                             if(this.personal.controls['personalgstIdType'].value != '' || this.personal.controls['personalGst'].value != ''){
                                 this.toastr.error('Enter GST Number');
@@ -931,6 +943,8 @@ export class StarHealthProposalComponent implements OnInit {
                 stepper.next();
                 this.topScroll();
                 this.nextStep();
+                this.healthStarTrue1 = false;
+                this.healthStarTrue2 = false;
             }
         }
         if(this.familyMembers.length == 1){
@@ -1519,8 +1533,7 @@ export class StarHealthProposalComponent implements OnInit {
             stepper.next();
             this.topScroll();
             this.nextStep();
-
-
+            this.healthStarTrue3 = false;
         } else {
             this.toastr.error(successData.ErrorObject);
         }

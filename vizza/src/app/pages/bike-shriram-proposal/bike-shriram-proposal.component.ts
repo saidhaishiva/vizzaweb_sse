@@ -172,12 +172,12 @@ export class BikeShriramProposalComponent implements OnInit {
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
       previousInsured: ['', Validators.required],
-      policyUwYear:  ['', Validators.compose([Validators.pattern('[2]{1}[0-9]{3}')])],
+      // policyUwYear:  ['', Validators.compose([Validators.pattern('[2]{1}[0-9]{3}')])],
       previousPolicyType: ['', Validators.required],
       policyNilDescription: ['', Validators.required],
-      previousdob:['', Validators.required],
+      // previousdob:['', Validators.required],
       previousPolicyTypeName:['', Validators.required],
-        previousdEndob:['', Validators.required],
+        // previousdEndob:['', Validators.required],
         policySi:['', Validators.required]
 
     });
@@ -817,15 +817,15 @@ export class BikeShriramProposalComponent implements OnInit {
         }
         // let start = this.datepipe.transform(new Date(this.previousInsure.controls['previousdob'].value), 'y-MM-dd');
         // let end = this.datepipe.transform(new Date(this.previousInsure.controls['previousdEndob'].value), 'y-MM-dd');
-        var d = new Date(this.previousInsure.controls['previousdob'].value);
-        var year = d.getFullYear();
-        var month = d.getMonth();
-        var day = d.getDate();
-        for (let i = 1; i <= 3; i++) {
-            this.policyDatevalidate.push(this.getFormattedDate(new Date(year + i, month, day - 1)));
-        }
-        console.log(this.policyDatevalidate, 'this.policyDatevalidate');
-        sessionStorage.policyDatevalidateArray = JSON.stringify(this.policyDatevalidate);
+        // var d = new Date(this.previousInsure.controls['previousdob'].value);
+        // var year = d.getFullYear();
+        // var month = d.getMonth();
+        // var day = d.getDate();
+        // for (let i = 1; i <= 3; i++) {
+        //     this.policyDatevalidate.push(this.getFormattedDate(new Date(year + i, month, day - 1)));
+        // }
+        // console.log(this.policyDatevalidate, 'this.policyDatevalidate');
+        // sessionStorage.policyDatevalidateArray = JSON.stringify(this.policyDatevalidate);
     }
 
   previousInsureType() {
@@ -886,19 +886,19 @@ export class BikeShriramProposalComponent implements OnInit {
         }
 
     }
-    manufactureYear(){
-        let start = new Date(this.previousInsure.controls['previousdob'].value);
-        let getPolicyYear = start.getFullYear();
-        console.log(getPolicyYear,'getPolicyYear');
-        let getLength = this.previousInsure.controls['policyUwYear'].value;
-        if(getLength.length == 4) {
-            if(getPolicyYear >= this.previousInsure.controls['policyUwYear'].value){
-            }  else {
-                this.toastr.error('Manufacture Year should be less than Registration Year');
-            }
-        }
-
-    }
+    // manufactureYear(){
+    //     let start = new Date(this.previousInsure.controls['previousdob'].value);
+    //     let getPolicyYear = start.getFullYear();
+    //     console.log(getPolicyYear,'getPolicyYear');
+    //     let getLength = this.previousInsure.controls['policyUwYear'].value;
+    //     if(getLength.length == 4) {
+    //         if(getPolicyYear >= this.previousInsure.controls['policyUwYear'].value){
+    //         }  else {
+    //             this.toastr.error('Manufacture Year should be less than Registration Year');
+    //         }
+    //     }
+    //
+    // }
 //  fFOURTH sTEPPER (NOMINEE)
       ageNominee(){
       if(this.nomineeDetail.controls['nomineeAge'].value <= 17){
@@ -970,10 +970,7 @@ export class BikeShriramProposalComponent implements OnInit {
         topScroll() {
           document.getElementById('main-content').scrollTop = 0;
         }
-    // dateValidate(value){
-    //     if(this.previousInsure.controls['policyUwYear'].value <= this.previousInsure.controls['previousdEndob'].value){
-    //     }
-    // }
+
     // proposal Creation
 
   proposal(stepper) {
@@ -987,7 +984,7 @@ export class BikeShriramProposalComponent implements OnInit {
           'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
           "geogrophicalExtensionCover": "false",
           "motorProposalObj": {
-              "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
+              // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
               "InsuredPrefix": "1",
               "InsuredName": this.proposer.controls['name'].value,
               "Gender": this.proposer.controls['gender'].value == 'Male' ? 'M' : 'F',
@@ -1032,11 +1029,11 @@ export class BikeShriramProposalComponent implements OnInit {
               "AddonPackage": this.buyBikeDetails.plan_code,
               "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
               "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
-              "PAforUnnamedPassengerSI": this.siValue,
+              "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamed'].value == true ? this.siValue : '',
               "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
-              "ElectricalaccessSI": this.siValue,
+              "ElectricalaccessSI": this.vehical.controls['electricalAccess'].value == true ? this.siValue : '',
               "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
-              "NonElectricalaccessSI": this.siValue,
+              "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccess'].value == true ? this.siValue : '',
               "PAPaidDriverConductorCleanerYN": "0",
               "PAPaidDriverConductorCleanerSI": "",
               "PAPaidDriverCount": "",
@@ -1056,7 +1053,7 @@ export class BikeShriramProposalComponent implements OnInit {
               "AntiTheftYN": this.vehical.controls['antiTheft'].value == true ? '1' : '0',
               "PreviousPolicyNo": this.previousInsure.controls['policyNumber'].value,
               "PreviousInsurer": this.previousInsure.controls['previousInsured'].value,
-              "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
+              // "PreviousPolicyUWYear": this.previousInsure.controls['policyUwYear'].value,
               "PreviousPolicySI": this.previousInsure.controls['policySi'].value,
               // "PreviousPolicyClaimYN": this.previousInsure.controls['policyClaim'].value == true ? '1' : '0',
              // / "PreviousPolicyNCBPerc": this.previousInsure.controls['previousPolicyNcb'].value ? this.previousInsure.controls['previousPolicyNcb'].value : 0,
@@ -1180,14 +1177,14 @@ export class BikeShriramProposalComponent implements OnInit {
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
         previousInsured: stepper3.previousInsured,
-        policyUwYear: stepper3.policyUwYear,
+        // policyUwYear: stepper3.policyUwYear,
         policySi: stepper3.policySi,
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
         // previousPolicyNcb:stepper3.previousPolicyNcb,
         previousPolicyTypeName: stepper3.previousPolicyTypeName,
-        previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
-        previousdEndob: stepper3.previousdEndob
+        // previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
+        // previousdEndob: stepper3.previousdEndob
       });
 
     }

@@ -2,7 +2,6 @@ import {Component, Inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup,FormArray,FormBuilder, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AuthService} from '../../shared/services/auth.service';
-import {PersonalAccidentService} from '../../shared/services/personal-accident.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
@@ -11,12 +10,10 @@ import {Settings} from '../../app.settings.model';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
-import {element} from 'protractor';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import * as moment from 'moment';
-import {Http} from '@angular/http';
-import {AgeValidate} from '../health-insurance/health-insurance.component';
 import {CommonService} from '../../shared/services/common.service';
+import { matchingPasswords} from '../../theme/utils/app-validators';
 
 
 export const MY_FORMATS = {
@@ -47,6 +44,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public nomineeDetails: FormGroup;
   public bankDetail: FormGroup;
   public apointeeDetails: FormGroup;
+  public familyDiseaseForm: FormGroup;
   public itemsNominee: any;
   public proposerdateError: any;
   public settings: Settings;
@@ -67,8 +65,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public weightList: any;
   public occupationList: any;
   public politicalDetails: boolean;
-  public showAppointee: boolean;
-  public MainQuesList: any;
+  public allQuestionList: any;
   public SubQuesList: any;
   public questionId: any;
   public status: any;
@@ -121,15 +118,23 @@ export class LifeBajajProposalComponent implements OnInit {
   public allImage: any;
   public url: any;
   public fileUploadPath: any;
-    public webhost: any;
-    public uploadIdProofName: any;
-    public uploadAgeProofName: any;
-    public uploadAddressProofName: any;
-    public currentStep: any;
-    public documentPath: any;
+  public webhost: any;
+  public uploadIdProofName: any;
+  public uploadBankProofName: any;
+  public uploadAgeProofName: any;
+  public uploadAddressProofName: any;
+  public currentStep: any;
+  public documentPath: any;
+  public dopDateError: any;
+  public bankProofList: any;
+  public modeOfTransactionList: any;
+  public healthStatusList: any;
+  public familyMemberList: any;
+  public causeOfDeathList: any;
+  public familyDiseaseFormData: any;
 
 
-    constructor(public Proposer: FormBuilder,public http : Http, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+    constructor(public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
         let stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -142,6 +147,7 @@ export class LifeBajajProposalComponent implements OnInit {
                     this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                     this.bankDetailFormData = JSON.parse(sessionStorage.bankDetailFormData);
                     this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
+                    this.familyDiseaseFormData = JSON.parse(sessionStorage.familyDiseaseFormData);
                 }
 
             }
@@ -165,6 +171,7 @@ export class LifeBajajProposalComponent implements OnInit {
       alterMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       maritalStatus: ['', Validators.required],
       annualIncome: '',
+        alterMobileError: '',
       occupationList: ['', Validators.compose([Validators.required])],
       height: ['', Validators.compose([Validators.minLength(3)])],
       weight: '',
@@ -189,7 +196,7 @@ export class LifeBajajProposalComponent implements OnInit {
       motherName: '',
       fatherName: '',
       ifYesGiveDetails: '',
-      panNum:['', Validators.compose([ Validators.minLength(10)])],
+      panNum:['', Validators.compose([Validators.required, Validators.minLength(10)])],
       politicallyExposedPerson: '',
       countryIpMailing: '',
       relation: '',
@@ -197,14 +204,9 @@ export class LifeBajajProposalComponent implements OnInit {
       pob: '',
       countryOfResid: '',
       nationality: '',
-      // premiumfreq: '',
-      // premiumPayTerm: '',
-      // lifeBenefit: '',
       language2: '',
       proposerType: '',
       language: '',
-      IpRelation:'',
-      // benefitTerm: '',
       comDoorNo:'',
       comBuildingNumber:'',
       comPlotNumber:'',
@@ -214,8 +216,7 @@ export class LifeBajajProposalComponent implements OnInit {
       pincode: '',
       city: '',
       state: '',
-      sameAsProposer: '',
-      sameAsInsured: 'true',
+      sameAsProposer: false,
       perDoorNo:'',
       perBuildingNumber:'',
       perPlotNumber:'',
@@ -244,28 +245,46 @@ export class LifeBajajProposalComponent implements OnInit {
       ageProofName:'',
       educationName:'',
       education:'',
+      isPancard: true,
+      jointAcName:'',
+      amtTransaction:'',
+      isAppliedPan:'',
+      dateofapplication:'',
+      ackNumber:'',
+      totalIncome:'',
+        agriculturalIncome:'',
+        otherAgriculturalIncome:'',
+        modeOfTransaction:'',
     });
-    this.proposer.controls['sameAsInsured'].patchValue(true);
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
     this.politicalDetails = false;
-    this.nomineeDetails = new FormGroup({
-            'itemsNominee' : new FormArray([
-            this.nomineeItems()
-        ])
+    this.nomineeDetails = this.Proposer.group({
+            'itemsNominee' : this.Proposer.array([
+              this.nomineeItems()
+            ])
       });
     this.bankDetail = this.Proposer.group({
       accountHolderName:'',
       bankName:['', Validators.required],
+      otherName:'',
       branchName:'',
       accountNo:'',
+      reAccountNo:'',
       accountType:'',
       ifscCode:'',
       micrCode:'',
-
-    });
+      paymentMode:'',
+      bankProof:'',
+    },{validator: matchingPasswords('accountNo','reAccountNo')}
+    );
+      this.familyDiseaseForm = this.Proposer.group({
+        'family' : this.Proposer.array([
+          this.getFamilyContols()
+        ])
+      });
 
     this.questions = this.Proposer.group({});
     this.setQuestionDetails = [];
@@ -299,48 +318,89 @@ export class LifeBajajProposalComponent implements OnInit {
     this.title();
     this.weightChanged();
     this.nomineeRelation();
+    this.getFamilyMemberList();
+    this.getHealthStatusList();
+    this.getCauseOfDeathList();
     this.occupation();
     this.getageProof();
+    this.getBankProof();
+    this.getModeOfTransaction();
     this.getIdProof();
     this.education();
     this.getApointeeRelation();
     this.getDiseaseList();
     this.samerelationShip();
-    if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
-        this.mainQuestion();
-    }
     this.sessionData();
   }
 
   nomineeItems() {
-    return new FormGroup({
-      nnName: new FormControl(),
-      nDob: new FormControl(),
-      nBirthPlace: new FormControl(),
-      nRelation: new FormControl(),
-      nRelationName: new FormControl(),
-      nomineeDobValidError: new FormControl(),
-      appointeeDobValidError: new FormControl(),
-      sharePercentage: new FormControl(),
-      aName: new FormControl(),
-      appointeeDob: new FormControl(),
-      appointeeRelationToNominee: new FormControl(),
-      relationToInsured: new FormControl(),
-      relationToInsuredName: new FormControl()
+    return this.Proposer.group({
+      nnName: ['', Validators.required],
+      nDob: ['', Validators.required],
+      nBirthPlace: ['', Validators.required],
+      nRelation: ['', Validators.required],
+      nRelationName: '',
+      nomineeDobValidError: '',
+      appointeeDobValidError: '',
+      sharePercentage: '',
+      showAppointee: false,
+      aName: '',
+      appointeeDob: '',
+      appointeeRelationToNominee: '',
+      relationToInsured: '',
+      relationToInsuredName: ''
+    });
+  }
+  getFamilyContols() {
+    return this.Proposer.group({
+      family_member: '',
+      age: '',
+      health_status: '',
+      died_age: '',
+      cause_death: '',
+      cause_death_name: ''
     });
   }
 
   // add NOmineee
   addNominee(event) {
-    if(this.itemsNominee.valid) {
-      let nomineeForm = this.itemsNominee.get('itemsNominee') as FormArray;
-      nomineeForm.push(this.nomineeItems());
+    if(this.nomineeDetails.valid) {
+      if(this.nomineeDetails.get('itemsNominee').value.length < 5) {
+        let nomineeForm = this.itemsNominee.get('itemsNominee') as FormArray;
+        nomineeForm.push(this.nomineeItems());
+      }
+
     }
   }
 
   removeNominee(event, index) {
     let nomineeForm = this.itemsNominee.get('itemsNominee') as FormArray;
     nomineeForm.removeAt(1);
+  }
+  // add Family Member
+  addFamilyMember(event) {
+    if(this.familyDiseaseForm.valid) {
+        let familyForm = this.familyDiseaseForm.get('family') as FormArray;
+        familyForm.push(this.getFamilyContols());
+    }
+  }
+
+  removeFamilyMember(event, index) {
+    let familyForm = this.familyDiseaseForm.get('family') as FormArray;
+    familyForm.removeAt(1);
+  }
+  changeHealthStatus(i) {
+    if(this.familyDiseaseForm['controls'].family['controls'][i]['controls'].health_status.value == 'Not Alive') {
+        this.familyDiseaseForm['controls'].family['controls'][i]['controls'].died_age.setValidators([Validators.required]);
+        this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.setValidators([Validators.required]);
+        this.familyDiseaseForm['controls'].family['controls'][i]['controls'].died_age.updateValueAndValidity();
+        this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.updateValueAndValidity();
+    } else {
+        this.familyDiseaseForm['controls'].family['controls'][i]['controls'].died_age.clearValidators();
+        this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.clearValidators();
+        this.familyDiseaseForm['controls'].family['controls'][i]['controls'].died_age.updateValueAndValidity();
+        this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.updateValueAndValidity();
+    }
   }
 
 
@@ -372,7 +432,6 @@ export class LifeBajajProposalComponent implements OnInit {
     }
   }
   typeAddress(event) {
-      console.log(event.checked, 'hh');
     if(this.proposer.controls['sameAsProposer'].value) {
       this.proposer.controls['perDoorNo'].patchValue(this.proposer.controls['comDoorNo'].value);
       this.proposer.controls['perBuildingNumber'].patchValue(this.proposer.controls['comBuildingNumber'].value);
@@ -438,6 +497,18 @@ export class LifeBajajProposalComponent implements OnInit {
     }
   }
 
+  alternateChange(event) {
+    if (event.target.value.length == 10) {
+      if(event.target.value == this.proposer.get('mobile').value) {
+        this.proposer.controls['alterMobileError'].patchValue('Alternate number should be different from mobile number');
+      } else {
+        this.proposer.controls['alterMobileError'].patchValue('');
+      }
+    } else {
+      this.proposer.controls['alterMobileError'].patchValue('');
+    }
+  }
+
   ageCalculate(dob) {
     let today = new Date();
     let birthDate = new Date(dob);
@@ -449,53 +520,6 @@ export class LifeBajajProposalComponent implements OnInit {
     }
     return age;
   }
-
-  // addEvent(event, type) {
-  //   if (event.value != null) {
-  //     let selectedDate = '';
-  //     this.bajajAge = '';
-  //     let dob = '';
-  //     if (typeof event.value._i == 'string') {
-  //       const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-  //       if (pattern.test(event.value._i) && event.value._i.length == 10) {
-  //         this.proposerdateError = '';
-  //       } else {
-  //         this.proposerdateError = 'Enter Valid Date';
-  //       }
-  //       selectedDate = event.value._i;
-  //       dob = this.datepipe.transform(event.value, 'y-MM-dd');
-  //       if (selectedDate.length == 10) {
-  //         this.bajajAge = this.ageCalculate(dob);
-  //         console.log(this.bajajAge, 'agre');
-  //         sessionStorage.bajajproposerAge = this.bajajAge;
-  //         console.log(sessionStorage.bajajproposerAge, 'sessionStorage.bajajproposerAge');
-  //         this.proposer.controls['age'].patchValue(this.bajajAge);
-  //       }
-  //
-  //     } else if (typeof event.value._i == 'object') {
-  //       dob = this.datepipe.transform(event.value, 'y-MM-dd');
-  //       if (dob.length == 10) {
-  //         this.bajajAge = this.ageCalculate(dob);
-  //         sessionStorage.insuredAgePA = this.bajajAge;
-  //         this.proposer.controls['age'].patchValue(this.bajajAge);
-  //       }
-  //       this.proposerdateError = '';
-  //     }
-  //     if (type == 'nominee') {
-  //       this.nomineeAge = this.ageCalculate(dob);
-  //       console.log(this.nomineeAge,'nomineeage');
-  //       if (this.nomineeAge < 18) {
-  //         this.show = true;
-  //       } else {
-  //         this.show = false;
-  //       }
-  //     }
-  //
-  //     //sessionStorage.insuredAgePA = this.bajajAge;
-  //
-  //   }
-  // }
-  //
 
   addEvent(event) {
     if (event.value != null) {
@@ -535,7 +559,6 @@ export class LifeBajajProposalComponent implements OnInit {
     }
   }
 
-
   addEventSpouse(event) {
     if (event.value != null) {
       let selectedDate = '';
@@ -569,7 +592,6 @@ export class LifeBajajProposalComponent implements OnInit {
 
     }
   }
-
 
   addEventNominee(event, i, type) {
       if(type == 'nominee') {
@@ -610,16 +632,17 @@ export class LifeBajajProposalComponent implements OnInit {
             }
           }
         }
-        console.log(this.getAge, 'this.getAgethis.getAge');
         sessionStorage.nomineAge = this.getAge;
         if (this.getAge < 18) {
-          this.showAppointee = true;
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(true);
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
         } else {
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(false);
+          this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators(null);
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
-          this.showAppointee = false;
         }
       } else if(type == 'appointee') {
 
@@ -664,55 +687,52 @@ export class LifeBajajProposalComponent implements OnInit {
       }
     }
 
-
-
-
-    // if (i == 'nominee') {
-    //         this.nomineeAge = this.ageCalculate();
-    //         console.log(this.nomineeAge,'nomineeage');
-    //         if (this.nomineeAge < 18) {
-    //           this.show = true;
-    //         } else {
-    //           this.show = false;
-    //         }
-    //       }
-    //
     ageCalculateInsurer(getDays) {
       let a = moment(getDays, 'DD/MM/YYYY');
       let b = moment(new Date(), 'DD/MM/YYYY');
       let days = b.diff(a, 'days');
       return days;
     }
+
+  dateOfApplicationEvent(event) {
+    if (event.value != null) {
+      if (typeof event.value._i == 'string') {
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+        if (pattern.test(event.value._i) && event.value._i.length == 10) {
+          this.dopDateError = '';
+        } else {
+          this.dopDateError = 'Enter Valid Date';
+        }
+
+      } else if (typeof event.value._i == 'object') {
+        this.dopDateError = '';
+      }
+
+    }
+  }
+
   // personal details
   proposerDetails(stepper, value) {
     console.log(value);
     sessionStorage.stepperDetails1 = JSON.stringify(value);
-
-    console.log(value, 'valuevalue');
     console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
       if(sessionStorage.bajajproposerAge >= 18){
+          if(this.proposer.controls['annualIncome'].value > '500000'){
+                if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
+                {
+                  this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
+                }else {
 
-        if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
-        {
-          this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
-        }else {
-          let validMarital = true;
-          if(this.proposer['controls'].maritalStatus.value == 'M'){
-            if(this.proposer.controls['spouseBirthPlace'].value == '' || this.proposer.controls['spouseName'].value == '' || this.proposer.controls['spouseDob'].value == '') {
-              validMarital = false;
-              this.toastr.error('Proposer age should be greater than equal to 18');
-            } else {
-              validMarital = true;
-            }
+                      if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
+                          this.mainQuestion();
+                      }
+                    stepper.next();
+                    this.topScroll();
+                }
+          } else {
+              this.toastr.error('Annual Income shoud be above 5 lakhs');
           }
-
-          if(validMarital) {
-            stepper.next();
-            this.topScroll();
-          }
-
-        }
 
       } else {
           this.toastr.error('Proposer age should be greater than equal to 18');
@@ -748,12 +768,27 @@ samerelationShip(){
     public relationShipSuccess(successData) {
         if (successData.IsSuccess) {
           this.relationInsured = successData.ResponseObject;
-          console.log(this.relationInsured, 'relatrion');
         }
       }
 
     public relationShipFailure(error) {
       }
+
+  isPancardChecked(event) {
+      if(event.checked) {
+        this.proposer.controls['aadharNum'].clearValidators();
+        this.proposer.controls['aadharNum'].updateValueAndValidity();
+        this.proposer.controls['panNum'].setValidators([Validators.required]);
+        this.proposer.controls['panNum'].updateValueAndValidity();
+
+      } else {
+        this.proposer.controls['panNum'].patchValue('');
+        this.proposer.controls['panNum'].clearValidators();
+        this.proposer.controls['panNum'].updateValueAndValidity();
+        this.proposer.controls['aadharNum'].setValidators([Validators.required]);
+        this.proposer.controls['aadharNum'].updateValueAndValidity();
+      }
+  }
 
   //Bank Details
   bankDetailNext(stepper, value) {
@@ -766,50 +801,55 @@ samerelationShip(){
   }
 
   medicalHistoryDetails(stepper: MatStepper) {
-
     sessionStorage.lifeQuestions = '';
-    sessionStorage.lifeQuestions = JSON.stringify(this.MainQuesList);
+    sessionStorage.lifeQuestions = JSON.stringify(this.allQuestionList);
+    let familyMembers = this.familyDiseaseForm.value.family;
+    sessionStorage.familyMemberDetails = JSON.stringify(familyMembers);
 
-    console.log(this.MainQuesList, 'lisyduhs');
       this.setQuestionDetails = [];
       let setMainRes = '';
       let setSubRes = '';
-      for (let i = 0; i < this.MainQuesList.length; i++) {
-          if(this.MainQuesList[i].feild == 'NUMBER' || this.MainQuesList[i].feild == 'TEXT' || this.MainQuesList[i].feild == 'Dropdown') {
-              setMainRes =  this.MainQuesList[i].fieldValue;
-          } else if(this.MainQuesList[i].feild == 'Y/N') {
-              setMainRes =  this.MainQuesList[i].checked ? 'Y' : 'N';
+
+      for (let i = 0; i < this.allQuestionList.length; i++) {
+        for (let j = 0; j < this.allQuestionList[i].length; j++) {
+          if (this.allQuestionList[i][j].mainQuestion.feild == 'NUMBER' || this.allQuestionList[i][j].mainQuestion.feild == 'TEXT' || this.allQuestionList[i][j].mainQuestion.feild == 'Dropdown') {
+            setMainRes = this.allQuestionList[i][j].mainQuestion.fieldValue;
+          } else if (this.allQuestionList[i][j].mainQuestion.feild == 'Y/N') {
+            setMainRes = this.allQuestionList[i][j].mainQuestion.checked ? 'Y' : 'N';
           }
           this.setQuestionDetails.push({
-              "questionId": this.MainQuesList[i].qus_id,
-              "subQuestionId": this.MainQuesList[i].sub_qus_id,
-              "questionFlag": this.MainQuesList[i].qus_flag,
-              "detailAnswer": '',
-              "answer": setMainRes
+            "questionId": this.allQuestionList[i][j].mainQuestion.qus_id,
+            "subQuestionId": this.allQuestionList[i][j].mainQuestion.sub_qus_id,
+            "questionFlag": this.allQuestionList[i][j].mainQuestion.qus_flag,
+            "detailAnswer": '',
+            "answer": setMainRes
           });
+        }
       }
-      for (let i = 0; i < this.MainQuesList.length; i++) {
-        let details = [];
-        for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
-            details.push(this.MainQuesList[i].SubQuesList[j].subQuestionText);
-          this.setQuestionDetails[i].detailAnswer = details.toString();
+      for (let i = 0; i < this.allQuestionList.length; i++) {
+        for (let j = 0; j < this.allQuestionList[i].length; j++) {
+          let details = [];
+          for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
+            details.push(this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText);
+            this.setQuestionDetails[j].detailAnswer = details.toString();
+          }
         }
 
       }
-      let subQuedtionValid = true;
-      for (let i = 0; i < this.MainQuesList.length; i++) {
+      // let subQuedtionValid = true;
+      // for (let i = 0; i < this.allQuestionList.length; i++) {
+      //   for (let j = 0; j < this.allQuestionList[i].mainQuestion.length; j++) {
+      //     if (this.allQuestionList[i].mainQuestion[j].checked) {
+      //       for (let k = 0; k < this.allQuestionList[i].mainQuestion[j].subQuestion.length; k++) {
+      //         if (this.allQuestionList[i].mainQuestion[j].subQuestion[k].subQuestionText == '') {
+      //           subQuedtionValid = false;
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
+      // console.log(subQuedtionValid, 'subQuedtionValid');
 
-          if(this.MainQuesList[i].checked) {
-            for (let j = 0; j < this.MainQuesList[i].SubQuesList.length; j++) {
-              if(this.MainQuesList[i].SubQuesList[j].subQuestionText == '') {
-                subQuedtionValid = false;
-              }
-            }
-          }
-      }
-      console.log(subQuedtionValid, 'subQuedtionValid');
-
-      console.log(this.setQuestionDetails,'setQuestionDetailssetQuestionDetails');
 
       stepper.next();
       this.topScroll();
@@ -832,8 +872,6 @@ samerelationShip(){
   nomineeDetailNext(stepper, value) {
     console.log(value);
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
-    console.log(value, 'valuevalue');
-    console.log(sessionStorage.nomineAge, 'sessionStorage.nomineAge');
     console.log(this.nomineeDetails.valid, 'this.nomineeDetail.valid');
       if (this.nomineeDetails.valid) {
           if (sessionStorage.nomineAge < 18) {
@@ -871,7 +909,6 @@ samerelationShip(){
   public paIdProofListSuccess(successData) {
     if (successData.IsSuccess) {
       this.paIdProofList = successData.ResponseObject;
-      console.log(this.paIdProofList, 'dfgh');
     }
   }
 
@@ -898,7 +935,6 @@ samerelationShip(){
   public ageProofListSuccess(successData) {
     if (successData.IsSuccess) {
       this.ageProofList = successData.ResponseObject;
-      console.log(this.ageProofList, '7656');
     }
   }
 
@@ -925,7 +961,6 @@ samerelationShip(){
   public maritalListSuccess(successData) {
     if (successData.IsSuccess) {
       this.maritalStatusList = successData.ResponseObject;
-      console.log(this.maritalStatusList, '7656');
     }
   }
 
@@ -952,7 +987,6 @@ samerelationShip(){
   public languageListSuccess(successData) {
     if (successData.IsSuccess) {
       this.languageList = successData.ResponseObject;
-      console.log(this.languageList, '7656');
     }
   }
 
@@ -979,7 +1013,6 @@ samerelationShip(){
   public proposerTypeSuccess(successData) {
     if (successData.IsSuccess) {
       this.proposerTypeList = successData.ResponseObject;
-      console.log(this.proposerTypeList, 'pro');
     }
   }
 
@@ -1007,7 +1040,6 @@ samerelationShip(){
   public docLanguageSuccess(successData) {
     if (successData.IsSuccess) {
       this.docLanguageList = successData.ResponseObject;
-      console.log(this.docLanguageList, 'pro');
     }
   }
 
@@ -1034,7 +1066,6 @@ samerelationShip(){
   public primiumListSuccess(successData) {
     if (successData.IsSuccess) {
       this.primiumpayList = successData.ResponseObject;
-      console.log(this.primiumpayList, 'pro');
     }
   }
 
@@ -1060,7 +1091,6 @@ samerelationShip(){
   public nationalityListSuccess(successData) {
     if (successData.IsSuccess) {
       this.nationalityList = successData.ResponseObject;
-      console.log(this.nationalityList, 'pro');
     }
   }
 
@@ -1086,7 +1116,6 @@ samerelationShip(){
   public citizenshipListSuccess(successData) {
     if (successData.IsSuccess) {
       this.citizenshipList = successData.ResponseObject;
-      console.log(this.citizenshipList, 'pro');
     }
   }
 
@@ -1113,7 +1142,6 @@ samerelationShip(){
   public countrySuccess(successData) {
     if (successData.IsSuccess) {
       this.countryList = successData.ResponseObject;
-      console.log(this.countryList, 'pro');
     }
   }
 
@@ -1138,7 +1166,6 @@ samerelationShip(){
   public educationSuccess(successData) {
     if (successData.IsSuccess) {
       this.educationList = successData.ResponseObject;
-      console.log(this.educationList, 'pro');
     }
   }
 
@@ -1164,7 +1191,6 @@ samerelationShip(){
   public weightSuccess(successData) {
     if (successData.IsSuccess) {
       this.weightList = successData.ResponseObject;
-      console.log(this.weightList, 'pro');
     }
   }
 
@@ -1190,7 +1216,6 @@ samerelationShip(){
   public TitleListSuccess(successData) {
     if (successData.IsSuccess) {
       this.TitleList = successData.ResponseObject;
-      console.log(this.TitleList, 'title');
     }
   }
 
@@ -1216,7 +1241,6 @@ samerelationShip(){
   public occupationListSuccess(successData) {
     if (successData.IsSuccess) {
       this.occupationList = successData.ResponseObject;
-      console.log(this.occupationList, 'pro');
     }
   }
 
@@ -1242,11 +1266,79 @@ samerelationShip(){
   public nomineeRelationSuccess(successData) {
     if (successData.IsSuccess) {
       this.nomineeRelationList = successData.ResponseObject;
-      console.log(this.nomineeRelationList, 'pro');
     }
   }
 
   public nomineeRelationFailure(error) {
+  }
+  getFamilyMemberList() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.termService.getFamilyMemberList(data).subscribe(
+        (successData) => {
+          this.getMemberListSuccess(successData);
+        },
+        (error) => {
+          this.getMemberListFailure(error);
+        }
+    );
+  }
+
+  public getMemberListSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.familyMemberList = successData.ResponseObject;
+    }
+  }
+  public getMemberListFailure(error) {
+  }
+  getHealthStatusList() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.termService.getHealthStatusList(data).subscribe(
+        (successData) => {
+          this.healthStatusSuccess(successData);
+        },
+        (error) => {
+          this.healthStatusFailure(error);
+        }
+    );
+  }
+
+  public healthStatusSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.healthStatusList = successData.ResponseObject;
+    }
+  }
+  public healthStatusFailure(error) {
+  }
+  getCauseOfDeathList() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.termService.getCauseOfDeathList(data).subscribe(
+        (successData) => {
+          this.getCauseOfDeathListSuccess(successData);
+        },
+        (error) => {
+          this.getCauseOfDeathListFailure(error);
+        }
+    );
+  }
+
+  public getCauseOfDeathListSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.causeOfDeathList = successData.ResponseObject;
+    }
+  }
+  public getCauseOfDeathListFailure(error) {
   }
 
   getageProof() {
@@ -1268,11 +1360,59 @@ samerelationShip(){
   public ageProofsSuccess(successData) {
     if (successData.IsSuccess) {
       this.ageProofsList = successData.ResponseObject;
-      console.log(this.ageProofsList, 'pro');
     }
   }
 
   public ageProofsFailure(error) {
+  }
+  getBankProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+    }
+    this.termService.getBankProof(data).subscribe(
+        (successData) => {
+          this.bankProofSuccess(successData);
+        },
+        (error) => {
+          this.bankProofFailure(error);
+        }
+    );
+  }
+
+  public bankProofSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.bankProofList = successData.ResponseObject;
+    }
+  }
+  public bankProofFailure(error) {
+  }
+
+  getModeOfTransaction() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+    }
+    this.termService.getModeOfTransaction(data).subscribe(
+        (successData) => {
+          this.getModeOfTransactionSuccess(successData);
+        },
+        (error) => {
+          this.getModeOfTransactionFailure(error);
+        }
+    );
+  }
+
+  public getModeOfTransactionSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.modeOfTransactionList = successData.ResponseObject;
+    }
+  }
+  public getModeOfTransactionFailure(error) {
   }
 
 
@@ -1334,7 +1474,6 @@ samerelationShip(){
   public idProofSuccess(successData) {
     if (successData.IsSuccess) {
       this.idProofList = successData.ResponseObject;
-      console.log(this.idProofList, 'pro');
     }
   }
 
@@ -1363,7 +1502,6 @@ samerelationShip(){
     if (successData.IsSuccess) {
       this.incomeProofList = successData.ResponseObject;
         this.incomeList = true;
-      console.log(this.incomeProofList, 'pro');
     } else {
       this.incomeList = false;
 
@@ -1438,10 +1576,8 @@ samerelationShip(){
   public apointeeRelationSuccess(successData) {
     if (successData.IsSuccess) {
       this.apointeRelationList = successData.ResponseObject;
-      console.log(this.apointeRelationList, 'pro');
     }
   }
-
   public apointeeRelationFailure(error) {
   }
 
@@ -1474,7 +1610,6 @@ samerelationShip(){
         this.proposer.controls['rcity'].setValue(this.pincodeList.city);
         this.proposer.controls['rstate'].setValue(this.pincodeList.state);
       }
-      console.log(this.pincodeList, 'pro');
     } else {
       this.toastr.error('In valid Pincode');
       if(title == 'personal') {
@@ -1492,13 +1627,14 @@ samerelationShip(){
   }
 
 
-  politicalReson() {
-    console.log(this.proposer.controls['politicallyExposedPerson'].value, 'reson');
-    if (this.proposer.controls['politicallyExposedPerson'].value == 'Yes') {
-      this.politicalDetails = true;
-    } else {
-      this.politicalDetails = false;
 
+  politicalReson() {
+    if (this.proposer.controls['politicallyExposedPerson'].value == 'Yes') {
+      this.proposer.controls['ifYesGiveDetails'].setValidators([Validators.required]);
+      this.proposer.controls['ifYesGiveDetails'].updateValueAndValidity();
+    } else {
+      this.proposer.controls['ifYesGiveDetails'].clearValidators();
+      this.proposer.controls['ifYesGiveDetails'].updateValueAndValidity();
     }
   }
 
@@ -1506,11 +1642,15 @@ samerelationShip(){
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "gender": this.proposer.controls['gender'].value == 'Male'? 'M' : 'F' ,
+      "country": this.proposer.controls['countryOfResid'].value
+
     }
+    this.settings.loadingSpinner = true;
     this.termService.getMainQues(data).subscribe(
         (successData) => {
-          console.log('ok');
           this.MainQuesSuccess(successData);
         },
         (error) => {
@@ -1520,62 +1660,70 @@ samerelationShip(){
   }
 
   public MainQuesSuccess(successData) {
+    this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
-      this.MainQuesList = successData.ResponseObject;
-      console.log(this.MainQuesList, 'pro');
-      for (let i = 0; i < this.MainQuesList.length; i++) {
-        this.MainQuesList[i].fieldValue = '';
-        this.MainQuesList[i].checked = false;
-        this.MainQuesList[i].SubQuesList = [];
+      this.allQuestionList = successData.ResponseObject;
+      for (let i = 0; i < this.allQuestionList.length; i++) {
+        for (let j = 0; j < this.allQuestionList[i].length; j++) {
+          this.allQuestionList[i][j].mainQuestion.fieldValue = '';
+          this.allQuestionList[i][j].mainQuestion.checked = false;
+          for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
+            this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText = '';
+            this.allQuestionList[i][j].mainQuestion.subQuestion[k].checked = false;
+          }
+        }
       }
-      console.log(this.MainQuesList, 'MainQuesList');
+
+      console.log(this.allQuestionList, 'allQuestionList');
 
     }
   }
 
   public MainQuesFailure(error) {
+    this.settings.loadingSpinner = false;
+
   }
 
-  questionYes(items, value, index) {
-    console.log(index, 'index');
-    this.slectedIndex = index;
-    if (value.checked) {
-      if (items.is_sub_question == '1') {
-        const data = {
-          'platform': 'web',
-          'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-          'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-          'questionid': items.id
-        }
-        this.termService.getSubQues(data).subscribe(
-            (successData) => {
-              this.SubQuesSuccess(successData, index);
-            },
-            (error) => {
-              this.SubQuesFailure(error);
-            }
-        );
-      } else {
-        this.MainQuesList[index].SubQuesList = [];
-      }
-    } else {
-      this.MainQuesList[index].SubQuesList = [];
-    }
-  }
-
-  public SubQuesSuccess(successData, index) {
-    if (successData.IsSuccess) {
-      this.MainQuesList[index].SubQuesList = successData.ResponseObject;
-      for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
-        this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
-        this.MainQuesList[index].SubQuesList[i].checked = false;
-      }
-      console.log(this.MainQuesList, 'MainQuesList');
-    }
-  }
-
-  public SubQuesFailure(error) {
-  }
+  // questionYes(items, value, index) {
+  //   console.log(index, 'index');
+  //   this.slectedIndex = index;
+  //   if (value.checked) {
+  //     if (items.is_sub_question == '1') {
+  //       const data = {
+  //         'platform': 'web',
+  //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //         'questionid': items.id
+  //       }
+  //       this.termService.getSubQues(data).subscribe(
+  //           (successData) => {
+  //             this.SubQuesSuccess(successData, index);
+  //           },
+  //           (error) => {
+  //             this.SubQuesFailure(error);
+  //           }
+  //       );
+  //     } else {
+  //       this.MainQuesList[index].SubQuesList = [];
+  //     }
+  //   } else {
+  //     this.MainQuesList[index].SubQuesList = [];
+  //   }
+  // }
+  //
+  // public SubQuesSuccess(successData, index) {
+  //   if (successData.IsSuccess) {
+  //     this.allQuestionList[index].SubQuesList = successData.ResponseObject;
+  //     for (let i = 0; i < this.MainQuesList[index].SubQuesList.length; i++) {
+  //       this.MainQuesList[index].SubQuesList[i].subQuestionText = '';
+  //       this.MainQuesList[index].SubQuesList[i].checked = false;
+  //     }
+  //     console.log(this.MainQuesList, 'MainQuesList');
+  //   }
+  // }
+  //
+  // public SubQuesFailure(error) {
+  // }
     getDiseaseList() {
         const data = {
             'platform': 'web',
@@ -1594,7 +1742,6 @@ samerelationShip(){
     public diseaseListSuccess(successData) {
         if (successData.IsSuccess) {
             this.diseaseLists = successData.ResponseObject;
-            console.log(this.diseaseLists, 'DiseaseLists');
         }
     }
     public diseaseListFailure(error) {
@@ -1609,6 +1756,21 @@ samerelationShip(){
 
   changeMarital() {
     this.proposer.controls['maritalStatusName'].patchValue(this.maritalStatusList[this.proposer.controls['maritalStatus'].value]);
+    if(this.proposer['controls'].maritalStatus.value == 'M'){
+        this.proposer['controls'].spouseName.setValidators([Validators.required]);
+        this.proposer['controls'].spouseDob.setValidators([Validators.required]);
+        this.proposer['controls'].spouseBirthPlace.setValidators([Validators.required]);
+        this.proposer['controls'].spouseName.updateValueAndValidity();
+        this.proposer['controls'].spouseDob.updateValueAndValidity();
+        this.proposer['controls'].spouseBirthPlace.updateValueAndValidity();
+    } else {
+        this.proposer['controls'].spouseName.clearValidators();
+        this.proposer['controls'].spouseDob.clearValidators();
+        this.proposer['controls'].spouseBirthPlace.clearValidators();
+        this.proposer['controls'].spouseName.updateValueAndValidity();
+        this.proposer['controls'].spouseDob.updateValueAndValidity();
+        this.proposer['controls'].spouseBirthPlace.updateValueAndValidity();
+    }
   }
 
   occupationListCode() {
@@ -1687,13 +1849,39 @@ samerelationShip(){
     // this.nomineeDetail.controls['nRelationName'].patchValue(this.nomineeRelationList[this.nomineeDetail.controls['nRelation'].value]);
 
   }
+  changeCauseOfDeath(i) {
+      this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death_name.patchValue(this.causeOfDeathList[this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.value]);
+  }
+  changeBank() {
+    if(this.bankDetail.controls['bankName'].value == 'OTHER') {
+      this.bankDetail.controls['otherName'].setValidators([Validators.required]);
+      this.bankDetail.controls['otherName'].updateValueAndValidity();
+    } else {
+      this.bankDetail.controls['otherName'].clearValidators();
+      this.bankDetail.controls['otherName'].updateValueAndValidity();
+    }
+  }
 
 
   // proposal Creation
 
   proposal(stepper) {
-    console.log(this.proposer.controls['sameAsInsured'].value, 'kjkkj');
-    const data = {
+      let nomineeDetails = [];
+      for (let i = 0; i < this.nomineeDetails.value.itemsNominee.length; i++) {
+        nomineeDetails.push({
+          "nomineeName": this.nomineeDetails.value.itemsNominee[i].nnName,
+          "nomineeBirthPlace": this.nomineeDetails.value.itemsNominee[i].nBirthPlace,
+          "nomineeDob": this.datepipe.transform(this.nomineeDetails.value.itemsNominee[i].nDob, 'y-MM-dd'),
+          "nomineeRelation": this.nomineeDetails.value.itemsNominee[i].nRelation,
+          "sharePercentage": this.nomineeDetails.value.itemsNominee[i].sharePercentage,
+          "appointeeName": this.nomineeDetails.value.itemsNominee[i].aName,
+          "appointeeDob": this.datepipe.transform(this.nomineeDetails.value.itemsNominee[i].appointeeDob, 'y-MM-dd') == null ? '' : this.datepipe.transform(this.nomineeDetails.value.itemsNominee[i].appointeeDob, 'y-MM-dd'),
+          "appointeeRelationToNominee": this.nomineeDetails.value.itemsNominee[i].appointeeRelationToNominee,
+          "RelationToInsured": this.nomineeDetails.value.itemsNominee[i].relationToInsured
+
+        });
+      }
+      const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
@@ -1706,7 +1894,7 @@ samerelationShip(){
         "firstName": this.proposer.controls['firstName'].value,
         "middleName": this.proposer.controls['midName'].value,
         "lastName": this.proposer.controls['lastName'].value,
-        "dob":this.datepipe.transform(this.proposer.controls['dob'].value,'yyyy/MM/dd'),
+        "dob":this.datepipe.transform(this.proposer.controls['dob'].value,'y-MM-dd'),
         "age": this.proposer.controls['age'].value,
         "gender": this.proposer.controls['gender'].value,
         "mobile": this.proposer.controls['mobile'].value,
@@ -1722,10 +1910,10 @@ samerelationShip(){
         "changedWeight":this.proposer.controls['inbetweenweight'].value,
         "weightChangedReason":this.proposer.controls['weightChangedreason'].value,
         "aadhaar": this.proposer.controls['aadharNum'].value,
+        "itAssessee": this.proposer.controls['isPancard'].value ? 'Y' : 'N',
         "pan": this.proposer.controls['panNum'].value,
-
         "smoker": "N",
-        "sameAsProposer": this.proposer.controls['sameAsInsured'].value == 'true'  || this.proposer.controls['sameAsInsured'].value == true ? "Y":"N" ,
+        "sameAsProposer": "Y",
         "modeOfComm": "E",
         "commMail/SMS": "",
         "preferredLanguage": this.proposer.controls['language'].value,
@@ -1739,33 +1927,37 @@ samerelationShip(){
         "countryOfResidence": this.proposer.controls['countryOfResid'].value,
         "placeOfBirth": this.proposer.controls['pob'].value,
         "cititzenship": this.proposer.controls['citizenship'].value,
-        "IpRelation": this.proposer.controls['sameAsInsured'].value == 'true' || this.proposer.controls['sameAsInsured'].value == true ? 'SELF' : this.proposer.controls['IpRelation'].value,
+        "IpRelation": 'SELF' ,
         "CountryIpMailing":"IN",
         "politicallyExposedPerson": this.proposer.controls['politicallyExposedPerson'].value,
         "ifYesGiveDetails": this.proposer.controls['ifYesGiveDetails'].value,
+      },
+      "form60": {
+          "amountOfTran": this.proposer.controls['amtTransaction'].value,
+          "dateOfTran": this.proposer.controls['dateofapplication'].value !='' && this.proposer.controls['dateofapplication'].value != null ? this.datepipe.transform(this.proposer.controls['dateofapplication'].value,'y-MM-dd') : '',
+          "jointAccPersonNames": this.proposer.controls['jointAcName'].value,
+          "modeOfTransaction": this.proposer.controls['modeOfTransaction'].value,
+          "panApplicationDate": this.proposer.controls['dateofapplication'].value !='' && this.proposer.controls['dateofapplication'].value != null ? this.datepipe.transform(this.proposer.controls['dateofapplication'].value,'y-MM-dd') : '',
+          "panAcknowledgementNo": this.proposer.controls['ackNumber'].value,
+          "totalIncome": this.proposer.controls['totalIncome'].value,
+          "agriculturalIncome": this.proposer.controls['agriculturalIncome'].value,
+          "otherAgriculturalIncome": this.proposer.controls['otherAgriculturalIncome'].value,
+          "indentityDocCode": "01",
+          "indentityDocNum": "123456",
+          "indentityNameAddressDoc": "RI,Palacode",
+          "addressDocCode": "04",
+          "addressDocNum": "123412",
+          "addressNameAddressDoc": "RI,Palacode"
       },
       "family_details": {
         "fatherName": this.proposer.controls['fatherName'].value,
         "motherName": this.proposer.controls['motherName'].value,
         "spouseBirthPlace": this.proposer.controls['spouseBirthPlace'].value,
         "spouseName": this.proposer.controls['spouseName'].value == null ? '' : this.proposer.controls['spouseName'].value,
-        "spouseDob":this.datepipe.transform(this.proposer.controls['spouseDob'].value,'yyyy/MM/dd')== null ? '' : this.datepipe.transform(this.proposer.controls['spouseDob'].value,'yyyy/MM/dd'),
+        "spouseDob":this.datepipe.transform(this.proposer.controls['spouseDob'].value,'y-MM-dd')== null ? '' : this.datepipe.transform(this.proposer.controls['spouseDob'].value,'y-MM-dd'),
       },
-      "nominee_details": {
-        "nominee1Name": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nnName.value,
-        "nominee1BirthPlace": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nBirthPlace.value,
-        "nominee1Dob":  this.datepipe.transform(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nDob.value,'yyyy/MM/dd'),
-        "nominee1Relation": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nRelation.value,
-        "nominee2Name": this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-        "nominee2BirthPlace":this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].nBirthPlace.value : '',
-        "nominee2Dob": this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].nDob.value : '',
-        "nominee2Relation": this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].nRelation.value : '',
-        "sharePercentage": this.nomineeDetails.value.itemsNominee.length > 1 ? this.nomineeDetails['controls'].itemsNominee['controls'][1]['controls'].sharePercentage.value : '',
-        "appointeeName": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value,
-        "appointeeDob":this.datepipe.transform(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd')== null ? '': this.datepipe.transform(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value,'yyyy/MM/dd'),
-        "appointeeRelationToNominee": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value,
-        "RelationToInsured": this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value
-      },
+      'ped_family_details' : this.familyDiseaseForm.get('family').value,
+      "nominee_details": nomineeDetails,
 
       "address_details": {
         "comDoorNo": this.proposer.controls['comDoorNo'].value,
@@ -1787,17 +1979,16 @@ samerelationShip(){
         "comSameAsPer": this.proposer.controls['sameAsProposer'].value ? "Y" : "N",
 
       },
-
-
-
       "bank_deatils": {
         "accountHolderName": this.bankDetail.controls['accountHolderName'].value,
-        "bankName": this.bankDetail.controls['bankName'].value,
+        "bankName": this.bankDetail.controls['bankName'].value =='OTHER' ? this.bankDetail.controls['otherName'].value : this.bankDetail.controls['bankName'].value,
         "branchName": this.bankDetail.controls['branchName'].value,
         "accountNo": this.bankDetail.controls['accountNo'].value,
         "accountType": this.bankDetail.controls['accountType'].value,
         "ifscCode": this.bankDetail.controls['ifscCode'].value,
         "micrCode": this.bankDetail.controls['micrCode'].value,
+        "renewalPayment": this.bankDetail.controls['paymentMode'].value,
+        "bankProof": this.bankDetail.controls['bankProof'].value,
       },
       "office_details": {
         "department":this.proposer.controls['department'].value == null ? '' : this.proposer.controls['department'].value,
@@ -1839,13 +2030,14 @@ samerelationShip(){
       this.summaryData = successData.ResponseObject;
       this.requestedUrl = this.summaryData.biUrlLink;
       this.proposerFormData = this.proposer.value;
+      this.familyDiseaseFormData = this.familyDiseaseForm.value.family;
       this.bankDetailFormData = this.bankDetail.value;
       this.nomineeDetailFormData = this.nomineeDetails.value.itemsNominee;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.bankDetailFormData = JSON.stringify(this.bankDetailFormData);
       sessionStorage.nomineeDetailFormData = JSON.stringify(this.nomineeDetailFormData);
-      console.log(this.proposerFormData,'proposerFormData');
+      sessionStorage.familyDiseaseFormData = JSON.stringify(this.familyDiseaseFormData);
       this.downloadFile(this.requestedUrl);
 
     } else {
@@ -1859,7 +2051,6 @@ samerelationShip(){
   downloadFile(value) {
       this.termService.downloadPdfNew().subscribe(
           (successData) => {
-            console.log(successData, 'successDatasuccessData');
 
           },
           (error) => {
@@ -1888,6 +2079,14 @@ samerelationShip(){
 
     if (sessionStorage.stepperDetails1 != '' && sessionStorage.stepperDetails1 != undefined) {
       let lifeBajaj1 = JSON.parse(sessionStorage.stepperDetails1);
+        this.proposer.controls['occupationList'].patchValue(lifeBajaj1.occupationList);
+        if(lifeBajaj1.occupationList == "T" || lifeBajaj1.occupationList == "N" || lifeBajaj1.occupationList == "U")
+        {
+            this.toastr.error('Sorry, you are not allowed to purchase policy ');
+        } else {
+            this.getIncomeProof();
+        }
+
       this.proposer = this.Proposer.group({
         title: lifeBajaj1.title,
         firstName: lifeBajaj1.firstName,
@@ -1899,13 +2098,22 @@ samerelationShip(){
         email: lifeBajaj1.email,
         mobile: lifeBajaj1.mobile,
         alterMobile: lifeBajaj1.alterMobile,
-        IpRelation: lifeBajaj1.IpRelation,
         maritalStatus: lifeBajaj1.maritalStatus,
         annualIncome: lifeBajaj1.annualIncome,
+        alterMobileError: lifeBajaj1.alterMobileError,
         occupationList: lifeBajaj1.occupationList,
         education:lifeBajaj1.education,
+        isPancard:lifeBajaj1.isPancard,
+        jointAcName:lifeBajaj1.jointAcName,
+        amtTransaction:lifeBajaj1.amtTransaction,
+        isAppliedPan:lifeBajaj1.isAppliedPan,
+        ackNumber:lifeBajaj1.ackNumber,
+        totalIncome:lifeBajaj1.totalIncome,
+        agriculturalIncome:lifeBajaj1.agriculturalIncome,
+        modeOfTransaction:lifeBajaj1.modeOfTransaction,
+        dateofapplication:lifeBajaj1.dateofapplication,
+        otherAgriculturalIncome:lifeBajaj1.otherAgriculturalIncome,
         educationName:lifeBajaj1.educationName,
-        // benefitTerm: lifeBajaj1.benefitTerm,
         height: lifeBajaj1.height,
         weight: lifeBajaj1.weight,
         inbetweenweight: lifeBajaj1.inbetweenweight,
@@ -1926,7 +2134,6 @@ samerelationShip(){
         city: lifeBajaj1.city,
         state: lifeBajaj1.state,
         sameAsProposer: lifeBajaj1.sameAsProposer,
-        sameAsInsured: lifeBajaj1.sameAsInsured,
         perDoorNo: lifeBajaj1.perDoorNo,
         perBuildingNumber: lifeBajaj1.perBuildingNumber,
         perPlotNumber: lifeBajaj1.perPlotNumber,
@@ -1982,25 +2189,29 @@ samerelationShip(){
         incomeProofName:lifeBajaj1.incomeProofName,
       });
     }
+    if (sessionStorage.lifeQuestions != '' && sessionStorage.lifeQuestions != undefined) {
+      this.allQuestionList = JSON.parse(sessionStorage.lifeQuestions);
+    }
 
     if (sessionStorage.lifeBajajBankDetails != '' && sessionStorage.lifeBajajBankDetails != undefined) {
         let lifeBajajBankDetails = JSON.parse(sessionStorage.lifeBajajBankDetails);
         this.bankDetail = this.Proposer.group({
           accountHolderName: lifeBajajBankDetails.accountHolderName,
           bankName: lifeBajajBankDetails.bankName,
+          otherName: lifeBajajBankDetails.otherName,
           branchName: lifeBajajBankDetails.branchName,
           accountNo: lifeBajajBankDetails.accountNo,
+          reAccountNo: lifeBajajBankDetails.reAccountNo,
           accountType: lifeBajajBankDetails.accountType,
           ifscCode: lifeBajajBankDetails.ifscCode,
           micrCode: lifeBajajBankDetails.micrCode,
+          paymentMode: lifeBajajBankDetails.paymentMode,
+          bankProof: lifeBajajBankDetails.bankProof,
         });
     }
-    if (sessionStorage.lifeQuestions != '' && sessionStorage.lifeQuestions != undefined) {
-        this.MainQuesList = JSON.parse(sessionStorage.lifeQuestions);
-    }
+
      if (sessionStorage.lifeBajaiNomineeDetails!= '' && sessionStorage.lifeBajaiNomineeDetails != undefined) {
           let nomineeDetails = JSON.parse(sessionStorage.lifeBajaiNomineeDetails);
-          console.log(nomineeDetails, 'nlifeBajajnlifeBajaj');
           for (let i = 0; i < nomineeDetails.itemsNominee.length; i++) {
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nomineeDetails.itemsNominee[i].nnName);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nomineeDetails.itemsNominee[i].nDob);
@@ -2008,6 +2219,7 @@ samerelationShip(){
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nomineeDetails.itemsNominee[i].nRelation);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nomineeDetails.itemsNominee[i].nomineeDobValidError);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.patchValue(nomineeDetails.itemsNominee[i].sharePercentage);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(nomineeDetails.itemsNominee[i].showAppointee);
 
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(nomineeDetails.itemsNominee[i].aName);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(nomineeDetails.itemsNominee[i].appointeeDob);
@@ -2018,13 +2230,18 @@ samerelationShip(){
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsuredName.patchValue(nomineeDetails.itemsNominee[i].relationToInsuredName);
           }
       }
-      if (sessionStorage.nomineAge!= '' && sessionStorage.nomineAge != undefined) {
-          if (sessionStorage.nomineAge < 18) {
-              this.showAppointee = true;
-          } else {
-              this.showAppointee = false;
+      if (sessionStorage.familyMemberDetails!= '' && sessionStorage.familyMemberDetails != undefined) {
+          let familyMemberDetails = JSON.parse(sessionStorage.familyMemberDetails);
+          for (let i = 0; i < familyMemberDetails.length; i++) {
+              this.familyDiseaseForm['controls'].family['controls'][i]['controls'].family_member.patchValue(familyMemberDetails[i].family_member);
+              this.familyDiseaseForm['controls'].family['controls'][i]['controls'].age.patchValue(familyMemberDetails[i].age);
+              this.familyDiseaseForm['controls'].family['controls'][i]['controls'].health_status.patchValue(familyMemberDetails[i].health_status);
+              this.familyDiseaseForm['controls'].family['controls'][i]['controls'].died_age.patchValue(familyMemberDetails[i].died_age);
+              this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.patchValue(familyMemberDetails[i].cause_death);
+              this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death_name.patchValue(familyMemberDetails[i].cause_death_name);
           }
       }
+
   }
 
     viewDocs() {
@@ -2104,14 +2321,31 @@ samerelationShip(){
                 reader.readAsDataURL(event.target.files[i]);
             }
             this.uploadIdProofName = this.fileDetails[0].name;
+        } else if(type == 'bank_proof') {
+
+            for (let i = 0; i < event.target.files.length; i++) {
+                this.fileDetails.push({
+                    'base64': '',
+                    'proofType': type,
+                    'fileExt': event.target.files[i].type,
+                    'name': event.target.files[i].name
+                });
+            }
+            for (let i = 0; i < event.target.files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = (event: any) => {
+                    this.url = event.target.result;
+                    getUrlEdu.push(this.url.split(','));
+                    this.onUploadFinished(this.fileDetails, getUrlEdu);
+                };
+                reader.readAsDataURL(event.target.files[i]);
+            }
+            this.uploadBankProofName = this.fileDetails[0].name;
         }
 
     }
     onUploadFinished(values, basecode) {
-        console.log(basecode, 'this.eventeventevent');
         values[0].base64 = basecode[0][1];
-
-        console.log(values, 'valuesvalues');
 
         for (let k = 0; k < values.length; k++) {
             if (this.allImage.indexOf(values[k].name) == -1) {
@@ -2119,14 +2353,9 @@ samerelationShip(){
             }
         }
         console.log(this.allImage, 'this.fileDetails');
-
-
-
     }
 
     uploadAll() {
-        console.log(this.allImage, 'this.fileDetails2323');
-
         const data = {
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -2138,7 +2367,6 @@ samerelationShip(){
                 "Type": "PH"
             }]
         };
-
         console.log(data, 'dattattatata');
         this.termService.fileUpload(data).subscribe(
             (successData) => {

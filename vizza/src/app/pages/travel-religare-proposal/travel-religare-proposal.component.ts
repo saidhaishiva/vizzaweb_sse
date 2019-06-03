@@ -55,7 +55,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public items: any;
     public step: any;
     public insurerData: any;
-    public religareTravel1: any;
+    public getProposerDetails: any;
     public religareTravel2: any;
     public lastStepper: any;
     public back: any;
@@ -113,7 +113,6 @@ export class ReliagretravelproposalComponent implements OnInit {
     public religareTravelMobileTrue2: boolean;
     public religareTravelMobileTrue3: boolean;
     public religareTravelMobileTrue4: boolean;
-
 
 
 
@@ -190,13 +189,16 @@ export class ReliagretravelproposalComponent implements OnInit {
             guideAddress: '',
             coursedetails: '',
             studentRelationShip: '',
-            addon:'',
-            studentRelationShipName:'',
-            relationshipName:'',
-            startDate:'',
-            betweenMonth:'',
-            endDate:'',
-            endDateFormat:''
+            addon: '',
+            studentRelationShipName: '',
+            relationshipName: '',
+            startDate: '',
+            betweenMonth: '',
+            endDate: '',
+            endDateFormat: '',
+            addonForm: this.fb.array([]),
+            // checked: '',
+
 
         });
         this.nomineeDetails = this.fb.group({
@@ -235,7 +237,8 @@ export class ReliagretravelproposalComponent implements OnInit {
         if (sessionStorage.ReligareTravelDetails3 == '' || sessionStorage.ReligareTravelDetails3 == undefined) {
             this.religareTravelQuestions();
         }
-        this.getAddon();
+        // if (sessionStorage.setAddons == '' || sessionStorage.setAddons == undefined) {
+        // }
         this.sessionData();
         if (sessionStorage.travelPlan != '' && sessionStorage.travelPlan != undefined) {
             this.placeOfVisit = JSON.parse(sessionStorage.travelPlan);
@@ -549,21 +552,33 @@ export class ReliagretravelproposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.addon = successData.ResponseObject;
             for (let i=0; i < this.addon.length; i++) {
-                this.addon[i].checked = false;
+                let addonForm = this.religarePersonal.get('addonForm') as FormArray;
+                console.log(addonForm,'addonform');
+                addonForm.push(
+                    this.fb.group(
+                        {
+                            title: this.addon[i].addon_description,
+                            addonValue: this.addon[i].addon_name,
+                            checked: false
+                        })
+                );
             }
+
+            console.log(this.religarePersonal, ' this.religarePersonal');
         }
     }
     public AddonFailure(error) {
     }
     addonList(event, i){
-        if(event.checked){
-            // this.toastr.error('Your SumInsured Amount should be different');
-            this.addon[i].checked = true;
-        } else {
-            this.addon[i].checked = false;
-
-        }
-        sessionStorage.setAddons = JSON.stringify(this.addon);
+        // if(event.checked){
+        //     // this.toastr.error('Your SumInsured Amount should be different');
+        //     this.addon[i].checked = true;
+        // } else {
+        //     this.addon[i].checked = false;
+        //
+        // }
+        sessionStorage.setAddons = JSON.stringify(this.religarePersonal.value.addonForm);
+        console.log(sessionStorage.setAddons,'setaddon')
 
     }
     // NEXT BUTTON
@@ -1135,10 +1150,13 @@ export class ReliagretravelproposalComponent implements OnInit {
     religareTravelproposal(stepper) {
         let mcondition = this.religareTravelQuestionsList.filter(data => data.status == 'Yes');
         let addonDetails = [];
-        for (let i=0; i < this.addon.length; i++) {
-            if(this.addon[i].checked){
-                addonDetails.push(this.addon[i].addon_name);
-            }
+        console.log(this.religarePersonal.value.addonForm, 'll');
+        for (let i=0; i < this.religarePersonal.value.addonForm.length; i++) {
+            console.log(this.religarePersonal.value.addonForm[i].checked, 'chhh');
+
+            if(this.religarePersonal.value.addonForm[i].checked == true){
+                addonDetails.push(this.religarePersonal.value.addonForm[i].title);
+            }console.log(addonDetails,'ad')
         }
         const data = {
             'platform': 'web',
@@ -1189,6 +1207,7 @@ export class ReliagretravelproposalComponent implements OnInit {
         );
     }
     public proposalSuccess(successData, stepper) {
+        console.log(this.setAddons,'this.setAddons');
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
@@ -1223,6 +1242,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             this.residenceCitys = JSON.parse(sessionStorage.residenceCitys);
             this.personalCitys = JSON.parse(sessionStorage.personalCitys);
             let getProposerDetails = JSON.parse(sessionStorage.stepperDetails1);
+            console.log(getProposerDetails,'getdata')
             this.religarePersonal = this.fb.group({
                 title: getProposerDetails.title,
                 firstname: getProposerDetails.firstname,
@@ -1265,10 +1285,32 @@ export class ReliagretravelproposalComponent implements OnInit {
                 betweenMonth: getProposerDetails.betweenMonth,
                 endDate: getProposerDetails.endDate,
                 endDateFormat: getProposerDetails.endDateFormat,
+                addonForm: this.fb.array([]),
                 rolecd: getProposerDetails.rolecd == null ? 'PROPOSER' : 'PROPOSER'
 
             });
+            for (let i=0; i < getProposerDetails.addonForm.length; i++) {
+                console.log(getProposerDetails.addonForm[i],'addonlen')
+                let addonForm = this.religarePersonal.get('addonForm') as FormArray;
+                addonForm.push(
+                    this.fb.group(
+                        {
+                            title: getProposerDetails.addonForm[i].title,
+                            addonValue: getProposerDetails.addonForm.addonValue,
+                            checked: getProposerDetails.addonForm[i].checked
+                        })
+                );
+            }
+            console.log(this.religarePersonal.value,'religarePersonal');
 
+            // for (let i = 0; i < getProposerDetails.addonForm.length; i++) {
+            //     console.log(getProposerDetails.addonForm[i],'length')
+            //     this.religarePersonal.value.addonForm[i]['controls'].title.patchValue(getProposerDetails.addonForm[i].title);
+            //     this.religarePersonal.value.addonForm[i]['controls'].addonValue.patchValue(getProposerDetails.addonForm[i].addonValue);
+            //     this.religarePersonal.value.addonForm[i]['controls'].checked.patchValue(getProposerDetails.addonForm[i].checked);
+            // }
+        } else {
+            this.getAddon();
         }
         if (sessionStorage.stepperDetails2 != '' && sessionStorage.stepperDetails2 != undefined) {
             this.religareTravel2 = JSON.parse(sessionStorage.stepperDetails2);
@@ -1318,6 +1360,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     }
 
 }
+
 
 // HOLD
 

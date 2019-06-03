@@ -87,7 +87,7 @@ export class TermLifeComponent implements OnInit {
         if(sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData !=undefined) {
             let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
             this.TermLife = this.fb.group({
-                lifedob: enquiryFormData.lifedob,
+                lifedob: this.datepipe.transform(enquiryFormData.lifedob, 'y-MM-dd'),
                 lifeGender: enquiryFormData.lifeGender,
                 lifeBenefitTerm: enquiryFormData.lifeBenefitTerm,
                 lifePolicy: enquiryFormData.lifePolicy,

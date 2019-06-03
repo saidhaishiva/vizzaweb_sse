@@ -180,7 +180,7 @@
     <div class="d-block d-sm-block d-md-block d-lg-none">
         <section class="container-fluid">
             <div class="row h-plans">
-                <div class="col-12 col-md-6">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <figure>
                         <img src="assets/img/home/BajajLife_GoalSuraksha.jpg" alt="">
                         <ul class="list-group text-left">
@@ -191,7 +191,7 @@
                     </figure>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <figure>
                         <img src="assets/img/home/protect.png" alt="">
                         <ul class="list-group text-left">
@@ -203,7 +203,7 @@
                 </div>
             </div>
             <div class="row h-plans">
-                <div class="col-12 col-md-6">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <figure>
                         <img src="assets/img/home/Hdfclife_ClassicAssurePlus.jpg" alt="">
                         <ul class="list-group text-left">
@@ -214,7 +214,7 @@
                     </figure>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <figure>
                         <img src="assets/img/home/sometimes.png" alt="">
                         <ul class="list-group text-left">
@@ -226,7 +226,7 @@
                 </div>
             </div>
             <div class="row h-plans">
-                <div class="col-12 col-md-6">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <figure>
                         <img src="assets/img/home/Reliance-Health1.png" alt="">
                         <ul class="list-group text-left">
@@ -237,7 +237,7 @@
                     </figure>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <figure>
                         <img src="assets/img/home/Hdfclife_Click2Protect.jpg" alt="">
                         <ul class="list-group text-left">
@@ -249,7 +249,7 @@
                 </div>
             </div>
             <div class="row h-plans">
-                <div class="col-12 col-md-6">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <figure>
                         <img src="assets/img/home/Star-Health-1.png" alt="">
                         <ul class="list-group text-left">
@@ -260,7 +260,7 @@
                     </figure>
                 </div>
 
-                <div class="col-12 col-md-6">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <figure>
                         <img src="assets/img/home/BajajLife_etouch.jpg" alt="">
                         <ul class="list-group text-left">
@@ -377,31 +377,58 @@
             <div class="col-md-8">
                 <div class="row" fxLayoutAlign="center center">
                     <div class="col-md-10">
-                        <div id="demo" class="carousel slide" data-ride="carousel">
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <!--<ul class="carousel-indicators mt-4">-->
                             <!--<li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>-->
                             <!--</ul>-->
-                            <div class="carousel-inner" >
+                            <div class="carousel-inner col-sm-12 col-xs-12 col-md-12" >
                                 <div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">
                                     <div class="float-left border-right border-secondary pr-2 mr-3">
                                         <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}"  class="rounded-circle ">
-                                        <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle mr-3" width="200" height="200">
+                                        <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle mr-3" width="100" height="100">
                                     </div>
                                     <div>
-                                        <p class="visible text-justify">{{list.comments}}</p>
-                                        <p class="text-right"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span><br><span class="text-center">{{list.company_name}}</span></p>
+                                        <p class="visible text-center">{{list.comments}}</p>
+                                        <p class="text-center"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span><br><span class="text-center">{{list.company_name}}</span></p>
                                     </div>
                                 </div>
                             </div>
                             <!-- Left and right controls -->
-                            <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
+                            <a class="carousel-control-prev" href="#carouselExampleControls" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
                             </a>
-                            <a class="carousel-control-next" href="#demo" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
+                            <a class="carousel-control-next" href="#carouselExampleControls" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
 
                             </a>
                         </div>
+                        <!--<div id="demo" class="carousel slide" data-ride="carousel">-->
+                            <!--&lt;!&ndash;<ul class="carousel-indicators mt-4">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                            <!--<div class="carousel-inner" >-->
+                                <!--<div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">-->
+                                    <!--<div class="float-left border-right border-secondary pr-2 mr-3">-->
+                                        <!--<img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}"  class="rounded-circle ">-->
+                                        <!--<img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle mr-3" width="200" height="200">-->
+                                    <!--</div>-->
+                                    <!--<div>-->
+                                        <!--<p class="visible text-justify">{{list.comments}}</p>-->
+                                        <!--<p class="text-right"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span><br><span class="text-center">{{list.company_name}}</span></p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; Left and right controls &ndash;&gt;-->
+                            <!--<a class="carousel-control-prev" href="#demo" data-slide="prev">-->
+                                <!--<span class="carousel-control-prev-icon"></span>-->
+                            <!--</a>-->
+                            <!--<a class="carousel-control-next" href="#demo" data-slide="next">-->
+                                <!--<span class="carousel-control-next-icon"></span>-->
+
+                            <!--</a>-->
+                        <!--</div>-->
                     </div>
                 </div>
                 <hr>
@@ -430,14 +457,15 @@
             <legend><h3 class="text-center w-100">Testimonial</h3></legend>
         </fieldset>
         <section class="row h-testimonial" fxLayoutAlign="center center">
-            <div class="col-12">
+            <div class="col-sm-12 col-xs-12 col-md-12">
                 <div class="row" fxLayoutAlign="center center">
-                    <div class="col-10">
-                        <div id="demo" class="carousel slide" data-ride="carousel">
+                    <div class="col-sm-8 col-xs-8 col-md-8">
+                        <div class="carousel slide" data-ride="carousel">
+                        <!--<div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">-->
                             <!--<ul class="carousel-indicators mt-4">-->
                             <!--<li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>-->
                             <!--</ul>-->
-                            <div class="carousel-inner" >
+                            <div class="carousel-inner col-sm-12 col-xs-12 col-md-12" >
                                 <div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">
                                     <div class="float-left border-right border-secondary pr-2 mr-3">
                                         <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}"  class="rounded-circle ">
@@ -450,25 +478,27 @@
                                 </div>
                             </div>
                             <!-- Left and right controls -->
-                            <a class="carousel-control-prev" href="#demo" data-slide="prev">
-                                <span class="carousel-control-prev-icon"></span>
-                            </a>
-                            <a class="carousel-control-next" href="#demo" data-slide="next">
-                                <span class="carousel-control-next-icon"></span>
+                                <!--<a class="carousel-control-prev" href="#carouselExampleControls1" data-slide="prev">-->
+                                    <!--<span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+                                    <!--<span class="sr-only">Previous</span>-->
+                                <!--</a>-->
+                                <!--<a class="carousel-control-next" href="#carouselExampleControls1" data-slide="next">-->
+                                    <!--<span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+                                    <!--<span class="sr-only">Next</span>-->
 
-                            </a>
+                                <!--</a>-->
                         </div>
                     </div>
                 </div>
                 <hr>
                 <div class="row" fxLayoutAlign="center center">
-                    <div class="col-12 text-center mt-3">
+                    <div class="col-sm-12 col-xs-12 col-md-12 text-center mt-3">
                         <button mat-raised-button color="primary" (click)="testiComments()"><mat-icon>create</mat-icon> Write a Testimonial</button>
                     </div>
                 </div>
             </div>
             <div class="row mt-2">
-                <div class="col-12">
+                <div class="col-sm-12 col-xs-12 col-md-12">
                     <iframe width="100%" height="315" src="https://www.youtube.com/embed/btBjPnjMqSU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
             </div>
@@ -699,7 +729,7 @@
 <section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
     <footer style="background: #DADADA;">
         <div class="row">
-            <div class="col-sm-12 col-xs-12 text-center pl-4 mt-4">
+            <div class="col-sm-12 col-xs-12 col-md-12 text-center pl-4 mt-4">
                 <h5>VIZZA INSURANCE BROKING SERVICES PVT.LTD</h5>
                 <h6>IRDAI LICENCE NO : IRDA / DB 543 / 13</h6>
                 <h6>Category : Direct Life & General</h6>
@@ -708,7 +738,7 @@
                 <p class="text-center">© copyright 2018 @ VIZZA INSURANCE BROKING SERVICES PVT.LTD<br>
                     <span style="cursor:pointer; text-decoration: underline; font-size:12px;" (click)="DisclaimerDialog()">Disclaimer:</span><small> Insurance is the subject matter of solicitation... <span style="cursor:pointer; text-decoration: underline;" (click)="DisclaimerDialog()">Read More</span></small></p>
             </div>
-            <div class="f-social-icons w-100 col-12 col-sm-12 col-xs-12 text-center pr-4">
+            <div class="f-social-icons w-100 col-sm-12 col-xs-12 col-md-12 text-center pr-4">
                 <ul style="justify-content: center !important;">
                     <li><small style="font-size:10px;">Licensed by</small><br>
                         <img src="assets/img/partner/irda.png" class="logo-size1 mt-2" alt=""></li>
@@ -716,7 +746,7 @@
                         <img src="assets/img/partner/irda1.png" class="logo-size1 mt-2" alt="">
                     </li>
                 </ul>
-                <ul class="mb-0" style="margin-top: 0px;">
+                <ul class="mb-0" style="margin-top: 0px; justify-content: center !important;">
                     <li><a href="https://twitter.com/BrokingVizza" target="_blank"><i class="fab fa-twitter"></i><span>Twitter</span></a></li>
                     <li><a href="https://www.facebook.com/Vizza-Insurance-Broking-Services-263685577699290/?modal=admin_todo_tour" target="_blank"><i class="fab fa-facebook" aria-hidden="true"></i><span>Facebook</span></a></li>
                     <li><a href="https://www.linkedin.com/in/vizza-insurance-broking-services-317656167/" target="_blank"><i class="fab fa-linkedin" aria-hidden="true"></i><span>Linkedin</span></a></li>
@@ -725,7 +755,7 @@
                     <!--<li><a href="#"><i class="fab fa-pinterest" aria-hidden="true"></i><span>Pinterest</span></a></li>-->
                     <li><a href="#"><i class="fab fa-google-plus mr-1" aria-hidden="true"></i><span>Google plus</span></a></li>
                 </ul>
-            </div>
+                </div>
         </div>
     </footer>
 </section>

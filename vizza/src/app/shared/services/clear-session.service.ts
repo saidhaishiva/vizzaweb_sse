@@ -99,6 +99,15 @@ export class ClearSessionService {
         sessionStorage.nomineeFromData = '';
 
 
+        ///iffco tokyo
+        sessionStorage.cityDetails = '';
+        sessionStorage.stepper1IffcoDetails = '';
+        sessionStorage.stepper2IffcoDetails = '';
+        sessionStorage.nomineecityDetails = '';
+        sessionStorage.nomineeData1 = '';
+        sessionStorage.iffco_health_proposal_id = '';
+        sessionStorage.proposerAgeiffco = '';
+
     }
 
 }
