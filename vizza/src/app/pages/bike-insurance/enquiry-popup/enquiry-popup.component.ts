@@ -312,12 +312,16 @@ export class EnquiryPopupComponent implements OnInit {
   manufactureYear(){
     let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
     let getPolicyYear = start.getFullYear();
+    let RegYear = start.getFullYear()-1;
     console.log(getPolicyYear,'getPolicyYear');
     let getLength = this.vehicalDetails.controls['manufactureYear'].value;
     if(getLength.length == 4) {
-      if(this.vehicalDetails.controls['manufactureYear'].value >= getPolicyYear){
+      if(getLength != RegYear || getPolicyYear != getLength){
         this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
       }
+      // if(this.vehicalDetails.controls['manufactureYear'].value >= getPolicyYear){
+      //   this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
+      // }
     }
 
   }
@@ -388,6 +392,9 @@ export class EnquiryPopupComponent implements OnInit {
     let days = b.diff(a, 'days');
     console.log(days,'daaaaaa');
     return days;
+  //   let expiry = new Date(this.vehicalDetails.controls['previousPolicyExpiry'].value);
+  //    var day = expiry.getDate();
+  // console.log(day);
   }
 
 }
