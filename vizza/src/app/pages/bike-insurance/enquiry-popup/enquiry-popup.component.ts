@@ -316,13 +316,13 @@ export class EnquiryPopupComponent implements OnInit {
     console.log(getPolicyYear,'getPolicyYear');
     let getLength = this.vehicalDetails.controls['manufactureYear'].value;
     console.log(getLength, 'getLengthgetLength');
-    alert(getLength + ' '+  getPolicyYear);
+    // alert(getLength + ' '+  getPolicyYear);
     if(getLength.length == 4) {
       if(getLength != RegYear || getPolicyYear != getLength){
-        alert('in');
+        // alert('in');
         this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
       } else {
-        alert('out');
+        // alert('out');
       }
       // if(this.vehicalDetails.controls['manufactureYear'].value >= getPolicyYear){
       //   this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
