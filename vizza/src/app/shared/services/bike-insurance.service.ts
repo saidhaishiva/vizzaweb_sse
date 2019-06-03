@@ -560,8 +560,7 @@ export class BikeInsuranceService {
     };
     const url = this.configurationService.getBikeInsurance() + 'reliance/proposal';
     return this.http.post(url,json, httpOptions)
-        .map(this.extractData)
-        .catch(this.handleError);
+        .map(this.extractData)        .catch(this.handleError);
   }
 
   // Tataaig GenderList
