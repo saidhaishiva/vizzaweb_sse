@@ -16,11 +16,11 @@
 
 </div>
 <div mat-dialog-content>
-  <div class="row  scrollmenu">
+  <div class="row  scrollmenu compare-details-travel">
     <div class="col">
       <table class="table compare">
         <tbody>
-        <tr class="table-warning1">
+        <tr class="table-warning1" style="height: 115px!important;">
           <td>
             <p class="text-center" style="margin-top: 30px;">Key Features</p>
           </td>
@@ -38,13 +38,13 @@
       </table>
     </div>
 
-    <div class="col" *ngFor="let clists of compareDetails.productdetails">
+    <div class="col" *ngFor="let clists of compareDetails.productdetails; let first = first;">
       <table class="table compare">
         <tbody>
-        <tr class="table-warning1">
+        <tr class="table-warning1" [ngStyle]="{'height' : first ? '115px' : 'auto' }">
           <td class="text-center">
+            <img src="{{webhost + '/' + clists.product_logo}}">
             <p class="content-color text-center">{{clists.plan_name}}</p>
-            <img src="{{webhost + '/' + clists.product_logo}}" style="width: 65px;height: 30px">
           </td>
         </tr>
         <tr class="table-warning1" >
