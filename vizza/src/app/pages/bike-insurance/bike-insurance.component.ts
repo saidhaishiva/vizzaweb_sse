@@ -185,7 +185,7 @@ export class BikeInsuranceComponent implements OnInit {
                 "previous_policy_expiry_date":this.bikeInsurance.controls['previousPolicyExpiry'].value ? this.bikeInsurance.controls['previousPolicyExpiry'].value : '',
                 "previous_policy_start_date":this.bikeInsurance.controls['previousPolicyStart'].value ? this.bikeInsurance.controls['previousPolicyStart'].value : '',
                 "business_type":this.bikeInsurance.controls['bussiness'].value,
-                "ncb_amount": this.bikeInsurance.controls['ncb'].value,
+                "ncb_percent": this.bikeInsurance.controls['ncb'].value,
                 "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
             }
             console.log(data,'data');
@@ -216,13 +216,7 @@ export class BikeInsuranceComponent implements OnInit {
                         });
 
                 } else {
-                    let dialogRef = this.dialog.open(EnquiryPopupComponent, {
-                        width: '1500px',data: {listData: successData.ResponseObject, disableClose: true},
-                        height: '500'
-                    })
-                    dialogRef.disableClose = true;
-                    dialogRef.afterClosed().subscribe(result => {
-                    });
+                    this.toastr.error(successData.ErrorObject);
                 }
            }
 
