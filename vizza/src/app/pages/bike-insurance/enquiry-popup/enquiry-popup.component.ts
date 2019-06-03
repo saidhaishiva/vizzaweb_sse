@@ -315,7 +315,7 @@ export class EnquiryPopupComponent implements OnInit {
     console.log(getPolicyYear,'getPolicyYear');
     let getLength = this.vehicalDetails.controls['manufactureYear'].value;
     if(getLength.length == 4) {
-      if(this.vehicalDetails.controls['manufactureYear'].value > getPolicyYear){
+      if(this.vehicalDetails.controls['manufactureYear'].value >= getPolicyYear){
         this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
       }
     }
