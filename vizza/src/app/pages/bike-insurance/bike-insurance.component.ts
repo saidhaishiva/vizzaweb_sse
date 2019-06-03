@@ -13,6 +13,7 @@ import {AppSettings} from '../../app.settings';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {EnquiryPopupComponent} from './enquiry-popup/enquiry-popup.component';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -80,7 +81,12 @@ export class BikeInsuranceComponent implements OnInit {
     public previousDate : boolean;
     meridian = true;
 
-    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog,public appSettings: AppSettings, public router: Router) {
+
+    // fire
+    showFire: any;
+    public fireapp: FormGroup;
+
+    constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe,public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog,public appSettings: AppSettings, public router: Router, public commonservices: CommonService,public toast: ToastrService) {
         const minDate = new Date();
         this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
         this.settings = this.appSettings.settings;
@@ -97,6 +103,18 @@ export class BikeInsuranceComponent implements OnInit {
             'previousPolicyExpiry':'',
             'previousPolicyStart':''
         });
+
+        this.fireapp = this.fb.group({
+            'appdate': ['', Validators.required],
+            'apptime': null,
+            'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+            'contactperson':  ['', Validators.compose([Validators.required])],
+            'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
+            'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+            'pincode': ['', Validators.compose([Validators.required])],
+            'insurance': ['',Validators.compose([Validators.required])],
+            'appointmentwith': ['',Validators.compose([Validators.required])]
+        });
         this.claimAmountDetails = false;
         this.expiry = false;
         this.previousDate = true;
@@ -106,6 +124,7 @@ export class BikeInsuranceComponent implements OnInit {
   ngOnInit() {
       this.claimpercent();
       this.bussinessType();
+      this.showFire = this.config.getBikeInsurance();
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.sessionData();
@@ -296,6 +315,100 @@ export class BikeInsuranceComponent implements OnInit {
         }
 
     }
+
+
+
+    ////fire
+
+    public data(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[a-zA-Z\\ ]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+    public keyPress(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar)) {
+                event.preventDefault();
+            }
+        }
+    }
+
+    addEventFire(event) {
+        this.selectDate = event.value;
+        this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
+    }
+
+    //
+    getPincodeDetails(pin, title) {
+        this.pin = pin;
+        this.title = title;
+        const data = {
+            'platform': 'web',
+            'postalcode': this.pin
+        }
+        if (this.pin.length == 6) {
+            this.commonservices.getPincodeDetails(data).subscribe(
+                (successData) => {
+                    this.getPincodeDetailsSuccess(successData);
+                },
+                (error) => {
+                    this.getPincodeDetailsFailure(error);
+                }
+            );
+        }
+    }
+    public getPincodeDetailsSuccess(successData) {
+        if (successData.ErrorObject) {
+            this.toast.error(successData.ErrorObject);
+            this.pincodeErrors = false;
+        } else {
+            this.pincodeErrors = true;
+        }
+    }
+
+    public getPincodeDetailsFailure(error) {
+    }
+
+    //
+    fireKeeper(values) {
+
+        if (this.fireapp.valid) {
+            const data = {
+                'platform': 'web',
+                'product_type': 'offline',
+                'appointment_date': this.setDate,
+                'appointment_time': this.fireapp.controls['apptime'].value,
+                'company_name': this.fireapp.controls['name'].value,
+                'customer_mobile': this.fireapp.controls['mobile'].value,
+                'customer_email': this.fireapp.controls['email'].value,
+                'contact_person' : this.fireapp.controls['contactperson'].value,
+                'pincode': this.fireapp.controls['pincode'].value,
+                'product_name': this.fireapp.controls['insurance'].value,
+                'appointment_with': this.fireapp.controls['appointmentwith'].value,
+
+            };
+
+            this.commonservices.setFixAppointment(data).subscribe(
+                (successData) => {
+                    this.fixAppointmentSuccess(successData);
+                },
+                (error) => {
+                    this.fixAppointmentFailure(error);
+                }
+            );
+        }
+    }
+    fixAppointmentSuccess(successData) {
+    }
+    fixAppointmentFailure(error) {
+    }
+
 
 
 }
