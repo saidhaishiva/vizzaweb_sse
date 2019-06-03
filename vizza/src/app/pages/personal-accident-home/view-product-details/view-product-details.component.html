@@ -24,11 +24,11 @@
 
             <div class="row">
               <!--mobile view-->
-            <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none d-xl-none">
+            <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
               <mat-accordion class="w-100">
                 <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i == 0">
-                  <mat-expansion-panel-header>
-                    <mat-panel-title *ngIf="keys.type == 1 || keys.type == 0" class="nav-item">
+                  <mat-expansion-panel-header class="heigt">
+                    <mat-panel-title style="height: 40px;"  *ngIf="keys.type == 1 || keys.type == 0" class="nav-item">
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
@@ -47,7 +47,7 @@
             </div>
 
             <!--desktop view-->
-            <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block d-xl-block">
+            <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block">
             <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
@@ -156,8 +156,8 @@
             <!--mobile view-->
             <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none d-xl-none">
               <mat-accordion class="w-100">
-                <mat-expansion-panel expanded style="background: #dc6e97">
-                  <mat-expansion-panel-header >
+                <mat-expansion-panel expanded style="background: #dc6e97; height:auto;">
+                  <mat-expansion-panel-header>
                     <mat-panel-title >
                         <span *ngFor="let keys of getKeyList;let i = index">
                           <a *ngIf="keys.type == 2"  matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
@@ -220,7 +220,7 @@
                 </div>
               </div>
 
-              <div class="col-md-9" style="background-color:#F16D73; height:510px;"><br>
+              <div class="col-md-9" style="background-color:#F16D73; height:auto;"><br>
                 <div mat-dialog-content>
                   <div *ngIf="selectedClaimDetails == 'form1'">
                     <div class="h-100" *ngFor="let keys of getKeyList;let i = index">
