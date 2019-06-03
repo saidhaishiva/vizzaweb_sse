@@ -4084,4 +4084,25 @@ fieldset {
 }
 
 
+//view details mobile
 
+@media (min-width: 320px) and (max-width: 480px) {
+  .apolloEmail {
+    display: inline-block;
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+//tab view
+@media (min-width: 481px) and (max-width: 767px) {
+
+.apolloEmail{
+  display: inline-block;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+}
