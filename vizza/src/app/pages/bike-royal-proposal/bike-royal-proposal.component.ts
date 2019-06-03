@@ -827,11 +827,7 @@ proposal(stepper){
           "policyStartDate": '2019-04-01',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
       "electricalAccessories": {
-        "electronicAccessoriesDetails": [{
-          "NameOfElectronicAccessories": "Headlight",
-              "MakeModel": "Philips",
-              "Value": "0"
-        }]
+        "electronicAccessoriesDetails": this.vehical.value.addElectrical,
       },
       "vechileOwnerShipChanged": this.vehical.controls['vechileOwnerShipChanged'].value,
           "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value,
