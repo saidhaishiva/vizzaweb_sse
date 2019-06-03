@@ -168,7 +168,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
     }
 
-    nameValidate(event: any) {home
+    nameValidate(event: any) {
     }
 
     // Dob validation

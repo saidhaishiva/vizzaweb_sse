@@ -630,29 +630,28 @@
             <hr>
             <div class="row">
               <div class="col-md-12 text-center">
-                  <form id="PostForm" name="PostForm" autocomplete="off" action="{{PaymentRedirect}}" method="post">
+                      <form action={{PaymentRedirect}}  method='POST' #form>
+
                       <input type="hidden" name="reqType" id="reqType" value="JSON">
                       <input type="hidden" name="process"  value="paymentOption">
-                      <input type="hidden" name="apikey" id="apikey" value="{{Apikey}}">
-                      <input type="hidden" name="agentId" id="agentId" value="{{AgentId}}">
-                      <input type="hidden" name="premium" value="{{Comprehensivepremium}}">
-                      <input type="hidden" name="quoteId" id="quoteId" value="BA504225VPC0494682">
-                      <input type="hidden" name="version_no" id="version_no" value="{{VersionNo}}">
-                      <input type="hidden" name="strFirstName" id="strFirstName" value="{{proposerFormData.name}}">
-                      <input type="hidden" name="strEmail" id="strEmail" value="{{proposerFormData.email}}">
-                      <input type="hidden" name="strMobileNo" id="strMobileNo" value="{{proposerFormData.mobile}}">
+                      <input type="hidden" name="apikey" id="apikey" value={{Apikey}}>
+                      <input type="hidden" name="agentId" id="agentId" value={{AgentId}}>
+                      <input type="hidden" name="premium" value={{Comprehensivepremium}}>
+                      <input type="hidden" name="quoteId" id="quoteId" value= {{referenceId}}>
+                      <input type="hidden" name="version_no" id="version_no" value={{VersionNo}}>
+                      <input type="hidden" name="strFirstName" id="strFirstName" value={{proposerFormData.name}}>
+                      <input type="hidden" name="strEmail" id="strEmail" value={{proposerFormData.email}}>
+                      <input type="hidden" name="strMobileNo" id="strMobileNo" value={{proposerFormData.mobile}}>
                       <input type="hidden" name="isQuickRenew" id="isQuickRenew" value="">
                       <input type="hidden" name="crossSellProduct" id="crossSellProduct" value="">
                       <input type="hidden" name="crossSellQuoteid" id="crossSellQuoteid" value="">
-                      <input type="hidden" name="returnUrl" id="returnUrl" value="{{PaymentReturn}}">
-                      <input type="hidden" value="{{VehicleSubLine}}" name="vehicleSubLine" id="vehicleSubLine">
-                      <input type="hidden" value="{{ElcValue}}" name="elc_value" id="elc_value">
+                      <input type="hidden" name="returnUrl" id="returnUrl" value={{PaymentReturn}}>
+                      <input type="hidden" value={{VehicleSubLine}} name="vehicleSubLine" id="vehicleSubLine">
+                      <input type="hidden" value={{ElcValue}} name="elc_value" id="elc_value">
                       <input type="hidden" value="" name="nonelc_value" id="nonelc_value">
                       <input type="hidden" value="Yes" name="multiplePaymentMode" id="multiplePaymentMode">
-                      <!--input type="hidden" value="PAYTM" name="paymentType"-->
-                      <!--<input type="submit" class="btn-view-summary" value="Submit" title="Submit">-->
                       <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                      <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="PostForm.submit()" >Pay Now</button>
+                      <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()" >Pay Now</button>
                   </form>
               </div>
             </div>
