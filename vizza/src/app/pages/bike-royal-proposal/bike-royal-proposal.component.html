@@ -253,30 +253,29 @@
                         <mat-checkbox  formControlName="coverelectricalaccesss">Cover Electrical Accessories</mat-checkbox>
                       </div>
                       </div>
-                          <div formArrayName="electricalAccess" *ngFor="let item of vehical.get('electricalAccess').controls; let i = index;">
-                              <div [formGroupName]="i">
-                      <div class="row" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
+                      <div *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
 
-                       <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                              <input matInput placeholder="NameOfElectronicAccessories "  formControlName="NameOfElectronicAccessories"  autocomplete="off">
-                          </mat-form-field>
-                      </div>
-                      <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                              <input matInput placeholder="MakeModel "  formControlName="MakeModel"  autocomplete="off">
-                          </mat-form-field>
-                      </div>
-                      <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                              <input matInput placeholder="Value "  formControlName="Value"  autocomplete="off">
-                          </mat-form-field>
-                      </div>
-                          <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>
-                          <button mat-mini-fab	*ngIf="i != 0" color="accent" (click)="removeItems(i)">-</button>
-
-                      </div>
-                      </div>
+                        <div class="row"  formArrayName="electricalAccess" *ngFor="let item of vehical.get('electricalAccess').controls; let i = index;">
+                              <div class="col-md-12" [formGroupName]="i">
+                                   <div class="col-md-3">
+                                      <mat-form-field class="w-100">
+                                          <input matInput placeholder="NameOfElectronicAccessories "  formControlName="NameOfElectronicAccessories"  autocomplete="off">
+                                      </mat-form-field>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <mat-form-field class="w-100">
+                                          <input matInput placeholder="MakeModel "  formControlName="MakeModel"  autocomplete="off">
+                                      </mat-form-field>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <mat-form-field class="w-100">
+                                          <input matInput placeholder="Value "  formControlName="Value"  autocomplete="off">
+                                      </mat-form-field>
+                                  </div>
+                                  <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>
+                                  <button mat-mini-fab	*ngIf="i != 0" color="accent" (click)="removeItems(i)">-</button>
+                              </div>
+                        </div>
                       </div>
 
                       <div class="row">
