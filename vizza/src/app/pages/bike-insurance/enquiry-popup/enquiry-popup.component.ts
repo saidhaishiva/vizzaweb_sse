@@ -315,9 +315,14 @@ export class EnquiryPopupComponent implements OnInit {
     let RegYear = start.getFullYear()-1;
     console.log(getPolicyYear,'getPolicyYear');
     let getLength = this.vehicalDetails.controls['manufactureYear'].value;
+    console.log(getLength, 'getLengthgetLength');
+    // alert(getLength + ' '+  getPolicyYear);
     if(getLength.length == 4) {
       if(getLength != RegYear || getPolicyYear != getLength){
+        // alert('in');
         this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
+      } else {
+        // alert('out');
       }
       // if(this.vehicalDetails.controls['manufactureYear'].value >= getPolicyYear){
       //   this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
@@ -370,6 +375,7 @@ export class EnquiryPopupComponent implements OnInit {
       console.log(this.QuotationList,'jhkhjgkj');
       if(successData.status == true){
         this.dialogRef.close();
+        this.manufactureYear();
         this.router.navigate(['/bikepremium']);
       }
 
