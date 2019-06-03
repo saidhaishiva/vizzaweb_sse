@@ -73,6 +73,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public PaymentRedirect: any;
     public PolicySisID: any;
     public PaymentReturn: any;
+    public vehicledata: any;
 
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public config: ConfigurationService) {
@@ -86,6 +87,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         const miniDate = new Date();
         this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
         this.maxdate = this.minDate;
+        console.log(this.minDate,'tdy');
 
         this.proposer = this.fb.group({
             proposerTitle: ['', Validators.required],
@@ -122,7 +124,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             banktype: '',
             bankName: '',
             Address: '',
-            autoflag: '',
+            autoflag: ['',Validators.required],
             autoNumber: '',
             autoName: '',
             autoDob: '',
@@ -156,14 +158,17 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.getCodelist();
         this.getRelationList();
         this.sessionData();
+        this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
+        console.log(this.vehicledata);
         this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
         this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
         console.log(this.enquiryFormData,'enquiry data');
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+        this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
+        this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
     }
 
     nameValidate(event: any) {
-        this.validation.nameValidate(event);
     }
 
     // Dob validation
@@ -381,36 +386,36 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
 
-    // financiertype(event: any) {
-    //     console.log(event.length,'length');
-    //     if (event.length >= 3) {
-    //         if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
-    //             const data = {
-    //                 'platform': 'web',
-    //                 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-    //                 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-    //                 'type': this.vehicle.controls['banktype'].value,
-    //                 'name': event,
-    //             };
-    //             this.bikeinsurance.Finacetype(data).subscribe(
-    //                 (successData) => {
-    //                     this.FinanceSuccess(successData);
-    //                 },
-    //                 (error) => {
-    //                     this.FinanceFailure(error);
-    //                 }
-    //             );
-    //         }
-    //     }
-    // }
-    //
-    // FinanceSuccess(successData) {
-    //     this.banklist = successData.ResponseObject;
-    // }
-    //
-    // FinanceFailure(error) {
-    //
-    // }
+    financiertype(event: any) {
+        console.log(event.length,'length');
+        if (event.length >= 3) {
+            if (this.vehicle.controls['banktype'].value == 'bank' || this.vehicle.controls['banktype'].value == 'nonbank financier') {
+                const data = {
+                    'platform': 'web',
+                    'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+                    'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+                    'type': this.vehicle.controls['banktype'].value,
+                    'name': event,
+                };
+                this.bikeinsurance.Finacetype(data).subscribe(
+                    (successData) => {
+                        this.FinanceSuccess(successData);
+                    },
+                    (error) => {
+                        this.FinanceFailure(error);
+                    }
+                );
+            }
+        }
+    }
+
+    FinanceSuccess(successData) {
+        this.banklist = successData.ResponseObject;
+    }
+
+    FinanceFailure(error) {
+
+    }
 
 
     chooseflag(event: any) {
@@ -507,7 +512,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatanominee = '';
         sessionStorage.tatanominee = JSON.stringify(value);
         if (this.nominee.valid) {
-            // this.QuoteList(stepper);
+            this.QuoteList(stepper);
         }
     }
 
@@ -587,35 +592,39 @@ export class BikeTataaigProposalComponent implements OnInit {
         }
     }
 
-    // QuoteList(stepper) {
-    //     const data = {
-    //         'platform': 'web',
-    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    //     };
-    //     this.bikeinsurance.QuoteList(data).subscribe(
-    //         (successData) => {
-    //             this.QuoteSuccess(successData,stepper);
-    //         },
-    //         (error) => {
-    //             this.QuoteFailure(error);
-    //         }
-    //     );
-    // }
-    //
-    // QuoteSuccess(successData,stepper) {
-    //     if (successData.IsSuccess) {
-    //         this.Quotelist = successData.ResponseObject;
-    //         this.createproposal(stepper);
-    //     }
-    // }
-    //
-    // QuoteFailure(error) {
-    //
-    // }
+    QuoteList(stepper) {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "enquiry_id": this.bikeEnquiryId,
+        };
+        this.bikeinsurance.QuoteList(data).subscribe(
+            (successData) => {
+                this.QuoteSuccess(successData,stepper);
+            },
+            (error) => {
+                this.QuoteFailure(error);
+            }
+        );
+    }
+
+    QuoteSuccess(successData,stepper) {
+        if (successData.IsSuccess) {
+            this.Quotelist = successData.ResponseObject;
+            console.log(this.Quotelist,'quotationdata');
+            this.createproposal(stepper);
+        }
+    }
+
+    QuoteFailure(error) {
+
+    }
 
     //Proposal Creation
     createproposal(stepper: MatStepper) {
+        console.log(this.previouspolicy.controls['preflag'].value,'preflag');
+        console.log(this.vehicle.controls['autoDob'].value,'expry date');
         const data = {
             "platform": "web",
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -624,9 +633,9 @@ export class BikeTataaigProposalComponent implements OnInit {
             "enquiry_id": this.bikeEnquiryId,
             "created_by": "",
             "proposal_id": sessionStorage.tataBikeproposalID == '' || sessionStorage.tataBikeproposalID == undefined ? '' : sessionStorage.tataBikeproposalID,
-            "quotation_number": this.Quotelist.quotation_number,
             "motorproposalObj": {
-                "pol_sdate": "20192405",
+                "quotation_no": this.Quotelist.productlist.quotation_no,
+                "pol_sdate": this.datepipe.transform(this.minDate,'yMMd'),
                 "sp_name": "Name",
                 "sp_license": "Lino12345566",
                 "sp_place": "Mahbubnagar",
@@ -636,7 +645,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "middle_name": this.proposer.controls['proposerMidname'].value,
                     "last_name": this.proposer.controls['proposerLastname'].value,
                     "gender": this.proposer.controls['proposerGender'].value,
-                    "dob": this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'dd-MM-y'),
+                    "dob": this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'yMMdd'),
                     "marital_status": this.proposer.controls['maritalStatus'].value,
                     "address_1": this.proposer.controls['Addressone'].value,
                     "address_2": this.proposer.controls['Addresstwo'].value,
@@ -653,14 +662,14 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "chassis_no": this.vehicle.controls['chassis'].value
                 },
                 "prevpolicy": {
-                    "flag": this.enquiryFormData.business == '5'? this.previouspolicy.controls['preflag'].value : '',
-                    "code": this.enquiryFormData.business == '5'? this.previouspolicy.controls['precode'].value : '',
-                    "name": this.enquiryFormData.business == '5'? this.previouspolicy.controls['preName'].value : '',
-                    "address1": this.enquiryFormData.business == '5'? this.previouspolicy.controls['preAddressone'].value : '',
-                    "address2": this.enquiryFormData.business == '5'? this.previouspolicy.controls['preAddresstwo'].value : '',
-                    "address3": this.enquiryFormData.business == '5'? this.previouspolicy.controls['preAddressthree'].value : '',
-                    "polno": this.enquiryFormData.business == '5'? this.previouspolicy.controls['prepolno'].value : '',
-                    "pincode": this.enquiryFormData.business == '5'? this.previouspolicy.controls['prepincode'].value : '',
+                    "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == ''? 'N' : this.previouspolicy.controls['preflag'].value,
+                    "code": this.previouspolicy.controls['precode'].value == null ? '' : this.previouspolicy.controls['precode'].value,
+                    "name":  this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
+                    "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
+                    "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,
+                    "address3": this.previouspolicy.controls['preAddressthree'].value == null ? '' : this.previouspolicy.controls['preAddressthree'].value,
+                    "polno": this.previouspolicy.controls['prepolno'].value == null ? '' : this.previouspolicy.controls['prepolno'].value,
+                    "pincode": this.previouspolicy.controls['prepincode'].value == null ? '' : this.previouspolicy.controls['prepincode'].value,
                 },
                 "financier": {
                     "type": this.vehicle.controls['banktype'].value,
@@ -672,7 +681,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "flag": this.vehicle.controls['autoflag'].value,
                     "number": this.vehicle.controls['autoNumber'].value,
                     "name": this.vehicle.controls['autoName'].value,
-                    "expiry_date": this.datepipe.transform(this.vehicle.controls['autoDob'].value, 'dd-MM-y'),
+                    "expiry_date": this.vehicle.controls['autoDob'].value == null ? '' : this.datepipe.transform(this.vehicle.controls['autoDob'].value, 'dd-MM-y'),
                 },
                 "nominee": {
                     "name": this.nominee.controls['nomieeName'].value,
@@ -704,6 +713,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     proposalSuccess(successData, stepper) {
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
             this.toastr.success('Proposal created successfully!!');
@@ -719,6 +729,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.nomineeFormData = this.nominee.value;
         }else{
             this.toastr.error(successData.ErrorObject);
+            this.settings.loadingSpinner = false;
         }
     }
 

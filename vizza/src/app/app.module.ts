@@ -280,6 +280,7 @@ import { BikeTataaigProposalComponent } from './pages/bike-tataaig-proposal/bike
 import {CholaHealthPaymentSuccessComponent, DownloadMessageCholaHealth} from './pages/chola-health-payment-success/chola-health-payment-success.component';
 import { EnquiryPopupComponent } from './pages/bike-insurance/enquiry-popup/enquiry-popup.component';
 import { BikeTataaigPaymentSuccesssComponent } from './pages/bike-tataaig-payment-successs/bike-tataaig-payment-successs.component';
+import { RoyalsundaramMotorPaymentSuccessComponent } from './pages/royalsundaram-motor-payment-success/royalsundaram-motor-payment-success.component';
 
 @NgModule({
     imports: [
@@ -519,8 +520,9 @@ import { BikeTataaigPaymentSuccesssComponent } from './pages/bike-tataaig-paymen
         CholaHealthPaymentSuccessComponent,
         DownloadMessageCholaHealth,
         EnquiryPopupComponent,
-        BikeTataaigPaymentSuccesssComponent,
-   ],
+        RoyalsundaramMotorPaymentSuccessComponent,
+        BikeTataaigPaymentSuccesssComponent
+    ],
     providers: [
         AppSettings,
         LoginService,
