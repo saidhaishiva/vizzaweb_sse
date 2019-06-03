@@ -126,7 +126,7 @@ public apponiteeList: boolean;
     this.vehical = this.fb.group({
       vehicleMostlyDrivenOn: ['', Validators.required],
       vehicleRegisteredName:'' ,
-      registrationchargesRoadtax: ['', Validators.required],
+      // registrationchargesRoadtax: ['', Validators.required],
       coverelectricalaccesss: '',
       drivingExperience: '',
       averageMonthlyMileageRun: ['', Validators.required],
@@ -357,14 +357,14 @@ public apponiteeList: boolean;
         console.log(this.pincodeCity,'ciytyer');
 
         this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
-        this.proposer.controls['rcity'].patchValue(this.pincodeList['city'][key]);
+        // this.proposer.controls['rcity'].patchValue(this.pincodeList['city'][key]);
       }
 
     } else{
       this.toastr.error(successData.ErrorObject);
       this.proposer.controls['state'].patchValue('');
       this.proposer.controls['city'].patchValue('');
-      this.proposer.controls['rcity'].patchValue('');
+      // this.proposer.controls['rcity'].patchValue('');
     }
   }
 
@@ -424,12 +424,16 @@ public apponiteeList: boolean;
       if(this.proposer.controls['sameas'].value == true){
         this.proposer.controls['raddress'].patchValue( this.proposer.controls['address'].value),
         this.proposer.controls['raddress2'].patchValue( this.proposer.controls['address2'].value),
+        this.proposer.controls['raddress3'].patchValue( this.proposer.controls['address3'].value),
+        this.proposer.controls['raddress4'].patchValue( this.proposer.controls['address4'].value),
         this.proposer.controls['rpincode'].patchValue( this.proposer.controls['pincode'].value),
         this.proposer.controls['rstate'].patchValue( this.proposer.controls['state'].value),
         this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value)
       } else {
         this.proposer.controls['raddress'].patchValue(''),
         this.proposer.controls['raddress2'].patchValue(''),
+        this.proposer.controls['raddress3'].patchValue(''),
+        this.proposer.controls['raddress4'].patchValue(''),
         this.proposer.controls['rpincode'].patchValue(''),
         this.proposer.controls['rstate'].patchValue(''),
         this.proposer.controls['rcity'].patchValue('')
@@ -453,9 +457,9 @@ public apponiteeList: boolean;
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-    // if(this.vehical.valid){
+    if(this.vehical.valid){
       stepper.next();
-    // }
+    }
   }
 
   changehypothecation() {
@@ -1030,7 +1034,7 @@ proposal(stepper){
       this.vehical = this.fb.group({
         vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
         vehicleRegisteredName: stepper2.vehicleRegisteredName,
-        registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
+        // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
         coverelectricalaccesss:stepper2.coverelectricalaccesss,
         drivingExperience: stepper2.drivingExperience,
         averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,

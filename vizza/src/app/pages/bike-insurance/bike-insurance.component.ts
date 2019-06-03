@@ -89,7 +89,7 @@ export class BikeInsuranceComponent implements OnInit {
         this.bikeInsurance = this.fb.group({
             'vehicalNumber': ['', Validators.required],
             'registrationDate': ['', Validators.required],
-            'previousClaim': ['', Validators.required],
+            'previousClaim': '',
             'claimamount': '',
             'enquiry': '',
             'bussiness':'',
@@ -207,15 +207,17 @@ export class BikeInsuranceComponent implements OnInit {
                     sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
                     sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
                     sessionStorage.enquiryFormData = JSON.stringify(data);
+                    if(this.bikeInsurance.valid){
                         let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                             width: '1500px',data: {listData: successData.ResponseObject, disableClose: true },
                             height: '500'
                         })
-                    dialogRef.disableClose = true;
-                    dialogRef.afterClosed().subscribe(result => {
-                    });
+                        dialogRef.disableClose = true;
+                        dialogRef.afterClosed().subscribe(result => {
+                        });
+                    }
 
-                    } else {
+                } else {
                     let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                         width: '1500px',data: {listData: successData.ResponseObject, disableClose: true},
                         height: '500'

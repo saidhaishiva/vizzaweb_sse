@@ -44,7 +44,7 @@
            <mat-error *ngIf="vehicalDetails.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
        </mat-form-field>
      </div>
-    <div class="col-md-3">
+    <div class="col-md-3" *ngIf="enquiryFormData.business_type != '1'">
       <mat-form-field class="w-100">
         <mat-select placeholder="NCB Percent(%)"  formControlName="ncb"  required>
           <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
@@ -52,7 +52,7 @@
         <mat-error *ngIf="vehicalDetails.controls.ncb.errors?.required">Ncb is required</mat-error>
       </mat-form-field>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-3" *ngIf="enquiryFormData.business_type != '1'">
       <mat-form-field class="w-100">
         <input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>
         <mat-error *ngIf="vehicalDetails.controls.claimamount.errors?.required">Claim Amount is required</mat-error>

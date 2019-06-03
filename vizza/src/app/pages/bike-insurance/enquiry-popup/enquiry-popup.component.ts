@@ -42,6 +42,7 @@ export class EnquiryPopupComponent implements OnInit {
   public claimAmountDetails : any;
   public ListDetails : any;
   public bussinessList : any;
+  public enquiryFormData : any;
   public cityDetails : any;
   constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
   public dialogRef: MatDialogRef<EnquiryPopupComponent>,
@@ -71,6 +72,7 @@ export class EnquiryPopupComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.claimpercent();
     this.manifactureList();
     this.bussinessType();
@@ -340,7 +342,7 @@ export class EnquiryPopupComponent implements OnInit {
       'engine_no':this.vehicalDetails.controls['engine'].value,
       'manu_yr':this.vehicalDetails.controls['manufactureYear'].value,
       'vehicle_category':"2W",
-      'ncb_percent': this.vehicalDetails.controls['ncb'].value,
+      'ncb_percent': this.vehicalDetails.controls['ncb'].value ? this.vehicalDetails.controls['ncb'].value : '',
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value,
       'business_type': this.vehicalDetails.controls['bussiness'].value,
       'registration_city': this.vehicalDetails.controls['city'].value
