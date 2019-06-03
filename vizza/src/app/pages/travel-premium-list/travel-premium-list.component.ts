@@ -450,11 +450,11 @@ export class TravelPremiumListComponent implements OnInit {
         console.log(value, 'lop1');
         this.productLists = [];
         for (let i = 0; i < value.length; i++) {
-            this.productLists.push({plan_id: value[i].plan_id, product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].sum_insured_amount, prod_suminsuredid: value[i].sum_insured_id});
+            this.productLists.push({plan_id: value[i].plan_id, product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
         }
         const data = {
             'platform': 'web',
-            'enquiry_id': this.equiryId,
+            'enquiry_id': this.enquiryDetails.enquiry_id,
             'product_lists': this.productLists,
             'created_by': 0,
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
