@@ -8,6 +8,7 @@ import {AuthService} from '../../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import * as moment from 'moment';
 
 export const MY_FORMATS = {
   parse: {
@@ -309,15 +310,23 @@ export class EnquiryPopupComponent implements OnInit {
   public typeFailure(error) {
   }
   manufactureYear(){
-    let start = new Date(this.vehicalDetails.controls['previousPolicyStart'].value);
+    let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
     let getPolicyYear = start.getFullYear();
+    let RegYear = start.getFullYear()-1;
     console.log(getPolicyYear,'getPolicyYear');
     let getLength = this.vehicalDetails.controls['manufactureYear'].value;
+    console.log(getLength, 'getLengthgetLength');
+    // alert(getLength + ' '+  getPolicyYear);
     if(getLength.length == 4) {
-      if(getPolicyYear >= this.vehicalDetails.controls['manufactureYear'].value){
-      }  else {
-        this.toastr.error('Manufacture Year should be less than Registration Year');
+      if(getLength != RegYear || getPolicyYear != getLength){
+        // alert('in');
+        this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
+      } else {
+        // alert('out');
       }
+      // if(this.vehicalDetails.controls['manufactureYear'].value >= getPolicyYear){
+      //   this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
+      // }
     }
 
   }
@@ -366,6 +375,7 @@ export class EnquiryPopupComponent implements OnInit {
       console.log(this.QuotationList,'jhkhjgkj');
       if(successData.status == true){
         this.dialogRef.close();
+        this.manufactureYear();
         this.router.navigate(['/bikepremium']);
       }
 
@@ -381,4 +391,16 @@ export class EnquiryPopupComponent implements OnInit {
   close(): void {
     this.dialogRef.close();
   }
+   // days validation
+  ageCalculateInsurer(getDays) {
+    let a = moment(getDays, 'DD/MM/YYYY');
+    let b = moment(new Date(), 'DD/MM/YYYY');
+    let days = b.diff(a, 'days');
+    console.log(days,'daaaaaa');
+    return days;
+  //   let expiry = new Date(this.vehicalDetails.controls['previousPolicyExpiry'].value);
+  //    var day = expiry.getDate();
+  // console.log(day);
+  }
+
 }

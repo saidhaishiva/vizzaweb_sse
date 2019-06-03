@@ -136,16 +136,16 @@ public apponiteeList: boolean;
       financierName: '',
       isTwoWheelerFinanced: '',
       hypothecationType: '',
-        noncoverelectricalaccesss: '',
+        // noncoverelectricalaccesss: '',
         vechileOwnerShipChanged: 'No',
       personalAccidentCover: '',
       accidentPaid: '',
       electricalAccess : new FormArray([
         this.create()
       ]),
-      nonelectricalAccess : new FormArray([
-        this.createnonElectrical()
-      ]),
+      // nonelectricalAccess : new FormArray([
+      //   this.createnonElectrical()
+      // ]),
     });
 
     this.previousInsure = this.fb.group({
@@ -218,9 +218,9 @@ public apponiteeList: boolean;
   // proposer page
   create(){
     return new FormGroup({
-      NameOfElectronicAccessories: new FormControl('', Validators.required),
-      MakeModel :  new FormControl('', Validators.required),
-      Value :  new FormControl('', Validators.required),
+      NameOfElectronicAccessories: new FormControl(),
+      MakeModel :  new FormControl(),
+      Value :  new FormControl(),
     });
   }
   addItems(){
@@ -763,6 +763,7 @@ public apponiteeList: boolean;
   }
     // proposal creation
 proposal(stepper){
+    console.log(this.vehical.value, 'jjjcoverelectricalaccesss');
   const data = {
     'platform': 'web',
     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -824,10 +825,10 @@ proposal(stepper){
           "averageMonthlyMileageRun":  this.vehical.controls['averageMonthlyMileageRun'].value,
           "personalAccidentCoverForUnnamedPassengers": '',
           "accidentCoverForPaidDriver": '',
-          "policyStartDate": '2019-04-01',
+          "policyStartDate": '2019-06-03',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
       "electricalAccessories": {
-        "electronicAccessoriesDetails": this.vehical.value.addElectrical,
+        "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
       },
       "vechileOwnerShipChanged": this.vehical.controls['vechileOwnerShipChanged'].value,
           "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value,
@@ -943,11 +944,7 @@ proposal(stepper){
           "policyStartDate": '2019-04-01',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
           "electricalAccessories": {
-            "electronicAccessoriesDetails": [{
-              "NameOfElectronicAccessories": "Headlight",
-              "MakeModel": "Philips",
-              "Value": "0"
-            }]
+            "electronicAccessoriesDetails":  this.vehical.value.electricalAccess,
           },
           "vechileOwnerShipChanged": this.vehical.controls['vechileOwnerShipChanged'].value,
           "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value,
@@ -1040,7 +1037,7 @@ proposal(stepper){
         financierName: stepper2.financierName,
         isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
         hypothecationType: stepper2.hypothecationType,
-        noncoverelectricalaccesss:stepper2.noncoverelectricalaccesss,
+        // noncoverelectricalaccesss:stepper2.noncoverelectricalaccesss,
         vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,

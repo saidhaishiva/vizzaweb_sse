@@ -851,6 +851,7 @@ export class IffcoTokioComponent implements OnInit {
                     'TobaccoQuantity': this.insuredDetails.items[i].tobaccoQuantity
                 });
             }
+
             console.log(this.insuredData, 'data');
 
 
@@ -864,10 +865,16 @@ export class IffcoTokioComponent implements OnInit {
             }
 
             if (!ageValidate.includes(1)) {
-                stepper.next();
-                this.topScroll();
-                this.nextStep();
-                this.healthIffcoTrue2 = false;
+                let preExiValid = this.insuredData.filter(data => data.PreExistingDisease == 'Y');
+                if(preExiValid.length > 0 ) {
+                    this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy. ');
+                }else{
+                    stepper.next();
+                    this.topScroll();
+                    this.nextStep();
+                    this.healthIffcoTrue2 = false;
+                }
+
             }
 
 

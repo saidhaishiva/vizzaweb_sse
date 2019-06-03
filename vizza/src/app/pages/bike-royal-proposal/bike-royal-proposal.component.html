@@ -254,9 +254,8 @@
                       </div>
                       </div>
                       <div *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
-
-                        <div class="row"  formArrayName="electricalAccess" *ngFor="let item of vehical.get('electricalAccess').controls; let i = index;">
-                              <div class="col-md-12" [formGroupName]="i">
+                          <div   formArrayName="electricalAccess" *ngFor="let item of vehical.get('electricalAccess').controls; let i = index;">
+                              <div class="row" [formGroupName]="i">
                                    <div class="col-md-3">
                                       <mat-form-field class="w-100">
                                           <input matInput placeholder="NameOfElectronicAccessories "  formControlName="NameOfElectronicAccessories"  autocomplete="off">

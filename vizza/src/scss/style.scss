@@ -871,6 +871,17 @@ a:hover {
     background-color: #f7d5d7;
   }
 }
+.compare-details-travel {
+  .content-color, .compare td{
+    color: rgba(4, 78, 67, 0.87);
+  }
+  .table-success1 {
+    background-color: #ebf7fb;
+  }
+  .table-warning1 {
+    background-color: #aed6e6;
+  }
+}
 
 .compare-icon{
   height: 100px;
@@ -3628,7 +3639,7 @@ fieldset {
   color: #ffffff !important;
   height: calc(100vh - 150px);
   .nav-item.active {
-    background-color: #F16D73 !important;
+    background-color: #487384 !important;
     color: #ffffff;
   }
   .mat-list, .mat-nav-list, .mat-selection-list {
