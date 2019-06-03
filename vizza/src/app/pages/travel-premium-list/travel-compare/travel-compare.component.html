@@ -7,7 +7,7 @@
   <div class="col-sm-12 text-center">
     <h5 class="text-capitalize" >
       <!--<div style="background-color: #d5f5f7; border-radius: 30px 30px 30px 30px;">-->
-      <h3 class="text-center text-capitalize color-blue" >Compare Plan</h3>
+      <h3 class="text-center text-capitalize headColor" >Compare Plan</h3>
       <!--<p class="text-center">{{compareDetails.scheme}}</p>-->
       <!--</div>-->
     </h5>
@@ -41,7 +41,7 @@
     <div class="col" *ngFor="let clists of compareDetails.productdetails; let first = first;">
       <table class="table compare">
         <tbody>
-        <tr class="table-warning1" [ngStyle]="{'height' : first ? '115px' : 'auto' }">
+        <tr class="table-warning1" style="height: 115px!important;">
           <td class="text-center">
             <img src="{{webhost + '/' + clists.product_logo}}">
             <p class="content-color text-center">{{clists.plan_name}}</p>
