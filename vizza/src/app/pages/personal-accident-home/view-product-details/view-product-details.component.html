@@ -23,10 +23,10 @@
             <!--<div mat-dialog-content >-->
 
             <div class="row">
-              mobile view
+              <!--mobile view-->
             <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none d-xl-none">
               <mat-accordion class="w-100" *ngFor="let keys of getKeyList;let i = index">
-                <mat-expansion-panel *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i == 0">
+                <mat-expansion-panel *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i === 0">
                   <mat-expansion-panel-header>
                     <mat-panel-title >
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
