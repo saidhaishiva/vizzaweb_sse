@@ -258,6 +258,10 @@ export class BajajAlianzComponent implements OnInit {
             }
         );
     }
+
+    topScrollinsurer(){
+        this.topScroll()
+    }
     nameValidate(event: any){
         this.validation.nameValidate(event);
     }

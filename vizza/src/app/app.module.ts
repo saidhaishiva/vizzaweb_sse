@@ -13,7 +13,6 @@ import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { PaymentModeValidate } from './pages/term-life-premium-list/term-life-premium-list.component';
 
 // import { ImageUploadModule } from "angular2-image-upload";
 
@@ -282,6 +281,7 @@ import {CholaHealthPaymentSuccessComponent, DownloadMessageCholaHealth} from './
 import { EnquiryPopupComponent } from './pages/bike-insurance/enquiry-popup/enquiry-popup.component';
 import { BikeTataaigPaymentSuccesssComponent } from './pages/bike-tataaig-payment-successs/bike-tataaig-payment-successs.component';
 import { RoyalsundaramMotorPaymentSuccessComponent } from './pages/royalsundaram-motor-payment-success/royalsundaram-motor-payment-success.component';
+import { CarTataaigProposalComponent } from './pages/car-tataaig-proposal/car-tataaig-proposal.component';
 
 @NgModule({
     imports: [
@@ -523,7 +523,7 @@ import { RoyalsundaramMotorPaymentSuccessComponent } from './pages/royalsundaram
         EnquiryPopupComponent,
         RoyalsundaramMotorPaymentSuccessComponent,
         BikeTataaigPaymentSuccesssComponent,
-        PaymentModeValidate
+        CarTataaigProposalComponent
     ],
     providers: [
         AppSettings,
@@ -572,7 +572,7 @@ import { RoyalsundaramMotorPaymentSuccessComponent } from './pages/royalsundaram
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth
     ]
 })
 export class AppModule { }

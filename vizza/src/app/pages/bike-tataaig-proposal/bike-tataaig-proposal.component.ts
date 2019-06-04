@@ -421,6 +421,10 @@ export class BikeTataaigProposalComponent implements OnInit {
     chooseflag(event: any) {
         console.log(this.proposer.controls['driveflag'].value, 'driveflag');
         if (this.proposer.controls['driveflag'].value == 'Y') {
+            console.log(this.proposer.controls['proposerLastname'].value, 'value');
+            this.proposer.controls['driveFirstname'].patchValue(this.proposer.controls['proposerFirstname'].value);
+            this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
+            this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
             this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
             this.proposer.controls['driveLastname'].setValidators([Validators.required]);
             this.proposer.controls['driveGender'].setValidators([Validators.required]);
@@ -635,7 +639,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             "proposal_id": sessionStorage.tataBikeproposalID == '' || sessionStorage.tataBikeproposalID == undefined ? '' : sessionStorage.tataBikeproposalID,
             "motorproposalObj": {
                 "quotation_no": this.Quotelist.productlist.quotation_no,
-                "pol_sdate": this.datepipe.transform(this.minDate,'yMMd'),
+                "pol_sdate": this.datepipe.transform(this.minDate,'yMMdd'),
                 "sp_name": "Name",
                 "sp_license": "Lino12345566",
                 "sp_place": "Mahbubnagar",
@@ -681,7 +685,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "flag": this.vehicle.controls['autoflag'].value,
                     "number": this.vehicle.controls['autoNumber'].value,
                     "name": this.vehicle.controls['autoName'].value,
-                    "expiry_date": this.vehicle.controls['autoDob'].value == null ? '' : this.datepipe.transform(this.vehicle.controls['autoDob'].value, 'dd-MM-y'),
+                    "expiry_date": this.vehicle.controls['autoDob'].value == null || this.vehicle.controls['autoDob'].value == ''  ? '' : this.datepipe.transform(this.vehicle.controls['autoDob'].value, 'yMMdd'),
                 },
                 "nominee": {
                     "name": this.nominee.controls['nomieeName'].value,

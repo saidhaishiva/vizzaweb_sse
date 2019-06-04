@@ -8,7 +8,7 @@
                     <mat-accordion class="mt-4 w-100 float-left">
                         <form [formGroup]="insureArray">
                             <div formArrayName="items" *ngFor="let item of insureArray.get('items')['controls']; let i = index;">
-                                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0">
+                                <mat-expansion-panel  [formGroupName]="i" [expanded]="i == 0" (click)="topScrollinsurer()">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title >
                                             <span *ngIf="i == 0">PROPOSER / INSURED DETAILS</span>
