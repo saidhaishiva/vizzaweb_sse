@@ -228,33 +228,47 @@ export class TermLifePremiumListComponent implements OnInit {
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
-                    alert('ggggggggggggggggggggg')
-                    if (value.product_id <= 81 && value.product_id >=78) {
-                        this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                    let paymentModeValid = true;
+                    if(value.payment_mode == 'yearly' && parseInt(value.totalpremium) < 5000) {
+                        paymentModeValid = false;
                     }
+                    if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 2550) {
+                        paymentModeValid = false;
+                    }
+                    if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 1300) {
+                        paymentModeValid = false;
+                    }
+                    if(value.payment_mode == 'monthly' && parseInt(value.totalpremium) < 450) {
+                        paymentModeValid = false;
+                    }
+
+                    if(paymentModeValid) {
+                        if (value.product_id <= 81 && value.product_id >=78) {
+                            this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                        }
+                    } else {
+                        let dialogRef = this.dialog.open(PaymentModeValidate, {
+                            width: '700px',
+                        });
+                        dialogRef.disableClose = true;
+                        dialogRef.afterClosed().subscribe(result => {
+                        });
+                    }
+
                 }
             });
         }  else {
-
-            alert('sdf')
             let paymentModeValid = true;
             if(value.payment_mode == 'yearly' && parseInt(value.totalpremium) < 5000) {
-                alert('1')
                 paymentModeValid = false;
             }
             if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 2550) {
-                alert('2')
-
                 paymentModeValid = false;
             }
             if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 1300) {
-                alert('3')
-
                 paymentModeValid = false;
             }
             if(value.payment_mode == 'monthly' && parseInt(value.totalpremium) < 450) {
-                alert('4')
-
                 paymentModeValid = false;
             }
 
@@ -282,7 +296,7 @@ export class TermLifePremiumListComponent implements OnInit {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                <p> If you want to continue</p>
+                <p> Please change the Suminsured Amount or payment Mode</p>
                 </div>
             </div>
         </div>
