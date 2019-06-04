@@ -22,15 +22,12 @@
             </ng-template>
               <div class="row">
                 <!--mobile view-->
-
-
-
                   <div class="row">
                       <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
-                          <mat-accordion class="w-100" *ngFor="let keys of getKeyList;let i = index" >
-                              <mat-expansion-panel *ngIf="keys.type == 1 || keys.type == 0" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i === 0">
-                                  <mat-expansion-panel-header class="heigt">
-                                      <mat-panel-title style="height: 40px;"   class="nav-item">
+                          <mat-accordion class="w-100">
+                              <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [expanded]="i === 0">
+                                  <mat-expansion-panel-header  class="nav-item" *ngIf="keys.type == 1 || keys.type == 0" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" >
+                                      <mat-panel-title style="height: 40px;"  >
                                           <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                                       </mat-panel-title>
                                   </mat-expansion-panel-header>
