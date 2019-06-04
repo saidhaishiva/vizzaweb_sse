@@ -124,7 +124,7 @@ export class BikeInsuranceComponent implements OnInit {
   ngOnInit() {
       this.claimpercent();
       this.bussinessType();
-      this.showFire = this.config.getBikeInsurance();
+      this.showFire = this.config.getMotorInsurance();
       this.setDate = Date.now();
       this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.sessionData();

@@ -1,6 +1,6 @@
 <div class="container-fluid">
 <!--    apolloMunichProposal-->
-  <div class="row bajajLifeProposal ">
+  <div class="row apolloMunichProposal">
     <div class="col-md-12">
       <mat-horizontal-stepper #stepper>
         <mat-step [stepControl]="">
@@ -38,8 +38,8 @@
                       </div>
                       <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" >
-<!--                          <mat-error *ngIf="relianceProposal.controls.lastName.errors?.required">lastName is required</mat-error>-->
+                          <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" required>
+                          <mat-error *ngIf="relianceProposal.controls.lastName.errors?.required">lastName is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4 mt-3">
@@ -165,10 +165,9 @@
                         <h6 class="color-blue">PERMANENT ADDRESS</h6>
                       </div>
 
-                      <div class="col-md-12 mb-3">
-                        <div class="col-md-12 mt-4">
-                            <mat-checkbox formControlName="sameAsAddress" (change)="sameAsAddress('pcomm')" ><strong>Same as Communication Address</strong>
-                            </mat-checkbox>
+                      <div class="col-md-12 mt-3">
+                        <div class="col-md-12">
+                            <mat-checkbox formControlName="sameAsAddress" (change)="sameAsAddress('pcomm')" ><strong>Same as Communication Address</strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="col-md-4 mt-3">
@@ -224,14 +223,17 @@
                       </div>
                             <div class="col-md-12 mt-2">
                                 <h6 class="color-blue">REGISTRATION ADDRESS</h6>
+                             </div>
+                        <div class="col-md-12 mt-3">
+                            <div class="row">
+
+                            <div class="col-md-6">
+                                <mat-checkbox formControlName="regSameAscommAddress" (change)="sameAsAddress('regcomm')" [checked]="checkcomm"><strong>Same as Communication Address</strong></mat-checkbox>
                             </div>
-                        <div class="col-md-6 mt-4">
-                            <mat-checkbox formControlName="regSameAscommAddress" (change)="sameAsAddress('regcomm')" [checked]="checkcomm"><strong>Same as Communication Address</strong>
-                            </mat-checkbox>
+                            <div class="col-md-6">
+                                <mat-checkbox formControlName="regSameAspermAddress" (change)="sameAsAddress('regperm')" [checked]="checkperm"><strong>Same as Permanent Address</strong></mat-checkbox>
+                            </div>
                         </div>
-                        <div class="col-md-6 mt-4">
-                            <mat-checkbox formControlName="regSameAspermAddress" (change)="sameAsAddress('regperm')" [checked]="checkperm"><strong>Same as Permanent Address</strong>
-                            </mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-3">
                             <mat-form-field class="w-100">
@@ -312,7 +314,8 @@
                       </mat-expansion-panel-header>
                       <form [formGroup]="riskDetails">
                           <div class="row">
-                              <div class="col-md-12">
+                              <div class="col-md-12 mt-3">
+                                  <div class="row">
                                   <div class="col-md-6">
                                       <mat-form-field class="w-100">
                                           <mat-select placeholder="Other System Name" formControlName="OtherSystemName" (change)="changeOtherSystem()" required>
@@ -321,11 +324,12 @@
                                           <mat-error *ngIf="riskDetails.controls.OtherSystemName.errors?.required">OtherSystemName  is required</mat-error>
                                       </mat-form-field>
                                   </div>
+                                  </div>
                               </div>
                               <div class="col-md-12 mt-2">
                                   <h6 class="color-blue">Risk Details</h6>
                               </div>
-                              <div class="col-md-12 ">
+                              <div class="col-md-12">
                                   <div class="row">
                                       <div class="col-md-4 mt-3">
                                           <mat-form-field class="w-100">
@@ -334,7 +338,7 @@
                                           </mat-form-field>
                                       </div>
                                   </div>
-                                  <button mat-button matStepperPrevious color="primaryBlue" (click)="topScroll()">Back</button>
+                                  <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
 
                                   <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
                               </div>
@@ -372,6 +376,15 @@
                                 <mat-checkbox  formControlName="LiabilityToPaidDriverCovered">LiabilityToPaidDriverCovered</mat-checkbox>
                             </div>
                             <div class="col-md-3">
+                                <mat-checkbox  formControlName="AutomobileAssociationMember">AutomobileAssociationMember</mat-checkbox>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-checkbox  formControlName="AntiTheftDeviceFitted">AntiTheftDeviceFitted</mat-checkbox>
+                            </div>
+                            <div class="col-md-3">
+                                <mat-checkbox  formControlName="InsurancePremium">InsurancePremium</mat-checkbox>
+                            </div>
+                            <div class="col-md-3">
                                 <mat-checkbox  formControlName="TPPDCover">TPPDCover</mat-checkbox>
                             </div>
                             <div class="col-md-3">
@@ -381,7 +394,7 @@
                                 <mat-checkbox  formControlName="BasicLiability">BasicLiability</mat-checkbox>
                             </div>
                             <div class="col-md-3">
-                                <mat-checkbox  formControlName="PACoverToOwner" >PACoverToOwner</mat-checkbox>
+                                <mat-checkbox  formControlName="PACoverToOwner" (change)="updateMandatory($event)">PACoverToOwner</mat-checkbox>
                             </div>
                         </div>
                     </div>
@@ -389,9 +402,10 @@
 
                         <div class="row">
                             <div class="col-md-12 mt-2">
-                                <h6 class="color-blue">Insured Details</h6>
+                                <h1 class="color-blue">Insured Details</h1>
                             </div>
                         </div>
+                        <div class="row">
                         <div class="col-md-4 mt-3">
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Appointee Name" formControlName="cappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
@@ -438,32 +452,36 @@
 <!--                                <mat-error *ngIf="coverDetails.controls.nrelation.errors?.required">Relation  is required</mat-error>-->
                             </mat-form-field>
                         </div>
+                        </div>
                     </div>
 
 
                     <div class="col-md-12 mt-2">
-                        <h6 class="color-blue">Vehicle Details</h6>
+                        <h1 class="color-blue">Vehicle Details</h1>
                     </div>
-
+                    <div class="col-md-12 mt-2">
+                        <div class="col-md-6 mt-3">
+                            <mat-checkbox  formControlName="NewVehicle" >NewVehicle</mat-checkbox>
+                        </div>
+                    </div>
                     <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
                             <mat-select placeholder="Fuel type" formControlName="fuelType" (change)="changeFuel()"required>
-                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                                <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                             </mat-select>
                             <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">fuel type  is required</mat-error>
                         </mat-form-field>
                     </div>
 
-                    <div class="col-md-8">
-                        <mat-checkbox  formControlName="NewVehicle" required>NewVehicle</mat-checkbox>
-<!--                        <mat-error *ngIf="coverDetails.controls.NewVehicle.errors?.required">Vehicle is required</mat-error>-->
-                    </div>
+
+
+
 
 
 
                     <div class="proposal-buttom mt-3 text-right w-100">
-                        <button mat-button matStepperPrevious color="primaryBlue" (click)="topScroll()">Back</button>
+                        <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
 
                         <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,coverDetails.value,'stepper3')" >Next</button>
                     </div>
@@ -538,9 +556,9 @@
                     </div>
 
                       <div class="proposal-buttom mt-3 text-right w-100">
-                          <button mat-button matStepperPrevious color="primaryBlue" (click)="topScroll()">Back</button>
+                          <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
 
-                          <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,previousInsurance.value,'stepper4')" >Next</button>
+                          <button mat-raised-button color="primaryBlue"  (click)="createProposal(stepper,previousInsurance.value)" >Next</button>
                       </div>
                   </div>
                 </div>
@@ -561,7 +579,7 @@
                       <div class="col-md-8">
                           <ul class="summary-head">
                               <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> 688778</span></li>
+                              <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.comphensivePreminium}}</span></li>
                           </ul>
                       </div>
                   </div>
@@ -572,7 +590,7 @@
                           <div class="col-md-6">
                               <div class="p-3">
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}}. {{proposerFormData.name}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
+                                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}}.{{' '}} {{proposerFormData.name}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                       <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
                                       <li class="list-group-item"><strong>Occupation:</strong>{{proposerFormData.occupationValue}}</li>
@@ -618,12 +636,12 @@
                   </section>
 
                   <section>
-                      <h5 class="mt-3 sub-title">RISK DETAILS </h5>
+                      <h5 class="mt-3 sub-title">RISK /POLICY DETAILS</h5>
                       <div class="row box-card">
                           <div class="col-md-6">
                               <div class="p-3">
                                   <ul class="m-0 list-group">
-                                      <li class="list-group-item" ><strong>OtherSystem Name:</strong> {{riskFormData.otherSystemNameValue}}</li>
+                                      <li class="list-group-item" ><strong>OtherSystem Name:</strong> {{riskFormData.OtherSystemNameValue}}</li>
                                       <li class="list-group-item" ><strong>IDV:</strong> {{riskFormData.IDV}}</li>
                                   </ul>
                               </div>
@@ -682,8 +700,15 @@
                                   <div class="row">
                                       <div class="col-md-12">
                                           <ul class="m-0 list-group">
-                                              <li class="list-group-item"><strong>UnnamedPassengerCovered:</strong> {{coverFormData.UnnamedPassengerCovered}}</li>
-<!--                                              <li class="list-group-item"><strong>Nominee Name:</strong> {{coverFormData.nomineeName}}</li>-->
+                                              <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered != ''"><strong>UnnamedPassengerCovered:</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == 'True'">Yes</span><span *ngIf="coverFormData.UnnamedPassengerCovered == 'False'">No</span> </li>
+                                              <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''"><strong>PAToOwnerDriverCoverd:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == 'True'">Yes</span><span *ngIf="coverFormData.PAToOwnerDriverCoverd == 'False'">No</span> </li>
+                                              <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage != ''"><strong>NilDepreciationCoverage:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == 'True'">Yes</span><span *ngIf="coverFormData.NilDepreciationCoverage == 'False'">No</span> </li>
+                                              <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered != ''"><strong>LiabilityToPaidDriverCovered:</strong><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == 'True'">Yes</span><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == 'False'">No</span> </li>
+                                              <li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPDCover:</strong><span *ngIf="coverFormData.TPPDCover == 'True'">Yes</span><span *ngIf="coverFormData.TPPDCover == 'False'">No</span> </li>
+                                              <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>BasicODCoverage:</strong><span *ngIf="coverFormData.BasicODCoverage == 'True'">Yes</span><span *ngIf="coverFormData.BasicODCoverage == 'False'">No</span> </li>
+                                              <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>BasicLiability:</strong><span *ngIf="coverFormData.BasicLiability == 'True'">Yes</span><span *ngIf="coverFormData.BasicLiability == 'False'">No</span> </li>
+                                              <li class="list-group-item" *ngIf="coverFormData.NewVehicle != ''"><strong>NewVehicle:</strong><span *ngIf="coverFormData.NewVehicle == 'True'">Yes</span><span *ngIf="coverFormData.NewVehicle == 'False'">No</span> </li>
+                                              <li class="list-group-item" *ngIf="coverFormData.PACoverToOwner != ''"><strong>PACoverToOwner:</strong><span *ngIf="coverFormData.PACoverToOwner == 'True'">Yes</span><span *ngIf="coverFormData.PACoverToOwner == 'False'">No</span> </li>
                                           </ul>
                                       </div>
                                   </div>
@@ -694,7 +719,13 @@
                                   <div class="row">
                                       <div class="col-md-12">
                                           <ul class="m-0 list-group">
-<!--                                              <li class="list-group-item"><strong>Nominee Relationship:</strong> {{nomineeFormData.nomineeRelationship}}</li>-->
+                                              <li class="list-group-item" *ngIf="coverFormData.cappointeeName != '' && coverFormData.PACoverToOwner =='True' "><strong>AppointeeName:</strong> {{coverFormData.cappointeeName}}</li>
+                                              <li class="list-group-item" *ngIf="coverFormData.cnomineeName != '' && coverFormData.PACoverToOwner =='True' "><strong>NomineeName:</strong> {{coverFormData.cnomineeName}}</li>
+                                              <li class="list-group-item" *ngIf="coverFormData.cnDob != '' && coverFormData.PACoverToOwner =='True' "><strong>Nominee Dob:</strong> {{coverFormData.cnDob}}</li>
+                                              <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PACoverToOwner =='True' "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
+                                              <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PACoverToOwner =='True' "><strong>OtherRelation:</strong> {{coverFormData.nOtherRelation}}</li>
+                                              <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PACoverToOwner =='True' "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
+                                              <li class="list-group-item" *ngIf="coverFormData.fuelType != ''"><strong>fuelType:</strong> {{coverFormData.fuelType}}</li>
                                           </ul>
                                       </div>
                                   </div>
@@ -724,20 +755,20 @@
 <!--                  </section>-->
 
 
-<!--                  <p class="mt-2 pl-3">-->
-<!--                      <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>-->
-<!--                  </p>-->
-<!--                  <hr>-->
-<!--                  <div class="row">-->
-<!--                      <div class="col-md-12 text-center">-->
-<!--                          <form action='{{PaymentRedirect}}' method='post' #form>-->
+                  <p class="mt-2 pl-3">
+                      <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>
+                  </p>
+                  <hr>
+                  <div class="row">
+                      <div class="col-md-12 text-center">
+                          <form action='{{PaymentRedirect}}' method='post' #form>
 <!--                              <input name="PolicySysID" type="hidden" value="{{PolicySisID}}" />-->
 <!--                              <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />-->
-<!--                              <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>-->
-<!--                              <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>-->
-<!--                          </form>-->
-<!--                      </div>-->
-<!--                  </div>-->
+                              <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                              <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
+                          </form>
+                      </div>
+                  </div>
               </section>
           </mat-step>
       </mat-horizontal-stepper>
