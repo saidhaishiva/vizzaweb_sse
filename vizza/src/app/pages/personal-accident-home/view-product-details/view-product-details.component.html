@@ -1,4 +1,4 @@
-<section class="d-none d-sm-none d-md-none d-lg-block d-xl-block">
+<section>
 <div class="row mb-3">
   <div class="col-sm-6 text-left">
     <h4 style="margin-left: 35px;">{{productName}}</h4>
@@ -24,11 +24,11 @@
 
             <div class="row">
               <!--mobile view-->
-            <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none d-xl-none">
-              <mat-accordion class="w-100" *ngFor="let keys of getKeyList;let i = index">
-                <mat-expansion-panel *ngIf="keys.type == 1 || keys.type == 0" class="nav-item" [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" [expanded]="i === 0">
+            <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
+              <mat-accordion class="w-100">
+                <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" [expanded]="i === 0" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)">
                   <mat-expansion-panel-header>
-                    <mat-panel-title >
+                    <mat-panel-title class="nav-item" style="height: 40px" *ngIf="keys.type == 1 || keys.type == 0">
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
@@ -46,8 +46,31 @@
               </mat-accordion>
             </div>
 
+              <!--<div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none d-xl-none">-->
+                <!--<mat-accordion class="w-100">-->
+                  <!--<mat-expansion-panel *ngFor="let keys of productDocLists;let i = index" [expanded]="i == 0" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" >-->
+                    <!--<mat-expansion-panel-header>-->
+                      <!--<mat-panel-title *ngIf="keys.status == 1 || keys.status == 0">-->
+                        <!--<a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>-->
+                      <!--</mat-panel-title>-->
+                    <!--</mat-expansion-panel-header>-->
+
+                    <!--<div class="h-100" *ngFor="let keys of productDocLists;let i = index">-->
+                      <!--<div fxLayoutAlign="center center" class="well" *ngIf="id1 == i">-->
+                        <!--<h4>{{keys.product_name}}</h4>-->
+                      <!--</div>-->
+                      <!--<div class="row" *ngIf="id1 == i">-->
+                        <!--<div class="text-center w-100 mb-3">-->
+                          <!--<iframe [src]="webhost +'/'+ keys.kf_path | safe" width="100%" height="430" ></iframe>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--</mat-expansion-panel>-->
+                <!--</mat-accordion>-->
+              <!--</div>-->
+
             <!--desktop view-->
-            <div class="col-md-12 p-0">
+            <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block">
             <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
@@ -112,7 +135,7 @@
               </mat-accordion>
             </div>
             <!--disktop view-->
-            <div class="col-md-12 p-0">
+            <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block">
             <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
@@ -154,7 +177,7 @@
 
             <div class="row">
             <!--mobile view-->
-            <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none d-xl-none">
+            <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
               <mat-accordion class="w-100" >
                 <mat-expansion-panel expanded  style="background-color:#F16D73 !important;">
                   <mat-expansion-panel-header >
@@ -181,7 +204,7 @@
             </div>
 
             <!--disktop view-->
-            <div class="col-md-12 p-0">
+            <div class="col-md-12 p-0 d-none d-sm-none d-md-none d-lg-block">
             <div class="row">
               <div class="col-md-3 pl-0 pr-1 bg-color">
                 <div mat-dialog-content >
