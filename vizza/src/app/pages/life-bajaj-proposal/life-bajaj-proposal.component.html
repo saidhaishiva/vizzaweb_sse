@@ -774,7 +774,7 @@
                           <div class="col-md-4" >
                             <mat-form-field class="w-100">
                               <input matInput placeholder="share Percentage"  formControlName="sharePercentage" (keypress)="numberValidate($event)"   autocomplete="off" required>
-                              <mat-error *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.errors?.required">sharePercentage is required</mat-error>
+                              <mat-error *ngIf="nomineeDetails.invalid">sharePercentage is required</mat-error>
                             </mat-form-field>
                           </div>
 
@@ -782,35 +782,35 @@
                         <div class="row" *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value">
                           <div class="col-md-4">
                             <mat-form-field class="w-100" *ngIf="i ==0" >
-                              <mat-placeholder >Apointee Name </mat-placeholder >
-                              <input matInput formControlName="aName" (keypress)="nameValidate($event)"  autocomplete="off"  required>
+                              <mat-placeholder required>Apointee Name </mat-placeholder >
+                              <input matInput formControlName="aName" (keypress)="nameValidate($event)"  autocomplete="off"  >
                             </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
-                              <mat-placeholder >Appointee DOB (DD/MM/YYYY)</mat-placeholder>
-                              <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="appointeeDob" (dateInput)="addEventNominee($event,i ,'appointee')" (dateChange)="addEventNominee($event,i, 'appointee')" minlength="10" maxlength="10" required
+                              <mat-placeholder required>Appointee DOB (DD/MM/YYYY)</mat-placeholder>
+                              <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="appointeeDob" (dateInput)="addEventNominee($event,i ,'appointee')" (dateChange)="addEventNominee($event,i, 'appointee')" minlength="10" maxlength="10"
                                      autocomplete="off" >
                               <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                               <mat-datepicker #picker4></mat-datepicker>
-                              <mat-error *ngIf="nomnomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.errors?.required">DOB is required</mat-error>
+                              <mat-error *ngIf="nomineeDetails.invalid">DOB is required</mat-error>
                             </mat-form-field>
                             <p class="error mb-0" *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value != ''">{{nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value}}</p>
                           </div>
                           <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
-                              <mat-placeholder >Appointee Relation To Nominee </mat-placeholder>
-                              <input matInput formControlName="appointeeRelationToNominee" (keypress)="nameValidate($event)"   autocomplete="off" required>
-                              <mat-error *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.errors?.required">Appointee Relation To Nominee is required</mat-error>
+                              <mat-placeholder required>Appointee Relation To Nominee </mat-placeholder>
+                              <input matInput formControlName="appointeeRelationToNominee" (keypress)="nameValidate($event)"   autocomplete="off" >
+                              <mat-error *ngIf="nomineeDetails.invalid">Appointee Relation To Nominee is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
-                              <mat-placeholder >Relation To Insured </mat-placeholder>
-                              <mat-select formControlName="relationToInsured" class="w-100" (change)="changeNomineeRelation()" required>
+                              <mat-placeholder required>Relation To Insured </mat-placeholder>
+                              <mat-select formControlName="relationToInsured" class="w-100" (change)="changeNomineeRelation()" >
                                 <mat-option *ngFor="let list of apointeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
                               </mat-select>
-                              <mat-error *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.errors?.required">Relation is required</mat-error>
+                              <mat-error *ngIf="nomineeDetails.invalid">Relation is required</mat-error>
                             </mat-form-field>
                           </div>
                         </div>
