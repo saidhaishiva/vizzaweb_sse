@@ -196,7 +196,7 @@ export class LifeBajajProposalComponent implements OnInit {
       motherName: '',
       fatherName: '',
       ifYesGiveDetails: '',
-      panNum:['', Validators.compose([Validators.required, Validators.minLength(10)])],
+      panNum:['', Validators.compose([Validators.minLength(10)])],
       politicallyExposedPerson: '',
       countryIpMailing: '',
       relation: '',
@@ -722,7 +722,13 @@ export class LifeBajajProposalComponent implements OnInit {
     if (this.proposer.valid) {
       if(this.proposer.controls['alterMobileError'].value == '') {
         if (sessionStorage.bajajproposerAge >= 18) {
-          if (sessionStorage.spouseAge >= 18) {
+          let spouseValid = true;
+          if(sessionStorage.spouseAge != '' && sessionStorage.spouseAge != undefined) {
+            if(sessionStorage.spouseAge < 18) {
+              spouseValid = false;
+            }
+          }
+          if (spouseValid) {
             if (this.proposer.controls['annualIncome'].value > '500000') {
               if (this.proposer.controls['occupationList'].value == "T" || this.proposer.controls['occupationList'].value == "N" || this.proposer.controls['occupationList'].value == "U") {
                 this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
@@ -738,7 +744,7 @@ export class LifeBajajProposalComponent implements OnInit {
               this.toastr.error('Annual Income shoud be above 5 lakhs');
             }
 
-          }else{
+          } else{
             this.toastr.error('spouse age should be greater than equal to 18');
 
           }
@@ -882,6 +888,11 @@ samerelationShip(){
     console.log(value);
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
     console.log(this.nomineeDetails.valid, 'this.nomineeDetail.valid');
+    console.log(this.nomineeDetails.get('itemsNominee')['controls'].length,'length');
+
+    for (let i=0; i<=this.nomineeDetails.get('itemsNominee')['controls'].length;i++){
+      console.log(this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.value,'forloop');
+    }
       if (this.nomineeDetails.valid) {
           if (sessionStorage.nomineAge < 18) {
             if(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
