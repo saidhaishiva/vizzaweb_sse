@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
@@ -7,7 +7,7 @@ import {AppSettings} from '../../app.settings';
 import {Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {PosstatusAlertTravel} from '../travel-premium-list/travel-premium-list.component';
-import {MAT_DIALOG_DATA, MatDialog} from '@angular/material';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ValidationService} from '../../shared/services/validation.service';
 
 @Component({
@@ -26,6 +26,7 @@ export class TermLifePremiumListComponent implements OnInit {
     getEnquiryDetials: any;
     compareArray: any;
     selectedAmountTravel: any;
+    enquiryFromDetials: any;
     checkAllStatus: boolean;
   constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService) {
       this.settings = this.appSettings.settings;
@@ -36,6 +37,7 @@ export class TermLifePremiumListComponent implements OnInit {
       this.compareArray = [];
       this.selectedAmountTravel = '5000000';
       sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
+      this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
   }
   ngOnInit() {
       this.getCompanyList();
@@ -219,21 +221,98 @@ export class TermLifePremiumListComponent implements OnInit {
         console.log(value, 'vlitss');
         sessionStorage.lifePremiumList = JSON.stringify(value);
         if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
+
             let dialogRef = this.dialog.open(PosstatusAlertTravel, {
                 width: '700px',
             });
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
-                    if (value.product_id <= 81 && value.product_id >=78) {
-                        this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                    let paymentModeValid = true;
+                    if(value.payment_mode == 'yearly' && parseInt(value.totalpremium) < 5000) {
+                        paymentModeValid = false;
                     }
+                    if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 2550) {
+                        paymentModeValid = false;
+                    }
+                    if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 1300) {
+                        paymentModeValid = false;
+                    }
+                    if(value.payment_mode == 'monthly' && parseInt(value.totalpremium) < 450) {
+                        paymentModeValid = false;
+                    }
+
+                    if(paymentModeValid) {
+                        if (value.product_id <= 81 && value.product_id >=78) {
+                            this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                        }
+                    } else {
+                        let dialogRef = this.dialog.open(PaymentModeValidate, {
+                            width: '700px',
+                        });
+                        dialogRef.disableClose = true;
+                        dialogRef.afterClosed().subscribe(result => {
+                        });
+                    }
+
                 }
             });
         }  else {
-            if (value.product_id <= 81 && value.product_id >=78) {
-                this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+            let paymentModeValid = true;
+            if(value.payment_mode == 'yearly' && parseInt(value.totalpremium) < 5000) {
+                paymentModeValid = false;
             }
+            if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 2550) {
+                paymentModeValid = false;
+            }
+            if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 1300) {
+                paymentModeValid = false;
+            }
+            if(value.payment_mode == 'monthly' && parseInt(value.totalpremium) < 450) {
+                paymentModeValid = false;
+            }
+
+            if(paymentModeValid) {
+                if (value.product_id <= 81 && value.product_id >=78) {
+                    this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                }
+            } else {
+                let dialogRef = this.dialog.open(PaymentModeValidate, {
+                    width: '700px',
+                });
+                dialogRef.disableClose = true;
+                dialogRef.afterClosed().subscribe(result => {
+                });
+            }
+
+
         }
+    }
+}
+
+@Component({
+    selector: 'paymentmodevalidate',
+    template: `
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-12">
+                <p> Please change the Suminsured Amount or payment Mode</p>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+<!--            <button mat-button class="secondary-bg-color" (click)="onClick(false)" >Cancel</button>-->
+             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Ok</button>
+
+        </div>
+    `
+})
+export class PaymentModeValidate {
+    constructor(
+        public dialogRef: MatDialogRef<PaymentModeValidate>,
+        @Inject(MAT_DIALOG_DATA) public data: any) {
+    }
+    onClick(result) {
+        this.dialogRef.close(result);
     }
 }

@@ -367,14 +367,14 @@
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Plot Number/Street name" formControlName="comPlotNumber" maxlength="10" required autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Plot Number/Street name" formControlName="comPlotNumber"  required autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
                                 <mat-error *ngIf="proposer.controls.comPlotNumber.errors?.required">Plot Number is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
                                 <input matInput placeholder="Place" formControlName="comPlace" autocomplete="off" required (keypress)="nameValidate($event);typeAddress($event)">
-                                <mat-error *ngIf="proposer.controls.comPlace.errors?.required">Land Mark is required</mat-error>
+                                <mat-error *ngIf="proposer.controls.comPlace.errors?.required">Place is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-12">
@@ -431,7 +431,7 @@
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Plot Number/Street name" formControlName="perPlotNumber" maxlength="10" required autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
+                                <input matInput placeholder="Plot Number/Street name" formControlName="perPlotNumber"  required autocomplete="off" (keypress)="addressValidate($event)" [readonly]="this.proposer.controls['sameAsProposer'].value">
                                 <mat-error *ngIf="proposer.controls.perPlotNumber.errors?.required">Plot No is required</mat-error>
                               </mat-form-field>
                             </div>
@@ -528,7 +528,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Office Number" formControlName="officeNumber"  maxlength="12" autocomplete="off">
+                          <input matInput placeholder="Office Number" formControlName="officeNumber" (keypress)="numberValidate($event)"  maxlength="12" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.officeNumber.errors?.required">Office Number is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -736,7 +736,8 @@
                       <div [formGroupName]="i">
                         <div class="row">
                           <div class="col-md-12 text-right w-100" >
-                            <button class="btn btn-primary btn-sm" *ngIf="i==0 && nomineeDetails.get('itemsNominee').value.length > 3" (click)="addNominee($event)"><i class="material-icons">person_add</i> Add</button>
+                            <button mat-raised-button color="primaryBlue" style="line-height: 28px;font-size: 10px;adding: 0 10px;"  *ngIf="i==0 && nomineeDetails.get('itemsNominee').value.length < 5" (click)="addNominee($event)">  <i class="material-icons" style="margin-top: -2px; font-size: 17px">person_add</i> Add</button>
+
                             <button class="btn btn-danger btn-sm" *ngIf="i==1" (click)="removeNominee($event,i)">
                               <i class="material-icons">delete</i> Remove</button>
                           </div>
@@ -770,7 +771,7 @@
                               <mat-error *ngIf="nomineeDetails.invalid">Relation is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-4" *ngIf="i == 1">
+                          <div class="col-md-4" >
                             <mat-form-field class="w-100">
                               <input matInput placeholder="share Percentage"  formControlName="sharePercentage" (keypress)="numberValidate($event)"   autocomplete="off">
                               <!--<mat-error *ngIf="nomineeDetails.controls.nBirthPlace.errors?.required">Nominee birthplace is required</mat-error>-->
