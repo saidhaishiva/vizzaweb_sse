@@ -47,6 +47,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public summaryData: any;
   public proposerFormData: any;
   public riskFormData: any;
+  public proposalId: any;
   public coverFormData: any;
   public previousFormData: any;
   public getStepper1: any;
@@ -72,6 +73,9 @@ export class RelianceMotorProposalComponent implements OnInit {
   public today: any;
   public pcommReadOnly: any;
   public setting: any;
+  public declaration : any;
+  public PaymentRedirect : any;
+
   public buyBikeDetails: any;
   public enquiryFormData: any;
   public bikeEnquiryId: any;
@@ -87,7 +91,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
     this.relianceProposal = this.fb.group({
       firstName : ['' , Validators.required],
-      lastName : [''],
+      lastName : ['',Validators.required],
       middleName : ['' , Validators.required],
       dob : ['' , Validators.required],
       title : ['' , Validators.required],
@@ -154,6 +158,9 @@ export class RelianceMotorProposalComponent implements OnInit {
 
     this.coverDetails = this.fb.group({
       UnnamedPassengerCovered: [''],
+      AutomobileAssociationMember: [''],
+      AntiTheftDeviceFitted: [''],
+      InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
       NilDepreciationCoverage: [''],
       LiabilityToPaidDriverCovered: [''],
@@ -163,14 +170,14 @@ export class RelianceMotorProposalComponent implements OnInit {
       nrelationValue: [''],
       fuelTypeValue: [''],
       nOtherRelationValue: [''],
-      NewVehicle: ['',Validators.required],
+      NewVehicle: [''],
       PACoverToOwner: [''],
-      cappointeeName: ['',Validators.required],
-      cnomineeName: ['',Validators.required],
-      cnDob: ['',Validators.required],
-      nrelation: ['',Validators.required],
-      nOtherRelation: ['',Validators.required],
-      cnAddress: ['',Validators.required],
+      cappointeeName: [''],
+      cnomineeName: [''],
+      cnDob: [''],
+      nrelation: [''],
+      nOtherRelation: [''],
+      cnAddress: [''],
       fuelType: ['',Validators.required],
     });
 
@@ -222,7 +229,10 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   }
   changeOtherSystem(){
+    console.log(this.otherSystemNameList,'list');
+    console.log(this.riskDetails.controls['OtherSystemName'].value)
     this.riskDetails.controls['OtherSystemNameValue'].patchValue(this.otherSystemNameList[this.riskDetails.controls['OtherSystemName'].value]);
+    console.log(this.riskDetails.controls['OtherSystemNameValue'],'valllllll')
   }
   changenRelation(){
     this.coverDetails.controls['nrelationValue'].patchValue(this.relationListData[this.coverDetails.controls['nrelation'].value]);
@@ -253,6 +263,56 @@ export class RelianceMotorProposalComponent implements OnInit {
   //   }
   // }
 
+  updateMandatory(event) {
+    if (event.checked) {
+      this.coverDetails.controls['PACoverToOwner'].patchValue(true);
+      this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
+      this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['cnomineeName'].setValidators([Validators.required]);
+      this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['cnDob'].setValidators([Validators.required]);
+      this.coverDetails.controls['cnDob'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['nrelation'].setValidators([Validators.required]);
+      this.coverDetails.controls['nrelation'].updateValueAndValidity();
+      ///
+      this.coverDetails.controls['cnAddress'].setValidators([Validators.required]);
+      this.coverDetails.controls['cnAddress'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['nOtherRelation'].setValidators([Validators.required]);
+      this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+
+    } else {
+      this.coverDetails.controls['PACoverToOwner'].patchValue(false);
+
+      this.coverDetails.controls['cappointeeName'].patchValue('');
+      this.coverDetails.controls['cappointeeName'].setValidators(null);
+      this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+
+      //
+      this.coverDetails.controls['cnomineeName'].patchValue('');
+      this.coverDetails.controls['cnomineeName'].setValidators(null);
+      this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['cnDob'].patchValue('');
+      this.coverDetails.controls['cnDob'].setValidators(null);
+      this.coverDetails.controls['cnDob'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['nrelation'].patchValue('');
+      this.coverDetails.controls['nrelation'].setValidators(null);
+      this.coverDetails.controls['nrelation'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['cnAddress'].patchValue('');
+      this.coverDetails.controls['cnAddress'].setValidators(null);
+      this.coverDetails.controls['cnAddress'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['nOtherRelation'].patchValue('');
+      this.coverDetails.controls['nOtherRelation'].setValidators(null);
+      this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+    }
+  }
 
 
 
@@ -328,45 +388,40 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
 
   //stepper
-  nextTab(stepper,value,type){
+  nextTab(stepper,value,type) {
 
-    if(type == 'stepper1'){
+    if (type == 'stepper1') {
       this.proposerData = value;
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
       this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
 
-      if(this.relianceProposal.valid){
+      if (this.relianceProposal.valid) {
         stepper.next();
       }
-    }else if(type == 'stepper2'){
+    } else if (type == 'stepper2') {
       sessionStorage.stepper2Details = '';
       sessionStorage.stepper2Details = JSON.stringify(value);
-      if(this.riskDetails.valid){
+      if (this.riskDetails.valid) {
         stepper.next();
         this.topScroll();
       }
-    }else if(type == 'stepper3'){
+    } else if (type == 'stepper3') {
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
-      if(this.coverDetails.valid){
+      if (this.coverDetails.valid) {
         stepper.next();
       }
-    }else{
-      sessionStorage.stepper4Details = '';
-      sessionStorage.stepper4Details = JSON.stringify(value);
-      if(this.previousInsurance.valid){
-        this.proposerFormData = this.relianceProposal.value;
-        this.riskFormData = this.riskDetails.value;
-        this.coverFormData = this.coverDetails.value;
-        this.previousFormData = this.previousInsurance.value;
-
-
-
-        this.createProposal(stepper);
-        this.summaryData = true;
-      }
     }
+
+    // this.proposerFormData = this.relianceProposal.value;
+    // this.riskFormData = this.riskDetails.value;
+    // this.coverFormData = this.coverDetails.value;
+    // this.previousFormData = this.previousInsurance.value;
+
+    // this.summaryData = true;
+
+
 }
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
@@ -447,6 +502,9 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.coverDetails = this.fb.group({
         UnnamedPassengerCovered: this.getStepper3.UnnamedPassengerCovered,
         PAToOwnerDriverCoverd: this.getStepper3.PAToOwnerDriverCoverd,
+        AutomobileAssociationMember: this.getStepper3.AutomobileAssociationMember,
+        AntiTheftDeviceFitted: this.getStepper3.AntiTheftDeviceFitted,
+        InsurancePremium: this.getStepper3.InsurancePremium,
         NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
         LiabilityToPaidDriverCovered: this.getStepper3.LiabilityToPaidDriverCovered,
         TPPDCover: this.getStepper3.TPPDCover,
@@ -619,10 +677,11 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 
   /// create proposal
-  createProposal(stepper){
-alert('1');
-    stepper.next();
+  createProposal(stepper,value){
+    // stepper.next();
     this.topScroll();
+    sessionStorage.stepper4Details = '';
+    sessionStorage.stepper4Details = JSON.stringify(value);
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -698,38 +757,38 @@ alert('1');
 
         },
         'Risk': {
-          'IDV': '30773.0',
-          'IsRegAddressSameasCommAddress': 'false',
-          'IsRegAddressSameasPermanentAddress': 'false',
-          'IsPermanentAddressSameasCommAddress': 'true'
+          'IDV': this.riskDetails.controls['IDV'].value,
+          'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value.toString(),
+          'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value.toString(),
+          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value.toString()
         },
         'Vehicle': {
 
           'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
-          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value
+          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value.toString()
         },
         'Cover': {
-          'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value,
-          'IsAutomobileAssociationMember': 'true',
-          'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value,
-          'IsLiabilityToPaidDriverCovered': this.coverDetails.controls['LiabilityToPaidDriverCovered'].value,
-          'IsAntiTheftDeviceFitted': 'false',
-          'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value,
-          'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value,
-          'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value,
-          'IsInsurancePremium': 'true',
-          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value,
+          'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value.toString(),
+          'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value.toString(),
+          'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value.toString(),
+          'IsLiabilityToPaidDriverCovered': this.coverDetails.controls['LiabilityToPaidDriverCovered'].value.toString(),
+          'IsAntiTheftDeviceFitted': this.coverDetails.controls['AntiTheftDeviceFitted'].value.toString(),
+          'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value.toString(),
+          'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value.toString(),
+          'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value.toString(),
+          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value.toString(),
+          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value.toString(),
           'PACoverToOwner': {
             'PACoverToOwner': {
-              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value,
+              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value.toString(),
               'NoOfItems': '',
               'PackageName': '',
-              'AppointeeName': '',
-              'NomineeName': 'Reddy',
-              'NomineeDOB': '1970-01-07',
-              'NomineeRelationship': 'Father',
-              'NomineeAddress': '',
-              'OtherRelation': ''
+              'AppointeeName': this.coverDetails.controls['cappointeeName'].value,
+              'NomineeName': this.coverDetails.controls['cnomineeName'].value,
+              'NomineeDOB': this.coverDetails.controls['cnDob'].value,
+              'NomineeRelationship': this.coverDetails.controls['nrelation'].value,
+              'NomineeAddress': this.coverDetails.controls['cnAddress'].value,
+              'OtherRelation': this.coverDetails.controls['nOtherRelation'].value
             }
           },
           'PAToNamedPassenger': '',
@@ -756,7 +815,7 @@ alert('1');
         },
         'PreviousInsuranceDetails': {
           'PrevInsuranceID': '',
-          'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value,
+          'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value.toString(),
           'PrevYearInsurer': this.previousInsurance.controls['prevInsurance'].value,
           'PrevYearPolicyNo': this.previousInsurance.controls['policyNumber'].value,
           'PrevYearInsurerAddress': this.previousInsurance.controls['prevInsurerAddress'].value,
@@ -767,7 +826,7 @@ alert('1');
     };
     this.bikeInsurance.getProposal(data).subscribe(
         (successData) => {
-          this.getProposalSucccess(successData);
+          this.getProposalSucccess(successData,stepper);
         },
         (error) => {
           this.getProposalFailure(error);
@@ -776,21 +835,30 @@ alert('1');
     console.log(data,'data');
   }
 
-  getProposalSucccess(successData) {
+  getProposalSucccess(successData,stepper) {
     this.setting.loadingSpinner = false;
     if (successData.IsSuccess) {
       this.toastr.success('Proposal created successfully!!');
-      // this.summaryData = successData.ResponseObject;
-      // sessionStorage.summaryData = JSON.stringify(this.summaryData);
+      this.summaryData = successData.ResponseObject;
+      sessionStorage.summaryData = JSON.stringify(this.summaryData);
       // this.proposalId = this.summaryData.policy_id;
-      // sessionStorage.bajajTravelproposalID = this.proposalId;
-      // this.proposerFormData = this.bajajProposal.value;
-      // this.insuredFormData = this.bajajInsuredTravel.value.items;
-      // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      // sessionStorage.relianceMotorproposalID = this.proposalId;
+      this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
+
+      this.proposerFormData = this.relianceProposal.value;
+      this.riskFormData = this.riskDetails.value;
+      console.log(this.riskFormData,'RISKDATA')
+      this.coverFormData = this.coverDetails.value;
+      console.log(this.coverFormData,'coverformdata');
+      this.previousFormData = this.previousInsurance.value;
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      console.log(this.previousFormData,'prevdata');
       // sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
-      // stepper.next();
-      // this.topScroll();
+      stepper.next();
+      this.topScroll();
       // this.nextStep();
+
+
 
     } else {
       this.toastr.error(successData.ErrorObject);

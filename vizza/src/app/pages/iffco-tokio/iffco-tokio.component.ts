@@ -782,33 +782,40 @@ export class IffcoTokioComponent implements OnInit {
         sessionStorage.stepper1IffcoDetails = '';
         sessionStorage.stepper1IffcoDetails = JSON.stringify(value);
         if (this.proposer.valid) {
-            if (sessionStorage.proposerAgeiffco >= 18 && sessionStorage.proposerAgeiffco <= 55) {
-                stepper.next();
-                this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
-                this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
-                this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value)
-                this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
-                this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAgeiffco);
-                this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue(this.proposer.controls['proposerOccupation'].value);
-                this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
-                this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('Self');
-                // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.proposer.controls['sameas'].value);
 
-                let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
-                this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
+            if ( this.proposer.controls['additionalFacts'].value == 'N' && this.proposer.controls['pastInsuranceDeclined'].value == 'N'){
+                if (sessionStorage.proposerAgeiffco >= 18 && sessionStorage.proposerAgeiffco <= 55) {
+                    stepper.next();
+                    this.insureArray['controls'].items['controls'][0]['controls'].sameasreadonly.patchValue(true);
+                    this.insureArray['controls'].items['controls'][0]['controls'].proposerTitle.patchValue(this.proposer.controls['proposerTitle'].value);
+                    this.insureArray['controls'].items['controls'][0]['controls'].proposerFirstname.patchValue(this.proposer.controls['proposerFirstname'].value)
+                    this.insureArray['controls'].items['controls'][0]['controls'].proposerLastname.patchValue(this.proposer.controls['proposerLastname'].value);
+                    this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.patchValue(sessionStorage.proposerAgeiffco);
+                    this.insureArray['controls'].items['controls'][0]['controls'].proposerOccupation.patchValue(this.proposer.controls['proposerOccupation'].value);
+                    this.insureArray['controls'].items['controls'][0]['controls'].proposerGender.patchValue(this.proposer.controls['proposerGender'].value);
+                    this.insureArray['controls'].items['controls'][0]['controls'].proposerRelationship.patchValue('Self');
+                    // this.insureArray['controls'].items['controls'][0]['controls'].sameas.patchValue(this.proposer.controls['sameas'].value);
 
-                if (this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
-                    this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('Age between 18 to 55');
+                    let getDob = this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'y-MM-dd');
+                    this.insureArray['controls'].items['controls'][0]['controls'].proposerDob.patchValue(getDob);
+
+                    if (this.insureArray['controls'].items['controls'][0]['controls'].proposerAge.value > 55) {
+                        this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('Age between 18 to 55');
+                    } else {
+                        this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
+                    }
+
+                    this.topScroll();
+                    this.nextStep();
+                    this.healthIffcoTrue1 = false;
+
                 } else {
-                    this.insureArray['controls'].items['controls'][0]['controls'].insurerDobError.patchValue('');
+                    this.toastr.error('Proposer age should be  greater than 18 and lesser than equal to 55');
                 }
-                this.topScroll();
-                this.nextStep();
-                this.healthIffcoTrue1 = false;
-
-            } else {
-                this.toastr.error('Proposer age should be  greater than 18 and lesser than equal to 55');
+            }else {
+                this.toastr.error('Since you have selected additionalFacts or pastInsuranceDeclined. You are not allowed to purchase this policy')
             }
+
         } else {
             //  this.toastr.error('Please enter all fields');
         }
@@ -851,6 +858,7 @@ export class IffcoTokioComponent implements OnInit {
                     'TobaccoQuantity': this.insuredDetails.items[i].tobaccoQuantity
                 });
             }
+
             console.log(this.insuredData, 'data');
 
 
@@ -864,10 +872,16 @@ export class IffcoTokioComponent implements OnInit {
             }
 
             if (!ageValidate.includes(1)) {
-                stepper.next();
-                this.topScroll();
-                this.nextStep();
-                this.healthIffcoTrue2 = false;
+                let preExiValid = this.insuredData.filter(data => data.PreExistingDisease == 'Y');
+                if(preExiValid.length > 0 ) {
+                    this.toastr.error('Since you have selected Pre-Existing Disease. You are not allowed to purchase this policy. ');
+                }else{
+                    stepper.next();
+                    this.topScroll();
+                    this.nextStep();
+                    this.healthIffcoTrue2 = false;
+                }
+
             }
 
 

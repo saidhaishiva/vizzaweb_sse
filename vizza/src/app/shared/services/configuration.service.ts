@@ -20,6 +20,7 @@ export class ConfigurationService {
   travelInsurance: boolean = environment.travelInsurance;
   healthInsurance: boolean = environment.healthInsurance;
   termLifeInsurance: boolean = environment.healthInsurance;
+  motorInsurance: boolean = environment.motorInsurance;
 
   webHost: string = environment.webHost;
   imgUrl: string = environment.imgUrl;
@@ -49,6 +50,7 @@ export class ConfigurationService {
     this.healthInsurance = this.healthInsurance;
     this.apiHostMotor = this.apiHostMotor;
     this.termLifeInsurance = this.termLifeInsurance;
+    this.motorInsurance = this.motorInsurance;
 
 
   }
@@ -100,5 +102,8 @@ export class ConfigurationService {
   }
   getBikeInsurance() {
     return this.apiHostMotor;
+  }
+  getMotorInsurance() {
+    return this.motorInsurance;
   }
 }
