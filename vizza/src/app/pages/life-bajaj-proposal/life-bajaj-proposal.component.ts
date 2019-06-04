@@ -365,8 +365,11 @@ export class LifeBajajProposalComponent implements OnInit {
   // add NOmineee
   addNominee(event) {
     if(this.nomineeDetails.valid) {
+      alert('1');
+      console.log(this.nomineeDetails.get('itemsNominee').value.length,'valueeee')
       if(this.nomineeDetails.get('itemsNominee').value.length < 5) {
-        let nomineeForm = this.itemsNominee.get('itemsNominee') as FormArray;
+        alert('2');
+        let nomineeForm = this.nomineeDetails.get('itemsNominee') as FormArray;
         nomineeForm.push(this.nomineeItems());
       }
 
@@ -374,7 +377,7 @@ export class LifeBajajProposalComponent implements OnInit {
   }
 
   removeNominee(event, index) {
-    let nomineeForm = this.itemsNominee.get('itemsNominee') as FormArray;
+    let nomineeForm = this.nomineeDetails.get('itemsNominee') as FormArray;
     nomineeForm.removeAt(1);
   }
   // add Family Member
@@ -717,25 +720,31 @@ export class LifeBajajProposalComponent implements OnInit {
     sessionStorage.stepperDetails1 = JSON.stringify(value);
     console.log(this.proposer.valid, 'this.proposer.valid');
     if (this.proposer.valid) {
-      if(sessionStorage.bajajproposerAge >= 18){
-          if(this.proposer.controls['annualIncome'].value > '500000'){
-                if(this.proposer.controls['occupationList'].value =="T" || this.proposer.controls['occupationList'].value =="N" || this.proposer.controls['occupationList'].value == "U")
-                {
-                  this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
-                }else {
+      if(this.proposer.controls['alterMobileError'].value == '') {
+        if (sessionStorage.bajajproposerAge >= 18) {
+          if (sessionStorage.spouseAge >= 18) {
+            if (this.proposer.controls['annualIncome'].value > '500000') {
+              if (this.proposer.controls['occupationList'].value == "T" || this.proposer.controls['occupationList'].value == "N" || this.proposer.controls['occupationList'].value == "U") {
+                this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
+              } else {
 
-                      if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
-                          this.mainQuestion();
-                      }
-                    stepper.next();
-                    this.topScroll();
+                if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
+                  this.mainQuestion();
                 }
-          } else {
+                stepper.next();
+                this.topScroll();
+              }
+            } else {
               this.toastr.error('Annual Income shoud be above 5 lakhs');
-          }
+            }
 
-      } else {
+          }else{
+            this.toastr.error('spouse age should be greater than equal to 18');
+
+          }
+        }else {
           this.toastr.error('Proposer age should be greater than equal to 18');
+        }
       }
 
     }
@@ -1606,10 +1615,12 @@ samerelationShip(){
       if(title == 'personal') {
         this.proposer.controls['city'].setValue(this.pincodeList.city);
         this.proposer.controls['state'].setValue(this.pincodeList.state);
-      } else {
+      } else if (title == 'residence'){
         this.proposer.controls['rcity'].setValue(this.pincodeList.city);
         this.proposer.controls['rstate'].setValue(this.pincodeList.state);
       }
+
+
     } else {
       this.toastr.error('In valid Pincode');
       if(title == 'personal') {
@@ -2214,7 +2225,7 @@ samerelationShip(){
           let nomineeDetails = JSON.parse(sessionStorage.lifeBajaiNomineeDetails);
           for (let i = 0; i < nomineeDetails.itemsNominee.length; i++) {
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nomineeDetails.itemsNominee[i].nnName);
-            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(nomineeDetails.itemsNominee[i].nDob);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(this.datepipe.transform(nomineeDetails.itemsNominee[i].nDob, 'y-MM-dd'));
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nBirthPlace.patchValue(nomineeDetails.itemsNominee[i].nBirthPlace);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nRelation.patchValue(nomineeDetails.itemsNominee[i].nRelation);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(nomineeDetails.itemsNominee[i].nomineeDobValidError);
