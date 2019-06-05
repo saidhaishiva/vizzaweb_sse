@@ -45,16 +45,18 @@ export class EnquiryPopupComponent implements OnInit {
   public bussinessList : any;
   public enquiryFormData : any;
   public cityDetails : any;
+  public vehicalNo : any;
   constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
   public dialogRef: MatDialogRef<EnquiryPopupComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) {
     this.ListDetails = this.data.listData;
+    this.vehicalNo = this.ListDetails.vehicalNumber;
   console.log(this.ListDetails, 'this.ListDetails');
     this.vehicalDetails = this.fb.group({
       'vehicalNumber': '',
       'registrationDate': '',
       'previousClaim': '',
-      'claimamount': '',
+      // 'claimamount': '',
       'enquiry': '',
       'vehicleModel': '',
       'manufacture':'',
@@ -87,7 +89,7 @@ export class EnquiryPopupComponent implements OnInit {
       'vehicalNumber': this.ListDetails.vehicle_no,
       'registrationDate': this.datePipe.transform(this.ListDetails.registration_date, 'y-MM-dd'),
       'previousClaim': this.ListDetails.previous_claim_YN,
-      'claimamount': this.ListDetails.claim_amount,
+      // 'claimamount': this.ListDetails.claim_amount,
       'enquiry': this.ListDetails.enquiry_id,
       'vehicleModel': this.ListDetails.vehicle_model,
       'manufacture': this.ListDetails.vehicle_manufacture,
@@ -143,15 +145,15 @@ export class EnquiryPopupComponent implements OnInit {
     this.validation.idValidate(event);
   }
 
-  claim(){
-    if(this.vehicalDetails.controls['previousClaim'].value == 'Yes'){
-      this.claimAmountDetails = true;
-    } else {
-      this.claimAmountDetails = false;
-
-    }
-    sessionStorage.claimDetail = this.claimAmountDetails;
-  }
+  // claim(){
+  //   if(this.vehicalDetails.controls['previousClaim'].value == 'Yes'){
+  //     this.claimAmountDetails = true;
+  //   } else {
+  //     this.claimAmountDetails = false;
+  //
+  //   }
+  //   sessionStorage.claimDetail = this.claimAmountDetails;
+  // }
 
 
   // model
@@ -311,22 +313,16 @@ export class EnquiryPopupComponent implements OnInit {
   }
   manufactureYear(){
     let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
-    let getPolicyYear = start.getFullYear();
+    let getRegPolicyYear = start.getFullYear();
     let RegYear = start.getFullYear()-1;
-    console.log(getPolicyYear,'getPolicyYear');
+    console.log(getRegPolicyYear,'getPolicyYear');
     let getLength = this.vehicalDetails.controls['manufactureYear'].value;
     console.log(getLength, 'getLengthgetLength');
-    // alert(getLength + ' '+  getPolicyYear);
     if(getLength.length == 4) {
-      if(getLength != RegYear || getPolicyYear != getLength){
-        // alert('in');
-        this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
-      } else {
-        // alert('out');
+      if(getRegPolicyYear < getLength ){
+         this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
       }
-      // if(this.vehicalDetails.controls['manufactureYear'].value >= getPolicyYear){
-      //   this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
-      // }
+
     }
 
   }
@@ -342,7 +338,7 @@ export class EnquiryPopupComponent implements OnInit {
       'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value,
       'previous_policy_no':"12344556",
       'previous_claim_YN': this.vehicalDetails.controls['previousClaim'].value == 'No' ? '0' : '1',
-      'claim_amount':this.vehicalDetails.controls['claimamount'].value ? this.vehicalDetails.controls['claimamount'].value : '',
+      // 'claim_amount':this.vehicalDetails.controls['claimamount'].value ? this.vehicalDetails.controls['claimamount'].value : '',
       'vehicle_manufacture':this.vehicalDetails.controls['manufacture'].value,
       'vehicle_model':this.vehicalDetails.controls['vehicleModel'].value,
       'vehicle_variant':this.vehicalDetails.controls['variant'].value,
@@ -398,9 +394,6 @@ export class EnquiryPopupComponent implements OnInit {
     let days = b.diff(a, 'days');
     console.log(days,'daaaaaa');
     return days;
-  //   let expiry = new Date(this.vehicalDetails.controls['previousPolicyExpiry'].value);
-  //    var day = expiry.getDate();
-  // console.log(day);
   }
 
 }

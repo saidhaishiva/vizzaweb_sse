@@ -136,13 +136,13 @@
 
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="State" formControlName="state"  autocomplete="off" readonly required >
+                                                    <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly required >
                                                     <!--<mat-error *ngIf="proposer.controls.state.errors?.required">State is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="City" formControlName="city"  autocomplete="off" readonly required>
+                                                    <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly required>
                                                     <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
@@ -268,7 +268,7 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                <mat-checkbox (change)="financeType($event)">Is Vehicle in finance</mat-checkbox>
+                                                <mat-checkbox (change)="financeType($event)" formControlName="isFinanced">Is Vehicle in finance</mat-checkbox>
                                             </div>
                                             </div>
                                         <div class="row" *ngIf="finance">
@@ -318,13 +318,13 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="State" formControlName="state"  autocomplete="off" readonly [required]="finance">
+                                                    <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly [required]="finance">
                                                     <mat-error *ngIf="vehical.controls.state.errors?.required">State is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="City" formControlName="city"  autocomplete="off" readonly [required]="finance">
+                                                    <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly [required]="finance">
                                                     <mat-error *ngIf="vehical.controls.city.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -581,8 +581,8 @@
                                     <div class="p-3">
                                         <h6 class="mt-4"></h6>
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>City:</strong> {{pincodeCity}}</li>
-                                            <li class="list-group-item"><strong>State:</strong> {{stateList}}</li>
+                                            <li class="list-group-item"><strong>City:</strong> {{proposerFormData.cityName}}</li>
+                                            <li class="list-group-item"><strong>State:</strong> {{proposerFormData.stateName}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -604,6 +604,7 @@
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == 'True'">Yes</span><span *ngIf="vehicalFormData.nonElectricalAccess == 'False'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.nonElectricalAccessSI != ''"><strong>Non Electrical AccessSI:</strong> {{vehicalFormData.nonElectricalAccessSI}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == 'True'">Yes</span><span *ngIf="vehicalFormData.paforUnnamed == 'False'">No</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.isFinanced == 'True'">Yes</span><span *ngIf="vehicalFormData.isFinanced == 'False'">No</span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -621,8 +622,8 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft:</strong><span *ngIf="vehicalFormData.antiTheft == 'True'">Yes</span><span *ngIf="vehicalFormData.antiTheft == 'False'">No</span> </li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.lltoPaidDriver != ''"><strong>LltoPaid Driver:</strong> {{vehicalFormData.lltoPaidDriver}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.pincode != ''"><strong>PIN code:</strong> {{vehicalFormData.pincode}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.state != ''"><strong>City:</strong> {{pincodeCity}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.city != ''"><strong>State:</strong> {{stateList}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.state != ''"><strong>City:</strong> {{vehicalFormData.cityName}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.city != ''"><strong>State:</strong> {{vehicalFormData.stateName}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -637,9 +638,9 @@
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
-                                                    <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
-                                                    <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob | date: 'dd/MM/yyyy'}}</li>
-                                                    <li class="list-group-item"><strong>Previous End Date:</strong> {{previousFormData.previousdEndob | date: 'dd/MM/yyyy'}}</li>
+                                                    <li class="list-group-item"><strong>Previous Insurer:</strong> {{previousFormData.previousInsured}}</li>
+                                                    <!--<li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob | date: 'dd/MM/yyyy'}}</li>-->
+                                                    <!--<li class="list-group-item"><strong>Previous End Date:</strong> {{previousFormData.previousdEndob | date: 'dd/MM/yyyy'}}</li>-->
 
                                                 </ul>
                                             </div>
@@ -652,7 +653,7 @@
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
-                                                    <li class="list-group-item"><strong>Policy UwYear:</strong> {{previousFormData.policyUwYear}}</li>
+                                                    <!--<li class="list-group-item"><strong>Policy UwYear:</strong> {{previousFormData.policyUwYear}}</li>-->
                                                     <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>
                                                     <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>
                                                 </ul>

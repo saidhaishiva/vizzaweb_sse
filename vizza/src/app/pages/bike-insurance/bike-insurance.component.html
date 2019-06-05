@@ -63,11 +63,11 @@
                   <mat-radio-button value="Yes">Yes</mat-radio-button>
                   <mat-radio-button value="No">No</mat-radio-button>
                 </mat-radio-group>
-                  <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="setSession()">
-                          <input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>
-                      <mat-error *ngIf="bikeInsurance.controls.claimamount.errors?.required">Claim Amount is required</mat-error>
+                  <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="setSession()">-->
+                          <!--<input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>-->
+                      <!--<mat-error *ngIf="bikeInsurance.controls.claimamount.errors?.required">Claim Amount is required</mat-error>-->
 
-                  </mat-form-field>
+                  <!--</mat-form-field>-->
                 <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
                     <mat-select placeholder="NCB Percent(%)" (change)="setSession()" formControlName="ncb"  required>
                         <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>

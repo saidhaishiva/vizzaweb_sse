@@ -1,17 +1,18 @@
-<h5>Verify Your Vehicle Details</h5>
 <div class="col-md-12 text-right" >
   <i class="material-icons" (click)="close()" style="cursor: pointer">
     clear
   </i>
 </div>
+<div>Verify Your Vehicle Details For {{vehicalNo}}</div>
+
 <form [formGroup]="vehicalDetails">
   <div class="row">
-    <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10"  (keypress)="idValidate($event)"  required>
-        <mat-error *ngIf="vehicalDetails.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
-      </mat-form-field>
-    </div>
+    <!--<div class="col-md-3">-->
+      <!--<mat-form-field class="w-100">-->
+        <!--<input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10"  (keypress)="idValidate($event)"  required>-->
+        <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
     <div class="col-md-3">
       <mat-form-field class="w-100">
         <mat-select placeholder="Business  Type"  formControlName="bussiness"   required>
@@ -52,12 +53,12 @@
         <mat-error *ngIf="vehicalDetails.controls.ncb.errors?.required">Ncb is required</mat-error>
       </mat-form-field>
     </div>
-    <div class="col-md-3" *ngIf="enquiryFormData.business_type != '1'">
-      <mat-form-field class="w-100">
-        <input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>
-        <mat-error *ngIf="vehicalDetails.controls.claimamount.errors?.required">Claim Amount is required</mat-error>
-      </mat-form-field>
-    </div>
+    <!--<div class="col-md-3" *ngIf="enquiryFormData.business_type != '1'">-->
+      <!--<mat-form-field class="w-100">-->
+        <!--<input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>-->
+        <!--<mat-error *ngIf="vehicalDetails.controls.claimamount.errors?.required">Claim Amount is required</mat-error>-->
+      <!--</mat-form-field>-->
+    <!--</div>-->
     <div class="col-md-3">
       <mat-form-field class="w-100">
         <input matInput placeholder="Chasiss Number" formControlName="chasissNumber"  maxlength= "17" (keypress)="numberValidate($event)" required>
@@ -115,12 +116,20 @@
       </mat-form-field>
     </div>
     <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <mat-select placeholder="Registration City"  formControlName="city"  required>
+      <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Registration City"  matInput formControlName="city"  [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
           <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-        </mat-select>
-        <mat-error *ngIf="vehicalDetails.controls.city.errors?.required">Variant is required</mat-error>
+        </mat-autocomplete>
       </mat-form-field>
+      <!--<mat-form-field class="w-100">-->
+        <!--<mat-select placeholder="Registration City"  formControlName="city"  required>-->
+          <!--<input matInput placeholder="Search By Speciality..." (keyup)="updateFilter($event)">-->
+
+          <!--<mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+        <!--</mat-select>-->
+        <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">Variant is required</mat-error>-->
+      <!--</mat-form-field>-->
     </div>
     <div class="col-md-12 text-center mt-3">
       <button mat-raised-button color="primary"  (click)="enquiryQuation(vehicalDetails.value)">Submit</button>

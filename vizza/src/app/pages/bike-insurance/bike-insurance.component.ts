@@ -96,7 +96,7 @@ export class BikeInsuranceComponent implements OnInit {
             'vehicalNumber': ['', Validators.required],
             'registrationDate': ['', Validators.required],
             'previousClaim': '',
-            'claimamount': '',
+            // 'claimamount': '',
             'enquiry': '',
             'bussiness':'',
             'ncb':'',
@@ -115,7 +115,7 @@ export class BikeInsuranceComponent implements OnInit {
             'insurance': ['',Validators.compose([Validators.required])],
             'appointmentwith': ['',Validators.compose([Validators.required])]
         });
-        this.claimAmountDetails = false;
+        // this.claimAmountDetails = false;
         this.expiry = false;
         this.previousDate = true;
         this.productName = '';
@@ -205,7 +205,7 @@ export class BikeInsuranceComponent implements OnInit {
                 "previous_policy_start_date":this.bikeInsurance.controls['previousPolicyStart'].value ? this.bikeInsurance.controls['previousPolicyStart'].value : '',
                 "business_type":this.bikeInsurance.controls['bussiness'].value,
                 "ncb_percent": this.bikeInsurance.controls['ncb'].value,
-                "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
+                // "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
             }
             console.log(data,'data');
             this.bikeService.getMotorHomeDetails(data).subscribe(
@@ -301,7 +301,7 @@ export class BikeInsuranceComponent implements OnInit {
                 'vehicalNumber': stepper.vehicalNumber,
                 'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),
                 'previousClaim': stepper.previousClaim,
-                'claimamount': stepper.claimamount,
+                // 'claimamount': stepper.claimamount,
                 'enquiry': stepper.enquiry,
                 'bussiness': stepper.bussiness,
                 'ncb':stepper.ncb,
@@ -315,7 +315,6 @@ export class BikeInsuranceComponent implements OnInit {
         }
 
     }
-
 
 
     ////fire

@@ -109,17 +109,21 @@ public apponiteeList: boolean;
       address3: '',
       address4: '',
       pincode: ['', Validators.required],
-      state: ['', Validators.required],
-      city: ['', Validators.required],
+      state: '',
+      stateName: '',
+      city: '',
+      cityName: '',
       raddress: ['', Validators.required],
       raddress2: ['', Validators.required],
       raddress3: '',
       raddress4: '',
       rpincode: ['', Validators.required],
-      rstate: ['', Validators.required],
-      rcity: ['', Validators.required],
+      rstate: '',
+      rcity: '',
+      rstateName: '',
+      rcityName: '',
       sameas:'',
-      phoneNumber: '',
+      phoneNumber:  ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       stdCode: ''
     });
 
@@ -328,7 +332,7 @@ public apponiteeList: boolean;
     if (pin.length == 6) {
       this.bikeInsurance.getPincodeList(data).subscribe(
           (successData) => {
-            this.pinProposerListSuccess(successData);
+            this.pinProposerListSuccess(successData, pin);
           },
           (error) => {
             this.pinProposerListFailure(error);
@@ -337,34 +341,28 @@ public apponiteeList: boolean;
     }
   }
 
-  public pinProposerListSuccess(successData) {
+  public pinProposerListSuccess(successData, pin) {
     if (successData.IsSuccess) {
       this.pincodeList = successData.ResponseObject;
-      console.log(this.pincodeList,'jhgfdghj');
+      console.log(pin,'jhgfdghj');
+      if(pin.length == '' || pin.length == 0 || pin.length != 6){
+        this.proposer.controls['state'].patchValue('');
+        this.proposer.controls['city'].patchValue('');
+      }
       for(let key in this.pincodeList.state) {
-        this.pincodeState = key;
-        console.log(key);
-        console.log(this.pincodeState,'sswdesers');
-        console.log(this.pincodeList['state'][key]);
-        this.stateList = this.pincodeList['state'][key];
-        console.log(this.pincodeState, 'kjhfgdghj');
-        this.proposer.controls['state'].patchValue(this.pincodeList['state'][key]);
+        this.proposer.controls['state'].patchValue(key);
+        this.proposer.controls['stateName'].patchValue(this.pincodeList['state'][key]);
       }
       for(let key in this.pincodeList.city) {
-        this.pincodeCity = key;
-        console.log(key);
-        console.log(this.pincodeList['state'][key]);
-        console.log(this.pincodeCity,'ciytyer');
-
-        this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
-        // this.proposer.controls['rcity'].patchValue(this.pincodeList['city'][key]);
+        this.proposer.controls['city'].patchValue(key);
+        this.proposer.controls['cityName'].patchValue(this.pincodeList['city'][key]);
       }
 
     } else{
       this.toastr.error(successData.ErrorObject);
       this.proposer.controls['state'].patchValue('');
       this.proposer.controls['city'].patchValue('');
-      // this.proposer.controls['rcity'].patchValue('');
+
     }
   }
 
@@ -712,9 +710,14 @@ public apponiteeList: boolean;
    // next
     previousDetails(stepper: MatStepper,value){
       sessionStorage.stepper3 = JSON.stringify(value);
-      // if(this.previousInsure.valid){
-        stepper.next();
-      // }
+      if(this.previousInsure.valid){
+        if(this.previousInsure.controls['previousPolicyType'].value == 'Thirdparty'){
+          this.toastr.error('For Buying a third party insurence. Please contact our Customer service or mail to customer.services@royalsundaram.inor chat Online with our chat repersentative');
+        } else {
+          stepper.next();
+
+        }
+      }
 
     }
 
@@ -812,12 +815,12 @@ proposal(stepper){
           "idv": this.productDetails.Idv,
           "vehicleMostlyDrivenOn":  this.vehical.controls['vehicleMostlyDrivenOn'].value,
           "vehicleRegisteredInTheNameOf":  this.vehical.controls['vehicleRegisteredName'].value,
-          "previousPolicyExpiryDate": this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd'),
-          "previousPolicyNo":this.previousInsure.controls['policyNumber'].value,
+          "previousPolicyExpiryDate": this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
+          "previousPolicyNo":this.previousInsure.controls['policyNumber'].value? this.previousInsure.controls['policyNumber'].value: '',
           "policyTerm": this.productDetails.year_type,
-          "previousInsurerName":  this.previousInsure.controls['previousInsured'].value,
+          "previousInsurerName":  this.previousInsure.controls['previousInsured'].value? this.previousInsure.controls['previousInsured'].value :'',
           "companyNameForCar": '',
-          "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
+          "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value: '',
           "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value ? 'yes' : 'No',
           "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
           "financierName":  this.vehical.controls['financierName'].value,
@@ -979,6 +982,7 @@ proposal(stepper){
       this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
       this.VersionNo =  this.summaryData1.VersionNo;
       this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
+      this.proposerFormData = this.proposer.value;
 
     } else{
       this.toastr.error(successData.ErrorObject);
@@ -988,6 +992,9 @@ proposal(stepper){
   public updateproposalFailure(error){
 
   }
+  // policyType(){
+  //
+  // }
 //session Data
   sessionData(){
     if(sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
@@ -1009,14 +1016,18 @@ proposal(stepper){
         address3: stepper1.address3,
         address4: stepper1.address4,
         state:stepper1.state,
+        stateName:stepper1.stateName,
         city: stepper1.city,
+        cityName: stepper1.cityName,
         raddress: stepper1.raddress,
         raddress2: stepper1.raddress2,
         raddress3: stepper1.raddress3,
         raddress4: stepper1.raddress4,
         rpincode: stepper1.rpincode,
         rstate:stepper1.rstate,
+        rstateName:stepper1.rstateName,
         rcity: stepper1.rcity,
+        rcityName: stepper1.rcityName,
         sameas: stepper1.sameas,
 
 

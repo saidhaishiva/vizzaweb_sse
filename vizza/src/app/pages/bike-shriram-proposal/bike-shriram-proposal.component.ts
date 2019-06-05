@@ -140,8 +140,10 @@ export class BikeShriramProposalComponent implements OnInit {
       address: ['', Validators.required],
       address2: '',
       address3: '',
-      state: ['', Validators.required],
-      city: ['', Validators.required],
+      state: '',
+      stateName: '',
+      city: '',
+      cityName: '',
       breakIn: '',
     });
     this.vehical = this.fb.group({
@@ -168,13 +170,16 @@ export class BikeShriramProposalComponent implements OnInit {
       pincode:'',
       state:'',
       city:'',
+      stateName:'',
+      cityName:'',
+      isFinanced:'',
     });
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
       previousInsured: ['', Validators.required],
       // policyUwYear:  ['', Validators.compose([Validators.pattern('[2]{1}[0-9]{3}')])],
       previousPolicyType: ['', Validators.required],
-      policyNilDescription: ['', Validators.required],
+      policyNilDescription: '0',
       // previousdob:['', Validators.required],
       previousPolicyTypeName:['', Validators.required],
         // previousdEndob:['', Validators.required],
@@ -334,21 +339,12 @@ export class BikeShriramProposalComponent implements OnInit {
                       this.proposer.controls['city'].patchValue('');
                   }
                 for(let key in this.pincodeList.state) {
-                    this.pincodeState = key;
-                    console.log(key);
-                    console.log(this.pincodeState,'sswdesers');
-                    console.log(this.pincodeList['state'][key]);
-                    this.stateList = this.pincodeList['state'][key];
-                    console.log(this.pincodeState, 'kjhfgdghj');
-                    this.proposer.controls['state'].patchValue(this.pincodeList['state'][key]);
+                    this.proposer.controls['state'].patchValue(key);
+                    this.proposer.controls['stateName'].patchValue(this.pincodeList['state'][key]);
                 }
                   for(let key in this.pincodeList.city) {
-                      this.pincodeCity = key;
-                      console.log(key);
-                      console.log(this.pincodeList['state'][key]);
-                      console.log(this.pincodeCity,'ciytyer');
-
-                      this.proposer.controls['city'].patchValue(this.pincodeList['city'][key]);
+                      this.proposer.controls['city'].patchValue(key);
+                      this.proposer.controls['cityName'].patchValue(this.pincodeList['city'][key]);
                   }
 
                 } else{
@@ -391,7 +387,10 @@ export class BikeShriramProposalComponent implements OnInit {
           if(this.proposer.valid) {
               if(sessionStorage.bkShriramProposerAge >= 18){
                   stepper.next();
-              this.vehical.controls['proposalType'].patchValue('Renewal');
+                  this.topScroll();
+
+
+                  this.vehical.controls['proposalType'].patchValue('Renewal');
 
               } else {
                   this.toastr.error('Proposer age should be 18 or above');
@@ -583,7 +582,7 @@ export class BikeShriramProposalComponent implements OnInit {
         if (pin.length == 6) {
             this.bikeInsurance.getHypoPincodeList(data).subscribe(
                 (successData) => {
-                    this.pinListSuccess(successData);
+                    this.pinListSuccess(successData, pin);
                 },
                 (error) => {
                     this.pinListFailure(error);
@@ -594,58 +593,31 @@ export class BikeShriramProposalComponent implements OnInit {
 
 
 
-    public pinListSuccess(successData) {
-        // if (successData.IsSuccess) {
-        //     this.pincodeHypoList = successData.ResponseObject;
-        //     console.log(this.pincodeHypoList,'jhgfdghj');
-        //     for(let key in this.pincodeHypoList.state) {
-        //         this.pincodeHypoState = key;
-        //         console.log(key);
-        //         console.log(this.pincodeHypoList['state'][key]);
-        //
-        //         console.log(this.pincodeHypoState, 'kjhfgdghj');
-        //         this.vehical.controls['state'].patchValue(this.pincodeHypoList['state'][key]);
-        //     }
-        //     for(let key in this.pincodeHypoList.city) {
-        //         this.pincodeHypoCity = key;
-        //         console.log(key);
-        //         console.log(this.pincodeHypoCity,'87878');
-        //         console.log(this.pincodeHypoList['city'][key]);
-        //
-        //         this.vehical.controls['city'].patchValue(this.pincodeHypoList['city'][key]);
-        //     }
-        //     this.vehical.controls['state'].patchValue(this.pincodeHypoList.HypothecationState);
-        //         this.vehical.controls['city'].patchValue(this.pincodeHypoList.HypothecationCity);
-        // } else{
-        //     this.toastr.error(successData.ErrorObject);
-        //     this.vehical.controls['state'].patchValue('');
-        //     this.vehical.controls['city'].patchValue('');
-        // }
+
+    public pinListSuccess(successData, pin) {
             if (successData.IsSuccess) {
-                this.pincodeList = successData.ResponseObject;
-                console.log(this.pincodeList,'jhgfdghj');
-                for(let key in this.pincodeList.state) {
-                    this.pincodeState = key;
-                    console.log(key);
-                    console.log(this.pincodeList['state'][key]);
-
-                    console.log(this.pincodeState, 'kjhfgdghj');
-                    this.vehical.controls['state'].patchValue(this.pincodeList['state'][key]);
+                this.pincodeHypoCity = successData.ResponseObject;
+                console.log(pin,'jhgfdghj');
+                if(pin.length == '' || pin.length == 0 || pin.length != 6){
+                    this.vehical.controls['state'].patchValue('');
+                    this.vehical.controls['city'].patchValue('');
                 }
-                for(let key in this.pincodeList.city) {
-                    this.pincodeCity = key;
-                    console.log(key);
-                    console.log(this.pincodeList['state'][key]);
-
-                    this.vehical.controls['city'].patchValue(this.pincodeList['city'][key]);
+                for(let key in this.pincodeHypoCity.state) {
+                    this.vehical.controls['state'].patchValue(key);
+                    this.vehical.controls['stateName'].patchValue(this.pincodeHypoCity['state'][key]);
+                }
+                for(let key in this.pincodeHypoCity.city) {
+                    this.vehical.controls['city'].patchValue(key);
+                    this.vehical.controls['cityName'].patchValue(this.pincodeHypoCity['city'][key]);
                 }
 
             } else{
                 this.toastr.error(successData.ErrorObject);
                 this.vehical.controls['state'].patchValue('');
                 this.vehical.controls['city'].patchValue('');
+
             }
-        }
+    }
 
 
 
@@ -738,6 +710,7 @@ export class BikeShriramProposalComponent implements OnInit {
               console.log(this.siValue, 'sdfdfdadf');
               if(this.vehical.valid){
                        stepper.next();
+                  this.topScroll();
 
 
               }
@@ -881,6 +854,7 @@ export class BikeShriramProposalComponent implements OnInit {
 
         if (this.previousInsure.valid) {
                 stepper.next();
+                        this.topScroll();
 
 
         }
@@ -1059,16 +1033,16 @@ export class BikeShriramProposalComponent implements OnInit {
              // / "PreviousPolicyNCBPerc": this.previousInsure.controls['previousPolicyNcb'].value ? this.previousInsure.controls['previousPolicyNcb'].value : 0,
               "PreviousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
               "PreviousNilDepreciation": this.previousInsure.controls['policyNilDescription'].value,
-              "HypothecationType": this.vehical.controls['hypothecationType'].value,
-              "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value,
-              "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value,
-              "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value,
-              "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value,
-              "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value,
+              "HypothecationType": this.vehical.controls['hypothecationType'].value ? this.vehical.controls['hypothecationType'].value : '',
+              "HypothecationBankName": this.vehical.controls['hypothecationBankName'].value ? this.vehical.controls['hypothecationBankName'].value : '' ,
+              "HypothecationAddress1": this.vehical.controls['hypothecationAddress1'].value ?  this.vehical.controls['hypothecationAddress1'].value: '',
+              "HypothecationAddress2": this.vehical.controls['hypothecationAddress2'].value?  this.vehical.controls['hypothecationAddress2'].value : '',
+              "HypothecationAddress3": this.vehical.controls['hypothecationAddress3'].value? this.vehical.controls['hypothecationAddress3'].value: '',
+              "HypothecationAgreementNo": this.vehical.controls['hypothecationAgreementNo'].value ? this.vehical.controls['hypothecationAgreementNo'].value: '',
               "HypothecationCountry": "",
-              "HypothecationState":  this.vehical.controls['state'].value,
-              "HypothecationCity":  this.vehical.controls['city'].value,
-              "HypothecationPinCode":  this.vehical.controls['pincode'].value
+              "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
+              "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
+              "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
           },
       }
       console.log(data,'fileeee');
@@ -1087,7 +1061,9 @@ export class BikeShriramProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if(successData.IsSuccess){
           stepper.next();
-          this.toastr.success('Proposal created successfully!!');
+            this.topScroll();
+
+            this.toastr.success('Proposal created successfully!!');
           this.summaryData = successData.ResponseObject;
          this.ProposalId =   this.summaryData.ProposalId;
          this.PaymentRedirect =   this.summaryData.PaymentRedirect;
@@ -1133,8 +1109,8 @@ export class BikeShriramProposalComponent implements OnInit {
         address3: stepper1.address3,
         state:stepper1.state,
         city: stepper1.city,
-        pincodeCity: stepper1.pincodeCity,
-          stateList:stepper1.stateList,
+          stateName: stepper1.stateName,
+          cityName:stepper1.cityName
 
       });
 
@@ -1162,9 +1138,11 @@ export class BikeShriramProposalComponent implements OnInit {
         lltoPaidDriver: stepper2.lltoPaidDriver,
         addonPackage:stepper2.addonPackage,
         hypothecationBankName:stepper2.hypothecationBankName,
+          isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,
-        city:stepper2.city,
+        stateName:stepper2.stateName,
+        cityName:stepper2.cityName,
       });
 
     }
