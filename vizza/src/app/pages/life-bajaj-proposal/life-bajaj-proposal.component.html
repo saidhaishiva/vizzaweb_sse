@@ -738,7 +738,7 @@
                           <div class="col-md-12 text-right w-100" >
                             <button mat-raised-button color="primaryBlue" style="line-height: 28px;font-size: 10px;adding: 0 10px;"  *ngIf="i==0 && nomineeDetails.get('itemsNominee').value.length < 5" (click)="addNominee($event)">  <i class="material-icons" style="margin-top: -2px; font-size: 17px">person_add</i> Add</button>
 
-                            <button class="btn btn-danger btn-sm" *ngIf="i==1" (click)="removeNominee($event,i)">
+                            <button class="btn btn-danger btn-sm"  style="line-height: 28px;font-size: 10px;adding: 0 10px;" *ngIf="i==1" (click)="removeNominee($event,i)">
                               <i class="material-icons">delete</i> Remove</button>
                           </div>
                           <div class="col-md-4">
