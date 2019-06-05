@@ -31,7 +31,7 @@
               </th>
               <th class="sun-insured col-md-1">
                 <mat-form-field >
-                  <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured ($)</mat-placeholder>
+                  <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured (USD $)</mat-placeholder>
                   <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
                     <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                       $ {{amounts.suminsured_amount}}
@@ -46,7 +46,7 @@
               <th class="col-md-1" style="padding: 15px 5px !important;">Loss of Passport</th>
               <!--<th class="col-md-1">PRE EXISTING DISEASES</th>-->
               <th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>
-              <th class="col-md-2" style="padding: 15px 5px !important;">Premiun ( &#8377; )</th>
+              <th class="col-md-2" style="padding: 15px 5px !important;">Premiun ( INR &#8377; )</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
             </tr>
             </thead>
