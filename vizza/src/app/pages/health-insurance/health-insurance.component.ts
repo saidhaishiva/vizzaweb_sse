@@ -587,6 +587,7 @@ export class HealthInsuranceComponent implements OnInit {
         for(let i = 0; i < successData.length; i++) {
             if (successData[i].IsSuccess) {
                 let policylists = successData[i].ResponseObject;
+                console.log(policylists,'sswwwlll');
                 this.productListArray.push(policylists[0].product_lists);
                 this.allPolicyDetails = policylists;
                 this.changedTabDetails = policylists[0];
@@ -1062,7 +1063,7 @@ export class HealthInsuranceComponent implements OnInit {
             }
         }
         this.checkAge = Math.max.apply(null, ages);
-            if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() ==3)) {
+            if ((this.auth.getPosStatus() == '0' || this.auth.getPosStatus() == 0) && (this.auth.getPosRoleId() =='3' && this.auth.getPosRoleId() == 3)) {
                 let dialogRef = this.dialog.open(PosstatusAlert, {
                     width: '700px',
                 });
