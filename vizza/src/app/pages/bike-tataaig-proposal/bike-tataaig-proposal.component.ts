@@ -114,7 +114,6 @@ export class BikeTataaigProposalComponent implements OnInit {
             driveAge: '',
             drivingexp: '',
             drivemaritalStatus: '',
-
         });
 
         this.vehicle = this.fb.group({
@@ -279,12 +278,12 @@ export class BikeTataaigProposalComponent implements OnInit {
     proposerpincodeListSuccess(successData, type) {
         if (successData.IsSuccess) {
             if (type == 'proposer') {
-                this.proposerPinList = successData.ResponseObject
+                this.proposerPinList = successData.ResponseObject;
                 this.proposer.controls['proposerState'].patchValue(this.proposerPinList.text_state);
                 this.proposer.controls['proposerDistrict'].patchValue(this.proposerPinList.text_city_district);
                 this.proposer.controls['proposerCity'].patchValue(this.proposerPinList.text_pincode_locality);
             } else if (type == 'prepolicy') {
-                this.prepolicyPinList = successData.ResponseObject
+                this.prepolicyPinList = successData.ResponseObject;
                 this.previouspolicy.controls['preState'].patchValue(this.prepolicyPinList.text_state);
                 this.previouspolicy.controls['preDistrict'].patchValue(this.prepolicyPinList.text_city_district);
                 this.previouspolicy.controls['preCity'].patchValue(this.prepolicyPinList.text_pincode_locality);

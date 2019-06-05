@@ -93,7 +93,7 @@ export class PersonalaccidentComponent implements OnInit {
         this.webhost = this.config.getimgUrl();
         // sessionStorage.sideMenu = false;
         // this.settings.loadingSpinner = true
-        if (!sessionStorage.sideMenuP) {
+        if (!sessionStorage.sideMenu) {
             this.settings.HomeSidenavUserBlock = true;
             this.settings.sidenavIsOpened = true;
             this.settings.sidenavIsPinned = true;
@@ -831,7 +831,8 @@ export class PersonalaccidentComponent implements OnInit {
     }
     personalInsurer() {
         const dialogRef = this.dialog.open(PersonalInsurer, {
-            width: '1200px',
+            autoFocus: false,
+            maxHeight: '90vh'
         });
         dialogRef.disableClose = true;
     }
@@ -846,17 +847,16 @@ export class PersonalaccidentComponent implements OnInit {
 @Component({
     selector: 'personalinsurer',
     template: `        
-        <div class="container">
+        <div id="personal-details" class="container-fluid">
         <div  class="row text-justify">
-        
-            <div class="col-sm-2">
+            <div class="container">
+            <div class="col-sm-12 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
             <div class="col-sm-8">
                 <h3 class="text-center" style="color: #D92D32"><img src="assets/img/personal-accident.png" class="logo-size"> About Personal Accident</h3>
             </div>
-            <div class="col-sm-2 text-right">
-                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
-            </div>
+            
             <ol class="ml-4">
                 <li>The benefit under the Personal Accidental Death section is payable when an Injury results in the loss of life of the Insured solely due to accidental injury.</li>
                 <li>Accidental Injury means bodily injury caused solely and directly by violent, accidental, external and visible means and should necessarily occur during the Insured Period of 12 months from the date of inception of the policy.</li>
@@ -866,6 +866,7 @@ export class PersonalaccidentComponent implements OnInit {
                 <li>The Personal Accident policy has a coverage / compensation for Temporary Total Disablement and Temporary Partial Disablements on a fixed percentage basis if the insured opts with the TTD and TPD benefits apart from the death benefit.</li>
             </ol>
          </div>
+        </div>
         </div>`,
 })
 export class PersonalInsurer {
