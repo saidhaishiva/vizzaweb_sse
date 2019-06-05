@@ -1149,11 +1149,8 @@
                   <div class="row mt-1">
                     <div class="col-sm-12 col-xs-12 col-md-12 box-card pt-3 pb-3" >
                       <div class="row col-sm-12 col-xs-12 col-md-12" *ngFor="let item of appolloQuestionsListPa; let i = index">
-                        <div class="col-sm-10 col-xs-10 col-md-10">
-                          {{i+1}}. {{item.question}}
-                        </div>
-                        <div class="col-sm-2 col-xs-2 col-md-2 text-right">
-                          <mat-slide-toggle  (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
+                        <div class="col-sm-12 col-xs-12 col-md-12">
+                          <mat-checkbox  (change)="questionYes(i, $event)"></mat-checkbox> {{i+1}}. {{item.question}}
                         </div>
                       </div>
                     </div>

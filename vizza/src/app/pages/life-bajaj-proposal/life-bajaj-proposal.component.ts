@@ -365,10 +365,8 @@ export class LifeBajajProposalComponent implements OnInit {
   // add NOmineee
   addNominee(event) {
     if(this.nomineeDetails.valid) {
-      alert('1');
       console.log(this.nomineeDetails.get('itemsNominee').value.length,'valueeee')
       if(this.nomineeDetails.get('itemsNominee').value.length < 5) {
-        alert('2');
         let nomineeForm = this.nomineeDetails.get('itemsNominee') as FormArray;
         nomineeForm.push(this.nomineeItems());
       }
@@ -635,7 +633,9 @@ export class LifeBajajProposalComponent implements OnInit {
             }
           }
         }
-        sessionStorage.nomineAge = this.getAge;
+        if ( i == 0){
+          sessionStorage.nomineAge = this.getAge;
+        }
         if (this.getAge < 18) {
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(true);
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
@@ -733,10 +733,7 @@ export class LifeBajajProposalComponent implements OnInit {
               if (this.proposer.controls['occupationList'].value == "T" || this.proposer.controls['occupationList'].value == "N" || this.proposer.controls['occupationList'].value == "U") {
                 this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
               } else {
-
-                if (sessionStorage.lifeQuestions == '' || sessionStorage.lifeQuestions == undefined) {
                   this.mainQuestion();
-                }
                 stepper.next();
                 this.topScroll();
               }
@@ -851,23 +848,39 @@ samerelationShip(){
         }
 
       }
-      // let subQuedtionValid = true;
-      // for (let i = 0; i < this.allQuestionList.length; i++) {
-      //   for (let j = 0; j < this.allQuestionList[i].mainQuestion.length; j++) {
-      //     if (this.allQuestionList[i].mainQuestion[j].checked) {
-      //       for (let k = 0; k < this.allQuestionList[i].mainQuestion[j].subQuestion.length; k++) {
-      //         if (this.allQuestionList[i].mainQuestion[j].subQuestion[k].subQuestionText == '') {
-      //           subQuedtionValid = false;
-      //         }
-      //       }
-      //     }
-      //   }
-      // }
-      // console.log(subQuedtionValid, 'subQuedtionValid');
+      let subQuedtionValid = true;
+      for (let i = 0; i < this.allQuestionList.length; i++) {
+        for (let j = 0; j < this.allQuestionList[i].length; j++) {
+          if (this.allQuestionList[i][j].mainQuestion.checked) {
+            for (let k = 0; k < this.allQuestionList[i][j].mainQuestion.subQuestion.length; k++) {
+                if (this.allQuestionList[i][j].mainQuestion.subQuestion[k].subQuestionText == '') {
+                  subQuedtionValid = false;
+                }
+            }
+          }
+        }
+      }
 
+      console.log(subQuedtionValid, 'subQuedtionValid');
 
-      stepper.next();
-      this.topScroll();
+      if(subQuedtionValid) {
+        let familyDetailsValid = true;
+        if (this.allQuestionList[0][0].mainQuestion.checked) {
+          if(!this.familyDiseaseForm.valid) {
+            familyDetailsValid = false;
+          }
+        }
+        if(familyDetailsValid) {
+          stepper.next();
+          this.topScroll();
+        } else {
+          this.toastr.error('Please fill all mandatory family disease form details');
+        }
+
+      } else {
+        this.toastr.error('Please fill all mandatory medical questions');
+      }
+
 
 
 
@@ -889,22 +902,39 @@ samerelationShip(){
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
     console.log(this.nomineeDetails.valid, 'this.nomineeDetail.valid');
     console.log(this.nomineeDetails.get('itemsNominee')['controls'].length,'length');
-
-    for (let i=0; i<=this.nomineeDetails.get('itemsNominee')['controls'].length;i++){
-      console.log(this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.value,'forloop');
+    let sharePercentage = 0 ;
+    for (let i=0; i< this.nomineeDetails.get('itemsNominee')['controls'].length;i++){
+      console.log(this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.value,'value')
+      sharePercentage += parseInt(this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.value);
+      console.log(sharePercentage,'inloop')
     }
+    console.log(sharePercentage,'sharepercentageout');
+    let nomineeValid = true;
+    console.log(sessionStorage.nomineAge,'age')
+    if(sessionStorage.nomineAge != '' && sessionStorage.nomineAge != undefined) {
+      if(sessionStorage.nomineAge < 18) {
+        nomineeValid = false;
+      }
+    }
+    console.log(nomineeValid,'nomineeVLID');
       if (this.nomineeDetails.valid) {
-          if (sessionStorage.nomineAge < 18) {
+        if (sharePercentage == 100){
+          if (!nomineeValid) {
             if(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
-                stepper.next();
-                this.topScroll();
-            } else {
-                this.toastr.error('Please fill the appointee details');
-            }
-          } else {
               stepper.next();
               this.topScroll();
+            } else {
+              this.toastr.error('Please fill the appointee details');
+            }
+          } else {
+            stepper.next();
+            this.topScroll();
           }
+        }else{
+          this.toastr.error('Please fill the share percentage equal to 100');
+
+        }
+
       }
   }
 
