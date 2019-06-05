@@ -994,6 +994,8 @@ export class ReliagretravelproposalComponent implements OnInit {
                 'response': setMainRes
             });
         }
+        let sponserValidDob = true;
+
         if(this.getEnquiryDetails.travel_user_type == 'student') {
 
             for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {

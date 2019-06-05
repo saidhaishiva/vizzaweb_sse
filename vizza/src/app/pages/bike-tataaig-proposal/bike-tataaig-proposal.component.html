@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row apolloMunichProposal">
       <div class="col-md-12">
-        <mat-horizontal-stepper  #stepper>
+        <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
           <mat-step [stepControl]="">
           <ng-template matStepLabel > PROPOSER DETAILS</ng-template>
           <mat-accordion class=" w-100 float-left">
@@ -134,32 +134,29 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Flag" formControlName="driveflag" (change)="chooseflag($event)" required>
+                          <mat-select  placeholder="Flag" formControlName="driveflag" (change)="chooseflag($event)">
                             <mat-option value="Y">YES</mat-option>
                             <mat-option value="N">NO</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="proposer.controls.driveflag.errors?.required">Flag is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-placeholder>First Name<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput formControlName="driveFirstname" (keypress)="nameValidate($event)" autocomplete="off">
+                          <input matInput formControlName="driveFirstname" (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Last Name<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" >
+                          <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Gender<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <mat-select formControlName="driveGender" readonly>
-                            <mat-option value="Male">Male</mat-option>
-                            <mat-option value="Female">Female</mat-option>
-                            <mat-option value="Others">Others</mat-option>
+                            <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -445,23 +442,16 @@
               <section>
                 <h5 class="mt-3 sub-title"> PROPOSER DETAILS </h5>
                 <div class="row box-card">
-
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.proposerGender}}</li>
-                        <li class="list-group-item"><strong>Marital Status:</strong>{{proposerFormData.maritalStatus}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <ul class="m-0 list-group">
                         <li class="list-group-item" *ngIf="proposerFormData.proposerEmail != ''"><strong>Email Id:</strong> {{proposerFormData.proposerEmail}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.proposerMobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.proposerMobile}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.proposerAadhar != ''"><strong>Aadhar Id:</strong> {{proposerFormData.proposerAadhar}}</li>
+                        <li class="list-group-item"><strong>Marital Status:</strong>{{proposerFormData.maritalStatus}}</li>
                       </ul>
                     </div>
                   </div>
@@ -472,17 +462,28 @@
                         <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.Addressone}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.Addresstwo != ''"><strong>Address 2:</strong> {{proposerFormData.Addresstwo}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.Addressthree != ''"><strong>Address 3:</strong> {{proposerFormData.Addressthree}}</li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <h6 class="mt-4"></h6>
-                      <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.proposerPincode}}</li>
                         <li class="list-group-item"><strong>City:</strong> {{proposerFormData.proposerCity}}</li>
                         <li class="list-group-item"><strong>State:</strong> {{proposerFormData.proposerState}}</li>
                         <li class="list-group-item"><strong>District:</strong> {{proposerFormData.proposerDistrict}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                    <div class="p-3">
+                      <h6 class="color-blue"> DRIVER DETAILS </h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.driveFirstname}} {{proposerFormData.driveLastname}} </li>
+                        <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.driveGender}}</li>
+                        <li class="list-group-item"><strong>Age:</strong> {{proposerFormData.driveAge}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                    <div class="p-3">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Driving Experience:</strong> {{proposerFormData.drivingexp}}</li>
+                        <li class="list-group-item"><strong>Marital Status:</strong>{{proposerFormData.drivemaritalStatus}}</li>
                       </ul>
                     </div>
                   </div>
@@ -491,6 +492,16 @@
               <section>
                 <h5 class="mt-3 sub-title"> VEHICLE DETAILS </h5>
                 <div class="row box-card">
+                  <div class="col-md-6" *ngIf="vehicle.controls['Financetype'].value == true">
+                    <h6 class="mt-3 sub-title"> FINANCE DETAILS </h6>
+                    <div class="p-3">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>FINANCE TYPE:</strong> {{vehicalFormData.banktype}}</li>
+                        <li class="list-group-item"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}}</li>
+                        <li class="list-group-item"><strong>ADDRESS:</strong> {{vehicalFormData.Address}}</li>
+                      </ul>
+                    </div>
+                  </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
@@ -506,6 +517,14 @@
                 <div class="row box-card">
                   <div class="col-md-6">
                     <div class="p-3">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.precode}}</li>
+                        <li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preName}}</li>
+                        <li class="list-group-item"><strong>POLNO:</strong> {{previousFormData.preName}}</li>
+                        <li class="list-group-item"><strong>PIN code:</strong> {{previousFormData.prepincode}}</li>
+                      </ul>
+                    </div>
+                    <div class="p-3">
                       <h6 class="color-blue"> COMMUNICATION DETAILS </h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{previousFormData.preAddressone}}</li>
@@ -515,7 +534,17 @@
                       </ul>
                     </div>
                   </div>
-                </div>
+                    <div class="col-md-6">
+                      <div class="p-3">
+                        <h6 class="mt-4"></h6>
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item"><strong>City:</strong> {{previousFormData.preCity}}</li>
+                          <li class="list-group-item"><strong>State:</strong> {{previousFormData.preState}}</li>
+                          <li class="list-group-item"><strong>District:</strong> {{previousFormData.preDistrict}}</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
               </section>
               <section>
                 <h5 class="mt-3 sub-title"> NOMINEE  DETAILS </h5>
@@ -545,7 +574,7 @@
                   </form>
                 </div>
               </div>
-            </section>z
+            </section>
           </mat-step>
         </mat-horizontal-stepper>
       </div>

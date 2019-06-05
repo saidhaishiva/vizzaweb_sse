@@ -26,9 +26,9 @@
               <!--mobile view-->
             <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
               <mat-accordion class="w-100">
-                <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" [expanded]="i === 0" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)">
-                  <mat-expansion-panel-header>
-                    <mat-panel-title class="nav-item" style="height: 40px" *ngIf="keys.type == 1 || keys.type == 0">
+                <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index"  [style.background-color]="keys.type == 1 ? 'rgb(230, 195, 196)' : 'rgb(236, 52, 60)'" [ngClass]="{'active': id === i }" (click)="addClass(id=i, keys.type)" [expanded]="i === 0">
+                  <mat-expansion-panel-header   class="nav-item" *ngIf="keys.type == 1 || keys.type == 0">
+                    <mat-panel-title style="height: 40px">
                       <a matLine  style="font-weight: bold !important;" matTooltip="{{keys.kf_name }}"> {{keys.kf_name | titlecase}}</a>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
