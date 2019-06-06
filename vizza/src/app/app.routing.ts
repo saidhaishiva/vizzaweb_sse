@@ -262,7 +262,7 @@ export const routes: Routes = [
             { path: 'bikepremium', component: BikePremiumListComponent, data: { breadcrumb: 'Bike Premium'} },
             { path: 'life-premium-list', component: TermLifePremiumListComponent, data: { breadcrumb: 'Life Premium'} },
             { path: 'bike-shriram-proposal/:stepper', component: BikeShriramProposalComponent, data:{ breadcrumb: 'Bike-shriram-proposal'}},
-            { path: 'royalsundaram-motor-payment-success/:stepper', component: RoyalsundaramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Bike-Royal-Payment'}},
+            { path: 'royalsundaram-motor-payment-success/:status/:proId', component: RoyalsundaramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Bike-Royal-Payment'}},
             { path: 'life-bajaj-proposal/:stepper', component: LifeBajajProposalComponent, data:{ breadcrumb: 'life-bajaj-proposal'}},
             { path: 'shriram-motor-payment-success/:status/:proId', component: ShriramMotorPaymentSuccessComponent, data:{ breadcrumb: 'Shriram Motor'}},
             { path: 'bike-royal-proposal/:stepper', component: BikeRoyalProposalComponent, data:{ breadcrumb: 'Bike-Royal-proposal'}},

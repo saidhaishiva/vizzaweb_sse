@@ -41,7 +41,7 @@ export class RoyalsundaramMotorPaymentSuccessComponent implements OnInit {
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       // 'policy_id' : this.proposalId,
-      "proposal_id": "0",
+      "proposal_id": this.proposalId,
       "mail_status": "0"
     }
     this.settings.loadingSpinner = true;

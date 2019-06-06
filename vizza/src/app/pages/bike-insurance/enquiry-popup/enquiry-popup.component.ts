@@ -46,6 +46,8 @@ export class EnquiryPopupComponent implements OnInit {
   public enquiryFormData : any;
   public cityDetails : any;
   public vehicalNo : any;
+  public options : any;
+  public config : any;
   constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
   public dialogRef: MatDialogRef<EnquiryPopupComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -72,6 +74,13 @@ export class EnquiryPopupComponent implements OnInit {
       'city':''
     });
    console.log(this.dataList, 'hgfgdjgh');
+    this.config = {
+      displayKey: "city", //if objects array passed which key to be displayed defaults to description
+      search: true,
+      limitTo: 5
+    };
+
+
   }
 
   ngOnInit() {
@@ -282,6 +291,7 @@ export class EnquiryPopupComponent implements OnInit {
   public citySuccess(successData){
     if (successData.IsSuccess) {
       this.cityDetails = successData.ResponseObject;
+          //
     }
   }
   public cityFailure(error) {

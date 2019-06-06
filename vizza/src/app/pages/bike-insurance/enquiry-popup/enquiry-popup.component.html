@@ -3,9 +3,9 @@
     clear
   </i>
 </div>
-<div>Verify Your Vehicle Details For {{vehicalNo}}</div>
 
 <form [formGroup]="vehicalDetails">
+  <h5>Verify Your Vehicle Details For {{vehicalDetails.controls['vehicalNumber'].value}}</h5>
   <div class="row">
     <!--<div class="col-md-3">-->
       <!--<mat-form-field class="w-100">-->
@@ -108,20 +108,14 @@
       </mat-form-field>
     </div>
     <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <mat-select placeholder="Variant"  formControlName="variant"  required>
-          <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-        </mat-select>
-        <mat-error *ngIf="vehicalDetails.controls.variant.errors?.required">Variant is required</mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col-md-3">
-      <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Registration City"  matInput formControlName="city"  [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+      <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails"></ngx-select-dropdown>
+
+      <!--<mat-form-field class="example-full-width">-->
+        <!--<input type="text" placeholder="Registration City"  matInput [matAutocomplete]="auto">-->
+        <!--<mat-autocomplete #auto="matAutocomplete">-->
+          <!--<mat-option *ngFor="let paCity of cityDetails" value="{{city}}" > {{city}} </mat-option>-->
+        <!--</mat-autocomplete>-->
+      <!--</mat-form-field>-->
       <!--<mat-form-field class="w-100">-->
         <!--<mat-select placeholder="Registration City"  formControlName="city"  required>-->
           <!--<input matInput placeholder="Search By Speciality..." (keyup)="updateFilter($event)">-->
@@ -131,6 +125,15 @@
         <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">Variant is required</mat-error>-->
       <!--</mat-form-field>-->
     </div>
+    <div class="col-md-3">
+      <mat-form-field class="w-100">
+        <mat-select placeholder="Variant"  formControlName="variant"  required>
+          <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+        </mat-select>
+        <mat-error *ngIf="vehicalDetails.controls.variant.errors?.required">Variant is required</mat-error>
+      </mat-form-field>
+    </div>
+
     <div class="col-md-12 text-center mt-3">
       <button mat-raised-button color="primary"  (click)="enquiryQuation(vehicalDetails.value)">Submit</button>
     </div>

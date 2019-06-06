@@ -13,6 +13,7 @@ import {ScrollToModule} from 'ng2-scroll-to';
 import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { SelectDropDownModule } from 'ngx-select-dropdown';
 
 // import { ImageUploadModule } from "angular2-image-upload";
 
@@ -310,6 +311,7 @@ import {PaymentModeValidate} from './pages/term-life-premium-list/term-life-prem
         SharedModule,
         PipesModule,
         NgxMaterialTimepickerModule.forRoot(),
+        SelectDropDownModule,
         // AmazingTimePickerModule,
         routing
     ],
