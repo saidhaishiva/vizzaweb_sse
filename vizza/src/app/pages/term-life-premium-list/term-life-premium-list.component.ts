@@ -232,10 +232,10 @@ export class TermLifePremiumListComponent implements OnInit {
                     if(value.payment_mode == 'yearly' && parseInt(value.totalpremium) < 5000) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 2550) {
+                    if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 1300) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 1300) {
+                    if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 2550) {
                         paymentModeValid = false;
                     }
                     if(value.payment_mode == 'monthly' && parseInt(value.totalpremium) < 450) {
@@ -262,10 +262,10 @@ export class TermLifePremiumListComponent implements OnInit {
             if(value.payment_mode == 'yearly' && parseInt(value.totalpremium) < 5000) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 2550) {
+            if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 1300) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 1300) {
+            if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 2550 ) {
                 paymentModeValid = false;
             }
             if(value.payment_mode == 'monthly' && parseInt(value.totalpremium) < 450) {
@@ -296,7 +296,12 @@ export class TermLifePremiumListComponent implements OnInit {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                <p> Please change the Suminsured Amount or payment Mode</p>
+                <p> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.
+
+                    Monthly - Rs. 450
+                    Quarterly - Rs. 1300
+                    Annual - Rs. 2550
+                    Yearly - Rs. 5000</p>
                 </div>
             </div>
         </div>

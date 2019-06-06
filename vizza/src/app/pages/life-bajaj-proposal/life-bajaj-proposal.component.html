@@ -15,7 +15,7 @@
                     <div class="row">
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title"  required>
+                          <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" required>
                             <mat-option *ngFor="let list of TitleList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
@@ -57,7 +57,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="gender" required>
+                          <mat-select placeholder="Gender" formControlName="gender" (change)=changeGender() required>
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
                           </mat-select>
@@ -139,13 +139,13 @@
                           <mat-error *ngIf="proposer.controls.weightChanged.errors?.required">Weight changed is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value != 'SAME'">
+                      <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value == 'GAINED' || proposer.controls['weightChanged'].value == 'LOST' ">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Changed Weight" maxlength="3" formControlName="inbetweenweight" (keypress)="numberValidate($event)" autocomplete="off">
                           <mat-error *ngIf="proposer.controls.inbetweenweight.errors?.required">Enter changed Weight</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value != 'SAME'">
+                      <div class="col-md-3" *ngIf="proposer.controls['weightChanged'].value == 'GAINED' || proposer.controls['weightChanged'].value == 'LOST' ">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Reason for weight changed" formControlName="weightChangedreason" (change)="changeWeightChanged()" class="w-100">
                             <mat-option *ngFor="let list of weightList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>
@@ -186,7 +186,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Country Of Residence" formControlName="countryOfResid" (change)="changeCountry()" required  class="w-100">
+                          <mat-select  placeholder="Country Of Residence" formControlName="countryOfResid" (change)="changeCountry()" required (change)="changeCountryy()" class="w-100">
                             <mat-option *ngFor="let list of countryList | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.countryOfResid.errors?.required">Country of Residence is required</mat-error>
@@ -669,13 +669,15 @@
                                   </div>
                                   <div class="col-md-3" *ngIf="familyDiseaseForm['controls'].family['controls'][i]['controls'].health_status.value == 'Not Alive'">
                                     <mat-form-field class="w-100">
-                                      <input matInput placeholder="Died Age"  formControlName="died_age" (keypress)="numberValidate($event)"  maxlength="3" autocomplete="off" >
+                                      <mat-placeholder >Age When Died<span class="error">*</span></mat-placeholder>
+                                      <input matInput formControlName="died_age" (keypress)="numberValidate($event)"  maxlength="3" autocomplete="off" >
                                       <mat-error *ngIf="familyDiseaseForm.invalid">Died Age is required</mat-error>
                                     </mat-form-field>
                                   </div>
                                   <div class="col-md-3" *ngIf="familyDiseaseForm['controls'].family['controls'][i]['controls'].health_status.value == 'Not Alive'">
                                     <mat-form-field class="w-100">
-                                      <mat-select  placeholder="Cause Of Death" formControlName="cause_death" (change)="changeCauseOfDeath(i)" class="w-100"  >
+                                      <mat-placeholder >Cause Of Death  <span class="error">* </span></mat-placeholder>
+                                      <mat-select   formControlName="cause_death" (change)="changeCauseOfDeath(i)" class="w-100"  >
                                         <mat-option *ngFor="let list of causeOfDeathList | keys" [value]= list.key> {{list.value}} </mat-option>
                                       </mat-select>
                                       <mat-error *ngIf="familyDiseaseForm.invalid">Cause Of Death is required</mat-error>
@@ -782,13 +784,13 @@
                         <div class="row" *ngIf="nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value">
                           <div class="col-md-4">
                             <mat-form-field class="w-100" *ngIf="i ==0" >
-                              <mat-placeholder required>Apointee Name </mat-placeholder >
+                              <mat-placeholder>Apointee Name <span class="error">*</span></mat-placeholder >
                               <input matInput formControlName="aName" (keypress)="nameValidate($event)"  autocomplete="off"  >
                             </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
-                              <mat-placeholder required>Appointee DOB (DD/MM/YYYY)</mat-placeholder>
+                              <mat-placeholder >Appointee DOB (DD/MM/YYYY)<span class="error">*</span></mat-placeholder>
                               <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="appointeeDob" (dateInput)="addEventNominee($event,i ,'appointee')" (dateChange)="addEventNominee($event,i, 'appointee')" minlength="10" maxlength="10"
                                      autocomplete="off" >
                               <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
@@ -799,14 +801,14 @@
                           </div>
                           <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
-                              <mat-placeholder required>Appointee Relation To Nominee </mat-placeholder>
+                              <mat-placeholder >Appointee Relation To Nominee <span class="error">*</span></mat-placeholder>
                               <input matInput formControlName="appointeeRelationToNominee" (keypress)="nameValidate($event)"   autocomplete="off" >
                               <mat-error *ngIf="nomineeDetails.invalid">Appointee Relation To Nominee is required</mat-error>
                             </mat-form-field>
                           </div>
                           <div class="col-md-4" *ngIf="i ==0">
                             <mat-form-field class="w-100">
-                              <mat-placeholder required>Relation To Insured </mat-placeholder>
+                              <mat-placeholder >Relation To Insured <span class="error">*</span></mat-placeholder>
                               <mat-select formControlName="relationToInsured" class="w-100" (change)="changeNomineeRelation()" >
                                 <mat-option *ngFor="let list of apointeRelationList | keys" [value]= list.key> {{list.value}} </mat-option>
                               </mat-select>
@@ -967,7 +969,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}.{{proposerFormData.firstName}} {{proposerFormData.midName}} {{proposerFormData.lastName}} </li>
+                      <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.titleValue}}.{{proposerFormData.firstName}} {{proposerFormData.midName}} {{proposerFormData.lastName}} </li>
                       <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.gender}} </li>
                       <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
@@ -989,7 +991,7 @@
                       <li class="list-group-item" *ngIf="proposerFormData.jointAcName != ''"><strong>In case of transaction in joint names:</strong> {{proposerFormData.jointAcName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.modeOfTransaction != ''"><strong>Mode Of Transaction:</strong> {{proposerFormData.modeOfTransaction}}</li>
 
-                      <li class="list-group-item"><strong style="width: 235px">If applied for PAN and it is not yet:</strong>
+                      <li class="list-group-item" *ngIf="!proposerFormData.isPancard"><strong style="width: 235px">If applied for PAN and it is not yet:</strong>
                         <span *ngIf="proposerFormData.isAppliedPan">Yes</span>
                         <span *ngIf="!proposerFormData.isAppliedPan">No</span>
                       </li>
@@ -1015,7 +1017,7 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Height:</strong> {{proposerFormData.height}}</li>
                       <li class="list-group-item"><strong>Weight:</strong> {{proposerFormData.weight}}</li>
-                      <li class="list-group-item"><strong style="width: 375px">In the past six months has your body weight changed:</strong> {{proposerFormData.weightChanged}}</li>
+                      <li class="list-group-item"><strong style="width: 375px">Change in weight past 6 months:</strong>{{proposerFormData.weightChanged}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.weightChanged != 'SAME' && proposerFormData.inbetweenweight !=''">
                         <strong>Changed Weight:</strong> {{proposerFormData.inbetweenweight}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.weightChanged != 'SAME' && proposerFormData.inbetweenweight !=''">
@@ -1165,7 +1167,7 @@
                                 <th>Family Member</th>
                                 <th>Age</th>
                                 <th>Health Status</th>
-                                <th>Died Age</th>
+                                <th>Age When Died</th>
                                 <th>Cause Of Death</th>
                               </tr>
                               </thead>
