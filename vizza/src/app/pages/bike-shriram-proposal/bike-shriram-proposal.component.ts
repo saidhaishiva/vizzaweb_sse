@@ -1141,6 +1141,7 @@ export class BikeShriramProposalComponent implements OnInit {
           isFinanced:stepper2.isFinanced,
         pincode:stepper2.pincode,
         state:stepper2.state,
+        city:stepper2.city,
         stateName:stepper2.stateName,
         cityName:stepper2.cityName,
       });
