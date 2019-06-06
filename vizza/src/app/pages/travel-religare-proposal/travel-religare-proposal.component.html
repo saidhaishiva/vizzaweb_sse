@@ -141,7 +141,7 @@
 
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <input matInput placeholder="Course details"  formControlName="coursedetails" (keypress)="nameValidate($event)" autocomplete="off" required>
-                            <mat-error *ngIf="religarePersonal.controls.universityname.errors?.required">Course details is required</mat-error>
+                            <mat-error *ngIf="religarePersonal.controls.coursedetails.errors?.required">Course details is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <input matInput placeholder="University Name"  formControlName="universityname" (keypress)="nameValidate($event)" autocomplete="off" required>
@@ -149,7 +149,7 @@
                           </mat-form-field></div>
                           <div class="col-md-4"><mat-form-field class="w-100">
                             <input matInput placeholder="University Address"  formControlName="universityaddress" autocomplete="off" required>
-                            <mat-error *ngIf="religarePersonal.controls.universityname.errors?.required">University Address is required</mat-error>
+                            <mat-error *ngIf="religarePersonal.controls.universityaddress.errors?.required">University Address is required</mat-error>
                           </mat-form-field></div>
 
                           <h6 class="col-md-12 color-blue mt-3 mb-4">GUIDE DETAILS</h6>

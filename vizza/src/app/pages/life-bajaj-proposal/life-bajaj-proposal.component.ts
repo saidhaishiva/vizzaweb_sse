@@ -160,6 +160,7 @@ export class LifeBajajProposalComponent implements OnInit {
 
       this.proposer = this.Proposer.group({
       title: ['', Validators.required],
+      titleValue: [''],
       firstName: ['', Validators.required],
       midName: '',
       lastName: ['', Validators.required],
@@ -491,12 +492,17 @@ export class LifeBajajProposalComponent implements OnInit {
 
   // proposer page
   changeGender() {
-    if (this.proposer.controls['title'].value == 'MR') {
-      this.proposer.controls['gender'].patchValue('MALE');
-    } else {
-      this.proposer.controls['gender'].patchValue('FEMALE');
+    if(this.proposer.controls['countryOfResid'].value !='') {
+      this.mainQuestion();
     }
   }
+
+  changeCountryy(){
+    if(this.proposer.controls['gender'].value !='') {
+      this.mainQuestion();
+    }
+  }
+
 
   alternateChange(event) {
     if (event.target.value.length == 10) {
@@ -686,6 +692,7 @@ export class LifeBajajProposalComponent implements OnInit {
             }
           }
         }
+        sessionStorage.appointeeAge = this.getAge;
 
       }
     }
@@ -733,7 +740,6 @@ export class LifeBajajProposalComponent implements OnInit {
               if (this.proposer.controls['occupationList'].value == "T" || this.proposer.controls['occupationList'].value == "N" || this.proposer.controls['occupationList'].value == "U") {
                 this.toastr.error('Sorry, you are not allowed to purchase policy .Please Change the Occupation');
               } else {
-                  this.mainQuestion();
                 stepper.next();
                 this.topScroll();
               }
@@ -742,7 +748,7 @@ export class LifeBajajProposalComponent implements OnInit {
             }
 
           } else{
-            this.toastr.error('spouse age should be greater than equal to 18');
+            this.toastr.error('Spouse age should be greater than or equal to 18.');
 
           }
         }else {
@@ -902,29 +908,39 @@ samerelationShip(){
     sessionStorage.lifeBajaiNomineeDetails = JSON.stringify(value);
     console.log(this.nomineeDetails.valid, 'this.nomineeDetail.valid');
     console.log(this.nomineeDetails.get('itemsNominee')['controls'].length,'length');
+    //calculate share percentage
     let sharePercentage = 0 ;
     for (let i=0; i< this.nomineeDetails.get('itemsNominee')['controls'].length;i++){
-      console.log(this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.value,'value')
       sharePercentage += parseInt(this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].sharePercentage.value);
-      console.log(sharePercentage,'inloop')
     }
-    console.log(sharePercentage,'sharepercentageout');
+    //nomineeAge validate
     let nomineeValid = true;
-    console.log(sessionStorage.nomineAge,'age')
     if(sessionStorage.nomineAge != '' && sessionStorage.nomineAge != undefined) {
       if(sessionStorage.nomineAge < 18) {
         nomineeValid = false;
+      }
+    }
+    // appointeeAge validatate
+    let appointeeAge = false;
+    if(sessionStorage.appointeeAge != '' && sessionStorage.appointeeAge != undefined) {
+      if(sessionStorage.appointeeAge > 18) {
+        appointeeAge = true;
       }
     }
     console.log(nomineeValid,'nomineeVLID');
       if (this.nomineeDetails.valid) {
         if (sharePercentage == 100){
           if (!nomineeValid) {
-            if(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value !='' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value !='' ) {
-              stepper.next();
-              this.topScroll();
-            } else {
-              this.toastr.error('Please fill the appointee details');
+            if(appointeeAge) {
+              if (this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value != '') {
+                stepper.next();
+                this.topScroll();
+              } else {
+                this.toastr.error('Please fill the appointee details');
+              }
+            }else{
+              this.toastr.error('Appointee Age should be greater than 18.');
+
             }
           } else {
             stepper.next();
@@ -1700,7 +1716,7 @@ samerelationShip(){
       "country": this.proposer.controls['countryOfResid'].value
 
     }
-    this.settings.loadingSpinner = true;
+    this.settings.loadingSpinner = false;
     this.termService.getMainQues(data).subscribe(
         (successData) => {
           this.MainQuesSuccess(successData);
@@ -1806,6 +1822,7 @@ samerelationShip(){
     this.proposer.controls['weightChangedReasonName'].patchValue(this.weightList[this.proposer.controls['weightChangedreason'].value]);
   }
 
+
   changeMarital() {
     this.proposer.controls['maritalStatusName'].patchValue(this.maritalStatusList[this.proposer.controls['maritalStatus'].value]);
     if(this.proposer['controls'].maritalStatus.value == 'M'){
@@ -1846,6 +1863,13 @@ samerelationShip(){
 
   changeLanguage() {
     this.proposer.controls['languageName'].patchValue(this.languageList[this.proposer.controls['language'].value]);
+
+  }
+
+
+  changeTitle(){
+    this.proposer.controls['titleValue'].patchValue(this.TitleList[this.proposer.controls['title'].value]);
+    console.log(this.TitleList[this.proposer.controls['title'].value],'tittle value')
 
   }
 
@@ -2141,6 +2165,7 @@ samerelationShip(){
 
       this.proposer = this.Proposer.group({
         title: lifeBajaj1.title,
+        titleValue: lifeBajaj1.title,
         firstName: lifeBajaj1.firstName,
         midName: lifeBajaj1.midName,
         lastName: lifeBajaj1.lastName,
@@ -2264,6 +2289,8 @@ samerelationShip(){
 
      if (sessionStorage.lifeBajaiNomineeDetails!= '' && sessionStorage.lifeBajaiNomineeDetails != undefined) {
           let nomineeDetails = JSON.parse(sessionStorage.lifeBajaiNomineeDetails);
+          console.log(nomineeDetails.itemsNominee[0].nnName,'patchval');
+          console.log(this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].nnName,'nnName');
           for (let i = 0; i < nomineeDetails.itemsNominee.length; i++) {
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nnName.patchValue(nomineeDetails.itemsNominee[i].nnName);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(this.datepipe.transform(nomineeDetails.itemsNominee[i].nDob, 'y-MM-dd'));
