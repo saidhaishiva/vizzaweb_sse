@@ -598,13 +598,17 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Policy Type:</strong> {{vehicalFormData.policyTypeName}}</li>
                                             <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''">><strong>Nil Depreciation Cover:</strong> {{vehicalFormData.nilDepreciationCover}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation Cover:</strong> {{vehicalFormData.nilDepreciationCover}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong><span *ngIf="vehicalFormData.electricalAccess == 'True'">Yes</span><span *ngIf="vehicalFormData.electricalAccess == 'False'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccessSI != ''"><strong>ElectricalAccessSI:</strong> {{vehicalFormData.electricalAccessSI}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == 'True'">Yes</span><span *ngIf="vehicalFormData.nonElectricalAccess == 'False'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.nonElectricalAccessSI != ''"><strong>Non Electrical AccessSI:</strong> {{vehicalFormData.nonElectricalAccessSI}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == 'True'">Yes</span><span *ngIf="vehicalFormData.paforUnnamed == 'False'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.isFinanced == 'True'">Yes</span><span *ngIf="vehicalFormData.isFinanced == 'False'">No</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamedSI != ''"><strong>Pa For Unnamed SI:</strong> {{vehicalFormData.paforUnnamedSI}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationBankName}}</li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -613,8 +617,6 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Vehicle Colour:</strong> {{vehicalFormData.vehicleColour}}</li>
                                             <li class="list-group-item"><strong>AddOn Package:</strong> {{vehicalFormData.addonPackage}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamedSI != ''"><strong>Pa For Unnamed SI:</strong> {{vehicalFormData.paforUnnamedSI}}</li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress1 != ''"><strong>Hypothecation Address1:</strong> {{proposerFormData.hypothecationAddress1}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress2 != ''"><strong>Hypothecation Address2:</strong> {{proposerFormData.hypothecationAddress2}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationAddress3 != ''"><strong>Hypothecation Address3:</strong> {{proposerFormData.hypothecationAddress3}}</li>
