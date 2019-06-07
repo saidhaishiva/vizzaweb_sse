@@ -30,13 +30,13 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="personalFirstname"  (keypress)="nameTry($event)"  autocomplete="off" required >
+                          <input matInput placeholder="First Name" formControlName="personalFirstname" (keypress)="nameTry($event)"  autocomplete="off" required >
                           <mat-error *ngIf="personal.controls.personalFirstname.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="personalLastname"  (keypress)="nameValidate($event)"   autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="personalLastname" (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="personal.controls.personalLastname.errors?.required">Last Name is required</mat-error>
 
                         </mat-form-field>

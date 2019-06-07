@@ -1939,8 +1939,12 @@ export class ReligareHealthProposalComponent implements OnInit {
     // public occupationCodeFailure(error) {
     // }
     nameTry(event){
+         console.log(event,'evnt');
+        if(event.code == 'Space'){
+            event.preventDefault();
+        }
         if (event.charCode !== 0) {
-            const pattern = /^/;
+            const pattern = /[a-zA-Z ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
                 event.preventDefault();
