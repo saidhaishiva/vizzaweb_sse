@@ -47,6 +47,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public familyDiseaseForm: FormGroup;
   public itemsNominee: any;
   public proposerdateError: any;
+  public transactiondateError: any;
   public settings: Settings;
   public bajajAge: any;
   public spouseAge:any;
@@ -249,6 +250,7 @@ export class LifeBajajProposalComponent implements OnInit {
       isPancard: true,
       jointAcName:'',
       amtTransaction:'',
+        dateoftransaction:'',
       isAppliedPan:'',
       dateofapplication:'',
       ackNumber:'',
@@ -306,6 +308,8 @@ export class LifeBajajProposalComponent implements OnInit {
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
       this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
+
     this.paIdList();
     this.ageProof();
     this.maritalStatus();
@@ -528,42 +532,63 @@ export class LifeBajajProposalComponent implements OnInit {
     return age;
   }
 
-  addEvent(event) {
-    if (event.value != null) {
-      let selectedDate = '';
-      this.bajajAge = '';
-      let dob = '';
-      if (typeof event.value._i == 'string') {
-        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-        if (pattern.test(event.value._i) && event.value._i.length == 10) {
-          this.proposerdateError = '';
-        } else {
-          this.proposerdateError = 'Enter Valid Date';
+  addEvent(event,type) {
+
+      if(type =='trasaction'){
+        if (event.value != null) {
+
+          if (typeof event.value._i == 'string') {
+            const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+            if (pattern.test(event.value._i) && event.value._i.length == 10) {
+              this.transactiondateError = '';
+            } else {
+              this.transactiondateError = 'Enter Valid Date';
+            }
+
+          } else if (typeof event.value._i == 'object') {
+            // dob = this.datepipe.transform(event.value, 'MMM d, y');
+            this.transactiondateError = '';
+          }
+
         }
-        selectedDate = event.value._i;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        if (selectedDate.length == 10) {
-          this.bajajAge = this.ageCalculate(dob);
-          sessionStorage.bajajproposerAge = this.bajajAge;
+      }else{
+        if (event.value != null) {
+          let selectedDate = '';
+          this.bajajAge = '';
+          let dob = '';
+          if (typeof event.value._i == 'string') {
+            const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+            if (pattern.test(event.value._i) && event.value._i.length == 10) {
+              this.proposerdateError = '';
+            } else {
+              this.proposerdateError = 'Enter Valid Date';
+            }
+            selectedDate = event.value._i;
+            dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            if (selectedDate.length == 10) {
+              this.bajajAge = this.ageCalculate(dob);
+              sessionStorage.bajajproposerAge = this.bajajAge;
+
+            }
+
+          } else if (typeof event.value._i == 'object') {
+            // dob = this.datepipe.transform(event.value, 'MMM d, y');
+            dob = this.datepipe.transform(event.value, 'y-MM-dd');
+            if (dob.length == 10) {
+              this.bajajAge = this.ageCalculate(dob);
+              sessionStorage.bajajproposerAge = this.bajajAge;
+
+            }
+            this.proposerdateError = '';
+          }
+          if(this.bajajAge!='')
+          {
+            this.proposer.controls['age'].patchValue(this.bajajAge);
+          }
 
         }
 
-      } else if (typeof event.value._i == 'object') {
-        // dob = this.datepipe.transform(event.value, 'MMM d, y');
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        if (dob.length == 10) {
-          this.bajajAge = this.ageCalculate(dob);
-          sessionStorage.bajajproposerAge = this.bajajAge;
-
-        }
-        this.proposerdateError = '';
       }
-      if(this.bajajAge!='')
-      {
-        this.proposer.controls['age'].patchValue(this.bajajAge);
-      }
-
-    }
   }
 
   addEventSpouse(event) {
@@ -1868,8 +1893,10 @@ samerelationShip(){
 
 
   changeTitle(){
+
     this.proposer.controls['titleValue'].patchValue(this.TitleList[this.proposer.controls['title'].value]);
     console.log(this.TitleList[this.proposer.controls['title'].value],'tittle value')
+    console.log(this.proposer.controls['titleValue'],'tittle2 value')
 
   }
 
@@ -2010,7 +2037,7 @@ samerelationShip(){
       },
       "form60": {
           "amountOfTran": this.proposer.controls['amtTransaction'].value,
-          "dateOfTran": this.proposer.controls['dateofapplication'].value !='' && this.proposer.controls['dateofapplication'].value != null ? this.datepipe.transform(this.proposer.controls['dateofapplication'].value,'y-MM-dd') : '',
+          "dateOfTran": this.proposer.controls['dateoftransaction'].value !='' && this.proposer.controls['dateoftransaction'].value != null ? this.datepipe.transform(this.proposer.controls['dateoftransaction'].value,'y-MM-dd') : '',
           "jointAccPersonNames": this.proposer.controls['jointAcName'].value,
           "modeOfTransaction": this.proposer.controls['modeOfTransaction'].value,
           "panApplicationDate": this.proposer.controls['dateofapplication'].value !='' && this.proposer.controls['dateofapplication'].value != null ? this.datepipe.transform(this.proposer.controls['dateofapplication'].value,'y-MM-dd') : '',
@@ -2165,7 +2192,7 @@ samerelationShip(){
 
       this.proposer = this.Proposer.group({
         title: lifeBajaj1.title,
-        titleValue: lifeBajaj1.title,
+        titleValue: lifeBajaj1.titleValue,
         firstName: lifeBajaj1.firstName,
         midName: lifeBajaj1.midName,
         lastName: lifeBajaj1.lastName,
@@ -2183,6 +2210,7 @@ samerelationShip(){
         isPancard:lifeBajaj1.isPancard,
         jointAcName:lifeBajaj1.jointAcName,
         amtTransaction:lifeBajaj1.amtTransaction,
+        dateoftransaction:lifeBajaj1.dateoftransaction,
         isAppliedPan:lifeBajaj1.isAppliedPan,
         ackNumber:lifeBajaj1.ackNumber,
         totalIncome:lifeBajaj1.totalIncome,
@@ -2319,6 +2347,21 @@ samerelationShip(){
               this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death.patchValue(familyMemberDetails[i].cause_death);
               this.familyDiseaseForm['controls'].family['controls'][i]['controls'].cause_death_name.patchValue(familyMemberDetails[i].cause_death_name);
           }
+      }
+
+  }
+  changeQuestion(index) {
+      console.log(index,'index');
+      console.log(this.allQuestionList[0][0].mainQuestion.checked, 'lop');
+      if(index == 0) {
+
+        if (this.allQuestionList[0][0].mainQuestion.checked == false) {
+          this.familyDiseaseForm = this.Proposer.group({
+            'family': this.Proposer.array([
+              this.getFamilyContols()
+            ])
+          });
+        }
       }
 
   }

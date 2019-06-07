@@ -158,7 +158,7 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="col-md-6"><mat-form-field class="w-100">
-                                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  (input)="getPostalCode($event.target.value)" formControlName="rpincode"autocomplete="off"  required>
+                                        <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  (input)="getresPostalCode($event.target.value)" formControlName="rpincode"autocomplete="off"  required>
                                       <mat-error *ngIf="proposer.controls.rpincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                       <mat-error *ngIf="proposer.controls.rpincode.hasError('required')">Pincode required</mat-error>
                                       <mat-error *ngIf="proposer.controls.rpincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -198,7 +198,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="vehicle Mostly DrivenOn"  formControlName="vehicleMostlyDrivenOn" (change)="getVehicalMostly()" required>
+                          <mat-select placeholder="vehicle Mostly Driven On"  formControlName="vehicleMostlyDrivenOn" (change)="getVehicalMostly()" required>
                             <mat-option *ngFor="let type of drivenList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
                           </mat-select>
                             <mat-error *ngIf="vehical.controls.vehicleMostlyDrivenOn.errors?.required">vehicle Mostly DrivenOn is required</mat-error>
@@ -219,6 +219,11 @@
                                 <input matInput placeholder="Company Name"  formControlName="companyName"  autocomplete="off">
                             </mat-form-field>
                         </div>
+                        <div class="col-md-3" *ngIf="enquiryFormData.business_type == '1'">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Type Of Cover"  formControlName="typeOfCover"  autocomplete="off">
+                            </mat-form-field>
+                        </div>
 
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
@@ -229,7 +234,7 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Average MonthlyMileageRun"  formControlName="averageMonthlyMileageRun"  required>
+                                <mat-select placeholder="Average Monthly Mileage Run"  formControlName="averageMonthlyMileageRun"  required>
                                     <mat-option *ngFor="let vehiclebk of milageList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="vehical.controls.averageMonthlyMileageRun.errors?.required">Average MonthlyMileageRun is required</mat-error>
@@ -259,12 +264,12 @@
                               <div class="row" [formGroupName]="i">
                                    <div class="col-md-3">
                                       <mat-form-field class="w-100">
-                                          <input matInput placeholder="NameOfElectronicAccessories "  formControlName="NameOfElectronicAccessories"  autocomplete="off">
+                                          <input matInput placeholder="Name Of Electronic Accessories "  formControlName="NameOfElectronicAccessories"  autocomplete="off">
                                       </mat-form-field>
                                   </div>
                                   <div class="col-md-3">
                                       <mat-form-field class="w-100">
-                                          <input matInput placeholder="MakeModel "  formControlName="MakeModel"  autocomplete="off">
+                                          <input matInput placeholder="Make Model "  formControlName="MakeModel"  autocomplete="off">
                                       </mat-form-field>
                                   </div>
                                   <div class="col-md-3">
@@ -428,7 +433,7 @@
 
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Age" required  formControlName="nomineeAge" (keypress)="numberValidate($event)" (input)="ageNominee()" autocomplete="off">
+                          <input matInput placeholder="Age" required maxlength="3" formControlName="nomineeAge" (keypress)="numberValidate($event)" (input)="ageNominee()" autocomplete="off">
                         </mat-form-field>
                           <mat-error *ngIf="nomineeDetail.controls.nomineeAge.errors?.required">Age is required</mat-error>
 
@@ -442,24 +447,24 @@
                         </mat-form-field>
                       </div>
                     </div>
-                    <div *ngIf="apponiteeList">
+                    <div *ngIf="nomineeDetail.controls['nomineeAge'].value <= 17">
                       <div class="row">
                           <h6 class="color-blue">APPONITEE DETAILS</h6>
                       </div>
                       <div class="row">
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Apponitee Name"  formControlName="appointeeName" (keypress)="nameValidate($event)" autocomplete="off">
+                            <input matInput placeholder="Apponitee Name"  formControlName="appointeeName" (keypress)="nameValidate($event)" [required]="nomineeDetail.controls['nomineeAge'].value <= 17" autocomplete="off">
                           </mat-form-field>
                         </div>
                           <div class="col-md-4">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Age"  formControlName="appointeeAge" (keypress)="numberValidate($event)" autocomplete="off">
+                                  <input matInput placeholder="Age" maxlength="3" formControlName="appointeeAge" [required]="nomineeDetail.controls['nomineeAge'].value <= 17" (keypress)="numberValidate($event)" autocomplete="off">
                               </mat-form-field>
                           </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship"  >
+                            <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship" [required]="nomineeDetail.controls['nomineeAge'].value <= 17"  >
                               <mat-option *ngFor="let paCity of nomineeRelation | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                             </mat-select>
                             <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
@@ -483,7 +488,7 @@
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-4">
-                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name:{{productDetails.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></h4>
+                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{productDetails.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></h4>
               </div>
               <div class="col-md-8">
                 <ul class="summary-head">
@@ -520,12 +525,25 @@
                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
                       <li class="list-group-item" ><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
-                      <li class="list-group-item" *ngIf="proposerFormData.address4 != ''"><strong>Address 3:</strong> {{proposerFormData.address4}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.address4 != ''"><strong>Address 4:</strong> {{proposerFormData.address4}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
-                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.proposerCityName}}</li>
+                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.cityName}}</li>
                     </ul>
                   </div>
                 </div>
+                  <div class="col-md-6">
+                      <div class=" p-3">
+                          <h6 class="color-blue">RESIDENCE DETAILS</h6>
+                          <ul class="m-0 list-group">
+                              <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.raddress}}</li>
+                              <li class="list-group-item" ><strong>Address 2:</strong> {{proposerFormData.raddress2}}</li>
+                              <li class="list-group-item" *ngIf="proposerFormData.raddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.raddress3}}</li>
+                              <li class="list-group-item" *ngIf="proposerFormData.raddress4 != ''"><strong>Address 4:</strong> {{proposerFormData.raddress4}}</li>
+                              <li class="list-group-item" ><strong>PIN code:</strong>  {{proposerFormData.residencePincode}}</li>
+                              <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.rcityName}}</li>
+                          </ul>
+                      </div>
+                  </div>
               </div>
             </section>
             <section>
@@ -554,6 +572,7 @@
                     </ul>
                   </div>
                 </div>
+
               </div>
             </section>
             <section>
@@ -567,7 +586,7 @@
                           <li class="list-group-item"><strong>Previous Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                           <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
                           <li class="list-group-item"><strong>Is Previous Policy Holder:</strong> {{previousFormData.isPreviousPolicyHolder}}</li>
-                            <li class="list-group-item" *ngIf="previousFormData.personalAccidentCover != ''"><strong>Policy Claim:</strong> {{previousFormData.personalAccidentCover}}</li>
+                            <li class="list-group-item" *ngIf="previousFormData.personalAccidentCover != ''"><strong>Personal Accident Cover:</strong> {{previousFormData.personalAccidentCover}}</li>
                         </ul>
                       </div>
                     </div>
@@ -578,10 +597,10 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyType}}</li>
+                          <li class="list-group-item"><strong>Previous Policy Type:</strong> {{previousFormData.previousPolicyType}}</li>
                           <li class="list-group-item" *ngIf="previousFormData.voluntary != ''"><strong>Voluntary Deductible:</strong> {{previousFormData.voluntary}}</li>
-                          <li class="list-group-item" *ngIf="previousFormData.claimAmount != ''"><strong>Policy Claim:</strong> {{previousFormData.claimAmount}}</li>
-                          <li class="list-group-item" *ngIf="previousFormData.accidentPaid != ''"><strong>Policy Claim:</strong> {{previousFormData.accidentPaid}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.claimAmount != ''"><strong>Claim Amount:</strong> {{previousFormData.claimAmount}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.accidentPaid != ''"><strong>Accident Paid:</strong> {{previousFormData.accidentPaid}}</li>
                         </ul>
                       </div>
                     </div>
@@ -631,24 +650,24 @@
               <div class="col-md-12 text-center">
                       <form action={{PaymentRedirect}}  method='POST' #form>
 
-                      <input type="text" name="reqType" id="reqType" value="JSON">
-                      <input type="text" name="process"  value="paymentOption">
-                      <input type="text" name="apikey" id="apikey" value={{Apikey}}>
-                      <input type="text" name="agentId" id="agentId" value={{AgentId}}>
-                      <input type="text" name="premium" value={{Comprehensivepremium}}>
-                      <input type="text" name="quoteId" id="quoteId" value= {{referenceId}}>
-                      <input type="text" name="version_no" id="version_no" value={{VersionNo}}>
-                      <input type="text" name="strFirstName" id="strFirstName" value={{proposerFormData.firstname}}>
-                      <input type="text" name="strEmail" id="strEmail" value={{proposerFormData.email}}>
-                      <input type="text" name="strMobileNo" id="strMobileNo" value={{proposerFormData.mobile}}>
-                      <input type="text" name="isQuickRenew" id="isQuickRenew" value="">
-                      <input type="text" name="crossSellProduct" id="crossSellProduct" value="">
-                      <input type="text" name="crossSellQuoteid" id="crossSellQuoteid" value="">
-                      <input type="text" name="returnUrl" id="returnUrl" value={{PaymentReturn}}>
-                      <input type="text" value={{VehicleSubLine}} name="vehicleSubLine" id="vehicleSubLine">
-                      <input type="text" value={{ElcValue}} name="elc_value" id="elc_value">
-                      <input type="text" value="" name="nonelc_value" id="nonelc_value">
-                      <input type="text" value="Yes" name="multiplePaymentMode" id="multiplePaymentMode">
+                      <input type="hidden" name="reqType" id="reqType" value="JSON">
+                      <input type="hidden" name="process"  value="paymentOption">
+                      <input type="hidden" name="apikey" id="apikey" value={{Apikey}}>
+                      <input type="hidden" name="agentId" id="agentId" value={{AgentId}}>
+                      <input type="hidden" name="premium" value={{Comprehensivepremium}}>
+                      <input type="hidden" name="quoteId" id="quoteId" value= {{referenceId}}>
+                      <input type="hidden" name="version_no" id="version_no" value={{VersionNo}}>
+                      <input type="hidden" name="strFirstName" id="strFirstName" value={{proposerFormData.firstname}}>
+                      <input type="hidden" name="strEmail" id="strEmail" value={{proposerFormData.email}}>
+                      <input type="hidden" name="strMobileNo" id="strMobileNo" value={{proposerFormData.mobile}}>
+                      <input type="hidden" name="isQuickRenew" id="isQuickRenew" value="">
+                      <input type="hidden" name="crossSellProduct" id="crossSellProduct" value="">
+                      <input type="hidden" name="crossSellQuoteid" id="crossSellQuoteid" value="">
+                      <input type="hidden" name="returnUrl" id="returnUrl" value={{PaymentReturn}}>
+                      <input type="hidden" value={{VehicleSubLine}} name="vehicleSubLine" id="vehicleSubLine">
+                      <input type="hidden" value={{ElcValue}} name="elc_value" id="elc_value">
+                      <input type="hidden" value="" name="nonelc_value" id="nonelc_value">
+                      <input type="hidden" value="Yes" name="multiplePaymentMode" id="multiplePaymentMode">
                       <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                       <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()" >Pay Now</button>
                   </form>
