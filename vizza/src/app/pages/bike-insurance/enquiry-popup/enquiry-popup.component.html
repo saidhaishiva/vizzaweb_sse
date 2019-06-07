@@ -61,8 +61,8 @@
     <!--</div>-->
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Chasiss Number" formControlName="chasissNumber"  maxlength= "17" (keypress)="numberValidate($event)" required>
-        <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">ChasissNumber is required</mat-error>
+        <input matInput placeholder="Chasiss Number" formControlName="chasissNumber"  maxlength= "17" (keypress)="idValidate($event)" required>
+        <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">Chasiss Number is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>
     </div>
@@ -102,7 +102,7 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event)" formControlName="manufactureYear"  required>
+        <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event);manufactureYear()" formControlName="manufactureYear"  required>
         <mat-error *ngIf="vehicalDetails.controls.manufactureYear.errors?.required">Manufacture Year is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>

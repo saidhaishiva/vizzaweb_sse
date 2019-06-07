@@ -83,6 +83,7 @@ public VehicleSubLine: any;
 public VersionNo: any;
 public ComprehensivePremium: any;
 public Comprehensivepremium: any;
+public respincodeList: any;
 public apponiteeList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
@@ -140,7 +141,7 @@ public apponiteeList: boolean;
       financierName: '',
       isTwoWheelerFinanced: '',
       hypothecationType: '',
-        // noncoverelectricalaccesss: '',
+      typeOfCover: '',
         vechileOwnerShipChanged: 'No',
       personalAccidentCover: '',
       accidentPaid: '',
@@ -193,7 +194,8 @@ public apponiteeList: boolean;
      this.changeVoulntaryType();
      this.changePolicyType();
      this.changePaType();
-     this.changePaidDriverType()
+     this.changePaidDriverType();
+     this.changeCoverType();
     this.sessionData();
 
   }
@@ -342,32 +344,66 @@ public apponiteeList: boolean;
   }
 
   public pinProposerListSuccess(successData, pin) {
+
     if (successData.IsSuccess) {
       this.pincodeList = successData.ResponseObject;
-      console.log(pin,'jhgfdghj');
       if(pin.length == '' || pin.length == 0 || pin.length != 6){
-        this.proposer.controls['state'].patchValue('');
         this.proposer.controls['city'].patchValue('');
-      }
-      for(let key in this.pincodeList.state) {
-        this.proposer.controls['state'].patchValue(key);
-        this.proposer.controls['stateName'].patchValue(this.pincodeList['state'][key]);
       }
       for(let key in this.pincodeList.city) {
         this.proposer.controls['city'].patchValue(key);
         this.proposer.controls['cityName'].patchValue(this.pincodeList['city'][key]);
+        console.log(this.proposer.controls['city'].patchValue(key),'jhgfdghj');
+
       }
 
     } else{
       this.toastr.error(successData.ErrorObject);
-      this.proposer.controls['state'].patchValue('');
-      this.proposer.controls['city'].patchValue('');
+      this.vehical.controls['city'].patchValue('');
+
+    }
+  }
+  public pinProposerListFailure(error) {
+  }
+  getresPostalCode(pin) {
+    const data = {
+      'platform': 'web',
+      'pin_code': pin
+    };
+    console.log(data,'jhgjh');
+    if (pin.length == 6) {
+      this.bikeInsurance.getPincodeList(data).subscribe(
+          (successData) => {
+            this.pinresProposerListSuccess(successData, pin);
+          },
+          (error) => {
+            this.pinresProposerListFailure(error);
+          }
+      );
+    }
+  }
+
+  public pinresProposerListSuccess(successData, pin) {
+
+    if (successData.IsSuccess) {
+      this.respincodeList = successData.ResponseObject;
+      console.log(pin,'jhgfdghj');
+      if(pin.length == '' || pin.length == 0 || pin.length != 6){
+        this.proposer.controls['rcity'].patchValue('');
+      }
+      for(let key in this.respincodeList.city) {
+        this.proposer.controls['rcity'].patchValue(key);
+        this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
+      }
+
+    } else{
+      this.toastr.error(successData.ErrorObject);
+      this.proposer.controls['rcity'].patchValue('');
 
     }
   }
 
-
-  public pinProposerListFailure(error) {
+  public pinresProposerListFailure(error) {
   }
     addEventPrevious(evnt){
 
@@ -455,7 +491,7 @@ public apponiteeList: boolean;
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-    // if(this.vehical.valid){
+   // / /if(this.vehical.valid){
       stepper.next();
     // }
   }
@@ -510,7 +546,31 @@ public apponiteeList: boolean;
   }
   public hypothecationTypeFailure(error) {
   }
+// cover type
+  changeCoverType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
+    }
+    this.bikeInsurance.getCoverLists(data).subscribe(
+        (successData) => {
+          this.coverTypeSuccess(successData);
+        },
+        (error) => {
+          this.coverTypeFailure(error);
+        }
+    );
+  }
+  public coverTypeSuccess(successData){
+    if (successData.IsSuccess) {
+      this.vountaryList = successData.ResponseObject;
+    }
+  }
+  public coverTypeFailure(error) {
+  }
   changeVehicleName() {
     const data = {
       'platform': 'web',
@@ -829,6 +889,7 @@ proposal(stepper){
           "personalAccidentCoverForUnnamedPassengers": '',
           "accidentCoverForPaidDriver": '',
           "policyStartDate": '2019-06-03',
+          "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
       "electricalAccessories": {
         "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
@@ -945,6 +1006,7 @@ proposal(stepper){
           "personalAccidentCoverForUnnamedPassengers": '',
           "accidentCoverForPaidDriver": '',
           "policyStartDate": '2019-04-01',
+          "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
           "electricalAccessories": {
             "electronicAccessoriesDetails":  this.vehical.value.electricalAccess,
@@ -1048,7 +1110,7 @@ proposal(stepper){
         financierName: stepper2.financierName,
         isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
         hypothecationType: stepper2.hypothecationType,
-        // noncoverelectricalaccesss:stepper2.noncoverelectricalaccesss,
+        typeOfCover:stepper2.typeOfCover,
         vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,

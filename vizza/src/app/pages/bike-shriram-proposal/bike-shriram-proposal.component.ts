@@ -474,22 +474,22 @@ export class BikeShriramProposalComponent implements OnInit {
           public proposalTypeFailure(error) {
           }
 
-          // proposal List validation
-            proposalList(){
-                if(this.vehical.controls['proposalType'].value == 'Renewal') {
-                    this.pType = true;
-                    this.previousInsure.controls['policyNumber'].setValidators([Validators.required]);
-                    this.previousInsure.controls['policyUwYear'].setValidators([Validators.required]);
-                    this.previousInsure.controls['policySi'].setValidators([Validators.required]);
-                    this.previousInsure.controls['policyNilDescription'].setValidators([Validators.required]);
-                } else{
-                    this.pType = false;
-                    this.previousInsure.controls['policyNumber'].setValidators(null);
-                    this.previousInsure.controls['policyUwYear'].setValidators(null);
-                    this.previousInsure.controls['policySi'].setValidators(null);
-                    this.previousInsure.controls['policyNilDescription'].setValidators(null);
-                }
-            }
+          // // proposal List validation
+          //   proposalList(){
+          //       if(this.vehical.controls['proposalType'].value == 'Renewal') {
+          //           this.pType = true;
+          //           this.previousInsure.controls['policyNumber'].setValidators([Validators.required]);
+          //           this.previousInsure.controls['policyUwYear'].setValidators([Validators.required]);
+          //           this.previousInsure.controls['policySi'].setValidators([Validators.required]);
+          //           this.previousInsure.controls['policyNilDescription'].setValidators([Validators.required]);
+          //       } else{
+          //           this.pType = false;
+          //           this.previousInsure.controls['policyNumber'].setValidators(null);
+          //           this.previousInsure.controls['policyUwYear'].setValidators(null);
+          //           this.previousInsure.controls['policySi'].setValidators(null);
+          //           this.previousInsure.controls['policyNilDescription'].setValidators(null);
+          //       }
+          //   }
     policyDetail(){
             this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
 
@@ -595,21 +595,21 @@ export class BikeShriramProposalComponent implements OnInit {
 
 
     public pinListSuccess(successData, pin) {
-            if (successData.IsSuccess) {
-                this.pincodeHypoCity = successData.ResponseObject;
-                console.log(pin,'jhgfdghj');
-                if(pin.length == '' || pin.length == 0 || pin.length != 6){
-                    this.vehical.controls['state'].patchValue('');
-                    this.vehical.controls['city'].patchValue('');
-                }
-                for(let key in this.pincodeHypoCity.state) {
-                    this.vehical.controls['state'].patchValue(key);
-                    this.vehical.controls['stateName'].patchValue(this.pincodeHypoCity['state'][key]);
-                }
-                for(let key in this.pincodeHypoCity.city) {
-                    this.vehical.controls['city'].patchValue(key);
-                    this.vehical.controls['cityName'].patchValue(this.pincodeHypoCity['city'][key]);
-                }
+                if (successData.IsSuccess) {
+                    this.pincodeHypoCity = successData.ResponseObject;
+                    console.log(pin,'jhgfdghj');
+                    if(pin.length == '' || pin.length == 0 || pin.length != 6){
+                        this.vehical.controls['state'].patchValue('');
+                        this.vehical.controls['city'].patchValue('');
+                    }
+                    for(let key in this.pincodeHypoCity.state) {
+                        this.vehical.controls['state'].patchValue(key);
+                        this.vehical.controls['stateName'].patchValue(this.pincodeHypoCity['state'][key]);
+                    }
+                    for(let key in this.pincodeHypoCity.city) {
+                        this.vehical.controls['city'].patchValue(key);
+                        this.vehical.controls['cityName'].patchValue(this.pincodeHypoCity['city'][key]);
+                    }
 
             } else{
                 this.toastr.error(successData.ErrorObject);
@@ -696,6 +696,10 @@ export class BikeShriramProposalComponent implements OnInit {
         this.vehical.controls['policyTypeName'].patchValue(this.policyTypeList[this.vehical.controls['policyType'].value]);
         if( this.vehical.controls['policyType'].value == 'MOT-PLT-002'){
             this.policyTypeDetails = true;
+            this.vehical.controls['nilDepreciationCover'].patchValue('');
+            this.vehical.controls['electricalAccess'].patchValue('');
+            this.vehical.controls['nonElectricalAccess'].patchValue('');
+
         } else {
             this.policyTypeDetails = false;
 
@@ -1169,7 +1173,6 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
       let stepper4 = JSON.parse(sessionStorage.stepper4);
-      this.ageNominee();
       this.nomineeDetail = this.fb.group({
         nomineeName: stepper4.nomineeName,
         nomineeAge: stepper4.nomineeAge,
