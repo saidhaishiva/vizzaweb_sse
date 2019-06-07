@@ -245,6 +245,8 @@ export class TermLifePremiumListComponent implements OnInit {
                     if(paymentModeValid) {
                         if (value.product_id <= 81 && value.product_id >=78) {
                             this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                        } else if (value.product_id == 87 ) {
+                            this.router.navigate(['/aegon-term-life'  + '/' + false]);
                         }
                     } else {
                         let dialogRef = this.dialog.open(PaymentModeValidate, {
@@ -275,6 +277,8 @@ export class TermLifePremiumListComponent implements OnInit {
             if(paymentModeValid) {
                 if (value.product_id <= 81 && value.product_id >=78) {
                     this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                } else if (value.product_id <= 87 && value.product_id >=86) {
+                    this.router.navigate(['/aegon-term-life'  + '/' + false]);
                 }
             } else {
                 let dialogRef = this.dialog.open(PaymentModeValidate, {

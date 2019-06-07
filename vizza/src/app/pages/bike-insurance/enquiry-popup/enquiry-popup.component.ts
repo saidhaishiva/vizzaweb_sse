@@ -55,23 +55,23 @@ export class EnquiryPopupComponent implements OnInit {
     this.vehicalNo = this.ListDetails.vehicalNumber;
   console.log(this.ListDetails, 'this.ListDetails');
     this.vehicalDetails = this.fb.group({
-      'vehicalNumber': '',
-      'registrationDate': '',
+      'vehicalNumber':  ['', Validators.required],
+      'registrationDate':  ['', Validators.required],
       'previousClaim': '',
       // 'claimamount': '',
       'enquiry': '',
-      'vehicleModel': '',
-      'manufacture':'',
-      'bussiness':'',
-      'ncb':'',
-      'manufactureYear':'',
-      'vehicleCC':'',
-      'variant': '',
-      'chasissNumber':'',
-      'engine':'',
-      'previousPolicyExpiry':'',
-      'previousPolicyStart':'',
-      'city':''
+      'vehicleModel':  ['', Validators.required],
+      'manufacture': ['', Validators.required],
+      'bussiness': ['', Validators.required],
+      'ncb': ['', Validators.required],
+      'manufactureYear': ['', Validators.required],
+      'vehicleCC': ['', Validators.required],
+      'variant':  ['', Validators.required],
+      'chasissNumber': ['', Validators.required],
+      'engine': ['', Validators.required],
+      'previousPolicyExpiry': ['', Validators.required],
+      'previousPolicyStart': ['', Validators.required],
+      'city': ['', Validators.required]
     });
    console.log(this.dataList, 'hgfgdjgh');
     this.config = {
@@ -103,7 +103,7 @@ export class EnquiryPopupComponent implements OnInit {
       'vehicleModel': this.ListDetails.vehicle_model,
       'manufacture': this.ListDetails.vehicle_manufacture,
       'bussiness': this.ListDetails.business_type,
-      'ncb': this.ListDetails.ncb_amount,
+      'ncb': this.ListDetails.ncb_percent,
       'manufactureYear': this.ListDetails.manu_yr,
       'vehicleCC': this.ListDetails.vehicle_cc,
       'variant': this.ListDetails.vehicle_variant,
@@ -188,7 +188,6 @@ export class EnquiryPopupComponent implements OnInit {
     if (successData.IsSuccess) {
       this.modelDetails = successData.ResponseObject;
       this.variantList();
-      this.ccList();
     }
   }
   public modelFailure(error) {
@@ -200,8 +199,8 @@ export class EnquiryPopupComponent implements OnInit {
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'manufacture': this.vehicalDetails.controls['manufacture'].value
-
+      'manufacture': this.vehicalDetails.controls['manufacture'].value,
+      'model':  this.vehicalDetails.controls['vehicleModel'].value
 
     }
     this.bikeService.getvariantList(data).subscribe(
@@ -216,6 +215,8 @@ export class EnquiryPopupComponent implements OnInit {
   public variantSuccess(successData){
     if (successData.IsSuccess) {
       this.variantDetails = successData.ResponseObject;
+      this.ccList();
+
     }
   }
   public variantFailure(error) {
@@ -227,7 +228,10 @@ export class EnquiryPopupComponent implements OnInit {
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'manufacture': this.vehicalDetails.controls['manufacture'].value
+      'manufacture': this.vehicalDetails.controls['manufacture'].value,
+      'model':  this.vehicalDetails.controls['vehicleModel'].value,
+      'variant':  this.vehicalDetails.controls['variant'].value
+
 
 
     }
@@ -330,7 +334,8 @@ export class EnquiryPopupComponent implements OnInit {
     console.log(getLength, 'getLengthgetLength');
     if(getLength.length == 4) {
       if(getRegPolicyYear < getLength ){
-         this.toastr.error('Manufacture Year should be less than or same  Year of Registration Year');
+        console.log(getLength, 'getLength');
+        this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
       }
 
     }
@@ -379,12 +384,13 @@ export class EnquiryPopupComponent implements OnInit {
       console.log(this.QuotationList, ' this.QuotationList');
       sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
       console.log(this.QuotationList,'jhkhjgkj');
-      if(successData.status == true){
-        this.dialogRef.close();
-        this.manufactureYear();
-        this.router.navigate(['/bikepremium']);
-      }
+      if(this.vehicalDetails.valid){
+        if(successData.status == true){
+          this.dialogRef.close();
+          this.router.navigate(['/bikepremium']);
+        }
 
+      }
     } else {
       this.toastr.error(successData.ErrorObject);
 

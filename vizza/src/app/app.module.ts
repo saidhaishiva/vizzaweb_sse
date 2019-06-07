@@ -284,6 +284,7 @@ import { BikeTataaigPaymentSuccesssComponent } from './pages/bike-tataaig-paymen
 import { RoyalsundaramMotorPaymentSuccessComponent } from './pages/royalsundaram-motor-payment-success/royalsundaram-motor-payment-success.component';
 import { CarTataaigProposalComponent } from './pages/car-tataaig-proposal/car-tataaig-proposal.component';
 import {PaymentModeValidate} from './pages/term-life-premium-list/term-life-premium-list.component';
+import { AegonTermLifeComponent } from './pages/aegon-term-life/aegon-term-life.component';
 
 @NgModule({
     imports: [
@@ -527,7 +528,8 @@ import {PaymentModeValidate} from './pages/term-life-premium-list/term-life-prem
         RoyalsundaramMotorPaymentSuccessComponent,
         BikeTataaigPaymentSuccesssComponent,
         CarTataaigProposalComponent,
-        PaymentModeValidate
+        PaymentModeValidate,
+        AegonTermLifeComponent
     ],
     providers: [
         AppSettings,
