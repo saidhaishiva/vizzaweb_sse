@@ -518,8 +518,8 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <!--<li class="list-group-item"><strong>Gender:</strong><span *ngIf="proposerFormData.gender == 'M'">Male</span><span *ngIf="proposerFormData.gender == 'F'">Female</span></li>-->
-                                            <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>
+                                            <li class="list-group-item"><strong>Gender:</strong><span *ngIf="proposerFormData.gender == 'M'">Male</span><span *ngIf="proposerFormData.gender == 'F'">Female</span></li>
+                                            <!--<li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>-->
                                             <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Number:</strong> {{proposerFormData.alterMobile}}</li>
                                             <li class="list-group-item" ><strong> PAN Number :</strong> {{proposerFormData.pan  | uppercase }}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>GST Number:</strong> {{proposerFormData.gst  | uppercase}}</li>
@@ -602,8 +602,6 @@
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                                                     <li class="list-group-item"><strong>Previous Insurer:</strong> {{previousFormData.previousInsured}}</li>
-                                                    <!--<li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.previousdob | date: 'dd/MM/yyyy'}}</li>-->
-                                                    <!--<li class="list-group-item"><strong>Previous End Date:</strong> {{previousFormData.previousdEndob | date: 'dd/MM/yyyy'}}</li>-->
 
                                                 </ul>
                                             </div>
@@ -616,7 +614,6 @@
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
-                                                    <!--<li class="list-group-item"><strong>Policy UwYear:</strong> {{previousFormData.policyUwYear}}</li>-->
                                                     <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>
                                                     <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>
                                                 </ul>
