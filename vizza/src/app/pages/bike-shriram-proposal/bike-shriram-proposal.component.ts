@@ -1078,7 +1078,7 @@ export class BikeShriramProposalComponent implements OnInit {
          this.vehicalFormData = this.vehical.value;
          this.previousFormData = this.previousInsure.value;
          this.nomineeFormData = this.nomineeDetail.value;
-         console.log(this.proposerFormData,'this.proposerFormData');
+         console.log(this.vehicalFormData,'this.proposerFormData');
       } else{
             this.toastr.error(successData.ErrorObject);
 
