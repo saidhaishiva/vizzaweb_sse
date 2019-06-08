@@ -181,7 +181,7 @@ export class BikeShriramProposalComponent implements OnInit {
       previousPolicyType: ['', Validators.required],
       policyNilDescription: '0',
       // previousdob:['', Validators.required],
-      previousPolicyTypeName:['', Validators.required],
+      previousPolicyTypeName:'',
         // previousdEndob:['', Validators.required],
         policySi:['', Validators.required]
 
