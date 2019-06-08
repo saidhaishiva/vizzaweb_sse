@@ -135,8 +135,9 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.enquiryFormData = JSON.stringify(this.bikeInsurance.value);
     }
     changeNcbAmt(){
-      if(this.bikeInsurance.controls['previousClaim'].value == 'Yes'){
-          this.bikeInsurance.controls['ncb'].patchValue('0');
+      if(this.bikeInsurance.controls['previousClaim'].value == 'No'){
+      } else{
+          this.bikeInsurance.controls['ncb'].patchValue('');
       }
     }
 
@@ -204,7 +205,7 @@ export class BikeInsuranceComponent implements OnInit {
                 "previous_policy_expiry_date":this.bikeInsurance.controls['previousPolicyExpiry'].value ? this.bikeInsurance.controls['previousPolicyExpiry'].value : '',
                 "previous_policy_start_date":this.bikeInsurance.controls['previousPolicyStart'].value ? this.bikeInsurance.controls['previousPolicyStart'].value : '',
                 "business_type":this.bikeInsurance.controls['bussiness'].value,
-                "ncb_percent": this.bikeInsurance.controls['ncb'].value,
+                "ncb_percent": this.bikeInsurance.controls['ncb'].value ? this.bikeInsurance.controls['ncb'].value : 0,
                 // "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
             }
             console.log(data,'data');
@@ -228,7 +229,7 @@ export class BikeInsuranceComponent implements OnInit {
                     sessionStorage.enquiryFormData = JSON.stringify(data);
                         let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                             width: '1500px',data: {listData: successData.ResponseObject, disableClose: true },
-                            height: '900'
+                            height: '1200'
                         })
                         dialogRef.disableClose = true;
                         dialogRef.afterClosed().subscribe(result => {

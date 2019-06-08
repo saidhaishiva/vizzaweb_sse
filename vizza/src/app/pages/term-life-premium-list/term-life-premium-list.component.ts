@@ -245,6 +245,8 @@ export class TermLifePremiumListComponent implements OnInit {
                     if(paymentModeValid) {
                         if (value.product_id <= 81 && value.product_id >=78) {
                             this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                        } else if (value.product_id == 87 ) {
+                            this.router.navigate(['/aegon-term-life'  + '/' + false]);
                         }
                     } else {
                         let dialogRef = this.dialog.open(PaymentModeValidate, {
@@ -275,6 +277,8 @@ export class TermLifePremiumListComponent implements OnInit {
             if(paymentModeValid) {
                 if (value.product_id <= 81 && value.product_id >=78) {
                     this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
+                } else if (value.product_id <= 87 && value.product_id >=86) {
+                    this.router.navigate(['/aegon-term-life'  + '/' + false]);
                 }
             } else {
                 let dialogRef = this.dialog.open(PaymentModeValidate, {
@@ -296,12 +300,30 @@ export class TermLifePremiumListComponent implements OnInit {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
-                <p> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.
-
-                    Monthly - Rs. 450
-                    Quarterly - Rs. 1300
-                    Annual - Rs. 2550
-                    Yearly - Rs. 5000</p>
+                    <p> Minimum Premium for Bajaj Allianz Term Life is as follows, Kindly change Sum Insured or Payment Mode to purchase a policy.</p>
+                    <table class="table table-bordered">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Monthly</th>
+                            <th scope="col">Quarterly</th>
+                            <th scope="col">Annual</th>
+                            <th scope="col">Yearly</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Rs. 450</td>
+                            <td> Rs. 1300</td>
+                            <td> Rs. 2550</td>
+                            <td>Rs. 5000</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    
+<!--                    Monthly - Rs. 450-->
+<!--                    Quarterly - Rs. 1300-->
+<!--                    Annual - Rs. 2550-->
+<!--                    Yearly - Rs. 5000</p>-->
                 </div>
             </div>
         </div>

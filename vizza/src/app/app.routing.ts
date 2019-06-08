@@ -140,6 +140,7 @@ import {CholaHealthPaymentSuccessComponent} from './pages/chola-health-payment-s
 import {RoyalsundaramMotorPaymentSuccessComponent} from './pages/royalsundaram-motor-payment-success/royalsundaram-motor-payment-success.component';
 import {BikeTataaigPaymentSuccesssComponent} from './pages/bike-tataaig-payment-successs/bike-tataaig-payment-successs.component';
 import {CarTataaigProposalComponent} from './pages/car-tataaig-proposal/car-tataaig-proposal.component';
+import {AegonTermLifeComponent} from './pages/aegon-term-life/aegon-term-life.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -275,7 +276,8 @@ export const routes: Routes = [
             { path: 'app-chola-health-payment-success/:status/:proId/:policyStatus', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
             // { path: 'enquiryPop', component: EnquiryPopupComponent, data: {breadcrumb: 'Vehicle List'}},
             { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'Tataaig Payment'} },
-            { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}}
+            { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}},
+            { path: 'aegon-term-life/:stepper', component: AegonTermLifeComponent, data: { breadcrumb: 'aegon-term-life'}}
 
         ]
     },
