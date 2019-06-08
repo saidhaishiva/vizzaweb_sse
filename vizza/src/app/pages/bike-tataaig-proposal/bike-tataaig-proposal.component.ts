@@ -721,9 +721,9 @@ export class BikeTataaigProposalComponent implements OnInit {
             stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
+            console.log(this.summaryData,'summary');
             this.ProposalId = this.summaryData.ProposalId;
             this.PaymentRedirect = this.summaryData.PaymentRedirect;
-            this.PolicySisID = this.summaryData.PolicySisID;
             this.PaymentReturn = this.summaryData.PaymentReturn;
             sessionStorage.tataBikeproposalID = this.ProposalId;
             this.proposerFormData = this.proposer.value;
