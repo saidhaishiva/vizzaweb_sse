@@ -306,7 +306,7 @@ export class TermLifePremiumListComponent implements OnInit {
                         <tr>
                             <th scope="col">Monthly</th>
                             <th scope="col">Quarterly</th>
-                            <th scope="col">Annual</th>
+                            <th scope="col">Half-Yearly</th>
                             <th scope="col">Yearly</th>
                         </tr>
                         </thead>
@@ -322,7 +322,7 @@ export class TermLifePremiumListComponent implements OnInit {
                     
 <!--                    Monthly - Rs. 450-->
 <!--                    Quarterly - Rs. 1300-->
-<!--                    Annual - Rs. 2550-->
+<!--                    Half-Yearly - Rs. 2550-->
 <!--                    Yearly - Rs. 5000</p>-->
                 </div>
             </div>
