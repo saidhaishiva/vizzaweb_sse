@@ -109,11 +109,10 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     addEvent(event, type) {
-        console.log(event,'eventevent');
+        console.log(event, 'eventevent');
         let selectedDate = '';
         let dob = '';
         const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-
         if (event.value != null) {
 
             dob = this.datepipe.transform(event.value, 'y-MM-dd');
@@ -126,65 +125,42 @@ export class BikeInsuranceComponent implements OnInit {
                         this.dobError = 'Enter Valid Date';
                     }
                 }
-                selectedDate = event.value._i;
+            }
+        }
+    }
 
-                if (selectedDate.length == 10) {
 
-                    if (type == 'regitser') {
-                        this.dobError = '';
+        addstart(event){
+            if (event.value != null) {
+                let selectedDate = '';
+                let dob = '';
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (typeof event.value._i == 'string') {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.dobStartError = '';
                     } else {
-                        this.dobError = 'Enter Valid Date';
-
+                        this.dobStartError = 'Enter Valid Date';
                     }
 
-                } else if (type == 'start') {
-                    this.dobStartError = '';
-                } else {
-                    this.dobStartError = 'Enter Valid Date';
                 }
-
-            } else {
-                if (type == 'end') {
-                    this.dobendError = '';
-                } else {
-                    this.dobendError = 'Enter Valid Date';
-                }
-            }
-        }else if (typeof event.value._i == 'object') {
-            if (type == 'regitser') {
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.dobError = '';
-                } else {
-                    this.dobError = 'Enter Valid Date';
-                }
-            }
-            selectedDate = event.value._i;
-
-            if (selectedDate.length == 10) {
-
-                if (type == 'regitser') {
-                    this.dobError = '';
-                } else {
-                    this.dobError = 'Enter Valid Date';
-
-                }
-
-            } else if (type == 'start') {
-                this.dobStartError = '';
-            } else {
-                this.dobStartError = 'Enter Valid Date';
-            }
-
-        } else {
-            if (type == 'end') {
-                this.dobendError = '';
-            } else {
-                this.dobendError = 'Enter Valid Date';
             }
         }
 
-     }
+        addend(event){
+            if (event.value != null) {
+                let selectedDate = '';
+                let dob = '';
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (typeof event.value._i == 'string') {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.dobendError = '';
+                    } else {
+                        this.dobendError = 'Enter Valid Date';
+                    }
 
+                }
+            }
+        }
 
 
 
@@ -216,7 +192,6 @@ export class BikeInsuranceComponent implements OnInit {
                 "previous_policy_start_date":this.bikeInsurance.controls['previousPolicyStart'].value ? this.bikeInsurance.controls['previousPolicyStart'].value : '',
                 "business_type":this.bikeInsurance.controls['bussiness'].value,
                 "ncb_percent": this.bikeInsurance.controls['ncb'].value ? this.bikeInsurance.controls['ncb'].value : '0',
-                // "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
             }
             console.log(data,'data');
             this.bikeService.getMotorHomeDetails(data).subscribe(
@@ -237,6 +212,7 @@ export class BikeInsuranceComponent implements OnInit {
                     sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
                     sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
                     sessionStorage.enquiryFormData = JSON.stringify(data);
+                    if(this.bikeInsurance.valid){
                         let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                             width: '1500px',data: {listData: successData.ResponseObject, disableClose: true },
                             height: '1200'
@@ -244,6 +220,8 @@ export class BikeInsuranceComponent implements OnInit {
                         dialogRef.disableClose = true;
                         dialogRef.afterClosed().subscribe(result => {
                         });
+
+                    }
 
                 } else {
                     this.toastr.error(successData.ErrorObject);

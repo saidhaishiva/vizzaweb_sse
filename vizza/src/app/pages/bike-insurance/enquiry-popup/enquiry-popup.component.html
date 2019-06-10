@@ -53,12 +53,6 @@
         <mat-error *ngIf="vehicalDetails.controls.ncb.errors?.required">Ncb is required</mat-error>
       </mat-form-field>
     </div>
-    <!--<div class="col-md-3" *ngIf="enquiryFormData.business_type != '1'">-->
-      <!--<mat-form-field class="w-100">-->
-        <!--<input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>-->
-        <!--<mat-error *ngIf="vehicalDetails.controls.claimamount.errors?.required">Claim Amount is required</mat-error>-->
-      <!--</mat-form-field>-->
-    <!--</div>-->
     <div class="col-md-3">
       <mat-form-field class="w-100">
         <input matInput placeholder="Chassis Number" formControlName="chasissNumber"  maxlength= "17" (keypress)="idValidate($event)" required>
@@ -106,18 +100,16 @@
           <mat-option *ngFor="let paCity of ccDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
         </mat-select>
         <mat-error *ngIf="vehicalDetails.controls.vehicleCC.errors?.required">Vehicle cc is required</mat-error>
-        <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
         <input matInput placeholder="Manufacture Year(YYYY)" maxlength="4"  (keypress)="numberValidate($event);manufactureYear()" formControlName="manufactureYear"  required>
         <mat-error *ngIf="vehicalDetails.controls.manufactureYear.errors?.required">Manufacture Year is required</mat-error>
-        <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>
     </div>
     <div class="col-md-3">
-      <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails"></ngx-select-dropdown>
+      <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" required></ngx-select-dropdown>
 
       <!--<mat-form-field class="example-full-width">-->
         <!--<input type="text" placeholder="Registration City"  matInput [matAutocomplete]="auto">-->

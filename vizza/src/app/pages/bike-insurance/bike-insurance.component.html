@@ -25,9 +25,9 @@
 
               <div class="row">
                   <mat-form-field class="w-100">
-                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" minlength="10" (keypress)="idValidate($event)" (keyup)="setSession()" required>
+                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="9" minlength="9" (keypress)="idValidate($event)" (keyup)="setSession()" required>
                   <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
-                      <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 10 characters</mat-error>
+                      <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>
 
                   </mat-form-field>
 
@@ -48,7 +48,7 @@
                   <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
 
                   <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
-                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addEvent($event, 'start')"  (dateChange)="addEvent($event, 'start')"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addstart($event)"  (dateChange)="addstart($event)"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                       <mat-error *ngIf="bikeInsurance.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
@@ -56,7 +56,7 @@
                   <div class="error" *ngIf="dobStartError != ''">{{dobStartError}}</div>
 
                   <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
-                      <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['previousPolicyStart'].value"  (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event, 'end')"  (dateChange)="addEvent($event, 'end')"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['previousPolicyStart'].value"  (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addend($event)"  (dateChange)="addend($event)"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                       <mat-datepicker #picker3></mat-datepicker>
                       <mat-error *ngIf="bikeInsurance.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
