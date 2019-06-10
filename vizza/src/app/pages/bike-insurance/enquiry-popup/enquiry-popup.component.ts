@@ -89,7 +89,6 @@ export class EnquiryPopupComponent implements OnInit {
     this.manifactureList();
     this.bussinessType();
     this.dataList();
-    this.modelList1();
      this.getCityLists();
 
   }
@@ -135,6 +134,7 @@ export class EnquiryPopupComponent implements OnInit {
   public manifactureSuccess(successData){
     if (successData.IsSuccess) {
       this.manifactureDetails = successData.ResponseObject;
+      this.modelList1();
     }
   }
   public manifactureFailure(error) {

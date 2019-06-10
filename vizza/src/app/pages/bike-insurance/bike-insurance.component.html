@@ -25,8 +25,10 @@
 
               <div class="row">
                   <mat-form-field class="w-100">
-                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" minlength="10" (keypress)="idValidate($event)" (keyup)="setSession()" required>
+                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="9" minlength="9" (keypress)="idValidate($event)" (keyup)="setSession()" required>
                   <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
+                      <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>
+
                   </mat-form-field>
 
                   <mat-form-field class="w-100">
@@ -37,7 +39,7 @@
 
                   </mat-form-field>
                   <mat-form-field class="w-100">
-                      <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1></mat-datepicker>
                       <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
@@ -46,35 +48,32 @@
                   <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
 
                   <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
-                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addstart($event)"  (dateChange)="addstart($event)"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                       <mat-error *ngIf="bikeInsurance.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
                   </mat-form-field>
-                  <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                  <div class="error" *ngIf="dobStartError != ''">{{dobStartError}}</div>
 
                   <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
-                      <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['previousPolicyStart'].value"  (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addEvent($event)"  (dateChange)="addEvent($event)"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['previousPolicyStart'].value"  (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addend($event)"  (dateChange)="addend($event)"  maxlength="10" minlength="10" required>
                       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                       <mat-datepicker #picker3></mat-datepicker>
                       <mat-error *ngIf="bikeInsurance.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
                   </mat-form-field>
-                  <div class="error" *ngIf="dobError != ''">{{dobError}}</div>
+                  <div class="error" *ngIf="dobendError != ''">{{dobendError}}</div>
 
-                  <p class="mt-2" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">Previous Claim: <span class="error">*</span><i class="material-icons" style="font-size: medium" matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy.">
-                    help
-                </i></p>
+                  <p class="mt-2" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">Previous Claim ? <span class="error">*</span></p>
                   <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="setSession();changeNcbAmt()" *ngIf="bikeInsurance.controls['bussiness'].value != '1' && bikeInsurance.controls['bussiness'].value != ''">
                   <mat-radio-button value="Yes">Yes</mat-radio-button>
                   <mat-radio-button value="No">No</mat-radio-button>
                 </mat-radio-group>
-                  <!--<mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'Yes'" (keyup)="setSession()">-->
-                          <!--<input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)" formControlName="claimamount" maxlength="15" required>-->
-                      <!--<mat-error *ngIf="bikeInsurance.controls.claimamount.errors?.required">Claim Amount is required</mat-error>-->
 
-                  <!--</mat-form-field>-->
                 <mat-form-field class="w-100" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">
-                    <mat-select placeholder="NCB Percent(%)" (change)="setSession()" formControlName="ncb"  required>
+                    <mat-placeholder>NCB Percent(%) <span><i class="material-icons" style="font-size: medium" matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy.">
+                        help
+                    </i></span></mat-placeholder>
+                    <mat-select   (change)="setSession()" formControlName="ncb"  required>
                         <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                     </mat-select>
                     <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>
@@ -82,7 +81,6 @@
                 </mat-form-field>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-raised-button color="primary"  (click)="quationFirstStep(bikeInsurance.value)">Submit</button>
-                  <!--<button mat-raised-button color="primary" *ngIf="listDetails" (click)="enquiryQuation(bikeInsurance.value)">Submit</button>-->
                   <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
@@ -91,116 +89,5 @@
         </div>
       </div>
     </div>
-    <!--</div>-->
-
-
-
-      <!--// fire-->
-
-      <!--<div *ngIf="!showFire" class="col-md-6 col-sm-12 col-xs-12">-->
-          <!--<div class="card">-->
-              <!--<div class="card-block AllFormView">-->
-                  <!--<mat-card class="p-4" style="background: linear-gradient(to top, #E2C582 0%, #8AC2E7 100%) !important; color:#fff;">-->
-                      <!--<h2 class="w-100 text-center" >Let us assist you</h2>-->
-                      <!--<form [formGroup]="fireapp">-->
-
-                          <!--<div class="row">-->
-                              <!--<div class="col-md-12">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<mat-select  placeholder="Insurance Type" formControlName ="insurance" required>-->
-                                          <!--<mat-option value="shopkeepers">Shopkeepers</mat-option>-->
-                                          <!--<mat-option value="marine">Marine Cargo Policy</mat-option>-->
-                                          <!--<mat-option value="money">Money Insurance</mat-option>-->
-                                          <!--<mat-option value="fire">Fire Policy</mat-option>-->
-                                          <!--<mat-option value="burglary">Burglary Policy</mat-option>-->
-                                          <!--<mat-option value="machinery">Machinery Breakdown Policy</mat-option>-->
-                                          <!--<mat-option value="electronics">Electronics Equiptment Policy</mat-option>-->
-                                          <!--<mat-option value="contractors">Contractors All Risk Policy</mat-option>-->
-                                          <!--<mat-option value="house-holders">House Holders Policy</mat-option>-->
-                                          <!--<mat-option value="public-liability">Public Liability</mat-option>-->
-                                          <!--<mat-option value="professional">Professional Indemnity Policy</mat-option>-->
-                                          <!--<mat-option value="workmen-compensation">Workmen Compensation</mat-option>-->
-                                      <!--</mat-select>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.insurance.errors?.required">Insurance Type is required</mat-error>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-12">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<input matInput placeholder="Company Name" formControlName="name" required>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.name.errors?.required">Company Name is required</mat-error>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>-->
-
-                                      <!--<mat-icon matSuffix>person</mat-icon>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-12">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.contactperson.errors?.required">Contact Person is required</mat-error>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>-->
-                                      <!--<mat-icon matSuffix>person</mat-icon>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-12">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">-->
-                                      <!--<mat-error *ngIf="fireapp.controls.mobile.errors?.required">Mobile number is required</mat-error>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.mobile.hasError('pattern')">Enter valid  Mobile Number</mat-error>-->
-                                      <!--<mat-icon matSuffix>call</mat-icon>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-12">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<input matInput placeholder="Email" formControlName="email" required>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.email.errors?.required">Email is required</mat-error>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>-->
-                                      <!--<mat-icon matSuffix>email</mat-icon>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-6">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')" formControlName="pincode" autocomplete="off" required>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.pincode.errors?.required">Pincode is required</mat-error>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.pincode.hasError('required')">Pincode required</mat-error>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
-                                      <!--<mat-icon matSuffix>place</mat-icon>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-6">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>-->
-                                          <!--<mat-option value="call">Call</mat-option>-->
-                                          <!--<mat-option value="meetinperson">Meet in Person</mat-option>-->
-                                      <!--</mat-select>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.appointmentwith.errors?.required">Appointment is required</mat-error>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-6">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<input matInput [matDatepicker]="picker" placeholder="Appintment Date(DD/MM/YYY)" formControlName="appdate" (dateInput)="addEventFire($event)" (dateChange)="addEventFire($event)" required>-->
-                                      <!--<mat-error *ngIf="fireapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>-->
-                                      <!--<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-                                      <!--<mat-datepicker #picker></mat-datepicker>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-6">-->
-                                  <!--<mat-form-field class="w-100">-->
-                                      <!--<input matInput type="time" atp-time-picker  formControlName="apptime" required />-->
-                                      <!--<mat-error *ngIf="fireapp.controls.apptime.errors?.required">Appintment Time is required</mat-error>-->
-                                  <!--</mat-form-field>-->
-                              <!--</div>-->
-                              <!--<div class="col-md-12 text-right mt-3">-->
-                                  <!--<button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>-->
-                                  <!--<button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!fireapp.valid ) || (!pincodeErrors)" (click)="fireKeeper(fireapp.value)">Submit</button>-->
-                              <!--</div>-->
-                          <!--</div>-->
-                      <!--</form>-->
-                  <!--</mat-card>-->
-              <!--</div>-->
-          <!--</div>-->
-      <!--</div>-->
-
   </div>
 </div>
