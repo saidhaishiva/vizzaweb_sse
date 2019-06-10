@@ -83,6 +83,7 @@ public VehicleSubLine: any;
 public VersionNo: any;
 public ComprehensivePremium: any;
 public Comprehensivepremium: any;
+public coverList: any;
 public respincodeList: any;
 public apponiteeList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -143,8 +144,7 @@ public apponiteeList: boolean;
       hypothecationType: '',
       typeOfCover: '',
         vechileOwnerShipChanged: 'No',
-      personalAccidentCover: '',
-      accidentPaid: '',
+
       electricalAccess : new FormArray([
         this.create()
       ]),
@@ -160,8 +160,9 @@ public apponiteeList: boolean;
       isPreviousPolicyHolder:'',
       voluntary:'',
       claimAmount:'',
-      previousPolicyType: ''
-
+      previousPolicyType: '',
+      personalAccidentCover: '',
+      accidentPaid: '',
     });
       this.nomineeDetail = this.fb.group({
           nomineeName: '',
@@ -495,6 +496,15 @@ public apponiteeList: boolean;
       stepper.next();
     // }
   }
+  isFinaced(){
+    if(this.vehical.controls['isTwoWheelerFinanced'].value == true){
+
+    }else{
+      this.vehical.controls['isTwoWheelerFinancedValue'].patchValue('');
+      this.vehical.controls['financierName'].patchValue('');
+    }
+  }
+
 
   changehypothecation() {
     const data = {
@@ -530,7 +540,7 @@ public apponiteeList: boolean;
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getHypothecationType(data).subscribe(
+    this.bikeInsurance.changeFinacedType(data).subscribe(
         (successData) => {
           this.hypothecationTypeSuccess(successData);
         },
@@ -566,7 +576,7 @@ public apponiteeList: boolean;
   }
   public coverTypeSuccess(successData){
     if (successData.IsSuccess) {
-      this.vountaryList = successData.ResponseObject;
+      this.coverList = successData.ResponseObject;
     }
   }
   public coverTypeFailure(error) {
@@ -767,6 +777,16 @@ public apponiteeList: boolean;
   }
   public vountaryPolicyTypeFailure(error) {
   }
+  policyHolder(){
+    if(this.previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'){
+
+    } else {
+      this.previousInsure.controls['claimAmount'].patchValue('');
+      this.previousInsure.controls['voluntary'].patchValue('');
+      this.previousInsure.controls['personalAccidentCover'].patchValue('');
+      this.previousInsure.controls['accidentPaid'].patchValue('');
+    }
+  }
    // next
     previousDetails(stepper: MatStepper,value){
       sessionStorage.stepper3 = JSON.stringify(value);
@@ -879,7 +899,7 @@ proposal(stepper){
           "previousPolicyNo":this.previousInsure.controls['policyNumber'].value? this.previousInsure.controls['policyNumber'].value: '',
           "policyTerm": this.productDetails.year_type,
           "previousInsurerName":  this.previousInsure.controls['previousInsured'].value? this.previousInsure.controls['previousInsured'].value :'',
-          "companyNameForCar": '',
+          "companyNameForCar": this.vehical.controls['companyName'].value,
           "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value: '',
           "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value ? 'yes' : 'No',
           "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
@@ -892,7 +912,7 @@ proposal(stepper){
           "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
       "electricalAccessories": {
-        "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
+        "electronicAccessoriesDetails": this.vehical.value.electricalAccess ,
       },
       "vechileOwnerShipChanged": this.vehical.controls['vechileOwnerShipChanged'].value,
           "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value,
@@ -996,7 +1016,7 @@ proposal(stepper){
           "previousPolicyNo":this.previousInsure.controls['policyNumber'].value,
           "policyTerm": this.productDetails.year_type,
           "previousInsurerName":  this.previousInsure.controls['previousInsured'].value,
-          "companyNameForCar": '',
+          "companyNameForCar":  this.vehical.controls['companyName'].value,
           "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
           "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value ? 'yes' : 'No',
           "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
@@ -1009,7 +1029,7 @@ proposal(stepper){
           "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
           "electricalAccessories": {
-            "electronicAccessoriesDetails":  this.vehical.value.electricalAccess,
+            "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
           "vechileOwnerShipChanged": this.vehical.controls['vechileOwnerShipChanged'].value,
           "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value,
@@ -1055,7 +1075,7 @@ proposal(stepper){
 
   }
   // policyType(){
-  //
+
   // }
 //session Data
   sessionData(){
@@ -1130,7 +1150,8 @@ proposal(stepper){
         voluntary: stepper3.voluntary,
         claimAmount: stepper3.claimAmount,
         previousPolicyType: stepper3.previousPolicyType,
-
+        personalAccidentCover: stepper3.personalAccidentCover,
+        accidentPaid: stepper3.accidentPaid,
       });
     }
   }

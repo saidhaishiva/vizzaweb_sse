@@ -221,40 +221,20 @@
                                                 <div class="col-md-6">
                                                 <mat-checkbox  formControlName="electricalAccess">electricalAccess</mat-checkbox>
                                                 </div>
-                                                    <!--<div class="col-md-6" *ngIf="vehical.controls['electricalAccess'].value == '1'">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<input matInput placeholder="Electrical Access SI"  formControlName="electricalAccessSI" autocomplete="off" [required]="electricalValid">-->
-                                                    <!--<mat-error *ngIf="vehical.controls.electricalAccessSI.errors?.required">Electrical Access SI is required</mat-error>-->
 
-                                                <!--</mat-form-field>-->
-
-                                            <!--</div>-->
                                             </div>
 
                                         <div class="row" *ngIf="!policyTypeDetails">
                                             <div class="col-md-6">
                                                 <mat-checkbox  formControlName="nonElectricalAccess">Non Electrical Access</mat-checkbox>
                                             </div>
-                                            <!--<div class="col-md-6" *ngIf="vehical.controls['nonElectricalAccess'].value == '1'">-->
-                                                <!--<mat-form-field class="w-100"  >-->
-                                                    <!--<input matInput placeholder="Non Electrical Access SI"  formControlName="nonElectricalAccessSI" autocomplete="off" [required]="nonelectricalValid">-->
-                                                    <!--<mat-error *ngIf="vehical.controls.nonElectricalAccessSI.errors?.required">Non Electrical Access SI is required</mat-error>-->
 
-                                                <!--</mat-form-field>-->
-
-                                            <!--</div>-->
                                         </div>
                                         <div class="row" *ngIf="policyTypeDetails">
                                             <div class="col-md-6">
                                             <mat-checkbox  formControlName="paforUnnamed">Pa For Unnamed Passenger</mat-checkbox>
                                             </div>
-                                        <!--<div class="col-md-6" *ngIf="vehical.controls['paforUnnamed'].value == '1'">-->
-                                            <!--<mat-form-field class="w-100" >-->
-                                                <!--<input matInput placeholder="Pa For Unnamed Passenger SI"  formControlName="paforUnnamedSI" autocomplete="off" [required]="paUnNamed">-->
-                                                <!--<mat-error *ngIf="vehical.controls.paforUnnamedSI.errors?.required">Pa For Unnamed Passenger SI is required</mat-error>-->
 
-                                            <!--</mat-form-field>-->
-                                        <!--</div>-->
                                         </div>
                                             <div class="row" *ngIf="policyTypeDetails">
                                                 <div class="col-md-6">
@@ -388,10 +368,10 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-12">
+                                            <div class="col-md-12 mt-3">
                                                 <h6 class="color-blue">Previous Nil Description <span class="error">*</span></h6>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3  mt-3">
                                                 <mat-radio-group  formControlName="policyNilDescription" required>
                                                     <mat-radio-button value="1">Yes</mat-radio-button>
                                                     <mat-radio-button value="0">No</mat-radio-button>
@@ -450,7 +430,7 @@
                                                 </mat-form-field>
                                             </div>
                                         </div>
-                                            <div *ngIf="nomineeDetail.controls['nomineeAge'].value <= 17">
+                                            <div *ngIf="apponiteeList">
                                             <div class="row">
                                                 <h6 class="color-blue">APPOINTEE DETAILS</h6>
                                             </div>
@@ -518,8 +498,7 @@
                                 <div class="col-md-6">
                                     <div class="p-3">
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item"><strong>Gender:</strong><span *ngIf="proposerFormData.gender == 'M'">Male</span><span *ngIf="proposerFormData.gender == 'F'">Female</span></li>
-                                            <!--<li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.gender}}</li>-->
+                                            <li class="list-group-item"><strong>Gender:</strong><span *ngIf="proposerFormData.gender == 'M' || proposerFormData.gender == 'Male'">Male</span><span *ngIf="proposerFormData.gender == 'F' || proposerFormData.gender == 'Female'">Female</span></li>
                                             <li class="list-group-item" *ngIf="proposerFormData.alterMobile != ''"><strong>Alternate Number:</strong> {{proposerFormData.alterMobile}}</li>
                                             <li class="list-group-item" ><strong> PAN Number :</strong> {{proposerFormData.pan  | uppercase }}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.gst != ''"><strong>GST Number:</strong> {{proposerFormData.gst  | uppercase}}</li>
@@ -657,7 +636,7 @@
                             </div>
                         </section>
                         <section>
-                            <h5 class="mt-3 sub-title" *ngIf="nomineeDetail.controls['nomineeAge'].value <= 17">APPOINTEE DETAILS </h5>
+                            <h5 class="mt-3 sub-title" *ngIf="apponiteeList">APPOINTEE DETAILS </h5>
                             <div class="row box-card">
 
                             <div class="col-md-6">
