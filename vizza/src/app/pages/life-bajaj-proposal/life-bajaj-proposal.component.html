@@ -255,7 +255,7 @@
                                          autocomplete="off"  >
                                   <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
                                   <mat-datepicker #picker11></mat-datepicker>
-                                  <!--                            <mat-error *ngIf="proposer.controls.dateofapplication.errors?.required">DOB is required</mat-error>-->
+                                  <!--                            <mat-error *ngIf="proposer.controls.dateoftransaction.errors?.required">DOB is required</mat-error>-->
                                 </mat-form-field>
                                 <div class="error" *ngIf="transactiondateError != ''">{{transactiondateError}}</div>
                               </div>
@@ -939,7 +939,7 @@
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <mat-select matInput placeholder="Renewal Payment Mode" formControlName="paymentMode" autocomplete="off" required>
-                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value !='OTHER'">E-mandate</mat-option>
+                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value !='OTHER'">E-Mandate</mat-option>
                               <mat-option value="CCSI">CCSI</mat-option>
                               <mat-option value="NACH">NACH</mat-option>
                               <mat-option value="Cash-Cheque" *ngIf="enquiryFormData.lifePayment == 'yearly'">Cash-Cheque</mat-option>
@@ -1010,6 +1010,7 @@
                       </li>
                       <li class="list-group-item" *ngIf="proposerFormData.isPancard && proposerFormData.panNum !=''"><strong>PAN Number:</strong> {{proposerFormData.panNum | uppercase}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.amtTransaction != ''"><strong>Amount of transaction:</strong> {{proposerFormData.amtTransaction}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.dateoftransaction != ''"><strong>Date of transaction:</strong> {{proposerFormData.dateoftransaction | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.jointAcName != ''"><strong>In case of transaction in joint names:</strong> {{proposerFormData.jointAcName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.modeOfTransaction != ''"><strong>Mode Of Transaction:</strong> {{proposerFormData.modeOfTransaction}}</li>
 
