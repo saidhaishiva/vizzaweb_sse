@@ -25,7 +25,7 @@
 
               <div class="row">
                   <mat-form-field class="w-100">
-                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="9" minlength="9" (keypress)="idValidate($event)" (keyup)="setSession()" required>
+                  <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" minlength="9" (keypress)="idValidate($event)" (keyup)="setSession()" required>
                   <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
                       <mat-error *ngIf="bikeInsurance.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>
 
