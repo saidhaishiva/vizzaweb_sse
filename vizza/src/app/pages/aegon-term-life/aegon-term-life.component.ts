@@ -51,11 +51,18 @@ export class AegonTermLifeComponent implements OnInit {
   public dateError1: any;
   public dateError2: any;
   public today: any;
+  public qualificationList: any;
   public summaryData: any;
+  public enquiryFormData: any;
+  public lifePremiumList: any;
+  public getEnquiryDetials: any;
   public proposerFormData: any;
   public nomineeFormData: any;
+  public occupationList: any;
   public stepper1: any;
   public personalData: any;
+  public nomineeRelationship: any;
+  public cityList: any;
   public nomineeData: any;
   public appointeeAge: any;
   public proposalId: any;
@@ -70,7 +77,7 @@ export class AegonTermLifeComponent implements OnInit {
 
 
 
-  constructor(public validation: ValidationService, public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings) {
+  constructor(public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings) {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
@@ -151,7 +158,13 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    this. getQualificationList();
+    this.getoccupationlist();
+    this.getcitylist();
+    this.getnomineerelationship();
 
   }
 
@@ -409,6 +422,118 @@ export class AegonTermLifeComponent implements OnInit {
     }
 
 
+  getQualificationList() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.getQualificationList(data).subscribe(
+        (successData) => {
+          this.getQualificationListSuccess(successData);
+        },
+        (error) => {
+          this.getQualificationListFailure(error);
+        }
+    );
+  }
+
+  public getQualificationListSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.qualificationList = successData.ResponseObject;
+    }
+  }
+  public getQualificationListFailure(error) {
+  }
+
+  getoccupationlist() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.getoccupationlist(data).subscribe(
+        (successData) => {
+          this.getoccupationlistSuccess(successData);
+        },
+        (error) => {
+          this.getoccupationlistFailure(error);
+        }
+    );
+  }
+
+  public getoccupationlistSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.occupationList = successData.ResponseObject;
+    }
+  }
+  public getoccupationlistFailure(error) {
+  }
+
+  getcitylist() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.getcitylist(data).subscribe(
+        (successData) => {
+          this.getcitylistSuccess(successData);
+        },
+        (error) => {
+          this.getcitylistFailure(error);
+        }
+    );
+  }
+
+  public getcitylistSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.cityList = successData.ResponseObject;
+    }
+  }
+  public getcitylistFailure(error) {
+  }
+
+  getnomineerelationship() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.getnomineerelationship(data).subscribe(
+        (successData) => {
+          this.nomineerelationshipSuccess(successData);
+        },
+        (error) => {
+          this.nomineerelationshipFailure(error);
+        }
+    );
+  }
+
+  public nomineerelationshipSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.nomineeRelationship = successData.ResponseObject;
+    }
+  }
+  public nomineerelationshipFailure(error) {
+  }
+
+  changeQualificationList() {
+    this.personal.controls['qualifictionName'].patchValue(this.qualificationList[this.personal.controls['qualifiction'].value]);
+  }
+  // changeOccupationlist() {
+  //   this.personal.controls['nRelationName'].patchValue(this.relationList[this.personal.controls['nRelation'].value]);
+  // }
+  changeCitylist() {
+    this.personal.controls['pCityName'].patchValue(this.cityList[this.personal.controls['pCity'].value]);
+  }
+  changenomineerelationship() {
+    this.personal.controls['nRelationName'].patchValue(this.cityList[this.personal.controls['nRelation'].value]);
+  }
 
 
   sessionData() {
@@ -491,13 +616,13 @@ export class AegonTermLifeComponent implements OnInit {
 
     const data =
         {
-          "user_id": "0",
-          "role_id": "4",
-          "pos_status": "0",
+          "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+          "role_id":  this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+          "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
           "platform": "web",
-          "product_id": "86",
-          "suminsured_Amount": "5000000",
-          "policy_id": "1",
+          "product_id": this.lifePremiumList.product_id,
+          "suminsured_Amount":sessionStorage.selectedAmountTravel,
+          "policy_id": this.getEnquiryDetials.policy_id,
           "benefitOption": "LP",
           "personalInformation": {
             "tittle": this.personal.controls['title'].value,
