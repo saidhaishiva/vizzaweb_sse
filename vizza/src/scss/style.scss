@@ -2259,6 +2259,78 @@ a:hover {
   }
 
 }
+.f-social-icons1{
+  ul{
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  i{
+    text-align: center;
+    background: #d4d4d4;
+    border-radius: 50%;
+    font-size: 20px;
+    color: #fff;
+    padding-top: 10px;
+    margin: 2px;
+
+  }}
+.f-social-icons1{
+  li{
+    cursor: pointer;
+    display: block;
+    text-align: center;
+
+    &:nth-child(1):hover i{
+      background:#55acee;
+    }
+    &:nth-child(2):hover i{
+      background:#3b5998;
+    }
+    &:nth-child(3):hover i{
+      background:#007bb6;
+    }
+    &:nth-child(4):hover i{
+      background:#cd201f;
+    }
+    &:nth-child(5):hover i{
+      background:#d93175;
+    }
+    &:nth-child(6):hover i{
+      background:#DF3F36;
+    }
+    //&:nth-child(7):hover i{
+    //  background:#35465c;
+    //}
+    //&:nth-child(8):hover i{
+    //  background:#cb2027;
+    //}
+    //&:nth-child(9):hover i{
+    //  background:#dc4e40;
+    //}
+    i{
+      width: 40px;
+      height: 40px;
+    }
+    span{
+      float: left;
+      width: 100%;
+      color: #666;
+      visibility: hidden;
+      font-weight: bold;
+    }
+    &:hover span{
+      visibility: visible;
+    }
+  }
+  li a, li a:hover{
+    color:#fff;
+    display: flex;
+    flex-flow: column;
+  }
+
+}
 footer{
   width: 100%;
   float: left;
