@@ -37,54 +37,27 @@ export const MY_FORMATS = {
     ]
 })
 export class BikeInsuranceComponent implements OnInit {
-    public bikeapp: FormGroup;
     public bikeInsurance: FormGroup;
     public settings: Settings;
-    public setDate: any;
-    public selectDate: any;
-    public productName: any;
-    public pin:any;
-    public title: any;
-    public response: any;
-    public pincodeErrors: any;
     public dobError : any;
-    public setFtime : any;
-    public minDate : any;
-    public time : any;
-    public claimAmountDetails : any;
     public bikeList : any;
-    public show : any;
     public claimDetails : any;
     public enquiry : any;
     public QuotationList : any;
-    public manifactureDetails : any;
-    public ccDetails : any;
-    public variantDetails : any;
-    public modelDetails : any;
-    public vehicalnumber : any;
     public registrationDate : any;
-    public claimamount : any;
     public previousClaim : any;
     public previousPolicyExpiry : any;
     public previousPolicyStart : any;
     public bussinessList : any;
-    public getVehicleCC : any;
-    public getccNumber : any;
-    public getNcb : any;
-    public manufactureDetails : any;
     public bussiness : any;
     public engine : any;
-    public getvariant : any;
     public bikeEnquiryId : any;
+    public dobStartError : any;
+    public dobendError : any;
+    public minDate : any;
     public listDetails : boolean;
     public expiry : boolean;
     public previousDate : boolean;
-    meridian = true;
-
-
-    // fire
-    showFire: any;
-    public fireapp: FormGroup;
 
     constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe,public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,public dialog: MatDialog,public appSettings: AppSettings, public router: Router, public commonservices: CommonService,public toast: ToastrService) {
         const minDate = new Date();
@@ -95,38 +68,20 @@ export class BikeInsuranceComponent implements OnInit {
         this.bikeInsurance = this.fb.group({
             'vehicalNumber': ['', Validators.required],
             'registrationDate': ['', Validators.required],
-            'previousClaim': '',
-            // 'claimamount': '',
+            'previousClaim': 'Yes',
             'enquiry': '',
             'bussiness':'',
             'ncb':'',
             'previousPolicyExpiry':'',
             'previousPolicyStart':''
         });
-
-        this.fireapp = this.fb.group({
-            'appdate': ['', Validators.required],
-            'apptime': null,
-            'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
-            'contactperson':  ['', Validators.compose([Validators.required])],
-            'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-            'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-            'pincode': ['', Validators.compose([Validators.required])],
-            'insurance': ['',Validators.compose([Validators.required])],
-            'appointmentwith': ['',Validators.compose([Validators.required])]
-        });
-        // this.claimAmountDetails = false;
         this.expiry = false;
         this.previousDate = true;
-        this.productName = '';
   }
 
   ngOnInit() {
       this.claimpercent();
       this.bussinessType();
-      this.showFire = this.config.getMotorInsurance();
-      this.setDate = Date.now();
-      this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.sessionData();
 
 
@@ -153,31 +108,62 @@ export class BikeInsuranceComponent implements OnInit {
         this.validation.numberValidate(event);
     }
 
-    addEvent(event) {
-        console.log(event,'eventevent');
+    addEvent(event, type) {
+        console.log(event, 'eventevent');
+        let selectedDate = '';
+        let dob = '';
+        const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
         if (event.value != null) {
-            let selectedDate = '';
-            let dob = '';
+
+            dob = this.datepipe.transform(event.value, 'y-MM-dd');
+
             if (typeof event.value._i == 'string') {
-                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-                if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    this.dobError = '';
-                } else {
-                    this.dobError = 'Enter Valid Date';
+                if (type == 'regitser') {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.dobError = '';
+                    } else {
+                        this.dobError = 'Enter Valid Date';
+                    }
                 }
-                selectedDate = event.value._i;
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                if (selectedDate.length == 10) {
-                    let yearValid = this.yearCalculate(dob);
-                    console.log(yearValid,'987978');
-                }
-
-            } else {
-                this.dobError = '';
             }
-
         }
     }
+
+
+        addstart(event){
+            if (event.value != null) {
+                let selectedDate = '';
+                let dob = '';
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (typeof event.value._i == 'string') {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.dobStartError = '';
+                    } else {
+                        this.dobStartError = 'Enter Valid Date';
+                    }
+
+                }
+            }
+        }
+
+        addend(event){
+            if (event.value != null) {
+                let selectedDate = '';
+                let dob = '';
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (typeof event.value._i == 'string') {
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.dobendError = '';
+                    } else {
+                        this.dobendError = 'Enter Valid Date';
+                    }
+
+                }
+            }
+        }
+
+
+
     yearCalculate(dob) {
         let today = new Date();
         let birthDate = new Date(dob);
@@ -205,8 +191,7 @@ export class BikeInsuranceComponent implements OnInit {
                 "previous_policy_expiry_date":this.bikeInsurance.controls['previousPolicyExpiry'].value ? this.bikeInsurance.controls['previousPolicyExpiry'].value : '',
                 "previous_policy_start_date":this.bikeInsurance.controls['previousPolicyStart'].value ? this.bikeInsurance.controls['previousPolicyStart'].value : '',
                 "business_type":this.bikeInsurance.controls['bussiness'].value,
-                "ncb_percent": this.bikeInsurance.controls['ncb'].value ? this.bikeInsurance.controls['ncb'].value : 0,
-                // "claim_amount":this.bikeInsurance.controls['claimamount'].value ? this.bikeInsurance.controls['claimamount'].value : '',
+                "ncb_percent": this.bikeInsurance.controls['ncb'].value ? this.bikeInsurance.controls['ncb'].value : '0',
             }
             console.log(data,'data');
             this.bikeService.getMotorHomeDetails(data).subscribe(
@@ -227,6 +212,7 @@ export class BikeInsuranceComponent implements OnInit {
                     sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
                     sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
                     sessionStorage.enquiryFormData = JSON.stringify(data);
+                    if(this.bikeInsurance.valid){
                         let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                             width: '1500px',data: {listData: successData.ResponseObject, disableClose: true },
                             height: '1200'
@@ -234,6 +220,8 @@ export class BikeInsuranceComponent implements OnInit {
                         dialogRef.disableClose = true;
                         dialogRef.afterClosed().subscribe(result => {
                         });
+
+                    }
 
                 } else {
                     this.toastr.error(successData.ErrorObject);
@@ -302,7 +290,6 @@ export class BikeInsuranceComponent implements OnInit {
                 'vehicalNumber': stepper.vehicalNumber,
                 'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),
                 'previousClaim': stepper.previousClaim,
-                // 'claimamount': stepper.claimamount,
                 'enquiry': stepper.enquiry,
                 'bussiness': stepper.bussiness,
                 'ncb':stepper.ncb,
@@ -318,96 +305,6 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
 
-    ////fire
-
-    public data(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[a-zA-Z\\ ]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-    public keyPress(event: any) {
-        if (event.charCode !== 0) {
-            const pattern = /[0-9]/;
-            const inputChar = String.fromCharCode(event.charCode);
-            if (!pattern.test(inputChar)) {
-                event.preventDefault();
-            }
-        }
-    }
-
-    addEventFire(event) {
-        this.selectDate = event.value;
-        this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
-    }
-
-    //
-    getPincodeDetails(pin, title) {
-        this.pin = pin;
-        this.title = title;
-        const data = {
-            'platform': 'web',
-            'postalcode': this.pin
-        }
-        if (this.pin.length == 6) {
-            this.commonservices.getPincodeDetails(data).subscribe(
-                (successData) => {
-                    this.getPincodeDetailsSuccess(successData);
-                },
-                (error) => {
-                    this.getPincodeDetailsFailure(error);
-                }
-            );
-        }
-    }
-    public getPincodeDetailsSuccess(successData) {
-        if (successData.ErrorObject) {
-            this.toast.error(successData.ErrorObject);
-            this.pincodeErrors = false;
-        } else {
-            this.pincodeErrors = true;
-        }
-    }
-
-    public getPincodeDetailsFailure(error) {
-    }
-
-    //
-    fireKeeper(values) {
-
-        if (this.fireapp.valid) {
-            const data = {
-                'platform': 'web',
-                'product_type': 'offline',
-                'appointment_date': this.setDate,
-                'appointment_time': this.fireapp.controls['apptime'].value,
-                'company_name': this.fireapp.controls['name'].value,
-                'customer_mobile': this.fireapp.controls['mobile'].value,
-                'customer_email': this.fireapp.controls['email'].value,
-                'contact_person' : this.fireapp.controls['contactperson'].value,
-                'pincode': this.fireapp.controls['pincode'].value,
-                'product_name': this.fireapp.controls['insurance'].value,
-                'appointment_with': this.fireapp.controls['appointmentwith'].value,
-
-            };
-
-            this.commonservices.setFixAppointment(data).subscribe(
-                (successData) => {
-                    this.fixAppointmentSuccess(successData);
-                },
-                (error) => {
-                    this.fixAppointmentFailure(error);
-                }
-            );
-        }
-    }
-    fixAppointmentSuccess(successData) {
-    }
-    fixAppointmentFailure(error) {
-    }
 
 
 

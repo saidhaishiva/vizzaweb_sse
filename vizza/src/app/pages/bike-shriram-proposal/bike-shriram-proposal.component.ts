@@ -11,6 +11,7 @@ import {DatePipe} from '@angular/common';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -96,12 +97,33 @@ export class BikeShriramProposalComponent implements OnInit {
   public bikeEnquiryId : any;
   public siValue : any;
   public policyDatevalidate : any;
+  public currentStep : any;
 
   public genderList: boolean;
-    constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+    constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 4;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.ProposalId =   this.summaryData.ProposalId;
+                    this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+                    this.PolicySisID =   this.summaryData.PolicySisID;
+                    this.PaymentReturn =   this.summaryData.PaymentReturn;
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
+                    this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    sessionStorage.shiramBikeproposalID = this.ProposalId;
 
-    const minDate = new Date();
-    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+                }
+            }
+        });
+        this.currentStep = stepperindex;
+        console.log(this.currentStep,'this.currentStep');
+        const minDate = new Date();
+        this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
     this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -413,41 +435,7 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehical.controls['addonPackage'].patchValue(' PLATINUM PACKAGE');
         }
     }
-//     if(this.buyBikeDetails.plan_code == 'ADDON_01') {
-//     this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
-// } else if (this.buyBikeDetails.plan_code == 'ADDON_02') {
-//     this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
-// } else if (this.buyBikeDetails.plan_code == 'ADDON_03') {
-//     this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
-// } else if (this.buyBikeDetails.plan_code == 'ADDON_04') {
-//     this.vehical.controls['addonPackage'].patchValue(this.buyBikeDetails.plan_name);
-// }
-  //       const data = {
-  //           'platform': 'web',
-  //           'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //           'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-  //           'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
-  //
-  //         }
-  //               this.bikeInsurance.getAddonPackage(data).subscribe(
-  //                   (successData) => {
-  //                     this.addonPackageSuccess(successData);
-  //                   },
-  //                   (error) => {
-  //                     this.addonPackageFailure(error);
-  //                   }
-  //               );
-  //             }
-  //                 public addonPackageSuccess(successData) {
-  //                   if (successData.IsSuccess) {
-  //                     this.addonPackagedm = successData.ResponseObject;
-  //
-  //                     console.log(this.addonPackagedm, 'this.addonPackagedm');
-  //                   }
-  //                 }
-  //               public addonPackageFailure(error) {
-  //
-  // }
+
           proposalType() {
             const data = {
               'platform': 'web',
@@ -474,22 +462,6 @@ export class BikeShriramProposalComponent implements OnInit {
           public proposalTypeFailure(error) {
           }
 
-          // // proposal List validation
-          //   proposalList(){
-          //       if(this.vehical.controls['proposalType'].value == 'Renewal') {
-          //           this.pType = true;
-          //           this.previousInsure.controls['policyNumber'].setValidators([Validators.required]);
-          //           this.previousInsure.controls['policyUwYear'].setValidators([Validators.required]);
-          //           this.previousInsure.controls['policySi'].setValidators([Validators.required]);
-          //           this.previousInsure.controls['policyNilDescription'].setValidators([Validators.required]);
-          //       } else{
-          //           this.pType = false;
-          //           this.previousInsure.controls['policyNumber'].setValidators(null);
-          //           this.previousInsure.controls['policyUwYear'].setValidators(null);
-          //           this.previousInsure.controls['policySi'].setValidators(null);
-          //           this.previousInsure.controls['policyNilDescription'].setValidators(null);
-          //       }
-          //   }
     policyDetail(){
             this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
 
@@ -699,9 +671,12 @@ export class BikeShriramProposalComponent implements OnInit {
             this.vehical.controls['nilDepreciationCover'].patchValue('');
             this.vehical.controls['electricalAccess'].patchValue('');
             this.vehical.controls['nonElectricalAccess'].patchValue('');
+            this.vehical.controls['antiTheft'].patchValue('');
 
         } else {
             this.policyTypeDetails = false;
+            this.vehical.controls['lltoPaidDriver'].patchValue('');
+            this.vehical.controls['paforUnnamed'].patchValue('');
 
         }
     }
@@ -864,25 +839,15 @@ export class BikeShriramProposalComponent implements OnInit {
         }
 
     }
-    // manufactureYear(){
-    //     let start = new Date(this.previousInsure.controls['previousdob'].value);
-    //     let getPolicyYear = start.getFullYear();
-    //     console.log(getPolicyYear,'getPolicyYear');
-    //     let getLength = this.previousInsure.controls['policyUwYear'].value;
-    //     if(getLength.length == 4) {
-    //         if(getPolicyYear >= this.previousInsure.controls['policyUwYear'].value){
-    //         }  else {
-    //             this.toastr.error('Manufacture Year should be less than Registration Year');
-    //         }
-    //     }
-    //
-    // }
+
 //  fFOURTH sTEPPER (NOMINEE)
       ageNominee(){
       if(this.nomineeDetail.controls['nomineeAge'].value <= 17){
         this.apponiteeList = true;
       }  else{
         this.apponiteeList = false;
+        this.nomineeDetail.controls['appointeeName'].patchValue('');
+        this.nomineeDetail.controls['appointeeRelationship'].patchValue('');
 
       }
       }
@@ -1161,14 +1126,10 @@ export class BikeShriramProposalComponent implements OnInit {
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
         previousInsured: stepper3.previousInsured,
-        // policyUwYear: stepper3.policyUwYear,
         policySi: stepper3.policySi,
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
-        // previousPolicyNcb:stepper3.previousPolicyNcb,
         previousPolicyTypeName: stepper3.previousPolicyTypeName,
-        // previousdob: this.datepipe.transform(stepper3.previousdob, 'y-MM-dd'),
-        // previousdEndob: stepper3.previousdEndob
       });
 
     }

@@ -177,6 +177,7 @@ export class HomeComponent implements OnInit {
         {img: "./assets/img/partner/General Insurance/universal-sampo.png"}
     ];
     slideConfig = {"slidesToShow": 8, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0};
+    slideConfig3 = {"slidesToShow": 3, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0};
     slides2 = [
         {img: "./assets/img/partner/life insurance/aditya-birla.png"},
         {img: "./assets/img/partner/life insurance/aegon.png"},
@@ -200,6 +201,7 @@ export class HomeComponent implements OnInit {
         {img: "./assets/img/partner/life insurance/tata-aia.png"}
     ];
     slideConfig2 = {"slidesToShow": 8, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0, "rtl": true};
+    slideConfig4 = {"slidesToShow": 3, "slidesToScroll": 1,  "autoplay": true, "cssEase": 'linear', "speed": 2000, "autoplaySpeed": 0, "rtl": true};
 
     addEvent(event) {
         this.selectDate = event.value;
