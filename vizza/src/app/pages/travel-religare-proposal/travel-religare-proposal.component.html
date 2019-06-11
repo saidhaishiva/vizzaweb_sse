@@ -680,11 +680,9 @@
 
                       <div class="col-md-6"  *ngIf="getEnquiryDetails.travel_user_type == 'student' && i == 0">
                           <div class="p-3">
-                              <ul class="m-0 list-group" *ngFor="let lists of item.addonForm;">
-                                <h6 class="color-blue" *ngIf="i == 0" >ADDON DETAILS</h6>
-
-                                <li class="list-group-item" *ngIf="lists.checked"></li>
-                                  <li class="list-group-item"><strong>Addon's:</strong> {{items.title}}</li>
+                            <ul class="m-0 list-group" *ngFor="let lists of item.addonForm;">
+                                <h6 class="color-blue" *ngIf="i == 0 && lists.checked" >ADDON DETAILS</h6>
+                                  <li class="list-group-item"><strong>Addon's:</strong> {{lists.title}}</li>
                               </ul>
                           </div>
                       </div>
