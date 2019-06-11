@@ -924,7 +924,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="IFSC Code" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" maxlength="11"  autocomplete="off" required>
+                            <input matInput placeholder="IFSC Code" class="text-uppercase" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" maxlength="11"  autocomplete="off" required>
                             <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
                             <mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>
 
@@ -1021,7 +1021,7 @@
                       <li class="list-group-item" *ngIf="proposerFormData.dateofapplication != ''"><strong>Date Of Application:</strong> {{proposerFormData.dateofapplication}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.ackNumber != ''"><strong>Acknowledgement Number:</strong> {{proposerFormData.ackNumber}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.totalIncome != ''">
-                        <p>fill estimated total income (including income of spouse, minor child etc. as per section 64 of Income-tax Act, 1961) for the financial year in which the above transaction is held </p>
+<!--                        <p>fill estimated total income (including income of spouse, minor child etc. as per section 64 of Income-tax Act, 1961) for the financial year in which the above transaction is held </p>-->
                         <strong>
                         Total Income:</strong> {{proposerFormData.totalIncome}}</li>
 
@@ -1259,7 +1259,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode | uppercase}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.micrCode!=''"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.paymentMode!=''"><strong>Renewal Payment Mode:</strong> {{bankDetailFormData.paymentMode}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.bankProof!=''"><strong>Bank Proof:</strong> {{bankDetailFormData.bankProof}}</li>
