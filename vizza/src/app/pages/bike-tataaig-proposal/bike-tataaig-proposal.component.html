@@ -134,10 +134,11 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Flag" formControlName="driveflag" (change)="chooseflag($event)">
+                          <mat-select  placeholder="Flag" formControlName="driveflag" (change)="chooseflag($event)" required>
                             <mat-option value="Y">YES</mat-option>
                             <mat-option value="N">NO</mat-option>
                           </mat-select>
+                          <mat-error *ngIf="proposer.controls.driveflag.errors?.required">Flag is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -301,33 +302,33 @@
                 <div class="row">
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
-                      <mat-select  placeholder="Flag" formControlName="preflag" required>
-                        <mat-option value="N">N</mat-option>
-                        <mat-option value="Y">Y</mat-option>
+                      <mat-select  placeholder="Flag" (change)="changeflag($event)" formControlName="preflag" required>
+                        <mat-option value="Y">Yes</mat-option>
+                        <mat-option value="N">No</mat-option>
                       </mat-select>
                       <mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
-                      <mat-select  placeholder="Code" formControlName="precode" required>
-                        <mat-option *ngFor="let Codelist of precodelist | keys" value="{{Codelist.key}}">{{Codelist.value}}</mat-option>
+                      <mat-placeholder> Code <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
+                      <mat-select formControlName="precode">
+                        <mat-option *ngFor="let Codelist of precodelist | keys" value="{{Codelist.value}}">{{Codelist.value}}</mat-option>
                       </mat-select>
-                      <mat-error *ngIf="previouspolicy.controls.precode.errors?.required">Code is Required</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
-                      <mat-select placeholder="Name" formControlName="preName" required>
-                      <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.key}}">{{Namelist.value}}</mat-option>
+                      <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
+                      <mat-select formControlName="preName">
+                      <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.value}}">{{Namelist.value}}</mat-option>
                       </mat-select>
-                      <mat-error *ngIf="previouspolicy.controls.preName.errors?.required">Name is Required</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
-                      <input matInput placeholder="polno" formControlName="prepolno" autocomplete="off">
-                      <mat-error *ngIf="previouspolicy.controls.prepolno.errors?.required">polno is Required</mat-error>
+                      <mat-placeholder> polno <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
+                      <input matInput formControlName="prepolno" autocomplete="off">
                     </mat-form-field>
                   </div>
                   <div class="col-md-12 mt-1">
@@ -352,23 +353,21 @@
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
                       <input matInput placeholder="Pincode" formControlName="prepincode" (input)="getPostalCode($event.target.value,'prepolicy')">
-                      <mat-error *ngIf="previouspolicy.controls.prepincode.errors?.required">Pincode is Required</mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
-                      <input matInput placeholder="State" formControlName="preState"  autocomplete="off" readonly required>
+                      <input matInput placeholder="State" formControlName="preState"  autocomplete="off" readonly>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
-                      <input matInput placeholder="District"  formControlName="preDistrict" autocomplete="off" readonly required>
+                      <input matInput placeholder="District"  formControlName="preDistrict" autocomplete="off" readonly>
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
-                      <input matInput placeholder="City"  formControlName="preCity" autocomplete="off" readonly required>
-                      <mat-error *ngIf="previouspolicy.controls.preCity.errors?.required">City is Required</mat-error>
+                      <input matInput placeholder="City"  formControlName="preCity" autocomplete="off" readonly>
                     </mat-form-field>
                   </div>
                 <div class="proposal-buttom mt-3 text-right w-100">
@@ -566,8 +565,9 @@
               <hr>
               <div class="row">
                 <div class="col-md-12 text-center">
-                  <form action='{{PaymentRedirect}}' method='post' #form>
-                    <input name="ProposalId" type="hidden" value="{{ProposalId}}" />
+                  <form action='{{PaymentRedirect}}' method='post' name="frmTransaction" id="frmTransaction" #form>
+                    <input name="src" type="hidden" value="TP" />
+                    <input name="proposal_no" type="hidden" value="{{Proposalnumber}}" />
                     <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />
                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                     <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>

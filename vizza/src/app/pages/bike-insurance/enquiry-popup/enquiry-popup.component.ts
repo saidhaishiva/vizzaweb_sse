@@ -48,6 +48,7 @@ export class EnquiryPopupComponent implements OnInit {
   public vehicalNo : any;
   public options : any;
   public config : any;
+  public getDays : any;
   constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
   public dialogRef: MatDialogRef<EnquiryPopupComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -58,7 +59,6 @@ export class EnquiryPopupComponent implements OnInit {
       'vehicalNumber':  ['', Validators.required],
       'registrationDate':  ['', Validators.required],
       'previousClaim': '',
-      // 'claimamount': '',
       'enquiry': '',
       'vehicleModel':  ['', Validators.required],
       'manufacture': ['', Validators.required],
@@ -69,11 +69,13 @@ export class EnquiryPopupComponent implements OnInit {
       'variant':  ['', Validators.required],
       'chasissNumber': ['', Validators.required],
       'engine': ['', Validators.required],
-      'previousPolicyExpiry': ['', Validators.required],
-      'previousPolicyStart': ['', Validators.required],
+      'previousPolicyExpiry':'',
+      'previousPolicyStart': '',
       'city': ['', Validators.required]
     });
-   console.log(this.dataList, 'hgfgdjgh');
+      this.getDays = this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd');
+
+      console.log(this.dataList, 'hgfgdjgh');
     this.config = {
       displayKey: "city", //if objects array passed which key to be displayed defaults to description
       search: true,
@@ -89,7 +91,6 @@ export class EnquiryPopupComponent implements OnInit {
     this.manifactureList();
     this.bussinessType();
     this.dataList();
-    this.modelList1();
      this.getCityLists();
 
   }
@@ -113,7 +114,6 @@ export class EnquiryPopupComponent implements OnInit {
       'previousPolicyStart': this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd')
     });
 }
-
                              /// manufacture
   manifactureList() {
     const data = {
@@ -135,6 +135,7 @@ export class EnquiryPopupComponent implements OnInit {
   public manifactureSuccess(successData){
     if (successData.IsSuccess) {
       this.manifactureDetails = successData.ResponseObject;
+      this.modelList1();
     }
   }
   public manifactureFailure(error) {
@@ -347,10 +348,10 @@ export class EnquiryPopupComponent implements OnInit {
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'enquiry_id': 0,
+      'enquiry_id': '0',
       'vehicle_no':this.vehicalDetails.controls['vehicalNumber'].value,
       'registration_date': this.vehicalDetails.controls['registrationDate'].value,
-      'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value,
+      'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value == null ? '' :this.vehicalDetails.controls['previousPolicyExpiry'].value,
       'previous_policy_no':"12344556",
       'previous_claim_YN': this.vehicalDetails.controls['previousClaim'].value == 'No' ? '0' : '1',
       // 'claim_amount':this.vehicalDetails.controls['claimamount'].value ? this.vehicalDetails.controls['claimamount'].value : '',
@@ -363,7 +364,7 @@ export class EnquiryPopupComponent implements OnInit {
       'manu_yr':this.vehicalDetails.controls['manufactureYear'].value,
       'vehicle_category':"2W",
       'ncb_percent': this.vehicalDetails.controls['ncb'].value ? this.vehicalDetails.controls['ncb'].value : '',
-      'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value,
+      'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
       'business_type': this.vehicalDetails.controls['bussiness'].value,
       'registration_city': this.vehicalDetails.controls['city'].value
 
@@ -385,6 +386,7 @@ export class EnquiryPopupComponent implements OnInit {
       sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
       console.log(this.QuotationList,'jhkhjgkj');
       if(this.vehicalDetails.valid){
+          this.ageCalculateInsurer('days');
         if(successData.status == true){
           this.dialogRef.close();
           this.router.navigate(['/bikepremium']);
