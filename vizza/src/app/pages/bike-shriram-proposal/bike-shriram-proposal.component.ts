@@ -11,6 +11,7 @@ import {DatePipe} from '@angular/common';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
     parse: {
         dateInput: 'DD/MM/YYYY',
@@ -96,12 +97,33 @@ export class BikeShriramProposalComponent implements OnInit {
   public bikeEnquiryId : any;
   public siValue : any;
   public policyDatevalidate : any;
+  public currentStep : any;
 
   public genderList: boolean;
-    constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+    constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+        let stepperindex = 0;
+        this.route.params.forEach((params) => {
+            if(params.stepper == true || params.stepper == 'true') {
+                stepperindex = 4;
+                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryData);
+                    this.ProposalId =   this.summaryData.ProposalId;
+                    this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+                    this.PolicySisID =   this.summaryData.PolicySisID;
+                    this.PaymentReturn =   this.summaryData.PaymentReturn;
+                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+                    this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
+                    this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    sessionStorage.shiramBikeproposalID = this.ProposalId;
 
-    const minDate = new Date();
-    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+                }
+            }
+        });
+        this.currentStep = stepperindex;
+        console.log(this.currentStep,'this.currentStep');
+        const minDate = new Date();
+        this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
     this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
