@@ -208,16 +208,14 @@ export class FourWheelerHomeComponent implements OnInit {
       sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
       sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
       sessionStorage.enquiryFormData = JSON.stringify(data);
-      if (this.fourWheeler.valid) {
-        let dialogRef = this.dialog.open(EnquiryPopupComponent, {
-          width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
+        let dialogRef = this.dialog.open(FourWheelerHomeComponent, {
+          width: '1500px',
           height: '1200'
         })
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result => {
         });
 
-      }
 
     } else {
       this.toastr.error(successData.ErrorObject);
