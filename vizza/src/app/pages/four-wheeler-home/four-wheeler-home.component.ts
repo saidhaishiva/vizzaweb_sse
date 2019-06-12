@@ -12,6 +12,8 @@ import {MatDialog} from '@angular/material';
 import {AppSettings} from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
 import {EnquiryPopupComponent} from '../bike-insurance/enquiry-popup/enquiry-popup.component';
+import {FourWheelerService} from '../../shared/services/four-wheeler.service';
+import {FourWheelerEnquirypopupComponent} from './four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
 
 @Component({
   selector: 'app-four-wheeler-home',
@@ -45,7 +47,7 @@ export class FourWheelerHomeComponent implements OnInit {
   public previousDate: boolean;
   public showSelf: boolean;
 
-  constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService) {
+  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService) {
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     this.settings = this.appSettings.settings;
@@ -71,7 +73,6 @@ export class FourWheelerHomeComponent implements OnInit {
 
   ngOnInit() {
     this.claimpercent();
-    this.bussinessType();
     this.getpreviousCompany();
     this.sessionData();
 
@@ -190,7 +191,7 @@ export class FourWheelerHomeComponent implements OnInit {
       "prev_insurance_name": this.fourWheeler.controls['previousCompany'].value ? this.fourWheeler.controls['previousCompany'].value : '',
     }
     console.log(data, 'data');
-    this.bikeService.getMotorHomeDetails(data).subscribe(
+    this.fwService.getMotorHomeDetails(data).subscribe(
         (successData) => {
           this.bikeDetailsSuccess(successData, data);
         },
@@ -208,7 +209,7 @@ export class FourWheelerHomeComponent implements OnInit {
       sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
       sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
       sessionStorage.enquiryFormData = JSON.stringify(data);
-        let dialogRef = this.dialog.open(FourWheelerHomeComponent, {
+        let dialogRef = this.dialog.open(FourWheelerEnquirypopupComponent, {
           width: '1500px',
           height: '1200'
         })
@@ -233,7 +234,7 @@ export class FourWheelerHomeComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
     }
-    this.bikeService.getClaimList(data).subscribe(
+    this.fwService.getClaimList(data).subscribe(
         (successData) => {
           this.claimSuccess(successData);
         },
@@ -260,7 +261,7 @@ export class FourWheelerHomeComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
     }
-    this.bikeService.getCompanyDetails(data).subscribe(
+    this.fwService.getCompanyDetails(data).subscribe(
         (successData) => {
           this.companySuccess(successData);
         },
@@ -279,32 +280,7 @@ export class FourWheelerHomeComponent implements OnInit {
   public companyFailure(error) {
   }
 
-  bussinessType() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
-    }
-    this.bikeService.getBuissnessList(data).subscribe(
-        (successData) => {
-          this.typeSuccess(successData);
-        },
-        (error) => {
-          this.typeFailure(error);
-        }
-    );
-  }
-
-  public typeSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.bussinessList = successData.ResponseObject;
-    }
-  }
-
-  public typeFailure(error) {
-  }
 
   idValidate(event: any) {
     this.validation.idValidate(event);
