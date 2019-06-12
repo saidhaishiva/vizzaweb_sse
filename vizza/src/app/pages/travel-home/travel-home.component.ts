@@ -817,10 +817,18 @@ export class TravelHomeComponent implements OnInit {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
-            console.log(this.courseDuration, 'this.courseDuration');
-            console.log(this.sem, 'this.sem');
+            console.log(days, 'days');
 
-            if (days <= 180 ) {
+            let travelPeroid = true;
+            let travelPeroidValue = '';
+            if(this.travelUserType && days > 366) {
+                travelPeroid = false;
+                travelPeroidValue = '366';
+            } else  if(this.travelUserType == false && days > 180) {
+                travelPeroid = false;
+                travelPeroidValue = '180';
+            }
+            if (travelPeroid) {
 
                 let isStudentAgeValid = true;
                 let isMulititripAgeValid = true;
@@ -897,7 +905,7 @@ export class TravelHomeComponent implements OnInit {
                 }
             } else {
                 this.travelProceed = true;
-                this.toast.error('Travel period shoud not be greater than 180 days');
+                this.toast.error('Travel period shoud not be greater than' +' '+ travelPeroidValue + ' ' + 'days');
             }
         } else {
             this.travelProceed = true;
