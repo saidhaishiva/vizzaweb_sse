@@ -210,7 +210,7 @@ export class FourWheelerHomeComponent implements OnInit {
       sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
       sessionStorage.enquiryFormData = JSON.stringify(data);
         let dialogRef = this.dialog.open(FourWheelerEnquirypopupComponent, {
-          width: '1500px',
+          width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
           height: '1200'
         })
         dialogRef.disableClose = true;

@@ -325,7 +325,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'vehicle_category':"2W",
       'ncb_percent': this.vehicalDetails.controls['ncb'].value ? this.vehicalDetails.controls['ncb'].value : '',
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
-      'business_type': this.vehicalDetails.controls['bussiness'].value,
+      'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value
 
     };
