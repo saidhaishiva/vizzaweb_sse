@@ -14,7 +14,6 @@ import {PdfViewerModule} from 'ng2-pdf-viewer';
 import { SlickModule} from 'ngx-slick';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
-
 // import { ImageUploadModule } from "angular2-image-upload";
 
 // services
@@ -288,6 +287,7 @@ import { AegonTermLifeComponent } from './pages/aegon-term-life/aegon-term-life.
 import { BiketataaigDownloadPolicyComponent } from './pages/biketataaig-download-policy/biketataaig-download-policy.component';
 import { RsFourwheelerProposalComponent } from './pages/rs-fourwheeler-proposal/rs-fourwheeler-proposal.component';
 import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
+import {FourWheelerService} from './shared/services/four-wheeler.service';
 
 @NgModule({
     imports: [
@@ -575,6 +575,7 @@ import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheel
         TermLifeCommonService,
         BikeInsuranceService,
         ClearSessionTravelService,
+        FourWheelerService,
 
         { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
