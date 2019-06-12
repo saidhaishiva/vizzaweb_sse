@@ -350,45 +350,45 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public pinProposerListFailure(error) {
   }
-  // getresPostalCode(pin) {
-  //   const data = {
-  //     'platform': 'web',
-  //     'pin_code': pin
-  //   };
-  //   console.log(data,' jhgjh');
-  //   if (pin.length == 6) {
-  //     this.fourWheeler.getPincodeList(data).subscribe(
-  //         (successData) => {
-  //           this.pinresProposerListSuccess(successData, pin);
-  //         },
-  //         (error) => {
-  //           this.pinresProposerListFailure(error);
-  //         }
-  //     );
-  //   }
-  // }
-  //
-  // public pinresProposerListSuccess(successData, pin) {
-  //
-  //   if (successData.IsSuccess) {
-  //     this.respincodeList = successData.ResponseObject;
-  //     console.log(pin,' jhgfdghj');
-  //     if(pin.length == '' || pin.length == 0 || pin.length != 6){
-  //       this.proposer.controls['rcity'].patchValue('');
-  //     } for ( let key in this.respincodeList.city) {
-  //       this.proposer.controls['rcity'].patchValue(key);
-  //       this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
-  //     }
-  //
-  //   } else{
-  //     this.toastr.error(successData.ErrorObject);
-  //     this.proposer.controls['rcity'].patchValue('');
-  //
-  //   }
-  // }
-  //
-  // public pinresProposerListFailure(error) {
-  // }
+  getresPostalCode(pin) {
+    const data = {
+      'platform': 'web',
+      'pin_code': pin
+    };
+    console.log(data,' jhgjh');
+    if (pin.length == 6) {
+      this.fourWheeler.getRoyalRegPincodeList(data).subscribe(
+          (successData) => {
+            this.pinresProposerListSuccess(successData, pin);
+          },
+          (error) => {
+            this.pinresProposerListFailure(error);
+          }
+      );
+    }
+  }
+
+  public pinresProposerListSuccess(successData, pin) {
+
+    if (successData.IsSuccess) {
+      this.respincodeList = successData.ResponseObject;
+      console.log(pin,' jhgfdghj');
+      if(pin.length == '' || pin.length == 0 || pin.length != 6){
+        this.proposer.controls['rcity'].patchValue('');
+      } for ( let key in this.respincodeList.city) {
+        this.proposer.controls['rcity'].patchValue(key);
+        this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
+      }
+
+    } else{
+      this.toastr.error(successData.ErrorObject);
+      this.proposer.controls['rcity'].patchValue('');
+
+    }
+  }
+
+  public pinresProposerListFailure(error) {
+  }
   addEventPrevious(evnt) {
 
   }
