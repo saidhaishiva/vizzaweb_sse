@@ -287,6 +287,7 @@ import {PaymentModeValidate} from './pages/term-life-premium-list/term-life-prem
 import { AegonTermLifeComponent } from './pages/aegon-term-life/aegon-term-life.component';
 import { BiketataaigDownloadPolicyComponent } from './pages/biketataaig-download-policy/biketataaig-download-policy.component';
 import { RsFourwheelerProposalComponent } from './pages/rs-fourwheeler-proposal/rs-fourwheeler-proposal.component';
+import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 
 @NgModule({
     imports: [
@@ -533,7 +534,8 @@ import { RsFourwheelerProposalComponent } from './pages/rs-fourwheeler-proposal/
         PaymentModeValidate,
         AegonTermLifeComponent,
         BiketataaigDownloadPolicyComponent,
-        RsFourwheelerProposalComponent
+        RsFourwheelerProposalComponent,
+        RelianceFourwheelerProposalComponent
     ],
     providers: [
         AppSettings,

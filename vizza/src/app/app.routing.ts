@@ -142,6 +142,7 @@ import {BikeTataaigPaymentSuccesssComponent} from './pages/bike-tataaig-payment-
 import {CarTataaigProposalComponent} from './pages/car-tataaig-proposal/car-tataaig-proposal.component';
 import {AegonTermLifeComponent} from './pages/aegon-term-life/aegon-term-life.component';
 import {RsFourwheelerProposalComponent} from './pages/rs-fourwheeler-proposal/rs-fourwheeler-proposal.component';
+import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -279,7 +280,8 @@ export const routes: Routes = [
             { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'Tataaig Payment'} },
             { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}},
             { path: 'royal-sundaram-fourwheeler-proposal', component: RsFourwheelerProposalComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
-            { path: 'aegon-term-life/:stepper', component: AegonTermLifeComponent, data: { breadcrumb: 'aegon-term-life'}}
+            { path: 'aegon-term-life/:stepper', component: AegonTermLifeComponent, data: { breadcrumb: 'aegon-term-life'}},
+            { path: 'reliance-fourwheeler-motor-proposal/:stepper', component: RelianceFourwheelerProposalComponent, data: { breadcrumb: 'reliance-fourwheeler-motor-proposal'}},
 
         ]
     },
