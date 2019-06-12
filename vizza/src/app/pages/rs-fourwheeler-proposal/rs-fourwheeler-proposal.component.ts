@@ -69,6 +69,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public coverList: any;
   public respincodeList: any;
   public apponiteeList: boolean;
+  public accidentList: any
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
 
     const minDate = new Date();
@@ -89,6 +90,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       occupation: ' ',
+      aadharNumber: ['', Validators.compose([Validators.minLength(12)])],
+      panNumber: ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
       address: ['', Validators.required],
       address2: ['', Validators.required],
       address3: '',
@@ -114,7 +117,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     this.vehical = this.fb.group({
       vehicleMostlyDrivenOn: ['', Validators.required],
-      vehicleRegisteredName:'' ,
+      vehicleRegisteredName: '' ,
       // registrationchargesRoadtax: ['', Validators.required],
       coverelectricalaccesss: '',
       drivingExperience: '',
@@ -195,7 +198,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   dobValidate(event: any) {
     this.validation.dobValidate(event);
   }
-  spac(event: any){
+  spac(event: any) {
     this.validation.spac(event);
 
   }
@@ -206,35 +209,35 @@ export class RsFourwheelerProposalComponent implements OnInit {
     document.getElementById('main-content').scrollTop = 0;
   }
   // proposer page
-  create(){
+  create() {
     return new FormGroup({
       NameOfElectronicAccessories: new FormControl(),
       MakeModel :  new FormControl(),
       Value :  new FormControl(),
     });
   }
-  addItems(){
+  addItems() {
     this.addElectrical =  this.vehical.get('electricalAccess') as FormArray;
     this.addElectrical.push(this.create());
     console.log(this.addElectrical, 'this.addElectrical');
   }
-  removeItems(index){
+  removeItems(index) {
     let ssss =  this.vehical.get('electricalAccess') as FormArray;
     ssss.removeAt(index);
   }
   // non  electrical
-  createnonElectrical(){
+  createnonElectrical() {
     return new FormGroup({
       namesOfNonElectrical: new FormControl('', Validators.required),
       modelnonElectrical :  new FormControl('', Validators.required),
       valuenonelectrical :  new FormControl('', Validators.required),
     });
   }
-  addnonEelctricalItems(){
+  addnonEelctricalItems() {
     this.addnonElectrical =  this.vehical.get('nonelectricalAccess') as FormArray;
     this.addnonElectrical.push(this.createnonElectrical());
   }
-  removenonEelctricalItems(index){
+  removenonEelctricalItems(index) {
     let ssss =  this.vehical.get('nonelectricalAccess') as FormArray;
     ssss.removeAt(index);
   }
@@ -260,7 +263,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.titleList = successData.ResponseObject;
     }
   }
-  public titleFailure(error){
+  public titleFailure(error) {
   }
 
 // ocupation List
@@ -332,7 +335,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     if (successData.IsSuccess) {
       this.pincodeList = successData.ResponseObject;
-      if(pin.length == '' || pin.length == 0 || pin.length != 6){
+      if (pin.length == '' || pin.length == 0 || pin.length != 6) {
         this.proposer.controls['city'].patchValue('');
       }
       for (let key in this.pincodeList.city) {
@@ -355,7 +358,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'platform': 'web',
       'pin_code': pin
     };
-    console.log(data,' jhgjh');
+    console.log(data, ' jhgjh');
     if (pin.length == 6) {
       this.fourWheeler.getRoyalRegPincodeList(data).subscribe(
           (successData) => {
@@ -373,14 +376,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
     if (successData.IsSuccess) {
       this.respincodeList = successData.ResponseObject;
       console.log(pin,' jhgfdghj');
-      if(pin.length == '' || pin.length == 0 || pin.length != 6){
+      if (pin.length == '' || pin.length == 0 || pin.length != 6) {
         this.proposer.controls['rcity'].patchValue('');
       } for ( let key in this.respincodeList.city) {
         this.proposer.controls['rcity'].patchValue(key);
         this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
       }
 
-    } else{
+    } else {
       this.toastr.error(successData.ErrorObject);
       this.proposer.controls['rcity'].patchValue('');
 
@@ -457,11 +460,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
           this.proposer.controls['rcity'].patchValue('')
     }
   }
-  proposerDetails(stepper: MatStepper,value) {
+  proposerDetails(stepper: MatStepper, value) {
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
-    if(this.proposer.valid) {
-      if(sessionStorage.bkRoyalProposerAge >= 18){
+    if (this.proposer.valid) {
+      if (sessionStorage.bkRoyalProposerAge >= 18) {
         stepper.next();
       } else {
         this.toastr.error('Proposer age should be 18 or above');
@@ -471,7 +474,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     }
   }
   // vehical details
-  vehicalDetails(stepper: MatStepper,value){
+  vehicalDetails(stepper: MatStepper, value) {
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
@@ -684,6 +687,30 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public paidFailure(error) {
   }
+  changeAccidentPaidDriver() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fourWheeler.fourWheeleraccidentCoverDriver(data).subscribe(
+        (successData) => {
+          this.accidentPaidSuccess(successData);
+        },
+        (error) => {
+          this.accidentPaidFailure(error);
+        }
+    );
+  }
+  public accidentPaidSuccess(successData){
+    if (successData.IsSuccess) {
+      this.accidentList = successData.ResponseObject;
+    }
+  }
+  public accidentPaidFailure(error) {
+  }
   // third page
 
   changePreviousInsureType() {
@@ -703,7 +730,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
     );
   }
-  public previousInsureTypeSuccess(successData){
+  public previousInsureTypeSuccess(successData) {
     if (successData.IsSuccess) {
       this.previousList = successData.ResponseObject;
     }
@@ -771,7 +798,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     }
   }
   // next
-  previousDetails(stepper: MatStepper, value){
+  previousDetails(stepper: MatStepper, value) {
     sessionStorage.stepper3 = JSON.stringify(value);
     if (this.previousInsure.valid){
       if (this.previousInsure.controls['previousPolicyType'].value == 'Thirdparty') {
@@ -788,7 +815,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   // fourth page
 
   ageNominee() {
-    if (this.nomineeDetail.controls['nomineeAge'].value <= 17){
+    if (this.nomineeDetail.controls['nomineeAge'].value <= 17) {
       this.apponiteeList = true;
     }  else {
       this.apponiteeList = false;
@@ -844,17 +871,17 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "CALCULATEPREMIUMREQUEST": {
       "premium": "66272.0",
           "proposerDetails": {
-        "addressOne": this.proposer.controls['address'].value,
-            "addressTwo": this.proposer.controls['address2'].value,
+        "addressOne": this.proposer.controls['raddress'].value,
+            "addressTwo": this.proposer.controls['raddress2'].value,
             "regCity": this.proposer.controls['rcity'].value, //cityList
             "regPinCode":this.proposer.controls['rpincode'].value,
-            "contactAddress1": "No1",
-            "contactAddress2": "North Street",
+            "contactAddress1": this.proposer.controls['address'].value,
+            "contactAddress2": this.proposer.controls['address2'].value,
             "contactCity": this.proposer.controls['city'].value,
             "contactPincode": this.proposer.controls['pincode'].value,
             "dateOfBirth": this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
-            "panNumber": "",
-            "aadharNumber": "",
+            "panNumber":  this.proposer.controls['panNumber'].value,
+            "aadharNumber":  this.proposer.controls['aadharNumber'].value,
             "guardianAge": this.nomineeDetail.controls['appointeeAge'].value,
             "guardianName": this.nomineeDetail.controls['appointeeRelationship'].value,
             "nomineeAge": this.nomineeDetail.controls['nomineeAge'].value,
