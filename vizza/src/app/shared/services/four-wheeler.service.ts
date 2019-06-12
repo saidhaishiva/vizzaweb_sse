@@ -143,4 +143,8 @@ export class FourWheelerService {
     }
     return Observable.throw(error);
   }
+  private extractData(res: Response) {
+    const body = res;
+    return body || {};
+  }
 }
