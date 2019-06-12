@@ -75,6 +75,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public PaymentReturn: any;
     public vehicledata: any;
     public poldate: any;
+    public Proposalnumber: any;
 
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public config: ConfigurationService) {
@@ -746,8 +747,10 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData,'summary');
-            this.ProposalId = this.summaryData.ProposalId;
+            this.Proposalnumber = this.summaryData.Proposal_Number;
+            console.log(this.Proposalnumber,'pronum');
             this.PaymentRedirect = this.summaryData.PaymentRedirect;
+            console.log(this.PaymentRedirect,'redirect');
             this.PaymentReturn = this.summaryData.PaymentReturn;
             sessionStorage.tataBikeproposalID = this.ProposalId;
             this.proposerFormData = this.proposer.value;

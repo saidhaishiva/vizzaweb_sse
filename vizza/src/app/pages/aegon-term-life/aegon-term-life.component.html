@@ -99,9 +99,11 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Qualifiction" formControlName="qualifiction"  >
-                            <mat-option value=""></mat-option>
-                            <mat-option value=""></mat-option>
+                          <mat-select placeholder="Qualifiction" formControlName="qualifiction"  (change)="changeQualificationList()">
+                            <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
+                              {{list.value}}
+                            </mat-option>
+
                             <!--<mat-option value="MRS">Mrs</mat-option>-->
                           </mat-select>
                           <mat-error *ngIf="personal.controls.qualifiction.errors?.required">Qualifiction is required</mat-error>
@@ -199,11 +201,10 @@
                             </div>
                             <div class="col-md-6"><mat-form-field class="w-100" >
                               <mat-select placeholder="City" formControlName="pCity" autocomplete="off" required>
-                                <!--<mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.value'>-->
-                                <!--{{city.value}}-->
-                                <!--</mat-option>-->
-                                <mat-option value="chennai">chennai</mat-option>
-                                <mat-option value="coimbatore">coimbatore</mat-option>
+                                <mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>
+                                {{city.value}}
+                                </mat-option>
+
                               </mat-select>
                               <mat-error *ngIf="personal.controls.pCity.errors?.required">City is required</mat-error>
                             </mat-form-field></div>
@@ -247,11 +248,10 @@
                             </div>
                             <div class="col-md-6"  [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}"><mat-form-field class="w-100" >
                               <mat-select placeholder="City" formControlName="cCity" autocomplete="off">
-                                <mat-option value="chennai">chennai</mat-option>
-                                <mat-option value="coimbatore">coimbatore</mat-option>
-                                <!--<mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.value'>-->
-                                <!--{{city.value}}-->
-                                <!--</mat-option>-->
+
+                                <mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>
+                                  {{city.value}}
+                                </mat-option>
                               </mat-select>
                               <mat-error *ngIf="personal.controls.cCity.errors?.required">City is required</mat-error>
                             </mat-form-field></div>
@@ -357,12 +357,11 @@
                                 </mat-form-field>
                               </div>
                               <div class="col-md-6"><mat-form-field class="w-100" >
-                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" >
-                                  <!--<mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.value'>-->
-                                  <!--{{city.value}}-->
-                                  <!--</mat-option>-->
-                                  <mat-option value="chennai">chennai</mat-option>
-                                  <mat-option value="coimbatore">coimbatore</mat-option>
+                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" (change)="changeCitylist()">
+                                  <mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>
+                                  {{city.value}}
+                                  </mat-option>
+
                                 </mat-select>
                                 <mat-error *ngIf="nominee.controls.nCity.errors?.required">City is required</mat-error>
                               </mat-form-field></div>
