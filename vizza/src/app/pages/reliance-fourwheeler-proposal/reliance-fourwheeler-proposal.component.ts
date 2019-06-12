@@ -9,6 +9,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material'
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 
 
 export const MY_FORMATS = {
@@ -83,7 +84,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   proposerAge : any;
   personalDobError : any;
   previousDateError : any;
-  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
+  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public validation: ValidationService ,private toastr: ToastrService, public fourWheelerInsurance: FourWheelerService , public authservice: AuthService , public datepipe: DatePipe) {
 
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
@@ -371,7 +372,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.fourWheelerRelianceGetTitleList(data).subscribe(
+    this.fourWheelerInsurance.fourWheelerRelianceGetTitleList(data).subscribe(
         (successData) => {
           this.titlesucccess(successData);
         },
@@ -393,7 +394,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.proposerData = value;
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
-      this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
+      // this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
 
       if (this.relianceProposal.valid) {
         stepper.next();
@@ -550,7 +551,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.fourWheeleroccupationList(data).subscribe(
+    this.fourWheelerInsurance.fourWheeleroccupationList(data).subscribe(
         (successData) => {
           this.occupationSucccess(successData);
         },
@@ -572,7 +573,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.fourWheelermaritalList(data).subscribe(
+    this.fourWheelerInsurance.fourWheelermaritalList(data).subscribe(
         (successData) => {
           this.maritalSucccess(successData);
         },
@@ -594,7 +595,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.fourWheelerfuelTypeList(data).subscribe(
+    this.fourWheelerInsurance.fourWheelerfuelTypeList(data).subscribe(
         (successData) => {
           this.fuelTypeListSucccess(successData);
         },
@@ -616,7 +617,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.fourWheelerrelationListDetails(data).subscribe(
+    this.fourWheelerInsurance.fourWheelerrelationListDetails(data).subscribe(
         (successData) => {
           this.relationListSucccess(successData);
         },
@@ -637,7 +638,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.fourWheelerprevInsureList(data).subscribe(
+    this.fourWheelerInsurance.fourWheelerprevInsureList(data).subscribe(
         (successData) => {
           this.prevInsureSucccess(successData);
         },
@@ -659,7 +660,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.fourWheelerprevPolicyList(data).subscribe(
+    this.fourWheelerInsurance.fourWheelerprevPolicyList(data).subscribe(
         (successData) => {
           this.prevPolicySucccess(successData);
         },
@@ -686,7 +687,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'enquiry_id': this.bikeEnquiryId,
+      'enquiry_id': 1716,
       'created_by': '',
       'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
       'motorproposalObj':{
@@ -823,7 +824,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
       }
     };
-    this.bikeInsurance.fourWheelergetProposal(data).subscribe(
+    this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
         (successData) => {
           this.getProposalSucccess(successData,stepper);
         },
@@ -876,7 +877,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'pincode': pin
     };
     if (pin.length == 6) {
-      this.bikeInsurance.fourWheelergetrPincodeList(data).subscribe(
+      this.fourWheelerInsurance.fourWheelergetrPincodeList(data).subscribe(
           (successData) => {
             this.pinListSuccess(successData,type);
           },
