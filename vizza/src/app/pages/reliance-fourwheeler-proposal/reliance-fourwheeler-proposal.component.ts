@@ -679,7 +679,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   /// create proposal
   createProposal(stepper,value){
     // stepper.next();
-    this.topScroll();
+    // this.topScroll();
     sessionStorage.stepper4Details = '';
     sessionStorage.stepper4Details = JSON.stringify(value);
     const data = {
@@ -687,7 +687,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'enquiry_id': 1716,
+      'enquiry_id': 1740,
       'created_by': '',
       'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
       'motorproposalObj':{
@@ -838,11 +838,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   getProposalSucccess(successData,stepper) {
     this.setting.loadingSpinner = false;
     if (successData.IsSuccess) {
+      alert('1');
       this.toastr.success('Proposal created successfully!!');
+      alert('3')
       this.summaryData = successData.ResponseObject;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
-      // this.proposalId = this.summaryData.policy_id;
-      // sessionStorage.relianceMotorproposalID = this.proposalId;
+      this.proposalId = this.summaryData.policy_id;
+      sessionStorage.relianceMotorproposalID = this.proposalId;
       this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
 
       this.proposerFormData = this.relianceProposal.value;
@@ -858,9 +860,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.topScroll();
       // this.nextStep();
 
-
-
     } else {
+      alert('2')
       this.toastr.error(successData.ErrorObject);
     }
   }

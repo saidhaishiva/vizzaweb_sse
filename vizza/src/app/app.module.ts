@@ -290,7 +290,9 @@ import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheel
 import {FourWheelerService} from './shared/services/four-wheeler.service';
 import {FourWheelerHomeComponent} from './pages/four-wheeler-home/four-wheeler-home.component';
 import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list/four-wheeler-product-list.component';
-
+import { FourWheelerEnquirypopupComponent } from './pages/four-wheeler-home/four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
+import { RelianceFourwheelerPaymentSuccessComponent } from './pages/reliance-fourwheeler-payment-success/reliance-fourwheeler-payment-success.component';
+import { ShriramFourwheelerProposalComponent} from './pages/shriram-fourwheeler-proposal/shriram-fourwheeler-proposal.component';
 
 @NgModule({
     imports: [
@@ -540,7 +542,10 @@ import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list
         RsFourwheelerProposalComponent,
         RelianceFourwheelerProposalComponent,
         FourWheelerHomeComponent,
-        FourWheelerProductListComponent
+        FourWheelerProductListComponent,
+        FourWheelerEnquirypopupComponent,
+        RelianceFourwheelerPaymentSuccessComponent,
+        ShriramFourwheelerProposalComponent
     ],
     providers: [
         AppSettings,
@@ -590,7 +595,7 @@ import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,FourWheelerEnquirypopupComponent
     ]
 })
 export class AppModule { }
