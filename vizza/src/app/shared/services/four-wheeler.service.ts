@@ -129,7 +129,8 @@ export class FourWheelerService {
     };
     const url = this.configurationService.getFourwheelerInsurance() + 'reliance/proposal';
     return this.http.post(url,json, httpOptions)
-        .map(this.extractData)        .catch(this.handleError);
+        .map(this.extractData)
+        .catch(this.handleError);
   }
 
   private handleError(error: Response | any) {
