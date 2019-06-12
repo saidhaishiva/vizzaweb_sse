@@ -255,7 +255,7 @@
                                          autocomplete="off"  >
                                   <mat-datepicker-toggle matSuffix [for]="picker11"></mat-datepicker-toggle>
                                   <mat-datepicker #picker11></mat-datepicker>
-                                  <!--                            <mat-error *ngIf="proposer.controls.dateofapplication.errors?.required">DOB is required</mat-error>-->
+                                  <!--                            <mat-error *ngIf="proposer.controls.dateoftransaction.errors?.required">DOB is required</mat-error>-->
                                 </mat-form-field>
                                 <div class="error" *ngIf="transactiondateError != ''">{{transactiondateError}}</div>
                               </div>
@@ -924,7 +924,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="IFSC Code" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" maxlength="11"  autocomplete="off" required>
+                            <input matInput placeholder="IFSC Code" class="text-uppercase" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" maxlength="11"  autocomplete="off" required>
                             <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
                             <mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>
 
@@ -939,7 +939,7 @@
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <mat-select matInput placeholder="Renewal Payment Mode" formControlName="paymentMode" autocomplete="off" required>
-                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value !='OTHER'">E-mandate</mat-option>
+                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value !='OTHER'">E-Mandate</mat-option>
                               <mat-option value="CCSI">CCSI</mat-option>
                               <mat-option value="NACH">NACH</mat-option>
                               <mat-option value="Cash-Cheque" *ngIf="enquiryFormData.lifePayment == 'yearly'">Cash-Cheque</mat-option>
@@ -1010,6 +1010,7 @@
                       </li>
                       <li class="list-group-item" *ngIf="proposerFormData.isPancard && proposerFormData.panNum !=''"><strong>PAN Number:</strong> {{proposerFormData.panNum | uppercase}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.amtTransaction != ''"><strong>Amount of transaction:</strong> {{proposerFormData.amtTransaction}}</li>
+                      <li class="list-group-item" *ngIf="proposerFormData.dateoftransaction != ''"><strong>Date of transaction:</strong> {{proposerFormData.dateoftransaction | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.jointAcName != ''"><strong>In case of transaction in joint names:</strong> {{proposerFormData.jointAcName}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.modeOfTransaction != ''"><strong>Mode Of Transaction:</strong> {{proposerFormData.modeOfTransaction}}</li>
 
@@ -1020,7 +1021,7 @@
                       <li class="list-group-item" *ngIf="proposerFormData.dateofapplication != ''"><strong>Date Of Application:</strong> {{proposerFormData.dateofapplication}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.ackNumber != ''"><strong>Acknowledgement Number:</strong> {{proposerFormData.ackNumber}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.totalIncome != ''">
-                        <p>fill estimated total income (including income of spouse, minor child etc. as per section 64 of Income-tax Act, 1961) for the financial year in which the above transaction is held </p>
+<!--                        <p>fill estimated total income (including income of spouse, minor child etc. as per section 64 of Income-tax Act, 1961) for the financial year in which the above transaction is held </p>-->
                         <strong>
                         Total Income:</strong> {{proposerFormData.totalIncome}}</li>
 
@@ -1258,7 +1259,7 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode}}</li>
+                          <li class="list-group-item" *ngIf="bankDetailFormData.ifscCode!=''"><strong>IFSC Code:</strong> {{bankDetailFormData.ifscCode | uppercase}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.micrCode!=''"><strong>Micr Code:</strong> {{bankDetailFormData.micrCode}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.paymentMode!=''"><strong>Renewal Payment Mode:</strong> {{bankDetailFormData.paymentMode}}</li>
                           <li class="list-group-item" *ngIf="bankDetailFormData.bankProof!=''"><strong>Bank Proof:</strong> {{bankDetailFormData.bankProof}}</li>

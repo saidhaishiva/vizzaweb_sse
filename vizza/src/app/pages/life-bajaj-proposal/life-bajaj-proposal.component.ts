@@ -350,6 +350,7 @@ export class LifeBajajProposalComponent implements OnInit {
       sharePercentage: '',
       showAppointee: false,
       aName: '',
+      nomineeAgeVal: '',
       appointeeDob: '',
       appointeeRelationToNominee: '',
       relationToInsured: '',
@@ -667,6 +668,18 @@ export class LifeBajajProposalComponent implements OnInit {
         if ( i == 0){
           sessionStorage.nomineAge = this.getAge;
         }
+
+        if ( i != 0){
+          if(this.getAge < 18){
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(1);
+            console.log(this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalue');
+          }else{
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(0);
+            console.log(this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalueelsee');
+          }
+          
+        }
+        console.log(this.getAge,'getaage');
         if (this.getAge < 18) {
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(true);
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
@@ -677,6 +690,7 @@ export class LifeBajajProposalComponent implements OnInit {
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue('');
           this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
+
         }
       } else if(type == 'appointee') {
 
@@ -952,21 +966,36 @@ samerelationShip(){
         appointeeAge = true;
       }
     }
+
+    ////nominee 2 age validation
+    let nominee2ageval;
+    for(let i=0; i < this.nomineeDetails.get('itemsNominee')['controls'].length; i++){
+      if( this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value == 1){
+         nominee2ageval = true;
+      }else{
+        nominee2ageval = false;
+      }
+    }
     console.log(nomineeValid,'nomineeVLID');
       if (this.nomineeDetails.valid) {
         if (sharePercentage == 100){
           if (!nomineeValid) {
-            if(appointeeAge) {
-              if (this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value != '') {
-                stepper.next();
-                this.topScroll();
-              } else {
-                this.toastr.error('Please fill the appointee details');
+            if(!nominee2ageval){
+              if(appointeeAge) {
+                if (this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].aName.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].appointeeRelationToNominee.value != '' && this.nomineeDetails['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value != '') {
+                  stepper.next();
+                  this.topScroll();
+                } else {
+                  this.toastr.error('Please fill the appointee details');
+                }
+              }else{
+                this.toastr.error('Appointee Age should be greater than 18.');
               }
             }else{
-              this.toastr.error('Appointee Age should be greater than 18.');
+              this.toastr.error('Nominee Age should be greater than 18.');
 
             }
+
           } else {
             stepper.next();
             this.topScroll();
@@ -2329,6 +2358,7 @@ samerelationShip(){
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(nomineeDetails.itemsNominee[i].showAppointee);
 
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(nomineeDetails.itemsNominee[i].aName);
+            this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(nomineeDetails.itemsNominee[i].nomineeAgeVal);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(nomineeDetails.itemsNominee[i].appointeeDob);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue(nomineeDetails.itemsNominee[i].appointeeRelationToNominee);
             this.nomineeDetails['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue(nomineeDetails.itemsNominee[i].appointeeDobValidError);

@@ -870,6 +870,13 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].relationship,
                     'role_cd': this.proposerInsureData[i].rolecd
                 });
+                if (this.proposerInsureData[i].phone != '') {
+                    this.totalReligareData[i].prop_contact_list.push({
+                        'contact_no': this.proposerInsureData[i].phone,
+                        'contact_type': 'RESEDENTIAL',
+                        'std_code': '91'
+                    });
+                }
             }
             console.log( this.totalReligareData, ' this.totalReligareData this.totalReligareData this.totalReligareData');
             let ageValidate = [];
