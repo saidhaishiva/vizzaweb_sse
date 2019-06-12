@@ -543,8 +543,7 @@ import { RelianceFourwheelerPaymentSuccessComponent } from './pages/reliance-fou
         RelianceFourwheelerProposalComponent,
         FourWheelerHomeComponent,
         FourWheelerProductListComponent,
-        FourWheelerEnquirypopupComponent
-        FourWheelerProductListComponent,
+        FourWheelerEnquirypopupComponent,
         RelianceFourwheelerPaymentSuccessComponent
     ],
     providers: [
