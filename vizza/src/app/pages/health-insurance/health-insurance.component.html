@@ -296,12 +296,12 @@
 
   <div class="pt-0">
   <div class="sticky-top mt-4" style="z-index: 0;">
-    <mat-card style="background-color: antiquewhite;">
+    <mat-card style="background-color: #CD397B;">
 <div class="row">
   <div class="col-6">
     <mat-form-field class="w-100">
       <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
-      <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple style="color: #000000;">
+      <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
         <mat-option value="All" >Select All</mat-option>
 
         <mat-select-trigger>
