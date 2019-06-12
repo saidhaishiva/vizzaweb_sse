@@ -642,12 +642,12 @@
         <!--<div class="col p-0"><button mat-raised-button  class="w-100">Group B</button></div>-->
         <!--<div class="col pl-0"><button mat-raised-button  class="w-100">Group C</button></div>-->
     <!--</div>-->
-    <div class="sticky-top" style="z-index: 0;">
+    <div class="sticky-top" style="z-index: 1;">
         <mat-card style="background-color: antiquewhite;">
             <div class="row">
                 <div class="col-6">
                     <mat-form-field class="w-100">
-                        <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
+                        <mat-placeholder class="myclass font-weight-bold" style="color: #000000">Filter by company</mat-placeholder>
                         <mat-select [(ngModel)]="filterCompany"  (change)="filterByProducts()" multiple>
                             <mat-option value="All" >Select All</mat-option>
 

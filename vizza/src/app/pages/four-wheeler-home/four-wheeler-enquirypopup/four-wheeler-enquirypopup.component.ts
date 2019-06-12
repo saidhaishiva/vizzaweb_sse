@@ -1,37 +1,21 @@
 import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {BikeInsuranceService} from '../../../shared/services/bike-insurance.service';
+import {ActivatedRoute, Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {ValidationService} from '../../../shared/services/validation.service';
-import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
-import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import * as moment from 'moment';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import * as moment from '../../bike-insurance/enquiry-popup/enquiry-popup.component';
+import {FourWheelerService} from '../../../shared/services/four-wheeler.service';
 
-export const MY_FORMATS = {
-  parse: {
-    dateInput: 'DD/MM/YYYY',
-  },
-  display: {
-    dateInput: 'DD/MM/YYYY',
-    monthYearLabel: 'MM YYYY',
-    dateA11yLabel: 'DD/MM/YYYY',
-
-    monthYearA11yLabel: 'MM YYYY',
-  },
-};
 @Component({
-  selector: 'app-enquiry-popup',
-  templateUrl: './enquiry-popup.component.html',
-  styleUrls: ['./enquiry-popup.component.scss'],
-  providers: [
-    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
-  ]
+  selector: 'app-four-wheeler-enquirypopup',
+  templateUrl: './four-wheeler-enquirypopup.component.html',
+  styleUrls: ['./four-wheeler-enquirypopup.component.scss']
 })
-export class EnquiryPopupComponent implements OnInit {
+export class FourWheelerEnquirypopupComponent implements OnInit {
   vehicalDetails: FormGroup;
   public manifactureDetails : any;
   public ccDetails : any;
@@ -49,12 +33,12 @@ export class EnquiryPopupComponent implements OnInit {
   public options : any;
   public config : any;
   public getDays : any;
-  constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
-  public dialogRef: MatDialogRef<EnquiryPopupComponent>,
-  @Inject(MAT_DIALOG_DATA) public data: any) {
+  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
+              public dialogRef: MatDialogRef<FourWheelerEnquirypopupComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {
     this.ListDetails = this.data.listData;
     this.vehicalNo = this.ListDetails.vehicalNumber;
-  console.log(this.ListDetails, 'this.ListDetails');
+    console.log(this.ListDetails, 'this.ListDetails');
     this.vehicalDetails = this.fb.group({
       'vehicalNumber':  ['', Validators.required],
       'registrationDate':  ['', Validators.required],
@@ -73,9 +57,9 @@ export class EnquiryPopupComponent implements OnInit {
       'previousPolicyStart': '',
       'city': ['', Validators.required]
     });
-      this.getDays = this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd');
+    this.getDays = this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd');
 
-      console.log(this.dataList, 'hgfgdjgh');
+    console.log(this.dataList, 'hgfgdjgh');
     this.config = {
       displayKey: "city", //if objects array passed which key to be displayed defaults to description
       search: true,
@@ -89,9 +73,8 @@ export class EnquiryPopupComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.claimpercent();
     this.manifactureList();
-    this.bussinessType();
     this.dataList();
-     this.getCityLists();
+    this.getCityLists();
 
   }
   dataList(){
@@ -113,8 +96,8 @@ export class EnquiryPopupComponent implements OnInit {
       'previousPolicyExpiry': this.datePipe.transform(this.ListDetails.previous_policy_expiry_date, 'y-MM-dd'),
       'previousPolicyStart': this.datePipe.transform(this.ListDetails.previous_policy_start_date, 'y-MM-dd')
     });
-}
-                             /// manufacture
+  }
+  /// manufacture
   manifactureList() {
     const data = {
       'platform': 'web',
@@ -123,7 +106,7 @@ export class EnquiryPopupComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
     }
-    this.bikeService.getManifactureList(data).subscribe(
+    this.fwService.getManifactureList(data).subscribe(
         (successData) => {
           this.manifactureSuccess(successData);
         },
@@ -176,7 +159,7 @@ export class EnquiryPopupComponent implements OnInit {
       'manufacture': this.vehicalDetails.controls['manufacture'].value
 
     }
-    this.bikeService.getModelList(data).subscribe(
+    this.fwService.getModelList(data).subscribe(
         (successData) => {
           this.modelSuccess(successData);
         },
@@ -204,7 +187,7 @@ export class EnquiryPopupComponent implements OnInit {
       'model':  this.vehicalDetails.controls['vehicleModel'].value
 
     }
-    this.bikeService.getvariantList(data).subscribe(
+    this.fwService.getvariantList(data).subscribe(
         (successData) => {
           this.variantSuccess(successData);
         },
@@ -236,7 +219,7 @@ export class EnquiryPopupComponent implements OnInit {
 
 
     }
-    this.bikeService.getCCList(data).subscribe(
+    this.fwService.getCCList(data).subscribe(
         (successData) => {
           this.ccSuccess(successData);
         },
@@ -260,7 +243,7 @@ export class EnquiryPopupComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
     }
-    this.bikeService.getClaimList(data).subscribe(
+    this.fwService.getClaimList(data).subscribe(
         (successData) => {
           this.claimSuccess(successData);
         },
@@ -284,7 +267,7 @@ export class EnquiryPopupComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
     }
-    this.bikeService.getCityList(data).subscribe(
+    this.fwService.getCityList(data).subscribe(
         (successData) => {
           this.citySuccess(successData);
         },
@@ -296,36 +279,13 @@ export class EnquiryPopupComponent implements OnInit {
   public citySuccess(successData){
     if (successData.IsSuccess) {
       this.cityDetails = successData.ResponseObject;
-          //
+      //
     }
   }
   public cityFailure(error) {
   }
 
-  bussinessType() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
-    }
-    this.bikeService.getBuissnessList(data).subscribe(
-        (successData) => {
-          this.typeSuccess(successData);
-        },
-        (error) => {
-          this.typeFailure(error);
-        }
-    );
-  }
-  public typeSuccess(successData){
-    if (successData.IsSuccess) {
-      this.bussinessList = successData.ResponseObject;
-    }
-  }
-  public typeFailure(error) {
-  }
   manufactureYear(){
     let start = new Date(this.vehicalDetails.controls['registrationDate'].value);
     let getRegPolicyYear = start.getFullYear();
@@ -365,12 +325,12 @@ export class EnquiryPopupComponent implements OnInit {
       'vehicle_category':"2W",
       'ncb_percent': this.vehicalDetails.controls['ncb'].value ? this.vehicalDetails.controls['ncb'].value : '',
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
-      'business_type': this.vehicalDetails.controls['bussiness'].value,
+      'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value
 
     };
     sessionStorage.vehicledetails = JSON.stringify(data);
-    this.bikeService.getEnquiryDetails(data).subscribe(
+    this.fwService.getEnquiryDetails(data).subscribe(
         (successData) => {
           this.enquirySuccess(successData);
         },
@@ -386,7 +346,6 @@ export class EnquiryPopupComponent implements OnInit {
       sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
       console.log(this.QuotationList,'jhkhjgkj');
       if(this.vehicalDetails.valid){
-          this.ageCalculateInsurer('days');
         if(successData.status == true){
           this.dialogRef.close();
           this.router.navigate(['/bikepremium']);
@@ -405,13 +364,6 @@ export class EnquiryPopupComponent implements OnInit {
   close(): void {
     this.dialogRef.close();
   }
-   // days validation
-  ageCalculateInsurer(getDays) {
-    let a = moment(getDays, 'DD/MM/YYYY');
-    let b = moment(new Date(), 'DD/MM/YYYY');
-    let days = b.diff(a, 'days');
-    console.log(days,'daaaaaa');
-    return days;
-  }
+
 
 }

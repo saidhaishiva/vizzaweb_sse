@@ -476,7 +476,8 @@
                             <div class="col-md-8">
                                 <ul class="summary-head">
                                     <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Comprehensive_premium}}</span></li>
+                                    <li *ngIf="summaryData.Comprehensive_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Comprehensive_premium}}</span></li>
+                                    <li *ngIf="summaryData.ThridParty_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.ThridParty_premium}}</span></li>
                                     <li></li>
                                 </ul>
                             </div>

@@ -428,12 +428,12 @@
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
                 <div class="col-md-4">
-                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}}</span> </span></h4>
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.company_name}}</span> </span></h4>
                 </div>
                 <div class="col-md-8">
                   <ul class="summary-head">
                     <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Comprehensive_premium}}</span></li>
+                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{buyBikeDetails.Comprehensive_premium}}</span></li>
                     <li></li>
                   </ul>
                 </div>
@@ -520,16 +520,15 @@
                         <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.precode}}</li>
                         <li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preName}}</li>
                         <li class="list-group-item"><strong>POLNO:</strong> {{previousFormData.preName}}</li>
-                        <li class="list-group-item"><strong>PIN code:</strong> {{previousFormData.prepincode}}</li>
                       </ul>
                     </div>
                     <div class="p-3">
                       <h6 class="color-blue"> COMMUNICATION DETAILS </h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{previousFormData.preAddressone}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.Addresstwo != ''"><strong>Address 2:</strong> {{previousFormData.preAddresstwo}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.Addressthree != ''"><strong>Address 3:</strong> {{previousFormData.preAddressthree}}</li>
-                        <li class="list-group-item"><strong>PIN code:</strong> {{previousFormData.prepincode}}</li>
+                        <li class="list-group-item" *ngIf="previousFormData.Addresstwo != ''"><strong>Address 2:</strong> {{previousFormData.preAddresstwo}}</li>
+                        <li class="list-group-item" *ngIf="previousFormData.Addressthree != ''"><strong>Address 3:</strong> {{previousFormData.preAddressthree}}</li>
+                        <li class="list-group-item" *ngIf="previousFormData.prepincode != ''"><strong>PIN code:</strong> {{previousFormData.prepincode}}</li>
                       </ul>
                     </div>
                   </div>
@@ -537,9 +536,9 @@
                       <div class="p-3">
                         <h6 class="mt-4"></h6>
                         <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>City:</strong> {{previousFormData.preCity}}</li>
-                          <li class="list-group-item"><strong>State:</strong> {{previousFormData.preState}}</li>
-                          <li class="list-group-item"><strong>District:</strong> {{previousFormData.preDistrict}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.preCity != ''"><strong>City:</strong> {{previousFormData.preCity}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.preState != ''"><strong>State:</strong> {{previousFormData.preState}}</li>
+                          <li class="list-group-item" *ngIf="previousFormData.preDistrict != ''"><strong>District:</strong> {{previousFormData.preDistrict}}</li>
                         </ul>
                       </div>
                     </div>
