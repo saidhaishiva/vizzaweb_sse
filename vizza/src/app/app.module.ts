@@ -291,6 +291,7 @@ import {FourWheelerService} from './shared/services/four-wheeler.service';
 import {FourWheelerHomeComponent} from './pages/four-wheeler-home/four-wheeler-home.component';
 import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list/four-wheeler-product-list.component';
 import { FourWheelerEnquirypopupComponent } from './pages/four-wheeler-home/four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
+import { ShriramFourwheelerProposalComponent } from './pages/shriram-fourwheeler-proposal/shriram-fourwheeler-proposal.component';
 
 
 @NgModule({
@@ -542,7 +543,8 @@ import { FourWheelerEnquirypopupComponent } from './pages/four-wheeler-home/four
         RelianceFourwheelerProposalComponent,
         FourWheelerHomeComponent,
         FourWheelerProductListComponent,
-        FourWheelerEnquirypopupComponent
+        FourWheelerEnquirypopupComponent,
+        ShriramFourwheelerProposalComponent
     ],
     providers: [
         AppSettings,

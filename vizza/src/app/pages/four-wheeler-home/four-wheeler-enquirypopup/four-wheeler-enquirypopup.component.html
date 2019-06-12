@@ -13,14 +13,7 @@
     <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>-->
     <!--</mat-form-field>-->
     <!--</div>-->
-    <div class="col-md-3">
-      <mat-form-field class="w-100">
-        <mat-select placeholder="Business  Type"  formControlName="bussiness"   required>
-          <mat-option *ngFor="let paCity of bussinessList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-        </mat-select>
-        <mat-error *ngIf="vehicalDetails.controls.bussiness.errors?.required">Business  Type is required</mat-error>
-      </mat-form-field>
-    </div>
+
     <div class="col-md-3">
       <mat-form-field class="w-100">
         <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)" (keypress)="dobValidate($event)" formControlName="registrationDate"   maxlength="10" minlength="10" required>
