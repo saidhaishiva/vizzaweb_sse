@@ -288,6 +288,9 @@ import { BiketataaigDownloadPolicyComponent } from './pages/biketataaig-download
 import { RsFourwheelerProposalComponent } from './pages/rs-fourwheeler-proposal/rs-fourwheeler-proposal.component';
 import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 import {FourWheelerService} from './shared/services/four-wheeler.service';
+import {FourWheelerHomeComponent} from './pages/four-wheeler-home/four-wheeler-home.component';
+import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list/four-wheeler-product-list.component';
+
 
 @NgModule({
     imports: [
@@ -535,7 +538,9 @@ import {FourWheelerService} from './shared/services/four-wheeler.service';
         AegonTermLifeComponent,
         BiketataaigDownloadPolicyComponent,
         RsFourwheelerProposalComponent,
-        RelianceFourwheelerProposalComponent
+        RelianceFourwheelerProposalComponent,
+        FourWheelerHomeComponent,
+        FourWheelerProductListComponent
     ],
     providers: [
         AppSettings,
