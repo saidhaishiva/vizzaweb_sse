@@ -817,6 +817,7 @@ export class TravelHomeComponent implements OnInit {
             let sDate = this.datePipe.transform(this.startDate, 'y-MM-dd');
             let eDate = this.datePipe.transform(this.endDate, 'y-MM-dd');
             let days = this.dyasCalculation();
+            console.log(days, 'days');
 
             let travelPeroid = true;
             let travelPeroidValue = '';
@@ -904,7 +905,7 @@ export class TravelHomeComponent implements OnInit {
                 }
             } else {
                 this.travelProceed = true;
-                this.toast.error('Travel period shoud not be greater than $travelPeroidValue days');
+                this.toast.error('Travel period shoud not be greater than' +' '+ travelPeroidValue + ' ' + 'days');
             }
         } else {
             this.travelProceed = true;
