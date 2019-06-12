@@ -358,8 +358,11 @@ export class BikeInsuranceComponent implements OnInit {
         this.typeList = '';
         if (event == 0) {
             this.typeList = 'new';
+            console.log(this.typeList,'0');
         } else {
             this.typeList = 'other';
+            console.log(this.typeList,'1');
+
         }
 
 

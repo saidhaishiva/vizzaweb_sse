@@ -17,7 +17,7 @@
         <div  class="col-md-6 col-sm-12 col-xs-12">
             <div class="card">
                 <div class="card-block">
-                    <mat-tab-group #tabGroup   class="travel-box AllFormView" (selectedTabChange)="getType($event)">
+                    <mat-tab-group #tabGroup   class="travel-box AllFormView" (selectedIndexChange)="getType($event)">
                         <mat-tab label="first">
                             <ng-template mat-tab-label>
                                 New Policy
