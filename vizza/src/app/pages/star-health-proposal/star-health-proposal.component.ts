@@ -582,6 +582,9 @@ export class StarHealthProposalComponent implements OnInit {
 
         }
     }
+    resetofgstType() {
+        this.personal.controls['personalgstIdType'].patchValue('');
+    }
     // pincode list
     getPostal(pin, title) {
         const data = {

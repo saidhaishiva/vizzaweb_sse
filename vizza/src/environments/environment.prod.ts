@@ -9,6 +9,7 @@ export const environment = {
     apiHostPos: 'http://13.127.24.123/vizza/api/index.php/pos/',
     apiHostDm: 'http://13.127.24.123/vizza/api/index.php/dm/',
     apiHostMotor: 'http://13.127.24.123/vizza/api/index.php/mtw/',
+    apiHostMotorFour: 'http://13.127.24.123/vizza/api/index.php/mfw/',
     apiHostLife: 'http://13.127.24.123/vizza/api/index.php/endowment/',
     apiHostTerm: 'http://13.127.24.123/vizza/api/index.php/termlife/',
     webHost: 'http://13.127.24.123',
@@ -16,6 +17,7 @@ export const environment = {
     travelInsurance: true,
     healthInsurance: true,
     lifeInsurance: true,
+    motorInsurance: true,
     paAccident: true
 
     // apiHost: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
@@ -33,7 +35,8 @@ export const environment = {
     // travelInsurance: true,
     // healthInsurance: true,
     // lifeInsurance: false,
-    // paAccident: true
+    // motorInsurance: false,
+    // paAccident: true,
 
 };
 

@@ -53,8 +53,10 @@ export class AegonTermLifeComponent implements OnInit {
   public today: any;
   public qualificationList: any;
   public summaryData: any;
+  public pincodeList: any;
   public enquiryFormData: any;
   public lifePremiumList: any;
+  public stateList: any;
   public getEnquiryDetials: any;
   public proposerFormData: any;
   public nomineeFormData: any;
@@ -65,9 +67,13 @@ export class AegonTermLifeComponent implements OnInit {
   public cityList: any;
   public nomineeData: any;
   public appointeeAge: any;
+  public response: any;
+  public proposalList: any;
   public proposalId: any;
   public settings: Settings;
   public stepper2: any;
+  public requestedUrl: any;
+
   public inputReadonly: boolean;
   public apponiteeList: boolean;
 
@@ -79,11 +85,14 @@ export class AegonTermLifeComponent implements OnInit {
 
   constructor(public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings) {
     let stepperindex = 0;
+    this.requestedUrl = '';
+
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         stepperindex = 2;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
+          // this.requestedUrl = this.summaryData.proposalUrl;
           // this.RediretUrlLink = this.summaryData.PaymentURL;
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
@@ -103,7 +112,6 @@ export class AegonTermLifeComponent implements OnInit {
       gender: '',
       dob: '',
       relationship: '',
-
       pincode: '',
       city: '',
       state: '',
@@ -132,6 +140,12 @@ export class AegonTermLifeComponent implements OnInit {
       cState: '',
       cPincode: '',
       isAddressSame: false,
+      qualifictionName:'',
+      natureOfWorkName:'',
+      pStateName:'',
+      pCityName:'',
+      cCityName:'',
+
 
 
     });
@@ -152,6 +166,10 @@ export class AegonTermLifeComponent implements OnInit {
       adob: '',
       aRelation: '',
       aPercentage: '',
+      nCityName:'',
+      nRelationName:'',
+      nStateName:'',
+
 
 
     });
@@ -163,8 +181,8 @@ export class AegonTermLifeComponent implements OnInit {
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this. getQualificationList();
     this.getoccupationlist();
-    this.getcitylist();
     this.getnomineerelationship();
+    this.getState();
 
   }
 
@@ -478,6 +496,7 @@ export class AegonTermLifeComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'state_id': this.personal.controls['state'].value,
     }
     this.TermLifeService.getcitylist(data).subscribe(
         (successData) => {
@@ -522,18 +541,88 @@ export class AegonTermLifeComponent implements OnInit {
   public nomineerelationshipFailure(error) {
   }
 
+  getState() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.getState(data).subscribe(
+        (successData) => {
+          this.stateSuccess(successData);
+        },
+        (error) => {
+          this.stateFailure(error);
+        }
+    );
+  }
+
+  public stateSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.stateList = successData.ResponseObject;
+    }
+  }
+  public stateFailure(error) {
+  }
+
+
+  getPostal(pin, title) {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pincode': pin
+    }
+    if (pin.length == 6) {
+      this.TermLifeService.getCheckpincode(data).subscribe(
+          (successData) => {
+            this.pincodeListSuccess(successData, title);
+          },
+          (error) => {
+            this.pincodeListFailure(error);
+          }
+      );
+    }
+  }
+  public pincodeListSuccess(successData, title) {
+    if (successData.IsSuccess) {
+    } else {
+      this.toastr.error('Invalid Pincode');
+    }
+  }
+  public pincodeListFailure(error) {
+  }
+
   changeQualificationList() {
     this.personal.controls['qualifictionName'].patchValue(this.qualificationList[this.personal.controls['qualifiction'].value]);
   }
-  // changeOccupationlist() {
-  //   this.personal.controls['nRelationName'].patchValue(this.relationList[this.personal.controls['nRelation'].value]);
-  // }
+  changeOccupationlist() {
+    this.personal.controls['natureOfWorkName'].patchValue(this.occupationList[this.personal.controls['natureOfWork'].value]);
+  }
   changeCitylist() {
     this.personal.controls['pCityName'].patchValue(this.cityList[this.personal.controls['pCity'].value]);
   }
-  changenomineerelationship() {
-    this.personal.controls['nRelationName'].patchValue(this.cityList[this.personal.controls['nRelation'].value]);
+  changecCitylist() {
+    this.personal.controls['cCityName'].patchValue(this.cityList[this.personal.controls['cCity'].value]);
   }
+  changeNcitylist() {
+    this.nominee.controls['nCityName'].patchValue(this.cityList[this.nominee.controls['nCity'].value]);
+  }
+  changenomineerelationship() {
+    this.nominee.controls['nRelationName'].patchValue(this.nomineeRelationship[this.nominee.controls['nRelation'].value]);
+  }
+  changeState()
+  {
+    this.personal.controls['pStateName'].patchValue(this.stateList[this.personal.controls['pState'].value]);
+
+  }
+  changenState()
+  {
+    this.nominee.controls['nStateName'].patchValue(this.stateList[this.nominee.controls['nState'].value]);
+
+  }
+
 
 
   sessionData() {
@@ -576,6 +665,11 @@ export class AegonTermLifeComponent implements OnInit {
         state: stepper1.state,
         city: stepper1.city,
         isAddressSame: stepper1.isAddressSame,
+        qualifictionName: stepper1.qualifictionName,
+        natureOfWorkName: stepper1.natureOfWorkName,
+        pCityName: stepper1.pCityName,
+        cCityName: stepper1.cCityName,
+        pStateName: stepper1.pStateName,
 
 
       });
@@ -599,6 +693,9 @@ export class AegonTermLifeComponent implements OnInit {
         adob: stepper2.adob,
         aRelation: stepper2.aRelation,
         aPercentage: stepper2.aPercentage,
+        nCityName: stepper2.nCityName,
+        nRelationName: stepper2.nRelationName,
+        nStateName: stepper2.nStateName,
       });
 
     }
@@ -699,43 +796,40 @@ export class AegonTermLifeComponent implements OnInit {
 
 
     console.log(data,'proposal data')
-  //   this.settings.loadingSpinner = true;
-  //   this.TermLifeService.getCholaProposal(data).subscribe(
-  //       (successData) => {
-  //         this.setCholaProposalSuccess(successData, stepper);
-  //       },
-  //       (error) => {
-  //         this.setCholaProposalFailure(error);
-  //       }
-  //   );
-  //
-  // }
-  // public setCholaProposalSuccess(successData, stepper) {
-  //   this.settings.loadingSpinner = false;
-  //   if (successData.IsSuccess == true) {
-  //     stepper.next();
-  //     this.topScroll();
-  //     this.toastr.success('Proposal created successfully!!');
-  //     this.summaryData = successData.ResponseObject;
-  //     sessionStorage.summaryData = JSON.stringify(this.summaryData);
-  //     this.proposalId = this.summaryData.ProposalId;
-  //     this.proposerFormData = this.personal.value;
-  //     this.nomineeFormData = this.nomineeDetails.value;
-  //     this.insuredFormData = this.insurerData;
-  //     sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
-  //     sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
-  //     sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
-  //     sessionStorage.chola_health_proposal_id = this.proposalId;
+    this.settings.loadingSpinner = true;
+    this.TermLifeService.getProposal(data).subscribe(
+        (successData) => {
+          this.setProposalSuccess(successData, stepper);
+        },
+        (error) => {
+          this.setProposalFailure(error);
+        }
+    );
 
-      stepper.next();
-      // this.nextStep();
-
-    // } else {
-    //   this.toastr.error(successData.ErrorObject);
-    // }
   }
-  // public setCholaProposalFailure(error) {
-  // }
+  public setProposalSuccess(successData, stepper) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess == true) {
+      stepper.next();
+      this.topScroll();
+      this.toastr.success('Proposal created successfully!!');
+      this.summaryData = successData.ResponseObject;
+      // this.requestedUrl = this.summaryData.proposalUrl;
+      sessionStorage.summaryData = JSON.stringify(this.summaryData);
+      this.proposalId = this.summaryData.ProposalId;
+      this.proposerFormData = this.personal.value;
+      this.nomineeFormData = this.nominee.value;
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
+      sessionStorage.aegon_proposal_id = this.proposalId;
+
+
+    } else {
+      this.toastr.error(successData.ErrorObject);
+    }
+  }
+  public setProposalFailure(error) {
+  }
 
 
 }
