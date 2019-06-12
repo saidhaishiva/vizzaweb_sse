@@ -855,7 +855,7 @@
                 <h5 class="mt-3 sub-title" style="background:#DA1717; color:white;">PROPOSER DETAILS </h5>
                   <div class="row box-card">
                     <div class="col-sm-12 col-xs-12 col-md-12">
-                      <div class="p-3">
+                      <div class="pt-3 pl-3 pr-3">
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Name:</strong> {{personlData.title}}.{{personlData.firstname}} {{personlData.lastname}}</li>
                           <li class="list-group-item" *ngIf="personlData.gender == 'M'"><strong>Gender:</strong> MALE </li>
@@ -868,8 +868,8 @@
                       </div>
                     </div>
                     <div class="col-sm-12 col-xs-12">
-                      <div class="p-3">
-                        <h5 class="sub-title" style="background:#DA1717; color:white;">COMMUNICATION DETAILS</h5>
+                      <div class="pb-3 pl-3 pr-3">
+                        <!--<h5 class="sub-title" style="background:#DA1717; color:white;">COMMUNICATION DETAILS</h5>-->
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Address 1:</strong> {{personlData.address1}}</li>
                           <li class="list-group-item" *ngIf ="personlData.address2 != ''" ><strong>Address 2:</strong> {{personlData.address2}}</li>
