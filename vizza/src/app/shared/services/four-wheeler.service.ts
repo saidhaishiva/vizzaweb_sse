@@ -133,6 +133,7 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
 
+
   // Royal Sundaram Four Wheeler
 
   // Title
@@ -147,7 +148,6 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-
   // Occupation list
   getRoyalFourWheelerOccupationList(data) {
     const json = JSON.stringify(data);
@@ -160,7 +160,6 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-
   // Vehicle Driven List
   getvehicleDrivenList(data) {
     const json = JSON.stringify(data);
@@ -199,7 +198,6 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
   // modelList
-
   fourWheelerGetmodelListList(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -211,11 +209,7 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-
-
-
   // make list
-
   fourWheelerGetmakeList(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -239,9 +233,7 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-
   // addOn
-
   fourWheeleraddOnList(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -264,10 +256,7 @@ export class FourWheelerService {
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)        .catch(this.handleError);
   }
-
-
   // vehicleRegisteredNameList
-
   fourWheelerGetvehicleRegisteredNameList(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -291,9 +280,7 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-
   // financedValue
-
   fourWheelerfinancedValue(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -316,9 +303,6 @@ export class FourWheelerService {
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)        .catch(this.handleError);
   }
-
-
-
   // drivingExperience
   fourWheelergetdrivingExperience(data){
     const json = JSON.stringify(data);
@@ -330,10 +314,7 @@ export class FourWheelerService {
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)        .catch(this.handleError);
   }
-
-
   // mileage
-
   fourWheelerGetmileage(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -357,9 +338,7 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-
   // accidentCoverDriver
-
   fourWheeleraccidentCoverDriver(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -372,6 +351,7 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
 
+  // End of Royal Sundaram
 
   private handleError(error: Response | any) {
     let errMsg: string;
