@@ -193,16 +193,15 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
-    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+    // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
 
     this.changeTitle();
     this.changehypothecation();
     this.policyType();
     this.proposalType();
     this.addonPackage();
-    this.previousInsureType();
     this.claimpercent();
     this.nomineeRelationShip();
     this.changehypothecationType();
@@ -514,56 +513,56 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   }
 
   // hypo pincode
-  getHypoPostalCode(pin) {
-    const data = {
-      'platform': 'web',
-      'pin_code': pin
-    };
-    console.log(data,'jhgjh');
-    if (pin.length == 6) {
-      this.fwService.getHypoPincodeList(data).subscribe(
-          (successData) => {
-            this.pinListSuccess(successData, pin);
-          },
-          (error) => {
-            this.pinListFailure(error);
-          }
-      );
-    }
-  }
-
-
-
-
-  public pinListSuccess(successData, pin) {
-    if (successData.IsSuccess) {
-      this.pincodeHypoCity = successData.ResponseObject;
-      console.log(pin,'jhgfdghj');
-      if(pin.length == '' || pin.length == 0 || pin.length != 6){
-        this.vehical.controls['state'].patchValue('');
-        this.vehical.controls['city'].patchValue('');
-      }
-      for(let key in this.pincodeHypoCity.state) {
-        this.vehical.controls['state'].patchValue(key);
-        this.vehical.controls['stateName'].patchValue(this.pincodeHypoCity['state'][key]);
-      }
-      for(let key in this.pincodeHypoCity.city) {
-        this.vehical.controls['city'].patchValue(key);
-        this.vehical.controls['cityName'].patchValue(this.pincodeHypoCity['city'][key]);
-      }
-
-    } else{
-      this.toastr.error(successData.ErrorObject);
-      this.vehical.controls['state'].patchValue('');
-      this.vehical.controls['city'].patchValue('');
-
-    }
-  }
-
-
-
-  public pinListFailure(error) {
-  }
+  // getHypoPostalCode(pin) {
+  //   const data = {
+  //     'platform': 'web',
+  //     'pin_code': pin
+  //   };
+  //   console.log(data,'jhgjh');
+  //   if (pin.length == 6) {
+  //     this.fwService.getHypoPincodeList(data).subscribe(
+  //         (successData) => {
+  //           this.pinListSuccess(successData, pin);
+  //         },
+  //         (error) => {
+  //           this.pinListFailure(error);
+  //         }
+  //     );
+  //   }
+  // }
+  //
+  //
+  //
+  //
+  // public pinListSuccess(successData, pin) {
+  //   if (successData.IsSuccess) {
+  //     this.pincodeHypoCity = successData.ResponseObject;
+  //     console.log(pin,'jhgfdghj');
+  //     if(pin.length == '' || pin.length == 0 || pin.length != 6){
+  //       this.vehical.controls['state'].patchValue('');
+  //       this.vehical.controls['city'].patchValue('');
+  //     }
+  //     for(let key in this.pincodeHypoCity.state) {
+  //       this.vehical.controls['state'].patchValue(key);
+  //       this.vehical.controls['stateName'].patchValue(this.pincodeHypoCity['state'][key]);
+  //     }
+  //     for(let key in this.pincodeHypoCity.city) {
+  //       this.vehical.controls['city'].patchValue(key);
+  //       this.vehical.controls['cityName'].patchValue(this.pincodeHypoCity['city'][key]);
+  //     }
+  //
+  //   } else{
+  //     this.toastr.error(successData.ErrorObject);
+  //     this.vehical.controls['state'].patchValue('');
+  //     this.vehical.controls['city'].patchValue('');
+  //
+  //   }
+  // }
+  //
+  //
+  //
+  // public pinListFailure(error) {
+  // }
 
   electricalAccess(value){
     if(value.checked){
@@ -749,30 +748,30 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     // sessionStorage.policyDatevalidateArray = JSON.stringify(this.policyDatevalidate);
   }
 
-  previousInsureType() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
-
-    }
-    this.fwService.getPreviousList(data).subscribe(
-        (successData) => {
-          this.previousInsureSuccess(successData);
-        },
-        (error) => {
-          this.previousInsureFailure(error);
-        }
-    );
-  }
-  public previousInsureSuccess(successData){
-    if (successData.IsSuccess) {
-      this.previousList = successData.ResponseObject;
-    }
-  }
-  public previousInsureFailure(error) {
-  }
+  // previousInsureType() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+  //
+  //   }
+  //   this.fwService.getPreviousList(data).subscribe(
+  //       (successData) => {
+  //         this.previousInsureSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.previousInsureFailure(error);
+  //       }
+  //   );
+  // }
+  // public previousInsureSuccess(successData){
+  //   if (successData.IsSuccess) {
+  //     this.previousList = successData.ResponseObject;
+  //   }
+  // }
+  // public previousInsureFailure(error) {
+  // }
 
   uvYear(){
     if(this.previousInsure.controls['policyUwYear'].value > 2000){
