@@ -15,11 +15,11 @@ import {MatDialog} from '@angular/material';
 })
 export class RelianceFourwheelerPaymentSuccessComponent implements OnInit {
 
-  public paymentStatus: any
-  public currenturl: any
-  public type: any
-  public path: any
-  public proposalId: any
+  public paymentStatus: any;
+  public currenturl: any;
+  public type: any;
+  public path: any;
+  public proposalId: any;
   public settings: Settings;
 
   constructor(public config: ConfigurationService, public bikeService: BikeInsuranceService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
