@@ -373,14 +373,14 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-  // city
+  // city for communication
   fourWheelergetcityList(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/cityList';
+    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/get_pincode_details';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)        .catch(this.handleError);
   }
@@ -478,7 +478,41 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-
+    // city for registration
+  getRoyalRegPincodeList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/cityList';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+// calculate premium
+  proposalCreationRoyal(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/calculatePremium';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  updateproposalCreationRoyal(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/updateVehicleDetails';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   // End of Royal Sundaram
 
 // shriram //
