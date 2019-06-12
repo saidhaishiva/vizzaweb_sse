@@ -24,11 +24,10 @@ export const MY_FORMATS = {
   },
 };
 
-
 @Component({
-  selector: 'app-reliance-motor-proposal',
-  templateUrl: './reliance-motor-proposal.component.html',
-  styleUrls: ['./reliance-motor-proposal.component.scss'],
+  selector: 'app-reliance-fourwheeler-proposal',
+  templateUrl: './reliance-fourwheeler-proposal.component.html',
+  styleUrls: ['./reliance-fourwheeler-proposal.component.scss'],
   providers: [
 
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
@@ -36,7 +35,7 @@ export const MY_FORMATS = {
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ],
 })
-export class RelianceMotorProposalComponent implements OnInit {
+export class RelianceFourwheelerProposalComponent implements OnInit {
 
   relianceProposal : FormGroup;
   previousInsurance : FormGroup;
@@ -182,10 +181,10 @@ export class RelianceMotorProposalComponent implements OnInit {
     });
 
     this.riskDetails = this.fb.group({
-      // AgentName: [''],
-      OtherSystemName: ['', Validators.required],
-      IDV: ['', Validators.required],
-      OtherSystemNameValue: [''],
+          // AgentName: [''],
+          OtherSystemName: ['', Validators.required],
+          IDV: ['', Validators.required],
+          OtherSystemNameValue: [''],
         }
     );
     this.nationalityList = {
@@ -202,9 +201,9 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   ngOnInit() {
 
-    this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
-    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+    // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
     this.changeGender();
     this.occupation();
     this.fueltype();
@@ -372,7 +371,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.RelianceGetTitleList(data).subscribe(
+    this.bikeInsurance.fourWheelerRelianceGetTitleList(data).subscribe(
         (successData) => {
           this.titlesucccess(successData);
         },
@@ -422,7 +421,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     // this.summaryData = true;
 
 
-}
+  }
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
   }
@@ -551,7 +550,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.occupationList(data).subscribe(
+    this.bikeInsurance.fourWheeleroccupationList(data).subscribe(
         (successData) => {
           this.occupationSucccess(successData);
         },
@@ -573,7 +572,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.maritalList(data).subscribe(
+    this.bikeInsurance.fourWheelermaritalList(data).subscribe(
         (successData) => {
           this.maritalSucccess(successData);
         },
@@ -590,25 +589,25 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   //fuel type list
   fueltype() {
-      const data = {
-        'platform': 'web',
-        'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-        'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-      };
-      this.bikeInsurance.fuelTypeList(data).subscribe(
-          (successData) => {
-            this.fuelTypeListSucccess(successData);
-          },
-          (error) => {
-            this.occupationFailure(error);
-          }
-      );
-    }
-    public fuelTypeListSucccess(successData){
-      this.fuelTypeList = successData.ResponseObject;
-    }
-    public fuelTypeListFailure(error) {
-    }
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    };
+    this.bikeInsurance.fourWheelerfuelTypeList(data).subscribe(
+        (successData) => {
+          this.fuelTypeListSucccess(successData);
+        },
+        (error) => {
+          this.occupationFailure(error);
+        }
+    );
+  }
+  public fuelTypeListSucccess(successData){
+    this.fuelTypeList = successData.ResponseObject;
+  }
+  public fuelTypeListFailure(error) {
+  }
 
 ///nominee RelationList
   relationList() {
@@ -617,7 +616,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.relationListDetails(data).subscribe(
+    this.bikeInsurance.fourWheelerrelationListDetails(data).subscribe(
         (successData) => {
           this.relationListSucccess(successData);
         },
@@ -631,14 +630,14 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
   public relationListFailure(error) {
   }
-    ///previous year insurer
+  ///previous year insurer
   prevInsurer() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeInsurance.prevInsureList(data).subscribe(
+    this.bikeInsurance.fourWheelerprevInsureList(data).subscribe(
         (successData) => {
           this.prevInsureSucccess(successData);
         },
@@ -655,25 +654,25 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   //previous year policy list
   prevPolicy() {
-      const data = {
-        'platform': 'web',
-        'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-        'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-      };
-      this.bikeInsurance.prevPolicyList(data).subscribe(
-          (successData) => {
-            this.prevPolicySucccess(successData);
-          },
-          (error) => {
-            this.prevPolicyFailure(error);
-          }
-      );
-    }
-    public prevPolicySucccess(successData){
-      this.prevPolicyList = successData.ResponseObject;
-    }
-    public prevPolicyFailure(error) {
-    }
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    };
+    this.bikeInsurance.fourWheelerprevPolicyList(data).subscribe(
+        (successData) => {
+          this.prevPolicySucccess(successData);
+        },
+        (error) => {
+          this.prevPolicyFailure(error);
+        }
+    );
+  }
+  public prevPolicySucccess(successData){
+    this.prevPolicyList = successData.ResponseObject;
+  }
+  public prevPolicyFailure(error) {
+  }
 
 
   /// create proposal
@@ -824,7 +823,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         }
       }
     };
-    this.bikeInsurance.getProposal(data).subscribe(
+    this.bikeInsurance.fourWheelergetProposal(data).subscribe(
         (successData) => {
           this.getProposalSucccess(successData,stepper);
         },
@@ -877,7 +876,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       'pincode': pin
     };
     if (pin.length == 6) {
-      this.bikeInsurance.getrPincodeList(data).subscribe(
+      this.bikeInsurance.fourWheelergetrPincodeList(data).subscribe(
           (successData) => {
             this.pinListSuccess(successData,type);
           },
@@ -943,7 +942,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     }
 
   }
-    pinListFailure(error){
+  pinListFailure(error){
 
   }
 
@@ -1082,3 +1081,4 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.validation.dobValidate(event);
   }
 }
+
