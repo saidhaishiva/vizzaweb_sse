@@ -145,6 +145,9 @@ import {RsFourwheelerProposalComponent} from './pages/rs-fourwheeler-proposal/rs
 import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 import {FourWheelerHomeComponent} from './pages/four-wheeler-home/four-wheeler-home.component';
 import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list/four-wheeler-product-list.component';
+import {ShriramFourwheelerProposalComponent} from './pages/shriram-fourwheeler-proposal/shriram-fourwheeler-proposal.component';
+import {RelianceFourwheelerPaymentSuccessComponent} from './pages/reliance-fourwheeler-payment-success/reliance-fourwheeler-payment-success.component';
+import {EnquiryPopupComponent} from './pages/bike-insurance/enquiry-popup/enquiry-popup.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -278,14 +281,16 @@ export const routes: Routes = [
             { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}},
             { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}},
             { path: 'app-chola-health-payment-success/:status/:proId/:policyStatus', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
-            // { path: 'enquiryPop', component: EnquiryPopupComponent, data: {breadcrumb: 'Vehicle List'}},
+            { path: 'enquiryPop', component: EnquiryPopupComponent, data: {breadcrumb: 'Vehicle List'}},
             { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'Tataaig Payment'} },
             { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}},
             { path: 'royal-sundaram-fourwheeler-proposal', component: RsFourwheelerProposalComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
             { path: 'aegon-term-life/:stepper', component: AegonTermLifeComponent, data: { breadcrumb: 'aegon-term-life'}},
             { path: 'reliance-fourwheeler-motor-proposal/:stepper', component: RelianceFourwheelerProposalComponent, data: { breadcrumb: 'reliance-fourwheeler-motor-proposal'}},
+            { path: 'reliance-fourwheeler-motor-payment-success/:status/:proId', component: RelianceFourwheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance fourwheeler payment'}},
             { path: 'four-wheeler-home', component: FourWheelerHomeComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-list', component: FourWheelerProductListComponent, data: { breadcrumb: 'Four Wheeler Home'}},
+            { path: 'four-wheeler-shriram', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
 
         ]
     },
