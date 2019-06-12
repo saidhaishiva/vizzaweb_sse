@@ -6,8 +6,8 @@ import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
-import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {MatStepper} from '@angular/material';
+import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 
 @Component({
   selector: 'app-rs-fourwheeler-proposal',
@@ -69,7 +69,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public coverList: any;
   public respincodeList: any;
   public apponiteeList: boolean;
-  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
 
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
@@ -139,10 +139,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.previousInsure = this.fb.group({
       policyNumber: '',
       previousInsured: '',
-      previousdob:'',
-      isPreviousPolicyHolder:'',
-      voluntary:'',
-      claimAmount:'',
+      previousdob: '',
+      isPreviousPolicyHolder: '',
+      voluntary: '',
+      claimAmount: '',
       previousPolicyType: '',
       personalAccidentCover: '',
       accidentPaid: '',
@@ -160,14 +160,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
-    // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    // this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
+    this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
+    this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
 
     this.title();
     this.getOccupation();
-    this.changehypothecation();
+    // this.changehypothecation();
     this.changehypothecationType();
     this.changePreviousInsureType();
     this.getVehicalMostly();
@@ -240,13 +240,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   // title
 
-  title(){
+  title() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
-    this.bikeInsurance.getTitle(data).subscribe(
+    this.fourWheeler.getRoyalfourWheelerTitleList(data).subscribe(
         (successData) => {
           this.titleSuccess(successData);
         },
@@ -262,14 +262,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public titleFailure(error){
   }
+
 // ocupation List
-  getOccupation(){
+  getOccupation() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
-    this.bikeInsurance.getOccupationList(data).subscribe(
+    this.fourWheeler.getRoyalFourWheelerOccupationList(data).subscribe(
         (successData) => {
           this.occupationSuccess(successData);
         },
@@ -283,16 +284,16 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.occupationList = successData.ResponseObject;
     }
   }
-  public occupationFailure(error){
+  public occupationFailure(error) {
   }
   //
-  getVehicalMostly(){
+  getVehicalMostly() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
-    this.bikeInsurance.getvehicelList(data).subscribe(
+    this.fourWheeler.getvehicleDrivenList(data).subscribe(
         (successData) => {
           this.drivenSuccess(successData);
         },
@@ -314,9 +315,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'platform': 'web',
       'pin_code': pin
     };
-    console.log(data,'jhgjh');
+    console.log(data,' jhgjh');
     if (pin.length == 6) {
-      this.bikeInsurance.getPincodeList(data).subscribe(
+      this.fourWheeler.fourWheelergetrPincodeList(data).subscribe(
           (successData) => {
             this.pinProposerListSuccess(successData, pin);
           },
@@ -334,14 +335,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
       if(pin.length == '' || pin.length == 0 || pin.length != 6){
         this.proposer.controls['city'].patchValue('');
       }
-      for(let key in this.pincodeList.city) {
+      for (let key in this.pincodeList.city) {
         this.proposer.controls['city'].patchValue(key);
         this.proposer.controls['cityName'].patchValue(this.pincodeList['city'][key]);
-        console.log(this.proposer.controls['city'].patchValue(key),'jhgfdghj');
+        console.log(this.proposer.controls['city'].patchValue(key),' jhgfdghj');
 
       }
 
-    } else{
+    } else {
       this.toastr.error(successData.ErrorObject);
       this.vehical.controls['city'].patchValue('');
 
@@ -349,52 +350,51 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public pinProposerListFailure(error) {
   }
-  getresPostalCode(pin) {
-    const data = {
-      'platform': 'web',
-      'pin_code': pin
-    };
-    console.log(data,'jhgjh');
-    if (pin.length == 6) {
-      this.bikeInsurance.getPincodeList(data).subscribe(
-          (successData) => {
-            this.pinresProposerListSuccess(successData, pin);
-          },
-          (error) => {
-            this.pinresProposerListFailure(error);
-          }
-      );
-    }
-  }
-
-  public pinresProposerListSuccess(successData, pin) {
-
-    if (successData.IsSuccess) {
-      this.respincodeList = successData.ResponseObject;
-      console.log(pin,'jhgfdghj');
-      if(pin.length == '' || pin.length == 0 || pin.length != 6){
-        this.proposer.controls['rcity'].patchValue('');
-      }
-      for(let key in this.respincodeList.city) {
-        this.proposer.controls['rcity'].patchValue(key);
-        this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
-      }
-
-    } else{
-      this.toastr.error(successData.ErrorObject);
-      this.proposer.controls['rcity'].patchValue('');
-
-    }
-  }
-
-  public pinresProposerListFailure(error) {
-  }
-  addEventPrevious(evnt){
+  // getresPostalCode(pin) {
+  //   const data = {
+  //     'platform': 'web',
+  //     'pin_code': pin
+  //   };
+  //   console.log(data,' jhgjh');
+  //   if (pin.length == 6) {
+  //     this.fourWheeler.getPincodeList(data).subscribe(
+  //         (successData) => {
+  //           this.pinresProposerListSuccess(successData, pin);
+  //         },
+  //         (error) => {
+  //           this.pinresProposerListFailure(error);
+  //         }
+  //     );
+  //   }
+  // }
+  //
+  // public pinresProposerListSuccess(successData, pin) {
+  //
+  //   if (successData.IsSuccess) {
+  //     this.respincodeList = successData.ResponseObject;
+  //     console.log(pin,' jhgfdghj');
+  //     if(pin.length == '' || pin.length == 0 || pin.length != 6){
+  //       this.proposer.controls['rcity'].patchValue('');
+  //     } for ( let key in this.respincodeList.city) {
+  //       this.proposer.controls['rcity'].patchValue(key);
+  //       this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
+  //     }
+  //
+  //   } else{
+  //     this.toastr.error(successData.ErrorObject);
+  //     this.proposer.controls['rcity'].patchValue('');
+  //
+  //   }
+  // }
+  //
+  // public pinresProposerListFailure(error) {
+  // }
+  addEventPrevious(evnt) {
 
   }
 
   // dob validation
-  addEvent(event,type) {
+  addEvent(event, type) {
     if (event.value != null) {
       let selectedDate = '';
       this.bikeRoyalProposerAge = '';
@@ -438,8 +438,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     return age;
   }
 
-  sameAddress(){
-    if(this.proposer.controls['sameas'].value == true){
+  sameAddress() {
+    if (this.proposer.controls['sameas'].value == true) {
       this.proposer.controls['raddress'].patchValue( this.proposer.controls['address'].value),
           this.proposer.controls['raddress2'].patchValue( this.proposer.controls['address2'].value),
           this.proposer.controls['raddress3'].patchValue( this.proposer.controls['address3'].value),
@@ -457,7 +457,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           this.proposer.controls['rcity'].patchValue('')
     }
   }
-  proposerDetails(stepper: MatStepper,value){
+  proposerDetails(stepper: MatStepper,value) {
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
     if(this.proposer.valid) {
@@ -479,41 +479,41 @@ export class RsFourwheelerProposalComponent implements OnInit {
     stepper.next();
     // }
   }
-  isFinaced(){
-    if(this.vehical.controls['isTwoWheelerFinanced'].value == true){
+  isFinaced() {
+    if (this.vehical.controls['isTwoWheelerFinanced'].value == true){
 
-    }else{
+    } else{
       this.vehical.controls['isTwoWheelerFinancedValue'].patchValue('');
       this.vehical.controls['financierName'].patchValue('');
     }
   }
 
 
-  changehypothecation() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
-
-    }
-    this.bikeInsurance.getHypothecation(data).subscribe(
-        (successData) => {
-          this.hypothecationSuccess(successData);
-        },
-        (error) => {
-          this.hypothecationFailure(error);
-        }
-    );
-  }
-  public hypothecationSuccess(successData){
-    if (successData.IsSuccess) {
-      this.hypothecationTypedm = successData.ResponseObject;
-    }
-    console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
-  }
-  public hypothecationFailure(error) {
-  }
+  // changehypothecation() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+  //
+  //   }
+  //   this.fourWheeler.getHypothecation(data).subscribe(
+  //       (successData) => {
+  //         this.hypothecationSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.hypothecationFailure(error);
+  //       }
+  //   );
+  // }
+  // public hypothecationSuccess(successData){
+  //   if (successData.IsSuccess) {
+  //     this.hypothecationTypedm = successData.ResponseObject;
+  //   }
+  //   console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
+  // }
+  // public hypothecationFailure(error) {
+  // }
 // hypo type
   changehypothecationType() {
     const data = {
@@ -523,7 +523,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.changeFinacedType(data).subscribe(
+    this.fourWheeler.fourWheelerfinancedValue(data).subscribe(
         (successData) => {
           this.hypothecationTypeSuccess(successData);
         },
@@ -548,7 +548,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getCoverLists(data).subscribe(
+    this.fourWheeler.fourWheelergettypeOfCover(data).subscribe(
         (successData) => {
           this.coverTypeSuccess(successData);
         },
@@ -572,7 +572,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getRegNameLists(data).subscribe(
+    this.fourWheeler.fourWheelerGetvehicleRegisteredNameList(data).subscribe(
         (successData) => {
           this.nameListSuccess(successData);
         },
@@ -596,7 +596,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getdrivingExpLists(data).subscribe(
+    this.fourWheeler.fourWheelergetdrivingExperience(data).subscribe(
         (successData) => {
           this.drivingSuccess(successData);
         },
@@ -605,7 +605,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
     );
   }
-  public drivingSuccess(successData){
+  public drivingSuccess(successData) {
     if (successData.IsSuccess) {
       this.drivingTypeList = successData.ResponseObject;
     }
@@ -620,7 +620,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getmilageLists(data).subscribe(
+    this.fourWheeler.fourWheelerGetmileage(data).subscribe(
         (successData) => {
           this.milageSuccess(successData);
         },
@@ -629,7 +629,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
     );
   }
-  public milageSuccess(successData){
+  public milageSuccess(successData) {
     if (successData.IsSuccess) {
       this.milageList = successData.ResponseObject;
     }
@@ -644,7 +644,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getpaLists(data).subscribe(
+    this.fourWheeler.fourWheeleraccidentCoverPassengers(data).subscribe(
         (successData) => {
           this.paSuccess(successData);
         },
@@ -653,7 +653,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
     );
   }
-  public paSuccess(successData){
+  public paSuccess(successData) {
     if (successData.IsSuccess) {
       this.paList = successData.ResponseObject;
     }
@@ -668,7 +668,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getpaidLists(data).subscribe(
+    this.fourWheeler.fourWheeleraccidentCoverDriver(data).subscribe(
         (successData) => {
           this.paidSuccess(successData);
         },
@@ -694,7 +694,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getPreviousLists(data).subscribe(
+    this.fourWheeler.fourWheelergetpreviousInsurerList(data).subscribe(
         (successData) => {
           this.previousInsureTypeSuccess(successData);
         },
@@ -719,7 +719,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getPolicyLists(data).subscribe(
+    this.fourWheeler.fourWheelergetcityList(data).subscribe(
         (successData) => {
           this.previousPolicyTypeSuccess(successData);
         },
@@ -744,7 +744,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.bikeInsurance.getVountaryLists(data).subscribe(
+    this.fourWheeler.fourWheelervoluntaryDeductibleListt(data).subscribe(
         (successData) => {
           this.vountaryTypeSuccess(successData);
         },
@@ -760,8 +760,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public vountaryPolicyTypeFailure(error) {
   }
-  policyHolder(){
-    if(this.previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'){
+  policyHolder() {
+    if (this.previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'){
 
     } else {
       this.previousInsure.controls['claimAmount'].patchValue('');
@@ -771,11 +771,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
     }
   }
   // next
-  previousDetails(stepper: MatStepper,value){
+  previousDetails(stepper: MatStepper, value){
     sessionStorage.stepper3 = JSON.stringify(value);
-    if(this.previousInsure.valid){
-      if(this.previousInsure.controls['previousPolicyType'].value == 'Thirdparty'){
-        this.toastr.error('For Buying a third party insurence. Please contact our Customer service or mail to customer.services@royalsundaram.inor chat Online with our chat repersentative');
+    if (this.previousInsure.valid){
+      if (this.previousInsure.controls['previousPolicyType'].value == 'Thirdparty') {
+      this.toastr.error('For Buying a third party insurence. Please contact our Customer service or mail to customer.services@royalsundaram.inor chat Online with our chat repersentative');
       } else {
         stepper.next();
 
@@ -787,22 +787,22 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   // fourth page
 
-  ageNominee(){
-    if(this.nomineeDetail.controls['nomineeAge'].value <= 17){
+  ageNominee() {
+    if (this.nomineeDetail.controls['nomineeAge'].value <= 17){
       this.apponiteeList = true;
-    }  else{
+    }  else {
       this.apponiteeList = false;
 
     }
   }
   //RELATIONSHIP
-  nomineeRelationShip(){
+  nomineeRelationShip() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     }
-    this.bikeInsurance.getNomineeRelationship(data).subscribe(
+    this.fourWheeler.getRSRelationship(data).subscribe(
         (successData) => {
           this.nomineeRelationSuccess(successData);
         },
@@ -817,259 +817,370 @@ export class RsFourwheelerProposalComponent implements OnInit {
       console.log(this.nomineeRelation, 'this.nomineeRelation');
     }
   }
-  public nomineeRelationFailure(error){
+  public nomineeRelationFailure(error) {
   }
 
-  nomineeDetails(stepper: MatStepper, value){
+  nomineeDetails(stepper: MatStepper, value) {
     sessionStorage.stepper4 = '';
     sessionStorage.stepper4 = JSON.stringify(value);
     // if(this.nomineeDetail.valid){
-    // this.proposal(stepper);
+    this.proposal(stepper);
     // }
   }
   // proposal creation
-  // proposal(stepper){
-  //   console.log(this.vehical.value, 'jjjcoverelectricalaccesss');
-  //   const data = {
-  //     'platform': 'web',
-  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-  //     'enquiry_id': this.bikeEnquiryId,
-  //     "created_by": "",
-  //     'proposal_id': sessionStorage.royalBikeproposalID == '' || sessionStorage.royalBikeproposalID == undefined ? '' : sessionStorage.royalBikeproposalID,
-  //     "company_id": this.productDetails.company_id,
-  //     "business_type": this.enquiryFormData.business_type,
-  //     "CALCULATEPREMIUMREQUEST": {
-  //       "proposerDetails": {
-  //         'title': this.proposer.controls['title'].value,
-  //         'firstName': this.proposer.controls['firstname'].value,
-  //         'lastName':  this.proposer.controls['lastname'].value,
-  //         'emailId':  this.proposer.controls['email'].value,
-  //         'mobileNo':  this.proposer.controls['mobile'].value,
-  //         'dateOfBirth': this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
-  //         'occupation':  this.proposer.controls['occupation'].value,
-  //         'nomineeName':this.nomineeDetail.controls['nomineeName'].value,
-  //         'nomineeAge': this.nomineeDetail.controls['nomineeAge'].value,
-  //         'relationshipWithNominee': this.nomineeDetail.controls['nomineeRelationship'].value,
-  //         'guardianName': this.nomineeDetail.controls['appointeeRelationship'].value,
-  //         'guardianAge':this.nomineeDetail.controls['appointeeAge'].value,
-  //         'relationshipwithGuardian': this.nomineeDetail.controls['nomineeName'].value,
-  //         'permanentAddress1':  this.proposer.controls['address'].value,
-  //         'permanentAddress2':  this.proposer.controls['address2'].value,
-  //         'permanentAddress3':  this.proposer.controls['address3'].value,
-  //         'permanentAddress4':  this.proposer.controls['address4'].value,
-  //         'permanentCity': this.proposer.controls['city'].value,
-  //         'permanentPincode':  this.proposer.controls['pincode'].value,
-  //         'sameAdressReg': this.proposer.controls['sameas'].value ? 'Yes' : 'No',
-  //         'ResidenceAddressOne':  this.proposer.controls['raddress'].value,
-  //         'ResidenceAddressTwo':  this.proposer.controls['raddress2'].value,
-  //         'ResidenceAddressThree':  this.proposer.controls['raddress3'].value,
-  //         'ResidenceAddressFour':  this.proposer.controls['raddress4'].value,
-  //         'ResidenceCity': this.proposer.controls['rcity'].value,
-  //         'ResidencePinCode':  this.proposer.controls['rpincode'].value,
-  //         'passwordResetted': "",
-  //         'strStdCode': this.proposer.controls['stdCode'].value,
-  //         'strPhoneNo': this.proposer.controls['phoneNumber'].value
-  //       },
-  //       "vehicleDetails": {
-  //         "drivingExperience":  this.vehical.controls['drivingExperience'].value,
-  //         "voluntaryDeductible":  this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
-  //         "idv": this.productDetails.Idv,
-  //         "vehicleMostlyDrivenOn":  this.vehical.controls['vehicleMostlyDrivenOn'].value,
-  //         "vehicleRegisteredInTheNameOf":  this.vehical.controls['vehicleRegisteredName'].value,
-  //         "previousPolicyExpiryDate": this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
-  //         "previousPolicyNo":this.previousInsure.controls['policyNumber'].value? this.previousInsure.controls['policyNumber'].value: '',
-  //         "policyTerm": this.productDetails.year_type,
-  //         "previousInsurerName":  this.previousInsure.controls['previousInsured'].value? this.previousInsure.controls['previousInsured'].value :'',
-  //         "companyNameForCar": this.vehical.controls['companyName'].value,
-  //         "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value: '',
-  //         "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value ? 'yes' : 'No',
-  //         "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
-  //         "financierName":  this.vehical.controls['financierName'].value,
-  //         "carRegisteredCity": "MUMBAI",
-  //         "averageMonthlyMileageRun":  this.vehical.controls['averageMonthlyMileageRun'].value,
-  //         "personalAccidentCoverForUnnamedPassengers": '',
-  //         "accidentCoverForPaidDriver": '',
-  //         "policyStartDate": '2019-06-03',
-  //         "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
-  //         "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
-  //         "electricalAccessories": {
-  //           "electronicAccessoriesDetails": this.vehical.value.electricalAccess ,
-  //         },
-  //         "vechileOwnerShipChanged": this.vehical.controls['vechileOwnerShipChanged'].value,
-  //         "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value,
-  //         "claimAmountReceived": this.previousInsure.controls['claimAmount'].value,
-  //       }
-  //     }
-  //   }
-  //   console.log(data,'fileeee');
-  //   this.settings.loadingSpinner = true;
-  //
-  //   this.bikeInsurance.proposalCreationRoyal(data).subscribe(
-  //       (successData) => {
-  //         this.proposalSuccess(successData, stepper);
-  //       },
-  //       (error) => {
-  //         this.proposalFailure(error);
-  //       }
-  //   );
-  // }
-  // public proposalSuccess(successData, stepper){
-  //   this.settings.loadingSpinner = false;
-  //   if(successData.IsSuccess){
-  //     // this.toastr.success('Proposal created successfully!!');
-  //     this.summaryData = successData.ResponseObject;
-  //     this.ProposalId =   this.summaryData.ProposalId;
-  //     // this.PaymentRedirect =   this.summaryData.PaymentRedirect;
-  //     this.referenceId =   this.summaryData.ReferenceId;
-  //     this.ComprehensivePremium =   this.summaryData.Comprehensive_premium;
-  //     sessionStorage.royalBikeproposalID = this.ProposalId;
-  //     this.proposerFormData = this.proposer.value;
-  //     this.vehicalFormData = this.vehical.value;
-  //     this.previousFormData = this.previousInsure.value;
-  //     this.nomineeFormData = this.nomineeDetail.value;
-  //     this.updateproposal(stepper);
-  //
-  //     console.log(this.proposerFormData, 'ppp');
-  //     console.log(this.vehicalFormData,'uuuuu');
-  //     console.log(this.previousFormData,'ooo');
-  //     console.log(this.nomineeFormData,'ooo333');
-  //   } else{
-  //     this.toastr.error(successData.ErrorObject);
-  //
-  //   }
-  // }
-  // public proposalFailure(error){
-  //
-  // }
+  proposal(stepper) {
+    console.log(this.vehical.value, 'jjjcoverelectricalaccesss');
 
-  // updateproposal(stepper){
-  //   const data = {
-  //     'platform': 'web',
-  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-  //     'enquiry_id': this.bikeEnquiryId,
-  //     "created_by": "",
-  //     'proposal_id': sessionStorage.royalBikeproposalID == '' || sessionStorage.royalBikeproposalID == undefined ? '' : sessionStorage.royalBikeproposalID,
-  //     "company_id": this.productDetails.company_id,
-  //     "business_type": this.enquiryFormData.business_type,
-  //     "CALCULATEPREMIUMREQUEST": {
-  //       "proposerDetails": {
-  //         'title': this.proposer.controls['title'].value,
-  //         'firstName': this.proposer.controls['firstname'].value,
-  //         'lastName':  this.proposer.controls['lastname'].value,
-  //         'emailId':  this.proposer.controls['email'].value,
-  //         'mobileNo':  this.proposer.controls['mobile'].value,
-  //         'dateOfBirth': this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
-  //         'occupation':  this.proposer.controls['occupation'].value,
-  //         'nomineeName':this.nomineeDetail.controls['nomineeName'].value,
-  //         'nomineeAge': this.nomineeDetail.controls['nomineeAge'].value,
-  //         'relationshipWithNominee': this.nomineeDetail.controls['nomineeRelationship'].value,
-  //         'guardianName': this.nomineeDetail.controls['appointeeRelationship'].value,
-  //         'guardianAge':this.nomineeDetail.controls['appointeeAge'].value,
-  //         'relationshipwithGuardian': this.nomineeDetail.controls['nomineeName'].value,
-  //         'permanentAddress1':  this.proposer.controls['address'].value,
-  //         'permanentAddress2':  this.proposer.controls['address2'].value,
-  //         'permanentAddress3':  this.proposer.controls['address3'].value,
-  //         'permanentAddress4':  this.proposer.controls['address4'].value,
-  //         'permanentCity': this.proposer.controls['city'].value,
-  //         'permanentPincode':  this.proposer.controls['pincode'].value,
-  //         'sameAdressReg': this.proposer.controls['sameas'].value ? 'Yes' : 'No',
-  //         'ResidenceAddressOne':  this.proposer.controls['raddress'].value,
-  //         'ResidenceAddressTwo':  this.proposer.controls['raddress2'].value,
-  //         'ResidenceAddressThree':  this.proposer.controls['raddress3'].value,
-  //         'ResidenceAddressFour':  this.proposer.controls['raddress4'].value,
-  //         'ResidenceCity': this.proposer.controls['rcity'].value,
-  //         'ResidencePinCode':  this.proposer.controls['rpincode'].value,
-  //         'passwordResetted': "",
-  //         'strStdCode': this.proposer.controls['stdCode'].value,
-  //         'strPhoneNo': this.proposer.controls['phoneNumber'].value
-  //       },
-  //       "quoteId": this.referenceId,
-  //       "premium": this.ComprehensivePremium,
-  //       "vehicleDetails": {
-  //         "drivingExperience":  this.vehical.controls['drivingExperience'].value,
-  //         "voluntaryDeductible":  this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
-  //         "idv": this.productDetails.Idv,
-  //         "vehicleMostlyDrivenOn":  this.vehical.controls['vehicleMostlyDrivenOn'].value,
-  //         "vehicleRegisteredInTheNameOf":  this.vehical.controls['vehicleRegisteredName'].value,
-  //         "previousPolicyExpiryDate": this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd'),
-  //         "previousPolicyNo":this.previousInsure.controls['policyNumber'].value,
-  //         "policyTerm": this.productDetails.year_type,
-  //         "previousInsurerName":  this.previousInsure.controls['previousInsured'].value,
-  //         "companyNameForCar":  this.vehical.controls['companyName'].value,
-  //         "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
-  //         "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value ? 'yes' : 'No',
-  //         "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
-  //         "financierName":  this.vehical.controls['financierName'].value,
-  //         "carRegisteredCity": "MUMBAI",
-  //         "averageMonthlyMileageRun":  this.vehical.controls['averageMonthlyMileageRun'].value,
-  //         "personalAccidentCoverForUnnamedPassengers": '',
-  //         "accidentCoverForPaidDriver": '',
-  //         "policyStartDate": '2019-04-01',
-  //         "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
-  //         "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
-  //         "electricalAccessories": {
-  //           "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
-  //         },
-  //         "vechileOwnerShipChanged": this.vehical.controls['vechileOwnerShipChanged'].value,
-  //         "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value,
-  //         "claimAmountReceived": this.previousInsure.controls['claimAmount'].value,
-  //       }
-  //     }
-  //   }
-  //   console.log(data,'fileeee');
-  //   this.settings.loadingSpinner = true;
-  //
-  //   this.bikeInsurance.updateproposalCreationRoyal(data).subscribe(
-  //       (successData) => {
-  //         this.updateproposalSuccess(successData, stepper);
-  //       },
-  //       (error) => {
-  //         this.updateproposalFailure(error);
-  //       }
-  //   );
-  // }
 
-  // public updateproposalSuccess(successData, stepper){
-  //   this.settings.loadingSpinner = false;
-  //   if(successData.IsSuccess){
-  //     stepper.next();
-  //     this.toastr.success('Proposal created successfully!!');
-  //     this.summaryData1 = successData.ResponseObject;
-  //     this.AgentId =  this.summaryData1.AgentId;
-  //     this.Apikey =  this.summaryData1.Apikey;
-  //     this.PaymentRedirect =  this.summaryData1.PaymentRedirect;
-  //     this.PaymentReturn =  this.summaryData1.PaymentReturn;
-  //     this.ElcValue =  this.summaryData1.ElcValue;
-  //     this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
-  //     this.VersionNo =  this.summaryData1.VersionNo;
-  //     this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
-  //     this.proposerFormData = this.proposer.value;
-  //
-  //   } else{
-  //     this.toastr.error(successData.ErrorObject);
-  //
-  //   }
-  // }
-  // public updateproposalFailure(error){
-  //
-  // }
-  // policyType(){
+    const data = {
+      "platform": "web",
+        "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+        "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+        "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+        "enquiry_id": this.bikeEnquiryId,
+        "created_by": "",
+        "proposal_id":sessionStorage.royalBikeproposalID == '' || sessionStorage.royalBikeproposalID == undefined ? '' : sessionStorage.royalBikeproposalID,
+        "company_id": this.productDetails.company_id,
+        "CALCULATEPREMIUMREQUEST": {
+      "premium": "66272.0",
+          "proposerDetails": {
+        "addressOne": this.proposer.controls['address'].value,
+            "addressTwo": this.proposer.controls['address2'].value,
+            "regCity": this.proposer.controls['rcity'].value, //cityList
+            "regPinCode":this.proposer.controls['rpincode'].value,
+            "contactAddress1": "No1",
+            "contactAddress2": "North Street",
+            "contactCity": this.proposer.controls['city'].value,
+            "contactPincode": this.proposer.controls['pincode'].value,
+            "dateOfBirth": this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
+            "panNumber": "",
+            "aadharNumber": "",
+            "guardianAge": this.nomineeDetail.controls['appointeeAge'].value,
+            "guardianName": this.nomineeDetail.controls['appointeeRelationship'].value,
+            "nomineeAge": this.nomineeDetail.controls['nomineeAge'].value,
+            "nomineeName": this.nomineeDetail.controls['nomineeName'].value,
+            "occupation": this.proposer.controls['occupation'].value,
+            "relationshipWithNominee": this.nomineeDetail.controls['nomineeRelationship'].value,
+            "relationshipwithGuardian": this.nomineeDetail.controls['nomineeName'].value,
+            "sameAdressReg": this.proposer.controls['sameas'].value ? 'Yes' : 'No',
+            "strPhoneNo": this.proposer.controls['phoneNumber'].value,
+            "strStdCode": this.proposer.controls['stdCode'].value,
+            "userName": "michael@xerago.com",
+            "strEmail": this.proposer.controls['email'].value,
+            "strFirstName": this.proposer.controls['firstname'].value,
+            "strLastName": this.proposer.controls['lastname'].value,
+            "strMobileNo": this.proposer.controls['mobile'].value,
+            "strTitle": this.proposer.controls['title'].value,
+      },
+      "quoteId": "",
+          "vehicleDetails": {
+        "accidentCoverForPaidDriver": "100000",
+            "addonValue": "0",
+            "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
+            "companyNameForCar":this.vehical.controls['companyName'].value,
+            "cover_dri_othr_car_ass": "Yes|No",
+            "drivingExperience": this.vehical.controls['drivingExperience'].value,
+            "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
+            // "valueofelectricalaccessories": "4000",
+            "electricalAccessories": {
+          "electronicAccessoriesDetails": {
+            "makeModel": this.vehical.controls['MakeModel'].value,
+                "nameOfElectronicAccessories": this.vehical.controls['MakeModel'].value,
+                "value": "1541"
+          }
+        },
+        "cover_non_elec_acc": "Yes",
+            // "valueofnonelectricalaccessories": "5000",
+            "nonElectricalAccesories": {
+          "nonelectronicAccessoriesDetails": {
+            "makeModel": "JAGUAR",
+                "nameOfElectronicAccessories": "SEAT",
+                "value": "5000"
+          }
+        },
+        "fibreGlass": "Yes",
+            "financierName": "Bajaj",
+            // "fuelType": "Petrol",
+            "isCarFinanced": "Yes",
+            "isCarFinancedValue": "Hire purchase",
+            "isCarOwnershipChanged": "No",
+            // "isPreviousPolicyHolder": "true",
+            "legalliabilityToPaidDriver": "Yes|No",
+            // "noClaimBonusPercent": "1",
+            "personalAccidentCoverForUnnamedPassengers": "50000",
+            // "personalaccidentcoverforunnamedpassengers": "0",
+            "policyED": "03/08/2017",
+            "policySD": "04/08/2016",
+            "previousInsurerName": this.previousInsure.controls['previousInsured'].value? this.previousInsure.controls['previousInsured'].value :'',
+            // "previousPolicyExpiryDate": this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
+            "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value: '',
+            "previousinsurersCorrectAddress": "ABC Company",
+            "previuosPolicyNumber": this.previousInsure.controls['policyNumber'].value? this.previousInsure.controls['policyNumber'].value: '',
+            "valueOfLossOfBaggage": "25000",
+            // "vehicleManufacturerName": "Hyundai Motors Ltd.",
+            // "vehicleModelCode": "CMH990",
+            "vehicleMostlyDrivenOn": this.vehical.controls['vehicleMostlyDrivenOn'].value,
+            "vehicleInspectionDate": "28/04/2017 04:00:00",
+            // "VIRNumber": "asdasd123asdasd",
+            "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
+            // "vehicleregDate": "03/08/2015",
+            "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
+            "windShieldGlass": "on",
+            // "yearOfManufacture": "2015"
+      }
+    }
+    }
 
-  // }
-//session Data
-  sessionData(){
-    if(sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
+
+
+    console.log(data,'fileeee');
+    this.settings.loadingSpinner = true;
+
+    this.fourWheeler.proposalCreationRoyal(data).subscribe(
+        (successData) => {
+          this.proposalSuccess(successData, stepper);
+        },
+        (error) => {
+          this.proposalFailure(error);
+        }
+    );
+  }
+  public proposalSuccess(successData, stepper) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess) {
+      // this.toastr.success('Proposal created successfully!!');
+      this.summaryData = successData.ResponseObject;
+      this.ProposalId =   this.summaryData.ProposalId;
+      // this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+      this.referenceId =   this.summaryData.ReferenceId;
+      this.ComprehensivePremium =   this.summaryData.Comprehensive_premium;
+      sessionStorage.royalBikeproposalID = this.ProposalId;
+      this.proposerFormData = this.proposer.value;
+      this.vehicalFormData = this.vehical.value;
+      this.previousFormData = this.previousInsure.value;
+      this.nomineeFormData = this.nomineeDetail.value;
+      this.updateproposal(stepper);
+
+      console.log(this.proposerFormData, 'ppp');
+      console.log(this.vehicalFormData,'uuuuu');
+      console.log(this.previousFormData,'ooo');
+      console.log(this.nomineeFormData,'ooo333');
+    } else{
+      this.toastr.error(successData.ErrorObject);
+
+    }
+  }
+  public proposalFailure(error) {
+
+  }
+
+
+  updateproposal(stepper) {
+    const data = {
+      "platform": "web",
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "enquiry_id": "240",
+      "created_by": "",
+      "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
+      "company_id": "12",
+      "CALCULATEPREMIUMREQUEST": {
+        "quoteId": "QVNVNF0003504",
+        "proposerDetails": {
+          "panNumber": "",
+          "contactCity": "Mumbai",
+          "nomineeAge": "34",
+          "guardianName": "",
+          "addressOne": "No1",
+          "strStdCode": "022",
+          "strFirstName": "SNEHA",
+          "occupation": "Student",
+          "relationshipWithNominee": "Wife",
+          "dateOfBirth": "13/12/1990",
+          "contactPincode": "400708",
+          "contactAddress2": "sdhg",
+          "contactAddress1": "bsdf",
+          "strMobileNo": "8989999999",
+          "sameAdressReg": "No",
+          "strPhoneNo": "57879797",
+          "guardianAge": "",
+          "strLastName": "RAUT",
+          "aadharNumber": "",
+          "nomineeName": "sdh gkjhgs i",
+          "strTitle": "Mr",
+          "userName": "shdg@sdkjh.sdjg",
+          "regCity": "MAHARASHTRA",
+          "relationshipwithGuardian": "",
+          "regPinCode": "600001",
+          "addressTwo": "North Street",
+          "strEmail": "shdg@sdkjh.sdjg"
+        },
+        "vehicleDetails": {
+          "isCarOwnershipChanged": "No",
+          "averageMonthlyMileageRun": "2000",
+          "accidentCoverForPaidDriver": "0",
+          "valueOfLossOfBaggage": "0",
+          "yearOfManufacture": "2017",
+          "fuelType": "Petrol",
+          "noClaimBonusPercent": "20",
+          "claimsMadeInPreviousPolicy": "No",
+          "claimAmountReceived": "5000",
+          "carRegisteredCity": "MUMBAI",
+          "isCarFinanced": "Yes",
+          "financierName": "7 Hills Auto Finance",
+          "isCarFinancedValue": "Yes",
+          "personalaccidentcoverforunnamedpassengers": "50000",
+          "companyNameForCar": "",
+          "addonValue": "0",
+          "vehicleRegisteredInTheNameOf": "Individual",
+          "ncbcurrent": "20",
+          "vehicleManufacturerName": "Hyundai Motors Ltd.",
+          "vehicleMostlyDrivenOn": "City roads",
+          "drivingExperience": "2",
+          "vehicleregDate": "01/06/2017",
+          "previousPolicyType": "Comprehensive",
+          "previuosPolicyNumber": "345678765",
+          "policySD": "13/06/2018",
+          "previousPolicyExpiryDate": "12/06/2019",
+          "policyED": "12/06/2019",
+          "fibreGlass": "No",
+          "voluntarydeductible": "0",
+          "idv": "400000.0",
+          "cover_elec_acc": "Yes",
+          "cover_non_elec_acc": "Yes",
+          "valueofelectricalaccessories": "1000",
+          "valueofnonelectricalaccessories": "1000",
+          "previousInsurerName": "CHOLAMANDALAM MS GENERAL INSURANCE COMPANY LTD",
+          "previousinsurersCorrectAddress": "ABC Company",
+          "personalAccidentCoverForUnnamedPassengers": "50000"
+        }
+      }
+    }
+    //   'platform': 'web',
+    //   'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //   'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    //   'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    //   'enquiry_id': this.bikeEnquiryId,
+    //   "created_by": "",
+    //   'proposal_id': sessionStorage.royalBikeproposalID == '' || sessionStorage.royalBikeproposalID == undefined ? '' : sessionStorage.royalBikeproposalID,
+    //   "company_id": this.productDetails.company_id,
+    //   "business_type": this.enquiryFormData.business_type,
+    //   "CALCULATEPREMIUMREQUEST": {
+    //     "proposerDetails": {
+    //       'title': this.proposer.controls['title'].value,
+    //       'firstName': this.proposer.controls['firstname'].value,
+    //       'lastName':  this.proposer.controls['lastname'].value,
+    //       'emailId':  this.proposer.controls['email'].value,
+    //       'mobileNo':  this.proposer.controls['mobile'].value,
+    //       'dateOfBirth': this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
+    //       'occupation':  this.proposer.controls['occupation'].value,
+    //       'nomineeName':this.nomineeDetail.controls['nomineeName'].value,
+    //       'nomineeAge': this.nomineeDetail.controls['nomineeAge'].value,
+    //       'relationshipWithNominee': this.nomineeDetail.controls['nomineeRelationship'].value,
+    //       'guardianName': this.nomineeDetail.controls['appointeeRelationship'].value,
+    //       'guardianAge':this.nomineeDetail.controls['appointeeAge'].value,
+    //       'relationshipwithGuardian': this.nomineeDetail.controls['nomineeName'].value,
+    //       'permanentAddress1':  this.proposer.controls['address'].value,
+    //       'permanentAddress2':  this.proposer.controls['address2'].value,
+    //       'permanentAddress3':  this.proposer.controls['address3'].value,
+    //       'permanentAddress4':  this.proposer.controls['address4'].value,
+    //       'permanentCity': this.proposer.controls['city'].value,
+    //       'permanentPincode':  this.proposer.controls['pincode'].value,
+    //       'sameAdressReg': this.proposer.controls['sameas'].value ? 'Yes' : 'No',
+    //       'ResidenceAddressOne':  this.proposer.controls['raddress'].value,
+    //       'ResidenceAddressTwo':  this.proposer.controls['raddress2'].value,
+    //       'ResidenceAddressThree':  this.proposer.controls['raddress3'].value,
+    //       'ResidenceAddressFour':  this.proposer.controls['raddress4'].value,
+    //       'ResidenceCity': this.proposer.controls['rcity'].value,
+    //       'ResidencePinCode':  this.proposer.controls['rpincode'].value,
+    //       'passwordResetted': "",
+    //       'strStdCode': this.proposer.controls['stdCode'].value,
+    //       'strPhoneNo': this.proposer.controls['phoneNumber'].value
+    //     },
+    //     "quoteId": this.referenceId,
+    //     "premium": this.ComprehensivePremium,
+    //     "vehicleDetails": {
+    //       "drivingExperience":  this.vehical.controls['drivingExperience'].value,
+    //       "voluntaryDeductible":  this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
+    //       "idv": this.productDetails.Idv,
+    //       "vehicleMostlyDrivenOn":  this.vehical.controls['vehicleMostlyDrivenOn'].value,
+    //       "vehicleRegisteredInTheNameOf":  this.vehical.controls['vehicleRegisteredName'].value,
+    //       "previousPolicyExpiryDate": this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd'),
+    //       "previousPolicyNo":this.previousInsure.controls['policyNumber'].value,
+    //       "policyTerm": this.productDetails.year_type,
+    //       "previousInsurerName":  this.previousInsure.controls['previousInsured'].value,
+    //       "companyNameForCar":  this.vehical.controls['companyName'].value,
+    //       "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value,
+    //       "isTwoWheelerFinanced":  this.vehical.controls['isTwoWheelerFinanced'].value ? 'yes' : 'No',
+    //       "isTwoWheelerFinancedValue":  this.vehical.controls['isTwoWheelerFinancedValue'].value,
+    //       "financierName":  this.vehical.controls['financierName'].value,
+    //       "carRegisteredCity": "MUMBAI",
+    //       "averageMonthlyMileageRun":  this.vehical.controls['averageMonthlyMileageRun'].value,
+    //       "personalAccidentCoverForUnnamedPassengers": '',
+    //       "accidentCoverForPaidDriver": '',
+    //       "policyStartDate": '2019-04-01',
+    //       "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
+    //       "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
+    //       "electricalAccessories": {
+    //         "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
+    //       },
+    //       "vechileOwnerShipChanged": this.vehical.controls['vechileOwnerShipChanged'].value,
+    //       "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value,
+    //       "claimAmountReceived": this.previousInsure.controls['claimAmount'].value,
+    //     }
+    //   }
+    // }
+    console.log(data,' fileeee');
+    this.settings.loadingSpinner = true;
+
+    this.fourWheeler.updateproposalCreationRoyal(data).subscribe(
+        (successData) => {
+          this.updateproposalSuccess(successData, stepper);
+        },
+        (error) => {
+          this.updateproposalFailure(error);
+        }
+    );
+  }
+
+  public updateproposalSuccess(successData, stepper) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess) {
+      stepper.next();
+      this.toastr.success('Proposal created successfully!!');
+      this.summaryData1 = successData.ResponseObject;
+      this.AgentId =  this.summaryData1.AgentId;
+      this.Apikey =  this.summaryData1.Apikey;
+      this.PaymentRedirect =  this.summaryData1.PaymentRedirect;
+      this.PaymentReturn =  this.summaryData1.PaymentReturn;
+      this.ElcValue =  this.summaryData1.ElcValue;
+      this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
+      this.VersionNo =  this.summaryData1.VersionNo;
+      this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
+      this.proposerFormData = this.proposer.value;
+
+    } else {
+      this.toastr.error(successData.ErrorObject);
+
+    }
+  }
+  public updateproposalFailure(error) {
+
+  }
+  policyType() {
+
+  }
+// session Data
+  sessionData() {
+    if (sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
       let stepper1 = JSON.parse(sessionStorage.stepper1);
       this.proposer = this.fb.group({
         title: stepper1.title,
         firstname: stepper1.firstname,
-        lastname:stepper1.lastname,
+        lastname: stepper1.lastname,
         dob :  this.datepipe.transform(stepper1.dob, 'y-MM-dd'),
-        email:stepper1.email,
+        email: stepper1.email,
         mobile: stepper1.mobile,
         pincode: stepper1.pincode,
         gender : stepper1.gender,
@@ -1080,8 +1191,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
         address2: stepper1.address2,
         address3: stepper1.address3,
         address4: stepper1.address4,
-        state:stepper1.state,
-        stateName:stepper1.stateName,
+        state: stepper1.state,
+        stateName: stepper1.stateName,
         city: stepper1.city,
         cityName: stepper1.cityName,
         raddress: stepper1.raddress,
@@ -1089,8 +1200,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
         raddress3: stepper1.raddress3,
         raddress4: stepper1.raddress4,
         rpincode: stepper1.rpincode,
-        rstate:stepper1.rstate,
-        rstateName:stepper1.rstateName,
+        rstate: stepper1.rstate,
+        rstateName: stepper1.rstateName,
         rcity: stepper1.rcity,
         rcityName: stepper1.rcityName,
         sameas: stepper1.sameas,
@@ -1098,13 +1209,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
       });
     }
-    if(sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
+    if (sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
       let stepper2 = JSON.parse(sessionStorage.stepper2);
       this.vehical = this.fb.group({
         vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
         vehicleRegisteredName: stepper2.vehicleRegisteredName,
         // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
-        coverelectricalaccesss:stepper2.coverelectricalaccesss,
+        coverelectricalaccesss: stepper2.coverelectricalaccesss,
         drivingExperience: stepper2.drivingExperience,
         averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
         companyName: stepper2.companyName,
@@ -1113,7 +1224,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         financierName: stepper2.financierName,
         isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
         hypothecationType: stepper2.hypothecationType,
-        typeOfCover:stepper2.typeOfCover,
+        typeOfCover: stepper2.typeOfCover,
         vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,
@@ -1123,13 +1234,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
         Value: stepper2.Value,
       });
     }
-    if(sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
+    if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
         previousInsured: stepper3.previousInsured,
-        previousdob:stepper3.previousdob,
-        isPreviousPolicyHolder:stepper3.isPreviousPolicyHolder,
+        previousdob: stepper3.previousdob,
+        isPreviousPolicyHolder: stepper3.isPreviousPolicyHolder,
         voluntary: stepper3.voluntary,
         claimAmount: stepper3.claimAmount,
         previousPolicyType: stepper3.previousPolicyType,
