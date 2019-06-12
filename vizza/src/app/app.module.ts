@@ -292,7 +292,7 @@ import {FourWheelerHomeComponent} from './pages/four-wheeler-home/four-wheeler-h
 import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list/four-wheeler-product-list.component';
 import { FourWheelerEnquirypopupComponent } from './pages/four-wheeler-home/four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
 import { ShriramFourwheelerProposalComponent } from './pages/shriram-fourwheeler-proposal/shriram-fourwheeler-proposal.component';
-import { RelianceFourwheelerPaymentSuccessComponent } from './pages/reliance-fourwheeler-payment-success/reliance-fourwheeler-payment-success.component';
+// import { RelianceFourwheelerPaymentSuccessComponent } from './pages/reliance-fourwheeler-payment-success/reliance-fourwheeler-payment-success.component';
 
 
 @NgModule({
@@ -546,7 +546,7 @@ import { RelianceFourwheelerPaymentSuccessComponent } from './pages/reliance-fou
         FourWheelerProductListComponent,
         FourWheelerEnquirypopupComponent,
         ShriramFourwheelerProposalComponent,
-        RelianceFourwheelerPaymentSuccessComponent
+        // RelianceFourwheelerPaymentSuccessComponent
     ],
     providers: [
         AppSettings,
