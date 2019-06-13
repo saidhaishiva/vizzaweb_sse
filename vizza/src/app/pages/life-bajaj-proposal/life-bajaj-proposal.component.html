@@ -161,13 +161,13 @@
                           <mat-error *ngIf="proposer.controls.language.errors?.required">Language is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="Proposer Type" formControlName="proposerType" (change)="changeProposerType()" required  class="w-100">
-                            <mat-option *ngFor="let list of proposerTypeList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>
-                          <mat-error *ngIf="proposer.controls.proposerType.errors?.required">Proposer Type is required</mat-error>
-                        </mat-form-field>
-                      </div>
+                      <!--<div class="col-md-3">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select  placeholder="Proposer Type" formControlName="proposerType" (change)="changeProposerType()" required  class="w-100">-->
+                            <!--<mat-option *ngFor="let list of proposerTypeList | keys" [value]= list.key> {{list.value}} </mat-option>                          </mat-select>-->
+                          <!--<mat-error *ngIf="proposer.controls.proposerType.errors?.required">Proposer Type is required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <mat-select  placeholder="Document Language" formControlName="language2" (change)="changeDocLanguage()" required  class="w-100">
@@ -1046,7 +1046,7 @@
                       <li class="list-group-item" *ngIf="proposerFormData.weightChanged != 'SAME' && proposerFormData.inbetweenweight !=''">
                         <strong>Reason for weight changed:</strong> {{proposerFormData.weightChangedReasonName}}</li>
                       <li class="list-group-item"><strong>Language:</strong> {{proposerFormData.languageName}}</li>
-                      <li class="list-group-item"><strong>Proposer Type:</strong> {{proposerFormData.proposerTypeName}}</li>
+                      <!--<li class="list-group-item"><strong>Proposer Type:</strong> {{proposerFormData.proposerTypeName}}</li>-->
                       <li class="list-group-item"><strong>Document Language:</strong> {{proposerFormData.language2Name}}</li>
                       <!--<li class="list-group-item"><strong>Life Benefit:</strong> {{enquiryFormData.lifePolicy}}</li>-->
                       <!--<li class="list-group-item"><strong>Benefit Type:</strong> {{enquiryFormData.lifeBenefitTerm}}</li>-->
