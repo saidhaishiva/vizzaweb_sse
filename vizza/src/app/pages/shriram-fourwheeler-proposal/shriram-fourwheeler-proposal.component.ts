@@ -902,7 +902,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       'enquiry_id': this.bikeEnquiryId,
       "created_by": "",
-      'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
+      'proposal_id': sessionStorage.shiramFwProposalID == '' || sessionStorage.shiramFwProposalID == undefined ? '' : sessionStorage.shiramFwProposalID,
       "geogrophicalExtensionCover": "false",
       "motorProposalObj": {
         // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
@@ -986,7 +986,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "HypothecationCountry": "",
         "HypothecationState":  this.vehical.controls['state'].value ? this.vehical.controls['state'].value: '',
         "HypothecationCity":  this.vehical.controls['city'].value ? this.vehical.controls['city'].value : '',
-        "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : ''
+        "HypothecationPinCode":  this.vehical.controls['pincode'].value ? this.vehical.controls['pincode'].value : '',
+        "MultiCarBenefitYN":"N",
+        "KeyReplacementYN":"Y",
+        "LossOfPersonBelongYN":"Y"
       },
     }
     console.log(data,'fileeee');
@@ -1013,7 +1016,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.PaymentRedirect =   this.summaryData.PaymentRedirect;
       this.PolicySisID =   this.summaryData.PolicySisID;
       this.PaymentReturn =   this.summaryData.PaymentReturn;
-      sessionStorage.shiramBikeproposalID = this.ProposalId;
+      sessionStorage.shiramFwProposalID = this.ProposalId;
       this.proposerFormData = this.proposer.value;
       this.vehicalFormData = this.vehical.value;
       this.previousFormData = this.previousInsure.value;
