@@ -169,6 +169,16 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       stateName:'',
       cityName:'',
       isFinanced:'',
+      SriLanka: '',
+      Bangladesh: '',
+      Pakistan: '',
+      Nepal: '',
+      Maldives: '',
+      DeTariff: '',
+      Bhutan: '',
+      geographicalArea:'',
+      CNGKit:'',
+
     });
     this.previousInsure = this.fb.group({
       policyNumber:['', Validators.required],
@@ -193,9 +203,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+    this.buyBikeDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+    this.bikeEnquiryId = sessionStorage.fwEnquiryId;
 
     this.changeTitle();
     this.changehypothecation();
@@ -204,6 +214,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.addonPackage();
     this.claimpercent();
     this.nomineeRelationShip();
+    this.previousInsureType();
     this.changehypothecationType();
 
     this.sessionData();
@@ -392,15 +403,15 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   // SECOND STEPPER
 
   addonPackage() {
-    // if(this.buyBikeDetails.plan_code == 'ADDON_01') {
-    //   this.vehical.controls['addonPackage'].patchValue('BASIC');
-    // } else if (this.buyBikeDetails.plan_code == 'ADDON_02') {
-    //   this.vehical.controls['addonPackage'].patchValue('SILVER PACKAGE');
-    // } else if (this.buyBikeDetails.plan_code == 'ADDON_03') {
-    //   this.vehical.controls['addonPackage'].patchValue('GOLD PACKAGE');
-    // } else if (this.buyBikeDetails.plan_code == 'ADDON_04') {
-    //   this.vehical.controls['addonPackage'].patchValue(' PLATINUM PACKAGE');
-    // }
+    if(this.buyBikeDetails.plan_code == 'ADDON_01') {
+      this.vehical.controls['addonPackage'].patchValue('BASIC');
+    } else if (this.buyBikeDetails.plan_code == 'ADDON_02') {
+      this.vehical.controls['addonPackage'].patchValue('SILVER PACKAGE');
+    } else if (this.buyBikeDetails.plan_code == 'ADDON_03') {
+      this.vehical.controls['addonPackage'].patchValue('GOLD PACKAGE');
+    } else if (this.buyBikeDetails.plan_code == 'ADDON_04') {
+      this.vehical.controls['addonPackage'].patchValue(' PLATINUM PACKAGE');
+    }
   }
 
   proposalType() {
@@ -747,30 +758,30 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     // sessionStorage.policyDatevalidateArray = JSON.stringify(this.policyDatevalidate);
   }
 
-  // previousInsureType() {
-  //   const data = {
-  //     'platform': 'web',
-  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
-  //
-  //   }
-  //   this.fwService.getPreviousList(data).subscribe(
-  //       (successData) => {
-  //         this.previousInsureSuccess(successData);
-  //       },
-  //       (error) => {
-  //         this.previousInsureFailure(error);
-  //       }
-  //   );
-  // }
-  // public previousInsureSuccess(successData){
-  //   if (successData.IsSuccess) {
-  //     this.previousList = successData.ResponseObject;
-  //   }
-  // }
-  // public previousInsureFailure(error) {
-  // }
+  previousInsureType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fwService.getPreviousList(data).subscribe(
+        (successData) => {
+          this.previousInsureSuccess(successData);
+        },
+        (error) => {
+          this.previousInsureFailure(error);
+        }
+    );
+  }
+  public previousInsureSuccess(successData){
+    if (successData.IsSuccess) {
+      this.previousList = successData.ResponseObject;
+    }
+  }
+  public previousInsureFailure(error) {
+  }
 
   uvYear(){
     if(this.previousInsure.controls['policyUwYear'].value > 2000){
@@ -889,7 +900,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'enquiry_id': '',
+      'enquiry_id': this.bikeEnquiryId,
       "created_by": "",
       'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
       "geogrophicalExtensionCover": "false",
@@ -1078,13 +1089,22 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         city:stepper2.city,
         stateName:stepper2.stateName,
         cityName:stepper2.cityName,
+        SriLanka:stepper2.SriLanka,
+        Bangladesh:stepper2.Bangladesh,
+        Pakistan:stepper2.Pakistan,
+        Nepal:stepper2.Nepal,
+        Maldives:stepper2.Maldives,
+        DeTariff:stepper2.DeTariff,
+        Bhutan:stepper2.Bhutan,
+        geographicalArea:stepper2.geographicalArea,
+        CNGKit:stepper2.CNGKit,
       });
 
     }
     // if (sessionStorage.policyDatevalidateArray != '' && sessionStorage.policyDatevalidateArray != undefined) {
     //   this.policyDatevalidate = JSON.parse(sessionStorage.policyDatevalidateArray);
     //
-    // }
+
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
