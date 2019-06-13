@@ -939,7 +939,7 @@
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <mat-select matInput placeholder="Renewal Payment Mode" formControlName="paymentMode" autocomplete="off" required>
-                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value !='OTHER'">E-Mandate</mat-option>
+                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value !='OTHER'">EMAND</mat-option>
                               <mat-option value="CCSI">CCSI</mat-option>
                               <mat-option value="NACH">NACH</mat-option>
                               <mat-option value="Cash-Cheque" *ngIf="enquiryFormData.lifePayment == 'yearly'">Cash-Cheque</mat-option>
