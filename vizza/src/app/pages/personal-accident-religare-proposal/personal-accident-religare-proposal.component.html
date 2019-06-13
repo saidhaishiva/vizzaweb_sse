@@ -5,7 +5,7 @@
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper  [selectedIndex]="currentStep">
        <mat-step [stepControl]="">
-          <ng-template matStepLabel >PROPOSER / INSURED DETAILS</ng-template>
+          <ng-template matStepLabel >PROPOSER / INSURED DETAILS</ng-template>insuredCity
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="insured" >
               <mat-expansion-panel expanded>
@@ -178,7 +178,7 @@
                                     </mat-form-field></div>
                                     <div class="col-md-6"><mat-form-field class="w-100" >
                                         <mat-select placeholder="City" formControlName="insuredCity" autocomplete="off" (change)="changeCity()" required>
-                                            <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.key'>
+                                            <mat-option *ngFor="let city of personalCitys | keys" [value]= 'city.value'>
                                                 {{city.value}}
                                             </mat-option>
                                         </mat-select>
@@ -228,7 +228,7 @@
                                     <div class="col-md-6" [ngStyle]="{'pointer-events':inputReadonly ? 'none' : ''}">
                                         <mat-form-field class="w-100 mb-2">
                                             <mat-select placeholder="City" formControlName="insuredrCity" autocomplete="off" (change)="changeRCity()" required>
-                                                <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
+                                                <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.value'>
                                                     {{citys.value}}
                                                 </mat-option>
                                             </mat-select>
@@ -439,7 +439,7 @@
                       <li class="list-group-item"><strong>Address 1:</strong>{{proposerDataForm.insuredAddress}}</li>
                       <li class="list-group-item" *ngIf="proposerDataForm.insuredAddress2 != ''"><strong>Address 2:</strong>{{proposerDataForm.insuredAddress2}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerDataForm.insuredPincode}}</li>
-                      <li class="list-group-item"><strong>City:</strong>{{proposerDataForm.insuredCityName}}</li>
+                      <li class="list-group-item"><strong>City:</strong>{{proposerDataForm.insuredCity}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{proposerDataForm.insuredState}}</li>
                     </ul>
                   </div>
@@ -451,7 +451,7 @@
                       <li class="list-group-item"><strong>Address 1:</strong>{{proposerDataForm.insuredrAddress}} </li>
                       <li class="list-group-item" *ngIf="proposerDataForm.insuredrAddress2 != ''"><strong>Address 2:</strong>{{proposerDataForm.insuredrAddress2}}</li>
                       <li class="list-group-item"><strong>PIN code:</strong>{{proposerDataForm.insuredrPincode}} </li>
-                      <li class="list-group-item"><strong>City:</strong> {{proposerDataForm.insuredrCityName}}</li>
+                      <li class="list-group-item"><strong>City:</strong> {{proposerDataForm.insuredrCity}}</li>
                       <li class="list-group-item"><strong>State:</strong>{{proposerDataForm.insuredrState}}</li>
                     </ul>
                   </div>
