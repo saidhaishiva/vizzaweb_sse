@@ -492,8 +492,8 @@
               <div class="col-md-8">
                 <ul class="summary-head">
                   <li><span>Insurer:</span><img src="{{webhost + '/' + productDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>
-                  <!--<li><span>Premium:</span><span *ngIf = "productDetails.ThridParty_premium"><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>-->
+                  <li  *ngIf = "productDetails.Comprehensive_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>
+                  <li *ngIf = "!productDetails.Comprehensive_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></li>
                   <!--<li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>-->
                   <li></li>
                 </ul>
