@@ -1562,8 +1562,7 @@
                             <section>
                                 <h5 class="mt-3 sub-title">PROPOSER DETAILS </h5>
                                 <div class="row box-card">
-                                    <div class="col-sm-12 col-xs-12 col-md-12">
-                                    </div>
+
                                     <div class="col-sm-12 col-xs-12 col-md-12">
                                         <div class="p-3">
                                             <ul class="m-0 list-group">
@@ -1721,10 +1720,10 @@
 
                         </section>
                         <div class="row" *ngIf="summaryData">
-                            <div class="col-sm-12 col-xs-12 col-md-12 text-center">
+                            <div class="col-sm-12 col-xs-12 col-md-6 text-center">
                                 <button mat-button color="warn" (click)="backAll()">Back</button>
                             </div>
-                            <div class="col-sm-12 col-xs-12 col-md-12 text-center">
+                            <div class="col-sm-12 col-xs-12 col-md-6 text-center">
                                 <form action={{summaryData.RediretUrlLink}} method='post' #form>
                                     <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                 </form>

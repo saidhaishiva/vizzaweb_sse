@@ -348,7 +348,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       if(this.vehicalDetails.valid){
         if(successData.status == true){
           this.dialogRef.close();
-          this.router.navigate(['/bikepremium']);
+          this.router.navigate(['/four-wheeler-list']);
         }
 
       }

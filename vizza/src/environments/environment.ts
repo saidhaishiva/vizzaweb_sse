@@ -20,6 +20,6 @@ export const environment = {
     travelInsurance: true,
     healthInsurance: true,
     lifeInsurance: true,
-    motorInsurance: false,
+    motorInsurance: true,
     paAccident: true
 };

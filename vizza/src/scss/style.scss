@@ -4496,6 +4496,8 @@ fieldset {
     text-overflow: ellipsis;
   }
 }
+
+
 //tab view
 @media (min-width: 481px) and (max-width: 767px) {
 
@@ -4505,7 +4507,8 @@ fieldset {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}}
+}
+}
 //}
 //@media (min-width: 320px) and (max-width: 480px) {
 //  .list-group {

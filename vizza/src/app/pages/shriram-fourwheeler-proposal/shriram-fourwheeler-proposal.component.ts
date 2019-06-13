@@ -374,34 +374,33 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper1 = '';
     sessionStorage.stepper1 = JSON.stringify(value);
     console.log(this.proposer.valid, 'checked');
-    if(this.proposer.valid) {
-      if(sessionStorage.fwShriramProposerAge >= 18){
+    // if(this.proposer.valid) {
+    //   if(sessionStorage.fwShriramProposerAge >= 18){
         stepper.next();
         this.topScroll();
 
 
-        this.vehical.controls['proposalType'].patchValue('Renewal');
 
-      } else {
-        this.toastr.error('Proposer age should be 18 or above');
-
-      }
-    }
+    //   } else {
+    //     this.toastr.error('Proposer age should be 18 or above');
+    //
+    //   }
+    // }
 
   }
 
   // SECOND STEPPER
 
   addonPackage() {
-    if(this.buyBikeDetails.plan_code == 'ADDON_01') {
-      this.vehical.controls['addonPackage'].patchValue('BASIC');
-    } else if (this.buyBikeDetails.plan_code == 'ADDON_02') {
-      this.vehical.controls['addonPackage'].patchValue('SILVER PACKAGE');
-    } else if (this.buyBikeDetails.plan_code == 'ADDON_03') {
-      this.vehical.controls['addonPackage'].patchValue('GOLD PACKAGE');
-    } else if (this.buyBikeDetails.plan_code == 'ADDON_04') {
-      this.vehical.controls['addonPackage'].patchValue(' PLATINUM PACKAGE');
-    }
+    // if(this.buyBikeDetails.plan_code == 'ADDON_01') {
+    //   this.vehical.controls['addonPackage'].patchValue('BASIC');
+    // } else if (this.buyBikeDetails.plan_code == 'ADDON_02') {
+    //   this.vehical.controls['addonPackage'].patchValue('SILVER PACKAGE');
+    // } else if (this.buyBikeDetails.plan_code == 'ADDON_03') {
+    //   this.vehical.controls['addonPackage'].patchValue('GOLD PACKAGE');
+    // } else if (this.buyBikeDetails.plan_code == 'ADDON_04') {
+    //   this.vehical.controls['addonPackage'].patchValue(' PLATINUM PACKAGE');
+    // }
   }
 
   proposalType() {
@@ -652,16 +651,16 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   vehicalDetails(stepper: MatStepper, value){
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-    let valid = 20/100;
-    this.siValue = valid * this.buyBikeDetails.Idv;
-    console.log(this.siValue, 'sdfdfdadf');
-    if(this.vehical.valid){
+    // let valid = 20/100;
+    // this.siValue = valid * this.buyBikeDetails.Idv;
+    // console.log(this.siValue, 'sdfdfdadf');
+    // if(this.vehical.valid){
       stepper.next();
-      this.topScroll();
+      // this.topScroll();
 
 
     }
-  }
+
 
 
 
@@ -799,12 +798,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper3 = '';
     sessionStorage.stepper3 = JSON.stringify(value);
 
-    if (this.previousInsure.valid) {
+    // if (this.previousInsure.valid) {
       stepper.next();
       this.topScroll();
 
 
-    }
+    // }
 
   }
 
@@ -890,7 +889,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'enquiry_id': this.bikeEnquiryId,
+      'enquiry_id': '',
       "created_by": "",
       'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
       "geogrophicalExtensionCover": "false",
@@ -916,7 +915,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "DateOfBirth": this.proposer.controls['dob'].value,
         "CoverNoteNo": "",
         "CoverNoteDt": "",
-        "IDV_of_Vehicle": this.buyBikeDetails.Idv,
+        "IDV_of_Vehicle": '',
         "Colour": this.vehical.controls['vehicleColour'].value,
         "NoEmpCoverLL": "",
         "VehiclePurposeYN": "",
@@ -937,7 +936,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "PreInspectionReportYN": "0",
         "PreInspection": "",
         "BreakIn": "NO",
-        "AddonPackage": this.buyBikeDetails.plan_code,
+        "AddonPackage": '',
         "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
         "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
         "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamed'].value == true ? this.siValue : '',

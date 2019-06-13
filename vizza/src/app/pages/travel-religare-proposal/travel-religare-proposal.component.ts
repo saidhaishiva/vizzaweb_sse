@@ -1163,9 +1163,9 @@ export class ReliagretravelproposalComponent implements OnInit {
         for (let i=0; i < this.religarePersonal.value.addonForm.length; i++) {
             console.log(this.religarePersonal.value.addonForm[i].checked, 'chhh');
 
-            if(this.religarePersonal.value.addonForm[i].checked == true){
-                addonDetails.push(this.religarePersonal.value.addonForm[i].title);
-            }console.log(addonDetails,'ad')
+            if (this.religarePersonal.value.addonForm[i].checked == true) {
+                addonDetails.push(this.religarePersonal.value.addonForm[i].addonValue);
+            }
         }
         const data = {
             'platform': 'web',
