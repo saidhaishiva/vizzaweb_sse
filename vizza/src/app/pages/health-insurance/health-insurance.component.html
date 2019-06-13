@@ -266,7 +266,7 @@
 </div>
 
 <!--Mobile secondpage-->
-<section class="d-block d-sm-block d-md-block d-lg-none" id="product-list"  *ngIf="secondPage">
+<section class="d-block d-sm-block d-md-block d-lg-none" id="product-list1"  *ngIf="secondPage">
   <div class="col-12 col-md-12">
     <div class="row">
       <div class="col-12 col-md-12">
@@ -296,11 +296,11 @@
 
   <div class="pt-0">
   <div class="sticky-top mt-4" style="z-index: 1;">
-    <mat-card style="background-color: #CD397B;">
+    <mat-card style="background-color: antiquewhite;">
 <div class="row">
   <div class="col-6">
     <mat-form-field class="w-100">
-      <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
+      <mat-placeholder class="myclass font-weight-bold" style="color: #000000;">Filter by company</mat-placeholder>
       <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
         <mat-option value="All" >Select All</mat-option>
 
@@ -317,7 +317,7 @@
   </div>
   <div class="col-6">
     <mat-form-field >
-    <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
+    <mat-placeholder class="myclass font-weight-bold" style="color: #000000" matTooltip="Lacs">Sum insured</mat-placeholder>
     <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
       <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
     </mat-select>
