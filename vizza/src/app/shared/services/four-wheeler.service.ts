@@ -337,7 +337,7 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-  // make list
+  // makemodel list
   fourWheelerGetmakeList(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -380,7 +380,7 @@ export class FourWheelerService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/get_pincode_details';
+    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/policyList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)        .catch(this.handleError);
   }
@@ -454,8 +454,8 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-  // accidentCoverPassengers
-  fourWheeleraccidentCoverPassengers(data){
+  // accidentCoverUnnamedPassengers
+  fWaccidentCoverUnnamedPassengers(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
     const httpOptions = {
