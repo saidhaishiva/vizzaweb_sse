@@ -85,6 +85,7 @@ public ComprehensivePremium: any;
 public Comprehensivepremium: any;
 public coverList: any;
 public respincodeList: any;
+public vehicledetails: any;
 public apponiteeList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
@@ -180,6 +181,7 @@ public apponiteeList: boolean;
     this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
     this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    this.vehicledetails = JSON.parse(sessionStorage.vehicledetails);
     this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
 
     this.title();
@@ -856,7 +858,7 @@ proposal(stepper){
     "created_by": "",
     'proposal_id': sessionStorage.royalBikeproposalID == '' || sessionStorage.royalBikeproposalID == undefined ? '' : sessionStorage.royalBikeproposalID,
     "company_id": this.productDetails.company_id,
-    "business_type": this.enquiryFormData.business_type,
+    "business_type": this.vehicledetails.business_type,
     "CALCULATEPREMIUMREQUEST": {
     "proposerDetails": {
           'title': this.proposer.controls['title'].value,
@@ -971,7 +973,7 @@ proposal(stepper){
       "created_by": "",
       'proposal_id': sessionStorage.royalBikeproposalID == '' || sessionStorage.royalBikeproposalID == undefined ? '' : sessionStorage.royalBikeproposalID,
       "company_id": this.productDetails.company_id,
-      "business_type": this.enquiryFormData.business_type,
+      "business_type": this.vehicledetails.business_type,
       "CALCULATEPREMIUMREQUEST": {
         "proposerDetails": {
           'title': this.proposer.controls['title'].value,

@@ -244,7 +244,7 @@ export class BikePremiumListComponent implements OnInit {
             this.initialProductList = this.allProductLists.filter(data => data.year_type == '1');
 
         }
-        }
+    }
 
 
 
