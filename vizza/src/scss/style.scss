@@ -589,13 +589,13 @@ a:hover {
     }
   }
   .mat-tab-label-active{
-    background-color: #ce367c;
+    background-color: #FFE4F2;
     z-index: 1;
     p {
-      color: #ffffff !important;
+      color: #ce367c !important;
     }
     path {
-      fill: #ffffff !important;
+      fill: #ce367c !important;
     }
   }
   .mat-ink-bar{
@@ -1552,8 +1552,9 @@ a:hover {
       margin-right: 10px;
 
       strong{
-        width: 248px;
-        float: left;
+        //width: 248px;
+        //float: left;
+        font-weight: 900;
       }
     }
   }
@@ -3754,6 +3755,7 @@ fieldset {
       strong{
         width: 190px;
         float: left;
+        font-weight: 900;
       }
     }
   }
@@ -4519,34 +4521,209 @@ fieldset {
 //    text-overflow: ellipsis;
 //  }
 ////}
-@media (min-width: 481px) and (max-width: 767px) {
-  .summary-details {
-    .sub-title {
-      font-size: 14px;
+//@media (min-width: 481px) and (max-width: 767px) {
+//  .summary-details {
+//    .sub-title {
+//      font-size: 14px;
+//    }
+//    .box-card {
+//      border: none;
+//    }
+//    h6 {
+//      text-align: center;
+//      color: #3378bd;
+//    }
+//    h5 {
+//      background: #3378bd;
+//      color: #fff;
+//      padding: 8px;
+//      margin-bottom: 0;
+//    }
+//    li{
+//      padding-bottom: 8px;
+//      margin-right: 10px;
+//      display: inline-grid;
+//
+//      strong{
+//        width: 180px;
+//        float: left;
+//      }
+//    }
+//  }
+//}
+#product-list1{
+  .mat-tab-header, .mat-tab-nav-bar {
+    border-bottom: 0px solid rgba(0,0,0,.12) !important;
+  }
+  .mat-tab-group {
+    width: 687px !important;
+    height: 38px !important;
+  }
+  .mat-tab-label {
+    height: 44px !important;
+    border-right: 1px solid #ffffff;
+  }
+  .mat-select-value-text {
+    color: #000000 !important;
+  }
+  .mat-tab-label:hover{
+    background-color: #FFE4F2;
+    p {
+      color: #ce367c !important;
     }
-    .box-card {
-      border: none;
-    }
-    h6 {
-      text-align: center;
-      color: #3378bd;
-    }
-    h5 {
-      background: #3378bd;
-      color: #fff;
-      padding: 8px;
-      margin-bottom: 0;
-    }
-    li{
-      padding-bottom: 8px;
-      margin-right: 10px;
-      display: inline-grid;
-
-      strong{
-        width: 180px;
-        float: left;
-      }
+    path {
+      fill: #ce367c !important;
     }
   }
-}
+  .mat-tab-label-active{
+    background-color: #FFE4F2;
+    z-index: 1;
+    p {
+      color: #ce367c !important;
+    }
+    path {
+      fill: #ce367c !important;
+    }
+  }
+  .mat-ink-bar{
+    display:none !important;
+  }
+  .mat-tab-labels {
+    float: right;
+    background: #e1e6e2 !important;
 
+  }
+
+  .son{
+    button{
+      line-height: 28px;
+      font-size: 10px;
+      padding: 0 10px;
+    }
+  }
+
+  .health-table{
+    button{
+      font-size: 12px;
+      padding: 0 4px;
+      line-height: 1.6;
+
+    }
+    .w-100 {
+      width: 92% !important;
+    }
+    .sun-insured{
+      .mat-form-field-infix {
+        display: block;
+        position: relative;
+        flex: auto;
+        min-width: 0;
+        width: 105px !important;
+      }
+      ::-webkit-scrollbar-thumb:vertical {
+        background-color: #ce367c !important;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #cfcfcf !important;
+      }
+    }
+    .pTitle {
+      margin-top: 3px !important;
+      color: #28a745 !important;
+      font-weight: 500 !important;
+    }
+
+    //tbody{
+    //  height:200px !important;
+    //  overflow-y:auto !important;
+    //  width: 100% !important;
+    //}
+    //thead,tbody,tr,td,th{
+    //  display:block !important;
+    //}
+
+  }
+
+  .health-table {
+    td:nth-child(3){
+      text-align: left !important;
+    }
+
+    th {
+      text-align: center;
+      border-collapse: collapse;
+      //border: 1px solid #efecec !important;
+      padding: 7px !important;
+    }
+    td{
+      vertical-align: middle;
+      color: rgba(4, 78, 67, 0.87);
+      font-size: 13px;
+      //border: 1px solid #efecec;
+      text-align: left;
+      border-top: 1px solid #ce397c !important;
+
+
+    }
+    .mat-raised-button.mat-primary {
+      background-color: #FFE4F2;
+      border: 1px solid #ce397c;
+      color: #ce397c;
+    }
+    .mat-raised-button.mat-primary1 {
+      background-color: #ca8845db;
+    }
+    .mat-raised-button.mat-accentRemove {
+      background-color: #2d8dc5;
+      color: #ffff;
+    }
+    .mat-raised-button.mat-accent{
+      background-color: #28a745 !important;
+    }
+
+    thead th{
+      border: none;
+      vertical-align: text-bottom;
+      border-bottom: 2px solid #dee2e6;
+      background: #ce367c;
+      color: #fff;
+      font-weight: normal;
+      font-size: 12px;
+    }
+    .myclass{
+      color: #ffffff !important;
+    }
+    .mat-select-arrow{
+      color: #ffffff !important;
+    }
+    .mat-form-field-underline{
+      background-color:#ffffff !important;
+    }
+    // ------ health-insurance color End-------
+  }
+  .mat-tab-label-container{
+    margin-bottom: 5px;
+  }
+  .h-icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    background: #d81b60;
+    padding: 6px;
+  }
+  .product-choose{
+    mat-card-header{
+      background: #f29a1d;
+    }
+    h6{
+      margin-bottom: 0;
+      color: #fff;
+    }
+    mat-card{
+      background: rgba(242, 154, 29, 0.05);
+    }
+  }
+  .linkClor {
+    color: #117ab7;
+  }
+}
