@@ -343,7 +343,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     if (successData.IsSuccess) {
       this.QuotationList = successData.ResponseObject;
       console.log(this.QuotationList, ' this.QuotationList');
-      sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
+      sessionStorage.fwEnquiryId = this.QuotationList.enquiry_id;
       console.log(this.QuotationList,'jhkhjgkj');
       if(this.vehicalDetails.valid){
         if(successData.status == true){
