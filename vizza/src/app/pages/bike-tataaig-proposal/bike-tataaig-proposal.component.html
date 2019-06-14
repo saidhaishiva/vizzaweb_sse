@@ -80,8 +80,9 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Aadhar Number" formControlName="proposerAadhar" maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)">
-                          <mat-error *ngIf="proposer.controls.proposerAadhar.hasError('pattern')"> Enter Valid Aadhar Id </mat-error>
+                          <input matInput placeholder="Aadhar Number" formControlName="proposerAadhar" (keypress)="numberValidate($event)" maxlength="12" minlength="12">
+                          <mat-error *ngIf="proposer.controls.proposerAadhar.hasError('minlength')"> Aadhaar Number should be Minimum 12 digits </mat-error>
+                          <mat-error *ngIf="proposer.controls.proposerAadhar.hasError('maxlength')"> Aadhaar Number should be Minimum 12 digits </mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-12 mt-1">
@@ -141,19 +142,19 @@
                           <mat-error *ngIf="proposer.controls.driveflag.errors?.required">Flag is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>First Name<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveFirstname" (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Last Name<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Gender<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <mat-select formControlName="driveGender" readonly>
@@ -161,19 +162,19 @@
                           </mat-select>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Age<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3">
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Driving Experience<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput formControlName="drivingexp"  (keypress)="nameValidate($event)" autocomplete="off">
+                          <input matInput formControlName="drivingexp"  (keypress)="numValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Marital Status<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <mat-select formControlName="drivemaritalStatus">
@@ -234,7 +235,7 @@
                           </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                           <mat-form-field class="w-100">
-                            <input  matInput placeholder="Name" formControlName="bankName" (keypress)="financiertype($event.target.value)"  [matAutocomplete]="auto">
+                            <input  matInput placeholder="Name" formControlName="bankName" (keypress)="nameValidate($event);financiertype($event.target.value)"  [matAutocomplete]="auto">
                             <mat-autocomplete #auto="matAutocomplete">
                               <mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>
                             </mat-autocomplete>
@@ -256,26 +257,61 @@
                             </mat-select>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
                           <mat-form-field class="w-100">
                               <mat-placeholder>Number<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
                               <input matInput formControlName="autoNumber" (keypress)="numberValidate($event)">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                          <mat-form-field class="w-100">
+                          <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
                               <mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
                               <input matInput formControlName="autoName" (keypress)="nameValidate($event)">
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                          <mat-form-field class="w-100">
+                          <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
                               <mat-placeholder>Expiry Date (DD/MM/YYYY)<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
                               <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                           </mat-form-field>
                           <div class="error" *ngIf="automobdateError != ''">{{automobdateError}}</div>
+                        </div>
+                        <div class="col-md-12 mt-1" >
+                          <h6 class="color-blue"> OTHER ADDONS LIST </h6>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" readonly>
+                              <mat-option *ngFor="let cover of coverlist | keys" value="{{cover.key}}">{{cover.value}}</mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <mat-checkbox formControlName="Associationmember" (change)="check($event)" required><strong> Automobile_Association_Membership </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <mat-checkbox formControlName="Voluntary" (change)="check($event)" required><strong> Voluntary_Deductibles </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <mat-checkbox formControlName="Antitheft" (change)="check($event)" required><strong> Anti_theft_device </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <mat-checkbox formControlName="Tppdrestrict" (change)="check($event)" required><strong> TPPD_Restricted </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <mat-checkbox formControlName="depreciation" (change)="check($event)" required><strong> Depreciation_ReImbursement </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <mat-checkbox formControlName="Consumableexpense" (change)="check($event)" required><strong> Consumables_expenses </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <mat-checkbox formControlName="Returninvoice" (change)="check($event)" required><strong> Return_to_Invoice </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-4 mt-2">
+                          <mat-checkbox formControlName="Roadsideassistance" (change)="check($event)" required><strong> Roadside_Assistance </strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
@@ -309,7 +345,7 @@
                       <mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Code <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <mat-select formControlName="precode">
@@ -317,7 +353,7 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <mat-select formControlName="preName">
@@ -325,10 +361,10 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                     <mat-form-field class="w-100">
-                      <mat-placeholder> polno <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                      <input matInput formControlName="prepolno" autocomplete="off">
+                      <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
+                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off">
                     </mat-form-field>
                   </div>
                   <div class="col-md-12 mt-1">
@@ -372,7 +408,7 @@
                   </div>
                 <div class="proposal-buttom mt-3 text-right w-100">
                   <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
-                  <button mat-raised-button color="primaryBlue"  (click)="prepolicyDetails(stepper,vehicle.value)" >Next</button>
+                  <button mat-raised-button color="primaryBlue"  (click)="prepolicyDetails(stepper,previouspolicy.value)" >Next</button>
                 </div>
                 </div>
               </div>
