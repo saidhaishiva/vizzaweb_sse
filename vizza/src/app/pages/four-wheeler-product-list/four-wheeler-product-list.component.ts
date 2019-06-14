@@ -250,13 +250,13 @@ export class FourWheelerProductListComponent implements OnInit {
     if (value.company_id == 7) {
       this.router.navigate(['/four-wheeler-shriram'  + '/' + false]);
     }
-    // else if (value.company_id == 12){
-    //   this.router.navigate(['/bike-royal-proposal'  + '/' + false]);
-    // }else if (value.company_id ==3){
-    //   this.router.navigate(['/reliance-motor-proposal' + '/'+ false]);
-    // }else if(value.company_id == 13){
-    //   this.router.navigate(['/bike-tataaig-proposal'+ '/' + false]);
-    // }
+    else if (value.company_id == 12){
+      this.router.navigate(['/bike-royal-proposal'  + '/' + false]);
+    }else if (value.company_id ==3){
+      this.router.navigate(['/reliance-motor-proposal' + '/'+ false]);
+    }else if(value.company_id == 13){
+      this.router.navigate(['/car-tataaig-proposal'+ '/' + false]);
+    }
 
 
   }
