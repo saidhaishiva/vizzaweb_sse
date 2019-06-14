@@ -90,7 +90,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public respincodeList: any;
   public apponiteeList: boolean;
   public accidentList: any;
-  public MakeModelList: any;
+  public makeModelList: any;
   public pAUnnamedPassengersList: any;
   public AddonList: any;
   public baggageList: any;
@@ -173,8 +173,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       isCarOwnershipChanged: 'No',
       legalliabilityToPaidDriver: 'No',
       windShieldGlass: 'No',
-      policyED: ['', Validators.compose([ Validators.minLength(10)])],
-      policySD: ['', Validators.compose([ Validators.minLength(10)])],
+      // policyED: ['', Validators.compose([ Validators.minLength(10)])],
+      // policySD: ['', Validators.compose([ Validators.minLength(10)])],
       vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
 
       electricalAccess : new FormArray([
@@ -198,9 +198,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       accidentPaid: '',
     });
     this.nomineeDetail = this.fb.group({
-      nomineeName: '',
-      nomineeAge: '',
-      nomineeRelationship: '',
+      nomineeName: ['', Validators.required],
+      nomineeAge: ['', Validators.required],
+      nomineeRelationship: ['', Validators.required],
       guardianName: '',
       guardianRelationship: '',
       guardianAge: ''
@@ -210,10 +210,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
   ngOnInit() {
-    this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
-    this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
+    this.buyProduct = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+    this.bikeEnquiryId = sessionStorage.fwEnquiryId;
 
     this.title();
     this.getOccupation();
@@ -271,9 +269,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   //Electrical Accessories
   create() {
     return new FormGroup({
-      NameOfElectronicAccessories: new FormControl(),
-      MakeModel :  new FormControl(),
-      Value :  new FormControl(),
+      nameOfElectronicAccessories: new FormControl(),
+      makeModel :  new FormControl(),
+      eleAccValue :  new FormControl(),
     });
   }
   addItems() {
@@ -755,7 +753,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public makeModelSuccess(successData) {
     if (successData.IsSuccess) {
-      this.MakeModelList = successData.ResponseObject;
+      this.makeModelList = successData.ResponseObject;
     }
   }
   public makeModelFailure(error) {
@@ -1042,7 +1040,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "enquiry_id": this.bikeEnquiryId,
         "created_by": "",
         "proposal_id":sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
-        "company_id": this.productDetails.company_id,
+        "company_id": "12",
         "CALCULATEPREMIUMREQUEST": {
       "premium": "66272.0",
           "proposerDetails": {
@@ -1060,7 +1058,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
             "guardianAge": this.nomineeDetail.controls['guardianAge'].value,
             "guardianName":this.nomineeDetail.controls['guardianName'].value,
             "nomineeAge": this.nomineeDetail.controls['nomineeAge'].value,
-            "nomineeName": this.nomineeDetail.controls['nomineeName'].value,
+            "nomineeName": this.nomineeDetail.controls['guardianRelationship'].value,
             "occupation": this.proposer.controls['occupation'].value,
             "relationshipWithNominee": this.nomineeDetail.controls['nomineeRelationship'].value,
             "relationshipwithGuardian": this.nomineeDetail.controls['nomineeName'].value,
@@ -1074,10 +1072,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
             "strMobileNo": this.proposer.controls['mobile'].value,
             "strTitle": this.proposer.controls['title'].value,
       },
-      "quoteId": this.vehical.controls['quoteId'].value,
+          "quoteId": "",
           "vehicleDetails": {
-        "accidentCoverForPaidDriver": this.vehical.controls['averageMonthlyMileageRun'].value,
-            "addonValue": "0",
+        "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
+            "addonValue": this.vehical.controls['addon'].value,
             "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
             "companyNameForCar":this.vehical.controls['companyName'].value,
             "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ? 'Yes' : 'No',
@@ -1086,9 +1084,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
             // "valueofelectricalaccessories": "4000",
             "electricalAccessories": {
           "electronicAccessoriesDetails": {
-            "makeModel": this.vehical.controls['MakeModel'].value,
-                "nameOfElectronicAccessories": this.vehical.controls['NameOfElectronicAccessories'].value,
-                "value": this.vehical.controls['Value'].value,
+            "makeModel": this.vehical.controls['makeModel'].value,
+                "nameOfElectronicAccessories": this.vehical.controls['nameOfElectronicAccessories'].value,
+                "value": this.vehical.controls['eleAccValue'].value,
           }
         },
         "cover_non_elec_acc": this.vehical.controls['coverNonelectricalaccesss'].value ? 'Yes' : 'No',
@@ -1127,7 +1125,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
             // "vehicleManufacturerName": "Hyundai Motors Ltd.",
             // "vehicleModelCode": "CMH990",
             "vehicleMostlyDrivenOn": this.vehical.controls['vehicleMostlyDrivenOn'].value,
-            "vehicleInspectionDate": this.datepipe.transform(this.vehical.controls['vehicleInspectionDate'].value, 'y-MM-dd'),
+            "vehicleInspectionDate": "28/04/2017 04:00:00",
             // "VIRNumber": "asdasd123asdasd",
             "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
             // "vehicleregDate": "03/08/2015",
@@ -1188,46 +1186,46 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      "enquiry_id": "240",
+      "enquiry_id": this.bikeEnquiryId,
       "created_by": "",
       "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
       "company_id": "12",
       "CALCULATEPREMIUMREQUEST": {
         "quoteId": "QVNVNF0003504",
         "proposerDetails": {
-          "panNumber": "",
-          "contactCity": "Mumbai",
-          "nomineeAge": "34",
-          "guardianName": "",
-          "addressOne": "No1",
-          "strStdCode": "022",
-          "strFirstName": "SNEHA",
-          "occupation": "Student",
-          "relationshipWithNominee": "Wife",
-          "dateOfBirth": "13/12/1990",
-          "contactPincode": "400708",
-          "contactAddress2": "sdhg",
-          "contactAddress1": "bsdf",
-          "strMobileNo": "8989999999",
-          "sameAdressReg": "No",
-          "strPhoneNo": "57879797",
-          "guardianAge": "",
-          "strLastName": "RAUT",
-          "aadharNumber": "",
-          "nomineeName": "sdh gkjhgs i",
-          "strTitle": "Mr",
+          "panNumber": this.proposer.controls['panNumber'].value,
+          "contactCity": this.proposer.controls['city'].value,
+          "nomineeAge": this.nomineeDetail.controls['nomineeAge'].value,
+          "guardianName": this.nomineeDetail.controls['guardianName'].value,
+          "addressOne": this.proposer.controls['raddress'].value,
+          "strStdCode": this.proposer.controls['stdCode'].value,
+          "strFirstName":this.proposer.controls['firstname'].value,
+          "occupation": this.proposer.controls['occupation'].value,
+          "relationshipWithNominee":this.nomineeDetail.controls['nomineeRelationship'].value,
+          "dateOfBirth": this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
+          "contactPincode": this.proposer.controls['pincode'].value,
+          "contactAddress2": this.proposer.controls['address2'].value,
+          "contactAddress1": this.proposer.controls['address'].value,
+          "strMobileNo": this.proposer.controls['mobile'].value,
+          "sameAdressReg": this.proposer.controls['sameas'].value ? 'Yes' : 'No',
+          "strPhoneNo": this.proposer.controls['phoneNumber'].value,
+          "guardianAge": this.nomineeDetail.controls['guardianAge'].value,
+          "strLastName": this.proposer.controls['lastname'].value,
+          "aadharNumber": this.proposer.controls['aadharNumber'].value,
+          "nomineeName": this.nomineeDetail.controls['nomineeName'].value,
+          "strTitle": this.proposer.controls['title'].value,
           "userName": "shdg@sdkjh.sdjg",
-          "regCity": "MAHARASHTRA",
+          "regCity": this.proposer.controls['rcity'].value,
           "relationshipwithGuardian": "",
-          "regPinCode": "600001",
-          "addressTwo": "North Street",
-          "strEmail": "shdg@sdkjh.sdjg"
+          "regPinCode": this.nomineeDetail.controls['guardianRelationship'].value,
+          "addressTwo": this.proposer.controls['raddress2'].value,
+          "strEmail": this.proposer.controls['email'].value,
         },
         "vehicleDetails": {
-          "isCarOwnershipChanged": "No",
-          "averageMonthlyMileageRun": "2000",
-          "accidentCoverForPaidDriver": "0",
-          "valueOfLossOfBaggage": "0",
+          "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value ? 'Yes' : 'No',
+          "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
+          "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
+          "valueOfLossOfBaggage": this.vehical.controls['valueOfLossOfBaggage'].value,
           "yearOfManufacture": "2017",
           "fuelType": "Petrol",
           "noClaimBonusPercent": "20",
@@ -1426,9 +1424,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
         drivingExperience: stepper2.drivingExperience,
         averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
         accidentCoverForPaidDriver: stepper2.accidentCoverForPaidDriver,
-        vehicleInspectionDate: this.datepipe.transform(stepper2.vehicleInspectionDate, 'y-MM-dd'),
-        policyED: this.datepipe.transform(stepper2.policyED, 'y-MM-dd'),
-        policySD: this.datepipe.transform(stepper2.policySD, 'y-MM-dd'),
+        // vehicleInspectionDate: this.datepipe.transform(stepper2.vehicleInspectionDate, 'y-MM-dd'),
+        // policyED: this.datepipe.transform(stepper2.policyED, 'y-MM-dd'),
+        // policySD: this.datepipe.transform(stepper2.policySD, 'y-MM-dd'),
         companyName: stepper2.companyName,
         idv: stepper2.idv,
         isFourWheelerFinancedValue : stepper2.isFourWheelerFinancedValue,
@@ -1449,9 +1447,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,
         accidentPaid: stepper2.accidentPaid,
-        NameOfElectronicAccessories: stepper2.NameOfElectronicAccessories,
-        MakeModel: stepper2.MakeModel,
-        Value: stepper2.Value,
+        nameOfElectronicAccessories: stepper2.nameOfElectronicAccessories,
+        makeModel: stepper2.makeModel,
+        eleAccValue: stepper2.eleAccValue,
       });
     }
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
