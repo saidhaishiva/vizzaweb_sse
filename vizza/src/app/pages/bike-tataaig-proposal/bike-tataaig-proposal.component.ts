@@ -707,7 +707,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
             'enquiry_id': this.bikeEnquiryId,
             'company_id': "13",
-            'Idv': this.buyBikeDetails.Idv,
+            'idv': this.buyBikeDetails.Idv,
             'revised_idv': this.buyBikeDetails.Idv,
             'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
             'Automobile_Association_Membership': this.vehicle.controls['Associationmember'].value == true ? 'Y' : 'N',
