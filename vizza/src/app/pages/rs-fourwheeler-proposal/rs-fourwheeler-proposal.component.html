@@ -31,8 +31,8 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Last Name" formControlName="lastname" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off"  required >
-                                                    <mat-error *ngIf="proposer.controls.lastname.errors?.required">First Name is required</mat-error>
+                                                    <input matInput placeholder="Last Name" formControlName="lastname" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off"   >
+                                                    <!--<mat-error *ngIf="proposer.controls.lastname.errors?.required">Last Name is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -47,51 +47,52 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" >
+                                                    <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required >
                                                     <mat-error *ngIf="proposer.controls.email.errors?.required">Email ID is required</mat-error>
                                                     <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobile" autocomplete="off" >
+                                                    <input matInput placeholder="Mobile Number"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobile" autocomplete="off" required>
                                                     <mat-error *ngIf="proposer.controls.mobile.errors?.required">Mobile Number is required</mat-error>
                                                     <mat-error *ngIf="proposer.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="STD CODE"   (keypress)="numberValidate($event)"  maxlength="5" formControlName="stdCode" autocomplete="off" required>
-                                                    <mat-error *ngIf="proposer.controls.stdCode.errors?.required">Std Code is required</mat-error>
+                                                    <input matInput placeholder="STD CODE"   (keypress)="numberValidate($event)"  maxlength="5" formControlName="stdCode" autocomplete="off" >
+                                                    <!--<mat-error *ngIf="proposer.controls.stdCode.errors?.required">Std Code is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Phone Number"   (keypress)="numberValidate($event)"  maxlength="10" minlength="8" formControlName="phoneNumber" autocomplete="off" required >
-                                                    <mat-error *ngIf="proposer.controls.phoneNumber.errors?.required">Phone Number is required</mat-error>
+                                                    <input matInput placeholder="Phone Number"   (keypress)="numberValidate($event)"  maxlength="10" minlength="8" formControlName="phoneNumber" autocomplete="off"  >
+                                                    <!--<mat-error *ngIf="proposer.controls.phoneNumber.errors?.required">Phone Number is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
 
                                             <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="occupation" formControlName="occupation" required>
+                                                    <mat-select placeholder="occupation" formControlName="occupation" >
                                                         <mat-option *ngFor="let title of occupationList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                                                     </mat-select>
-                                                    <mat-error *ngIf="proposer.controls.occupation.errors?.required">Occupation is required</mat-error>
+                                                    <!--<mat-error *ngIf="proposer.controls.occupation.errors?.required">Occupation is required</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNumber"  autocomplete="off" required>
-                                                    <mat-error *ngIf="proposer.controls.aadharNumber.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
+                                                    <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNumber"  autocomplete="off" >
+                                                    <!--<mat-error *ngIf="proposer.controls.aadharNumber.errors?.required">Aadhar Number is required</mat-error>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.aadharNumber.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="panNumber"  autocomplete="off" required>
-                                                    <mat-error *ngIf="proposer.controls.panNumber.errors?.required">PAN Number is required</mat-error>
-                                                    <mat-error *ngIf="proposer.controls.panNumber.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
-                                                    <mat-error *ngIf="proposer.controls.panNumber.hasError('pattern')"> Enter Valid PAN Number </mat-error>
+                                                    <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="panNumber"  autocomplete="off" >
+                                                    <!--<mat-error *ngIf="proposer.controls.panNumber.errors?.required">PAN Number is required</mat-error>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.panNumber.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.panNumber.hasError('pattern')"> Enter Valid PAN Number </mat-error>-->
                                                 </mat-form-field>
                                             </div>
                                          </div>
@@ -122,17 +123,11 @@
                                                     <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode required</mat-error>
                                                     <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                                 </mat-form-field></div>
+                                                <div class="col-md-6"><mat-form-field class="w-100" >
+                                                    <input  matInput placeholder="City" formControlName="city"  autocomplete="off" required>
+                                                    <mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>
+                                                </mat-form-field></div>
 
-
-                                                <div class="col-md-6">
-                                                    <mat-form-field class="w-100">
-                                                        <mat-select placeholder="City"  formControlName="city" (change)="communicateCity()" required>
-                                                            <mat-option *ngFor="let commCity of cityCommList | keys" value="{{commCity.key}}" > {{commCity.value}} </mat-option>
-                                                        </mat-select>
-                                                        <mat-error *ngIf="proposer.controls.city.errors?.required">city is required</mat-error>
-
-                                                    </mat-form-field>
-                                                </div>
                                             </div>
 
                                         </div>
@@ -167,16 +162,14 @@
                                                     <mat-error *ngIf="proposer.controls.rpincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                                 </mat-form-field>
                                                 </div>
-                                                <!--</mat-form-field></div>-->
+
                                                 <div class="col-md-6">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="City"  formControlName="rcity" (change)="registrationCity()" required >
-                                                            <mat-option *ngFor="let resCity of rescityList | keys" value="{{resCity.key}}" > {{resCity.value}} </mat-option>
-                                                        </mat-select>
-                                                        <mat-error *ngIf="proposer.controls.rcity.errors?.required">city is required</mat-error>
+                                                        <input  matInput placeholder="City" formControlName="rcity"  autocomplete="off" >
+                                                        <mat-error *ngIf="proposer.controls.rcity.errors?.required">City is required</mat-error>
+                                                    </mat-form-field></div>
 
-                                                    </mat-form-field>
-                                                </div>
+
 
                                             </div>
                                         </div>
@@ -205,15 +198,12 @@
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <form [formGroup]="vehical">
                                         <div class="row">
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select placeholder="vehicle Mostly Driven On"  formControlName="vehicleMostlyDrivenOn" (change)="getVehicalMostly()" required >
-                                                        <mat-option *ngFor="let type of drivenList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
-                                                    </mat-select>
-                                                    <mat-error *ngIf="vehical.controls.vehicleMostlyDrivenOn.errors?.required">vehicle Mostly DrivenOn is required</mat-error>
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput placeholder="Quote Id" (keypress)="numberValidate($event)"   maxlength="15" formControlName="quoteId"  autocomplete="off">-->
+                                                <!--</mat-form-field>-->
+                                            <!--</div>-->
 
-                                                </mat-form-field>
-                                            </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="Vehicle Registered Name"  formControlName="vehicleRegisteredName" (change)="changeVehicleName()" required >
@@ -224,25 +214,28 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'">
+                                            <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'" required>
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Company Name"  formControlName="companyName"  autocomplete="off">
+                                                    <mat-error *ngIf="vehical.controls.companyName.errors?.required">Company Name is required</mat-error>
+
                                                 </mat-form-field>
                                             </div>
-
-                                            <div class="col-md-3" >
-                                                <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Type Of Cover"  formControlName="typeOfCover"  >
-                                                        <mat-option *ngFor="let vehiclebk of coverList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
-                                                    </mat-select>
-                                                </mat-form-field>
-                                            </div>
-
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Driving Experience"  formControlName="drivingExperience"  >
+                                                    <mat-select placeholder="vehicle Mostly Driven On"  formControlName="vehicleMostlyDrivenOn" (change)="getVehicalMostly()"  >
+                                                        <mat-option *ngFor="let type of drivenList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="vehical.controls.vehicleMostlyDrivenOn.errors?.required">vehicle Mostly DrivenOn is required</mat-error>-->
+
+                                                </mat-form-field>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Driving Experience"  formControlName="drivingExperience"  required>
                                                         <mat-option *ngFor="let vehiclebk of drivingTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
+                                                    <mat-error *ngIf="vehical.controls.drivingExperience.errors?.required">Driving Experience is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -254,39 +247,50 @@
 
                                                 </mat-form-field>
                                             </div>
+
+                                            <div class="col-md-3" >
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Type Of Cover"  formControlName="typeOfCover" required  >
+                                                        <mat-option *ngFor="let vehiclebk of coverList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
+                                                    </mat-select>
+                                                    <mat-error *ngIf="vehical.controls.typeOfCover.errors?.required">Type Of Cover is required</mat-error>
+
+                                                </mat-form-field>
+                                            </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Accident Cover For Paid Driver"  formControlName="accidentCoverForPaidDriver"  >
+                                                    <mat-select placeholder="Value Of Loss Of Baggage"  formControlName="valueOfLossOfBaggage" (change)=" changepbaggageValue()"  >
+                                                        <mat-option *ngFor="let baggages of baggageList | keys" value="{{baggages.key}}" > {{baggages.value}} </mat-option>
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="vehical.controls.valueOfLossOfBaggage.errors?.required">Value Of Loss Of Baggage is required</mat-error>-->
+
+                                                </mat-form-field>
+                                            </div>
+                                            <!--<div class="col-md-3">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput [matDatepicker]="picker2"  placeholder="VehicleInspectionDate (DD/MM/YYYY)" formControlName="vehicleInspectionDate" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')" minlength="10" maxlength="10"-->
+                                                           <!--autocomplete="off" required >-->
+                                                    <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                                                    <!--<mat-datepicker #picker2></mat-datepicker>-->
+                                                    <!--<mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>-->
+                                                <!--</mat-form-field>-->
+                                                <!--<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>-->
+                                            <!--</div>-->
+
+
+
+                                            <div class="col-md-3">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Accident Cover For Paid Driver"  formControlName="accidentCoverForPaidDriver"   (change)=" changeAccidentPaidDriver()" >
                                                         <mat-option *ngFor="let accident of accidentList | keys" value="{{accident.key}}" > {{accident.value}} </mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="vehical.controls.accidentCoverForPaidDriver.errors?.required">Accident Cover For Paid Driver is required</mat-error>-->
 
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Value Of Loss Of Baggage"  formControlName="valueOfLossOfBaggage"  >
-                                                        <!--<mat-option *ngFor="let Baggages of BaggageList | keys" value="{{Baggages.key}}" > {{Baggages.value}} </mat-option>-->
-                                                    </mat-select>
-                                                    <!--<mat-error *ngIf="vehical.controls.valueOfLossOfBaggage.errors?.required">Value Of Loss Of Baggage is required</mat-error>-->
 
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Quote Id" (keypress)="numberValidate($event)"   maxlength="12" formControlName="quoteId"  autocomplete="off">
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <mat-form-field class="w-100">
-                                                    <input matInput [matDatepicker]="picker2"  placeholder="VehicleInspectionDate (DD/MM/YYYY)" formControlName="vehicleInspectionDate" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')" minlength="10" maxlength="10"
-                                                           autocomplete="off"   >
-                                                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                                    <mat-datepicker #picker2></mat-datepicker>
-                                                    <!--<mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>-->
-                                                </mat-form-field>
-                                                <!--<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>-->
-                                            </div>
+
+
                                             <!--<div class="col-md-3">-->
                                                 <!--<p>Vechile OwnerShip Changed </p>-->
                                                 <!--<mat-radio-group formControlName="vechileOwnerShipChanged">-->
@@ -295,15 +299,15 @@
                                                 <!--</mat-radio-group>-->
                                             <!--</div>-->
                                             <div class="col-md-3">
-                                                <p>Cover dri other car ass </p>
-                                                <mat-radio-group formControlName="car_ass">
+                                                <p>Do you Need Cover for Driver / Other Passengers / Car Accessories? </p>
+                                                <mat-radio-group formControlName="cover_dri_othr_car_ass">
                                                     <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                     <mat-radio-button value="No">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
 
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-3 mt-4 ">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Addon"  formControlName="addon"  >
                                                     <mat-option *ngFor="let vehicleAddon of AddonList | keys" value="{{vehicleAddon.key}}" > {{vehicleAddon.value}} </mat-option>
@@ -338,11 +342,7 @@
 
                                                         </mat-form-field>
                                                     </div>
-                                                    <!--<div class="col-md-3">-->
-                                                        <!--<mat-form-field class="w-100">-->
-                                                            <!--<input matInput placeholder="Make Model "  formControlName="MakeModel"  autocomplete="off">-->
-                                                        <!--</mat-form-field>-->
-                                                    <!--</div>-->
+
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
                                                             <input matInput placeholder="Value "  formControlName="Value"  autocomplete="off">
@@ -360,34 +360,34 @@
                                                 <mat-checkbox  formControlName="coverNonelectricalaccesss" >Cover Non Electrical Accessories</mat-checkbox>
                                             </div>
                                         </div>
-                                        <div *ngIf="vehical.controls['coverNonelectricalaccesss'].value == true">
-                                            <div  formArrayName="nonelectricalAccess" *ngFor="let item of vehical.get('nonelectricalAccess').controls; let i = index;">
-                                                <div class="row" [formGroupName]="i">
-                                                    <div class="col-md-3">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Name Of Non Electronic Accessories "  formControlName="NameOfNonElectronicAccessories"  autocomplete="off">
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <mat-form-field class="w-100">
-                                                            <mat-select placeholder="Make Model"  formControlName="nonMakeModel"  (change)="changeMakeModel()" >
-                                                                <mat-option *ngFor="let MakeModels of MakeModelList | keys" value="{{MakeModels.key}}" > {{MakeModels.value}} </mat-option>
-                                                            </mat-select>
-                                                            <!--<mat-error *ngIf="vehical.controls.nonMakeModel.errors?.required">Make Model is required</mat-error>-->
+                                        <!--<div *ngIf="vehical.controls['coverNonelectricalaccesss'].value == true">-->
+                                            <!--<div  formArrayName="nonelectricalAccess" *ngFor="let item of vehical.get('nonelectricalAccess').controls; let i = index;">-->
+                                                <!--<div class="row" [formGroupName]="i">-->
+                                                    <!--<div class="col-md-3">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Name Of Non Electronic Accessories "  formControlName="NameOfNonElectronicAccessories"  autocomplete="off">-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
+                                                    <!--<div class="col-md-3">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<mat-select placeholder="Make Model"  formControlName="nonMakeModel"  (change)="changeMakeModel()" >-->
+                                                                <!--<mat-option *ngFor="let MakeModels of MakeModelList | keys" value="{{MakeModels.key}}" > {{MakeModels.value}} </mat-option>-->
+                                                            <!--</mat-select>-->
+                                                            <!--&lt;!&ndash;<mat-error *ngIf="vehical.controls.nonMakeModel.errors?.required">Make Model is required</mat-error>&ndash;&gt;-->
 
-                                                        </mat-form-field>
-                                                    </div>
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
 
-                                                    <div class="col-md-3">
-                                                        <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Value "  formControlName="nonValue"  autocomplete="off">
-                                                        </mat-form-field>
-                                                    </div>
-                                                    <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addnonEelctricalItems()">+</button>
-                                                    <button mat-mini-fab	*ngIf="i != 0" color="accent" (click)="removenonEelctricalItems(i)">-</button>
-                                                </div>
-                                            </div>
-                                        </div>
+                                                    <!--<div class="col-md-3">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<input matInput placeholder="Value "  formControlName="nonValue"  autocomplete="off">-->
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
+                                                    <!--<button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addnonEelctricalItems()">+</button>-->
+                                                    <!--<button mat-mini-fab	*ngIf="i != 0" color="accent" (click)="removenonEelctricalItems(i)">-</button>-->
+                                                <!--</div>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
 
 
                                         <div class="row">
@@ -412,29 +412,29 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <p>Fibre Glass </p>
                                             <mat-radio-group formControlName="fibreGlass">
                                                 <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                 <mat-radio-button value="No">No</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <p>Wind Shield Glass </p>
                                             <mat-radio-group formControlName="windShieldGlass">
                                                 <mat-radio-button value="Yes" class="mr-2">On</mat-radio-button>
                                                 <mat-radio-button value="No">Off</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <p>Is Car Ownership Changed </p>
-                                            <mat-radio-group formControlName="isCarOwnershipChanged">
+                                            <mat-radio-group formControlName="isCarOwnershipChanged" required>
                                                 <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                                 <mat-radio-button value="No">No</mat-radio-button>
                                             </mat-radio-group>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <p>Legalliability To Paid Driver</p>
                                             <mat-radio-group formControlName="legalliabilityToPaidDriver">
                                                 <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
@@ -442,33 +442,14 @@
                                             </mat-radio-group>
                                         </div>
 
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <mat-form-field class="w-100">
                                                 <mat-select placeholder="Personal Accident Cover For Unnamed Passengers"  formControlName="pACoverForUnnamedPassengers" (change)="changePaType()" [required]="vehical.controls['isFourWheelerFinanced'].value == true">
                                                     <mat-option *ngFor="let pAUnnamedPassengers of pAUnnamedPassengersList | keys " value="{{pAUnnamedPassengers.key}}" > {{pAUnnamedPassengers.value}} </mat-option>
                                                 </mat-select>
                                             </mat-form-field>
                                         </div>
-                                        <div class="col-md-3">
-                                            <mat-form-field class="w-100">
-                                                <input matInput [matDatepicker]="picker3"  placeholder="PolicyED (DD/MM/YYYY)" formControlName="policyED" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')" minlength="10" maxlength="10"
-                                                       autocomplete="off"   >
-                                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker3></mat-datepicker>
-                                                <!--<mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>-->
-                                            </mat-form-field>
-                                            <!--<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>-->
-                                        </div>
-                                        <div class="col-md-3">
-                                            <mat-form-field class="w-100">
-                                                <input matInput [matDatepicker]="picker4"  placeholder="PolicySD (DD/MM/YYYY)" formControlName="policySD" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')" minlength="10" maxlength="10"
-                                                       autocomplete="off"   >
-                                                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
-                                                <mat-datepicker #picker4></mat-datepicker>
-                                                <!--<mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>-->
-                                            </mat-form-field>
-                                            <!--<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>-->
-                                        </div>
+
                                         </div>
 
                                         <div class="row">
@@ -498,32 +479,52 @@
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <form [formGroup]="previousInsure">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber"   autocomplete="off">
-                                                    <!--<mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>-->
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber"   autocomplete="off" required>
+                                                    <mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>
 
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Previous Insurer Name"  formControlName="previousInsured" >
+                                                    <mat-select placeholder="Previous Insurer Name"  formControlName="previousInsured" required>
                                                         <mat-option *ngFor="let previousInsureds of previousList | keys" value="{{previousInsureds.key}}" > {{previousInsureds.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="previousInsure.controls.previousInsured.errors?.required">Previous Insurer Name is required</mat-error>-->
+                                                    <mat-error *ngIf="previousInsure.controls.previousInsured.errors?.required">Previous Insurer Name is required</mat-error>
 
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Previous Policy Type"  formControlName="previousPolicyType"  >
-                                                        <!--<mat-option *ngFor="let paCity of policyList | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+                                                    <mat-select placeholder="Previous Policy Type"  formControlName="previousPolicyType"  required>
+                                                        <mat-option *ngFor="let policys of policyList | keys" value="{{policys.key}}" > {{policys.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="previousInsure.controls.previousPolicyType.errors?.required">Previous PolicyType is required</mat-error>-->
+                                                    <mat-error *ngIf="previousInsure.controls.previousPolicyType.errors?.required">Previous PolicyType is required</mat-error>
 
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-12">
+                                            <!--<div class="col-md-4">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput [matDatepicker]="picker3"  placeholder="PolicyED (DD/MM/YYYY)" formControlName="policyED" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')" minlength="10" maxlength="10"-->
+                                                           <!--autocomplete="off"   >-->
+                                                    <!--<mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>-->
+                                                    <!--<mat-datepicker #picker3></mat-datepicker>-->
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>&ndash;&gt;-->
+                                                <!--</mat-form-field>-->
+                                                <!--&lt;!&ndash;<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>&ndash;&gt;-->
+                                            <!--</div>-->
+                                            <!--<div class="col-md-4">-->
+                                                <!--<mat-form-field class="w-100">-->
+                                                    <!--<input matInput [matDatepicker]="picker4"  placeholder="PolicySD (DD/MM/YYYY)" formControlName="policySD" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')" minlength="10" maxlength="10"-->
+                                                           <!--autocomplete="off"   >-->
+                                                    <!--<mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>-->
+                                                    <!--<mat-datepicker #picker4></mat-datepicker>-->
+                                                    <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>&ndash;&gt;-->
+                                                <!--</mat-form-field>-->
+                                                <!--&lt;!&ndash;<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>&ndash;&gt;-->
+                                            <!--</div>-->
+                                            <div class="col-md-6">
                                                 <mat-form-field class="w-100">
                                                     <input maxlength="80" matInput placeholder=" Previous insurers Correct Address" formControlName="previousinsurersCorrectAddress"  autocomplete="off">
                                                     <!--<mat-error *ngIf="previousInsure.controls.previousinsurersCorrectAddress.errors?.required">Address is required</mat-error>-->
@@ -541,11 +542,12 @@
                                                     <!--<input matInput placeholder="Claim Amount" (keypress)="numberValidate($event)"  formControlName="claimAmount" [required]="previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'" autocomplete="off">-->
                                                 <!--</mat-form-field>-->
                                             <!--</div>-->
-                                            <div class="col-md-3"  >
+                                            <div class="col-md-6"  >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Voluntary Deductible"  formControlName="voluntary" >
-                                                        <mat-option *ngFor="let vountarys of vountaryList | keys" value="{{vountarys.key}}" > {{vountarys.value}} </mat-option>
+                                                    <mat-select placeholder="Voluntary Deductible"  formControlName="voluntary" >                                                        <mat-option *ngFor="let vountarys of vountaryList | keys" value="{{vountarys.key}}" > {{vountarys.value}} </mat-option>
                                                     </mat-select>
+                                                    <!--<mat-error *ngIf="previousInsure.controls.voluntary.errors?.required">Voluntary Deductible is required</mat-error>-->
+
                                                 </mat-form-field>
                                             </div>
 
@@ -590,27 +592,27 @@
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <form [formGroup]="nomineeDetail">
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Name"  formControlName="nomineeName"  (keypress)="nameValidate($event)" autocomplete="off">
-                                                    <!--<mat-error *ngIf="nomineeDetail.controls.nomineeName.errors?.required">Name is required</mat-error>-->
+                                                    <mat-error *ngIf="nomineeDetail.controls.nomineeName.errors?.required">Name is required</mat-error>
 
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Age"  maxlength="3" formControlName="nomineeAge" (keypress)="numberValidate($event)" (input)="ageNominee()" autocomplete="off">
                                                 </mat-form-field>
-                                                <!--<mat-error *ngIf="nomineeDetail.controls.nomineeAge.errors?.required">Age is required</mat-error>-->
+                                                <mat-error *ngIf="nomineeDetail.controls.nomineeAge.errors?.required">Age is required</mat-error>
 
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship"  >
                                                         <mat-option *ngFor="let relationship of nomineeRelation | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                     </mat-select>
-                                                    <!--<mat-error *ngIf="nomineeDetail.controls.nomineeRelationship.errors?.required">Relationship with Insured is required</mat-error>-->
+                                                    <mat-error *ngIf="nomineeDetail.controls.nomineeRelationship.errors?.required">Relationship with Insured is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -621,20 +623,24 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Guardian Name"  formControlName="guardianName" (keypress)="nameValidate($event)" [required]="apponiteeList" autocomplete="off">
+                                                        <input matInput placeholder="Guardian Name"  formControlName="guardianName" (keypress)="nameValidate($event)" [required]="apponiteeList" autocomplete="off" required>
                                                     </mat-form-field>
+                                                    <mat-error *ngIf="nomineeDetail.controls.guardianName.errors?.required">Guardian Name is required</mat-error>
+
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Guardian Age" maxlength="3" formControlName="guardianAge" [required]="apponiteeList" (keypress)="numberValidate($event)" autocomplete="off">
                                                     </mat-form-field>
+                                                    <mat-error *ngIf="nomineeDetail.controls.guardianAge.errors?.required">Guardian Age is required</mat-error>
+
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Guardian RelationShip"  formControlName="guardianRelationship" [required]="apponiteeList" >
                                                             <mat-option *ngFor="let guardrelationship of guardianRelationList | keys" value="{{guardrelationship.key}}" > {{guardrelationship.value}} </mat-option>
                                                         </mat-select>
-                                                        <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                        <mat-error *ngIf="nomineeDetail.controls.guardianRelationship.errors?.required">Relationship with Guardian is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
                                             </div>
