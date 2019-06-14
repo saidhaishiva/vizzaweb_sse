@@ -238,9 +238,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   ngOnInit() {
 
-    // this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+    this.buyBikeDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+    this.bikeEnquiryId = sessionStorage.fwEnquiryId;
     this.changeGender();
     this.occupation();
     this.fueltype();
