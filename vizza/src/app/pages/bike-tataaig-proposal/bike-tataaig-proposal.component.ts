@@ -76,7 +76,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     public vehicledata: any;
     public poldate: any;
     public Proposalnumber: any;
-
+    public bikeProposerAge: any;
+    public coverlist: any;
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public config: ConfigurationService) {
         let stepperindex = 0;
@@ -129,6 +130,15 @@ export class BikeTataaigProposalComponent implements OnInit {
             autoNumber: '',
             autoName: '',
             autoDob: '',
+            coverdrive: ['', Validators.required],
+            Associationmember: ['', Validators.required],
+            Voluntary: ['', Validators.required],
+            Antitheft: ['', Validators.required],
+            Tppdrestrict: ['', Validators.required],
+            depreciation: ['', Validators.required],
+            Consumableexpense: ['', Validators.required],
+            Returninvoice: ['', Validators.required],
+            Roadsideassistance: ['', Validators.required],
         });
 
         this.previouspolicy = this.fb.group({
@@ -158,11 +168,12 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.getNamelist();
         this.getCodelist();
         this.getRelationList();
+        this.coverdriveList();
         this.sessionData();
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
         console.log(this.vehicledata);
         this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
-        this.enquiryFormData = JSON.parse(sessionStorage.vehicledetails);
+        this.enquiryFormData = JSON.parse(sessionStorage.bikeListDetails);
         console.log(this.enquiryFormData, 'enquiry data');
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
@@ -175,6 +186,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     nameValidate(event: any) {
+        this.validation.nameValidate(event);
     }
 
     // Dob validation
@@ -185,6 +197,17 @@ export class BikeTataaigProposalComponent implements OnInit {
     // Number validation
     numberValidate(event: any) {
         this.validation.numberValidate(event);
+    }
+
+    // Number validation
+    numValidate(event: any) {
+        if (event.charCode !== 0) {
+            const pattern = /[0-9]/;
+            const inputChar = String.fromCharCode(event.charCode);
+            if (!pattern.test(inputChar) || event.target.value.length >= 2) {
+                event.preventDefault();
+            }
+        }
     }
 
     idValidate(event: any) {
@@ -198,8 +221,9 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     addEvent(event: any, type) {
         console.log(type);
-        let dob = '';
         if (event.value != null) {
+            let selectedDate = '';
+            let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
@@ -215,6 +239,9 @@ export class BikeTataaigProposalComponent implements OnInit {
                         this.automobdateError = 'Enter Valid Date';
                     }
                 }
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                this.bikeProposerAge = this.ageCalculate(dob);
+                sessionStorage.proposerAge = this.bikeProposerAge;
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
@@ -231,8 +258,24 @@ export class BikeTataaigProposalComponent implements OnInit {
                         this.automobdateError = 'Enter Valid Date';
                     }
                 }
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                this.bikeProposerAge = this.ageCalculate(dob);
+                sessionStorage.proposerAge = this.bikeProposerAge;
             }
         }
+    }
+
+    // AGE VALIDATION
+    ageCalculate(dob) {
+        let today = new Date();
+        let birthDate = new Date(dob);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        let m = today.getMonth() - birthDate.getMonth();
+        let dd = today.getDate()- birthDate.getDate();
+        if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+            age = age-1;
+        }
+        return age;
     }
 
 
@@ -417,11 +460,38 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     FinanceSuccess(successData) {
         this.banklist = successData.ResponseObject;
+        console.log(this.banklist,'ddddddd');
     }
 
     FinanceFailure(error) {
 
     }
+
+    //PACover_for_OwnerDriver for Addons
+    coverdriveList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        };
+        this.bikeinsurance.coverdrive(data).subscribe(
+            (successData) => {
+                this.coverdriveSuccess(successData);
+            },
+            (error) => {
+                this.coverdriveFailure(error);
+            }
+        );
+    }
+
+    coverdriveSuccess(successData) {
+        this.coverlist = successData.ResponseObject;
+    }
+
+    coverdriveFailure(error) {
+
+    }
+
 
 
     chooseflag(event: any) {
@@ -431,6 +501,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.proposer.controls['driveFirstname'].patchValue(this.proposer.controls['proposerFirstname'].value);
             this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
             this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
+            this.proposer.controls['driveAge'].patchValue(this.bikeProposerAge);
+            this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
             this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
             this.proposer.controls['driveLastname'].setValidators([Validators.required]);
             this.proposer.controls['driveGender'].setValidators([Validators.required]);
@@ -578,7 +650,6 @@ export class BikeTataaigProposalComponent implements OnInit {
             })
         }
         if (sessionStorage.tatavehicle != '' && sessionStorage.tatavehicle != undefined) {
-            console.log('in');
             this.getstepper2 = JSON.parse(sessionStorage.tatavehicle);
             this.vehicle = this.fb.group({
                 engine: this.getstepper2.engine,
@@ -591,6 +662,16 @@ export class BikeTataaigProposalComponent implements OnInit {
                 autoNumber: this.getstepper2.autoNumber,
                 autoName: this.getstepper2.autoName,
                 autoDob: this.datepipe.transform(this.getstepper2.autoDob, 'y-MM-dd'),
+                coverdrive: this.getstepper2.coverdrive,
+                Associationmember: this.getstepper2.Associationmember,
+                Voluntary: this.getstepper2.Voluntary,
+                Antitheft: this.getstepper2.Antitheft,
+                Tppdrestrict: this.getstepper2.Tppdrestrict,
+                depreciation: this.getstepper2.depreciation,
+                Consumableexpense: this.getstepper2.Consumableexpense,
+                Returninvoice: this.getstepper2.Returninvoice,
+                Roadsideassistance: this.getstepper2.Roadsideassistance,
+
             })
         }
         if (sessionStorage.tataprepolicy != '' && sessionStorage.tataprepolicy != undefined) {
@@ -624,8 +705,19 @@ export class BikeTataaigProposalComponent implements OnInit {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            "enquiry_id": this.bikeEnquiryId,
-            "Idv": this.buyBikeDetails.Idv,
+            'enquiry_id': this.bikeEnquiryId,
+            'company_id': "13",
+            'Idv': this.buyBikeDetails.Idv,
+            'revised_idv': this.buyBikeDetails.Idv,
+            'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
+            'Automobile_Association_Membership': this.vehicle.controls['Associationmember'].value == true ? 'Y' : 'N',
+            'Voluntary_Deductibles': this.vehicle.controls['Voluntary'].value == true ? 'Y' : 'N',
+            'Anti_theft_device': this.vehicle.controls['Antitheft'].value == true ? 'Y' : 'N',
+            'TPPD_Restricted': this.vehicle.controls['Tppdrestrict'].value == true ? 'Y' : 'N',
+            'Depreciation_ReImbursement': this.vehicle.controls['depreciation'].value == true ? 'Y' : 'N',
+            'Consumables_expenses': this.vehicle.controls['Consumableexpense'].value == true ? 'Y' : 'N',
+            'Return_to_Invoice': this.vehicle.controls['Returninvoice'].value == true ? 'Y' : 'N',
+            'Roadside_Assistance': this.vehicle.controls['Roadsideassistance'].value == true ? 'Y' : 'N',
         };
         this.bikeinsurance.QuoteList(data).subscribe(
             (successData) => {
