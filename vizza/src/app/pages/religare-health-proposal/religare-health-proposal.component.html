@@ -554,7 +554,7 @@
                 <ul class="summary-head">
                   <li><span>Insurer:</span> &nbsp;<img src="{{webhost + '/' + buyProductdetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                   <li><span>Premium:</span> &nbsp; <span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> /</li>
-                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span> </li>
+                  <li><span>Total Premium:</span> &nbsp;<span><i class="fas fa-rupee-sign"></i> {{summaryData.total_premium}}</span> </li>
                   <li></li>
                 </ul>
               </div>
@@ -1344,20 +1344,23 @@
                 <mat-accordion class="question-panel" *ngFor="let item of religareQuestionsList; let i = index">
                   <mat-expansion-panel class="w-100 " [disabled]="item.answer_status == false" [expanded]="item.answer_status">
 
-                    <mat-expansion-panel-header style="min-height: 230px !important;">
+                    <mat-expansion-panel-header style="min-height: fit-content !important; text-align: justify; padding: 10px !important;">
+                      <mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
+
                       <mat-panel-title>
                         {{i+1}}. {{item.main_question}}
-                        <mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>
+                        <!--<mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>-->
                       </mat-panel-title>
                     </mat-expansion-panel-header>
                     <div class="table-responsive">
                       <table class="table table-striped mt-3" id="Queue">
                         <tr *ngFor="let subQes of item.sub_questions_list; let j = index">
-                          <td *ngIf="item.display_question == '1'">
+                          <td class="w-100" *ngIf="item.display_question == '1'">
                             {{j + 1}}) {{subQes.question_details.question_description}}
                           </td>
-                          <td *ngFor="let fGroup of subQes.question_details.family_group; let k = index"><mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)" >{{fGroup.type}}
-
+                          <td class="w-100" *ngFor="let fGroup of subQes.question_details.family_group; let k = index">
+                            <mat-checkbox [(ngModel)]="fGroup.status" (change)="subStatus($event, i, k, j)">
+                              <div class="checkBoxLabelMargin">{{fGroup.type}}</div>
                           </mat-checkbox>
                             <section class="w-100" *ngIf="fGroup.status">
                               <div class="w-100" *ngIf="subQes.question_details.existing_question_code != ''"><mat-form-field>
@@ -1604,3 +1607,8 @@
 </section>
 
 
+<style>
+  .checkBoxLabelMargin {
+    margin-top: 0px !important;
+  }
+</style>

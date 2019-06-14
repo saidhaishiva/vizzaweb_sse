@@ -351,7 +351,7 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-  // make list
+  // makemodel list
   fourWheelerGetmakeList(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -394,9 +394,21 @@ export class FourWheelerService {
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
-    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/get_pincode_details';
+    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/policyList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)        .catch(this.handleError);
+  }
+// pincode for communication
+  getRsPincodeList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/get_pincode_details';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
   }
   // vehicleRegisteredNameList
   fourWheelerGetvehicleRegisteredNameList(data){
@@ -468,8 +480,8 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
-  // accidentCoverPassengers
-  fourWheeleraccidentCoverPassengers(data){
+  // accidentCoverUnnamedPassengers
+  fWaccidentCoverUnnamedPassengers(data){
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
     const httpOptions = {
@@ -481,7 +493,7 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
   // accidentCoverDriver
-  fourWheeleraccidentCoverDriver(data){
+  fourWheeleraccidentCoverDriver(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
     const httpOptions = {
@@ -504,6 +516,31 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+// policy
+  getRsPolicyDetails(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/policyType';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  // baggage
+  getRsbaggageValueDetails(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/baggageValue';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
 // calculate premium
   proposalCreationRoyal(data) {
     const json = JSON.stringify(data);
@@ -628,6 +665,27 @@ export class FourWheelerService {
     const url = this.configurationService.getFourwheelerInsurance() + 'shriram/get_pincode_details';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
+        .catch(this.handleError);
+  }
+  getPreviousList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/previousInsurerList';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  getDownloadPdfShriram(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/PolicyDownload' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
         .catch(this.handleError);
   }
   // shriram end //

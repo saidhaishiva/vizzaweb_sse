@@ -314,7 +314,7 @@ export class LifeBajajProposalComponent implements OnInit {
     this.ageProof();
     this.maritalStatus();
     this.cLanguageList();
-    this.proposerType();
+    // this.proposerType();
     this.docLanguage();
     this.primiumList();
     this.nationality();
@@ -2049,7 +2049,7 @@ samerelationShip(){
         "modeOfComm": "E",
         "commMail/SMS": "",
         "preferredLanguage": this.proposer.controls['language'].value,
-        "proposer_type": this.proposer.controls['proposerType'].value,
+        "proposer_type": 'I',
         "documentLanguage": this.proposer.controls['language2'].value,
         "lifeBenefit": '1',
         "benefitTerm": this.enquiryFormData.lifePolicy,

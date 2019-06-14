@@ -126,7 +126,16 @@
         <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">Variant is required</mat-error>-->
       <!--</mat-form-field>-->
     </div>
-
+    <!--<mat-form-field>-->
+      <!--<mat-select formControlName="city" placeholder="City" #singleSelect>-->
+        <!--<mat-option>-->
+          <!--<ngx-mat-select-search formControlName="city"></ngx-mat-select-search>-->
+        <!--</mat-option>-->
+        <!--<mat-option *ngFor="let bank of cityDetails | async" [value]="bank">-->
+          <!--{{bank}}-->
+        <!--</mat-option>-->
+      <!--</mat-select>-->
+    <!--</mat-form-field>-->
     <div class="col-md-12 text-center mt-3">
       <button mat-raised-button color="primary"  (click)="enquiryQuation(vehicalDetails.value)">Submit</button>
     </div>
