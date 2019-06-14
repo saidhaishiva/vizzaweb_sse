@@ -941,9 +941,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   getProposalSucccess(successData,stepper) {
     this.setting.loadingSpinner = false;
     if (successData.IsSuccess) {
-      alert('1');
       this.toastr.success('Proposal created successfully!!');
-      alert('3')
       this.summaryData = successData.ResponseObject;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.policy_id;
