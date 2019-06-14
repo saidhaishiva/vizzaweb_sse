@@ -15,7 +15,7 @@ import { SlickModule} from 'ngx-slick';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SelectDropDownModule } from 'ngx-select-dropdown';
 // import { ImageUploadModule } from "angular2-image-upload";
-import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+// import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 // services
 import { LoginService } from './shared/services/login.service';
@@ -323,7 +323,7 @@ import { ShriramMfwPaymentSuccessComponent } from './pages/shriram-mfw-payment-s
         PipesModule,
         NgxMaterialTimepickerModule.forRoot(),
         SelectDropDownModule,
-        NgxMatSelectSearchModule,
+        // NgxMatSelectSearchModule,
         // AmazingTimePickerModule,
         routing
     ],

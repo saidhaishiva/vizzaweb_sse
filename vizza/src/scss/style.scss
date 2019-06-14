@@ -3942,6 +3942,93 @@ fieldset {
       margin-bottom: 0rem !important;
     }
   }
+  .car-table{
+    button{
+      font-size: 12px;
+      padding: 0 4px;
+      line-height: 1.6;
+
+    }
+    .w-100 {
+      width: 92% !important;
+    }
+    .sun-insured{
+      .mat-form-field-infix {
+        display: block;
+        position: relative;
+        flex: auto;
+        min-width: 0;
+        width: 105px !important;
+      }
+      ::-webkit-scrollbar-thumb:vertical {
+        background-color: #00FFFF !important;
+      }
+      ::-webkit-scrollbar-track {
+        background-color: #cfcfcf !important;
+      }
+    }
+    .pTitle {
+      margin-top: 3px !important;
+      color: #28a745 !important;
+      font-weight: 500 !important;
+    }
+
+    td:nth-child(3){
+      text-align: left !important;
+    }
+    th {
+      text-align: center;
+      border-collapse: collapse;
+      //border: 1px solid #efecec !important;
+      padding: 5px !important;
+    }
+    td{
+      vertical-align: middle;
+      color: rgba(4, 78, 67, 0.87);
+      font-size: 13px;
+      //border: 1px solid #efecec;
+      text-align: left;
+      border-top: 1px solid #ef6d73 !important;
+
+    }
+    .mat-raised-button.mat-primary {
+      background-color: #efb6b5;
+      border: 1px solid #ed3835;
+      color: #ed3835;
+    }
+    .mat-raised-button.mat-primary1 {
+      background-color: #ca8845db;
+    }
+    .mat-raised-button.mat-accentRemove {
+      background-color: #2d8dc5;
+      color: #ffff;
+    }
+    .mat-raised-button.mat-accent{
+      background-color: #28a745 !important;
+    }
+
+    thead th{
+      border: none;
+      vertical-align: text-bottom;
+      border-bottom: 2px solid #dee2e6;
+      background: #F16D73;
+      color: #fff;
+      font-weight: normal;
+      font-size: 12px;
+    }
+    .myclass{
+      color: #ffffff !important;
+    }
+    .mat-select-arrow{
+      color: #ffffff !important;
+    }
+    .mat-form-field-underline{
+      background-color:#ffffff !important;
+    }
+    p {
+      margin-bottom: 0rem !important;
+    }
+  }
   .mat-tab-label-container{
     margin-bottom: 5px;
   }
@@ -4279,7 +4366,7 @@ fieldset {
   }
 
   h4 {
-    color: #85b31e !important;
+    color: #31CCEB !important;
   }
   .mat-tab-labels {
     float: right;
@@ -4341,7 +4428,7 @@ fieldset {
       border: none;
       vertical-align: text-bottom;
       border-bottom: 2px solid #dee2e6;
-      background: red;
+      background: #31CCEB;
       color: #fff;
       font-weight: normal;
       font-size: 12px;
@@ -4726,4 +4813,7 @@ fieldset {
   .linkClor {
     color: #117ab7;
   }
+}
+.mat-tab-body-content {
+  overflow:hidden !important;
 }

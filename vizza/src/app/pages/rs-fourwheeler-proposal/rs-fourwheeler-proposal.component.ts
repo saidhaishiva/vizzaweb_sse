@@ -6,34 +6,54 @@ import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
 import {AppSettings} from '../../app.settings';
-import {MatStepper} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 @Component({
   selector: 'app-rs-fourwheeler-proposal',
   templateUrl: './rs-fourwheeler-proposal.component.html',
-  styleUrls: ['./rs-fourwheeler-proposal.component.scss']
+  styleUrls: ['./rs-fourwheeler-proposal.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ]
 })
 export class RsFourwheelerProposalComponent implements OnInit {
   public proposer: FormGroup;
   public vehical: FormGroup;
   public previousInsure: FormGroup;
   public nomineeDetail: FormGroup;
-  public minDate: any;
   public settings: any;
   public webhost: any;
   public titleList: any;
   public occupationList: any;
   public insurerdateError: any;
   public bikeRoyalProposerAge: any;
-  public pincodeList: any;
+  public getAge: any;
+  public getDays: any;
+  public cityCommList: any;
+  public minDate: any;
+  public maxDate: any;
   public pincodeState: any;
-  public pincodeCity: any;
+  public rescityList: any;
   public stateList: any;
-  public hypothecationTypeDetails: any;
+  public financedValueDetails: any;
   public hypothecationTypedm: any;
   public previousList: any;
-  public policyList: any;
+  public cityList: any;
   public drivenList: any;
   public nomineeRelation: any;
   public addElectrical: any;
@@ -69,11 +89,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public coverList: any;
   public respincodeList: any;
   public apponiteeList: boolean;
-  public accidentList: any
-  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
+  public accidentList: any;
+  public MakeModelList: any;
+  public pAUnnamedPassengersList: any;
+  public AddonList: any;
+  public baggageList: any;
+  public today: any;
+  public guardianRelationList: any;
+  public pincodeList: any;
+  public policyList: any;
+  public step: any;
 
+  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
+    this.step = 0;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
+    let today  = new Date();
+    this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
@@ -91,28 +123,28 @@ export class RsFourwheelerProposalComponent implements OnInit {
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       occupation: ' ',
       aadharNumber: ['', Validators.compose([Validators.minLength(12)])],
-      panNumber: ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
+      panNumber: ['', Validators.compose([ Validators.minLength(10)])],
       address: ['', Validators.required],
-      address2: ['', Validators.required],
-      address3: '',
-      address4: '',
+
+      address2: '',
+
       pincode: ['', Validators.required],
       state: '',
       stateName: '',
       city: '',
       cityName: '',
       raddress: ['', Validators.required],
-      raddress2: ['', Validators.required],
-      raddress3: '',
-      raddress4: '',
+      raddress2:  '',
+
       rpincode: ['', Validators.required],
       rstate: '',
       rcity: '',
       rstateName: '',
       rcityName: '',
-      sameas:'',
-      phoneNumber:  ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-      stdCode: ''
+      sameas: '',
+      phoneNumber:  ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
+      stdCode: '',
+
     });
 
     this.vehical = this.fb.group({
@@ -120,23 +152,37 @@ export class RsFourwheelerProposalComponent implements OnInit {
       vehicleRegisteredName: '' ,
       // registrationchargesRoadtax: ['', Validators.required],
       coverelectricalaccesss: '',
+      coverNonelectricalaccesss: '',
       drivingExperience: '',
       averageMonthlyMileageRun: ['', Validators.required],
+      accidentCoverForPaidDriver: '',
       companyName: '',
       idv: '',
-      isTwoWheelerFinancedValue: '',
+      isFourWheelerFinancedValue: '',
+      valueOfLossOfBaggage: '',
+      quoteId: '',
+      pACoverForUnnamedPassengers: '',
       financierName: '',
-      isTwoWheelerFinanced: '',
+      isFourWheelerFinanced: '',
       hypothecationType: '',
       typeOfCover: '',
+      addon: '',
       vechileOwnerShipChanged: 'No',
+      cover_dri_othr_car_ass: 'No',
+      fibreGlass: 'No',
+      isCarOwnershipChanged: 'No',
+      legalliabilityToPaidDriver: 'No',
+      windShieldGlass: 'No',
+      policyED: ['', Validators.compose([ Validators.minLength(10)])],
+      policySD: ['', Validators.compose([ Validators.minLength(10)])],
+      vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
 
       electricalAccess : new FormArray([
         this.create()
       ]),
-      // nonelectricalAccess : new FormArray([
-      //   this.createnonElectrical()
-      // ]),
+      nonelectricalAccess : new FormArray([
+        this.createnonElectrical()
+      ]),
     });
 
     this.previousInsure = this.fb.group({
@@ -144,6 +190,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       previousInsured: '',
       previousdob: '',
       isPreviousPolicyHolder: '',
+      previousinsurersCorrectAddress: '',
       voluntary: '',
       claimAmount: '',
       previousPolicyType: '',
@@ -154,9 +201,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       nomineeName: '',
       nomineeAge: '',
       nomineeRelationship: '',
-      appointeeName: '',
-      appointeeRelationship: '',
-      appointeeAge: ''
+      guardianName: '',
+      guardianRelationship: '',
+      guardianAge: ''
     });
   }
 
@@ -171,7 +218,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.title();
     this.getOccupation();
     // this.changehypothecation();
-    this.changehypothecationType();
+    this.changefinancedValue();
     this.changePreviousInsureType();
     this.getVehicalMostly();
     this.changeVehicleName();
@@ -183,10 +230,22 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changePaType();
     this.changePaidDriverType();
     this.changeCoverType();
+    this.changeMakeModel();
+    this.guardianRelationShip();
+    this.changepbaggageValue();
+    this.changepolicyType();
+    this.changeAccidentPaidDriver();
     this.sessionData();
 
   }
   // validation
+  prevStep() {
+    this.step--;
+  }
+  backAll() {
+    this.topScroll();
+    this.prevStep();
+  }
 
   numberValidate(event: any) {
     this.validation.numberValidate(event);
@@ -209,6 +268,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     document.getElementById('main-content').scrollTop = 0;
   }
   // proposer page
+  //Electrical Accessories
   create() {
     return new FormGroup({
       NameOfElectronicAccessories: new FormControl(),
@@ -225,17 +285,18 @@ export class RsFourwheelerProposalComponent implements OnInit {
     let ssss =  this.vehical.get('electricalAccess') as FormArray;
     ssss.removeAt(index);
   }
-  // non  electrical
+  // Non electrical Accessories
   createnonElectrical() {
     return new FormGroup({
-      namesOfNonElectrical: new FormControl('', Validators.required),
-      modelnonElectrical :  new FormControl('', Validators.required),
-      valuenonelectrical :  new FormControl('', Validators.required),
+      NameOfNonElectronicAccessories: new FormControl(),
+      nonMakeModel :  new FormControl(),
+      nonValue :  new FormControl(),
     });
   }
   addnonEelctricalItems() {
     this.addnonElectrical =  this.vehical.get('nonelectricalAccess') as FormArray;
     this.addnonElectrical.push(this.createnonElectrical());
+    console.log(this.addnonElectrical, 'this.addnonElectrical');
   }
   removenonEelctricalItems(index) {
     let ssss =  this.vehical.get('nonelectricalAccess') as FormArray;
@@ -312,7 +373,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public drivenFailure(error){
   }
-  // pincode
+  // city for communication
   getPostalCode(pin) {
     const data = {
       'platform': 'web',
@@ -320,7 +381,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     };
     console.log(data,' jhgjh');
     if (pin.length == 6) {
-      this.fourWheeler.fourWheelergetrPincodeList(data).subscribe(
+      this.fourWheeler.getRsPincodeList(data).subscribe(
           (successData) => {
             this.pinProposerListSuccess(successData, pin);
           },
@@ -353,6 +414,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public pinProposerListFailure(error) {
   }
+
+  //city for registration
+
   getresPostalCode(pin) {
     const data = {
       'platform': 'web',
@@ -360,7 +424,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     };
     console.log(data, ' jhgjh');
     if (pin.length == 6) {
-      this.fourWheeler.getRoyalRegPincodeList(data).subscribe(
+      this.fourWheeler.getRsPincodeList(data).subscribe(
           (successData) => {
             this.pinresProposerListSuccess(successData, pin);
           },
@@ -381,11 +445,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
       } for ( let key in this.respincodeList.city) {
         this.proposer.controls['rcity'].patchValue(key);
         this.proposer.controls['rcityName'].patchValue(this.respincodeList['city'][key]);
+        console.log(this.proposer.controls['rcity'].patchValue(key),' rrrrr');
       }
 
     } else {
       this.toastr.error(successData.ErrorObject);
       this.proposer.controls['rcity'].patchValue('');
+
 
     }
   }
@@ -402,6 +468,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
       let selectedDate = '';
       this.bikeRoyalProposerAge = '';
       let dob = '';
+      let dob_days = '';
+      this.getAge = '';
+      this.getDays;
+      dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
       if (typeof event.value._i == 'string') {
         const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
         if (pattern.test(event.value._i) && event.value._i.length == 10) {
@@ -429,6 +499,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     }
   }
+
   ageCalculate(dob) {
     let today = new Date();
     let birthDate = new Date(dob);
@@ -443,21 +514,22 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   sameAddress() {
     if (this.proposer.controls['sameas'].value == true) {
-      this.proposer.controls['raddress'].patchValue( this.proposer.controls['address'].value),
+          this.proposer.controls['raddress'].patchValue( this.proposer.controls['address'].value),
           this.proposer.controls['raddress2'].patchValue( this.proposer.controls['address2'].value),
-          this.proposer.controls['raddress3'].patchValue( this.proposer.controls['address3'].value),
-          this.proposer.controls['raddress4'].patchValue( this.proposer.controls['address4'].value),
           this.proposer.controls['rpincode'].patchValue( this.proposer.controls['pincode'].value),
           this.proposer.controls['rstate'].patchValue( this.proposer.controls['state'].value),
-          this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value)
+          this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value),
+      this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value)
+      console.log(this.proposer.controls['rcity'].value,'ghghghj');
+      console.log(this.proposer.controls['rcityName'].value,'nhghj');
     } else {
       this.proposer.controls['raddress'].patchValue(''),
           this.proposer.controls['raddress2'].patchValue(''),
-          this.proposer.controls['raddress3'].patchValue(''),
-          this.proposer.controls['raddress4'].patchValue(''),
           this.proposer.controls['rpincode'].patchValue(''),
           this.proposer.controls['rstate'].patchValue(''),
-          this.proposer.controls['rcity'].patchValue('')
+          this.proposer.controls['rcity'].patchValue(''),
+          this.proposer.controls['rcityName'].patchValue('')
+      console.log(this.proposer.controls['rcity'].value,'eeeeeeee');
     }
   }
   proposerDetails(stepper: MatStepper, value) {
@@ -478,15 +550,16 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-    // / /if(this.vehical.valid){
-    stepper.next();
-    // }
+    if (this.vehical.valid) {
+      stepper.next();
+      this.topScroll();
+    }
   }
   isFinaced() {
-    if (this.vehical.controls['isTwoWheelerFinanced'].value == true){
+    if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
 
-    } else{
-      this.vehical.controls['isTwoWheelerFinancedValue'].patchValue('');
+    } else {
+      this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
       this.vehical.controls['financierName'].patchValue('');
     }
   }
@@ -518,7 +591,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   // public hypothecationFailure(error) {
   // }
 // hypo type
-  changehypothecationType() {
+  changefinancedValue() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -537,7 +610,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public hypothecationTypeSuccess(successData){
     if (successData.IsSuccess) {
-      this.hypothecationTypeDetails = successData.ResponseObject;
+      this.financedValueDetails = successData.ResponseObject;
     }
   }
   public hypothecationTypeFailure(error) {
@@ -647,7 +720,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.fourWheeler.fourWheeleraccidentCoverPassengers(data).subscribe(
+    this.fourWheeler.fWaccidentCoverUnnamedPassengers(data).subscribe(
         (successData) => {
           this.paSuccess(successData);
         },
@@ -658,11 +731,36 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public paSuccess(successData) {
     if (successData.IsSuccess) {
-      this.paList = successData.ResponseObject;
+      this.pAUnnamedPassengersList = successData.ResponseObject;
     }
   }
   public paFailure(error) {
   }
+  changeMakeModel() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fourWheeler.fourWheelerGetmakeList(data).subscribe(
+        (successData) => {
+          this.makeModelSuccess(successData);
+        },
+        (error) => {
+          this.makeModelFailure(error);
+        }
+    );
+  }
+  public makeModelSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.MakeModelList = successData.ResponseObject;
+    }
+  }
+  public makeModelFailure(error) {
+  }
+
   changePaidDriverType() {
     const data = {
       'platform': 'web',
@@ -680,7 +778,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
     );
   }
-  public paidSuccess(successData){
+  public paidSuccess(successData) {
     if (successData.IsSuccess) {
       this.paidList = successData.ResponseObject;
     }
@@ -704,14 +802,66 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
     );
   }
-  public accidentPaidSuccess(successData){
+  public accidentPaidSuccess(successData) {
     if (successData.IsSuccess) {
       this.accidentList = successData.ResponseObject;
+
     }
   }
   public accidentPaidFailure(error) {
   }
-  // third page
+  // policy
+  changepolicyType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fourWheeler.getRsPolicyDetails(data).subscribe(
+        (successData) => {
+          this.policyDetailsSuccess(successData);
+        },
+        (error) => {
+          this.policyDetailsFailure(error);
+        }
+    );
+  }
+  public policyDetailsSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.policyList = successData.ResponseObject;
+    }
+  }
+  public policyDetailsFailure(error) {
+  }
+
+  // baggage value
+  changepbaggageValue() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fourWheeler.getRsbaggageValueDetails(data).subscribe(
+        (successData) => {
+          this.baggageValueSuccess(successData);
+        },
+        (error) => {
+          this.baggageValueFailure(error);
+        }
+    );
+  }
+  public baggageValueSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.baggageList = successData.ResponseObject;
+    }
+  }
+  public baggageValueFailure(error) {
+  }
+  // PreviousInsure
 
   changePreviousInsureType() {
     const data = {
@@ -737,7 +887,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public previousInsureTypeFailure(error) {
   }
-  // policy Type
+  // addon
   changePolicyType() {
     const data = {
       'platform': 'web',
@@ -746,21 +896,21 @@ export class RsFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
 
     }
-    this.fourWheeler.fourWheelergetcityList(data).subscribe(
+    this.fourWheeler.fourWheeleraddOnList(data).subscribe(
         (successData) => {
-          this.previousPolicyTypeSuccess(successData);
+          this.addonSuccess(successData);
         },
         (error) => {
-          this.previousPolicyTypeFailure(error);
+          this.addonFailure(error);
         }
     );
   }
-  public previousPolicyTypeSuccess(successData){
+  public addonSuccess(successData) {
     if (successData.IsSuccess) {
-      this.policyList = successData.ResponseObject;
+      this.AddonList = successData.ResponseObject;
     }
   }
-  public previousPolicyTypeFailure(error) {
+  public addonFailure(error) {
   }
   // voulntry Type
   changeVoulntaryType() {
@@ -800,7 +950,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   // next
   previousDetails(stepper: MatStepper, value) {
     sessionStorage.stepper3 = JSON.stringify(value);
-    if (this.previousInsure.valid){
+    if (this.previousInsure.valid) {
       if (this.previousInsure.controls['previousPolicyType'].value == 'Thirdparty') {
       this.toastr.error('For Buying a third party insurence. Please contact our Customer service or mail to customer.services@royalsundaram.inor chat Online with our chat repersentative');
       } else {
@@ -822,7 +972,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     }
   }
-  //RELATIONSHIP
+  // RELATIONSHIP
   nomineeRelationShip() {
     const data = {
       'platform': 'web',
@@ -847,12 +997,37 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public nomineeRelationFailure(error) {
   }
 
+  // Guardian RELATIONSHIP
+  guardianRelationShip() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.fourWheeler.getRSRelationship(data).subscribe(
+        (successData) => {
+          this.guardianRelationSuccess(successData);
+        },
+        (error) => {
+          this.guardianRelationFailure(error);
+        }
+    );
+  }
+  public guardianRelationSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.guardianRelationList = successData.ResponseObject;
+
+    }
+  }
+  public guardianRelationFailure(error) {
+  }
+
   nomineeDetails(stepper: MatStepper, value) {
     sessionStorage.stepper4 = '';
     sessionStorage.stepper4 = JSON.stringify(value);
-    // if(this.nomineeDetail.valid){
+    if (this.nomineeDetail.valid) {
     this.proposal(stepper);
-    // }
+    }
   }
   // proposal creation
   proposal(stepper) {
@@ -866,14 +1041,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
         "enquiry_id": this.bikeEnquiryId,
         "created_by": "",
-        "proposal_id":sessionStorage.royalBikeproposalID == '' || sessionStorage.royalBikeproposalID == undefined ? '' : sessionStorage.royalBikeproposalID,
+        "proposal_id":sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
         "company_id": this.productDetails.company_id,
         "CALCULATEPREMIUMREQUEST": {
       "premium": "66272.0",
           "proposerDetails": {
         "addressOne": this.proposer.controls['raddress'].value,
             "addressTwo": this.proposer.controls['raddress2'].value,
-            "regCity": this.proposer.controls['rcity'].value, //cityList
+            "regCity": this.proposer.controls['rcity'].value,
             "regPinCode":this.proposer.controls['rpincode'].value,
             "contactAddress1": this.proposer.controls['address'].value,
             "contactAddress2": this.proposer.controls['address2'].value,
@@ -882,8 +1057,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
             "dateOfBirth": this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
             "panNumber":  this.proposer.controls['panNumber'].value,
             "aadharNumber":  this.proposer.controls['aadharNumber'].value,
-            "guardianAge": this.nomineeDetail.controls['appointeeAge'].value,
-            "guardianName": this.nomineeDetail.controls['appointeeRelationship'].value,
+            "guardianAge": this.nomineeDetail.controls['guardianAge'].value,
+            "guardianName":this.nomineeDetail.controls['guardianName'].value,
             "nomineeAge": this.nomineeDetail.controls['nomineeAge'].value,
             "nomineeName": this.nomineeDetail.controls['nomineeName'].value,
             "occupation": this.proposer.controls['occupation'].value,
@@ -899,60 +1074,65 @@ export class RsFourwheelerProposalComponent implements OnInit {
             "strMobileNo": this.proposer.controls['mobile'].value,
             "strTitle": this.proposer.controls['title'].value,
       },
-      "quoteId": "",
+      "quoteId": this.vehical.controls['quoteId'].value,
           "vehicleDetails": {
-        "accidentCoverForPaidDriver": "100000",
+        "accidentCoverForPaidDriver": this.vehical.controls['averageMonthlyMileageRun'].value,
             "addonValue": "0",
             "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
             "companyNameForCar":this.vehical.controls['companyName'].value,
-            "cover_dri_othr_car_ass": "Yes|No",
+            "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ? 'Yes' : 'No',
             "drivingExperience": this.vehical.controls['drivingExperience'].value,
             "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
             // "valueofelectricalaccessories": "4000",
             "electricalAccessories": {
           "electronicAccessoriesDetails": {
             "makeModel": this.vehical.controls['MakeModel'].value,
-                "nameOfElectronicAccessories": this.vehical.controls['MakeModel'].value,
-                "value": "1541"
+                "nameOfElectronicAccessories": this.vehical.controls['NameOfElectronicAccessories'].value,
+                "value": this.vehical.controls['Value'].value,
           }
         },
-        "cover_non_elec_acc": "Yes",
+        "cover_non_elec_acc": this.vehical.controls['coverNonelectricalaccesss'].value ? 'Yes' : 'No',
             // "valueofnonelectricalaccessories": "5000",
-            "nonElectricalAccesories": {
-          "nonelectronicAccessoriesDetails": {
-            "makeModel": "JAGUAR",
-                "nameOfElectronicAccessories": "SEAT",
-                "value": "5000"
-          }
-        },
-        "fibreGlass": "Yes",
-            "financierName": "Bajaj",
+            // "nonElectricalAccesories": {
+          // "nonelectronicAccessoriesDetails": {
+          //   "makeModel": this.vehical.controls['nonMakeModel'].value,
+          //       "nameOfElectronicAccessories": this.vehical.controls['NameOfNonElectronicAccessories'].value,
+          //       "value": this.vehical.controls['nonValue'].value,
+          // }
+          //     "nonelectronicAccessoriesDetails": {
+          //       "makeModel": "JAGUAR",
+          //       "nameOfElectronicAccessories": "SEAT",
+          //       "value": "5000"
+          //     }
+        // },
+        "fibreGlass": this.vehical.controls['fibreGlass'].value ? 'Yes' : 'No',
+            "financierName": this.vehical.controls['financierName'].value,
             // "fuelType": "Petrol",
-            "isCarFinanced": "Yes",
-            "isCarFinancedValue": "Hire purchase",
-            "isCarOwnershipChanged": "No",
+            "isCarFinanced": this.vehical.controls['isFourWheelerFinanced'].value ? 'Yes' : 'No',
+            "isCarFinancedValue": this.vehical.controls['isFourWheelerFinancedValue'].value,
+            "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value ? 'Yes' : 'No',
             // "isPreviousPolicyHolder": "true",
-            "legalliabilityToPaidDriver": "Yes|No",
+            "legalliabilityToPaidDriver":this.vehical.controls['legalliabilityToPaidDriver'].value ? 'Yes' : 'No',
             // "noClaimBonusPercent": "1",
-            "personalAccidentCoverForUnnamedPassengers": "50000",
+            "personalAccidentCoverForUnnamedPassengers":this.vehical.controls['pACoverForUnnamedPassengers'].value,
             // "personalaccidentcoverforunnamedpassengers": "0",
             "policyED": "03/08/2017",
             "policySD": "04/08/2016",
             "previousInsurerName": this.previousInsure.controls['previousInsured'].value? this.previousInsure.controls['previousInsured'].value :'',
             // "previousPolicyExpiryDate": this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
             "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value: '',
-            "previousinsurersCorrectAddress": "ABC Company",
+            "previousinsurersCorrectAddress": this.previousInsure.controls['previousinsurersCorrectAddress'].value? this.previousInsure.controls['previousinsurersCorrectAddress'].value: '',
             "previuosPolicyNumber": this.previousInsure.controls['policyNumber'].value? this.previousInsure.controls['policyNumber'].value: '',
-            "valueOfLossOfBaggage": "25000",
+            "valueOfLossOfBaggage":this.vehical.controls['valueOfLossOfBaggage'].value,
             // "vehicleManufacturerName": "Hyundai Motors Ltd.",
             // "vehicleModelCode": "CMH990",
             "vehicleMostlyDrivenOn": this.vehical.controls['vehicleMostlyDrivenOn'].value,
-            "vehicleInspectionDate": "28/04/2017 04:00:00",
+            "vehicleInspectionDate": this.datepipe.transform(this.vehical.controls['vehicleInspectionDate'].value, 'y-MM-dd'),
             // "VIRNumber": "asdasd123asdasd",
             "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
             // "vehicleregDate": "03/08/2015",
             "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
-            "windShieldGlass": "on",
+            "windShieldGlass": this.vehical.controls['windShieldGlass'].value ? 'On' : 'Off',
             // "yearOfManufacture": "2015"
       }
     }
@@ -1216,22 +1396,21 @@ export class RsFourwheelerProposalComponent implements OnInit {
         stdCode: stepper1.stdCode,
         address: stepper1.address,
         address2: stepper1.address2,
-        address3: stepper1.address3,
-        address4: stepper1.address4,
+        aadharNumber: stepper1.aadharNumber,
+        panNumber: stepper1.panNumber,
         state: stepper1.state,
         stateName: stepper1.stateName,
         city: stepper1.city,
         cityName: stepper1.cityName,
         raddress: stepper1.raddress,
         raddress2: stepper1.raddress2,
-        raddress3: stepper1.raddress3,
-        raddress4: stepper1.raddress4,
         rpincode: stepper1.rpincode,
         rstate: stepper1.rstate,
         rstateName: stepper1.rstateName,
         rcity: stepper1.rcity,
         rcityName: stepper1.rcityName,
         sameas: stepper1.sameas,
+
 
 
       });
@@ -1243,16 +1422,30 @@ export class RsFourwheelerProposalComponent implements OnInit {
         vehicleRegisteredName: stepper2.vehicleRegisteredName,
         // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
         coverelectricalaccesss: stepper2.coverelectricalaccesss,
+        coverNonelectricalaccesss: stepper2.coverNonelectricalaccesss,
         drivingExperience: stepper2.drivingExperience,
         averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
+        accidentCoverForPaidDriver: stepper2.accidentCoverForPaidDriver,
+        vehicleInspectionDate: this.datepipe.transform(stepper2.vehicleInspectionDate, 'y-MM-dd'),
+        policyED: this.datepipe.transform(stepper2.policyED, 'y-MM-dd'),
+        policySD: this.datepipe.transform(stepper2.policySD, 'y-MM-dd'),
         companyName: stepper2.companyName,
         idv: stepper2.idv,
-        isTwoWheelerFinancedValue : stepper2.isTwoWheelerFinancedValue,
+        isFourWheelerFinancedValue : stepper2.isFourWheelerFinancedValue,
+        valueOfLossOfBaggage : stepper2.valueOfLossOfBaggage,
+        quoteId : stepper2.quoteId,
+        pACoverForUnnamedPassengers : stepper2.pACoverForUnnamedPassengers,
         financierName: stepper2.financierName,
-        isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
+        isFourWheelerFinanced: stepper2.isFourWheelerFinanced,
         hypothecationType: stepper2.hypothecationType,
         typeOfCover: stepper2.typeOfCover,
         vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
+        cover_dri_othr_car_ass: stepper2.cover_dri_othr_car_ass,
+        addon: stepper2.addon,
+        fibreGlass: stepper2.fibreGlass,
+        windShieldGlass: stepper2.windShieldGlass,
+        isCarOwnershipChanged: stepper2.isCarOwnershipChanged,
+        legalliabilityToPaidDriver: stepper2.legalliabilityToPaidDriver,
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,
         accidentPaid: stepper2.accidentPaid,
@@ -1265,6 +1458,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
         policyNumber: stepper3.policyNumber,
+        previousinsurersCorrectAddress: stepper3.previousinsurersCorrectAddress,
         previousInsured: stepper3.previousInsured,
         previousdob: stepper3.previousdob,
         isPreviousPolicyHolder: stepper3.isPreviousPolicyHolder,
@@ -1275,5 +1469,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
         accidentPaid: stepper3.accidentPaid,
       });
     }
+
+
+  }
+  communicateCity() {
+    this.proposer.controls['cityName'].patchValue(this.cityCommList[this.proposer.controls['city'].value]);
+
+  }
+  registrationCity() {
+    this.proposer.controls['rcityName'].patchValue(this.rescityList[this.proposer.controls['rcity'].value]);
+
   }
 }

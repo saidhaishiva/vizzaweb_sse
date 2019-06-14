@@ -286,7 +286,7 @@ export const routes: Routes = [
             { path: 'enquiryPop', component: EnquiryPopupComponent, data: {breadcrumb: 'Vehicle List'}},
             { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'Tataaig Payment'} },
             { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}},
-            { path: 'royal-sundaram-fourwheeler-proposal', component: RsFourwheelerProposalComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
+            { path: 'royal-sundaram-fourwheeler-proposal/:stepper', component: RsFourwheelerProposalComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
             { path: 'aegon-term-life/:stepper', component: AegonTermLifeComponent, data: { breadcrumb: 'aegon-term-life'}},
             { path: 'reliance-fourwheeler-motor-proposal/:stepper', component: RelianceFourwheelerProposalComponent, data: { breadcrumb: 'reliance-fourwheeler-motor-proposal'}},
             { path: 'reliance-fourwheeler-motor-payment-success/:status/:proId', component: RelianceFourwheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance fourwheeler payment'}},
