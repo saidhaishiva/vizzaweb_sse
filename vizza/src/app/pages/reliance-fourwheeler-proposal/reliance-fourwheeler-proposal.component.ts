@@ -241,6 +241,12 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.buyBikeDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
+
+    // this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
+    // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    // this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
+
     this.changeGender();
     this.occupation();
     this.fueltype();
@@ -785,7 +791,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'enquiry_id': 1908,
+      'enquiry_id': this.bikeEnquiryId,
       'created_by': '',
       'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
       'motorproposalObj':{
