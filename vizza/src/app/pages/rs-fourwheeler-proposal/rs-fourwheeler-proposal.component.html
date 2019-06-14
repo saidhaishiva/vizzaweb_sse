@@ -84,15 +84,15 @@
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="Aadhar Number" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="aadharNumber"  autocomplete="off" >
                                                     <!--<mat-error *ngIf="proposer.controls.aadharNumber.errors?.required">Aadhar Number is required</mat-error>-->
-                                                    <!--<mat-error *ngIf="proposer.controls.aadharNumber.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>-->
+                                                    <mat-error *ngIf="proposer.controls.aadharNumber.hasError('minlength')">Aadhar Number isn't long enough, minimum of 12 characters</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="PAN Number" class="text-uppercase" (keypress)="idValidate($event)" minlength="10"  maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" formControlName="panNumber"  autocomplete="off" >
                                                     <!--<mat-error *ngIf="proposer.controls.panNumber.errors?.required">PAN Number is required</mat-error>-->
-                                                    <!--<mat-error *ngIf="proposer.controls.panNumber.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
-                                                    <!--<mat-error *ngIf="proposer.controls.panNumber.hasError('pattern')"> Enter Valid PAN Number </mat-error>-->
+                                                    <mat-error *ngIf="proposer.controls.panNumber.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>
+                                                    <mat-error *ngIf="proposer.controls.panNumber.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                                                 </mat-form-field>
                                             </div>
                                          </div>
@@ -594,7 +594,7 @@
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Name"  formControlName="nomineeName"  (keypress)="nameValidate($event)" autocomplete="off">
+                                                    <input matInput placeholder="Name"  formControlName="nomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required>
                                                     <mat-error *ngIf="nomineeDetail.controls.nomineeName.errors?.required">Name is required</mat-error>
 
                                                 </mat-form-field>
@@ -602,14 +602,14 @@
 
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Age"  maxlength="3" formControlName="nomineeAge" (keypress)="numberValidate($event)" (input)="ageNominee()" autocomplete="off">
+                                                    <input matInput placeholder="Age"  maxlength="3" formControlName="nomineeAge" (keypress)="numberValidate($event)" (input)="ageNominee()" autocomplete="off" required>
                                                 </mat-form-field>
                                                 <mat-error *ngIf="nomineeDetail.controls.nomineeAge.errors?.required">Age is required</mat-error>
 
                                             </div>
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship"  >
+                                                    <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship"  required>
                                                         <mat-option *ngFor="let relationship of nomineeRelation | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="nomineeDetail.controls.nomineeRelationship.errors?.required">Relationship with Insured is required</mat-error>

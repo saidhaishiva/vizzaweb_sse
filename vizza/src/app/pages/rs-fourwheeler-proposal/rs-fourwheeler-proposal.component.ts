@@ -98,9 +98,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public guardianRelationList: any;
   public pincodeList: any;
   public policyList: any;
+  public step: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
-
+    this.step = 0;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
@@ -122,7 +123,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       occupation: ' ',
       aadharNumber: ['', Validators.compose([Validators.minLength(12)])],
-      panNumber: ['', Validators.compose([ Validators.required, Validators.minLength(10)])],
+      panNumber: ['', Validators.compose([ Validators.minLength(10)])],
       address: ['', Validators.required],
 
       address2: '',
@@ -141,7 +142,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       rstateName: '',
       rcityName: '',
       sameas: '',
-      phoneNumber:  ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+      phoneNumber:  ['', Validators.compose([ Validators.pattern('[6789][0-9]{9}')])],
       stdCode: '',
 
     });
@@ -154,7 +155,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       coverNonelectricalaccesss: '',
       drivingExperience: '',
       averageMonthlyMileageRun: ['', Validators.required],
-      accidentCoverForPaidDriver: ['', Validators.required],
+      accidentCoverForPaidDriver: '',
       companyName: '',
       idv: '',
       isFourWheelerFinancedValue: '',
@@ -209,10 +210,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
   ngOnInit() {
-    // this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
-    // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    // this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
+    this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
+    this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
 
     this.title();
     this.getOccupation();
@@ -233,10 +234,18 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.guardianRelationShip();
     this.changepbaggageValue();
     this.changepolicyType();
+    this.changeAccidentPaidDriver();
     this.sessionData();
 
   }
   // validation
+  prevStep() {
+    this.step--;
+  }
+  backAll() {
+    this.topScroll();
+    this.prevStep();
+  }
 
   numberValidate(event: any) {
     this.validation.numberValidate(event);
@@ -541,10 +550,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-    // / /if(this.vehical.valid){
-    stepper.next();
-
-    // }
+    if (this.vehical.valid) {
+      stepper.next();
+      this.topScroll();
+    }
   }
   isFinaced() {
     if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
@@ -1030,10 +1039,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
         "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
         "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-        "enquiry_id": "",
+        "enquiry_id": this.bikeEnquiryId,
         "created_by": "",
-        "proposal_id":sessionStorage.royalBikeproposalID == '' || sessionStorage.royalBikeproposalID == undefined ? '' : sessionStorage.royalBikeproposalID,
-        "company_id": "",
+        "proposal_id":sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
+        "company_id": this.productDetails.company_id,
         "CALCULATEPREMIUMREQUEST": {
       "premium": "66272.0",
           "proposerDetails": {
@@ -1048,8 +1057,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
             "dateOfBirth": this.datepipe.transform(this.proposer.controls['dob'].value, 'y-MM-dd'),
             "panNumber":  this.proposer.controls['panNumber'].value,
             "aadharNumber":  this.proposer.controls['aadharNumber'].value,
-            "guardianAge": this.proposer.controls['guardianAge'].value,
-            "guardianName":this.proposer.controls['guardianName'].value,
+            "guardianAge": this.nomineeDetail.controls['guardianAge'].value,
+            "guardianName":this.nomineeDetail.controls['guardianName'].value,
             "nomineeAge": this.nomineeDetail.controls['nomineeAge'].value,
             "nomineeName": this.nomineeDetail.controls['nomineeName'].value,
             "occupation": this.proposer.controls['occupation'].value,
