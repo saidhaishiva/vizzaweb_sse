@@ -142,7 +142,7 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
 
-  //////Reliance four wheeker motor
+  //////Reliance four wheeler motor
 
   //title
   fourWheelerRelianceGetTitleList(data) {
@@ -164,6 +164,20 @@ export class FourWheelerService {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     const url = this.configurationService.getFourwheelerInsurance() + 'reliance/occupationList';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  //// get financial type
+
+  getFinancialTypeList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/financiarList';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
