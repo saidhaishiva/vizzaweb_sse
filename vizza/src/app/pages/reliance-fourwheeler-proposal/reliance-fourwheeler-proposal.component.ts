@@ -10,6 +10,7 @@ import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 export const MY_FORMATS = {
@@ -64,6 +65,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public otherSystemNameList: any;
   public prevPolicyList: any;
   public occupationList: any;
+  public financialTypeList: any;
   public commAddressList: any;
   public perAddressList: any;
   public regAddressList: any;
@@ -79,13 +81,42 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public buyBikeDetails: any;
   public enquiryFormData: any;
   public bikeEnquiryId: any;
+  public currentStep: any;
+  public ProposalId: any;
 
   //dob
   proposerAge : any;
   personalDobError : any;
   previousDateError : any;
-  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public validation: ValidationService ,private toastr: ToastrService, public fourWheelerInsurance: FourWheelerService , public authservice: AuthService , public datepipe: DatePipe) {
+  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService ,private toastr: ToastrService, public fourWheelerInsurance: FourWheelerService , public authservice: AuthService , public datepipe: DatePipe) {
 
+    // let stepperindex = 0;
+    // this.route.params.forEach((params) => {
+    //   if(params.stepper == true || params.stepper == 'true') {
+    //     stepperindex = 4;
+    //     if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+    //       this.summaryData = JSON.parse(sessionStorage.summaryData);
+    //       this.ProposalId =   this.summaryData.proposalNo;
+    //       this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
+    //       // this.PolicySisID =   this.summaryData.PolicySisID;
+    //       // this.PaymentReturn =   this.summaryData.PaymentReturn;
+    //       // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+    //       // this.riskFormData = JSON.parse(sessionStorage.riskFormData);
+    //       // this.coverFormData = JSON.parse(sessionStorage.riskFormData);
+    //       // this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+    //       // this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+    //       sessionStorage.relianceFourwheelerproposalID = this.ProposalId;
+    //
+    //       this.proposerFormData = this.relianceProposal.value;
+    //       // this.riskFormData = this.riskDetails.value;
+    //       // this.coverFormData = this.coverDetails.value;
+    //       // this.previousFormData = this.previousInsurance.value;
+    //       // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+    //
+    //     }
+    //   }
+    // });
+    // this.currentStep = stepperindex;
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
 
@@ -185,7 +216,12 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           // AgentName: [''],
           OtherSystemName: ['', Validators.required],
           IDV: ['', Validators.required],
+          FinancierName: [''],
+          FinanceType: [''],
+          FinancierAddress: [''],
+          IsVehicleHypothicated: [''],
           OtherSystemNameValue: [''],
+          FinanceTypeValue: [''],
         }
     );
     this.nationalityList = {
@@ -213,6 +249,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.session();
     this.maritalStatus();
     this.relationList();
+    this.getFinancialType();
   }
 
 
@@ -233,6 +270,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     console.log(this.riskDetails.controls['OtherSystemName'].value)
     this.riskDetails.controls['OtherSystemNameValue'].patchValue(this.otherSystemNameList[this.riskDetails.controls['OtherSystemName'].value]);
     console.log(this.riskDetails.controls['OtherSystemNameValue'],'valllllll')
+  }
+
+  changeFinancialType(){
+    this.riskDetails.controls['FinanceTypeValue'].patchValue(this.financialTypeList[this.riskDetails.controls['FinanceTypeValue'].value]);
   }
   changenRelation(){
     this.coverDetails.controls['nrelationValue'].patchValue(this.relationListData[this.coverDetails.controls['nrelation'].value]);
@@ -263,6 +304,35 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   //   }
   // }
 
+  updateMandatoryHypothicated(event){
+    if( event.checked){
+      this.riskDetails.controls['IsVehicleHypothicated'].patchValue(true);
+      this.riskDetails.controls['FinanceType'].setValidators([Validators.required]);
+      this.riskDetails.controls['FinanceType'].updateValueAndValidity();
+
+      this.riskDetails.controls['FinancierName'].setValidators([Validators.required]);
+      this.riskDetails.controls['FinancierName'].updateValueAndValidity();
+
+      this.riskDetails.controls['FinancierAddress'].setValidators([Validators.required]);
+      this.riskDetails.controls['FinancierAddress'].updateValueAndValidity();
+    }else {
+
+      this.riskDetails.controls['IsVehicleHypothicated'].patchValue(false);
+
+      this.riskDetails.controls['FinanceType'].patchValue('');
+      this.riskDetails.controls['FinanceType'].setValidators(null);
+      this.riskDetails.controls['FinanceType'].updateValueAndValidity();
+
+      this.riskDetails.controls['FinancierName'].patchValue('');
+      this.riskDetails.controls['FinancierName'].setValidators(null);
+      this.riskDetails.controls['FinancierName'].updateValueAndValidity();
+
+      this.riskDetails.controls['FinancierAddress'].patchValue('');
+      this.riskDetails.controls['FinancierAddress'].setValidators(null);
+      this.riskDetails.controls['FinancierAddress'].updateValueAndValidity();
+    }
+
+  }
   updateMandatory(event) {
     if (event.checked) {
       this.coverDetails.controls['PACoverToOwner'].patchValue(true);
@@ -493,6 +563,11 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.riskDetails = this.fb.group({
         OtherSystemName: this.getStepper2.OtherSystemName,
         IDV: this.getStepper2.IDV,
+        FinanceTypeValue: this.getStepper2.FinanceTypeValue,
+        FinanceType: this.getStepper2.FinanceType,
+        FinancierName: this.getStepper2.FinancierName,
+        FinancierAddress: this.getStepper2.FinancierAddress,
+        IsVehicleHypothicated: this.getStepper2.IsVehicleHypothicated,
         OtherSystemNameValue: this.getStepper2.OtherSystemNameValue,
       });
     }
@@ -566,6 +641,29 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public occupationFailure(error) {
   }
 
+
+  //// GET finansial type
+
+  getFinancialType() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    };
+    this.fourWheelerInsurance.getFinancialTypeList(data).subscribe(
+        (successData) => {
+          this.getFinancialTypeSucccess(successData);
+        },
+        (error) => {
+          this.getFinancialTypeFailure(error);
+        }
+    );
+  }
+  public getFinancialTypeSucccess(successData){
+    this.financialTypeList = successData.ResponseObject;
+  }
+  public getFinancialTypeFailure(error) {
+  }
   //get marital status list
   maritalStatus() {
     const data = {
@@ -687,7 +785,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'enquiry_id': 1740,
+      'enquiry_id': 1908,
       'created_by': '',
       'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
       'motorproposalObj':{
@@ -758,29 +856,34 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         },
         'Risk': {
           'IDV': this.riskDetails.controls['IDV'].value,
-          'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value.toString(),
-          'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value.toString(),
-          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value.toString()
+          'IsVehicleHypothicated': this.riskDetails.controls['IsVehicleHypothicated'].value ? 'true' : 'false',
+          'FinanceType': this.riskDetails.controls['FinanceType'].value,
+          'FinancierName': this.riskDetails.controls['FinancierName'].value,
+          'FinancierAddress': this.riskDetails.controls['FinancierAddress'].value,
+          'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value ? 'true' : 'false',
+          'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value ? 'true' : 'false',
+          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value ? 'true' : 'false'
         },
         'Vehicle': {
 
           'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
-          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value.toString()
+          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value ? 'true' : 'false'
         },
         'Cover': {
-          'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value.toString(),
-          'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value.toString(),
-          'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value.toString(),
-          'IsLiabilityToPaidDriverCovered': this.coverDetails.controls['LiabilityToPaidDriverCovered'].value.toString(),
-          'IsAntiTheftDeviceFitted': this.coverDetails.controls['AntiTheftDeviceFitted'].value.toString(),
-          'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value.toString(),
-          'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value.toString(),
-          'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value.toString(),
-          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value.toString(),
-          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value.toString(),
+          // 'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ,
+          'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
+          'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value ? 'true' : 'false',
+          'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value ? 'true' : 'false',
+          'IsLiabilityToPaidDriverCovered': this.coverDetails.controls['LiabilityToPaidDriverCovered'].value ? 'true' : 'false',
+          'IsAntiTheftDeviceFitted': this.coverDetails.controls['AntiTheftDeviceFitted'].value ? 'true' : 'false',
+          'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value ? 'true' : 'false',
+          'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
+          'IsBasicLiability': this.coverDetails.controls['BasicLiability'] ? 'true' : 'false',
+          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'] ? 'true' : 'false',
+          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'PACoverToOwner': {
             'PACoverToOwner': {
-              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value.toString(),
+              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value ? 'true' : 'false',
               'NoOfItems': '',
               'PackageName': '',
               'AppointeeName': this.coverDetails.controls['cappointeeName'].value,
@@ -815,7 +918,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         },
         'PreviousInsuranceDetails': {
           'PrevInsuranceID': '',
-          'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value.toString(),
+          'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value ? 'true' : 'false',
           'PrevYearInsurer': this.previousInsurance.controls['prevInsurance'].value,
           'PrevYearPolicyNo': this.previousInsurance.controls['policyNumber'].value,
           'PrevYearInsurerAddress': this.previousInsurance.controls['prevInsurerAddress'].value,
@@ -845,7 +948,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.policy_id;
       sessionStorage.relianceMotorproposalID = this.proposalId;
-      this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
+      this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
 
       this.proposerFormData = this.relianceProposal.value;
       this.riskFormData = this.riskDetails.value;
