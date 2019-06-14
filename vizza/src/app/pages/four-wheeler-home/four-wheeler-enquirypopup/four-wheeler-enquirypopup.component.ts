@@ -6,14 +6,31 @@ import {DatePipe} from '@angular/common';
 import {ValidationService} from '../../../shared/services/validation.service';
 import {AuthService} from '../../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import * as moment from '../../bike-insurance/enquiry-popup/enquiry-popup.component';
 import {FourWheelerService} from '../../../shared/services/four-wheeler.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-four-wheeler-enquirypopup',
   templateUrl: './four-wheeler-enquirypopup.component.html',
-  styleUrls: ['./four-wheeler-enquirypopup.component.scss']
+  styleUrls: ['./four-wheeler-enquirypopup.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ]
 })
 export class FourWheelerEnquirypopupComponent implements OnInit {
   vehicalDetails: FormGroup;

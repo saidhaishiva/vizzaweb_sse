@@ -8,17 +8,34 @@ import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
-import {MatDialog} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {AppSettings} from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
 import {EnquiryPopupComponent} from '../bike-insurance/enquiry-popup/enquiry-popup.component';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {FourWheelerEnquirypopupComponent} from './four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-four-wheeler-home',
   templateUrl: './four-wheeler-home.component.html',
-  styleUrls: ['./four-wheeler-home.component.scss']
+  styleUrls: ['./four-wheeler-home.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ]
 })
 export class FourWheelerHomeComponent implements OnInit {
   public fourWheeler: FormGroup;
