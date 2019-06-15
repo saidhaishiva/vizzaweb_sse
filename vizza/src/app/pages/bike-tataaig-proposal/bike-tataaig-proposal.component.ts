@@ -168,7 +168,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.getNamelist();
         this.getCodelist();
         this.getRelationList();
-        // this.coverdriveList();
+        this.coverdriveList();
         this.sessionData();
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
         console.log(this.vehicledata);
@@ -467,30 +467,30 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     }
 
-    //PACover_for_OwnerDriver for Addons
-    // coverdriveList() {
-    //     const data = {
-    //         'platform': 'web',
-    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    //     };
-    //     this.bikeinsurance.coverdrive(data).subscribe(
-    //         (successData) => {
-    //             this.coverdriveSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.coverdriveFailure(error);
-    //         }
-    //     );
-    // }
-    //
-    // coverdriveSuccess(successData) {
-    //     this.coverlist = successData.ResponseObject;
-    // }
-    //
-    // coverdriveFailure(error) {
-    //
-    // }
+    // PACover_for_OwnerDriver for Addons
+    coverdriveList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        };
+        this.bikeinsurance.coverdrive(data).subscribe(
+            (successData) => {
+                this.coverdriveSuccess(successData);
+            },
+            (error) => {
+                this.coverdriveFailure(error);
+            }
+        );
+    }
+
+    coverdriveSuccess(successData) {
+        this.coverlist = successData.ResponseObject;
+    }
+
+    coverdriveFailure(error) {
+
+    }
 
 
 
