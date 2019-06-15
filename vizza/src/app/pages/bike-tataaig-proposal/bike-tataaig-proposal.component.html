@@ -283,35 +283,35 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" readonly>
+                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" readonly required>
                               <mat-option *ngFor="let cover of coverlist | keys" value="{{cover.key}}">{{cover.value}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Associationmember" (change)="check($event)" required><strong> Automobile_Association_Membership </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Associationmember" (change)="check($event)"><strong> Automobile_Association_Membership </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Voluntary" (change)="check($event)" required><strong> Voluntary_Deductibles </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Voluntary" (change)="check($event)"><strong> Voluntary_Deductibles </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Antitheft" (change)="check($event)" required><strong> Anti_theft_device </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Antitheft" (change)="check($event)"><strong> Anti_theft_device </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Tppdrestrict" (change)="check($event)" required><strong> TPPD_Restricted </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Tppdrestrict" (change)="check($event)"><strong> TPPD_Restricted </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="depreciation" (change)="check($event)" required><strong> Depreciation_ReImbursement </strong></mat-checkbox>
+                          <mat-checkbox formControlName="depreciation" (change)="check($event)"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Consumableexpense" (change)="check($event)" required><strong> Consumables_expenses </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Consumableexpense" (change)="check($event)"><strong> Consumables_expenses </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Returninvoice" (change)="check($event)" required><strong> Return_to_Invoice </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Returninvoice" (change)="check($event)"><strong> Return_to_Invoice </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Roadsideassistance" (change)="check($event)" required><strong> Roadside_Assistance </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Roadsideassistance" (change)="check($event)"><strong> Roadside_Assistance </strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
