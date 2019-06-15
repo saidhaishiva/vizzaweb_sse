@@ -739,16 +739,6 @@
                                             <li class="list-group-item"*ngIf="vehicalFormData.addon != ''" ><strong>Addon:</strong> {{vehicalFormData.addon}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.valueOfLossOfBaggage != ''" ><strong>Value Of Loss Of Baggage:</strong> {{vehicalFormData.valueOfLossOfBaggage}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.pACoverForUnnamedPassengers != ''" ><strong>Personal Accident Cover For Unnamed Passengers:</strong> {{vehicalFormData.pACoverForUnnamedPassengers}}</li>
-
-
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="p-3">
-
-                                        <ul class="m-0 list-group">
                                             <li class="list-group-item"*ngIf="vehicalFormData.cover_dri_othr_car_ass == 'No'"><strong >Do you Need Cover for Driver / Other Passengers / Car Accessories? :  </strong> No </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.cover_dri_othr_car_ass == 'Yes'"><strong >Do you Need Cover for Driver / Other Passengers / Car Accessories? :  </strong> Yes </li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''"><strong>Financier Name:</strong> {{vehicalFormData.financierName}}</li>
@@ -761,11 +751,17 @@
                                             <li class="list-group-item"*ngIf="vehicalFormData.legalliabilityToPaidDriver == 'Yes'"><strong >Legalliability To Paid Driver :  </strong> Yes </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'No'"><strong >Wind Shield Glass  :  </strong> Off </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'Yes'"><strong >Wind Shield Glass  :  </strong> On </li>
-                                            <div class="col-md-6" *ngFor="let item of electricalAccess; let i = index;">
-                                            <li class="list-group-item" *ngIf="item.nameOfElectronicAccessories != '' || item.nameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{item.nameOfElectronicAccessories}}</li>
-                                            <li class="list-group-item" *ngIf="item.makeModel != '' || item.makeModel != null"><strong>Make Model:</strong> {{item.makeModel}}</li>
-                                            <li class="list-group-item" *ngIf="item.value != '' || item.value != null"><strong>Value:</strong> {{item.value}}</li>
-                                            </div>
+
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6" *ngFor="let item of electricalAccess; let i = index;">
+                                    <div class="p-3">
+                                        <ul class="m-0 list-group">
+                                            <li class="list-group-item" *ngIf="item.NameOfElectronicAccessories != '' || item.NameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{item.NameOfElectronicAccessories}}</li>
+                                            <li class="list-group-item" *ngIf="item.MakeModel != '' || item.MakeModel != null"><strong>Make Model:</strong> {{item.MakeModel}}</li>
+                                            <li class="list-group-item" *ngIf="item.Value != '' || item.Value != null"><strong>Value:</strong> {{item.Value}}</li>
                                         </ul>
                                     </div>
                                 </div>
