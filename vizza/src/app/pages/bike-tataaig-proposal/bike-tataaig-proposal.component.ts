@@ -131,14 +131,14 @@ export class BikeTataaigProposalComponent implements OnInit {
             autoName: '',
             autoDob: '',
             coverdrive: ['', Validators.required],
-            Associationmember: ['', Validators.required],
-            Voluntary: ['', Validators.required],
-            Antitheft: ['', Validators.required],
-            Tppdrestrict: ['', Validators.required],
-            depreciation: ['', Validators.required],
-            Consumableexpense: ['', Validators.required],
-            Returninvoice: ['', Validators.required],
-            Roadsideassistance: ['', Validators.required],
+            Associationmember: '',
+            Voluntary: '',
+            Antitheft: '',
+            Tppdrestrict: '',
+            depreciation: '',
+            Consumableexpense: '',
+            Returninvoice: '',
+            Roadsideassistance: '',
         });
 
         this.previouspolicy = this.fb.group({
