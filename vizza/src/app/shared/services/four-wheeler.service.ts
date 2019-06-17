@@ -688,6 +688,17 @@ export class FourWheelerService {
         .map(this.extractData )
         .catch(this.handleError);
   }
+  getHypoPincodeList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/get_pincode_details';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   // shriram end //
 
   private handleError(error: Response | any) {
