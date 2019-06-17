@@ -3137,12 +3137,11 @@ fieldset {
     margin-top: 6px !important;
   }
   .mat-tab-group {
-    background: darkcyan !important;;
     color: #fff;
   }
   .mat-tab-label-active {
-    background-color: #ffffff !important;
-    color: #9769DF !important;
+    background-color: #6db4ca !important;
+    color: #ffffff !important;
   }
   .mat-radio-outer-circle{
     border-color : #fff !important;
@@ -3155,7 +3154,7 @@ fieldset {
     height: 100%;
   }
   .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-    background-color: #3f51b5;
+    background-color: #134f80;
     visibility: visible;
     left: 0px;
     // width: 110px !important;
@@ -3234,8 +3233,8 @@ fieldset {
     margin-top: -16px;
   }
   .mat-primaryBlue {
-    background-color: #7dc3e0 !important;
-    color: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
   }
   .color-blue{
     color:  #4896d8 !important;
@@ -4366,7 +4365,7 @@ fieldset {
   }
 
   h4 {
-    color: #31CCEB !important;
+    color: #6db7cf !important;
   }
   .mat-tab-labels {
     float: right;
@@ -4390,7 +4389,7 @@ fieldset {
     }
     .pTitle {
       margin-top: 3px !important;
-      color: #28a745 !important;
+      color: #388ca7 !important;
       font-weight: 500 !important;
     }
     .linkClor {
@@ -4406,12 +4405,12 @@ fieldset {
       color: rgba(4, 78, 67, 0.87);
       font-size: 13px;
       text-align: left;
-      border-top: 1px solid #85b31e !important;
+      border-top: 1px solid #6db7cf !important;
     }
     .mat-raised-button.mat-primary {
-      background-color: #e7f7c9;
-      border: 1px solid #6fa50d;
-      color: #5f8e0a;
+      background-color: #b7e0ec;
+      border: 1px solid #2e6a7d;
+      color: #0a3c4c;
     }
 
     .mat-raised-button.mat-primary1 {
@@ -4428,7 +4427,7 @@ fieldset {
       border: none;
       vertical-align: text-bottom;
       border-bottom: 2px solid #dee2e6;
-      background: #31CCEB;
+      background: #6db7cf;
       color: #fff;
       font-weight: normal;
       font-size: 12px;
