@@ -800,7 +800,7 @@
                           <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>BasicODCoverage:</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>BasicLiability:</strong><span *ngIf="coverFormData.BasicLiability == true">Yes</span><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.NewVehicle != ''"><strong>NewVehicle:</strong><span *ngIf="coverFormData.NewVehicle == true">Yes</span><span *ngIf="coverFormData.NewVehicle == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.PACoverToOwner != ''"><strong>PACoverToOwner:</strong><span *ngIf="coverFormData.PACoverToOwner == true">Yes</span><span *ngIf="coverFormData.PACoverToOwner == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelType}}</li>
                         </ul>
                       </div>
                     </div>
@@ -811,13 +811,13 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
+                          <li class="list-group-item" *ngIf="coverFormData.PACoverToOwner != ''"><strong>PACoverToOwner:</strong><span *ngIf="coverFormData.PACoverToOwner == true">Yes</span><span *ngIf="coverFormData.PACoverToOwner == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.cappointeeName != '' && coverFormData.PACoverToOwner ==true "><strong>AppointeeName:</strong> {{coverFormData.cappointeeName}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.cnomineeName != '' && coverFormData.PACoverToOwner ==true "><strong>NomineeName:</strong> {{coverFormData.cnomineeName}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.cnDob != '' && coverFormData.PACoverToOwner ==true"><strong>Nominee Dob:</strong> {{coverFormData.cnDob}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PACoverToOwner ==true "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PACoverToOwner == true "><strong>OtherRelation:</strong> {{coverFormData.nOtherRelation}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PACoverToOwner == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelType}}</li>
                         </ul>
                       </div>
                     </div>

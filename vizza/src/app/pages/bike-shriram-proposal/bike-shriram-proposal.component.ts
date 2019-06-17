@@ -97,7 +97,8 @@ export class BikeShriramProposalComponent implements OnInit {
   public bikeEnquiryId : any;
   public siValue : any;
   public policyDatevalidate : any;
-  public currentStep : any;
+    public currentStep : any;
+    public premiumAmount : any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -181,6 +182,7 @@ export class BikeShriramProposalComponent implements OnInit {
       paforUnnamed: '',
       paforUnnamedSI: '',
       hypothecationType: '',
+        hypothecationTypeName: '',
       hypothecationAddress1: '',
       hypothecationAddress2: '',
       hypothecationAddress3: '',
@@ -225,7 +227,6 @@ export class BikeShriramProposalComponent implements OnInit {
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-
          this.changeTitle();
          this.changehypothecation();
          this.policyType();
@@ -466,6 +467,10 @@ export class BikeShriramProposalComponent implements OnInit {
             this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
 
     }
+    gethypoTypeName(){
+        this.vehical.controls['hypothecationTypeName'].patchValue(this.hypothecationTypeDetails[this.vehical.controls['hypothecationType'].value]);
+
+    }
         policyType() {
               const data = {
                 'platform': 'web',
@@ -493,7 +498,8 @@ export class BikeShriramProposalComponent implements OnInit {
             }
 
         changehypothecation() {
-          const data = {
+
+            const data = {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -634,33 +640,17 @@ export class BikeShriramProposalComponent implements OnInit {
       this.finance = true;
         this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
         this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
-        this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
-        this.vehical.controls['hypothecationAddress3'].setValidators([Validators.required]);
         this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
-        this.vehical.controls['hypothecationAgreementNo'].setValidators([Validators.required]);
-        this.vehical.controls['pincode'].setValidators([Validators.required]);
-        this.vehical.controls['state'].setValidators([Validators.required]);
-        this.vehical.controls['city'].setValidators([Validators.required]);
+
     } else{
       this.finance = false;
         this.vehical.controls['hypothecationType'].setValidators(null);
         this.vehical.controls['hypothecationAddress1'].setValidators(null);
-        this.vehical.controls['hypothecationAddress2'].setValidators(null);
-        this.vehical.controls['hypothecationAddress3'].setValidators(null);
         this.vehical.controls['hypothecationBankName'].setValidators(null);
-        this.vehical.controls['hypothecationAgreementNo'].setValidators(null);
-        this.vehical.controls['pincode'].setValidators(null);
-        this.vehical.controls['state'].setValidators(null);
-        this.vehical.controls['city'].setValidators(null);
         this.vehical.controls['hypothecationType'].patchValue('');
         this.vehical.controls['hypothecationAddress1'].patchValue('');
-        this.vehical.controls['hypothecationAddress2'].patchValue('');
-        this.vehical.controls['hypothecationAddress3'].patchValue('');
         this.vehical.controls['hypothecationBankName'].patchValue('');
-        this.vehical.controls['hypothecationAgreementNo'].patchValue('');
-        this.vehical.controls['pincode'].patchValue('');
-        this.vehical.controls['state'].patchValue('');
-        this.vehical.controls['city'].patchValue('');
+
     }
   }
     selectPolicy(){
@@ -1098,6 +1088,7 @@ export class BikeShriramProposalComponent implements OnInit {
         nonElectricalAccess:stepper2.nonElectricalAccess,
         nonElectricalAccessSI: stepper2.nonElectricalAccessSI,
         hypothecationType: stepper2.hypothecationType,
+        hypothecationTypeName: stepper2.hypothecationTypeName,
         paforUnnamed: stepper2.paforUnnamed,
         paforUnnamedSI: stepper2.paforUnnamedSI,
         hypothecationAddress1:stepper2.hypothecationAddress1,

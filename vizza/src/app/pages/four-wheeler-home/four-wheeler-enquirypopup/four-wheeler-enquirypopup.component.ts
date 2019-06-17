@@ -346,15 +346,17 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'registration_city': this.vehicalDetails.controls['city'].value
 
     };
-    sessionStorage.vehicledetails = JSON.stringify(data);
-    this.fwService.getEnquiryDetails(data).subscribe(
-        (successData) => {
-          this.enquirySuccess(successData);
-        },
-        (error) => {
-          this.enquiryFailure(error);
-        }
-    );
+    if(this.vehicalDetails.valid) {
+      sessionStorage.vehicledetails = JSON.stringify(data);
+      this.fwService.getEnquiryDetails(data).subscribe(
+          (successData) => {
+            this.enquirySuccess(successData);
+          },
+          (error) => {
+            this.enquiryFailure(error);
+          }
+      );
+    }
   }
   public enquirySuccess(successData){
     if (successData.IsSuccess) {
@@ -362,13 +364,10 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       console.log(this.QuotationList, ' this.QuotationList');
       sessionStorage.fwEnquiryId = this.QuotationList.enquiry_id;
       console.log(this.QuotationList,'jhkhjgkj');
-      if(this.vehicalDetails.valid){
         if(successData.status == true){
           this.dialogRef.close();
           this.router.navigate(['/four-wheeler-list']);
         }
-
-      }
     } else {
       this.toastr.error(successData.ErrorObject);
 

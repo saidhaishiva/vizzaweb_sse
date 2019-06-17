@@ -149,6 +149,7 @@ import {ShriramFourwheelerProposalComponent} from './pages/shriram-fourwheeler-p
 import {RelianceFourwheelerPaymentSuccessComponent} from './pages/reliance-fourwheeler-payment-success/reliance-fourwheeler-payment-success.component';
 import {EnquiryPopupComponent} from './pages/bike-insurance/enquiry-popup/enquiry-popup.component';
 import {ShriramMfwPaymentSuccessComponent} from './pages/shriram-mfw-payment-success/shriram-mfw-payment-success.component';
+import {RoyalsundaramMfwPaymentSuccessComponent} from './pages/royalsundaram-mfw-payment-success/royalsundaram-mfw-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -287,6 +288,7 @@ export const routes: Routes = [
             { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'Tataaig Payment'} },
             { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}},
             { path: 'royal-sundaram-fourwheeler-proposal/:stepper', component: RsFourwheelerProposalComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
+            { path: 'royalsundaram-mfw-payment-success/:status/:proId', component: RoyalsundaramMfwPaymentSuccessComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
             { path: 'aegon-term-life/:stepper', component: AegonTermLifeComponent, data: { breadcrumb: 'aegon-term-life'}},
             { path: 'reliance-fourwheeler-motor-proposal/:stepper', component: RelianceFourwheelerProposalComponent, data: { breadcrumb: 'reliance-fourwheeler-motor-proposal'}},
             { path: 'reliance-fourwheeler-motor-payment-success/:status/:proId/:mailStatus', component: RelianceFourwheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance fourwheeler payment'}},

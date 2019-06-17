@@ -5,7 +5,7 @@
 </div>
 
 <form [formGroup]="vehicalDetails">
-  <h5>Verify Your Vehicle Details For {{vehicalDetails.controls['vehicalNumber'].value}}</h5>
+  <h5 class="text-center mb-5">Verify Your Vehicle Details For {{vehicalDetails.controls['vehicalNumber'].value}}</h5>
   <div class="row">
     <!--<div class="col-md-3">-->
       <!--<mat-form-field class="w-100">-->
@@ -56,7 +56,7 @@
     <div class="col-md-3">
       <mat-form-field class="w-100">
         <input matInput placeholder="Chassis Number" formControlName="chasissNumber"  maxlength= "17" (keypress)="idValidate($event)" required>
-        <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">Chasiss Number is required</mat-error>
+        <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">Chassis number is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>
     </div>

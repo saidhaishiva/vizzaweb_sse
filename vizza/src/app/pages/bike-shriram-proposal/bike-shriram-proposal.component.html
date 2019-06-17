@@ -254,7 +254,7 @@
                                         <div class="row" *ngIf="finance">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (change)="changehypothecation()" [required]="finance" >
+                                                    <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (change)="changehypothecation();gethypoTypeName()" [required]="finance" >
                                                         <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
@@ -272,24 +272,24 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30" [required]="finance">
+                                                    <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30">
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress2.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation Address 3"  formControlName="hypothecationAddress3" autocomplete="off" maxlength="30" [required]="finance">
+                                                    <input matInput placeholder="Hypothecation Address 3"  formControlName="hypothecationAddress3" autocomplete="off" maxlength="30">
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress3.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation AgreementNo "  formControlName="hypothecationAgreementNo" maxlength="20" autocomplete="off" (keypress)="numberValidate($event)" [required]="finance">
+                                                    <input matInput placeholder="Hypothecation AgreementNo "  formControlName="hypothecationAgreementNo" maxlength="20" autocomplete="off" (keypress)="numberValidate($event)" >
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" [required]="finance" maxlength="6" formControlName="pincode" (input)="getHypoPostalCode($event.target.value)"   autocomplete="off" >
+                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6"  maxlength="6" formControlName="pincode" (input)="getHypoPostalCode($event.target.value)"   autocomplete="off" >
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('required')">Pincode required</mat-error>
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -298,13 +298,13 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly [required]="finance">
+                                                    <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly >
                                                     <mat-error *ngIf="vehical.controls.state.errors?.required">State is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly [required]="finance">
+                                                    <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly >
                                                     <mat-error *ngIf="vehical.controls.city.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -471,13 +471,14 @@
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}}</span> </span></h4>
+                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}} / IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyBikeDetails.Idv}}</span></span> </h4>
+
                             </div>
                             <div class="col-md-8">
                                 <ul class="summary-head">
-                                    <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                    <li *ngIf="summaryData.Comprehensive_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Comprehensive_premium}}</span></li>
-                                    <li *ngIf="summaryData.ThridParty_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.ThridParty_premium}}</span></li>
+                                    <li  class="mt-4"><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                                    <li class="mt-4"  *ngIf="!premiumAmount"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Comprehensive_premium}}</span></li>
+                                    <li  class="mt-4" *ngIf="premiumAmount"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.ThridParty_premium}}</span></li>
                                     <li></li>
                                 </ul>
                             </div>
@@ -548,7 +549,7 @@
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationTypeName}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{vehicalFormData.hypothecationBankName}}</li>
 
                                         </ul>

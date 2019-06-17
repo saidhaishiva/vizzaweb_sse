@@ -131,14 +131,14 @@ export class BikeTataaigProposalComponent implements OnInit {
             autoName: '',
             autoDob: '',
             coverdrive: ['', Validators.required],
-            Associationmember: ['', Validators.required],
-            Voluntary: ['', Validators.required],
-            Antitheft: ['', Validators.required],
-            Tppdrestrict: ['', Validators.required],
-            depreciation: ['', Validators.required],
-            Consumableexpense: ['', Validators.required],
-            Returninvoice: ['', Validators.required],
-            Roadsideassistance: ['', Validators.required],
+            Associationmember: '',
+            Voluntary: '',
+            Antitheft: '',
+            Tppdrestrict: '',
+            depreciation: '',
+            Consumableexpense: '',
+            Returninvoice: '',
+            Roadsideassistance: '',
         });
 
         this.previouspolicy = this.fb.group({
@@ -168,7 +168,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.getNamelist();
         this.getCodelist();
         this.getRelationList();
-        // this.coverdriveList();
+        this.coverdriveList();
         this.sessionData();
         this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
         console.log(this.vehicledata);
@@ -467,30 +467,30 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     }
 
-    //PACover_for_OwnerDriver for Addons
-    // coverdriveList() {
-    //     const data = {
-    //         'platform': 'web',
-    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    //     };
-    //     this.bikeinsurance.coverdrive(data).subscribe(
-    //         (successData) => {
-    //             this.coverdriveSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.coverdriveFailure(error);
-    //         }
-    //     );
-    // }
-    //
-    // coverdriveSuccess(successData) {
-    //     this.coverlist = successData.ResponseObject;
-    // }
-    //
-    // coverdriveFailure(error) {
-    //
-    // }
+    // PACover_for_OwnerDriver for Addons
+    coverdriveList() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        };
+        this.bikeinsurance.coverdrive(data).subscribe(
+            (successData) => {
+                this.coverdriveSuccess(successData);
+            },
+            (error) => {
+                this.coverdriveFailure(error);
+            }
+        );
+    }
+
+    coverdriveSuccess(successData) {
+        this.coverlist = successData.ResponseObject;
+    }
+
+    coverdriveFailure(error) {
+
+    }
 
 
 
@@ -707,7 +707,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
             'enquiry_id': this.bikeEnquiryId,
             'company_id': "13",
-            'idv': this.buyBikeDetails.Idv,
+            'Idv': this.buyBikeDetails.Idv,
             'revised_idv': this.buyBikeDetails.Idv,
             'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
             'Automobile_Association_Membership': this.vehicle.controls['Associationmember'].value == true ? 'Y' : 'N',

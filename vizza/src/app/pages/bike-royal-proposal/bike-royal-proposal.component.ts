@@ -86,6 +86,7 @@ public Comprehensivepremium: any;
 public coverList: any;
 public respincodeList: any;
 public vehicledetails: any;
+public premiumAmount: any;
 public apponiteeList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
 
@@ -183,6 +184,7 @@ public apponiteeList: boolean;
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.vehicledetails = JSON.parse(sessionStorage.vehicledetails);
     this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
+    this.premiumAmount = sessionStorage.premiumAmount;
 
     this.title();
     this.getOccupation();
