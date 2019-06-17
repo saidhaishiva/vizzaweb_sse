@@ -92,6 +92,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public siValue : any;
   // public policyDatevalidate : any;
   public currentStep : any;
+  public mobileNumber : any;
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
@@ -114,6 +115,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.finance = false;
     this.claimList = false;
     this.apponiteeList = false;
+    this.mobileNumber = 'true';
+
     this.pType = false;
     this.electricalValid = false;
     this.nonelectricalValid = false;
@@ -146,7 +149,6 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       proposalType: 'Renewal',
       policyTypeName: '',
       policyType: ['', Validators.required],
-      vehicleColour: ['', Validators.required],
       nilDepreciationCover: '',
       electricalAccess: '',
       electricalAccessSI: '',
@@ -186,7 +188,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       previousPolicyType: ['', Validators.required],
       policyNilDescription: '0',
       previousPolicyTypeName:'',
-      policySi:['', Validators.required]
+      policySi:['', Validators.required],
+      vehicleColour: ['', Validators.required],
+
 
     });
 
@@ -385,18 +389,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper1 = '';
     sessionStorage.stepper1 = JSON.stringify(value);
     console.log(this.proposer.valid, 'checked');
-    // if(this.proposer.valid) {
-    //   if(sessionStorage.fwShriramProposerAge >= 18){
-        stepper.next();
-        this.topScroll();
+    if(this.proposer.valid) {
+      if(sessionStorage.fwShriramProposerAge >= 18){
+        if (this.mobileNumber == '' || this.mobileNumber == 'true') {
 
+          stepper.next();
+          this.topScroll();
+        }
+      } else {
+        this.toastr.error('Proposer age should be 18 or above');
 
-
-    //   } else {
-    //     this.toastr.error('Proposer age should be 18 or above');
-    //
-    //   }
-    // }
+      }
+    }
 
   }
 
@@ -523,56 +527,56 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   }
 
   // hypo pincode
-  // getHypoPostalCode(pin) {
-  //   const data = {
-  //     'platform': 'web',
-  //     'pin_code': pin
-  //   };
-  //   console.log(data,'jhgjh');
-  //   if (pin.length == 6) {
-  //     this.fwService.getHypoPincodeList(data).subscribe(
-  //         (successData) => {
-  //           this.pinListSuccess(successData, pin);
-  //         },
-  //         (error) => {
-  //           this.pinListFailure(error);
-  //         }
-  //     );
-  //   }
-  // }
-  //
-  //
-  //
-  //
-  // public pinListSuccess(successData, pin) {
-  //   if (successData.IsSuccess) {
-  //     this.pincodeHypoCity = successData.ResponseObject;
-  //     console.log(pin,'jhgfdghj');
-  //     if(pin.length == '' || pin.length == 0 || pin.length != 6){
-  //       this.vehical.controls['state'].patchValue('');
-  //       this.vehical.controls['city'].patchValue('');
-  //     }
-  //     for(let key in this.pincodeHypoCity.state) {
-  //       this.vehical.controls['state'].patchValue(key);
-  //       this.vehical.controls['stateName'].patchValue(this.pincodeHypoCity['state'][key]);
-  //     }
-  //     for(let key in this.pincodeHypoCity.city) {
-  //       this.vehical.controls['city'].patchValue(key);
-  //       this.vehical.controls['cityName'].patchValue(this.pincodeHypoCity['city'][key]);
-  //     }
-  //
-  //   } else{
-  //     this.toastr.error(successData.ErrorObject);
-  //     this.vehical.controls['state'].patchValue('');
-  //     this.vehical.controls['city'].patchValue('');
-  //
-  //   }
-  // }
-  //
-  //
-  //
-  // public pinListFailure(error) {
-  // }
+  getHypoPostalCode(pin) {
+    const data = {
+      'platform': 'web',
+      'pin_code': pin
+    };
+    console.log(data,'jhgjh');
+    if (pin.length == 6) {
+      this.fwService.getHypoPincodeList(data).subscribe(
+          (successData) => {
+            this.pinListSuccess(successData, pin);
+          },
+          (error) => {
+            this.pinListFailure(error);
+          }
+      );
+    }
+  }
+
+
+
+
+  public pinListSuccess(successData, pin) {
+    if (successData.IsSuccess) {
+      this.pincodeHypoCity = successData.ResponseObject;
+      console.log(pin,'jhgfdghj');
+      if(pin.length == '' || pin.length == 0 || pin.length != 6){
+        this.vehical.controls['state'].patchValue('');
+        this.vehical.controls['city'].patchValue('');
+      }
+      for(let key in this.pincodeHypoCity.state) {
+        this.vehical.controls['state'].patchValue(key);
+        this.vehical.controls['stateName'].patchValue(this.pincodeHypoCity['state'][key]);
+      }
+      for(let key in this.pincodeHypoCity.city) {
+        this.vehical.controls['city'].patchValue(key);
+        this.vehical.controls['cityName'].patchValue(this.pincodeHypoCity['city'][key]);
+      }
+
+    } else{
+      this.toastr.error(successData.ErrorObject);
+      this.vehical.controls['state'].patchValue('');
+      this.vehical.controls['city'].patchValue('');
+
+    }
+  }
+
+
+
+  public pinListFailure(error) {
+  }
 
   electricalAccess(value){
     if(value.checked){
@@ -612,33 +616,16 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.finance = true;
       this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
-      this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
-      this.vehical.controls['hypothecationAddress3'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
-      this.vehical.controls['hypothecationAgreementNo'].setValidators([Validators.required]);
-      this.vehical.controls['pincode'].setValidators([Validators.required]);
-      this.vehical.controls['state'].setValidators([Validators.required]);
-      this.vehical.controls['city'].setValidators([Validators.required]);
+
     } else{
       this.finance = false;
       this.vehical.controls['hypothecationType'].setValidators(null);
       this.vehical.controls['hypothecationAddress1'].setValidators(null);
-      this.vehical.controls['hypothecationAddress2'].setValidators(null);
-      this.vehical.controls['hypothecationAddress3'].setValidators(null);
       this.vehical.controls['hypothecationBankName'].setValidators(null);
-      this.vehical.controls['hypothecationAgreementNo'].setValidators(null);
-      this.vehical.controls['pincode'].setValidators(null);
-      this.vehical.controls['state'].setValidators(null);
-      this.vehical.controls['city'].setValidators(null);
       this.vehical.controls['hypothecationType'].patchValue('');
       this.vehical.controls['hypothecationAddress1'].patchValue('');
-      this.vehical.controls['hypothecationAddress2'].patchValue('');
-      this.vehical.controls['hypothecationAddress3'].patchValue('');
       this.vehical.controls['hypothecationBankName'].patchValue('');
-      this.vehical.controls['hypothecationAgreementNo'].patchValue('');
-      this.vehical.controls['pincode'].patchValue('');
-      this.vehical.controls['state'].patchValue('');
-      this.vehical.controls['city'].patchValue('');
     }
   }
   selectPolicy(){
@@ -659,18 +646,19 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     }
   }
   // NEXT BUTTON
-  vehicalDetails(stepper: MatStepper, value){
+  vehicalDetails(stepper: MatStepper, value) {
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-    // let valid = 20/100;
-    // this.siValue = valid * this.buyBikeDetails.Idv;
-    // console.log(this.siValue, 'sdfdfdadf');
-    // if(this.vehical.valid){
+    let valid = 20 / 100;
+    this.siValue = valid * this.buyBikeDetails.Idv;
+    console.log(this.siValue, 'sdfdfdadf');
+    if (this.vehical.valid) {
       stepper.next();
-      // this.topScroll();
+      this.topScroll();
 
 
     }
+  }
 
 
 
@@ -809,12 +797,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper3 = '';
     sessionStorage.stepper3 = JSON.stringify(value);
 
-    // if (this.previousInsure.valid) {
+    if (this.previousInsure.valid) {
       stepper.next();
       this.topScroll();
 
 
-    // }
+    }
 
   }
 
@@ -927,7 +915,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "CoverNoteNo": "",
         "CoverNoteDt": "",
         "IDV_of_Vehicle": '',
-        "Colour": this.vehical.controls['vehicleColour'].value,
+        "Colour": this.previousInsure.controls['vehicleColour'].value,
         "NoEmpCoverLL": "",
         "VehiclePurposeYN": "",
         "DriverAgeYN": "0",
@@ -937,13 +925,13 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "LimitedTPPDYN": "0",
         "InBuiltCNGKitYN": "0",
         "VoluntaryExcess": "TWVE1",
-        "Bangladesh": "0",
-        "Bhutan": "0",
-        "SriLanka": "0",
-        "Pakistan": "0",
-        "Nepal": "0",
-        "Maldives": "0",
-        "DeTariff": "0",
+        "Bangladesh": this.vehical.controls['Bangladesh'].value == true ? '1' : '0',
+        "Bhutan": this.vehical.controls['Bhutan'].value == true ? '1' : '0',
+        "SriLanka": this.vehical.controls['SriLanka'].value == true ? '1' : '0',
+        "Pakistan": this.vehical.controls['Pakistan'].value == true ? '1' : '0',
+        "Nepal": this.vehical.controls['Nepal'].value == true ? '1' : '0',
+        "Maldives": this.vehical.controls['Maldives'].value == true ? '1' : '0',
+        "DeTariff": this.vehical.controls['DeTariff'].value == true ? '1' : '0',
         "PreInspectionReportYN": "0",
         "PreInspection": "",
         "BreakIn": "NO",
@@ -1033,7 +1021,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
 
 
-
+  alternateChange(event) {
+    if (event.target.value.length == 10) {
+      if(event.target.value == this.proposer.get('alterMobile').value) {
+        this.mobileNumber = 'Alternate number should be different from mobile number';
+      } else {
+        this.mobileNumber = '';
+      }
+    } else {
+      // this.mobileNumber = 'false';
+    }
+    sessionStorage.mobileNumber = this.mobileNumber;
+  }
 
   // session Data
   sessionData() {
@@ -1069,7 +1068,6 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         policyType: stepper2.policyType,
         policyTypeName: stepper2.policyTypeName,
         proposalType:stepper2.proposalType ,
-        vehicleColour: stepper2.vehicleColour,
         nilDepreciationCover: stepper2.nilDepreciationCover,
         electricalAccess:stepper2.electricalAccess,
         electricalAccessSI: stepper2.electricalAccessSI,
@@ -1117,6 +1115,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
         previousPolicyTypeName: stepper3.previousPolicyTypeName,
+        vehicleColour: stepper3.vehicleColour,
+
       });
 
     }

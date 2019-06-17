@@ -41,7 +41,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public titleList: any;
   public occupationList: any;
   public insurerdateError: any;
-  public bikeRoyalProposerAge: any;
+  public carRoyalProposerAge: any;
   public getAge: any;
   public getDays: any;
   public cityCommList: any;
@@ -149,11 +149,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     this.vehical = this.fb.group({
       vehicleMostlyDrivenOn: ['', Validators.required],
-      vehicleRegisteredName: '' ,
+      vehicleRegisteredName: ['', Validators.required],
       // registrationchargesRoadtax: ['', Validators.required],
       coverelectricalaccesss: '',
       coverNonelectricalaccesss: '',
-      drivingExperience: '',
+      drivingExperience: ['', Validators.required],
       averageMonthlyMileageRun: '',
       accidentCoverForPaidDriver: '',
       companyName: '',
@@ -165,7 +165,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       financierName: '',
       isFourWheelerFinanced: '',
       hypothecationType: '',
-      typeOfCover: '',
+      typeOfCover: ['', Validators.required],
       addon: '',
       vechileOwnerShipChanged: 'No',
       cover_dri_othr_car_ass: 'No',
@@ -186,15 +186,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
     });
 
     this.previousInsure = this.fb.group({
-      policyNumber: ['', Validators.compose([ Validators.minLength(3)])],
-      previousInsured: '',
+      policyNumber: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      previousInsured: ['', Validators.required],
       previousdob: '',
       isPreviousPolicyHolder: '',
       previousinsurersCorrectAddress: '',
       voluntary: '',
       claimAmountReceived: '',
       claimsReported: '',
-      previousPolicyType: '',
+      previousPolicyType: ['', Validators.required],
       personalAccidentCover: '',
       accidentPaid: '',
     });
@@ -466,7 +466,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   addEvent(event, type) {
     if (event.value != null) {
       let selectedDate = '';
-      this.bikeRoyalProposerAge = '';
+      this.carRoyalProposerAge = '';
       let dob = '';
       let dob_days = '';
       this.getAge = '';
@@ -482,7 +482,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         selectedDate = event.value._i;
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
-          this.bikeRoyalProposerAge = this.ageCalculate(dob);
+          this.carRoyalProposerAge = this.ageCalculate(dob);
 
         }
 
@@ -490,12 +490,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
         // dob = this.datepipe.transform(event.value, 'MMM d, y');
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
-          this.bikeRoyalProposerAge = this.ageCalculate(dob);
+          this.carRoyalProposerAge = this.ageCalculate(dob);
 
         }
         this.insurerdateError = '';
       }
-      sessionStorage.bkRoyalProposerAge = this.bikeRoyalProposerAge;
+      sessionStorage.fwRoyalProposerAge = this.carRoyalProposerAge;
 
     }
   }
@@ -536,7 +536,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(value);
     sessionStorage.stepper1 = JSON.stringify(value);
     if (this.proposer.valid) {
-      if (sessionStorage.bkRoyalProposerAge >= 18) {
+      if (sessionStorage.fwRoyalProposerAge >= 18) {
         stepper.next();
       } else {
         this.toastr.error('Proposer age should be 18 or above');
@@ -608,7 +608,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
     );
   }
-  public hypothecationTypeSuccess(successData){
+  public hypothecationTypeSuccess(successData) {
     if (successData.IsSuccess) {
       this.financedValueDetails = successData.ResponseObject;
     }
@@ -633,7 +633,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
     );
   }
-  public coverTypeSuccess(successData){
+  public coverTypeSuccess(successData) {
     if (successData.IsSuccess) {
       this.coverList = successData.ResponseObject;
     }
@@ -938,7 +938,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public vountaryPolicyTypeFailure(error) {
   }
   policyHolder() {
-    if (this.previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'){
+    if (this.previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes') {
 
     } else {
       this.previousInsure.controls['claimAmountReceived'].patchValue('');
@@ -1079,6 +1079,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "vehicleDetails": {
           "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
           "addonValue": this.vehical.controls['addon'].value,
+          "claimsReported": this.previousInsure.controls['claimsReported'].value,
+          "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
           "companyNameForCar": this.vehical.controls['companyName'].value,
           "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ? 'Yes' : 'No',
@@ -1324,6 +1326,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
         vehicleRegisteredName: stepper2.vehicleRegisteredName,
         // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
         coverelectricalaccesss: stepper2.coverelectricalaccesss,
+        nameOfElectronicAccessories: stepper2.nameOfElectronicAccessories,
+        makeModel: stepper2.makeModel,
+        value: stepper2.value,
         coverNonelectricalaccesss: stepper2.coverNonelectricalaccesss,
         drivingExperience: stepper2.drivingExperience,
         averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
@@ -1351,9 +1356,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,
         accidentPaid: stepper2.accidentPaid,
-        nameOfElectronicAccessories: stepper2.nameOfElectronicAccessories,
-        makeModel: stepper2.makeModel,
-        value: stepper2.value,
+
       });
     }
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
@@ -1372,7 +1375,21 @@ export class RsFourwheelerProposalComponent implements OnInit {
         accidentPaid: stepper3.accidentPaid,
       });
     }
-    console.log(this.previousInsure,"stepper3");
+    console.log(this.previousInsure, " stepper3 ");
+
+    if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
+      let stepper4 = JSON.parse(sessionStorage.stepper3);
+      this.nomineeDetail = this.fb.group({
+        nomineeName: stepper4.nomineeName,
+        nomineeAge: stepper4.nomineeAge,
+        nomineeRelationship: stepper4.nomineeRelationship,
+        guardianName: stepper4.guardianName,
+        guardianAge: stepper4.guardianAge,
+        guardianRelationship: stepper4.guardianRelationship,
+
+      });
+    }
+    console.log(this.nomineeDetail, " stepper4 ");
 
 
   }
