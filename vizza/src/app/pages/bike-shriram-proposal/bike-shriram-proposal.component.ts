@@ -97,7 +97,8 @@ export class BikeShriramProposalComponent implements OnInit {
   public bikeEnquiryId : any;
   public siValue : any;
   public policyDatevalidate : any;
-  public currentStep : any;
+    public currentStep : any;
+    public premiumAmount : any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -181,6 +182,7 @@ export class BikeShriramProposalComponent implements OnInit {
       paforUnnamed: '',
       paforUnnamedSI: '',
       hypothecationType: '',
+        hypothecationTypeName: '',
       hypothecationAddress1: '',
       hypothecationAddress2: '',
       hypothecationAddress3: '',
@@ -225,7 +227,6 @@ export class BikeShriramProposalComponent implements OnInit {
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-
          this.changeTitle();
          this.changehypothecation();
          this.policyType();
@@ -466,6 +467,10 @@ export class BikeShriramProposalComponent implements OnInit {
             this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
 
     }
+    gethypoTypeName(){
+        this.vehical.controls['hypothecationTypeName'].patchValue(this.hypothecationTypeDetails[this.vehical.controls['hypothecationType'].value]);
+
+    }
         policyType() {
               const data = {
                 'platform': 'web',
@@ -493,7 +498,8 @@ export class BikeShriramProposalComponent implements OnInit {
             }
 
         changehypothecation() {
-          const data = {
+
+            const data = {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
@@ -1098,6 +1104,7 @@ export class BikeShriramProposalComponent implements OnInit {
         nonElectricalAccess:stepper2.nonElectricalAccess,
         nonElectricalAccessSI: stepper2.nonElectricalAccessSI,
         hypothecationType: stepper2.hypothecationType,
+        hypothecationTypeName: stepper2.hypothecationTypeName,
         paforUnnamed: stepper2.paforUnnamed,
         paforUnnamedSI: stepper2.paforUnnamedSI,
         hypothecationAddress1:stepper2.hypothecationAddress1,
