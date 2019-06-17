@@ -281,14 +281,14 @@
                       <div class="col-md-12 mt-1" >
                         <h6 class="color-blue"> OTHER ADDONS LIST </h6>
                       </div>
-                      <div class="col-md-4">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" readonly required>
-                            <mat-option *ngFor="let cover of coverlist | keys" value="{{cover.key}}">{{cover.value}}</mat-option>
-                          </mat-select>
-                          <mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>
-                        </mat-form-field>
-                      </div>
+                      <!--<div class="col-md-4">-->
+                        <!--<mat-form-field class="w-100">-->
+                          <!--<mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" readonly required>-->
+                            <!--<mat-option *ngFor="let cover of coverlist | keys" value="{{cover.key}}">{{cover.value}}</mat-option>-->
+                          <!--</mat-select>-->
+                          <!--<mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>-->
+                        <!--</mat-form-field>-->
+                      <!--</div>-->
                       <div class="col-md-4 mt-2">
                         <mat-checkbox formControlName="Associationmember" (change)="check($event)"><strong> Automobile_Association_Membership </strong></mat-checkbox>
                       </div>
