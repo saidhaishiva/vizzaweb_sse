@@ -370,29 +370,27 @@ export class EnquiryPopupComponent implements OnInit {
 
     };
     sessionStorage.vehicledetails = JSON.stringify(data);
-    this.bikeService.getEnquiryDetails(data).subscribe(
-        (successData) => {
-          this.enquirySuccess(successData);
-        },
-        (error) => {
-          this.enquiryFailure(error);
-        }
-    );
+    if(this.vehicalDetails.valid) {
+
+      this.bikeService.getEnquiryDetails(data).subscribe(
+          (successData) => {
+            this.enquirySuccess(successData);
+          },
+          (error) => {
+            this.enquiryFailure(error);
+          }
+      );
+    }
   }
   public enquirySuccess(successData){
     if (successData.IsSuccess) {
       this.QuotationList = successData.ResponseObject;
-      console.log(this.QuotationList, ' this.QuotationList');
       sessionStorage.bikeEnquiryId = this.QuotationList.enquiry_id;
-      console.log(this.QuotationList,'jhkhjgkj');
-      if(this.vehicalDetails.valid){
-          this.ageCalculateInsurer('days');
+      this.ageCalculateInsurer('days');
         if(successData.status == true){
           this.dialogRef.close();
           this.router.navigate(['/bikepremium']);
         }
-
-      }
     } else {
       this.toastr.error(successData.ErrorObject);
 

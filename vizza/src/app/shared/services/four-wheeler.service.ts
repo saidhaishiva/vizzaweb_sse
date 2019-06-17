@@ -275,6 +275,19 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
 
+  //
+  getDownloadPdfReliancefourWheeler(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/PolicyDownload' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
+        .catch(this.handleError);
+  }
+
+
 
   // Royal Sundaram Four Wheeler
 
@@ -516,6 +529,17 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+//  policy download
+  getDownloadPdfRoyal(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/policy_download' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
+        .catch(this.handleError);
+  }
 // policy
   getRsPolicyDetails(data) {
     const json = JSON.stringify(data);
@@ -686,6 +710,17 @@ export class FourWheelerService {
     const url = this.configurationService.getFourwheelerInsurance() + 'shriram/PolicyDownload' ;
     return this.http.post(url , json, httpOptions)
         .map(this.extractData )
+        .catch(this.handleError);
+  }
+  getHypoPincodeList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'shriram/get_pincode_details';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
         .catch(this.handleError);
   }
   // shriram end //
