@@ -664,7 +664,7 @@
                 <div class="col-6">
                     <mat-form-field class="w-100" >
                         <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
-                        <mat-select [(ngModel)]="selectedAmountP" (change)="updateSumInsured()">
+                        <mat-select [(ngModel)]="selectedAmountP" (change)="updateSumInsured()" style="overflow-y: scroll;">
                             <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount}}">{{amounts.si_amount}}</mat-option>
                         </mat-select>
                     </mat-form-field>
