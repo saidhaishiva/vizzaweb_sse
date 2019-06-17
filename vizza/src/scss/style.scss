@@ -3178,33 +3178,7 @@ fieldset {
     .mat-card-header-text{
       display: none;
     }
-    .travel{
-      background: linear-gradient(to top, #E2C582 0%, #8AC2E7 100%) !important;
-      padding:15px;
-      border-radius: 5px;
-      //button{
-      //  line-height: 28px;
-      //  font-size: 10px;
-      //  padding: 0 10px;
-      //  i{
-      //    font-size: 18px;
-      //  }
-      //}
-    }
 
-  .travel1{
-    background: #8AC2E7;
-    padding:15px;
-    border-radius: 5px;
-    //button{
-    //  line-height: 28px;
-    //  font-size: 10px;
-    //  padding: 0 10px;
-    //  i{
-    //    font-size: 18px;
-    //  }
-    //}
-  }
     thead th{
       background: #7dc3e0 !important;
     }
@@ -3256,12 +3230,11 @@ fieldset {
     margin-top: 6px !important;
   }
   .mat-tab-group {
-    background: #83D0DF !important;;
     color: #fff;
   }
   .mat-tab-label-active {
-    background-color: #ffffff !important;
-    color: #9769DF !important;
+    background-color: #6db4ca !important;
+    color: #ffffff !important;
   }
   .mat-radio-outer-circle{
     border-color : #fff !important;
@@ -3274,7 +3247,7 @@ fieldset {
     height: 100%;
   }
   .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
-    background-color: #3f51b5;
+    background-color: #134f80;
     visibility: visible;
     left: 0px;
     // width: 110px !important;
@@ -3282,45 +3255,19 @@ fieldset {
   .mat-tab-label {
     min-width: 247px !important;
   }
-    .mat-card{
-     background: #ffffff !important;
-    }
-    mat-card.mat-radius{
-      background: #faf3f3 !important;
-    }
-    .mat-card-header-text{
-      display: none;
-    }
-    .travel{
-      background: linear-gradient(to top, #E2C582 0%, #8AC2E7 100%) !important;
-      padding:15px;
-      border-radius: 5px;
-      //button{
-      //  line-height: 28px;
-      //  font-size: 10px;
-      //  padding: 0 10px;
-      //  i{
-      //    font-size: 18px;
-      //  }
-      //}
-    }
-
-  .travel1{
-    background: #8AC2E7;
-    padding:15px;
-    border-radius: 5px;
-    //button{
-    //  line-height: 28px;
-    //  font-size: 10px;
-    //  padding: 0 10px;
-    //  i{
-    //    font-size: 18px;
-    //  }
-    //}
+  .mat-card{
+    background: #ffffff !important;
   }
-    thead th{
-      background: #7dc3e0 !important;
-    }
+  mat-card.mat-radius{
+    background: #faf3f3 !important;
+  }
+  .mat-card-header-text{
+    display: none;
+  }
+
+  thead th{
+    background: #7dc3e0 !important;
+  }
 
   .son{
     background: #f5deff;
@@ -3353,14 +3300,15 @@ fieldset {
     margin-top: -16px;
   }
   .mat-primaryBlue {
-    background-color: #7dc3e0 !important;
-    color: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
   }
   .color-blue{
     color:  #4896d8 !important;
   }
 
 }
+
 
 .aboutImg {
   postion: relative;
@@ -4351,6 +4299,16 @@ fieldset {
 .active-link{
   background-color: #259a40  !important;
 }
+.twoWheelerScroll{
+  ::-webkit-scrollbar-thumb:vertical {
+    background-color: #6db7cf !important;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #cfcfcf !important;
+  }
+
+}
+
 
 .bike-product-list{
   .mat-tab-label:hover{

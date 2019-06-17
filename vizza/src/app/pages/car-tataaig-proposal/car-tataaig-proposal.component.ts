@@ -4,12 +4,13 @@ import {ValidationService} from '../../shared/services/validation.service';
 import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
-import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import { FourWheelerService } from '../../shared/services/four-wheeler.service';
+
 
 export const MY_FORMATS = {
   parse: {
@@ -49,13 +50,23 @@ export class CarTataaigProposalComponent implements OnInit {
   public preNamelist: any;
   public precodelist: any;
   public relationlist: any;
-  public QuoteList: any;
+  public Quotelist: any;
   public banklist: any;
   public currentStep: any;
   public settings: Settings;
   public webhost: any;
+  public summaryData: any;
+  public Proposalnumber: any;
+  public PaymentRedirect: any;
+  public PaymentReturn: any;
+  public proposerFormData: any;
+  public vehicalFormData: any;
+  public previousFormData: any;
+  public nomineeFormData: any;
+  public ProposalId: any;
+  public coverlist: any;
 
-  constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public bikeinsurance: BikeInsuranceService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService ) {
+  constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService ) {
 
     let stepperindex = 0;
     this.currentStep = stepperindex;
@@ -103,10 +114,19 @@ export class CarTataaigProposalComponent implements OnInit {
       banktype: '',
       bankName: '',
       Address: '',
-      autoflag: ['',Validators.required],
+      autoflag: ['', Validators.required],
       autoNumber: '',
       autoName: '',
       autoDob: '',
+      coverdrive: ['', Validators.required],
+      Associationmember: ['', Validators.required],
+      Voluntary: ['', Validators.required],
+      Antitheft: ['', Validators.required],
+      Tppdrestrict: ['', Validators.required],
+      depreciation: ['', Validators.required],
+      Consumableexpense: ['', Validators.required],
+      Returninvoice: ['', Validators.required],
+      Roadsideassistance: ['', Validators.required],
     });
 
     this.previouspolicy = this.fb.group({
@@ -138,6 +158,7 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   nameValidate(event: any) {
+    this.validation.nameValidate(event);
   }
 
   // Dob validation
@@ -206,7 +227,7 @@ export class CarTataaigProposalComponent implements OnInit {
       'pincode': pin,
     };
     if (pin.length == 6) {
-      this.bikeinsurance.PincodeList(data).subscribe(
+      this.carinsurance.PincodeList(data).subscribe(
           (successData) => {
             this.proposerpincodeListSuccess(successData, type);
           },
@@ -255,7 +276,7 @@ export class CarTataaigProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeinsurance.GenderList(data).subscribe(
+    this.carinsurance.GenderList(data).subscribe(
         (successData) => {
           this.proposerGenderListSuccess(successData);
         },
@@ -281,7 +302,7 @@ export class CarTataaigProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeinsurance.NameList(data).subscribe(
+    this.carinsurance.NameList(data).subscribe(
         (successData) => {
           this.prepolicyNameListSuccess(successData);
         },
@@ -308,7 +329,7 @@ export class CarTataaigProposalComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
 
     };
-    this.bikeinsurance.CodeList(data).subscribe(
+    this.carinsurance.CodeList(data).subscribe(
         (successData) => {
           this.prepolicycodeListSuccess(successData);
         },
@@ -334,7 +355,7 @@ export class CarTataaigProposalComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
     };
-    this.bikeinsurance.RelationList(data).subscribe(
+    this.carinsurance.RelationList(data).subscribe(
         (successData) => {
           this.nomineeRelationSuccess(successData);
         },
@@ -363,7 +384,7 @@ export class CarTataaigProposalComponent implements OnInit {
           'type': this.vehicle.controls['banktype'].value,
           'name': event,
         };
-        this.bikeinsurance.Finacetype(data).subscribe(
+        this.carinsurance.Finacetype(data).subscribe(
             (successData) => {
               this.FinanceSuccess(successData);
             },
@@ -382,6 +403,31 @@ export class CarTataaigProposalComponent implements OnInit {
   FinanceFailure(error) {
 
   }
+
+  // // PACover_for_OwnerDriver for Addons
+  // coverdriveList() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+  //   };
+  //   this.carinsurance.coverdrive(data).subscribe(
+  //       (successData) => {
+  //         this.coverdriveSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.coverdriveFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // coverdriveSuccess(successData) {
+  //   this.coverlist = successData.ResponseObject;
+  // }
+  //
+  // coverdriveFailure(error) {
+  //
+  // }
 
 
   chooseflag(event: any) {
@@ -484,6 +530,164 @@ export class CarTataaigProposalComponent implements OnInit {
     if (this.nominee.valid) {
       this.QuoteList(stepper);
     }
+  }
+
+  QuoteList(stepper) {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'enquiry_id': '',
+      'company_id': "13",
+      'Idv': '',
+      'revised_idv': '',
+      'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
+      'Automobile_Association_Membership': this.vehicle.controls['Associationmember'].value == true ? 'Y' : 'N',
+      'Voluntary_Deductibles': this.vehicle.controls['Voluntary'].value == true ? 'Y' : 'N',
+      'Anti_theft_device': this.vehicle.controls['Antitheft'].value == true ? 'Y' : 'N',
+      'TPPD_Restricted': this.vehicle.controls['Tppdrestrict'].value == true ? 'Y' : 'N',
+      'Depreciation_ReImbursement': this.vehicle.controls['depreciation'].value == true ? 'Y' : 'N',
+      'Consumables_expenses': this.vehicle.controls['Consumableexpense'].value == true ? 'Y' : 'N',
+      'Return_to_Invoice': this.vehicle.controls['Returninvoice'].value == true ? 'Y' : 'N',
+      'Roadside_Assistance': this.vehicle.controls['Roadsideassistance'].value == true ? 'Y' : 'N',
+    };
+    this.carinsurance.QuoteList(data).subscribe(
+        (successData) => {
+          this.QuoteSuccess(successData,stepper);
+        },
+        (error) => {
+          this.QuoteFailure(error);
+        }
+    );
+  }
+
+  QuoteSuccess(successData,stepper) {
+    if (successData.IsSuccess) {
+      this.Quotelist = successData.ResponseObject;
+      console.log(this.Quotelist,'quotationdata');
+      this.createproposal(stepper);
+    }
+  }
+
+  QuoteFailure(error) {
+
+  }
+
+  //Proposal Creation
+  createproposal(stepper: MatStepper) {
+    console.log(this.previouspolicy.controls['preflag'].value,'preflag');
+    console.log(this.vehicle.controls['autoDob'].value,'expry date');
+    const data = {
+      "platform": "web",
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "enquiry_id": '',
+      "created_by": "",
+      "proposal_id": '',
+      "motorproposalObj": {
+        "quotation_no": this.Quotelist.productlist.quotation_no,
+        "pol_sdate": '',
+        "sp_name": "Name",
+        "sp_license": "Lino12345566",
+        "sp_place": "Mahbubnagar",
+        "customer": {
+          "salutation": this.proposer.controls['proposerTitle'].value,
+          "first_name": this.proposer.controls['proposerFirstname'].value,
+          "middle_name": this.proposer.controls['proposerMidname'].value,
+          "last_name": this.proposer.controls['proposerLastname'].value,
+          "gender": this.proposer.controls['proposerGender'].value,
+          "dob": this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'yMMdd'),
+          "marital_status": this.proposer.controls['maritalStatus'].value,
+          "address_1": this.proposer.controls['Addressone'].value,
+          "address_2": this.proposer.controls['Addresstwo'].value,
+          "address_3": this.proposer.controls['Addressthree'].value,
+          "address_4": "",
+          "pincode": this.proposer.controls['proposerPincode'].value,
+
+          "cust_aadhaar": this.proposer.controls['proposerAadhar'].value,
+          "mobile_no": this.proposer.controls['proposerMobile'].value,
+          "email_id": this.proposer.controls['proposerEmail'].value
+        },
+        "vehicle": {
+          "engine_no": this.vehicle.controls['engine'].value,
+          "chassis_no": this.vehicle.controls['chassis'].value
+        },
+        "prevpolicy": {
+          "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == ''? 'N' : this.previouspolicy.controls['preflag'].value,
+          "code": this.previouspolicy.controls['precode'].value == null ? '' : this.previouspolicy.controls['precode'].value,
+          "name":  this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
+          "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
+          "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,
+          "address3": this.previouspolicy.controls['preAddressthree'].value == null ? '' : this.previouspolicy.controls['preAddressthree'].value,
+          "polno": this.previouspolicy.controls['prepolno'].value == null ? '' : this.previouspolicy.controls['prepolno'].value,
+          "pincode": this.previouspolicy.controls['prepincode'].value == null ? '' : this.previouspolicy.controls['prepincode'].value,
+        },
+        "financier": {
+          "type": this.vehicle.controls['banktype'].value,
+          "name": this.vehicle.controls['bankName'].value,
+          "address": this.vehicle.controls['Address'].value,
+          "loanacno": ""
+        },
+        "automobile": {
+          "flag": this.vehicle.controls['autoflag'].value,
+          "number": this.vehicle.controls['autoNumber'].value,
+          "name": this.vehicle.controls['autoName'].value,
+          "expiry_date": this.vehicle.controls['autoDob'].value == null || this.vehicle.controls['autoDob'].value == ''  ? '' : this.datepipe.transform(this.vehicle.controls['autoDob'].value, 'yMMdd'),
+        },
+        "nominee": {
+          "name": this.nominee.controls['nomieeName'].value,
+          "age": this.nominee.controls['nomineeAge'].value,
+          "relation": this.nominee.controls['nomineerelation'].value
+        },
+        "driver": {
+          "flag": this.proposer.controls['driveflag'].value,
+          "fname": this.proposer.controls['driveFirstname'].value,
+          "lname": this.proposer.controls['driveLastname'].value,
+          "gender": this.proposer.controls['driveGender'].value,
+          "age": this.proposer.controls['driveAge'].value,
+          "drivingexp": this.proposer.controls['drivingexp'].value,
+          "marital_status": this.proposer.controls['drivemaritalStatus'].value,
+        }
+      }
+    };
+    console.log(data,'dataproposal');
+    sessionStorage.bikeproposaldata = JSON.stringify(data);
+    this.settings.loadingSpinner = true;
+    this.carinsurance.proposal(data).subscribe(
+        (successData) => {
+          this.proposalSuccess(successData, stepper);
+        },
+        (error) => {
+          this.proposalFailure(error);
+        }
+    );
+  }
+
+  proposalSuccess(successData, stepper) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess) {
+      stepper.next();
+      this.toastr.success('Proposal created successfully!!');
+      this.summaryData = successData.ResponseObject;
+      console.log(this.summaryData,'summary');
+      this.Proposalnumber = this.summaryData.Proposal_Number;
+      console.log(this.Proposalnumber,'pronum');
+      this.PaymentRedirect = this.summaryData.PaymentRedirect;
+      console.log(this.PaymentRedirect,'redirect');
+      this.PaymentReturn = this.summaryData.PaymentReturn;
+      sessionStorage.tatacarproposalID = this.ProposalId;
+      this.proposerFormData = this.proposer.value;
+      this.vehicalFormData = this.vehicle.value;
+      this.previousFormData = this.previouspolicy.value;
+      this.nomineeFormData = this.nominee.value;
+    }else{
+      this.toastr.error(successData.ErrorObject);
+      this.settings.loadingSpinner = false;
+    }
+  }
+
+  proposalFailure(error) {
   }
 
   topScroll() {
