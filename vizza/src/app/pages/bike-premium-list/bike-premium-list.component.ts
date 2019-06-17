@@ -227,14 +227,7 @@ export class BikePremiumListComponent implements OnInit {
 
     }
     premiumlist(){
-        // if(this.compherhensive == 'ThridParty_premium'){
-        //     this.thirdParty = true;
-        //     this.comphensivePremium = false;
-        // } else{
-        //     this.thirdParty = false;
-        //     this.comphensivePremium = true;
-        //
-        // }
+
         if(this.policyTerm == '2'){
             this.initialProductList = this.allProductLists.filter(data => data.year_type == '2');
          } else if(this.policyTerm == '3'){
@@ -245,7 +238,21 @@ export class BikePremiumListComponent implements OnInit {
 
         }
     }
+    listDetails(){
+        if(this.compherhensive == 'ThridParty_premium'){
+            this.thirdParty = true;
+            sessionStorage.premiumAmount = this.thirdParty;
+            this.comphensivePremium = false;
+            sessionStorage.premiumAmount1 = this.comphensivePremium;
 
+        } else{
+            this.thirdParty = false;
+            this.comphensivePremium = true;
+
+
+
+        }
+    }
 
 
     buyProduct(value) {

@@ -56,7 +56,7 @@
     <div class="col-md-3">
       <mat-form-field class="w-100">
         <input matInput placeholder="Chassis Number" formControlName="chasissNumber"  maxlength= "17" (keypress)="idValidate($event)" required>
-        <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">Chasiss Number is required</mat-error>
+        <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">Chassis number is required</mat-error>
         <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
       </mat-form-field>
     </div>

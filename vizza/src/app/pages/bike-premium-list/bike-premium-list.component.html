@@ -34,7 +34,7 @@
                             <th class="sun-insured col-md-2">
                                 <mat-form-field >
                                     <mat-placeholder class="myclass font-weight-bold">Premium type ($)</mat-placeholder>
-                                    <mat-select [(ngModel)]="compherhensive" (change)="premiumlist()" >
+                                    <mat-select [(ngModel)]="compherhensive" (change)="premiumlist();listDetails()" >
                                         <mat-option value="Comprehensive_premium">Comprehensive Premium</mat-option>
                                         <mat-option value="ThridParty_premium">ThridParty Premium</mat-option>
                                     </mat-select>
