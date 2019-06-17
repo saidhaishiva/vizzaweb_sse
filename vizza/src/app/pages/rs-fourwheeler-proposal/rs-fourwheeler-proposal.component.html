@@ -615,21 +615,21 @@
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Guardian Name"  formControlName="guardianName" (keypress)="nameValidate($event)" [required]="apponiteeList" autocomplete="off" >
+                                                        <input matInput placeholder="Guardian Name"  formControlName="guardianName" (keypress)="nameValidate($event)" autocomplete="off" >
                                                     </mat-form-field>
                                                     <!--<mat-error *ngIf="nomineeDetail.controls.guardianName.errors?.required">Guardian Name is required</mat-error>-->
 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Guardian Age" maxlength="3" formControlName="guardianAge" [required]="apponiteeList" (keypress)="numberValidate($event)" autocomplete="off">
+                                                        <input matInput placeholder="Guardian Age" maxlength="3" formControlName="guardianAge" (keypress)="numberValidate($event)" autocomplete="off">
                                                     </mat-form-field>
                                                     <!--<mat-error *ngIf="nomineeDetail.controls.guardianAge.errors?.required">Guardian Age is required</mat-error>-->
 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Guardian RelationShip"  formControlName="guardianRelationship" [required]="apponiteeList" >
+                                                        <mat-select placeholder="Guardian RelationShip"  formControlName="guardianRelationship"  >
                                                             <mat-option *ngFor="let guardrelationship of guardianRelationList | keys" value="{{guardrelationship.key}}" > {{guardrelationship.value}} </mat-option>
                                                         </mat-select>
                                                         <!--<mat-error *ngIf="nomineeDetail.controls.guardianRelationship.errors?.required">Relationship with Guardian is required</mat-error>-->
@@ -758,9 +758,9 @@
                                             <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'No'"><strong >Wind Shield Glass  :  </strong> Off </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'Yes'"><strong >Wind Shield Glass  :  </strong> On </li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss != ''"><strong>Electrical Access:</strong> <span *ngIf="vehicalFormData.coverelectricalaccesss == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="item.NameOfElectronicAccessories != '' || item.NameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{item.NameOfElectronicAccessories}}</li>
-                                            <li class="list-group-item" *ngIf="item.MakeModel != '' || item.MakeModel != null"><strong>Make Model:</strong> {{item.MakeModel}}</li>
-                                            <li class="list-group-item" *ngIf="item.Value != '' || item.Value != null"><strong>Value:</strong> {{item.Value}}</li>
+                                            <!--<li class="list-group-item" *ngIf="vehicalFormData.nameOfElectronicAccessories != '' || vehicalFormData.nameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{vehicalFormData.NameOfElectronicAccessories}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="vehicalFormData.makeModel != '' || vehicalFormData.makeModel != null"><strong>Make Model:</strong> {{vehicalFormData.MakeModel}}</li>-->
+                                            <!--<li class="list-group-item" *ngIf="vehicalFormData.value != '' || vehicalFormData.value != null"><strong>Value:</strong> {{vehicalFormData.Value}}</li>-->
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinanced != ''"><strong>Is Car Financed:</strong> <span *ngIf="vehicalFormData.isFourWheelerFinanced == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''"><strong>Financier Name:</strong> {{vehicalFormData.financierName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinancedValue != ''"><strong>Financed Value:</strong> {{vehicalFormData.isFourWheelerFinancedValue}}</li>
