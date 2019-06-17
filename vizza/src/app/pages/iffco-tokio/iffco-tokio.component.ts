@@ -277,6 +277,15 @@ export class IffcoTokioComponent implements OnInit {
             this.items.push(this.initItemRows());
             this.insureArray['controls'].items['controls'][i]['controls'].type.setValue(this.getFamilyDetails.family_members[i].type);
         }
+        for (let i = 0; i < this.insureArray.value.items.length; i++) {
+            if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Self') {
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.setValidators([Validators.required]);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.updateValueAndValidity();
+            } else  if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Spouse') {
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.setValidators([Validators.required]);
+                this.insureArray['controls'].items['controls'][i]['controls'].proposerOccupation.updateValueAndValidity();
+            }
+        }
         this.relationshipList();
         this.occupationList();
         this.stateList();
