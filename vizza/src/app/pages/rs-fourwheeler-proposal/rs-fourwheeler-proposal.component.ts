@@ -189,7 +189,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       policyNumber: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       previousInsured: ['', Validators.required],
       previousdob: '',
-      isPreviousPolicyHolder: '',
+      isPreviousPolicyHolder: 'No',
       previousinsurersCorrectAddress: '',
       voluntary: '',
       claimAmountReceived: '',
@@ -1378,7 +1378,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(this.previousInsure, " stepper3 ");
 
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
-      let stepper4 = JSON.parse(sessionStorage.stepper3);
+      let stepper4 = JSON.parse(sessionStorage.stepper4);
       this.nomineeDetail = this.fb.group({
         nomineeName: stepper4.nomineeName,
         nomineeAge: stepper4.nomineeAge,

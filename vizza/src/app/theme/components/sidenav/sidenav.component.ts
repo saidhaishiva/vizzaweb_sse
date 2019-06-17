@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, HostListener } from '@angular/core';
 import { AppSettings } from '../../../app.settings';
 import { Settings } from '../../../app.settings.model';
 import { MenuService } from '../menu/menu.service';
@@ -18,6 +18,7 @@ export class SidenavComponent implements OnInit {
   public head: any;
   public btns: any;
   public current: any;
+  public sideNavMobile: any;
 
   constructor(public appSettings:AppSettings, public menuService:MenuService){
       this.settings = this.appSettings.settings;
@@ -28,7 +29,9 @@ export class SidenavComponent implements OnInit {
   ngOnInit() {
     this.menuItems = this.menuService.getVerticalMenuItems();
 
-
+    if(window.innerWidth < 992){
+      this.sideNavMobile = true;
+    }
   }
 
   public closeSubMenus(){
@@ -47,6 +50,16 @@ export class SidenavComponent implements OnInit {
   }
 
 
+  @HostListener('window:resize')
+  public onWindowResize():void {
+    if(window.innerWidth < 992){
+      this.sideNavMobile = true;
+    }
 
+    else{
+      this.sideNavMobile = false;
+
+    }
+  }
 
 }
