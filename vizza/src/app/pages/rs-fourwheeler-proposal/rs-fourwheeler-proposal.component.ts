@@ -189,7 +189,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       policyNumber: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       previousInsured: ['', Validators.required],
       previousdob: '',
-      isPreviousPolicyHolder: '',
+      isPreviousPolicyHolder: 'No',
       previousinsurersCorrectAddress: '',
       voluntary: '',
       claimAmountReceived: '',
