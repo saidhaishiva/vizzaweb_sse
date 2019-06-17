@@ -900,8 +900,8 @@ a:hover {
 }
 .card-group-pop1{
   background-color: rgba(255, 255, 255, 0.3) !important;
-  height: 100px;
-  width: 80px;
+  max-height: fit-content;
+  //width: 80px;
 }
 
 .horizontal-menu-item .horizontal-sub-menu{
@@ -951,6 +951,13 @@ a:hover {
 .scrollmenu{
   flex-wrap: nowrap;
 }
+
+/*mobile view*/
+@media screen and (max-width: 767px){
+  .scrollmenu {
+    flex-wrap: wrap; }
+}
+
 .proposal{
   .mat-checkbox-layout{
     white-space: pre-wrap;
@@ -4816,4 +4823,9 @@ fieldset {
 }
 .mat-tab-body-content {
   overflow:hidden !important;
+}
+.groupPopUpScroll {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 100vh;
 }
