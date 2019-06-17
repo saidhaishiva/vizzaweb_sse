@@ -315,11 +315,11 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="col-6">
-    <mat-form-field >
-    <mat-placeholder class="myclass font-weight-bold" style="color: #000000" matTooltip="Lacs">Sum insured</mat-placeholder>
+  <div class="col-6 ">
+    <mat-form-field  class="w-100">
+    <mat-placeholder class="myclass font-weight-bold w-100" style="color: #000000" matTooltip="Lacs">Sum insured</mat-placeholder>
     <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
-      <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
+      <mat-option style="overflow-y: scroll; "  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
     </mat-select>
   </mat-form-field>
   </div>

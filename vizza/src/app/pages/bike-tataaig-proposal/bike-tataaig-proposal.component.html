@@ -135,7 +135,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Flag" formControlName="driveflag" (change)="chooseflag($event)" required>
+                          <mat-select  placeholder="DRIVER" formControlName="driveflag" (change)="chooseflag($event)" required>
                             <mat-option value="Y">YES</mat-option>
                             <mat-option value="N">NO</mat-option>
                           </mat-select>
@@ -251,7 +251,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Flag" formControlName="autoflag" (change)="autoflag($event)" required>
+                            <mat-select  placeholder="AUTOMOBILE" formControlName="autoflag" (change)="autoflag($event)" required>
                               <mat-option value="Y">YES</mat-option>
                               <mat-option value="N">NO</mat-option>
                             </mat-select>
@@ -338,7 +338,7 @@
                 <div class="row">
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
-                      <mat-select  placeholder="Flag" (change)="changeflag($event)" formControlName="preflag" required>
+                      <mat-select  placeholder="PREVIOUS POLICY" (change)="changeflag($event)" formControlName="preflag" required>
                         <mat-option value="Y">Yes</mat-option>
                         <mat-option value="N">No</mat-option>
                       </mat-select>
@@ -527,21 +527,29 @@
               <section>
                 <h5 class="mt-3 sub-title"> VEHICLE DETAILS </h5>
                 <div class="row box-card">
-                  <div class="col-md-6" *ngIf="vehicle.controls['Financetype'].value == true">
-                    <h6 class="mt-3 sub-title"> FINANCE DETAILS </h6>
+                  <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>FINANCE TYPE:</strong> {{vehicalFormData.banktype}}</li>
-                        <li class="list-group-item"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}}</li>
-                        <li class="list-group-item"><strong>ADDRESS:</strong> {{vehicalFormData.Address}}</li>
+                        <li class="list-group-item"><strong>Engine Number:</strong> {{vehicalFormData.engine}} </li>
+                        <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis}} </li>
+                        <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE TYPE:</strong> {{vehicalFormData.banktype}} </li>
+                        <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}} </li>
+                        <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
+                        <li class="list-group-item"><strong>PACover_for_OwnerDriver:</strong> {{vehicalFormData.coverdrive}} </li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember.value != ''"><strong>Automobile_Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember.value == true">Yes</span></li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Engine Number:</strong> {{vehicalFormData.engine}}</li>
-                        <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis}}</li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary.value != ''"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary.value == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft.value != ''"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft.value == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict.value != ''"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict.value == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.depreciation.value != ''"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation.value == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense.value != ''"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense.value == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice.value != ''"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice.value == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance.value != ''"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance.value == true">Yes</span></li>
                       </ul>
                     </div>
                   </div>

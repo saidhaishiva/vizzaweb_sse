@@ -103,7 +103,7 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-12 mt-2">
+                                            <div class="col-md-12 mt-5">
                                                 <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                                             </div>
                                             <div class="col-md-4">
@@ -136,13 +136,13 @@
                                             <div class="col-md-4">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly required >
-                                                    <!--<mat-error *ngIf="proposer.controls.state.errors?.required">State is required</mat-error>-->
+                                                    <mat-error *ngIf="proposer.controls.stateName.errors?.required">State is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly required>
-                                                    <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
+                                                    <mat-error *ngIf="proposer.controls.cityName.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
                                             </div>
 
@@ -276,24 +276,24 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30" [required]="finance">
+                                                    <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30" >
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress2.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation Address 3"  formControlName="hypothecationAddress3" autocomplete="off" maxlength="30" [required]="finance">
+                                                    <input matInput placeholder="Hypothecation Address 3"  formControlName="hypothecationAddress3" autocomplete="off" maxlength="30" >
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress3.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation AgreementNo "  formControlName="hypothecationAgreementNo" maxlength="20" autocomplete="off" (keypress)="numberValidate($event)" [required]="finance">
+                                                    <input matInput placeholder="Hypothecation AgreementNo "  formControlName="hypothecationAgreementNo" maxlength="20" autocomplete="off" (keypress)="numberValidate($event)">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" [required]="finance" maxlength="6" (input)="getHypoPostalCode($event.target.value)" formControlName="pincode"   autocomplete="off" >
+                                                    <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6"  maxlength="6" (input)="getHypoPostalCode($event.target.value)" formControlName="pincode"   autocomplete="off" >
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('required')">Pincode required</mat-error>
                                                     <mat-error *ngIf="vehical.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -302,13 +302,13 @@
 
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly [required]="finance">
+                                                    <input matInput placeholder="State" formControlName="stateName"  autocomplete="off" readonly>
                                                     <mat-error *ngIf="vehical.controls.state.errors?.required">State is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly [required]="finance">
+                                                    <input matInput placeholder="City" formControlName="cityName"  autocomplete="off" readonly >
                                                     <mat-error *ngIf="vehical.controls.city.errors?.required">City is required</mat-error>
                                                 </mat-form-field>
                                             </div>
