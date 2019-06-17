@@ -604,8 +604,8 @@
                                                     <mat-select placeholder="Relationship with Insured"  formControlName="nomineeRelationship"  required>
                                                         <mat-option *ngFor="let relationship of nomineeRelation | keys" value="{{relationship.key}}" > {{relationship.value}} </mat-option>
                                                     </mat-select>
-                                                    <mat-error *ngIf="nomineeDetail.controls.nomineeRelationship.errors?.required">Relationship With Nominee is required</mat-error>
                                                 </mat-form-field>
+                                              <mat-error *ngIf="nomineeDetail.controls.nomineeRelationship.errors?.required">Relationship With Nominee is required</mat-error>
                                             </div>
                                         </div>
                                         <div *ngIf="apponiteeList">
@@ -737,10 +737,21 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.accidentCoverForPaidDriver != ''" ><strong>Accident Cover For Paid Driver :</strong> {{vehicalFormData.accidentCoverForPaidDriver }}</li>
                                             <li class="list-group-item"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.addon != ''" ><strong>Addon:</strong> {{vehicalFormData.addon}}</li>
+
+
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+
+                                        <ul class="m-0 list-group">
                                             <li class="list-group-item"*ngIf="vehicalFormData.valueOfLossOfBaggage != ''" ><strong>Value Of Loss Of Baggage:</strong> {{vehicalFormData.valueOfLossOfBaggage}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.pACoverForUnnamedPassengers != ''" ><strong>Personal Accident Cover For Unnamed Passengers:</strong> {{vehicalFormData.pACoverForUnnamedPassengers}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.cover_dri_othr_car_ass == 'No'"><strong >Do you Need Cover for Driver / Other Passengers / Car Accessories? :  </strong> No </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.cover_dri_othr_car_ass == 'Yes'"><strong >Do you Need Cover for Driver / Other Passengers / Car Accessories? :  </strong> Yes </li>
+
                                             <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''"><strong>Financier Name:</strong> {{vehicalFormData.financierName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinancedValue != ''"><strong>Financed Value:</strong> {{vehicalFormData.isFourWheelerFinancedValue}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.fibreGlass == 'No'"><strong >fibreGlass :  </strong> No </li>

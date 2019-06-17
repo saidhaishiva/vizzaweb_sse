@@ -516,6 +516,17 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+//  policy download
+  getDownloadPdfRoyal(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'royalsundaram/policy_download' ;
+    return this.http.post(url , json, httpOptions)
+        .map(this.extractData )
+        .catch(this.handleError);
+  }
 // policy
   getRsPolicyDetails(data) {
     const json = JSON.stringify(data);

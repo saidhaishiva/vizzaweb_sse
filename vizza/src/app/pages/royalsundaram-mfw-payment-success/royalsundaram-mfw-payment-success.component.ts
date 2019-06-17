@@ -7,6 +7,7 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {MatDialog} from '@angular/material';
+import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 
 @Component({
   selector: 'app-royalsundaram-mfw-payment-success',
@@ -21,7 +22,7 @@ export class RoyalsundaramMfwPaymentSuccessComponent implements OnInit {
   public proposalId: any
   public settings: Settings;
 
-  constructor(public config: ConfigurationService, public bikeService: BikeInsuranceService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public bikeService: FourWheelerService,  public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
     this.route.params.forEach((params) => {
       console.log(params);
@@ -32,7 +33,7 @@ export class RoyalsundaramMfwPaymentSuccessComponent implements OnInit {
   ngOnInit() {
   }
   retry() {
-    this.router.navigate(['/bike-royal-proposal'  + '/' + true]);
+    this.router.navigate(['/royal-sundaram-fourwheeler-proposal'  + '/' + true]);
   }
 
   DownloadPdf() {
