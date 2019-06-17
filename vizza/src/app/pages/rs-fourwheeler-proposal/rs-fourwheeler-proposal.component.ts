@@ -149,11 +149,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     this.vehical = this.fb.group({
       vehicleMostlyDrivenOn: ['', Validators.required],
-      vehicleRegisteredName: '' ,
+      vehicleRegisteredName: ['', Validators.required],
       // registrationchargesRoadtax: ['', Validators.required],
       coverelectricalaccesss: '',
       coverNonelectricalaccesss: '',
-      drivingExperience: '',
+      drivingExperience: ['', Validators.required],
       averageMonthlyMileageRun: '',
       accidentCoverForPaidDriver: '',
       companyName: '',
@@ -165,7 +165,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       financierName: '',
       isFourWheelerFinanced: '',
       hypothecationType: '',
-      typeOfCover: '',
+      typeOfCover: ['', Validators.required],
       addon: '',
       vechileOwnerShipChanged: 'No',
       cover_dri_othr_car_ass: 'No',
@@ -186,15 +186,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
     });
 
     this.previousInsure = this.fb.group({
-      policyNumber: ['', Validators.compose([ Validators.minLength(3)])],
-      previousInsured: '',
+      policyNumber: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      previousInsured: ['', Validators.required],
       previousdob: '',
       isPreviousPolicyHolder: '',
       previousinsurersCorrectAddress: '',
       voluntary: '',
       claimAmountReceived: '',
       claimsReported: '',
-      previousPolicyType: '',
+      previousPolicyType: ['', Validators.required],
       personalAccidentCover: '',
       accidentPaid: '',
     });
@@ -938,7 +938,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public vountaryPolicyTypeFailure(error) {
   }
   policyHolder() {
-    if (this.previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'){
+    if (this.previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes') {
 
     } else {
       this.previousInsure.controls['claimAmountReceived'].patchValue('');
