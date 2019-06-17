@@ -640,33 +640,17 @@ export class BikeShriramProposalComponent implements OnInit {
       this.finance = true;
         this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
         this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
-        this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
-        this.vehical.controls['hypothecationAddress3'].setValidators([Validators.required]);
         this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
-        this.vehical.controls['hypothecationAgreementNo'].setValidators([Validators.required]);
-        this.vehical.controls['pincode'].setValidators([Validators.required]);
-        this.vehical.controls['state'].setValidators([Validators.required]);
-        this.vehical.controls['city'].setValidators([Validators.required]);
+
     } else{
       this.finance = false;
         this.vehical.controls['hypothecationType'].setValidators(null);
         this.vehical.controls['hypothecationAddress1'].setValidators(null);
-        this.vehical.controls['hypothecationAddress2'].setValidators(null);
-        this.vehical.controls['hypothecationAddress3'].setValidators(null);
         this.vehical.controls['hypothecationBankName'].setValidators(null);
-        this.vehical.controls['hypothecationAgreementNo'].setValidators(null);
-        this.vehical.controls['pincode'].setValidators(null);
-        this.vehical.controls['state'].setValidators(null);
-        this.vehical.controls['city'].setValidators(null);
         this.vehical.controls['hypothecationType'].patchValue('');
         this.vehical.controls['hypothecationAddress1'].patchValue('');
-        this.vehical.controls['hypothecationAddress2'].patchValue('');
-        this.vehical.controls['hypothecationAddress3'].patchValue('');
         this.vehical.controls['hypothecationBankName'].patchValue('');
-        this.vehical.controls['hypothecationAgreementNo'].patchValue('');
-        this.vehical.controls['pincode'].patchValue('');
-        this.vehical.controls['state'].patchValue('');
-        this.vehical.controls['city'].patchValue('');
+
     }
   }
     selectPolicy(){

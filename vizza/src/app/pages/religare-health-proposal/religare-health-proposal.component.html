@@ -567,14 +567,14 @@
               <div class="col-md-6">
                 <div class="p-3">
                   <ul class="m-0 list-group">
-                    <li class="list-group-item"><strong>Name:</strong> {{item.personalTitle}}.{{item.personalFirstname}} {{item.personalLastname   }}</li>
+                    <li class="list-group-item"><strong>Name:</strong> {{item.personalTitle}}. {{item.personalFirstname}} {{item.personalLastname   }}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{item.personalDob | date: 'dd/MM/yyyy'}}</li>
                     <li class="list-group-item"><strong>Gender:</strong> {{item.personalGender}}</li>
                     <li class="list-group-item"  *ngIf="i != 0"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>
                     <li class="list-group-item" *ngIf="item.personalEmail"><strong>Email Id:</strong> {{item.personalEmail}}</li>
                     <!--<li class="list-group-item" *ngIf="item.official_email && i != 0"><strong>Official Email:</strong> {{item.official_email}} </li>-->
-                    <li class="list-group-item" *ngIf="item.personalMobile && i != 0"><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
-                    <li class="list-group-item" *ngIf="item.personalAltnumber && i != 0"><strong>Alternate Number:</strong> {{item.personalAltnumber}}</li>
+                    <li class="list-group-item" ><strong>Mobile Number:</strong> {{item.personalMobile}}</li>
+                    <li class="list-group-item" *ngIf="item.personalAltnumber" ><strong>Alternate Number:</strong> {{item.personalAltnumber}}</li>
                   </ul>
                 </div>
               </div>

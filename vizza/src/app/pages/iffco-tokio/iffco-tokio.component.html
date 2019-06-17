@@ -303,7 +303,7 @@
                         </div>
                         <div class="col-md-3"  [ngStyle]="{'pointer-events': insureArray['controls'].items['controls'][i]['controls'].sameasreadonly.value ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" (change)="getOccupationName(i)" required class="w-100">
+                            <mat-select  placeholder="Occupation" formControlName="proposerOccupation" [disabled]="sameValue" (change)="getOccupationName(i)"  class="w-100">
                               <mat-option  *ngFor="let occupation of occupationDetails | keys"  [value]= 'occupation.key'> {{occupation.value}} </mat-option>
 
                             </mat-select>

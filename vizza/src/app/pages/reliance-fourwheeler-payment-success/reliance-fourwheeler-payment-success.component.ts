@@ -7,6 +7,7 @@ import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared/services/auth.service';
 import {MatDialog} from '@angular/material';
+import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 
 @Component({
   selector: 'app-reliance-fourwheeler-payment-success',
@@ -22,7 +23,7 @@ export class RelianceFourwheelerPaymentSuccessComponent implements OnInit {
   public proposalId: any;
   public settings: Settings;
 
-  constructor(public config: ConfigurationService, public bikeService: BikeInsuranceService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
+  constructor(public config: ConfigurationService, public fourWheelerInsurance: FourWheelerService,public router: Router, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
     this.route.params.forEach((params) => {
       console.log(params);
@@ -46,7 +47,7 @@ export class RelianceFourwheelerPaymentSuccessComponent implements OnInit {
       "mail_status": "0"
     }
     this.settings.loadingSpinner = true;
-    this.bikeService.getDownloadPdfRoyal(data).subscribe(
+    this.fourWheelerInsurance.getDownloadPdfReliancefourWheeler(data).subscribe(
         (successData) => {
           this.downloadPdfSuccess(successData);
         },
@@ -57,41 +58,20 @@ export class RelianceFourwheelerPaymentSuccessComponent implements OnInit {
 
   }
   public downloadPdfSuccess(successData) {
-    // this.settings.loadingSpinner = false;
-    // if(successData.Issuccess){
-    //   let pdf = successData.ResponseObject;
-    //   console.log(pdf,'kjhgfdghj');
-    //   this.type = successData.ResponseObject.type;
-    //   this.path = successData.ResponseObject.path;
-    //   this.currenturl = this.config.getimgUrl();
-    //     if (this.type == 'pdf') {
-    //       console.log(successData.ResponseObject, 'www333');
-    //       window.open(this.path,'_blank');
-    //     } else if (this.type === 'pdf') {
-    //       console.log(successData.ResponseObject, 'www3444');
-    //       window.open(this.path,'_blank');
-    // } else {
-    //         this.toast.error(successData.ErrorObject);
-    //
-    //     }
-    // }
-
-    console.log(successData.ResponseObject, 'ssssssssssssssssssssss');
-    this.type = successData.ResponseObject.type;
-    this.path = successData.ResponseObject.path;
     this.settings.loadingSpinner = false;
-
     if (successData.IsSuccess == true) {
+
+      this.type = successData.ResponseObject.type;
+      this.path = successData.ResponseObject.path;
+
       console.log(this.type, 'ww22');
 
       this.currenturl = this.config.getimgUrl();
       if (this.type == 'pdf') {
         console.log(successData.ResponseObject, 'www333');
         window.open(this.path,'_blank');
-      } else if (this.type === 'pdf') {
-        console.log(successData.ResponseObject, 'www3444');
-        window.open(this.path,'_blank');
       } else {
+        this.toast.error(successData.ResponseObject.path);
       }
     } else {
       this.toast.error(successData.ErrorObject);
@@ -101,6 +81,7 @@ export class RelianceFourwheelerPaymentSuccessComponent implements OnInit {
 
 
   public downloadPdfFailure(error) {
+    this.settings.loadingSpinner = false;
     console.log(error);
   }
 }
