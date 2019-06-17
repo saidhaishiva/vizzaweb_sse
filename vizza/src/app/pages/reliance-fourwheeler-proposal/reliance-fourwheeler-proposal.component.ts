@@ -90,33 +90,33 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   previousDateError : any;
   constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService ,private toastr: ToastrService, public fourWheelerInsurance: FourWheelerService , public authservice: AuthService , public datepipe: DatePipe) {
 
-    // let stepperindex = 0;
-    // this.route.params.forEach((params) => {
-    //   if(params.stepper == true || params.stepper == 'true') {
-    //     stepperindex = 4;
-    //     if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
-    //       this.summaryData = JSON.parse(sessionStorage.summaryData);
-    //       this.ProposalId =   this.summaryData.proposalNo;
-    //       this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
-    //       // this.PolicySisID =   this.summaryData.PolicySisID;
-    //       // this.PaymentReturn =   this.summaryData.PaymentReturn;
-    //       // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
-    //       // this.riskFormData = JSON.parse(sessionStorage.riskFormData);
-    //       // this.coverFormData = JSON.parse(sessionStorage.riskFormData);
-    //       // this.previousFormData = JSON.parse(sessionStorage.previousFormData);
-    //       // this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
-    //       sessionStorage.relianceFourwheelerproposalID = this.ProposalId;
-    //
-    //       this.proposerFormData = this.relianceProposal.value;
-    //       // this.riskFormData = this.riskDetails.value;
-    //       // this.coverFormData = this.coverDetails.value;
-    //       // this.previousFormData = this.previousInsurance.value;
-    //       // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
-    //
-    //     }
-    //   }
-    // });
-    // this.currentStep = stepperindex;
+    let stepperindex = 0;
+    this.route.params.forEach((params) => {
+      if(params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+          this.summaryData = JSON.parse(sessionStorage.summaryData);
+          // this.ProposalId =   this.summaryData.proposalNo;
+          // this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
+          // this.PolicySisID =   this.summaryData.PolicySisID;
+          // this.PaymentReturn =   this.summaryData.PaymentReturn;
+          // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+          // this.riskFormData = JSON.parse(sessionStorage.riskFormData);
+          // this.coverFormData = JSON.parse(sessionStorage.riskFormData);
+          // this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+          // this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+          sessionStorage.relianceFourwheelerproposalID = this.ProposalId;
+
+          this.proposerFormData = this.relianceProposal.value;
+          // this.riskFormData = this.riskDetails.value;
+          // this.coverFormData = this.coverDetails.value;
+          // this.previousFormData = this.previousInsurance.value;
+          // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+
+        }
+      }
+    });
+    this.currentStep = stepperindex;
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
 
