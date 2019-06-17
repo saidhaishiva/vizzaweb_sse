@@ -214,9 +214,9 @@
 
                         </mat-form-field>
                       </div>
-                        <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'">
+                        <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'" >
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Company Name"  formControlName="companyName"  autocomplete="off">
+                                <input matInput placeholder="Company Name"  formControlName="companyName"  autocomplete="off" [required]="vehical.controls['vehicleRegisteredName'].value == 'Company'">
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="vehicledetails.business_type == '1'">
@@ -255,7 +255,7 @@
                     <div class="row">
                         <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
                     </div>
-                      <div class="row">
+                      <div class="row mt-3">
 
                       <div class="col-md-6">
                         <mat-checkbox  formControlName="coverelectricalaccesss">Cover Electrical Accessories</mat-checkbox>
@@ -432,8 +432,8 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Age" required maxlength="3" formControlName="nomineeAge" (keypress)="numberValidate($event)" (input)="ageNominee()" autocomplete="off">
-                        </mat-form-field>
                           <mat-error *ngIf="nomineeDetail.controls.nomineeAge.errors?.required">Age is required</mat-error>
+                        </mat-form-field>
 
                       </div>
                       <div class="col-md-3">
@@ -486,14 +486,14 @@
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-4">
-                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{productDetails.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></h4>
+                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{productDetails.plan_name | titlecase}} / IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.Idv}}</span></h4>
                 <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;" *ngIf = "productDetails.ThridParty_premium"> Plan Name: {{productDetails.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></h4>-->
               </div>
-              <div class="col-md-8">
+              <div class="col-md-8 mt-4">
                 <ul class="summary-head">
                   <li><span>Insurer:</span><img src="{{webhost + '/' + productDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li  *ngIf = "productDetails.Comprehensive_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>
-                  <li *ngIf = "!productDetails.Comprehensive_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></li>
+                  <li  *ngIf = "!premiumAmount"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>
+                  <li *ngIf = "premiumAmount"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></li>
                   <!--<li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>-->
                   <li></li>
                 </ul>
@@ -540,7 +540,7 @@
                               <li class="list-group-item" *ngIf="proposerFormData.raddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.raddress3}}</li>
                               <li class="list-group-item" *ngIf="proposerFormData.raddress4 != ''"><strong>Address 4:</strong> {{proposerFormData.raddress4}}</li>
                               <li class="list-group-item" ><strong>PIN code:</strong>  {{proposerFormData.rpincode}}</li>
-                              <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.cityName}}</li>
+                              <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.rcityName}}</li>
                           </ul>
                       </div>
                   </div>
@@ -556,19 +556,20 @@
                     <h6>VEHICAL DETAILS</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Average Monthly Mileage Run:</strong> {{vehicalFormData.averageMonthlyMileageRun}}</li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.companyName != ''"><strong>Vehicle Colour:</strong> {{vehicalFormData.companyName}}</li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.companyName != ''"><strong>Company NAme:</strong> {{vehicalFormData.companyName}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.drivingExperience != ''"><strong>Driving Experience:</strong> {{vehicalFormData.drivingExperience}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss != ''"><strong>Electrical Access:</strong> <span *ngIf="vehicalFormData.coverelectricalaccesss == true">Yes</span></li>
                       <li class="list-group-item"><strong>Vehicle Registered Name:</strong> {{vehicalFormData.vehicleRegisteredName}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''" ><strong>Financier Name :</strong> {{vehicalFormData.financierName }}</li>
-                        <li class="list-group-item"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
-                        <li class="list-group-item"><strong>Vechile OwnerShip Changed:</strong> {{vehicalFormData.vechileOwnerShipChanged}}</li>
+
                     </ul>
                   </div>
                 </div>
                 <div class="col-md-6" *ngFor="let item of electricalAccess; let i = index;">
                   <div class="p-3">
                     <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
+                        <li class="list-group-item"><strong>Vechile OwnerShip Changed:</strong> {{vehicalFormData.vechileOwnerShipChanged}}</li>
                         <li class="list-group-item" *ngIf="item.NameOfElectronicAccessories != '' || item.NameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{item.NameOfElectronicAccessories}}</li>
                       <li class="list-group-item" *ngIf="item.MakeModel != '' || item.MakeModel != null"><strong>Make Model:</strong> {{item.MakeModel}}</li>
                       <li class="list-group-item" *ngIf="item.Value != '' || item.Value != null"><strong>Value:</strong> {{item.Value}}</li>
@@ -628,6 +629,11 @@
                     </div>
                   </div>
                 </div>
+              </div>
+            </section>
+              <section *ngIf="apponiteeList">
+                  <h5 class="mt-3 sub-title">APPOINTEE DETAILS </h5>
+                  <div class="row box-card">
                 <div class="col-md-6">
                   <div class="p-3">
                     <div class="row">
