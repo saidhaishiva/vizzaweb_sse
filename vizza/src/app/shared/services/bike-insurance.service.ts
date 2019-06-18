@@ -719,7 +719,8 @@ export class BikeInsuranceService {
         .catch(this.handleError);
   }
 
-  //
+  //tataaig PdfDownload
+
   getDownloadPdfTataaig(data) {
     const json = JSON.stringify(data);
     const httpOptions = {
