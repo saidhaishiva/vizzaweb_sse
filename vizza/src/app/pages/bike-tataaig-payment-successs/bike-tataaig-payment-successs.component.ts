@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import {TravelService} from '../../shared/services/travel.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
