@@ -64,7 +64,18 @@ export class CarTataaigProposalComponent implements OnInit {
   public previousFormData: any;
   public nomineeFormData: any;
   public ProposalId: any;
+  public poldate: any;
   public coverlist: any;
+  public vehicledata: any;
+  public buycarDetails: any;
+  public enquiryFormData: any;
+  public carEnquiryId: any;
+  public declaration: any;
+  public getstepper1: any;
+  public getstepper2: any;
+  public getstepper3: any;
+  public getstepper4: any;
+
 
   constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService ) {
 
@@ -118,15 +129,6 @@ export class CarTataaigProposalComponent implements OnInit {
       autoNumber: '',
       autoName: '',
       autoDob: '',
-      coverdrive: ['', Validators.required],
-      Associationmember: ['', Validators.required],
-      Voluntary: ['', Validators.required],
-      Antitheft: ['', Validators.required],
-      Tppdrestrict: ['', Validators.required],
-      depreciation: ['', Validators.required],
-      Consumableexpense: ['', Validators.required],
-      Returninvoice: ['', Validators.required],
-      Roadsideassistance: ['', Validators.required],
     });
 
     this.previouspolicy = this.fb.group({
@@ -155,6 +157,18 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getNamelist();
     this.getCodelist();
     this.getRelationList();
+    this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
+    console.log(this.vehicledata);
+    this.buycarDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+    this.enquiryFormData = JSON.parse(sessionStorage.bikeListDetails);
+    console.log(this.enquiryFormData, 'enquiry data');
+    this.carEnquiryId = sessionStorage.bikeEnquiryId;
+    this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
+    this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
+    const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
+    console.log(poldate,'poldate');
+    this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
+    console.log(this.poldate, 'policy date');
   }
   changeflag(event) {
 
@@ -540,19 +554,8 @@ export class CarTataaigProposalComponent implements OnInit {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'enquiry_id': '',
+      'enquiry_id': this.carEnquiryId,
       'company_id': "13",
-      'Idv': '',
-      'revised_idv': '',
-      'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
-      'Automobile_Association_Membership': this.vehicle.controls['Associationmember'].value == true ? 'Y' : 'N',
-      'Voluntary_Deductibles': this.vehicle.controls['Voluntary'].value == true ? 'Y' : 'N',
-      'Anti_theft_device': this.vehicle.controls['Antitheft'].value == true ? 'Y' : 'N',
-      'TPPD_Restricted': this.vehicle.controls['Tppdrestrict'].value == true ? 'Y' : 'N',
-      'Depreciation_ReImbursement': this.vehicle.controls['depreciation'].value == true ? 'Y' : 'N',
-      'Consumables_expenses': this.vehicle.controls['Consumableexpense'].value == true ? 'Y' : 'N',
-      'Return_to_Invoice': this.vehicle.controls['Returninvoice'].value == true ? 'Y' : 'N',
-      'Roadside_Assistance': this.vehicle.controls['Roadsideassistance'].value == true ? 'Y' : 'N',
     };
     this.carinsurance.QuoteList(data).subscribe(
         (successData) => {
@@ -576,6 +579,78 @@ export class CarTataaigProposalComponent implements OnInit {
 
   }
 
+  sessionData() {
+    if (sessionStorage.tatabikeproposer != '' && sessionStorage.tatabikeproposer != undefined) {
+      this.getstepper1 = JSON.parse(sessionStorage.tatabikeproposer);
+      this.proposer = this.fb.group({
+        proposerTitle: this.getstepper1.proposerTitle,
+        proposerFirstname: this.getstepper1.proposerFirstname,
+        proposerMidname: this.getstepper1.proposerMidname,
+        proposerLastname: this.getstepper1.proposerLastname,
+        proposerGender: this.getstepper1.proposerGender,
+        proposerDob: this.datepipe.transform(this.getstepper1.proposerDob, 'y-MM-dd'),
+        maritalStatus: this.getstepper1.maritalStatus,
+        proposerMobile: this.getstepper1.proposerMobile,
+        proposerEmail: this.getstepper1.proposerEmail,
+        proposerAadhar: this.getstepper1.proposerAadhar,
+        Addressone: this.getstepper1.Addressone,
+        Addresstwo: this.getstepper1.Addresstwo,
+        Addressthree: this.getstepper1.Addressthree,
+        Addressfour: this.getstepper1.Addressfour,
+        proposerPincode: this.getstepper1.proposerPincode,
+        proposerState: this.getstepper1.proposerState,
+        proposerDistrict: this.getstepper1.proposerDistrict,
+        proposerCity: this.getstepper1.proposerCity,
+        driveflag: this.getstepper1.driveflag,
+        driveFirstname: this.getstepper1.driveFirstname,
+        driveLastname: this.getstepper1.driveLastname,
+        driveGender: this.getstepper1.driveGender,
+        driveAge: this.getstepper1.driveAge,
+        drivingexp: this.getstepper1.drivingexp,
+        drivemaritalStatus: this.getstepper1.drivemaritalStatus,
+      })
+    }
+    if (sessionStorage.tatavehicle != '' && sessionStorage.tatavehicle != undefined) {
+      this.getstepper2 = JSON.parse(sessionStorage.tatavehicle);
+      this.vehicle = this.fb.group({
+        engine: this.getstepper2.engine,
+        chassis: this.getstepper2.chassis,
+        Financetype: this.getstepper2.Financetype,
+        banktype: this.getstepper2.banktype,
+        bankName: this.getstepper2.bankName,
+        Address: this.getstepper2.Address,
+        autoflag: this.getstepper2.autoflag,
+        autoNumber: this.getstepper2.autoNumber,
+        autoName: this.getstepper2.autoName,
+        autoDob: this.datepipe.transform(this.getstepper2.autoDob, 'y-MM-dd'),
+      })
+    }
+    if (sessionStorage.tataprepolicy != '' && sessionStorage.tataprepolicy != undefined) {
+      this.getstepper3 = JSON.parse(sessionStorage.tataprepolicy);
+      this.previouspolicy = this.fb.group({
+        preflag: this.getstepper3.preflag,
+        precode: this.getstepper3.precode,
+        preName: this.getstepper3.preName,
+        prepolno: this.getstepper3.prepolno,
+        preAddressone: this.getstepper3.preAddressone,
+        preAddresstwo: this.getstepper3.preAddresstwo,
+        preAddressthree: this.getstepper3.preAddressthree,
+        prepincode: this.getstepper3.prepincode,
+        preState: this.getstepper3.preState,
+        preDistrict: this.getstepper3.preDistrict,
+        preCity: this.getstepper3.preCity,
+      })
+    }
+    if (sessionStorage.tatanominee != '' && sessionStorage.tatanominee != undefined) {
+      this.getstepper4 = JSON.parse(sessionStorage.tatanominee);
+      this.nominee = this.fb.group({
+        nomieeName: this.getstepper4.nomieeName,
+        nomineeAge: this.getstepper4.nomineeAge,
+        nomineerelation: this.getstepper4.nomineerelation,
+      })
+    }
+  }
+
   //Proposal Creation
   createproposal(stepper: MatStepper) {
     console.log(this.previouspolicy.controls['preflag'].value,'preflag');
@@ -585,12 +660,12 @@ export class CarTataaigProposalComponent implements OnInit {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      "enquiry_id": '',
+      "enquiry_id": this.carEnquiryId,
       "created_by": "",
-      "proposal_id": '',
+      "proposal_id": sessionStorage.tataCarproposalID == '' || sessionStorage.tataCarproposalID == undefined ? '' : sessionStorage.tataCarproposalID,
       "motorproposalObj": {
         "quotation_no": this.Quotelist.productlist.quotation_no,
-        "pol_sdate": '',
+        "pol_sdate": this.enquiryFormData.business_type == '1'? this.datepipe.transform(this.minDate,'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
         "sp_name": "Name",
         "sp_license": "Lino12345566",
         "sp_place": "Mahbubnagar",
