@@ -152,6 +152,8 @@ import {ShriramMfwPaymentSuccessComponent} from './pages/shriram-mfw-payment-suc
 import {RoyalsundaramMfwPaymentSuccessComponent} from './pages/royalsundaram-mfw-payment-success/royalsundaram-mfw-payment-success.component';
 import {LearningCenterComponent} from './pages/learning-center/learning-center.component';
 import { CarTataaigPaymentSuccessComponent} from './pages/car-tataaig-payment-success/car-tataaig-payment-success.component';
+import { RelianceTwowheelerPaymentSuccessComponent} from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
+
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -299,6 +301,8 @@ export const routes: Routes = [
             { path: 'four-wheeler-shriram/:stepper', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
             { path: 'learning-center', component: LearningCenterComponent, data: { breadcrumb: 'Learning Center'}},
             { path: 'car-tataaig-payment-success/:status/:proId', component: CarTataaigPaymentSuccessComponent, data: { breadcrumb: 'carTataaig payment'} },
+            { path: 'reliance-twowheeler-motor-payment-success/:status/:proId/:mailStatus', component: RelianceTwowheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance Twowheeler payment'}},
+
 
         ]
     },
