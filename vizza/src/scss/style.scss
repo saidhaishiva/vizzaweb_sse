@@ -1059,11 +1059,11 @@ a:hover {
 
 /*mobile view*/
 @media screen and (max-width: 767px){
-  .groupPopUpScroll {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    max-height: 100vh;
-  }
+  //.groupPopUpScroll {
+  //  overflow-y: scroll;
+  //  overflow-x: hidden;
+  //  max-height: 100vh;
+  //}
   .scrollmenu {
     flex-wrap: wrap; }
 }
