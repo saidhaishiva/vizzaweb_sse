@@ -493,9 +493,9 @@ public apponiteeList: boolean;
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-   // / /if(this.vehical.valid){
+    if(this.vehical.valid){
       stepper.next();
-    // }
+    }
   }
   isFinaced(){
     if(this.vehical.controls['isTwoWheelerFinanced'].value == true){
