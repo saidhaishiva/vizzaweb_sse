@@ -208,7 +208,6 @@ export class BikeInsuranceComponent implements OnInit {
             "prev_insurance_name": this.bikeInsurance.controls['previousCompany'].value ? this.bikeInsurance.controls['previousCompany'].value : '',
         }
         console.log(data, 'data');
-        if (this.bikeInsurance.valid) {
 
         this.bikeService.getMotorHomeDetails(data).subscribe(
             (successData) => {
@@ -219,7 +218,6 @@ export class BikeInsuranceComponent implements OnInit {
             }
         );
     }
-    }
 
     public bikeDetailsSuccess(successData, data) {
         if (successData.IsSuccess) {
@@ -229,15 +227,17 @@ export class BikeInsuranceComponent implements OnInit {
             sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
             sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
             sessionStorage.enquiryFormData = JSON.stringify(data);
-                let dialogRef = this.dialog.open(EnquiryPopupComponent, {
-                    width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
-                    height: '1200'
-                })
-                dialogRef.disableClose = true;
-                dialogRef.afterClosed().subscribe(result => {
-                });
+            if (this.bikeInsurance.valid) {
 
+            let dialogRef = this.dialog.open(EnquiryPopupComponent, {
+                width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
+                height: '1200'
+            })
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+            });
 
+        }
 
         } else {
             this.toastr.error(successData.ErrorObject);

@@ -127,7 +127,7 @@ public apponiteeList: boolean;
       rstateName: '',
       rcityName: '',
       sameas:'',
-      phoneNumber:  ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
+      phoneNumber: '',
       stdCode: ''
     });
 
@@ -150,9 +150,6 @@ public apponiteeList: boolean;
       electricalAccess : new FormArray([
         this.create()
       ]),
-      // nonelectricalAccess : new FormArray([
-      //   this.createnonElectrical()
-      // ]),
     });
 
     this.previousInsure = this.fb.group({
@@ -496,9 +493,9 @@ public apponiteeList: boolean;
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-   // / /if(this.vehical.valid){
+    if(this.vehical.valid){
       stepper.next();
-    // }
+    }
   }
   isFinaced(){
     if(this.vehical.controls['isTwoWheelerFinanced'].value == true){
@@ -844,9 +841,9 @@ public apponiteeList: boolean;
     nomineeDetails(stepper: MatStepper, value){
         sessionStorage.stepper4 = '';
         sessionStorage.stepper4 = JSON.stringify(value);
-        // if(this.nomineeDetail.valid){
+        if(this.nomineeDetail.valid){
           this.proposal(stepper);
-        // }
+        }
   }
     // proposal creation
 proposal(stepper){
@@ -1125,24 +1122,31 @@ proposal(stepper){
         vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
         vehicleRegisteredName: stepper2.vehicleRegisteredName,
         // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
-        coverelectricalaccesss:stepper2.coverelectricalaccesss,
+        coverelectricalaccesss: stepper2.coverelectricalaccesss,
         drivingExperience: stepper2.drivingExperience,
         averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
         companyName: stepper2.companyName,
         idv: stepper2.idv,
-        isTwoWheelerFinancedValue : stepper2.isTwoWheelerFinancedValue,
+        isTwoWheelerFinancedValue: stepper2.isTwoWheelerFinancedValue,
         financierName: stepper2.financierName,
         isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
         hypothecationType: stepper2.hypothecationType,
-        typeOfCover:stepper2.typeOfCover,
+        typeOfCover: stepper2.typeOfCover,
         vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,
         accidentPaid: stepper2.accidentPaid,
-        NameOfElectronicAccessories: stepper2.NameOfElectronicAccessories,
-        MakeModel: stepper2.MakeModel,
-        Value: stepper2.Value,
+        // NameOfElectronicAccessories: stepper2.NameOfElectronicAccessories,
+        // MakeModel: stepper2.MakeModel,
+        // Value: stepper2.Value,
       });
+      for (let i = 0; i < stepper2.electricalAccess.length; i++) {
+        this.vehical['controls'].items['controls'][i]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
+        this.vehical['controls'].items['controls'][i]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
+        this.vehical['controls'].items['controls'][i]['controls'].Value.patchValue(stepper2.electricalAccess[i].Value);
+
+      }
+
     }
     if(sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
@@ -1156,6 +1160,17 @@ proposal(stepper){
         previousPolicyType: stepper3.previousPolicyType,
         personalAccidentCover: stepper3.personalAccidentCover,
         accidentPaid: stepper3.accidentPaid,
+      });
+    }
+    if(sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
+      let stepper4 = JSON.parse(sessionStorage.stepper4);
+      this.nomineeDetail = this.fb.group({
+        nomineeName: stepper4.nomineeName,
+        nomineeAge: stepper4.nomineeAge,
+        nomineeRelationship:stepper4.nomineeRelationship,
+        appointeeName:stepper4.appointeeName,
+        appointeeRelationship: stepper4.appointeeRelationship,
+        appointeeAge: stepper4.appointeeAge,
       });
     }
   }

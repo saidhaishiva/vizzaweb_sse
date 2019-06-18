@@ -1059,11 +1059,11 @@ a:hover {
 
 /*mobile view*/
 @media screen and (max-width: 767px){
-  .groupPopUpScroll {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    max-height: 100vh;
-  }
+  //.groupPopUpScroll {
+  //  overflow-y: scroll;
+  //  overflow-x: hidden;
+  //  max-height: 100vh;
+  //}
   .scrollmenu {
     flex-wrap: wrap; }
 }
@@ -1365,6 +1365,7 @@ a:hover {
   .mat-checkbox-inner-container {
     height: 17px !important;
     width: 17px !important;
+    //margin: 0;
   }
 
   .mat-checkbox-layout{
@@ -4643,9 +4644,9 @@ fieldset {
 }
 
 
-.mat-drawer-container {
-  padding-bottom: 40px;
-}
+//.mat-drawer-container {
+//  padding-bottom: 40px;
+//}
 
 
 //view details mobile
@@ -4891,4 +4892,54 @@ fieldset {
 .mat-tab-body-content {
   overflow:hidden !important;
 }
+@media (min-width: 320px) and (max-width: 767px){
+  .table th, .table td {
+    display: block;
+    //padding: 0.75rem;
+    vertical-align: top;
+    border: none !important;
+  }
+  .religareHealthProposal {
+    .mat-checkbox-inner-container {
+      height: 17px !important;
+      width: 17px !important;
+      margin: 0;
+    }
 
+    .mat-checkbox-layout {
+      white-space: unset;
+    }
+  }
+}
+
+
+//coming soon//
+.bgimg {
+  background-image: url("./assets/img/about-vizza/coming-soon.jpg");
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  font-size: 25px;
+}
+
+.topleft {
+  position: absolute;
+  top: 0;
+  left: 16px;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+}
+
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}

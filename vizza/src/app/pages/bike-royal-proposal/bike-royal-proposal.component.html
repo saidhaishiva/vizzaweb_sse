@@ -67,7 +67,7 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Phone Number"   (keypress)="numberValidate($event)"  maxlength="10" minlength="8" formControlName="phoneNumber" autocomplete="off" required>
+                                <input matInput placeholder="Phone Number"   (keypress)="numberValidate($event)"  maxlength="10" minlength="5" formControlName="phoneNumber" autocomplete="off" required>
                                 <mat-error *ngIf="proposer.controls.phoneNumber.errors?.required">Phone Number is required</mat-error>
                             </mat-form-field>
                         </div>
@@ -217,6 +217,7 @@
                         <div class="col-md-3" *ngIf="vehical.controls['vehicleRegisteredName'].value == 'Company'" >
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Company Name"  formControlName="companyName"  autocomplete="off" [required]="vehical.controls['vehicleRegisteredName'].value == 'Company'">
+                                <mat-error *ngIf="vehical.controls.companyName.errors?.required">Company Name is required</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-3" *ngIf="vehicledetails.business_type == '1'">
@@ -285,7 +286,7 @@
                         </div>
                       </div>
 
-                      <div class="row">
+                      <div class="row mt-2">
                           <div class="col-md-6">
                               <mat-checkbox   formControlName="isTwoWheelerFinanced" (change)="isFinaced()" >Is Two Wheeler Financed</mat-checkbox>
                           </div>
@@ -565,20 +566,31 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6" *ngFor="let item of electricalAccess; let i = index;">
+                <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
                         <li class="list-group-item"><strong>Vechile OwnerShip Changed:</strong> {{vehicalFormData.vechileOwnerShipChanged}}</li>
-                        <li class="list-group-item" *ngIf="item.NameOfElectronicAccessories != '' || item.NameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{item.NameOfElectronicAccessories}}</li>
-                      <li class="list-group-item" *ngIf="item.MakeModel != '' || item.MakeModel != null"><strong>Make Model:</strong> {{item.MakeModel}}</li>
-                      <li class="list-group-item" *ngIf="item.Value != '' || item.Value != null"><strong>Value:</strong> {{item.Value}}</li>
                     </ul>
                   </div>
                 </div>
 
               </div>
             </section>
+              <section *ngFor="let item of electricalAccess; let i = index;">
+                  <div class="row box-card">
+                      <div class="col-sm-12 col-xs-12 col-md-12">
+                          <div class="p-3">
+                              <h6>ElectronicAccessories Details</h6>
+                              <ul class="m-0 list-group">
+                                  <li class="list-group-item"><strong>Name Of Electronic Accessories:</strong> {{item.electronicAccessoriesDetails.NameOfElectronicAccessories}}</li>
+                                  <li class="list-group-item"><strong>Make Model:</strong> {{item.electronicAccessoriesDetails.MakeModel}}</li>
+                                  <li class="list-group-item"><strong>Value:</strong> {{item.electronicAccessoriesDetails.Value}}</li>
+                              </ul>
+                          </div>
+                      </div>
+                  </div>
+              </section>
             <section>
               <h5 class="mt-3 sub-title">PREVIOUS INSURE DETAILS </h5>
               <div class="row box-card">

@@ -86,6 +86,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   //dob
   proposerAge : any;
+  nomineeAge : any;
+  showNominee : any;
   personalDobError : any;
   previousDateError : any;
   constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService ,private toastr: ToastrService, public fourWheelerInsurance: FourWheelerService , public authservice: AuthService , public datepipe: DatePipe) {
@@ -180,7 +182,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       prevInsurance : ['',Validators.required],
       prevYearPolicyType : ['',Validators.required],
       policyNumber : ['',Validators.required],
-      prevPolStartDate : ['',Validators.required],
+      // prevPolStartDate : ['',Validators.required],
       prevPolSold : ['',Validators.required],
       prevInsurerAddress: ['',Validators.required],
       prevInsuranceValue: [''],
@@ -256,6 +258,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.maritalStatus();
     this.relationList();
     this.getFinancialType();
+
   }
 
 
@@ -342,8 +345,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   updateMandatory(event) {
     if (event.checked) {
       this.coverDetails.controls['PACoverToOwner'].patchValue(true);
-      this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
-      this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+
+
+
       //
       this.coverDetails.controls['cnomineeName'].setValidators([Validators.required]);
       this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
@@ -403,13 +407,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         if (pattern.test(event.value._i) && event.value._i.length == 10) {
           if (type == 'proposor') {
             this.personalDobError = '';
-          }else if(type == 'insurer'){
+          }else if(type == 'nominee'){
             this.personalDobError = '';
           }
         } else {
           if (type == 'proposor') {
             this.personalDobError = 'Enter Valid Dob';
-          }else if ( type == 'insurer'){
+          }else if ( type == 'nominee'){
             this.personalDobError = 'Enter Valid Dob';
           }
         }
@@ -418,8 +422,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         if (selectedDate.length == 10 && type == 'proposor') {
           this.proposerAge = this.ageCalculate(dob);
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
-        }else if(selectedDate.length ==10 && type == 'insurer') {
-          this.proposerAge = this.ageCalculate(dob);
+        }else if(selectedDate.length ==10 && type == 'nominee') {
+          this.nomineeAge = this.ageCalculate(dob);
         }
 
       } else if (typeof event.value._i == 'object') {
@@ -429,12 +433,33 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.personalDobError = '';
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
         }else {
-          this.proposerAge = this.ageCalculate(dob);
+          this.nomineeAge = this.ageCalculate(dob);
 
         }
 
       }
+      if(type == 'proposer'){
+        console.log(this.proposerAge,'age');
+        sessionStorage.proposerAge = this.proposerAge;
+      }
 
+      if(type == 'nominee'){
+        console.log(this.nomineeAge,'nomineeAge');
+        sessionStorage.nomineeAge = this.nomineeAge;
+        if(sessionStorage.nomineeAge <= 18){
+          this.showNominee = true;
+          this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
+          this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+        }else{
+          this.coverDetails.controls['cappointeeName'].patchValue('');
+          this.coverDetails.controls['cappointeeName'].setValidators(null);
+          this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+          this.showNominee = false;
+
+        }
+
+
+      }
     }
   }
 
@@ -470,10 +495,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.proposerData = value;
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
-      // this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
-
+      this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
       if (this.relianceProposal.valid) {
-        stepper.next();
+        if(sessionStorage.proposerAge >= 18 ){
+          stepper.next();
+        }else {
+          this.toastr.error('Proposer Age should be greater than 18.')
+        }
       }
     } else if (type == 'stepper2') {
       sessionStorage.stepper2Details = '';
@@ -606,13 +634,27 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       });
     }
 
+    if(sessionStorage.nomineeAge != '' && sessionStorage.nomineeAge != undefined) {
+      if(sessionStorage.nomineeAge <= 18){
+        this.showNominee = true;
+        this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
+        this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+      }else{
+        this.coverDetails.controls['cappointeeName'].patchValue('');
+        this.coverDetails.controls['cappointeeName'].setValidators(null);
+        this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+        this.showNominee = false;
+
+      }
+    }
+
     if(sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined ){
       this.getStepper4 = JSON.parse(sessionStorage.stepper4Details);
       this.previousInsurance = this.fb.group({
         prevInsurance: this.getStepper4.prevInsurance,
         prevYearPolicyType: this.getStepper4.prevYearPolicyType,
         policyNumber: this.getStepper4.policyNumber,
-        prevPolStartDate: this.datepipe.transform(this.getStepper4.prevPolStartDate, 'y-MM-dd'),
+        // prevPolStartDate: this.datepipe.transform(this.getStepper4.prevPolStartDate, 'y-MM-dd'),
         prevPolSold: this.getStepper4.prevPolSold,
         prevInsurerAddress: this.getStepper4.prevInsurerAddress,
         prevInsuranceValue: this.getStepper4.prevInsuranceValue,
@@ -928,8 +970,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'PrevYearInsurer': this.previousInsurance.controls['prevInsurance'].value,
           'PrevYearPolicyNo': this.previousInsurance.controls['policyNumber'].value,
           'PrevYearInsurerAddress': this.previousInsurance.controls['prevInsurerAddress'].value,
-          'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value,
-          'PrevYearPolicyStartDate': this.previousInsurance.controls['prevPolStartDate'].value
+          'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value
+          // 'PrevYearPolicyStartDate': this.previousInsurance.controls['prevPolStartDate'].value
         }
       }
     };
@@ -968,7 +1010,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // this.nextStep();
 
     } else {
-      alert('2')
       this.toastr.error(successData.ErrorObject);
     }
   }

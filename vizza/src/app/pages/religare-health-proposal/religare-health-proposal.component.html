@@ -1352,8 +1352,8 @@
                         <!--<mat-slide-toggle (change)="questionYes(i, $event)">{{item.mStatus}}</mat-slide-toggle>-->
                       </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <div class="table-responsive">
-                      <table class="table table-striped mt-3" id="Queue">
+                    <!--<div class="table-responsive">-->
+                      <table class="table table-striped" id="Queue">
                         <tr *ngFor="let subQes of item.sub_questions_list; let j = index">
                           <td class="w-100" *ngIf="item.display_question == '1'">
                             {{j + 1}}) {{subQes.question_details.question_description}}
@@ -1378,7 +1378,7 @@
                           </td>
                         </tr>
                       </table>
-                    </div>
+                    <!--</div>-->
                   </mat-expansion-panel>
                 </mat-accordion>
                 <div class="proposal-buttom mt-3 text-right w-100">
