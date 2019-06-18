@@ -9,6 +9,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material'
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 export const MY_FORMATS = {
@@ -84,7 +85,36 @@ export class RelianceMotorProposalComponent implements OnInit {
   proposerAge : any;
   personalDobError : any;
   previousDateError : any;
-  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
+  ProposalId : any;
+  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public route: ActivatedRoute , public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
+
+    let stepperindex = 0;
+    this.route.params.forEach((params) => {
+      if(params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+          this.summaryData = JSON.parse(sessionStorage.summaryData);
+          // this.ProposalId =   this.summaryData.proposalNo;
+          // this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
+          // this.PolicySisID =   this.summaryData.PolicySisID;
+          // this.PaymentReturn =   this.summaryData.PaymentReturn;
+          // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+          // this.riskFormData = JSON.parse(sessionStorage.riskFormData);
+          // this.coverFormData = JSON.parse(sessionStorage.riskFormData);
+          // this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+          // this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+          sessionStorage.relianceTwowheelerproposalID = this.ProposalId;
+
+          this.proposerFormData = this.relianceProposal.value;
+          // this.riskFormData = this.riskDetails.value;
+          // this.coverFormData = this.coverDetails.value;
+          // this.previousFormData = this.previousInsurance.value;
+          // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+
+        }
+      }
+    });
+
 
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
