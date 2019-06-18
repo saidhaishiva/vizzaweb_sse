@@ -297,6 +297,7 @@ import { ShriramFourwheelerProposalComponent} from './pages/shriram-fourwheeler-
 import { ShriramMfwPaymentSuccessComponent } from './pages/shriram-mfw-payment-success/shriram-mfw-payment-success.component';
 import { RoyalsundaramMfwPaymentSuccessComponent } from './pages/royalsundaram-mfw-payment-success/royalsundaram-mfw-payment-success.component';
 import { LearningCenterComponent } from './pages/learning-center/learning-center.component';
+import { CarTataaigPaymentSuccessComponent } from './pages/car-tataaig-payment-success/car-tataaig-payment-success.component';
 
 @NgModule({
     imports: [
@@ -553,7 +554,8 @@ import { LearningCenterComponent } from './pages/learning-center/learning-center
         ShriramFourwheelerProposalComponent,
         ShriramMfwPaymentSuccessComponent,
         RoyalsundaramMfwPaymentSuccessComponent,
-        LearningCenterComponent
+        LearningCenterComponent,
+        CarTataaigPaymentSuccessComponent
     ],
     providers: [
         AppSettings,
