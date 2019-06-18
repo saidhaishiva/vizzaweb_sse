@@ -4891,4 +4891,11 @@ fieldset {
 .mat-tab-body-content {
   overflow:hidden !important;
 }
+@media (min-width: 320px) and (max-width: 767px){
 
+.table th, .table td {
+  display: block;
+  padding: 0.75rem;
+  vertical-align: top;
+  border: none !important;
+}}
