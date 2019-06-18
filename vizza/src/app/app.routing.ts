@@ -151,6 +151,7 @@ import {EnquiryPopupComponent} from './pages/bike-insurance/enquiry-popup/enquir
 import {ShriramMfwPaymentSuccessComponent} from './pages/shriram-mfw-payment-success/shriram-mfw-payment-success.component';
 import {RoyalsundaramMfwPaymentSuccessComponent} from './pages/royalsundaram-mfw-payment-success/royalsundaram-mfw-payment-success.component';
 import {LearningCenterComponent} from './pages/learning-center/learning-center.component';
+import { CarTataaigPaymentSuccessComponent} from './pages/car-tataaig-payment-success/car-tataaig-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -286,7 +287,7 @@ export const routes: Routes = [
             { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}},
             { path: 'app-chola-health-payment-success/:status/:proId/:policyStatus', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
             { path: 'enquiryPop', component: EnquiryPopupComponent, data: {breadcrumb: 'Vehicle List'}},
-            { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'Tataaig Payment'} },
+            { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'bikeTataaig Payment'} },
             { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}},
             { path: 'royal-sundaram-fourwheeler-proposal/:stepper', component: RsFourwheelerProposalComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
             { path: 'royalsundaram-mfw-payment-success/:status/:proId', component: RoyalsundaramMfwPaymentSuccessComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
@@ -297,6 +298,7 @@ export const routes: Routes = [
             { path: 'four-wheeler-list', component: FourWheelerProductListComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-shriram/:stepper', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
             { path: 'learning-center', component: LearningCenterComponent, data: { breadcrumb: 'Learning Center'}},
+            { path: 'car-tataaig-payment-success/:status/:proId', component: CarTataaigPaymentSuccessComponent, data: { breadcrumb: 'carTataaig payment'} },
 
         ]
     },
