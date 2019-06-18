@@ -178,15 +178,16 @@
   <div class="text-right closeBtnClass">
     <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
   </div>
-  <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
+  <div style="width: 340px" *ngFor="let clists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">
       <mat-card class="custom-card compare-icon text-center">
         <div class="text-right closeBtnClass">
           <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
         </div>
         <mat-card-content class="p-0">
-          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
           <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
+          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+
         </mat-card-content>
       </mat-card>
     </div>
