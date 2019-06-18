@@ -517,14 +517,15 @@ export class HealthInsuranceComponent implements OnInit {
             this.groupList = this.groupDetails.family_groups;
             sessionStorage.groupDetails = JSON.stringify(this.groupDetails);
             if(this.groupList.length > 1) {
-                let dialogRef = this.dialog.open(GrouppopupComponent, {
-                    width: '1500px', data: {comparedata: successData.ResponseObject.family_groups}});
-                dialogRef.disableClose = true;
-                dialogRef.afterClosed().subscribe(result => {
-                });
                 if(type == 'mobile'){
                     let dialogRef = this.dialog.open(GrouppopupComponent, {
-                        width: '700px', data: {comparedata: successData.ResponseObject.family_groups}});
+                        width: '700px',height: '400px', data: {comparedata: successData.ResponseObject.family_groups}});
+                    dialogRef.disableClose = true;
+                    dialogRef.afterClosed().subscribe(result => {
+                    });
+                }else{
+                    let dialogRef = this.dialog.open(GrouppopupComponent, {
+                        width: '1500px', data: {comparedata: successData.ResponseObject.family_groups}});
                     dialogRef.disableClose = true;
                     dialogRef.afterClosed().subscribe(result => {
                     });
