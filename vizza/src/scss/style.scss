@@ -4638,9 +4638,9 @@ fieldset {
 }
 
 
-.mat-drawer-container {
-  padding-bottom: 40px;
-}
+//.mat-drawer-container {
+//  padding-bottom: 40px;
+//}
 
 
 //view details mobile
@@ -4890,4 +4890,36 @@ fieldset {
   overflow-y: scroll;
   overflow-x: hidden;
   max-height: 100vh;
+}
+
+
+//coming soon//
+.bgimg {
+  background-image: url("./assets/img/about-vizza/coming-soon.jpg");
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  color: white;
+  font-size: 25px;
+}
+
+.topleft {
+  position: absolute;
+  top: 0;
+  left: 16px;
+}
+
+.bottomleft {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+}
+
+.middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
 }
