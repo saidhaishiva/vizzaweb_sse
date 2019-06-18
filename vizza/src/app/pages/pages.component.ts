@@ -158,19 +158,19 @@ export class PagesComponent implements OnInit {
     }
   }
 
-  public closeSubMenus(){
-    let menu = document.querySelector(".sidenav-menu-outer");
-    if(menu){
-      for (let i = 0; i < menu.children[0].children.length; i++) {
-        let child = menu.children[0].children[i];
-        if(child){
-          if(child.children[0].classList.contains('expanded')){
-              child.children[0].classList.remove('expanded');
-              child.children[1].classList.remove('show');
-          }
-        }
-      }
-    }
-  }
+  // public closeSubMenus(){
+  //   let menu = document.querySelector(".sidenav-menu-outer");
+  //   if(menu){
+  //     for (let i = 0; i < menu.children[0].children.length; i++) {
+  //       let child = menu.children[0].children[i];
+  //       if(child){
+  //         if(child.children[0].classList.contains('expanded')){
+  //             child.children[0].classList.remove('expanded');
+  //             child.children[1].classList.remove('show');
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
 }

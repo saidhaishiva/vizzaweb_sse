@@ -1010,7 +1010,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // this.nextStep();
 
     } else {
-      alert('2')
       this.toastr.error(successData.ErrorObject);
     }
   }
