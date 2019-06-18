@@ -157,13 +157,11 @@ export class RelianceMotorProposalComponent implements OnInit {
     });
 
     this.coverDetails = this.fb.group({
-      UnnamedPassengerCovered: [''],
       AutomobileAssociationMember: [''],
       AntiTheftDeviceFitted: [''],
       InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
       NilDepreciationCoverage: [''],
-      LiabilityToPaidDriverCovered: [''],
       TPPDCover: [''],
       BasicODCoverage: [''],
       BasicLiability: [''],
@@ -500,13 +498,11 @@ export class RelianceMotorProposalComponent implements OnInit {
     if(sessionStorage.stepper3Details != '' && sessionStorage.stepper3Details != undefined){
       this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
       this.coverDetails = this.fb.group({
-        UnnamedPassengerCovered: this.getStepper3.UnnamedPassengerCovered,
         PAToOwnerDriverCoverd: this.getStepper3.PAToOwnerDriverCoverd,
         AutomobileAssociationMember: this.getStepper3.AutomobileAssociationMember,
         AntiTheftDeviceFitted: this.getStepper3.AntiTheftDeviceFitted,
         InsurancePremium: this.getStepper3.InsurancePremium,
         NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
-        LiabilityToPaidDriverCovered: this.getStepper3.LiabilityToPaidDriverCovered,
         TPPDCover: this.getStepper3.TPPDCover,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
         BasicLiability: this.getStepper3.BasicLiability,
@@ -768,10 +764,8 @@ export class RelianceMotorProposalComponent implements OnInit {
           'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value.toString()
         },
         'Cover': {
-          'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value.toString(),
           'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value.toString(),
           'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value.toString(),
-          'IsLiabilityToPaidDriverCovered': this.coverDetails.controls['LiabilityToPaidDriverCovered'].value.toString(),
           'IsAntiTheftDeviceFitted': this.coverDetails.controls['AntiTheftDeviceFitted'].value.toString(),
           'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value.toString(),
           'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value.toString(),
