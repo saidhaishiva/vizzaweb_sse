@@ -302,6 +302,8 @@ export class TravelPremiumListComponent implements OnInit {
 
     // filter by product
     filterByProducts() {
+        console.log(this.filterCompany, 'allname');
+
         if(this.filterCompany.includes('All')){
             this.checkAllStatus = true;
             this.allProductLists = this.setAllProductLists;

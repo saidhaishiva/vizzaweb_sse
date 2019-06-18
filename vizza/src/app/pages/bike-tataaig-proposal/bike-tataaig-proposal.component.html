@@ -19,6 +19,7 @@
                           <mat-select placeholder="Title" formControlName="proposerTitle" required>
                             <mat-option value="Mr.">Mr.</mat-option>
                             <mat-option value="Mrs.">Mrs.</mat-option>
+                            <mat-option value="Miss.">Miss.</mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -102,6 +103,11 @@
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 3" rows="2" formControlName="Addressthree" autocomplete="off" maxlength="30"></textarea>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100">
+                          <textarea matInput placeholder="Address 4" rows="2" formControlName="Addressfour" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -223,7 +229,7 @@
                           <h6 class="color-blue"> FINANCIER DETAILS </h6>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Financetype" (change)="check($event)"><strong> If Vehicale is Finance? </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Financetype" (change)="check($event)"><strong> If Vehicle is Finance? </strong></mat-checkbox>
                         </div>
                           <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                             <mat-form-field class="w-100">
@@ -283,7 +289,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" readonly required>
+                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" (change)="select()" readonly required>
                               <mat-option *ngFor="let cover of coverlist | keys" value="{{cover.key}}">{{cover.value}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>
@@ -338,7 +344,7 @@
                 <div class="row">
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
-                      <mat-select  placeholder="PREVIOUS POLICY" (change)="changeflag($event)" formControlName="preflag" required>
+                      <mat-select  placeholder="Is there any rollover with previous policy?" (change)="changeflag($event)" formControlName="preflag" required>
                         <mat-option value="Y">Yes</mat-option>
                         <mat-option value="N">No</mat-option>
                       </mat-select>
@@ -478,7 +484,7 @@
                 <h5 class="mt-3 sub-title"> PROPOSER DETAILS </h5>
                 <div class="row box-card">
                   <div class="col-md-6">
-                    <div class="p-3">
+                    <div class="p-3 mt-2">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
@@ -497,6 +503,7 @@
                         <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.Addressone}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.Addresstwo != ''"><strong>Address 2:</strong> {{proposerFormData.Addresstwo}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.Addressthree != ''"><strong>Address 3:</strong> {{proposerFormData.Addressthree}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.Addressfour != ''"><strong>Address 4:</strong> {{proposerFormData.Addressfour}}</li>
                         <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.proposerPincode}}</li>
                         <li class="list-group-item"><strong>City:</strong> {{proposerFormData.proposerCity}}</li>
                         <li class="list-group-item"><strong>State:</strong> {{proposerFormData.proposerState}}</li>
@@ -535,21 +542,30 @@
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE TYPE:</strong> {{vehicalFormData.banktype}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
-                        <li class="list-group-item"><strong>PACover_for_OwnerDriver:</strong> {{vehicalFormData.coverdrive}} </li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember.value != ''"><strong>Automobile_Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember.value == true">Yes</span></li>
+                        <li class="list-group-item"><strong>PACover_for_OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember.value != ''"><strong>Automobile_Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Associationmember.value != 'Y'">No</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary.value != ''"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Voluntary.value != 'Y'">No</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft.value != ''"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Antitheft.value != 'Y'">No</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict.value != ''"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Tppdrestrict.value != 'Y'">No</span></li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary.value != ''"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary.value == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft.value != ''"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft.value == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict.value != ''"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict.value == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.depreciation.value != ''"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation.value == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense.value != ''"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense.value == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice.value != ''"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice.value == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance.value != ''"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance.value == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.depreciation.value != ''"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.depreciation.value != 'Y'">No</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense.value != ''"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Consumableexpense.value != 'Y'">No</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice.value != ''"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Returninvoice.value != 'Y'">No</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance.value != ''"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Roadsideassistance.value != 'Y'">No</span></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
+                    <div class="p-3">
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>AutoMobile Name:</strong> {{vehicalFormData.autoName}} </li>
+                        <li class="list-group-item"><strong>AutoMobile Number:</strong> {{vehicalFormData.autoNumber}} </li>
+                        <li class="list-group-item"><strong>Expiry Date:</strong> {{vehicalFormData.autoDob}} </li>
                       </ul>
                     </div>
                   </div>
@@ -570,8 +586,8 @@
                       <h6 class="color-blue"> COMMUNICATION DETAILS </h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Address 1:</strong> {{previousFormData.preAddressone}}</li>
-                        <li class="list-group-item" *ngIf="previousFormData.Addresstwo != ''"><strong>Address 2:</strong> {{previousFormData.preAddresstwo}}</li>
-                        <li class="list-group-item" *ngIf="previousFormData.Addressthree != ''"><strong>Address 3:</strong> {{previousFormData.preAddressthree}}</li>
+                        <li class="list-group-item" *ngIf="previousFormData.preAddresstwo != ''"><strong>Address 2:</strong> {{previousFormData.preAddresstwo}}</li>
+                        <li class="list-group-item" *ngIf="previousFormData.preAddressthree != ''"><strong>Address 3:</strong> {{previousFormData.preAddressthree}}</li>
                         <li class="list-group-item" *ngIf="previousFormData.prepincode != ''"><strong>PIN code:</strong> {{previousFormData.prepincode}}</li>
                       </ul>
                     </div>

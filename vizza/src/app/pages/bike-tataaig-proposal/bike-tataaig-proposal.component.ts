@@ -106,6 +106,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             Addressone: ['', Validators.required],
             Addresstwo: '',
             Addressthree: '',
+            Addressfour: '',
             proposerPincode: ['', Validators.required],
             proposerState: ['', Validators.required],
             proposerDistrict: ['', Validators.required],
@@ -131,6 +132,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             autoName: '',
             autoDob: '',
             coverdrive: ['', Validators.required],
+            coverdrivevalue: '',
             Associationmember: '',
             Voluntary: '',
             Antitheft: '',
@@ -182,7 +184,6 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(poldate,'poldate');
         this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
         console.log(this.poldate, 'policy date');
-
     }
 
     nameValidate(event: any) {
@@ -492,7 +493,10 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     }
 
-
+    select(){
+        this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
+        console.log(this.vehicle.controls['coverdrivevalue'].value, 'value of sone');
+    }
 
     chooseflag(event: any) {
         console.log(this.proposer.controls['driveflag'].value, 'driveflag');
@@ -636,6 +640,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Addressone: this.getstepper1.Addressone,
                 Addresstwo: this.getstepper1.Addresstwo,
                 Addressthree: this.getstepper1.Addressthree,
+                Addressfour: this.getstepper1.Addressfour,
                 proposerPincode: this.getstepper1.proposerPincode,
                 proposerState: this.getstepper1.proposerState,
                 proposerDistrict: this.getstepper1.proposerDistrict,
@@ -770,7 +775,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "address_1": this.proposer.controls['Addressone'].value,
                     "address_2": this.proposer.controls['Addresstwo'].value,
                     "address_3": this.proposer.controls['Addressthree'].value,
-                    "address_4": "",
+                    "address_4": this.proposer.controls['Addressfour'].value,
                     "pincode": this.proposer.controls['proposerPincode'].value,
 
                     "cust_aadhaar": this.proposer.controls['proposerAadhar'].value,

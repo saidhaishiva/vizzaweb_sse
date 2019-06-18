@@ -205,7 +205,7 @@ export class LifeCallBackComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.dialogRef.close()
-            this.toastr.success('Your Endowment life insurance appointment has been fixed successfully');
+            this.toastr.success('Your Endowment lifeinsurance appointment has been fixed successfully');
         }else{
             this.toastr.error(successData.ErrorObject);
         }

@@ -70,7 +70,7 @@ export const horizontalMenuItems = [
     new Menu (4, 'Life Insurance-Term', '/term-life', null, null, null, false, 9),
     new Menu (21, 'Life Insurance-Endowment', '/endowment-life-insurance', null, null, null, false, 9),
     new Menu (28, 'ULIP', '/', null, null, null, false, 9),
-    new Menu (22, 'General Insurance', '/fix-appointment/corporate-insurance', null, null, null, true, 0),
+    new Menu (22, 'GeneralInsurance', '/fix-appointment/corporate-insurance', null, null, null, true, 0),
     new Menu (24, 'Commercial Insurance', '/', null, null, null, true, 22),
     new Menu (29, 'Jewelers Block Policy', '/', null, null, null, false, 24),
     new Menu (30, 'Bankers Identity Policy', '/', null, null, null, false, 24),
