@@ -1206,7 +1206,7 @@ export class ReligareHealthProposalComponent implements OnInit {
                     'proposer_comm_city': this.proposerInsureData[0].personalCity,
                     'proposer_comm_state': this.proposerInsureData[0].personalState,
                     'proposer_comm_pincode': this.proposerInsureData[0].personalPincode,
-                    'prop_dob': this.datepipe.transform(this.proposerInsureData[i].personalDob, 'dd-MM-y'),
+                    'prop_dob': this.datepipe.transform(this.proposerInsureData[i].personalDob, 'y-MM-dd'),
                     'prop_gender': this.proposerInsureData[i].personalGender,
                     'relationship_cd': i == 0 ? 'SELF' : this.proposerInsureData[i].personalrelationship ,
                     'role_cd': this.proposerInsureData[i].rolecd,
