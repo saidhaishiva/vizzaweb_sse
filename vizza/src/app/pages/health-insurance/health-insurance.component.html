@@ -178,15 +178,16 @@
   <div class="text-right closeBtnClass">
     <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
   </div>
-  <div style="width: 250px" *ngFor="let clists of compareArray; let i = index">
+  <div style="width: 340px" *ngFor="let clists of compareArray; let i = index">
     <div fxLayout="column" class="flex-p">
       <mat-card class="custom-card compare-icon text-center">
         <div class="text-right closeBtnClass">
           <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
         </div>
         <mat-card-content class="p-0">
-          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
           <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
+          <p class="color-green mb-0 text-center">{{clists.product_name}}</p>
+
         </mat-card-content>
       </mat-card>
     </div>
@@ -298,8 +299,8 @@
   <div class="sticky-top mt-4" style="z-index: 1;">
     <mat-card style="background-color: antiquewhite;">
 <div class="row">
-  <div class="col-6">
-    <mat-form-field class="w-100">
+  <div class="col-6" >
+    <mat-form-field  class="w-100">
       <mat-placeholder class="myclass font-weight-bold" style="color: #000000;">Filter by company</mat-placeholder>
       <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
         <mat-option value="All" >Select All</mat-option>
@@ -315,11 +316,11 @@
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="col-6 ">
+  <div class="col-6">
     <mat-form-field  class="w-100">
     <mat-placeholder class="myclass font-weight-bold w-100" style="color: #000000" matTooltip="Lacs">Sum insured</mat-placeholder>
     <mat-select [(ngModel)]="changeSuninsuredAmount" (change)="updateSumInsured()">
-      <mat-option style="overflow-y: scroll; "  *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
+      <mat-option style="overflow-y: scroll;" *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>
     </mat-select>
   </mat-form-field>
   </div>

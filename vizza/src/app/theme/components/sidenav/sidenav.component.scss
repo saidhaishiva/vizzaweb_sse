@@ -15,7 +15,7 @@
     height: 0;
     position: relative;  
     z-index: 1; 
-    overflow: hidden;  
+    overflow: auto;
     img{
         width: 80px; 
         border: 1px solid rgba(0, 0, 0, 0.2);
@@ -46,3 +46,11 @@
         height: calc(100% - #{$toolbar-height + $sidenav-user-block-height});
     }
 }
+.dropdown-menu{
+    min-width: 18.7rem !important;
+    position: absolute !important;
+}
+.dropdown-item.active, .dropdown-item:active{
+    color: #000000 !important;
+}
+

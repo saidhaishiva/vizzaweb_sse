@@ -150,6 +150,7 @@ import {RelianceFourwheelerPaymentSuccessComponent} from './pages/reliance-fourw
 import {EnquiryPopupComponent} from './pages/bike-insurance/enquiry-popup/enquiry-popup.component';
 import {ShriramMfwPaymentSuccessComponent} from './pages/shriram-mfw-payment-success/shriram-mfw-payment-success.component';
 import {RoyalsundaramMfwPaymentSuccessComponent} from './pages/royalsundaram-mfw-payment-success/royalsundaram-mfw-payment-success.component';
+import {LearningCenterComponent} from './pages/learning-center/learning-center.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -295,6 +296,7 @@ export const routes: Routes = [
             { path: 'four-wheeler-home', component: FourWheelerHomeComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-list', component: FourWheelerProductListComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-shriram/:stepper', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
+            { path: 'learning-center', component: LearningCenterComponent, data: { breadcrumb: 'Learning Center'}},
 
         ]
     },
