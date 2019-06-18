@@ -156,6 +156,9 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getCodelist();
     this.getRelationList();
   }
+  changeflag(event) {
+
+  }
 
   nameValidate(event: any) {
     this.validation.nameValidate(event);
