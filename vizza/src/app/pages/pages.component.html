@@ -12,7 +12,7 @@
                     <!--<button fxShow="false" fxShow.gt-xs *ngIf="settings.menu == 'vertical'" mat-icon-button (click)="settings.sidenavUserBlock = !settings.sidenavUserBlock">-->
                         <!--<mat-icon>person</mat-icon>-->
                     <!--</button>-->
-                    <a *ngIf="!settings.sidenavIsOpened" class="logo" (click)="closeSubMenus()"><img alt=""  src="assets/img/vizza-logoNew.png" style="width: 100%;" ></a>
+                    <a *ngIf="!settings.sidenavIsOpened" class="logo" routerLink="/home" ><img alt=""  src="assets/img/vizza-logoNew.png" style="width: 100%;" ></a>
                 </div>
                 <mat-toolbar  *ngIf="mHorizontal"
                              class="horizontal-menu flex-p-x">
