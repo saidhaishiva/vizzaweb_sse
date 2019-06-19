@@ -100,7 +100,7 @@
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
                   <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                    <mat-option value="All" >Select All</mat-option>
+                    <mat-option value="All" (click)="selectAllValues()">Select All</mat-option>
 
                     <mat-select-trigger>
                       {{filterCompany ? filterCompany[0] : ''}}
@@ -109,7 +109,7 @@
                       </span>
                     </mat-select-trigger>
 
-                    <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
+                    <mat-option (click)="selectedCompany(list.company_name)" *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </th>
