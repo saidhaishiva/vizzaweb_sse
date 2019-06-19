@@ -152,7 +152,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       vehicleRegisteredName: ['', Validators.required],
       // registrationchargesRoadtax: ['', Validators.required],
       coverelectricalaccesss: '',
-      coverNonelectricalaccesss: '',
+        cover_non_elec_acc: '',
       drivingExperience: ['', Validators.required],
       averageMonthlyMileageRun: '',
       accidentCoverForPaidDriver: '',
@@ -161,9 +161,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
       isFourWheelerFinancedValue: '',
       valueOfLossOfBaggage: '',
       quoteId: '',
-      pACoverForUnnamedPassengers: '',
+      personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
-      isFourWheelerFinanced: '',
+      isFourWheelerFinanced: 'No',
+        lossOfBaggage: 'No',
       hypothecationType: '',
       typeOfCover: ['', Validators.required],
       addon: '',
@@ -173,6 +174,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
       isCarOwnershipChanged: 'No',
       legalliabilityToPaidDriver: 'No',
       windShieldGlass: 'No',
+        keyreplacement: 'No',
+        depreciationWaiver: 'No',
+        engineprotector: 'No',
+        ncbprotector: 'No',
+        spareCar: 'No',
+        invoicePrice: 'No',
       // policyED: ['', Validators.compose([ Validators.minLength(10)])],
       // policySD: ['', Validators.compose([ Validators.minLength(10)])],
       vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
@@ -180,7 +187,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       electricalAccess : new FormArray([
         this.create()
       ]),
-      nonelectricalAccess : new FormArray([
+        nonelectricalAccess : new FormArray([
         this.createnonElectrical()
       ]),
     });
@@ -289,9 +296,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   // Non electrical Accessories
   createnonElectrical() {
     return new FormGroup({
-      NameOfNonElectronicAccessories: new FormControl(),
-      nonMakeModel :  new FormControl(),
-      nonValue :  new FormControl(),
+        nameOfElectronicAccessories: new FormControl(),
+        makeModel :  new FormControl(),
+        value :  new FormControl(),
     });
   }
   addnonEelctricalItems() {
@@ -561,6 +568,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
     } else {
       this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
       this.vehical.controls['financierName'].patchValue('');
+    }
+  }
+
+  isBaggages() {
+    if (this.vehical.controls['lossOfBaggage'].value == true) {
+
+    } else {
+      this.vehical.controls['valueOfLossOfBaggage'].patchValue('');
     }
   }
 
@@ -1079,6 +1094,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "vehicleDetails": {
           "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
           "addonValue": this.vehical.controls['addon'].value,
+          "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value ? 'Yes' : 'No',
           "claimsReported": this.previousInsure.controls['claimsReported'].value,
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
@@ -1090,7 +1106,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
-          "cover_non_elec_acc": this.vehical.controls['coverNonelectricalaccesss'].value ? 'Yes' : 'No',
+          "cover_non_elec_acc": this.vehical.controls['cover_non_elec_acc'].value ? 'Yes' : 'No',
+          "nonElectricalAccesories": {
+                "nonelectronicAccessoriesDetails": this.vehical.value.nonelectricalAccess,
+            },
+
 
           "fibreGlass": this.vehical.controls['fibreGlass'].value ? 'Yes' : 'No',
           "financierName": this.vehical.controls['financierName'].value,
@@ -1100,8 +1120,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value ? 'Yes' : 'No',
           // "isPreviousPolicyHolder": "true",
           "legalliabilityToPaidDriver": this.vehical.controls['legalliabilityToPaidDriver'].value ? 'Yes' : 'No',
+          "lossOfBaggage": this.vehical.controls['lossOfBaggage'].value ? 'Yes' : 'No',
           // "noClaimBonusPercent": "1",
-          "personalAccidentCoverForUnnamedPassengers": this.vehical.controls['pACoverForUnnamedPassengers'].value,
+          "personalAccidentCoverForUnnamedPassengers": this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].value,
           // "personalaccidentcoverforunnamedpassengers": "0",
           "policyED":  this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
           "policySD": this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd') : '',
@@ -1119,7 +1140,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
           // "vehicleregDate": "03/08/2015",
           "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
+          "keyreplacement": this.vehical.controls['keyreplacement'].value ? 'On' : 'Off',
           "windShieldGlass": this.vehical.controls['windShieldGlass'].value ? 'On' : 'Off',
+          "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value ? 'On' : 'Off',
+          "engineprotector": this.vehical.controls['engineprotector'].value ? 'On' : 'Off',
+          "ncbprotector": this.vehical.controls['ncbprotector'].value ? 'On' : 'Off',
+          "spareCar": this.vehical.controls['spareCar'].value ? 'On' : 'Off',
+          "invoicePrice": this.vehical.controls['invoicePrice'].value ? 'On' : 'Off',
           // "yearOfManufacture": "2015"
         }
       }
@@ -1227,17 +1254,29 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "previousInsurerName": this.previousInsure.controls['previousInsured'].value ? this.previousInsure.controls['previousInsured'].value : '',
           "previousinsurersCorrectAddress": this.previousInsure.controls['previousinsurersCorrectAddress'].value? this.previousInsure.controls['previousinsurersCorrectAddress'].value: '',
           "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
-          "personalAccidentCoverForUnnamedPassengers":this.vehical.controls['pACoverForUnnamedPassengers'].value,
+          "personalAccidentCoverForUnnamedPassengers":this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].value,
           "claimsReported": this.previousInsure.controls['claimsReported'].value,
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
           "valueOfLossOfBaggage":this.vehical.controls['valueOfLossOfBaggage'].value,
           "legalliabilityToPaidDriver":this.vehical.controls['legalliabilityToPaidDriver'].value ? 'Yes' : 'No',
+          "lossOfBaggage":this.vehical.controls['lossOfBaggage'].value ? 'Yes' : 'No',
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
+            "cover_non_elec_acc": this.vehical.controls['cover_non_elec_acc'].value ? 'Yes' : 'No',
+            "nonElectricalAccesories": {
+                "nonelectronicAccessoriesDetails": this.vehical.value.nonelectricalAccess,
+            },
           "addonValue": this.vehical.controls['addon'].value,
           "typeOfCover": this.vehical.controls['typeOfCover'].value,
+            "keyreplacement": this.vehical.controls['keyreplacement'].value ? 'On' : 'Off',
+            "windShieldGlass": this.vehical.controls['windShieldGlass'].value ? 'On' : 'Off',
+            "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value ? 'On' : 'Off',
+            "engineprotector": this.vehical.controls['engineprotector'].value ? 'On' : 'Off',
+            "ncbprotector": this.vehical.controls['ncbprotector'].value ? 'On' : 'Off',
+            "spareCar": this.vehical.controls['spareCar'].value ? 'On' : 'Off',
+            "invoicePrice": this.vehical.controls['invoicePrice'].value ? 'On' : 'Off',
         }
       }
     }
@@ -1329,21 +1368,19 @@ export class RsFourwheelerProposalComponent implements OnInit {
         nameOfElectronicAccessories: stepper2.nameOfElectronicAccessories,
         makeModel: stepper2.makeModel,
         value: stepper2.value,
-        coverNonelectricalaccesss: stepper2.coverNonelectricalaccesss,
+          cover_non_elec_acc: stepper2.cover_non_elec_acc,
         drivingExperience: stepper2.drivingExperience,
         averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
         accidentCoverForPaidDriver: stepper2.accidentCoverForPaidDriver,
-        // vehicleInspectionDate: this.datepipe.transform(stepper2.vehicleInspectionDate, 'y-MM-dd'),
-        // policyED: this.datepipe.transform(stepper2.policyED, 'y-MM-dd'),
-        // policySD: this.datepipe.transform(stepper2.policySD, 'y-MM-dd'),
         companyName: stepper2.companyName,
         idv: stepper2.idv,
         isFourWheelerFinancedValue : stepper2.isFourWheelerFinancedValue,
         valueOfLossOfBaggage : stepper2.valueOfLossOfBaggage,
         quoteId : stepper2.quoteId,
-        pACoverForUnnamedPassengers : stepper2.pACoverForUnnamedPassengers,
+        personalAccidentCoverForUnnamedPassengers : stepper2.personalAccidentCoverForUnnamedPassengers,
         financierName: stepper2.financierName,
         isFourWheelerFinanced: stepper2.isFourWheelerFinanced,
+          lossOfBaggage: stepper2.lossOfBaggage,
         hypothecationType: stepper2.hypothecationType,
         typeOfCover: stepper2.typeOfCover,
         vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
@@ -1351,10 +1388,16 @@ export class RsFourwheelerProposalComponent implements OnInit {
         addon: stepper2.addon,
         fibreGlass: stepper2.fibreGlass,
         windShieldGlass: stepper2.windShieldGlass,
+        keyreplacement: stepper2.keyreplacement,
+          depreciationWaiver: stepper2.depreciationWaiver,
+          engineprotector: stepper2.engineprotector,
+          ncbprotector: stepper2.ncbprotector,
+          spareCar: stepper2.spareCar,
+          invoicePrice: stepper2.invoicePrice,
         isCarOwnershipChanged: stepper2.isCarOwnershipChanged,
         legalliabilityToPaidDriver: stepper2.legalliabilityToPaidDriver,
         electricalAccess: stepper2.electricalAccess,
-        nonelectricalAccess: stepper2.nonelectricalAccess,
+          nonelectricalAccess: stepper2.nonelectricalAccess,
         accidentPaid: stepper2.accidentPaid,
 
       });
