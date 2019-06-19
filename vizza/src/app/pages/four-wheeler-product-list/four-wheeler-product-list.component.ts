@@ -43,11 +43,11 @@ export class FourWheelerProductListComponent implements OnInit {
     this.policyTerm = '1';
     this.compherhensive = 'Comprehensive_premium';
   }
-  ngOnInit()
-  {
-    this.getCompanyList();
+  ngOnInit() {
+    if(sessionStorage.initialProductList == '' && sessionStorage.initialProductList ==undefined) {
+      this.getCompanyList();
+    }
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
-
     this.sessionData();
   }
   sessionData() {
