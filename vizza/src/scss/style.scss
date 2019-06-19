@@ -1347,7 +1347,7 @@ a:hover {
       background: #306da6;
       color: #fff;
       padding: 8px;
-      margin-bottom: 0;
+      margin-bottom: 22px;
     }
     li{
       padding-bottom: 8px;
@@ -2103,6 +2103,13 @@ a:hover {
   //.mat-dialog-container{
     height: calc(100vh - 200px);
     overflow: auto !important;
+  //}
+
+}
+#travel-details{
+  //.mat-dialog-container{
+  height: calc(100vh - 200px);
+  overflow: auto !important;
   //}
 
 }
@@ -4899,21 +4906,20 @@ fieldset {
   overflow:hidden !important;
 }
 @media (min-width: 320px) and (max-width: 767px){
-  .table th, .table td {
-    display: block;
-    //padding: 0.75rem;
-    vertical-align: top;
-    border: none !important;
-  }
   .religareHealthProposal {
     .mat-checkbox-inner-container {
       height: 17px !important;
       width: 17px !important;
       margin: 0;
     }
-
     .mat-checkbox-layout {
       white-space: unset;
+    }
+    .table th, .table td {
+      display: block;
+      //padding: 0.75rem;
+      vertical-align: top;
+      border: none !important;
     }
   }
 }

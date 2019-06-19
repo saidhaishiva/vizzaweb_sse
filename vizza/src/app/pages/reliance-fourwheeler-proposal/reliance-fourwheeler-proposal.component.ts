@@ -56,6 +56,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public getStepper3: any;
   public getStepper4: any;
   public fuelTypeList: any;
+  public amountList: any;
   public relationListData: any;
   public prevInsurerList: any;
   public maritalList: any;
@@ -125,7 +126,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.relianceProposal = this.fb.group({
       firstName : ['' , Validators.required],
       lastName : ['',Validators.required],
-      middleName : ['' , Validators.required],
+      middleName : [''],
       dob : ['' , Validators.required],
       title : ['' , Validators.required],
       occupation : ['' , Validators.required],
@@ -205,6 +206,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       nOtherRelationValue: [''],
       NewVehicle: [''],
       PACoverToOwner: [''],
+      NoOfUnnamedPassenegersCovered: [''],
+      IsVoluntaryDeductableOpted: [''],
+      VoluntaryDeductableAmount: [''],
+      IsElectricalItemFitted: [''],
+      IsNonElectricalItemFitted: [''],
+      ElectricalItemsTotalSI: [''],
+      NonElectricalItemsTotalSI: [''],
+      BiFuelKitSi: [''],
+      IsBiFuelKit: [''],
+      IsTotalCover: [''],
+      IsRegistrationCover: [''],
+      IsRoadTaxcover: [''],
+      UnnamedPassengersSI: [''],
       cappointeeName: [''],
       cnomineeName: [''],
       cnDob: [''],
@@ -346,8 +360,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     if (event.checked) {
       this.coverDetails.controls['PACoverToOwner'].patchValue(true);
 
-
-
       //
       this.coverDetails.controls['cnomineeName'].setValidators([Validators.required]);
       this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
@@ -391,6 +403,102 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.coverDetails.controls['nOtherRelation'].patchValue('');
       this.coverDetails.controls['nOtherRelation'].setValidators(null);
       this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+    }
+  }
+
+  updateUnnamedPassenger(event){
+    if (event.checked) {
+      this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(true);
+
+      //
+      this.coverDetails.controls['UnnamedPassengersSI'].patchValue('100000');
+
+      this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+
+      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('5');
+      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators([Validators.required]);
+      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
+    }else{
+      this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(false);
+
+
+      this.coverDetails.controls['UnnamedPassengersSI'].patchValue('');
+      this.coverDetails.controls['UnnamedPassengersSI'].setValidators(null);
+      this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
+
+      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('');
+      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators(null);
+      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
+    }
+    }
+
+  updateVoluntary(event){
+    if(event.checked){
+      this.coverDetails.controls['IsVoluntaryDeductableOpted'].patchValue(true);
+      //
+      this.coverDetails.controls['VoluntaryDeductableAmount'].setValidators([Validators.required]);
+      this.coverDetails.controls['VoluntaryDeductableAmount'].updateValueAndValidity();
+    }else {
+      this.coverDetails.controls['IsVoluntaryDeductableOpted'].patchValue(false);
+
+
+      this.coverDetails.controls['VoluntaryDeductableAmount'].patchValue('');
+      this.coverDetails.controls['VoluntaryDeductableAmount'].setValidators(null);
+      this.coverDetails.controls['VoluntaryDeductableAmount'].updateValueAndValidity();
+    }
+  }
+
+  updateElectricalItem(event){
+    if(event.checked){
+      this.coverDetails.controls['IsElectricalItemFitted'].patchValue(true);
+      //
+      this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('15000');
+      this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
+    }else {
+      this.coverDetails.controls['IsElectricalItemFitted'].patchValue(false);
+
+
+      this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('');
+      this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators(null);
+      this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
+    }
+  }
+
+  updatenonElectricalItem(event){
+    if(event.checked){
+      this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(true);
+      //
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('12000');
+
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
+    }else {
+      this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(false);
+
+
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('');
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators(null);
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
+    }
+  }
+
+  updatenonBiFuelKit(event){
+    if(event.checked){
+      this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+      //
+      this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+
+      this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+    }else {
+      this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+
+
+      this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+      this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
     }
   }
 
@@ -622,6 +730,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         BasicLiability: this.getStepper3.BasicLiability,
         NewVehicle: this.getStepper3.NewVehicle,
         PACoverToOwner: this.getStepper3.PACoverToOwner,
+        NoOfUnnamedPassenegersCovered: this.getStepper3.NoOfUnnamedPassenegersCovered,
+        ElectricalItemsTotalSI: this.getStepper3.ElectricalItemsTotalSI,
+        NonElectricalItemsTotalSI: this.getStepper3.NonElectricalItemsTotalSI,
+        BiFuelKitSi: this.getStepper3.BiFuelKitSi,
+        UnnamedPassengersSI: this.getStepper3.UnnamedPassengersSI,
+        IsVoluntaryDeductableOpted: this.getStepper3.IsVoluntaryDeductableOpted,
+        VoluntaryDeductableAmount: this.getStepper3.VoluntaryDeductableAmount,
+        IsElectricalItemFitted: this.getStepper3.IsElectricalItemFitted,
+        IsNonElectricalItemFitted: this.getStepper3.IsNonElectricalItemFitted,
+        IsBiFuelKit: this.getStepper3.IsBiFuelKit,
+        IsTotalCover: this.getStepper3.IsTotalCover,
+        IsRegistrationCover: this.getStepper3.IsRegistrationCover,
+        IsRoadTaxcover: this.getStepper3.IsRoadTaxcover,
         cappointeeName: this.getStepper3.cappointeeName,
         cnomineeName: this.getStepper3.cnomineeName,
         cnDob: this.datepipe.transform(this.getStepper3.cnDob, 'y-MM-dd'),
@@ -755,6 +876,29 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.fuelTypeList = successData.ResponseObject;
   }
   public fuelTypeListFailure(error) {
+  }
+
+
+  ////VoluntaryDeductableAmount list
+  voluntaryAmount() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    };
+    this.fourWheelerInsurance.fourWheelervoluntaryAmountList(data).subscribe(
+        (successData) => {
+          this.voluntaryAmountListSucccess(successData);
+        },
+        (error) => {
+          this.fourWheelervoluntaryAmountListFailure(error);
+        }
+    );
+  }
+  public voluntaryAmountListSucccess(successData){
+    this.amountList = successData.ResponseObject;
+  }
+  public fourWheelervoluntaryAmountListFailure(error) {
   }
 
 ///nominee RelationList
@@ -929,7 +1073,20 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
           'IsBasicLiability': this.coverDetails.controls['BasicLiability'] ? 'true' : 'false',
           'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'] ? 'true' : 'false',
+          'UnnamedPassengersSI': this.coverDetails.controls['UnnamedPassengersSI'].value ,
           'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          'IsVoluntaryDeductableOpted': this.coverDetails.controls['IsVoluntaryDeductableOpted'].value ? 'true' : 'false',
+          'VoluntaryDeductableAmount': this.coverDetails.controls['VoluntaryDeductableAmount'].value ,
+          'IsElectricalItemFitted': this.coverDetails.controls['IsElectricalItemFitted'].value ? 'true' : 'false',
+          'ElectricalItemsTotalSI': this.coverDetails.controls['ElectricalItemsTotalSI'].value ,
+          'IsNonElectricalItemFitted': this.coverDetails.controls['IsNonElectricalItemFitted'].value ? 'true' : 'false',
+          'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
+          'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
+          'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
+          'IsTotalCover': this.coverDetails.controls['IsTotalCover'].value ? 'true' : 'false',
+          'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
+          'IsRegistrationCover': this.coverDetails.controls['IsRegistrationCover'].value ? 'true' : 'false',
+          'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value ,
           'PACoverToOwner': {
             'PACoverToOwner': {
               'IsChecked': this.coverDetails.controls['PACoverToOwner'].value ? 'true' : 'false',
@@ -1117,6 +1274,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['pstateId'].patchValue(this.relianceProposal.controls['stateId'].value);
         this.relianceProposal.controls['pdistrict'].patchValue(this.relianceProposal.controls['district'].value);
         this.relianceProposal.controls['pdistrictId'].patchValue(this.relianceProposal.controls['districtId'].value);
+        this.relianceProposal.controls['plandmark'].patchValue(this.relianceProposal.controls['landmark'].value);
       }else{
         this.pcommReadOnly = false;
         this.relianceProposal.controls['paddress'].patchValue('');
@@ -1129,6 +1287,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['pstateId'].patchValue('');
         this.relianceProposal.controls['pdistrict'].patchValue('');
         this.relianceProposal.controls['pdistrictId'].patchValue('');
+        this.relianceProposal.controls['plandmark'].patchValue('');
       }
     }else if (type == 'regcomm'){
       if (this.relianceProposal.controls['regSameAscommAddress'].value ) {
@@ -1145,6 +1304,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['rstateId'].patchValue(this.relianceProposal.controls['stateId'].value);
         this.relianceProposal.controls['rdistrict'].patchValue(this.relianceProposal.controls['district'].value);
         this.relianceProposal.controls['rdistrictId'].patchValue(this.relianceProposal.controls['districtId'].value);
+        this.relianceProposal.controls['rlandmark'].patchValue(this.relianceProposal.controls['landmark'].value);
       }else{
         this.relianceProposal.controls['raddress'].patchValue('');
         this.relianceProposal.controls['raddress2'].patchValue('');
@@ -1156,6 +1316,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['rstateId'].patchValue('');
         this.relianceProposal.controls['rdistrict'].patchValue('');
         this.relianceProposal.controls['rdistrictId'].patchValue('');
+        this.relianceProposal.controls['rlandmark'].patchValue('');
       }
     }else if(type == 'regperm'){
       if (this.relianceProposal.controls['regSameAspermAddress'].value) {
@@ -1172,6 +1333,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['rstateId'].patchValue(this.relianceProposal.controls['pstateId'].value);
         this.relianceProposal.controls['rdistrict'].patchValue(this.relianceProposal.controls['pdistrict'].value);
         this.relianceProposal.controls['rdistrictId'].patchValue(this.relianceProposal.controls['pdistrictId'].value);
+        this.relianceProposal.controls['rlandmark'].patchValue(this.relianceProposal.controls['plandmark'].value);
       }else{
         this.relianceProposal.controls['raddress'].patchValue('');
         this.relianceProposal.controls['raddress2'].patchValue('');
@@ -1183,6 +1345,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['rstateId'].patchValue('');
         this.relianceProposal.controls['rdistrict'].patchValue('');
         this.relianceProposal.controls['rdistrictId'].patchValue('');
+        this.relianceProposal.controls['rlandmark'].patchValue('');
       }
     }
   }

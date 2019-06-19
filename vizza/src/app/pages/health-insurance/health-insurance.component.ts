@@ -885,7 +885,45 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
 
-
+    selectAllValues() {
+        console.log('t1');
+        if (!this.filterCompany.includes('All')) {
+            this.allProductLists = [];
+            this.filterCompany = [];
+        } else {
+            if(this.filterCompany.length-1 != this.allCompanyList.length) {
+                this.allProductLists = this.setAllProductLists;
+                let all = ['All'];
+                for (let i = 0; i < this.allCompanyList.length; i++) {
+                    all.push(this.allCompanyList[i].company_name);
+                }
+                this.filterCompany = all;
+            } else {
+                let cmpy = [];
+                for (let k = 0; k < this.filterCompany.length; k++) {
+                    for (let j = 0; j < this.setAllProductLists.length; j++) {
+                        if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                            cmpy.push(this.setAllProductLists[j]);
+                        }
+                    }
+                }
+                this.allProductLists = cmpy;
+            }
+        }
+    }
+    selectedCompany(value) {
+        console.log(value, 'this.value');
+        console.log(this.filterCompany, 'this.filterCompany');
+        let cmpy = [];
+        for (let k = 0; k < this.filterCompany.length; k++) {
+            for (let j = 0; j < this.setAllProductLists.length; j++) {
+                if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                    cmpy.push(this.setAllProductLists[j]);
+                }
+            }
+        }
+        this.allProductLists = cmpy;
+    }
 
     // filter by product
     filterByProducts() {
