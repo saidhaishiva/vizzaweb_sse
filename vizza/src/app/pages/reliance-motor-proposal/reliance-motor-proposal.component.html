@@ -165,11 +165,13 @@
                         <h6 class="color-blue">PERMANENT ADDRESS</h6>
                       </div>
 
-                      <div class="col-md-12 mt-3">
-                        <div class="col-md-12">
-                            <mat-checkbox formControlName="sameAsAddress" (change)="sameAsAddress('pcomm')" ><strong>Same as Communication Address</strong></mat-checkbox>
+                        <div class="col-md-12 mt-3">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <mat-checkbox formControlName="sameAsAddress" (change)="sameAsAddress('pcomm')" ><strong>Same as Communication Address</strong></mat-checkbox>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                       <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="paddress" autocomplete="off" maxlength="30" required [readonly]="relianceProposal.controls.sameAsAddress.value"></textarea>

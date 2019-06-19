@@ -499,6 +499,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       if (this.relianceProposal.valid) {
         if(sessionStorage.proposerAge >= 18 ){
           stepper.next();
+          this.topScroll();
         }else {
           this.toastr.error('Proposer Age should be greater than 18.')
         }
