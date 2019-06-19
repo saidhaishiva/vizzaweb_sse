@@ -109,7 +109,7 @@
                       </span>
                     </mat-select-trigger>
 
-                    <mat-option (click)="selectedCompany(list.company_name)" *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
+                    <mat-option (click)="selectedCompany(lists.company_name)" *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </th>
