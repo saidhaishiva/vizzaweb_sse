@@ -2106,6 +2106,13 @@ a:hover {
   //}
 
 }
+#travel-details{
+  //.mat-dialog-container{
+  height: calc(100vh - 200px);
+  overflow: auto !important;
+  //}
+
+}
 .qesTable{
   td{
     padding:20px 10px;

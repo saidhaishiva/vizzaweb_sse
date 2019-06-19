@@ -1059,7 +1059,7 @@ export class TravelHomeComponent implements OnInit {
     }
     travelInsurer(){
         const dialogRef = this.dialog.open(TravelInsurer, {
-            width: '1200px',
+            width: '1200px', height: '500px',
         });
         dialogRef.disableClose = true;
     }
@@ -1148,15 +1148,14 @@ export class TravelHomeComponent implements OnInit {
     template: `        
         <div class="container">
         <div  class="row text-justify">
-        
-            <div class="col-sm-2">
-            </div>
-            <div class="col-sm-8">
-                <h3 class="text-center" style="color: #9769DF"><img src="assets/img/travel-insurance.png" class="logo-size"> About Travel Insurance</h3>
-            </div>
-            <div class="col-sm-2 text-right">
+
+            <div class="col-sm-12 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
+            <div class="col-sm-12">
+                <h3 class="text-center" style="color: #9769DF"><img src="assets/img/travel-insurance.png" class="logo-size"> About Travel Insurance</h3>
+            </div>
+            <div id="travel-details">
             <h3>OVERSEAS TRAVEL INSURANCE</h3>
            <p>This insurance covers medical expenses incurred whilst travelling abroad for business / holiday / employment / studies. The claims are settled abroad in foreign currency but the  premium has to be paid in rupees. Policies are available for corporate frequent travellers on an annualized basis also.</p>
            <p>The Overseas Travel Health insurance policy covers medical expenses incurred by the insured person, outside India as a direct result of bodily injuries caused or sickness or disease contracted. There are several plans available in the market based on the purpose of travel and sum insured required. If the plan / travelling person requires a medical examination for issuance of the policy the proposer will be requested to undergo prescribed medical examination at their own cost.</p>
@@ -1169,7 +1168,7 @@ export class TravelHomeComponent implements OnInit {
                 <li>Personal Liability</li>
             </ul>
            <p>The Premium depends on the Age-band, Trip-band and Country of visits.  The Insurance also allows extension  on original policy for a further period if the stay is extended  and is   subject to declaration of good health by the insured. The policy is to be taken prior to departure from India. It is also essential that if there has been a pre issuance medical examination of the travelling person the medical records have to be taken along with the travel documents.</p>
-          
+            </div>
          </div>
         </div>`,
 })
