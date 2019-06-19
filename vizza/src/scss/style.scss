@@ -463,13 +463,13 @@ a:hover {
   p{
     margin-bottom: 0;
   }
-  .nav-link{
-    border-bottom: 1px solid #ccc;
-    width: 100%;
-  }
 
   //disktop view
   @media only screen and (min-width: 768px) {
+    .nav-link{
+      border-bottom: 1px solid #ccc;
+      width: 100%;
+    }
     p.icon{
       background: #d81b60;
       padding: 28px 3px 5px;
@@ -633,6 +633,12 @@ a:hover {
     }
     .nav-link{
       padding-right: 70px;
+      border-bottom: 1px solid #ccc;
+      width: 100%;
+    }
+    .groupPopUpScroll {
+      overflow-: auto;
+      height: 100vh;
     }
   }
 

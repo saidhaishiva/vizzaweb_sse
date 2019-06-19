@@ -1229,14 +1229,13 @@ export class HealthInsuranceComponent implements OnInit {
     selector: 'healthinsurer',
     template: `        
         <div class="row">
-            <div class="col-sm-2">
-            </div>
-            <div class="col-sm-8">
-                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
-            </div>
-            <div class="col-sm-2 text-right">
+            <div class="col-sm-12 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
+            <div class="col-sm-12">
+                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
+            </div>
+            
         </div>
         <div mat-dialog-content>
             <mat-accordion>
