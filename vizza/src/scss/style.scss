@@ -1371,6 +1371,7 @@ a:hover {
   .mat-checkbox-inner-container {
     height: 17px !important;
     width: 17px !important;
+    //margin: 0;
   }
 
   .mat-checkbox-layout{
@@ -4898,13 +4899,24 @@ fieldset {
   overflow:hidden !important;
 }
 @media (min-width: 320px) and (max-width: 767px){
+  .table th, .table td {
+    display: block;
+    //padding: 0.75rem;
+    vertical-align: top;
+    border: none !important;
+  }
+  .religareHealthProposal {
+    .mat-checkbox-inner-container {
+      height: 17px !important;
+      width: 17px !important;
+      margin: 0;
+    }
 
-.table th, .table td {
-  display: block;
-  padding: 0.75rem;
-  vertical-align: top;
-  border: none !important;
-}}
+    .mat-checkbox-layout {
+      white-space: unset;
+    }
+  }
+}
 
 
 //coming soon//

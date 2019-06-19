@@ -726,52 +726,8 @@
                     </ul>
                   </div>
                 </div>
-                <!--                          <div class="col-md-6">-->
-                <!--                              <div class="p-3">-->
-                <!--                                  <ul class="m-0 list-group">-->
-                <!--                                      <li class="list-group-item" *ngIf="vehicalFormData.antiTheft != ''"><strong>Anti Theft:</strong><span *ngIf="vehicalFormData.antiTheft == 'True'">Yes</span><span *ngIf="vehicalFormData.antiTheft == 'False'">No</span> </li>--><!--
-<!--                                  </ul>-->
-                <!--                              </div>-->
-                <!--                          </div>-->
               </div>
             </section>
-            <section>
-              <h5 class="mt-3 sub-title">PREVIOUS INSURE DETAILS </h5>
-              <div class="row box-card">
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
-                          <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.prevInsuranceValue}}</li>
-<!--                          <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.prevPolStartDate | date: 'dd/MM/yyyy'}}</li>-->
-                          <!--                                              <li class="list-group-item"><strong>Previous End Date:</strong> {{previousFormData.previousdEndob | date: 'dd/MM/yyyy'}}</li>-->
-
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-6">
-                  <div class="p-3">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.prevYearPolicyTypeValue}}</li>
-                          <li class="list-group-item"><strong>Previous Policy Sold:</strong> {{previousFormData.prevPolSold}}</li>
-                          <!--                                              <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>-->
-                          <li class="list-group-item"><strong>Previous Insurer Address:</strong> {{previousFormData.prevInsurerAddress}}</li>
-                          <!--                                              <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>-->
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </section>
-
             <section>
               <h5 class="mt-3 sub-title"> VECHILE / COVER DETAILS </h5>
               <div class="row box-card">
@@ -818,25 +774,42 @@
 
               </div>
             </section>
-            <!--                  <section>-->
-            <!--                      <h5 class="mt-3 sub-title" *ngIf="apponiteeList">APPOINTEE DETAILS </h5>-->
-            <!--                      <div class="row box-card">-->
+            <section>
+              <h5 class="mt-3 sub-title">PREVIOUS INSURE DETAILS </h5>
+              <div class="row box-card">
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
+                          <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.prevInsuranceValue}}</li>
+                          <!--                          <li class="list-group-item"><strong>Previous From Date:</strong> {{previousFormData.prevPolStartDate | date: 'dd/MM/yyyy'}}</li>-->
+                          <!--                                              <li class="list-group-item"><strong>Previous End Date:</strong> {{previousFormData.previousdEndob | date: 'dd/MM/yyyy'}}</li>-->
 
-            <!--                          <div class="col-md-6">-->
-            <!--                              <div class="p-3">-->
-            <!--                                  <div class="row">-->
-            <!--                                      <div class="col-md-12">-->
-            <!--                                          <ul class="m-0 list-group">-->
-            <!--                                              <li class="list-group-item" *ngIf="nomineeFormData.appointeeName != ''"><strong>Appointee Name:</strong> {{nomineeFormData.appointeeName}}</li>-->
-            <!--                                              <li class="list-group-item" *ngIf="nomineeFormData.appointeeRelationship != ''"><strong>Appointee Relationship:</strong> {{nomineeFormData.appointeeRelationship}}</li>-->
-            <!--                                          </ul>-->
-            <!--                                      </div>-->
-            <!--                                  </div>-->
-            <!--                              </div>-->
-            <!--                          </div>-->
-            <!--                      </div>-->
-            <!--                  </section>-->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="p-3">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <ul class="m-0 list-group">
+                          <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.prevYearPolicyTypeValue}}</li>
+                          <li class="list-group-item"><strong>Previous Policy Sold:</strong> {{previousFormData.prevPolSold}}</li>
+                          <!--                                              <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>-->
+                          <li class="list-group-item"><strong>Previous Insurer Address:</strong> {{previousFormData.prevInsurerAddress}}</li>
+                          <!--                                              <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>-->
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
+              </div>
+            </section>
 
             <p class="mt-2 pl-3">
             <mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox>

@@ -438,7 +438,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
 
       }
-      if(type == 'proposer'){
+      if(type == 'proposor'){
         console.log(this.proposerAge,'age');
         sessionStorage.proposerAge = this.proposerAge;
       }
@@ -499,6 +499,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       if (this.relianceProposal.valid) {
         if(sessionStorage.proposerAge >= 18 ){
           stepper.next();
+          this.topScroll();
         }else {
           this.toastr.error('Proposer Age should be greater than 18.')
         }
@@ -1010,7 +1011,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // this.nextStep();
 
     } else {
-      alert('2')
       this.toastr.error(successData.ErrorObject);
     }
   }

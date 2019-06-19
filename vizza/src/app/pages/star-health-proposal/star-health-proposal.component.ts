@@ -763,6 +763,19 @@ export class StarHealthProposalComponent implements OnInit {
     selectOccupation(index) {
         this.familyMembers[index].ins_occupation_name = this.occupationList[this.familyMembers[index].ins_occupation_id];
     }
+    changeCity() {
+        this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
+
+    }
+    changeArea(){
+        this.personal.controls['personalAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
+    }
+    changeresCity(){
+        this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
+    }
+    changeresArea(){
+        this.personal.controls['residenceAreaName'].patchValue(this.rAreaNames[this.personal.controls['residenceArea'].value]);
+    }
 
     personalDetails(stepper: MatStepper, value) {
         sessionStorage.stepper1Details = '';
@@ -1447,17 +1460,17 @@ export class StarHealthProposalComponent implements OnInit {
             'proposer_res_address1': this.personalData.residenceAddress,
             'proposer_res_address2': this.personalData.residenceAddress2,
             'proposer_res_area': this.personalData.residenceArea.toString(),
-            'proposer_res_areaname': '',
+            'proposer_res_areaname':  this.personal.controls['residenceAreaName'].value,
             'proposer_res_city': this.personalData.residenceCity.toString(),
-            'proposer_res_cityname': '',
+            'proposer_res_cityname': this.personal.controls['residenceCityName'].value,
             'proposer_res_state': this.personalData.residenceState,
             'proposer_res_pincode': this.personalData.residencePincode,
             'proposer_comm_address1': this.personalData.personalAddress,
             'proposer_comm_address2': this.personalData.personalAddress2,
             'proposer_comm_area': this.personalData.personalArea.toString(),
-            'proposer_comm_areaname': '',
+            'proposer_comm_areaname': this.personal.controls['personalAreaName'].value,
             'proposer_comm_city': this.personalData.personalCity.toString(),
-            'proposer_comm_cityname': '',
+            'proposer_comm_cityname': this.personal.controls['personalCityName'].value,
             'proposer_comm_state': this.personalData.personalState,
             'proposer_comm_pincode': this.personalData.personalPincode,
             'prop_dob': this.datepipe.transform(this.personalData.personalDob, 'y-MM-dd') ,
@@ -1516,8 +1529,6 @@ export class StarHealthProposalComponent implements OnInit {
             this.proposalId = this.summaryData.policy_id;
             sessionStorage.proposalID = this.proposalId;
             this.personal.controls['personalOccupationName'].patchValue(this.occupationList[this.personal.controls['personalOccupation'].value]);
-            this.personal.controls['personalCityName'].patchValue(this.personalCitys[this.personal.controls['personalCity'].value]);
-            this.personal.controls['personalAreaName'].patchValue(this.areaNames[this.personal.controls['personalArea'].value]);
             if (sessionStorage.residenceCitys != '' && sessionStorage.residenceCitys != undefined && !this.personal.controls['sameas'].value) {
                 this.personal.controls['residenceCityName'].patchValue(this.residenceCitys[this.personal.controls['residenceCity'].value]);
                 this.personal.controls['residenceAreaName'].patchValue(this.rAreaNames[this.personal.controls['residenceArea'].value]);

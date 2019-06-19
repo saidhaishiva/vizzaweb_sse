@@ -1635,12 +1635,6 @@
                                                 <li class="list-group-item"><strong>Age:</strong> {{item.personalAge}}</li>
                                                 <li class="list-group-item"><strong>Occupation:</strong> {{item.occupationName}}</li>
                                                 <li class="list-group-item"><strong>Relationship:</strong> {{item.personalrelationshipName}}</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-12 col-xs-12 col-md-12">
-                                        <div class="p-3">
-                                            <ul class="m-0 list-group">
                                                 <li class="list-group-item" *ngIf="item.IsExistingIllness == 'No'"><strong >Existing Illness :  </strong> No </li>
                                                 <li class="list-group-item"  *ngIf="item.IsExistingIllness == 'Yes'"><strong >Existing Illness :  </strong> Yes </li>
                                                 <li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'No'"><strong>Insured Consume Tobacco : </strong> No</li>
@@ -1649,15 +1643,29 @@
                                                 <li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'Yes'"><strong>Has Any Pre Claim On Insured : </strong>Yes</li>
                                                 <li class="list-group-item" *ngIf="item.HasAnyPreHealthInsuranceCancelled == 'No'"><strong>Has Any Pre Health Insurance Cancelled : </strong> No</li>
                                                 <li class="list-group-item" *ngIf="item.HasAnyPreHealthInsuranceCancelled == 'Yes'"><strong>Has Any Pre Health Insurance Cancelled : </strong> Yes</li>
-
-                                                <!--<li class="list-group-item"><strong>Details Of Pre Claim On Insured : </strong> <span *ngIf="item.PreExistingDisease.DetailsOfPreClaimOnInsured == ''">Nil</span><span *ngIf="item.PreExistingDisease.DetailsOfPreClaimOnInsured != ''">{{item.PreExistingDisease.DetailsOfPreClaimOnInsured}}</span></li>-->
-                                                <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].pre_existing_disease_name !=''"><strong>Disease:</strong> {{item.PreExistingDisease.DiseaseList[0].pre_existing_disease_name}}</li>-->
-                                                <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].SufferingSince !=''"><strong>Suffering Since : </strong> {{item.PreExistingDisease.DiseaseList[0].SufferingSince}}</li>-->
-                                                <!--<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].OtherDisease !=''"><strong>Other Disease : </strong> {{item.PreExistingDisease.DiseaseList[0].OtherDisease}}</li>-->
-
                                             </ul>
                                         </div>
                                     </div>
+                                    <!--<div class="col-sm-12 col-xs-12 col-md-12">-->
+                                        <!--<div class="p-3">-->
+                                            <!--<ul class="m-0 list-group">-->
+                                                <!--<li class="list-group-item" *ngIf="item.IsExistingIllness == 'No'"><strong >Existing Illness :  </strong> No </li>-->
+                                                <!--<li class="list-group-item"  *ngIf="item.IsExistingIllness == 'Yes'"><strong >Existing Illness :  </strong> Yes </li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'No'"><strong>Insured Consume Tobacco : </strong> No</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.IsInsuredConsumetobacco == 'Yes'"><strong>Insured Consume Tobacco : </strong> Yes</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'No'"><strong>Has Any Pre Claim On Insured : </strong> No</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.HasAnyPreClaimOnInsured == 'Yes'"><strong>Has Any Pre Claim On Insured : </strong>Yes</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.HasAnyPreHealthInsuranceCancelled == 'No'"><strong>Has Any Pre Health Insurance Cancelled : </strong> No</li>-->
+                                                <!--<li class="list-group-item" *ngIf="item.HasAnyPreHealthInsuranceCancelled == 'Yes'"><strong>Has Any Pre Health Insurance Cancelled : </strong> Yes</li>-->
+
+                                                <!--&lt;!&ndash;<li class="list-group-item"><strong>Details Of Pre Claim On Insured : </strong> <span *ngIf="item.PreExistingDisease.DetailsOfPreClaimOnInsured == ''">Nil</span><span *ngIf="item.PreExistingDisease.DetailsOfPreClaimOnInsured != ''">{{item.PreExistingDisease.DetailsOfPreClaimOnInsured}}</span></li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].pre_existing_disease_name !=''"><strong>Disease:</strong> {{item.PreExistingDisease.DiseaseList[0].pre_existing_disease_name}}</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].SufferingSince !=''"><strong>Suffering Since : </strong> {{item.PreExistingDisease.DiseaseList[0].SufferingSince}}</li>&ndash;&gt;-->
+                                                <!--&lt;!&ndash;<li class="list-group-item" *ngIf="item.PreExistingDisease.DiseaseList[0].OtherDisease !=''"><strong>Other Disease : </strong> {{item.PreExistingDisease.DiseaseList[0].OtherDisease}}</li>&ndash;&gt;-->
+
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
                                 </div>
                             </section>
                             <h5 class="mt-3 sub-title">PREVIOUS INSURANCE DETAILS </h5>

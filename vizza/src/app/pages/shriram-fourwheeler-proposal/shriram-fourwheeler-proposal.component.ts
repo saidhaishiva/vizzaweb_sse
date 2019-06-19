@@ -180,6 +180,8 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       Bhutan: '',
       geographicalArea:'',
       CNGKit:'',
+      vehicleColour: ['', Validators.required],
+
 
     });
     this.previousInsure = this.fb.group({
@@ -189,7 +191,6 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       policyNilDescription: '0',
       previousPolicyTypeName:'',
       policySi:['', Validators.required],
-      vehicleColour: ['', Validators.required],
 
 
     });
@@ -915,7 +916,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "CoverNoteNo": "",
         "CoverNoteDt": "",
         "IDV_of_Vehicle": '',
-        "Colour": this.previousInsure.controls['vehicleColour'].value,
+        "Colour": this.vehical.controls['vehicleColour'].value,
         "NoEmpCoverLL": "",
         "VehiclePurposeYN": "",
         "DriverAgeYN": "0",
@@ -1099,12 +1100,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         Bhutan:stepper2.Bhutan,
         geographicalArea:stepper2.geographicalArea,
         CNGKit:stepper2.CNGKit,
+        vehicleColour: stepper2.vehicleColour,
+
       });
 
     }
-    // if (sessionStorage.policyDatevalidateArray != '' && sessionStorage.policyDatevalidateArray != undefined) {
-    //   this.policyDatevalidate = JSON.parse(sessionStorage.policyDatevalidateArray);
-    //
+
 
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
@@ -1115,7 +1116,6 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         previousPolicyType: stepper3.previousPolicyType,
         policyNilDescription: stepper3.policyNilDescription,
         previousPolicyTypeName: stepper3.previousPolicyTypeName,
-        vehicleColour: stepper3.vehicleColour,
 
       });
 

@@ -157,6 +157,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getNamelist();
     this.getCodelist();
     this.getRelationList();
+    this.sessionData();
     this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
     console.log(this.vehicledata);
     this.buycarDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
@@ -420,32 +421,6 @@ export class CarTataaigProposalComponent implements OnInit {
   FinanceFailure(error) {
 
   }
-
-  // // PACover_for_OwnerDriver for Addons
-  // coverdriveList() {
-  //   const data = {
-  //     'platform': 'web',
-  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-  //   };
-  //   this.carinsurance.coverdrive(data).subscribe(
-  //       (successData) => {
-  //         this.coverdriveSuccess(successData);
-  //       },
-  //       (error) => {
-  //         this.coverdriveFailure(error);
-  //       }
-  //   );
-  // }
-  //
-  // coverdriveSuccess(successData) {
-  //   this.coverlist = successData.ResponseObject;
-  // }
-  //
-  // coverdriveFailure(error) {
-  //
-  // }
-
 
   chooseflag(event: any) {
     console.log(this.proposer.controls['driveflag'].value, 'driveflag');

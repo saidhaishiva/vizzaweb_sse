@@ -9,6 +9,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material'
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {ActivatedRoute} from '@angular/router';
 
 
 export const MY_FORMATS = {
@@ -82,9 +83,40 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   //dob
   proposerAge : any;
+  nomineeAge : any;
+  showNominee : any;
   personalDobError : any;
   previousDateError : any;
-  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
+  ProposalId : any;
+  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public route: ActivatedRoute , public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
+
+    let stepperindex = 0;
+    this.route.params.forEach((params) => {
+      if(params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+          this.summaryData = JSON.parse(sessionStorage.summaryData);
+          // this.ProposalId =   this.summaryData.proposalNo;
+          // this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
+          // this.PolicySisID =   this.summaryData.PolicySisID;
+          // this.PaymentReturn =   this.summaryData.PaymentReturn;
+          // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+          // this.riskFormData = JSON.parse(sessionStorage.riskFormData);
+          // this.coverFormData = JSON.parse(sessionStorage.riskFormData);
+          // this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+          // this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+          sessionStorage.relianceTwowheelerproposalID = this.ProposalId;
+
+          this.proposerFormData = this.relianceProposal.value;
+          // this.riskFormData = this.riskDetails.value;
+          // this.coverFormData = this.coverDetails.value;
+          // this.previousFormData = this.previousInsurance.value;
+          // sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+
+        }
+      }
+    });
+
 
     this.setting = appsetting.settings;
     this.webhost = this.config.getimgUrl();
@@ -149,7 +181,6 @@ export class RelianceMotorProposalComponent implements OnInit {
       prevInsurance : ['',Validators.required],
       prevYearPolicyType : ['',Validators.required],
       policyNumber : ['',Validators.required],
-      prevPolStartDate : ['',Validators.required],
       prevPolSold : ['',Validators.required],
       prevInsurerAddress: ['',Validators.required],
       prevInsuranceValue: [''],
@@ -157,13 +188,11 @@ export class RelianceMotorProposalComponent implements OnInit {
     });
 
     this.coverDetails = this.fb.group({
-      UnnamedPassengerCovered: [''],
       AutomobileAssociationMember: [''],
       AntiTheftDeviceFitted: [''],
       InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
       NilDepreciationCoverage: [''],
-      LiabilityToPaidDriverCovered: [''],
       TPPDCover: [''],
       BasicODCoverage: [''],
       BasicLiability: [''],
@@ -327,13 +356,13 @@ export class RelianceMotorProposalComponent implements OnInit {
         if (pattern.test(event.value._i) && event.value._i.length == 10) {
           if (type == 'proposor') {
             this.personalDobError = '';
-          }else if(type == 'insurer'){
+          } else if (type == 'nominee') {
             this.personalDobError = '';
           }
         } else {
           if (type == 'proposor') {
             this.personalDobError = 'Enter Valid Dob';
-          }else if ( type == 'insurer'){
+          } else if (type == 'insurer') {
             this.personalDobError = 'Enter Valid Dob';
           }
         }
@@ -342,8 +371,8 @@ export class RelianceMotorProposalComponent implements OnInit {
         if (selectedDate.length == 10 && type == 'proposor') {
           this.proposerAge = this.ageCalculate(dob);
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
-        }else if(selectedDate.length ==10 && type == 'insurer') {
-          this.proposerAge = this.ageCalculate(dob);
+        } else if (selectedDate.length == 10 && type == 'nominee') {
+          this.nomineeAge = this.ageCalculate(dob);
         }
 
       } else if (typeof event.value._i == 'object') {
@@ -352,13 +381,34 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.proposerAge = this.ageCalculate(dob);
           this.personalDobError = '';
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
-        }else {
-          this.proposerAge = this.ageCalculate(dob);
+        } else {
+          this.nomineeAge = this.ageCalculate(dob);
 
         }
 
       }
+      if (type == 'proposor') {
+        console.log(this.proposerAge, 'age');
+        sessionStorage.proposerAge = this.proposerAge;
+      }
 
+
+      if (type == 'nominee') {
+        console.log(this.nomineeAge, 'nomineeAge');
+        sessionStorage.nomineeAge = this.nomineeAge;
+        if (sessionStorage.nomineeAge <= 18) {
+          this.showNominee = true;
+          this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
+          this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+        } else {
+          this.coverDetails.controls['cappointeeName'].patchValue('');
+          this.coverDetails.controls['cappointeeName'].setValidators(null);
+          this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+          this.showNominee = false;
+
+        }
+
+      }
     }
   }
 
@@ -395,9 +445,13 @@ export class RelianceMotorProposalComponent implements OnInit {
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
       this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
-
       if (this.relianceProposal.valid) {
-        stepper.next();
+        if(sessionStorage.proposerAge >= 18 ){
+          stepper.next();
+          this.topScroll();
+        }else {
+          this.toastr.error('Proposer Age should be greater than 18.')
+        }
       }
     } else if (type == 'stepper2') {
       sessionStorage.stepper2Details = '';
@@ -500,13 +554,11 @@ export class RelianceMotorProposalComponent implements OnInit {
     if(sessionStorage.stepper3Details != '' && sessionStorage.stepper3Details != undefined){
       this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
       this.coverDetails = this.fb.group({
-        UnnamedPassengerCovered: this.getStepper3.UnnamedPassengerCovered,
         PAToOwnerDriverCoverd: this.getStepper3.PAToOwnerDriverCoverd,
         AutomobileAssociationMember: this.getStepper3.AutomobileAssociationMember,
         AntiTheftDeviceFitted: this.getStepper3.AntiTheftDeviceFitted,
         InsurancePremium: this.getStepper3.InsurancePremium,
         NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
-        LiabilityToPaidDriverCovered: this.getStepper3.LiabilityToPaidDriverCovered,
         TPPDCover: this.getStepper3.TPPDCover,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
         BasicLiability: this.getStepper3.BasicLiability,
@@ -525,13 +577,26 @@ export class RelianceMotorProposalComponent implements OnInit {
       });
     }
 
+    if(sessionStorage.nomineeAge != '' && sessionStorage.nomineeAge != undefined) {
+      if(sessionStorage.nomineeAge <= 18){
+        this.showNominee = true;
+        this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
+        this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+      }else{
+        this.coverDetails.controls['cappointeeName'].patchValue('');
+        this.coverDetails.controls['cappointeeName'].setValidators(null);
+        this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+        this.showNominee = false;
+
+      }
+    }
+
     if(sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined ){
       this.getStepper4 = JSON.parse(sessionStorage.stepper4Details);
       this.previousInsurance = this.fb.group({
         prevInsurance: this.getStepper4.prevInsurance,
         prevYearPolicyType: this.getStepper4.prevYearPolicyType,
         policyNumber: this.getStepper4.policyNumber,
-        prevPolStartDate: this.datepipe.transform(this.getStepper4.prevPolStartDate, 'y-MM-dd'),
         prevPolSold: this.getStepper4.prevPolSold,
         prevInsurerAddress: this.getStepper4.prevInsurerAddress,
         prevInsuranceValue: this.getStepper4.prevInsuranceValue,
@@ -758,29 +823,27 @@ export class RelianceMotorProposalComponent implements OnInit {
         },
         'Risk': {
           'IDV': this.riskDetails.controls['IDV'].value,
-          'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value.toString(),
-          'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value.toString(),
-          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value.toString()
+          'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value ? 'true' : 'false',
+          'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value ? 'true' : 'false',
+          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value ? 'true' : 'false'
         },
         'Vehicle': {
 
           'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
-          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value.toString()
+          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value ? 'true' : 'false'
         },
         'Cover': {
-          'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value.toString(),
-          'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value.toString(),
-          'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value.toString(),
-          'IsLiabilityToPaidDriverCovered': this.coverDetails.controls['LiabilityToPaidDriverCovered'].value.toString(),
-          'IsAntiTheftDeviceFitted': this.coverDetails.controls['AntiTheftDeviceFitted'].value.toString(),
-          'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value.toString(),
-          'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value.toString(),
-          'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value.toString(),
-          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value.toString(),
-          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value.toString(),
+          'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value ? 'true' : 'false',
+          'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value ? 'true' : 'false',
+          'IsAntiTheftDeviceFitted': this.coverDetails.controls['AntiTheftDeviceFitted'].value ? 'true' : 'false',
+          'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value ? 'true' : 'false',
+          'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
+          'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value ? 'true' : 'false',
+          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value ? 'true' : 'false',
+          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'PACoverToOwner': {
             'PACoverToOwner': {
-              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value.toString(),
+              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value ? 'true' : 'false',
               'NoOfItems': '',
               'PackageName': '',
               'AppointeeName': this.coverDetails.controls['cappointeeName'].value,
@@ -815,12 +878,11 @@ export class RelianceMotorProposalComponent implements OnInit {
         },
         'PreviousInsuranceDetails': {
           'PrevInsuranceID': '',
-          'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value.toString(),
+          'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value ? 'true' : 'false',
           'PrevYearInsurer': this.previousInsurance.controls['prevInsurance'].value,
           'PrevYearPolicyNo': this.previousInsurance.controls['policyNumber'].value,
           'PrevYearInsurerAddress': this.previousInsurance.controls['prevInsurerAddress'].value,
-          'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value,
-          'PrevYearPolicyStartDate': this.previousInsurance.controls['prevPolStartDate'].value
+          'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value
         }
       }
     };
@@ -843,7 +905,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       // this.proposalId = this.summaryData.policy_id;
       // sessionStorage.relianceMotorproposalID = this.proposalId;
-      this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
+      this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
 
       this.proposerFormData = this.relianceProposal.value;
       this.riskFormData = this.riskDetails.value;
