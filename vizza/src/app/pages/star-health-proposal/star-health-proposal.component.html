@@ -164,7 +164,7 @@
                             <mat-error *ngIf="personal.controls.personalPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-6"><mat-form-field class="w-100" >
-                            <mat-select placeholder="City" formControlName="personalCity"  (change)="getAreas('personal', 'manual')" autocomplete="off" required>
+                            <mat-select placeholder="City" formControlName="personalCity"  (change)="getAreas('personal', 'manual'); changeCity()" autocomplete="off" required>
                               <mat-option *ngFor="let city of personalCitys | keys " [value]= 'city.key'>
                                 {{city.value}}
                               </mat-option>
@@ -176,7 +176,7 @@
                             <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
                           </mat-form-field></div>
                           <div class="col-md-6"><mat-form-field class="w-100" >
-                            <mat-select placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils()" autocomplete="off" required>
+                            <mat-select placeholder="Area" formControlName="personalArea" (change)="typeAddressDeatils(); changeArea()" autocomplete="off" required>
                               <mat-option *ngFor="let area of areaNames | keys" [value]= 'area.key'>
                                 {{area.value}}
                               </mat-option>
@@ -217,7 +217,7 @@
                           </mat-form-field></div>
                           <div class="col-md-6" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
                             <mat-form-field class="w-100" >
-                            <mat-select placeholder="City" formControlName="residenceCity"  (change)="getAreas('residence', 'rmanual')"  autocomplete="off">
+                            <mat-select placeholder="City" formControlName="residenceCity"  (change)="getAreas('residence', 'rmanual'); changeresCity()"  autocomplete="off">
                               <mat-option *ngFor="let citys of residenceCitys | keys" [value]= 'citys.key'>
                                 {{citys.value}}
                               </mat-option>
@@ -228,7 +228,7 @@
                             <input matInput placeholder="State" formControlName="residenceState"  autocomplete="off" readonly>
                           </mat-form-field></div>
                           <div class="col-md-6"><mat-form-field class="w-100" [ngStyle]="{'pointer-events': personal['controls'].sameas.value ? 'none' : ''}">
-                            <mat-select placeholder="Area" formControlName="residenceArea"   autocomplete="off" >
+                            <mat-select placeholder="Area" formControlName="residenceArea"   (change)="changeresArea()" autocomplete="off" >
                               <mat-option *ngFor="let rarea of rAreaNames | keys" [value]= 'rarea.key'>
                                 {{rarea.value}}
                               </mat-option>
