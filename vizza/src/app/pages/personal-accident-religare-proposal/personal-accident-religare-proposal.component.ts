@@ -1191,7 +1191,9 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 'annualSalary': this.insured.controls['insuredAnnualIncome'].value != 0 ? this.insured.controls['insuredAnnualIncome'].value: '',
                 'occupationCode':this.insured.controls['insuredOccupationCode'].value,
                 'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
+                'occupationClassValue':this.insured.controls['insuredDescriptionCodeName'].value,
                 'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
+                'classDescriptionValue': this.insureoccupationDescription ? this.insured.controls['insuredClassDescriptionCodeName'].value : this.insured.controls['insuredClassDescriptionCodeName'].value,
                 'lastName':  this.insured.controls['insuredLastname'].value,
                 "partyAddressDOList": [{
                     'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
@@ -1251,7 +1253,10 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     'annualSalary': this.insured.controls['insuredAnnualIncome'].value != 0 ? this.insured.controls['insuredAnnualIncome'].value: '',
                     'occupationCode':this.insured.controls['insuredOccupationCode'].value,
                     'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
+                    'occupationClassValue':this.insured.controls['insuredDescriptionCodeName'].value,
+
                     'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
+                    'classDescriptionValue': this.insureoccupationDescription ? this.insured.controls['insuredClassDescriptionCodeName'].value : this.insured.controls['insuredClassDescriptionCodeName'].value,
                     'lastName':  this.insured.controls['insuredLastname'].value,
                     'height': this.insured.controls['insuredHeight'].value,
                     'weight': this.insured.controls['insuredWeight'].value,
