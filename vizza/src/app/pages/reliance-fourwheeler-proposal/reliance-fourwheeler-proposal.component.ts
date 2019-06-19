@@ -438,7 +438,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
 
       }
-      if(type == 'proposer'){
+      if(type == 'proposor'){
         console.log(this.proposerAge,'age');
         sessionStorage.proposerAge = this.proposerAge;
       }

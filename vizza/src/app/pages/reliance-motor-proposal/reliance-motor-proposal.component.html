@@ -338,9 +338,14 @@
                                           </mat-form-field>
                                       </div>
                                   </div>
-                                  <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
 
-                                  <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
+
+                                  <div class="proposal-buttom mt-3 text-right w-100">
+                                      <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
+
+                                      <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
+                                  </div>
+
                               </div>
                           </div>
                       </form>
@@ -400,12 +405,7 @@
                             </div>
                         </div>
                         <div class="row">
-                        <div class="col-md-4 mt-3">
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="Appointee Name" formControlName="cappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
-<!--                                <mat-error *ngIf="relianceProposal.controls.firstName.errors?.required">FirstName is required</mat-error>-->
-                            </mat-form-field>
-                        </div>
+
                         <div class="col-md-4 mt-3">
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Nominee Name" formControlName="cnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
@@ -440,12 +440,18 @@
 
                         <div class="col-md-4 mt-3">
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (change)="changenOtherRelation()" >
+                                <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (change)="changenOtherRelation()" required>
                                     <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
                                 </mat-select>
-<!--                                <mat-error *ngIf="coverDetails.controls.nrelation.errors?.required">Relation  is required</mat-error>-->
+                                <mat-error *ngIf="coverDetails.controls.nOtherRelation.errors?.required">Relation  is required</mat-error>
                             </mat-form-field>
                         </div>
+                            <div class="col-md-4 mt-3">
+                                <mat-form-field class="w-100" *ngIf="showNominee">
+                                    <input matInput placeholder="Appointee Name" formControlName="cappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                                    <mat-error *ngIf="coverDetails.controls.cappointeeName.errors?.required">Appointee Name is required</mat-error>
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
 
