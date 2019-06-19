@@ -83,6 +83,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   //dob
   proposerAge : any;
+  nomineeAge : any;
   personalDobError : any;
   previousDateError : any;
   ProposalId : any;
@@ -179,7 +180,6 @@ export class RelianceMotorProposalComponent implements OnInit {
       prevInsurance : ['',Validators.required],
       prevYearPolicyType : ['',Validators.required],
       policyNumber : ['',Validators.required],
-      prevPolStartDate : ['',Validators.required],
       prevPolSold : ['',Validators.required],
       prevInsurerAddress: ['',Validators.required],
       prevInsuranceValue: [''],
@@ -355,7 +355,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         if (pattern.test(event.value._i) && event.value._i.length == 10) {
           if (type == 'proposor') {
             this.personalDobError = '';
-          }else if(type == 'insurer'){
+          }else if(type == 'nominee'){
             this.personalDobError = '';
           }
         } else {
@@ -370,8 +370,8 @@ export class RelianceMotorProposalComponent implements OnInit {
         if (selectedDate.length == 10 && type == 'proposor') {
           this.proposerAge = this.ageCalculate(dob);
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
-        }else if(selectedDate.length ==10 && type == 'insurer') {
-          this.proposerAge = this.ageCalculate(dob);
+        }else if(selectedDate.length ==10 && type == 'nominee') {
+          this.nomineeAge = this.ageCalculate(dob);
         }
 
       } else if (typeof event.value._i == 'object') {
@@ -381,7 +381,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.personalDobError = '';
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
         }else {
-          this.proposerAge = this.ageCalculate(dob);
+          this.nomineeAge = this.ageCalculate(dob);
 
         }
 
@@ -557,7 +557,6 @@ export class RelianceMotorProposalComponent implements OnInit {
         prevInsurance: this.getStepper4.prevInsurance,
         prevYearPolicyType: this.getStepper4.prevYearPolicyType,
         policyNumber: this.getStepper4.policyNumber,
-        prevPolStartDate: this.datepipe.transform(this.getStepper4.prevPolStartDate, 'y-MM-dd'),
         prevPolSold: this.getStepper4.prevPolSold,
         prevInsurerAddress: this.getStepper4.prevInsurerAddress,
         prevInsuranceValue: this.getStepper4.prevInsuranceValue,
@@ -784,27 +783,27 @@ export class RelianceMotorProposalComponent implements OnInit {
         },
         'Risk': {
           'IDV': this.riskDetails.controls['IDV'].value,
-          'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value.toString(),
-          'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value.toString(),
-          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value.toString()
+          'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value ? 'true' : 'false',
+          'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value ? 'true' : 'false',
+          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value ? 'true' : 'false'
         },
         'Vehicle': {
 
           'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
-          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value.toString()
+          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value ? 'true' : 'false'
         },
         'Cover': {
-          'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value.toString(),
-          'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value.toString(),
-          'IsAntiTheftDeviceFitted': this.coverDetails.controls['AntiTheftDeviceFitted'].value.toString(),
-          'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value.toString(),
-          'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value.toString(),
-          'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value.toString(),
-          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value.toString(),
-          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value.toString(),
+          'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value ? 'true' : 'false',
+          'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value ? 'true' : 'false',
+          'IsAntiTheftDeviceFitted': this.coverDetails.controls['AntiTheftDeviceFitted'].value ? 'true' : 'false',
+          'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value ? 'true' : 'false',
+          'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
+          'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value ? 'true' : 'false',
+          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value ? 'true' : 'false',
+          'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'PACoverToOwner': {
             'PACoverToOwner': {
-              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value.toString(),
+              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value ? 'true' : 'false',
               'NoOfItems': '',
               'PackageName': '',
               'AppointeeName': this.coverDetails.controls['cappointeeName'].value,
@@ -839,12 +838,11 @@ export class RelianceMotorProposalComponent implements OnInit {
         },
         'PreviousInsuranceDetails': {
           'PrevInsuranceID': '',
-          'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value.toString(),
+          'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value ? 'true' : 'false',
           'PrevYearInsurer': this.previousInsurance.controls['prevInsurance'].value,
           'PrevYearPolicyNo': this.previousInsurance.controls['policyNumber'].value,
           'PrevYearInsurerAddress': this.previousInsurance.controls['prevInsurerAddress'].value,
-          'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value,
-          'PrevYearPolicyStartDate': this.previousInsurance.controls['prevPolStartDate'].value
+          'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value
         }
       }
     };
@@ -867,7 +865,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       // this.proposalId = this.summaryData.policy_id;
       // sessionStorage.relianceMotorproposalID = this.proposalId;
-      this.PaymentRedirect =   this.summaryData.PaymentRedirectUrl;
+      this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
 
       this.proposerFormData = this.relianceProposal.value;
       this.riskFormData = this.riskDetails.value;

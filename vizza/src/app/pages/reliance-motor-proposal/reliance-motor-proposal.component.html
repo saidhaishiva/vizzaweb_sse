@@ -513,16 +513,6 @@
                           <mat-error *ngIf="previousInsurance.controls.prevInsurance.errors?.required">prevInsurance  is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker2"  placeholder="Policy Start Date(DD/MM/YYYY)"  (keypress)="dobValidate($event)" [max]="minDate"  formControlName="prevPolStartDate" (dateInput)="addEventPrevious($event)" (dateChange)="addEventPrevious($event)" minlength="10" maxlength="10"
-                                 autocomplete="off"   required>
-                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                          <mat-datepicker #picker2></mat-datepicker>
-                          <mat-error *ngIf="previousInsurance.controls.prevPolStartDate.errors?.required">Policy Start Date is required</mat-error>
-                        </mat-form-field>
-                        <div class="error" *ngIf="previousDateError != ''">{{previousDateError}}</div>
-                      </div>
                        <div class="col-md-4 mt-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="previor year policy" formControlName="prevYearPolicyType"  (change)="changePrevYear()"required>
@@ -755,9 +745,7 @@
                   <hr>
                   <div class="row">
                       <div class="col-md-12 text-center">
-                          <form action='{{PaymentRedirect}}' method='post' #form>
-<!--                              <input name="PolicySysID" type="hidden" value="{{PolicySisID}}" />-->
-<!--                              <input name="ReturnURL" type="hidden" value="{{PaymentReturn}}" />-->
+                          <form action='{{PaymentRedirect}}' method='POST' #form>
                               <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                               <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                           </form>
