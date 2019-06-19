@@ -300,28 +300,73 @@ export class TravelPremiumListComponent implements OnInit {
         this.getProductLists(this.allCompanyList, 'productLists');
     }
 
+    selectAllValues() {
+        console.log('t1');
+        if (!this.filterCompany.includes('All')) {
+            this.allProductLists = [];
+            this.filterCompany = [];
+        } else {
+            if(this.filterCompany.length-1 != this.allCompanyList.length) {
+                this.allProductLists = this.setAllProductLists;
+                let all = ['All'];
+                for (let i = 0; i < this.allCompanyList.length; i++) {
+                    all.push(this.allCompanyList[i].company_name);
+                }
+                this.filterCompany = all;
+            } else {
+                let cmpy = [];
+                for (let k = 0; k < this.filterCompany.length; k++) {
+                    for (let j = 0; j < this.setAllProductLists.length; j++) {
+                        if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                            cmpy.push(this.setAllProductLists[j]);
+                        }
+                    }
+                }
+                this.allProductLists = cmpy;
+            }
+        }
+    }
+    someMethod(value) {
+        console.log(value, 'this.value');
+        console.log(this.filterCompany, 'this.filterCompany');
+        // if(!this.filterCompany.includes(value)){
+        //     this.filterCompany.push(value);
+        // }
+        // console.log(this.filterCompany, 'this.filterCompany2');
+
+        let cmpy = [];
+        for (let k = 0; k < this.filterCompany.length; k++) {
+            for (let j = 0; j < this.setAllProductLists.length; j++) {
+                if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                    cmpy.push(this.setAllProductLists[j]);
+                }
+            }
+        }
+        this.allProductLists = cmpy;
+    }
     // filter by product
     filterByProducts() {
+        console.log('t2');
+
         console.log(this.filterCompany, 'allname');
 
+        let setFieldValues = this.filterCompany;
+
+        let filterWithoutAll = this.filterCompany.filter(data => data != 'All');
+
+        let validAll = true;
+
         if(this.filterCompany.includes('All')){
-            this.checkAllStatus = true;
             this.allProductLists = this.setAllProductLists;
             let all = ['All'];
             for (let i = 0; i < this.allCompanyList.length; i++) {
                 all.push(this.allCompanyList[i].company_name);
             }
             this.filterCompany = all;
-        }
-        else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
-            console.log('sec');
-            this.checkAllStatus = false;
+        } else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
             this.allProductLists = [];
             this.filterCompany = [];
-        }
-        else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
-            console.log('third');
-            this.checkAllStatus = false;
+        }  else if(!this.filterCompany.includes('All') && this.filterCompany.length > 0){
             let cmpy = [];
             for (let k = 0; k < this.filterCompany.length; k++) {
                 for (let j = 0; j < this.setAllProductLists.length; j++) {
@@ -331,12 +376,120 @@ export class TravelPremiumListComponent implements OnInit {
                 }
             }
             this.allProductLists = cmpy;
-        } else if(this.filterCompany.length == 0){
-            console.log('frth');
-            this.checkAllStatus = false;
-            this.allProductLists = [];
-            this.filterCompany = [];
+
         }
+
+
+        // if(validAll) {
+        //     // this.filterCompany = setFieldValues;
+        //     console.log(this.filterCompany.length, 'ftcmpy');
+        //     console.log(this.allCompanyList.length, 'allcpy');
+        //  if (this.filterCompany.includes('All')) {
+        //         console.log('third');
+        //         this.checkAllStatus = false;
+        //
+        //
+        //
+        //      if(this.filterCompany.length-1 == this.allCompanyList.length){
+        //
+        //           this.checkAllStatus = true;
+        //           this.allProductLists = this.setAllProductLists;
+        //           let all = ['All'];
+        //           for (let i = 0; i < this.allCompanyList.length; i++) {
+        //               all.push(this.allCompanyList[i].company_name);
+        //           }
+        //           this.filterCompany = all;
+        //
+        //        } else {
+        //            let cmpy = [];
+        //            for (let k = 0; k < this.filterCompany.length; k++) {
+        //                for (let j = 0; j < this.setAllProductLists.length; j++) {
+        //                    if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+        //                        cmpy.push(this.setAllProductLists[j]);
+        //                    }
+        //                }
+        //            }
+        //            this.allProductLists = cmpy;
+        //        }
+        //
+        //
+        //     } else if (!this.filterCompany.includes('All')) {
+        //
+        //          if (this.filterCompany.length == this.allCompanyList.length) {
+        //
+        //              this.checkAllStatus = false;
+        //              this.allProductLists = [];
+        //              this.filterCompany = [];
+        //
+        //          } else {
+        //
+        //              this.checkAllStatus = true;
+        //              this.allProductLists = this.setAllProductLists;
+        //              let all = [];
+        //              for (let i = 0; i < this.allCompanyList.length; i++) {
+        //                  all.push(this.allCompanyList[i].company_name);
+        //              }
+        //              this.filterCompany = all;
+        //          }
+        //      }
+        //
+        //
+        //
+        //
+        //  // else if (this.filterCompany.includes('All') && this.filterCompany.length > 0) {
+        //  //
+        //  //     console.log('new2');
+        //  //     this.checkAllStatus = false;
+        //  //     let cmpy = [];
+        //  //     for (let k = 0; k < this.filterCompany.length; k++) {
+        //  //         for (let j = 0; j < this.setAllProductLists.length; j++) {
+        //  //             if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+        //  //                 cmpy.push(this.setAllProductLists[j]);
+        //  //             }
+        //  //         }
+        //  //     }
+        //  //     this.allProductLists = cmpy;
+        //  //
+        //  //    }
+        //  //    else if(this.filterCompany.includes('All') ){
+        //  //        console.log('first');
+        //  //
+        //  //        this.checkAllStatus = true;
+        //  //        this.allProductLists = this.setAllProductLists;
+        //  //        let all = ['All'];
+        //  //        for (let i = 0; i < this.allCompanyList.length; i++) {
+        //  //            all.push(this.allCompanyList[i].company_name);
+        //  //        }
+        //  //        if(this.filterCompany.length == this.allCompanyList.length) {
+        //  //            this.filterCompany = all;
+        //  //        } else {
+        //  //            this.filterCompany = setFieldValues;
+        //  //
+        //  //        }
+        //  //
+        //  //    } else if(!this.filterCompany.includes('All') && this.filterCompany.length == this.allCompanyList.length){
+        //  //        console.log('new');
+        //  //
+        //  //        this.checkAllStatus = true;
+        //  //        this.allProductLists = this.setAllProductLists;
+        //  //        let all = [];
+        //  //        for (let i = 0; i < this.allCompanyList.length; i++) {
+        //  //            all.push(this.allCompanyList[i].company_name);
+        //  //        }
+        //  //        this.filterCompany = all;
+        //  //    }
+        //  //    else if (!this.filterCompany.includes('All') && filterWithoutAll.length == 0) {
+        //  //        console.log('sec');
+        //  //        this.checkAllStatus = false;
+        //  //        this.allProductLists = [];
+        //  //        this.filterCompany = [];
+        //  //    } else if (this.filterCompany.length == 0) {
+        //  //        console.log('frth');
+        //  //        this.checkAllStatus = false;
+        //  //        this.allProductLists = [];
+        //  //        this.filterCompany = [];
+        //  //    }
+        // }
         sessionStorage.filterCompany = JSON.stringify(this.filterCompany);
         sessionStorage.allProductLists = JSON.stringify(this.allProductLists);
 
