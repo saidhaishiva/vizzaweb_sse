@@ -227,7 +227,7 @@ export class BikeInsuranceComponent implements OnInit {
             sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
             sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
             sessionStorage.enquiryFormData = JSON.stringify(data);
-            if (this.bikeInsurance.valid) {
+            // if (this.bikeInsurance.valid) {
 
             let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                 width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
@@ -237,7 +237,7 @@ export class BikeInsuranceComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
             });
 
-        }
+        // }
 
         } else {
             this.toastr.error(successData.ErrorObject);

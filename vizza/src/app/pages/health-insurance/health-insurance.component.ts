@@ -885,7 +885,45 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
 
-
+    selectAllValues() {
+        console.log('t1');
+        if (!this.filterCompany.includes('All')) {
+            this.allProductLists = [];
+            this.filterCompany = [];
+        } else {
+            if(this.filterCompany.length-1 != this.allCompanyList.length) {
+                this.allProductLists = this.setAllProductLists;
+                let all = ['All'];
+                for (let i = 0; i < this.allCompanyList.length; i++) {
+                    all.push(this.allCompanyList[i].company_name);
+                }
+                this.filterCompany = all;
+            } else {
+                let cmpy = [];
+                for (let k = 0; k < this.filterCompany.length; k++) {
+                    for (let j = 0; j < this.setAllProductLists.length; j++) {
+                        if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                            cmpy.push(this.setAllProductLists[j]);
+                        }
+                    }
+                }
+                this.allProductLists = cmpy;
+            }
+        }
+    }
+    selectedCompany(value) {
+        console.log(value, 'this.value');
+        console.log(this.filterCompany, 'this.filterCompany');
+        let cmpy = [];
+        for (let k = 0; k < this.filterCompany.length; k++) {
+            for (let j = 0; j < this.setAllProductLists.length; j++) {
+                if (this.filterCompany[k] == this.setAllProductLists[j].company_name) {
+                    cmpy.push(this.setAllProductLists[j]);
+                }
+            }
+        }
+        this.allProductLists = cmpy;
+    }
 
     // filter by product
     filterByProducts() {
@@ -1229,14 +1267,13 @@ export class HealthInsuranceComponent implements OnInit {
     selector: 'healthinsurer',
     template: `        
         <div class="row">
-            <div class="col-sm-2">
-            </div>
-            <div class="col-sm-8">
-                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
-            </div>
-            <div class="col-sm-2 text-right">
+            <div class="col-sm-12 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
+            <div class="col-sm-12">
+                <h3 class="text-center color-pink"><img src="assets/img/Health-Insurance.png" class="logo-size"> About Health Insurance</h3>
+            </div>
+            
         </div>
         <div mat-dialog-content>
             <mat-accordion>
