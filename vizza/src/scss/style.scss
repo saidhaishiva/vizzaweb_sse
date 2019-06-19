@@ -632,13 +632,12 @@ a:hover {
       }
     }
     .nav-link{
-      padding-right: 70px;
       border-bottom: 1px solid #ccc;
       width: 100%;
     }
-    .groupPopUpScroll {
-      overflow-: auto;
-      height: 100vh;
+    .fa-caret-down {
+      float: right;
+      margin-right: 10px;
     }
   }
 
