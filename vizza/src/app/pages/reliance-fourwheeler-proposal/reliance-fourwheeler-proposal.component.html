@@ -351,7 +351,7 @@
 
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Financier Name"  formControlName="FinancierName"  autocomplete="off" required >
+                          <input matInput placeholder="Financier Name"  formControlName="FinancierName"  (keypress)="nameValidate($event)" autocomplete="off" required >
                           <mat-error *ngIf="riskDetails.controls.FinancierName.errors?.required">FinancierName is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -401,65 +401,65 @@
                   <div class="col-md-12 box-card pt-3">
                     <div class="row">
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event)">UnnamedPassengerCovered</mat-checkbox>
+                        <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event)">Unnamed Passenger Covered</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="PAToOwnerDriverCoverd">PAToOwnerDriverCoverd</mat-checkbox>
+                        <mat-checkbox  formControlName="PAToOwnerDriverCoverd">PA To Owner Driver Coverd</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="NilDepreciationCoverage">NilDepreciationCoverage</mat-checkbox>
+                        <mat-checkbox  formControlName="NilDepreciationCoverage">NilDepreciation Coverage</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="LiabilityToPaidDriverCovered">LiabilityToPaidDriverCovered</mat-checkbox>
+                        <mat-checkbox  formControlName="LiabilityToPaidDriverCovered">Liability To Paid Driver Covered</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="AutomobileAssociationMember">AutomobileAssociationMember</mat-checkbox>
+                        <mat-checkbox  formControlName="AutomobileAssociationMember">Automobile Association Member</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="AntiTheftDeviceFitted">AntiTheftDeviceFitted</mat-checkbox>
+                        <mat-checkbox  formControlName="AntiTheftDeviceFitted">Anti Theft Device Fitted</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="InsurancePremium">InsurancePremium</mat-checkbox>
+                        <mat-checkbox  formControlName="InsurancePremium">Insurance Premium</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="TPPDCover">TPPDCover</mat-checkbox>
+                        <mat-checkbox  formControlName="TPPDCover">TPPD Cover</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="BasicODCoverage">BasicODCoverage</mat-checkbox>
+                        <mat-checkbox  formControlName="BasicODCoverage">Basic OD Coverage</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="BasicLiability">BasicLiability</mat-checkbox>
+                        <mat-checkbox  formControlName="BasicLiability">Basic Liability</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="PACoverToOwner" (change)="updateMandatory($event)">PACoverToOwner</mat-checkbox>
-                      </div>
-
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsVoluntaryDeductableOpted" (change)="updateVoluntary($event)">VoluntaryDeductableOpted</mat-checkbox>
+                        <mat-checkbox  formControlName="PACoverToOwner" (change)="updateMandatory($event)">PA Cover ToOwner</mat-checkbox>
                       </div>
 
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsElectricalItemFitted" (change)="updateElectricalItem($event)">ElectricalItemFitted</mat-checkbox>
+                        <mat-checkbox  formControlName="IsVoluntaryDeductableOpted" (change)="updateVoluntary($event)">Voluntary Deductable Opted</mat-checkbox>
                       </div>
 
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsNonElectricalItemFitted" (change)="updatenonElectricalItem($event)">NonElectricalItemFitted</mat-checkbox>
+                        <mat-checkbox  formControlName="IsElectricalItemFitted" (change)="updateElectricalItem($event)">Electrical Item Fitted</mat-checkbox>
                       </div>
 
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event)">BiFuelKit</mat-checkbox>
+                        <mat-checkbox  formControlName="IsNonElectricalItemFitted" (change)="updatenonElectricalItem($event)">Non Electrical Item Fitted</mat-checkbox>
                       </div>
 
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsTotalCover" >TotalCover</mat-checkbox>
+                        <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event)">BiFuel Kit</mat-checkbox>
                       </div>
 
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsRegistrationCover" >RegistrationCover</mat-checkbox>
+                        <mat-checkbox  formControlName="IsTotalCover" >Total Cover</mat-checkbox>
                       </div>
 
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsRoadTaxcover" >RoadTaxcover</mat-checkbox>
+                        <mat-checkbox  formControlName="IsRegistrationCover" >Registration Cover</mat-checkbox>
+                      </div>
+
+                      <div class="col-md-3">
+                        <mat-checkbox  formControlName="IsRoadTaxcover" >Road Tax cover</mat-checkbox>
                       </div>
 
 
@@ -538,11 +538,7 @@
 
                   <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PACoverToOwner.value == true">
 
-                    <div class="row">
-                      <div class="col-md-12 mt-2">
-                        <h1 class="color-blue">Insured Details</h1>
-                      </div>
-                    </div>
+
                     <div class="row">
                       <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
@@ -838,25 +834,25 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered != ''"><strong>UnnamedPassengerCovered:</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == true">Yes</span><span *ngIf="coverFormData.UnnamedPassengerCovered == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>AutomobileAssociationMember:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>AntiTheftDeviceFitted:</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.InsurancePremium != ''"><strong>InsurancePremium:</strong><span *ngIf="coverFormData.InsurancePremium == true">Yes</span><span *ngIf="coverFormData.InsurancePremium == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''"><strong>PAToOwnerDriverCoverd:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == true">Yes</span><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage != ''"><strong>NilDepreciationCoverage:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == true">Yes</span><span *ngIf="coverFormData.NilDepreciationCoverage == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered != ''"><strong>LiabilityToPaidDriverCovered:</strong><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == true">Yes</span><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPDCover:</strong><span *ngIf="coverFormData.TPPDCover == true">Yes</span><span *ngIf="coverFormData.TPPDCover == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>BasicODCoverage:</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>BasicLiability:</strong><span *ngIf="coverFormData.BasicLiability == true">Yes</span><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.NewVehicle != ''"><strong>NewVehicle:</strong><span *ngIf="coverFormData.NewVehicle == true">Yes</span><span *ngIf="coverFormData.NewVehicle == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted != ''"><strong>VoluntaryDeductableOpted:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == true">Yes</span><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted != ''"><strong>ElectricalItemFitted:</strong><span *ngIf="coverFormData.IsElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsElectricalItemFitted == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted != ''"><strong>NonElectricalItemFitted:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsNonElectricalItemFitted == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>BiFuelKit:</strong><span *ngIf="coverFormData.IsBiFuelKit == true">Yes</span><span *ngIf="coverFormData.IsBiFuelKit == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsRoadTaxcover != ''"><strong>RoadTaxcover:</strong><span *ngIf="coverFormData.IsRoadTaxcover == true">Yes</span><span *ngIf="coverFormData.IsRoadTaxcover == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsRegistrationCover != ''"><strong>RegistrationCover:</strong><span *ngIf="coverFormData.IsRegistrationCover == true">Yes</span><span *ngIf="coverFormData.IsRegistrationCover == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsTotalCover != ''"><strong>TotalCover:</strong><span *ngIf="coverFormData.IsTotalCover == true">Yes</span><span *ngIf="coverFormData.IsTotalCover == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelType}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered != ''"><strong>Unnamed Passenger Covered:</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == true">Yes</span><span *ngIf="coverFormData.UnnamedPassengerCovered == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>Automobile Association Member:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>Anti Theft Device Fitted:</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.InsurancePremium != ''"><strong>Insurance Premium:</strong><span *ngIf="coverFormData.InsurancePremium == true">Yes</span><span *ngIf="coverFormData.InsurancePremium == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''"><strong>PA To Owner Driver Coverd:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == true">Yes</span><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.NilDepreciationCoverage != ''"><strong>NilDepreciation Coverage:</strong><span *ngIf="coverFormData.NilDepreciationCoverage == true">Yes</span><span *ngIf="coverFormData.NilDepreciationCoverage == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered != ''"><strong>Liability To Paid Driver Covered:</strong><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == true">Yes</span><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPD Cover:</strong><span *ngIf="coverFormData.TPPDCover == true">Yes</span><span *ngIf="coverFormData.TPPDCover == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>Basic OD Coverage:</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == true">Yes</span><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.NewVehicle != ''"><strong>New Vehicle:</strong><span *ngIf="coverFormData.NewVehicle == true">Yes</span><span *ngIf="coverFormData.NewVehicle == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted != ''"><strong>Voluntary Deductable Opted:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == true">Yes</span><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted != ''"><strong>Electrical Item Fitted:</strong><span *ngIf="coverFormData.IsElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsElectricalItemFitted == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted != ''"><strong>NonElectrical Item Fitted:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsNonElectricalItemFitted == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>BiFuel Kit:</strong><span *ngIf="coverFormData.IsBiFuelKit == true">Yes</span><span *ngIf="coverFormData.IsBiFuelKit == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsRoadTaxcover != ''"><strong>Road Tax cover:</strong><span *ngIf="coverFormData.IsRoadTaxcover == true">Yes</span><span *ngIf="coverFormData.IsRoadTaxcover == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsRegistrationCover != ''"><strong>Registration Cover:</strong><span *ngIf="coverFormData.IsRegistrationCover == true">Yes</span><span *ngIf="coverFormData.IsRegistrationCover == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.IsTotalCover != ''"><strong>Total Cover:</strong><span *ngIf="coverFormData.IsTotalCover == true">Yes</span><span *ngIf="coverFormData.IsTotalCover == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuel Type:</strong> {{coverFormData.fuelType}}</li>
                         </ul>
                       </div>
                     </div>
@@ -867,9 +863,9 @@
                     <div class="row">
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.PACoverToOwner != ''"><strong>PACoverToOwner:</strong><span *ngIf="coverFormData.PACoverToOwner == true">Yes</span><span *ngIf="coverFormData.PACoverToOwner == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.PACoverToOwner != ''"><strong>PA Cover To Owner:</strong><span *ngIf="coverFormData.PACoverToOwner == true">Yes</span><span *ngIf="coverFormData.PACoverToOwner == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>Unnamed Passengers SI:</strong> {{coverFormData.UnnamedPassengersSI}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>NoOfUnnamedPassenegersCovered:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Unnamed Passenegers Covered:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.VoluntaryDeductableAmount != '' && coverFormData.IsVoluntaryDeductableOpted ==true "><strong>Voluntary Deductable Amount:</strong> {{coverFormData.VoluntaryDeductableAmount}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.ElectricalItemsTotalSI != '' && coverFormData.IsElectricalItemFitted ==true "><strong>Electrical Items Total SI:</strong> {{coverFormData.ElectricalItemsTotalSI}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalSI != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Non Electrical Items Total SI:</strong> {{coverFormData.NonElectricalItemsTotalSI}}</li>
