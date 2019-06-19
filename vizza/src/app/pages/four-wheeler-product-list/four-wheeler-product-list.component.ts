@@ -43,11 +43,9 @@ export class FourWheelerProductListComponent implements OnInit {
     this.policyTerm = '1';
     this.compherhensive = 'Comprehensive_premium';
   }
-  ngOnInit()
-  {
-    this.getCompanyList();
+  ngOnInit() {
+      this.getCompanyList();
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
-
     this.sessionData();
   }
   sessionData() {
@@ -89,7 +87,7 @@ export class FourWheelerProductListComponent implements OnInit {
 
   }
   public companyListSuccess(successData) {
-    console.log(successData.ResponseObject);
+    console.log(successData.ResponseObjeallProductListsct);
     if (successData.IsSuccess) {
       this.allCompanyList = successData.ResponseObject;
       let all = ['All'];
@@ -98,7 +96,7 @@ export class FourWheelerProductListComponent implements OnInit {
       }
       this.filterCompany = all;
       console.log(sessionStorage.allProductLists, 'ppp');
-      if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
+      if (sessionStorage.setAllProductLists == undefined || sessionStorage.setAllProductLists == '') {
         console.log('inn');
         this.getProductList(this.allCompanyList);
       }

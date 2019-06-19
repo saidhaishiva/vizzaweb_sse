@@ -84,6 +84,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   //dob
   proposerAge : any;
   nomineeAge : any;
+  showNominee : any;
   personalDobError : any;
   previousDateError : any;
   ProposalId : any;
@@ -355,13 +356,13 @@ export class RelianceMotorProposalComponent implements OnInit {
         if (pattern.test(event.value._i) && event.value._i.length == 10) {
           if (type == 'proposor') {
             this.personalDobError = '';
-          }else if(type == 'nominee'){
+          } else if (type == 'nominee') {
             this.personalDobError = '';
           }
         } else {
           if (type == 'proposor') {
             this.personalDobError = 'Enter Valid Dob';
-          }else if ( type == 'insurer'){
+          } else if (type == 'insurer') {
             this.personalDobError = 'Enter Valid Dob';
           }
         }
@@ -370,7 +371,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         if (selectedDate.length == 10 && type == 'proposor') {
           this.proposerAge = this.ageCalculate(dob);
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
-        }else if(selectedDate.length ==10 && type == 'nominee') {
+        } else if (selectedDate.length == 10 && type == 'nominee') {
           this.nomineeAge = this.ageCalculate(dob);
         }
 
@@ -380,13 +381,34 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.proposerAge = this.ageCalculate(dob);
           this.personalDobError = '';
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
-        }else {
+        } else {
           this.nomineeAge = this.ageCalculate(dob);
 
         }
 
       }
+      if (type == 'proposor') {
+        console.log(this.proposerAge, 'age');
+        sessionStorage.proposerAge = this.proposerAge;
+      }
 
+
+      if (type == 'nominee') {
+        console.log(this.nomineeAge, 'nomineeAge');
+        sessionStorage.nomineeAge = this.nomineeAge;
+        if (sessionStorage.nomineeAge <= 18) {
+          this.showNominee = true;
+          this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
+          this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+        } else {
+          this.coverDetails.controls['cappointeeName'].patchValue('');
+          this.coverDetails.controls['cappointeeName'].setValidators(null);
+          this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+          this.showNominee = false;
+
+        }
+
+      }
     }
   }
 
@@ -423,9 +445,13 @@ export class RelianceMotorProposalComponent implements OnInit {
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
       this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
-
       if (this.relianceProposal.valid) {
-        stepper.next();
+        if(sessionStorage.proposerAge >= 18 ){
+          stepper.next();
+          this.topScroll();
+        }else {
+          this.toastr.error('Proposer Age should be greater than 18.')
+        }
       }
     } else if (type == 'stepper2') {
       sessionStorage.stepper2Details = '';
@@ -549,6 +575,20 @@ export class RelianceMotorProposalComponent implements OnInit {
         nrelationValue: this.getStepper3.nrelationValue,
         fuelTypeValue: this.getStepper3.fuelTypeValue,
       });
+    }
+
+    if(sessionStorage.nomineeAge != '' && sessionStorage.nomineeAge != undefined) {
+      if(sessionStorage.nomineeAge <= 18){
+        this.showNominee = true;
+        this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
+        this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+      }else{
+        this.coverDetails.controls['cappointeeName'].patchValue('');
+        this.coverDetails.controls['cappointeeName'].setValidators(null);
+        this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+        this.showNominee = false;
+
+      }
     }
 
     if(sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined ){

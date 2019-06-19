@@ -1198,7 +1198,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 "partyAddressDOList": [{
                     'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
                     'addressLine2Lang1':  this.insured.controls['insuredAddress2'].value,
-                    'addressTypeCd': "PERMANENT",
+                    'addressTypeCd': "COMMUNICATION",
                     'areaCd':  this.insured.controls['insuredCity'].value,
                     'cityCd': this.insured.controls['insuredCity'].value,
                     'pinCode':  this.insured.controls['insuredPincode'].value,
@@ -1208,7 +1208,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     {
                         'addressLine1Lang1':  this.insured.controls['insuredrAddress'].value,
                         'addressLine2Lang1':  this.insured.controls['insuredrAddress2'].value,
-                        'addressTypeCd': 'COMMUNICATION',
+                        'addressTypeCd': 'PERMANENT',
                         'areaCd':  this.insured.controls['insuredrCity'].value,
                         'cityCd':  this.insured.controls['insuredrCity'].value,
                         'pinCode':  this.insured.controls['insuredrPincode'].value,
@@ -1263,7 +1263,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     "partyAddressDOList": [{
                         'addressLine1Lang1':  this.insured.controls['insuredAddress'].value,
                         'addressLine2Lang1':  this.insured.controls['insuredAddress2'].value,
-                        'addressTypeCd': "PERMANENT",
+                        'addressTypeCd': "COMMUNICATION",
                         'areaCd':  this.insured.controls['insuredCity'].value,
                         'cityCd': this.insured.controls['insuredCity'].value,
                         'pinCode':  this.insured.controls['insuredPincode'].value,
@@ -1273,7 +1273,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                         {
                             'addressLine1Lang1':  this.insured.controls['insuredrAddress'].value,
                             'addressLine2Lang1':  this.insured.controls['insuredrAddress2'].value,
-                            'addressTypeCd': 'COMMUNICATION',
+                            'addressTypeCd': 'PERMANENT',
                             'areaCd':  this.insured.controls['insuredrCity'].value,
                             'cityCd':  this.insured.controls['insuredrCity'].value,
                             'pinCode':  this.insured.controls['insuredrPincode'].value,

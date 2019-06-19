@@ -463,13 +463,13 @@ a:hover {
   p{
     margin-bottom: 0;
   }
-  .nav-link{
-    border-bottom: 1px solid #ccc;
-    width: 100%;
-  }
 
   //disktop view
   @media only screen and (min-width: 768px) {
+    .nav-link{
+      border-bottom: 1px solid #ccc;
+      width: 100%;
+    }
     p.icon{
       background: #d81b60;
       padding: 28px 3px 5px;
@@ -633,6 +633,12 @@ a:hover {
     }
     .nav-link{
       padding-right: 70px;
+      border-bottom: 1px solid #ccc;
+      width: 100%;
+    }
+    .groupPopUpScroll {
+      overflow-: auto;
+      height: 100vh;
     }
   }
 
@@ -1341,7 +1347,7 @@ a:hover {
       background: #306da6;
       color: #fff;
       padding: 8px;
-      margin-bottom: 0;
+      margin-bottom: 22px;
     }
     li{
       padding-bottom: 8px;
@@ -2097,6 +2103,13 @@ a:hover {
   //.mat-dialog-container{
     height: calc(100vh - 200px);
     overflow: auto !important;
+  //}
+
+}
+#travel-details{
+  //.mat-dialog-container{
+  height: calc(100vh - 200px);
+  overflow: auto !important;
   //}
 
 }
