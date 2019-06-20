@@ -200,6 +200,9 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(poldate,'poldate');
         this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
         console.log(this.poldate, 'policy date');
+        if(this.enquiryFormData.business_type != '1') {
+            this.previouspolicy.controls['preflag'].patchValue('Y');
+        }
     }
 
     nameValidate(event: any) {
@@ -239,7 +242,6 @@ export class BikeTataaigProposalComponent implements OnInit {
     addEvent(event: any, type) {
         console.log(type);
         if (event.value != null) {
-            let selectedDate = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -595,7 +597,6 @@ export class BikeTataaigProposalComponent implements OnInit {
         } else if (this.previouspolicy.controls['preflag'].value == 'N') {
             this.previouspolicy.controls['precode'].patchValue('');
             this.previouspolicy.controls['preName'].patchValue('');
-            this.previouspolicy.controls['prepolno'].patchValue('');
             this.previouspolicy.controls['precode'].setValidators(null);
             this.previouspolicy.controls['preName'].setValidators(null);
             this.previouspolicy.controls['prepolno'].setValidators(null);
@@ -609,8 +610,12 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikeproposer = '';
         sessionStorage.tatabikeproposer = JSON.stringify(value);
         if (this.proposer.valid) {
-            console.log(value, 'proposer');
-            stepper.next();
+            if(sessionStorage.proposerAge >= 18) {
+                console.log(value, 'proposer');
+                stepper.next();
+            }else{
+                this. toastr.error('Proposer Should Be Greater than 18 and Above');
+            }
         } else {
             this.toastr.error('Please Fill All The Mandtory Fields');
         }
@@ -879,6 +884,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.previousFormData = this.previouspolicy.value;
             this.nomineeFormData = this.nominee.value;
         }else{
+            alert('in');
+            console.log(successData.ErrorObject,'error');
             this.toastr.error(successData.ErrorObject);
             this.settings.loadingSpinner = false;
         }
