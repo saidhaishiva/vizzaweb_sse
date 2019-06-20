@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import { Settings} from '../../app.settings.model';
 import { AuthService} from '../../shared/services/auth.service';
 import { Router, ActivatedRoute} from '@angular/router';
@@ -6,6 +6,8 @@ import { ToastrService} from 'ngx-toastr';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { CommonService} from '../../shared/services/common.service';
 import { AppSettings} from '../../app.settings';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
+import {ComparelistComponent} from '../health-insurance/comparelist/comparelist.component';
 
 @Component({
   selector: 'app-contact',
@@ -21,7 +23,8 @@ export class ContactComponent implements OnInit {
     getUrl: any;
     url: any;
     fileUploadPath: any;
-  constructor(public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings) {
+  constructor(public dialogRef: MatDialogRef<ComparelistComponent>,
+              @Inject(MAT_DIALOG_DATA) public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings) {
       this.settings = this.appSettings.settings;
       this.fileUploadPath = '';
 
@@ -107,7 +110,7 @@ export class ContactComponent implements OnInit {
     public getDetailsSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            console.log(successData.ResponseObject, 'successData.ResponseObject');
+            this.dialogRef.close();
             this.data = successData.ResponseObject;
         } else {
             this.toastr.success('Contact details added successfully');

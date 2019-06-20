@@ -25,6 +25,7 @@
                   <div class="row">
                       <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
                           <mat-accordion class="w-100">
+                              <div mat-dialog-content >
                               <mat-expansion-panel *ngFor="let keys of getKeyList;let i = index" [expanded]="i === 0" [style.background-color]="keys.type == 1 ? '#e8ccdb' : '#d81b60'" (click)="addClass(id=i, keys.type)" [ngClass]="{'active': id === i }" >
                                   <mat-expansion-panel-header  class="nav-item" *ngIf="keys.type == 1 || keys.type == 0" >
                                       <mat-panel-title style="height: 40px;"  >
@@ -42,6 +43,7 @@
                                       </div>
                                   </div>
                               </mat-expansion-panel>
+                              </div>
                           </mat-accordion>
                       </div>
                       </div>
@@ -129,6 +131,7 @@
               </ng-template>
               <div class="row">
                   <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
+                      <div mat-dialog-content >
                       <mat-accordion class="w-100">
                           <mat-expansion-panel *ngFor="let keys of productDocLists;let i = index" [expanded]="i == 0" [ngClass]="{'active': id1 === i }" (click)="selectedproducs(id1=i, keys.status)" [style.background-color]="keys.status == 1 ? '#e8ccdb' : '#d81b60'" >
                               <mat-expansion-panel-header class="heigt">
@@ -150,6 +153,7 @@
                               </div>
                           </mat-expansion-panel>
                       </mat-accordion>
+                      </div>
                   </div>
               </div>
 
@@ -294,6 +298,7 @@
 
               <!--mobile view-->
               <div class="col-md-12 p-0 d-block d-sm-block d-md-block d-lg-none">
+                  <div mat-dialog-content >
                 <mat-accordion class="w-100">
                   <mat-expansion-panel expanded style="background: #dc6e97">
                     <mat-expansion-panel-header  class="heigt" >
@@ -317,6 +322,7 @@
 
                   </mat-expansion-panel>
                 </mat-accordion>
+                  </div>
               </div>
             </div>
 

@@ -277,10 +277,15 @@ export class CholaHealthProposalComponent implements OnInit {
       } else if (typeof event.value._i == 'object') {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
+
           if (type == 'proposer') {
             this.personalAge = this.ageCalculate(dob);
             sessionStorage.personalAge = this.personalAge;
           }
+
+            // if ((sessionStorage.personalAge >= 18) && (sessionStorage.personalAge <= 65) ) {
+            //     this.personalAge.dobError('Proposer age between 18 to 65');
+            // }
         }
         this.dobError = '';
 
@@ -373,7 +378,7 @@ export class CholaHealthProposalComponent implements OnInit {
         console.log(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value);
 
 
-        if((parseInt(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value) <= 8034 && parseInt(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value) >= 91) && (type == 'Son' )) {
+        if ((parseInt(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value) <= 8034 && parseInt(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value) >= 91) && (type == 'Son' )) {
             this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
         }
         else if(parseInt(this.insureArray['controls'].items['controls'][i]['controls'].ins_days.value) < 91 && (type == 'Son' ))  {
