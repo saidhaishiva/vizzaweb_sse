@@ -259,9 +259,11 @@ export class BikeTataaigProposalComponent implements OnInit {
                         this.automobdateError = 'Enter Valid Date';
                     }
                 }
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.proposerAge = this.bikeProposerAge;
+                if(type == 'proposer') {
+                    dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                    this.bikeProposerAge = this.ageCalculate(dob);
+                    sessionStorage.proposerAge = this.bikeProposerAge;
+                }
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
@@ -278,10 +280,12 @@ export class BikeTataaigProposalComponent implements OnInit {
                         this.automobdateError = 'Enter Valid Date';
                     }
                 }
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, 'ageob');
-                this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.proposerAge = this.bikeProposerAge;
+                if(type == 'proposer') {
+                    dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                    console.log(dob, 'ageob');
+                    this.bikeProposerAge = this.ageCalculate(dob);
+                    sessionStorage.proposerAge = this.bikeProposerAge;
+                }
             }
         }
     }
