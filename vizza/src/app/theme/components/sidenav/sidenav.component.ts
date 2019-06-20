@@ -20,9 +20,24 @@ export class SidenavComponent implements OnInit {
   public current: any;
   public sideNavMobile: any;
 
+  // mobile drop down view
+  public showMenu: any;
+  public showMenu1: any;
+  public showMenu2: any;
+  public showMenu3: any;
+  public showMenu4: any;
+  public showMenu5: any;
+  public showMenu6: any;
+
   constructor(public appSettings:AppSettings, public menuService:MenuService){
       this.settings = this.appSettings.settings;
-
+      this.showMenu = false;
+      this.showMenu1 = false;
+      this.showMenu2 = false;
+      this.showMenu3 = false;
+      this.showMenu4 = false;
+      this.showMenu5 = false;
+      this.showMenu6 = false;
 
   }
 
@@ -31,6 +46,25 @@ export class SidenavComponent implements OnInit {
 
     if(window.innerWidth < 992){
       this.sideNavMobile = true;
+    }
+  }
+
+  // mobile drop down view functions
+  subMenu(id){
+    if(id == 1) {
+      this.showMenu = !this.showMenu;
+    }else if(id == 2){
+      this.showMenu1 = !this.showMenu1;
+    }else if(id == 3){
+      this.showMenu2 = !this.showMenu2;
+    }else if(id == 4){
+      this.showMenu3 = !this.showMenu3;
+    }else if(id == 5){
+      this.showMenu4 = !this.showMenu4;
+    }else if(id == 6){
+      this.showMenu5 = !this.showMenu5;
+    }else if(id == 7){
+      this.showMenu6 = !this.showMenu6;
     }
   }
 
