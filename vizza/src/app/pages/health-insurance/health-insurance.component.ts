@@ -607,6 +607,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
         sessionStorage.changeSuninsuredAmount = this.changeSuninsuredAmount;
         sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
+        this.setAllProductLists = this.allProductLists;
         sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
         if(this.allProductLists.length > 1) {
              this.sumInsuredAmount = this.allProductLists[0].suminsured_amount;
@@ -756,6 +757,7 @@ export class HealthInsuranceComponent implements OnInit {
         }
         this.getSumInsureId = successData[0].ResponseObject[0].group_suminsured_id;
         sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
+        this.setAllProductLists = this.allProductLists;
         sessionStorage.policyLists = JSON.stringify({index: 0, value: this.allProductLists});
         if(this.allProductLists.length > 1) {
             this.sumInsuredAmount = this.allProductLists[0].suminsured_amount;
@@ -914,6 +916,7 @@ export class HealthInsuranceComponent implements OnInit {
     selectedCompany(value) {
         console.log(value, 'this.value');
         console.log(this.filterCompany, 'this.filterCompany');
+        console.log(this.setAllProductLists, 'this.setAllProductLists');
         let cmpy = [];
         for (let k = 0; k < this.filterCompany.length; k++) {
             for (let j = 0; j < this.setAllProductLists.length; j++) {
