@@ -580,7 +580,7 @@ a:hover {
         background: #8A56DB;
       }
 
-      li:nth-child(6) .icon {
+      li:nth-child(7) .icon {
         background: #9ECA3A;
       }
 
@@ -2944,13 +2944,24 @@ btn-uploade{
 
 }
 .h-testimonial {
-  .carousel-control-prev {
-    left: -80px !important;
+  @media only screen and (min-width: 768px) {
+    .carousel-control-prev {
+      left: -80px !important;
+    }
+    .carousel-control-next {
+      right: -80px !important;
+    }
   }
-  .carousel-control-next {
-    right: -80px !important;
+  @media only screen and (max-width: 767px) {
+    .carousel-control-prev {
+      left: -14px !important;
+    }
+    .carousel-control-next {
+      right: -14px !important;
+    }
   }
-}
+  }
+
 .mat-drawer-container, .mat-toolbar, .navbar.bg-light{
   background-color: #fff !important;
 }
