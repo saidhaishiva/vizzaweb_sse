@@ -160,10 +160,10 @@
                           <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Gender<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <mat-select formControlName="driveGender" readonly>
+                          <mat-select formControlName="driveGender">
                             <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -180,10 +180,10 @@
                           <input matInput formControlName="drivingexp"  (keypress)="numValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Marital Status<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <mat-select formControlName="drivemaritalStatus" readonly>
+                          <mat-select formControlName="drivemaritalStatus">
                             <mat-option value="single">Single</mat-option>
                             <mat-option value="Married">Married</mat-option>
                             <mat-option value="Others">Others</mat-option>
