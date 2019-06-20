@@ -81,7 +81,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder="Aadhar Number" formControlName="proposerAadhar" (keypress)="numberValidate($event)" maxlength="10" minlength="10">
+                          <input matInput placeholder="Aadhar Number" formControlName="proposerAadhar" (keypress)="numberValidate($event)" maxlength="12" minlength="12">
                           <mat-error *ngIf="proposer.controls.proposerAadhar.hasError('minlength')"> Aadhaar Number should be Minimum 12 digits </mat-error>
                           <mat-error *ngIf="proposer.controls.proposerAadhar.hasError('maxlength')"> Aadhaar Number should be Minimum 12 digits </mat-error>
                         </mat-form-field>
@@ -89,23 +89,23 @@
                       <div class="col-md-12 mt-1">
                         <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="Addressone" autocomplete="off" maxlength="30" required></textarea>
                           <mat-error *ngIf="proposer.controls.Addressone.errors?.required">Address1 is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 2" rows="2" formControlName="Addresstwo" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 3" rows="2" formControlName="Addressthree" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 4" rows="2" formControlName="Addressfour" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
@@ -171,7 +171,7 @@
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Age<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3">
+                          <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
@@ -183,7 +183,7 @@
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Marital Status<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <mat-select formControlName="drivemaritalStatus">
+                          <mat-select formControlName="drivemaritalStatus" readonly>
                             <mat-option value="single">Single</mat-option>
                             <mat-option value="Married">Married</mat-option>
                             <mat-option value="Others">Others</mat-option>
@@ -228,10 +228,10 @@
                         <div class="col-md-12 mt-1">
                           <h6 class="color-blue"> FINANCIER DETAILS </h6>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-12 mt-2">
                           <mat-checkbox formControlName="Financetype" (change)="check($event)"><strong> If Vehicle is Finance? </strong></mat-checkbox>
                         </div>
-                          <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
+                          <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
                             <mat-form-field class="w-100">
                                 <mat-placeholder>Type<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                                 <mat-select formControlName="banktype" readonly>
@@ -240,7 +240,7 @@
                               </mat-select>
                             </mat-form-field>
                           </div>
-                        <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
+                        <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
                           <mat-form-field class="w-100">
                               <mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                             <input  matInput formControlName="bankName" (keypress)="nameValidate($event);financiertype($event.target.value)"  [matAutocomplete]="auto">
@@ -334,7 +334,7 @@
             </mat-accordion>
           </mat-step>
 
-          <mat-step [stepControl]="" *ngIf="enquiryFormData.business_type == '5'">
+          <mat-step [stepControl]="" *ngIf="enquiryFormData.business_type != '1'">
             <ng-template matStepLabel> PREVIOUS POLICY </ng-template>
             <mat-accordion class="w-100 float-left">
               <form [formGroup]="previouspolicy">
@@ -370,7 +370,7 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
+                  <div class="col-md-4">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="10">
@@ -526,7 +526,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                  <div class="col-md-6 mt-2" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Driving Experience:</strong> {{proposerFormData.drivingexp}}</li>
@@ -576,7 +576,7 @@
                   </div>
                   </div>
               </section>
-              <section *ngIf="enquiryFormData.business_type == '5'">
+              <section *ngIf="enquiryFormData.business_type != '1'">
                 <h5 class="mt-3 sub-title"> PREVIOUS POLICY  DETAILS </h5>
                 <div class="row box-card">
                   <div class="col-md-6">
