@@ -24,7 +24,7 @@ export class ContactComponent implements OnInit {
     url: any;
     fileUploadPath: any;
   constructor(public dialogRef: MatDialogRef<ComparelistComponent>,
-              @Inject(MAT_DIALOG_DATA) public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings) {
+              @Inject(MAT_DIALOG_DATA)  public data1: any,  public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings) {
       this.settings = this.appSettings.settings;
       this.fileUploadPath = '';
 

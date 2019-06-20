@@ -12,6 +12,7 @@ export class ComparelistComponent implements OnInit {
     keyFeatureNames: any;
     webhost: any;
     type: any;
+    selectedCompareLists: any;
   constructor(
       public dialogRef: MatDialogRef<ComparelistComponent>,
       @Inject(MAT_DIALOG_DATA) public data: any, public config: ConfigurationService) {
@@ -29,6 +30,7 @@ export class ComparelistComponent implements OnInit {
         }
     }
     console.log(this.keyFeatureNames, 'this.keyFeatureNames');
+
   }
 
   ngOnInit() {
@@ -36,5 +38,7 @@ export class ComparelistComponent implements OnInit {
   onNoClick(): void {
       this.dialogRef.close()
   }
+
+
 
 }
