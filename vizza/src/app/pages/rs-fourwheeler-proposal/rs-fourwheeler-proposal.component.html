@@ -31,8 +31,8 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Last Name" formControlName="lastname" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off"   >
-                                                    <!--<mat-error *ngIf="proposer.controls.lastname.errors?.required">Last Name is required</mat-error>-->
+                                                    <input matInput placeholder="Last Name" formControlName="lastname" (keypress)="nameValidate($event)" maxlength="45" autocomplete="off" required  >
+                                                    <mat-error *ngIf="proposer.controls.lastname.errors?.required">Last Name is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
@@ -250,7 +250,7 @@
                                                 </mat-form-field>
                                             </div>
 
-                                            <div class="col-md-3" >
+                                            <div class="col-md-3" *ngIf="vehicledetails.business_type == '1'">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="Type Of Cover"  formControlName="typeOfCover" required  >
                                                         <mat-option *ngFor="let vehiclebk of coverList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
@@ -274,17 +274,6 @@
 
 
 
-
-                                            <!--<div class="col-md-4  ">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<mat-select placeholder="Addon"  formControlName="addon"  >-->
-                                                        <!--<mat-option *ngFor="let vehicleAddon of AddonList | keys" value="{{vehicleAddon.key}}" > {{vehicleAddon.value}} </mat-option>-->
-                                                    <!--</mat-select>-->
-                                                    <!--&lt;!&ndash;<mat-error *ngIf="vehical.controls.addon.errors?.required">Addon is required</mat-error>&ndash;&gt;-->
-
-                                                <!--</mat-form-field>-->
-                                            <!--</div>-->
-
                                             <!--<div class="col-md-3">-->
                                                 <!--<p>Vechile OwnerShip Changed </p>-->
                                                 <!--<mat-radio-group formControlName="vechileOwnerShipChanged">-->
@@ -304,7 +293,7 @@
                                             </div>
 
 
-                                            <div class="col-md-3 mt-2">
+                                            <div class="col-md-3 ">
                                                 <p>Is Car Ownership Changed </p>
                                                 <mat-radio-group formControlName="isCarOwnershipChanged" required>
                                                     <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
@@ -313,6 +302,23 @@
                                             </div>
                                         </div>
 
+                                        <div class="row">
+                                            <div class="col-md-6 mt-3">
+                                                <mat-checkbox   formControlName="isAddon" (change)="isAddoncheck()" >Addon</mat-checkbox>
+                                            </div>
+                                        </div>
+
+                                        <div class="row" *ngIf="vehical.controls['isAddon'].value == true">
+                                            <div class="col-md-4  ">
+                                                <mat-form-field class="w-100">
+                                                    <mat-select placeholder="Addon"  formControlName="addon" required >
+                                                        <mat-option *ngFor="let vehicleAddon of AddonList | keys" value="{{vehicleAddon.key}}" > {{vehicleAddon.value}} </mat-option>
+                                                    </mat-select>
+                                                    <!--<mat-error *ngIf="vehical.controls.addon.errors?.required">Addon is required</mat-error>-->
+
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
                                             <div class="row">
                                                 <div class="col-md-6 mt-3">
                                                     <mat-checkbox   formControlName="isFourWheelerFinanced" (change)="isFinaced()" >Is Car Financed</mat-checkbox>
@@ -339,14 +345,14 @@
                                         </div>
 
 
-                                        <div class="row mt-3">
-                                            <h6 class="color-blue mt-6 mt-3">Covers/Add-on Description/Eligibility</h6>
+                                        <div class="row mt-3" *ngIf="vehicledetails.business_type != '1'">
+                                            <h6 class="color-blue mt-6 ml-3">Covers/Add-on Description/Eligibility</h6>
                                         </div>
-                                        <div class="row">
+
+                                            <div class="row" *ngIf="vehicledetails.business_type != '1'">
 
 
-
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 " *ngIf="buyProduct.vehicle_age < 5 ">
                                                 <p>Key Replacement</p>
                                                 <!--<a>(Applicable for only below 5 years of vehicle age)</a>-->
                                                 <mat-radio-group formControlName="keyreplacement">
@@ -354,7 +360,7 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" *ngIf="buyProduct.vehicle_age < 6 ">
                                                 <p>Depreciation Waiver</p>
                                                 <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
                                                 <mat-radio-group formControlName="depreciationWaiver">
@@ -362,14 +368,14 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
-                                            <div class="col-md-3 ">
+                                            <div class="col-md-3 " *ngIf="buyProduct.vehicle_age < 3 ">
                                                 <p>Wind Shield Glass </p>
                                                 <mat-radio-group formControlName="windShieldGlass">
                                                     <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
                                                 <p>Engine Protector</p>
                                                 <!--<h6>(Applicable for only below 3 years of vehicle age)</h6>-->
                                                 <mat-radio-group formControlName="engineprotector">
@@ -377,7 +383,7 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
-                                            <div class="col-md-3 mt-3">
+                                            <div class="col-md-3  mt-3" *ngIf="vehicledetails.business_type != '1'">
                                                 <p>NCB Protector</p>
                                                 <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
                                                 <mat-radio-group formControlName="ncbprotector">
@@ -385,7 +391,7 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
-                                            <div class="col-md-3 mt-3">
+                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
                                                 <p>Spare Car Covers</p>
                                                 <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
                                                 <mat-radio-group formControlName="spareCar">
@@ -393,7 +399,7 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
-                                            <div class="col-md-3 mt-3">
+                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
                                                 <p>Full Invoice Price Insurance Covers</p>
                                                 <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
                                                 <mat-radio-group formControlName="invoicePrice">
@@ -402,9 +408,10 @@
                                                 </mat-radio-group>
                                             </div>
                                         </div>
+
                                         <div>
                                             <div >
-                                                <div class="row">
+                                                <div class="row mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
                                                     <div class="col-md-6 mt-3">
                                                         <mat-checkbox   formControlName="lossOfBaggage" (change)="isBaggages()" >Loss of Baggages</mat-checkbox>
                                                     </div>
@@ -422,6 +429,7 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="row mt-3">
                                             <h6 class="color-blue mt-6 ">Cover for Driver / Other Passengers / Car Accessories</h6>
                                         </div>
@@ -475,17 +483,22 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <mat-select placeholder="Make Model"  formControlName="makeModel"  (change)="changeMakeModel()" >
-                                                                <mat-option *ngFor="let makeModels of makeModelList | keys" value="{{makeModels.key}}" > {{makeModels.value}} </mat-option>
-                                                            </mat-select>
-                                                            <!--<mat-error *ngIf="vehical.controls.makeModel.errors?.required">Make Model is required</mat-error>-->
-
+                                                            <input matInput placeholder="Make Model "  formControlName="makeModel"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
+                                                    <!--<div class="col-md-3">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<mat-select placeholder="Make Model"  formControlName="makeModel"  (change)="changeMakeModel()" >-->
+                                                                <!--<mat-option *ngFor="let makeModels of makeModelList | keys" value="{{makeModels.key}}" > {{makeModels.value}} </mat-option>-->
+                                                            <!--</mat-select>-->
+                                                            <!--&lt;!&ndash;<mat-error *ngIf="vehical.controls.makeModel.errors?.required">Make Model is required</mat-error>&ndash;&gt;-->
+
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
 
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Value "  formControlName="value"  autocomplete="off">
+                                                            <input matInput placeholder="Value "  formControlName="value" (keypress)="numberValidate($event)"  (change)="accesories()"autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>
@@ -510,17 +523,22 @@
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <mat-select placeholder="Make Model"  formControlName="makeModel"  (change)="changeMakeModel()" >
-                                                                <mat-option *ngFor="let MakeModels of MakeModelList | keys" value="{{MakeModels.key}}" > {{MakeModels.value}} </mat-option>
-                                                            </mat-select>
-                                                            <!--<mat-error *ngIf="vehical.controls.makeModel.errors?.required">Make Model is required</mat-error>-->
-
+                                                            <input matInput placeholder="Make Model "  formControlName="makeModel"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
+                                                    <!--<div class="col-md-3">-->
+                                                        <!--<mat-form-field class="w-100">-->
+                                                            <!--<mat-select placeholder="Make Model"  formControlName="makeModel"  (change)="changeMakeModel()" >-->
+                                                                <!--<mat-option *ngFor="let MakeModels of MakeModelList | keys" value="{{MakeModels.key}}" > {{MakeModels.value}} </mat-option>-->
+                                                            <!--</mat-select>-->
+                                                            <!--&lt;!&ndash;<mat-error *ngIf="vehical.controls.makeModel.errors?.required">Make Model is required</mat-error>&ndash;&gt;-->
+
+                                                        <!--</mat-form-field>-->
+                                                    <!--</div>-->
 
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Value "  formControlName="value"  autocomplete="off">
+                                                            <input matInput placeholder="Value "  formControlName="value" (keypress)="numberValidate($event)"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addnonEelctricalItems()">+</button>
@@ -543,7 +561,7 @@
                     </mat-accordion>
 
                 </mat-step>
-                <mat-step [stepControl]="" >
+                <mat-step [stepControl]="" *ngIf="vehicledetails.business_type != '1'" >
                     <ng-template matStepLabel>PREVIOUS INSURE DETAILS</ng-template>
                     <mat-accordion class="w-100 float-left ">
                         <mat-expansion-panel expanded>
@@ -682,31 +700,31 @@
                                               <mat-error *ngIf="nomineeDetail.controls.nomineeRelationship.errors?.required">Relationship with insured is required</mat-error>
                                             </div>
                                         </div>
-                                        <div *ngIf="apponiteeList">
+                                        <div *ngIf="apponiteeList == true">
                                             <div class="row mr-2">
                                                 <h6 class="color-blue">GUARDIAN DETAILS</h6>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Guardian Name"  formControlName="guardianName" (keypress)="nameValidate($event)" autocomplete="off" >
+                                                        <input matInput placeholder="Guardian Name"  formControlName="guardianName" (keypress)="nameValidate($event)" autocomplete="off" required >
                                                     </mat-form-field>
-                                                    <!--<mat-error *ngIf="nomineeDetail.controls.guardianName.errors?.required">Guardian Name is required</mat-error>-->
+                                                    <mat-error *ngIf="nomineeDetail.controls.guardianName.errors?.required">Guardian Name is required</mat-error>
 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <input matInput placeholder="Guardian Age" maxlength="3" formControlName="guardianAge" (keypress)="numberValidate($event)" autocomplete="off">
+                                                        <input matInput placeholder="Guardian Age" maxlength="3" formControlName="guardianAge" (keypress)="numberValidate($event)" autocomplete="off" required>
                                                     </mat-form-field>
-                                                    <!--<mat-error *ngIf="nomineeDetail.controls.guardianAge.errors?.required">Guardian Age is required</mat-error>-->
+                                                    <mat-error *ngIf="nomineeDetail.controls.guardianAge.errors?.required">Guardian Age is required</mat-error>
 
                                                 </div>
                                                 <div class="col-md-4">
                                                     <mat-form-field class="w-100">
-                                                        <mat-select placeholder="Guardian RelationShip"  formControlName="guardianRelationship"  >
+                                                        <mat-select placeholder="Guardian RelationShip"  formControlName="guardianRelationship" required >
                                                             <mat-option *ngFor="let guardrelationship of guardianRelationList | keys" value="{{guardrelationship.key}}" > {{guardrelationship.value}} </mat-option>
                                                         </mat-select>
-                                                        <!--<mat-error *ngIf="nomineeDetail.controls.guardianRelationship.errors?.required">Relationship with Guardian is required</mat-error>-->
+                                                        <mat-error *ngIf="nomineeDetail.controls.guardianRelationship.errors?.required">Relationship with Guardian is required</mat-error>
                                                     </mat-form-field>
                                                 </div>
                                             </div>
