@@ -9,6 +9,7 @@ import {AppSettings} from '../../app.settings';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {forEach} from '@angular/router/src/utils/collection';
 
 export const MY_FORMATS = {
   parse: {
@@ -62,6 +63,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public milageList: any;
   public addnonElectrical: any;
   public buyProduct: any;
+  public vehicle_age: any;
   public summaryData: any;
   public vountaryList: any;
   public bikeEnquiryId: any;
@@ -99,6 +101,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public pincodeList: any;
   public policyList: any;
   public step: any;
+  public vehicledetails: any;
+  public isFourWheelerFinanced: boolean;
+  public valueCalc: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
     this.step = 0;
@@ -113,11 +118,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
-
+    this.valueCalc= [];
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       firstname: ['', Validators.required],
-      lastname: '',
+      lastname: ['', Validators.required],
       dob: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
@@ -151,8 +156,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       vehicleMostlyDrivenOn: ['', Validators.required],
       vehicleRegisteredName: ['', Validators.required],
       // registrationchargesRoadtax: ['', Validators.required],
-      coverelectricalaccesss: '',
-        cover_non_elec_acc: '',
+      coverelectricalaccesss: false,
+        cover_non_elec_acc: false,
       drivingExperience: ['', Validators.required],
       averageMonthlyMileageRun: '',
       accidentCoverForPaidDriver: '',
@@ -163,8 +168,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       quoteId: '',
       personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
-      isFourWheelerFinanced: 'No',
-        lossOfBaggage: 'No',
+      isFourWheelerFinanced: false,
+      isAddon: false,
+      lossOfBaggage: false,
       hypothecationType: '',
       typeOfCover: ['', Validators.required],
       addon: '',
@@ -173,13 +179,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
       fibreGlass: 'No',
       isCarOwnershipChanged: 'No',
       legalliabilityToPaidDriver: 'No',
-      windShieldGlass: 'No',
-        keyreplacement: 'No',
-        depreciationWaiver: 'No',
-        engineprotector: 'No',
-        ncbprotector: 'No',
-        spareCar: 'No',
-        invoicePrice: 'No',
+      windShieldGlass: 'Off',
+      keyreplacement: 'Off',
+      depreciationWaiver: 'Off',
+      engineprotector: 'Off',
+      ncbprotector: 'Off',
+      spareCar: 'Off',
+      invoicePrice: 'Off',
       // policyED: ['', Validators.compose([ Validators.minLength(10)])],
       // policySD: ['', Validators.compose([ Validators.minLength(10)])],
       vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
@@ -190,7 +196,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
         nonelectricalAccess : new FormArray([
         this.createnonElectrical()
       ]),
+      // valueCalc : new FormArray([]),
     });
+
+     // electricalAccess.forEach(data => this.valueCalc.push(electricalAccess.value));
+   // this.valueCalc.push({ electricalAccess })
+   //  const total = this.valueCalc.reduce((a , b) =>  a + b);
 
     this.previousInsure = this.fb.group({
       policyNumber: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -213,14 +224,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
       guardianRelationship: '',
       guardianAge: ''
     });
-  }
 
+  }
 
 
   ngOnInit() {
     this.buyProduct = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
-    this.productDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+    this.vehicledetails = JSON.parse(sessionStorage.vehicledetails);
 
 
     this.title();
@@ -243,9 +254,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changepbaggageValue();
     this.changepolicyType();
     this.changeAccidentPaidDriver();
+    this.accesories();
     this.sessionData();
 
   }
+
   // validation
   prevStep() {
     this.step--;
@@ -274,6 +287,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
+  }
+  accesories() {
+    this.valueCalc = [];
+   let valueList =  this.vehical.value.electricalAccess;
+    console.log(valueList, 'valueList');
+    valueList.forEach(data => this.valueCalc.push(data.value));
+    console.log(this.valueCalc,'jhgjghgh');
+    const total = this.valueCalc.reduce((a, b) => a + b, 0);
+    console.log(total,'total');
   }
   // proposer page
   // Electrical Accessories
@@ -469,6 +491,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   }
 
+
+
   // dob validation
   addEvent(event, type) {
     if (event.value != null) {
@@ -568,6 +592,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
     } else {
       this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
       this.vehical.controls['financierName'].patchValue('');
+    }
+  }
+
+  isAddoncheck() {
+    if (this.vehical.controls['isAddon'].value == true) {
+
+    } else {
+      this.vehical.controls['addon'].patchValue('');
+
     }
   }
 
@@ -1059,6 +1092,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "created_by": '',
       "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
       "company_id": this.productDetails.company_id,
+      "business_type": this.vehicledetails.business_type,
       "CALCULATEPREMIUMREQUEST": {
         "premium": '',
         "proposerDetails": {
@@ -1203,7 +1237,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "enquiry_id": this.bikeEnquiryId,
       "created_by": "",
       "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
-      "company_id": "12",
+      // "company_id": "12",
+      "company_id": this.productDetails.company_id,
+      "business_type": this.vehicledetails.business_type,
       "CALCULATEPREMIUMREQUEST": {
         "quoteId": this.referenceId,
         "proposerDetails": {
@@ -1380,6 +1416,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         personalAccidentCoverForUnnamedPassengers : stepper2.personalAccidentCoverForUnnamedPassengers,
         financierName: stepper2.financierName,
         isFourWheelerFinanced: stepper2.isFourWheelerFinanced,
+        isAddon: stepper2.isAddon,
           lossOfBaggage: stepper2.lossOfBaggage,
         hypothecationType: stepper2.hypothecationType,
         typeOfCover: stepper2.typeOfCover,

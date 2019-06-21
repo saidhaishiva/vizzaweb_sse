@@ -160,10 +160,10 @@
                           <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Gender<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <mat-select formControlName="driveGender" readonly>
+                          <mat-select formControlName="driveGender">
                             <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -180,10 +180,10 @@
                           <input matInput formControlName="drivingexp"  (keypress)="numValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Marital Status<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <mat-select formControlName="drivemaritalStatus" readonly>
+                          <mat-select formControlName="drivemaritalStatus">
                             <mat-option value="single">Single</mat-option>
                             <mat-option value="Married">Married</mat-option>
                             <mat-option value="Others">Others</mat-option>
@@ -281,7 +281,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
                               <mat-placeholder>Expiry Date (DD/MM/YYYY)<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                              <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate">
+                              <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                           </mat-form-field>
@@ -526,7 +526,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6 mt-2" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                  <div class="col-md-6 mt-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Driving Experience:</strong> {{proposerFormData.drivingexp}}</li>
