@@ -778,13 +778,13 @@
                       </div>
                     </div>
 
-                    <div class="row">
-                      <div class="col-md-12">
-                        <mat-checkbox  formControlName="prevPolSold" required>previous Policy sold</mat-checkbox>
-                        <!--                          <mat-error *ngIf="previousInsurance.controls.prevPolSold.errors?.required">prevPolSold  is required</mat-error>-->
+<!--                    <div class="row">-->
+<!--                      <div class="col-md-12">-->
+<!--                        <mat-checkbox  formControlName="prevPolSold" required>previous Policy sold</mat-checkbox>-->
+<!--                        &lt;!&ndash;                          <mat-error *ngIf="previousInsurance.controls.prevPolSold.errors?.required">prevPolSold  is required</mat-error>&ndash;&gt;-->
 
-                      </div>
-                    </div>
+<!--                      </div>-->
+<!--                    </div>-->
 
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
@@ -1022,7 +1022,7 @@
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
                           <li class="list-group-item"><strong>Previous year policy:</strong> {{previousFormData.prevYearPolicyTypeValue}}</li>
-                          <li class="list-group-item"><strong>Previous Policy Sold:</strong> {{previousFormData.prevPolSold}}</li>
+<!--                          <li class="list-group-item"><strong>Previous Policy Sold:</strong> {{previousFormData.prevPolSold}}</li>-->
                           <!--                                              <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>-->
                           <li class="list-group-item"><strong>Previous Insurer Address:</strong> {{previousFormData.prevInsurerAddress}}</li>
                           <!--                                              <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>-->
