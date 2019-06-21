@@ -18,8 +18,8 @@
 
             <table class="table compare ">
                 <thead class="table-warning1" >
-                <tr >
-                    <th >
+                <tr>
+                    <th style="padding-right: 110px;">
                         KEY FEATURES
                     </th>
                     <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
@@ -28,16 +28,16 @@
                         <p class="content-color pt-2">{{list.product_name}}</p>
                     </th>
                 </tr>
-                <tr >
-                    <th >
+                <tr>
+                    <th style="padding-right: 110px;">
                         SUM INSURED
                     </th>
                     <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
                         {{list.suminsured_amount}}
                     </th>
                 </tr>
-                <tr >
-                    <th >
+                <tr>
+                    <th style="padding-right: 110px;">
                         PREMIUM
                     </th>
                     <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
