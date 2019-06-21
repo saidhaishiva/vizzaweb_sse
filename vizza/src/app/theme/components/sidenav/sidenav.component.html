@@ -137,26 +137,10 @@
                 <p class="icon p-2"><img src="assets/img/travel.png"></p>
                 <a class="nav-link"><h6>Travel Insurance</h6></a>
             </li>
-            <!--<li class="nav-item " *ngIf="sideNavMobile" (click)="subMenu(1)">-->
-                <!--<p class="icon p-2"><img src="assets/img/term.png"></p>-->
-                <!--<h6 class="nav-link " href="#">Life Insurance</h6>-->
-                <!--&lt;!&ndash;<ul class="dropdown-menu text-dark drop-scroll">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<li style="border:1px solid #000000;" class="dropdown-item nav-item text-center" routerLink="/term-life" routerLinkActive="active">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<h6>Life Insurance-Term</h6>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<li style="border:1px solid #000000;" class="dropdown-item nav-item text-center" routerLink="/endowment-life-insurance" routerLinkActive="active">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<h6>Life Insurance - Endowment</h6>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                    <!--&lt;!&ndash;<li style="border:1px solid #000000;" class="dropdown-item nav-item text-center" routerLink="/">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<h6>ULIP</h6>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</li>&ndash;&gt;-->
-                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-            <!--</li>-->
 
             <!--life insurance drop down mobile-->
-            <div *ngIf="sideNavMobile">
-            <li class="nav-item" (click)="subMenu(1)">
-                <p class="icon p-2"><img src="assets/img/term.png"></p>
+            <li class="nav-item" (click)="subMenu(1)" *ngIf="sideNavMobile">
+                <p class="icon p-2" style="background: #9ECA3A"><img src="assets/img/term.png"></p>
                 <h6 class="nav-link" href="#">Life Insurance <i class="fa fa-caret-down"></i></h6>
             </li>
             <li class="nav-item" routerLink="/term-life" routerLinkActive="active" *ngIf="showMenu">
@@ -168,25 +152,23 @@
             <li class="nav-item" routerLink="/" *ngIf="showMenu">
                 <h6 class="nav-link pl-5">ULIP</h6>
             </li>
-            </div>
 
             <li class="nav-item" routerLink="/household" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/house.png"></p>
+                <p class="icon p-2" style="background: #4CB8E4"><img src="assets/img/house.png"></p>
                 <a class="nav-link"><h6>House Holder Policy</h6></a>
             </li>
             <li class="nav-item" routerLink="/shopkeeperpolicy" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/shopkeepers-policy.png"></p>
+                <p class="icon p-2" style="background: #F246A2"><img src="assets/img/shopkeepers-policy.png"></p>
                 <a class="nav-link"><h6>Shopkeepers Policy</h6></a>
             </li>
             <li class="nav-item" routerLink="/workmen" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/workman-compensation.png"></p>
+                <p class="icon p-2" style="background: #FBD100"><img src="assets/img/workman-compensation.png"></p>
                 <a class="nav-link"><h6>Workmen Compensation</h6></a>
             </li>
 
             <!--commerical dropdown mobile-->
-            <div *ngIf="sideNavMobile">
-                <li class="nav-item" (click)="subMenu(2)">
-                    <p class="icon p-2"><img src="assets/img/Commercial.png"></p>
+                <li class="nav-item" (click)="subMenu(2)" *ngIf="sideNavMobile">
+                    <p class="icon p-2" style="background: #66C954"><img src="assets/img/Commercial.png"></p>
                     <h6 class="nav-link" href="#">Commerical Insurance <i class="fa fa-caret-down"></i></h6>
                 </li>
                 <li class="nav-item" routerLink="/"  *ngIf="showMenu1">
@@ -216,12 +198,10 @@
                 <li class="nav-item" routerLink="/household" routerLinkActive="active" *ngIf="showMenu1">
                     <h6 class="nav-link pl-5">House Holder Policy</h6>
                 </li>
-            </div>
 
             <!--industrial insurance drop down-->
-            <div *ngIf="sideNavMobile">
-                <li class="nav-item" (click)="subMenu(3)">
-                    <p class="icon p-2"><img src="assets/img/Industrial.png"></p>
+                <li class="nav-item" (click)="subMenu(3)" *ngIf="sideNavMobile">
+                    <p class="icon p-2" style="background: #5189B8"><img src="assets/img/Industrial.png"></p>
                     <h6 class="nav-link" href="#">Industrial Insurance <i class="fa fa-caret-down"></i></h6>
                 </li>
                     <li class="nav-item" routerLink="/fire" routerLinkActive="active" *ngIf="showMenu2">
@@ -258,12 +238,10 @@
                     <li class="nav-item" routerLink="/" *ngIf="showMenu2">
                         <h6 class="nav-link pl-5">Erection All Risk Policy</h6>
                     </li>
-            </div>
 
             <!--liability insurance drop down mobile-->
-            <div *ngIf="sideNavMobile">
-                <li class="nav-item" (click)="subMenu(4)">
-                    <p class="icon p-2"><img src="assets/img/Liability.png"></p>
+                <li class="nav-item" (click)="subMenu(4)" *ngIf="sideNavMobile">
+                    <p class="icon p-2" style="background: #9B2A5C"><img src="assets/img/Liability.png"></p>
                     <h6 class="nav-link" href="#">Liability Insurance <i class="fa fa-caret-down"></i></h6>
                 </li>
                 <li class="nav-item" routerLink="/public" routerLinkActive="active" *ngIf="showMenu3">
@@ -299,12 +277,10 @@
                 <li class="nav-item" routerLink="/" *ngIf="showMenu3">
                     <h6 class="nav-link pl-5">Fidelity Guarantee Insurance Policy</h6>
                 </li>
-            </div>
 
             <!--group insurance drop down mobile-->
-            <div *ngIf="sideNavMobile">
-                <li class="nav-item" (click)="subMenu(5)">
-                    <p class="icon p-2"><img src="assets/img/group-insurance.png"></p>
+                <li class="nav-item" (click)="subMenu(5)" *ngIf="sideNavMobile">
+                    <p class="icon p-2" style="background: #0D6197"><img src="assets/img/group-insurance.png"></p>
                     <h6 class="nav-link" href="#">Group Insurance <i class="fa fa-caret-down"></i></h6>
                 </li>
                 <li class="nav-item" routerLink="/" *ngIf="showMenu4">
@@ -319,17 +295,15 @@
                 <li class="nav-item" routerLink="/" *ngIf="showMenu4">
                     <h6 class="nav-link pl-5">Group Travel Insurance</h6>
                 </li>
-            </div>
 
             <li class="nav-item" routerLink="/claim-assistance" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/claim-assistance.png"></p>
+                <p class="icon p-2" style="background: #00AEB3"><img src="assets/img/claim-assistance.png"></p>
                 <a class="nav-link"><h6>Claim Assistance</h6></a>
             </li>
 
             <!--renewal drop down mobile-->
-            <div *ngIf="sideNavMobile">
-                <li class="nav-item" (click)="subMenu(6)">
-                    <p class="icon p-2"><img src="assets/img/renewal.png"></p>
+                <li class="nav-item" (click)="subMenu(6)" *ngIf="sideNavMobile">
+                    <p class="icon p-2" style="background: #8D6CAB"><img src="assets/img/renewal.png"></p>
                     <h6 class="nav-link" href="#">Renewal <i class="fa fa-caret-down"></i></h6>
                 </li>
                 <li class="nav-item" routerLink="/renewal-reminder" routerLinkActive="active" *ngIf="showMenu5">
@@ -338,12 +312,10 @@
                 <li class="nav-item" routerLink="/renew-existing-policy" routerLinkActive="active" *ngIf="showMenu5">
                     <h6 class="nav-link pl-5">Renew Existing Policy</h6>
                 </li>
-            </div>
 
             <!--blogs drop down mobile-->
-            <div *ngIf="sideNavMobile">
-                <li class="nav-item" (click)="subMenu(7)">
-                    <p class="icon p-2"><img src="assets/img/blogs.png"></p>
+                <li class="nav-item" (click)="subMenu(7)" *ngIf="sideNavMobile">
+                    <p class="icon p-2" style="background: #00A0DC"><img src="assets/img/blogs.png"></p>
                     <h6 class="nav-link"  href="#">Blogs <i class="fa fa-caret-down"></i></h6>
                 </li>
                 <li class="nav-item" routerLink="/" *ngIf="showMenu6">
@@ -352,20 +324,35 @@
                 <li class="nav-item" routerLink="/mediacenter" routerLinkActive="active" *ngIf="showMenu6">
                     <h6 class="nav-link pl-5">Media Library</h6>
                 </li>
-            </div>
 
             <li class="nav-item" routerLink="/pos" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/pos.png"></p>
+                <p class="icon p-2" style="background: #E68523"><img src="assets/img/pos.png"></p>
                 <a class="nav-link"><h6>POS</h6></a>
             </li>
             <li class="nav-item" routerLink="/careers" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/careers.png"></p>
+                <p class="icon p-2" style="background: #DC4B89"><img src="assets/img/careers.png"></p>
                 <a class="nav-link"><h6>Careers</h6></a>
             </li>
             <li class="nav-item" routerLink="/about-vizza" routerLinkActive="active" *ngIf="sideNavMobile">
-                <p class="icon p-2"><img src="assets/img/about-us.png"></p>
+                <p class="icon p-2" style="background: #7CB82F"><img src="assets/img/about-us.png"></p>
                 <a class="nav-link"><h6>About us</h6></a>
             </li>
+
+            <!--<li class="nav-item " *ngIf="sideNavMobile" (click)="subMenu(1)">-->
+            <!--<p class="icon p-2"><img src="assets/img/term.png"></p>-->
+            <!--<h6 class="nav-link " href="#">Life Insurance</h6>-->
+            <!--&lt;!&ndash;<ul class="dropdown-menu text-dark drop-scroll">&ndash;&gt;-->
+            <!--&lt;!&ndash;<li style="border:1px solid #000000;" class="dropdown-item nav-item text-center" routerLink="/term-life" routerLinkActive="active">&ndash;&gt;-->
+            <!--&lt;!&ndash;<h6>Life Insurance-Term</h6>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li style="border:1px solid #000000;" class="dropdown-item nav-item text-center" routerLink="/endowment-life-insurance" routerLinkActive="active">&ndash;&gt;-->
+            <!--&lt;!&ndash;<h6>Life Insurance - Endowment</h6>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;<li style="border:1px solid #000000;" class="dropdown-item nav-item text-center" routerLink="/">&ndash;&gt;-->
+            <!--&lt;!&ndash;<h6>ULIP</h6>&ndash;&gt;-->
+            <!--&lt;!&ndash;</li>&ndash;&gt;-->
+            <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+            <!--</li>-->
 
 
             <!--<li class="nav-item" routerLink="/fix-appointment/corporate-insurance" routerLinkActive="active">-->
