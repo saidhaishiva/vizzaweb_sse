@@ -930,6 +930,9 @@ a:hover {
   .table-warning2 {
     background-color: #f7d5d7;
   }
+  .mat-dialog-content{
+    overflow: hidden!important;
+  }
 }
 .compare-details-travel {
   .content-color, .compare td{

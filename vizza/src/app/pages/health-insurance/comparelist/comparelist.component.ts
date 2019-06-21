@@ -38,6 +38,9 @@ export class ComparelistComponent implements OnInit {
   onNoClick(): void {
       this.dialogRef.close()
   }
+    buyProduct(values) {
+
+    }
 
 
 
