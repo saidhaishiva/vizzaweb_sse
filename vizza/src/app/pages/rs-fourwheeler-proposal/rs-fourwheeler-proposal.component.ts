@@ -297,6 +297,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(this.valueCalc,'jhgjghgh');
     let total = this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b));
     console.log(total,'total');
+    sessionStorage.total = total;
+
   }
 
   sumNonAccessories() {
@@ -612,13 +614,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper2 = JSON.stringify(value);
     if (this.vehical.valid) {
       console.log(this.vehical.valid,'this.vehical.valid')
-      // if (sessionStorage.total <= 50000) {
+      if (sessionStorage.total != '' && sessionStorage.total <= 50000) {
         console.log(sessionStorage.total,'sessionStorage.total')
         stepper.next();
         this.topScroll();
-      // } else {
-      //   this.toastr.error('Electrical Accessories Values should be less than 50 thousand');
-      // }
+      } else {
+        this.toastr.error('Electrical Accessories Values should be less than 50 thousand');
+      }
     }
   }
   isFinaced() {
@@ -1318,7 +1320,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "strStdCode": this.proposer.controls['stdCode'].value,
         },
         "vehicleDetails": {
-          "idv": this.productDetails.Idv,
+          "idv": this.buyProduct.Idv,
           "policyED":  this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd'),
           "policySD": this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd'),
           // "carRegisteredCity": "MUMBAI",
