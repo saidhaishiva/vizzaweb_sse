@@ -1,0 +1,29 @@
+.compare-details {
+  thead, tfoot {
+    display: table;
+    width: 100%;
+  }
+
+  tbody {
+    height: 300px;
+    overflow: auto;
+    overflow-x: hidden;
+    display: block;
+    width: 100%;
+  }
+
+  tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+  }
+}
+
+.compare-details table button {
+  font-size: 12px;
+  padding: 0 4px;
+  line-height: 1.6;
+}
+.compare-details table .mat-raised-button.mat-accent {
+  background-color: #28a745 !important;
+}

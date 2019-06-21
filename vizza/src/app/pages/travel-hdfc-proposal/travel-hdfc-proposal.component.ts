@@ -915,7 +915,7 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'FirstName': this.hdfcTravel.controls['firstname'].value,
                     'MiddleName': this.hdfcTravel.controls['middlename'].value,
                     'LastName': this.hdfcTravel.controls['lastname'].value,
-                    'DOB': this.hdfcTravel.controls['dob'].value,
+                    'DOB': this.datepipe.transform(this.hdfcTravel.controls['dob'].value, 'y-MM-dd'),
                     'Gender': this.hdfcTravel.controls['gender'].value,
                     'Address1': this.hdfcTravel.controls['address1'].value,
                     'Address2': this.hdfcTravel.controls['address2'].value,

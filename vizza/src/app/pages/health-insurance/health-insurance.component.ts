@@ -868,6 +868,7 @@ export class HealthInsuranceComponent implements OnInit {
                 width: '1500px', data: {comparedata: successData.ResponseObject, type: 'health'}});
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
+
             });
         }
     }
@@ -882,6 +883,8 @@ export class HealthInsuranceComponent implements OnInit {
         dialogRef.disableClose = true;
 
         dialogRef.afterClosed().subscribe(result => {
+            console.log(result, 'result');
+            this.buyProduct(result);
         });
 
     }

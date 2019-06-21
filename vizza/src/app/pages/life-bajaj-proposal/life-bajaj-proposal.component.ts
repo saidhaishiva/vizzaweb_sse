@@ -2068,7 +2068,7 @@ samerelationShip(){
           "amountOfTran": this.proposer.controls['amtTransaction'].value,
           "dateOfTran": this.proposer.controls['dateoftransaction'].value !='' && this.proposer.controls['dateoftransaction'].value != null ? this.datepipe.transform(this.proposer.controls['dateoftransaction'].value,'y-MM-dd') : '',
           "jointAccPersonNames": this.proposer.controls['jointAcName'].value,
-          "modeOfTransaction": this.proposer.controls['modeOfTransaction'].value,
+          "modeOfTransaction": 'Online transfer',
           "panApplicationDate": this.proposer.controls['dateofapplication'].value !='' && this.proposer.controls['dateofapplication'].value != null ? this.datepipe.transform(this.proposer.controls['dateofapplication'].value,'y-MM-dd') : '',
           "panAcknowledgementNo": this.proposer.controls['ackNumber'].value,
           "totalIncome": this.proposer.controls['totalIncome'].value,

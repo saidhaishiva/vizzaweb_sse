@@ -1,4 +1,4 @@
-  <div class="row d-none d-sm-none d-md-none d-lg-block" id="" fxLayoutAlign="center start">
+<div class="row d-none d-sm-none d-md-none d-lg-block" id="" fxLayoutAlign="center start">
   <div class="col-sm-12">
     <div fxLayout="column" class="travel-product-list">
       <div [ngClass]="compareArray != '' ? 'margin-bottom170' : ''">
@@ -10,7 +10,7 @@
           </div>
         </div>
 
-        <div class="flex-p ">
+        <div class="flex-p">
           <table class="table health-table table-scroll">
             <thead>
             <tr>
@@ -37,7 +37,6 @@
                       $ {{amounts.suminsured_amount}}
                     </mat-option>
                   </mat-select>
-
                 </mat-form-field>
               </th>
               <th class="col-md-1">Emergency Medical Expenses</th>
@@ -151,27 +150,26 @@
 </div>
 
 <div class="d-none d-sm-none d-md-none d-lg-block">
-
-<div class="row compar-fix" *ngIf="compareArray != ''">
-  <div class="text-right closeBtnClass">
-    <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
-  </div>
-  <div style="width: 340px" *ngFor="let clists of compareArray; let i = index">
-    <div fxLayout="column" class="flex-p">
-      <mat-card class="custom-card compare-icon text-center">
-        <div class="text-right closeBtnClass">
-          <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
-        </div>
-        <mat-card-content class="p-0">
-          <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
-          <p class="color-green mb-0 text-center">{{clists.plan_name}}</p>
-        </mat-card-content>
-      </mat-card>
+  <div class="row compar-fix" *ngIf="compareArray != ''">
+    <div class="text-right closeBtnClass">
+      <mat-icon (click)="removeAllCompare(i)">close</mat-icon>
     </div>
-  </div>
-  <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
-    <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
-  </div>
+    <div style="width: 340px" *ngFor="let clists of compareArray; let i = index">
+      <div fxLayout="column" class="flex-p">
+        <mat-card class="custom-card compare-icon text-center">
+          <div class="text-right closeBtnClass">
+            <mat-icon (click)="removeCompare(i, clists.index)">close</mat-icon>
+          </div>
+          <mat-card-content class="p-0">
+            <img mat-card-image  src="{{webhost + '/' + clists.company_logo}}" >
+            <p class="color-green mb-0 text-center">{{clists.plan_name}}</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+    <div class="col-md-2" fxLayoutAlign="left center" *ngIf="compareArray != ''">
+      <button mat-raised-button color="accent" (click)="compareList(compareArray)">COMPARE NOW</button>
+    </div>
   </div>
 </div>
 
@@ -189,17 +187,15 @@
           <div class="col-6">
             <mat-form-field class="w-100">
               <mat-placeholder class="myclass font-weight-bold">Filter by company</mat-placeholder>
-              <mat-select [(ngModel)]="filterCompany" (change)="filterByProducts()" multiple>
-                <mat-option value="All">Select All</mat-option>
-
+              <mat-select [(ngModel)]="filterCompany"  multiple>
+                <mat-option value="All" (click)="selectAllValues()">Select All</mat-option>
                 <mat-select-trigger>
                   {{filterCompany ? filterCompany[0] : ''}}
-                  <span *ngIf="filterCompany.length > 1" class="example-additional-selection">
+                  <span *ngIf="filterCompany" >
                         (+{{filterCompany.length - 1}} {{filterCompany.length === 2 ? 'other' : 'others'}})
                       </span>
                 </mat-select-trigger>
-
-                <mat-option *ngFor="let lists of allCompanyList" value="{{lists.company_name}}" [disabled]="checkAllStatus">{{lists.company_name}}</mat-option>
+                <mat-option (click)="someMethod(list.company_name)" *ngFor="let list of allCompanyList" value="{{list.company_name}}" >{{list.company_name}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -210,8 +206,8 @@
                 <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount_shortform}}">{{amounts.si_amount_shortform}}</mat-option>-->
               <!--</mat-select>-->
             <!--</mat-form-field>-->
-            <mat-form-field class="w-100">
-              <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured ($)</mat-placeholder>
+            <mat-form-field>
+              <mat-placeholder class="myclass font-weight-bold" matTooltip="dollar">Sum Insured (USD $)</mat-placeholder>
               <mat-select [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()">
                 <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.suminsured_id">
                   $ {{amounts.suminsured_amount}}
@@ -224,11 +220,11 @@
       </mat-card>
     </div>
 
-    <mat-card class="mb-3" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
+    <mat-card class="mb-3" *ngFor="let plists of allProductLists;let i = index;">
       <div class="row mt-5">
         <div class="col-6">
           <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
-          <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
+          <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
         </div>
         <div class="col-3">
           <p style="margin-bottom: 0rem !important;">Sum Insured</p>
@@ -237,9 +233,9 @@
           </div>
         </div>
         <div class="col-3">
-          <p style="margin-bottom: 0rem !important;;">Premium /yr</p>
+          <p style="margin-bottom: 0rem !important;">Premium /yr</p>
           <div style="font-size: 10px!important; font-weight: bold;">
-            <p>&#8377;{{plists.total_premium}}</p>
+            <p>&#8377;{{plists.total_premium}} / {{plists.coverageDays}}</p>
             <p>(Including GST)</p>
           </div>
         </div>
@@ -248,10 +244,10 @@
         <div class=" col-10">
           <h5>Main Features</h5>
           <ul style="list-style: none;">
-            <li>Emergency Medical Expenses:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 3">{{keys.key_features_value}}</a></li>
-            <li>Emergency Medical Transportation:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 0 || i == 2 || i == 3">{{keys.key_features_value}}</a></li>
-            <li>Transportation Of Mortal Remains:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 0 || i == 3">{{keys.key_features_value}}</a></li>
-            <li>Daily Allowance:<a *ngFor="let keys of plists.key_features; let i = index;"  [hidden]="i == 1 || i == 2 || i == 0">{{keys.key_features_value}}</a></li>
+            <li>Emergency Medical Expenses:<a *ngFor="let keys of plists.key_features; let i = index;">{{keys.key_features_value}}</a></li>
+            <li>Emergency Medical Transportation:<a *ngFor="let keys of plists.key_features; let i = index;">{{keys.key_features_value}}</a></li>
+            <li>Transportation Of Mortal Remains:<a *ngFor="let keys of plists.key_features; let i = index;">{{keys.key_features_value}}</a></li>
+            <li>Daily Allowance:<a *ngFor="let keys of plists.key_features; let i = index;" >{{keys.key_features_value}}</a></li>
           </ul>
         </div>
         <!--<div class="col-md-2 col-2" style="font-size: 10px !important;">-->
