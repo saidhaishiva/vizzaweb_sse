@@ -104,6 +104,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public vehicledetails: any;
   public isFourWheelerFinanced: boolean;
   public valueCalc: any;
+  public valuesubCalc: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
     this.step = 0;
@@ -233,7 +234,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
     this.vehicledetails = JSON.parse(sessionStorage.vehicledetails);
 
-
     this.title();
     this.getOccupation();
     // this.changehypothecation();
@@ -254,7 +254,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changepbaggageValue();
     this.changepolicyType();
     this.changeAccidentPaidDriver();
-    this.accesories();
+    this.sumAccessories();
     this.sessionData();
 
   }
@@ -288,16 +288,39 @@ export class RsFourwheelerProposalComponent implements OnInit {
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
   }
-  accesories() {
+  // suming the electrical acessories value
+  sumAccessories() {
     this.valueCalc = [];
    let valueList =  this.vehical.value.electricalAccess;
     console.log(valueList, 'valueList');
     valueList.forEach(data => this.valueCalc.push(data.value));
     console.log(this.valueCalc,'jhgjghgh');
-    const total = this.valueCalc.reduce((a, b) => a + b, 0);
+    let total = this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b));
     console.log(total,'total');
   }
-  // proposer page
+
+  sumNonAccessories() {
+    this.valuesubCalc = [];
+    let valueSubList =  this.vehical.value.electricalAccess;
+    console.log(valueSubList, 'valueList');
+    valueSubList.forEach(data => this.valueCalc.push(data.value));
+    console.log(this.valuesubCalc,'jhgjghgh');
+    let subTotal = this.valuesubCalc.reduce((a, b) => parseInt(a) + parseInt(b));
+    console.log(subTotal,'subTotal');
+  }
+  // sessionStorage.electricalAccessValue = this.total;
+
+  // minus the electrical accessories value
+  // subAccessories(index) {
+  //   this.valuesubCalc = [];
+  //   let valueSubList =  this.vehical.value.electricalAccess;
+  //   console.log(valueSubList, 'valueSubList');
+  //   valueSubList.forEach(data => this.valuesubCalc.push(data.value));
+  //   console.log(this.valuesubCalc,'subhgh');
+  //   let subTotal = this.valuesubCalc.slice((index, total) => parseInt(index) - parseInt(total));
+  //   console.log(subTotal,'subtotal');
+  // }
+
   // Electrical Accessories
   create() {
     return new FormGroup({
@@ -313,7 +336,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   removeItems(index) {
     let ssss =  this.vehical.get('electricalAccess') as FormArray;
+    console.log(ssss,'ssssss')
     ssss.removeAt(index);
+    console.log(index, 'this.index');
+
+
   }
   // Non electrical Accessories
   createnonElectrical() {
@@ -330,7 +357,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   removenonEelctricalItems(index) {
     let ssss =  this.vehical.get('nonelectricalAccess') as FormArray;
+    console.log(ssss,'sss');
     ssss.removeAt(index);
+    console.log(index, 'index');
   }
   // title
 
@@ -582,8 +611,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
     if (this.vehical.valid) {
-      stepper.next();
-      this.topScroll();
+      console.log(this.vehical.valid,'this.vehical.valid')
+      // if (sessionStorage.total <= 50000) {
+        console.log(sessionStorage.total,'sessionStorage.total')
+        stepper.next();
+        this.topScroll();
+      // } else {
+      //   this.toastr.error('Electrical Accessories Values should be less than 50 thousand');
+      // }
     }
   }
   isFinaced() {
@@ -609,6 +644,17 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     } else {
       this.vehical.controls['valueOfLossOfBaggage'].patchValue('');
+    }
+  }
+
+  eleAccess(i) {
+    console.log(i, 'valuuuuuu');
+    let che = i;
+    if (che.checked == true) {
+      this.vehical.controls['coverelectricalaccesss'].patchValue(true);
+    } else {
+      this.vehical.controls['coverelectricalaccesss'].patchValue(false);
+
     }
   }
 
@@ -1091,7 +1137,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "enquiry_id": this.bikeEnquiryId,
       "created_by": '',
       "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
-      "company_id": this.productDetails.company_id,
+      "company_id": this.buyProduct.company_id,
       "business_type": this.vehicledetails.business_type,
       "CALCULATEPREMIUMREQUEST": {
         "premium": '',
@@ -1140,11 +1186,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
+          "valueofelectricalaccessories": this.vehical.controls['total'].value,
           "cover_non_elec_acc": this.vehical.controls['cover_non_elec_acc'].value ? 'Yes' : 'No',
           "nonElectricalAccesories": {
                 "nonelectronicAccessoriesDetails": this.vehical.value.nonelectricalAccess,
             },
-
+          "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value,
 
           "fibreGlass": this.vehical.controls['fibreGlass'].value ? 'Yes' : 'No',
           "financierName": this.vehical.controls['financierName'].value,
@@ -1238,7 +1285,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "created_by": "",
       "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
       // "company_id": "12",
-      "company_id": this.productDetails.company_id,
+      "company_id": this.buyProduct.company_id,
       "business_type": this.vehicledetails.business_type,
       "CALCULATEPREMIUMREQUEST": {
         "quoteId": this.referenceId,
@@ -1300,10 +1347,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
+          "valueofelectricalaccessories": this.vehical.controls['total'].value,
             "cover_non_elec_acc": this.vehical.controls['cover_non_elec_acc'].value ? 'Yes' : 'No',
             "nonElectricalAccesories": {
                 "nonelectronicAccessoriesDetails": this.vehical.value.nonelectricalAccess,
             },
+          "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value,
           "addonValue": this.vehical.controls['addon'].value,
           "typeOfCover": this.vehical.controls['typeOfCover'].value,
             "keyreplacement": this.vehical.controls['keyreplacement'].value ? 'On' : 'Off',
@@ -1413,6 +1462,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
         isFourWheelerFinancedValue : stepper2.isFourWheelerFinancedValue,
         valueOfLossOfBaggage : stepper2.valueOfLossOfBaggage,
         quoteId : stepper2.quoteId,
+        total : stepper2.total,
+        subTotal : stepper2.subTotal,
         personalAccidentCoverForUnnamedPassengers : stepper2.personalAccidentCoverForUnnamedPassengers,
         financierName: stepper2.financierName,
         isFourWheelerFinanced: stepper2.isFourWheelerFinanced,
