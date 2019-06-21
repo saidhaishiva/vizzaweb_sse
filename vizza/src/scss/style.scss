@@ -580,56 +580,6 @@ a:hover {
         background: #8A56DB;
       }
 
-      li:nth-child(6) .icon {
-        background: #9ECA3A;
-      }
-
-      li:nth-child(7) .icon {
-        background: #4CB8E4;
-      }
-
-      li:nth-child(8) .icon {
-        background: #F246A2;
-      }
-
-      li:nth-child(9) .icon {
-        background: #FBD100;
-      }
-
-      li:nth-child(10) .icon {
-        background: #66C954;
-      }
-
-      li:nth-child(11) .icon {
-        background: #5189B8;
-      }
-
-      li:nth-child(12) .icon {
-        background: #9B2A5C;
-      }
-
-      li:nth-child(13) .icon {
-        background: #0D6197;
-      }
-
-      li:nth-child(14) .icon {
-        background: #00AEB3;
-      }
-      li:nth-child(15) .icon {
-        background: #8D6CAB;
-      }
-      li:nth-child(16) .icon {
-        background: #00A0DC;
-      }
-      li:nth-child(17) .icon {
-        background: #E68523;
-      }
-      li:nth-child(18) .icon {
-        background: #DC4B89;
-      }
-      li:nth-child(19) .icon {
-        background: #7CB82F;
-      }
     }
     .nav-link{
       border-bottom: 1px solid #ccc;
@@ -2944,13 +2894,24 @@ btn-uploade{
 
 }
 .h-testimonial {
-  .carousel-control-prev {
-    left: -80px !important;
+  @media only screen and (min-width: 768px) {
+    .carousel-control-prev {
+      left: -80px !important;
+    }
+    .carousel-control-next {
+      right: -80px !important;
+    }
   }
-  .carousel-control-next {
-    right: -80px !important;
+  @media only screen and (max-width: 767px) {
+    .carousel-control-prev {
+      left: -14px !important;
+    }
+    .carousel-control-next {
+      right: -14px !important;
+    }
   }
-}
+  }
+
 .mat-drawer-container, .mat-toolbar, .navbar.bg-light{
   background-color: #fff !important;
 }

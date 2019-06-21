@@ -166,7 +166,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       paddress3 : [''],
       raddress3 : [''],
       alternateContact : [''],
-      gstNumber : [''],
+      // gstNumber : [''],
       sameAsAddress : [''],
       regSameAscommAddress : [''],
       regSameAspermAddress : [''],
@@ -272,6 +272,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.maritalStatus();
     this.relationList();
     this.getFinancialType();
+    this.voluntaryAmount();
 
   }
 
@@ -688,7 +689,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         paddress3 : this.getStepper1.paddress3,
         raddress3 : this.getStepper1.raddress3,
         alternateContact : this.getStepper1.alternateContact,
-        gstNumber : this.getStepper1.gstNumber,
+        // gstNumber : this.getStepper1.gstNumber,
         sameAsAddress : this.getStepper1.sameAsAddress,
         regSameAscommAddress : this.getStepper1.regSameAscommAddress,
         regSameAspermAddress :this.getStepper1.regSameAspermAddress,
@@ -996,7 +997,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'MobileNo': this.relianceProposal.controls['mobile'].value,
           'RegisteredUnderGST': '0',
           'RelatedParty': '0',
-          'GSTIN': this.relianceProposal.controls['gstNumber'].value,
+          // 'GSTIN': this.relianceProposal.controls['gstNumber'].value,
           'GroupCorpID': '',
           'ClientAddress': {
             'CommunicationAddress': {

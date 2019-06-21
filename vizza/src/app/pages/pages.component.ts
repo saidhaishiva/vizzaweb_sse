@@ -164,7 +164,8 @@ export class PagesComponent implements OnInit {
 
   iconclick(){
     let dialogRef = this.dialog.open(ContactComponent, {
-      width: '700px',
+      width: '1000px',
+      height: '500px',
     });
   }
 
