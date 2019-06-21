@@ -89,23 +89,23 @@
                       <div class="col-md-12 mt-1">
                         <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="Addressone" autocomplete="off" maxlength="30" required></textarea>
                           <mat-error *ngIf="proposer.controls.Addressone.errors?.required">Address1 is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 2" rows="2" formControlName="Addresstwo" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 3" rows="2" formControlName="Addressthree" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 4" rows="2" formControlName="Addressfour" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
@@ -160,10 +160,10 @@
                           <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Gender<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <mat-select formControlName="driveGender" readonly>
+                          <mat-select formControlName="driveGender">
                             <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
                         </mat-form-field>
@@ -171,7 +171,7 @@
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Age<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3">
+                          <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
@@ -180,7 +180,7 @@
                           <input matInput formControlName="drivingexp"  (keypress)="numValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Marital Status<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <mat-select formControlName="drivemaritalStatus">
@@ -228,20 +228,22 @@
                         <div class="col-md-12 mt-1">
                           <h6 class="color-blue"> FINANCIER DETAILS </h6>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-12 mt-2">
                           <mat-checkbox formControlName="Financetype" (change)="check($event)"><strong> If Vehicle is Finance? </strong></mat-checkbox>
                         </div>
-                          <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
+                          <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
                             <mat-form-field class="w-100">
-                              <mat-select placeholder="Type" formControlName="banktype" readonly>
+                                <mat-placeholder>Type<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                                <mat-select formControlName="banktype" readonly>
                                 <mat-option value="bank">BANK</mat-option>
                                 <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
                               </mat-select>
                             </mat-form-field>
                           </div>
-                        <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
+                        <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
                           <mat-form-field class="w-100">
-                            <input  matInput placeholder="Name" formControlName="bankName" (keypress)="nameValidate($event);financiertype($event.target.value)"  [matAutocomplete]="auto">
+                              <mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                            <input  matInput formControlName="bankName" (keypress)="nameValidate($event);financiertype($event.target.value)"  [matAutocomplete]="auto">
                             <mat-autocomplete #auto="matAutocomplete">
                               <mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>
                             </mat-autocomplete>
@@ -249,7 +251,8 @@
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                           <mat-form-field class="w-100">
-                            <textarea matInput placeholder="Address" rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
+                              <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                              <textarea matInput rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
                           </mat-form-field>
                         </div>
                         <div class="col-md-12 mt-1" >
@@ -278,7 +281,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
                               <mat-placeholder>Expiry Date (DD/MM/YYYY)<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                              <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate">
+                              <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                           </mat-form-field>
@@ -296,28 +299,28 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Associationmember" (change)="check($event)"><strong> Automobile_Association_Membership </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Associationmember"><strong> Automobile_Association_Membership </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Voluntary" (change)="check($event)"><strong> Voluntary_Deductibles </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Voluntary"><strong> Voluntary_Deductibles </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Antitheft" (change)="check($event)"><strong> Anti_theft_device </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Antitheft"><strong> Anti_theft_device </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Tppdrestrict" (change)="check($event)"><strong> TPPD_Restricted </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Tppdrestrict"><strong> TPPD_Restricted </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="depreciation" (change)="check($event)"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
+                          <mat-checkbox formControlName="depreciation"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Consumableexpense" (change)="check($event)"><strong> Consumables_expenses </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Consumableexpense"><strong> Consumables_expenses </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Returninvoice" (change)="check($event)"><strong> Return_to_Invoice </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Returninvoice"><strong> Return_to_Invoice </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="Roadsideassistance" (change)="check($event)"><strong> Roadside_Assistance </strong></mat-checkbox>
+                          <mat-checkbox formControlName="Roadsideassistance"><strong> Roadside_Assistance </strong></mat-checkbox>
                         </div>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
@@ -331,7 +334,7 @@
             </mat-accordion>
           </mat-step>
 
-          <mat-step [stepControl]="" *ngIf="enquiryFormData.business_type == '5'">
+          <mat-step [stepControl]="" *ngIf="enquiryFormData.business_type != '1'">
             <ng-template matStepLabel> PREVIOUS POLICY </ng-template>
             <mat-accordion class="w-100 float-left">
               <form [formGroup]="previouspolicy">
@@ -367,10 +370,10 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
+                  <div class="col-md-4">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off">
+                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="10">
                     </mat-form-field>
                   </div>
                   <div class="col-md-12 mt-1">
@@ -437,17 +440,19 @@
                       <div class="row">
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Name" formControlName="nomieeName" (keypress)="nameValidate($event)">
+                            <input matInput placeholder="Name" formControlName="nomieeName" (keypress)="nameValidate($event)" required>
+                              <mat-error *ngIf="nominee.controls.nomieeName.errors?.required">Name is Required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Age" formControlName="nomineeAge"  (keypress)="numberValidate($event)" maxlength="3">
+                            <input matInput placeholder="Age" formControlName="nomineeAge"  (keypress)="numberValidate($event)" maxlength="3" required>
+                              <mat-error *ngIf="nominee.controls.nomineeAge.errors?.required">Age is Required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="relation" formControlName="nomineerelation" readonly>
+                            <mat-select placeholder="relation" formControlName="nomineerelation" readonly required>
                               <mat-option *ngFor="let relation of relationlist | keys" value="{{relation.key}}">{{relation.value}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="nominee.controls.nomineerelation.errors?.required">Relationship is Required</mat-error>
@@ -470,12 +475,12 @@
             <section class="summary-details" *ngIf="summaryData">
               <div class="row">
                 <div class="col-md-4">
-                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.company_name}}</span> </span></h4>
+                  <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large">{{buyBikeDetails.plan_name}}</span> </span></h4>
                 </div>
                 <div class="col-md-8">
                   <ul class="summary-head">
                     <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{buyBikeDetails.Comprehensive_premium}}</span></li>
+                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i>{{summaryData.premium}}</span></li>
                     <li></li>
                   </ul>
                 </div>
@@ -484,7 +489,7 @@
                 <h5 class="mt-3 sub-title"> PROPOSER DETAILS </h5>
                 <div class="row box-card">
                   <div class="col-md-6">
-                    <div class="p-3 mt-2">
+                    <div class="p-3 mt-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
@@ -521,7 +526,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                  <div class="col-md-6 mt-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Driving Experience:</strong> {{proposerFormData.drivingexp}}</li>
@@ -543,20 +548,20 @@
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
                         <li class="list-group-item"><strong>PACover_for_OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember.value != ''"><strong>Automobile_Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Associationmember.value != 'Y'">No</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary.value != ''"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Voluntary.value != 'Y'">No</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft.value != ''"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Antitheft.value != 'Y'">No</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict.value != ''"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Tppdrestrict.value != 'Y'">No</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember != '' && vehicalFormData.Associationmember != null && vehicalFormData.Associationmember != false"><strong>Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary != null && vehicalFormData.Voluntary != false"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft != '' && vehicalFormData.Antitheft != null && vehicalFormData.Antitheft != false"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft== true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict != '' && vehicalFormData.Tppdrestrict != null && vehicalFormData.Tppdrestrict != false"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict == true">Yes</span></li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="vehicalFormData.depreciation.value != ''"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.depreciation.value != 'Y'">No</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense.value != ''"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Consumableexpense.value != 'Y'">No</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice.value != ''"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Returninvoice.value != 'Y'">No</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance.value != ''"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance.value == 'Y'">Yes</span><span *ngIf="vehicalFormData.Roadsideassistance.value != 'Y'">No</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.depreciation != '' && vehicalFormData.depreciation != null && vehicalFormData.depreciation != false"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense != '' && vehicalFormData.Consumableexpense != null && vehicalFormData.Consumableexpense != false"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice != '' && vehicalFormData.Returninvoice != null && vehicalFormData.Returninvoice != false"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance != '' && vehicalFormData.Roadsideassistance != null && vehicalFormData.Roadsideassistance != false"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance == true">Yes</span></li>
                       </ul>
                     </div>
                   </div>
@@ -571,7 +576,7 @@
                   </div>
                   </div>
               </section>
-              <section *ngIf="enquiryFormData.business_type == '5'">
+              <section *ngIf="enquiryFormData.business_type != '1'">
                 <h5 class="mt-3 sub-title"> PREVIOUS POLICY  DETAILS </h5>
                 <div class="row box-card">
                   <div class="col-md-6">
@@ -579,7 +584,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.precode}}</li>
                         <li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preName}}</li>
-                        <li class="list-group-item"><strong>POLNO:</strong> {{previousFormData.preName}}</li>
+                        <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
                       </ul>
                     </div>
                     <div class="p-3">

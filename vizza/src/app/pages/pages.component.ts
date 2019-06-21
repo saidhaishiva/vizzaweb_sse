@@ -4,6 +4,10 @@ import { AppSettings } from '../app.settings';
 import { Settings } from '../app.settings.model';
 import { MenuService } from '../theme/components/menu/menu.service';
 import { AuthService} from '../shared/services/auth.service';
+import {PosstatusAlert} from './health-insurance/health-insurance.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {ContactComponent} from './contact/contact.component';
+
 
 @Component({
   selector: 'app-pages',
@@ -29,7 +33,7 @@ export class PagesComponent implements OnInit {
   public userId: any;
   public mHorizontal: any;
 
-  constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService){
+  constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService, public auth: AuthService, public dialog: MatDialog){
     this.settings = this.appSettings.settings;
     this.breadcrumbHome = true;
     this.userId = 0;
@@ -156,6 +160,13 @@ export class PagesComponent implements OnInit {
       this.settings.sidenavIsOpened = true;
      this.settings.sidenavIsPinned = true;
     }
+  }
+
+  iconclick(){
+    let dialogRef = this.dialog.open(ContactComponent, {
+      width: '1000px',
+      height: '500px',
+    });
   }
 
   // public closeSubMenus(){

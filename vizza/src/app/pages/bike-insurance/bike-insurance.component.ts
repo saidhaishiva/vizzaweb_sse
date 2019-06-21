@@ -70,7 +70,7 @@ export class BikeInsuranceComponent implements OnInit {
         this.listDetails = false;
 
         this.bikeInsurance = this.fb.group({
-            'vehicalNumber': ['', Validators.required],
+            'vehicalNumber': '',
             'registrationDate': ['', Validators.required],
             'previousClaim': 'Yes',
             'enquiry': '',
@@ -198,7 +198,7 @@ export class BikeInsuranceComponent implements OnInit {
             "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             "enquiry_id": 0,
             "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-            "vehicle_no": this.bikeInsurance.controls['vehicalNumber'].value,
+            "vehicle_no": this.bikeInsurance.controls['vehicalNumber'].value ? this.bikeInsurance.controls['vehicalNumber'].value : '',
             "registration_date": this.bikeInsurance.controls['registrationDate'].value,
             "previous_claim_YN": this.bikeInsurance.controls['previousClaim'].value == 'No' ? '0' : '1',
             "previous_policy_expiry_date": this.bikeInsurance.controls['previousPolicyExpiry'].value ? this.bikeInsurance.controls['previousPolicyExpiry'].value : '',
@@ -227,7 +227,7 @@ export class BikeInsuranceComponent implements OnInit {
             sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
             sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
             sessionStorage.enquiryFormData = JSON.stringify(data);
-            if (this.bikeInsurance.valid) {
+            // if (this.bikeInsurance.valid) {
 
             let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                 width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
@@ -237,7 +237,7 @@ export class BikeInsuranceComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
             });
 
-        }
+        // }
 
         } else {
             this.toastr.error(successData.ErrorObject);
