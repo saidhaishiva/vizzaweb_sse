@@ -90,10 +90,10 @@ export class BikeTataaigProposalComponent implements OnInit {
                     this.ProposalId = this.summaryData.ProposalId;
                     this.PaymentRedirect = this.summaryData.PaymentRedirect;
                     this.PaymentReturn = this.summaryData.PaymentReturn;
-                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
-                    this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
-                    this.previousFormData = JSON.parse(sessionStorage.previousFormData);
-                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    this.proposerFormData = JSON.parse(sessionStorage.tatabikeproposer);
+                    this.vehicalFormData = JSON.parse(sessionStorage.tatavehicle);
+                    this.previousFormData = JSON.parse(sessionStorage.tataprepolicy);
+                    this.nomineeFormData = JSON.parse(sessionStorage.tatanominee);
                     sessionStorage.tataBikeproposalID = this.ProposalId;
                 }
             }
