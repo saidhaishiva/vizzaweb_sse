@@ -13,7 +13,7 @@
 </div>
 
 
-    <div mat-dialog-content>
+    <div >
         <div class="row   paScroll compare-details">
 
             <table class="table compare ">
@@ -24,6 +24,7 @@
                     </th>
                     <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
                         <img src="{{webhost + '/' + list.product_logo}}">
+                       <button mat-raised-button color="accent" (click)="buyProduct(list)">Buy</button>
                         <p class="content-color pt-2">{{list.product_name}}</p>
                     </th>
                 </tr>
