@@ -580,56 +580,6 @@ a:hover {
         background: #8A56DB;
       }
 
-      li:nth-child(7) .icon {
-        background: #9ECA3A;
-      }
-
-      li:nth-child(7) .icon {
-        background: #4CB8E4;
-      }
-
-      li:nth-child(8) .icon {
-        background: #F246A2;
-      }
-
-      li:nth-child(9) .icon {
-        background: #FBD100;
-      }
-
-      li:nth-child(10) .icon {
-        background: #66C954;
-      }
-
-      li:nth-child(11) .icon {
-        background: #5189B8;
-      }
-
-      li:nth-child(12) .icon {
-        background: #9B2A5C;
-      }
-
-      li:nth-child(13) .icon {
-        background: #0D6197;
-      }
-
-      li:nth-child(14) .icon {
-        background: #00AEB3;
-      }
-      li:nth-child(15) .icon {
-        background: #8D6CAB;
-      }
-      li:nth-child(16) .icon {
-        background: #00A0DC;
-      }
-      li:nth-child(17) .icon {
-        background: #E68523;
-      }
-      li:nth-child(18) .icon {
-        background: #DC4B89;
-      }
-      li:nth-child(19) .icon {
-        background: #7CB82F;
-      }
     }
     .nav-link{
       border-bottom: 1px solid #ccc;
@@ -979,6 +929,9 @@ a:hover {
   }
   .table-warning2 {
     background-color: #f7d5d7;
+  }
+  .mat-dialog-content{
+    overflow: hidden!important;
   }
 }
 .compare-details-travel {

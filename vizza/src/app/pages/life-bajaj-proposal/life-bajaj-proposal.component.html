@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row bajajLifeProposal">
+  <div class="row bajajLifeProposal mb-4">
     <div class="col-md-12">
       <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
         <mat-step [stepControl]="">
@@ -243,13 +243,13 @@
                         <div class="col-md-12">
                           <div class="box-card addressBox" *ngIf="proposer.controls['isPancard'].value == false">
                             <div class="row">
-                              <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
+                              <div class="col-md-4" *ngIf="proposer.controls['isPancard'].value == false">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Amount of transaction" formControlName="amtTransaction" (keypress)="numberValidate($event)"  autocomplete="off" readonly>
                                   <!--  <mat-error *ngIf="proposer.controls.amtTransaction.errors?.required">Enter changed Weight</mat-error>-->
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
+                              <div class="col-md-4" *ngIf="proposer.controls['isPancard'].value == false">
                                 <mat-form-field class="w-100">
                                   <input matInput [matDatepicker]="picker11" [min]="today"  placeholder="Date Of Transaction (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dateoftransaction" (dateInput)="addEvent($event,'trasaction')" (dateChange)="addEvent($event,'trasaction')" minlength="10" maxlength="10"
                                          autocomplete="off"  >
@@ -259,27 +259,27 @@
                                 </mat-form-field>
                                 <div class="error" *ngIf="transactiondateError != ''">{{transactiondateError}}</div>
                               </div>
-                              <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
+                              <div class="col-md-4" *ngIf="proposer.controls['isPancard'].value == false">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="In case of transaction in joint names" formControlName="jointAcName" (keypress)="nameValidate($event)"  autocomplete="off">
                                   <!--  <mat-error *ngIf="proposer.controls.jointAcName.errors?.required">Enter changed Weight</mat-error>-->
                                 </mat-form-field>
                               </div>
 
-                              <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false">
-                                <mat-form-field class="w-100">
-                                  <mat-select  placeholder="Mode Of Transaction" formControlName="modeOfTransaction" class="w-100">
-                                    <mat-option *ngFor="let list of modeOfTransactionList | keys" [value]= list.value> {{list.value}} </mat-option>
-                                  </mat-select>
-                                  <!--                        <mat-error *ngIf="proposer.controls.modeOfTransaction.errors?.required">Proposer Type is required</mat-error>-->
-                                </mat-form-field>
-                              </div>
+<!--                              <div class="col-md-4" *ngIf="proposer.controls['isPancard'].value == false">-->
+<!--                                <mat-form-field class="w-100">-->
+<!--                                  <mat-select  placeholder="Mode Of Transaction" formControlName="modeOfTransaction" class="w-100">-->
+<!--                                    <mat-option *ngFor="let list of modeOfTransactionList | keys" [value]= list.value> {{list.value}} </mat-option>-->
+<!--                                  </mat-select>-->
+<!--                                  &lt;!&ndash;                        <mat-error *ngIf="proposer.controls.modeOfTransaction.errors?.required">Proposer Type is required</mat-error>&ndash;&gt;-->
+<!--                                </mat-form-field>-->
+<!--                              </div>-->
 
-                              <div class="col-md-6 mt-4" *ngIf="proposer.controls['isPancard'].value == false">
+                              <div class="col-md-4 mt-4" *ngIf="proposer.controls['isPancard'].value == false">
                                 <mat-checkbox formControlName="isAppliedPan"  ><strong>If applied for PAN and it is not yet </strong></mat-checkbox>
                               </div>
 
-                              <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == true">
+                              <div class="col-md-4" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == true">
                                 <mat-form-field class="w-100">
                                   <input matInput [matDatepicker]="picker3" [max]="today"  placeholder="Date Of Application (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dateofapplication" (dateInput)="dateOfApplicationEvent($event)" (dateChange)="dateOfApplicationEvent($event)" minlength="10" maxlength="10"
                                          autocomplete="off"  >
@@ -290,7 +290,7 @@
                                 <div class="error" *ngIf="dopDateError != ''">{{dopDateError}}</div>
                               </div>
 
-                              <div class="col-md-3" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == true">
+                              <div class="col-md-4" *ngIf="proposer.controls['isPancard'].value == false && proposer.controls['isAppliedPan'].value == true">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Acknowledgement Number" formControlName="ackNumber" maxlength="15" (keypress)="idValidate($event)"  autocomplete="off">
                                   <!--  <mat-error *ngIf="proposer.controls.ackNumber.errors?.required">Enter changed Weight</mat-error>-->
@@ -1279,6 +1279,7 @@
                           <ul class="m-0 list-group">
                             <li class="list-group-item"><strong>Nominee Name:</strong> {{item.nnName}}</li>
                             <li class="list-group-item" ><strong>Nominee Date Of Birth:</strong> {{item.nDob | date: 'dd/MM/yyyy'}}</li>
+                            <li class="list-group-item"><strong>Nominee Relation:</strong> {{item.nRelation}}</li>
                           </ul>
                         </div>
                       </div>
@@ -1290,17 +1291,16 @@
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                             <li class="list-group-item" ><strong>Nominee Birth Place:</strong> {{item.nBirthPlace}}</li>
-                            <li class="list-group-item"><strong>Nominee Relation:</strong> {{item.nRelation}}</li>
-                            <li class="list-group-item" *ngIf="item.sharePercentage!='' && i == 1"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
+                            <li class="list-group-item" *ngIf="item.sharePercentage!=''"><strong>Share Percentage:</strong> {{item.sharePercentage}}</li>
 
                           </ul>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6" *ngIf="item.aName!='' || item.appointeeDob!='' || item.sharePercentage!='' || item.appointeeRelationToNominee!='' || item.relationToInsured!=''">
+                  <div class="col-md-6" *ngIf="item.aName!=''">
                     <div class="p-3">
-                      <h6 class="color-blue">APOINTEE DETAILS</h6>
+                      <h6 class="color-blue text-left">APOINTEE DETAILS</h6>
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
@@ -1311,7 +1311,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6">
+                  <div class="col-md-6" *ngIf="item.appointeeRelationToNominee!=''">
                     <div class="p-3">
                       <h6 class="color-blue mt-4"></h6>
                       <div class="row">
