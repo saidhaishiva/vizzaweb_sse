@@ -849,7 +849,15 @@ export class ReliagretravelproposalComponent implements OnInit {
                     'prop_identity_list': [
                         {
                             'identity_number': this.proposerInsureData[i].passport,
-                            'identity_type': this.proposerInsureData[i].religarePersonalpassport != '' ? 'passport' : ''
+                            'identity_type': 'passport',
+                        },
+                        {
+                            'identity_number': this.proposerInsureData[i].pannumber == '' || this.proposerInsureData[i].pannumber == undefined ? '' : this.proposerInsureData[i].pannumber,
+                            'identity_type': 'pan',
+                        },
+                        {
+                            'identity_number': this.proposerInsureData[i].adharnumber == '' || this.proposerInsureData[i].adharnumber == undefined ? '' : this.proposerInsureData[i].adharnumber,
+                            'identity_type': 'aadhar',
                         }
                     ],
                     'proposer_res_address1': this.proposerInsureData[0].address1,
