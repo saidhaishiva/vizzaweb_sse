@@ -861,18 +861,18 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
 
-  // //TAtaaig Coverdrivelist
-  //
-  // coverdrive(data) {
-  //   const json = JSON.stringify(data);
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-  //   };
-  //   const url = this.configurationService.getFourwheelerInsurance() + 'tata/driverAddons';
-  //   return this.http.post(url,json, httpOptions)
-  //       .map(this.extractData)
-  //       .catch(this.handleError);
-  // }
+  //Tataaig packagelist
+
+  packagetype(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'tata/carAddons';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
 
   // Tataaig QuoteList
 
