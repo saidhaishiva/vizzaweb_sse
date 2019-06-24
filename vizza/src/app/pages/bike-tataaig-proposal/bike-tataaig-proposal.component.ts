@@ -622,10 +622,10 @@ export class BikeTataaigProposalComponent implements OnInit {
                     console.log(value, 'proposer');
                     stepper.next();
                 } else {
-                    this.toastr.error('Invalid DrivingExperience');
+                    this.toastr.error('Invalid Driving Experience');
                 }
             } else {
-                this.toastr.error('Proposer Should Be Greater than 18 and Above');
+                this.toastr.error('Proposer should be 18 or above');
             }
         } else {
             this.toastr.error('Please Fill All The Mandtory Fields');
