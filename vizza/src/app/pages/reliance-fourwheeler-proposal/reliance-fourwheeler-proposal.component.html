@@ -457,13 +457,16 @@
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="IsPAToDriverCovered" (change)="updateDriverCovered($event)">PA To Driver Covered</mat-checkbox>
                       </div>
-
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="IsRegistrationCover" >Registration Cover</mat-checkbox>
                       </div>
 
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="IsRoadTaxcover" >Road Tax cover</mat-checkbox>
+                      </div>
+
+                      <div class="col-md-3">
+                        <mat-checkbox  formControlName="PAToNamedPassenger" (change)="updatenpMandatory($event)">PA To Named Passenger</mat-checkbox>
                       </div>
 
 
@@ -562,7 +565,7 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
+                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required readonly>
                           <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passenegers Covered is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -639,6 +642,92 @@
                     </div>
                   </div>
 
+<!--                  ////-->
+
+                  <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PAToNamedPassenger.value == true">
+
+                    <div class="row">
+                      <div class="col-md-4">
+                        <h6 class="color-blue">PA To Named Passenger</h6>
+                      </div>
+                    </div>
+
+
+                    <div class="row">
+
+                      <div class="col-md-4 mt-0">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Named Passengers SI" formControlName="namedPassengersSI" (change)="unnamedSi()" required>
+                            <mat-option *ngFor="let type of unnamedList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="coverDetails.controls.namedPassengersSI.errors?.required">Named Passengers SI is required</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-4 mt-0">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Passenger Name" formControlName="nppassengerName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <mat-error *ngIf="coverDetails.controls.nppassengerName.errors?.required">Passenger Name is required</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-4 mt-0">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Nominee Name" formControlName="npnomineeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <mat-error *ngIf="coverDetails.controls.npnomineeName.errors?.required">Nominee Name is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4 mt-0">
+                        <mat-form-field class="w-100">
+                          <input matInput [matDatepicker]="picker1" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="npDob" (dateInput)="addEvent($event,'npnominee')" (dateChange)="addEvent($event,'npnominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                          <mat-error *ngIf="coverDetails.controls.npDob.errors?.required">DOB is required</mat-error>
+                        </mat-form-field>
+                        <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
+                      </div>
+
+                      <div class="col-md-4 mt-0">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Nominee Relation" formControlName="nprelation" (change)="changenpRelation()" required>
+                            <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="coverDetails.controls.nprelation.errors?.required">Relation  is required</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-4 mt-0">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Nominee Address" formControlName="npAddress"  autocomplete="off" required >
+                          <mat-error *ngIf="coverDetails.controls.npAddress.errors?.required">nominee Address is required</mat-error>
+                        </mat-form-field>
+                      </div>
+
+
+                      <div class="col-md-4 mt-0">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Other Relation" formControlName="npOtherRelation" (change)="changenpOtherRelation()" required>
+                            <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
+                          </mat-select>
+                          <mat-error *ngIf="coverDetails.controls.npOtherRelation.errors?.required">Relation  is required</mat-error>
+                        </mat-form-field>
+                      </div>
+
+                      <div class="col-md-4 mt-0" *ngIf="npshowNominee">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Appointee Name" formControlName="npappointeeName"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <mat-error *ngIf="coverDetails.controls.npappointeeName.errors?.required">Appointee Name is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
+
+                  <!--                  ///-->
+
                   <div class="col-md-12 mt-2" *ngIf="coverDetails.controls.PACoverToOwner.value == true">
 
                     <div class="row">
@@ -655,9 +744,9 @@
                       </div>
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="cnDob" (dateInput)="addEvent($event,'nominee')" (dateChange)="addEvent($event,'nominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
-                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker>
+                          <input matInput [matDatepicker]="picker2" [max]="today" placeholder=" Nominee DOB (DD/MM/YYYY)"   formControlName="cnDob" (dateInput)="addEvent($event,'nominee')" (dateChange)="addEvent($event,'nominee')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
                           <mat-error *ngIf="coverDetails.controls.cnDob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
@@ -944,6 +1033,7 @@
                       <div class="col-md-12">
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered != ''"><strong>Unnamed Passenger Covered:</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == true">Yes</span><span *ngIf="coverFormData.UnnamedPassengerCovered == false">No</span> </li>
+                          <li class="list-group-item" *ngIf="coverFormData.namedPassengerCovered != ''"><strong>Named Passenger Covered:</strong><span *ngIf="coverFormData.namedPassengerCovered == true">Yes</span><span *ngIf="coverFormData.namedPassengerCovered == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>Automobile Association Member:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>Anti Theft Device Fitted:</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.InsurancePremium != ''"><strong>Insurance Premium:</strong><span *ngIf="coverFormData.InsurancePremium == true">Yes</span><span *ngIf="coverFormData.InsurancePremium == false">No</span> </li>
@@ -989,6 +1079,17 @@
                           <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PACoverToOwner ==true "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PACoverToOwner == true "><strong>OtherRelation:</strong> {{coverFormData.nOtherRelation}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PACoverToOwner == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
+
+
+                          <li class="list-group-item" *ngIf="coverFormData.namedPassengersSI != '' && coverFormData.namedPassengerCovered ==true "><strong>Named Passengers SI:</strong> {{coverFormData.namedPassengersSI}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.nppassengerName != '' && coverFormData.namedPassengerCovered ==true "><strong>Passenger Name:</strong> {{coverFormData.nppassengerName}}</li>
+
+                          <li class="list-group-item" *ngIf="coverFormData.npappointeeName != '' && coverFormData.namedPassengerCovered ==true "><strong>AppointeeName:</strong> {{coverFormData.npappointeeName}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.npnomineeName != '' && coverFormData.namedPassengerCovered ==true "><strong>NomineeName:</strong> {{coverFormData.npnomineeName}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.npDob != '' && coverFormData.namedPassengerCovered ==true"><strong>Nominee Dob:</strong> {{coverFormData.npDob}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.nprelation != '' && coverFormData.namedPassengerCovered ==true "><strong>Relation:</strong> {{coverFormData.nprelationValue}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.npOtherRelation != '' && coverFormData.namedPassengerCovered == true "><strong>OtherRelation:</strong> {{coverFormData.npOtherRelationValue}}</li>
+                          <li class="list-group-item" *ngIf="coverFormData.npAddress != '' && coverFormData.namedPassengerCovered == true "><strong>Nominee Address:</strong> {{coverFormData.npAddress}}</li>
                         </ul>
                       </div>
                     </div>
