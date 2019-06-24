@@ -1728,10 +1728,10 @@
 
                         </section>
                         <div class="row" *ngIf="summaryData">
-                            <div class="col-sm-12 col-xs-12 col-md-6 text-center">
+                            <div class=" col-6 col-sm-6 col-xs-6 col-md-6 text-center">
                                 <button mat-button color="warn" (click)="backAll()">Back</button>
                             </div>
-                            <div class="col-sm-12 col-xs-12 col-md-6 text-center">
+                            <div class="col-6 col-sm-6 col-xs-6 col-md-6 text-center">
                                 <form action={{summaryData.RediretUrlLink}} method='post' #form>
                                     <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
                                 </form>
