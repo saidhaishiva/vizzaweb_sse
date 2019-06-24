@@ -647,7 +647,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                     this.totalInsureSpouseDetails = {};
                     this.totalInsureSpouseDetails = {
                         'FirstName': this.insurerData[a].insurespouseFullname,
-                        'RelationshipwithInsuredID': this.insurerData[a].nomineeRelationship,
+                        'RelationshipwithInsuredID': this.insurerData[a].relationship,
                         'DOB': this.datepipe.transform(this.insurerData[a].InsDOB, 'dd/MM/y'),
                         'PassportNo': this.insurerData[a].passport,
                         'NomineeName': this.insurerData[a].nomineeName,
@@ -661,7 +661,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                     this.insurerData[a].type == 'Child1' ? this.totalInsureChildDetails = [] : '';
                     this.totalInsureChildDetails.push({
                         'ChildName': this.insurerData[a].insurechildFullname,
-                        'ChildRelationID': this.insurerData[a].nomineeRelationship,
+                        'ChildRelationID': this.insurerData[a].relationship,
                         'DOB': this.datepipe.transform(this.insurerData[a].InsDOB, 'dd/MM/y'),
                         'PassportNo': this.insurerData[a].passport,
                         'NomineeName': this.insurerData[a].nomineeName,
