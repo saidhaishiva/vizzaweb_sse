@@ -225,6 +225,48 @@ export class FourWheelerService {
   }
 
 
+  ///fourWheelerunnamedSiList
+
+  fourWheelerunnamedSiList(data){
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/unnamed_passanger_si_list';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  ///fourWheelergetPaidDriverSi
+
+  fourWheelergetPaidDriverSi(data){
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/pa_to_paid_si_list';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
+  //fourWheelergetTppdSi
+
+  fourWheelergetTppdSi(data){
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'reliance/tppd_cover_si_list';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+
   //relationListDetails
   fourWheelerrelationListDetails(data){
     const json = JSON.stringify(data);
@@ -819,18 +861,18 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
 
-  // //TAtaaig Coverdrivelist
-  //
-  // coverdrive(data) {
-  //   const json = JSON.stringify(data);
-  //   const httpOptions = {
-  //     headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-  //   };
-  //   const url = this.configurationService.getFourwheelerInsurance() + 'tata/driverAddons';
-  //   return this.http.post(url,json, httpOptions)
-  //       .map(this.extractData)
-  //       .catch(this.handleError);
-  // }
+  //Tataaig packagelist
+
+  packagetype(data) {
+    const json = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'tata/carAddons';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
 
   // Tataaig QuoteList
 

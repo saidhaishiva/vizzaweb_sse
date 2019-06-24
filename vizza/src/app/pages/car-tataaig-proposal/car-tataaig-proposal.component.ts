@@ -75,6 +75,9 @@ export class CarTataaigProposalComponent implements OnInit {
   public getstepper2: any;
   public getstepper3: any;
   public getstepper4: any;
+  public packagelist: any;
+  public carProposerAge: any;
+  public agecount: any;
 
 
   constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService ) {
@@ -105,6 +108,7 @@ export class CarTataaigProposalComponent implements OnInit {
       Addressone: ['', Validators.required],
       Addresstwo: '',
       Addressthree: '',
+      Addressfour: '',
       proposerPincode: ['', Validators.required],
       proposerState: ['', Validators.required],
       proposerDistrict: ['', Validators.required],
@@ -129,6 +133,20 @@ export class CarTataaigProposalComponent implements OnInit {
       autoNumber: '',
       autoName: '',
       autoDob: '',
+      package: ['', Validators.required],
+      packagevalue: '',
+      Depreciation: '',
+      Allowance: '',
+      Invoice: '',
+      personaloss: '',
+      transport: '',
+      keyReplacement: '',
+      Enginesecure: '',
+      Consumableexpence: '',
+      Repairofglass: '',
+      Tyresecure: '',
+      protectioncover: '',
+      Roadside: '',
     });
 
     this.previouspolicy = this.fb.group({
@@ -157,13 +175,14 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getNamelist();
     this.getCodelist();
     this.getRelationList();
+    this.package();
     this.sessionData();
     this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
     console.log(this.vehicledata);
     this.buycarDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     this.enquiryFormData = JSON.parse(sessionStorage.bikeListDetails);
     console.log(this.enquiryFormData, 'enquiry data');
-    this.carEnquiryId = sessionStorage.bikeEnquiryId;
+    this.carEnquiryId = sessionStorage.fwEnquiryId;
     this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
     this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
     const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
@@ -171,8 +190,22 @@ export class CarTataaigProposalComponent implements OnInit {
     this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
     console.log(this.poldate, 'policy date');
   }
-  changeflag(event) {
 
+  changeflag(event: any) {
+    if (this.previouspolicy.controls['preflag'].value == 'Y') {
+      this.previouspolicy.controls['precode'].setValidators([Validators.required]);
+      this.previouspolicy.controls['preName'].setValidators([Validators.required]);
+      this.previouspolicy.controls['prepolno'].setValidators([Validators.required]);
+    } else if (this.previouspolicy.controls['preflag'].value == 'N') {
+      this.previouspolicy.controls['precode'].patchValue('');
+      this.previouspolicy.controls['preName'].patchValue('');
+      this.previouspolicy.controls['precode'].setValidators(null);
+      this.previouspolicy.controls['preName'].setValidators(null);
+      this.previouspolicy.controls['prepolno'].setValidators(null);
+    }
+    this.previouspolicy.controls['precode'].updateValueAndValidity();
+    this.previouspolicy.controls['preName'].updateValueAndValidity();
+    this.previouspolicy.controls['prepolno'].updateValueAndValidity();
   }
 
   nameValidate(event: any) {
@@ -189,6 +222,16 @@ export class CarTataaigProposalComponent implements OnInit {
     this.validation.numberValidate(event);
   }
 
+  // Number validation
+  numValidate(event: any) {
+    if (event.charCode !== 0) {
+      const pattern = /[0-9]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (!pattern.test(inputChar) || event.target.value.length >= 2) {
+        event.preventDefault();
+      }
+    }
+  }
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
@@ -217,6 +260,11 @@ export class CarTataaigProposalComponent implements OnInit {
             this.automobdateError = 'Enter Valid Date';
           }
         }
+        if(type == 'proposer') {
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
+          this.carProposerAge = this.ageCalculate(dob);
+          sessionStorage.carproposerAge = this.carProposerAge;
+        }
       } else if (typeof event.value._i == 'object') {
         dob = this.datepipe.transform(event.value,'y-MM-dd');
         if (dob.length == 10) {
@@ -233,9 +281,28 @@ export class CarTataaigProposalComponent implements OnInit {
             this.automobdateError = 'Enter Valid Date';
           }
         }
+        if(type == 'proposer') {
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
+          this.carProposerAge = this.ageCalculate(dob);
+          sessionStorage.carproposerAge = this.carProposerAge;
+        }
       }
     }
   }
+
+  // AGE VALIDATION
+  ageCalculate(dob) {
+    let today = new Date();
+    let birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    let dd = today.getDate() - birthDate.getDate();
+    if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
+      age = age - 1;
+    }
+    return age;
+  }
+
 
   //Proposer PincodeList
   getPostalCode(pin, type) {
@@ -345,7 +412,6 @@ export class CarTataaigProposalComponent implements OnInit {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-
     };
     this.carinsurance.CodeList(data).subscribe(
         (successData) => {
@@ -365,6 +431,39 @@ export class CarTataaigProposalComponent implements OnInit {
   prepolicycodeListFailure(error) {
 
   }
+
+//Addons Package
+
+    package() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        };
+        this.carinsurance.packagetype(data).subscribe(
+            (successData) => {
+                this.packageListSuccess(successData);
+            },
+            (error) => {
+                this.packageListFailure(error);
+            }
+        );
+    }
+
+    packageListSuccess(successData) {
+        this.packagelist = successData.ResponseObject;
+
+    }
+
+    packageListFailure(error) {
+
+    }
+
+  selectopt(event: any) {
+    this.vehicle.controls['packagevalue'].patchValue(this.packagelist[this.vehicle.controls['package'].value]);
+  }
+
+
 
   //Nominee RelationList
   getRelationList() {
@@ -429,6 +528,8 @@ export class CarTataaigProposalComponent implements OnInit {
       this.proposer.controls['driveFirstname'].patchValue(this.proposer.controls['proposerFirstname'].value);
       this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
       this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
+      this.proposer.controls['driveAge'].patchValue(sessionStorage.carproposerAge);
+      this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
       this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
       this.proposer.controls['driveLastname'].setValidators([Validators.required]);
       this.proposer.controls['driveGender'].setValidators([Validators.required]);
@@ -485,22 +586,31 @@ export class CarTataaigProposalComponent implements OnInit {
     }
   }
 
-
-
   proposerDetails(stepper: MatStepper, value) {
-    sessionStorage.tatabikeproposer = '';
-    sessionStorage.tatabikeproposer = JSON.stringify(value);
+    sessionStorage.tatacarproposer = '';
+    sessionStorage.tatacarproposer = JSON.stringify(value);
     if (this.proposer.valid) {
-      console.log(value, 'proposer');
-      stepper.next();
+      if (sessionStorage.carproposerAge >= 18) {
+        this.agecount = sessionStorage.carproposerAge;
+        let age = this.agecount - 18;
+        if (this.proposer.controls['drivingexp'].value <= age) {
+          console.log(value, 'proposer');
+          stepper.next();
+        } else {
+          this.toastr.error('Invalid DrivingExperience');
+        }
+      } else {
+        this.toastr.error('Proposer Should Be Greater than 18 and Above');
+      }
     } else {
       this.toastr.error('Please Fill All The Mandtory Fields');
     }
   }
 
+
   vehicleDetails(stepper: MatStepper, value) {
-    sessionStorage.tatavehicle = '';
-    sessionStorage.tatavehicle = JSON.stringify(value);
+    sessionStorage.tatacarvehicle = '';
+    sessionStorage.tatacarvehicle = JSON.stringify(value);
     if (this.vehicle.valid) {
       console.log(value, 'vehicle');
       stepper.next();
@@ -508,8 +618,8 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   prepolicyDetails(stepper: MatStepper, value) {
-    sessionStorage.tataprepolicy = '';
-    sessionStorage.tataprepolicy = JSON.stringify(value);
+    sessionStorage.tatacarprepolicy = '';
+    sessionStorage.tatacarprepolicy = JSON.stringify(value);
     if (this.previouspolicy.valid) {
       console.log(value, 'prepolicy');
       stepper.next();
@@ -517,8 +627,8 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   nomineeDetails(stepper: MatStepper, value) {
-    sessionStorage.tatanominee = '';
-    sessionStorage.tatanominee = JSON.stringify(value);
+    sessionStorage.tatacarnominee = '';
+    sessionStorage.tatacarnominee = JSON.stringify(value);
     if (this.nominee.valid) {
       this.QuoteList(stepper);
     }
@@ -531,6 +641,20 @@ export class CarTataaigProposalComponent implements OnInit {
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'enquiry_id': this.carEnquiryId,
       'company_id': "13",
+      'Idv': this.buycarDetails.Idv,
+      'revised_idv': this.buycarDetails.Idv,
+      'Depreciation_reimbursement': this.vehicle.controls['Depreciation'].value == true ? 'Y' : 'N',
+      'Daily_allowance': 'N',
+      'Return_to_Invoice': this.vehicle.controls['Invoice'].value == true ? 'Y' : 'N',
+      'Loss_of_Personal_belongings_IDV': this.vehicle.controls['personaloss'].value == true ? 'Y' : 'N',
+      'Emergency_transport_and_Hotel_expenses_IDV': this.vehicle.controls['transport'].value == true ? 'Y' : 'N',
+      'Key_Replacement': this.vehicle.controls['keyReplacement'].value == true ? 'Y' : 'N',
+      'Engine_Secure': this.vehicle.controls['Enginesecure'].value == true ? 'Y' : 'N',
+      'Consumables_expenses': this.vehicle.controls['Consumableexpence'].value == true ? 'Y' : 'N',
+      'Repairglass_plastic_fibre_and_rubberglass': this.vehicle.controls['Repairofglass'].value == true ? 'Y' : 'N',
+      'Tyre_Secure': this.vehicle.controls['Tyresecure'].value == true ? 'Y' : 'N',
+      'NCB_protection_cover': this.vehicle.controls['protectioncover'].value == true ? 'Y' : 'N',
+      'Roadside_Assistance':this.vehicle.controls['Roadside'].value == true ? 'Y' : 'N'
     };
     this.carinsurance.QuoteList(data).subscribe(
         (successData) => {
@@ -555,8 +679,8 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   sessionData() {
-    if (sessionStorage.tatabikeproposer != '' && sessionStorage.tatabikeproposer != undefined) {
-      this.getstepper1 = JSON.parse(sessionStorage.tatabikeproposer);
+    if (sessionStorage.tatacarproposer != '' && sessionStorage.tatacarproposer != undefined) {
+      this.getstepper1 = JSON.parse(sessionStorage.tatacarproposer);
       this.proposer = this.fb.group({
         proposerTitle: this.getstepper1.proposerTitle,
         proposerFirstname: this.getstepper1.proposerFirstname,
@@ -585,8 +709,8 @@ export class CarTataaigProposalComponent implements OnInit {
         drivemaritalStatus: this.getstepper1.drivemaritalStatus,
       })
     }
-    if (sessionStorage.tatavehicle != '' && sessionStorage.tatavehicle != undefined) {
-      this.getstepper2 = JSON.parse(sessionStorage.tatavehicle);
+    if (sessionStorage.tatacarvehicle != '' && sessionStorage.tatacarvehicle != undefined) {
+      this.getstepper2 = JSON.parse(sessionStorage.tatacarvehicle);
       this.vehicle = this.fb.group({
         engine: this.getstepper2.engine,
         chassis: this.getstepper2.chassis,
@@ -598,10 +722,25 @@ export class CarTataaigProposalComponent implements OnInit {
         autoNumber: this.getstepper2.autoNumber,
         autoName: this.getstepper2.autoName,
         autoDob: this.datepipe.transform(this.getstepper2.autoDob, 'y-MM-dd'),
+        package: this.getstepper2.package,
+        packagevalue:  this.getstepper2.packagevalue,
+        Depreciation: this.getstepper2.Depreciation,
+        Allowance: this.getstepper2.Allowance,
+        Invoice: this.getstepper2.Invoice,
+        personaloss: this.getstepper2.personaloss,
+        transport: this.getstepper2.transport,
+        keyReplacement: this.getstepper2.keyReplacement,
+        Enginesecure: this.getstepper2.Enginesecure,
+        Consumableexpence: this.getstepper2.Consumableexpence,
+        Repairofglass: this.getstepper2.Repairofglass,
+        Tyresecure: this.getstepper2.Tyresecure,
+        protectioncover: this.getstepper2.protectioncover,
+        Roadside: this.getstepper2.Roadside,
+
       })
     }
-    if (sessionStorage.tataprepolicy != '' && sessionStorage.tataprepolicy != undefined) {
-      this.getstepper3 = JSON.parse(sessionStorage.tataprepolicy);
+    if (sessionStorage.tatacarprepolicy != '' && sessionStorage.tatacarprepolicy != undefined) {
+      this.getstepper3 = JSON.parse(sessionStorage.tatacarprepolicy);
       this.previouspolicy = this.fb.group({
         preflag: this.getstepper3.preflag,
         precode: this.getstepper3.precode,
@@ -616,8 +755,8 @@ export class CarTataaigProposalComponent implements OnInit {
         preCity: this.getstepper3.preCity,
       })
     }
-    if (sessionStorage.tatanominee != '' && sessionStorage.tatanominee != undefined) {
-      this.getstepper4 = JSON.parse(sessionStorage.tatanominee);
+    if (sessionStorage.tatacarnominee != '' && sessionStorage.tatacarnominee != undefined) {
+      this.getstepper4 = JSON.parse(sessionStorage.tatacarnominee);
       this.nominee = this.fb.group({
         nomieeName: this.getstepper4.nomieeName,
         nomineeAge: this.getstepper4.nomineeAge,
@@ -655,7 +794,7 @@ export class CarTataaigProposalComponent implements OnInit {
           "address_1": this.proposer.controls['Addressone'].value,
           "address_2": this.proposer.controls['Addresstwo'].value,
           "address_3": this.proposer.controls['Addressthree'].value,
-          "address_4": "",
+          "address_4": this.proposer.controls['Addressfour'].value,
           "pincode": this.proposer.controls['proposerPincode'].value,
 
           "cust_aadhaar": this.proposer.controls['proposerAadhar'].value,
