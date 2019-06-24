@@ -20,8 +20,9 @@
                         KEY FEATURES
                     </th>
                     <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
-                        <img src="{{webhost + '/' + list.product_logo}}"><br>
-                       <button mat-raised-button color="accent" (click)="buyProduct(list)">Buy</button>
+                        <img src="{{webhost + '/' + list.product_logo}}">
+                        <br>
+                       <!--<button mat-raised-button color="accent" (click)="buyProduct(list)">Buy</button>-->
                         <p class="content-color pt-2">{{list.product_name}}</p>
                     </th>
                 </tr>
