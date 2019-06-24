@@ -12,24 +12,21 @@
     </div>
 </div>
 
-
-    <div >
-        <div class="row   paScroll compare-details">
-
-            <table class="table compare ">
+     <div class="row   paScroll compare-details">
+            <table class="table compare">
                 <thead class="table-warning1" >
                 <tr>
-                    <th style="padding-right: 110px;">
+                    <th style="padding-right: 56px;">
                         KEY FEATURES
                     </th>
                     <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
-                        <img src="{{webhost + '/' + list.product_logo}}">
+                        <img src="{{webhost + '/' + list.product_logo}}"><br>
                        <button mat-raised-button color="accent" (click)="buyProduct(list)">Buy</button>
                         <p class="content-color pt-2">{{list.product_name}}</p>
                     </th>
                 </tr>
                 <tr>
-                    <th style="padding-right: 110px;">
+                    <th style="padding-right: 56px;">
                         SUM INSURED
                     </th>
                     <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
@@ -37,7 +34,7 @@
                     </th>
                 </tr>
                 <tr>
-                    <th style="padding-right: 110px;">
+                    <th style="padding-right: 56px;">
                         PREMIUM
                     </th>
                     <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
@@ -55,20 +52,10 @@
                     <td *ngFor="let list of compareDetails.productdetails; let j = index;">
                         {{compareDetails.productdetails[j].key_features[ci].key_features_value}}
                     </td>
-
                 </tr>
-
                 </tbody>
-
-
-
             </table>
-
-
-
-
         </div>
-    </div>
 
 
 

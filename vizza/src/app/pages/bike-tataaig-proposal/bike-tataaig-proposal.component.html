@@ -373,7 +373,7 @@
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="10">
+                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="8" minlength="8">
                     </mat-form-field>
                   </div>
                   <div class="col-md-12 mt-1">

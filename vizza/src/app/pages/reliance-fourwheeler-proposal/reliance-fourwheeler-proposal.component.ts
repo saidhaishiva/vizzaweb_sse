@@ -91,7 +91,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   //dob
   proposerAge : any;
   nomineeAge : any;
+  npnomineeAge : any;
   showNominee : any;
+  npshowNominee : any;
   personalDobError : any;
   previousDateError : any;
   constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService ,private toastr: ToastrService, public fourWheelerInsurance: FourWheelerService , public authservice: AuthService , public datepipe: DatePipe) {
@@ -214,6 +216,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       nOtherRelationValue: [''],
       NewVehicle: [''],
       PACoverToOwner: [''],
+      PAToNamedPassenger: [''],
       NoOfUnnamedPassenegersCovered: [''],
       IsVoluntaryDeductableOpted: [''],
       VoluntaryDeductableAmount: [''],
@@ -235,6 +238,16 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       nrelation: [''],
       nOtherRelation: [''],
       cnAddress: [''],
+      npappointeeName: [''],
+      npnomineeName: [''],
+      npDob: [''],
+      nprelation: [''],
+      nprelationValue: [''],
+      npOtherRelation: [''],
+      npOtherRelationValue: [''],
+      npAddress: [''],
+      namedPassengersSI: [''],
+      nppassengerName: [''],
       fuelType: ['',Validators.required],
     });
 
@@ -318,6 +331,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   changenOtherRelation(){
     this.coverDetails.controls['nOtherRelationValue'].patchValue(this.relationListData[this.coverDetails.controls['nOtherRelation'].value]);
   }
+  changenpOtherRelation(){
+    this.coverDetails.controls['npOtherRelationValue'].patchValue(this.relationListData[this.coverDetails.controls['npOtherRelation'].value]);
+  }
+
+  changenpRelation(){
+    this.coverDetails.controls['nprelationValue'].patchValue(this.relationListData[this.coverDetails.controls['nprelation'].value]);
+  }
+
+
   changeFuel(){
     this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
 
@@ -421,6 +443,75 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     }
   }
 
+
+  //
+  updatenpMandatory(event) {
+    if (event.checked) {
+      this.coverDetails.controls['PAToNamedPassenger'].patchValue(true);
+
+      //
+      this.coverDetails.controls['namedPassengersSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['namedPassengersSI'].updateValueAndValidity();
+
+      this.coverDetails.controls['nppassengerName'].setValidators([Validators.required]);
+      this.coverDetails.controls['nppassengerName'].updateValueAndValidity();
+
+      this.coverDetails.controls['npnomineeName'].setValidators([Validators.required]);
+      this.coverDetails.controls['npnomineeName'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['npDob'].setValidators([Validators.required]);
+      this.coverDetails.controls['npDob'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['nprelation'].setValidators([Validators.required]);
+      this.coverDetails.controls['nprelation'].updateValueAndValidity();
+      ///
+      this.coverDetails.controls['npAddress'].setValidators([Validators.required]);
+      this.coverDetails.controls['npAddress'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['npOtherRelation'].setValidators([Validators.required]);
+      this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
+
+    } else {
+      this.coverDetails.controls['PAToNamedPassenger'].patchValue(false);
+
+
+      this.coverDetails.controls['namedPassengersSI'].patchValue('');
+      this.coverDetails.controls['namedPassengersSI'].setValidators(null);
+      this.coverDetails.controls['namedPassengersSI'].updateValueAndValidity()
+
+      this.coverDetails.controls['nppassengerName'].patchValue('');
+      this.coverDetails.controls['nppassengerName'].setValidators(null);
+      this.coverDetails.controls['nppassengerName'].updateValueAndValidity()
+
+
+      this.coverDetails.controls['npappointeeName'].patchValue('');
+      this.coverDetails.controls['npappointeeName'].setValidators(null);
+      this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+
+      //
+      this.coverDetails.controls['npnomineeName'].patchValue('');
+      this.coverDetails.controls['npnomineeName'].setValidators(null);
+      this.coverDetails.controls['npnomineeName'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['npDob'].patchValue('');
+      this.coverDetails.controls['npDob'].setValidators(null);
+      this.coverDetails.controls['npDob'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['nprelation'].patchValue('');
+      this.coverDetails.controls['nprelation'].setValidators(null);
+      this.coverDetails.controls['nprelation'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['npAddress'].patchValue('');
+      this.coverDetails.controls['npAddress'].setValidators(null);
+      this.coverDetails.controls['npAddress'].updateValueAndValidity();
+      //
+      this.coverDetails.controls['npOtherRelation'].patchValue('');
+      this.coverDetails.controls['npOtherRelation'].setValidators(null);
+      this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
+    }
+  }
+
+
   updateUnnamedPassenger(event){
     if (event.checked) {
       this.coverDetails.controls['UnnamedPassengerCovered'].patchValue(true);
@@ -468,7 +559,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     if(event.checked){
       this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
       //
-      alert('ssdf');
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].patchValue('1500000');
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].setValidators([Validators.required]);
       this.coverDetails.controls['PAToOwnerDriverCoverdSi'].updateValueAndValidity();
@@ -600,13 +690,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         if (pattern.test(event.value._i) && event.value._i.length == 10) {
           if (type == 'proposor') {
             this.personalDobError = '';
-          }else if(type == 'nominee'){
+          } else if (type == 'nominee') {
             this.personalDobError = '';
           }
         } else {
           if (type == 'proposor') {
             this.personalDobError = 'Enter Valid Dob';
-          }else if ( type == 'nominee'){
+          } else if (type == 'nominee') {
             this.personalDobError = 'Enter Valid Dob';
           }
         }
@@ -615,8 +705,11 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         if (selectedDate.length == 10 && type == 'proposor') {
           this.proposerAge = this.ageCalculate(dob);
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
-        }else if(selectedDate.length ==10 && type == 'nominee') {
+        } else if (selectedDate.length == 10 && type == 'nominee') {
           this.nomineeAge = this.ageCalculate(dob);
+        } else {
+          this.npnomineeAge = this.ageCalculate(dob);
+
         }
 
       } else if (typeof event.value._i == 'object') {
@@ -625,34 +718,52 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.proposerAge = this.ageCalculate(dob);
           this.personalDobError = '';
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
-        }else {
+        } else if (type == "nominee") {
           this.nomineeAge = this.ageCalculate(dob);
+        }else {
+          this.npnomineeAge = this.ageCalculate(dob);
 
         }
 
       }
-      if(type == 'proposor'){
-        console.log(this.proposerAge,'age');
+      if (type == 'proposor') {
+        console.log(this.proposerAge, 'age');
         sessionStorage.proposerAge = this.proposerAge;
       }
 
-      if(type == 'nominee'){
-        console.log(this.nomineeAge,'nomineeAge');
+      if (type == 'nominee') {
+        console.log(this.nomineeAge, 'nomineeAge');
         sessionStorage.nomineeAge = this.nomineeAge;
-        if(sessionStorage.nomineeAge <= 18){
+        if (sessionStorage.nomineeAge <= 18) {
           this.showNominee = true;
           this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
           this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
-        }else{
+        } else {
           this.coverDetails.controls['cappointeeName'].patchValue('');
           this.coverDetails.controls['cappointeeName'].setValidators(null);
           this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
           this.showNominee = false;
 
         }
-
-
       }
+
+        if (type == 'npnominee') {
+          console.log(this.npnomineeAge, 'npnomineeAge');
+          sessionStorage.npnomineeAge = this.npnomineeAge;
+          if (sessionStorage.npnomineeAge <= 18) {
+
+            this.npshowNominee = true;
+            this.coverDetails.controls['npappointeeName'].setValidators([Validators.required]);
+            this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+          } else {
+            this.coverDetails.controls['npappointeeName'].patchValue('');
+            this.coverDetails.controls['npappointeeName'].setValidators(null);
+            this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+            this.npshowNominee = false;
+
+          }
+        }
+
     }
   }
 
@@ -818,6 +929,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         BasicLiability: this.getStepper3.BasicLiability,
         NewVehicle: this.getStepper3.NewVehicle,
         PACoverToOwner: this.getStepper3.PACoverToOwner,
+        PAToNamedPassenger: this.getStepper3.PAToNamedPassenger,
         IsPAToDriverCovered: this.getStepper3.IsPAToDriverCovered,
         IsPAToDriverCoveredSi: this.getStepper3.IsPAToDriverCoveredSi,
         NoOfUnnamedPassenegersCovered: this.getStepper3.NoOfUnnamedPassenegersCovered,
@@ -839,9 +951,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         nrelation: this.getStepper3.nrelation,
         nOtherRelation: this.getStepper3.nOtherRelation,
         cnAddress: this.getStepper3.cnAddress,
+        npappointeeName: this.getStepper3.npappointeeName,
+        npnomineeName: this.getStepper3.npnomineeName,
+        npDob: this.datepipe.transform(this.getStepper3.npDob, 'y-MM-dd'),
+        nprelation: this.getStepper3.nprelation,
+        npOtherRelation: this.getStepper3.npOtherRelation,
+        npAddress: this.getStepper3.npAddress,
         fuelType: this.getStepper3.fuelType,
         nOtherRelationValue: this.getStepper3.nOtherRelationValue,
+        npOtherRelationValue: this.getStepper3.npOtherRelationValue,
+        namedPassengersSI: this.getStepper3.namedPassengersSI,
+        nppassengerName: this.getStepper3.nppassengerName,
         nrelationValue: this.getStepper3.nrelationValue,
+        nprelationValue: this.getStepper3.nprelationValue,
         fuelTypeValue: this.getStepper3.fuelTypeValue,
       });
     }
@@ -1326,6 +1448,22 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               'OtherRelation': this.coverDetails.controls['nOtherRelation'].value
             }
           },
+          "PAToNamedPassenger": {
+            "PAToNamedPassenger": {
+              "IsMandatory": this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
+              "IsChecked": this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
+              "NoOfItems": "1",
+              "PackageName": "",
+              "SumInsured": this.coverDetails.controls['namedPassengersSI'].value,
+              "PassengerName": this.coverDetails.controls['nppassengerName'].value,
+              "NomineeName": this.coverDetails.controls['npnomineeName'].value,
+              "NomineeDOB": this.coverDetails.controls['npDob'].value,
+              "NomineeRelationship": this.coverDetails.controls['nprelation'].value,
+              "NomineeAddress": this.coverDetails.controls['npAddress'].value,
+              "OtherRelation": this.coverDetails.controls['npOtherRelation'].value,
+              "AppointeeName": this.coverDetails.controls['npappointeeName'].value
+            }
+          },
           "PAToUnNamedPassenger": {
             "PAToUnNamedPassenger": {
               "IsChecked": this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
@@ -1349,8 +1487,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           },
           "RoadTax": {
             "RoadTax": {
-              "IsMandatory": this.coverDetails.controls['IsRoadTaxcover'].value,
-              "IsChecked": this.coverDetails.controls['IsRoadTaxcover'].value,
+              "IsMandatory": this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
+              "IsChecked": this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
               "NoOfItems": "",
               "PackageName": "",
               "SumInsured": "1800",

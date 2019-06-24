@@ -622,10 +622,10 @@ export class BikeTataaigProposalComponent implements OnInit {
                     console.log(value, 'proposer');
                     stepper.next();
                 } else {
-                    this.toastr.error('Invalid DrivingExperience');
+                    this.toastr.error('Invalid Driving Experience');
                 }
             } else {
-                this.toastr.error('Proposer Should Be Greater than 18 and Above');
+                this.toastr.error('Proposer should be 18 or above');
             }
         } else {
             this.toastr.error('Please Fill All The Mandtory Fields');
@@ -895,10 +895,15 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.previousFormData = this.previouspolicy.value;
             this.nomineeFormData = this.nominee.value;
         } else {
-            alert('in');
-            console.log(successData.ErrorObject, 'error');
-            this.toastr.error(successData.ErrorObject);
-            this.settings.loadingSpinner = false;
+            if (successData.ErrorObject != '') {
+                console.log(successData.ErrorObject, 'errorobj');
+                this.toastr.error(successData.ErrorObject);
+                this.settings.loadingSpinner = false;
+            }else if(successData.ErrorDes != '') {
+                console.log(successData.ErrorDes, 'errordes');
+                this.toastr.error(successData.ErrorDes);
+                this.settings.loadingSpinner = false;
+            }
         }
     }
 
