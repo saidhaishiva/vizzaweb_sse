@@ -1,6 +1,6 @@
 <div class="container-fluid">
 <!--    apolloMunichProposal-->
-  <div class="row apolloMunichProposal">
+  <div class="row apolloMunichProposal mb-4">
     <div class="col-md-12">
       <mat-horizontal-stepper #stepper>
         <mat-step [stepControl]="">
@@ -110,10 +110,10 @@
                         </mat-form-field>
                       </div>
 
-                      <div class="col-md-3 mt-2">
+                      <div class="col-md-12 mt-2">
                         <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                       </div>
-                      <div class="col-md-3 mt-3">
+                      <div class="col-md-12 mt-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required></textarea>
                           <mat-error *ngIf="relianceProposal.controls.address.errors?.required">Address is required</mat-error>
