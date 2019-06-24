@@ -119,7 +119,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
-    this.valueCalc= [];
+    this.valueCalc = [];
+    this.valuesubCalc = [];
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       firstname: ['', Validators.required],
@@ -197,12 +198,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
         nonelectricalAccess : new FormArray([
         this.createnonElectrical()
       ]),
-      // valueCalc : new FormArray([]),
     });
 
-     // electricalAccess.forEach(data => this.valueCalc.push(electricalAccess.value));
-   // this.valueCalc.push({ electricalAccess })
-   //  const total = this.valueCalc.reduce((a , b) =>  a + b);
+
 
     this.previousInsure = this.fb.group({
       policyNumber: ['', Validators.compose([Validators.required, Validators.minLength(3)])],
@@ -254,7 +252,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changepbaggageValue();
     this.changepolicyType();
     this.changeAccidentPaidDriver();
-    this.sumAccessories();
+    // this.sumAccessories();
+    this.sumNonAccessories();
     this.sessionData();
 
   }
@@ -290,38 +289,26 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   // suming the electrical acessories value
   sumAccessories() {
-    this.valueCalc = [];
-   let valueList =  this.vehical.value.electricalAccess;
-    console.log(valueList, 'valueList');
-    valueList.forEach(data => this.valueCalc.push(data.value));
-    console.log(this.valueCalc,'jhgjghgh');
-    let total = this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b));
-    console.log(total,'total');
-    sessionStorage.total = total;
+
+
 
   }
 
   sumNonAccessories() {
     this.valuesubCalc = [];
-    let valueSubList =  this.vehical.value.electricalAccess;
-    console.log(valueSubList, 'valueList');
-    valueSubList.forEach(data => this.valueCalc.push(data.value));
-    console.log(this.valuesubCalc,'jhgjghgh');
+    let valueSubList =  this.vehical.value.nonelectricalAccess;
+    console.log(valueSubList, 'nonvalueList');
+    valueSubList.forEach(data => this.valuesubCalc.push(data.value));
+    console.log(this.valuesubCalc,'subvalue');
     let subTotal = this.valuesubCalc.reduce((a, b) => parseInt(a) + parseInt(b));
-    console.log(subTotal,'subTotal');
-  }
-  // sessionStorage.electricalAccessValue = this.total;
+    console.log(subTotal,'subtotal');
+    sessionStorage.subTotal = subTotal;
 
-  // minus the electrical accessories value
-  // subAccessories(index) {
-  //   this.valuesubCalc = [];
-  //   let valueSubList =  this.vehical.value.electricalAccess;
-  //   console.log(valueSubList, 'valueSubList');
-  //   valueSubList.forEach(data => this.valuesubCalc.push(data.value));
-  //   console.log(this.valuesubCalc,'subhgh');
-  //   let subTotal = this.valuesubCalc.slice((index, total) => parseInt(index) - parseInt(total));
-  //   console.log(subTotal,'subtotal');
-  // }
+  }
+
+
+
+
 
   // Electrical Accessories
   create() {
@@ -581,7 +568,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           this.proposer.controls['rpincode'].patchValue( this.proposer.controls['pincode'].value),
           this.proposer.controls['rstate'].patchValue( this.proposer.controls['state'].value),
           this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value),
-      this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value)
+          this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value)
       console.log(this.proposer.controls['rcity'].value, 'ghghghj');
       console.log(this.proposer.controls['rcityName'].value, 'nhghj');
     } else {
@@ -609,18 +596,26 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   // vehical details
   vehicalDetails(stepper: MatStepper, value) {
-    console.log(value);
+    console.log(this.vehical.value, 'vall');
     sessionStorage.stepper2 = '';
-    sessionStorage.stepper2 = JSON.stringify(value);
+    sessionStorage.stepper2 = JSON.stringify(this.vehical.value);
     if (this.vehical.valid) {
-      console.log(this.vehical.valid,'this.vehical.valid')
-      if (sessionStorage.total != '' && sessionStorage.total <= 50000) {
-        console.log(sessionStorage.total,'sessionStorage.total')
+      console.log(this.vehical.value.electricalAccess, ' this.vehical.valid')
+
+      this.valueCalc = [];
+      let valueList =  this.vehical.value.electricalAccess;
+      console.log(valueList,'valueList')
+      valueList.forEach(data => this.valueCalc.push(data.value));
+      console.log(this.valueCalc,'jhgjghgh');
+      let total = this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b));
+      console.log(total,"total")
+      if (total <= 50000) {
         stepper.next();
         this.topScroll();
       } else {
         this.toastr.error('Electrical Accessories Values should be less than 50 thousand');
       }
+
     }
   }
   isFinaced() {
@@ -651,42 +646,27 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   eleAccess(i) {
     console.log(i, 'valuuuuuu');
-    let che = i;
-    if (che.checked == true) {
+    let checking = i;
+    if (checking.checked == true) {
       this.vehical.controls['coverelectricalaccesss'].patchValue(true);
     } else {
       this.vehical.controls['coverelectricalaccesss'].patchValue(false);
 
     }
   }
+  noneleAccess(i) {
+    console.log(i, 'valuuuuuu');
+    let check = i;
+    if (check.checked == true) {
+      this.vehical.controls['cover_non_elec_acc'].patchValue(true);
+    } else {
+      this.vehical.controls['cover_non_elec_acc'].patchValue(false);
+
+    }
+  }
 
 
-  // changehypothecation() {
-  //   const data = {
-  //     'platform': 'web',
-  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
-  //
-  //   }
-  //   this.fourWheeler.getHypothecation(data).subscribe(
-  //       (successData) => {
-  //         this.hypothecationSuccess(successData);
-  //       },
-  //       (error) => {
-  //         this.hypothecationFailure(error);
-  //       }
-  //   );
-  // }
-  // public hypothecationSuccess(successData){
-  //   if (successData.IsSuccess) {
-  //     this.hypothecationTypedm = successData.ResponseObject;
-  //   }
-  //   console.log(this.hypothecationTypedm,'this.hypothecationTypedm');
-  // }
-  // public hypothecationFailure(error) {
-  // }
-// hypo type
+
   changefinancedValue() {
     const data = {
       'platform': 'web',
@@ -1176,12 +1156,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "vehicleDetails": {
           "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
           "addonValue": this.vehical.controls['addon'].value,
-          "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value ? 'Yes' : 'No',
+          "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value ,
           "claimsReported": this.previousInsure.controls['claimsReported'].value,
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
           "companyNameForCar": this.vehical.controls['companyName'].value,
-          "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ? 'Yes' : 'No',
+          "cover_dri_othr_car_ass": this.vehical.controls['cover_dri_othr_car_ass'].value ,
           "drivingExperience": this.vehical.controls['drivingExperience'].value,
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
           // "valueofelectricalaccessories": "4000",
@@ -1195,15 +1175,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
             },
           "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value,
 
-          "fibreGlass": this.vehical.controls['fibreGlass'].value ? 'Yes' : 'No',
+          "fibreGlass": this.vehical.controls['fibreGlass'].value ,
           "financierName": this.vehical.controls['financierName'].value,
           // "fuelType": "Petrol",
           "isCarFinanced": this.vehical.controls['isFourWheelerFinanced'].value ? 'Yes' : 'No',
           "isCarFinancedValue": this.vehical.controls['isFourWheelerFinancedValue'].value,
-          "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value ? 'Yes' : 'No',
+          "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value ,
           // "isPreviousPolicyHolder": "true",
-          "legalliabilityToPaidDriver": this.vehical.controls['legalliabilityToPaidDriver'].value ? 'Yes' : 'No',
-          "lossOfBaggage": this.vehical.controls['lossOfBaggage'].value ? 'Yes' : 'No',
+          "legalliabilityToPaidDriver": this.vehical.controls['legalliabilityToPaidDriver'].value ,
+          "lossOfBaggage": this.vehical.controls['lossOfBaggage'].value ,
           // "noClaimBonusPercent": "1",
           "personalAccidentCoverForUnnamedPassengers": this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].value,
           // "personalaccidentcoverforunnamedpassengers": "0",
@@ -1223,13 +1203,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "vehicleRegisteredInTheNameOf": this.vehical.controls['vehicleRegisteredName'].value,
           // "vehicleregDate": "03/08/2015",
           "voluntarydeductible": this.previousInsure.controls['voluntary'].value ? this.previousInsure.controls['voluntary'].value : '',
-          "keyreplacement": this.vehical.controls['keyreplacement'].value ? 'On' : 'Off',
-          "windShieldGlass": this.vehical.controls['windShieldGlass'].value ? 'On' : 'Off',
-          "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value ? 'On' : 'Off',
-          "engineprotector": this.vehical.controls['engineprotector'].value ? 'On' : 'Off',
-          "ncbprotector": this.vehical.controls['ncbprotector'].value ? 'On' : 'Off',
-          "spareCar": this.vehical.controls['spareCar'].value ? 'On' : 'Off',
-          "invoicePrice": this.vehical.controls['invoicePrice'].value ? 'On' : 'Off',
+          "keyreplacement": this.vehical.controls['keyreplacement'].value ,
+          "windShieldGlass": this.vehical.controls['windShieldGlass'].value ,
+          "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value,
+          "engineprotector": this.vehical.controls['engineprotector'].value ,
+          "ncbprotector": this.vehical.controls['ncbprotector'].value ,
+          "spareCar": this.vehical.controls['spareCar'].value ,
+          "invoicePrice": this.vehical.controls['invoicePrice'].value ,
           // "yearOfManufacture": "2015"
         }
       }
@@ -1324,7 +1304,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "policyED":  this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd'),
           "policySD": this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd'),
           // "carRegisteredCity": "MUMBAI",
-          "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value ? 'Yes' : 'No',
+          "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value,
           "isCarFinanced": this.vehical.controls['isFourWheelerFinanced'].value ? 'Yes' : 'No',
           "financierName": this.vehical.controls['financierName'].value,
           "isCarFinancedValue": this.vehical.controls['isFourWheelerFinancedValue'].value,
@@ -1340,12 +1320,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "previousinsurersCorrectAddress": this.previousInsure.controls['previousinsurersCorrectAddress'].value? this.previousInsure.controls['previousinsurersCorrectAddress'].value: '',
           "averageMonthlyMileageRun": this.vehical.controls['averageMonthlyMileageRun'].value,
           "personalAccidentCoverForUnnamedPassengers":this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].value,
+          "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value ,
           "claimsReported": this.previousInsure.controls['claimsReported'].value,
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
           "valueOfLossOfBaggage":this.vehical.controls['valueOfLossOfBaggage'].value,
-          "legalliabilityToPaidDriver":this.vehical.controls['legalliabilityToPaidDriver'].value ? 'Yes' : 'No',
-          "lossOfBaggage":this.vehical.controls['lossOfBaggage'].value ? 'Yes' : 'No',
+          "legalliabilityToPaidDriver":this.vehical.controls['legalliabilityToPaidDriver'].value ,
+          "lossOfBaggage":this.vehical.controls['lossOfBaggage'].value ,
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
@@ -1357,13 +1338,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value,
           "addonValue": this.vehical.controls['addon'].value,
           "typeOfCover": this.vehical.controls['typeOfCover'].value,
-            "keyreplacement": this.vehical.controls['keyreplacement'].value ? 'On' : 'Off',
-            "windShieldGlass": this.vehical.controls['windShieldGlass'].value ? 'On' : 'Off',
-            "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value ? 'On' : 'Off',
-            "engineprotector": this.vehical.controls['engineprotector'].value ? 'On' : 'Off',
-            "ncbprotector": this.vehical.controls['ncbprotector'].value ? 'On' : 'Off',
-            "spareCar": this.vehical.controls['spareCar'].value ? 'On' : 'Off',
-            "invoicePrice": this.vehical.controls['invoicePrice'].value ? 'On' : 'Off',
+            "keyreplacement": this.vehical.controls['keyreplacement'].value ,
+            "windShieldGlass": this.vehical.controls['windShieldGlass'].value ,
+            "depreciationWaiver": this.vehical.controls['depreciationWaiver'].value ,
+            "engineprotector": this.vehical.controls['engineprotector'].value ,
+            "ncbprotector": this.vehical.controls['ncbprotector'].value ,
+            "spareCar": this.vehical.controls['spareCar'].value ,
+            "invoicePrice": this.vehical.controls['invoicePrice'].value ,
         }
       }
     }
@@ -1440,11 +1421,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
         rcity: stepper1.rcity,
         rcityName: stepper1.rcityName,
         sameas: stepper1.sameas,
-
-
-
       });
     }
+    console.log(this.proposer, " stepper1 ");
+
     if (sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
       let stepper2 = JSON.parse(sessionStorage.stepper2);
       this.vehical = this.fb.group({
@@ -1452,9 +1432,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
         vehicleRegisteredName: stepper2.vehicleRegisteredName,
         // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
         coverelectricalaccesss: stepper2.coverelectricalaccesss,
-        nameOfElectronicAccessories: stepper2.nameOfElectronicAccessories,
-        makeModel: stepper2.makeModel,
-        value: stepper2.value,
+        // nameOfElectronicAccessories: stepper2.nameOfElectronicAccessories,
+        // makeModel: stepper2.makeModel,
+        // value: stepper2.value,
           cover_non_elec_acc: stepper2.cover_non_elec_acc,
         drivingExperience: stepper2.drivingExperience,
         averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
@@ -1489,9 +1469,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
         electricalAccess: stepper2.electricalAccess,
           nonelectricalAccess: stepper2.nonelectricalAccess,
         accidentPaid: stepper2.accidentPaid,
-
+        valueList: stepper2.valueList,
       });
     }
+    console.log(this.vehical, " stepper2 ");
+
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
       this.previousInsure = this.fb.group({
