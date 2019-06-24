@@ -930,7 +930,7 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'MobileNumber': this.hdfcTravel.controls['mobile'].value,
                     'OverseasNo': "",
                     'Email': this.hdfcTravel.controls['email'].value,
-                    'ExistingAliments': "",//Master
+                    'ExistingAliments': this.hdfcTravel.controls['ped'].value,
                     'PhysicianName': this.hdfcTravel.controls['physicianName'].value,
                     'PhysicianNo': this.hdfcTravel.controls['physicianMobile'].value,
                     'DeclineInsurance': this.hdfcTravel.controls['declineinsurance'].value,
@@ -942,7 +942,7 @@ export class TravelHdfcProposalComponent implements OnInit {
                     'AuthenticationType': "OTP",
                     'UIDNo': "",
                     'IsProposerSameAsInsured': this.hdfcInsuredTravel['controls'].items['controls'][0]['controls'].sameAsProposer.value.toString(),
-                    'IsCustomerAcceptedPED': "false"
+                    'IsCustomerAcceptedPED': sessionStorage.pedValid == undefined || sessionStorage.pedValid == '' ? 'false' : sessionStorage.pedValid
                 },
                 "Member": {
                     "InsuredDetails": this.insuredTravelData.items
