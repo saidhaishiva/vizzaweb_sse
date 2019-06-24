@@ -90,10 +90,10 @@ export class BikeTataaigProposalComponent implements OnInit {
                     this.ProposalId = this.summaryData.ProposalId;
                     this.PaymentRedirect = this.summaryData.PaymentRedirect;
                     this.PaymentReturn = this.summaryData.PaymentReturn;
-                    this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
-                    this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
-                    this.previousFormData = JSON.parse(sessionStorage.previousFormData);
-                    this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+                    this.proposerFormData = JSON.parse(sessionStorage.tatabikeproposer);
+                    this.vehicalFormData = JSON.parse(sessionStorage.tatavehicle);
+                    this.previousFormData = JSON.parse(sessionStorage.tataprepolicy);
+                    this.nomineeFormData = JSON.parse(sessionStorage.tatanominee);
                     sessionStorage.tataBikeproposalID = this.ProposalId;
                 }
             }
@@ -622,10 +622,10 @@ export class BikeTataaigProposalComponent implements OnInit {
                     console.log(value, 'proposer');
                     stepper.next();
                 } else {
-                    this.toastr.error('Invalid DrivingExperience');
+                    this.toastr.error('Invalid Driving Experience');
                 }
             } else {
-                this.toastr.error('Proposer Should Be Greater than 18 and Above');
+                this.toastr.error('Proposer should be 18 or above');
             }
         } else {
             this.toastr.error('Please Fill All The Mandtory Fields');
@@ -896,7 +896,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.nomineeFormData = this.nominee.value;
         } else {
             alert('in');
-            console.log(successData.ErrorObject, 'error');
+            console.log(successData.ErrorDes, 'error');
             this.toastr.error(successData.ErrorObject);
             this.settings.loadingSpinner = false;
         }

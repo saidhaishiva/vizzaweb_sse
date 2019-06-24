@@ -19,6 +19,7 @@
                           <mat-select placeholder="Title" formControlName="proposerTitle" required>
                             <mat-option value="Mr.">Mr.</mat-option>
                             <mat-option value="Mrs.">Mrs.</mat-option>
+                            <mat-option value="Mrs.">Miss.</mat-option>
                           </mat-select>
                         </mat-form-field>
                       </div>
@@ -88,20 +89,25 @@
                       <div class="col-md-12 mt-1">
                         <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="Addressone" autocomplete="off" maxlength="30" required></textarea>
                           <mat-error *ngIf="proposer.controls.Addressone.errors?.required">Address1 is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 2" rows="2" formControlName="Addresstwo" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 3" rows="2" formControlName="Addressthree" autocomplete="off" maxlength="30"></textarea>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <textarea matInput placeholder="Address 4" rows="2" formControlName="Addressfour" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -154,7 +160,7 @@
                           <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Gender<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <mat-select formControlName="driveGender" readonly>
@@ -174,7 +180,7 @@
                           <input matInput formControlName="drivingexp"  (keypress)="numValidate($event)" autocomplete="off">
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                      <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Marital Status<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <mat-select formControlName="drivemaritalStatus">
@@ -222,11 +228,11 @@
                       <div class="col-md-12 mt-1">
                         <h6 class="color-blue"> FINANCIER DETAILS </h6>
                       </div>
-                      <div class="col-md-4 mt-2">
+                      <div class="col-md-12 mt-2">
                         <mat-checkbox formControlName="Financetype" (change)="check($event)"><strong> If Vehicale is Finance? </strong></mat-checkbox>
                       </div>
                       <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100 mt-3">
                           <mat-select placeholder="Type" formControlName="banktype" readonly>
                             <mat-option value="bank">BANK</mat-option>
                             <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
@@ -234,7 +240,7 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
-                        <mat-form-field class="w-100">
+                        <mat-form-field class="w-100 mt-3">
                           <input  matInput placeholder="Name" formControlName="bankName" (keypress)="nameValidate($event);financiertype($event.target.value)"  [matAutocomplete]="auto">
                           <mat-autocomplete #auto="matAutocomplete">
                             <mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>
@@ -272,11 +278,55 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
                           <mat-placeholder>Expiry Date (DD/MM/YYYY)<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate">
+                          <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off">
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                         <div class="error" *ngIf="automobdateError != ''">{{automobdateError}}</div>
+                      </div>
+                      <div class="col-md-12 mt-1" >
+                        <h6 class="color-blue"> OTHER ADDONS LIST </h6>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Addons Package" formControlName="package" (change)="selectopt($event)" required>
+                            <mat-option *ngFor="let package of packagelist | keys" value="{{package.key}}">{{package.value}}</mat-option>
+                          </mat-select>
+                            <mat-error *ngIf="vehicle.controls.package.errors?.required">Package is Required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2'">
+                        <mat-checkbox formControlName="Depreciation"><strong> Depreciation Reimbursement </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '7'">
+                        <mat-checkbox formControlName="Invoice"><strong> Return to Invoice </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1'">
+                        <mat-checkbox formControlName="personaloss"><strong> Loss of Personal belongings(IDV) </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1'">
+                        <mat-checkbox formControlName="transport"><strong> Emergency transport and Hotel expences(IDV) </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1'">
+                        <mat-checkbox formControlName="keyReplacement"><strong> Key Replacement </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '4' && vehicle.controls['package'].value == '6' && vehicle.controls['package'].value == '7'">
+                        <mat-checkbox formControlName="Enginesecure"><strong> Engine Secure </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && vehicle.controls['package'].value != '3'">
+                        <mat-checkbox formControlName="Consumableexpence"><strong> Consumable Expences </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2">
+                        <mat-checkbox formControlName="Repairofglass"><strong> Repair of glass, plastic fibre and rubber glass </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '5' && vehicle.controls['package'].value == '6' && vehicle.controls['package'].value == '7'">
+                        <mat-checkbox formControlName="Tyresecure"><strong> Tyre Secure </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2">
+                        <mat-checkbox formControlName="protectioncover"><strong> NCB protection cover </strong></mat-checkbox>
+                      </div>
+                      <div class="col-md-3 mt-2">
+                        <mat-checkbox formControlName="Roadside"><strong> Roadside Assistance </strong></mat-checkbox>
                       </div>
                     </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
@@ -318,7 +368,7 @@
                                   </mat-select>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
+                              <div class="col-md-4">
                                 <mat-form-field class="w-100">
                                   <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                                   <mat-select formControlName="preName">
@@ -497,9 +547,21 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Engine Number:</strong> {{vehicalFormData.engine}} </li>
                       <li class="list-group-item"><strong>Chassis Number:</strong> {{vehicalFormData.chassis}} </li>
-                      <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE TYPE:</strong> {{vehicalFormData.banktype}} </li>
+                      <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE TYPE:</strong><span *ngIf="vehicle.controls['Financetype']">Yes</span></li>
                       <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}} </li>
                       <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.package != ''"><strong> Package: </strong> {{vehicalFormData.packagevalue}} </li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Depreciation != ''"><strong> Depreciation Reimbursement </strong><span *ngIf="vehicalFormData.Depreciation == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Invoice != ''"><strong> Return to Invoice </strong><span *ngIf="vehicalFormData.Invoice == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.personaloss != ''"><strong> Loss of Personal belongings(IDV) </strong><span *ngIf="vehicalFormData.Invoice == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.transport != ''"><strong> Emergency transport and Hotel expences(IDV) </strong><span *ngIf="vehicalFormData.transport == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.keyReplacement != ''"><strong> Key Replacement </strong><span *ngIf="vehicalFormData.keyReplacement == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Enginesecure != ''"><strong> Engine Secure </strong><span *ngIf="vehicalFormData.Enginesecure == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpence != ''"><strong> Consumable Expences </strong><span *ngIf="vehicalFormData.Consumableexpence == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Repairofglass != ''"><strong> Repair of glass, plastic fibre and rubber glass </strong><span *ngIf="vehicalFormData.Repairofglass == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Tyresecure != ''"><strong> Tyre Secure </strong><span *ngIf="vehicalFormData.Tyresecure == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.protectioncover != ''"><strong> NCB protection cover </strong><span *ngIf="vehicalFormData.protectioncover == true">Yes</span></li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.Roadside != ''"><strong> Roadside Assistance </strong><span *ngIf="vehicalFormData.Roadside == true">Yes</span></li>
                     </ul>
                   </div>
                 </div>
