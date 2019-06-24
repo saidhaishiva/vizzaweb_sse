@@ -1246,7 +1246,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
-      this.proposalId = this.summaryData.productlist.proposalNo;
+      this.proposalId = this.summaryData.productlist.proposal_id;
       sessionStorage.relianceTwowheelerproposalID = this.proposalId;
       this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
 
