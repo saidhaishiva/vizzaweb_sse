@@ -211,7 +211,11 @@ export class TermLifeComponent implements OnInit {
         console.log(error);
     }
     public keyPress(event: any) {
-        if (event.charCode !== 0) {
+        if (event.key == '0') {
+            if (event.target.value.length == 0) {
+                event.preventDefault();
+            }
+        } else if (event.charCode !== 0) {
             const pattern = /[0-9\\ ]/;
             const inputChar = String.fromCharCode(event.charCode);
             if (!pattern.test(inputChar)) {
@@ -221,7 +225,7 @@ export class TermLifeComponent implements OnInit {
         }
     }
     typingPolicyTerm() {
-        this.TermLife.controls['lifePolicy'].patchValue(this.TermLife.controls['lifeBenefitTerm'].value);
+       // this.TermLife.controls['lifePolicy'].patchValue(this.TermLife.controls['lifeBenefitTerm'].value);
     }
     nameValidate(event: any){
         this.validation.nameValidate(event);

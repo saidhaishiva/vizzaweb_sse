@@ -32,7 +32,7 @@
       <div class="custom-file">
         <input type="file" class="custom-file-input" (change)="readUrl($event)" >
         <label class="custom-file-label"><span class="error">*</span>
-          Attach Your Photo</label>
+          Attach Your Resume</label>
       </div>
     </div>
       <!--<div class="row w-100">-->
@@ -47,7 +47,7 @@
       <button mat-raised-button color="primary" (click)="update()"> Sumbit</button>
     </div>
 
-    <strong class="text-center; mt-4">OR</strong>
+    <h6 class="text-center mt-4">OR</h6>
     <div class="row">
       <div class="col-md-3">
         <mat-form-field class="w-100">
@@ -69,6 +69,13 @@
           <mat-datepicker #picker></mat-datepicker>
           <!--<mat-error *ngIf="form.controls.personalDob.errors?.required">DOB is required</mat-error>-->
         </mat-form-field>
+      </div>
+      <div class="col-md-3">
+        <h6 class="mt-3">Gender:</h6>
+        <mat-radio-group formControlName="gender">
+          <mat-radio-button value="male">Male</mat-radio-button>
+          <mat-radio-button value="female">Female</mat-radio-button>
+        </mat-radio-group>
       </div>
       <!--<div class="col-md-4">-->
         <!--<mat-form-field>-->
@@ -94,15 +101,6 @@
         <input matInput  placeholder="Address" formControlName="address" >
           <!--<input matInput placeholder="area">-->
         </mat-form-field>
-      </div>
-      <div class="col-md-12">
-        <h6 class="mt-3">Previous Insurer details:</h6>
-      </div>
-      <div class="col-md-12">
-        <mat-radio-group formControlName="gender">
-        <mat-radio-button value="male">Male</mat-radio-button>
-        <mat-radio-button value="female">Female</mat-radio-button>
-      </mat-radio-group>
       </div>
     </div>
 

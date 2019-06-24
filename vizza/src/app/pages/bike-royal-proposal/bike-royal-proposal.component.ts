@@ -841,9 +841,17 @@ public apponiteeList: boolean;
     nomineeDetails(stepper: MatStepper, value){
         sessionStorage.stepper4 = '';
         sessionStorage.stepper4 = JSON.stringify(value);
-        if(this.nomineeDetail.valid){
+      if(this.nomineeDetail.valid){
+        if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
           this.proposal(stepper);
+        } else {
+          if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
+            this.proposal(stepper);
+          }   else {
+            this.toastr.error('Please fill the appointee details');
+          }
         }
+      }
   }
     // proposal creation
 proposal(stepper){
@@ -1118,6 +1126,7 @@ proposal(stepper){
     }
     if(sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
       let stepper2 = JSON.parse(sessionStorage.stepper2);
+      console.log(stepper2.electricalAccess,'electricalAccess');
       this.vehical = this.fb.group({
         vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
         vehicleRegisteredName: stepper2.vehicleRegisteredName,
@@ -1140,12 +1149,17 @@ proposal(stepper){
         // MakeModel: stepper2.MakeModel,
         // Value: stepper2.Value,
       });
-      for (let i = 0; i < stepper2.electricalAccess.length; i++) {
-        this.vehical['controls'].items['controls'][i]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
-        this.vehical['controls'].items['controls'][i]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
-        this.vehical['controls'].items['controls'][i]['controls'].Value.patchValue(stepper2.electricalAccess[i].Value);
+      // if(stepper2.coverelectricalaccesss == true){
+      //   alert();
+      //   for (let i = 0; i < stepper2.electricalAccess.length; i++) {
+      //     console.log('oeor');
+      //     this.vehical['controls'].items['controls'][i]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[0].NameOfElectronicAccessories);
+      //     this.vehical['controls'].items['controls'][i]['controls'].MakeModel.patchValue(stepper2.electricalAccess[0].MakeModel);
+      //     this.vehical['controls'].items['controls'][i]['controls'].Value.patchValue(stepper2.electricalAccess[i].Value);
+      //
+      //   }
+      // }
 
-      }
 
     }
     if(sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {

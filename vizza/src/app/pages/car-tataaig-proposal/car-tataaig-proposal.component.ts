@@ -164,9 +164,9 @@ export class CarTataaigProposalComponent implements OnInit {
     });
 
     this.nominee = this.fb.group({
-      nomieeName: '',
-      nomineeAge: '',
-      nomineerelation: '',
+      nomieeName: ['', Validators.required],
+      nomineeAge: ['', Validators.required],
+      nomineerelation: ['', Validators.required],
     })
   }
 
@@ -175,7 +175,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getNamelist();
     this.getCodelist();
     this.getRelationList();
-    this.package();
+    // this.package();
     this.sessionData();
     this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
     console.log(this.vehicledata);
@@ -434,30 +434,30 @@ export class CarTataaigProposalComponent implements OnInit {
 
 //Addons Package
 
-    package() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-        };
-        this.carinsurance.packagetype(data).subscribe(
-            (successData) => {
-                this.packageListSuccess(successData);
-            },
-            (error) => {
-                this.packageListFailure(error);
-            }
-        );
-    }
-
-    packageListSuccess(successData) {
-        this.packagelist = successData.ResponseObject;
-
-    }
-
-    packageListFailure(error) {
-
-    }
+    // package() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    //     };
+    //     this.carinsurance.packagetype(data).subscribe(
+    //         (successData) => {
+    //             this.packageListSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.packageListFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // packageListSuccess(successData) {
+    //     this.packagelist = successData.ResponseObject;
+    //
+    // }
+    //
+    // packageListFailure(error) {
+    //
+    // }
 
   selectopt(event: any) {
     this.vehicle.controls['packagevalue'].patchValue(this.packagelist[this.vehicle.controls['package'].value]);
