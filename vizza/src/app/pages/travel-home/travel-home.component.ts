@@ -1149,10 +1149,10 @@ export class TravelHomeComponent implements OnInit {
         <div class="container">
         <div  class="row text-justify">
 
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 col-md-12 text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
-            <div class="col-sm-12">
+            <div class="col-sm-8 col-md-8">
                 <h3 class="text-center" style="color: #9769DF"><img src="assets/img/travel-insurance.png" class="logo-size"> About Travel Insurance</h3>
             </div>
             <div id="travel-details">
