@@ -895,10 +895,15 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.previousFormData = this.previouspolicy.value;
             this.nomineeFormData = this.nominee.value;
         } else {
-            alert('in');
-            console.log(successData.ErrorDes, 'error');
-            this.toastr.error(successData.ErrorObject);
-            this.settings.loadingSpinner = false;
+            if (successData.ErrorObject != '') {
+                console.log(successData.ErrorObject, 'errorobj');
+                this.toastr.error(successData.ErrorObject);
+                this.settings.loadingSpinner = false;
+            }else if(successData.ErrorDes != '') {
+                console.log(successData.ErrorDes, 'errordes');
+                this.toastr.error(successData.ErrorDes);
+                this.settings.loadingSpinner = false;
+            }
         }
     }
 
