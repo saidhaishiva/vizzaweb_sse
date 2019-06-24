@@ -7,7 +7,7 @@ import { NotFoundComponent } from './pages/errors/not-found/not-found.component'
 import { ErrorComponent } from './pages/errors/error/error.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { HomeComponent} from './pages/home/home.component';
-// import {ContactComponent} from './pages/contact/contact.component';
+import {ContactComponent} from './pages/contact/contact.component';
 import {FixappointmentComponent} from './pages/fixappointment/fixappointment.component';
 import {ShopkeeperpolicyComponent} from './pages/shopkeeperpolicy/shopkeeperpolicy.component';
 import {MarinecargoComponent} from './pages/marinecargo/marinecargo.component';
@@ -153,7 +153,7 @@ import {RoyalsundaramMfwPaymentSuccessComponent} from './pages/royalsundaram-mfw
 import {LearningCenterComponent} from './pages/learning-center/learning-center.component';
 import { CarTataaigPaymentSuccessComponent} from './pages/car-tataaig-payment-success/car-tataaig-payment-success.component';
 import { RelianceTwowheelerPaymentSuccessComponent} from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
-
+import {NewContactComponent} from './pages/new-contact/new-contact.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -161,7 +161,8 @@ export const routes: Routes = [
         path: '',
         component: PagesComponent, children: [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
-            // { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
+            { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
+            { path: 'contacts', component: NewContactComponent, data: { breadcrumb: 'Contact us' } },
             { path: 'renewal-reminder', component: RenewalReminderComponent, data: { breadcrumb: 'Renewal Reminder' } },
             { path: 'renew-existing-policy', component: RenewExistingPolicyComponent, data: { breadcrumb: 'Renew Existing Policy' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
