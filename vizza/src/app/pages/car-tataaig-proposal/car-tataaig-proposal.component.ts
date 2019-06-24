@@ -164,9 +164,9 @@ export class CarTataaigProposalComponent implements OnInit {
     });
 
     this.nominee = this.fb.group({
-      nomieeName: '',
-      nomineeAge: '',
-      nomineerelation: '',
+      nomieeName: ['', Validators.required],
+      nomineeAge: ['', Validators.required],
+      nomineerelation: ['', Validators.required],
     })
   }
 

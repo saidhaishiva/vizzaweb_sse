@@ -171,7 +171,7 @@
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Age<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3">
+                          <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3" readonly>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
@@ -368,7 +368,7 @@
                                   </mat-select>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-4">
+                              <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                                 <mat-form-field class="w-100">
                                   <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                                   <mat-select formControlName="preName">
@@ -376,10 +376,10 @@
                                   </mat-select>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
+                              <div class="col-md-4">
                                 <mat-form-field class="w-100">
                                   <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                                  <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off">
+                                  <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="8" minlength="8">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-12 mt-1">
@@ -446,17 +446,19 @@
                     <div class="row">
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Name" formControlName="nomieeName" (keypress)="nameValidate($event)">
+                          <input matInput placeholder="Name" formControlName="nomieeName" (keypress)="nameValidate($event)" required>
+                          <mat-error *ngIf="nominee.controls.nomieeName.errors?.required">Name is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Age" formControlName="nomineeAge"  (keypress)="numberValidate($event)" maxlength="3">
+                          <input matInput placeholder="Age" formControlName="nomineeAge"  (keypress)="numberValidate($event)" maxlength="3" required>
+                          <mat-error *ngIf="nominee.controls.nomineeAge.errors?.required">Age is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="relation" formControlName="nomineerelation" readonly>
+                          <mat-select placeholder="relation" formControlName="nomineerelation" readonly required>
                             <mat-option *ngFor="let relation of relationlist | keys" value="{{relation.key}}">{{relation.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="nominee.controls.nomineerelation.errors?.required">Relationship is Required</mat-error>
