@@ -896,7 +896,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.nomineeFormData = this.nominee.value;
         } else {
             alert('in');
-            console.log(successData.ErrorObject, 'error');
+            console.log(successData.ErrorDes, 'error');
             this.toastr.error(successData.ErrorObject);
             this.settings.loadingSpinner = false;
         }
