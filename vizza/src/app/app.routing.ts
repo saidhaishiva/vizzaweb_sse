@@ -153,7 +153,7 @@ import {RoyalsundaramMfwPaymentSuccessComponent} from './pages/royalsundaram-mfw
 import {LearningCenterComponent} from './pages/learning-center/learning-center.component';
 import { CarTataaigPaymentSuccessComponent} from './pages/car-tataaig-payment-success/car-tataaig-payment-success.component';
 import { RelianceTwowheelerPaymentSuccessComponent} from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
-
+import {NewContactComponent} from './pages/new-contact/new-contact.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -162,6 +162,7 @@ export const routes: Routes = [
         component: PagesComponent, children: [
             { path: 'home', component: HomeComponent, data: { breadcrumb: 'Home' } },
             { path: 'contact', component: ContactComponent, data: { breadcrumb: 'Contact us' } },
+            { path: 'contacts', component: NewContactComponent, data: { breadcrumb: 'Contact us' } },
             { path: 'renewal-reminder', component: RenewalReminderComponent, data: { breadcrumb: 'Renewal Reminder' } },
             { path: 'renew-existing-policy', component: RenewExistingPolicyComponent, data: { breadcrumb: 'Renew Existing Policy' } },
             { path: 'users', loadChildren: 'app/pages/users/users.module#UsersModule', data: { breadcrumb: 'Users' } },
