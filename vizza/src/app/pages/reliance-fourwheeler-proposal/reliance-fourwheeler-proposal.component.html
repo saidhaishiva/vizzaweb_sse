@@ -4,13 +4,13 @@
     <div class="col-md-12">
       <mat-horizontal-stepper #stepper>
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>PROPOSER / INSURER DETAILS</ng-template>
+          <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="relianceProposal">
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    PROPOSER / INSURER DETAILS
+                    PROPOSER  DETAILS
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row ">
@@ -407,7 +407,7 @@
                         <mat-checkbox  formControlName="PAToOwnerDriverCoverd" (change)="updateOwnerDriverSi($event)">PA To Owner Driver Coverd</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="updateNildeprecition($event)">NilDepreciation Coverage</mat-checkbox>
+                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="updateNildeprecition($event)">Nil Depreciation Coverage</mat-checkbox>
                       </div>
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="LiabilityToPaidDriverCovered">Liability To Paid Driver Covered</mat-checkbox>
