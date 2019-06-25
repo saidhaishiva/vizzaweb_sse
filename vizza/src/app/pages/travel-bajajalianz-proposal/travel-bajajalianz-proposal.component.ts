@@ -76,6 +76,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
     public webhost: any;
     public acceptSummaryDeclaration: any;
     public placeOfVisit: any;
+    public purposeOfVisitss: any;
     // public bajajTravelMobileTrue0 = boolean;
 
     constructor(public appsetting: AppSettings,public auth: AuthService,public route: ActivatedRoute,public config: ConfigurationService, private toastr: ToastrService, public travelservice: TravelService, public fb: FormBuilder, public datepipe: DatePipe, public validation: ValidationService) {
@@ -133,6 +134,8 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
         //get family float nd premium list details
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+        this.purposeOfVisitss = sessionStorage.travelType;
+
         let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
         this.getEnquiryDetails = enqList[0];
         if (this.getEnquiryDetails.travel_user_type == 'family') {
@@ -424,6 +427,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             "platform": "web",
             "proposal_id": sessionStorage.bajajTravelproposalID != '' && sessionStorage.bajajTravelproposalID !=undefined ? sessionStorage.bajajTravelproposalID : '',
             "enquiry_id": this.getEnquiryDetails.enquiry_id,
+            'purposeOf_visit': this.purposeOfVisitss ? this.purposeOfVisitss : 'student',
             "role_id": this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
             "user_id": this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
             "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
