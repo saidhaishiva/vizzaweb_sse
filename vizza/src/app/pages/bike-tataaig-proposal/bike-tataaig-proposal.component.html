@@ -356,21 +356,21 @@
                   </div>
                   <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                     <mat-form-field class="w-100">
+                      <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
+                      <mat-select formControlName="preName" (change)="chooseopt()">
+                        <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.value}}">{{Namelist.value}}</mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
+                    <mat-form-field class="w-100">
                       <mat-placeholder> Code <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <mat-select formControlName="precode">
                         <mat-option *ngFor="let Codelist of precodelist | keys" value="{{Codelist.value}}">{{Codelist.value}}</mat-option>
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
-                    <mat-form-field class="w-100">
-                      <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                      <mat-select formControlName="preName">
-                      <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.value}}">{{Namelist.value}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-md-4">
+                  <div class="col-md-3">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="8" minlength="8">
