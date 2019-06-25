@@ -683,7 +683,6 @@ export class BikeInsuranceService {
 
   GenderList(data) {
     const json = JSON.stringify(data);
-    const token = this.authService.getAccessToken();
     const httpOptions = {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
