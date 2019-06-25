@@ -90,13 +90,6 @@
 <!--                          <mat-error *ngIf="relianceProposal.controls.nationality.errors?.required">nationality  is required</mat-error>-->
                         </mat-form-field>
                       </div>
-                        <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                                <input matInput placeholder="GST Number"  minlength="15"  maxlength="15"  class="text-uppercase" formControlName="gstNumber" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off" required>
-                                <mat-error *ngIf="relianceProposal.controls.gstNumber.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
-                                <mat-error *ngIf="relianceProposal.controls.gstNumber.hasError('pattern')">Enter Valid GST Number</mat-error>
-                            </mat-form-field>
-                        </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="mobile" autocomplete="off" required>
@@ -109,11 +102,18 @@
                           <input matInput placeholder="Alternate Contact"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="alternateContact" autocomplete="off">
                         </mat-form-field>
                       </div>
+                      <div class="col-md-3">
+                         <mat-form-field class="w-100">
+                             <input matInput placeholder="GST Number"  minlength="15"  maxlength="15"  class="text-uppercase" formControlName="gstNumber" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off" required>
+                               <mat-error *ngIf="relianceProposal.controls.gstNumber.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
+                               <mat-error *ngIf="relianceProposal.controls.gstNumber.hasError('pattern')">Enter Valid GST Number</mat-error>
+                         </mat-form-field>
+                      </div>
 
                       <div class="col-md-12 mt-2">
                         <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                       </div>
-                      <div class="col-md-12 mt-3">
+                      <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required></textarea>
                           <mat-error *ngIf="relianceProposal.controls.address.errors?.required">Address is required</mat-error>
