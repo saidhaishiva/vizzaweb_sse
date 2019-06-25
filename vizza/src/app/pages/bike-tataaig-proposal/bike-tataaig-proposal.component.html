@@ -357,7 +357,7 @@
                   <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                      <mat-select formControlName="preName">
+                      <mat-select formControlName="preName" (change)="chooseopt()">
                         <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.value}}">{{Namelist.value}}</mat-option>
                       </mat-select>
                     </mat-form-field>
@@ -489,7 +489,7 @@
                 <h5 class="mt-3 sub-title"> PROPOSER DETAILS </h5>
                 <div class="row box-card">
                   <div class="col-md-6">
-                    <div class="p-3 mt-3">
+                    <div class="p-3 mt-4">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
@@ -526,7 +526,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6 mt-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                  <div class="col-md-6 mt-4" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Driving Experience:</strong> {{proposerFormData.drivingexp}}</li>
@@ -580,7 +580,7 @@
                 <h5 class="mt-3 sub-title"> PREVIOUS POLICY  DETAILS </h5>
                 <div class="row box-card">
                   <div class="col-md-6">
-                    <div class="p-3">
+                    <div class="p-3 mt-2">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.precode}}</li>
                         <li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preName}}</li>
@@ -598,8 +598,7 @@
                     </div>
                   </div>
                     <div class="col-md-6">
-                      <div class="p-3">
-                        <h6 class="mt-4"></h6>
+                      <div class="p-3 mt-1">
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="previousFormData.preCity != ''"><strong>City:</strong> {{previousFormData.preCity}}</li>
                           <li class="list-group-item" *ngIf="previousFormData.preState != ''"><strong>State:</strong> {{previousFormData.preState}}</li>
