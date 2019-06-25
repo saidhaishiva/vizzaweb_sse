@@ -1145,20 +1145,17 @@ proposal(stepper){
         electricalAccess: stepper2.electricalAccess,
         nonelectricalAccess: stepper2.nonelectricalAccess,
         accidentPaid: stepper2.accidentPaid,
-        // NameOfElectronicAccessories: stepper2.NameOfElectronicAccessories,
-        // MakeModel: stepper2.MakeModel,
-        // Value: stepper2.Value,
       });
-      // if(stepper2.coverelectricalaccesss == true){
-      //   alert();
-      //   for (let i = 0; i < stepper2.electricalAccess.length; i++) {
-      //     console.log('oeor');
-      //     this.vehical['controls'].items['controls'][i]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[0].NameOfElectronicAccessories);
-      //     this.vehical['controls'].items['controls'][i]['controls'].MakeModel.patchValue(stepper2.electricalAccess[0].MakeModel);
-      //     this.vehical['controls'].items['controls'][i]['controls'].Value.patchValue(stepper2.electricalAccess[i].Value);
-      //
-      //   }
-      // }
+      if(stepper2.coverelectricalaccesss == true){
+        for(let j = 0; j < this.vehical.controls['electricalAccess'].value.length; j++){
+          for (let i = 0; i < stepper2.electricalAccess.length; i++) {
+            this.vehical['controls'].electricalAccess['controls'][j]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
+            this.vehical['controls'].electricalAccess['controls'][j]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
+
+          }
+        }
+
+      }
 
 
     }
