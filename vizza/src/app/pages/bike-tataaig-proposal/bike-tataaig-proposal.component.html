@@ -357,7 +357,7 @@
                   <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                      <mat-select formControlName="preName" (change)="chooseopt()">
+                      <mat-select formControlName="preName">
                         <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.value}}">{{Namelist.value}}</mat-option>
                       </mat-select>
                     </mat-form-field>
