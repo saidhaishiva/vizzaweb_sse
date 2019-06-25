@@ -23,5 +23,8 @@ export class GrouppopupComponent implements OnInit {
     onNoClick(): void {
         this.dialogRef.close()
     }
+    topScroll(){
+        document.getElementById('main-content').scrollTop = 0;
+    }
 
 }
