@@ -214,7 +214,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       nrelationValue: [''],
       fuelTypeValue: [''],
       nOtherRelationValue: [''],
-      NewVehicle: [''],
       PACoverToOwner: [''],
       PAToNamedPassenger: [''],
       NoOfUnnamedPassenegersCovered: [''],
@@ -927,7 +926,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         TPPDCoverSi: this.getStepper3.TPPDCoverSi,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
         BasicLiability: this.getStepper3.BasicLiability,
-        NewVehicle: this.getStepper3.NewVehicle,
         PACoverToOwner: this.getStepper3.PACoverToOwner,
         PAToNamedPassenger: this.getStepper3.PAToNamedPassenger,
         IsPAToDriverCovered: this.getStepper3.IsPAToDriverCovered,
@@ -1340,8 +1338,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         },
         'Vehicle': {
 
-          'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
-          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value ? 'true' : 'false'
+          'TypeOfFuel': this.coverDetails.controls['fuelType'].value
         },
         'Cover': {
           // 'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ,
@@ -1407,7 +1404,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value,
+              "Fueltype": this.coverDetails.controls['IsBiFuelKit'].value ? this.coverDetails.controls['fuelTypeValue'].value : '',
               "ISLpgCng": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
