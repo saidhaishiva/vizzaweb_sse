@@ -850,10 +850,10 @@ export class PersonalaccidentComponent implements OnInit {
         <div  class="container-fluid">
         <div  class="row text-justify">
             <div class="container">
-            <div class="col-sm-12 text-right">
+            <div class="col-sm-12 col-md-12  text-right">
                 <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-8 col-md-8">
                 <h3 class="text-center" style="color: #D92D32"><img src="assets/img/personal-accident.png" class="logo-size"> About Personal Accident</h3>
             </div>
             <div id="personal-details">

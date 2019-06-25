@@ -147,6 +147,7 @@ export class TravelRelianceProposalComponent implements OnInit {
     public travelUserType: boolean;
     public acceptSummaryDeclaration: boolean;
     public duration: any;
+    public purposeOfVisit: any;
 
 
 
@@ -447,6 +448,8 @@ export class TravelRelianceProposalComponent implements OnInit {
         this.getRiskPreDiseases();
 
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+        this.purposeOfVisit = sessionStorage.travelType;
+
         let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
         this.getEnquiryDetails = enqList[0];
         this.insuredTravelPerson = this.getEnquiryDetails.family_members;
@@ -744,6 +747,8 @@ export class TravelRelianceProposalComponent implements OnInit {
             "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
             'product_id': this.getTravelPremiumList.product_id,
             'plan_name': this.getTravelPremiumList.plan_name,
+            'purposeOf_visit': this.purposeOfVisit ? this.purposeOfVisit : 'student',
+
             'sum_insured_amount': this.getTravelPremiumList.sum_insured_amount,
             "proposal_id": sessionStorage.reliance_Travel_proposal_id == '' || sessionStorage.reliance_Travel_proposal_id == undefined ? '' : sessionStorage.reliance_Travel_proposal_id,
             "UserID": '100002',
