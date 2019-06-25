@@ -108,6 +108,7 @@ export class ReliagretravelproposalComponent implements OnInit {
     public diseaseFieldView :any;
     public sponserRelationList :any;
     public getEndDate :any;
+    public purposeOfVisit :any;
     public religareTravelMobileTrue0: boolean;
     public religareTravelMobileTrue1: boolean;
     public religareTravelMobileTrue2: boolean;
@@ -213,6 +214,7 @@ export class ReliagretravelproposalComponent implements OnInit {
 
     ngOnInit() {
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
+        this.purposeOfVisit = sessionStorage.travelType;
         let enqList = JSON.parse(sessionStorage.enquiryDetailsTravel);
         this.getEnquiryDetails = enqList[0];
         if(this.getEnquiryDetails.travel_user_type == 'student'){
@@ -1180,6 +1182,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             'travel_type':this.getEnquiryDetails.travel_user_type,
             'proposal_id': sessionStorage.religare_Travel_proposal_id ? sessionStorage.religare_Travel_proposal_id : this.religare_Travel_proposal_id,
             'product_id': this.getTravelPremiumList.product_id,
+            'purposeOf_visit': this.purposeOfVisit ? this.purposeOfVisit : 'student',
             'enquiry_id': this.getEnquiryDetails.enquiry_id,
             'trip_start_on': this.datepipe.transform( this.getEnquiryDetails.start_date , 'y-MM-dd'),
             'trip_end_on': this.getEnquiryDetails.travel_user_type == 'student' ? this.religarePersonal.controls['endDateFormat'].value : this.datepipe.transform(this.getEnquiryDetails.end_date , 'y-MM-dd'),
