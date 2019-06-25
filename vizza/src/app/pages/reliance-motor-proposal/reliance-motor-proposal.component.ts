@@ -132,7 +132,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.relianceProposal = this.fb.group({
       firstName : ['' , Validators.required],
       lastName : ['',Validators.required],
-      middleName : ['' , Validators.required],
+      middleName : [''],
       dob : ['' , Validators.required],
       title : ['' , Validators.required],
       occupation : ['' , Validators.required],
@@ -204,13 +204,18 @@ export class RelianceMotorProposalComponent implements OnInit {
       NilDepreciationCoverage: [''],
       TPPDCover: [''],
       TPPDCoverSi: [''],
-      BasicODCoverage: [''],
-      BasicLiability: [''],
+      BasicODCoverage: ['',Validators.required],
+      BasicLiability: ['',Validators.required],
       nrelationValue: [''],
       fuelTypeValue: [''],
       nOtherRelationValue: [''],
-      NewVehicle: [''],
       PACoverToOwner: [''],
+      IsElectricalItemFitted: [''],
+      IsNonElectricalItemFitted: [''],
+      ElectricalItemsTotalSI: [''],
+      NonElectricalItemsTotalSI: [''],
+      BiFuelKitSi: [''],
+      IsBiFuelKit: [''],
       paPaidDriver: [''],
       paPaidDriverSi: [''],
       VoluntaryDeductableAmount: [''],
@@ -613,6 +618,9 @@ export class RelianceMotorProposalComponent implements OnInit {
         }else {
           this.toastr.error('Proposer Age should be greater than 18.')
         }
+      }else{
+        this.toastr.error('Please Select the Mandatory Fields')
+
       }
     } else if (type == 'stepper2') {
       sessionStorage.stepper2Details = '';
@@ -620,12 +628,18 @@ export class RelianceMotorProposalComponent implements OnInit {
       if (this.riskDetails.valid) {
         stepper.next();
         this.topScroll();
+      }else{
+        this.toastr.error('Please Select the Mandatory Fields')
+
       }
     } else if (type == 'stepper3') {
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
       if (this.coverDetails.valid) {
         stepper.next();
+      }else{
+        this.toastr.error('Please Select the Mandatory Fields')
+
       }
     }
 
@@ -729,8 +743,13 @@ export class RelianceMotorProposalComponent implements OnInit {
         TPPDCoverSi: this.getStepper3.TPPDCoverSi,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
         BasicLiability: this.getStepper3.BasicLiability,
-        NewVehicle: this.getStepper3.NewVehicle,
         PACoverToOwner: this.getStepper3.PACoverToOwner,
+        IsElectricalItemFitted: this.getStepper3.IsElectricalItemFitted,
+        IsNonElectricalItemFitted: this.getStepper3.IsNonElectricalItemFitted,
+        IsBiFuelKit: this.getStepper3.IsBiFuelKit,
+        ElectricalItemsTotalSI: this.getStepper3.ElectricalItemsTotalSI,
+        NonElectricalItemsTotalSI: this.getStepper3.NonElectricalItemsTotalSI,
+        BiFuelKitSi: this.getStepper3.BiFuelKitSi,
         paPaidDriver: this.getStepper3.paPaidDriver,
         paPaidDriverSi: this.getStepper3.paPaidDriverSi,
         IsRoadTaxcover: this.getStepper3.IsRoadTaxcover,
@@ -1130,8 +1149,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         },
         'Vehicle': {
 
-          'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
-          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value ? 'true' : 'false'
+          'TypeOfFuel': this.coverDetails.controls['fuelType'].value
         },
         'Cover': {
           'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value ? 'true' : 'false',
@@ -1141,7 +1159,59 @@ export class RelianceMotorProposalComponent implements OnInit {
           'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
           'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value ? 'true' : 'false',
           'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value ? 'true' : 'false',
+          'IsElectricalItemFitted': this.coverDetails.controls['IsElectricalItemFitted'].value ? 'true' : 'false',
+          'ElectricalItemsTotalSI': this.coverDetails.controls['ElectricalItemsTotalSI'].value ,
+          'IsNonElectricalItemFitted': this.coverDetails.controls['IsNonElectricalItemFitted'].value ? 'true' : 'false',
+          'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
+          'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
+          'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
           'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          "ElectricItems": {
+            "ElectricalItems": {
+              "ElectricalItemsID": "",
+              "PolicyId": "",
+              "SerialNo": "",
+              "MakeModel": "",
+              "ElectricPremium": "",
+              "Description": "",
+              "ElectricalAccessorySlNo": "",
+              "SumInsured": this.coverDetails.controls['ElectricalItemsTotalSI'].value
+            }
+          },
+          "NonElectricItems": {
+            "NonElectricalItems": {
+              "NonElectricalItemsID": "",
+              "PolicyID": "",
+              "SerialNo": "",
+              "MakeModel": "",
+              "NonElectricPremium": "",
+              "Description": "",
+              "Category": "",
+              "NonElectricalAccessorySlNo": "",
+              "SumInsured": this.coverDetails.controls['NonElectricalItemsTotalSI'].value
+            }
+          },
+          "BasicODCoverage": {
+            "BasicODCoverage": {
+              "IsMandatory": this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
+              "IsChecked": this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
+              "NoOfItems": "",
+              "PackageName": ""
+            }
+          },
+          "BifuelKit": {
+            "BifuelKit": {
+              "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
+              "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
+              "PolicyCoverDetailsID": "",
+              "Fueltype": this.coverDetails.controls['IsBiFuelKit'].value ? this.coverDetails.controls['fuelTypeValue'].value : '',
+              "ISLpgCng": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
+              "PolicyCoverID": "",
+              "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
+              "NoOfItems": "",
+              "PackageName": ""
+            }
+          },
           'PACoverToOwner': {
             'PACoverToOwner': {
               'IsChecked': this.coverDetails.controls['PACoverToOwner'].value ? 'true' : 'false',
@@ -1520,6 +1590,62 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.coverDetails.controls['paPaidDriverSi'].updateValueAndValidity();
     }
   }
+
+
+  //
+  updateElectricalItem(event){
+    if(event.checked){
+      this.coverDetails.controls['IsElectricalItemFitted'].patchValue(true);
+      //
+      this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('15000');
+      this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
+    }else {
+      this.coverDetails.controls['IsElectricalItemFitted'].patchValue(false);
+
+
+      this.coverDetails.controls['ElectricalItemsTotalSI'].patchValue('');
+      this.coverDetails.controls['ElectricalItemsTotalSI'].setValidators(null);
+      this.coverDetails.controls['ElectricalItemsTotalSI'].updateValueAndValidity();
+    }
+  }
+
+  updatenonElectricalItem(event){
+    if(event.checked){
+      this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(true);
+      //
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('12000');
+
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators([Validators.required]);
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
+    }else {
+      this.coverDetails.controls['IsNonElectricalItemFitted'].patchValue(false);
+
+
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].patchValue('');
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].setValidators(null);
+      this.coverDetails.controls['NonElectricalItemsTotalSI'].updateValueAndValidity();
+    }
+  }
+
+  updatenonBiFuelKit(event){
+    if(event.checked){
+      this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+      //
+      this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+
+      this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+    }else {
+      this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+
+
+      this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+      this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+    }
+  }
+
   //
   updateUnnamedPassenger(event){
     if (event.checked) {
