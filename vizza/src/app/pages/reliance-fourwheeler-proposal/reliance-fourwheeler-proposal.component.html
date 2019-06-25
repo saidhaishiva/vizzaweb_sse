@@ -1013,10 +1013,10 @@
                     <ul class="m-0 list-group">
                       <li class="list-group-item" ><strong>Buyer Type:</strong> {{riskFormData.OtherSystemNameValue}}</li>
                       <li class="list-group-item" ><strong>IDV:</strong> {{riskFormData.IDV}}</li>
-                      <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated != ''"><strong>Vehicle Hypothicated:</strong><span *ngIf="riskFormData.IsVehicleHypothicated == 'true'">Yes</span><span *ngIf="riskFormData.IsVehicleHypothicated == 'false'">No</span> </li>
-                      <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == 'true'"><strong>Finance Type:</strong> {{riskFormData.FinanceTypeValue}}</li>
-                      <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == 'true'"><strong>Financier Name:</strong> {{riskFormData.FinancierName}}</li>
-                      <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == 'true'"><strong>Financier Address:</strong> {{riskFormData.FinancierAddress}}</li>
+                      <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated != ''"><strong>Vehicle Hypothicated:</strong><span *ngIf="riskFormData.IsVehicleHypothicated == true">Yes</span><span *ngIf="riskFormData.IsVehicleHypothicated == false">No</span> </li>
+                      <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == true"><strong>Finance Type:</strong> {{riskFormData.FinanceTypeValue}}</li>
+                      <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == true"><strong>Financier Name:</strong> {{riskFormData.FinancierName}}</li>
+                      <li class="list-group-item" *ngIf="riskFormData.IsVehicleHypothicated == true"><strong>Financier Address:</strong> {{riskFormData.FinancierAddress}}</li>
 
 
                     </ul>
@@ -1079,11 +1079,8 @@
                           <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PACoverToOwner ==true "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PACoverToOwner == true "><strong>OtherRelation:</strong> {{coverFormData.nOtherRelation}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PACoverToOwner == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
-
-
                           <li class="list-group-item" *ngIf="coverFormData.namedPassengersSI != '' && coverFormData.namedPassengerCovered ==true "><strong>Named Passengers SI:</strong> {{coverFormData.namedPassengersSI}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.nppassengerName != '' && coverFormData.namedPassengerCovered ==true "><strong>Passenger Name:</strong> {{coverFormData.nppassengerName}}</li>
-
                           <li class="list-group-item" *ngIf="coverFormData.npappointeeName != '' && coverFormData.namedPassengerCovered ==true "><strong>AppointeeName:</strong> {{coverFormData.npappointeeName}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.npnomineeName != '' && coverFormData.namedPassengerCovered ==true "><strong>NomineeName:</strong> {{coverFormData.npnomineeName}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.npDob != '' && coverFormData.namedPassengerCovered ==true"><strong>Nominee Dob:</strong> {{coverFormData.npDob}}</li>

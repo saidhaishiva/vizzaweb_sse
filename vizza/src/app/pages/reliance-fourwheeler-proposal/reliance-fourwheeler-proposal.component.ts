@@ -1172,7 +1172,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.unnamedSiSucccess(successData);
         },
         (error) => {
-          this.fourWheelervoluntaryAmountListFailure(error);
+          this.unnamedSiFailure(error);
         }
     );
   }
@@ -1261,7 +1261,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       'enquiry_id': this.bikeEnquiryId,
       'created_by': '',
-      'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
+      'proposal_id': sessionStorage.relianceFourwheelerproposalID == '' || sessionStorage.relianceFourwheelerproposalID == undefined ? '' : sessionStorage.relianceFourwheelerproposalID,
       'motorproposalObj':{
         'CoverDetails': '',
         'TrailerDetails': '',
@@ -1355,7 +1355,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'IsBasicLiability': this.coverDetails.controls['BasicLiability'] ? 'true' : 'false',
           'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'] ? 'true' : 'false',
           'UnnamedPassengersSI': this.coverDetails.controls['UnnamedPassengersSI'].value ,
-          // 'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
+          'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'IsVoluntaryDeductableOpted': this.coverDetails.controls['IsVoluntaryDeductableOpted'].value ? 'true' : 'false',
           'VoluntaryDeductableAmount': this.coverDetails.controls['VoluntaryDeductableAmount'].value ,
           'IsElectricalItemFitted': this.coverDetails.controls['IsElectricalItemFitted'].value ? 'true' : 'false',
@@ -1467,7 +1467,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           "PAToUnNamedPassenger": {
             "PAToUnNamedPassenger": {
               "IsChecked": this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
-              "NoOfItems": this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value,
+              "NoOfItems": "",
               "SumInsured": this.coverDetails.controls['UnnamedPassengersSI'].value
             }
           },
@@ -1552,8 +1552,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
-      this.proposalId = this.summaryData.policy_id;
-      sessionStorage.relianceMotorproposalID = this.proposalId;
+      this.proposalId = this.summaryData.productlist.proposal_id;
+      sessionStorage.relianceFourwheelerproposalID = this.proposalId;
       this.PaymentRedirect =   this.summaryData.productlist.PaymentRedirectUrl;
 
       this.proposerFormData = this.relianceProposal.value;
@@ -1660,7 +1660,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   // same as address
 
   sameAsAddress(type) {
-    console.log(this.relianceProposal.controls['regSameAspermAddress'].value,'regperm')
+    console.log(this.relianceProposal.controls['regSameAspermAddress'].value,'regperm');
     console.log(this.relianceProposal.controls['regSameAscommAddress'].value,'regcomm');
 
     if(type == 'pcomm') {

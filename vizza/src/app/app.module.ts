@@ -300,6 +300,7 @@ import { LearningCenterComponent } from './pages/learning-center/learning-center
 import { CarTataaigPaymentSuccessComponent } from './pages/car-tataaig-payment-success/car-tataaig-payment-success.component';
 import { RelianceTwowheelerPaymentSuccessComponent } from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
 import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-policy/car-tataaig-download-policy.component';
+import { NewContactComponent } from './pages/new-contact/new-contact.component';
 
 @NgModule({
     imports: [
@@ -559,7 +560,8 @@ import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-
         LearningCenterComponent,
         CarTataaigPaymentSuccessComponent,
         RelianceTwowheelerPaymentSuccessComponent,
-        CarTataaigDownloadPolicyComponent
+        CarTataaigDownloadPolicyComponent,
+        NewContactComponent
     ],
     providers: [
         AppSettings,
