@@ -584,7 +584,7 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required readonly>
+                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
                           <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passenegers Covered is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -723,7 +723,7 @@
                       </div>
 
 
-                      <div class="col-md-4 mt-0">
+                      <div class="col-md-4 mt-0" *ngIf="npshowNominee">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Other Relation" formControlName="npOtherRelation" (change)="changenpOtherRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
@@ -788,7 +788,7 @@
                       </div>
 
 
-                      <div class="col-md-4 mt-0">
+                      <div class="col-md-4 mt-0" *ngIf="showNominee">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (change)="changenOtherRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
