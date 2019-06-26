@@ -187,6 +187,10 @@ export class BikePremiumListComponent implements OnInit {
     updateSumInsured(){
 
     }
+    bikeInsurer(){
+        this.router.navigate(['/bike-insurance']);
+    }
+
     // filter by product
     filterByProducts() {
         if(this.filterCompany.includes('All')){
