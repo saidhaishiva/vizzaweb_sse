@@ -840,8 +840,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
 //session
   session(){
+
     if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
       this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+      console.log(this.getStepper1.dob,'sessiondob');
       this.relianceProposal = this.fb.group({
         firstName : this.getStepper1.firstName,
         lastName : this.getStepper1.lastName,
@@ -897,6 +899,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         nationalityValue: this.getStepper1.nationalityValue,
       });
     }
+    console.log(this.relianceProposal,'reliancproposal');
 
     if(sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined ){
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
@@ -1775,16 +1778,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
 
   ageCalculate(dob) {
-    console.log(dob,'dobincalculate');
-    let mdate = dob.toString();
-    let yearThen = parseInt(mdate.substring(8, 10), 10);
-    let monthThen = parseInt(mdate.substring(5, 7), 10);
-    let dayThen = parseInt(mdate.substring(0, 4), 10);
-    let todays = new Date();
-    let birthday = new Date(dayThen, monthThen - 1, yearThen);
-    let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-    let year_age = Math.floor(differenceInMilisecond / 31536000000);
-    return year_age;
+    let today = new Date();
+    let birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    let dd = today.getDate()- birthDate.getDate();
+    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+      age = age-1;
+    }
+    return age;
   }
 
   ///validation
