@@ -162,8 +162,8 @@ export class BikeTataaigProposalComponent implements OnInit {
 
         this.previouspolicy = this.fb.group({
             preflag: ['', Validators.required],
-            precode: '',
             preName: '',
+            precode: '',
             prepolno: '',
             preAddressone: ['', Validators.required],
             preAddresstwo: '',
@@ -427,7 +427,6 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     prepolicyNameListSuccess(successData) {
         this.preNamelist = successData.ResponseObject;
-
     }
 
     prepolicyNameListFailure(error) {
@@ -611,14 +610,23 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.previouspolicy.controls['prepolno'].updateValueAndValidity();
     }
 
+    chooseopt() {
+        for(let i = 0; i < this.preNamelist.length;i++) {
+            console.log(this.preNamelist[i].key,'key');
+            if(this.preNamelist[i].value == this.previouspolicy.controls['preName'].value) {
+                this.previouspolicy.controls['precode'].patchValue(this.preNamelist[i].key);
+            }
+        }
+    }
+
     proposerDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikeproposer = '';
         sessionStorage.tatabikeproposer = JSON.stringify(value);
         if (this.proposer.valid) {
             if (sessionStorage.proposerAge >= 18) {
                 this.agecount = sessionStorage.proposerAge;
-                let age = this.agecount - 18;
-                if (this.proposer.controls['drivingexp'].value <= age) {
+                let exp = this.agecount - 18;
+                if (this.proposer.controls['drivingexp'].value <= exp) {
                     console.log(value, 'proposer');
                     stepper.next();
                 } else {
@@ -723,8 +731,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.getstepper3 = JSON.parse(sessionStorage.tataprepolicy);
             this.previouspolicy = this.fb.group({
                 preflag: this.getstepper3.preflag,
-                precode: this.getstepper3.precode,
                 preName: this.getstepper3.preName,
+                precode: this.getstepper3.precode,
                 prepolno: this.getstepper3.prepolno,
                 preAddressone: this.getstepper3.preAddressone,
                 preAddresstwo: this.getstepper3.preAddresstwo,

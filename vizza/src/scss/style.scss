@@ -594,7 +594,8 @@ a:hover {
       width: 100%;
     }
     .fa-caret-down {
-      float: right;
+      position: absolute;
+      padding-right: 30px;
       margin-right: 10px;
     }
   }

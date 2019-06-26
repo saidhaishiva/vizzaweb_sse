@@ -29,7 +29,7 @@
   left:0;
   right:0;  
   padding: $inner-sidenav-content-padding;
-  min-height: calc(100% - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2));
+  max-height: calc(100% - (#{$toolbar-height} + #{$inner-sidenav-content-padding}*2));
 }
 
 .options{
