@@ -31,7 +31,7 @@
               <th class="sun-insured col-md-1">
                 <mat-form-field class="w-100">
                   <mat-placeholder class="myclass font-weight-bold" >Sum Insured </mat-placeholder>
-                  <input matInput [(ngModel)]="selectedAmountTravel" (change)="updateSumInsured()"  maxlength="10" autocomplete="off" (keypress)="numberValidate($event)" >
+                  <input matInput [(ngModel)]="selectedAmountTravel" (keyup)="keyUp.next(selectedAmountTravel)" maxlength="10" autocomplete="off" (keypress)="numberValidate($event)" >
                 </mat-form-field>
                 <!--<mat-form-field >-->
                   <!--<mat-placeholder class="myclass font-weight-bold" >Sum Insured </mat-placeholder>-->
@@ -48,7 +48,7 @@
               <th class="col-md-1" style="padding: 15px 5px !important;">Policy Paying Term</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Payment</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Compare</th>
-              <th class="col-md-2" style="padding: 15px 5px !important;">Premiun ( &#8377; )</th>
+              <th class="col-md-2" style="padding: 15px 5px !important;">Premium  ( &#8377; )</th>
               <th class="col-md-1" style="padding: 15px 5px !important;">Buy </th>
             </tr>
             </thead>

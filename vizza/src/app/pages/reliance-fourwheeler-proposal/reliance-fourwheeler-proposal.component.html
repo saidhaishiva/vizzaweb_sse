@@ -404,7 +404,7 @@
                       <div class="col-md-12 mt-2">
                         <h3 class="color-blue">Vehicle Details</h3>
                       </div>
-                      <div class="col-md-4 mt-3">
+                      <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Fuel type" formControlName="fuelType" (change)="changeFuel()"required>
                             <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
@@ -415,6 +415,10 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-md-12 mt-2">
+                        <h3 class="color-blue">Vehicle Details</h3>
+                      </div>
+
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event)">Unnamed Passenger Covered</mat-checkbox>
                       </div>
@@ -580,7 +584,7 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required readonly>
+                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
                           <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passenegers Covered is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -719,7 +723,7 @@
                       </div>
 
 
-                      <div class="col-md-4 mt-0">
+                      <div class="col-md-4 mt-0" *ngIf="npshowNominee">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Other Relation" formControlName="npOtherRelation" (change)="changenpOtherRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
@@ -784,7 +788,7 @@
                       </div>
 
 
-                      <div class="col-md-4 mt-0">
+                      <div class="col-md-4 mt-0" *ngIf="showNominee">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (change)="changenOtherRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
