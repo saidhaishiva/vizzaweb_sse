@@ -133,6 +133,10 @@ export class LifeBajajProposalComponent implements OnInit {
   public familyMemberList: any;
   public causeOfDeathList: any;
   public familyDiseaseFormData: any;
+  public ageProofPath: any;
+  public addressProofPath: any;
+  public bankProofPath: any;
+  public idProofPath: any;
 
 
     constructor(public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
@@ -154,6 +158,10 @@ export class LifeBajajProposalComponent implements OnInit {
             }
         });
         this.currentStep = stepperindex;
+        this.addressProofPath = [];
+        this.ageProofPath = [];
+        this.bankProofPath = [];
+        this.idProofPath = [];
 
       let today = new Date();
       this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
@@ -2408,7 +2416,6 @@ samerelationShip(){
 
     uploadProof(event: any, type) {
 
-
         let getUrlEdu = [];
         this.fileDetails = [];
         if(type == 'address_proof') {
@@ -2426,7 +2433,7 @@ samerelationShip(){
                 reader.onload = (event: any) => {
                     this.url = event.target.result;
                     getUrlEdu.push(this.url.split(','));
-                    this.onUploadFinished(this.fileDetails, getUrlEdu);
+                    this.onUploadFinished(this.fileDetails, getUrlEdu, 'age_p');
                 };
                 reader.readAsDataURL(event.target.files[i]);
             }
@@ -2447,7 +2454,7 @@ samerelationShip(){
                 reader.onload = (event: any) => {
                     this.url = event.target.result;
                     getUrlEdu.push(this.url.split(','));
-                    this.onUploadFinished(this.fileDetails, getUrlEdu);
+                    this.onUploadFinished(this.fileDetails, getUrlEdu, 'add_p');
                 };
                 reader.readAsDataURL(event.target.files[i]);
             }
@@ -2468,7 +2475,7 @@ samerelationShip(){
                 reader.onload = (event: any) => {
                     this.url = event.target.result;
                     getUrlEdu.push(this.url.split(','));
-                    this.onUploadFinished(this.fileDetails, getUrlEdu);
+                    this.onUploadFinished(this.fileDetails, getUrlEdu, 'id_p');
                 };
                 reader.readAsDataURL(event.target.files[i]);
             }
@@ -2488,7 +2495,7 @@ samerelationShip(){
                 reader.onload = (event: any) => {
                     this.url = event.target.result;
                     getUrlEdu.push(this.url.split(','));
-                    this.onUploadFinished(this.fileDetails, getUrlEdu);
+                    this.onUploadFinished(this.fileDetails, getUrlEdu, 'bank_p');
                 };
                 reader.readAsDataURL(event.target.files[i]);
             }
@@ -2496,7 +2503,7 @@ samerelationShip(){
         }
 
     }
-    onUploadFinished(values, basecode) {
+    onUploadFinished(values, basecode, type) {
         values[0].base64 = basecode[0][1];
 
         for (let k = 0; k < values.length; k++) {
@@ -2504,7 +2511,45 @@ samerelationShip(){
                 this.allImage.push(values[k]);
             }
         }
-        console.log(this.allImage, 'this.fileDetails');
+        console.log(this.allImage , 'this.allImage.this.allImage.');
+        if(type == 'age_p') {
+          this.ageProofPath = [];
+          for (let k = 0; k < values.length; k++) {
+            if (this.ageProofPath.indexOf(values[k].name) == -1) {
+              this.ageProofPath.push(values[k]);
+            }
+          }
+        } else if(type == 'add_p') {
+          this.addressProofPath = [];
+          for (let k = 0; k < values.length; k++) {
+            if (this.addressProofPath.indexOf(values[k].name) == -1) {
+              this.addressProofPath.push(values[k]);
+            }
+          }
+        }
+        else if(type == 'id_p') {
+          this.idProofPath = [];
+          for (let k = 0; k < values.length; k++) {
+            if (this.idProofPath.indexOf(values[k].name) == -1) {
+              this.idProofPath.push(values[k]);
+            }
+          }
+        }
+        else if(type == 'bank_p') {
+          this.bankProofPath = [];
+          for (let k = 0; k < values.length; k++) {
+            if (this.bankProofPath.indexOf(values[k].name) == -1) {
+              this.bankProofPath.push(values[k]);
+            }
+          }
+        }
+
+        console.log(this.ageProofPath, 'this.ageProofPath');
+        console.log(this.addressProofPath, 'this.addressProofPath');
+        console.log(this.bankProofPath, 'this.bankProofPath');
+        console.log(this.idProofPath, 'this.idProofPath');
+        console.log(this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath), 'this.conbvsgd');
+
     }
 
     uploadAll() {
@@ -2515,7 +2560,7 @@ samerelationShip(){
             "platform": "web",
             "policy_id": this.getEnquiryDetials.policy_id,
             "Persons": [{
-                "Documents": this.allImage,
+                "Documents": this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath),
                 "Type": "PH"
             }]
         };

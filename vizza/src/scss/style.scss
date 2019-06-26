@@ -49,10 +49,10 @@ button:focus{
   height: 30px;
   margin-top: -4px;
 }
-.logo-size1{
-  width: 50px;
-  height: 50px;
-}
+//.logo-size1{
+//  width: 50px;
+//  height: 50px;
+//}
 .bg-pink{
   color:$pink-color;
 }
@@ -593,11 +593,14 @@ a:hover {
       border-bottom: 1px solid #ccc;
       width: 100%;
     }
-    .fa-caret-down {
-      position: absolute;
-      padding-right: 30px;
+    #iconRight {
+      float: right;
       margin-right: 10px;
     }
+    //.fa-caret-down {
+    //  float: right;
+    //  margin-right: 10px;
+    //}
   }
 
 }

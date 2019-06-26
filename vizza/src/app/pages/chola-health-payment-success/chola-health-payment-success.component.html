@@ -5,10 +5,10 @@
         <img src="assets/img/success.gif" alt="">
         <h5>Thank you! Your payment is processed successfully.</h5>
         <h6 *ngIf="remainingStatus">If you want to purchase for other groups.<span (click)="pay()" class="retryClass"> Please click here... </span></h6>
-        <p *ngIf="policyStatus == 1">You policy is under process.HDFC will contact you shortly.</p>
-        <p *ngIf="policyStatus == 0">Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
+        <p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>
         <button mat-raised-button color="primary" routerLink="/home"> Done</button>
       </div>
+
       <div *ngIf="paymentStatus == 'failure'">
         <img src="assets/img/error-icon.png" alt="">
         <h2 style="color:#f44336">Oh no, Your payment failed</h2>
@@ -23,11 +23,11 @@
         </div>
       </div>
 
+
+
     </mat-card>
   </div>
 </div>
-
-
 <style>
   .retryClass{
     color: #3e65d4 !important;
@@ -35,4 +35,3 @@
   }
 
 </style>
-

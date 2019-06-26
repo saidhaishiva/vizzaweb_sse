@@ -58,6 +58,7 @@ export class BikeInsuranceComponent implements OnInit {
     public currentTab: any;
     public typeList: any;
     public companyList: any;
+    public cityDetails: any;
     public listDetails: boolean;
     public expiry: boolean;
     public previousDate: boolean;
@@ -78,7 +79,8 @@ export class BikeInsuranceComponent implements OnInit {
             'ncb': '',
             'previousPolicyExpiry': '',
             'previousPolicyStart': '',
-            'previousCompany': ''
+            'previousCompany': '',
+            'city':''
         });
         this.expiry = false;
         this.showSelf = false;
@@ -120,7 +122,31 @@ export class BikeInsuranceComponent implements OnInit {
     numberValidate(event: any) {
         this.validation.numberValidate(event);
     }
+    getCityLists() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
+        }
+        this.bikeService.getCityList(data).subscribe(
+            (successData) => {
+                this.citySuccess(successData);
+            },
+            (error) => {
+                this.cityFailure(error);
+            }
+        );
+    }
+    public citySuccess(successData){
+        if (successData.IsSuccess) {
+            this.cityDetails = successData.ResponseObject;
+            //
+        }
+    }
+    public cityFailure(error) {
+    }
     addEvent(event, type) {
         console.log(event, 'eventevent');
         let selectedDate = '';
@@ -344,7 +370,8 @@ export class BikeInsuranceComponent implements OnInit {
                 'ncb': stepper.ncb,
                 'previousPolicyExpiry': this.datePipe.transform(stepper.previousPolicyExpiry, 'y-MM-dd'),
                 'previousPolicyStart': this.datePipe.transform(stepper.previousPolicyStart, 'y-MM-dd'),
-                'previousCompany': stepper.previousCompany
+                'previousCompany': stepper.previousCompany,
+                'city': stepper.city
             });
 
         }

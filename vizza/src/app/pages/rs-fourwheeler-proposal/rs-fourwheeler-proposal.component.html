@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <mat-horizontal-stepper  #stepper >
                 <mat-step [stepControl]="">
-                    <ng-template matStepLabel >PROPOSER </ng-template>
+                    <ng-template matStepLabel >PROPOSER DETAILS </ng-template>
                     <mat-accordion class=" w-100 float-left">
                         <form [formGroup]="proposer" >
                             <mat-expansion-panel expanded>
@@ -190,10 +190,10 @@
                         <mat-expansion-panel expanded>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    VEHICAL DETAILS
+                                    VEHICLE DETAILS
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+                            <ng-template matStepLabel>VEHICLE DETAILS</ng-template>
                             <div class="row mt-3">
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <form [formGroup]="vehical">
@@ -455,7 +455,7 @@
                                                 <div class="row" [formGroupName]="i">
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Name Of Electronic Accessories "  formControlName="nameOfElectronicAccessories"  autocomplete="off">
+                                                            <input matInput placeholder="Name Of Electronic Accessories "  formControlName="nameOfElectronicAccessories" [required]="vehical.controls['coverelectricalaccesss'].value == true" autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <div class="col-md-3">
@@ -466,7 +466,7 @@
 
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)"    autocomplete="off">
+                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)"    autocomplete="off" [required]="vehical.controls['coverelectricalaccesss'].value == true" >
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>

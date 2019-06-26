@@ -467,8 +467,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.coverDetails.controls['npAddress'].setValidators([Validators.required]);
       this.coverDetails.controls['npAddress'].updateValueAndValidity();
       //
-      this.coverDetails.controls['npOtherRelation'].setValidators([Validators.required]);
-      this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
 
     } else {
       this.coverDetails.controls['PAToNamedPassenger'].patchValue(false);
@@ -739,31 +737,45 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.showNominee = true;
           this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
           this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+
+          this.coverDetails.controls['nOtherRelation'].setValidators([Validators.required]);
+          this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
         } else {
           this.coverDetails.controls['cappointeeName'].patchValue('');
           this.coverDetails.controls['cappointeeName'].setValidators(null);
           this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+
+          this.coverDetails.controls['nOtherRelation'].patchValue('');
+          this.coverDetails.controls['nOtherRelation'].setValidators(null);
+          this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
           this.showNominee = false;
 
         }
       }
 
-        if (type == 'npnominee') {
-          console.log(this.npnomineeAge, 'npnomineeAge');
-          sessionStorage.npnomineeAge = this.npnomineeAge;
-          if (sessionStorage.npnomineeAge <= 18) {
+      if (type == 'npnominee') {
+        console.log(this.npnomineeAge, 'npnomineeAge');
+        sessionStorage.npnomineeAge = this.npnomineeAge;
+        if (sessionStorage.npnomineeAge <= 18) {
 
-            this.npshowNominee = true;
-            this.coverDetails.controls['npappointeeName'].setValidators([Validators.required]);
-            this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
-          } else {
-            this.coverDetails.controls['npappointeeName'].patchValue('');
-            this.coverDetails.controls['npappointeeName'].setValidators(null);
-            this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
-            this.npshowNominee = false;
+          this.npshowNominee = true;
+          this.coverDetails.controls['npappointeeName'].setValidators([Validators.required]);
+          this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
 
-          }
+          this.coverDetails.controls['npOtherRelation'].setValidators([Validators.required]);
+          this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
+        } else {
+          this.coverDetails.controls['npappointeeName'].patchValue('');
+          this.coverDetails.controls['npappointeeName'].setValidators(null);
+          this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+
+          this.coverDetails.controls['npOtherRelation'].patchValue('');
+          this.coverDetails.controls['npOtherRelation'].setValidators(null);
+          this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
+          this.npshowNominee = false;
+
         }
+      }
 
     }
   }
@@ -840,8 +852,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
 //session
   session(){
+
     if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
       this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+      console.log(this.getStepper1.dob,'sessiondob');
       this.relianceProposal = this.fb.group({
         firstName : this.getStepper1.firstName,
         lastName : this.getStepper1.lastName,
@@ -897,6 +911,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         nationalityValue: this.getStepper1.nationalityValue,
       });
     }
+    console.log(this.relianceProposal,'reliancproposal');
 
     if(sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined ){
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
@@ -969,16 +984,43 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     }
 
     if(sessionStorage.nomineeAge != '' && sessionStorage.nomineeAge != undefined) {
-      if(sessionStorage.nomineeAge <= 18){
+      if (sessionStorage.nomineeAge <= 18) {
         this.showNominee = true;
         this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
         this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
-      }else{
+
+        this.coverDetails.controls['nOtherRelation'].setValidators([Validators.required]);
+        this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+      } else {
         this.coverDetails.controls['cappointeeName'].patchValue('');
         this.coverDetails.controls['cappointeeName'].setValidators(null);
         this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
-        this.showNominee = false;
 
+        this.coverDetails.controls['nOtherRelation'].patchValue('');
+        this.coverDetails.controls['nOtherRelation'].setValidators(null);
+        this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+        this.showNominee = false;
+      }
+    }
+
+
+    if(sessionStorage.npnomineeAge != '' && sessionStorage.npnomineeAge != undefined) {
+      if (sessionStorage.npnomineeAge <= 18) {
+        this.npshowNominee = true;
+        this.coverDetails.controls['npappointeeName'].setValidators([Validators.required]);
+        this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+
+        this.coverDetails.controls['npOtherRelation'].setValidators([Validators.required]);
+        this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
+      } else {
+        this.coverDetails.controls['npappointeeName'].patchValue('');
+        this.coverDetails.controls['npappointeeName'].setValidators(null);
+        this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+
+        this.coverDetails.controls['npOtherRelation'].patchValue('');
+        this.coverDetails.controls['npOtherRelation'].setValidators(null);
+        this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
+        this.npshowNominee = false;
       }
     }
 
@@ -1775,16 +1817,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
 
   ageCalculate(dob) {
-    console.log(dob,'dobincalculate');
-    let mdate = dob.toString();
-    let yearThen = parseInt(mdate.substring(8, 10), 10);
-    let monthThen = parseInt(mdate.substring(5, 7), 10);
-    let dayThen = parseInt(mdate.substring(0, 4), 10);
-    let todays = new Date();
-    let birthday = new Date(dayThen, monthThen - 1, yearThen);
-    let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-    let year_age = Math.floor(differenceInMilisecond / 31536000000);
-    return year_age;
+    let today = new Date();
+    let birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    let dd = today.getDate()- birthDate.getDate();
+    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+      age = age-1;
+    }
+    return age;
   }
 
   ///validation
