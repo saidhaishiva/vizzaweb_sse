@@ -9,6 +9,8 @@ import {DatePipe} from '@angular/common';
 import {PosstatusAlertTravel} from '../travel-premium-list/travel-premium-list.component';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ValidationService} from '../../shared/services/validation.service';
+import {Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-term-life-premium-list',
@@ -28,6 +30,7 @@ export class TermLifePremiumListComponent implements OnInit {
     selectedAmountTravel: any;
     enquiryFromDetials: any;
     checkAllStatus: boolean;
+    private keyUp = new Subject<string>();
   constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
@@ -38,6 +41,18 @@ export class TermLifePremiumListComponent implements OnInit {
       this.selectedAmountTravel = '5000000';
       sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
       this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+      // once user typing stoped after calling function
+      const observable = this.keyUp
+          .map(value => event)
+          .debounceTime(100)
+          .distinctUntilChanged()
+          .flatMap((search) => {
+              return Observable.of(search).delay(100);
+          })
+          .subscribe((data) => {
+              console.log(data, 'data');
+              this.updateSumInsured();
+          });
   }
   ngOnInit() {
       this.getCompanyList();

@@ -288,7 +288,7 @@ export const routes: Routes = [
             { path: 'bajaj-travel-payment-success/:status/:proId', component: TravelBajajPaymentSuccessComponent, data:{ breadcrumb: 'travel Bajaj'}},
             { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}},
             { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}},
-            { path: 'app-chola-health-payment-success/:status/:proId/:policyStatus', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
+            { path: 'app-chola-health-payment-success/:status/:proId', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
             { path: 'enquiryPop', component: EnquiryPopupComponent, data: {breadcrumb: 'Vehicle List'}},
             { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'bikeTataaig Payment'} },
             { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}},
