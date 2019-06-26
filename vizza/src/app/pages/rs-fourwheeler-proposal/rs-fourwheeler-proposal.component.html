@@ -455,7 +455,7 @@
                                                 <div class="row" [formGroupName]="i">
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Name Of Electronic Accessories "  formControlName="nameOfElectronicAccessories"  autocomplete="off">
+                                                            <input matInput placeholder="Name Of Electronic Accessories "  formControlName="nameOfElectronicAccessories" [required]="vehical.controls['coverelectricalaccesss'].value == true" autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <div class="col-md-3">
@@ -466,7 +466,7 @@
 
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)"    autocomplete="off">
+                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)"    autocomplete="off" [required]="vehical.controls['coverelectricalaccesss'].value == true" >
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>
