@@ -89,7 +89,7 @@
 
                                             <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="occupation" formControlName="occupation" >
+                                                    <mat-select placeholder="Occupation" formControlName="occupation" >
                                                         <mat-option *ngFor="let title of occupationList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="proposer.controls.occupation.errors?.required">Occupation is required</mat-error>-->
