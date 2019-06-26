@@ -281,7 +281,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
                               <mat-placeholder>Expiry Date (DD/MM/YYYY)<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                              <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off">
+                              <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" [min]="this.poldate" minlength="10" maxlength="10" autocomplete="off">
                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                             <mat-datepicker #picker2></mat-datepicker>
                           </mat-form-field>
