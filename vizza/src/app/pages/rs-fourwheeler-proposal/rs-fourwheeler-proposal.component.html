@@ -714,10 +714,9 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.firstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
-                                            <li class="list-group-item" ><strong>Email Id:</strong> {{proposerFormData.email}}</li>
-                                            <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.occupation != ''"><strong>Occupation :</strong> {{proposerFormData.occupation}}</li>
-
+                                            <li class="list-group-item" *ngIf="proposerFormData.stdCode != ''"><strong>STD Code :</strong> {{proposerFormData.stdCode}}</li>
+                                            <li class="list-group-item" *ngIf="proposerFormData.phoneNumber != ''"><strong>Phone Number:</strong>{{proposerFormData.phoneNumber}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -725,8 +724,8 @@
                                     <div class="p-3">
 
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="proposerFormData.stdCode != ''"><strong>STD Code :</strong> {{proposerFormData.stdCode}}</li>
-                                            <li class="list-group-item" *ngIf="proposerFormData.phoneNumber != ''"><strong>Phone Number:</strong>{{proposerFormData.phoneNumber}}</li>
+                                            <li class="list-group-item" ><strong>Email Id:</strong> {{proposerFormData.email}}</li>
+                                            <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.panNumber != ''"><strong>Pan Number:</strong> {{proposerFormData.panNumber}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.aadharNumber != ''"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNumber}}</li>
                                          </ul>
@@ -781,10 +780,10 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''"><strong>Financier Name:</strong> {{vehicalFormData.financierName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinancedValue != ''"><strong>Financed Value:</strong> {{vehicalFormData.isFourWheelerFinancedValue}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.vehicleMostlyDrivenOn != ''"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'On'"><strong >Key Replacement :  </strong> ON </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'Off'"><strong >Key Replacement :  </strong> OFF </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'Off'"><strong >Depreciation Waiver :  </strong> OFF </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'On'"><strong >Depreciation Waiver :  </strong> ON </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'On'"><strong >Key Replacement :  </strong> On </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'Off'"><strong >Key Replacement :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'Off'"><strong >Depreciation Waiver :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'On'"><strong >Depreciation Waiver :  </strong> On </li>
 
 
                                         </ul>
@@ -798,17 +797,17 @@
 
 
                                             <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'Off'"><strong >Wind Shield Glass :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'On'"><strong >Wind Shield Glass :  </strong> ON </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'On'"><strong >Wind Shield Glass :  </strong> On </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.engineprotector == 'Off'"><strong >Engine Protector :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.engineprotector == 'On'"><strong >Engine Protector :  </strong> ON </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.engineprotector == 'On'"><strong >Engine Protector :  </strong> On </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.registrationchargesRoadtax == 'Off'"><strong >Registration Charges Road Tax :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.registrationchargesRoadtax == 'On'"><strong >Registration Charges Road Tax :  </strong> ON </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.registrationchargesRoadtax == 'On'"><strong >Registration Charges Road Tax :  </strong> On </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.ncbprotector == 'Off'"><strong >NCB protector :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.ncbprotector == 'On'"><strong >NCB protector :  </strong> ON </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.ncbprotector == 'On'"><strong >NCB protector :  </strong> On </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.spareCar == 'Off'"><strong >Spare Car :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.spareCar == 'On'"><strong >Spare Car :  </strong> ON </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.spareCar == 'On'"><strong >Spare Car :  </strong> On </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.invoicePrice == 'Off'"><strong >Invoice Price :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.invoicePrice == 'On'"><strong >Invoice Price :  </strong> ON </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.invoicePrice == 'On'"><strong >Invoice Price :  </strong> On </li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.lossOfBaggage != ''"><strong>Loss Of Baggage:</strong> <span *ngIf="vehicalFormData.lossOfBaggage == true">True</span></li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.valueOfLossOfBaggage != ''" ><strong>Value Of Loss Of Baggage:</strong> {{vehicalFormData.valueOfLossOfBaggage}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.personalAccidentCoverForUnnamedPassengers != ''" ><strong>Personal Accident Cover For Unnamed Passengers:</strong> {{vehicalFormData.personalAccidentCoverForUnnamedPassengers}}</li>
