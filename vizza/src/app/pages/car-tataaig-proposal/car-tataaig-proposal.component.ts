@@ -65,7 +65,6 @@ export class CarTataaigProposalComponent implements OnInit {
   public nomineeFormData: any;
   public ProposalId: any;
   public poldate: any;
-  public coverlist: any;
   public vehicledata: any;
   public buycarDetails: any;
   public enquiryFormData: any;
@@ -175,7 +174,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getNamelist();
     this.getCodelist();
     this.getRelationList();
-    // this.package();
+    this.package();
     this.sessionData();
     this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
     console.log(this.vehicledata);
@@ -189,6 +188,9 @@ export class CarTataaigProposalComponent implements OnInit {
     console.log(poldate,'poldate');
     this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
     console.log(this.poldate, 'policy date');
+    if (this.enquiryFormData.business_type != '1') {
+      this.previouspolicy.controls['preflag'].patchValue('Y');
+    }
   }
 
   changeflag(event: any) {
@@ -432,32 +434,31 @@ export class CarTataaigProposalComponent implements OnInit {
 
   }
 
-//Addons Package
+// Addons Package
+    package() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        };
+        this.carinsurance.packagetype(data).subscribe(
+            (successData) => {
+                this.packageListSuccess(successData);
+            },
+            (error) => {
+                this.packageListFailure(error);
+            }
+        );
+    }
 
-    // package() {
-    //     const data = {
-    //         'platform': 'web',
-    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    //     };
-    //     this.carinsurance.packagetype(data).subscribe(
-    //         (successData) => {
-    //             this.packageListSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.packageListFailure(error);
-    //         }
-    //     );
-    // }
-    //
-    // packageListSuccess(successData) {
-    //     this.packagelist = successData.ResponseObject;
-    //
-    // }
-    //
-    // packageListFailure(error) {
-    //
-    // }
+    packageListSuccess(successData) {
+        this.packagelist = successData.ResponseObject;
+
+    }
+
+    packageListFailure(error) {
+
+    }
 
   selectopt(event: any) {
     this.vehicle.controls['packagevalue'].patchValue(this.packagelist[this.vehicle.controls['package'].value]);
@@ -597,10 +598,10 @@ export class CarTataaigProposalComponent implements OnInit {
           console.log(value, 'proposer');
           stepper.next();
         } else {
-          this.toastr.error('Invalid DrivingExperience');
+          this.toastr.error('Invalid Driving Experience');
         }
       } else {
-        this.toastr.error('Proposer Should Be Greater than 18 and Above');
+        this.toastr.error('Proposer Age Should Be Greater than 18 and Above');
       }
     } else {
       this.toastr.error('Please Fill All The Mandtory Fields');
@@ -874,7 +875,12 @@ export class CarTataaigProposalComponent implements OnInit {
       this.previousFormData = this.previouspolicy.value;
       this.nomineeFormData = this.nominee.value;
     }else{
+      if(successData.ErrorDes != '') {
+        this.toastr.error(successData.ErrorDes);
+        console.log(successData.ErrorDes, 'errordes');
+      }
       this.toastr.error(successData.ErrorObject);
+      console.log(successData.ErrorObject, 'errorobj');
       this.settings.loadingSpinner = false;
     }
   }

@@ -214,7 +214,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       nrelationValue: [''],
       fuelTypeValue: [''],
       nOtherRelationValue: [''],
-      NewVehicle: [''],
       PACoverToOwner: [''],
       PAToNamedPassenger: [''],
       NoOfUnnamedPassenegersCovered: [''],
@@ -522,7 +521,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
       this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
 
-      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('5');
+      // this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('');
       this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators([Validators.required]);
       this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
     }else{
@@ -681,6 +680,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   //dob
   addEvent(event, type) {
+    console.log(event.value,'valueeee')
     if (event.value != null) {
       let selectedDate = '';
       this.proposerAge = '';
@@ -702,6 +702,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
         selectedDate = event.value._i;
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        console.log(dob,'dobvalue')
         if (selectedDate.length == 10 && type == 'proposor') {
           this.proposerAge = this.ageCalculate(dob);
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
@@ -839,8 +840,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
 //session
   session(){
+
     if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
       this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+      console.log(this.getStepper1.dob,'sessiondob');
       this.relianceProposal = this.fb.group({
         firstName : this.getStepper1.firstName,
         lastName : this.getStepper1.lastName,
@@ -896,6 +899,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         nationalityValue: this.getStepper1.nationalityValue,
       });
     }
+    console.log(this.relianceProposal,'reliancproposal');
 
     if(sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined ){
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
@@ -927,7 +931,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         TPPDCoverSi: this.getStepper3.TPPDCoverSi,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
         BasicLiability: this.getStepper3.BasicLiability,
-        NewVehicle: this.getStepper3.NewVehicle,
         PACoverToOwner: this.getStepper3.PACoverToOwner,
         PAToNamedPassenger: this.getStepper3.PAToNamedPassenger,
         IsPAToDriverCovered: this.getStepper3.IsPAToDriverCovered,
@@ -1340,8 +1343,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         },
         'Vehicle': {
 
-          'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
-          'ISNewVehicle': this.coverDetails.controls['NewVehicle'].value ? 'true' : 'false'
+          'TypeOfFuel': this.coverDetails.controls['fuelType'].value
         },
         'Cover': {
           // 'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ,
@@ -1407,7 +1409,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['fuelTypeValue'].value,
+              "Fueltype": this.coverDetails.controls['IsBiFuelKit'].value ? this.coverDetails.controls['fuelTypeValue'].value : '',
               "ISLpgCng": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
@@ -1467,7 +1469,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           "PAToUnNamedPassenger": {
             "PAToUnNamedPassenger": {
               "IsChecked": this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
-              "NoOfItems": "",
+              "NoOfItems": this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value,
               "SumInsured": this.coverDetails.controls['UnnamedPassengersSI'].value
             }
           },
@@ -1535,6 +1537,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
       }
     };
+    this.setting.loadingSpinner = true;
     this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
         (successData) => {
           this.getProposalSucccess(successData,stepper);
@@ -1570,6 +1573,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // this.nextStep();
 
     } else {
+      this.setting.loadingSpinner = false;
+
       this.toastr.error(successData.ErrorObject);
     }
   }
@@ -1773,15 +1778,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
 
   ageCalculate(dob) {
-    let mdate = dob.toString();
-    let yearThen = parseInt(mdate.substring(8, 10), 10);
-    let monthThen = parseInt(mdate.substring(5, 7), 10);
-    let dayThen = parseInt(mdate.substring(0, 4), 10);
-    let todays = new Date();
-    let birthday = new Date(dayThen, monthThen - 1, yearThen);
-    let differenceInMilisecond = todays.valueOf() - birthday.valueOf();
-    let year_age = Math.floor(differenceInMilisecond / 31536000000);
-    return year_age;
+    let today = new Date();
+    let birthDate = new Date(dob);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    let dd = today.getDate()- birthDate.getDate();
+    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+      age = age-1;
+    }
+    return age;
   }
 
   ///validation
