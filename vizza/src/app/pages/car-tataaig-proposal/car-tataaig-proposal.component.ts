@@ -48,7 +48,6 @@ export class CarTataaigProposalComponent implements OnInit {
   public prepolicyPinList: any;
   public proposerGenderlist: any;
   public preNamelist: any;
-  public precodelist: any;
   public relationlist: any;
   public Quotelist: any;
   public banklist: any;
@@ -172,7 +171,6 @@ export class CarTataaigProposalComponent implements OnInit {
   ngOnInit() {
     this.getGenderlist();
     this.getNamelist();
-    this.getCodelist();
     this.getRelationList();
     this.package();
     this.sessionData();
@@ -195,17 +193,13 @@ export class CarTataaigProposalComponent implements OnInit {
 
   changeflag(event: any) {
     if (this.previouspolicy.controls['preflag'].value == 'Y') {
-      this.previouspolicy.controls['precode'].setValidators([Validators.required]);
       this.previouspolicy.controls['preName'].setValidators([Validators.required]);
       this.previouspolicy.controls['prepolno'].setValidators([Validators.required]);
     } else if (this.previouspolicy.controls['preflag'].value == 'N') {
-      this.previouspolicy.controls['precode'].patchValue('');
       this.previouspolicy.controls['preName'].patchValue('');
-      this.previouspolicy.controls['precode'].setValidators(null);
       this.previouspolicy.controls['preName'].setValidators(null);
       this.previouspolicy.controls['prepolno'].setValidators(null);
     }
-    this.previouspolicy.controls['precode'].updateValueAndValidity();
     this.previouspolicy.controls['preName'].updateValueAndValidity();
     this.previouspolicy.controls['prepolno'].updateValueAndValidity();
   }
@@ -405,32 +399,6 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   prepolicyNameListFailure(error) {
-
-  }
-
-  //PreviousPolicy CodeList
-  getCodelist() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
-    this.carinsurance.CodeList(data).subscribe(
-        (successData) => {
-          this.prepolicycodeListSuccess(successData);
-        },
-        (error) => {
-          this.prepolicycodeListFailure(error);
-        }
-    );
-  }
-
-  prepolicycodeListSuccess(successData) {
-    this.precodelist = successData.ResponseObject;
-
-  }
-
-  prepolicycodeListFailure(error) {
 
   }
 
@@ -744,7 +712,6 @@ export class CarTataaigProposalComponent implements OnInit {
       this.getstepper3 = JSON.parse(sessionStorage.tatacarprepolicy);
       this.previouspolicy = this.fb.group({
         preflag: this.getstepper3.preflag,
-        precode: this.getstepper3.precode,
         preName: this.getstepper3.preName,
         prepolno: this.getstepper3.prepolno,
         preAddressone: this.getstepper3.preAddressone,
@@ -808,7 +775,6 @@ export class CarTataaigProposalComponent implements OnInit {
         },
         "prevpolicy": {
           "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == ''? 'N' : this.previouspolicy.controls['preflag'].value,
-          "code": this.previouspolicy.controls['precode'].value == null ? '' : this.previouspolicy.controls['precode'].value,
           "name":  this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
           "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
           "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,
