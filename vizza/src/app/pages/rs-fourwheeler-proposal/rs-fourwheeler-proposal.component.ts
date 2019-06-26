@@ -105,6 +105,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public step: any;
   public vehicledetails: any;
   public valueList: any;
+  public valueSubList: any;
   public isFourWheelerFinanced: boolean;
   public valueCalc: any;
   public valuesubCalc: any;
@@ -611,8 +612,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
     sessionStorage.subTotal = subTotal;
 
     if (total <= 50000) {
+      if (subTotal <= 20000) {
         stepper.next();
         this.topScroll();
+    } else {
+      this.toastr.error('Non Electrical Accessories Values should be less than 20 thousand');
+    }
       } else {
         this.toastr.error('Electrical Accessories Values should be less than 50 thousand');
       }
@@ -1426,21 +1431,33 @@ export class RsFourwheelerProposalComponent implements OnInit {
         sameas: stepper1.sameas,
       });
     }
-    console.log(this.proposer, " stepper1 ");
+    console.log(this.proposer, 'stepper1');
 
     if (sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
       this.getStepper2 = JSON.parse(sessionStorage.stepper2);
 
       this.vehical.controls['coverelectricalaccesss'].patchValue(this.getStepper2.coverelectricalaccesss);
-      console.log(this.getStepper2.electricalAccess,'getst2');
+      console.log(this.getStepper2.electricalAccess, ' getst2');
 
       for (let i=0; i < this.getStepper2.electricalAccess.length; i++) {
-        if(i !=  0){
+        if ( i !=  0) {
           this.addItems();
         }
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue(this.getStepper2.electricalAccess[i].nameOfElectronicAccessories);
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue(this.getStepper2.electricalAccess[i].makeModel);
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue(this.getStepper2.electricalAccess[i].elecValue);
+      }
+
+      this.vehical.controls['cover_non_elec_acc'].patchValue(this.getStepper2.cover_non_elec_acc);
+      console.log(this.getStepper2.nonelectricalAccess, ' cover_non_elec_acc');
+
+      for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
+        if ( i !=  0) {
+          this.addItems();
+        }
+        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue(this.getStepper2.nonelectricalAccess[i].nameOfElectronicAccessories);
+        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue(this.getStepper2.nonelectricalAccess[i].makeModel);
+        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue(this.getStepper2.nonelectricalAccess[i].elecValue);
       }
 
 
