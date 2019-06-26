@@ -358,8 +358,6 @@ export class RelianceMotorProposalComponent implements OnInit {
   updateMandatory(event) {
     if (event.checked) {
       this.coverDetails.controls['PACoverToOwner'].patchValue(true);
-      this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
-      this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
       //
       this.coverDetails.controls['cnomineeName'].setValidators([Validators.required]);
       this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
@@ -373,8 +371,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.coverDetails.controls['cnAddress'].setValidators([Validators.required]);
       this.coverDetails.controls['cnAddress'].updateValueAndValidity();
       //
-      this.coverDetails.controls['nOtherRelation'].setValidators([Validators.required]);
-      this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+
 
     } else {
       this.coverDetails.controls['PACoverToOwner'].patchValue(false);
@@ -559,15 +556,26 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.showNominee = true;
           this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
           this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+
+          this.coverDetails.controls['nOtherRelation'].setValidators([Validators.required]);
+          this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
         } else {
           this.coverDetails.controls['cappointeeName'].patchValue('');
           this.coverDetails.controls['cappointeeName'].setValidators(null);
           this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
+
+          this.coverDetails.controls['nOtherRelation'].patchValue('');
+          this.coverDetails.controls['nOtherRelation'].setValidators(null);
+          this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
           this.showNominee = false;
 
         }
 
       }
+
+
+
+
 
       if (type == 'npnominee') {
         console.log(this.npnomineeAge, 'npnomineeAge');
@@ -577,10 +585,17 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.npshowNominee = true;
           this.coverDetails.controls['npappointeeName'].setValidators([Validators.required]);
           this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+
+          this.coverDetails.controls['npOtherRelation'].setValidators([Validators.required]);
+          this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
         } else {
           this.coverDetails.controls['npappointeeName'].patchValue('');
           this.coverDetails.controls['npappointeeName'].setValidators(null);
           this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+
+          this.coverDetails.controls['npOtherRelation'].patchValue('');
+          this.coverDetails.controls['npOtherRelation'].setValidators(null);
+          this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
           this.npshowNominee = false;
 
         }
@@ -794,16 +809,42 @@ export class RelianceMotorProposalComponent implements OnInit {
     }
 
     if(sessionStorage.nomineeAge != '' && sessionStorage.nomineeAge != undefined) {
-      if(sessionStorage.nomineeAge <= 18){
+      if (sessionStorage.nomineeAge <= 18) {
         this.showNominee = true;
         this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
         this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
-      }else{
+
+        this.coverDetails.controls['nOtherRelation'].setValidators([Validators.required]);
+        this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+      } else {
         this.coverDetails.controls['cappointeeName'].patchValue('');
         this.coverDetails.controls['cappointeeName'].setValidators(null);
         this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
-        this.showNominee = false;
 
+        this.coverDetails.controls['nOtherRelation'].patchValue('');
+        this.coverDetails.controls['nOtherRelation'].setValidators(null);
+        this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
+        this.showNominee = false;
+      }
+    }
+
+    if(sessionStorage.npnomineeAge != '' && sessionStorage.npnomineeAge != undefined) {
+      if (sessionStorage.npnomineeAge <= 18) {
+        this.npshowNominee = true;
+        this.coverDetails.controls['npappointeeName'].setValidators([Validators.required]);
+        this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+
+        this.coverDetails.controls['npOtherRelation'].setValidators([Validators.required]);
+        this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
+      } else {
+        this.coverDetails.controls['npappointeeName'].patchValue('');
+        this.coverDetails.controls['npappointeeName'].setValidators(null);
+        this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
+
+        this.coverDetails.controls['npOtherRelation'].patchValue('');
+        this.coverDetails.controls['npOtherRelation'].setValidators(null);
+        this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
+        this.npshowNominee = false;
       }
     }
 
