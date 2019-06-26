@@ -259,7 +259,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                         this.automobdateError = 'Enter Valid Date';
                     }
                 }
-                if(type == 'proposer') {
+                if (type == 'proposer') {
                     dob = this.datepipe.transform(event.value, 'y-MM-dd');
                     this.bikeProposerAge = this.ageCalculate(dob);
                     sessionStorage.proposerAge = this.bikeProposerAge;
@@ -280,7 +280,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                         this.automobdateError = 'Enter Valid Date';
                     }
                 }
-                if(type == 'proposer') {
+                if (type == 'proposer') {
                     dob = this.datepipe.transform(event.value, 'y-MM-dd');
                     console.log(dob, 'ageob');
                     this.bikeProposerAge = this.ageCalculate(dob);
@@ -611,9 +611,9 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     chooseopt() {
-        for(let i = 0; i < this.preNamelist.length;i++) {
-            console.log(this.preNamelist[i].key,'key');
-            if(this.preNamelist[i].value == this.previouspolicy.controls['preName'].value) {
+        for (let i = 0; i < this.preNamelist.length; i++) {
+            console.log(this.preNamelist[i].key, 'key');
+            if (this.preNamelist[i].value == this.previouspolicy.controls['preName'].value) {
                 this.previouspolicy.controls['precode'].patchValue(this.preNamelist[i].key);
             }
         }
@@ -903,15 +903,13 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.previousFormData = this.previouspolicy.value;
             this.nomineeFormData = this.nominee.value;
         } else {
-            if (successData.ErrorObject != '') {
-                console.log(successData.ErrorObject, 'errorobj');
-                this.toastr.error(successData.ErrorObject);
-                this.settings.loadingSpinner = false;
-            }else if(successData.ErrorDes != '') {
-                console.log(successData.ErrorDes, 'errordes');
+            if(successData.ErrorDes != '') {
                 this.toastr.error(successData.ErrorDes);
-                this.settings.loadingSpinner = false;
+                console.log(successData.ErrorDes, 'errordes');
             }
+            this.toastr.error(successData.ErrorObject);
+            console.log(successData.ErrorObject, 'errorobj');
+            this.settings.loadingSpinner = false;
         }
     }
 
