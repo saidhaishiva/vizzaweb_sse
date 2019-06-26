@@ -689,11 +689,11 @@
                     <ng-template matStepLabel>SUMMARY</ng-template>
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
-                            <div class="col-md-4">
-                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{buyProduct.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProduct.Comprehensive_premium}}</span></h4>
+                            <div class="col-md-6">
+                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{buyProduct.plan_name | titlecase}}/ IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProduct.Idv}}</span></h4>
                                 <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;" *ngIf = "productDetails.ThridParty_premium"> Plan Name: {{productDetails.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></h4>-->
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6 mt-4">
                                 <ul class="summary-head">
                                     <li><span>Insurer:</span><img src="{{webhost + '/' + buyProduct.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                                     <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{buyProduct.Comprehensive_premium}}</span></li>
@@ -779,7 +779,6 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinanced != ''"><strong>Is Car Financed:</strong> <span *ngIf="vehicalFormData.isFourWheelerFinanced == true">True</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''"><strong>Financier Name:</strong> {{vehicalFormData.financierName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinancedValue != ''"><strong>Financed Value:</strong> {{vehicalFormData.isFourWheelerFinancedValue}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.vehicleMostlyDrivenOn != ''"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'On'"><strong >Key Replacement :  </strong> On </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'Off'"><strong >Key Replacement :  </strong> Off </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'Off'"><strong >Depreciation Waiver :  </strong> Off </li>
@@ -859,9 +858,9 @@
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Previous Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                                                     <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
-                                                    <li class="list-group-item"><strong>Is Previous Policy Holder:</strong> {{previousFormData.isPreviousPolicyHolder}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.personalAccidentCover != ''"><strong>Personal Accident Cover:</strong> {{previousFormData.personalAccidentCover}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.previousinsurersCorrectAddress != ''"><strong>Previous insurers Correct Address:</strong> {{previousFormData.previousinsurersCorrectAddress}}</li>
+                                                    <li class="list-group-item" *ngIf="previousFormData.voluntary != ''"><strong>Voluntary Deductible:</strong> {{previousFormData.voluntary}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -872,8 +871,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
+                                                    <li class="list-group-item"><strong>Is Previous Policy Holder:</strong> {{previousFormData.isPreviousPolicyHolder}}</li>
                                                     <li class="list-group-item"><strong>Previous Policy Type:</strong> {{previousFormData.previousPolicyType}}</li>
-                                                    <li class="list-group-item" *ngIf="previousFormData.voluntary != ''"><strong>Voluntary Deductible:</strong> {{previousFormData.voluntary}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.claimsReported != ''"><strong>No Of Claim Reported:</strong> {{previousFormData.claimsReported}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.claimAmountReceived != ''"><strong>Claim Amount:</strong> {{previousFormData.claimAmountReceived}}</li>
                                                 </ul>
