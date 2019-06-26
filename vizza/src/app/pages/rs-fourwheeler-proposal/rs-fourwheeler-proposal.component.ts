@@ -1466,14 +1466,45 @@ export class RsFourwheelerProposalComponent implements OnInit {
       //   this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue(this.getStepper2.nonelectricalAccess[i].makeModel);
       //   this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue(this.getStepper2.nonelectricalAccess[i].elecValue);
       // }
-      // this.vehical = this.fb.group({
-      //   vehicleMostlyDrivenOn: this.getStepper2.vehicleMostlyDrivenOn,
-      //   vehicleRegisteredName: this.getStepper2.vehicleRegisteredName,
-      //   coverelectricalaccesss: this.getStepper2.coverelectricalaccesss,
-      //   // nameOfElectronicAccessories: stepper2.nameOfElectronicAccessories,
-      //   // makeModel: stepper2.makeModel,
-      //   // value: stepper2.value,
-      //     cover_non_elec_acc: this.getStepper2.cover_non_elec_acc,
+      // vehical = this.fb.group({
+      this.vehical.controls['vehicleMostlyDrivenOn'].patchValue(this.getStepper2.vehicleMostlyDrivenOn);
+      this.vehical.controls['vehicleRegisteredName'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['drivingExperience'].patchValue(this.getStepper2.drivingExperience);
+      this.vehical.controls['averageMonthlyMileageRun'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['accidentCoverForPaidDriver'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['companyName'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['idv'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['isFourWheelerFinancedValue'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['valueOfLossOfBaggage'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['total'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['subTotal'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['financierName'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['isAddon'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['lossOfBaggage'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['hypothecationType'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['typeOfCover'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['vechileOwnerShipChanged'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['cover_dri_othr_car_ass'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['addon'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['fibreGlass'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['windShieldGlass'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['keyreplacement'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['depreciationWaiver'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['engineprotector'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['ncbprotector'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['registrationchargesRoadtax'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['spareCar'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['invoicePrice'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['isCarOwnershipChanged'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['accidentPaid'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['vehicleRegisteredName'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['vehicleRegisteredName'].patchValue(this.getStepper2.vehicleRegisteredName);
+      this.vehical.controls['vehicleRegisteredName'].patchValue(this.getStepper2.vehicleRegisteredName);
+
+
       //   drivingExperience: this.getStepper2.drivingExperience,
       //   averageMonthlyMileageRun: this.getStepper2.averageMonthlyMileageRun,
       //   accidentCoverForPaidDriver: this.getStepper2.accidentCoverForPaidDriver,
@@ -1509,7 +1540,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       //     nonelectricalAccess: this.getStepper2.nonelectricalAccess,
       //   accidentPaid: this.getStepper2.accidentPaid
       // });
-      // console.log(this.vehical,'vehical');
+      console.log(this.vehical,'vehical');
     }
 
     console.log(this.vehical, " stepper2 ");
