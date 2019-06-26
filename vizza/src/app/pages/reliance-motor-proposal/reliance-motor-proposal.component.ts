@@ -1299,6 +1299,8 @@ export class RelianceMotorProposalComponent implements OnInit {
         }
       }
     };
+    this.setting.loadingSpinner = true;
+
     this.bikeInsurance.getProposal(data).subscribe(
         (successData) => {
           this.getProposalSucccess(successData,stepper);
@@ -1336,6 +1338,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 
     } else {
+      this.setting.loadingSpinner = false;
       this.toastr.error(successData.ErrorObject);
     }
   }

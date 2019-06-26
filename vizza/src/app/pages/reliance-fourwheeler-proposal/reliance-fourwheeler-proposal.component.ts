@@ -521,7 +521,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.coverDetails.controls['UnnamedPassengersSI'].setValidators([Validators.required]);
       this.coverDetails.controls['UnnamedPassengersSI'].updateValueAndValidity();
 
-      this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('5');
+      // this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].patchValue('');
       this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].setValidators([Validators.required]);
       this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].updateValueAndValidity();
     }else{
@@ -680,6 +680,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   //dob
   addEvent(event, type) {
+    console.log(event.value,'valueeee')
     if (event.value != null) {
       let selectedDate = '';
       this.proposerAge = '';
@@ -701,6 +702,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
         selectedDate = event.value._i;
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        console.log(dob,'dobvalue')
         if (selectedDate.length == 10 && type == 'proposor') {
           this.proposerAge = this.ageCalculate(dob);
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
@@ -1464,7 +1466,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           "PAToUnNamedPassenger": {
             "PAToUnNamedPassenger": {
               "IsChecked": this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
-              "NoOfItems": "",
+              "NoOfItems": this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value,
               "SumInsured": this.coverDetails.controls['UnnamedPassengersSI'].value
             }
           },
@@ -1532,6 +1534,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
       }
     };
+    this.setting.loadingSpinner = true;
     this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
         (successData) => {
           this.getProposalSucccess(successData,stepper);
@@ -1567,6 +1570,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // this.nextStep();
 
     } else {
+      this.setting.loadingSpinner = false;
+
       this.toastr.error(successData.ErrorObject);
     }
   }
@@ -1770,6 +1775,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
 
   ageCalculate(dob) {
+    console.log(dob,'dobincalculate');
     let mdate = dob.toString();
     let yearThen = parseInt(mdate.substring(8, 10), 10);
     let monthThen = parseInt(mdate.substring(5, 7), 10);
