@@ -310,7 +310,7 @@
                       <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1'">
                         <mat-checkbox formControlName="keyReplacement"><strong> Key Replacement </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '4' && vehicle.controls['package'].value == '6' && vehicle.controls['package'].value == '7'">
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '4' || vehicle.controls['package'].value == '6' || vehicle.controls['package'].value == '7'">
                         <mat-checkbox formControlName="Enginesecure"><strong> Engine Secure </strong></mat-checkbox>
                       </div>
                       <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && vehicle.controls['package'].value != '3'">

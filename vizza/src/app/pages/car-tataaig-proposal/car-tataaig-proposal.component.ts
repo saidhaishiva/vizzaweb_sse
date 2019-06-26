@@ -149,7 +149,6 @@ export class CarTataaigProposalComponent implements OnInit {
 
     this.previouspolicy = this.fb.group({
       preflag: ['', Validators.required],
-      precode: ['', Validators.required],
       preName: ['', Validators.required],
       prepolno: '',
       preAddressone: ['', Validators.required],
