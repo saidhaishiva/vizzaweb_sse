@@ -4,13 +4,13 @@
     <div class="col-md-12">
       <mat-horizontal-stepper #stepper>
         <mat-step [stepControl]="">
-          <ng-template matStepLabel>PROPOSER / INSURER DETAILS</ng-template>
+          <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
             <form [formGroup]="relianceProposal">
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    PROPOSER / INSURER DETAILS
+                    PROPOSER  DETAILS
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div class="row ">
@@ -399,7 +399,26 @@
               <form [formGroup]="coverDetails">
                 <div class="row">
                   <div class="col-md-12 box-card pt-3">
+
                     <div class="row">
+                      <div class="col-md-12 mt-2">
+                        <h3 class="color-blue">Vehicle Details</h3>
+                      </div>
+                      <div class="col-md-4 mt-0">
+                        <mat-form-field class="w-100">
+                          <mat-select placeholder="Fuel type" formControlName="fuelType" (change)="changeFuel()"required>
+                            <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
+
+                          </mat-select>
+                          <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">fuel type  is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12 mt-2">
+                        <h3 class="color-blue">Vehicle Details</h3>
+                      </div>
+
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event)">Unnamed Passenger Covered</mat-checkbox>
                       </div>
@@ -407,7 +426,7 @@
                         <mat-checkbox  formControlName="PAToOwnerDriverCoverd" (change)="updateOwnerDriverSi($event)">PA To Owner Driver Coverd</mat-checkbox>
                       </div>
                       <div class="col-md-3">
-                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="updateNildeprecition($event)">NilDepreciation Coverage</mat-checkbox>
+                        <mat-checkbox  formControlName="NilDepreciationCoverage" (change)="updateNildeprecition($event)">Nil Depreciation Coverage</mat-checkbox>
                       </div>
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="LiabilityToPaidDriverCovered">Liability To Paid Driver Covered</mat-checkbox>
@@ -446,8 +465,8 @@
                         <mat-checkbox  formControlName="IsNonElectricalItemFitted" (change)="updatenonElectricalItem($event)">Non Electrical Item Fitted</mat-checkbox>
                       </div>
 
-                      <div class="col-md-3">
-                        <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event)">BiFuel Kit</mat-checkbox>
+                      <div class="col-md-3" *ngIf="coverDetails.controls['fuelType'].value == 5">
+                        <mat-checkbox  formControlName="IsBiFuelKit" (change)="updatenonBiFuelKit($event)" >BiFuel Kit</mat-checkbox>
                       </div>
 
                       <div class="col-md-3">
@@ -565,7 +584,7 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required readonly>
+                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
                           <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passenegers Covered is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -704,7 +723,7 @@
                       </div>
 
 
-                      <div class="col-md-4 mt-0">
+                      <div class="col-md-4 mt-0" *ngIf="npshowNominee">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Other Relation" formControlName="npOtherRelation" (change)="changenpOtherRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
@@ -769,7 +788,7 @@
                       </div>
 
 
-                      <div class="col-md-4 mt-0">
+                      <div class="col-md-4 mt-0" *ngIf="showNominee">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Other Relation" formControlName="nOtherRelation" (change)="changenOtherRelation()" required>
                             <mat-option *ngFor="let relation of relationListData | keys" value="{{relation.key}}" > {{relation.value}} </mat-option>
@@ -788,26 +807,6 @@
                   </div>
 
 
-
-                  <div class="col-md-12 mt-2">
-                    <h1 class="color-blue">Vehicle Details</h1>
-                  </div>
-                  <div class="col-md-12 mt-2">
-                    <div class="row">
-                    <div class="col-md-6 mt-3">
-                      <mat-checkbox  formControlName="NewVehicle" >NewVehicle</mat-checkbox>
-                    </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4 mt-3">
-                    <mat-form-field class="w-100">
-                      <mat-select placeholder="Fuel type" formControlName="fuelType" (change)="changeFuel()"required>
-                        <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
-
-                      </mat-select>
-                      <mat-error *ngIf="coverDetails.controls.fuelType.errors?.required">fuel type  is required</mat-error>
-                    </mat-form-field>
-                  </div>
                   
                   <div class="proposal-buttom mt-3 text-right w-100">
                     <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
@@ -878,7 +877,7 @@
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
 
-                      <button mat-raised-button color="primaryBlue"  (click)="createProposal(stepper,previousInsurance.value)" >Next</button>
+                      <button mat-raised-button color="primaryBlue"  (click)="createProposal(stepper,previousInsurance.value)">Next</button>
                     </div>
                   </div>
                 </div>
@@ -1043,7 +1042,6 @@
                           <li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPD Cover:</strong><span *ngIf="coverFormData.TPPDCover == true">Yes</span><span *ngIf="coverFormData.TPPDCover == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>Basic OD Coverage:</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == true">Yes</span><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.NewVehicle != ''"><strong>New Vehicle:</strong><span *ngIf="coverFormData.NewVehicle == true">Yes</span><span *ngIf="coverFormData.NewVehicle == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.IsVoluntaryDeductableOpted != ''"><strong>Voluntary Deductable Opted:</strong><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == true">Yes</span><span *ngIf="coverFormData.IsVoluntaryDeductableOpted == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.IsElectricalItemFitted != ''"><strong>Electrical Item Fitted:</strong><span *ngIf="coverFormData.IsElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsElectricalItemFitted == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted != ''"><strong>NonElectrical Item Fitted:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsNonElectricalItemFitted == false">No</span> </li>

@@ -137,6 +137,7 @@ export class TravelProposalComponent implements OnInit {
     AcceptDeclaration: boolean;
     areaList: any;
     proposerFormData: any;
+    travelPlan:any;
     insuredFormData: any;
     nomineeFormData: any;
     travelStartDate: any;
@@ -146,6 +147,7 @@ export class TravelProposalComponent implements OnInit {
     gstListType: any;
     public passportPattern: any;
     public patternError: any;
+    public placevisting: any;
 
     constructor(public travelservice: TravelService, public route: ActivatedRoute, public validation: ValidationService, public proposalservice: HealthService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public dialog: MatDialog,
                 public config: ConfigurationService, public common: CommonService, public fb: FormBuilder, public auth: AuthService, public http: HttpClient, @Inject(LOCALE_ID) private locale: string) {
@@ -236,7 +238,9 @@ export class TravelProposalComponent implements OnInit {
         }
     }
 
+
     ngOnInit() {
+      this.placevisting = sessionStorage.travelPlan;
         this.placeOfVisits();
         this.insurerRelationship();
         this.assigneeRelationship();
@@ -244,6 +248,8 @@ export class TravelProposalComponent implements OnInit {
         this.getIlnessDetails();
         this.gstIdList();
         this.visaTypeList();
+        this.placeOf();
+
 
       //  this.enquiryId = sessionStorage.enquiryId;
         this.getTravelPremiumList = JSON.parse(sessionStorage.travelPremiumList);
@@ -260,6 +266,12 @@ export class TravelProposalComponent implements OnInit {
         }
         this.sessionData();
     }
+
+    placeOf() {
+        this.personal.controls['placeOfVisit'].patchValue(this.placevisting);
+
+    }
+
     setStep(index: number) {
         this.step = index;
     }

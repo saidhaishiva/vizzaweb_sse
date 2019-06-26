@@ -2,10 +2,8 @@
     <div class="row bikeRoyalProposal">
         <div class="col-md-12">
             <mat-horizontal-stepper  #stepper >
-
                 <mat-step [stepControl]="">
-
-                    <ng-template matStepLabel >PROPOSER </ng-template>
+                    <ng-template matStepLabel >PROPOSER DETAILS </ng-template>
                     <mat-accordion class=" w-100 float-left">
                         <form [formGroup]="proposer" >
                             <mat-expansion-panel expanded>
@@ -91,7 +89,7 @@
 
                                             <div class="col-md-3" >
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="occupation" formControlName="occupation" >
+                                                    <mat-select placeholder="Occupation" formControlName="occupation" >
                                                         <mat-option *ngFor="let title of occupationList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                                                     </mat-select>
                                                     <!--<mat-error *ngIf="proposer.controls.occupation.errors?.required">Occupation is required</mat-error>-->
@@ -102,7 +100,7 @@
                                 </div>
                                 <div class="row" fxLayoutAlign="center center">
 
-                                    <div class="col-md-12 mt-2">
+                                    <div class="col-md-6">
                                         <div class="box-card addressBox">
                                             <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
                                             <div class="row">
@@ -134,7 +132,7 @@
 
                                         </div>
                                     </div>
-                                    <div class="col-md-12 mt-2">
+                                    <div class="col-md-6">
                                         <div class="box-card addressBox">
                                             <div class="row">
                                                 <h6 class="color-blue ml-3">REGISTRATION ADDRESS</h6>
@@ -192,10 +190,10 @@
                         <mat-expansion-panel expanded>
                             <mat-expansion-panel-header>
                                 <mat-panel-title>
-                                    VEHICAL DETAILS
+                                    VEHICLE DETAILS
                                 </mat-panel-title>
                             </mat-expansion-panel-header>
-                            <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+                            <ng-template matStepLabel>VEHICLE DETAILS</ng-template>
                             <div class="row mt-3">
                                 <div class="col-md-12 box-card pt-3 pb-3" >
                                     <form [formGroup]="vehical">
@@ -323,7 +321,7 @@
                                             <div class="row" *ngIf="vehicledetails.business_type != '1'">
 
 
-                                            <div class="col-md-3 " *ngIf="buyProduct.vehicle_age < 5 ">
+                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 5 ">
                                                 <p>Key Replacement</p>
                                                 <!--<a>(Applicable for only below 5 years of vehicle age)</a>-->
                                                 <mat-radio-group formControlName="keyreplacement">
@@ -331,7 +329,7 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
-                                            <div class="col-md-3" *ngIf="buyProduct.vehicle_age < 6 ">
+                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 6 ">
                                                 <p>Depreciation Waiver</p>
                                                 <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
                                                 <mat-radio-group formControlName="depreciationWaiver">
@@ -339,7 +337,7 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
-                                            <div class="col-md-3 " *ngIf="buyProduct.vehicle_age < 3 ">
+                                            <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
                                                 <p>Wind Shield Glass </p>
                                                 <mat-radio-group formControlName="windShieldGlass">
                                                     <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
@@ -354,6 +352,13 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
+                                                <div class="col-md-3  mt-3" >
+                                                    <p>Registration Charges Road Tax</p>
+                                                    <mat-radio-group formControlName="registrationchargesRoadtax">
+                                                        <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="Off">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
                                             <div class="col-md-3  mt-3" *ngIf="vehicledetails.business_type != '1'">
                                                 <p>NCB Protector</p>
                                                 <!--<h6>(Applicable for only below 6  years of vehicle age)</h6>-->
@@ -450,7 +455,7 @@
                                                 <div class="row" [formGroupName]="i">
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Name Of Electronic Accessories "  formControlName="nameOfElectronicAccessories"  autocomplete="off">
+                                                            <input matInput placeholder="Name Of Electronic Accessories "  formControlName="nameOfElectronicAccessories" [required]="vehical.controls['coverelectricalaccesss'].value == true" autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <div class="col-md-3">
@@ -461,7 +466,7 @@
 
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Value "  formControlName="value" (keypress)="numberValidate($event)"  (keypress)="sumAccessories()"   autocomplete="off">
+                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)"    autocomplete="off" [required]="vehical.controls['coverelectricalaccesss'].value == true" >
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>
@@ -493,7 +498,7 @@
 
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Value "  formControlName="value" (keypress)="numberValidate($event)" (change)="sumNonAccessories()" autocomplete="off">
+                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)" autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addnonEelctricalItems()">+</button>
@@ -684,11 +689,11 @@
                     <ng-template matStepLabel>SUMMARY</ng-template>
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
-                            <div class="col-md-4">
-                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{buyProduct.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProduct.Comprehensive_premium}}</span></h4>
+                            <div class="col-md-6">
+                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{buyProduct.plan_name | titlecase}}/ IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProduct.Idv}}</span></h4>
                                 <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;" *ngIf = "productDetails.ThridParty_premium"> Plan Name: {{productDetails.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></h4>-->
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-md-6 mt-4">
                                 <ul class="summary-head">
                                     <li><span>Insurer:</span><img src="{{webhost + '/' + buyProduct.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
                                     <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{buyProduct.Comprehensive_premium}}</span></li>
@@ -709,10 +714,9 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.firstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                                             <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
-                                            <li class="list-group-item" ><strong>Email Id:</strong> {{proposerFormData.email}}</li>
-                                            <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.occupation != ''"><strong>Occupation :</strong> {{proposerFormData.occupation}}</li>
-
+                                            <li class="list-group-item" *ngIf="proposerFormData.stdCode != ''"><strong>STD Code :</strong> {{proposerFormData.stdCode}}</li>
+                                            <li class="list-group-item" *ngIf="proposerFormData.phoneNumber != ''"><strong>Phone Number:</strong>{{proposerFormData.phoneNumber}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -720,8 +724,8 @@
                                     <div class="p-3">
 
                                         <ul class="m-0 list-group">
-                                            <li class="list-group-item" *ngIf="proposerFormData.stdCode != ''"><strong>STD Code :</strong> {{proposerFormData.stdCode}}</li>
-                                            <li class="list-group-item" *ngIf="proposerFormData.phoneNumber != ''"><strong>Phone Number:</strong>{{proposerFormData.phoneNumber}}</li>
+                                            <li class="list-group-item" ><strong>Email Id:</strong> {{proposerFormData.email}}</li>
+                                            <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.panNumber != ''"><strong>Pan Number:</strong> {{proposerFormData.panNumber}}</li>
                                             <li class="list-group-item" *ngIf="proposerFormData.aadharNumber != ''"><strong>Aadhar Number:</strong> {{proposerFormData.aadharNumber}}</li>
                                          </ul>
@@ -775,8 +779,10 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinanced != ''"><strong>Is Car Financed:</strong> <span *ngIf="vehicalFormData.isFourWheelerFinanced == true">True</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''"><strong>Financier Name:</strong> {{vehicalFormData.financierName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinancedValue != ''"><strong>Financed Value:</strong> {{vehicalFormData.isFourWheelerFinancedValue}}</li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.vehicleMostlyDrivenOn != ''"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
-
+                                            <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'On'"><strong >Key Replacement :  </strong> On </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'Off'"><strong >Key Replacement :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'Off'"><strong >Depreciation Waiver :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'On'"><strong >Depreciation Waiver :  </strong> On </li>
 
 
                                         </ul>
@@ -788,27 +794,26 @@
                                         <ul class="m-0 list-group">
 
 
-                                           <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'On'"><strong >Keyreplacement :  </strong> On </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.keyreplacement == 'Off'"><strong >Keyreplacement :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'Off'"><strong >depreciationWaiver :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.depreciationWaiver == 'On'"><strong >depreciationWaiver :  </strong> On </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'Off'"><strong >windShieldGlass :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'On'"><strong >windShieldGlass :  </strong> On </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.engineprotector == 'Off'"><strong >engineprotector :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.engineprotector == 'On'"><strong >engineprotector :  </strong> On </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.ncbprotector == 'Off'"><strong >ncbprotector :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.ncbprotector == 'On'"><strong >ncbprotector :  </strong> On </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.spareCar == 'Off'"><strong >spareCar :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.spareCar == 'On'"><strong >spareCar :  </strong> On </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.invoicePrice == 'Off'"><strong >invoicePrice :  </strong> Off </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.invoicePrice == 'On'"><strong >invoicePrice :  </strong> On </li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.lossOfBaggage != ''"><strong>lossOfBaggage:</strong> <span *ngIf="vehicalFormData.lossOfBaggage == true">True</span></li>
+
+                                            <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'Off'"><strong >Wind Shield Glass :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.windShieldGlass == 'On'"><strong >Wind Shield Glass :  </strong> On </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.engineprotector == 'Off'"><strong >Engine Protector :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.engineprotector == 'On'"><strong >Engine Protector :  </strong> On </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.registrationchargesRoadtax == 'Off'"><strong >Registration Charges Road Tax :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.registrationchargesRoadtax == 'On'"><strong >Registration Charges Road Tax :  </strong> On </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.ncbprotector == 'Off'"><strong >NCB protector :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.ncbprotector == 'On'"><strong >NCB protector :  </strong> On </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.spareCar == 'Off'"><strong >Spare Car :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.spareCar == 'On'"><strong >Spare Car :  </strong> On </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.invoicePrice == 'Off'"><strong >Invoice Price :  </strong> Off </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.invoicePrice == 'On'"><strong >Invoice Price :  </strong> On </li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.lossOfBaggage != ''"><strong>Loss Of Baggage:</strong> <span *ngIf="vehicalFormData.lossOfBaggage == true">True</span></li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.valueOfLossOfBaggage != ''" ><strong>Value Of Loss Of Baggage:</strong> {{vehicalFormData.valueOfLossOfBaggage}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.personalAccidentCoverForUnnamedPassengers != ''" ><strong>Personal Accident Cover For Unnamed Passengers:</strong> {{vehicalFormData.personalAccidentCoverForUnnamedPassengers}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.legalliabilityToPaidDriver == 'No'"><strong >Legalliability To Paid Driver :  </strong> No </li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.legalliabilityToPaidDriver == 'Yes'"><strong >Legalliability To Paid Driver :  </strong> Yes </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.fibreGlass == 'No'"><strong >fibreGlass :  </strong> No </li>
-                                            <li class="list-group-item"*ngIf="vehicalFormData.fibreGlass == 'Yes'"><strong >fibreGlass :  </strong> Yes </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.fibreGlass == 'No'"><strong >Fibre Glass :  </strong> No </li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.fibreGlass == 'Yes'"><strong >Fibre Glass :  </strong> Yes </li>
 
 
                                             <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss != ''"><strong>Electrical Access:</strong> <span *ngIf="vehicalFormData.coverelectricalaccesss == true">Yes</span></li>
@@ -853,9 +858,9 @@
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Previous Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                                                     <li class="list-group-item"><strong>Previous Insured:</strong> {{previousFormData.previousInsured}}</li>
-                                                    <li class="list-group-item"><strong>Is Previous Policy Holder:</strong> {{previousFormData.isPreviousPolicyHolder}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.personalAccidentCover != ''"><strong>Personal Accident Cover:</strong> {{previousFormData.personalAccidentCover}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.previousinsurersCorrectAddress != ''"><strong>Previous insurers Correct Address:</strong> {{previousFormData.previousinsurersCorrectAddress}}</li>
+                                                    <li class="list-group-item" *ngIf="previousFormData.voluntary != ''"><strong>Voluntary Deductible:</strong> {{previousFormData.voluntary}}</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -866,8 +871,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
+                                                    <li class="list-group-item"><strong>Is Previous Policy Holder:</strong> {{previousFormData.isPreviousPolicyHolder}}</li>
                                                     <li class="list-group-item"><strong>Previous Policy Type:</strong> {{previousFormData.previousPolicyType}}</li>
-                                                    <li class="list-group-item" *ngIf="previousFormData.voluntary != ''"><strong>Voluntary Deductible:</strong> {{previousFormData.voluntary}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.claimsReported != ''"><strong>No Of Claim Reported:</strong> {{previousFormData.claimsReported}}</li>
                                                     <li class="list-group-item" *ngIf="previousFormData.claimAmountReceived != ''"><strong>Claim Amount:</strong> {{previousFormData.claimAmountReceived}}</li>
                                                 </ul>

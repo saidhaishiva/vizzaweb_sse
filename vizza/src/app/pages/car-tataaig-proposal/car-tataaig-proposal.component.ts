@@ -48,7 +48,6 @@ export class CarTataaigProposalComponent implements OnInit {
   public prepolicyPinList: any;
   public proposerGenderlist: any;
   public preNamelist: any;
-  public precodelist: any;
   public relationlist: any;
   public Quotelist: any;
   public banklist: any;
@@ -65,7 +64,6 @@ export class CarTataaigProposalComponent implements OnInit {
   public nomineeFormData: any;
   public ProposalId: any;
   public poldate: any;
-  public coverlist: any;
   public vehicledata: any;
   public buycarDetails: any;
   public enquiryFormData: any;
@@ -173,9 +171,8 @@ export class CarTataaigProposalComponent implements OnInit {
   ngOnInit() {
     this.getGenderlist();
     this.getNamelist();
-    this.getCodelist();
     this.getRelationList();
-    // this.package();
+    this.package();
     this.sessionData();
     this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
     console.log(this.vehicledata);
@@ -189,21 +186,20 @@ export class CarTataaigProposalComponent implements OnInit {
     console.log(poldate,'poldate');
     this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
     console.log(this.poldate, 'policy date');
+    if (this.enquiryFormData.business_type != '1') {
+      this.previouspolicy.controls['preflag'].patchValue('Y');
+    }
   }
 
   changeflag(event: any) {
     if (this.previouspolicy.controls['preflag'].value == 'Y') {
-      this.previouspolicy.controls['precode'].setValidators([Validators.required]);
       this.previouspolicy.controls['preName'].setValidators([Validators.required]);
       this.previouspolicy.controls['prepolno'].setValidators([Validators.required]);
     } else if (this.previouspolicy.controls['preflag'].value == 'N') {
-      this.previouspolicy.controls['precode'].patchValue('');
       this.previouspolicy.controls['preName'].patchValue('');
-      this.previouspolicy.controls['precode'].setValidators(null);
       this.previouspolicy.controls['preName'].setValidators(null);
       this.previouspolicy.controls['prepolno'].setValidators(null);
     }
-    this.previouspolicy.controls['precode'].updateValueAndValidity();
     this.previouspolicy.controls['preName'].updateValueAndValidity();
     this.previouspolicy.controls['prepolno'].updateValueAndValidity();
   }
@@ -406,58 +402,31 @@ export class CarTataaigProposalComponent implements OnInit {
 
   }
 
-  //PreviousPolicy CodeList
-  getCodelist() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    };
-    this.carinsurance.CodeList(data).subscribe(
-        (successData) => {
-          this.prepolicycodeListSuccess(successData);
-        },
-        (error) => {
-          this.prepolicycodeListFailure(error);
-        }
-    );
-  }
+// Addons Package
+    package() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+        };
+        this.carinsurance.packagetype(data).subscribe(
+            (successData) => {
+                this.packageListSuccess(successData);
+            },
+            (error) => {
+                this.packageListFailure(error);
+            }
+        );
+    }
 
-  prepolicycodeListSuccess(successData) {
-    this.precodelist = successData.ResponseObject;
+    packageListSuccess(successData) {
+        this.packagelist = successData.ResponseObject;
 
-  }
+    }
 
-  prepolicycodeListFailure(error) {
+    packageListFailure(error) {
 
-  }
-
-//Addons Package
-
-    // package() {
-    //     const data = {
-    //         'platform': 'web',
-    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-    //     };
-    //     this.carinsurance.packagetype(data).subscribe(
-    //         (successData) => {
-    //             this.packageListSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.packageListFailure(error);
-    //         }
-    //     );
-    // }
-    //
-    // packageListSuccess(successData) {
-    //     this.packagelist = successData.ResponseObject;
-    //
-    // }
-    //
-    // packageListFailure(error) {
-    //
-    // }
+    }
 
   selectopt(event: any) {
     this.vehicle.controls['packagevalue'].patchValue(this.packagelist[this.vehicle.controls['package'].value]);
@@ -597,10 +566,10 @@ export class CarTataaigProposalComponent implements OnInit {
           console.log(value, 'proposer');
           stepper.next();
         } else {
-          this.toastr.error('Invalid DrivingExperience');
+          this.toastr.error('Invalid Driving Experience');
         }
       } else {
-        this.toastr.error('Proposer Should Be Greater than 18 and Above');
+        this.toastr.error('Proposer Age Should Be Greater than 18 and Above');
       }
     } else {
       this.toastr.error('Please Fill All The Mandtory Fields');
@@ -743,7 +712,6 @@ export class CarTataaigProposalComponent implements OnInit {
       this.getstepper3 = JSON.parse(sessionStorage.tatacarprepolicy);
       this.previouspolicy = this.fb.group({
         preflag: this.getstepper3.preflag,
-        precode: this.getstepper3.precode,
         preName: this.getstepper3.preName,
         prepolno: this.getstepper3.prepolno,
         preAddressone: this.getstepper3.preAddressone,
@@ -807,7 +775,6 @@ export class CarTataaigProposalComponent implements OnInit {
         },
         "prevpolicy": {
           "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == ''? 'N' : this.previouspolicy.controls['preflag'].value,
-          "code": this.previouspolicy.controls['precode'].value == null ? '' : this.previouspolicy.controls['precode'].value,
           "name":  this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
           "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
           "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,
@@ -874,7 +841,12 @@ export class CarTataaigProposalComponent implements OnInit {
       this.previousFormData = this.previouspolicy.value;
       this.nomineeFormData = this.nominee.value;
     }else{
+      if(successData.ErrorDes != '') {
+        this.toastr.error(successData.ErrorDes);
+        console.log(successData.ErrorDes, 'errordes');
+      }
       this.toastr.error(successData.ErrorObject);
+      console.log(successData.ErrorObject, 'errorobj');
       this.settings.loadingSpinner = false;
     }
   }

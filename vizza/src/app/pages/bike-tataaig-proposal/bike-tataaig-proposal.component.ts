@@ -162,8 +162,8 @@ export class BikeTataaigProposalComponent implements OnInit {
 
         this.previouspolicy = this.fb.group({
             preflag: ['', Validators.required],
-            precode: '',
             preName: '',
+            precode: '',
             prepolno: '',
             preAddressone: ['', Validators.required],
             preAddresstwo: '',
@@ -259,7 +259,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                         this.automobdateError = 'Enter Valid Date';
                     }
                 }
-                if(type == 'proposer') {
+                if (type == 'proposer') {
                     dob = this.datepipe.transform(event.value, 'y-MM-dd');
                     this.bikeProposerAge = this.ageCalculate(dob);
                     sessionStorage.proposerAge = this.bikeProposerAge;
@@ -280,7 +280,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                         this.automobdateError = 'Enter Valid Date';
                     }
                 }
-                if(type == 'proposer') {
+                if (type == 'proposer') {
                     dob = this.datepipe.transform(event.value, 'y-MM-dd');
                     console.log(dob, 'ageob');
                     this.bikeProposerAge = this.ageCalculate(dob);
@@ -427,7 +427,6 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     prepolicyNameListSuccess(successData) {
         this.preNamelist = successData.ResponseObject;
-
     }
 
     prepolicyNameListFailure(error) {
@@ -611,21 +610,30 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.previouspolicy.controls['prepolno'].updateValueAndValidity();
     }
 
+    chooseopt() {
+        for (let i = 0; i < this.preNamelist.length; i++) {
+            console.log(this.preNamelist[i].key, 'key');
+            if (this.preNamelist[i].value == this.previouspolicy.controls['preName'].value) {
+                this.previouspolicy.controls['precode'].patchValue(this.preNamelist[i].key);
+            }
+        }
+    }
+
     proposerDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikeproposer = '';
         sessionStorage.tatabikeproposer = JSON.stringify(value);
         if (this.proposer.valid) {
             if (sessionStorage.proposerAge >= 18) {
                 this.agecount = sessionStorage.proposerAge;
-                let age = this.agecount - 18;
-                if (this.proposer.controls['drivingexp'].value <= age) {
+                let exp = this.agecount - 18;
+                if (this.proposer.controls['drivingexp'].value <= exp) {
                     console.log(value, 'proposer');
                     stepper.next();
                 } else {
                     this.toastr.error('Invalid Driving Experience');
                 }
             } else {
-                this.toastr.error('Proposer should be 18 or above');
+                this.toastr.error('Proposer Age should be 18 or above');
             }
         } else {
             this.toastr.error('Please Fill All The Mandtory Fields');
@@ -723,8 +731,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.getstepper3 = JSON.parse(sessionStorage.tataprepolicy);
             this.previouspolicy = this.fb.group({
                 preflag: this.getstepper3.preflag,
-                precode: this.getstepper3.precode,
                 preName: this.getstepper3.preName,
+                precode: this.getstepper3.precode,
                 prepolno: this.getstepper3.prepolno,
                 preAddressone: this.getstepper3.preAddressone,
                 preAddresstwo: this.getstepper3.preAddresstwo,
@@ -895,15 +903,13 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.previousFormData = this.previouspolicy.value;
             this.nomineeFormData = this.nominee.value;
         } else {
-            if (successData.ErrorObject != '') {
-                console.log(successData.ErrorObject, 'errorobj');
-                this.toastr.error(successData.ErrorObject);
-                this.settings.loadingSpinner = false;
-            }else if(successData.ErrorDes != '') {
-                console.log(successData.ErrorDes, 'errordes');
+            if(successData.ErrorDes != '') {
                 this.toastr.error(successData.ErrorDes);
-                this.settings.loadingSpinner = false;
+                console.log(successData.ErrorDes, 'errordes');
             }
+            this.toastr.error(successData.ErrorObject);
+            console.log(successData.ErrorObject, 'errorobj');
+            this.settings.loadingSpinner = false;
         }
     }
 

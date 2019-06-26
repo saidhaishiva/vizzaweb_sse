@@ -278,7 +278,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
                           <mat-placeholder>Expiry Date (DD/MM/YYYY)<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" minlength="10" maxlength="10" autocomplete="off">
+                          <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" [min]="this.poldate" minlength="10" maxlength="10" autocomplete="off">
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
@@ -358,14 +358,6 @@
                                     <mat-option value="N">No</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
-                                <mat-form-field class="w-100">
-                                  <mat-placeholder> Code <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                                  <mat-select formControlName="precode">
-                                    <mat-option *ngFor="let Codelist of precodelist | keys" value="{{Codelist.value}}">{{Codelist.value}}</mat-option>
-                                  </mat-select>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
@@ -509,7 +501,6 @@
                 </div>
                 <div class="col-md-6">
                   <div class="p-3">
-                    <h6 class="color-blue"> COMMUNICATION DETAILS </h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.Addressone}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.Addresstwo != ''"><strong>Address 2:</strong> {{proposerFormData.Addresstwo}}</li>
@@ -584,8 +575,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.precode}}</li>
-                      <li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preName}}</li>
+                      <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.preName}}</li>
                       <li class="list-group-item"><strong>POLNO:</strong> {{previousFormData.preName}}</li>
                     </ul>
                   </div>

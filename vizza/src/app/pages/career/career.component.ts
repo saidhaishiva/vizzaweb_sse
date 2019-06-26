@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AppSettings} from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
+import {ValidationService} from '../../shared/services/validation.service';
 
 @Component({
   selector: 'app-career',
@@ -18,26 +19,16 @@ webhost: any;
     url: any;
     getUrl: any;
     fileUploadPath: any;
-  constructor(public fb: FormBuilder, public config: ConfigurationService,  public appSettings: AppSettings, public common: CommonService) {
+  constructor(public fb: FormBuilder, public config: ConfigurationService,public validation: ValidationService,  public appSettings: AppSettings, public common: CommonService) {
       this.webhost = this.config.getimgUrl();
       this.settings = this.appSettings.settings;
     this.form = this.fb.group({
         'name': ['', Validators.required],
         'mobileno':  ['', Validators.required],
         'email':  ['', Validators.required],
-        'fathername': ['', Validators.required],
-        'dob': ['', Validators.compose([Validators.required])],
-        'age': '',
         'upload': '',
-        'address': ['', Validators.required],
-        'gender': '',
-        'educationhsc':['', Validators.required],
-        'educationug':['', Validators.required],
-        'educationpg':['', Validators.required],
-        'experience1':['', Validators.required],
-        'experience2': '',
-        'experience3': '',
-        'applicantskills':''
+        'profile':'',
+        'cover':''
     });
   }
 
@@ -121,47 +112,55 @@ update() {
 
     public fileUploadFailure(error) {
     }
-    onsubmit() {
-        const data = {
-            'platform': 'web',
-            'applied_type': '0',
-            'applicant_name': this.form.controls['name'].value,
-            'applicant_email': this.form.controls['email'].value,
-            'applicant_resume': "uploads/careers/raj.txt",
-            'father_name': this.form.controls['fathername'].value,
-            'mobile_no': this.form.controls['mobileno'].value,
-            'address': this.form.controls['address'].value,
-            'dob': this.form.controls['dob'].value,
-            'age':  this.form.controls['age'].value,
-            'gender':  this.form.controls['gender'].value,
-            'education_hsc_details':  this.form.controls['educationhsc'].value,
-            'education_ug_details':  this.form.controls['educationug'].value,
-            'education_pg_details':  this.form.controls['educationpg'].value,
-            'experience1':  this.form.controls['experience1'].value,
-            'experience2': '',
-            'experience3': '',
-            'applicant_skills':  this.form.controls['applicantskills'].value,
-        };
-        this.settings.loadingSpinner = true;
-        this.common.careerupdate(data).subscribe(
-            (successData) => {
-                this.updatedSuccess(successData);
-            },
-            (error) => {
-                this.updatedFailure(error);
-            }
-        );
-    }
-    updatedSuccess(successData) {
-        this.settings.loadingSpinner = false;
-        if (successData.IsSuccess) {
-        } else {
-            // this.toastr.error(successData.ErrorObject, 'Failed');
-        }
-    }
+    // onsubmit() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'applied_type': '0',
+    //         'applicant_name': this.form.controls['name'].value,
+    //         'applicant_email': this.form.controls['email'].value,
+    //         'applicant_resume': "uploads/careers/raj.txt",
+    //         'father_name': this.form.controls['fathername'].value,
+    //         'mobile_no': this.form.controls['mobileno'].value,
+    //         'address': this.form.controls['address'].value,
+    //         'dob': this.form.controls['dob'].value,
+    //         'age':  this.form.controls['age'].value,
+    //         'gender':  this.form.controls['gender'].value,
+    //         'education_hsc_details':  this.form.controls['educationhsc'].value,
+    //         'education_ug_details':  this.form.controls['educationug'].value,
+    //         'education_pg_details':  this.form.controls['educationpg'].value,
+    //         'experience1':  this.form.controls['experience1'].value,
+    //         'experience2': '',
+    //         'experience3': '',
+    //         'applicant_skills':  this.form.controls['applicantskills'].value,
+    //     };
+    //     this.settings.loadingSpinner = true;
+    //     this.common.careerupdate(data).subscribe(
+    //         (successData) => {
+    //             this.updatedSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.updatedFailure(error);
+    //         }
+    //     );
+    // }
+    // updatedSuccess(successData) {
+    //     this.settings.loadingSpinner = false;
+    //     if (successData.IsSuccess) {
+    //     } else {
+    //         // this.toastr.error(successData.ErrorObject, 'Failed');
+    //     }
+    // }
+    //
+    // updatedFailure(error) {
+    //     this.settings.loadingSpinner = false;
+    // }
 
-    updatedFailure(error) {
-        this.settings.loadingSpinner = false;
+    // validation
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
+    }
+    nameValidate(event: any) {
+        this.validation.nameValidate(event);
     }
 }
 
