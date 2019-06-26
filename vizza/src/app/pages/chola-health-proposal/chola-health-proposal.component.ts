@@ -122,7 +122,7 @@ export class CholaHealthProposalComponent implements OnInit {
       maritalStatusName: '',
       occupation: '',
       occupationName: '',
-      personalIncome: '',
+      personalIncome: ['', Validators.compose([Validators.required, Validators.maxLength(9)])],
       personalEmail: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       personalMobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       personalLandlineno: '',

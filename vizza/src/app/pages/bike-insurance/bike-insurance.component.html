@@ -34,14 +34,21 @@
                                     <!--</div>-->
                                     <div class="col-md-12">
                                         <mat-form-field class="w-100 text-left">
-                                            <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" required>
+                                            <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event);numberValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" required>
                                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                             <mat-datepicker #picker1></mat-datepicker>
                                             <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
 
                                         </mat-form-field>
                                     </div>
-
+                                    <div class="col-md-12">
+                                        <mat-form-field class="w-100 text-left">
+                                            <mat-select  formControlName="city"  required>
+                                                <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>
+                                        </mat-form-field>
+                                    </div>
                                 </div>
                                 <div class="col-md-12 text-center mt-3">
                                     <button mat-raised-button color="primary"  (click)="quationFirstStep(bikeInsurance.value)">Submit</button>
@@ -66,7 +73,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <mat-form-field class="w-100 text-left">
-                                            <input matInput [matDatepicker]="picker4" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" required>
+                                            <input matInput [matDatepicker]="picker4" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event); numberValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" required>
                                             <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                                             <mat-datepicker #picker4 ></mat-datepicker>
                                             <mat-error *ngIf="bikeInsurance.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
@@ -75,7 +82,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <mat-form-field class="w-100 text-left">
-                                            <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addstart($event)"  (dateChange)="addstart($event)"  maxlength="10" minlength="10" required>
+                                            <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event);numberValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addstart($event)"  (dateChange)="addstart($event)"  maxlength="10" minlength="10" required>
                                             <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
                                             <mat-error *ngIf="bikeInsurance.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
@@ -83,7 +90,7 @@
                                     </div>
                                     <div class="col-md-12">
                                         <mat-form-field class="w-100 text-left">
-                                            <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['previousPolicyStart'].value"  (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addend($event)"  (dateChange)="addend($event)"  maxlength="10" minlength="10" required>
+                                            <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="bikeInsurance.controls['previousPolicyStart'].value"  (keyup)="setSession()" (keypress)="dobValidate($event);numberValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addend($event)"  (dateChange)="addend($event)"  maxlength="10" minlength="10" required>
                                             <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                                             <mat-datepicker #picker3></mat-datepicker>
                                             <mat-error *ngIf="bikeInsurance.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
@@ -106,30 +113,36 @@
                                     </div>
                                     <div class="col-md-12" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">
                                         <mat-form-field class="w-100 text-left">
-                                            <mat-placeholder>NCB Percent(%) <span><i class="material-icons" style="font-size: medium" matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy.">
-                                            help
-                                            </i></span></mat-placeholder>
-                                            <mat-select   (change)="setSession()" formControlName="ncb"  required>
-                                            <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-                                            </mat-select>
-                                            <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>
+                                            <mat-placeholder>NCB Percent(%)
+                                            </mat-placeholder>
+                                            <span class="text-right"><mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy.">help</mat-icon></span>
+                                            <mat-select   (change)="setSession()" formControlName="ncb"  required >
 
-                                        </mat-form-field>
-                                    </div>
 
-                                </div>
-                                <div class="col-md-12 text-center mt-3">
-                                <button mat-raised-button color="primary"  (click)="quationFirstStep(bikeInsurance.value)">Submit</button>
-                                <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
-                                </div>
-                            </form>
-                        </mat-tab>
+                                                <!--<i class="material-icons"><span matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy."</span>-->
+                                                    <!--help-->
+                                                <!--</i>-->
 
-                    </mat-tab-group>
-                </div>
-            </div>
-        </div>
-    </div>
+                                           <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                                           </mat-select>
+                                           <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>
+
+                                       </mat-form-field>
+                                   </div>
+
+                               </div>
+                               <div class="col-md-12 text-center mt-3">
+                               <button mat-raised-button color="primary"  (click)="quationFirstStep(bikeInsurance.value)">Submit</button>
+                               <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
+                               </div>
+                           </form>
+                       </mat-tab>
+
+                   </mat-tab-group>
+               </div>
+           </div>
+       </div>
+   </div>
 </div>
 
 
