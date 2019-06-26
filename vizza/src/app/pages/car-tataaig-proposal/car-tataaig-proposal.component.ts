@@ -598,10 +598,10 @@ export class CarTataaigProposalComponent implements OnInit {
           console.log(value, 'proposer');
           stepper.next();
         } else {
-          this.toastr.error('Invalid DrivingExperience');
+          this.toastr.error('Invalid Driving Experience');
         }
       } else {
-        this.toastr.error('Proposer Should Be Greater than 18 and Above');
+        this.toastr.error('Proposer Age Should Be Greater than 18 and Above');
       }
     } else {
       this.toastr.error('Please Fill All The Mandtory Fields');
@@ -875,7 +875,12 @@ export class CarTataaigProposalComponent implements OnInit {
       this.previousFormData = this.previouspolicy.value;
       this.nomineeFormData = this.nominee.value;
     }else{
+      if(successData.ErrorDes != '') {
+        this.toastr.error(successData.ErrorDes);
+        console.log(successData.ErrorDes, 'errordes');
+      }
       this.toastr.error(successData.ErrorObject);
+      console.log(successData.ErrorObject, 'errorobj');
       this.settings.loadingSpinner = false;
     }
   }
