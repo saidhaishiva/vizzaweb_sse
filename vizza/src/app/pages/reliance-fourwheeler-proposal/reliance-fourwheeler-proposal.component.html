@@ -404,7 +404,7 @@
                       <div class="col-md-12 mt-2">
                         <h3 class="color-blue">Vehicle Details</h3>
                       </div>
-                      <div class="col-md-4 mt-3">
+                      <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Fuel type" formControlName="fuelType" (change)="changeFuel()"required>
                             <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
@@ -415,6 +415,10 @@
                       </div>
                     </div>
                     <div class="row">
+                      <div class="col-md-12 mt-2">
+                        <h3 class="color-blue">Vehicle Details</h3>
+                      </div>
+
                       <div class="col-md-3">
                         <mat-checkbox  formControlName="UnnamedPassengerCovered" (change)="updateUnnamedPassenger($event)">Unnamed Passenger Covered</mat-checkbox>
                       </div>
