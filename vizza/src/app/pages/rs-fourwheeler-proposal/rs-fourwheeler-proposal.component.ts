@@ -1453,7 +1453,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
       for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
         if ( i !=  0) {
-          this.addItems();
+          this.addnonEelctricalItems();
         }
         this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue(this.getStepper2.nonelectricalAccess[i].nameOfElectronicAccessories);
         this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue(this.getStepper2.nonelectricalAccess[i].makeModel);
@@ -1476,8 +1476,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['idv'].patchValue(this.getStepper2.idv);
       this.vehical.controls['isFourWheelerFinancedValue'].patchValue(this.getStepper2.isFourWheelerFinancedValue);
       this.vehical.controls['valueOfLossOfBaggage'].patchValue(this.getStepper2.valueOfLossOfBaggage);
-      this.vehical.controls['total'].patchValue(this.getStepper2.total);
-      this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
       this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].patchValue(this.getStepper2.personalAccidentCoverForUnnamedPassengers);
       this.vehical.controls['financierName'].patchValue(this.getStepper2.financierName);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
@@ -1500,6 +1498,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['isCarOwnershipChanged'].patchValue(this.getStepper2.isCarOwnershipChanged);
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
       this.vehical.controls['accidentPaid'].patchValue(this.getStepper2.accidentPaid);
+      this.vehical.controls['total'].patchValue(this.getStepper2.total);
+      this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
 
 
 
