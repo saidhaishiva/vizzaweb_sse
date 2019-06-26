@@ -296,13 +296,13 @@ export const routes: Routes = [
             { path: 'royalsundaram-mfw-payment-success/:status/:proId', component: RoyalsundaramMfwPaymentSuccessComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
             { path: 'aegon-term-life/:stepper', component: AegonTermLifeComponent, data: { breadcrumb: 'aegon-term-life'}},
             { path: 'reliance-fourwheeler-motor-proposal/:stepper', component: RelianceFourwheelerProposalComponent, data: { breadcrumb: 'reliance-fourwheeler-motor-proposal'}},
-            { path: 'reliance-fourwheeler-motor-payment-success/:status/:proId/:mailStatus', component: RelianceFourwheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance fourwheeler payment'}},
+            { path: 'reliance-fourwheeler-motor-payment-success/:status/:proId', component: RelianceFourwheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance fourwheeler payment'}},
             { path: 'four-wheeler-home', component: FourWheelerHomeComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-list', component: FourWheelerProductListComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-shriram/:stepper', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
             { path: 'learning-center', component: LearningCenterComponent, data: { breadcrumb: 'Learning Center'}},
             { path: 'car-tataaig-payment-success/:status/:proId', component: CarTataaigPaymentSuccessComponent, data: { breadcrumb: 'carTataaig payment'} },
-            { path: 'reliance-twowheeler-motor-payment-success/:status/:proId/:mailStatus', component: RelianceTwowheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance Twowheeler payment'}},
+            { path: 'reliance-twowheeler-motor-payment-success/:status/:proId', component: RelianceTwowheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance Twowheeler payment'}},
 
 
         ]

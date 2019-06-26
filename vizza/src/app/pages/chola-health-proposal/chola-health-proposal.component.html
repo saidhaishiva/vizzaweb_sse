@@ -70,7 +70,7 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Annual Income" formControlName="personalIncome"  (keypress)="numberValidate($event)" maxlength="10"  autocomplete="off" required>
+                                <input matInput placeholder="Annual Income" formControlName="personalIncome"  (keypress)="numberValidate($event)" maxlength="9"  autocomplete="off" required>
                                 <mat-error *ngIf="personal.controls.personalIncome.errors?.required">Annual Income is required</mat-error>
                             </mat-form-field>
                         </div>
