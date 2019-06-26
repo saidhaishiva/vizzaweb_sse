@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AppSettings} from '../../../app.settings';
 import {Settings} from '../../../app.settings.model';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MediaCenterComponent} from '../media-center.component';
 
 @Component({
   selector: 'app-viewmedia',
@@ -14,7 +16,8 @@ export class ViewmediaComponent implements OnInit {
     public settings: Settings;
     details: any;
 
-  constructor( private router: Router, public appSettings: AppSettings) {
+  constructor(public dialogRef: MatDialogRef<MediaCenterComponent>,
+              @Inject(MAT_DIALOG_DATA) private router: Router, public appSettings: AppSettings, public dialog: MatDialog) {
       this.settings = this.appSettings.settings;
       this.details = JSON.parse(sessionStorage.newsLetterContent);
   }
@@ -33,5 +36,9 @@ export class ViewmediaComponent implements OnInit {
         else{
             document.getElementsByClassName('mat-drawer-content')[0].scrollTop = 0;
         }
+    }
+
+    onNoClick(): void {
+        this.dialogRef.close();
     }
 }

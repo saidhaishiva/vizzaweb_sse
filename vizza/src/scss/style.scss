@@ -3063,9 +3063,18 @@ fieldset {
   }
 }
 .mt-viwe-profile1 {
-  background: #5d965d !important;
-  .head-card {
-    margin-top: 13px !important;
+
+  border: solid 1px #c2c2c2;
+  background: #ffffff !important;
+  -webkit-border-radius: 33px !important;
+  -moz-border-radius: 33px !important;
+  border-radius: 27px !important;
+  box-shadow: 1px 4px #D5D8DF;
+  //.head-card {
+  //  margin-top: 13px !important;
+  //}
+  strong{
+    color: #0425CE;
   }
   //.user-name {
   //  font-size: 15px;
@@ -3085,16 +3094,19 @@ fieldset {
   //}
 }
 .text-color{
-  color: #428bca !important;
+  color: #5d965d !important;
 }
 .f-size{
   cursor: pointer;
-  color: white;
+  color: #5d965d !important;
+  padding: 20px;
   h3 {
     font-size: 16px !important;
+    font-weight: bold;
+
   }
   p {
-    display: none;
+    color: #000000;
   }
 }
 
