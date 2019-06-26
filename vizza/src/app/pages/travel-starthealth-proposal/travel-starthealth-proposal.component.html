@@ -89,15 +89,12 @@
                           </mat-option>
                         </mat-select>
                       </mat-form-field></div>
-                       <!--/ /matTooltip="{{personal.controls.placeOfVisit.value}}-->
-                      <div class="col-md-4"><mat-form-field class="w-100">
-                        <mat-select placeholder="Place of visit"  formControlName="placeOfVisit" required multiple >
-                            <!--matTooltip ="{{personal.controls.placeOfVisitName}}"-->
-                          <mat-option *ngFor="let lists of placeOfVisiLists" value="{{lists.country_code}}">
-                            {{lists.country_name}}
-                          </mat-option>
-                        </mat-select>
-                      </mat-form-field></div>
+                       <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="Place of visit" formControlName="placeOfVisit"  (change)="placeOf()"  readonly >
+                                  <!--<mat-error *ngIf="personal.controls.physicianName.errors?.required">Physician Name is required</mat-error>-->
+                              </mat-form-field>
+                          </div>
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Physician Name" formControlName="physicianName"  (keypress)="nameValidate($event)"  autocomplete="off"  >

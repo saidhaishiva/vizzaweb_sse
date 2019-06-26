@@ -37,7 +37,7 @@ export const environment = {
     // healthInsurance: true,
     // lifeInsurance: false,
     // motorInsurance: false,
-    // paAccident: true,
+    // paAccident: true
 
 };
 
