@@ -633,7 +633,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                     this.toastr.error('Invalid Driving Experience');
                 }
             } else {
-                this.toastr.error('Proposer should be 18 or above');
+                this.toastr.error('Proposer Age should be 18 or above');
             }
         } else {
             this.toastr.error('Please Fill All The Mandtory Fields');

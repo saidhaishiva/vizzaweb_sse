@@ -180,6 +180,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       hypothecationType: '',
       typeOfCover: ['', Validators.required],
       addon: '',
+      total: '',
+      subTotal: '',
       vechileOwnerShipChanged: 'No',
       cover_dri_othr_car_ass: 'No',
       fibreGlass: 'No',
@@ -1497,7 +1499,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['invoicePrice'].patchValue(this.getStepper2.invoicePrice);
       this.vehical.controls['isCarOwnershipChanged'].patchValue(this.getStepper2.isCarOwnershipChanged);
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
-      this.vehical.controls['accidentPaid'].patchValue(this.getStepper2.accidentPaid);
       this.vehical.controls['total'].patchValue(this.getStepper2.total);
       this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
 

@@ -69,7 +69,7 @@ export class CholaHealthPaymentSuccessComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
     }
     this.settings.loadingSpinner = true;
-    this.proposalservice.getDownloadPdfHdfc(data).subscribe(
+    this.proposalservice.getDownloadPdfchola(data).subscribe(
         (successData) => {
           this.downloadPdfSuccess(successData);
         },
