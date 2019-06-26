@@ -427,7 +427,6 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     prepolicyNameListSuccess(successData) {
         this.preNamelist = successData.ResponseObject;
-
     }
 
     prepolicyNameListFailure(error) {
@@ -609,6 +608,15 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.previouspolicy.controls['precode'].updateValueAndValidity();
         this.previouspolicy.controls['preName'].updateValueAndValidity();
         this.previouspolicy.controls['prepolno'].updateValueAndValidity();
+    }
+
+    chooseopt() {
+        for(let i = 0; i < this.preNamelist.length;i++) {
+            console.log(this.preNamelist[i].key,'key');
+            if(this.preNamelist[i].value == this.previouspolicy.controls['preName'].value) {
+                this.previouspolicy.controls['precode'].patchValue(this.preNamelist[i].key);
+            }
+        }
     }
 
     proposerDetails(stepper: MatStepper, value) {
