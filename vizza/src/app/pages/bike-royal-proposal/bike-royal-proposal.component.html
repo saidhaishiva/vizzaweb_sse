@@ -528,25 +528,17 @@
                   </div>
                   <div class="col-md-6">
                       <h6>COMMUNICATION DETAILS</h6>
-
-                      <div class="col-md-3">
-                        <div class="p-3">
+                      <div class="p-3">
                             <ul class="m-0 list-group">
                                 <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
                                 <li class="list-group-item" ><strong>Address 2:</strong> {{proposerFormData.address2}}</li>
                                 <li class="list-group-item" *ngIf="proposerFormData.address3 != ''"><strong>Address 3:</strong> {{proposerFormData.address3}}</li>
                                 <li class="list-group-item" *ngIf="proposerFormData.address4 != ''"><strong>Address 4:</strong> {{proposerFormData.address4}}</li>
+                                <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
+                                <li class="list-group-item"><strong>City:</strong> {{proposerFormData.cityName}}</li>
                             </ul>
-                        </div>
                     </div>
-                  <div class="col-md-3">
-                      <div class="p-3">
-                          <ul class="m-0  list-group">
-                              <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode}}</li>
-                              <li class="list-group-item"><strong>City:</strong> {{proposerFormData.cityName}}</li>
-                          </ul>
-                      </div>
-                  </div>
+
                 </div>
                   <div class="col-md-6">
                       <div class=" p-3">
@@ -556,12 +548,6 @@
                               <li class="list-group-item" ><strong>Address 2:</strong> {{proposerFormData.raddress2}}</li>
                               <li class="list-group-item" *ngIf="proposerFormData.raddress3 != ''"><strong>Address 3:</strong> {{proposerFormData.raddress3}}</li>
                               <li class="list-group-item" *ngIf="proposerFormData.raddress4 != ''"><strong>Address 4:</strong> {{proposerFormData.raddress4}}</li>
-                          </ul>
-                      </div>
-                  </div>
-                  <div class="col-md-6">
-                      <div class=" p-3">
-                          <ul class="m-0 list-group">
                               <li class="list-group-item" ><strong>PIN code:</strong>  {{proposerFormData.rpincode}}</li>
                               <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.rcityName}}</li>
                           </ul>

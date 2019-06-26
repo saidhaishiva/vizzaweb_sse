@@ -1,145 +1,62 @@
-<div class="container-fluid">
-  <mat-card>
-  <form [formGroup]="form">
-    <div class="row">
-      <div class="col-md-12">
-        <h5 style="text-align: center">UPLOAD YOUR RESUME</h5>
-        <h6>We will get back to you at the earliest.</h6>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <mat-form-field class="w-100">
-          <input matInput placeholder="First Name" formControlName="name"  autocomplete="off" required >
-          <!--<mat-error *ngIf="form.controls.personalFirstname.errors?.required">First Name is required</mat-error>-->
-        </mat-form-field>
-      </div>
-      <div class="col-md-6">
-        <mat-form-field class="w-100">
-          <input matInput placeholder="Last Name" formControlName="email" autocomplete="off" required >
-          <!--<mat-error *ngIf="form.controls.personalLastname.errors?.required">Email is required</mat-error>-->
-        </mat-form-field>
-      </div>
-    </div>
-    <!--<div class="row">-->
-      <!--<input type="file"  (change)="readUrl($event)" formControlName="upload">-->
-      <!--&lt;!&ndash;<label class="custom-file-label"><span class="error">*</span>&ndash;&gt;-->
-         <!--&lt;!&ndash;upoload </label>&ndash;&gt;-->
-      <!--<label ><span class="error">*</span>-->
-        <!--Attach Your Photo</label>-->
-    <!--</div>-->
-    <div class="w-25 mt-2">
-      <div class="custom-file">
-        <input type="file" class="custom-file-input" (change)="readUrl($event)" >
-        <label class="custom-file-label"><span class="error">*</span>
-          Attach Your Resume</label>
-      </div>
-    </div>
-      <!--<div class="row w-100">-->
-          <!--<div class="col-md-12">-->
-              <!--<div *ngIf="profile != ''">-->
-                  <!--<span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>-->
-              <!--</div>-->
-          <!--</div>-->
-      <!--</div>-->
 
-    <div style="text-align: center" class="mt-4">
-      <button mat-raised-button color="primary" (click)="update()"> Sumbit</button>
-    </div>
+<section class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
+    <div  class="bg-map">
+        <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
+            <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30" (ngSubmit)="login()" fxFlex.sm="60" class="mt-style">
+                <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner" style="border-radius: 10px">
+                    <!--<mat-card-subtitle><h3>Login</h3></mat-card-subtitle>-->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Name" formControlName="name" (keypress)="nameValidate($event)" required minlength="10"  maxlength="10">
+                                <mat-icon matSuffix>person</mat-icon>
+                                <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+                            </mat-form-field >
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="w-100">
+                            <input matInput placeholder="Mobile number" formControlName="mobileno" (keypress)="numberValidate($event)" required minlength="10"  maxlength="10">
+                            <mat-icon matSuffix>call</mat-icon>
 
-    <h6 class="text-center mt-4">OR</h6>
-    <div class="row">
-      <div class="col-md-3">
-        <mat-form-field class="w-100">
-          <input matInput placeholder="Name" formControlName="name"  autocomplete="off" required >
-          <!--<mat-error *ngIf="form.controls.personalFirstname.errors?.required">First Name is required</mat-error>-->
-        </mat-form-field>
-      </div>
-      <div class="col-md-3">
-        <mat-form-field class="w-100">
-          <input matInput placeholder="Father's Name" formControlName="fathername" autocomplete="off" required >
-          <!--<mat-error *ngIf="form.controls.personalLastname.errors?.required">Email is required</mat-error>-->
-        </mat-form-field>
-      </div>
+                            <mat-error *ngIf="form.controls.mobileno.errors?.required">Mobile number is required</mat-error>
+                            </mat-form-field >
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Email" formControlName="email"  required>
+                                <mat-icon matSuffix>email</mat-icon>
 
-      <div class="col-md-3">
-        <mat-form-field>
-          <input matInput [matDatepicker]="picker" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" required>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-          <!--<mat-error *ngIf="form.controls.personalDob.errors?.required">DOB is required</mat-error>-->
-        </mat-form-field>
-      </div>
-      <div class="col-md-3">
-        <h6 class="mt-3">Gender:</h6>
-        <mat-radio-group formControlName="gender">
-          <mat-radio-button value="male">Male</mat-radio-button>
-          <mat-radio-button value="female">Female</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <!--<div class="col-md-4">-->
-        <!--<mat-form-field>-->
-          <!--<input matInput placeholder="age" formControlName="age">-->
-        <!--</mat-form-field>-->
-      <!--</div>-->
-      <!--<div class="row">-->
+                                <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
+                            </mat-form-field >
+                        </div>
+                        <div class="col-md-6">
+                                <!--<input matInput placeholder="Job Profile" formControlName="profile" (keypress)="nameValidate($event)" required>-->
+                                <!--<mat-icon matSuffix>person</mat-icon>-->
+                                <!--<mat-error *ngIf="form.controls.profile.errors?.required">Job Profile is required</mat-error>-->
+                                <input type="file" class="custom-file-input" (change)="readUrl($event)" >
+                                <label class="custom-file-label"><span class="error">*</span>
+                                    Attach Your Resume</label>
+                            <!--<div class="w-25 mt-2">-->
+                                <!--<div class="custom-file">-->
+                                    <!--<input type="file" class="custom-file-input" (change)="readUrl($event)" >-->
+                                    <!--<label class="custom-file-label"><span class="error">*</span>-->
+                                        <!--Attach Your Resume</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Cover Letter" formControlName="cover" (keypress)="nameValidate($event)" required>
+                                <mat-icon matSuffix>person</mat-icon>
+                                <mat-error *ngIf="form.controls.cover.errors?.required">Cover Letter is required</mat-error>
+                            </mat-form-field >
+                        </div>
 
-     <div class="col-md-3">
-        <mat-form-field class="w-100">
-          <input matInput placeholder="Mobile No" formControlName="mobileno" maxlength="10" autocomplete="off" required >
-          <!--<mat-error *ngIf="form.controls.personalFirstname.errors?.required">First Name is required</mat-error>-->
-        </mat-form-field>
-      </div>
-      <div class="col-md-3">
-        <mat-form-field class="w-100">
-          <input matInput placeholder="Email" formControlName="email" autocomplete="off" required >
-          <!--<mat-error *ngIf="form.controls.personalLastname.errors?.required">Email is required</mat-error>-->
-        </mat-form-field>
-      </div>
-      <div class="col-md-3">
-        <mat-form-field class="w-50">
-        <input matInput  placeholder="Address" formControlName="address" >
-          <!--<input matInput placeholder="area">-->
-        </mat-form-field>
-      </div>
-    </div>
+                    </div>
+                    <button mat-raised-button color="primary" class="mat-elevation-z12 box-button w-100 mt-2" type="button" type="submit">Login</button>
 
-
-    <!--</div>-->
-    <h3>Educational Qualification</h3>
-    <div>
-      <mat-form-field class="w-100">
-      <input matInput formControlName="educationhsc" placeholder="HSC ( Name of the Institution ,year of passing, Percentage )*">
-      </mat-form-field><br>
-      <mat-form-field class="w-100" >
-      <input matInput formControlName="educationug" placeholder="UG ( Name of the Institution ,year of passing, Percentage )*">
-      </mat-form-field><br>
-      <mat-form-field class="w-100" >
-      <input  matInput  formControlName="educationpg" placeholder="PG ( Name of the Institution ,year of passing, Percentage )*">
-      </mat-form-field>
+                </mat-card>
+            </form>
+        </div>
     </div>
-    <h3>Experience</h3>
-    <div>
-      <mat-form-field class="w-100">
-      <input  matInput  formControlName="experience1" placeholder="1 ( Name of the Organisation , Designation , years of expierience )*">
-      </mat-form-field><br>
-      <mat-form-field class="w-100">
-      <input matInput  formControlName="experience2" placeholder="2 ( Name of the Organisation , Designation , years of expierience )*">
-      </mat-form-field><br>
-      <mat-form-field class="w-100">
-      <input matInput formControlName="experience3" placeholder="3 ( Name of the Organisation , Designation , years of expierience )*"><br>
-      </mat-form-field>
-    </div>
-    <!--<div class="row">-->
-      <mat-form-field class="w-100">
-      <!--<div class="col-md-12">-->
-      <textarea matInput col="30" rows="5"formControlName="applicantskills" placeholder="Your Skills"></textarea>
-      <!--</div>-->
-      </mat-form-field>
-    <!--</div>-->
-    <div style="text-align: center">
-      <button mat-raised-button color="primary" (click)="onsubmit()"> Sumbit</button>
-    </div>
-  </form>
-</mat-card>
-</div>
+</section>
