@@ -1182,7 +1182,7 @@
                         <mat-slide-toggle [(ngModel)]="item.mainQuestion.checked" ></mat-slide-toggle>
                       </div>
 
-                      <div class="col-md-12" *ngIf="j == 0 && item.mainQuestion.checked">
+                      <div class="col-md-12" *ngIf="i == 0 && item.mainQuestion.checked">
                           <div class="container">
                             <table class="table table-bordered">
                               <thead>
@@ -1298,7 +1298,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6" *ngIf="item.aName!=''">
+                  <div class="col-md-6" *ngIf="item.aName!='' && i==0">
                     <div class="p-3">
                       <h6 class="color-blue text-left">APOINTEE DETAILS</h6>
                       <div class="row">
@@ -1311,7 +1311,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-6" *ngIf="item.appointeeRelationToNominee!=''">
+                  <div class="col-md-6" *ngIf="item.appointeeRelationToNominee!='' && i==0">
                     <div class="p-3">
                       <h6 class="color-blue mt-4"></h6>
                       <div class="row">
