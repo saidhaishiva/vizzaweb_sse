@@ -70,10 +70,14 @@ export class HomeComponent implements OnInit {
         // });
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
-        if (!sessionStorage.sideMenu) {
-            this.settings.HomeSidenavUserBlock = true;
-            this.settings.sidenavIsOpened = true;
-            this.settings.sidenavIsPinned = true;
+        if(window.innerWidth < 787){
+            this.settings.HomeSidenavUserBlock = false;
+            this.settings.sidenavIsOpened = false;
+            this.settings.sidenavIsPinned = false;
+        }else{
+        this.settings.HomeSidenavUserBlock = true;
+        this.settings.sidenavIsOpened = true;
+        this.settings.sidenavIsPinned = true;
         }
         this.settings.menu = 'vertical';
         this.commentBox = false;

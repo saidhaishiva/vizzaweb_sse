@@ -4,6 +4,8 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {AppSettings} from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
 import {ValidationService} from '../../shared/services/validation.service';
+import {split} from 'ts-node/dist';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-career',
@@ -19,7 +21,11 @@ webhost: any;
     url: any;
     getUrl: any;
     fileUploadPath: any;
-  constructor(public fb: FormBuilder, public config: ConfigurationService,public validation: ValidationService,  public appSettings: AppSettings, public common: CommonService) {
+    job: any;
+    uploadAddressProofName: any;
+    getBase64: any;
+   uploadType: any;
+  constructor(public fb: FormBuilder, public config: ConfigurationService,public validation: ValidationService,  private toastr: ToastrService, public appSettings: AppSettings, public common: CommonService) {
       this.webhost = this.config.getimgUrl();
       this.settings = this.appSettings.settings;
     this.form = this.fb.group({
@@ -33,130 +39,94 @@ webhost: any;
   }
 
   ngOnInit() {
+      this.jobProfile();
   }
-    login() {
 
-    }
-update() {
+update(value) {
     const data = {
         'platform': 'web',
-        'applied_type': '1',
         'applicant_name': this.form.controls['name'].value,
         'applicant_email': this.form.controls['email'].value,
-        'applicant_resume':this.form.controls['upload'].value,
+        'applicant_mobile': this.form.controls['mobileno'].value,
+        'job_role':this.form.controls['profile'].value,
+        'cover_letter':this.form.controls['cover'].value,
+        'base64': this.getBase64,
+        'file_ext' : this.uploadType
     };
-    this.settings.loadingSpinner = true;
-    this.common.careerupdate(data).subscribe(
-        (successData) => {
-            this.updateSuccess(successData);
-        },
-        (error) => {
-            this.updateFailure(error);
-        }
-    );
-}
+    // if(value.valid){
+        this.settings.loadingSpinner = true;
+        this.common.careerupdate(data).subscribe(
+            (successData) => {
+                this.updateSuccess(successData);
+            },
+            (error) => {
+                this.updateFailure(error);
+            }
+        );
+    }
+    // }
+
+
     updateSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
-            alert();
-        } else {
-            // this.toastr.error(successData.ErrorObject, 'Failed');
+            this.toastr.success(successData.ResponseObject);
         }
     }
 
     updateFailure(error) {
         this.settings.loadingSpinner = false;
     }
-// upload file
-    readUrl(event: any) {
-        this.size = event.srcElement.files[0].size;
-        if (event.target.files && event.target.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = (event: any) => {
-                this.getUrl1 = [];
-                this.url = event.target.result;
-                this.getUrl = this.url.split(',');
-                this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
-
-            };
-            reader.readAsDataURL(event.target.files[0]);
-        }
-
-    }
-    onUploadFinished(event) {
-        this.getUrl = event[1];
+    // job profile
+    jobProfile() {
         const data = {
             'platform': 'web',
-            'uploadtype': 'single',
-            'images': this.getUrl,
-            'flag': 'careers'
         };
-        this.common.fileUploadCareer(data).subscribe(
+        this.settings.loadingSpinner = true;
+        this.common.jobDescription(data).subscribe(
             (successData) => {
-                this.fileUploadSuccess(successData);
+                this.profileSuccess(successData);
             },
             (error) => {
-                this.fileUploadFailure(error);
+                this.profileFailure(error);
             }
         );
     }
-    public fileUploadSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.fileUploadPath = successData.ResponseObject.imagePath;
-            console.log( this.fileUploadPath,' this.fileUploadPath');
-
-
-        } else {
-            // this.toastr.error(successData.ErrorObject, 'Failed');
+    profileSuccess(successData) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            this.job = successData.ResponseObject;
+            console.log(this.job,'jghghgkj');
         }
     }
 
-    public fileUploadFailure(error) {
+    profileFailure(error) {
+        this.settings.loadingSpinner = false;
     }
-    // onsubmit() {
-    //     const data = {
-    //         'platform': 'web',
-    //         'applied_type': '0',
-    //         'applicant_name': this.form.controls['name'].value,
-    //         'applicant_email': this.form.controls['email'].value,
-    //         'applicant_resume': "uploads/careers/raj.txt",
-    //         'father_name': this.form.controls['fathername'].value,
-    //         'mobile_no': this.form.controls['mobileno'].value,
-    //         'address': this.form.controls['address'].value,
-    //         'dob': this.form.controls['dob'].value,
-    //         'age':  this.form.controls['age'].value,
-    //         'gender':  this.form.controls['gender'].value,
-    //         'education_hsc_details':  this.form.controls['educationhsc'].value,
-    //         'education_ug_details':  this.form.controls['educationug'].value,
-    //         'education_pg_details':  this.form.controls['educationpg'].value,
-    //         'experience1':  this.form.controls['experience1'].value,
-    //         'experience2': '',
-    //         'experience3': '',
-    //         'applicant_skills':  this.form.controls['applicantskills'].value,
-    //     };
-    //     this.settings.loadingSpinner = true;
-    //     this.common.careerupdate(data).subscribe(
-    //         (successData) => {
-    //             this.updatedSuccess(successData);
-    //         },
-    //         (error) => {
-    //             this.updatedFailure(error);
-    //         }
-    //     );
-    // }
-    // updatedSuccess(successData) {
-    //     this.settings.loadingSpinner = false;
-    //     if (successData.IsSuccess) {
-    //     } else {
-    //         // this.toastr.error(successData.ErrorObject, 'Failed');
-    //     }
-    // }
-    //
-    // updatedFailure(error) {
-    //     this.settings.loadingSpinner = false;
-    // }
+
+
+    uploadProof(event: any) {
+        let getUrlEdu = [];
+        // let typeList = [];
+        for (let i = 0; i < event.target.files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = (event: any) => {
+                this.url = event.target.result;
+                getUrlEdu.push(this.url.split(','));
+                this.onUploadFinished(getUrlEdu);
+            };
+            reader.readAsDataURL(event.target.files[i]);
+        }
+        this.uploadAddressProofName = event.target.files[0].name;
+      this.uploadType =  event.target.files[0].type;
+      console.log(event.target.accept, 'jhgfghj');
+      // console.log(event, 'jhgfghj');
+      //   typeList = split( event.target.files[0].type);
+      //   console.log(typeList, 'typeList');
+    }
+    onUploadFinished( basecode) {
+        this.getBase64 = basecode[0][1];
+    }
 
     // validation
     numberValidate(event: any) {

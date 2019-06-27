@@ -319,7 +319,7 @@
                       <div class="col-md-3 mt-2">
                         <mat-checkbox formControlName="Repairofglass"><strong> Repair of glass, plastic fibre and rubber glass </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '5' && vehicle.controls['package'].value == '6' && vehicle.controls['package'].value == '7'">
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '5' || vehicle.controls['package'].value == '6' || vehicle.controls['package'].value == '7'">
                         <mat-checkbox formControlName="Tyresecure"><strong> Tyre Secure </strong></mat-checkbox>
                       </div>
                       <div class="col-md-3 mt-2">
