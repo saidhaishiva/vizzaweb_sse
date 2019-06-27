@@ -1192,7 +1192,7 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                 'occupationCode':this.insured.controls['insuredOccupationCode'].value,
                 'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
                 'occupationClassValue':this.insured.controls['insuredDescriptionCodeName'].value,
-                'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
+                'classDescription': this.insured.controls['insuredDescription'].value,
                 'classDescriptionValue': this.insureoccupationDescription ? this.insured.controls['insuredClassDescriptionCodeName'].value : this.insured.controls['insuredClassDescriptionCodeName'].value,
                 'lastName':  this.insured.controls['insuredLastname'].value,
                 "partyAddressDOList": [{
@@ -1255,7 +1255,8 @@ export class PersonalAccidentReligareProposalComponent implements OnInit {
                     'occupationClass': this.insured.controls['insuredDescriptionCode'].value,
                     'occupationClassValue':this.insured.controls['insuredDescriptionCodeName'].value,
 
-                    'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
+                    // 'classDescription': this.insureoccupationDescription ? this.insured.controls['insuredDescription'].value : this.insured.controls['insuredClassDescriptionCode'].value,
+                    'classDescription': this.insured.controls['insuredDescription'].value,
                     'classDescriptionValue': this.insureoccupationDescription ? this.insured.controls['insuredClassDescriptionCodeName'].value : this.insured.controls['insuredClassDescriptionCodeName'].value,
                     'lastName':  this.insured.controls['insuredLastname'].value,
                     'height': this.insured.controls['insuredHeight'].value,

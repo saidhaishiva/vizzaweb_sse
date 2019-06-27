@@ -47,7 +47,7 @@ export class RenewalReminderComponent implements OnInit {
       'insurepolicyno': ['', Validators.compose([Validators.required])],
       'insurepremiumamount': ['', Validators.compose([Validators.required])],
       'insurecompanyname': ['',Validators.compose([Validators.required])],
-      'paymentfrequeny': ['',Validators.compose([Validators.required])]
+      'paymentfrequeny': ['',Validators.compose([Validators.required])],
     });
 
     this.settings = this.appSettings.settings;
@@ -249,11 +249,11 @@ export class RenewalReminderComponent implements OnInit {
       'image_path': '',
         'file_type': '1'
     };
-    let length = this.allImage.length-1;
-    for (let k = 0; k < this.allImage[length].length; k++) {
-      this.fileDetails[k].image = this.allImage[length][k][1];
-    }
-    data.image_path = this.fileDetails;
+    // let length = this.allImage.length-1;
+    // for (let k = 0; k < this.allImage[length].length; k++) {
+    //   this.fileDetails[k].image = this.allImage[length][k][1];
+    // }
+    // data.image_path = this.fileDetails;
     this.common.fileUploadPolicyHome(data).subscribe(
         (successData) => {
           this.fileUploadSuccess(successData);
