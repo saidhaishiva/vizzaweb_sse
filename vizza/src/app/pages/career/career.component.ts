@@ -42,7 +42,7 @@ webhost: any;
       this.jobProfile();
   }
 
-update() {
+update(value) {
     const data = {
         'platform': 'web',
         'applicant_name': this.form.controls['name'].value,
@@ -53,16 +53,20 @@ update() {
         'base64': this.getBase64,
         'file_ext' : this.uploadType
     };
-    this.settings.loadingSpinner = true;
-    this.common.careerupdate(data).subscribe(
-        (successData) => {
-            this.updateSuccess(successData);
-        },
-        (error) => {
-            this.updateFailure(error);
-        }
-    );
-}
+    // if(value.valid){
+        this.settings.loadingSpinner = true;
+        this.common.careerupdate(data).subscribe(
+            (successData) => {
+                this.updateSuccess(successData);
+            },
+            (error) => {
+                this.updateFailure(error);
+            }
+        );
+    }
+    // }
+
+
     updateSuccess(successData) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {

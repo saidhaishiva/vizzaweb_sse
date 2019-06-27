@@ -4,7 +4,6 @@
         <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
             <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-style">
                 <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner" style="border-radius: 10px">
-                    <!--<mat-card-subtitle><h3>Login</h3></mat-card-subtitle>-->
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field class="w-100">
@@ -30,11 +29,15 @@
                             </mat-form-field >
                         </div>
                         <div class="col-md-6">
+                            <mat-form-field class="w-100">
+
                             <mat-select  placeholder="Job Profile" formControlName="profile"  required>
                                 <mat-option *ngFor="let status of job" value= {{status.job_id}}> {{status.job_desc}} </mat-option>
                             </mat-select>
+                             <mat-error *ngIf="form.controls.profile.errors?.required">Job Profile is required</mat-error>
+
+                            </mat-form-field>
                             <!--<mat-icon matSuffix>search</mat-icon>-->
-                            <!--<mat-error *ngIf="form.controls.profile.errors?.required">Job Profile is required</mat-error>-->
                         </div>
 
                         <!--<div class="col-md-6">-->
@@ -55,12 +58,13 @@
                                 <input matInput placeholder="Cover Letter" formControlName="cover" (keypress)="nameValidate($event)" required>
                                 <!--<i class="fas fa-location-arrow"></i>-->
                                 <mat-icon matSuffix>arrow</mat-icon>
-                                <mat-error *ngIf="form.controls.cover.errors?.required">Cover Letter is required</mat-error>
+                            <mat-error *ngIf="form.controls.cover.errors?.required">Cover Letter is required</mat-error>
                             </mat-form-field >
+
                         </div>
 
                     </div>
-                    <button mat-raised-button color="primary"  (click)="update()">Submit</button>
+                    <button mat-raised-button color="primary"  (click)="update(form.value)">Submit</button>
 
                 </mat-card>
             </form>
