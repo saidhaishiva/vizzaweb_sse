@@ -2,7 +2,7 @@
 <section class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
     <div  class="bg-map">
         <div fxLayout="row" fxLayoutAlign="center center" class="h-100">
-            <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30" (ngSubmit)="login()" fxFlex.sm="60" class="mt-style">
+            <form [formGroup]="form" fxFlex="80" fxFlex.gt-sm="30"  fxFlex.sm="60" class="mt-style">
                 <mat-card fxLayout="column" fxLayoutAlign="center center" class="mat-elevation-z12 box-content-inner" style="border-radius: 10px">
                     <!--<mat-card-subtitle><h3>Login</h3></mat-card-subtitle>-->
                     <div class="row">
@@ -30,30 +30,37 @@
                             </mat-form-field >
                         </div>
                         <div class="col-md-6">
-                                <!--<input matInput placeholder="Job Profile" formControlName="profile" (keypress)="nameValidate($event)" required>-->
-                                <!--<mat-icon matSuffix>person</mat-icon>-->
-                                <!--<mat-error *ngIf="form.controls.profile.errors?.required">Job Profile is required</mat-error>-->
-                                <input type="file" class="custom-file-input" (change)="readUrl($event)" >
-                                <label class="custom-file-label"><span class="error">*</span>
-                                    Attach Your Resume</label>
-                            <!--<div class="w-25 mt-2">-->
-                                <!--<div class="custom-file">-->
-                                    <!--<input type="file" class="custom-file-input" (change)="readUrl($event)" >-->
-                                    <!--<label class="custom-file-label"><span class="error">*</span>-->
-                                        <!--Attach Your Resume</label>-->
-                                <!--</div>-->
-                            <!--</div>-->
+                            <mat-select  placeholder="Job Profile" formControlName="profile"  required>
+                                <mat-option *ngFor="let status of job" value= {{status.job_id}}> {{status.job_desc}} </mat-option>
+                            </mat-select>
+                            <!--<mat-icon matSuffix>search</mat-icon>-->
+                            <!--<mat-error *ngIf="form.controls.profile.errors?.required">Job Profile is required</mat-error>-->
+                        </div>
+
+                        <!--<div class="col-md-6">-->
+                            <!--<input type="file" class="custom-file-input" (select)="uploadProof($event)">-->
+                            <!--<label class="custom-file-label"><span class="error">*</span>-->
+                                <!--Attach Your Resume</label>-->
+
+                        <!--</div>-->
+                        <div class="col-md-6">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" accept=".doc, .docx, .pdf" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                    <label class="custom-file-label"> Upload Your Resume</label>
+                                </div>
+                            <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field class="w-100">
                                 <input matInput placeholder="Cover Letter" formControlName="cover" (keypress)="nameValidate($event)" required>
-                                <mat-icon matSuffix>person</mat-icon>
+                                <!--<i class="fas fa-location-arrow"></i>-->
+                                <mat-icon matSuffix>arrow</mat-icon>
                                 <mat-error *ngIf="form.controls.cover.errors?.required">Cover Letter is required</mat-error>
                             </mat-form-field >
                         </div>
 
                     </div>
-                    <button mat-raised-button color="primary" class="mat-elevation-z12 box-button w-100 mt-2" type="button" type="submit">Login</button>
+                    <button mat-raised-button color="primary"  (click)="update()">Submit</button>
 
                 </mat-card>
             </form>
