@@ -1,101 +1,135 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" class="flex-p">
-    <form class="user-search" >
-    </form>
-    <div fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-form-field class="user-search-input">
-            <input matInput placeholder="Search user by name..." [(ngModel)]="searchText" name="search">
-        </mat-form-field>
-    </div>
-</div>
 
-<section id="appointment" class="doctorlist">
-<div >
-    <!--<div *ngFor="let user of response |  UserSearchPipe : searchText | paginate: { itemsPerPage: 10, currentPage: page }" fxFlex="100" class="flex-p">-->
-    <div *ngFor="let user of response " >
-        <mat-card class="p-0 mb-2 mt-viwe-profile1">
+<ngx-datatable
+    #table
+    class="material"
+    [headerHeight]="50"
+    [limit]="5"
+    [columnMode]="'force'"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [rows]="rows">
+
+    <ngx-datatable-column>
+        <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+            <mat-card class="p-0 mb-4 mt-viwe-profile1">
             <div fxLayout="row"  class="head-card">
-                <div class="col-md-1 text-right w-100">
-                    <mat-icon style="color: white;cursor: pointer" (click)="redirect(user)">visibility</mat-icon>
-                </div>
-                <div class="col-md-7 text-left">
-                    <div class="f-size" (click)="redirect(user)" innerHtml="{{user.content | limitTo:200}}...">
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <p class="f-size w-100 text-right" fxLayout="row" fxLayoutAlign="center center" style="color: white">{{user.refrence_by}} &nbsp;{{user.refrence_date | date:'dd-MMM-yy'}}</p>
-                </div>
 
-
-                <!--<h5 class="user-name text-right w-100">-->
-                    <!--<p style="color: white">{{user.refrence_by}} &nbsp;{{user.refrence_date | date:'dd-MMM-yy'}}</p>-->
-                <!--</h5>-->
-                <!--<button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">-->
-                    <!--<mat-icon>more_vert</mat-icon>-->
-                <!--</button>-->
+            <div class="col-md-12s">
+            <div class="f-size" (click)="redirect(row)" innerHtml="{{row.content| limitTo:350}}...  <strong>Read More</strong>">
             </div>
-            <!--<mat-menu #menu="matMenu" xPosition="before">-->
-                <!--<span (mouseleave)="menuTrigger.closeMenu()">-->
-                    <!--<button mat-menu-item (click)="openUserDialog(user);">-->
-                        <!--<mat-icon>mode_edit</mat-icon>-->
-                        <!--<span>Edit</span>-->
-                    <!--</button>-->
-                    <!--<button mat-menu-item (click)="deleteUser(user);">-->
-                        <!--<mat-icon>delete</mat-icon>-->
-                        <!--<span>Delete</span>-->
-                    <!--</button>-->
-                <!--</span>-->
-            <!--</mat-menu>-->
-            <!--<div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">-->
-                <!--&lt;!&ndash;<div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="user-img">&ndash;&gt;-->
-                        <!--&lt;!&ndash;&lt;!&ndash;<img src="assets/img/users/default-user.jpg" class="transition-2" >&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                   <!--&lt;!&ndash;&ndash;&gt;-->
+            <p class="f-size w-100" style="color: #5d965d">{{row.refrence_by}} &nbsp;{{row.refrence_date | date:'dd-MMM-yy'}}</p>
+            </div>
+
+
+
+            </div>
+
+            </mat-card>
+
+<!--{{row | json}}fghfgh-->
+        </ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>
+
+
+<!--<div fxLayout="row" fxLayoutAlign="space-between center" class="flex-p">-->
+    <!--<form class="user-search" >-->
+    <!--</form>-->
+    <!--<div fxLayout="row" fxLayoutAlign="space-between center">-->
+        <!--<mat-form-field class="user-search-input">-->
+            <!--<input matInput placeholder="Search user by name..." [(ngModel)]="searchText" name="search">-->
+        <!--</mat-form-field>-->
+
+    <!--</div>-->
+<!--</div>-->
+
+<!--<section id="appointment" class="doctorlist">-->
+<!--<div >-->
+    <!--&lt;!&ndash;<div *ngFor="let user of response |  UserSearchPipe : searchText | paginate: { itemsPerPage: 10, currentPage: page }" fxFlex="100" class="flex-p">&ndash;&gt;-->
+    <!--<div *ngFor="let user of response " >-->
+        <!--<mat-card class="p-0 mb-4 mt-viwe-profile1">-->
+            <!--<div fxLayout="row"  class="head-card">-->
+                <!--&lt;!&ndash;<div class="col-md-1 text-right w-100">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<mat-icon style="color: white;cursor: pointer" (click)="redirect(user)">visibility</mat-icon>&ndash;&gt;-->
                 <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                <!--<div fxFlex="100" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2 ml-2" >-->
-                    <!--<div fxFlex="30" fxFlex.xs="100" fxLayout="column">-->
-                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                            <!--<span class="text-color mr-2">Reference By :</span> {{user.refrence_by}}-->
-                        <!--</p>-->
-                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                            <!--<span class="text-color mr-2">Publish Days :</span> {{user.post_days}}-->
-                        <!--</p>-->
-
-                        <!--&lt;!&ndash;<div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" [innerHtml]="user.content"> </div>&ndash;&gt;-->
-
+                <!--<div class="col-md-12s">-->
+                    <!--<div class="f-size" (click)="redirect(user)" innerHtml="{{user.content | limitTo:350}}...  <strong>Read More</strong>">-->
                     <!--</div>-->
-                    <!--<div fxFlex="30" fxFlex.xs="100" fxLayout="column">-->
-                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                            <!--<span class="text-color mr-2">Reference Date :</span> {{user.refrence_date | date:'dd-MMM-yy'}}-->
-                        <!--</p>-->
-                        <!--<p fxLayout="row" fxLayoutAlign="start center">-->
-                            <!--<span class="text-color mr-2">Publish Date :</span> {{user.publish_date | date:'dd-MMM-yy'}}-->
-                        <!--</p>-->
-                    <!--</div>-->
-                    <!--<div fxFlex="40" fxFlex.xs="100" fxLayout="column">-->
-                        <!--<div fxLayout="row" fxLayoutAlign="start end" class="mt-2">-->
-                            <!--<span class="text-color mb-1">Content :</span>-->
-                            <!--<div fxLayout="row" fxLayoutAlign="start end" class="f-size ml-2" style="cursor: pointer;" (click)="redirect(user)" innerHtml="{{user.content | limitTo:50}}..."> </div>-->
-                        <!--</div>-->
-                    <!--</div>-->
-
+                    <!--<p class="f-size w-100" style="color: #5d965d">{{user.refrence_by}} &nbsp;{{user.refrence_date | date:'dd-MMM-yy'}}</p>-->
                 <!--</div>-->
+
+
+
+                <!--&lt;!&ndash;<h5 class="user-name text-right w-100">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<p style="color: white">{{user.refrence_by}} &nbsp;{{user.refrence_date | date:'dd-MMM-yy'}}</p>&ndash;&gt;-->
+                <!--&lt;!&ndash;</h5>&ndash;&gt;-->
+                <!--&lt;!&ndash;<button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<mat-icon>more_vert</mat-icon>&ndash;&gt;-->
+                <!--&lt;!&ndash;</button>&ndash;&gt;-->
             <!--</div>-->
-        </mat-card>
-    </div>
-</div>
-</section>
+            <!--&lt;!&ndash;<mat-menu #menu="matMenu" xPosition="before">&ndash;&gt;-->
+                <!--&lt;!&ndash;<span (mouseleave)="menuTrigger.closeMenu()">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button mat-menu-item (click)="openUserDialog(user);">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<mat-icon>mode_edit</mat-icon>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span>Edit</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<button mat-menu-item (click)="deleteUser(user);">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<mat-icon>delete</mat-icon>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span>Delete</span>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</button>&ndash;&gt;-->
+                <!--&lt;!&ndash;</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;</mat-menu>&ndash;&gt;-->
+            <!--&lt;!&ndash;<div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;<div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;<div class="user-img">&ndash;&gt;&ndash;&gt;-->
+                        <!--&lt;!&ndash;&lt;!&ndash;&lt;!&ndash;<img src="assets/img/users/default-user.jpg" class="transition-2" >&ndash;&gt;&ndash;&gt;&ndash;&gt;-->
+                    <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+                   <!--&lt;!&ndash;&lt;!&ndash;&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
+                <!--&lt;!&ndash;<div fxFlex="100" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2 ml-2" >&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div fxFlex="30" fxFlex.xs="100" fxLayout="column">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p fxLayout="row" fxLayoutAlign="start center">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="text-color mr-2">Reference By :</span> {{user.refrence_by}}&ndash;&gt;-->
+                        <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p fxLayout="row" fxLayoutAlign="start center">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="text-color mr-2">Publish Days :</span> {{user.post_days}}&ndash;&gt;-->
+                        <!--&lt;!&ndash;</p>&ndash;&gt;-->
 
-<div *ngIf="response" fxLayout="row wrap">
-    <div fxFlex="100" class="flex-p">
-        <mat-card class="p-0 text-center">
-            <pagination-controls class="gradus-pagination" autoHide="true" maxSize="3" (pageChange)="onPageChanged($event)"></pagination-controls>
-        </mat-card>
-    </div>
-</div>
+                        <!--&lt;!&ndash;&lt;!&ndash;<div fxLayout="row" fxLayoutAlign="start center" (click)="redirect(user.content)" [innerHtml]="user.content"> </div>&ndash;&gt;&ndash;&gt;-->
 
-<div *ngIf="!response" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">
-    <mat-spinner color="primary"></mat-spinner>
-</div>
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div fxFlex="30" fxFlex.xs="100" fxLayout="column">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p fxLayout="row" fxLayoutAlign="start center">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="text-color mr-2">Reference Date :</span> {{user.refrence_date | date:'dd-MMM-yy'}}&ndash;&gt;-->
+                        <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<p fxLayout="row" fxLayoutAlign="start center">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="text-color mr-2">Publish Date :</span> {{user.publish_date | date:'dd-MMM-yy'}}&ndash;&gt;-->
+                        <!--&lt;!&ndash;</p>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;<div fxFlex="40" fxFlex.xs="100" fxLayout="column">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<div fxLayout="row" fxLayoutAlign="start end" class="mt-2">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<span class="text-color mb-1">Content :</span>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div fxLayout="row" fxLayoutAlign="start end" class="f-size ml-2" style="cursor: pointer;" (click)="redirect(user)" innerHtml="{{user.content | limitTo:50}}..."> </div>&ndash;&gt;-->
+                        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--</mat-card>-->
+    <!--</div>-->
+<!--</div>-->
+<!--</section>-->
+
+<!--<div *ngIf="response" fxLayout="row wrap">-->
+    <!--<div fxFlex="100" class="flex-p">-->
+        <!--<mat-card class="p-0 text-center">-->
+            <!--<pagination-controls class="gradus-pagination" autoHide="true" maxSize="3" (pageChange)="onPageChanged($event)"></pagination-controls>-->
+        <!--</mat-card>-->
+    <!--</div>-->
+<!--</div>-->
+
+<!--<div *ngIf="!response" fxLayout="column" fxLayoutAlign="center center" class="user-spinner">-->
+    <!--<mat-spinner color="primary"></mat-spinner>-->
+<!--</div>-->
 
 
