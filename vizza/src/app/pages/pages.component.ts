@@ -164,10 +164,10 @@ export class PagesComponent implements OnInit {
 
   iconclick(){
     let dialogRef = this.dialog.open(ContactComponent, {
-      width: '1000px',
-      height: '500px',
-    });
-  }
+    width: '1000px',
+    height: '500px',
+  });
+}
 
   // public closeSubMenus(){
   //   let menu = document.querySelector(".sidenav-menu-outer");

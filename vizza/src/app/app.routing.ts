@@ -83,7 +83,7 @@ import {DmForgotpasswordComponent} from './pages/dm-forgotpassword/dm-forgotpass
 import {DmConfirmpasswordComponent} from './pages/dm-confirmpassword/dm-confirmpassword.component';
 import {AboutVizzaComponent} from './pages/about-vizza/about-vizza.component';
 import {MediaCenterComponent} from './pages/media-center/media-center.component';
-import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
+// import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
 import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
 import {PersonalAccidentReligareProposalComponent} from './pages/personal-accident-religare-proposal/personal-accident-religare-proposal.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
@@ -154,6 +154,7 @@ import {LearningCenterComponent} from './pages/learning-center/learning-center.c
 import { CarTataaigPaymentSuccessComponent} from './pages/car-tataaig-payment-success/car-tataaig-payment-success.component';
 import { RelianceTwowheelerPaymentSuccessComponent} from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
 import {NewContactComponent} from './pages/new-contact/new-contact.component';
+import {EdelweissTermLifeComponent} from './pages/edelweiss-term-life/edelweiss-term-life.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -240,7 +241,7 @@ export const routes: Routes = [
             { path: 'about-pos', component:AboutPosComponent, data: { breadcrumb: 'About Pos'} },
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
-            { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
+            // { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personal-accident-religare/:stepper', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'},canDeactivate: [ReligarePaproposaldeactivateGuardService] },
             { path: 'appollo-munich-health/:stepper', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'},canDeactivate: [AppollohealthproposaldeactivateGuardService]},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
@@ -301,6 +302,7 @@ export const routes: Routes = [
             { path: 'four-wheeler-list', component: FourWheelerProductListComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-shriram/:stepper', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
             { path: 'learning-center', component: LearningCenterComponent, data: { breadcrumb: 'Learning Center'}},
+            { path: 'edelweiss-term-life', component: EdelweissTermLifeComponent, data: { breadcrumb: 'Edelweiss TermLife Component'}},
             { path: 'car-tataaig-payment-success/:status/:proId', component: CarTataaigPaymentSuccessComponent, data: { breadcrumb: 'carTataaig payment'} },
             { path: 'reliance-twowheeler-motor-payment-success/:status/:proId', component: RelianceTwowheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance Twowheeler payment'}},
 
