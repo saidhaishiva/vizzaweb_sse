@@ -110,6 +110,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public valueCalc: any;
   public valuesubCalc: any;
   public Idv: any;
+  public valid: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
     this.step = 0;
@@ -117,7 +118,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
+    this.valid = false;
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
 
@@ -198,7 +199,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       invoicePrice: 'Off',
       // policyED: ['', Validators.compose([ Validators.minLength(10)])],
       // policySD: ['', Validators.compose([ Validators.minLength(10)])],
-      vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
+      // vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
 
       electricalAccess : new FormArray([
         this.create()
@@ -239,7 +240,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.buyProduct = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
     this.vehicledetails = JSON.parse(sessionStorage.vehicledetails);
-    console.log(this.vehicledetails,'details');
+    console.log(this.vehicledetails, ' details');
 
     this.title();
     this.getOccupation();
@@ -592,9 +593,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(this.vehical.value, 'vall');
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(this.vehical.value);
-    // if (this.vehical.valid) {
-      console.log(this.vehical.value.electricalAccess, ' this.vehical.valid')
+    console.log(sessionStorage.stepper2, 'stepper2')
+    console.log(this.vehical.value, ' value')
+    console.log(this.vehical.valid, ' Vecvalid')
+    // if (check.checked == true) {
 
+      // if (this.vehical.valid ) {
       this.valueCalc = [];
       this.valueList =  this.vehical.value.electricalAccess;
 
@@ -646,7 +650,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
 
   isBaggages() {
-    if (this.vehical.controls['lossOfBaggage'].value == true) {
+
+    if (this.vehical.controls['lossOfBaggage'].value == 'Yes') {
 
     } else {
       this.vehical.controls['valueOfLossOfBaggage'].patchValue('');
