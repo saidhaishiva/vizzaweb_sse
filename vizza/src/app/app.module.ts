@@ -302,6 +302,7 @@ import { CarTataaigPaymentSuccessComponent } from './pages/car-tataaig-payment-s
 import { RelianceTwowheelerPaymentSuccessComponent } from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
 import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-policy/car-tataaig-download-policy.component';
 import { NewContactComponent } from './pages/new-contact/new-contact.component';
+import { EdelweissTermLifeComponent } from './pages/edelweiss-term-life/edelweiss-term-life.component';
 
 @NgModule({
     imports: [
@@ -562,7 +563,8 @@ import { NewContactComponent } from './pages/new-contact/new-contact.component';
         CarTataaigPaymentSuccessComponent,
         RelianceTwowheelerPaymentSuccessComponent,
         CarTataaigDownloadPolicyComponent,
-        NewContactComponent
+        NewContactComponent,
+        EdelweissTermLifeComponent
     ],
     providers: [
         AppSettings,
