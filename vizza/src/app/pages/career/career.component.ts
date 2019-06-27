@@ -34,6 +34,9 @@ webhost: any;
 
   ngOnInit() {
   }
+    login() {
+
+    }
 update() {
     const data = {
         'platform': 'web',

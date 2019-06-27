@@ -1,11 +1,12 @@
-<div class="flex-p text-right">
-  <button mat-raised-button color="primary" type="button" class="button-right" (click)="media()">
-      <mat-icon class="material-icons">keyboard_backspace</mat-icon> Back</button>
+<div class="row flex-p text-right">
+    <div class="col-sm-12 text-right">
+        <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+    </div>
 
 </div>
 
 <div class="container">
-    <mat-card>
+    <mat-card class="mt-viwe-profile1">
         <p class="text-left text-color">{{details.refrence_by}} {{details.refrence_date | date:'dd-MMM-yy'}}</p>
 
         <!--<mat-card-header>-->
@@ -16,7 +17,7 @@
             <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
         <!--</mat-card-header>-->
-        <mat-card-content  fxLayoutAlign="space-between center" >
+        <mat-card-content  fxLayoutAlign="space-between center" class="f-size" >
             <div [innerHtml]="details.content">
             </div>
         </mat-card-content>

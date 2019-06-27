@@ -83,7 +83,7 @@ import {DmForgotpasswordComponent} from './pages/dm-forgotpassword/dm-forgotpass
 import {DmConfirmpasswordComponent} from './pages/dm-confirmpassword/dm-confirmpassword.component';
 import {AboutVizzaComponent} from './pages/about-vizza/about-vizza.component';
 import {MediaCenterComponent} from './pages/media-center/media-center.component';
-import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
+// import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
 import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
 import {PersonalAccidentReligareProposalComponent} from './pages/personal-accident-religare-proposal/personal-accident-religare-proposal.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
@@ -241,7 +241,7 @@ export const routes: Routes = [
             { path: 'about-pos', component:AboutPosComponent, data: { breadcrumb: 'About Pos'} },
             { path: 'about-vizza', component:AboutVizzaComponent, data: { breadcrumb: 'About Vizza'} },
             { path: 'mediacenter', component:MediaCenterComponent, data: { breadcrumb: 'Learning Center'} },
-            { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
+            // { path: 'viewmedia', component:ViewmediaComponent, data: { breadcrumb: 'View Media Center'} },
             { path: 'personal-accident-religare/:stepper', component:PersonalAccidentReligareProposalComponent, data: { breadcrumb: 'Personal Accident Form'},canDeactivate: [ReligarePaproposaldeactivateGuardService] },
             { path: 'appollo-munich-health/:stepper', component:AppolloMunichComponent, data:{ breadcrumb: 'Appollo Munich'},canDeactivate: [AppollohealthproposaldeactivateGuardService]},
             { path: 'travelpremium', component:TravelPremiumListComponent, data: { breadcrumb: 'Travel Premium'} },
