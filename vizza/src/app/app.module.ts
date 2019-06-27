@@ -226,6 +226,7 @@ import { DownloadMessageHdfcTravel} from './pages/hdfc-travel-payment-success/hd
 import { TravelReligarePaymentSuccessComponent } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 import { DownloadMessageReligareTravel } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 // import {OrderBy} from '../oderByPipe';
+
 import {Ng2OrderModule} from 'ng2-order-pipe';
 import {KeysPipe} from '../iterateObjectPipe';
 import { ValidationService} from './shared/services/validation.service';
@@ -301,6 +302,18 @@ import { CarTataaigPaymentSuccessComponent } from './pages/car-tataaig-payment-s
 import { RelianceTwowheelerPaymentSuccessComponent } from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
 import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-policy/car-tataaig-download-policy.component';
 import { NewContactComponent } from './pages/new-contact/new-contact.component';
+import { EdelweissTermLifeComponent } from './pages/edelweiss-term-life/edelweiss-term-life.component';
+import { BajajGoldSurakshaComponent } from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
+import { JewelersBlockPolicyComponent } from './pages/jewelers-block-policy/jewelers-block-policy.component';
+import { BankersIdentityPolicyComponent } from './pages/bankers-identity-policy/bankers-identity-policy.component';
+import { SpecialContigencyPolicyComponent } from './pages/special-contigency-policy/special-contigency-policy.component';
+import { ConsequentialLossPolicyComponent } from './pages/consequential-loss-policy/consequential-loss-policy.component';
+import { MarineErectionComponent } from './pages/marine-erection/marine-erection.component';
+import { AdvanceLossProfitComponent } from './pages/advance-loss-profit/advance-loss-profit.component';
+import { ContractorMachineryPolicyComponent } from './pages/contractor-machinery-policy/contractor-machinery-policy.component';
+import { MegaPackagePolicyComponent } from './pages/mega-package-policy/mega-package-policy.component';
+import { ErectionRiskPolicyComponent } from './pages/erection-risk-policy/erection-risk-policy.component';
+import { UlipComponent } from './pages/ulip/ulip.component';
 
 @NgModule({
     imports: [
@@ -561,7 +574,19 @@ import { NewContactComponent } from './pages/new-contact/new-contact.component';
         CarTataaigPaymentSuccessComponent,
         RelianceTwowheelerPaymentSuccessComponent,
         CarTataaigDownloadPolicyComponent,
-        NewContactComponent
+        NewContactComponent,
+        EdelweissTermLifeComponent,
+        BajajGoldSurakshaComponent,
+        JewelersBlockPolicyComponent,
+        BankersIdentityPolicyComponent,
+        SpecialContigencyPolicyComponent,
+        ConsequentialLossPolicyComponent,
+        MarineErectionComponent,
+        AdvanceLossProfitComponent,
+        ContractorMachineryPolicyComponent,
+        MegaPackagePolicyComponent,
+        ErectionRiskPolicyComponent,
+        UlipComponent
     ],
     providers: [
         AppSettings,

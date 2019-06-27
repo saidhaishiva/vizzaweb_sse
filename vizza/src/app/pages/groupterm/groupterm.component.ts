@@ -5,11 +5,29 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD/MM/YYYY',
+    },
+    display: {
+        dateInput: 'DD/MM/YYYY',
+        monthYearLabel: 'MM YYYY',
+        dateA11yLabel: 'DD/MM/YYYY',
+
+        monthYearA11yLabel: 'MM YYYY',
+    },
+};
 @Component({
   selector: 'app-groupterm',
   templateUrl: './groupterm.component.html',
-  styleUrls: ['./groupterm.component.scss']
+  styleUrls: ['./groupterm.component.scss'],
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+    ],
 })
 export class GrouptermComponent implements OnInit {
     public terapp: FormGroup;
@@ -38,7 +56,6 @@ export class GrouptermComponent implements OnInit {
 
   ngOnInit() {
       this.setDate = Date.now();
-      this.setDate = this.datepipe.transform(this.setDate, 'y-MM-dd');
       this.route.params.forEach((params) => {
           this.productName = params.id;
 
@@ -54,7 +71,7 @@ export class GrouptermComponent implements OnInit {
             const data = {
                 'platform': 'web',
                 'product_type': 'offline',
-                'appointment_date': this.setDate,
+                'appointment_date': this.datepipe.transform(this.setDate, 'y-MM-dd'),
                 'appointment_time': this.terapp.controls['apptime'].value,
                 'company_name': this.terapp.controls['name'].value,
                 'customer_mobile': this.terapp.controls['mobile'].value,
