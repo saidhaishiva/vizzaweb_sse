@@ -45,9 +45,9 @@ export class RenewExistingPolicyComponent implements OnInit {
 
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
-        this.settings.HomeSidenavUserBlock = true;
-        this.settings.sidenavIsOpened = true;
-        this.settings.sidenavIsPinned = true;
+        this.settings.HomeSidenavUserBlock = false;
+        this.settings.sidenavIsOpened = false;
+        this.settings.sidenavIsPinned = false;
         this.commentBox = false;
         this.selectDate = '';
         this.fileUploadPath = '';
