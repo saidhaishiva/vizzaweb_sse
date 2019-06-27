@@ -84,6 +84,7 @@ import {DmConfirmpasswordComponent} from './pages/dm-confirmpassword/dm-confirmp
 import {AboutVizzaComponent} from './pages/about-vizza/about-vizza.component';
 import {MediaCenterComponent} from './pages/media-center/media-center.component';
 // import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
+
 import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
 import {PersonalAccidentReligareProposalComponent} from './pages/personal-accident-religare-proposal/personal-accident-religare-proposal.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';

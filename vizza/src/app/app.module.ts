@@ -226,6 +226,7 @@ import { DownloadMessageHdfcTravel} from './pages/hdfc-travel-payment-success/hd
 import { TravelReligarePaymentSuccessComponent } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 import { DownloadMessageReligareTravel } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 // import {OrderBy} from '../oderByPipe';
+
 import {Ng2OrderModule} from 'ng2-order-pipe';
 import {KeysPipe} from '../iterateObjectPipe';
 import { ValidationService} from './shared/services/validation.service';
