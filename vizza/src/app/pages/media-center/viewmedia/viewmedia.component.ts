@@ -26,7 +26,6 @@ export class ViewmediaComponent implements OnInit {
   }
   media(){
       this.router.navigate(['/mediacenter']);
-
   }
     public onPageChanged(event){
         this.page = event;

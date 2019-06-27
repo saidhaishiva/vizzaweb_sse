@@ -84,6 +84,7 @@ import {DmConfirmpasswordComponent} from './pages/dm-confirmpassword/dm-confirmp
 import {AboutVizzaComponent} from './pages/about-vizza/about-vizza.component';
 import {MediaCenterComponent} from './pages/media-center/media-center.component';
 // import {ViewmediaComponent} from './pages/media-center/viewmedia/viewmedia.component';
+
 import {ReliancePaymentSuccessComponent} from './pages/reliance-payment-success/reliance-payment-success.component';
 import {PersonalAccidentReligareProposalComponent} from './pages/personal-accident-religare-proposal/personal-accident-religare-proposal.component';
 import {TravelPremiumListComponent} from './pages/travel-premium-list/travel-premium-list.component';
@@ -154,6 +155,11 @@ import {LearningCenterComponent} from './pages/learning-center/learning-center.c
 import { CarTataaigPaymentSuccessComponent} from './pages/car-tataaig-payment-success/car-tataaig-payment-success.component';
 import { RelianceTwowheelerPaymentSuccessComponent} from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
 import {NewContactComponent} from './pages/new-contact/new-contact.component';
+import {EdelweissTermLifeComponent} from './pages/edelweiss-term-life/edelweiss-term-life.component';
+import {BajajGoldSurakshaComponent} from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
+import {UlipComponent} from './pages/ulip/ulip.component';
+import {BankersIdentityPolicyComponent} from './pages/bankers-identity-policy/bankers-identity-policy.component';
+import {SpecialContigencyPolicyComponent} from './pages/special-contigency-policy/special-contigency-policy.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -301,8 +307,14 @@ export const routes: Routes = [
             { path: 'four-wheeler-list', component: FourWheelerProductListComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-shriram/:stepper', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
             { path: 'learning-center', component: LearningCenterComponent, data: { breadcrumb: 'Learning Center'}},
+            { path: 'edelweiss-term-life', component: EdelweissTermLifeComponent, data: { breadcrumb: 'Edelweiss TermLife Component'}},
             { path: 'car-tataaig-payment-success/:status/:proId', component: CarTataaigPaymentSuccessComponent, data: { breadcrumb: 'carTataaig payment'} },
             { path: 'reliance-twowheeler-motor-payment-success/:status/:proId', component: RelianceTwowheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance Twowheeler payment'}},
+            { path: 'gold-suraksha', component: BajajGoldSurakshaComponent, data: { breadcrumb: 'Bajaj- Gold Suraksha'}},
+            { path: 'ulip', component: UlipComponent, data: { breadcrumb: 'ULIP'}},
+            { path: 'jewelers', component: JewelersblockComponent, data: { breadcrumb: 'Jewelers Block Policy'}},
+            { path: 'bankerIdentity', component: BankersIdentityPolicyComponent, data: { breadcrumb: 'Banker Identity Policy'}},
+            { path: 'specialContigency', component: SpecialContigencyPolicyComponent, data: { breadcrumb: 'Special Contigency Policy'}},
 
 
         ]
