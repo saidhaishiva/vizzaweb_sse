@@ -162,6 +162,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.previouspolicy = this.fb.group({
             preflag: ['', Validators.required],
             preName: '',
+            preNamevalue: '',
             prepolno: '',
             preAddressone: ['', Validators.required],
             preAddresstwo: '',
@@ -401,6 +402,11 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     prepolicyNameListFailure(error) {
 
+    }
+
+    selectopt() {
+        this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
+        console.log(this.previouspolicy.controls['preNamevalue'].value,'name');
     }
 
     //Nominee RelationList
@@ -689,6 +695,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.previouspolicy = this.fb.group({
                 preflag: this.getstepper3.preflag,
                 preName: this.getstepper3.preName,
+                preNamevalue: this.getstepper3.preNamevalue,
                 prepolno: this.getstepper3.prepolno,
                 preAddressone: this.getstepper3.preAddressone,
                 preAddresstwo: this.getstepper3.preAddresstwo,
