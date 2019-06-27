@@ -835,6 +835,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.compareArray = [];
     }
     compareList(value) {
+        console.log(this.productLists,'llllll');
         this.productLists = [];
         let scheme = value[0].scheme;
         for (let i = 0; i < value.length; i++) {
