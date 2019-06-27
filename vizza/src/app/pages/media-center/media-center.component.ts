@@ -56,7 +56,6 @@ export class MediaCenterComponent implements OnInit {
         } else {
         }
     }
-
     updateFailure(error) {
     }
     redirect(val){
