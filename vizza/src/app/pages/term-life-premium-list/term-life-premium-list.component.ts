@@ -30,7 +30,7 @@ export class TermLifePremiumListComponent implements OnInit {
     selectedAmountTravel: any;
     enquiryFromDetials: any;
     checkAllStatus: boolean;
-    private keyUp = new Subject<string>();
+    public keyUp = new Subject<string>();
   constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;

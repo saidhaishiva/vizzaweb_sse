@@ -23,9 +23,11 @@ export class MediaCenterComponent implements OnInit {
     public page:any;
     public response:any;
     public settings: Settings;
-    public FullView: boolean
+    public FullView: boolean;
+    public rows: any;
     constructor(public appSettings:AppSettings,public learning: LearningcenterService, public common: CommonService, public router: Router,  public dialog: MatDialog){
         this.settings = this.appSettings.settings;
+        this.rows = [];
     }
 
 
@@ -49,6 +51,7 @@ export class MediaCenterComponent implements OnInit {
     updateSuccess(successData) {
         if (successData.IsSuccess == true) {
            this.response= successData.ResponseObject;
+            this.rows =  this.response;
            console.log(this.response,'dddddddd');
         } else {
         }
@@ -57,6 +60,7 @@ export class MediaCenterComponent implements OnInit {
     updateFailure(error) {
     }
     redirect(val){
+        console.log(val,'vallllllllll');
         sessionStorage.newsLetterContent = JSON.stringify(val);
         // this.router.navigate(['/viewmedia']);
         let dialogRef = this.dialog.open(ViewmediaComponent, {

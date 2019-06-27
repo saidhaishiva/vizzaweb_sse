@@ -21,10 +21,10 @@ export class GrouppopupComponent implements OnInit {
   ngOnInit() {
   }
     onNoClick(): void {
-        this.dialogRef.close()
+        this.dialogRef.close();
+        this.topScroll();
     }
-    topScroll(){
+    topScroll() {
         document.getElementById('main-content').scrollTop = 0;
     }
-
 }
