@@ -109,6 +109,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public isFourWheelerFinanced: boolean;
   public valueCalc: any;
   public valuesubCalc: any;
+  public Idv: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
     this.step = 0;
@@ -132,7 +133,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       dob: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-      occupation: ' ',
+      occupation: '',
       aadharNumber: ['', Validators.compose([Validators.minLength(12)])],
       panNumber: ['', Validators.compose([ Validators.minLength(10)])],
       address: ['', Validators.required],

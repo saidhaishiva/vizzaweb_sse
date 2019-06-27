@@ -226,6 +226,7 @@ import { DownloadMessageHdfcTravel} from './pages/hdfc-travel-payment-success/hd
 import { TravelReligarePaymentSuccessComponent } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 import { DownloadMessageReligareTravel } from './pages/travel-religare-payment-success/travel-religare-payment-success.component';
 // import {OrderBy} from '../oderByPipe';
+
 import {Ng2OrderModule} from 'ng2-order-pipe';
 import {KeysPipe} from '../iterateObjectPipe';
 import { ValidationService} from './shared/services/validation.service';
@@ -301,6 +302,7 @@ import { CarTataaigPaymentSuccessComponent } from './pages/car-tataaig-payment-s
 import { RelianceTwowheelerPaymentSuccessComponent } from './pages/reliance-twowheeler-payment-success/reliance-twowheeler-payment-success.component';
 import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-policy/car-tataaig-download-policy.component';
 import { NewContactComponent } from './pages/new-contact/new-contact.component';
+import { EdelweissTermLifeComponent } from './pages/edelweiss-term-life/edelweiss-term-life.component';
 
 @NgModule({
     imports: [
@@ -561,7 +563,8 @@ import { NewContactComponent } from './pages/new-contact/new-contact.component';
         CarTataaigPaymentSuccessComponent,
         RelianceTwowheelerPaymentSuccessComponent,
         CarTataaigDownloadPolicyComponent,
-        NewContactComponent
+        NewContactComponent,
+        EdelweissTermLifeComponent
     ],
     providers: [
         AppSettings,
@@ -611,7 +614,7 @@ import { NewContactComponent } from './pages/new-contact/new-contact.component';
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,FourWheelerEnquirypopupComponent, ContactComponent
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent
     ]
 })
 export class AppModule { }

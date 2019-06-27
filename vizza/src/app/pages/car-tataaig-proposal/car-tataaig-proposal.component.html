@@ -310,7 +310,7 @@
                       <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1'">
                         <mat-checkbox formControlName="keyReplacement"><strong> Key Replacement </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '4' && vehicle.controls['package'].value == '6' && vehicle.controls['package'].value == '7'">
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '4' || vehicle.controls['package'].value == '6' || vehicle.controls['package'].value == '7'">
                         <mat-checkbox formControlName="Enginesecure"><strong> Engine Secure </strong></mat-checkbox>
                       </div>
                       <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && vehicle.controls['package'].value != '3'">
@@ -319,7 +319,7 @@
                       <div class="col-md-3 mt-2">
                         <mat-checkbox formControlName="Repairofglass"><strong> Repair of glass, plastic fibre and rubber glass </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '5' && vehicle.controls['package'].value == '6' && vehicle.controls['package'].value == '7'">
+                      <div class="col-md-3 mt-2" *ngIf="vehicle.controls['package'].value == '5' || vehicle.controls['package'].value == '6' || vehicle.controls['package'].value == '7'">
                         <mat-checkbox formControlName="Tyresecure"><strong> Tyre Secure </strong></mat-checkbox>
                       </div>
                       <div class="col-md-3 mt-2">
@@ -358,14 +358,6 @@
                                     <mat-option value="N">No</mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>
-                                </mat-form-field>
-                              </div>
-                              <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
-                                <mat-form-field class="w-100">
-                                  <mat-placeholder> Code <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                                  <mat-select formControlName="precode">
-                                    <mat-option *ngFor="let Codelist of precodelist | keys" value="{{Codelist.value}}">{{Codelist.value}}</mat-option>
-                                  </mat-select>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
@@ -583,8 +575,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.precode}}</li>
-                      <li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preName}}</li>
+                      <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.preName}}</li>
                       <li class="list-group-item"><strong>POLNO:</strong> {{previousFormData.preName}}</li>
                     </ul>
                   </div>
