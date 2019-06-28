@@ -4,15 +4,16 @@ import {CommonService} from '../../shared/services/common.service';
 import {DatePipe} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {MatDialog} from '@angular/material';
 
 @Component({
-  selector: 'app-special-contigency-policy',
-  templateUrl: './special-contigency-policy.component.html',
-  styleUrls: ['./special-contigency-policy.component.scss']
+  selector: 'app-group-travel',
+  templateUrl: './group-travel.component.html',
+  styleUrls: ['./group-travel.component.scss']
 })
 
-export class SpecialContigencyPolicyComponent implements OnInit {
-  public specialPolicy: FormGroup;
+export class GroupTravelComponent implements OnInit {
+  public medapp: FormGroup;
   public setDate: any;
   public selectDate: any;
   public productName: any;
@@ -20,14 +21,14 @@ export class SpecialContigencyPolicyComponent implements OnInit {
   public title: any;
   public response: any;
   public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService) {
-    this.specialPolicy = this.fb.group({
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public dialog: MatDialog) {
+    this.medapp = this.fb.group({
       'appdate': ['', Validators.required],
       'apptime': null,
       'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       'contactperson':  ['', Validators.compose([Validators.required])],
       'mobile': ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}'), Validators.minLength(10)])],
-      'email': ['', Validators.compose([Validators.required,  Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      'email': ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       'pincode': ['', Validators.compose([Validators.required])],
       'insurance': ['',Validators.compose([Validators.required])],
       'appointmentwith': ['',Validators.compose([Validators.required])]
@@ -47,21 +48,21 @@ export class SpecialContigencyPolicyComponent implements OnInit {
     this.selectDate = event.value;
     this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
   }
-  banKeeper(values) {
+  medKeeper(values) {
 
-    if (this.specialPolicy.valid) {
+    if (this.medapp.valid) {
       const data = {
         'platform': 'web',
         'product_type': 'offline',
         'appointment_date': this.setDate,
-        'appointment_time': this.specialPolicy.controls['apptime'].value,
-        'company_name': this.specialPolicy.controls['name'].value,
-        'customer_mobile': this.specialPolicy.controls['mobile'].value,
-        'customer_email': this.specialPolicy.controls['email'].value,
-        'contact_person' : this.specialPolicy.controls['contactperson'].value,
-        'pincode': this.specialPolicy.controls['pincode'].value,
-        'product_name': this.specialPolicy.controls['insurance'].value,
-        'appointment_with': this.specialPolicy.controls['appointmentwith'].value,
+        'appointment_time': this.medapp.controls['apptime'].value,
+        'company_name': this.medapp.controls['name'].value,
+        'customer_mobile': this.medapp.controls['mobile'].value,
+        'customer_email': this.medapp.controls['email'].value,
+        'contact_person' : this.medapp.controls['contactperson'].value,
+        'pincode': this.medapp.controls['pincode'].value,
+        'product_name': this.medapp.controls['insurance'].value,
+        'appointment_with': this.medapp.controls['appointmentwith'].value,
 
       };
 
@@ -127,5 +128,10 @@ export class SpecialContigencyPolicyComponent implements OnInit {
       }
     }
   }
-
+  // GroupHealthInsurer(){
+  //   const dialogRef = this.dialog.open(GroupHealthInsurer, {
+  //     width: '1200px',
+  //   });
+  //   dialogRef.disableClose = true;
+  // }
 }

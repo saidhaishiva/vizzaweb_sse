@@ -110,6 +110,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public valueCalc: any;
   public valuesubCalc: any;
   public Idv: any;
+  public valid: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
     this.step = 0;
@@ -117,7 +118,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
     this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
+    this.valid = false;
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
 
@@ -177,7 +178,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       financierName: '',
       isFourWheelerFinanced: false,
       isAddon: false,
-      lossOfBaggage: false,
+      lossOfBaggage: 'No',
       hypothecationType: '',
       typeOfCover: ['', Validators.required],
       addon: '',
@@ -198,7 +199,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       invoicePrice: 'Off',
       // policyED: ['', Validators.compose([ Validators.minLength(10)])],
       // policySD: ['', Validators.compose([ Validators.minLength(10)])],
-      vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
+      // vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
 
       electricalAccess : new FormArray([
         this.create()
@@ -239,7 +240,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.buyProduct = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
     this.vehicledetails = JSON.parse(sessionStorage.vehicledetails);
-    console.log(this.vehicledetails,'details');
+    console.log(this.vehicledetails, ' details');
 
     this.title();
     this.getOccupation();
@@ -592,9 +593,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(this.vehical.value, 'vall');
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(this.vehical.value);
-    // if (this.vehical.valid) {
-      console.log(this.vehical.value.electricalAccess, ' this.vehical.valid')
+    console.log(sessionStorage.stepper2, 'stepper2')
+    console.log(this.vehical.value, ' value')
+    console.log(this.vehical.valid, ' Vecvalid')
+    // if (check.checked == true) {
 
+      // if (this.vehical.valid ) {
       this.valueCalc = [];
       this.valueList =  this.vehical.value.electricalAccess;
 
@@ -614,15 +618,15 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(subTotal,'subtotal');
     sessionStorage.subTotal = subTotal;
 
-    if (total <= 50000) {
+    if ((total <= 50000)   ) {
       if (subTotal <= 20000) {
         stepper.next();
         this.topScroll();
     } else {
-      this.toastr.error('Non Electrical Accessories Values should be less than 20 thousand');
+      this.toastr.error('Non Electrical Accessories Values should be less than 20,000');
     }
       } else {
-        this.toastr.error('Electrical Accessories Values should be less than 50 thousand');
+        this.toastr.error('Electrical Accessories Values should be less than 50,000');
       }
 
     // }
@@ -646,7 +650,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
 
   isBaggages() {
-    if (this.vehical.controls['lossOfBaggage'].value == true) {
+
+    if (this.vehical.controls['lossOfBaggage'].value == 'Yes') {
 
     } else {
       this.vehical.controls['valueOfLossOfBaggage'].patchValue('');
@@ -654,22 +659,38 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
 
   eleAccess(i) {
-    console.log(i, 'valuuuuuu');
-    let checking = i;
-    if (checking.checked == true) {
-      this.vehical.controls['coverelectricalaccesss'].patchValue(true);
-    } else {
-      this.vehical.controls['coverelectricalaccesss'].patchValue(false);
+    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+
+      } else {
+        this.vehical.controls['coverelectricalaccesss'].value == false;
+
+    for (let i=0; i < this.getStepper2.electricalAccess.length; i++) {
+      if (  (i !=  0)) {
+
+
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+    }
+    }
 
     }
   }
   noneleAccess(i) {
-    console.log(i, 'valuuuuuu');
-    let check = i;
-    if (check.checked == true) {
-      this.vehical.controls['cover_non_elec_acc'].patchValue(true);
+    if (this.vehical.controls['cover_non_elec_acc'].value == true) {
+
     } else {
-      this.vehical.controls['cover_non_elec_acc'].patchValue(false);
+      this.vehical.controls['cover_non_elec_acc'].value == false;
+
+      for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
+        if ( i !=  0) {
+
+
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+        }
+      }
 
     }
   }

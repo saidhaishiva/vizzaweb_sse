@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <mat-form-field class="w-100">
-                                <input matInput placeholder="Name" formControlName="name" (keypress)="nameValidate($event)" required minlength="10"  maxlength="10">
+                                <input matInput placeholder="Name" formControlName="name" (keypress)="nameValidate($event)" required  maxlength="30">
                                 <mat-icon matSuffix>person</mat-icon>
                                 <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
                             </mat-form-field >
@@ -48,7 +48,7 @@
                         <!--</div>-->
                         <div class="col-md-6">
                                 <div class="custom-file">
-                                    <input type="file" class="custom-file-input" accept=".doc, .docx, .pdf" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                    <input type="file" class="custom-file-input" accept=".doc, .docx, .pdf" (change)="uploadProof($event)"   aria-describedby="inputGroupFileAddon01" >
                                     <label class="custom-file-label"> Upload Your Resume</label>
                                 </div>
                             <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
