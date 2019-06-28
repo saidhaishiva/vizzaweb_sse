@@ -18,7 +18,16 @@
     table-layout: fixed;
   }
 }
+@media (min-width: 320px) and (max-width: 767px){
+  .compare-details {
+      height: 300px;
+      overflow: auto;
+      overflow-x: scroll;
+      display: block;
+      width: 100%;
+    }
 
+   }
 .compare-details table button {
   font-size: 12px;
   padding: 0 4px;

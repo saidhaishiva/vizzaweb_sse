@@ -11,6 +11,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+
 @Component({
   selector: 'app-renewal-reminder',
   templateUrl: './renewal-reminder.component.html',
@@ -52,9 +53,9 @@ export class RenewalReminderComponent implements OnInit {
 
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
-    this.settings.HomeSidenavUserBlock = true;
-    this.settings.sidenavIsOpened = true;
-    this.settings.sidenavIsPinned = true;
+    this.settings.HomeSidenavUserBlock = false;
+    this.settings.sidenavIsOpened = false;
+    this.settings.sidenavIsPinned = false;
     this.commentBox = false;
     this.selectDate = '';
     this.fileUploadPath = '';
