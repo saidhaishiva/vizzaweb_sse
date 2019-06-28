@@ -72,7 +72,7 @@ export const horizontalMenuItems = [
     new Menu (28, 'ULIP', '/ulip', null, null, null, false, 9),
     new Menu (60, 'Bajaj-Gold Suruaksha', '/gold-suraksha', null, null, null, false, 9),
     new Menu (22, 'General Insurance', '/fix-appointment/corporate-insurance', null, null, null, true, 0),
-    // new Menu (24, 'Commercial Insurance', '/', null, null, null, true, 22),
+    new Menu (24, 'Commercial Insurance', '/', null, null, null, true, 22),
     new Menu (29, 'Jewelers Block Policy', '/jewelers', null, null, null, false, 24),
     new Menu (30, 'Bankers Identity Policy', '/bankerIdentity', null, null, null, false, 24),
     new Menu (11, 'Shopkeepers Policy', '/shopkeeperpolicy', null, null, null, false, 24),

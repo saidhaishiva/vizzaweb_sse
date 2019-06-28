@@ -143,6 +143,16 @@ export class RenewalReminderComponent implements OnInit {
   policyRenewalSuccess(successData) {
     if (successData.IsSuccess == true) {
       this.toastr.success(successData.ResponseObject);
+      this.form.controls['insurename'].patchValue('');
+      this.form.controls['insureemail'].patchValue('');
+      this.form.controls['insurepolicytype'].patchValue('');
+      this.form.controls['insuremobile'].patchValue('');
+      this.form.controls['insurepolicyno'].patchValue('');
+      this.form.controls['insurepremiumamount'].patchValue('');
+      this.form.controls['insurecompanyname'].patchValue('');
+      this.form.controls['paymentfrequeny'].patchValue('');
+      this.form.controls['startdate'].patchValue('');
+      this.form.controls['enddate'].patchValue('');
     } else {
       this.toastr.error(successData.ErrorObject);
     }
