@@ -17,12 +17,12 @@ import {ComparelistComponent} from '../health-insurance/comparelist/comparelist.
 export class ContactComponent implements OnInit {
     public form: FormGroup;
     public settings: Settings;
-    data: any;
-    size: any;
-    getUrl1: any;
-    getUrl: any;
-    url: any;
-    fileUploadPath: any;
+    public url: any;
+    public uploadAddressProofName: any;
+    public uploadType: any;
+    public getBase64: any;
+    public fileUploadPath: any;
+    public data: any;
   constructor(public dialogRef: MatDialogRef<ComparelistComponent>,
               @Inject(MAT_DIALOG_DATA)  public data1: any,  public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings) {
       this.settings = this.appSettings.settings;
@@ -40,51 +40,29 @@ export class ContactComponent implements OnInit {
 
   ngOnInit() {
   }
-    readUrl(event: any) {
-        this.size = event.srcElement.files[0].size;
-        if (event.target.files && event.target.files[0]) {
+    uploadProof(event: any) {
+        let getUrlEdu = [];
+        // let typeList = [];
+        for (let i = 0; i < event.target.files.length; i++) {
             const reader = new FileReader();
-
             reader.onload = (event: any) => {
-                this.getUrl1 = [];
                 this.url = event.target.result;
-                this.getUrl = this.url.split(',');
-                this.getUrl1.push(this.url.split(','));
-                this.onUploadFinished(this.getUrl);
-
+                getUrlEdu.push(this.url.split(','));
+                this.onUploadFinished(getUrlEdu);
             };
-            reader.readAsDataURL(event.target.files[0]);
+            reader.readAsDataURL(event.target.files[i]);
         }
-
+        this.uploadAddressProofName = event.target.files[0].name;
+        this.uploadType =  event.target.files[0].type;
+        console.log(event.target.accept, 'jhgfghj');
+        // console.log(event, 'jhgfghj');
+        //   typeList = split( event.target.files[0].type);
+        //   console.log(typeList, 'typeList');
     }
-    onUploadFinished(event) {
-        this.getUrl = event[1];
-        const data = {
-            'platform': 'web',
-            'uploadtype': 'single',
-            'images': this.getUrl,
-        };
-        this.commonService.fileUpload(data).subscribe(
-            (successData) => {
-                this.fileUploadSuccess(successData);
-            },
-            (error) => {
-                this.fileUploadFailure(error);
-            }
-        );
-    }
-    public fileUploadSuccess(successData) {
-        if (successData.IsSuccess == true) {
-            this.fileUploadPath = successData.ResponseObject.imagePath;
-
-
-        } else {
-            this.toastr.error(successData.ErrorObject, 'Failed');
-        }
+    onUploadFinished( basecode) {
+        this.getBase64 = basecode[0][1];
     }
 
-    public fileUploadFailure(error) {
-    }
     public contactDetails(): void {
         if (this.form.valid) {
             const data = {
@@ -123,5 +101,6 @@ export class ContactComponent implements OnInit {
         console.log(error);
         this.settings.loadingSpinner = false;
     }
+
 
 }

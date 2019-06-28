@@ -14,7 +14,7 @@
 
 
       <h4>Head Office:</h4>
-          Ground Floor, No.G-A,<br> Sridev Complex, NO 65, <br>CIT Nagar First main road, <br>Chennai -35
+          Ground Floor, No.G-A,<br> Sridev Complex, NO 65, <br>CIT Nagar First main road, <br>Chennai - 600035.
       <!--   <p><b><a href="https://www.google.co.in/maps/place/Sathankulam,+Tamil+Nadu+628704/@8.4426272,77.9078325,17.75z/data=!4m2!3m1!1s0x3b047865cdb41d31:0xb20923183ee569b1" target="_blank"> Branch Office: <a></b> </br>
          8A/4, Daniel Complex, Nagerkoil Road, </br>
          Sathankulam- 626 704, Tuticorin District.</br>
@@ -32,13 +32,13 @@
           <div class="col-md-6">
             <mat-form-field class="w-100">
               <input matInput placeholder="Name" formControlName="name" required>
-              <mat-error *ngIf="form.controls.name.errors?.required">name is required</mat-error>
+              <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
             </mat-form-field>
           </div>
           <div class="col-md-6">
             <mat-form-field class="w-100">
               <input matInput placeholder="Email" formControlName="email" required>
-              <mat-error *ngIf="form.controls.email.errors?.required">email is required</mat-error>
+              <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -46,7 +46,7 @@
         <div class="col-md-12">
           <mat-form-field  class="w-100">
             <input matInput placeholder="Subject" formControlName="subject" required>
-            <mat-error *ngIf="form.controls.subject.errors?.required">subject is required</mat-error>
+            <mat-error *ngIf="form.controls.subject.errors?.required">Subject is required</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -54,22 +54,16 @@
         <div class="col-md-12" >
           <mat-form-field class="w-100">
             <textarea cols="20" rows="5" matInput placeholder="Your Message *" formControlName="message" ></textarea>
-            <mat-error *ngIf="form.controls.message.errors?.required">message is required</mat-error>
+            <mat-error *ngIf="form.controls.message.errors?.required">Message is required</mat-error>
           </mat-form-field>
         </div>
       </div>
-          <div class="row">
-            <div class="custom-file" >
-              <input type="file" class="custom-file-input" (change)="readUrl($event)" formControlName="profile" aria-describedby="inputGroupFileAddon01">
-              <label class="custom-file-label"></label>
+          <div class="col-md-12">
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" accept=".doc, .docx, .pdf, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
+              <label class="custom-file-label"> Upload Your Document</label>
             </div>
-            <div class="row w-100">
-              <div class="col-md-12">
-                <div *ngIf="fileUploadPath != ''">
-                  <span class="imageclose mr-2"><img src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
-                </div>
-              </div>
-            </div>
+            <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
           </div>
       <div class="row mt-4">
         <div class="col-md-12 text-center">

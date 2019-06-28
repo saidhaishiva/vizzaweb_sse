@@ -157,7 +157,6 @@ export class ClaimAssistanceComponent implements OnInit {
     }
 
     claimAssitance(values) {
-      alert('dddddd');
         if (this.form.valid) {
             const data = {
                 'platform': 'web',
