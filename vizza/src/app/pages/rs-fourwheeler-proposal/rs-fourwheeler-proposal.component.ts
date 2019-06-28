@@ -178,7 +178,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       financierName: '',
       isFourWheelerFinanced: false,
       isAddon: false,
-      lossOfBaggage: false,
+      lossOfBaggage: 'No',
       hypothecationType: '',
       typeOfCover: ['', Validators.required],
       addon: '',
@@ -623,10 +623,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
         stepper.next();
         this.topScroll();
     } else {
-      this.toastr.error('Non Electrical Accessories Values should be less than 20 thousand');
+      this.toastr.error('Non Electrical Accessories Values should be less than 20,000');
     }
       } else {
-        this.toastr.error('Electrical Accessories Values should be less than 50 thousand');
+        this.toastr.error('Electrical Accessories Values should be less than 50,000');
       }
 
     // }
