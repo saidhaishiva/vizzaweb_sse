@@ -92,35 +92,35 @@ export class BajajGoldSurakshaComponent implements OnInit {
   }
   getUpdateFailure(error) {
   }
-  // getPincodeDetails(pin, title) {
-  //   this.pin = pin;
-  //   this.title = title;
-  //   const data = {
-  //     'platform': 'web',
-  //     'postalcode': this.pin
-  //   }
-  //   if (this.pin.length == 6) {
-  //     this.commonservices.getPincodeDetails(data).subscribe(
-  //         (successData) => {
-  //           this.getPincodeDetailsSuccess(successData);
-  //         },
-  //         (error) => {
-  //           this.getPincodeDetailsFailure(error);
-  //         }
-  //     );
-  //   }
-  // }
-  // public getPincodeDetailsSuccess(successData) {
-  //   if (successData.ErrorObject) {
-  //     this.toastr.error(successData.ErrorObject);
-  //     this.pincodeErrors = false;
-  //   }else {
-  //     this.pincodeErrors = true;
-  //   }
-  // }
+  getPincodeDetails(pin, title) {
+    this.pin = pin;
+    this.title = title;
+    const data = {
+      'platform': 'web',
+      'postalcode': this.pin
+    }
+    if (this.pin.length == 6) {
+      this.commonservices.getPincodeDetails(data).subscribe(
+          (successData) => {
+            this.getPincodeDetailsSuccess(successData);
+          },
+          (error) => {
+            this.getPincodeDetailsFailure(error);
+          }
+      );
+    }
+  }
+  public getPincodeDetailsSuccess(successData) {
+    if (successData.ErrorObject) {
+      this.toastr.error(successData.ErrorObject);
+      this.pincodeErrors = false;
+    }else {
+      this.pincodeErrors = true;
+    }
+  }
 
-  // public getPincodeDetailsFailure(error) {
-  // }
+  public getPincodeDetailsFailure(error) {
+  }
 
   numberValidate(event: any) {
     this.validation.numberValidate(event);
