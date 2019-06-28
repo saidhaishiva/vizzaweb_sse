@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
 import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
@@ -9,7 +9,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import { FourWheelerService } from '../../shared/services/four-wheeler.service';
+import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 
 
 export const MY_FORMATS = {
@@ -618,6 +618,7 @@ export class CarTataaigProposalComponent implements OnInit {
       'company_id': "13",
       'Idv': this.buycarDetails.Idv,
       'revised_idv': this.buycarDetails.Idv,
+      'Package': this.vehicle.controls['packagevalue'].value,
       'Depreciation_reimbursement': this.vehicle.controls['Depreciation'].value == true ? 'Y' : 'N',
       'Daily_allowance': 'N',
       'Return_to_Invoice': this.vehicle.controls['Invoice'].value == true ? 'Y' : 'N',

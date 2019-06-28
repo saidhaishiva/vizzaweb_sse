@@ -304,8 +304,6 @@ import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-
 import { NewContactComponent } from './pages/new-contact/new-contact.component';
 import { EdelweissTermLifeComponent } from './pages/edelweiss-term-life/edelweiss-term-life.component';
 import { BajajGoldSurakshaComponent } from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
-import { JewelersBlockPolicyComponent } from './pages/jewelers-block-policy/jewelers-block-policy.component';
-import { BankersIdentityPolicyComponent } from './pages/bankers-identity-policy/bankers-identity-policy.component';
 import { SpecialContigencyPolicyComponent } from './pages/special-contigency-policy/special-contigency-policy.component';
 import { ConsequentialLossPolicyComponent } from './pages/consequential-loss-policy/consequential-loss-policy.component';
 import { MarineErectionComponent } from './pages/marine-erection/marine-erection.component';
@@ -314,6 +312,7 @@ import { ContractorMachineryPolicyComponent } from './pages/contractor-machinery
 import { MegaPackagePolicyComponent } from './pages/mega-package-policy/mega-package-policy.component';
 import { ErectionRiskPolicyComponent } from './pages/erection-risk-policy/erection-risk-policy.component';
 import { UlipComponent } from './pages/ulip/ulip.component';
+import { GroupTravelComponent } from './pages/group-travel/group-travel.component';
 
 @NgModule({
     imports: [
@@ -577,8 +576,6 @@ import { UlipComponent } from './pages/ulip/ulip.component';
         NewContactComponent,
         EdelweissTermLifeComponent,
         BajajGoldSurakshaComponent,
-        JewelersBlockPolicyComponent,
-        BankersIdentityPolicyComponent,
         SpecialContigencyPolicyComponent,
         ConsequentialLossPolicyComponent,
         MarineErectionComponent,
@@ -586,7 +583,8 @@ import { UlipComponent } from './pages/ulip/ulip.component';
         ContractorMachineryPolicyComponent,
         MegaPackagePolicyComponent,
         ErectionRiskPolicyComponent,
-        UlipComponent
+        UlipComponent,
+        GroupTravelComponent
     ],
     providers: [
         AppSettings,
