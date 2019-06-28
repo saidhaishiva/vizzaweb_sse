@@ -74,7 +74,7 @@ export const horizontalMenuItems = [
     new Menu (22, 'General Insurance', '/fix-appointment/corporate-insurance', null, null, null, true, 0),
     new Menu (24, 'Commercial Insurance', '/', null, null, null, true, 22),
     new Menu (29, 'Jewelers Block Policy', '/jewelers', null, null, null, false, 24),
-    new Menu (30, 'Bankers Identity Policy', '/bankerIdentity', null, null, null, false, 24),
+    new Menu (30, 'Bankers Identity Policy', '/bankers', null, null, null, false, 24),
     new Menu (11, 'Shopkeepers Policy', '/shopkeeperpolicy', null, null, null, false, 24),
     new Menu (12, 'Marine Cargo Policy', '/marinecargo', null, null, null, false, 24),
     new Menu (31, 'Special Contingency Policy', '/specialContigency', null, null, null, false, 24),

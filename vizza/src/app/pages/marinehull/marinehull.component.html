@@ -1,10 +1,20 @@
-<div fxLayoutWrap fxLayout="row" fxLayoutAlign="start start">
-  <div fxFlex="100" fxFlex.gt-sm="80" fxFlex.sm="80" class="flex-p">
-    <div class="row letUs">
-      <div class="col-md-6 let1 pr-0" fxLayoutAlign="center center">
-        <h1>Marine Hull policy</h1>
+<div class="container dashboard h-100" fxLayoutAlign="start start">
+  <div class="row my-flex-card">
+    <h2 class="w-100 text-center" style="color: #F4611F">Marine Hull Policy</h2>
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="card-block">
+            <div class="aboutImg">
+              <img src="assets/img/Marine-HullPolicy.jpg" style="height:605px;" class="w-100">
+              <div class="aboutContent">
+                <h4 class="w-100 text-center">Marine Hull Policy</h4>
+                <p class="text-justify text-left">Think of fire before it starts, whatever burns never returns..… <button class="btn btn-sm" (click)="FireInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-6 pl-0">
+      <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="arrow-left" style="border-right: 30px solid #FFCC80;"></div>
         <mat-card class="p-5" style="background: #FFCC80; color: #fff">
           <h2 class="w-100 text-center" >Let us assist you</h2>
@@ -31,7 +41,7 @@
                 </mat-form-field>
               </div>
               <div class="col-md-12">
-                <mat-form-field class="w-100">
+                 <mat-form-field class="w-100">
                   <input matInput placeholder="Company Name" formControlName="name" required>
                   <mat-error *ngIf="hullapp.controls.name.errors?.required">Company Name is required</mat-error>
                   <mat-error *ngIf="hullapp.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>
@@ -106,4 +116,3 @@
       </div>
     </div>
   </div>
-</div>
