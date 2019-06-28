@@ -48,6 +48,9 @@ export class BajajGoldSurakshaComponent implements OnInit {
 
     });
   }
+  FireInsurer() {
+
+  }
   addEvent(event) {
     this.selectDate = event.value;
     this.setDate = this.datepipe.transform(this.selectDate, 'y-MM-dd');
