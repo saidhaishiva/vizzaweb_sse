@@ -11,6 +11,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 
+
 @Component({
   selector: 'app-renewal-reminder',
   templateUrl: './renewal-reminder.component.html',
@@ -47,14 +48,14 @@ export class RenewalReminderComponent implements OnInit {
       'insurepolicyno': ['', Validators.compose([Validators.required])],
       'insurepremiumamount': ['', Validators.compose([Validators.required])],
       'insurecompanyname': ['',Validators.compose([Validators.required])],
-      'paymentfrequeny': ['',Validators.compose([Validators.required])]
+      'paymentfrequeny': ['',Validators.compose([Validators.required])],
     });
 
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
-    this.settings.HomeSidenavUserBlock = true;
-    this.settings.sidenavIsOpened = true;
-    this.settings.sidenavIsPinned = true;
+    this.settings.HomeSidenavUserBlock = false;
+    this.settings.sidenavIsOpened = false;
+    this.settings.sidenavIsPinned = false;
     this.commentBox = false;
     this.selectDate = '';
     this.fileUploadPath = '';
@@ -143,6 +144,16 @@ export class RenewalReminderComponent implements OnInit {
   policyRenewalSuccess(successData) {
     if (successData.IsSuccess == true) {
       this.toastr.success(successData.ResponseObject);
+      this.form.controls['insurename'].patchValue('');
+      this.form.controls['insureemail'].patchValue('');
+      this.form.controls['insurepolicytype'].patchValue('');
+      this.form.controls['insuremobile'].patchValue('');
+      this.form.controls['insurepolicyno'].patchValue('');
+      this.form.controls['insurepremiumamount'].patchValue('');
+      this.form.controls['insurecompanyname'].patchValue('');
+      this.form.controls['paymentfrequeny'].patchValue('');
+      this.form.controls['startdate'].patchValue('');
+      this.form.controls['enddate'].patchValue('');
     } else {
       this.toastr.error(successData.ErrorObject);
     }
@@ -249,11 +260,11 @@ export class RenewalReminderComponent implements OnInit {
       'image_path': '',
         'file_type': '1'
     };
-    let length = this.allImage.length-1;
-    for (let k = 0; k < this.allImage[length].length; k++) {
-      this.fileDetails[k].image = this.allImage[length][k][1];
-    }
-    data.image_path = this.fileDetails;
+    // let length = this.allImage.length-1;
+    // for (let k = 0; k < this.allImage[length].length; k++) {
+    //   this.fileDetails[k].image = this.allImage[length][k][1];
+    // }
+    // data.image_path = this.fileDetails;
     this.common.fileUploadPolicyHome(data).subscribe(
         (successData) => {
           this.fileUploadSuccess(successData);

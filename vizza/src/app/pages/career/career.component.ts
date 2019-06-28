@@ -42,7 +42,7 @@ webhost: any;
       this.jobProfile();
   }
 
-update() {
+update(value) {
     const data = {
         'platform': 'web',
         'applicant_name': this.form.controls['name'].value,
@@ -53,25 +53,35 @@ update() {
         'base64': this.getBase64,
         'file_ext' : this.uploadType
     };
-    this.settings.loadingSpinner = true;
-    this.common.careerupdate(data).subscribe(
-        (successData) => {
-            this.updateSuccess(successData);
-        },
-        (error) => {
-            this.updateFailure(error);
-        }
-    );
-}
+    // if(value.valid){
+    //     this.settings.loadingSpinner = true;
+        this.common.careerupdate(data).subscribe(
+            (successData) => {
+                this.updateSuccess(successData);
+            },
+            (error) => {
+                this.updateFailure(error);
+            }
+        );
+    }
+    // }
+
+
     updateSuccess(successData) {
-        this.settings.loadingSpinner = false;
+        // this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
         }
+        this.form.controls['name'].setValue('');
+        this.form.controls['email'].setValue('');
+        this.form.controls['mobileno'].setValue('');
+        this.form.controls['profile'].setValue('');
+        this.form.controls['cover'].setValue('');
+        this.uploadType = '';
     }
 
     updateFailure(error) {
-        this.settings.loadingSpinner = false;
+        // this.settings.loadingSpinner = false;
     }
     // job profile
     jobProfile() {
@@ -115,7 +125,7 @@ update() {
         }
         this.uploadAddressProofName = event.target.files[0].name;
       this.uploadType =  event.target.files[0].type;
-      console.log(event.target.accept, 'jhgfghj');
+      console.log(this.uploadType, 'jhgfghj');
       // console.log(event, 'jhgfghj');
       //   typeList = split( event.target.files[0].type);
       //   console.log(typeList, 'typeList');

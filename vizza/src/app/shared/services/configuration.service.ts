@@ -15,6 +15,7 @@ export class ConfigurationService {
   apiHostTerm: string = environment.apiHostTerm;
   apiHostDm: string = environment.apiHostDm;
   apiHostMotor: string = environment.apiHostMotor;
+  apiHostmiscproduct: string = environment.apiHostmiscproduct;
   apiHostMotorFour: string = environment.apiHostMotorFour;
   apiHostLife: string = environment.apiHostLife;
   paAccident: boolean = environment.paAccident;
@@ -53,6 +54,7 @@ export class ConfigurationService {
     this.apiHostMotorFour = this.apiHostMotorFour;
     this.termLifeInsurance = this.termLifeInsurance;
     this.motorInsurance = this.motorInsurance;
+    this.apiHostmiscproduct = this.apiHostmiscproduct;
 
 
   }
@@ -73,42 +75,45 @@ export class ConfigurationService {
     }
     getHostHealth(){
       return this.apiHostHealth;
-  }
-  getHostPos(){
-    return this.apiHostPos;
-  }
-  getHostHome(){
-    return this.apiHostHome;
-  }
-  getHostDm(){
-    return this.apiHostDm;
-  }
-  getHostLife(){
-      return this.apiHostLife;
-  }
-  getpaAccident() {
-    return this.paAccident;
-  }
-  getTravelInsurance() {
-    return this.travelInsurance;
-  }
-  getHealthInsurance() {
-    return this.healthInsurance;
-  }
+    }
+    getHostPos(){
+      return this.apiHostPos;
+    }
+    getHostHome(){
+      return this.apiHostHome;
+    }
+    getHostDm(){
+      return this.apiHostDm;
+    }
+    getHostLife(){
+        return this.apiHostLife;
+    }
+    getpaAccident() {
+      return this.paAccident;
+    }
+    getTravelInsurance() {
+      return this.travelInsurance;
+    }
+    getHealthInsurance() {
+      return this.healthInsurance;
+    }
 
-  getTermLife() {
-    return this.termLifeInsurance;
-  }
-  getHostTerm() {
-    return this.apiHostTerm;
-  }
-  getBikeInsurance() {
-    return this.apiHostMotor;
-  }
-  getFourwheelerInsurance(){
-    return this.apiHostMotorFour;
-  }
-  getMotorInsurance() {
-    return this.motorInsurance;
-  }
+    getTermLife() {
+      return this.termLifeInsurance;
+    }
+    getHostTerm() {
+      return this.apiHostTerm;
+    }
+    getBikeInsurance() {
+      return this.apiHostMotor;
+    }
+    getFourwheelerInsurance(){
+      return this.apiHostMotorFour;
+    }
+    getMotorInsurance() {
+      return this.motorInsurance;
+    }
+    getmiscproduct() {
+      return this.apiHostmiscproduct;
+    }
 }

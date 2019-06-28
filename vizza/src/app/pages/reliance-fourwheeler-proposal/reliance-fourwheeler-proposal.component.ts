@@ -67,6 +67,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   public nationalityList: any;
   public otherSystemNameList: any;
+  public bifueltypeList: any;
+  public fittngTypeList: any;
   public prevPolicyList: any;
   public occupationList: any;
   public financialTypeList: any;
@@ -224,6 +226,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       ElectricalItemsTotalSI: [''],
       NonElectricalItemsTotalSI: [''],
       BiFuelKitSi: [''],
+      bifueltype: [''],
+      cpgLpgKit: [''],
+      fittngType: [''],
       IsBiFuelKit: [''],
       IsTotalCover: [''],
       IsRegistrationCover: [''],
@@ -270,6 +275,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.otherSystemNameList = {
       '0': 'Customer',
       '1': 'Agent',
+    }
+    this.bifueltypeList = {
+      '0': 'CNG',
+      '1': 'LPG',
+    }
+
+    this.fittngTypeList ={
+      '0': 'Inbuilt',
+      '1':'External',
     }
 
   }
@@ -341,14 +355,37 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   changeFuel(){
     this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
+    if(this.coverDetails.controls['fuelType'].value == 5){
+        this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+      this.coverDetails.controls['cpgLpgKit'].patchValue(true);
+        //
+        this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
 
+        this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+        this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+
+        this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
+        this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+      }else {
+        this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+      this.coverDetails.controls['cpgLpgKit'].patchValue(false);
+
+
+      this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+        this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+        this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+
+        this.coverDetails.controls['bifueltype'].patchValue('');
+        this.coverDetails.controls['bifueltype'].setValidators(null);
+        this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+      }
   }
   changeInsurer(){
     this.previousInsurance.controls['prevInsuranceValue'].patchValue(this.prevInsurerList[this.previousInsurance.controls['prevInsurance'].value]);
   }
 
   changePrevYear(){
-    this.previousInsurance.controls['prevYearPolicyTypeValue'].patchValue(this.prevInsurerList[this.previousInsurance.controls['prevYearPolicyType'].value]);
+    this.previousInsurance.controls['prevYearPolicyTypeValue'].patchValue(this.prevPolicyList[this.previousInsurance.controls['prevYearPolicyType'].value]);
   }
 
 
@@ -639,23 +676,34 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     }
   }
 
-  updatenonBiFuelKit(event){
-    if(event.checked){
-      this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
-      //
-      this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+    updatenonBiFuelKit(event){
+        if(event.checked){
+            this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+            this.coverDetails.controls['cpgLpgKit'].patchValue(true);
 
-      this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
-      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
-    }else {
-      this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+          //
+            this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+
+            this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+            this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+
+            this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
+            this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+        }else {
+            this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+            this.coverDetails.controls['cpgLpgKit'].patchValue(true);
 
 
-      this.coverDetails.controls['BiFuelKitSi'].patchValue('');
-      this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
-      this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+
+          this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+            this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+            this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+
+            this.coverDetails.controls['bifueltype'].patchValue('');
+            this.coverDetails.controls['bifueltype'].setValidators(null);
+            this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+        }
     }
-  }
 
   updateDriverCovered(event){
     if(event.checked){
@@ -820,6 +868,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }else {
           this.toastr.error('Proposer Age should be greater than 18.')
         }
+      }else{
+        this.toastr.error('Please Select the Mandatory Fields')
       }
     } else if (type == 'stepper2') {
       sessionStorage.stepper2Details = '';
@@ -827,12 +877,20 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       if (this.riskDetails.valid) {
         stepper.next();
         this.topScroll();
+      }else{
+        this.toastr.error('Please Select the Mandatory Fields')
+
       }
     } else if (type == 'stepper3') {
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
       if (this.coverDetails.valid) {
         stepper.next();
+        this.topScroll();
+
+      }else{
+        this.toastr.error('Please Select the Mandatory Fields')
+
       }
     }
 
@@ -851,59 +909,59 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
 
 //session
-  session(){
+  session() {
 
     if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
       this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
-      console.log(this.getStepper1.dob,'sessiondob');
+      console.log(this.getStepper1.dob, 'sessiondob');
       this.relianceProposal = this.fb.group({
-        firstName : this.getStepper1.firstName,
-        lastName : this.getStepper1.lastName,
-        middleName : this.getStepper1.middleName,
-        dob : this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
-        title : this.getStepper1.title,
-        occupation : this.getStepper1.occupation,
-        maritalStatus : this.getStepper1.maritalStatus,
-        nationality : this.getStepper1.nationality,
-        address : this.getStepper1.address,
-        paddress : this.getStepper1.paddress,
-        raddress : this.getStepper1.raddress,
-        address2 : this.getStepper1.address2,
-        paddress2 : this.getStepper1.paddress2,
-        raddress2 : this.getStepper1.raddress2,
-        pincode : this.getStepper1.pincode,
-        ppincode : this.getStepper1.ppincode,
-        rpincode : this.getStepper1.rpincode,
-        state : this.getStepper1.state,
-        stateId : this.getStepper1.stateId,
-        pstate : this.getStepper1.pstate,
-        pstateId : this.getStepper1.pstateId,
-        rstate : this.getStepper1.rstate,
-        rstateId : this.getStepper1.rstateId,
-        city : this.getStepper1.city,
-        cityId : this.getStepper1.cityId,
-        pcity : this.getStepper1.pcity,
-        pcityId : this.getStepper1.pcityId,
-        rcity : this.getStepper1.rcity,
-        rcityId : this.getStepper1.rcityId,
-        district : this.getStepper1.district,
-        districtId : this.getStepper1.districtId,
-        pdistrict : this.getStepper1.pdistrict,
-        pdistrictId : this.getStepper1.pdistrictId,
-        rdistrict : this.getStepper1.rdistrict,
-        rdistrictId : this.getStepper1.rdistrictId,
-        landmark : this.getStepper1.landmark,
-        plandmark : this.getStepper1.plandmark,
-        rlandmark : this.getStepper1.rlandmark,
-        address3 : this.getStepper1.address3,
-        paddress3 : this.getStepper1.paddress3,
-        raddress3 : this.getStepper1.raddress3,
-        alternateContact : this.getStepper1.alternateContact,
+        firstName: this.getStepper1.firstName,
+        lastName: this.getStepper1.lastName,
+        middleName: this.getStepper1.middleName,
+        dob: this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
+        title: this.getStepper1.title,
+        occupation: this.getStepper1.occupation,
+        maritalStatus: this.getStepper1.maritalStatus,
+        nationality: this.getStepper1.nationality,
+        address: this.getStepper1.address,
+        paddress: this.getStepper1.paddress,
+        raddress: this.getStepper1.raddress,
+        address2: this.getStepper1.address2,
+        paddress2: this.getStepper1.paddress2,
+        raddress2: this.getStepper1.raddress2,
+        pincode: this.getStepper1.pincode,
+        ppincode: this.getStepper1.ppincode,
+        rpincode: this.getStepper1.rpincode,
+        state: this.getStepper1.state,
+        stateId: this.getStepper1.stateId,
+        pstate: this.getStepper1.pstate,
+        pstateId: this.getStepper1.pstateId,
+        rstate: this.getStepper1.rstate,
+        rstateId: this.getStepper1.rstateId,
+        city: this.getStepper1.city,
+        cityId: this.getStepper1.cityId,
+        pcity: this.getStepper1.pcity,
+        pcityId: this.getStepper1.pcityId,
+        rcity: this.getStepper1.rcity,
+        rcityId: this.getStepper1.rcityId,
+        district: this.getStepper1.district,
+        districtId: this.getStepper1.districtId,
+        pdistrict: this.getStepper1.pdistrict,
+        pdistrictId: this.getStepper1.pdistrictId,
+        rdistrict: this.getStepper1.rdistrict,
+        rdistrictId: this.getStepper1.rdistrictId,
+        landmark: this.getStepper1.landmark,
+        plandmark: this.getStepper1.plandmark,
+        rlandmark: this.getStepper1.rlandmark,
+        address3: this.getStepper1.address3,
+        paddress3: this.getStepper1.paddress3,
+        raddress3: this.getStepper1.raddress3,
+        alternateContact: this.getStepper1.alternateContact,
         // gstNumber : this.getStepper1.gstNumber,
-        sameAsAddress : this.getStepper1.sameAsAddress,
-        regSameAscommAddress : this.getStepper1.regSameAscommAddress,
-        regSameAspermAddress :this.getStepper1.regSameAspermAddress,
-        gender : this.getStepper1.gender,
+        sameAsAddress: this.getStepper1.sameAsAddress,
+        regSameAscommAddress: this.getStepper1.regSameAscommAddress,
+        regSameAspermAddress: this.getStepper1.regSameAspermAddress,
+        gender: this.getStepper1.gender,
         email: this.getStepper1.email,
         mobile: this.getStepper1.mobile,
         occupationValue: this.getStepper1.occupationValue,
@@ -911,9 +969,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         nationalityValue: this.getStepper1.nationalityValue,
       });
     }
-    console.log(this.relianceProposal,'reliancproposal');
+    console.log(this.relianceProposal, 'reliancproposal');
 
-    if(sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined ){
+    if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
       this.riskDetails = this.fb.group({
         OtherSystemName: this.getStepper2.OtherSystemName,
@@ -927,7 +985,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       });
     }
 
-    if(sessionStorage.stepper3Details != '' && sessionStorage.stepper3Details != undefined){
+    if (sessionStorage.stepper3Details != '' && sessionStorage.stepper3Details != undefined) {
       this.getStepper3 = JSON.parse(sessionStorage.stepper3Details);
       this.coverDetails = this.fb.group({
         UnnamedPassengerCovered: this.getStepper3.UnnamedPassengerCovered,
@@ -951,6 +1009,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         ElectricalItemsTotalSI: this.getStepper3.ElectricalItemsTotalSI,
         NonElectricalItemsTotalSI: this.getStepper3.NonElectricalItemsTotalSI,
         BiFuelKitSi: this.getStepper3.BiFuelKitSi,
+        bifueltype: this.getStepper3.bifueltype,
+        cpgLpgKit: this.getStepper3.cpgLpgKit,
+        fittngType: this.getStepper3.fittngType,
         UnnamedPassengersSI: this.getStepper3.UnnamedPassengersSI,
         IsVoluntaryDeductableOpted: this.getStepper3.IsVoluntaryDeductableOpted,
         VoluntaryDeductableAmount: this.getStepper3.VoluntaryDeductableAmount,
@@ -981,6 +1042,29 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         nprelationValue: this.getStepper3.nprelationValue,
         fuelTypeValue: this.getStepper3.fuelTypeValue,
       });
+
+      if (this.getStepper3.fuelType == 5) {
+        this.coverDetails.controls['IsBiFuelKit'].patchValue(true);
+        //
+        this.coverDetails.controls['BiFuelKitSi'].patchValue('20000');
+
+        this.coverDetails.controls['BiFuelKitSi'].setValidators([Validators.required]);
+        this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+
+        this.coverDetails.controls['bifueltype'].setValidators([Validators.required]);
+        this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+      } else {
+        this.coverDetails.controls['IsBiFuelKit'].patchValue(false);
+
+
+        this.coverDetails.controls['BiFuelKitSi'].patchValue('');
+        this.coverDetails.controls['BiFuelKitSi'].setValidators(null);
+        this.coverDetails.controls['BiFuelKitSi'].updateValueAndValidity();
+
+        this.coverDetails.controls['bifueltype'].patchValue('');
+        this.coverDetails.controls['bifueltype'].setValidators(null);
+        this.coverDetails.controls['bifueltype'].updateValueAndValidity();
+      }
     }
 
     if(sessionStorage.nomineeAge != '' && sessionStorage.nomineeAge != undefined) {
@@ -1013,6 +1097,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.coverDetails.controls['npOtherRelation'].setValidators([Validators.required]);
         this.coverDetails.controls['npOtherRelation'].updateValueAndValidity();
       } else {
+
         this.coverDetails.controls['npappointeeName'].patchValue('');
         this.coverDetails.controls['npappointeeName'].setValidators(null);
         this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
@@ -1291,7 +1376,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
 
   /// create proposal
-  createProposal(stepper,value){
+  createProposal(stepper,value) {
+
     // stepper.next();
     // this.topScroll();
     sessionStorage.stepper4Details = '';
@@ -1304,7 +1390,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       'enquiry_id': this.bikeEnquiryId,
       'created_by': '',
       'proposal_id': sessionStorage.relianceFourwheelerproposalID == '' || sessionStorage.relianceFourwheelerproposalID == undefined ? '' : sessionStorage.relianceFourwheelerproposalID,
-      'motorproposalObj':{
+      'motorproposalObj': {
         'CoverDetails': '',
         'TrailerDetails': '',
         'ClientDetails': {
@@ -1395,21 +1481,21 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
           'IsBasicLiability': this.coverDetails.controls['BasicLiability'] ? 'true' : 'false',
           'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'] ? 'true' : 'false',
-          'UnnamedPassengersSI': this.coverDetails.controls['UnnamedPassengersSI'].value ,
+          'UnnamedPassengersSI': this.coverDetails.controls['UnnamedPassengersSI'].value,
           'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'IsVoluntaryDeductableOpted': this.coverDetails.controls['IsVoluntaryDeductableOpted'].value ? 'true' : 'false',
-          'VoluntaryDeductableAmount': this.coverDetails.controls['VoluntaryDeductableAmount'].value ,
+          'VoluntaryDeductableAmount': this.coverDetails.controls['VoluntaryDeductableAmount'].value,
           'IsElectricalItemFitted': this.coverDetails.controls['IsElectricalItemFitted'].value ? 'true' : 'false',
-          'ElectricalItemsTotalSI': this.coverDetails.controls['ElectricalItemsTotalSI'].value ,
+          'ElectricalItemsTotalSI': this.coverDetails.controls['ElectricalItemsTotalSI'].value,
           'IsNonElectricalItemFitted': this.coverDetails.controls['IsNonElectricalItemFitted'].value ? 'true' : 'false',
-          'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value ,
+          'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
-          'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
+          'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value,
           'IsTotalCover': this.coverDetails.controls['IsTotalCover'].value ? 'true' : 'false',
           'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           'IsPAToDriverCovered': this.coverDetails.controls['IsPAToDriverCovered'].value ? 'true' : 'false',
           'IsRegistrationCover': this.coverDetails.controls['IsRegistrationCover'].value ? 'true' : 'false',
-          'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value ,
+          'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value,
           "ElectricItems": {
             "ElectricalItems": {
               "ElectricalItemsID": "",
@@ -1448,8 +1534,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "IsChecked": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "IsMandatory": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
               "PolicyCoverDetailsID": "",
-              "Fueltype": this.coverDetails.controls['IsBiFuelKit'].value ? this.coverDetails.controls['fuelTypeValue'].value : '',
-              "ISLpgCng": this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
+              "Fueltype": this.coverDetails.controls['bifueltype'].value,
+              "ISLpgCng": this.coverDetails.controls['cpgLpgKit'].value ? 'true' : 'false',
               "PolicyCoverID": "",
               "SumInsured": this.coverDetails.controls['BiFuelKitSi'].value,
               "NoOfItems": "",
@@ -1460,7 +1546,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
             "VoluntaryDeductible": {
               "IsMandatory": this.coverDetails.controls['IsVoluntaryDeductableOpted'].value ? 'true' : 'false',
               "PolicyCoverID": "",
-              "SumInsured": this.coverDetails.controls['VoluntaryDeductableAmount'].value ,
+              "SumInsured": this.coverDetails.controls['VoluntaryDeductableAmount'].value,
               "IsChecked": this.coverDetails.controls['IsVoluntaryDeductableOpted'].value ? 'true' : 'false',
               "NoOfItems": "",
               "PackageName": ""
@@ -1522,8 +1608,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "IsMandatory": this.coverDetails.controls['IsRegistrationCover'].value ? 'true' : 'false',
               "IsChecked": this.coverDetails.controls['IsRegistrationCover'].value ? 'true' : 'false',
               "SumInsured": "20000",
-              "NoOfItems":"",
-              "PackageName":""
+              "NoOfItems": "",
+              "PackageName": ""
             }
           },
           "RoadTax": {
@@ -1543,28 +1629,28 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
             }
           }
         },
-      //   'PAToNamedPassenger': '',
-      //   'PAToUnNamedPassenger': {
-      //     'PAToUnNamedPassenger': {
-      //       'IsChecked': 'false',
-      //       'NoOfItems': '0',
-      //       'SumInsured': '0'
-      //     }
-      //   },
-      //   'PAToPaidDriver': {
-      //     'PAToPaidDriver': {
-      //       'IsChecked': '',
-      //       'NoOfItems': '',
-      //       'SumInsured': ''
-      //     }
-      //   },
-      //   'PAToPaidCleaner': '',
-      //   'LiabilityToPaidDriver': {
-      //     'LiabilityToPaidDriver': {
-      //       'NoOfItems': '1'
-      //     }
-      //   }
-      // },
+        //   'PAToNamedPassenger': '',
+        //   'PAToUnNamedPassenger': {
+        //     'PAToUnNamedPassenger': {
+        //       'IsChecked': 'false',
+        //       'NoOfItems': '0',
+        //       'SumInsured': '0'
+        //     }
+        //   },
+        //   'PAToPaidDriver': {
+        //     'PAToPaidDriver': {
+        //       'IsChecked': '',
+        //       'NoOfItems': '',
+        //       'SumInsured': ''
+        //     }
+        //   },
+        //   'PAToPaidCleaner': '',
+        //   'LiabilityToPaidDriver': {
+        //     'LiabilityToPaidDriver': {
+        //       'NoOfItems': '1'
+        //     }
+        //   }
+        // },
         'PreviousInsuranceDetails': {
           'PrevInsuranceID': '',
           // 'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value ? 'true' : 'false',
@@ -1576,16 +1662,18 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
       }
     };
-    this.setting.loadingSpinner = true;
-    this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
-        (successData) => {
-          this.getProposalSucccess(successData,stepper);
-        },
-        (error) => {
-          this.getProposalFailure(error);
-        }
-    );
-    console.log(data,'data');
+    if (this.previousInsurance.valid) {
+      this.setting.loadingSpinner = true;
+      this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
+          (successData) => {
+            this.getProposalSucccess(successData, stepper);
+          },
+          (error) => {
+            this.getProposalFailure(error);
+          }
+      );
+      console.log(data, 'data');
+    }
   }
 
   getProposalSucccess(successData,stepper) {
