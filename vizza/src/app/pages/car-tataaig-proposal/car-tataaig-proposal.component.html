@@ -363,8 +363,8 @@
                               <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                                 <mat-form-field class="w-100">
                                   <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                                  <mat-select formControlName="preName">
-                                    <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.value}}">{{Namelist.value}}</mat-option>
+                                  <mat-select formControlName="preName" (change)="select()">
+                                    <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.key}}">{{Namelist.value}}</mat-option>
                                   </mat-select>
                                 </mat-form-field>
                               </div>
@@ -395,7 +395,7 @@
                               </div>
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <input matInput placeholder="Pincode" formControlName="prepincode" (input)="getPostalCode($event.target.value,'prepolicy')">
+                                  <input matInput placeholder="Pincode" formControlName="prepincode" (input)="getPostalCode($event.target.value,'prepolicy')" minlength="6" maxlength="6">
                                 </mat-form-field>
                               </div>
                               <div class="col-md-3">
@@ -575,8 +575,8 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>CODE:</strong> {{previousFormData.preName}}</li>
-                      <li class="list-group-item"><strong>POLNO:</strong> {{previousFormData.preName}}</li>
+                      <li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preNamevalue}}</li>
+                      <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
                     </ul>
                   </div>
                   <div class="p-3">

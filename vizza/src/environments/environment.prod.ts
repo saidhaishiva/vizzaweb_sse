@@ -12,6 +12,7 @@ export const environment = {
     apiHostMotorFour: 'http://13.127.24.123/vizza/api/index.php/mfw/',
     apiHostLife: 'http://13.127.24.123/vizza/api/index.php/endowment/',
     apiHostTerm: 'http://13.127.24.123/vizza/api/index.php/termlife/',
+    apiHostmiscproduct: 'http://13.127.24.123/vizza/api/index.php/misc_product/',
     webHost: 'http://13.127.24.123',
     imgUrl: 'http://13.127.24.123/vizza',
     travelInsurance: true,
