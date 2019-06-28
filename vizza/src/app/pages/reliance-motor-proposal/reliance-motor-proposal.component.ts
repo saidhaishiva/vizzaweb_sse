@@ -174,7 +174,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       paddress3 : [''],
       raddress3 : [''],
       alternateContact : [''],
-      gstNumber : ['', Validators.required],
+      gstNumber : [''],
       sameAsAddress : [''],
       regSameAscommAddress : [''],
       regSameAspermAddress : [''],
@@ -200,7 +200,7 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.coverDetails = this.fb.group({
       AutomobileAssociationMember: [''],
       AntiTheftDeviceFitted: [''],
-      InsurancePremium: [''],
+      // InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
       NilDepreciationCoverage: [''],
       TPPDCover: [''],
@@ -210,13 +210,15 @@ export class RelianceMotorProposalComponent implements OnInit {
       nrelationValue: [''],
       fuelTypeValue: [''],
       nOtherRelationValue: [''],
-      PACoverToOwner: [''],
+      // PACoverToOwner: [''],
       IsElectricalItemFitted: [''],
       IsNonElectricalItemFitted: [''],
       ElectricalItemsTotalSI: [''],
       NonElectricalItemsTotalSI: [''],
       BiFuelKitSi: [''],
       bifueltype: [''],
+      fittngType: [''],
+
       cpgLpgKit: [''],
       IsBiFuelKit: [''],
       paPaidDriver: [''],
@@ -227,7 +229,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       PAToNamedPassenger: [''],
       NonamedPassenegers: [''],
       NoOfUnnamedPassenegersCovered: [''],
-      IsRoadTaxcover: [''],
+      // IsRoadTaxcover: [''],
       UnnamedPassengersSI: [''],
       cappointeeName: [''],
       cnomineeName: [''],
@@ -368,7 +370,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
 
   changePrevYear(){
-    this.previousInsurance.controls['prevYearPolicyTypeValue'].patchValue(this.prevInsurerList[this.previousInsurance.controls['prevYearPolicyType'].value]);
+    this.previousInsurance.controls['prevYearPolicyTypeValue'].patchValue(this.prevPolicyList[this.previousInsurance.controls['prevYearPolicyType'].value]);
   }
 
 
@@ -385,7 +387,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
   updateMandatory(event) {
     if (event.checked) {
-      this.coverDetails.controls['PACoverToOwner'].patchValue(true);
+      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
       //
       this.coverDetails.controls['cnomineeName'].setValidators([Validators.required]);
       this.coverDetails.controls['cnomineeName'].updateValueAndValidity();
@@ -402,7 +404,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
 
     } else {
-      this.coverDetails.controls['PACoverToOwner'].patchValue(false);
+      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
 
       this.coverDetails.controls['cappointeeName'].patchValue('');
       this.coverDetails.controls['cappointeeName'].setValidators(null);
@@ -672,7 +674,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.toastr.error('Proposer Age should be greater than 18.')
         }
       }else{
-        this.toastr.error('Please Select the Mandatory Fields')
+        this.toastr.error('Please fill the Mandatory Fields')
 
       }
     } else if (type == 'stepper2') {
@@ -682,7 +684,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         stepper.next();
         this.topScroll();
       }else{
-        this.toastr.error('Please Select the Mandatory Fields')
+        this.toastr.error('Please fill the Mandatory Fields')
 
       }
     } else if (type == 'stepper3') {
@@ -690,8 +692,10 @@ export class RelianceMotorProposalComponent implements OnInit {
       sessionStorage.stepper3Details = JSON.stringify(value);
       if (this.coverDetails.valid) {
         stepper.next();
+        this.topScroll();
+
       }else{
-        this.toastr.error('Please Select the Mandatory Fields')
+        this.toastr.error('Please fill the Mandatory Fields')
 
       }
     }
@@ -790,13 +794,13 @@ export class RelianceMotorProposalComponent implements OnInit {
         PAToOwnerDriverCoverd: this.getStepper3.PAToOwnerDriverCoverd,
         AutomobileAssociationMember: this.getStepper3.AutomobileAssociationMember,
         AntiTheftDeviceFitted: this.getStepper3.AntiTheftDeviceFitted,
-        InsurancePremium: this.getStepper3.InsurancePremium,
+        // InsurancePremium: this.getStepper3.InsurancePremium,
         NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
         TPPDCover: this.getStepper3.TPPDCover,
         TPPDCoverSi: this.getStepper3.TPPDCoverSi,
         BasicODCoverage: this.getStepper3.BasicODCoverage,
         BasicLiability: this.getStepper3.BasicLiability,
-        PACoverToOwner: this.getStepper3.PACoverToOwner,
+        // PACoverToOwner: this.getStepper3.PACoverToOwner,
         IsElectricalItemFitted: this.getStepper3.IsElectricalItemFitted,
         IsNonElectricalItemFitted: this.getStepper3.IsNonElectricalItemFitted,
         IsBiFuelKit: this.getStepper3.IsBiFuelKit,
@@ -809,7 +813,7 @@ export class RelianceMotorProposalComponent implements OnInit {
         cpgLpgKit: this.getStepper3.cpgLpgKit,
         paPaidDriver: this.getStepper3.paPaidDriver,
         paPaidDriverSi: this.getStepper3.paPaidDriverSi,
-        IsRoadTaxcover: this.getStepper3.IsRoadTaxcover,
+        // IsRoadTaxcover: this.getStepper3.IsRoadTaxcover,
         PAToNamedPassenger: this.getStepper3.PAToNamedPassenger,
         NonamedPassenegers: this.getStepper3.NonamedPassenegers,
         VoluntaryDeductableAmount: this.getStepper3.VoluntaryDeductableAmount,
@@ -1267,7 +1271,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value ? 'true' : 'false',
           'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
           'IsBasicLiability': this.coverDetails.controls['BasicLiability'].value ? 'true' : 'false',
-          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value ? 'true' : 'false',
+          // 'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'].value ? 'true' : 'false',
           'IsElectricalItemFitted': this.coverDetails.controls['IsElectricalItemFitted'].value ? 'true' : 'false',
           'ElectricalItemsTotalSI': this.coverDetails.controls['ElectricalItemsTotalSI'].value ,
           'IsNonElectricalItemFitted': this.coverDetails.controls['IsNonElectricalItemFitted'].value ? 'true' : 'false',
@@ -1278,7 +1282,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value ,
           'NilDepreciationCoverage': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'IsPAToDriverCovered': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
-          'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
+          // 'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           "ElectricItems": {
             "ElectricalItems": {
               "ElectricalItemsID": "",
@@ -1337,9 +1341,11 @@ export class RelianceMotorProposalComponent implements OnInit {
           },
           'PACoverToOwner': {
             'PACoverToOwner': {
-              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value ? 'true' : 'false',
-              'NoOfItems': '',
+              'IsChecked': this.coverDetails.controls['PAToOwnerDriverCoverd'].value ? 'true' : 'false',
+              'IsMandatory': this.coverDetails.controls['PAToOwnerDriverCoverd'].value ? 'true' : 'false',
+              'NoOfItems': '1',
               'PackageName': '',
+              "CPAcovertenure": "1",
               'AppointeeName': this.coverDetails.controls['cappointeeName'].value,
               'NomineeName': this.coverDetails.controls['cnomineeName'].value,
               'NomineeDOB': this.coverDetails.controls['cnDob'].value,
@@ -1348,7 +1354,6 @@ export class RelianceMotorProposalComponent implements OnInit {
               'OtherRelation': this.coverDetails.controls['nOtherRelation'].value
             }
           },
-          // 'PAToNamedPassenger': this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
           'PAToUnNamedPassenger': {
             'PAToUnNamedPassenger': {
               'IsChecked': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
@@ -1383,7 +1388,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           'PAToPaidDriver': {
             'PAToPaidDriver': {
               'IsChecked': this.coverDetails.controls['paPaidDriver'].value ? 'true' : 'false',
-              'NoOfItems': '',
+              'NoOfItems': '1',
               'SumInsured': this.coverDetails.controls['paPaidDriverSi'].value
             }
           },
@@ -1402,16 +1407,16 @@ export class RelianceMotorProposalComponent implements OnInit {
             }
           }
         },
-        "RoadTax": {
-          "RoadTax": {
-            "IsMandatory": this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
-            "IsChecked": this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
-            "NoOfItems": "",
-            "PackageName": "",
-            "SumInsured": "180",
-            "PolicyCoverID": ""
-          }
-        },
+        // "RoadTax": {
+        //   "RoadTax": {
+        //     "IsMandatory": this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
+        //     "IsChecked": this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
+        //     "NoOfItems": "",
+        //     "PackageName": "",
+        //     "SumInsured": "180",
+        //     "PolicyCoverID": ""
+        //   }
+        // },
         'PreviousInsuranceDetails': {
           'PrevInsuranceID': '',
           // 'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value ? 'true' : 'false',
