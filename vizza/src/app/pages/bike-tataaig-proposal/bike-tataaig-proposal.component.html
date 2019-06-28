@@ -311,7 +311,7 @@
                           <mat-checkbox formControlName="Tppdrestrict"><strong> TPPD_Restricted </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
-                          <mat-checkbox formControlName="depreciation"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
+                          <mat-checkbox formControplName="depreciation"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
                         </div>
                         <div class="col-md-4 mt-2">
                           <mat-checkbox formControlName="Consumableexpense"><strong> Consumables_expenses </strong></mat-checkbox>
@@ -389,7 +389,7 @@
                   </div>
                   <div class="col-md-3">
                     <mat-form-field class="w-100">
-                      <input matInput placeholder="Pincode" formControlName="prepincode" (input)="getPostalCode($event.target.value,'prepolicy')">
+                      <input matInput placeholder="Pincode" formControlName="prepincode" (input)="getPostalCode($event.target.value,'prepolicy')" minlength="6" maxlength="6">
                     </mat-form-field>
                   </div>
                   <div class="col-md-3">
@@ -471,7 +471,7 @@
                 </div>
                 <div class="col-md-8">
                   <ul class="summary-head">
-                    <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+                    <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 55px;" /> </li>
                     <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i>{{summaryData.premium}}</span></li>
                     <li></li>
                   </ul>
