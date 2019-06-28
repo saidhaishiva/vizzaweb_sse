@@ -293,14 +293,14 @@
                                                     <mat-checkbox   formControlName="isFourWheelerFinanced" (change)="isFinaced()" >Is Car Financed</mat-checkbox>
                                                 </div>
                                             </div>
-                                            <div class="row" *ngIf="vehical.controls['isFourWheelerFinanced'].value == true">
-                                                <div class="col-md-3">
+                                            <div class="row" >
+                                                <div class="col-md-3" *ngIf="vehical.controls['isFourWheelerFinanced'].value == true" >
                                                     <mat-form-field class="w-100">
                                                         <input matInput placeholder="Financier Name"  formControlName="financierName"  [required]="vehical.controls['isFourWheelerFinanced'].value == true" autocomplete="off" >
                                                     </mat-form-field>
                                                 </div>
 
-                                                <div class="col-md-3">
+                                                <div class="col-md-3" *ngIf="vehical.controls['isFourWheelerFinanced'].value == true">
                                                     <mat-form-field class="w-100">
                                                         <mat-select placeholder="Is Car Financed Value"  formControlName="isFourWheelerFinancedValue" (change)="changefinancedValue()" [required]="vehical.controls['isFourWheelerFinanced'].value == true">
                                                             <mat-option *ngFor="let Financed of financedValueDetails | keys " value="{{Financed.key}}" > {{Financed.value}} </mat-option>
@@ -399,8 +399,8 @@
                                                         <!--<mat-checkbox   formControlName="lossOfBaggage" (change)="isBaggages()" >Loss of Baggages</mat-checkbox>-->
                                                     <!--</div>-->
                                                 </div>
-                                                <div class="row" *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">
-                                                    <div class="col-md-3">
+                                                <div class="row">
+                                                    <div class="col-md-3"  *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">
                                                         <mat-form-field class="w-100">
                                                             <mat-select placeholder="Value Of Loss Of Baggage"  formControlName="valueOfLossOfBaggage" (change)=" changepbaggageValue()"  >
                                                                 <mat-option *ngFor="let baggages of baggageList | keys" value="{{baggages.key}}" > {{baggages.value}} </mat-option>
@@ -460,18 +460,18 @@
                                         <div *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
                                             <div  formArrayName="electricalAccess" *ngFor="let item of vehical.get('electricalAccess').controls; let i = index;">
                                                 <div class="row" [formGroupName]="i">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
                                                         <mat-form-field class="w-100">
                                                             <input matInput placeholder="Name Of Electronic Accessories "  formControlName="nameOfElectronicAccessories" [required]="vehical.controls['coverelectricalaccesss'].value == true" autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
                                                         <mat-form-field class="w-100">
                                                             <input matInput placeholder="Make Model "  formControlName="makeModel"  [required]="vehical.controls['coverelectricalaccesss'].value == true"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
 
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
                                                         <mat-form-field class="w-100">
                                                             <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)"    autocomplete="off" [required]="vehical.controls['coverelectricalaccesss'].value == true" >
                                                         </mat-form-field>
@@ -492,19 +492,19 @@
                                             <div  formArrayName="nonelectricalAccess" *ngFor="let item of vehical.get('nonelectricalAccess').controls; let i = index;">
                                                 <div class="row" [formGroupName]="i">
                                                     <div class="col-md-3">
-                                                        <mat-form-field class="w-100">
+                                                        <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
                                                             <input matInput placeholder="Name Of Non Electronic Accessories "  formControlName="nameOfElectronicAccessories"  [required]="vehical.controls['cover_non_elec_acc'].value == true"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <mat-form-field class="w-100">
+                                                        <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
                                                             <input matInput placeholder="Make Model "  formControlName="makeModel"  [required]="vehical.controls['cover_non_elec_acc'].value == true"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
 
 
                                                     <div class="col-md-3">
-                                                        <mat-form-field class="w-100">
+                                                        <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
                                                             <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)"  [required]="vehical.controls['cover_non_elec_acc'].value == true"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>

@@ -618,7 +618,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(subTotal,'subtotal');
     sessionStorage.subTotal = subTotal;
 
-    if (total <= 50000) {
+    if ((total <= 50000)   ) {
       if (subTotal <= 20000) {
         stepper.next();
         this.topScroll();
@@ -659,22 +659,38 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
 
   eleAccess(i) {
-    console.log(i, 'valuuuuuu');
-    let checking = i;
-    if (checking.checked == true) {
-      this.vehical.controls['coverelectricalaccesss'].patchValue(true);
-    } else {
-      this.vehical.controls['coverelectricalaccesss'].patchValue(false);
+    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+
+      } else {
+        this.vehical.controls['coverelectricalaccesss'].value == false;
+
+    for (let i=0; i < this.getStepper2.electricalAccess.length; i++) {
+      if (  (i !=  0)) {
+
+
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+    }
+    }
 
     }
   }
   noneleAccess(i) {
-    console.log(i, 'valuuuuuu');
-    let check = i;
-    if (check.checked == true) {
-      this.vehical.controls['cover_non_elec_acc'].patchValue(true);
+    if (this.vehical.controls['cover_non_elec_acc'].value == true) {
+
     } else {
-      this.vehical.controls['cover_non_elec_acc'].patchValue(false);
+      this.vehical.controls['cover_non_elec_acc'].value == false;
+
+      for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
+        if ( i !=  0) {
+
+
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+        }
+      }
 
     }
   }

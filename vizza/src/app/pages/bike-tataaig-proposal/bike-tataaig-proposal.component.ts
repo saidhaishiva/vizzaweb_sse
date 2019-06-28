@@ -865,7 +865,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.previousFormData = this.previouspolicy.value;
             this.nomineeFormData = this.nominee.value;
         } else {
-            if(successData.ErrorDes != '') {
+            if(successData.ErrorDes) {
                 this.toastr.error(successData.ErrorDes);
                 console.log(successData.ErrorDes, 'errordes');
             }
