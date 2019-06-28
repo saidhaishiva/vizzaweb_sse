@@ -128,10 +128,10 @@ export class GroupTravelComponent implements OnInit {
       }
     }
   }
-  GroupHealthInsurer(){
-    const dialogRef = this.dialog.open(GroupHealthInsurer, {
-      width: '1200px',
-    });
-    dialogRef.disableClose = true;
-  }
+  // GroupHealthInsurer(){
+  //   const dialogRef = this.dialog.open(GroupHealthInsurer, {
+  //     width: '1200px',
+  //   });
+  //   dialogRef.disableClose = true;
+  // }
 }

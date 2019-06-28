@@ -56,7 +56,7 @@ export class EnquiryPopupComponent implements OnInit {
     this.vehicalNo = this.ListDetails.vehicalNumber;
   console.log(this.ListDetails, 'this.ListDetails');
     this.vehicalDetails = this.fb.group({
-      'vehicalNumber':  ['', Validators.required],
+      'vehicalNumber':  '',
       'registrationDate':  ['', Validators.required],
       'previousClaim': '',
       'enquiry': '',

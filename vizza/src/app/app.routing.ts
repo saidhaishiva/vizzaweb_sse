@@ -60,6 +60,7 @@ import {WorkmenComponent} from './pages/workmen/workmen.component';
 import {GroupmedicalComponent} from './pages/groupmedical/groupmedical.component';
 import {GrouppersonalComponent} from './pages/grouppersonal/grouppersonal.component';
 import {GrouptermComponent} from './pages/groupterm/groupterm.component';
+import {JewelersblockComponent} from './pages/jewelersblock/jewelersblock.component';
 import {BankersComponent} from './pages/bankers/bankers.component';
 import {MarinehullComponent} from './pages/marinehull/marinehull.component';
 import {AviationComponent} from './pages/aviation/aviation.component';
@@ -311,6 +312,7 @@ export const routes: Routes = [
             { path: 'reliance-twowheeler-motor-payment-success/:status/:proId', component: RelianceTwowheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance Twowheeler payment'}},
             { path: 'gold-suraksha', component: BajajGoldSurakshaComponent, data: { breadcrumb: 'Bajaj- Gold Suraksha'}},
             { path: 'ulip', component: UlipComponent, data: { breadcrumb: 'ULIP'}},
+            { path: 'jewelers', component: JewelersblockComponent, data: { breadcrumb: 'Jewelers Block Policy'}},
             { path: 'specialContigency', component: SpecialContigencyPolicyComponent, data: { breadcrumb: 'Special Contigency Policy'}},
             { path: 'groupTravel', component: GroupTravelComponent, data: { breadcrumb: 'Group Travel Insurance'}},
 
