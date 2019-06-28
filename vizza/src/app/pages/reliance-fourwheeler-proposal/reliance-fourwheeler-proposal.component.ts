@@ -353,7 +353,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
 
 
-  changeFuel(value){
+  changeFuel(){
     this.coverDetails.controls['fuelTypeValue'].patchValue(this.fuelTypeList[this.coverDetails.controls['fuelType'].value]);
     if(this.coverDetails.controls['fuelType'].value == 5){
         this.coverDetails.controls['IsBiFuelKit'].patchValue(true);

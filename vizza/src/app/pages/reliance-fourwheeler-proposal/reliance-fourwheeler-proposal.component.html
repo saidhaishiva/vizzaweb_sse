@@ -406,7 +406,7 @@
                       </div>
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Fuel type" formControlName="fuelType" (change)="changeFuel(value)"required>
+                          <mat-select placeholder="Fuel type" formControlName="fuelType" (change)="changeFuel()"required>
                             <mat-option *ngFor="let type of fuelTypeList | keys" value="{{type.key}}" > {{type.value}} </mat-option>
 
                           </mat-select>
