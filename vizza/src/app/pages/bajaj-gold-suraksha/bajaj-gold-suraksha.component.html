@@ -75,7 +75,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" formControlName="pincode" autocomplete="off" required>
+                    <input matInput placeholder="PinCode" pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" formControlName="pincode"  (input)="getPincodeDetails($event.target.value, 'personal')"  autocomplete="off" required>
                     <mat-error *ngIf="bajajgold.controls.pincode.errors?.required">Pincode is required</mat-error>
                     <mat-error *ngIf="bajajgold.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                     <mat-error *ngIf="bajajgold.controls.pincode.hasError('required')">Pincode required</mat-error>
@@ -112,7 +112,7 @@
                   </mat-form-field>
                 </div>
                 <div class="col-md-12 text-center mt-3">
-                  <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!fireapp.valid ) || (!pincodeErrors)" >Submit</button>
+                  <button mat-button type="submit" style="background: #fff; color: #000" (click)="getSubmitDetails(bajajgold.value)">Submit</button>
                   <button mat-button type="reset" style="color: #fff; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
                 </div>
               </div>
