@@ -102,7 +102,11 @@ export class BikeInsuranceComponent implements OnInit {
     setSession() {
         sessionStorage.enquiryFormData = JSON.stringify(this.bikeInsurance.value);
     }
-
+    rtoCity(){
+        alert();
+        sessionStorage.Rto = this.bikeInsurance.controls['city'].value;
+        console.log(sessionStorage.Rto,'sessionStorage.Rto');
+    }
     changeNcbAmt() {
         if (this.bikeInsurance.controls['previousClaim'].value == 'No') {
         } else {
@@ -131,7 +135,7 @@ export class BikeInsuranceComponent implements OnInit {
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
         }
-        this.bikeService.getCityList(data).subscribe(
+        this.bikeService.getRtoList(data).subscribe(
             (successData) => {
                 this.citySuccess(successData);
             },
@@ -217,6 +221,7 @@ export class BikeInsuranceComponent implements OnInit {
 
     // home bike
     quationFirstStep(value) {
+        console.log(value,'value');
         sessionStorage.enquiryFormData = JSON.stringify(value);
         const data = {
             "platform": "web",
@@ -362,6 +367,7 @@ export class BikeInsuranceComponent implements OnInit {
     sessionData() {
         if (sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData != undefined) {
             let stepper = JSON.parse(sessionStorage.enquiryFormData);
+            console.log(stepper,'stepper');
             this.bikeInsurance = this.fb.group({
                 'vehicalNumber': stepper.vehicalNumber,
                 'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),

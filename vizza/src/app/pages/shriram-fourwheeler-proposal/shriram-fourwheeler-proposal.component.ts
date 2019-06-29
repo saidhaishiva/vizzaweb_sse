@@ -447,8 +447,12 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
   policyDetail(){
     this.previousInsure.controls['previousPolicyTypeName'].patchValue(this.policyTypeList[this.previousInsure.controls['previousPolicyType'].value]);
+  }
+  policyList(){
+    this.vehical.controls['policyTypeName'].patchValue(this.policyTypeList[this.vehical.controls['policyType'].value]);
 
   }
+
   policyType() {
     const data = {
       'platform': 'web',
@@ -631,7 +635,6 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   }
   selectPolicy(){
     // MOT-PLT-002
-    this.vehical.controls['policyTypeName'].patchValue(this.policyTypeList[this.vehical.controls['policyType'].value]);
     if( this.vehical.controls['policyType'].value == 'MOT-PLT-002'){
       this.policyTypeDetails = true;
       this.vehical.controls['nilDepreciationCover'].patchValue('');
