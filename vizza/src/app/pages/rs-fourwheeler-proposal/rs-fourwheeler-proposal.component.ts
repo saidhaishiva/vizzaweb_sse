@@ -10,6 +10,7 @@ import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angul
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {forEach} from '@angular/router/src/utils/collection';
+import {ActivatedRoute} from '@angular/router';
 
 export const MY_FORMATS = {
   parse: {
@@ -111,9 +112,26 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public valuesubCalc: any;
   public Idv: any;
   public valid: any;
+  public RediretUrlLink: any;
 
-  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
-    this.step = 0;
+  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
+    let stepperindex = 0;
+    this.route.params.forEach((params) => {
+      if (params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+          this.summaryData = JSON.parse(sessionStorage.summaryData);
+          this.RediretUrlLink = this.summaryData.PaymentURL;
+
+          this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+          this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
+          this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+          this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+          this.ProposalId = this.summaryData.ProposalId;
+          sessionStorage.chola_health_proposal_id = this.ProposalId;
+        }
+      }
+    });
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
@@ -633,8 +651,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   isFinaced() {
     if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
+      this.vehical.controls['financierName'].setValidators([Validators.required]);
+      this.vehical.controls['isFourWheelerFinancedValue'].setValidators([Validators.required]);
 
     } else {
+
       this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
       this.vehical.controls['financierName'].patchValue('');
     }
@@ -665,13 +686,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
         this.vehical.controls['coverelectricalaccesss'].value == false;
 
     for (let i=0; i < this.getStepper2.electricalAccess.length; i++) {
-      if (  (i !=  0)) {
+    //   if (  (i !=  0)) {
 
 
       this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
       this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
       this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
-    }
+    // }
     }
 
     }
@@ -680,19 +701,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
     if (this.vehical.controls['cover_non_elec_acc'].value == true) {
 
     } else {
-      this.vehical.controls['cover_non_elec_acc'].value == false;
-
-      for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
-        if ( i !=  0) {
 
 
           this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
           this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
           this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
         }
-      }
 
-    }
   }
 
 
