@@ -45,10 +45,10 @@
                                         <mat-form-field class="w-100 text-left">
                                             <mat-placeholder>Registration City
                                             </mat-placeholder>
-                                            <mat-select  formControlName="city"  required>
+                                            <mat-select  formControlName="city" (change)="rtoCity()" required>
                                                 <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                             </mat-select>
-                                            <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>
+                                            <mat-error *ngIf="bikeInsurance.controls.city.errors?.required">city is required</mat-error>
                                         </mat-form-field>
                                     </div>
                                 </div>
