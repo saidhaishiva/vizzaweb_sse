@@ -203,7 +203,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       UnnamedPassengerCovered: [''],
       AutomobileAssociationMember: [''],
       AntiTheftDeviceFitted: [''],
-      InsurancePremium: [''],
+      // InsurancePremium: [''],
       PAToOwnerDriverCoverd: [''],
       PAToOwnerDriverCoverdSi: [''],
       NilDepreciationCoverage: [''],
@@ -211,8 +211,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       LiabilityToPaidDriverCovered: [''],
       TPPDCover: [''],
       TPPDCoverSi: [''],
-      BasicODCoverage: [''],
-      BasicLiability: [''],
+      BasicODCoverage: ['',Validators.required],
+      BasicLiability: ['',Validators.required],
       nrelationValue: [''],
       fuelTypeValue: [''],
       nOtherRelationValue: [''],
@@ -431,7 +431,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
   updateMandatory(event) {
     if (event.checked) {
-      this.coverDetails.controls['PACoverToOwner'].patchValue(true);
+      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(true);
 
       //
       this.coverDetails.controls['cnomineeName'].setValidators([Validators.required]);
@@ -450,7 +450,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.coverDetails.controls['nOtherRelation'].updateValueAndValidity();
 
     } else {
-      this.coverDetails.controls['PACoverToOwner'].patchValue(false);
+      this.coverDetails.controls['PAToOwnerDriverCoverd'].patchValue(false);
 
       this.coverDetails.controls['cappointeeName'].patchValue('');
       this.coverDetails.controls['cappointeeName'].setValidators(null);
@@ -993,7 +993,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         PAToOwnerDriverCoverdSi: this.getStepper3.PAToOwnerDriverCoverdSi,
         AutomobileAssociationMember: this.getStepper3.AutomobileAssociationMember,
         AntiTheftDeviceFitted: this.getStepper3.AntiTheftDeviceFitted,
-        InsurancePremium: this.getStepper3.InsurancePremium,
+        // InsurancePremium: this.getStepper3.InsurancePremium,
         NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
         applicableRate: this.getStepper3.applicableRate,
         LiabilityToPaidDriverCovered: this.getStepper3.LiabilityToPaidDriverCovered,
@@ -1480,7 +1480,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'IsTPPDCover': this.coverDetails.controls['TPPDCover'].value ? 'true' : 'false',
           'IsBasicODCoverage': this.coverDetails.controls['BasicODCoverage'].value ? 'true' : 'false',
           'IsBasicLiability': this.coverDetails.controls['BasicLiability'] ? 'true' : 'false',
-          'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'] ? 'true' : 'false',
+          // 'IsInsurancePremium': this.coverDetails.controls['InsurancePremium'] ? 'true' : 'false',
           'UnnamedPassengersSI': this.coverDetails.controls['UnnamedPassengersSI'].value,
           'IsNilDepreciation': this.coverDetails.controls['NilDepreciationCoverage'].value ? 'true' : 'false',
           'IsVoluntaryDeductableOpted': this.coverDetails.controls['IsVoluntaryDeductableOpted'].value ? 'true' : 'false',
@@ -1495,7 +1495,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
           'IsPAToDriverCovered': this.coverDetails.controls['IsPAToDriverCovered'].value ? 'true' : 'false',
           'IsRegistrationCover': this.coverDetails.controls['IsRegistrationCover'].value ? 'true' : 'false',
-          'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value,
+          'IsPAToNamedPassenger': this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
           "ElectricItems": {
             "ElectricalItems": {
               "ElectricalItemsID": "",
@@ -1564,7 +1564,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           },
           "PACoverToOwner": {
             "PACoverToOwner": {
-              'IsChecked': this.coverDetails.controls['PACoverToOwner'].value ? 'true' : 'false',
+              'IsChecked': this.coverDetails.controls['PAToOwnerDriverCoverd'].value ? 'true' : 'false',
               'NoOfItems': '',
               'PackageName': '',
               'AppointeeName': this.coverDetails.controls['cappointeeName'].value,
