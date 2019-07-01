@@ -370,7 +370,6 @@
 
     <!--</section>-->
 <section  class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
-
     <div class="container-fluid mt-4 h-claim">
         <fieldset class="mt-5 mb-2">
             <legend><h3 class="text-center w-100">Testimonial</h3></legend>
@@ -453,7 +452,6 @@
 
     <!--mobile view-->
 <section  class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
-
     <div class="container-fluid mt-4 h-claim">
         <fieldset class="mt-5 mb-2">
             <legend><h3 class="text-center w-100">Testimonial</h3></legend>
@@ -461,21 +459,23 @@
         <section class="row" fxLayoutAlign="center center">
             <div class="col-sm-12 col-xs-12 col-md-12">
                 <div class="row h-testimonial" fxLayoutAlign="center center">
-                    <div class="col-sm-8 col-xs-8 col-md-8">
+                    <div class="col-sm-12 col-xs-12 col-md-12">
                         <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
                         <!--<div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">-->
                             <!--<ul class="carousel-indicators mt-4">-->
                             <!--<li data-target="#demo" data-slide-to="i" [ngClass]="i == 0 ? 'active' : ''" *ngFor="let list of testimonialLists; let i = index"></li>-->
                             <!--</ul>-->
-                            <div class="carousel-inner col-sm-12 col-xs-12 col-md-12" >
-                                <div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">
-                                    <div class="float-left border-right border-secondary pr-2 mr-3">
-                                        <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}"  class="rounded-circle ">
-                                        <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle mr-3" width="100" height="100">
-                                        <p class="text-center"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span><br><span class="text-center">{{list.company_name}}</span></p>
-                                    </div>
-                                    <div>
-                                        <p class="visible text-center">{{list.comments}}</p>
+                            <div class="carousel-inner text-center col-sm-12 col-xs-12 col-md-12" >
+                                <div class="col-sm-10 col-xs-10 col-md-10">
+                                    <div  *ngFor="let list of testimonialLists; let i = index" class="carousel-item {{i == 0 ? 'active' : ''}}">
+                                        <div class="float-left border-right border-secondary pr-2 mr-3">
+                                            <img *ngIf = "list.profile_pic == ''" src="{{list.profile_pic}}"  class="rounded-circle ">
+                                            <img *ngIf = "list.profile_pic !=''" src="{{webhost + '/' + list.profile_pic}}"  class="rounded-circle mr-3" width="100" height="100">
+                                            <p class="text-center"><strong>{{list.customer_name}}</strong><br><span class="text-center">{{list.designation}}</span><br><span class="text-center">{{list.company_name}}</span></p>
+                                        </div>
+                                        <div>
+                                            <p class="visible text-center">{{list.comments}}</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Left and right controls -->

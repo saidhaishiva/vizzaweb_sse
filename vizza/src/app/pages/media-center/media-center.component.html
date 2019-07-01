@@ -12,13 +12,13 @@
 
     <ngx-datatable-column>
         <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
-            <mat-card class="p-0 mb-4 mt-viwe-profile1">
+            <mat-card class="p-0 mb-2 mt-viwe-profile1">
             <div fxLayout="row"  class="head-card">
 
             <div class="col-md-12s">
-            <div class="f-size" (click)="redirect(row)" innerHtml="{{row.content| limitTo:350}}...  <strong>Read More</strong>">
+            <div class="f-size" (click)="redirect(row)" innerHtml="{{row.content| limitTo:300}}...  <strong>Read More</strong>">
             </div>
-            <p class="f-size w-100" style="color: #5d965d">{{row.refrence_by}} &nbsp;{{row.refrence_date | date:'dd-MMM-yy'}}</p>
+            <p class="w-100 pl-3" style="color: #5d965d">{{row.refrence_by}} &nbsp;{{row.refrence_date | date:'dd-MMM-yy'}}</p>
             </div>
             </div>
 
