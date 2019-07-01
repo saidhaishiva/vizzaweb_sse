@@ -435,9 +435,86 @@ export class CarTataaigProposalComponent implements OnInit {
     }
 
   selectopt(event: any) {
+    console.log(this.vehicle.controls['packagevalue'].value, 'alue');
     this.vehicle.controls['packagevalue'].patchValue(this.packagelist[this.vehicle.controls['package'].value]);
+    if (this.vehicle.controls['package'].value == '1') {
+      this.vehicle.controls['Repairofglass'].patchValue(true);
+      this.vehicle.controls['Depreciation'].patchValue('');
+      this.vehicle.controls['Invoice'].patchValue('');
+      this.vehicle.controls['personaloss'].patchValue('');
+      this.vehicle.controls['transport'].patchValue('');
+      this.vehicle.controls['keyReplacement'].patchValue('');
+      this.vehicle.controls['Enginesecure'].patchValue('');
+      this.vehicle.controls['Consumableexpence'].patchValue('');
+      this.vehicle.controls['Tyresecure'].patchValue('');
+    }else if(this.vehicle.controls['package'].value == '2'){
+      this.vehicle.controls['personaloss'].patchValue(true);
+      this.vehicle.controls['transport'].patchValue(true);
+      this.vehicle.controls['keyReplacement'].patchValue(true);
+      this.vehicle.controls['Repairofglass'].patchValue(true);
+      this.vehicle.controls['Roadside'].patchValue(true);
+      this.vehicle.controls['Depreciation'].patchValue('');
+      this.vehicle.controls['Invoice'].patchValue('');
+      this.vehicle.controls['Enginesecure'].patchValue('');
+      this.vehicle.controls['Consumableexpence'].patchValue('');
+      this.vehicle.controls['Tyresecure'].patchValue('');
+    }else if(this.vehicle.controls['package'].value == '3') {
+      this.vehicle.controls['Depreciation'].patchValue(true);
+      this.vehicle.controls['personaloss'].patchValue(true);
+      this.vehicle.controls['transport'].patchValue(true);
+      this.vehicle.controls['keyReplacement'].patchValue(true);
+      this.vehicle.controls['Repairofglass'].patchValue(true);
+      this.vehicle.controls['Roadside'].patchValue(true);
+      this.vehicle.controls['Invoice'].patchValue('');
+      this.vehicle.controls['Enginesecure'].patchValue('');
+      this.vehicle.controls['Consumableexpence'].patchValue('');
+      this.vehicle.controls['Tyresecure'].patchValue('');
+    }else if(this.vehicle.controls['package'].value == '4') {
+      this.vehicle.controls['Depreciation'].patchValue(true);
+      this.vehicle.controls['personaloss'].patchValue(true);
+      this.vehicle.controls['transport'].patchValue(true);
+      this.vehicle.controls['keyReplacement'].patchValue(true);
+      this.vehicle.controls['Enginesecure'].patchValue(true);
+      this.vehicle.controls['Consumableexpence'].patchValue(true);
+      this.vehicle.controls['Repairofglass'].patchValue(true);
+      this.vehicle.controls['Roadside'].patchValue(true);
+      this.vehicle.controls['Invoice'].patchValue('');
+      this.vehicle.controls['Tyresecure'].patchValue('');
+    }else if(this.vehicle.controls['package'].value == '5') {
+      this.vehicle.controls['Depreciation'].patchValue(true);
+      this.vehicle.controls['personaloss'].patchValue(true);
+      this.vehicle.controls['transport'].patchValue(true);
+      this.vehicle.controls['keyReplacement'].patchValue(true);
+      this.vehicle.controls['Consumableexpence'].patchValue(true);
+      this.vehicle.controls['Repairofglass'].patchValue(true);
+      this.vehicle.controls['Tyresecure'].patchValue(true);
+      this.vehicle.controls['Roadside'].patchValue(true);
+      this.vehicle.controls['Invoice'].patchValue('');
+      this.vehicle.controls['Enginesecure'].patchValue('');
+    }else if(this.vehicle.controls['package'].value == '6') {
+      this.vehicle.controls['Depreciation'].patchValue(true);
+      this.vehicle.controls['personaloss'].patchValue(true);
+      this.vehicle.controls['transport'].patchValue(true);
+      this.vehicle.controls['keyReplacement'].patchValue(true);
+      this.vehicle.controls['Enginesecure'].patchValue(true);
+      this.vehicle.controls['Consumableexpence'].patchValue(true);
+      this.vehicle.controls['Repairofglass'].patchValue(true);
+      this.vehicle.controls['Tyresecure'].patchValue(true);
+      this.vehicle.controls['Roadside'].patchValue(true);
+      this.vehicle.controls['Invoice'].patchValue('');
+    }else if(this.vehicle.controls['package'].value == '7') {
+      this.vehicle.controls['Depreciation'].patchValue(true);
+      this.vehicle.controls['Invoice'].patchValue(true);
+      this.vehicle.controls['personaloss'].patchValue(true);
+      this.vehicle.controls['transport'].patchValue(true);
+      this.vehicle.controls['keyReplacement'].patchValue(true);
+      this.vehicle.controls['Enginesecure'].patchValue(true);
+      this.vehicle.controls['Consumableexpence'].patchValue(true);
+      this.vehicle.controls['Repairofglass'].patchValue(true);
+      this.vehicle.controls['Tyresecure'].patchValue(true);
+      this.vehicle.controls['Roadside'].patchValue(true);
+    }
   }
-
 
 
   //Nominee RelationList
@@ -632,6 +709,7 @@ export class CarTataaigProposalComponent implements OnInit {
       'NCB_protection_cover': this.vehicle.controls['protectioncover'].value == true ? 'Y' : 'N',
       'Roadside_Assistance':this.vehicle.controls['Roadside'].value == true ? 'Y' : 'N'
     };
+    console.log(data,'fullquote');
     this.carinsurance.QuoteList(data).subscribe(
         (successData) => {
           this.QuoteSuccess(successData,stepper);
@@ -837,25 +915,26 @@ export class CarTataaigProposalComponent implements OnInit {
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
-      console.log(this.summaryData,'summary');
+      console.log(this.summaryData, 'summary');
       this.Proposalnumber = this.summaryData.Proposal_Number;
-      console.log(this.Proposalnumber,'pronum');
+      console.log(this.Proposalnumber, 'pronum');
       this.PaymentRedirect = this.summaryData.PaymentRedirect;
-      console.log(this.PaymentRedirect,'redirect');
+      console.log(this.PaymentRedirect, 'redirect');
       this.PaymentReturn = this.summaryData.PaymentReturn;
       sessionStorage.tatacarproposalID = this.ProposalId;
       this.proposerFormData = this.proposer.value;
       this.vehicalFormData = this.vehicle.value;
       this.previousFormData = this.previouspolicy.value;
       this.nomineeFormData = this.nominee.value;
-    }else{
-      if(successData.ErrorDes != '') {
+    } else {
+      if (successData.ErrorDes) {
         this.toastr.error(successData.ErrorDes);
         console.log(successData.ErrorDes, 'errordes');
+      } else {
+        this.toastr.error(successData.ErrorObject);
+        console.log(successData.ErrorObject, 'errorobj');
+        this.settings.loadingSpinner = false;
       }
-      this.toastr.error(successData.ErrorObject);
-      console.log(successData.ErrorObject, 'errorobj');
-      this.settings.loadingSpinner = false;
     }
   }
 
@@ -865,7 +944,4 @@ export class CarTataaigProposalComponent implements OnInit {
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
   }
-
-
-
 }
