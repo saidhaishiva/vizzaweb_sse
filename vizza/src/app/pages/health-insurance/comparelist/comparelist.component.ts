@@ -39,7 +39,7 @@ export class ComparelistComponent implements OnInit {
       this.dialogRef.close()
   }
     buyProduct(values) {
-
+        this.dialogRef.close(values)
     }
 
 
