@@ -102,7 +102,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         stepperindex = 4;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
-          this.PaymentRedirect = this.summaryData.PaymentURL;
+          this.PaymentRedirect =   this.summaryData.PaymentRedirect;
           this.ProposalId = this.summaryData.ProposalId;
           this.PolicySisID =   this.summaryData.PolicySisID;
           this.PaymentReturn =   this.summaryData.PaymentReturn;

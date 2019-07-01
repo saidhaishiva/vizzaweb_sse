@@ -577,7 +577,7 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong><span *ngIf="vehicalFormData.electricalAccess == true">Yes</span></li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Vehical Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Vehicle Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{vehicalFormData.hypothecationBankName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''" ><strong>CNGKit:</strong> <span *ngIf="vehicalFormData.CNGKit == true">Yes</span></li>
@@ -677,7 +677,7 @@
                             </div>
                         </section>
                         <section>
-                            <h5 class="mt-3" *ngIf="apponiteeList">APPOINTEE DETAILS </h5>
+                            <h5 class="mt-3" sub-title *ngIf="apponiteeList">APPOINTEE DETAILS </h5>
                             <div class="row box-card">
 
                                 <div class="col-md-6">
