@@ -1151,6 +1151,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     }
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
       let stepper4 = JSON.parse(sessionStorage.stepper4);
+      if(stepper4.nomineeAge < 17){
+        this.apponiteeList = true;
+      }
       this.nomineeDetail = this.fb.group({
         nomineeName: stepper4.nomineeName,
         nomineeAge: stepper4.nomineeAge,

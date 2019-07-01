@@ -59,6 +59,7 @@ export class FourWheelerHomeComponent implements OnInit {
   public currentTab: any;
   public typeList: any;
   public companyList: any;
+  public cityDetails: any;
   public listDetails: boolean;
   public expiry: boolean;
   public previousDate: boolean;
@@ -79,7 +80,8 @@ export class FourWheelerHomeComponent implements OnInit {
       'ncb': '',
       'previousPolicyExpiry': '',
       'previousPolicyStart': '',
-      'previousCompany': ''
+      'previousCompany': '',
+      'city':''
     });
     this.expiry = false;
     this.showSelf = false;
@@ -91,6 +93,7 @@ export class FourWheelerHomeComponent implements OnInit {
   ngOnInit() {
     this.claimpercent();
     this.getpreviousCompany();
+    this.getCityLists();
     this.sessionData();
 
 
@@ -297,12 +300,39 @@ export class FourWheelerHomeComponent implements OnInit {
   public companyFailure(error) {
   }
 
-
+  rtoCity(){
+    sessionStorage.RtoFour = this.fourWheeler.controls['city'].value;
+    console.log(sessionStorage.RtoFour,'sessionStorage.Rto');
+  }
 
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
+  getCityLists() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
 
+    }
+    this.fwService.getRtoList(data).subscribe(
+        (successData) => {
+          this.citySuccess(successData);
+        },
+        (error) => {
+          this.cityFailure(error);
+        }
+    );
+  }
+  public citySuccess(successData){
+    if (successData.IsSuccess) {
+      this.cityDetails = successData.ResponseObject;
+      //
+    }
+  }
+  public cityFailure(error) {
+  }
   sessionData() {
     if (sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData != undefined) {
       let stepper = JSON.parse(sessionStorage.enquiryFormData);
@@ -315,7 +345,8 @@ export class FourWheelerHomeComponent implements OnInit {
         'ncb': stepper.ncb,
         'previousPolicyExpiry': this.datePipe.transform(stepper.previousPolicyExpiry, 'y-MM-dd'),
         'previousPolicyStart': this.datePipe.transform(stepper.previousPolicyStart, 'y-MM-dd'),
-        'previousCompany': stepper.previousCompany
+        'previousCompany': stepper.previousCompany,
+        'city': stepper.city,
       });
 
     }

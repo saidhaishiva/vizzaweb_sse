@@ -103,7 +103,6 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.enquiryFormData = JSON.stringify(this.bikeInsurance.value);
     }
     rtoCity(){
-        alert();
         sessionStorage.Rto = this.bikeInsurance.controls['city'].value;
         console.log(sessionStorage.Rto,'sessionStorage.Rto');
     }
