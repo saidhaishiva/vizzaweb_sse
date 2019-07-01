@@ -93,7 +93,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public Comprehensivepremium: any;
   public coverList: any;
   public respincodeList: any;
-  public apponiteeList: boolean;
+  public guardianList: boolean;
   public accidentList: any;
   public makeModelList: any;
   public pAUnnamedPassengersList: any;
@@ -188,18 +188,17 @@ export class RsFourwheelerProposalComponent implements OnInit {
       averageMonthlyMileageRun: '',
       accidentCoverForPaidDriver: '',
       companyName: '',
-      idv: '',
+      // idv: '',
       isFourWheelerFinancedValue: '',
       valueOfLossOfBaggage: '',
-      quoteId: '',
+      // quoteId: '',
       personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
       isFourWheelerFinanced: false,
-      isAddon: false,
+      // isAddon: false,
       lossOfBaggage: 'No',
-      hypothecationType: '',
-      typeOfCover: ['', Validators.required],
-      addon: '',
+      typeOfCover: '',
+      // addon: '',
       total: '',
       subTotal: '',
       vechileOwnerShipChanged: 'No',
@@ -616,7 +615,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     console.log(this.vehical.valid, ' Vecvalid')
     // if (check.checked == true) {
 
-      // if (this.vehical.valid ) {
+      if (this.vehical.valid ) {
       this.valueCalc = [];
       this.valueList =  this.vehical.value.electricalAccess;
 
@@ -647,19 +646,66 @@ export class RsFourwheelerProposalComponent implements OnInit {
         this.toastr.error('Electrical Accessories Values should be less than 50,000');
       }
 
-    // }
-  }
-  isFinaced() {
-    if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
-      this.vehical.controls['financierName'].setValidators([Validators.required]);
-      this.vehical.controls['isFourWheelerFinancedValue'].setValidators([Validators.required]);
-
-    } else {
-
-      this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
-      this.vehical.controls['financierName'].patchValue('');
     }
   }
+  isFinaced(event: any)
+  {
+    if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
+      this.vehical.controls['financierName'].patchValue(this.vehical.controls['financierName'].value);
+      this.vehical.controls['isFourWheelerFinancedValue'].patchValue(this.vehical.controls['isFourWheelerFinancedValue'].value);
+
+      this.vehical.controls['financierName'].setValidators([Validators.required]);
+      this.vehical.controls['isFourWheelerFinancedValue'].setValidators([Validators.required]);
+    } else if (this.proposer.controls['isFourWheelerFinanced'].value == false) {
+      this.vehical.controls['financierName'].patchValue('');
+      this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
+
+      this.vehical.controls['financierName'].setValidators(null);
+      this.vehical.controls['isFourWheelerFinancedValue'].setValidators(null);
+
+    }
+    this.vehical.controls['financierName'].updateValueAndValidity();
+    this.vehical.controls['isFourWheelerFinancedValue'].updateValueAndValidity();
+
+  }
+
+  guardianAgeValid(event: any)
+  {
+    if (this.nomineeDetail.controls['guardianList'].value == true) {
+      this.vehical.controls['guardianName'].patchValue(this.vehical.controls['guardianName'].value);
+      this.vehical.controls['guardianAge'].patchValue(this.vehical.controls['guardianAge'].value);
+      this.vehical.controls['guardianRelationship'].patchValue(this.vehical.controls['guardianRelationship'].value);
+
+      this.vehical.controls['guardianName'].setValidators([Validators.required]);
+      this.vehical.controls['guardianAge'].setValidators([Validators.required]);
+      this.vehical.controls['guardianRelationship'].setValidators([Validators.required]);
+    } else
+    if (this.nomineeDetail.controls['guardianList'].value == true) {
+      this.vehical.controls['guardianName'].patchValue('');
+      this.vehical.controls['guardianAge'].patchValue('');
+      this.vehical.controls['guardianRelationship'].patchValue('');
+
+      this.vehical.controls['guardianName'].setValidators(null);
+      this.vehical.controls['guardianAge'].setValidators(null);
+      this.vehical.controls['guardianRelationship'].setValidators(null);
+
+    }
+    this.vehical.controls['guardianName'].updateValueAndValidity();
+    this.vehical.controls['guardianAge'].updateValueAndValidity();
+    this.vehical.controls['guardianRelationship'].updateValueAndValidity();
+
+  }
+  // {
+  //   if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
+  //     this.vehical.controls['financierName'].setValidators([Validators.required]);
+  //     this.vehical.controls['isFourWheelerFinancedValue'].setValidators([Validators.required]);
+  //
+  //   } else {
+  //
+  //     this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
+  //     this.vehical.controls['financierName'].patchValue('');
+  //   }
+  // }
 
   isAddoncheck() {
     if (this.vehical.controls['isAddon'].value == true) {
@@ -685,15 +731,13 @@ export class RsFourwheelerProposalComponent implements OnInit {
       } else {
         this.vehical.controls['coverelectricalaccesss'].value == false;
 
-    for (let i=0; i < this.getStepper2.electricalAccess.length; i++) {
-    //   if (  (i !=  0)) {
-
-
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
-    // }
-    }
+      for (let i=0; i < this.getStepper2.electricalAccess.length; i++) {
+        if ( i !=  0) {
+        }
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+      }
 
     }
   }
@@ -701,15 +745,18 @@ export class RsFourwheelerProposalComponent implements OnInit {
     if (this.vehical.controls['cover_non_elec_acc'].value == true) {
 
     } else {
+      this.vehical.controls['cover_non_elec_acc'].value == false;
 
-
-          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+      for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
+        if ( i !=  0) {
         }
+        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+      }
 
+    }
   }
-
 
 
   changefinancedValue() {
@@ -1089,9 +1136,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   ageNominee() {
     if (this.nomineeDetail.controls['nomineeAge'].value <= 17) {
-      this.apponiteeList = true;
+      this.guardianList = true;
     }  else {
-      this.apponiteeList = false;
+      this.guardianList = false;
 
     }
   }
@@ -1200,7 +1247,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "quoteId": '',
         "vehicleDetails": {
           "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
-          "addonValue": this.vehical.controls['addon'].value,
+          "addonValue": " ",
           "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value ,
           "claimsReported": this.previousInsure.controls['claimsReported'].value,
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
@@ -1276,10 +1323,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public proposalSuccess(successData, stepper) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
+      // stepper.next();
+      // this.topScroll();
       // this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
+      sessionStorage.summaryData = JSON.stringify(this.summaryData);
+      this.RediretUrlLink = this.summaryData.PaymentURL;
+
       this.ProposalId =   this.summaryData.ProposalId;
-      // this.PaymentRedirect =   this.summaryData.PaymentRedirect;
       this.referenceId =   this.summaryData.ReferenceId;
       this.ComprehensivePremium =   this.summaryData.Comprehensive_premium;
       sessionStorage.royalFourWheelerproposalID = this.ProposalId;
@@ -1287,6 +1338,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehicalFormData = this.vehical.value;
       this.previousFormData = this.previousInsure.value;
       this.nomineeFormData = this.nomineeDetail.value;
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
+      sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
+      sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       this.updateproposal(stepper);
 
       console.log(this.proposerFormData, 'ppp');
@@ -1417,7 +1472,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.summaryData1 = successData.ResponseObject;
       this.AgentId =  this.summaryData1.AgentId;
       this.Apikey =  this.summaryData1.Apikey;
-      this.PaymentRedirect =  this.summaryData1.PaymentRedirect;
+      this.RediretUrlLink =  this.summaryData1.RediretUrlLink;
       this.PaymentReturn =  this.summaryData1.PaymentReturn;
       this.ElcValue =  this.summaryData1.ElcValue;
       this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
@@ -1512,19 +1567,19 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['averageMonthlyMileageRun'].patchValue(this.getStepper2.averageMonthlyMileageRun);
       this.vehical.controls['accidentCoverForPaidDriver'].patchValue(this.getStepper2.accidentCoverForPaidDriver);
       this.vehical.controls['companyName'].patchValue(this.getStepper2.companyName);
-      this.vehical.controls['idv'].patchValue(this.getStepper2.idv);
+      // this.vehical.controls['idv'].patchValue(this.getStepper2.idv);
       this.vehical.controls['isFourWheelerFinancedValue'].patchValue(this.getStepper2.isFourWheelerFinancedValue);
       this.vehical.controls['valueOfLossOfBaggage'].patchValue(this.getStepper2.valueOfLossOfBaggage);
       this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].patchValue(this.getStepper2.personalAccidentCoverForUnnamedPassengers);
       this.vehical.controls['financierName'].patchValue(this.getStepper2.financierName);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
-      this.vehical.controls['isAddon'].patchValue(this.getStepper2.isAddon);
+      // this.vehical.controls['isAddon'].patchValue(this.getStepper2.isAddon);
       this.vehical.controls['lossOfBaggage'].patchValue(this.getStepper2.lossOfBaggage);
-      this.vehical.controls['hypothecationType'].patchValue(this.getStepper2.hypothecationType);
+      // this.vehical.controls['hypothecationType'].patchValue(this.getStepper2.hypothecationType);
       this.vehical.controls['typeOfCover'].patchValue(this.getStepper2.typeOfCover);
       this.vehical.controls['vechileOwnerShipChanged'].patchValue(this.getStepper2.vechileOwnerShipChanged);
       this.vehical.controls['cover_dri_othr_car_ass'].patchValue(this.getStepper2.cover_dri_othr_car_ass);
-      this.vehical.controls['addon'].patchValue(this.getStepper2.addon);
+      // this.vehical.controls['addon'].patchValue(this.getStepper2.addon);
       this.vehical.controls['fibreGlass'].patchValue(this.getStepper2.fibreGlass);
       this.vehical.controls['windShieldGlass'].patchValue(this.getStepper2.windShieldGlass);
       this.vehical.controls['keyreplacement'].patchValue(this.getStepper2.keyreplacement);
@@ -1601,6 +1656,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
       let stepper4 = JSON.parse(sessionStorage.stepper4);
+      if(stepper4.nomineeAge < 17){
+        this.guardianList = true;
+      }
       this.nomineeDetail = this.fb.group({
         nomineeName: stepper4.nomineeName,
         nomineeAge: stepper4.nomineeAge,

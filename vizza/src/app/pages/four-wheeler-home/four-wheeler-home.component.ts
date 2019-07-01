@@ -59,6 +59,7 @@ export class FourWheelerHomeComponent implements OnInit {
   public currentTab: any;
   public typeList: any;
   public companyList: any;
+  public productDetails: any;
   public cityDetails: any;
   public listDetails: boolean;
   public expiry: boolean;
@@ -101,6 +102,8 @@ export class FourWheelerHomeComponent implements OnInit {
 
   setSession() {
     sessionStorage.enquiryFormData = JSON.stringify(this.fourWheeler.value);
+    this.productDetails = JSON.parse(sessionStorage.setAllProductLists);
+    this.productDetails = [];
   }
 
   changeNcbAmt() {
