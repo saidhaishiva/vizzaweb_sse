@@ -26,13 +26,13 @@
               <form [formGroup]="fourWheeler">
                 <div class="row">
 
-                  <div class="col-md-12">
-                    <mat-form-field class="w-100 text-left">
-                      <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" minlength="9" (keypress)="idValidate($event)" (keyup)="setSession()" required>
-                      <mat-error *ngIf="fourWheeler.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
-                      <mat-error *ngIf="fourWheeler.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>
-                    </mat-form-field>
-                  </div>
+                  <!--<div class="col-md-12">-->
+                    <!--<mat-form-field class="w-100 text-left">-->
+                      <!--<input matInput placeholder="Vehicle No" formControlName="vehicalNumber" class="text-uppercase" maxlength="10" minlength="9" (keypress)="idValidate($event)" (keyup)="setSession()" required>-->
+                      <!--<mat-error *ngIf="fourWheeler.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>-->
+                      <!--<mat-error *ngIf="fourWheeler.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
                       <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" required>
@@ -42,7 +42,16 @@
 
                     </mat-form-field>
                   </div>
-
+                  <div class="col-md-12">
+                    <mat-form-field class="w-100 text-left">
+                      <mat-placeholder>Registration City
+                      </mat-placeholder>
+                      <mat-select  formControlName="city" (change)="rtoCity()" required>
+                        <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="fourWheeler.controls.city.errors?.required">city is required</mat-error>
+                    </mat-form-field>
+                  </div>
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-raised-button color="primary"  (click)="quationFirstStep(fourWheeler.value)">Submit</button>
@@ -60,7 +69,7 @@
 
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" maxlength="10" minlength="9" (keypress)="idValidate($event)" (keyup)="setSession()" required>
+                      <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" class="text-uppercase" maxlength="10" minlength="9" (keypress)="idValidate($event)" (keyup)="setSession()" required>
                       <mat-error *ngIf="fourWheeler.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
                       <mat-error *ngIf="fourWheeler.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>
                     </mat-form-field>

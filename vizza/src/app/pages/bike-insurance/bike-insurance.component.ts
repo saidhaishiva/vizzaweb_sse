@@ -103,7 +103,6 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.enquiryFormData = JSON.stringify(this.bikeInsurance.value);
     }
     rtoCity(){
-        alert();
         sessionStorage.Rto = this.bikeInsurance.controls['city'].value;
         console.log(sessionStorage.Rto,'sessionStorage.Rto');
     }
@@ -238,6 +237,7 @@ export class BikeInsuranceComponent implements OnInit {
             "type": this.typeList,
             "ncb_percent": this.bikeInsurance.controls['ncb'].value ? this.bikeInsurance.controls['ncb'].value : '0',
             "prev_insurance_name": this.bikeInsurance.controls['previousCompany'].value ? this.bikeInsurance.controls['previousCompany'].value : '',
+            // "prev_insurer": this.bikeInsurance.controls['previousCompany'].value ? this.bikeInsurance.controls['previousCompany'].value : '',
         }
         console.log(data, 'data');
 

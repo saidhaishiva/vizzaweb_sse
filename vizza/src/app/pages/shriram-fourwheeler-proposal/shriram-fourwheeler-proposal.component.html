@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row apolloMunichProposal">
         <div class="col-md-12">
-            <mat-horizontal-stepper  #stepper>
+            <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
                 <mat-step [stepControl]="">
 
                     <ng-template matStepLabel >PROPOSER DETAILS</ng-template>
@@ -502,7 +502,7 @@
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}}</span> </span></h4>
+                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}}/ IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyBikeDetails.Idv}}</span> </span></h4>
                             </div>
                             <div class="col-md-8">
                                 <ul class="summary-head">
@@ -623,6 +623,7 @@
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                                                     <li class="list-group-item"><strong>Previous Insurer:</strong> {{previousFormData.previousInsured}}</li>
+                                                    <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
 
                                                 </ul>
                                             </div>
@@ -634,7 +635,6 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
                                                     <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>
                                                     <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>
                                                 </ul>

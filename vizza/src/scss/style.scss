@@ -370,6 +370,16 @@ a:hover {
 //  background-color: #ec9e6f!important;
 //}
 
+.bg-career{
+  background: url("./assets/img/Careers-Slider2.jpg");
+  background-color: $theme-color !important;
+  width: 100%;
+  background-size: cover;
+  overflow: visible;
+  padding: 11em 0;
+  height: 100%;
+}
+
 .bg-map{
   background: url("./assets/img/loginbg.jpg");
   background-color: $theme-color !important;
