@@ -379,7 +379,14 @@ a:hover {
   padding: 11em 0;
   height: 100%;
 }
-
+.career-style mat-card{
+  position: absolute;
+  left: 0;
+  top: 5px;
+  right: 0;
+  width: 960px;
+  margin: 18em auto 70px;
+}
 .bg-map{
   background: url("./assets/img/loginbg.jpg");
   background-color: $theme-color !important;
@@ -3121,7 +3128,7 @@ fieldset {
 .f-size{
   cursor: pointer;
   color: #5d965d !important;
-  padding: 20px;
+  padding: 20px 20px 0px 20px;
   h3 {
     font-size: 16px !important;
     font-weight: bold;
