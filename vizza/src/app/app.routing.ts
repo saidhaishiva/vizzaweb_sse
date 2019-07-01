@@ -160,6 +160,7 @@ import {BajajGoldSurakshaComponent} from './pages/bajaj-gold-suraksha/bajaj-gold
 import {UlipComponent} from './pages/ulip/ulip.component';
 import {SpecialContigencyPolicyComponent} from './pages/special-contigency-policy/special-contigency-policy.component';
 import {GroupTravelComponent} from './pages/group-travel/group-travel.component';
+import {HdfcTwoWheelerProposalComponent} from './pages/hdfc-two-wheeler-proposal/hdfc-two-wheeler-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -315,7 +316,7 @@ export const routes: Routes = [
             { path: 'jewelers', component: JewelersblockComponent, data: { breadcrumb: 'Jewelers Block Policy'}},
             { path: 'specialContigency', component: SpecialContigencyPolicyComponent, data: { breadcrumb: 'Special Contigency Policy'}},
             { path: 'groupTravel', component: GroupTravelComponent, data: { breadcrumb: 'Group Travel Insurance'}},
-
+            { path: 'hdfc-twoWheeler-proposal/:stepper', component: HdfcTwoWheelerProposalComponent, data: { breadcrumb: 'hdfc-twoWheeler-proposal'}},
 
         ]
     },
