@@ -371,8 +371,7 @@ export class EnquiryPopupComponent implements OnInit {
       'registration_city': this.vehicalDetails.controls['city'].value,
       'rto_code': this.rto,
       'type': this.enquiryFormData.type,
-
-
+       'prev_insurer':this.enquiryFormData.previousCompany
     };
     console.log(data);
     sessionStorage.vehicledetails = JSON.stringify(data);

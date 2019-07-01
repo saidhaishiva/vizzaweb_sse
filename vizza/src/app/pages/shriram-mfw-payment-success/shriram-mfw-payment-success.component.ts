@@ -34,7 +34,7 @@ export class ShriramMfwPaymentSuccessComponent implements OnInit {
   ngOnInit() {
   }
   retry() {
-    this.router.navigate(['/bike-shriram-proposal'  + '/' + true]);
+    this.router.navigate(['/four-wheeler-shriram'  + '/' + true]);
   }
   DownloadPdf() {
     const data = {

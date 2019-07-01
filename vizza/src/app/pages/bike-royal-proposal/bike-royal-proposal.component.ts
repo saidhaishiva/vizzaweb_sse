@@ -1127,35 +1127,65 @@ proposal(stepper){
     if(sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
       let stepper2 = JSON.parse(sessionStorage.stepper2);
       console.log(stepper2.electricalAccess,'electricalAccess');
-      this.vehical = this.fb.group({
-        vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
-        vehicleRegisteredName: stepper2.vehicleRegisteredName,
-        // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
-        coverelectricalaccesss: stepper2.coverelectricalaccesss,
-        drivingExperience: stepper2.drivingExperience,
-        averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
-        companyName: stepper2.companyName,
-        idv: stepper2.idv,
-        isTwoWheelerFinancedValue: stepper2.isTwoWheelerFinancedValue,
-        financierName: stepper2.financierName,
-        isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
-        hypothecationType: stepper2.hypothecationType,
-        typeOfCover: stepper2.typeOfCover,
-        vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
-        electricalAccess: stepper2.electricalAccess,
-        nonelectricalAccess: stepper2.nonelectricalAccess,
-        accidentPaid: stepper2.accidentPaid,
-      });
-      if(stepper2.coverelectricalaccesss == true){
-        for(let j = 0; j < this.vehical.controls['electricalAccess'].value.length; j++){
-          for (let i = 0; i < stepper2.electricalAccess.length; i++) {
-            this.vehical['controls'].electricalAccess['controls'][j]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
-            this.vehical['controls'].electricalAccess['controls'][j]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
+      stepper2 = JSON.parse(sessionStorage.stepper2);
 
-          }
+      this.vehical.controls['coverelectricalaccesss'].patchValue(stepper2.coverelectricalaccesss);
+      console.log(stepper2.electricalAccess, ' getst2');
+
+      for (let i=0; i < stepper2.electricalAccess.length; i++) {
+        if ( i !=  0) {
+          this.addItems();
         }
-
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue(stepper2.electricalAccess[i].Value);
       }
+      this.vehical.controls['vehicleMostlyDrivenOn'].patchValue(stepper2.vehicleMostlyDrivenOn);
+      this.vehical.controls['vehicleRegisteredName'].patchValue(stepper2.vehicleRegisteredName);
+      this.vehical.controls['drivingExperience'].patchValue(stepper2.drivingExperience);
+      this.vehical.controls['averageMonthlyMileageRun'].patchValue(stepper2.averageMonthlyMileageRun);
+      this.vehical.controls['accidentCoverForPaidDriver'].patchValue(stepper2.accidentCoverForPaidDriver);
+      this.vehical.controls['companyName'].patchValue(stepper2.companyName);
+      this.vehical.controls['idv'].patchValue(stepper2.idv);
+      this.vehical.controls['isTwoWheelerFinanced'].patchValue(stepper2.isTwoWheelerFinanced);
+      this.vehical.controls['financierName'].patchValue(stepper2.financierName);
+      this.vehical.controls['hypothecationType'].patchValue(stepper2.hypothecationType);
+      this.vehical.controls['typeOfCover'].patchValue(stepper2.typeOfCover);
+      this.vehical.controls['vechileOwnerShipChanged'].patchValue(stepper2.vechileOwnerShipChanged);
+      this.vehical.controls['electricalAccess'].patchValue(stepper2.electricalAccess);
+      this.vehical.controls['nonelectricalAccess'].patchValue(stepper2.nonelectricalAccess);
+      this.vehical.controls['accidentPaid'].patchValue(stepper2.accidentPaid);
+
+      // if(stepper2.coverelectricalaccesss == true){
+      //   for(let j = 0; j < this.vehical.controls['electricalAccess'].value.length; j++){
+      //     for (let i = 0; i < stepper2.electricalAccess.length; i++) {
+      //       this.vehical['controls'].electricalAccess['controls'][j]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
+      //       this.vehical['controls'].electricalAccess['controls'][j]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
+      //
+      //     }
+      //   }
+      //
+      // }
+      // this.vehical = this.fb.group({
+      //   vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
+      //   vehicleRegisteredName: stepper2.vehicleRegisteredName,
+        // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
+        // coverelectricalaccesss: stepper2.coverelectricalaccesss,
+        // drivingExperience: stepper2.drivingExperience,
+        // averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
+        // companyName: stepper2.companyName,
+        // idv: stepper2.idv,
+        // isTwoWheelerFinancedValue: stepper2.isTwoWheelerFinancedValue,
+        // financierName: stepper2.financierName,
+        // isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
+        // hypothecationType: stepper2.hypothecationType,
+        // typeOfCover: stepper2.typeOfCover,
+        // vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
+        // electricalAccess: stepper2.electricalAccess,
+        // nonelectricalAccess: stepper2.nonelectricalAccess,
+        // accidentPaid: stepper2.accidentPaid,
+      // });
+
 
 
     }

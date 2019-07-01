@@ -96,7 +96,28 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
   public genderList: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fwService: FourWheelerService ) {
-
+    let stepperindex = 0;
+    this.route.params.forEach((params) => {
+      if(params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
+          this.summaryData = JSON.parse(sessionStorage.summaryData);
+          this.PaymentRedirect = this.summaryData.PaymentURL;
+          this.ProposalId = this.summaryData.ProposalId;
+          this.PolicySisID =   this.summaryData.PolicySisID;
+          this.PaymentReturn =   this.summaryData.PaymentReturn;
+          sessionStorage.shiramFwProposalID = this.ProposalId;
+          this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+          this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
+          this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+          this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+          console.log(this.summaryData ,'this.summaryData ');
+          console.log(sessionStorage.summaryData,'sessionStorage.summaryData ');
+        }
+      }
+    });
+    this.currentStep = stepperindex;
+    console.log(this.currentStep,'this.currentStep');
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
@@ -1004,6 +1025,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
+      sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.ProposalId =   this.summaryData.ProposalId;
       this.PaymentRedirect =   this.summaryData.PaymentRedirect;
       this.PolicySisID =   this.summaryData.PolicySisID;
@@ -1013,6 +1035,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.vehicalFormData = this.vehical.value;
       this.previousFormData = this.previousInsure.value;
       this.nomineeFormData = this.nomineeDetail.value;
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
+      sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
+      sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       console.log(this.vehicalFormData,'this.proposerFormData');
     } else{
       this.toastr.error(successData.ErrorObject);
@@ -1027,7 +1053,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
   alternateChange(event) {
     if (event.target.value.length == 10) {
-      if(event.target.value == this.proposer.get('alterMobile').value) {
+      if(event.target.value == this.proposer.get('mobile').value) {
         this.mobileNumber = 'Alternate number should be different from mobile number';
       } else {
         this.mobileNumber = '';
