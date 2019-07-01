@@ -49,6 +49,7 @@ export class EnquiryPopupComponent implements OnInit {
   public options : any;
   public config : any;
   public getDays : any;
+  public rto : any;
   constructor(public fb: FormBuilder, public bikeService: BikeInsuranceService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
   public dialogRef: MatDialogRef<EnquiryPopupComponent>,
   @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -87,6 +88,7 @@ export class EnquiryPopupComponent implements OnInit {
 
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    this.rto = sessionStorage.Rto;
     this.claimpercent();
     this.manifactureList();
     this.bussinessType();
@@ -366,9 +368,12 @@ export class EnquiryPopupComponent implements OnInit {
       'ncb_percent': this.vehicalDetails.controls['ncb'].value ? this.vehicalDetails.controls['ncb'].value : '',
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
       'business_type': this.vehicalDetails.controls['bussiness'].value,
-      'registration_city': this.vehicalDetails.controls['city'].value
-
+      'registration_city': this.vehicalDetails.controls['city'].value,
+      'rto_code': this.rto,
+      'type': this.enquiryFormData.type,
+       'prev_insurer':this.enquiryFormData.previousCompany
     };
+    console.log(data);
     sessionStorage.vehicledetails = JSON.stringify(data);
     if(this.vehicalDetails.valid) {
 

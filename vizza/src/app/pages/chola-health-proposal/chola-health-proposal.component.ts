@@ -719,7 +719,10 @@ console.log( sessionStorage.stepper3Details);
                     this.personal.controls['personalState'].patchValue(this.response.state);
                     console.log(this.personal.controls['personalState'].value,'this.state')
                     this.personal.controls['personalStateIdP'].patchValue(this.response.state_code);
-                    console.log(this.personal.controls['personalStateIdP'].value,'this.statecode')
+                    console.log(this.personal.controls['personalStateIdP'].value,'this.statecode');
+                    this.personal.controls['personalCity'].patchValue(this.response.city);
+                    console.log(this.personal.controls['personalCity'].value,'this.city');
+
                 }
             }
             sessionStorage.CholaCityList = JSON.stringify(this.CholaCityList);
@@ -982,6 +985,7 @@ console.log( sessionStorage.stepper3Details);
     }
     changeCity() {
         this.personal.controls['personalCityName'].patchValue(this.CholaCityList[this.personal.controls['personalCity'].value]);
+        console.log( this.personal.controls['personalCityName'].value,'cityghhj')
     }
 
   changeNomineeRelation() {

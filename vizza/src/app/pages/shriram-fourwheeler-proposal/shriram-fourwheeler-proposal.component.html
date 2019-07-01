@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row apolloMunichProposal">
         <div class="col-md-12">
-            <mat-horizontal-stepper  #stepper>
+            <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
                 <mat-step [stepControl]="">
 
                     <ng-template matStepLabel >PROPOSER DETAILS</ng-template>
@@ -183,7 +183,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Policy Type"  formControlName="policyType"    required>
+                                                    <mat-select placeholder="Policy Type"  formControlName="policyType"   (change)="policyList()"  required>
                                                         <mat-option *ngFor="let vehiclebk of policyTypeList | keys" value="{{vehiclebk.key}}" > {{vehiclebk.value}} </mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="vehical.controls.policyType.errors?.required">Policy Type is required</mat-error>
@@ -502,13 +502,13 @@
                     <section class="summary-details" *ngIf="summaryData">
                         <div class="row">
                             <div class="col-md-4">
-                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}}</span> </span></h4>
+                                <h4 class="mt-4"><span style="font-size: 17px; color: #666;">  Plan Name: <span class="color-blue" style="font-size: large"> {{buyBikeDetails.plan_name}}/ IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyBikeDetails.Idv}}</span> </span></h4>
                             </div>
                             <div class="col-md-8">
                                 <ul class="summary-head">
                                     <li><span>Insurer:</span><img src="{{webhost + '/' + buyBikeDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                                    <li *ngIf="summaryData.Comprehensive_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Comprehensive_premium}}</span></li>
-                                    <li *ngIf="summaryData.ThridParty_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.ThridParty_premium}}</span></li>
+                                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.Comprehensive_premium}}</span></li>
+                                    <!--<li *ngIf="summaryData.ThridParty_premium"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.ThridParty_premium}}</span></li>-->
                                     <li></li>
                                 </ul>
                             </div>
@@ -573,14 +573,20 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item"><strong>Policy Type:</strong> {{vehicalFormData.policyTypeName}}</li>
                                             <li class="list-group-item"><strong>Proposal Type:</strong> {{vehicalFormData.proposalType}}</li>
-                                            <!--<li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation Cover:</strong> <span *ngIf="vehicalFormData.nilDepreciationCover == 'true'">Yes</span><span *ngIf="vehicalFormData.nilDepreciationCover == 'False'">No</span></li>-->
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nilDepreciationCover != ''"><strong>Nil Depreciation Cover:</strong> <span *ngIf="vehicalFormData.nilDepreciationCover == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.electricalAccess != ''"><strong>Electrical Access:</strong><span *ngIf="vehicalFormData.electricalAccess == true">Yes</span></li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == true">Yes</span></li>
-                                            <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Vehical Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{vehicalFormData.hypothecationBankName}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''" ><strong>CNGKit:</strong> <span *ngIf="vehicalFormData.CNGKit == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.geographicalArea != ''" ><strong>Geographical Area:</strong> <span *ngIf="vehicalFormData.geographicalArea == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Bangladesh != ''" ><strong>Bangladesh:</strong> <span *ngIf="vehicalFormData.Bangladesh == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.SriLanka != ''" ><strong>SriLanka:</strong> <span *ngIf="vehicalFormData.SriLanka == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Pakistan != ''" ><strong>Pakistan:</strong> <span *ngIf="vehicalFormData.Pakistan == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Nepal != ''" ><strong>Nepal:</strong> <span *ngIf="vehicalFormData.Nepal == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Bhutan != ''" ><strong>Bhutan:</strong> <span *ngIf="vehicalFormData.Bhutan == true">Yes</span></li>
 
                                         </ul>
                                     </div>
@@ -599,6 +605,9 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.pincode != ''"><strong>PIN code:</strong> {{vehicalFormData.pincode}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.state != ''"><strong>City:</strong> {{vehicalFormData.cityName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.city != ''"><strong>State:</strong> {{vehicalFormData.stateName}}</li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.Maldives != ''" ><strong>Maldives:</strong> <span *ngIf="vehicalFormData.Maldives == true">Yes</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.DeTariff != ''" ><strong>DeTariff:</strong> <span *ngIf="vehicalFormData.DeTariff == true">Yes</span></li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -614,6 +623,7 @@
                                                 <ul class="m-0 list-group">
                                                     <li class="list-group-item"><strong>Policy Number:</strong> {{previousFormData.policyNumber}}</li>
                                                     <li class="list-group-item"><strong>Previous Insurer:</strong> {{previousFormData.previousInsured}}</li>
+                                                    <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
 
                                                 </ul>
                                             </div>
@@ -625,7 +635,6 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <ul class="m-0 list-group">
-                                                    <li class="list-group-item"><strong>Previous PolicyType:</strong> {{previousFormData.previousPolicyTypeName}}</li>
                                                     <li class="list-group-item"><strong>Policy Si:</strong> {{previousFormData.policySi}}</li>
                                                     <li class="list-group-item"><strong>Previous Nil Depreciation:</strong> <span *ngIf="previousFormData.policyNilDescription == '1'">Yes</span><span *ngIf="previousFormData.policyNilDescription == '0'">No</span></li>
                                                 </ul>
@@ -668,7 +677,7 @@
                             </div>
                         </section>
                         <section>
-                            <h5 class="mt-3 sub-title" *ngIf="apponiteeList">APPOINTEE DETAILS </h5>
+                            <h5 class="mt-3" *ngIf="apponiteeList">APPOINTEE DETAILS </h5>
                             <div class="row box-card">
 
                                 <div class="col-md-6">

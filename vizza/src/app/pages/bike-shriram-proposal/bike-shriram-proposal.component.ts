@@ -108,16 +108,17 @@ export class BikeShriramProposalComponent implements OnInit {
                 stepperindex = 4;
                 if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
                     this.summaryData = JSON.parse(sessionStorage.summaryData);
-                    this.ProposalId =   this.summaryData.ProposalId;
-                    this.PaymentRedirect =   this.summaryData.PaymentRedirect;
+                    this.PaymentRedirect = this.summaryData.PaymentURL;
+                    this.ProposalId = this.summaryData.ProposalId;
                     this.PolicySisID =   this.summaryData.PolicySisID;
                     this.PaymentReturn =   this.summaryData.PaymentReturn;
+                    sessionStorage.shiramFwProposalID = this.ProposalId;
                     this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
                     this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
                     this.previousFormData = JSON.parse(sessionStorage.previousFormData);
                     this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
-                    sessionStorage.shiramBikeproposalID = this.ProposalId;
-
+                    console.log(this.summaryData ,'this.summaryData ');
+                    console.log(sessionStorage.summaryData,'sessionStorage.summaryData ');
                 }
             }
         });
@@ -1034,6 +1035,10 @@ export class BikeShriramProposalComponent implements OnInit {
          this.previousFormData = this.previousInsure.value;
          this.nomineeFormData = this.nomineeDetail.value;
          console.log(this.vehicalFormData,'this.proposerFormData');
+            sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+            sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
+            sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
+            sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       } else{
             this.toastr.error(successData.ErrorObject);
 
@@ -1126,6 +1131,9 @@ export class BikeShriramProposalComponent implements OnInit {
     }
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
       let stepper4 = JSON.parse(sessionStorage.stepper4);
+        if(stepper4.nomineeAge < 17){
+            this.apponiteeList = true;
+        }
       this.nomineeDetail = this.fb.group({
         nomineeName: stepper4.nomineeName,
         nomineeAge: stepper4.nomineeAge,

@@ -151,11 +151,15 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                          <mat-form-field  class="w-100">
-                            <mat-select placeholder="City"  formControlName="personalCity" (change)="changeCity()" required>
-                              <mat-option *ngFor="let CityList of CholaCityList | keys" value="{{CityList.key}}" > {{CityList.value}} </mat-option>
-                            </mat-select>
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="City" formControlName="personalCity" autocomplete="off" (keypress)="nameValidate($event)"   (change)="changeCity()"  readonly>
+                            <mat-error *ngIf="personal.controls.personalState.errors?.required">State is required</mat-error>
                           </mat-form-field>
+                          <!--<mat-form-field  class="w-100">-->
+                            <!--<mat-select placeholder="City"  formControlName="personalCity" (change)="changeCity()" required>-->
+                              <!--<mat-option *ngFor="let CityList of CholaCityList | keys" value="{{CityList.key}}" > {{CityList.value}} </mat-option>-->
+                            <!--</mat-select>-->
+                          <!--</mat-form-field>-->
                         </div>
 
                         <div class="proposal-buttom mt-3 text-right w-100">

@@ -9,6 +9,7 @@ import {AppSettings} from '../../app.settings';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -87,9 +88,32 @@ public coverList: any;
 public respincodeList: any;
 public vehicledetails: any;
 public premiumAmount: any;
+public currentStep: any;
 public apponiteeList: boolean;
-  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
-
+  constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+    let stepperindex = 0;
+    this.route.params.forEach((params) => {
+      if(params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryData1 != '' && sessionStorage.summaryData1 != undefined) {
+          this.summaryData1 = JSON.parse(sessionStorage.summaryData1);
+          this.PaymentRedirect =  this.summaryData1.PaymentRedirect;
+          this.PaymentReturn =  this.summaryData1.PaymentReturn;
+          this.ElcValue =  this.summaryData1.ElcValue;
+          this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
+          this.VersionNo =  this.summaryData1.VersionNo;
+          sessionStorage.shiramFwProposalID = this.ProposalId;
+          this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+          this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
+          this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+          this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+          console.log(this.summaryData ,'this.summaryData ');
+          console.log(sessionStorage.summaryData,'sessionStorage.summaryData ');
+        }
+      }
+    });
+    this.currentStep = stepperindex;
+    console.log(this.currentStep,'this.currentStep');
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
@@ -841,17 +865,19 @@ public apponiteeList: boolean;
     nomineeDetails(stepper: MatStepper, value){
         sessionStorage.stepper4 = '';
         sessionStorage.stepper4 = JSON.stringify(value);
-      if(this.nomineeDetail.valid){
-        if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
           this.proposal(stepper);
-        } else {
-          if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
-            this.proposal(stepper);
-          }   else {
-            this.toastr.error('Please fill the appointee details');
-          }
-        }
-      }
+
+      // if(this.nomineeDetail.valid){
+      //   if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
+      //     this.proposal(stepper);
+      //   } else {
+      //     if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
+      //       this.proposal(stepper);
+      //     }   else {
+      //       this.toastr.error('Please fill the appointee details');
+      //     }
+      //   }
+      // }
   }
     // proposal creation
 proposal(stepper){
@@ -1074,7 +1100,11 @@ proposal(stepper){
       this.VersionNo =  this.summaryData1.VersionNo;
       this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
       this.proposerFormData = this.proposer.value;
-
+      sessionStorage.summaryData1 = JSON.stringify(this.summaryData1);
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
+      sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
+      sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
     } else{
       this.toastr.error(successData.ErrorObject);
 
@@ -1127,35 +1157,65 @@ proposal(stepper){
     if(sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
       let stepper2 = JSON.parse(sessionStorage.stepper2);
       console.log(stepper2.electricalAccess,'electricalAccess');
-      this.vehical = this.fb.group({
-        vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
-        vehicleRegisteredName: stepper2.vehicleRegisteredName,
-        // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
-        coverelectricalaccesss: stepper2.coverelectricalaccesss,
-        drivingExperience: stepper2.drivingExperience,
-        averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
-        companyName: stepper2.companyName,
-        idv: stepper2.idv,
-        isTwoWheelerFinancedValue: stepper2.isTwoWheelerFinancedValue,
-        financierName: stepper2.financierName,
-        isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
-        hypothecationType: stepper2.hypothecationType,
-        typeOfCover: stepper2.typeOfCover,
-        vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
-        electricalAccess: stepper2.electricalAccess,
-        nonelectricalAccess: stepper2.nonelectricalAccess,
-        accidentPaid: stepper2.accidentPaid,
-      });
-      if(stepper2.coverelectricalaccesss == true){
-        for(let j = 0; j < this.vehical.controls['electricalAccess'].value.length; j++){
-          for (let i = 0; i < stepper2.electricalAccess.length; i++) {
-            this.vehical['controls'].electricalAccess['controls'][j]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
-            this.vehical['controls'].electricalAccess['controls'][j]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
+      stepper2 = JSON.parse(sessionStorage.stepper2);
 
-          }
+      this.vehical.controls['coverelectricalaccesss'].patchValue(stepper2.coverelectricalaccesss);
+      console.log(stepper2.electricalAccess, ' getst2');
+
+      for (let i=0; i < stepper2.electricalAccess.length; i++) {
+        if ( i !=  0) {
+          this.addItems();
         }
-
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue(stepper2.electricalAccess[i].Value);
       }
+      this.vehical.controls['vehicleMostlyDrivenOn'].patchValue(stepper2.vehicleMostlyDrivenOn);
+      this.vehical.controls['vehicleRegisteredName'].patchValue(stepper2.vehicleRegisteredName);
+      this.vehical.controls['drivingExperience'].patchValue(stepper2.drivingExperience);
+      this.vehical.controls['averageMonthlyMileageRun'].patchValue(stepper2.averageMonthlyMileageRun);
+      this.vehical.controls['accidentCoverForPaidDriver'].patchValue(stepper2.accidentCoverForPaidDriver);
+      this.vehical.controls['companyName'].patchValue(stepper2.companyName);
+      this.vehical.controls['idv'].patchValue(stepper2.idv);
+      this.vehical.controls['isTwoWheelerFinanced'].patchValue(stepper2.isTwoWheelerFinanced);
+      this.vehical.controls['financierName'].patchValue(stepper2.financierName);
+      this.vehical.controls['hypothecationType'].patchValue(stepper2.hypothecationType);
+      this.vehical.controls['typeOfCover'].patchValue(stepper2.typeOfCover);
+      this.vehical.controls['vechileOwnerShipChanged'].patchValue(stepper2.vechileOwnerShipChanged);
+      this.vehical.controls['electricalAccess'].patchValue(stepper2.electricalAccess);
+      this.vehical.controls['nonelectricalAccess'].patchValue(stepper2.nonelectricalAccess);
+      this.vehical.controls['accidentPaid'].patchValue(stepper2.accidentPaid);
+
+      // if(stepper2.coverelectricalaccesss == true){
+      //   for(let j = 0; j < this.vehical.controls['electricalAccess'].value.length; j++){
+      //     for (let i = 0; i < stepper2.electricalAccess.length; i++) {
+      //       this.vehical['controls'].electricalAccess['controls'][j]['controls'].NameOfElectronicAccessories.patchValue(stepper2.electricalAccess[i].NameOfElectronicAccessories);
+      //       this.vehical['controls'].electricalAccess['controls'][j]['controls'].MakeModel.patchValue(stepper2.electricalAccess[i].MakeModel);
+      //
+      //     }
+      //   }
+      //
+      // }
+      // this.vehical = this.fb.group({
+      //   vehicleMostlyDrivenOn: stepper2.vehicleMostlyDrivenOn,
+      //   vehicleRegisteredName: stepper2.vehicleRegisteredName,
+        // registrationchargesRoadtax:stepper2.registrationchargesRoadtax,
+        // coverelectricalaccesss: stepper2.coverelectricalaccesss,
+        // drivingExperience: stepper2.drivingExperience,
+        // averageMonthlyMileageRun: stepper2.averageMonthlyMileageRun,
+        // companyName: stepper2.companyName,
+        // idv: stepper2.idv,
+        // isTwoWheelerFinancedValue: stepper2.isTwoWheelerFinancedValue,
+        // financierName: stepper2.financierName,
+        // isTwoWheelerFinanced: stepper2.isTwoWheelerFinanced,
+        // hypothecationType: stepper2.hypothecationType,
+        // typeOfCover: stepper2.typeOfCover,
+        // vechileOwnerShipChanged: stepper2.vechileOwnerShipChanged,
+        // electricalAccess: stepper2.electricalAccess,
+        // nonelectricalAccess: stepper2.nonelectricalAccess,
+        // accidentPaid: stepper2.accidentPaid,
+      // });
+
 
 
     }
