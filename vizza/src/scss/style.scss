@@ -379,7 +379,14 @@ a:hover {
   padding: 11em 0;
   height: 100%;
 }
-
+.career-style mat-card{
+  position: absolute;
+  left: 0;
+  top: 5px;
+  right: 0;
+  width: 960px;
+  margin: 18em auto 70px;
+}
 .bg-map{
   background: url("./assets/img/loginbg.jpg");
   background-color: $theme-color !important;
