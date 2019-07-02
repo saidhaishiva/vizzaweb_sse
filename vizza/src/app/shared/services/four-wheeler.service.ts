@@ -833,19 +833,6 @@ export class FourWheelerService {
         .catch(this.handleError);
   }
 
-  // Tataaig CodeList
-
-  CodeList(data) {
-    const json = JSON.stringify(data);
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-    };
-    const url = this.configurationService.getFourwheelerInsurance() + 'tata/previousInsurerCode';
-    return this.http.post(url,json, httpOptions)
-        .map(this.extractData)
-        .catch(this.handleError);
-  }
-
   // Tataaig RelationList
 
   RelationList(data) {

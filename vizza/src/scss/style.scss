@@ -610,14 +610,11 @@ a:hover {
       border-bottom: 1px solid #ccc;
       width: 100%;
     }
-    #iconRight {
-      float: right;
-      margin-right: 10px;
+
+    .fa-caret-down {
+      position: absolute;
+      right: 10px;
     }
-    //.fa-caret-down {
-    //  float: right;
-    //  margin-right: 10px;
-    //}
   }
 
 }
@@ -2928,18 +2925,24 @@ btn-uploade{
 .h-testimonial {
   @media only screen and (min-width: 768px) {
     .carousel-control-prev {
-      left: -80px !important;
+      position: absolute;
+      left: -50px !important;
     }
     .carousel-control-next {
-      right: -80px !important;
+      position: absolute;
+      right: -50px !important;
     }
   }
-  @media only screen and (max-width: 767px) {
+  @media only screen and (max-width: 992px) {
     .carousel-control-prev {
-      left: -14px !important;
+      position: absolute;
+      left: 0px !important;
+      //padding-top: 150px;
     }
     .carousel-control-next {
-      right: -14px !important;
+      position: absolute;
+      right: 0px !important;
+      //padding-top: 150px;
     }
   }
   }
