@@ -455,28 +455,34 @@
 
                                         <div class="row">
 
-                                            <div class="col-md-6 mt-3">
-                                                <mat-checkbox  formControlName="coverelectricalaccesss" (change)="eleAccess()">Cover Electrical Accessories</mat-checkbox>
+                                            <div class="col-md-6 mt-3" >
+                                                <mat-checkbox  formControlName="coverelectricalaccesss" (change)="eleAccess()" (change)="eleAccessReq()">Cover Electrical Accessories</mat-checkbox>
                                             </div>
                                         </div>
 
                                         <div *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
                                             <div  formArrayName="electricalAccess" *ngFor="let item of vehical.get('electricalAccess').controls; let i = index;">
                                                 <div class="row" [formGroupName]="i">
-                                                    <div class="col-md-3" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
+                                                    <div class="col-md-3" >
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Name Of Electronic Accessories "  formControlName="nameOfElectronicAccessories" [required]="vehical.controls['coverelectricalaccesss'].value == true" autocomplete="off">
+                                                            <mat-placeholder>Name Of Electronic Accessories<span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span></mat-placeholder>
+
+                                                            <input matInput   formControlName="nameOfElectronicAccessories"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
-                                                    <div class="col-md-3" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
+                                                    <div class="col-md-3" >
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Make Model "  formControlName="makeModel"  [required]="vehical.controls['coverelectricalaccesss'].value == true"  autocomplete="off">
+                                                            <mat-placeholder>Make Model<span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span></mat-placeholder>
+
+                                                            <input matInput   formControlName="makeModel"    autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
 
-                                                    <div class="col-md-3" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">
+                                                    <div class="col-md-3" >
                                                         <mat-form-field class="w-100">
-                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)"   maxlength="5"   autocomplete="off" [required]="vehical.controls['coverelectricalaccesss'].value == true" >
+                                                            <mat-placeholder>Value<span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span></mat-placeholder>
+
+                                                            <input matInput  formControlName="elecValue" (keypress)="numberValidate($event)"   maxlength="5"   autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()">+</button>
@@ -488,7 +494,7 @@
                                         <div class="row">
 
                                             <div class="col-md-6 mt-2">
-                                                <mat-checkbox  formControlName="cover_non_elec_acc"  (change)="noneleAccess()" >Cover Non Electrical Accessories</mat-checkbox>
+                                                <mat-checkbox  formControlName="cover_non_elec_acc"  (change)="noneleAccess()" (change)="noneleAccessReq()" >Cover Non Electrical Accessories</mat-checkbox>
                                             </div>
                                         </div>
                                         <div *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
@@ -496,19 +502,19 @@
                                                 <div class="row" [formGroupName]="i">
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
-                                                            <input matInput placeholder="Name Of Non Electronic Accessories "  formControlName="nameOfElectronicAccessories"  [required]="vehical.controls['cover_non_elec_acc'].value == true"  autocomplete="off">
+                                                            <input matInput placeholder="Name Of Non Electronic Accessories "  formControlName="nameOfElectronicAccessories"   autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
-                                                            <input matInput placeholder="Make Model "  formControlName="makeModel"  [required]="vehical.controls['cover_non_elec_acc'].value == true"  autocomplete="off">
+                                                            <input matInput placeholder="Make Model "  formControlName="makeModel"   autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
 
 
                                                     <div class="col-md-3">
                                                         <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
-                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)" maxlength="5"   [required]="vehical.controls['cover_non_elec_acc'].value == true"  autocomplete="off">
+                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)" maxlength="5"    autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addnonEelctricalItems()">+</button>
@@ -954,7 +960,7 @@
                         <hr>
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <form action={{RediretUrlLink}}  method='POST' #form>
+                                <form action={{PaymentRedirect}}  method='POST' #form>
 
                                     <input type="hidden" name="reqType" id="reqType" value="JSON">
                                     <input type="hidden" name="process"  value="paymentOption">
