@@ -208,7 +208,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'manufacture': this.vehicalDetails.controls['manufacture'].value
+      'manufacture': this.vehicalDetails.controls['manufacture'].value,
+      'variant':  this.vehicalDetails.controls['variant'].value
 
     }
     this.fwService.getModelList(data).subscribe(
