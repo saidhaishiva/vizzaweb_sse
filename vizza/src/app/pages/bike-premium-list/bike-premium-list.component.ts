@@ -11,6 +11,7 @@ import {DatePipe} from '@angular/common';
 import {Settings} from '../../app.settings.model';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
+import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
 
 @Component({
   selector: 'app-bike-premium-list',
@@ -35,7 +36,7 @@ export class BikePremiumListComponent implements OnInit {
     getEnquiry: any;
     policyTerm: any;
     initialProductList: any;
-    constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public bikeService: BikeInsuranceService, public config: ConfigurationService) {
+    constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -51,7 +52,7 @@ export class BikePremiumListComponent implements OnInit {
     {
         this.getCompanyList();
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-
+        // this.clearSession.clearSessionbikeData();
         this.sessionData();
     }
     sessionData() {
