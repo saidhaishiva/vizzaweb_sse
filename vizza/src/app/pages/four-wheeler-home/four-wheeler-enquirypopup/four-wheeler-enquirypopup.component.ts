@@ -88,8 +88,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    this.rto = sessionStorage.Rto;
+    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
+    this.rto = sessionStorage.RtoFour;
 
     this.claimpercent();
     this.manifactureList();
@@ -323,7 +323,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
   }
   enquiryQuation(value) {
-    const data = {
+    if(this.vehicalDetails.valid) {
+      const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -351,8 +352,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
 
     };
-    if(this.vehicalDetails.valid) {
-      sessionStorage.vehicledetails = JSON.stringify(data);
+      sessionStorage.vehicledetailsfw = JSON.stringify(data);
       this.fwService.getEnquiryDetails(data).subscribe(
           (successData) => {
             this.enquirySuccess(successData);
