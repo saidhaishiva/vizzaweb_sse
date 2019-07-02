@@ -15,6 +15,7 @@ import {EnquiryPopupComponent} from '../bike-insurance/enquiry-popup/enquiry-pop
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {FourWheelerEnquirypopupComponent} from './four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -59,13 +60,14 @@ export class FourWheelerHomeComponent implements OnInit {
   public currentTab: any;
   public typeList: any;
   public companyList: any;
+  public productDetails: any;
   public cityDetails: any;
   public listDetails: boolean;
   public expiry: boolean;
   public previousDate: boolean;
   public showSelf: boolean;
 
-  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService) {
+  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe,public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService) {
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     this.settings = this.appSettings.settings;
@@ -91,6 +93,7 @@ export class FourWheelerHomeComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.claimpercent();
     this.getpreviousCompany();
     this.getCityLists();
@@ -100,7 +103,9 @@ export class FourWheelerHomeComponent implements OnInit {
   }
 
   setSession() {
-    sessionStorage.enquiryFormData = JSON.stringify(this.fourWheeler.value);
+    sessionStorage.enquiryFormDatafw = JSON.stringify(this.fourWheeler.value);
+    // this.productDetails = JSON.parse(sessionStorage.setAllProductLists);
+    // this.productDetails = [];
   }
 
   changeNcbAmt() {
@@ -193,7 +198,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
   // home bike
   quationFirstStep(value) {
-    sessionStorage.enquiryFormData = JSON.stringify(value);
+    sessionStorage.enquiryFormDatafw = JSON.stringify(value);
     const data = {
       "platform": "web",
       "created_by": "0",
@@ -228,7 +233,7 @@ export class FourWheelerHomeComponent implements OnInit {
       this.enquiry = this.bikeList;
       sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
       sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
-      sessionStorage.enquiryFormData = JSON.stringify(data);
+      sessionStorage.enquiryFormDatafw = JSON.stringify(data);
         let dialogRef = this.dialog.open(FourWheelerEnquirypopupComponent, {
           width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
           height: '1200'
@@ -334,8 +339,8 @@ export class FourWheelerHomeComponent implements OnInit {
   public cityFailure(error) {
   }
   sessionData() {
-    if (sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData != undefined) {
-      let stepper = JSON.parse(sessionStorage.enquiryFormData);
+    if (sessionStorage.enquiryFormDatafw != '' && sessionStorage.enquiryFormDatafw != undefined) {
+      let stepper = JSON.parse(sessionStorage.enquiryFormDatafw);
       this.fourWheeler = this.fb.group({
         'vehicalNumber': stepper.vehicalNumber,
         'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),
@@ -353,7 +358,9 @@ export class FourWheelerHomeComponent implements OnInit {
     if (sessionStorage.bikeEnquiryId != '' && sessionStorage.bikeEnquiryId != undefined) {
       this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
     }
-
+    if (sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists != undefined) {
+      sessionStorage.setAllProductLists = [];
+    }
   }
 
 
