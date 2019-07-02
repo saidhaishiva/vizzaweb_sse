@@ -76,7 +76,7 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <mat-select placeholder="Variant"  formControlName="variant"  (change)="variantList()" required>{{vehicalDetails.controls['variant'].value}}
+        <mat-select placeholder="Variant"  formControlName="variant"  (change)="variantList()" required>
           <mat-option *ngFor="let paCity of variantDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
         </mat-select>
         <mat-error *ngIf="vehicalDetails.controls.variant.errors?.required">Variant is required</mat-error>
