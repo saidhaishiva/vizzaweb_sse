@@ -73,6 +73,7 @@ export class AegonTermLifeComponent implements OnInit {
   public settings: Settings;
   public stepper2: any;
   public requestedUrl: any;
+  public sum_insured_amount:any;
 
   public inputReadonly: boolean;
   public apponiteeList: boolean;
@@ -118,6 +119,7 @@ export class AegonTermLifeComponent implements OnInit {
       fatherName: '',
       maritalStatus: '',
       qualifiction: '',
+      qualifictionOther:'',
       employeeType: '',
       natureOfWork: '',
       annualIncome: '',
@@ -145,7 +147,13 @@ export class AegonTermLifeComponent implements OnInit {
       pStateName:'',
       pCityName:'',
       cCityName:'',
-
+      adbrSumAssured:'',
+      deathBenefitSA:'',
+      deathBenefitTISA:'',
+      enchancedCISA:'',
+      icirSumAssured:'',
+      // deathBenefitSAName:'',
+      // deathBenefitTISAName:'',
 
 
     });
@@ -155,6 +163,7 @@ export class AegonTermLifeComponent implements OnInit {
       nlastName: '',
       ndob: '',
       nRelation: '',
+      relationOther: '',
       nAddress1: '',
       nAddress2: '',
       nCity: '',
@@ -165,6 +174,7 @@ export class AegonTermLifeComponent implements OnInit {
       aFullName: '',
       adob: '',
       aRelation: '',
+      appointeeRelationOther:'',
       aPercentage: '',
       nCityName:'',
       nRelationName:'',
@@ -179,10 +189,19 @@ export class AegonTermLifeComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    // if(){
+    //     this.personal.controls['adbrSumAssured'].patchValue(this.lifePremiumList.sum_insured_amount);
+    // } else {
+    //   this.personal.controls['adbrSumAssured'].patchValue('0');
+    //
+    // }
     this. getQualificationList();
     this.getoccupationlist();
     this.getnomineerelationship();
     this.getState();
+    this.checkSum();
+    this.checkSumAs();
+
 
   }
 
@@ -412,8 +431,17 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.personal.valid, 'checked');
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
-        stepper.next();
-        this.topScroll();
+        if((sessionStorage.adbrSumAssured >=50000) && (sessionStorage.adbrSumAssured <=30000000)) {
+          console.log(sessionStorage.adbrSumAssured ,'sessionStorag')
+          console.log(sessionStorage.adbrSumAssured.valid ,'sessionStorag')
+
+          stepper.next();
+          this.topScroll();
+        }else{
+          this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
+
+        }
+
 
       } else {
         this.toastr.error('Proposer age should be 18 or above');
@@ -587,8 +615,35 @@ export class AegonTermLifeComponent implements OnInit {
   }
   public pincodeListSuccess(successData, title) {
     if (successData.IsSuccess) {
+      this.response = successData.ResponseObject;
+      // this.personal.controls['custMailStateCd'].patchValue(this.response.state_code);
+      if (title == 'personal') {
+        if (Object.keys(this.response).length === 0) {
+          this.personal.controls['pCity'].patchValue('');
+          this.personal.controls['pState'].patchValue('');
+          this.cityList = {};
+        } else {
+          this.cityList = this.response.city;
+          console.log(this.cityList,'this.cityList')
+          this.personal.controls['pState'].patchValue(this.response.state);
+          console.log(this.personal.controls['pState'].value,'this.state')
+
+          this.personal.controls['pCity'].patchValue(this.response.city);
+          console.log(this.personal.controls['pCity'].value,'this.city');
+
+        }
+      }
+      sessionStorage.cityList = JSON.stringify(this.cityList);
+
     } else {
       this.toastr.error('Invalid Pincode');
+      if (title == 'personal') {
+        sessionStorage.cityList = '';
+        this.cityList = {};
+        this.personal.controls['pCity'].patchValue('');
+        this.personal.controls['pState'].patchValue('');
+
+      }
     }
   }
   public pincodeListFailure(error) {
@@ -622,8 +677,15 @@ export class AegonTermLifeComponent implements OnInit {
     this.nominee.controls['nStateName'].patchValue(this.stateList[this.nominee.controls['nState'].value]);
 
   }
+  checkSum()
+{
+  this.personal.controls['deathBenefitSA'].patchValue(this.lifePremiumList.sum_insured_amount);
+}
 
-
+  checkSumAs()
+  {
+    this.personal.controls['deathBenefitTISA'].patchValue(this.lifePremiumList.sum_insured_amount);
+  }
 
   sessionData() {
     if (sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
@@ -643,6 +705,7 @@ export class AegonTermLifeComponent implements OnInit {
         fatherName: stepper1.fatherName,
         maritalStatus: stepper1.maritalStatus,
         qualifiction: stepper1.qualifiction,
+        qualifictionOther: stepper1.qualifictionOther,
         employeeType: stepper1.employeeType,
         natureOfWork: stepper1.natureOfWork,
         annualIncome: stepper1.annualIncome,
@@ -670,6 +733,11 @@ export class AegonTermLifeComponent implements OnInit {
         pCityName: stepper1.pCityName,
         cCityName: stepper1.cCityName,
         pStateName: stepper1.pStateName,
+        adbrSumAssured: stepper1.adbrSumAssured,
+        deathBenefitSA: stepper1.deathBenefitSA,
+        deathBenefitTISA: stepper1.deathBenefitTISA,
+        enchancedCISA: stepper1.enchancedCISA,
+        icirSumAssured: stepper1.icirSumAssured,
 
 
       });
@@ -682,6 +750,7 @@ export class AegonTermLifeComponent implements OnInit {
         nlastName: stepper2.nlastName,
         ndob: stepper2.ndob,
         nRelation: stepper2.nRelation,
+        relationOther: stepper2.relationOther,
         nAddress1: stepper2.nAddress1,
         nAddress2: stepper2.nAddress2,
         nCity: stepper2.nCity,
@@ -692,6 +761,7 @@ export class AegonTermLifeComponent implements OnInit {
         aFullName: stepper2.aFullName,
         adob: stepper2.adob,
         aRelation: stepper2.aRelation,
+        appointeeRelationOther: stepper2.appointeeRelationOther,
         aPercentage: stepper2.aPercentage,
         nCityName: stepper2.nCityName,
         nRelationName: stepper2.nRelationName,
@@ -720,7 +790,7 @@ export class AegonTermLifeComponent implements OnInit {
           "product_id": this.lifePremiumList.product_id,
           "suminsured_Amount":sessionStorage.selectedAmountTravel,
           "policy_id": this.getEnquiryDetials.policy_id,
-          "benefitOption": "LP",
+          "benefitOption": this.lifePremiumList.benefit_option,
           "personalInformation": {
             "tittle": this.personal.controls['title'].value,
             "firstName": this.personal.controls['firstName'].value,
@@ -733,6 +803,7 @@ export class AegonTermLifeComponent implements OnInit {
             "fathername": this.personal.controls['fatherName'].value,
             "maritalStatus":this.personal.controls['maritalStatus'].value,
             "qualifiction": this.personal.controls['qualifiction'].value,
+            "qualifictionOther": this.personal.controls['qualifictionOther'].value,
             "employeeType": this.personal.controls['employeeType'].value,
             "natureOfWork": this.personal.controls['natureOfWork'].value,
             "annualIncome": this.personal.controls['annualIncome'].value,
@@ -762,6 +833,7 @@ export class AegonTermLifeComponent implements OnInit {
             "lastName":  this.nomineeData.nlastName,
             "dob": this.datepipe.transform(this.nomineeData.ndob,'y-MM-dd'),
             "relation":  this.nomineeData.nRelation,
+            "relationOther":  this.nomineeData.relationOther,
             "address1":  this.nomineeData.nAddress1,
             "address2":  this.nomineeData.nAddress2,
             "city": this.nomineeData.nCity,
@@ -772,6 +844,7 @@ export class AegonTermLifeComponent implements OnInit {
             "appointeeFullName":  this.nomineeData.aFullName,
             "appointeeDob":  this.nomineeData.adob,
             "appointeeRelation":  this.nomineeData.aRelation,
+            "appointeeRelationOther":  this.nomineeData.appointeeRelationOther,
             "appointeePercent":  this.nomineeData.aPercentage
           },
           "addonITerm": {
@@ -785,11 +858,11 @@ export class AegonTermLifeComponent implements OnInit {
             "wcir": "NO"
           },
           "addons_itermplus": {
-            "adbrSumAssured": "",
-            "deathBenefitSA": "434",
-            "deathBenefitTISA": "",
-            "enchancedCISA": "",
-            "icirSumAssured": ""
+            "adbrSumAssured":this.personal.controls['adbrSumAssured'].value,
+            "deathBenefitSA": this.personal.controls['deathBenefitSA'].value,
+            "deathBenefitTISA": this.personal.controls['deathBenefitTISA'].value,
+            "enchancedCISA":this.personal.controls['enchancedCISA'].value,
+            "icirSumAssured": this.personal.controls['icirSumAssured'].value
           }
         };
 

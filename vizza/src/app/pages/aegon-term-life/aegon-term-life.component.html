@@ -99,8 +99,8 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Qualifiction" formControlName="qualifiction"  (change)="changeQualificationList()">
-                            <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
+                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList()">
+                            <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.key'>
                               {{list.value}}
                             </mat-option>
 
@@ -109,6 +109,12 @@
                           <mat-error *ngIf="personal.controls.qualifiction.errors?.required">Qualifiction is required</mat-error>
 
                         </mat-form-field>
+                        </div>
+                        <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == '15'">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="Qualifiction Other" formControlName="qualifictionOther" (keypress)="nameValidate($event)"  autocomplete="off"  [required]="qualificationList" >
+                            <mat-error *ngIf="personal.controls.qualifictionOther.errors?.required">Qualifiction Other is required</mat-error>
+                          </mat-form-field>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
@@ -209,15 +215,21 @@
                               <mat-error *ngIf="personal.controls.pPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                             </mat-form-field></div>
 
-                            <div class="col-md-6"><mat-form-field class="w-100" >
-                              <mat-select placeholder="City" formControlName="pCity" autocomplete="off" required (change)="changeCitylist()">
-                                <mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>
-                                {{city.value}}
-                                </mat-option>
+                            <!--<div class="col-md-6"><mat-form-field class="w-100" >-->
+                              <!--<mat-select placeholder="City" formControlName="pCity" autocomplete="off" required (change)="changeCitylist()">-->
+                                <!--<mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>-->
+                                <!--{{city.value}}-->
+                                <!--</mat-option>-->
 
-                              </mat-select>
-                              <mat-error *ngIf="personal.controls.pCity.errors?.required">City is required</mat-error>
-                            </mat-form-field></div>
+                              <!--</mat-select>-->
+                              <!--<mat-error *ngIf="personal.controls.pCity.errors?.required">City is required</mat-error>-->
+                            <!--</mat-form-field></div>-->
+                            <div class="col-md-6">
+                              <mat-form-field class="w-100">
+                                <input #message maxlength="80" matInput placeholder="City" formControlName="pCity"  autocomplete="off" required>
+                                <mat-error *ngIf="personal.controls.pCity.errors?.required">City is required</mat-error>
+                              </mat-form-field>
+                            </div>
                             <div class="col-md-6"><mat-form-field class="w-100">
 
                               <mat-select placeholder="State" formControlName="pState" autocomplete="off" (change)="getcitylist()" required="" >
@@ -262,15 +274,21 @@
                               <mat-error *ngIf="personal.controls.cPincode.hasError('pattern')">Enter Valid  Pincode</mat-error>
                             </mat-form-field></div>
 
-                            <div class="col-md-6"  [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
-                              <mat-form-field class="w-100" (change)="changecCitylist()" >
-                              <mat-select placeholder="City" formControlName="cCity" autocomplete="off" >
-                                <mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>
-                                  {{city.value}}
-                                </mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="personal.controls.cCity.errors?.required">City is required</mat-error>
-                            </mat-form-field></div>
+                            <!--<div class="col-md-6"  [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">-->
+                              <!--<mat-form-field class="w-100" (change)="changecCitylist()" >-->
+                              <!--<mat-select placeholder="City" formControlName="cCity" autocomplete="off" >-->
+                                <!--<mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>-->
+                                  <!--{{city.value}}-->
+                                <!--</mat-option>-->
+                              <!--</mat-select>-->
+                              <!--<mat-error *ngIf="personal.controls.cCity.errors?.required">City is required</mat-error>-->
+                            <!--</mat-form-field></div>-->
+                            <div class="col-md-6">
+                              <mat-form-field class="w-100">
+                                <input #message maxlength="80" matInput placeholder="City" formControlName="cCity"  autocomplete="off" [readonly]="this.personal.controls['isAddressSame'].value">
+                                <mat-error *ngIf="personal.controls.cCity.errors?.required">City is required</mat-error>
+                              </mat-form-field>
+                            </div>
                             <div class="col-md-6" [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
                               <mat-form-field class="w-100">
                               <mat-select placeholder="State" formControlName="cState" autocomplete="off" (change)="getcitylist()">
@@ -287,6 +305,42 @@
                         </div>
                       </div>
                     </div>
+                    <div class="row">
+                      <div class="col-md-12 box-card ">
+                        <h6 class="color-blue">ADD ON</h6>
+                      </div>
+
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Death Benefit SA" formControlName="deathBenefitSA" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)"  (change)="checkSum()" readonly>
+                          <mat-error *ngIf="personal.controls.deathBenefitSA.errors?.required">Death Benefit SA is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Death Benefit TISA" formControlName="deathBenefitTISA" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" (change)="checkSumAs()" readonly>
+                          <mat-error *ngIf="personal.controls.deathBenefitTISA.errors?.required">Death Benefit TISA is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="adbr Sum Assured" formControlName="adbrSumAssured" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)" >
+                          <mat-error *ngIf="personal.controls.adbrSumAssured.errors?.required">adbr Sum Assured is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="lifePremiumList.benefit_option == 'LHP'">
+                        <mat-form-field class="w-100" >
+                          <input matInput placeholder="Enchanced CISA" formControlName="enchancedCISA" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
+                          <mat-error *ngIf="personal.controls.enchancedCISA.errors?.required">Enchanced CISA is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3" *ngIf="lifePremiumList.benefit_option == 'LH'">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="icir Sum Assured" formControlName="icirSumAssured" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
+                          <mat-error *ngIf="personal.controls.icirSumAssured.errors?.required">icir Sum Assured is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
                       <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" >Next</button>
                     </div>
@@ -350,17 +404,18 @@
                               </div>
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-
                                   <mat-select placeholder="Relation" formControlName="nRelation" autocomplete="off" required (change)="changenomineerelationship()">
                                     <mat-option *ngFor="let list of nomineeRelationship | keys" [value]= 'list.value'>
                                       {{list.value}}
                                     </mat-option>
-
                                   </mat-select>
-
-
-                                  <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relation is required</mat-error>
-
+                                 <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relation is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3" *ngIf="nominee.controls.nRelation.value == '9'"  >
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Relation Other" formControlName="relationOther" (keypress)="nameValidate($event)"  autocomplete="off" required >
+                                  <mat-error *ngIf="nominee.controls.relationOther.errors?.required">Relation Other is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-3">
@@ -376,7 +431,7 @@
                                 </mat-form-field>
                               </div>
 
-                              <div class="col-md-6"><mat-form-field class="w-100">
+                              <div class="col-md-3"><mat-form-field class="w-100">
                                 <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="nPincode" autocomplete="off" required (input)="getPostal($event.target.value,'nominee')">
                                 <mat-error *ngIf="nominee.controls.nPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                 <mat-error *ngIf="nominee.controls.nPincode.hasError('required')">Pincode required</mat-error>
@@ -384,7 +439,7 @@
                               </mat-form-field></div>
 
 
-                              <div class="col-md-6"><mat-form-field class="w-100">
+                              <div class="col-md-3"><mat-form-field class="w-100">
                                 <mat-select placeholder="State" formControlName="nState" autocomplete="off" (change)="getcitylist()" >
                                   <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
                                     {{list.value}}
@@ -392,15 +447,21 @@
                                 </mat-select>
                                 <mat-error *ngIf="nominee.controls.nState.errors?.required">State is required</mat-error>
                               </mat-form-field></div>
-                              <div class="col-md-6"><mat-form-field class="w-100" >
-                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" (change)="changeNcitylist()">
-                                  <mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>
-                                    {{city.value}}
-                                  </mat-option>
+                              <!--<div class="col-md-6"><mat-form-field class="w-100" >-->
+                                <!--<mat-select placeholder="City" formControlName="nCity" autocomplete="off" (change)="changeNcitylist()">-->
+                                  <!--<mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>-->
+                                    <!--{{city.value}}-->
+                                  <!--</mat-option>-->
 
-                                </mat-select>
-                                <mat-error *ngIf="nominee.controls.nCity.errors?.required">City is required</mat-error>
-                              </mat-form-field></div>
+                                <!--</mat-select>-->
+                                <!--<mat-error *ngIf="nominee.controls.nCity.errors?.required">City is required</mat-error>-->
+                              <!--</mat-form-field></div>-->
+                              <div class="col-md-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="City" formControlName="nCity" (keypress)="nameValidate($event)"  autocomplete="off" required >
+                                  <mat-error *ngIf="nominee.controls.nCity.errors?.required">City is required</mat-error>
+                                </mat-form-field>
+                              </div>
 
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
@@ -429,7 +490,7 @@
                                   </div>
                                   <div class="col-md-4">
                                     <mat-form-field class="w-100">
-                                      <mat-placeholder> Appointee Full Name <span class="error">*</span></mat-placeholder>
+                                      <mat-placeholder> Appointee Full Name</mat-placeholder>
                                       <input matInput formControlName="aFullName"  (keypress)="nameValidate($event)" autocomplete="off">
                                       <!--<mat-error *ngIf="nominee.controls.aFullName.errors?.required">Apponitee Name is required</mat-error>-->
 
@@ -446,15 +507,21 @@
                                   </div>
                                   <div class="col-md-3">
                                     <mat-form-field class="w-100">
-                                      <mat-select placeholder="Relation" formControlName="aRelation">
-                                        <mat-option value="Father">Father</mat-option>
-                                        <mat-option value="Mother">Mother</mat-option>
-                                        <!--<mat-option value="MRS">Mrs</mat-option>-->
+                                      <mat-select placeholder="Appointee Relation" formControlName="aRelation" autocomplete="off"  (change)="changenomineerelationship()">
+                                        <mat-option *ngFor="let list of aRelation | keys" [value]= 'list.value'>
+                                          {{list.value}}
+                                        </mat-option>
                                       </mat-select>
-                                      <!--<mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>-->
-
+                                      <mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>
                                     </mat-form-field>
                                   </div>
+                                  <div class="col-md-4" *ngIf="nominee.controls.nRelation.value == '9'" >
+                                    <mat-form-field class="w-100">
+                                      <input matInput placeholder="Appointee Relation Other"  formControlName="appointeeRelationOther" (keypress)="numberValidate($event)"   autocomplete="off">
+                                      <!--<mat-error *ngIf="nominee.controls.aPercentage.errors?.required">Percentage is required</mat-error>-->
+                                    </mat-form-field>
+                                  </div>
+
                                   <div class="col-md-4" >
                                     <mat-form-field class="w-100">
                                       <input matInput placeholder="Appointee Percentage"  formControlName="aPercentage" (keypress)="numberValidate($event)"   autocomplete="off">

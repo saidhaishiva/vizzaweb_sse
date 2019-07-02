@@ -101,7 +101,7 @@ export class FourWheelerHomeComponent implements OnInit {
   }
 
   setSession() {
-    sessionStorage.enquiryFormData = JSON.stringify(this.fourWheeler.value);
+    sessionStorage.enquiryFormDatafw = JSON.stringify(this.fourWheeler.value);
     this.productDetails = JSON.parse(sessionStorage.setAllProductLists);
     this.productDetails = [];
   }
@@ -196,7 +196,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
   // home bike
   quationFirstStep(value) {
-    sessionStorage.enquiryFormData = JSON.stringify(value);
+    sessionStorage.enquiryFormDatafw = JSON.stringify(value);
     const data = {
       "platform": "web",
       "created_by": "0",
@@ -337,8 +337,8 @@ export class FourWheelerHomeComponent implements OnInit {
   public cityFailure(error) {
   }
   sessionData() {
-    if (sessionStorage.enquiryFormData != '' && sessionStorage.enquiryFormData != undefined) {
-      let stepper = JSON.parse(sessionStorage.enquiryFormData);
+    if (sessionStorage.enquiryFormDatafw != '' && sessionStorage.enquiryFormDatafw != undefined) {
+      let stepper = JSON.parse(sessionStorage.enquiryFormDatafw);
       this.fourWheeler = this.fb.group({
         'vehicalNumber': stepper.vehicalNumber,
         'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),
@@ -356,7 +356,9 @@ export class FourWheelerHomeComponent implements OnInit {
     if (sessionStorage.bikeEnquiryId != '' && sessionStorage.bikeEnquiryId != undefined) {
       this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
     }
-
+    if (sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists != undefined) {
+      sessionStorage.setAllProductLists = [];
+    }
   }
 
 
