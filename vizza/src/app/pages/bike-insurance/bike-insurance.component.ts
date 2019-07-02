@@ -14,6 +14,8 @@ import {BikeInsuranceService} from '../../shared/services/bike-insurance.service
 import {AuthService} from '../../shared/services/auth.service';
 import {EnquiryPopupComponent} from './enquiry-popup/enquiry-popup.component';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {ClearSessionPaService} from '../../shared/services/clear-session-pa.service';
+import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -91,7 +93,18 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
-
+        // clear session for list page
+        sessionStorage.enquiryFormData = '';
+        sessionStorage.Rto = '';
+        sessionStorage.bikeListDetails = '';
+        sessionStorage.bikeEnquiryId = '';
+        sessionStorage.setAllProductLists = '';
+        sessionStorage.vehicledetails = '';
+        sessionStorage.allProductLists = '';
+        sessionStorage.initialProductList = '';
+        sessionStorage.filterCompany = '';
+        sessionStorage.premiumAmount = '';
+        sessionStorage.premiumAmount1 = '';
         this.claimpercent();
         this.bussinessType();
         this.getpreviousCompany();
@@ -264,7 +277,7 @@ export class BikeInsuranceComponent implements OnInit {
 
             let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                 width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
-                height: '1200'
+                height: '1900'
             })
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
