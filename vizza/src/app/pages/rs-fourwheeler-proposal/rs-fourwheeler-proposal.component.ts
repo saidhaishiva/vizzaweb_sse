@@ -104,7 +104,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public pincodeList: any;
   public policyList: any;
   public step: any;
-  public vehicledetails: any;
+  public vehicledetailsfw: any;
   public valueList: any;
   public valueSubList: any;
   public isFourWheelerFinanced: boolean;
@@ -256,8 +256,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
   ngOnInit() {
     this.buyProduct = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
-    this.vehicledetails = JSON.parse(sessionStorage.vehicledetails);
-    console.log(this.vehicledetails, ' details');
+    this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
+    console.log(this.vehicledetailsfw, ' details');
 
     this.title();
     this.getOccupation();
@@ -725,11 +725,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
     }
   }
 
-  eleAccess(i) {
+  eleAccess() {
     if (this.vehical.controls['coverelectricalaccesss'].value == true) {
 
       } else {
-        this.vehical.controls['coverelectricalaccesss'].value == false;
 
       for (let i=0; i < this.getStepper2.electricalAccess.length; i++) {
         if ( i !=  0) {
@@ -741,11 +740,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
     }
   }
-  noneleAccess(i) {
+  noneleAccess() {
     if (this.vehical.controls['cover_non_elec_acc'].value == true) {
 
     } else {
-      this.vehical.controls['cover_non_elec_acc'].value == false;
 
       for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
         if ( i !=  0) {
@@ -1212,7 +1210,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "created_by": '',
       "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
       "company_id": this.buyProduct.company_id,
-      "business_type": this.vehicledetails.business_type,
+      "business_type": this.vehicledetailsfw.business_type,
       "CALCULATEPREMIUMREQUEST": {
         "premium": '',
         "proposerDetails": {
@@ -1369,7 +1367,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       "proposal_id": sessionStorage.royalFourWheelerproposalID == '' || sessionStorage.royalFourWheelerproposalID == undefined ? '' : sessionStorage.royalFourWheelerproposalID,
       // "company_id": "12",
       "company_id": this.buyProduct.company_id,
-      "business_type": this.vehicledetails.business_type,
+      "business_type": this.vehicledetailsfw.business_type,
       "CALCULATEPREMIUMREQUEST": {
         "quoteId": this.referenceId,
         "proposerDetails": {
