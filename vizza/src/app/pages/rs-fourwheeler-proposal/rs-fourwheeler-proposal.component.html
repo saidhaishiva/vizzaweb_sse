@@ -978,7 +978,7 @@
                                     <input type="hidden" name="returnUrl" id="returnUrl" value={{PaymentReturn}}>
                                     <input type="hidden" value={{VehicleSubLine}} name="vehicleSubLine" id="vehicleSubLine">
                                     <input type="hidden" value={{ElcValue}} name="elc_value" id="elc_value">
-                                    <input type="hidden" value="" name="nonelc_value" id="nonelc_value">
+                                    <input type="hidden" value={{NonElcValue}} name="nonelc_value" id="nonelc_value">
                                     <input type="hidden" value="Yes" name="multiplePaymentMode" id="multiplePaymentMode">
                                     <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                                     <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()" >Pay Now</button>

@@ -87,6 +87,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public PaymentRedirect: any;
   public PaymentReturn: any;
   public ElcValue: any;
+  public NonElcValue: any;
   public VehicleSubLine: any;
   public VersionNo: any;
   public ComprehensivePremium: any;
@@ -1549,6 +1550,7 @@ console.log('errrrr2');
       this.PaymentRedirect =  this.summaryData1.PaymentRedirect;
       this.PaymentReturn =  this.summaryData1.PaymentReturn;
       this.ElcValue =  this.summaryData1.ElcValue;
+      this.NonElcValue =  this.summaryData1.NonElcValue;
       this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
       this.VersionNo =  this.summaryData1.VersionNo;
       this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
