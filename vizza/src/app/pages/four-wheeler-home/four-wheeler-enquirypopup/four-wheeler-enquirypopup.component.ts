@@ -170,33 +170,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
 
   // model
-  modelList1() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'manufacture': this.vehicalDetails.controls['manufacture'].value
 
-    }
-    this.fwService.getModelList(data).subscribe(
-        (successData) => {
-          this.modelSuccess(successData);
-        },
-        (error) => {
-          this.modelFailure(error);
-        }
-    );
-  }
-  public modelSuccess(successData){
-    if (successData.IsSuccess) {
-      this.modelDetails = successData.ResponseObject;
-        this.ccList();
-
-    }
-  }
-  public modelFailure(error) {
-  }
   // variant
   variantList() {
     const data = {
@@ -227,6 +201,33 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     }
   }
   public variantFailure(error) {
+  }
+  modelList1() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'manufacture': this.vehicalDetails.controls['manufacture'].value
+
+    }
+    this.fwService.getModelList(data).subscribe(
+        (successData) => {
+          this.modelSuccess(successData);
+        },
+        (error) => {
+          this.modelFailure(error);
+        }
+    );
+  }
+  public modelSuccess(successData){
+    if (successData.IsSuccess) {
+      this.modelDetails = successData.ResponseObject;
+      this.ccList();
+
+    }
+  }
+  public modelFailure(error) {
   }
   // cc
   ccList() {
