@@ -93,6 +93,18 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
+        // clear session for list page
+        sessionStorage.enquiryFormData = '';
+        sessionStorage.Rto = '';
+        sessionStorage.bikeListDetails = '';
+        sessionStorage.bikeEnquiryId = '';
+        sessionStorage.setAllProductLists = '';
+        sessionStorage.vehicledetails = '';
+        sessionStorage.allProductLists = '';
+        sessionStorage.initialProductList = '';
+        sessionStorage.filterCompany = '';
+        sessionStorage.premiumAmount = '';
+        sessionStorage.premiumAmount1 = '';
         this.claimpercent();
         this.bussinessType();
         this.getpreviousCompany();

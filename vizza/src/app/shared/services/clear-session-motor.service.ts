@@ -23,10 +23,6 @@ export class ClearSessionMotorService {
   //   // shriram
     sessionStorage.summaryData = '';
     sessionStorage.shiramFwProposalID = '';
-    sessionStorage.proposerFormData = '';
-    sessionStorage.vehicalFormData = '';
-    sessionStorage.previousFormData = '';
-    sessionStorage.nomineeFormData = '';
     sessionStorage.bkShriramProposerAge = '';
     sessionStorage.stepper1 = '';
     sessionStorage.stepper2 = '';
