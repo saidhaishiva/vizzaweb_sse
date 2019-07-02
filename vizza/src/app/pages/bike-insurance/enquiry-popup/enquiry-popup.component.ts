@@ -345,7 +345,9 @@ export class EnquiryPopupComponent implements OnInit {
 
   }
   enquiryQuation(value) {
-    const data = {
+    if(this.vehicalDetails.valid) {
+
+      const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
@@ -375,7 +377,6 @@ export class EnquiryPopupComponent implements OnInit {
     };
     console.log(data);
     sessionStorage.vehicledetails = JSON.stringify(data);
-    if(this.vehicalDetails.valid) {
 
       this.bikeService.getEnquiryDetails(data).subscribe(
           (successData) => {
