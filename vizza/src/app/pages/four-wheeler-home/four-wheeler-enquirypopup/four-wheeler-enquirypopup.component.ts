@@ -353,10 +353,9 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value,
       'rto_code': this.rto,
-        'prev_insurance_name': this.enquiryFormData.previousCompany
+      'prev_insurance_name': this.enquiryFormData.prev_insurance_name
 
-
-    };
+      };
       sessionStorage.vehicledetailsfw = JSON.stringify(data);
       this.fwService.getEnquiryDetails(data).subscribe(
           (successData) => {
