@@ -86,7 +86,6 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
 
   }
-
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.rto = sessionStorage.RtoFour;
@@ -138,7 +137,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public manifactureSuccess(successData){
     if (successData.IsSuccess) {
       this.manifactureDetails = successData.ResponseObject;
-      this.modelList1();
+        this.variantList();
+
     }
   }
   public manifactureFailure(error) {
@@ -191,7 +191,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public modelSuccess(successData){
     if (successData.IsSuccess) {
       this.modelDetails = successData.ResponseObject;
-      this.variantList();
+        this.ccList();
+
     }
   }
   public modelFailure(error) {
@@ -204,7 +205,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
-      'model':  this.vehicalDetails.controls['vehicleModel'].value
+      'model':  this.vehicalDetails.controls['vehicleModel'].value,
+        'variant':  this.vehicalDetails.controls['variant'].value
 
     }
     this.fwService.getvariantList(data).subscribe(
@@ -219,7 +221,8 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public variantSuccess(successData){
     if (successData.IsSuccess) {
       this.variantDetails = successData.ResponseObject;
-      this.ccList();
+        this.modelList1();
+
 
     }
   }
@@ -234,7 +237,6 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
       'model':  this.vehicalDetails.controls['vehicleModel'].value,
-      'variant':  this.vehicalDetails.controls['variant'].value
 
 
 
@@ -349,6 +351,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value,
       'rto_code': this.rto,
+        'prev_insurance_name': this.enquiryFormData.previousCompany
 
 
     };

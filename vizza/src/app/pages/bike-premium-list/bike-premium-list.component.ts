@@ -36,7 +36,7 @@ export class BikePremiumListComponent implements OnInit {
     getEnquiry: any;
     policyTerm: any;
     initialProductList: any;
-    constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings,public router: Router, public bikeService: BikeInsuranceService, public config: ConfigurationService) {
+    constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;

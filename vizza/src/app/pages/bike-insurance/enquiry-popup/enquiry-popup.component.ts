@@ -137,7 +137,8 @@ export class EnquiryPopupComponent implements OnInit {
   public manifactureSuccess(successData){
     if (successData.IsSuccess) {
       this.manifactureDetails = successData.ResponseObject;
-      this.modelList1();
+      this.variantList();
+
     }
   }
   public manifactureFailure(error) {
@@ -167,34 +168,6 @@ export class EnquiryPopupComponent implements OnInit {
   //   sessionStorage.claimDetail = this.claimAmountDetails;
   // }
 
-
-  // model
-  modelList1() {
-    const data = {
-      'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      'manufacture': this.vehicalDetails.controls['manufacture'].value
-
-    }
-    this.bikeService.getModelList(data).subscribe(
-        (successData) => {
-          this.modelSuccess(successData);
-        },
-        (error) => {
-          this.modelFailure(error);
-        }
-    );
-  }
-  public modelSuccess(successData){
-    if (successData.IsSuccess) {
-      this.modelDetails = successData.ResponseObject;
-      this.variantList();
-    }
-  }
-  public modelFailure(error) {
-  }
   // variant
   variantList() {
     const data = {
@@ -203,8 +176,6 @@ export class EnquiryPopupComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
-      'model':  this.vehicalDetails.controls['vehicleModel'].value
-
     }
     this.bikeService.getvariantList(data).subscribe(
         (successData) => {
@@ -218,11 +189,39 @@ export class EnquiryPopupComponent implements OnInit {
   public variantSuccess(successData){
     if (successData.IsSuccess) {
       this.variantDetails = successData.ResponseObject;
+      this.modelList1();
+    }
+  }
+  public variantFailure(error) {
+  }
+
+  // model
+  modelList1() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
+      'manufacture': this.vehicalDetails.controls['manufacture'].value,
+      'variant':  this.vehicalDetails.controls['variant'].value
+    }
+    this.bikeService.getModelList(data).subscribe(
+        (successData) => {
+          this.modelSuccess(successData);
+        },
+        (error) => {
+          this.modelFailure(error);
+        }
+    );
+  }
+  public modelSuccess(successData){
+    if (successData.IsSuccess) {
+      this.modelDetails = successData.ResponseObject;
       this.ccList();
 
     }
   }
-  public variantFailure(error) {
+  public modelFailure(error) {
   }
   // cc
   ccList() {
@@ -233,10 +232,6 @@ export class EnquiryPopupComponent implements OnInit {
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'manufacture': this.vehicalDetails.controls['manufacture'].value,
       'model':  this.vehicalDetails.controls['vehicleModel'].value,
-      'variant':  this.vehicalDetails.controls['variant'].value
-
-
-
     }
     this.bikeService.getCCList(data).subscribe(
         (successData) => {
