@@ -9,6 +9,7 @@ import {AppSettings} from '../../app.settings';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ActivatedRoute} from '@angular/router';
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -87,9 +88,32 @@ public coverList: any;
 public respincodeList: any;
 public vehicledetails: any;
 public premiumAmount: any;
+public currentStep: any;
 public apponiteeList: boolean;
-  constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
-
+  constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
+    let stepperindex = 0;
+    this.route.params.forEach((params) => {
+      if(params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryData1 != '' && sessionStorage.summaryData1 != undefined) {
+          this.summaryData1 = JSON.parse(sessionStorage.summaryData1);
+          this.PaymentRedirect =  this.summaryData1.PaymentRedirect;
+          this.PaymentReturn =  this.summaryData1.PaymentReturn;
+          this.ElcValue =  this.summaryData1.ElcValue;
+          this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
+          this.VersionNo =  this.summaryData1.VersionNo;
+          sessionStorage.shiramFwProposalID = this.ProposalId;
+          this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
+          this.vehicalFormData = JSON.parse(sessionStorage.vehicalFormData);
+          this.previousFormData = JSON.parse(sessionStorage.previousFormData);
+          this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
+          console.log(this.summaryData ,'this.summaryData ');
+          console.log(sessionStorage.summaryData,'sessionStorage.summaryData ');
+        }
+      }
+    });
+    this.currentStep = stepperindex;
+    console.log(this.currentStep,'this.currentStep');
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
 
@@ -841,17 +865,19 @@ public apponiteeList: boolean;
     nomineeDetails(stepper: MatStepper, value){
         sessionStorage.stepper4 = '';
         sessionStorage.stepper4 = JSON.stringify(value);
-      if(this.nomineeDetail.valid){
-        if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
           this.proposal(stepper);
-        } else {
-          if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
-            this.proposal(stepper);
-          }   else {
-            this.toastr.error('Please fill the appointee details');
-          }
-        }
-      }
+
+      // if(this.nomineeDetail.valid){
+      //   if(this.nomineeDetail['controls'].nomineeAge.value > 17) {
+      //     this.proposal(stepper);
+      //   } else {
+      //     if(this.nomineeDetail['controls'].appointeeName.value !="" && this.nomineeDetail['controls'].appointeeRelationship.value !="")  {
+      //       this.proposal(stepper);
+      //     }   else {
+      //       this.toastr.error('Please fill the appointee details');
+      //     }
+      //   }
+      // }
   }
     // proposal creation
 proposal(stepper){
@@ -1074,7 +1100,11 @@ proposal(stepper){
       this.VersionNo =  this.summaryData1.VersionNo;
       this.Comprehensivepremium =  this.summaryData1.Comprehensive_premium;
       this.proposerFormData = this.proposer.value;
-
+      sessionStorage.summaryData1 = JSON.stringify(this.summaryData1);
+      sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
+      sessionStorage.vehicalFormData = JSON.stringify(this.vehicalFormData);
+      sessionStorage.previousFormData = JSON.stringify(this.previousFormData);
+      sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
     } else{
       this.toastr.error(successData.ErrorObject);
 

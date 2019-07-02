@@ -102,7 +102,7 @@ export class BikePremiumListComponent implements OnInit {
             }
             this.filterCompany = all;
             console.log(sessionStorage.allProductLists, 'ppp');
-            if (sessionStorage.allProductLists == undefined || sessionStorage.allProductLists == '') {
+            if (sessionStorage.setAllProductLists == undefined || sessionStorage.setAllProductLists == '') {
                 console.log('inn');
                 this.getProductList(this.allCompanyList);
             }

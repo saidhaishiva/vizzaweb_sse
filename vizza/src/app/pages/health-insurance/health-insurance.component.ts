@@ -799,10 +799,11 @@ export class HealthInsuranceComponent implements OnInit {
     }
 
     addCompare(value,index) {
+        value.index = index;
         console.log(value, 'value');
-        const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
+        // const data  = { index: index, product_id: value.product_id, product_name: value.product_name, premium_id: value.premium_id, premium_amount: value.premium_amount, scheme: value.scheme, suminsured_amount: value.suminsured_amount, suminsured_id: value.suminsured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features };
         this.allProductLists[index].compare = true;
-        this.compareArray.push(data);
+        this.compareArray.push(value);
         if (this.compareArray.length >= 3) {
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = true;
@@ -835,7 +836,7 @@ export class HealthInsuranceComponent implements OnInit {
         this.compareArray = [];
     }
     compareList(value) {
-        console.log(this.productLists,'llllll');
+        console.log(value,'valuevalue');
         this.productLists = [];
         let scheme = value[0].scheme;
         for (let i = 0; i < value.length; i++) {
@@ -855,24 +856,54 @@ export class HealthInsuranceComponent implements OnInit {
         this.settings.loadingSpinner = true;
         this.common.addtoCompare(data).subscribe(
             (successData) => {
-                this.compareSuccess(successData);
+                this.compareSuccess(successData, value);
             },
             (error) => {
                 this.compareFailure(error);
             }
         );
     }
-    public compareSuccess(successData) {
+    public compareSuccess(successData, values) {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
+            values.forEach((data, index) => {
+                successData.ResponseObject.productdetails[index].base_premium = data.base_premium;
+                successData.ResponseObject.productdetails[index].childmsg = data.childmsg;
+                successData.ResponseObject.productdetails[index].company_logo = data.company_logo;
+                successData.ResponseObject.productdetails[index].company_name = data.company_name;
+                successData.ResponseObject.productdetails[index].compare = data.compare;
+                successData.ResponseObject.productdetails[index].max_family_age = data.max_family_age;
+                successData.ResponseObject.productdetails[index].premium_amount = data.premium_amount;
+                successData.ResponseObject.productdetails[index].premium_amount_format = data.premium_amount_format;
+                successData.ResponseObject.productdetails[index].premium_id = data.premium_id;
+                successData.ResponseObject.productdetails[index].premium_total = data.premium_total;
+                successData.ResponseObject.productdetails[index].product_id = data.product_id;
+                successData.ResponseObject.productdetails[index].product_name = data.product_name;
+                successData.ResponseObject.productdetails[index].scheme = data.scheme;
+                successData.ResponseObject.productdetails[index].service_tax = data.service_tax;
+                successData.ResponseObject.productdetails[index].shortlist = data.shortlist;
+                successData.ResponseObject.productdetails[index].shortlist_status = data.shortlist_status;
+                successData.ResponseObject.productdetails[index].suminsured_amount = data.suminsured_amount;
+                successData.ResponseObject.productdetails[index].suminsured_amount_format = data.suminsured_amount_format;
+                successData.ResponseObject.productdetails[index].suminsured_id = data.suminsured_id;
+                successData.ResponseObject.productdetails[index].tenure = data.tenure;
+                successData.ResponseObject.productdetails[index].type_name = data.type_name;
+            });
+
+            console.log(successData.ResponseObject, 'successData.ResponseObject1');
             let dialogRef = this.dialog.open(ComparelistComponent, {
                 width: '1500px', data: {comparedata: successData.ResponseObject, type: 'health'}});
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
+                if(result) {
+                    console.log(result, 'result');
+                    this.buyProduct(result);
+                }
 
             });
         }
     }
+
     public compareFailure(error) {
         this.settings.loadingSpinner = false;
     }
@@ -882,10 +913,7 @@ export class HealthInsuranceComponent implements OnInit {
             width: '1500px', data: {productId : value.product_id, productName: value.product_name}
         });
         dialogRef.disableClose = true;
-
         dialogRef.afterClosed().subscribe(result => {
-            console.log(result, 'result');
-            this.buyProduct(result);
         });
 
     }

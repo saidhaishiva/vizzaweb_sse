@@ -102,7 +102,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         stepperindex = 4;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
-          this.PaymentRedirect = this.summaryData.PaymentURL;
+          this.PaymentRedirect =   this.summaryData.PaymentRedirect;
           this.ProposalId = this.summaryData.ProposalId;
           this.PolicySisID =   this.summaryData.PolicySisID;
           this.PaymentReturn =   this.summaryData.PaymentReturn;
@@ -1151,6 +1151,9 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     }
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
       let stepper4 = JSON.parse(sessionStorage.stepper4);
+      if(stepper4.nomineeAge < 17){
+        this.apponiteeList = true;
+      }
       this.nomineeDetail = this.fb.group({
         nomineeName: stepper4.nomineeName,
         nomineeAge: stepper4.nomineeAge,

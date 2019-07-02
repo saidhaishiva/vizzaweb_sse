@@ -313,6 +313,7 @@ import { MegaPackagePolicyComponent } from './pages/mega-package-policy/mega-pac
 import { ErectionRiskPolicyComponent } from './pages/erection-risk-policy/erection-risk-policy.component';
 import { UlipComponent } from './pages/ulip/ulip.component';
 import { GroupTravelComponent } from './pages/group-travel/group-travel.component';
+import { HdfcTwoWheelerProposalComponent } from './pages/hdfc-two-wheeler-proposal/hdfc-two-wheeler-proposal.component';
 
 @NgModule({
     imports: [
@@ -584,7 +585,8 @@ import { GroupTravelComponent } from './pages/group-travel/group-travel.componen
         MegaPackagePolicyComponent,
         ErectionRiskPolicyComponent,
         UlipComponent,
-        GroupTravelComponent
+        GroupTravelComponent,
+        HdfcTwoWheelerProposalComponent
     ],
     providers: [
         AppSettings,

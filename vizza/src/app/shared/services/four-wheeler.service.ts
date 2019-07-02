@@ -75,6 +75,17 @@ export class FourWheelerService {
         .map(this.extractData)
         .catch(this.handleError);
   }
+  getRtoList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getFourwheelerInsurance() + 'productlist/getRtoDetails';
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
   getCityList(data) {
     const json = JSON.stringify(data);
     const token = this.authService.getAccessToken();
@@ -817,19 +828,6 @@ export class FourWheelerService {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     const url = this.configurationService.getFourwheelerInsurance() + 'tata/previousInsurerName';
-    return this.http.post(url,json, httpOptions)
-        .map(this.extractData)
-        .catch(this.handleError);
-  }
-
-  // Tataaig CodeList
-
-  CodeList(data) {
-    const json = JSON.stringify(data);
-    const httpOptions = {
-      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-    };
-    const url = this.configurationService.getFourwheelerInsurance() + 'tata/previousInsurerCode';
     return this.http.post(url,json, httpOptions)
         .map(this.extractData)
         .catch(this.handleError);

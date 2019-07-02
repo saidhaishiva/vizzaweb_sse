@@ -59,6 +59,7 @@ export class BikeInsuranceComponent implements OnInit {
     public typeList: any;
     public companyList: any;
     public cityDetails: any;
+    public productList: any;
     public listDetails: boolean;
     public expiry: boolean;
     public previousDate: boolean;
@@ -90,12 +91,12 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
+
         this.claimpercent();
         this.bussinessType();
         this.getpreviousCompany();
         this.getCityLists();
         this.sessionData();
-
 
     }
 
@@ -103,7 +104,6 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.enquiryFormData = JSON.stringify(this.bikeInsurance.value);
     }
     rtoCity(){
-        alert();
         sessionStorage.Rto = this.bikeInsurance.controls['city'].value;
         console.log(sessionStorage.Rto,'sessionStorage.Rto');
     }
@@ -386,7 +386,11 @@ export class BikeInsuranceComponent implements OnInit {
         if (sessionStorage.bikeEnquiryId != '' && sessionStorage.bikeEnquiryId != undefined) {
             this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         }
-
+           if (sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists != undefined) {
+               // let list = JSON.parse(sessionStorage.allProductLists);
+               //      list = [];
+               sessionStorage.setAllProductLists = [];
+           }
     }
 
 

@@ -19,11 +19,12 @@
                     <th style="padding-right: 56px;">
                         KEY FEATURES
                     </th>
-                    <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
+                    <th *ngFor="let list of compareDetails.productdetails; let i = index;" align="center" class="text-center">
                         <img src="{{webhost + '/' + list.product_logo}}">
                         <br>
-                       <!--<button mat-raised-button color="accent" (click)="buyProduct(list)">Buy</button>-->
                         <p class="content-color pt-2">{{list.product_name}}</p>
+                        <button mat-raised-button color="accent" (click)="buyProduct(list)">Buy</button>
+
                     </th>
                 </tr>
                 <tr>
@@ -44,7 +45,7 @@
                 </tr>
 
                 </thead>
-                <tbody class="table-success1" >
+                <tbody class="table-success1 tablebodyscroll" >
 
                 <tr *ngFor="let sublist of compareDetails.productdetails[0].key_features; let ci = index;" >
                     <td>
