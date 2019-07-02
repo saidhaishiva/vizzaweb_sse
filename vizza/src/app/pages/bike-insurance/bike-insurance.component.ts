@@ -14,6 +14,8 @@ import {BikeInsuranceService} from '../../shared/services/bike-insurance.service
 import {AuthService} from '../../shared/services/auth.service';
 import {EnquiryPopupComponent} from './enquiry-popup/enquiry-popup.component';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {ClearSessionPaService} from '../../shared/services/clear-session-pa.service';
+import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
 
 export const MY_FORMATS = {
     parse: {
@@ -91,7 +93,6 @@ export class BikeInsuranceComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.claimpercent();
         this.bussinessType();
         this.getpreviousCompany();

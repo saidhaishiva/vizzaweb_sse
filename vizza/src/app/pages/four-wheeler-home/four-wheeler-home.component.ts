@@ -356,7 +356,9 @@ export class FourWheelerHomeComponent implements OnInit {
     if (sessionStorage.bikeEnquiryId != '' && sessionStorage.bikeEnquiryId != undefined) {
       this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
     }
-
+    if (sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists != undefined) {
+      sessionStorage.setAllProductLists = [];
+    }
   }
 
 
