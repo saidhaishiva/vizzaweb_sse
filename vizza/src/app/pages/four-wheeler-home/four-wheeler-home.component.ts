@@ -104,8 +104,8 @@ export class FourWheelerHomeComponent implements OnInit {
 
   setSession() {
     sessionStorage.enquiryFormDatafw = JSON.stringify(this.fourWheeler.value);
-    this.productDetails = JSON.parse(sessionStorage.setAllProductLists);
-    this.productDetails = [];
+    // this.productDetails = JSON.parse(sessionStorage.setAllProductLists);
+    // this.productDetails = [];
   }
 
   changeNcbAmt() {
