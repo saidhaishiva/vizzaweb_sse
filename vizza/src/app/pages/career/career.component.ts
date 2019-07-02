@@ -2,10 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {AppSettings} from '../../app.settings';
+import {Settings} from '../../app.settings.model';
 import {CommonService} from '../../shared/services/common.service';
 import {ValidationService} from '../../shared/services/validation.service';
 import {split} from 'ts-node/dist';
 import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {ViewChild} from '@angular/core';
 
 @Component({
   selector: 'app-career',
@@ -25,14 +29,17 @@ webhost: any;
     uploadAddressProofName: any;
     getBase64: any;
    uploadType: any;
-  constructor(public fb: FormBuilder, public config: ConfigurationService,public validation: ValidationService,  private toastr: ToastrService, public appSettings: AppSettings, public common: CommonService) {
+   uploadTypeTest: any;
+
+    @ViewChild('myForm') myForm: NgForm;
+
+  constructor(public fb: FormBuilder, public config: ConfigurationService,public validation: ValidationService,  private toastr: ToastrService, public appSettings: AppSettings, public common: CommonService, public router: Router) {
       this.webhost = this.config.getimgUrl();
       this.settings = this.appSettings.settings;
     this.form = this.fb.group({
         'name': ['', Validators.required],
-        'mobileno':  ['', Validators.required],
-        'email':  ['', Validators.required],
-        'upload': '',
+        'mobileno':  ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+        'email':  ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
         'profile':'',
         'cover':''
     });
@@ -40,44 +47,49 @@ webhost: any;
 
   ngOnInit() {
       this.jobProfile();
+      this.uploadTypeTest= true;
   }
 
-update(value) {
-    const data = {
-        'platform': 'web',
-        'applicant_name': this.form.controls['name'].value,
-        'applicant_email': this.form.controls['email'].value,
-        'applicant_mobile': this.form.controls['mobileno'].value,
-        'job_role':this.form.controls['profile'].value,
-        'cover_letter':this.form.controls['cover'].value,
-        'base64': this.getBase64,
-        'file_ext' : this.uploadType
-    };
-    // if(value.valid){
-    //     this.settings.loadingSpinner = true;
-        this.common.careerupdate(data).subscribe(
-            (successData) => {
-                this.updateSuccess(successData);
-            },
-            (error) => {
-                this.updateFailure(error);
-            }
-        );
+update(value: NgForm) {
+    console.log(value,'ddddd');
+    console.log(this.uploadType,'ddddd');
+        if(this.uploadType == undefined){
+            this.uploadTypeTest= false;
+        }else{
+            this.uploadTypeTest= true;
+            const data = {
+                'platform': 'web',
+                'applicant_name': this.form.controls['name'].value,
+                'applicant_email': this.form.controls['email'].value,
+                'applicant_mobile': this.form.controls['mobileno'].value,
+                'job_role': this.form.controls['profile'].value,
+                'cover_letter': this.form.controls['cover'].value,
+                'base64': this.getBase64,
+                'file_ext': this.uploadType
+            };
+            this.settings.loadingSpinner = true;
+            this.common.careerupdate(data).subscribe(
+                (successData) => {
+                    this.updateSuccess(successData);
+                },
+                (error) => {
+                    this.updateFailure(error);
+                }
+            );
+        }
+
     }
     // }
 
 
     updateSuccess(successData) {
-        // this.settings.loadingSpinner = false;
+        this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
+            this.form.reset();
+            this.myForm.resetForm();
         }
-        this.form.controls['name'].setValue('');
-        this.form.controls['email'].setValue('');
-        this.form.controls['mobileno'].setValue('');
-        this.form.controls['profile'].setValue('');
-        this.form.controls['cover'].setValue('');
-        this.uploadType = '';
+        this.uploadAddressProofName ='';
     }
 
     updateFailure(error) {
@@ -125,6 +137,7 @@ update(value) {
         }
         this.uploadAddressProofName = event.target.files[0].name;
       this.uploadType =  event.target.files[0].type;
+      this.uploadTypeTest = true;
       console.log(this.uploadType, 'jhgfghj');
       // console.log(event, 'jhgfghj');
       //   typeList = split( event.target.files[0].type);
