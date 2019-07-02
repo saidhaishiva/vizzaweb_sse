@@ -77,7 +77,7 @@ export const horizontalMenuItems = [
     new Menu (30, 'Bankers Identity Policy', '/bankers', null, null, null, false, 24),
     new Menu (11, 'Shopkeepers Policy', '/shopkeeperpolicy', null, null, null, false, 24),
     new Menu (12, 'Marine Cargo Policy', '/marinecargo', null, null, null, false, 24),
-    new Menu (31, 'Special Contingency Policy', '/specialContigency', null, null, null, false, 24),
+    // new Menu (31, 'Special Contingency Policy', '/specialContigency', null, null, null, false, 24),
     new Menu (32, 'Marine Hull Policy', '/marinehull', null, null, null, false, 24),
     new Menu (33, 'Aviation Insurance', '/aviation', null, null, null, false, 24),
     new Menu (13, 'Money Insurance', '/money', null, null, null, false, 24),
