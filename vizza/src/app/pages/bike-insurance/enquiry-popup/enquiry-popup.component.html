@@ -102,9 +102,12 @@
     </div>
 
     <div class="col-md-3">
-      <mat-placeholder>Registration City</mat-placeholder>
-      <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" required></ngx-select-dropdown>
+      <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
+      <!--<mat-form-field>-->
+        <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" ></ngx-select-dropdown>
+        <mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>
 
+      <!--</mat-form-field>-->
       <!--<mat-form-field class="example-full-width">-->
         <!--<input type="text" placeholder="Registration City"  matInput [matAutocomplete]="auto">-->
         <!--<mat-autocomplete #auto="matAutocomplete">-->
@@ -117,7 +120,6 @@
 
           <!--<mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
         <!--</mat-select>-->
-        <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">Variant is required</mat-error>-->
       <!--</mat-form-field>-->
     </div>
     <div class="col-md-3" *ngIf="enquiryFormData.business_type != '1'">
