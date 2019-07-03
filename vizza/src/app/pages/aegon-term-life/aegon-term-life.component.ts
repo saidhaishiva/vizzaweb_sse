@@ -457,34 +457,34 @@ export class AegonTermLifeComponent implements OnInit {
         if(this.lifePremiumList.benefit_option == 'LH' || this.lifePremiumList.benefit_option == 'LHP') {
           console.log(this.lifePremiumList.benefit_option,'first');
 
-          if ((this.lifePremiumList.sum_insured_amount == 5000000) && (value.annualIncome == 200000)) {
-            console.log(this.personal.controls.enchancedCISA.value,'hai');
-            if((this.personal.controls.icirSumAssured.value <= 1000000) || (this.personal.controls.enchancedCISA.value <= 1000000)){
-              console.log(this.personal.controls.enchancedCISA.value,'hai1');
+          if ((this.lifePremiumList.sum_insured_amount <= 5000000) && (value.annualIncome <= 200000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 1000000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 1000000)){
 
               stepper.next();
               this.topScroll();
 
             } else {
-              this.toastr.error('Annual income must be 10 Lakhs and above')
+              this.toastr.error('Sum Assured must not be 10 Lakhs and above')
+            }
+
+          }
+
+         else if ((this.lifePremiumList.sum_insured_amount >= 7500000) && (value.annualIncome <= 300000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 1500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 1500000)){
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Sum Assured must not be 15 Lakhs and above')
             }
 
           } else {
-            this.toastr.error('Annual income must be 2 Lakhs and above')
+            this.toastr.error('Annual income must be 3 Lakhs and above')
           }
 
-          // if ((this.lifePremiumList.sum_insured_amount == 5000000) && (value.annualIncome == 200000)) {
-          //   if(this.personal.controls.icirSumAssured.value <= 1000000){
-          //     stepper.next();
-          //     this.topScroll();
-          //
-          //   } else {
-          //     this.toastr.error('Annual income must be 10 Lakhs and above')
-          //   }
-          //
-          // } else {
-          //   this.toastr.error('Annual income must be 2 Lakhs and above')
-          // }
+
+
         }
 
 

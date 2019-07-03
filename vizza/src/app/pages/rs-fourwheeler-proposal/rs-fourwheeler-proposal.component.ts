@@ -673,6 +673,25 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['isFourWheelerFinancedValue'].updateValueAndValidity();
 
   }
+  // isFinaced(event: any) {
+  //   if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
+  //     this.vehical.controls['financierName'].patchValue(this.vehical.controls['financierName'].value);
+  //     this.vehical.controls['isFourWheelerFinancedValue'].patchValue(this.vehical.controls['isFourWheelerFinancedValue'].value);
+  //
+  //     this.vehical.controls['financierName'].setValidators([Validators.required]);
+  //     this.vehical.controls['isFourWheelerFinancedValue'].setValidators([Validators.required]);
+  //   } else {
+  //     this.vehical.controls['financierName'].patchValue('');
+  //     this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
+  //
+  //     this.vehical.controls['financierName'].setValidators(null);
+  //     this.vehical.controls['isFourWheelerFinancedValue'].setValidators(null);
+  //
+  //   }
+  //   this.vehical.controls['financierName'].updateValueAndValidity();
+  //   this.vehical.controls['isFourWheelerFinancedValue'].updateValueAndValidity();
+  //
+  // }
 
   eleAccessReq() {
     console.log(this.vehical['controls'].electricalAccess['controls'].length,'value');
@@ -800,11 +819,25 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   isBiFuel() {
 
-    if (this.vehical.controls['isBiFuelKit'].value == 'Yes') {
 
-    } else {
-      this.vehical.controls['isBiFuelKitYes'].patchValue('');
-    }
+      if (this.vehical.controls['isBiFuelKit'].value == true) {
+        this.vehical.controls['isBiFuelKitYes'].patchValue(this.vehical.controls['financierName'].value);
+        this.vehical.controls['addonValue'].patchValue(this.vehical.controls['isFourWheelerFinancedValue'].value);
+
+        this.vehical.controls['isBiFuelKitYes'].setValidators([Validators.required]);
+        this.vehical.controls['addonValue'].setValidators([Validators.required]);
+      } else {
+        this.vehical.controls['isBiFuelKitYes'].patchValue('');
+        this.vehical.controls['addonValue'].patchValue('');
+
+        this.vehical.controls['isBiFuelKitYes'].setValidators(null);
+        this.vehical.controls['addonValue'].setValidators(null);
+
+      }
+      this.vehical.controls['isBiFuelKitYes'].updateValueAndValidity();
+      this.vehical.controls['addonValue'].updateValueAndValidity();
+
+
   }
 
   eleAccess() {

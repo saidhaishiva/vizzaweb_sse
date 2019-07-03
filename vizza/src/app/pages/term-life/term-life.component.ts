@@ -13,6 +13,9 @@ import {MY_FORMATS} from '../endowment-life-insurance/life-call-back/life-call-b
 import  { AuthService } from '../../shared/services/auth.service';
 import { TermLifeCommonService } from '../../shared/services/term-life-common.service';
 import * as moment from 'moment';
+import { Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
+
 
 @Component({
     selector: 'app-term-life',
@@ -39,9 +42,21 @@ export class TermLifeComponent implements OnInit {
     public companyList: any;
     public dobError: any;
     public lifeEnqAge: any;
+    public webhost: any;
+    public settings: Settings;
 
-    constructor(public fb: FormBuilder, public router: Router,public commonservices: CommonService, public datepipe: DatePipe,
-                public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService) {
+    constructor(public fb: FormBuilder, public router: Router,public commonservices: CommonService, public datepipe: DatePipe,public route: ActivatedRoute, public toastr: ToastrService,public dialog: MatDialog, public config: ConfigurationService,public validation: ValidationService, public auth: AuthService, public commontermlyf: TermLifeCommonService,public appSettings: AppSettings) {
+        this.settings = this.appSettings.settings;
+        this.webhost = this.config.getimgUrl();
+        if(window.innerWidth < 787){
+            this.settings.HomeSidenavUserBlock = false;
+            this.settings.sidenavIsOpened = false;
+            this.settings.sidenavIsPinned = false;
+        }else{
+            this.settings.HomeSidenavUserBlock = true;
+            this.settings.sidenavIsOpened = true;
+            this.settings.sidenavIsPinned = true;
+        }
         let today  = new Date();
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.TermLifeapp = this.fb.group({

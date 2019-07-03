@@ -96,7 +96,11 @@ export class HealthInsuranceComponent implements OnInit {
     constructor(public route: ActivatedRoute,public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public common: HealthService, public toast: ToastrService, public auth: AuthService, public session: ClearSessionService) {
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
-        if (!sessionStorage.sideMenu) {
+        if(window.innerWidth < 787){
+            this.settings.HomeSidenavUserBlock = false;
+            this.settings.sidenavIsOpened = false;
+            this.settings.sidenavIsPinned = false;
+        }else{
             this.settings.HomeSidenavUserBlock = true;
             this.settings.sidenavIsOpened = true;
             this.settings.sidenavIsPinned = true;
