@@ -197,6 +197,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // quoteId: '',
       personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
+      addonValue: '',
       isFourWheelerFinanced: false,
       // isAddon: false,
       lossOfBaggage: 'No',
@@ -209,6 +210,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       fibreGlass: 'No',
       isCarOwnershipChanged: 'No',
       automobileAssociationMembership: 'No',
+      invoicePrice: 'No',
       isBiFuelKit: 'No',
       legalliabilityToPaidDriver: 'No',
       windShieldGlass: 'Off',
@@ -284,6 +286,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changepbaggageValue();
     this.changepolicyType();
     this.changeAccidentPaidDriver();
+    this.changeBiFuelValue();
 
     this.sessionData();
 
@@ -1726,6 +1729,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['isBiFuelKitYes'].patchValue(this.getStepper2.isBiFuelKitYes);
       this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].patchValue(this.getStepper2.personalAccidentCoverForUnnamedPassengers);
       this.vehical.controls['financierName'].patchValue(this.getStepper2.financierName);
+      this.vehical.controls['addonValue'].patchValue(this.getStepper2.addonValue);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
       // this.vehical.controls['isAddon'].patchValue(this.getStepper2.isAddon);
       this.vehical.controls['lossOfBaggage'].patchValue(this.getStepper2.lossOfBaggage);
