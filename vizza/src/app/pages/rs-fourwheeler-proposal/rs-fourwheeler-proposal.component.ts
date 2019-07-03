@@ -100,6 +100,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public pAUnnamedPassengersList: any;
   public AddonList: any;
   public baggageList: any;
+  public BiFuelList: any;
   public today: any;
   public guardianRelationList: any;
   public pincodeList: any;
@@ -192,6 +193,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // idv: '',
       isFourWheelerFinancedValue: '',
       valueOfLossOfBaggage: '',
+      isBiFuelKitYes: '',
       // quoteId: '',
       personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
@@ -206,6 +208,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
       cover_dri_othr_car_ass: 'No',
       fibreGlass: 'No',
       isCarOwnershipChanged: 'No',
+      automobileAssociationMembership: 'No',
+      isBiFuelKit: 'No',
       legalliabilityToPaidDriver: 'No',
       windShieldGlass: 'Off',
       keyreplacement: 'Off',
@@ -214,7 +218,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       ncbprotector: 'Off',
       registrationchargesRoadtax: 'Off',
       spareCar: 'Off',
-      invoicePrice: 'Off',
+      spareCarLimit: 'Off',
       // policyED: ['', Validators.compose([ Validators.minLength(10)])],
       // policySD: ['', Validators.compose([ Validators.minLength(10)])],
       // vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
@@ -794,6 +798,14 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['valueOfLossOfBaggage'].patchValue('');
     }
   }
+  isBiFuel() {
+
+    if (this.vehical.controls['isBiFuelKit'].value == 'Yes') {
+
+    } else {
+      this.vehical.controls['isBiFuelKitYes'].patchValue('');
+    }
+  }
 
   eleAccess() {
 
@@ -1101,6 +1113,32 @@ export class RsFourwheelerProposalComponent implements OnInit {
   }
   public baggageValueFailure(error) {
   }
+
+  // BiFuelKit value
+  changeBiFuelValue() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0'
+
+    }
+    this.fourWheeler.getRsBiFuelKitDetails(data).subscribe(
+        (successData) => {
+          this.biFuelValueSuccess(successData);
+        },
+        (error) => {
+          this.biFuelValueFailure(error);
+        }
+    );
+  }
+  public biFuelValueSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.BiFuelList = successData.ResponseObject;
+    }
+  }
+  public biFuelValueFailure(error) {
+  }
   // PreviousInsure
 
   changePreviousInsureType() {
@@ -1345,6 +1383,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "isCarFinanced": this.vehical.controls['isFourWheelerFinanced'].value ? 'Yes' : 'No',
           "isCarFinancedValue": this.vehical.controls['isFourWheelerFinancedValue'].value,
           "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value ,
+          "automobileAssociationMembership": this.vehical.controls['automobileAssociationMembership'].value ,
+          "isBiFuelKit": this.vehical.controls['isBiFuelKit'].value ,
           // "isPreviousPolicyHolder": "true",
           "legalliabilityToPaidDriver": this.vehical.controls['legalliabilityToPaidDriver'].value ,
           "lossOfBaggage": this.vehical.controls['lossOfBaggage'].value ,
@@ -1359,6 +1399,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "previousinsurersCorrectAddress": this.previousInsure.controls['previousinsurersCorrectAddress'].value ? this.previousInsure.controls['previousinsurersCorrectAddress'].value : '',
           "previuosPolicyNumber": this.previousInsure.controls['policyNumber'].value ? this.previousInsure.controls['policyNumber'].value : '',
           "valueOfLossOfBaggage": this.vehical.controls['valueOfLossOfBaggage'].value,
+          "isBiFuelKitYes": this.vehical.controls['isBiFuelKitYes'].value,
           // "vehicleManufacturerName": "Hyundai Motors Ltd.",
           // "vehicleModelCode": "CMH990",
           "vehicleMostlyDrivenOn": this.vehical.controls['vehicleMostlyDrivenOn'].value,
@@ -1374,6 +1415,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "ncbprotector": this.vehical.controls['ncbprotector'].value ,
           "registrationchargesRoadtax": this.vehical.controls['registrationchargesRoadtax'].value ,
           "spareCar": this.vehical.controls['spareCar'].value ,
+          "spareCarLimit": this.vehical.controls['spareCarLimit'].value ,
           "invoicePrice": this.vehical.controls['invoicePrice'].value ,
           // "yearOfManufacture": "2015"
         }
@@ -1478,6 +1520,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "policySD": this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd'),
           // "carRegisteredCity": "MUMBAI",
           "isCarOwnershipChanged": this.vehical.controls['isCarOwnershipChanged'].value,
+          "automobileAssociationMembership": this.vehical.controls['automobileAssociationMembership'].value,
+          "isBiFuelKit": this.vehical.controls['isBiFuelKit'].value,
           "isCarFinanced": this.vehical.controls['isFourWheelerFinanced'].value ? 'Yes' : 'No',
           "financierName": this.vehical.controls['financierName'].value,
           "isCarFinancedValue": this.vehical.controls['isFourWheelerFinancedValue'].value,
@@ -1498,6 +1542,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
           "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
           "valueOfLossOfBaggage":this.vehical.controls['valueOfLossOfBaggage'].value,
+          "isBiFuelKitYes":this.vehical.controls['isBiFuelKitYes'].value,
           "legalliabilityToPaidDriver":this.vehical.controls['legalliabilityToPaidDriver'].value ,
           "lossOfBaggage":this.vehical.controls['lossOfBaggage'].value ,
           "electricalAccessories": {
@@ -1518,6 +1563,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
             "ncbprotector": this.vehical.controls['ncbprotector'].value ,
             "registrationchargesRoadtax": this.vehical.controls['registrationchargesRoadtax'].value ,
             "spareCar": this.vehical.controls['spareCar'].value ,
+            "spareCarLimit": this.vehical.controls['spareCarLimit'].value ,
             "invoicePrice": this.vehical.controls['invoicePrice'].value ,
         }
       }
@@ -1644,6 +1690,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // this.vehical.controls['idv'].patchValue(this.getStepper2.idv);
       this.vehical.controls['isFourWheelerFinancedValue'].patchValue(this.getStepper2.isFourWheelerFinancedValue);
       this.vehical.controls['valueOfLossOfBaggage'].patchValue(this.getStepper2.valueOfLossOfBaggage);
+      this.vehical.controls['isBiFuelKitYes'].patchValue(this.getStepper2.isBiFuelKitYes);
       this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].patchValue(this.getStepper2.personalAccidentCoverForUnnamedPassengers);
       this.vehical.controls['financierName'].patchValue(this.getStepper2.financierName);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
@@ -1662,8 +1709,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['ncbprotector'].patchValue(this.getStepper2.ncbprotector);
       this.vehical.controls['registrationchargesRoadtax'].patchValue(this.getStepper2.registrationchargesRoadtax);
       this.vehical.controls['spareCar'].patchValue(this.getStepper2.spareCar);
+      this.vehical.controls['spareCarLimit'].patchValue(this.getStepper2.spareCarLimit);
       this.vehical.controls['invoicePrice'].patchValue(this.getStepper2.invoicePrice);
       this.vehical.controls['isCarOwnershipChanged'].patchValue(this.getStepper2.isCarOwnershipChanged);
+      this.vehical.controls['automobileAssociationMembership'].patchValue(this.getStepper2.automobileAssociationMembership);
+      this.vehical.controls['isBiFuelKit'].patchValue(this.getStepper2.isBiFuelKit);
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
       this.vehical.controls['total'].patchValue(this.getStepper2.total);
       this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);

@@ -386,9 +386,46 @@
                                                     <mat-radio-button value="Off">No</mat-radio-button>
                                                 </mat-radio-group>
                                             </div>
+                                                <div class="col-md-3 mt-3" >
+                                                    <p>Automobile Association Membership</p>
+                                                    <mat-radio-group formControlName="automobileAssociationMembership">
+                                                        <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="No">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
+                                                <div class="col-md-3 mt-3" >
+                                                    <p>Spare Car Limit</p>
+                                                    <mat-radio-group formControlName="spareCarLimit">
+                                                        <mat-radio-button value="On" class="mr-2">Yes</mat-radio-button>
+                                                        <mat-radio-button value="Off">No</mat-radio-button>
+                                                    </mat-radio-group>
+                                                </div>
                                         </div>
 
+
                                         <div>
+                                            <div >
+                                                <div class="row mt-3">
+                                                    <div class="col-md-3">
+                                                        <p>Is BiFuel Kit</p>
+                                                        <mat-radio-group formControlName="isBiFuelKit" (change)="isBiFuel()">
+                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                            <mat-radio-button value="No">No</mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </div>
+
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3"  *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'">
+                                                        <mat-form-field class="w-100">
+                                                            <mat-select placeholder="Value Of BiFuel Kit"  formControlName="isBiFuelKitYes" (change)=" changeBiFuelValue()"  >
+                                                                <mat-option *ngFor="let BiFuels of BiFuelList | keys" value="{{BiFuels.key}}" > {{BiFuels.value}} </mat-option>
+                                                            </mat-select>
+
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <div >
                                                 <div class="row mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
                                                     <div class="col-md-3">
@@ -398,9 +435,7 @@
                                                             <mat-radio-button value="No">No</mat-radio-button>
                                                         </mat-radio-group>
                                                     </div>
-                                                    <!--<div class="col-md-6 mt-3">-->
-                                                        <!--<mat-checkbox   formControlName="lossOfBaggage" (change)="isBaggages()" >Loss of Baggages</mat-checkbox>-->
-                                                    <!--</div>-->
+
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-3"  *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">
@@ -791,6 +826,7 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.typeOfCover != ''" ><strong>Type Of Cover :</strong> {{vehicalFormData.typeOfCover }}</li>
                                             <li class="list-group-item"  ><strong>Do you Need Cover for Driver / Other Passengers / Car Accessories? :</strong> {{vehicalFormData.cover_dri_othr_car_ass }}</li>
                                             <li class="list-group-item" ><strong>Is Car Ownership Changed  :</strong> {{vehicalFormData.isCarOwnershipChanged }}</li>
+                                            <li class="list-group-item" ><strong>Automobile Association Membership :</strong> {{vehicalFormData.automobileAssociationMembership }}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinanced != ''"><strong>Is Car Financed :</strong> <span *ngIf="vehicalFormData.isFourWheelerFinanced == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''"><strong>Financier Name :</strong> {{vehicalFormData.financierName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFourWheelerFinancedValue != ''"><strong>Is Car Financed value :</strong> {{vehicalFormData.isFourWheelerFinancedValue}}</li>
@@ -808,7 +844,10 @@
                                             <li class="list-group-item" *ngIf="vehicalFormData.registrationchargesRoadtax != ''" ><strong>Registration Charges Road Tax : </strong> <span *ngIf="vehicalFormData.registrationchargesRoadtax == 'On'">Yes</span> <span *ngIf="vehicalFormData.registrationchargesRoadtax == 'Off'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.ncbprotector != ''" ><strong>NCB protector : </strong> <span *ngIf="vehicalFormData.ncbprotector == 'On'">Yes</span> <span *ngIf="vehicalFormData.ncbprotector == 'Off'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.spareCar != ''" ><strong>Spare Car : </strong> <span *ngIf="vehicalFormData.spareCar == 'On'">Yes</span> <span *ngIf="vehicalFormData.spareCar == 'Off'">No</span></li>
+                                            <li class="list-group-item" *ngIf="vehicalFormData.spareCarLimit != ''" ><strong>Invoice Price : </strong> <span *ngIf="vehicalFormData.spareCarLimit == 'On'">Yes</span> <span *ngIf="vehicalFormData.spareCarLimit == 'Off'">No</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.invoicePrice != ''" ><strong>Invoice Price : </strong> <span *ngIf="vehicalFormData.invoicePrice == 'On'">Yes</span> <span *ngIf="vehicalFormData.invoicePrice == 'Off'">No</span></li>
+                                            <li class="list-group-item"  ><strong>Is BiFuel Kit :</strong> {{vehicalFormData.isBiFuelKit }}</li>
+                                            <li class="list-group-item"*ngIf="vehicalFormData.isBiFuelKitYes != ''" ><strong>Value Of BiFuel Kit:</strong> {{vehicalFormData.isBiFuelKitYes}}</li>
                                             <li class="list-group-item"  ><strong>Loss Of Baggage :</strong> {{vehicalFormData.lossOfBaggage }}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.valueOfLossOfBaggage != ''" ><strong>Value Of Loss Of Baggage:</strong> {{vehicalFormData.valueOfLossOfBaggage}}</li>
                                             <li class="list-group-item"*ngIf="vehicalFormData.personalAccidentCoverForUnnamedPassengers != ''" ><strong>Personal Accident Cover For Unnamed Passengers:</strong> {{vehicalFormData.personalAccidentCoverForUnnamedPassengers}}</li>
