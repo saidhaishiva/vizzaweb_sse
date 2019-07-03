@@ -670,7 +670,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   }
 
-  eleAccessReq(event: any) {
+  eleAccessReq() {
     console.log(this.vehical['controls'].electricalAccess['controls'].length,'value');
     if (this.vehical.controls['coverelectricalaccesss'].value == true) {
 
@@ -706,7 +706,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
 
   }
-  noneleAccessReq(event: any) {
+  noneleAccessReq() {
     if (this.vehical.controls['cover_non_elec_acc'].value == true) {
 
       for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
