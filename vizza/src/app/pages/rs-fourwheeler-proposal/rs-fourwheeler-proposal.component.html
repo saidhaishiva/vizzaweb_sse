@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="row bikeRoyalProposal">
         <div class="col-md-12">
-            <mat-horizontal-stepper  #stepper >
+            <mat-horizontal-stepper  #stepper [selectedIndex]="currentStep">
                 <mat-step [stepControl]="">
                     <ng-template matStepLabel >PROPOSER DETAILS </ng-template>
                     <mat-accordion class=" w-100 float-left">
@@ -434,7 +434,7 @@
                                                 <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKitYes'].value == 'InBuilt'" >
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Addon Value<span class="error" >*</span></mat-placeholder>
-                                                          <input matInput  formControlName="addonValue"  (keypress)="numberValidate($event)"  autocomplete="off" >
+                                                          <input matInput  formControlName="addonValue" maxlength="6" (keypress)="numberValidate($event)"  autocomplete="off" >
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -624,7 +624,7 @@
                                             </div>
                                             <div class="col-md-3" *ngIf="previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'" >
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="No Of Claim Reported" (keypress)="numberValidate($event)"  formControlName="claimsReported" [required]="previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'" autocomplete="off">
+                                                    <input matInput placeholder="No Of Claim Reported" (keypress)="numberValidate($event)" maxlength="2" formControlName="claimsReported" [required]="previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'" autocomplete="off">
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3" *ngIf="previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'" >
