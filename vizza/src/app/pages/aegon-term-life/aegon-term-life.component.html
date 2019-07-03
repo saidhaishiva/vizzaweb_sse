@@ -138,7 +138,7 @@
                             <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event); addAnnual()"  autocomplete="off"  >
                             <mat-error *ngIf="personal.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                           </mat-form-field>
-                          <div class="error" *ngIf="incomeError != ''">{{incomeError}}</div>
+                          <div class="error" *ngIf="personal.controls['incomeError'].value != ''">{{personal.controls['incomeError'].value}}</div>
                         </div>
 
                         <div class="col-md-3">
@@ -307,7 +307,7 @@
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-12 box-card ">
+                      <div class="col-md-12">
                         <h6 class="color-blue">ADD ON</h6>
                       </div>
 
@@ -329,17 +329,19 @@
                           <mat-error *ngIf="personal.controls.adbrSumAssured.errors?.required">Accidental Death Benefit is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LHP'">
+                      <div class="col-md-5" *ngIf="lifePremiumList.benefit_option == 'LHP'">
                         <mat-form-field class="w-100" >
-                          <input matInput placeholder=" Enhanced Critical Illness Benefit (Lump Sum)" formControlName="enchancedCISA" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)" >
+                          <input matInput placeholder=" Enhanced Critical Illness Benefit (Lump Sum)" formControlName="enchancedCISA" maxlength="50" autocomplete="off" (keyup)="validateCriticalIllness('LHP')" required (keypress)="numberValidate($event)" >
                           <mat-error *ngIf="personal.controls.enchancedCISA.errors?.required">Enhanced Critical Illness Benefit (Lump Sum) is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LH'">
+                      <div class="col-md-5" *ngIf="lifePremiumList.benefit_option == 'LH'">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Basic Critical Illness Benefit (Lump Sum)" formControlName="icirSumAssured" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)" >
+                          <input matInput placeholder="Basic Critical Illness Benefit (Lump Sum)" formControlName="icirSumAssured" maxlength="50" autocomplete="off" (keyup)="validateCriticalIllness('LH')" required (keypress)="numberValidate($event)" >
                           <mat-error *ngIf="personal.controls.icirSumAssured.errors?.required">Basic Critical Illness Benefit (Lump Sum) is required</mat-error>
                         </mat-form-field>
+                        <div class="error" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{personal.controls['criticalIllnessError'].value}}</div>
+
                       </div>
                       </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
