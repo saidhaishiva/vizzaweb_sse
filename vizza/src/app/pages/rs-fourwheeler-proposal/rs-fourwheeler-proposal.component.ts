@@ -197,6 +197,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // quoteId: '',
       personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
+      addonValue: '',
       isFourWheelerFinanced: false,
       // isAddon: false,
       lossOfBaggage: 'No',
@@ -209,6 +210,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       fibreGlass: 'No',
       isCarOwnershipChanged: 'No',
       automobileAssociationMembership: 'No',
+      invoicePrice: 'No',
       isBiFuelKit: 'No',
       legalliabilityToPaidDriver: 'No',
       windShieldGlass: 'Off',
@@ -284,6 +286,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changepbaggageValue();
     this.changepolicyType();
     this.changeAccidentPaidDriver();
+    this.changeBiFuelValue();
 
     this.sessionData();
 
@@ -1726,6 +1729,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['isBiFuelKitYes'].patchValue(this.getStepper2.isBiFuelKitYes);
       this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].patchValue(this.getStepper2.personalAccidentCoverForUnnamedPassengers);
       this.vehical.controls['financierName'].patchValue(this.getStepper2.financierName);
+      this.vehical.controls['addonValue'].patchValue(this.getStepper2.addonValue);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
       // this.vehical.controls['isAddon'].patchValue(this.getStepper2.isAddon);
       this.vehical.controls['lossOfBaggage'].patchValue(this.getStepper2.lossOfBaggage);
@@ -1750,44 +1754,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
       this.vehical.controls['total'].patchValue(this.getStepper2.total);
       this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
-
-
-
-      //   drivingExperience: this.getStepper2.drivingExperience,
-      //   averageMonthlyMileageRun: this.getStepper2.averageMonthlyMileageRun,
-      //   accidentCoverForPaidDriver: this.getStepper2.accidentCoverForPaidDriver,
-      //   companyName: this.getStepper2.companyName,
-      //   idv: this.getStepper2.idv,
-      //   isFourWheelerFinancedValue : this.getStepper2.isFourWheelerFinancedValue,
-      //   valueOfLossOfBaggage : this.getStepper2.valueOfLossOfBaggage,
-      //   quoteId : this.getStepper2.quoteId,
-      //   total : this.getStepper2.total,
-      //   subTotal : this.getStepper2.subTotal,
-      //   personalAccidentCoverForUnnamedPassengers : this.getStepper2.personalAccidentCoverForUnnamedPassengers,
-      //   financierName: this.getStepper2.financierName,
-      //   isFourWheelerFinanced: this.getStepper2.isFourWheelerFinanced,
-      //   isAddon: this.getStepper2.isAddon,
-      //     lossOfBaggage: this.getStepper2.lossOfBaggage,
-      //   hypothecationType: this.getStepper2.hypothecationType,
-      //   typeOfCover: this.getStepper2.typeOfCover,
-      //   vechileOwnerShipChanged: this.getStepper2.vechileOwnerShipChanged,
-      //   cover_dri_othr_car_ass: this.getStepper2.cover_dri_othr_car_ass,
-      //   addon: this.getStepper2.addon,
-      //   fibreGlass: this.getStepper2.fibreGlass,
-      //   windShieldGlass: this.getStepper2.windShieldGlass,
-      //   keyreplacement: this.getStepper2.keyreplacement,
-      //     depreciationWaiver: this.getStepper2.depreciationWaiver,
-      //     engineprotector: this.getStepper2.engineprotector,
-      //     ncbprotector: this.getStepper2.ncbprotector,
-      //   registrationchargesRoadtax: this.getStepper2.registrationchargesRoadtax,
-      //     spareCar: this.getStepper2.spareCar,
-      //     invoicePrice: this.getStepper2.invoicePrice,
-      //   isCarOwnershipChanged: this.getStepper2.isCarOwnershipChanged,
-      //   legalliabilityToPaidDriver: this.getStepper2.legalliabilityToPaidDriver,
-      //   electricalAccess: this.getStepper2.value.electricalAccess,
-      //     nonelectricalAccess: this.getStepper2.nonelectricalAccess,
-      //   accidentPaid: this.getStepper2.accidentPaid
-      // });
       console.log(this.vehical,'vehical');
     }
 

@@ -384,43 +384,7 @@
                                                         <mat-radio-button value="Off">No</mat-radio-button>
                                                     </mat-radio-group>
                                                 </div>
-                                        </div>
-
-
-                                        <div>
-                                            <div >
-                                                <div class="row mt-3">
-                                                    <div class="col-md-3">
-                                                        <p>Is BiFuel Kit</p>
-                                                        <mat-radio-group formControlName="isBiFuelKit" (change)="isBiFuel()">
-                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
-                                                            <mat-radio-button value="No">No</mat-radio-button>
-                                                        </mat-radio-group>
-                                                    </div>
-
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'" >
-                                                        <mat-form-field class="w-100">
-                                                            <mat-placeholder>Value Of BiFuel Kit<span class="error" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'">*</span></mat-placeholder>
-                                                            <mat-select  formControlName="isBiFuelKitYes" (change)="changeBiFuelValue()" >
-                                                                <mat-option *ngFor="let BiFuels of BiFuelList | keys " value="{{BiFuels.key}}" > {{BiFuels.value}} </mat-option>
-                                                            </mat-select>
-                                                        </mat-form-field>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3" >
-                                                    <!--*ngIf="vehical.controls['isBiFuelKitYes'].value == true"-->
-                                                    <mat-form-field class="w-100">
-                                                        <mat-placeholder>Addon Value<span class="error" >*</span></mat-placeholder>
-
-                                                        <input matInput  formControlName="addonValue"   autocomplete="off" >
-                                                    </mat-form-field>
-                                                </div>
-                                            </div>
-                                            <div >
-                                                <div class="row mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
-                                                    <div class="col-md-3">
+                                                    <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
                                                         <p>Loss of Baggages</p>
                                                         <mat-radio-group formControlName="lossOfBaggage" (change)="isBaggages()">
                                                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
@@ -428,9 +392,9 @@
                                                         </mat-radio-group>
                                                     </div>
 
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-3"  *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">
+
+
+                                                    <div class="col-md-3 mt-3"  *ngIf="vehical.controls['lossOfBaggage'].value == 'Yes'">
                                                         <mat-form-field class="w-100">
                                                             <mat-select placeholder="Value Of Loss Of Baggage"  formControlName="valueOfLossOfBaggage" (change)=" changepbaggageValue()"  >
                                                                 <mat-option *ngFor="let baggages of baggageList | keys" value="{{baggages.key}}" > {{baggages.value}} </mat-option>
@@ -439,8 +403,44 @@
 
                                                         </mat-form-field>
                                                     </div>
+
+                                        </div>
+
+
+                                        <div>
+
+                                                <div class="row" >
+
+
+                                                    <div class="col-md-3 mt-3" >
+                                                        <p>Is BiFuel Kit</p>
+                                                        <mat-radio-group formControlName="isBiFuelKit" (change)="isBiFuel()">
+                                                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                            <mat-radio-button value="No">No</mat-radio-button>
+                                                        </mat-radio-group>
+                                                    </div>
+
+
+
+                                                    <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'" >
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Value Of BiFuel Kit<span class="error" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'">*</span></mat-placeholder>
+                                                            <mat-select  formControlName="isBiFuelKitYes" (change)="changeBiFuelValue()" >
+                                                                <mat-option *ngFor="let BiFuels of BiFuelList | keys " value="{{BiFuels.key}}" > {{BiFuels.value}} </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+
+                                                <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKitYes'].value == 'InBuilt'" >
+                                                    <mat-form-field class="w-100">
+                                                        <mat-placeholder>Addon Value<span class="error" >*</span></mat-placeholder>
+
+                                                        <input matInput  formControlName="addonValue"   autocomplete="off" >
+                                                    </mat-form-field>
                                                 </div>
                                             </div>
+
+
                                         </div>
 
                                         <div class="row mt-3">
