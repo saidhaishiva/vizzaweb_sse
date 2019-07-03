@@ -271,23 +271,7 @@
                                             </div>
                                         </div>
 
-                                        <!--<div class="row">-->
-                                            <!--<div class="col-md-6 mt-3">-->
-                                                <!--<mat-checkbox   formControlName="isAddon" (change)="isAddoncheck()" >Addon</mat-checkbox>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
 
-                                        <!--<div class="row" *ngIf="vehical.controls['isAddon'].value == true">-->
-                                            <!--<div class="col-md-4  ">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<mat-select placeholder="Addon"  formControlName="addon" required >-->
-                                                        <!--<mat-option *ngFor="let vehicleAddon of AddonList | keys" value="{{vehicleAddon.key}}" > {{vehicleAddon.value}} </mat-option>-->
-                                                    <!--</mat-select>-->
-                                                    <!--&lt;!&ndash;<mat-error *ngIf="vehical.controls.addon.errors?.required">Addon is required</mat-error>&ndash;&gt;-->
-
-                                                <!--</mat-form-field>-->
-                                            <!--</div>-->
-                                        <!--</div>-->
                                             <div class="row">
                                                 <div class="col-md-6 mt-3">
                                                     <mat-checkbox   formControlName="isFourWheelerFinanced" (change)="isFinaced($event)" >Is Car Financed</mat-checkbox>
@@ -416,14 +400,22 @@
 
                                                 </div>
                                                 <div class="row">
-                                                    <div class="col-md-3"  *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'">
+                                                    <div class="col-md-3" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'" >
                                                         <mat-form-field class="w-100">
-                                                            <mat-select placeholder="Value Of BiFuel Kit"  formControlName="isBiFuelKitYes" (change)=" changeBiFuelValue()"  >
-                                                                <mat-option *ngFor="let BiFuels of BiFuelList | keys" value="{{BiFuels.key}}" > {{BiFuels.value}} </mat-option>
+                                                            <mat-placeholder>Value Of BiFuel Kit<span class="error" *ngIf="vehical.controls['isBiFuelKit'].value == 'Yes'">*</span></mat-placeholder>
+                                                            <mat-select  formControlName="isBiFuelKitYes" (change)="changeBiFuelValue()" >
+                                                                <mat-option *ngFor="let BiFuels of BiFuelList | keys " value="{{BiFuels.key}}" > {{BiFuels.value}} </mat-option>
                                                             </mat-select>
-
                                                         </mat-form-field>
                                                     </div>
+                                                </div>
+                                                <div class="col-md-3" >
+                                                    <!--*ngIf="vehical.controls['isBiFuelKitYes'].value == true"-->
+                                                    <mat-form-field class="w-100">
+                                                        <mat-placeholder>Addon Value<span class="error" >*</span></mat-placeholder>
+
+                                                        <input matInput  formControlName="addonValue"   autocomplete="off" >
+                                                    </mat-form-field>
                                                 </div>
                                             </div>
                                             <div >
