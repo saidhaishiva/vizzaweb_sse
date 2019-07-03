@@ -50,6 +50,7 @@ export class AegonTermLifeComponent implements OnInit {
   public dateError: any;
   public dateError1: any;
   public dateError2: any;
+  public incomeError: any;
   public today: any;
   public qualificationList: any;
   public summaryData: any;
@@ -281,6 +282,14 @@ export class AegonTermLifeComponent implements OnInit {
 
     }
   }
+  addAnnual(){
+
+    if(this.personal.controls['annualIncome'].value >= 200000){
+      this.incomeError= '';
+    }else {
+      this.incomeError = 'Enter Above 2 Lakhs';
+    }
+  }
 
 
 
@@ -431,16 +440,53 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.personal.valid, 'checked');
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
-        if((sessionStorage.adbrSumAssured >=50000) && (sessionStorage.adbrSumAssured <=30000000)) {
-          console.log(sessionStorage.adbrSumAssured ,'sessionStorag')
-          console.log(sessionStorage.adbrSumAssured.valid ,'sessionStorag')
 
-          stepper.next();
-          this.topScroll();
-        }else{
-          this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
+        if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'){
+          if((value.adbrSumAssured >=50000) && (value.adbrSumAssured <=30000000)) {
+            stepper.next();
+            this.topScroll();
+          }
+          else{
+            this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
 
+          }
         }
+
+
+
+        if(this.lifePremiumList.benefit_option == 'LH' || this.lifePremiumList.benefit_option == 'LHP') {
+          console.log(this.lifePremiumList.benefit_option,'first');
+
+          if ((this.lifePremiumList.sum_insured_amount == 5000000) && (value.annualIncome == 200000)) {
+            console.log(this.personal.controls.enchancedCISA.value,'hai');
+            if((this.personal.controls.icirSumAssured.value <= 1000000) || (this.personal.controls.enchancedCISA.value <= 1000000)){
+              console.log(this.personal.controls.enchancedCISA.value,'hai1');
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Annual income must be 10 Lakhs and above')
+            }
+
+          } else {
+            this.toastr.error('Annual income must be 2 Lakhs and above')
+          }
+
+          // if ((this.lifePremiumList.sum_insured_amount == 5000000) && (value.annualIncome == 200000)) {
+          //   if(this.personal.controls.icirSumAssured.value <= 1000000){
+          //     stepper.next();
+          //     this.topScroll();
+          //
+          //   } else {
+          //     this.toastr.error('Annual income must be 10 Lakhs and above')
+          //   }
+          //
+          // } else {
+          //   this.toastr.error('Annual income must be 2 Lakhs and above')
+          // }
+        }
+
 
 
       } else {
