@@ -1,12 +1,14 @@
-<div class="row flex-p text-right">
-    <div class="col-sm-12 text-right">
-        <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
-    </div>
+<!--<div class="row flex-p text-right">-->
+    <!--<div class="col-sm-12 text-right">-->
+        <!--<mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>-->
+    <!--</div>-->
 
-</div>
+<!--</div>-->
+<button mat-mini-fab class="close-dialog-btn">
+    <i class="material-icons" (click)="onNoClick()">close</i>
+</button>
 <div class="container">
     <mat-card class="mt-viwe-profile1">
-        <p class="text-left text-color">{{details.refrence_by}} {{details.refrence_date | date:'dd-MMM-yy'}}</p>
 
         <!--<mat-card-header>-->
             <!--&lt;!&ndash;<div fxFlex="100" class="flex-p" fxLayoutAlign="start center">&ndash;&gt;-->
@@ -20,6 +22,8 @@
             <div [innerHtml]="details.content">
             </div>
         </mat-card-content>
+        <p class="text-left pl-3 text-color">{{details.refrence_by}} {{details.refrence_date | date:'dd-MMM-yy'}}</p>
+
 
     </mat-card>
 </div>
