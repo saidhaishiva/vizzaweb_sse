@@ -4,14 +4,35 @@ import {CommonService} from '../../shared/services/common.service';
 import {DatePipe} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {MatDialog} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {ValidationService} from '../../shared/services/validation.service';
 import {AuthService} from '../../shared/services/auth.service';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
+import {ConfigurationService} from '../../shared/services/configuration.service';
 
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
+
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 @Component({
   selector: 'app-bajaj-gold-suraksha',
   templateUrl: './bajaj-gold-suraksha.component.html',
-  styleUrls: ['./bajaj-gold-suraksha.component.scss']
+  styleUrls: ['./bajaj-gold-suraksha.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 export class BajajGoldSurakshaComponent implements OnInit {
   public bajajgold: FormGroup;
@@ -22,8 +43,21 @@ export class BajajGoldSurakshaComponent implements OnInit {
   public title: any;
   public response: any;
   public pincodeErrors: any;
+  public webhost: any;
+  public settings: Settings;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService,public auth: AuthService, public validation: ValidationService,public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService,public auth: AuthService, public validation: ValidationService,public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService, public dialog: MatDialog,public config: ConfigurationService,public appSettings: AppSettings) {
+    this.settings = this.appSettings.settings;
+    this.webhost = this.config.getimgUrl();
+    if(window.innerWidth < 787){
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
+    }else{
+      this.settings.HomeSidenavUserBlock = true;
+      this.settings.sidenavIsOpened = true;
+      this.settings.sidenavIsPinned = true;
+    }
     this.bajajgold = this.fb.group({
       'gender': ['', Validators.required],
       'fname': ['', Validators.required],
