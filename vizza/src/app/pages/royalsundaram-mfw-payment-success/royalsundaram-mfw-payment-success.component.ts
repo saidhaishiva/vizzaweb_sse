@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Settings} from '../../app.settings.model';
 import {ConfigurationService} from '../../shared/services/configuration.service';
-import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AppSettings} from '../../app.settings';
 import {ToastrService} from 'ngx-toastr';
