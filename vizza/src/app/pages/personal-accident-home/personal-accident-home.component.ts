@@ -93,12 +93,15 @@ export class PersonalaccidentComponent implements OnInit {
         this.webhost = this.config.getimgUrl();
         // sessionStorage.sideMenu = false;
         // this.settings.loadingSpinner = true
-        if (!sessionStorage.sideMenu) {
+        if(window.innerWidth < 787){
+            this.settings.HomeSidenavUserBlock = false;
+            this.settings.sidenavIsOpened = false;
+            this.settings.sidenavIsPinned = false;
+        }else{
             this.settings.HomeSidenavUserBlock = true;
             this.settings.sidenavIsOpened = true;
             this.settings.sidenavIsPinned = true;
         }
-
         this.fireapp = this.fb.group({
             'appdate': ['', Validators.required],
             'apptime': null,
