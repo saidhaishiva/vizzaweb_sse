@@ -47,6 +47,7 @@ export class BikePremiumListComponent implements OnInit {
         this.thirdParty = false;
         this.policyTerm = '1';
         this.compherhensive = 'Comprehensive_premium';
+        sessionStorage.packae_list = this.compherhensive;
     }
     ngOnInit()
     {
@@ -232,6 +233,7 @@ export class BikePremiumListComponent implements OnInit {
 
     }
     premiumlist(){
+        sessionStorage.packae_list = this.compherhensive;
 
         if(this.policyTerm == '2'){
             this.initialProductList = this.allProductLists.filter(data => data.year_type == '2');
@@ -244,18 +246,15 @@ export class BikePremiumListComponent implements OnInit {
         }
     }
     listDetails(){
+
         if(this.compherhensive == 'ThridParty_premium'){
             this.thirdParty = true;
             sessionStorage.premiumAmount = this.thirdParty;
             this.comphensivePremium = false;
             sessionStorage.premiumAmount1 = this.comphensivePremium;
-
         } else{
             this.thirdParty = false;
             this.comphensivePremium = true;
-
-
-
         }
     }
 

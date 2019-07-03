@@ -804,8 +804,16 @@ public apponiteeList: boolean;
   }
   policyHolder(){
     if(this.previousInsure.controls['isPreviousPolicyHolder'].value == 'Yes'){
+      this.previousInsure.controls['claimAmount'].setValidators([Validators.required]);
+      this.previousInsure.controls['voluntary'].setValidators([Validators.required]);
+      this.previousInsure.controls['personalAccidentCover'].setValidators([Validators.required]);
+      this.previousInsure.controls['accidentPaid'].setValidators([Validators.required]);
 
     } else {
+      this.previousInsure.controls['claimAmount'].setValidators(null);
+      this.previousInsure.controls['voluntary'].setValidators(null);
+      this.previousInsure.controls['personalAccidentCover'].setValidators(null);
+      this.previousInsure.controls['accidentPaid'].setValidators(null);
       this.previousInsure.controls['claimAmount'].patchValue('');
       this.previousInsure.controls['voluntary'].patchValue('');
       this.previousInsure.controls['personalAccidentCover'].patchValue('');

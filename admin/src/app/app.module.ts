@@ -109,6 +109,9 @@ import { ViewDocumentsComponent } from './pages/dm-profile/view-documents/view-d
 import { AddDmComponent } from './pages/add-dm/add-dm.component';
 import { EditDmComponent } from './pages/edit-dm/edit-dm.component';
 import { EditmediaComponent } from './pages/mediacenter/editmedia/editmedia.component';
+import { TestimonialComponent } from './pages/testimonial/testimonial.component';
+import { AddtestimonialComponent } from './pages/testimonial/addtestimonial/addtestimonial.component';
+import { EdittestimonialComponent } from './pages/testimonial/edittestimonial/edittestimonial.component';
 
 @NgModule({
     imports: [
@@ -201,7 +204,10 @@ import { EditmediaComponent } from './pages/mediacenter/editmedia/editmedia.comp
         ViewDocumentsComponent,
         AddDmComponent,
         EditDmComponent,
-        EditmediaComponent
+        EditmediaComponent,
+        TestimonialComponent,
+        AddtestimonialComponent,
+        EdittestimonialComponent
     ],
     providers: [
         AppSettings,
