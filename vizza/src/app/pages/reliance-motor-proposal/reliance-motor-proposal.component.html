@@ -338,7 +338,6 @@
                           </mat-panel-title>
                       </mat-expansion-panel-header>
                       <form [formGroup]="riskDetails">
-                          <div class="row">
 <!--                              <div class="col-md-12 mt-3">-->
 <!--                                  <div class="row">-->
 <!--                                  <div class="col-md-6">-->
@@ -386,16 +385,20 @@
                                           </mat-form-field>
                                       </div>
                                   </div>
+                              </div>
+                          <div class="col-md-12 mt-2">
+                              <h3 class="color-blue">IDV</h3><p>(min {{buyBikeDetails.MinIDV}} - max {{buyBikeDetails.MaxIDV}})</p>
+                          </div>
 
+                          <div class="col-md-12 mt-0" layout>
+                              <mat-slider flex md-discrete [value]= "riskDetails.controls.IDV.value" formControlName="IDV"
+                                          step = "{{buyBikeDetails.MinIDV}"
+                                          min="{{buyBikeDetails.MinIDV}}"
+                                          max="{{buyBikeDetails.MaxIDV}}">
+                              </mat-slider>
+                              <i style="font-size:14px" class="fa fa-inr">&#xf156;</i>{{riskDetails.controls.IDV.value}}
+                          </div>
 
-                                  <div class="row">
-                                      <div class="col-md-4 mt-3">
-                                          <mat-form-field class="w-100">
-                                              <input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required readonly>
-                                              <mat-error *ngIf="riskDetails.controls.IDV.errors?.required">IDV is required</mat-error>
-                                          </mat-form-field>
-                                      </div>
-                                  </div>
 
 
                                   <div class="proposal-buttom mt-3 text-right w-100">
@@ -404,8 +407,6 @@
                                       <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,riskDetails.value,'stepper2')" >Next</button>
                                   </div>
 
-                              </div>
-                          </div>
                       </form>
                   </mat-expansion-panel>
               </mat-accordion>
