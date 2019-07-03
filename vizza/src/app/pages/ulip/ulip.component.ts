@@ -4,11 +4,31 @@ import {CommonService} from '../../shared/services/common.service';
 import {DatePipe} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'DD/MM/YYYY',
+  },
+  display: {
+    dateInput: 'DD/MM/YYYY',
+    monthYearLabel: 'MM YYYY',
+    dateA11yLabel: 'DD/MM/YYYY',
 
+    monthYearA11yLabel: 'MM YYYY',
+  },
+};
 @Component({
   selector: 'app-ulip',
   templateUrl: './ulip.component.html',
-  styleUrls: ['./ulip.component.scss']
+  styleUrls: ['./ulip.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+    {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ],
 })
 
 export class UlipComponent implements OnInit {
@@ -20,7 +40,21 @@ export class UlipComponent implements OnInit {
   public title: any;
   public response: any;
   public pincodeErrors: any;
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService) {
+  public webhost: any;
+  public settings: Settings;
+
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute, public toastr: ToastrService,public appSettings: AppSettings,public config: ConfigurationService) {
+    this.settings = this.appSettings.settings;
+    this.webhost = this.config.getimgUrl();
+    if(window.innerWidth < 787){
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
+    }else{
+      this.settings.HomeSidenavUserBlock = true;
+      this.settings.sidenavIsOpened = true;
+      this.settings.sidenavIsPinned = true;
+    }
     this.aviapp = this.fb.group({
       'appdate': ['', Validators.required],
       'apptime': null,

@@ -41,7 +41,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public settings: any;
   public webhost: any;
   public getStepper2: any;
-  public varible: any;
   public titleList: any;
   public occupationList: any;
   public insurerdateError: any;
@@ -114,6 +113,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public valuesubCalc: any;
   public Idv: any;
   public valid: any;
+  public currentStep: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
     let stepperindex = 0;
@@ -133,6 +133,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
       }
     });
+    this.currentStep  = stepperindex;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
@@ -197,6 +198,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // quoteId: '',
       personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
+      addonValue: ['', Validators.compose([ Validators.maxLength(6)])],
       isFourWheelerFinanced: false,
       // isAddon: false,
       lossOfBaggage: 'No',
@@ -208,8 +210,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       cover_dri_othr_car_ass: 'No',
       fibreGlass: 'No',
       isCarOwnershipChanged: 'No',
-      automobileAssociationMembership: 'No',
+      invoicePrice: 'No',
       isBiFuelKit: 'No',
+      automobileAssociationMembership: 'No',
       legalliabilityToPaidDriver: 'No',
       windShieldGlass: 'Off',
       keyreplacement: 'Off',
@@ -241,7 +244,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       previousinsurersCorrectAddress: '',
       voluntary: '',
       claimAmountReceived: '',
-      claimsReported: '',
+      claimsReported: ['', Validators.compose([ Validators.maxLength(2)])],
       previousPolicyType: ['', Validators.required],
       personalAccidentCover: '',
       accidentPaid: '',
@@ -284,6 +287,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.changepbaggageValue();
     this.changepolicyType();
     this.changeAccidentPaidDriver();
+    this.changeBiFuelValue();
 
     this.sessionData();
 
@@ -673,25 +677,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['isFourWheelerFinancedValue'].updateValueAndValidity();
 
   }
-  // isFinaced(event: any) {
-  //   if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
-  //     this.vehical.controls['financierName'].patchValue(this.vehical.controls['financierName'].value);
-  //     this.vehical.controls['isFourWheelerFinancedValue'].patchValue(this.vehical.controls['isFourWheelerFinancedValue'].value);
-  //
-  //     this.vehical.controls['financierName'].setValidators([Validators.required]);
-  //     this.vehical.controls['isFourWheelerFinancedValue'].setValidators([Validators.required]);
-  //   } else {
-  //     this.vehical.controls['financierName'].patchValue('');
-  //     this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
-  //
-  //     this.vehical.controls['financierName'].setValidators(null);
-  //     this.vehical.controls['isFourWheelerFinancedValue'].setValidators(null);
-  //
-  //   }
-  //   this.vehical.controls['financierName'].updateValueAndValidity();
-  //   this.vehical.controls['isFourWheelerFinancedValue'].updateValueAndValidity();
-  //
-  // }
+
 
   eleAccessReq() {
     console.log(this.vehical['controls'].electricalAccess['controls'].length,'value');
@@ -788,17 +774,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['guardianRelationship'].updateValueAndValidity();
 
   }
-  // {
-  //   if (this.vehical.controls['isFourWheelerFinanced'].value == true) {
-  //     this.vehical.controls['financierName'].setValidators([Validators.required]);
-  //     this.vehical.controls['isFourWheelerFinancedValue'].setValidators([Validators.required]);
-  //
-  //   } else {
-  //
-  //     this.vehical.controls['isFourWheelerFinancedValue'].patchValue('');
-  //     this.vehical.controls['financierName'].patchValue('');
-  //   }
-  // }
+
 
   isAddoncheck() {
     if (this.vehical.controls['isAddon'].value == true) {
@@ -812,17 +788,24 @@ export class RsFourwheelerProposalComponent implements OnInit {
   isBaggages() {
 
     if (this.vehical.controls['lossOfBaggage'].value == 'Yes') {
+      this.vehical.controls['valueOfLossOfBaggage'].patchValue(this.vehical.controls['valueOfLossOfBaggage'].value);
 
+      this.vehical.controls['valueOfLossOfBaggage'].setValidators([Validators.required]);
     } else {
       this.vehical.controls['valueOfLossOfBaggage'].patchValue('');
+
+      this.vehical.controls['valueOfLossOfBaggage'].setValidators(null);
+
     }
+    this.vehical.controls['valueOfLossOfBaggage'].updateValueAndValidity();
+
   }
   isBiFuel() {
 
 
-      if (this.vehical.controls['isBiFuelKit'].value == true) {
-        this.vehical.controls['isBiFuelKitYes'].patchValue(this.vehical.controls['financierName'].value);
-        this.vehical.controls['addonValue'].patchValue(this.vehical.controls['isFourWheelerFinancedValue'].value);
+      if (this.vehical.controls['isBiFuelKit'].value == 'Yes') {
+        this.vehical.controls['isBiFuelKitYes'].patchValue(this.vehical.controls['isBiFuelKitYes'].value);
+        this.vehical.controls['addonValue'].patchValue(this.vehical.controls['addonValue'].value);
 
         this.vehical.controls['isBiFuelKitYes'].setValidators([Validators.required]);
         this.vehical.controls['addonValue'].setValidators([Validators.required]);
@@ -836,6 +819,23 @@ export class RsFourwheelerProposalComponent implements OnInit {
       }
       this.vehical.controls['isBiFuelKitYes'].updateValueAndValidity();
       this.vehical.controls['addonValue'].updateValueAndValidity();
+
+
+  }
+  isSpareCar() {
+
+
+    if (this.vehical.controls['spareCar'].value == 'On') {
+      this.vehical.controls['spareCarLimit'].patchValue(this.vehical.controls['spareCarLimit'].value);
+
+      this.vehical.controls['spareCarLimit'].setValidators([Validators.required]);
+    } else {
+      this.vehical.controls['spareCarLimit'].patchValue('');
+
+      this.vehical.controls['spareCarLimit'].setValidators(null);
+
+    }
+    this.vehical.controls['spareCarLimit'].updateValueAndValidity();
 
 
   }
@@ -1390,7 +1390,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         "quoteId": '',
         "vehicleDetails": {
           "accidentCoverForPaidDriver": this.vehical.controls['accidentCoverForPaidDriver'].value,
-          "addonValue": " ",
+          "addonValue": this.vehical.controls['addonValue'].value,
           "claimsMadeInPreviousPolicy": this.previousInsure.controls['isPreviousPolicyHolder'].value ,
           "claimsReported": this.previousInsure.controls['claimsReported'].value,
           "claimAmountReceived": this.previousInsure.controls['claimAmountReceived'].value,
@@ -1587,7 +1587,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
                 "nonelectronicAccessoriesDetails": this.vehical.value.nonelectricalAccess,
             },
           "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value,
-          "addonValue": '',
+          "addonValue": this.vehical.controls['addonValue'].value,
           "typeOfCover": this.vehical.controls['typeOfCover'].value,
             "keyreplacement": this.vehical.controls['keyreplacement'].value ,
             "windShieldGlass": this.vehical.controls['windShieldGlass'].value ,
@@ -1726,6 +1726,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['isBiFuelKitYes'].patchValue(this.getStepper2.isBiFuelKitYes);
       this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].patchValue(this.getStepper2.personalAccidentCoverForUnnamedPassengers);
       this.vehical.controls['financierName'].patchValue(this.getStepper2.financierName);
+      this.vehical.controls['addonValue'].patchValue(this.getStepper2.addonValue);
       this.vehical.controls['isFourWheelerFinanced'].patchValue(this.getStepper2.isFourWheelerFinanced);
       // this.vehical.controls['isAddon'].patchValue(this.getStepper2.isAddon);
       this.vehical.controls['lossOfBaggage'].patchValue(this.getStepper2.lossOfBaggage);
@@ -1750,44 +1751,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
       this.vehical.controls['total'].patchValue(this.getStepper2.total);
       this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
-
-
-
-      //   drivingExperience: this.getStepper2.drivingExperience,
-      //   averageMonthlyMileageRun: this.getStepper2.averageMonthlyMileageRun,
-      //   accidentCoverForPaidDriver: this.getStepper2.accidentCoverForPaidDriver,
-      //   companyName: this.getStepper2.companyName,
-      //   idv: this.getStepper2.idv,
-      //   isFourWheelerFinancedValue : this.getStepper2.isFourWheelerFinancedValue,
-      //   valueOfLossOfBaggage : this.getStepper2.valueOfLossOfBaggage,
-      //   quoteId : this.getStepper2.quoteId,
-      //   total : this.getStepper2.total,
-      //   subTotal : this.getStepper2.subTotal,
-      //   personalAccidentCoverForUnnamedPassengers : this.getStepper2.personalAccidentCoverForUnnamedPassengers,
-      //   financierName: this.getStepper2.financierName,
-      //   isFourWheelerFinanced: this.getStepper2.isFourWheelerFinanced,
-      //   isAddon: this.getStepper2.isAddon,
-      //     lossOfBaggage: this.getStepper2.lossOfBaggage,
-      //   hypothecationType: this.getStepper2.hypothecationType,
-      //   typeOfCover: this.getStepper2.typeOfCover,
-      //   vechileOwnerShipChanged: this.getStepper2.vechileOwnerShipChanged,
-      //   cover_dri_othr_car_ass: this.getStepper2.cover_dri_othr_car_ass,
-      //   addon: this.getStepper2.addon,
-      //   fibreGlass: this.getStepper2.fibreGlass,
-      //   windShieldGlass: this.getStepper2.windShieldGlass,
-      //   keyreplacement: this.getStepper2.keyreplacement,
-      //     depreciationWaiver: this.getStepper2.depreciationWaiver,
-      //     engineprotector: this.getStepper2.engineprotector,
-      //     ncbprotector: this.getStepper2.ncbprotector,
-      //   registrationchargesRoadtax: this.getStepper2.registrationchargesRoadtax,
-      //     spareCar: this.getStepper2.spareCar,
-      //     invoicePrice: this.getStepper2.invoicePrice,
-      //   isCarOwnershipChanged: this.getStepper2.isCarOwnershipChanged,
-      //   legalliabilityToPaidDriver: this.getStepper2.legalliabilityToPaidDriver,
-      //   electricalAccess: this.getStepper2.value.electricalAccess,
-      //     nonelectricalAccess: this.getStepper2.nonelectricalAccess,
-      //   accidentPaid: this.getStepper2.accidentPaid
-      // });
       console.log(this.vehical,'vehical');
     }
 

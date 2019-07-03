@@ -5,11 +5,8 @@ import {AuthService} from '../../shared/services/auth.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {BranchService} from '../../shared/services/branch.service';
 import {MatDialog} from '@angular/material';
-// import {EditposmanagerComponent} from './editposmanager/editposmanager.component';
-import {ToastrService} from 'ngx-toastr';
-import {AddposmanagerComponent} from '../posmanager/addposmanager/addposmanager.component';
-import {EditposmanagerComponent} from '../posmanager/editposmanager/editposmanager.component';
-// import {AddposmanagerComponent} from './addposmanager/addposmanager.component';
+import { AddtestimonialComponent } from './addtestimonial/addtestimonial.component';
+import { EdittestimonialComponent } from './edittestimonial/edittestimonial.component';
 
 
 @Component({
@@ -32,7 +29,7 @@ export class TestimonialComponent implements OnInit {
   public settings: Settings;
 
 
-  constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) { }
+  constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.testimonialList();
@@ -41,31 +38,34 @@ export class TestimonialComponent implements OnInit {
   public testimonialList() {
     const data = {
       'platform': 'web',
-      'role_id': this.auth.getAdminRoleId(),
-      'adminid': this.auth.getAdminId(),
     };
     this.loadingIndicator = true;
 
     this.branchservice.testimonialList(data).subscribe(
         (successData) => {
-          this.posSuccess(successData);
+          this.testimonialSuccess(successData);
         },
         (error) => {
-          this.posFailure(error);
+          this.testimonialFailure(error);
         }
     );
   }
 
-  public posSuccess(success) {
+  public testimonialSuccess(success) {
     console.log(success);
     this.loadingIndicator = false;
     if (success.IsSuccess) {
       this.data = success.ResponseObject;
+      console.log(this.data,'data');
       this.total = success.ResponseObject.length;
       this.rows = this.data;
       this.temp = this.data;
     } else {
     }
+  }
+
+  public testimonialFailure(error) {
+
   }
 
   updateFilter(event) {
@@ -77,11 +77,8 @@ export class TestimonialComponent implements OnInit {
     this.table.offset = 0;
   }
 
-  public posFailure(error) {
-
-  }
   speical(){
-    const dialogRef = this.dialog.open(AddposmanagerComponent, {
+    const dialogRef = this.dialog.open(AddtestimonialComponent, {
       width: '400px'
     });
     dialogRef.afterClosed().subscribe(res => {
@@ -93,7 +90,7 @@ export class TestimonialComponent implements OnInit {
   }
 
   edit(row) {
-    const dialogRef = this.dialog.open(EditposmanagerComponent, {
+    const dialogRef = this.dialog.open(EdittestimonialComponent, {
       width: '400px',
       data: row,
 
@@ -102,46 +99,6 @@ export class TestimonialComponent implements OnInit {
       if (res) {
         this.testimonialList();
       }
-
     });
   }
-  delete(row) {
-    const data = {
-      'platform': 'web',
-      'role_id': this.auth.getAdminRoleId(),
-      'adminid': this.auth.getAdminId(),
-      'manager_id': row.manager_id
-
-    };
-
-
-    console.log(data);
-    this.branchservice.delete(data).subscribe(
-        (successData) => {
-          this.deleteSuccess(successData);
-        },
-        (error) => {
-          this.deleteFailure(error);
-        }
-    );
-  }
-
-
-  public deleteSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.toastr.success(successData.ResponseObject);
-
-      this.testimonialList();
-    } else {
-      this.toastr.error(successData.ResponseObject);
-
-    }
-  }
-  public deleteFailure(error) {
-    if (error.status === 401) {
-      this.status = error.status;
-    }
-  }
-
-
 }

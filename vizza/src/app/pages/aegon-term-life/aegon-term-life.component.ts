@@ -124,6 +124,7 @@ export class AegonTermLifeComponent implements OnInit {
       employeeType: '',
       natureOfWork: '',
       annualIncome: '',
+      incomeError: '',
       smoker: '',
       isExistingPolicyHolder: '',
       isPoliticleExposed: '',
@@ -283,12 +284,92 @@ export class AegonTermLifeComponent implements OnInit {
     }
   }
   addAnnual(){
+    // if(this.personal.controls['annualIncome'].value >= 200000 &&  this.personal.controls['annualIncome'].value <= 9999900000){
+    //   this.personal.controls['incomeError'].patchValue('');
+    // }else {
+    //   this.personal.controls['incomeError'].patchValue('Annual Income should be 2 Lakhs and above');
+    // }
+  }
+  validateCriticalIllness(type) {
+    if(type == 'LHP') {
+      if(this.personal.controls['deathBenefitTISA'].value == 5000000 ){
 
-    if(this.personal.controls['annualIncome'].value >= 200000){
-      this.incomeError= '';
-    }else {
-      this.incomeError = 'Enter Above 2 Lakhs';
+        if(this.personal.controls['enchancedCISA'].value <= 1000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 10 Lakhs');
+        }
+
+      } else if(this.personal.controls['deathBenefitTISA'].value == 7500000 ){
+        if(this.personal.controls['enchancedCISA'].value <= 1500000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 15 Lakhs');
+        }
+      }else if(this.personal.controls['deathBenefitTISA'].value == 10000000 ){
+        if(this.personal.controls['enchancedCISA'].value <= 2000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 20 Lakhs');
+        }
+      }
+      else if(this.personal.controls['deathBenefitTISA'].value == 12500000 ){
+        if(this.personal.controls['enchancedCISA'].value <= 2500000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 25 Lakhs');
+        }
+      }else if(this.personal.controls['deathBenefitTISA'].value == 15000000 ){
+        if(this.personal.controls['enchancedCISA'].value <= 3000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 30 Lakhs');
+        }
+      }else if(this.personal.controls['deathBenefitTISA'].value == 17500000 ){
+        if(this.personal.controls['enchancedCISA'].value <= 3500000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 35 Lakhs');
+        }
+      }else if(this.personal.controls['deathBenefitTISA'].value == 20000000 ){
+        if(this.personal.controls['enchancedCISA'].value <= 4000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 40 Lakhs');
+        }
+      }else if(this.personal.controls['deathBenefitTISA'].value == 22500000 ){
+        if(this.personal.controls['enchancedCISA'].value <= 4500000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 45 Lakhs');
+        }
+      }
+      else if(this.personal.controls['deathBenefitTISA'].value == 25000000 ){
+        if(this.personal.controls['enchancedCISA'].value <= 5000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 50 Lakhs');
+        }
+      }
+    } else if(type == 'LH') {
+
+      if(this.personal.controls['deathBenefitTISA'].value == 5000000 ){
+
+        if(this.personal.controls['icirSumAssured'].value <= 1000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 10 Lakhs');
+        }
+
+      } else if(this.personal.controls['deathBenefitTISA'].value == 7500000 ){
+        if(this.personal.controls['icirSumAssured'].value <= 1500000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+          this.personal.controls['criticalIllnessError'].patchValue('');
+        } else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 15 Lakhs');
+        }
+      }
     }
+
   }
 
 
@@ -469,7 +550,7 @@ export class AegonTermLifeComponent implements OnInit {
 
           }
 
-         else if ((this.lifePremiumList.sum_insured_amount >= 7500000) && (value.annualIncome <= 300000)) {
+         else if ((this.lifePremiumList.sum_insured_amount <= 7500000) && (value.annualIncome <= 300000)) {
             if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 1500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 1500000)){
 
               stepper.next();
@@ -479,8 +560,91 @@ export class AegonTermLifeComponent implements OnInit {
               this.toastr.error('Sum Assured must not be 15 Lakhs and above')
             }
 
+          }
+
+
+
+         else if ((this.lifePremiumList.sum_insured_amount <= 10000000) && (value.annualIncome <= 400000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 2000000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 2000000)){
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Sum Assured must be 20 Lakhs and above')
+            }
+
+          }
+
+
+          else if ((this.lifePremiumList.sum_insured_amount <= 12500000) && (value.annualIncome <= 500000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 2500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 2500000)){
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Sum Assured must be 25 Lakhs and above')
+            }
+
+          }
+
+          else if ((this.lifePremiumList.sum_insured_amount <= 15000000) && (value.annualIncome <= 600000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 3000000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 3000000)){
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Sum Assured must be 30 Lakhs and above')
+            }
+
+          }
+          else if ((this.lifePremiumList.sum_insured_amount <= 17500000) && (value.annualIncome <= 700000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 3500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 3500000)){
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Sum Assured must be 35 Lakhs and above')
+            }
+
+          }
+          else if ((this.lifePremiumList.sum_insured_amount <= 20000000) && (value.annualIncome <= 800000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 4000000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 4000000)){
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Sum Assured must be 40 Lakhs and above')
+            }
+
+          }
+          else if ((this.lifePremiumList.sum_insured_amount <= 22500000) && (value.annualIncome <= 900000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 4500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 4500000)){
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Sum Assured must be 45 Lakhs and above')
+            }
+
+          }
+          else if ((this.lifePremiumList.sum_insured_amount >= 25000000) && (value.annualIncome <= 1000000)) {
+            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 4500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 4500000)){
+
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error('Sum Assured must be 50 Lakhs and above')
+            }
+
           } else {
-            this.toastr.error('Annual income must be 3 Lakhs and above')
+            this.toastr.error('Annual income must be 10 Lakhs and above')
           }
 
 
@@ -755,6 +919,7 @@ export class AegonTermLifeComponent implements OnInit {
         employeeType: stepper1.employeeType,
         natureOfWork: stepper1.natureOfWork,
         annualIncome: stepper1.annualIncome,
+        incomeError: stepper1.incomeError,
         smoker: stepper1.smoker,
         isExistingPolicyHolder: stepper1.isExistingPolicyHolder,
         isPoliticleExposed: stepper1.isPoliticleExposed,
