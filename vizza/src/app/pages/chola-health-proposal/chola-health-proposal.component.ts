@@ -909,7 +909,7 @@ console.log( sessionStorage.stepper3Details);
                             "Email": this.personal.controls['personalEmail'].value,
                             "Address1": this.personal.controls['personalAddress'].value,
                             "Address2": this.personal.controls['personalAddress2'].value,
-                            "City": this.personal.controls['personalCityName'].value,
+                            "City": this.personal.controls['personalCity'].value,
                             "Pincode": this.personal.controls['personalPincode'].value,
                             "STDCode": this.personal.controls['personalstdcode'].value,
                             "Landlineno": this.personal.controls['personalLandlineno'].value,

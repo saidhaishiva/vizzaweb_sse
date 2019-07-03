@@ -174,7 +174,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getRelationList();
     this.package();
     this.sessionData();
-    this.vehicledata = JSON.parse(sessionStorage.vehicledetails);
+    this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
     console.log(this.vehicledata);
     this.buycarDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
     this.enquiryFormData = JSON.parse(sessionStorage.bikeListDetails);

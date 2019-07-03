@@ -95,7 +95,7 @@ export class BikeInsuranceComponent implements OnInit {
     ngOnInit() {
         // clear session for list page
         sessionStorage.enquiryFormData = '';
-        sessionStorage.Rto = '';
+        // sessionStorage.Rto = '';
         sessionStorage.bikeListDetails = '';
         sessionStorage.bikeEnquiryId = '';
         sessionStorage.setAllProductLists = '';
@@ -108,7 +108,7 @@ export class BikeInsuranceComponent implements OnInit {
         this.claimpercent();
         this.bussinessType();
         this.getpreviousCompany();
-        this.getCityLists();
+        // this.getCityLists();
         this.sessionData();
 
     }
@@ -116,10 +116,10 @@ export class BikeInsuranceComponent implements OnInit {
     setSession() {
         sessionStorage.enquiryFormData = JSON.stringify(this.bikeInsurance.value);
     }
-    rtoCity(){
-        sessionStorage.Rto = this.bikeInsurance.controls['city'].value;
-        console.log(sessionStorage.Rto,'sessionStorage.Rto');
-    }
+    // rtoCity(){
+    //     sessionStorage.Rto = this.bikeInsurance.controls['city'].value;
+    //     console.log(sessionStorage.Rto,'sessionStorage.Rto');
+    // }
     changeNcbAmt() {
         if (this.bikeInsurance.controls['previousClaim'].value == 'No') {
         } else {
@@ -140,31 +140,31 @@ export class BikeInsuranceComponent implements OnInit {
     numberValidate(event: any) {
         this.validation.numberValidate(event);
     }
-    getCityLists() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
-
-        }
-        this.bikeService.getRtoList(data).subscribe(
-            (successData) => {
-                this.citySuccess(successData);
-            },
-            (error) => {
-                this.cityFailure(error);
-            }
-        );
-    }
-    public citySuccess(successData){
-        if (successData.IsSuccess) {
-            this.cityDetails = successData.ResponseObject;
-            //
-        }
-    }
-    public cityFailure(error) {
-    }
+    // getCityLists() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+    //
+    //     }
+    //     this.bikeService.getRtoList(data).subscribe(
+    //         (successData) => {
+    //             this.citySuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.cityFailure(error);
+    //         }
+    //     );
+    // }
+    // public citySuccess(successData){
+    //     if (successData.IsSuccess) {
+    //         this.cityDetails = successData.ResponseObject;
+    //         //
+    //     }
+    // }
+    // public cityFailure(error) {
+    // }
     addEvent(event, type) {
         console.log(event, 'eventevent');
         let selectedDate = '';
@@ -277,7 +277,7 @@ export class BikeInsuranceComponent implements OnInit {
 
             let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                 width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
-                height: '1900'
+                height: '600px'
             })
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {

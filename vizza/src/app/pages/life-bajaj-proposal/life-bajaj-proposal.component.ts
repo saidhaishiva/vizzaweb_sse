@@ -2166,7 +2166,7 @@ samerelationShip(){
     if(successData.IsSuccess){
       stepper.next();
       this.topScroll();
-      this.toastr.success('Proposal created successfully!!');
+      this.toastr.success('BI Genereated successfully!!');
       this.summaryData = successData.ResponseObject;
       this.requestedUrl = this.summaryData.biUrlLink;
       this.proposerFormData = this.proposer.value;
