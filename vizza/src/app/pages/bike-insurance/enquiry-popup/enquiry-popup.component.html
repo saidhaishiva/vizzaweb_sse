@@ -122,11 +122,13 @@
         <!--</mat-select>-->
       <!--</mat-form-field>-->
     </div>
-    <div class="col-md-3" *ngIf="enquiryFormData.business_type != '1'">
+    <div class="col-md-3" *ngIf="bikeListDetails.business_type != '1'">
       <mat-form-field class="w-100">
-        <mat-select placeholder="NCB Percent(%)"  formControlName="ncb"  required>
-          <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
-        </mat-select>
+        <input matInput placeholder="NCB Percent(%)"   formControlName="ncb"  required readonly>
+
+        <!--<mat-select placeholder="NCB Percent(%)"  formControlName="ncb"  required>-->
+          <!--<mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>-->
+        <!--</mat-select>-->
         <mat-error *ngIf="vehicalDetails.controls.ncb.errors?.required">Ncb is required</mat-error>
       </mat-form-field>
     </div>
