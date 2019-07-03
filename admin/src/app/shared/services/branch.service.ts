@@ -34,12 +34,13 @@ export class BranchService {
 
     }
     testimonialList(data) {
+      console.log(data,'value');
         const json = JSON.stringify(data);
         const token = this.auth.getAccessToken();
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = 'http://13.127.24.123/vizza/api/index.php/admin/testemonial/list_testemonials' ;
+        const url = 'http://13.127.24.123/vizza/api/index.php/home/testemonial/list_testemonials' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
