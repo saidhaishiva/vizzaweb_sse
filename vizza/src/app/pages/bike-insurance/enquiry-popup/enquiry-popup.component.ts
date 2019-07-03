@@ -44,6 +44,7 @@ export class EnquiryPopupComponent implements OnInit {
   public ListDetails : any;
   public bussinessList : any;
   public enquiryFormData : any;
+  public bikeListDetails : any;
   public cityDetails : any;
   public vehicalNo : any;
   public options : any;
@@ -88,7 +89,8 @@ export class EnquiryPopupComponent implements OnInit {
 
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-    this.rto = sessionStorage.Rto;
+    this.bikeListDetails = JSON.parse(sessionStorage.bikeListDetails);
+    // this.rto = sessionStorage.Rto;
     this.claimpercent();
     this.manifactureList();
     this.bussinessType();
@@ -366,7 +368,7 @@ export class EnquiryPopupComponent implements OnInit {
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
       'business_type': this.vehicalDetails.controls['bussiness'].value,
       'registration_city': this.vehicalDetails.controls['city'].value,
-      'rto_code': this.rto,
+      // 'rto_code': this.rto,
       'type': this.enquiryFormData.type,
        'prev_insurer':this.enquiryFormData.previousCompany
     };
