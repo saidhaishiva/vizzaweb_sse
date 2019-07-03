@@ -33,6 +33,17 @@ export class BranchService {
             .catch(this.handleError);
 
     }
+    testimonialList(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://13.127.24.123/vizza/api/index.php/home/testemonial/list_testemonials' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
     addPosManager(data) {
         const json = JSON.stringify(data);
         const token = this.auth.getAccessToken();

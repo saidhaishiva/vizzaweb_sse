@@ -62,15 +62,26 @@ export class FourWheelerHomeComponent implements OnInit {
   public companyList: any;
   public productDetails: any;
   public cityDetails: any;
+  public webhost: any;
   public listDetails: boolean;
   public expiry: boolean;
   public previousDate: boolean;
   public showSelf: boolean;
 
   constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe,public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService) {
+    this.settings = this.appSettings.settings;
+    this.webhost = this.config.getimgUrl();
+    if(window.innerWidth < 787){
+      this.settings.HomeSidenavUserBlock = false;
+      this.settings.sidenavIsOpened = false;
+      this.settings.sidenavIsPinned = false;
+    }else{
+      this.settings.HomeSidenavUserBlock = true;
+      this.settings.sidenavIsOpened = true;
+      this.settings.sidenavIsPinned = true;
+    }
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
-    this.settings = this.appSettings.settings;
     this.listDetails = false;
 
     this.fourWheeler = this.fb.group({

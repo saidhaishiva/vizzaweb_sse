@@ -104,6 +104,7 @@ export class TravelHomeComponent implements OnInit {
     public pincode: any;
     public pinerror: boolean;
     public sem: any;
+    public webhost: any;
     public courseDuration: any;
     public travelUserType: boolean;
     public startDateRequired: boolean;
@@ -116,6 +117,16 @@ export class TravelHomeComponent implements OnInit {
 
     constructor(public appSettings: AppSettings, public router: Router, public config: ConfigurationService, public fb: FormBuilder, public dialog: MatDialog, public travel: TravelService, public toast: ToastrService, public auth: AuthService, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public commonservices: CommonService,  public route: ActivatedRoute) {
         this.settings = this.appSettings.settings;
+        this.webhost = this.config.getimgUrl();
+        if(window.innerWidth < 787){
+            this.settings.HomeSidenavUserBlock = false;
+            this.settings.sidenavIsOpened = false;
+            this.settings.sidenavIsPinned = false;
+        }else{
+            this.settings.HomeSidenavUserBlock = true;
+            this.settings.sidenavIsOpened = true;
+            this.settings.sidenavIsPinned = true;
+        }
         this.showSelf = true;
         this.showFamily = false;
         this.showGroup = false;
