@@ -259,7 +259,6 @@ export class RsFourwheelerProposalComponent implements OnInit {
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
     this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
     console.log(this.vehicledetailsfw, ' details');
-console.log('errrrr2');
 
     this.title();
     this.getOccupation();
@@ -585,7 +584,6 @@ console.log('errrrr2');
           this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value),
           this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value)
       console.log(this.proposer.controls['rcity'].value, 'ghghghj');
-      console.log(this.proposer.controls['rcityName'].value, 'nhghj');
     } else {
       this.proposer.controls['raddress'].patchValue(''),
           this.proposer.controls['raddress2'].patchValue(''),
