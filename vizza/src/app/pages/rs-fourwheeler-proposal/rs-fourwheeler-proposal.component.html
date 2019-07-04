@@ -366,7 +366,7 @@
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>SpareCar Limit<span class="error" >*</span></mat-placeholder>
 
-                                                        <input matInput  formControlName="spareCarLimit"  (keypress)="numberValidate($event)"   autocomplete="off" >
+                                                        <input matInput  formControlName="spareCarLimit" maxlength="8" (keypress)="numberValidate($event)"   autocomplete="off" >
                                                     </mat-form-field>
                                                 </div>
                                             <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">

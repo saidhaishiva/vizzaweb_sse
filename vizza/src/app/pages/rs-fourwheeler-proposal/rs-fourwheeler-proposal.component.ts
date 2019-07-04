@@ -221,7 +221,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       ncbprotector: 'Off',
       registrationchargesRoadtax: 'Off',
       spareCar: 'Off',
-      spareCarLimit: '',
+      spareCarLimit: ['', Validators.compose([ Validators.maxLength(8)])],
       // policyED: ['', Validators.compose([ Validators.minLength(10)])],
       // policySD: ['', Validators.compose([ Validators.minLength(10)])],
       // vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
