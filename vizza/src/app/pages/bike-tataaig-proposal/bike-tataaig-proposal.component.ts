@@ -78,6 +78,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public bikeProposerAge: any;
     public coverlist: any;
     public agecount: any;
+    public premium: any;
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public config: ConfigurationService, public route: ActivatedRoute) {
         let stepperindex = 0;
@@ -143,10 +144,6 @@ export class BikeTataaigProposalComponent implements OnInit {
             banktype: '',
             bankName: '',
             Address: '',
-            autoflag: ['', Validators.required],
-            autoNumber: '',
-            autoName: '',
-            autoDob: '',
             coverdrive: ['', Validators.required],
             coverdrivevalue: '',
             Associationmember: '',
@@ -195,6 +192,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
+        this.premium = JSON.parse(sessionStorage.packae_list);
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
         console.log(poldate, 'poldate');
         this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
@@ -245,45 +243,24 @@ export class BikeTataaigProposalComponent implements OnInit {
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
-                    if (type == 'proposer') {
-                        this.proposerdateError = '';
-                    } else if (type == 'autoDob') {
-                        this.automobdateError = '';
-                    }
+                    this.proposerdateError = '';
                 } else {
-                    if (type == 'proposer') {
-                        this.proposerdateError = 'Enter Valid Date';
-                    } else if (type == 'autoDob') {
-                        this.automobdateError = 'Enter Valid Date';
-                    }
+                    this.proposerdateError = 'Enter Valid Date';
                 }
-                if (type == 'proposer') {
-                    dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                    this.bikeProposerAge = this.ageCalculate(dob);
-                    sessionStorage.proposerAge = this.bikeProposerAge;
-                }
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                this.bikeProposerAge = this.ageCalculate(dob);
+                sessionStorage.proposerAge = this.bikeProposerAge;
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
-                    if (type == 'proposer') {
-                        this.proposerdateError = '';
-                    } else if (type == 'autoDob') {
-                        this.automobdateError = '';
-                    }
+                    this.proposerdateError = '';
                 } else {
-                    if (type == 'proposer') {
-                        this.proposerdateError = 'Enter Valid Date';
-                    } else if (type == 'autoDob') {
-                        alert('auto');
-                        this.automobdateError = 'Enter Valid Date';
-                    }
+                    this.proposerdateError = 'Enter Valid Date';
                 }
-                if (type == 'proposer') {
-                    dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                    console.log(dob, 'ageob');
-                    this.bikeProposerAge = this.ageCalculate(dob);
-                    sessionStorage.proposerAge = this.bikeProposerAge;
-                }
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                console.log(dob, 'ageob');
+                this.bikeProposerAge = this.ageCalculate(dob);
+                sessionStorage.proposerAge = this.bikeProposerAge;
             }
         }
     }
@@ -531,26 +508,6 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.proposer.controls['drivemaritalStatus'].updateValueAndValidity();
     }
 
-    autoflag(event: any) {
-        if (this.vehicle.controls['autoflag'].value == 'Y') {
-            this.vehicle.controls['autoNumber'].setValidators([Validators.required]);
-            this.vehicle.controls['autoName'].setValidators([Validators.required]);
-            this.vehicle.controls['autoDob'].setValidators([Validators.required],);
-        } else if (this.vehicle.controls['autoflag'].value == 'N') {
-            this.vehicle.controls['autoNumber'].patchValue('');
-            this.vehicle.controls['autoName'].patchValue('');
-            this.vehicle.controls['autoDob'].patchValue('');
-
-            this.vehicle.controls['autoNumber'].setValidators(null);
-            this.vehicle.controls['autoName'].setValidators(null);
-            this.vehicle.controls['autoDob'].setValidators(null);
-        }
-        this.vehicle.controls['autoNumber'].updateValueAndValidity();
-        this.vehicle.controls['autoName'].updateValueAndValidity();
-        this.vehicle.controls['autoDob'].updateValueAndValidity();
-    }
-
-
     check(event) {
         if (event.checked == true) {
             this.vehicle.controls['banktype'].setValidators([Validators.required]);
@@ -673,10 +630,6 @@ export class BikeTataaigProposalComponent implements OnInit {
                 banktype: this.getstepper2.banktype,
                 bankName: this.getstepper2.bankName,
                 Address: this.getstepper2.Address,
-                autoflag: this.getstepper2.autoflag,
-                autoNumber: this.getstepper2.autoNumber,
-                autoName: this.getstepper2.autoName,
-                autoDob: this.datepipe.transform(this.getstepper2.autoDob, 'y-MM-dd'),
                 coverdrive: this.getstepper2.coverdrive,
                 coverdrivevalue: this.getstepper2.coverdrivevalue,
                 Associationmember: this.getstepper2.Associationmember,
@@ -723,6 +676,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
             'enquiry_id': this.bikeEnquiryId,
             'company_id': "13",
+            'package_type': this.premium,
             'Idv': this.buyBikeDetails.Idv,
             'revised_idv': this.buyBikeDetails.Idv,
             'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
@@ -812,12 +766,12 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "address": this.vehicle.controls['Address'].value,
                     "loanacno": ""
                 },
-                "automobile": {
-                    "flag": this.vehicle.controls['autoflag'].value,
-                    "number": this.vehicle.controls['autoNumber'].value,
-                    "name": this.vehicle.controls['autoName'].value,
-                    "expiry_date": this.vehicle.controls['autoDob'].value == null || this.vehicle.controls['autoDob'].value == '' ? '' : this.datepipe.transform(this.vehicle.controls['autoDob'].value, 'yMMdd'),
-                },
+                // "automobile": {
+                //     "flag": this.vehicle.controls['autoflag'].value,
+                //     "number": this.vehicle.controls['autoNumber'].value,
+                //     "name": this.vehicle.controls['autoName'].value,
+                //     "expiry_date": this.vehicle.controls['autoDob'].value == null || this.vehicle.controls['autoDob'].value == '' ? '' : this.datepipe.transform(this.vehicle.controls['autoDob'].value, 'yMMdd'),
+                // },
                 "nominee": {
                     "name": this.nominee.controls['nomieeName'].value,
                     "age": this.nominee.controls['nomineeAge'].value,
