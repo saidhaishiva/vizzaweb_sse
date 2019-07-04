@@ -90,7 +90,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
     this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
-    // this.rto = sessionStorage.RtoFour;
+    this.rto = sessionStorage.RtoFour;
 
     this.claimpercent();
     this.manifactureList();
@@ -354,7 +354,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
       'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value,
-      // 'rto_code': this.rto,
+      'rto_code': this.rto,
       'prev_insurance_name': this.enquiryFormData.prev_insurance_name
 
       };
