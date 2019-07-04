@@ -236,8 +236,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.validation.space(event);
     }
 
-    addEvent(event: any, type) {
-        console.log(type);
+    addEvent(event: any) {
         if (event.value != null) {
             let dob = '';
             if (typeof event.value._i == 'string') {
