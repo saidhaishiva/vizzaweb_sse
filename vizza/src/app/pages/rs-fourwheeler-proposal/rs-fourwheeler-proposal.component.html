@@ -366,7 +366,7 @@
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>SpareCar Limit<span class="error" >*</span></mat-placeholder>
 
-                                                        <input matInput  formControlName="spareCarLimit"   autocomplete="off" >
+                                                        <input matInput  formControlName="spareCarLimit" maxlength="8" (keypress)="numberValidate($event)"   autocomplete="off" >
                                                     </mat-form-field>
                                                 </div>
                                             <div class="col-md-3 mt-3" *ngIf="buyProduct.vehicle_age < 3 ">
@@ -434,7 +434,7 @@
                                                 <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKitYes'].value == 'InBuilt'" >
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Addon Value<span class="error" >*</span></mat-placeholder>
-                                                          <input matInput  formControlName="addonValue" maxlength="6" (keypress)="numberValidate($event)"  autocomplete="off" >
+                                                          <input matInput  formControlName="addonValue" maxlength="6" (keypress)="numberValidate($event)" (keypress)="addonlimit($event)"  autocomplete="off" >
                                                     </mat-form-field>
                                                 </div>
                                             </div>
@@ -492,14 +492,12 @@
                                                     <div class="col-md-3" >
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Name Of Electronic Accessories<span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span></mat-placeholder>
-
                                                             <input matInput   formControlName="nameOfElectronicAccessories"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <div class="col-md-3" >
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Make Model<span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span></mat-placeholder>
-
                                                             <input matInput   formControlName="makeModel"    autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
@@ -507,7 +505,6 @@
                                                     <div class="col-md-3" >
                                                         <mat-form-field class="w-100">
                                                             <mat-placeholder>Value<span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span></mat-placeholder>
-
                                                             <input matInput  formControlName="elecValue" (keypress)="numberValidate($event)"   maxlength="5"   autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
@@ -526,21 +523,23 @@
                                         <div *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
                                             <div  formArrayName="nonelectricalAccess" *ngFor="let item of vehical.get('nonelectricalAccess').controls; let i = index;">
                                                 <div class="row" [formGroupName]="i">
-                                                    <div class="col-md-3">
-                                                        <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
-                                                            <input matInput placeholder="Name Of Non Electronic Accessories "  formControlName="nameOfElectronicAccessories"   autocomplete="off">
+                                                    <div class="col-md-3" >
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Name Of Electronic Accessories<span class="error" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">*</span></mat-placeholder>
+                                                            <input matInput   formControlName="nameOfElectronicAccessories"  autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
-                                                            <input matInput placeholder="Make Model "  formControlName="makeModel"   autocomplete="off">
+                                                    <div class="col-md-3" >
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Make Model<span class="error" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">*</span></mat-placeholder>
+                                                            <input matInput   formControlName="makeModel"    autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
 
-
-                                                    <div class="col-md-3">
-                                                        <mat-form-field class="w-100" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
-                                                            <input matInput placeholder="Value "  formControlName="elecValue" (keypress)="numberValidate($event)" maxlength="5"    autocomplete="off">
+                                                    <div class="col-md-3" >
+                                                        <mat-form-field class="w-100">
+                                                            <mat-placeholder>Value<span class="error" *ngIf="vehical.controls['cover_non_elec_acc'].value == true">*</span></mat-placeholder>
+                                                            <input matInput  formControlName="elecValue" (keypress)="numberValidate($event)"   maxlength="5"   autocomplete="off">
                                                         </mat-form-field>
                                                     </div>
                                                     <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addnonEelctricalItems()">+</button>
@@ -705,7 +704,7 @@
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Guardian Age<span class="error" *ngIf="guardianList == true">*</span></mat-placeholder>
 
-                                                        <input matInput  maxlength="3" formControlName="guardianAge" (keypress)="numberValidate($event)"(keypress)="guardianAgeValid($event)" autocomplete="off" >
+                                                        <input matInput  maxlength="3" formControlName="guardianAge" (keypress)="numberValidate($event)" (keypress)="guardianAgeValid($event)" autocomplete="off" >
                                                     </mat-form-field>
                                                     <!--<mat-error *ngIf="nomineeDetail.controls.guardianAge.errors?.required">Guardian Age is required</mat-error>-->
 

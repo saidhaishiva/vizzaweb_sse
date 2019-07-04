@@ -247,7 +247,7 @@ export class FourWheelerHomeComponent implements OnInit {
       sessionStorage.enquiryFormDatafw = JSON.stringify(data);
         let dialogRef = this.dialog.open(FourWheelerEnquirypopupComponent, {
           width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
-          height: '1200'
+          height: '600px'
         })
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result => {

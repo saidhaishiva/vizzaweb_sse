@@ -210,7 +210,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       cover_dri_othr_car_ass: 'No',
       fibreGlass: 'No',
       isCarOwnershipChanged: 'No',
-      invoicePrice: 'No',
+      invoicePrice: 'Off',
       isBiFuelKit: 'No',
       automobileAssociationMembership: 'No',
       legalliabilityToPaidDriver: 'No',
@@ -221,7 +221,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       ncbprotector: 'Off',
       registrationchargesRoadtax: 'Off',
       spareCar: 'Off',
-      spareCarLimit: 'Off',
+      spareCarLimit: ['', Validators.compose([ Validators.maxLength(8)])],
       // policyED: ['', Validators.compose([ Validators.minLength(10)])],
       // policySD: ['', Validators.compose([ Validators.minLength(10)])],
       // vehicleInspectionDate: ['', Validators.compose([ Validators.minLength(10)])],
@@ -678,6 +678,16 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   }
 
+  addonlimit(event: any) {
+    if (this.vehical.controls['addonValue'].value <= 100000) {
+      this.vehical.controls['addonValue'].patchValue(this.vehical.controls['addonValue'].value);
+    } else {
+      this.toastr.error('Addon Values should be less than 100000');
+    }
+
+  }
+
+
 
   eleAccessReq() {
     console.log(this.vehical['controls'].electricalAccess['controls'].length,'value');
@@ -752,26 +762,26 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   guardianAgeValid(event: any) {
     if (this.nomineeDetail.controls['guardianList'].value == true) {
-      this.vehical.controls['guardianName'].patchValue(this.vehical.controls['guardianName'].value);
-      this.vehical.controls['guardianAge'].patchValue(this.vehical.controls['guardianAge'].value);
-      this.vehical.controls['guardianRelationship'].patchValue(this.vehical.controls['guardianRelationship'].value);
+      this.nomineeDetail.controls['guardianName'].patchValue(this.nomineeDetail.controls['guardianName'].value);
+      this.nomineeDetail.controls['guardianAge'].patchValue(this.nomineeDetail.controls['guardianAge'].value);
+      this.nomineeDetail.controls['guardianRelationship'].patchValue(this.nomineeDetail.controls['guardianRelationship'].value);
 
-      this.vehical.controls['guardianName'].setValidators([Validators.required]);
-      this.vehical.controls['guardianAge'].setValidators([Validators.required]);
-      this.vehical.controls['guardianRelationship'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['guardianName'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['guardianAge'].setValidators([Validators.required]);
+      this.nomineeDetail.controls['guardianRelationship'].setValidators([Validators.required]);
     } else {
-      this.vehical.controls['guardianName'].patchValue('');
-      this.vehical.controls['guardianAge'].patchValue('');
-      this.vehical.controls['guardianRelationship'].patchValue('');
+      this.nomineeDetail.controls['guardianName'].patchValue('');
+      this.nomineeDetail.controls['guardianAge'].patchValue('');
+      this.nomineeDetail.controls['guardianRelationship'].patchValue('');
 
-      this.vehical.controls['guardianName'].setValidators(null);
-      this.vehical.controls['guardianAge'].setValidators(null);
-      this.vehical.controls['guardianRelationship'].setValidators(null);
+      this.nomineeDetail.controls['guardianName'].setValidators(null);
+      this.nomineeDetail.controls['guardianAge'].setValidators(null);
+      this.nomineeDetail.controls['guardianRelationship'].setValidators(null);
 
     }
-    this.vehical.controls['guardianName'].updateValueAndValidity();
-    this.vehical.controls['guardianAge'].updateValueAndValidity();
-    this.vehical.controls['guardianRelationship'].updateValueAndValidity();
+    this.nomineeDetail.controls['guardianName'].updateValueAndValidity();
+    this.nomineeDetail.controls['guardianAge'].updateValueAndValidity();
+    this.nomineeDetail.controls['guardianRelationship'].updateValueAndValidity();
 
   }
 
