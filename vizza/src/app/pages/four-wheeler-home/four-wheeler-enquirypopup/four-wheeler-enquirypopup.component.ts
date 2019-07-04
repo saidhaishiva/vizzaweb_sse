@@ -89,7 +89,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   }
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
-    this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
+    // this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
     this.rto = sessionStorage.RtoFour;
 
     this.claimpercent();

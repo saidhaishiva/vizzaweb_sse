@@ -42,6 +42,7 @@ export class FourWheelerProductListComponent implements OnInit {
     this.thirdParty = false;
     this.policyTerm = '1';
     this.compherhensive = 'Comprehensive_premium';
+    sessionStorage.packageListFw = this.compherhensive;
   }
   ngOnInit() {
       this.getCompanyList();
@@ -229,6 +230,7 @@ export class FourWheelerProductListComponent implements OnInit {
     //     this.comphensivePremium = true;
     //
     // }
+    sessionStorage.packageListFw = this.compherhensive;
     if(this.policyTerm == '2'){
       this.initialProductList = this.allProductLists.filter(data => data.year_type == '2');
     } else if(this.policyTerm == '3'){
