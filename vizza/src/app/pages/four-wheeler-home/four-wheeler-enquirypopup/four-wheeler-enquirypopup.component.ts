@@ -45,6 +45,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public ListDetails : any;
   public bussinessList : any;
   public enquiryFormData : any;
+  public vehicledetailsfw : any;
   public cityDetails : any;
   public vehicalNo : any;
   public options : any;
@@ -58,14 +59,14 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.vehicalNo = this.ListDetails.vehicalNumber;
     console.log(this.ListDetails, 'this.ListDetails');
     this.vehicalDetails = this.fb.group({
-      'vehicalNumber':  ['', Validators.required],
+      'vehicalNumber':  '',
       'registrationDate':  ['', Validators.required],
       'previousClaim': '',
       'enquiry': '',
       'vehicleModel':  ['', Validators.required],
       'manufacture': ['', Validators.required],
       'bussiness': ['', Validators.required],
-      'ncb': ['', Validators.required],
+      'ncb': '',
       'manufactureYear': ['', Validators.required],
       'vehicleCC': ['', Validators.required],
       'variant':  ['', Validators.required],
@@ -88,6 +89,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   }
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
+    // this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
     this.rto = sessionStorage.RtoFour;
 
     this.claimpercent();
@@ -327,14 +329,14 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
   }
   enquiryQuation(value) {
-    if(this.vehicalDetails.valid) {
+    // if(this.vehicalDetails.valid) {
       const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'enquiry_id': '0',
-      'vehicle_no':this.vehicalDetails.controls['vehicalNumber'].value,
+      'vehicle_no':this.vehicalDetails.controls['vehicalNumber'].value ? this.vehicalDetails.controls['vehicalNumber'].value : '',
       'registration_date': this.vehicalDetails.controls['registrationDate'].value,
       'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value == null ? '' :this.vehicalDetails.controls['previousPolicyExpiry'].value,
       'previous_policy_no':"12344556",
@@ -356,6 +358,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'prev_insurance_name': this.enquiryFormData.prev_insurance_name
 
       };
+      console.log(data,'data');
       sessionStorage.vehicledetailsfw = JSON.stringify(data);
       this.fwService.getEnquiryDetails(data).subscribe(
           (successData) => {
@@ -365,7 +368,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
             this.enquiryFailure(error);
           }
       );
-    }
+    // }
   }
   public enquirySuccess(successData){
     if (successData.IsSuccess) {

@@ -112,6 +112,7 @@ import { EditmediaComponent } from './pages/mediacenter/editmedia/editmedia.comp
 import { TestimonialComponent } from './pages/testimonial/testimonial.component';
 import { AddtestimonialComponent } from './pages/testimonial/addtestimonial/addtestimonial.component';
 import { EdittestimonialComponent } from './pages/testimonial/edittestimonial/edittestimonial.component';
+import { CareerListComponent } from './pages/career-list/career-list.component';
 
 @NgModule({
     imports: [
@@ -207,7 +208,8 @@ import { EdittestimonialComponent } from './pages/testimonial/edittestimonial/ed
         EditmediaComponent,
         TestimonialComponent,
         AddtestimonialComponent,
-        EdittestimonialComponent
+        EdittestimonialComponent,
+        CareerListComponent
     ],
     providers: [
         AppSettings,

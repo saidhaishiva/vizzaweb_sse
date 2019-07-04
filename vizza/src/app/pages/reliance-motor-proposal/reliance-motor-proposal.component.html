@@ -103,11 +103,12 @@
                       </div>
                       <div class="col-md-3">
                          <mat-form-field class="w-100">
-                             <input matInput placeholder="GST Number"  minlength="15"  maxlength="15"  class="text-uppercase" formControlName="gstNumber" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off" >
+                             <input matInput placeholder="GST Number"  minlength="15"  maxlength="15"  class="text-uppercase" formControlName="gstNumber"  pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off" >
                                <mat-error *ngIf="relianceProposal.controls.gstNumber.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
                                <mat-error *ngIf="relianceProposal.controls.gstNumber.hasError('pattern')">Enter Valid GST Number</mat-error>
                          </mat-form-field>
                       </div>
+<!--                        (keypress)="idValidate($event)"-->
 
                         <div class="row" fxLayoutAlign="center center">
 
@@ -386,17 +387,28 @@
                                       </div>
                                   </div>
                               </div>
-                          <div class="col-md-12 mt-2">
-                              <h3 class="color-blue">IDV</h3><p>(min {{buyBikeDetails.MinIDV}} - max {{buyBikeDetails.MaxIDV}})</p>
-                          </div>
+<!--                          <div class="col-md-12 mt-2">-->
+<!--                              <h3 class="color-blue">IDV</h3><p>(min {{buyBikeDetails.MinIDV}} - max {{buyBikeDetails.MaxIDV}})</p>-->
+<!--                          </div>-->
 
-                          <div class="col-md-12 mt-0" layout>
-                              <mat-slider flex md-discrete [value]= "riskDetails.controls.IDV.value" formControlName="IDV"
-                                          step = "{{buyBikeDetails.MinIDV}"
-                                          min="{{buyBikeDetails.MinIDV}}"
-                                          max="{{buyBikeDetails.MaxIDV}}">
-                              </mat-slider>
-                              <i style="font-size:14px" class="fa fa-inr">&#xf156;</i>{{riskDetails.controls.IDV.value}}
+<!--                          <div class="col-md-12 mt-0" layout>-->
+<!--                              <mat-slider flex md-discrete [value]= "riskDetails.controls.IDV.value" formControlName="IDV"-->
+<!--                                          step = "{{buyBikeDetails.MinIDV}"-->
+<!--                                          min="{{buyBikeDetails.MinIDV}}"-->
+<!--                                          max="{{buyBikeDetails.MaxIDV}}">-->
+<!--                              </mat-slider>-->
+<!--                              <i style="font-size:14px" class="fa fa-inr">&#xf156;</i>{{riskDetails.controls.IDV.value}}-->
+<!--                          </div>-->
+
+
+                          <div class="col-md-12 mt-2">
+                              <h3 class="color-blue">IDV</h3>
+                          </div>
+                              <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                  <input matInput placeholder="IDV"  formControlName="IDV"  autocomplete="off" required readonly>
+                                  <mat-error *ngIf="riskDetails.controls.IDV.errors?.required">IDV is required</mat-error>
+                              </mat-form-field>
                           </div>
 
 
@@ -826,7 +838,7 @@
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  Previous Insure
+                    Previous Insurance Details
                 </mat-panel-title>
               </mat-expansion-panel-header>
                 <div class="row">
@@ -1173,7 +1185,7 @@
                   </section>
 
                   <section>
-                      <h5 class="mt-3 sub-title">PREVIOUS INSURE DETAILS </h5>
+                      <h5 class="mt-3 sub-title">Previous Insurance Details </h5>
                       <div class="row box-card">
                           <div class="col-md-6">
                               <div class="p-3">

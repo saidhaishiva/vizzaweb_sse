@@ -276,7 +276,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30" >
+                                                    <input matInput placeholder="Hypothecation Address 2" formControlName="hypothecationAddress2"  autocomplete="off" maxlength="30" [required]="finance">
                                                     <mat-error *ngIf="vehical.controls.hypothecationAddress2.errors?.required">Address is required</mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -677,7 +677,7 @@
                             </div>
                         </section>
                         <section>
-                            <h5 class="mt-3" sub-title *ngIf="apponiteeList">APPOINTEE DETAILS </h5>
+                            <h6 class="mt-3" *ngIf="apponiteeList">APPOINTEE DETAILS </h6>
                             <div class="row box-card">
 
                                 <div class="col-md-6">

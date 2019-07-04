@@ -862,7 +862,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.proposerData = value;
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
-      // this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
+      this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
       if (this.relianceProposal.valid) {
         if(sessionStorage.proposerAge >= 18 ){
           stepper.next();

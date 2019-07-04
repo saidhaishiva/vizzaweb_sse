@@ -642,15 +642,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.finance = true;
       this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
+      this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
 
     } else{
       this.finance = false;
       this.vehical.controls['hypothecationType'].setValidators(null);
       this.vehical.controls['hypothecationAddress1'].setValidators(null);
+      this.vehical.controls['hypothecationAddress2'].setValidators(null);
       this.vehical.controls['hypothecationBankName'].setValidators(null);
       this.vehical.controls['hypothecationType'].patchValue('');
       this.vehical.controls['hypothecationAddress1'].patchValue('');
+      this.vehical.controls['hypothecationAddress2'].patchValue('');
       this.vehical.controls['hypothecationBankName'].patchValue('');
     }
   }
