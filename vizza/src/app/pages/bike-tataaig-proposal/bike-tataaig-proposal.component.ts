@@ -192,7 +192,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
-        this.premium = JSON.parse(sessionStorage.packae_list);
+        this.premium = sessionStorage.packae_list;
+        console.log(this.premium);
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
         console.log(poldate, 'poldate');
         this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
@@ -765,12 +766,6 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "address": this.vehicle.controls['Address'].value,
                     "loanacno": ""
                 },
-                // "automobile": {
-                //     "flag": this.vehicle.controls['autoflag'].value,
-                //     "number": this.vehicle.controls['autoNumber'].value,
-                //     "name": this.vehicle.controls['autoName'].value,
-                //     "expiry_date": this.vehicle.controls['autoDob'].value == null || this.vehicle.controls['autoDob'].value == '' ? '' : this.datepipe.transform(this.vehicle.controls['autoDob'].value, 'yMMdd'),
-                // },
                 "nominee": {
                     "name": this.nominee.controls['nomieeName'].value,
                     "age": this.nominee.controls['nomineeAge'].value,
