@@ -313,7 +313,7 @@
                 <div class="row mt-1">
               <div class="col-md-12 box-card pt-3">
                 <div class="row">
-                  <div class="col-md-3">
+                  <div class="col-md-3" [ngStyle]="{'pointer-events':'none'}">
                     <mat-form-field class="w-100">
                       <mat-select  placeholder="Is there any rollover with previous policy?" (change)="changeflag($event)" formControlName="preflag" required>
                         <mat-option value="Y">Yes</mat-option>
