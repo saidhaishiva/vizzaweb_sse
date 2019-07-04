@@ -235,7 +235,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.validation.space(event);
   }
 
-  addEvent(event: any, type) {
+  addEvent(event: any) {
     let dob = '';
     if (event.value != null) {
       if (typeof event.value._i == 'string') {

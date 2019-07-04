@@ -713,8 +713,6 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     //Proposal Creation
     createproposal(stepper: MatStepper) {
-        console.log(this.previouspolicy.controls['preflag'].value, 'preflag');
-        console.log(this.vehicle.controls['autoDob'].value, 'expry date');
         const data = {
             "platform": "web",
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -742,7 +740,6 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "address_3": this.proposer.controls['Addressthree'].value,
                     "address_4": this.proposer.controls['Addressfour'].value,
                     "pincode": this.proposer.controls['proposerPincode'].value,
-
                     "cust_aadhaar": this.proposer.controls['proposerAadhar'].value,
                     "mobile_no": this.proposer.controls['proposerMobile'].value,
                     "email_id": this.proposer.controls['proposerEmail'].value
