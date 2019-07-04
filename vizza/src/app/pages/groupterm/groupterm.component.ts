@@ -7,6 +7,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ConfigurationService} from '../../shared/services/configuration.service';
+import {Settings} from '../../app.settings.model';
+import {AppSettings} from '../../app.settings';
 
 export const MY_FORMATS = {
     parse: {
@@ -38,8 +41,21 @@ export class GrouptermComponent implements OnInit {
     public title: any;
     public response: any;
     public pincodeErrors: any;
+    public webhost: any;
+    public settings: Settings;
 
-  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public dialog: MatDialog) {
+  constructor(public fb: FormBuilder, public commonservices: CommonService, public datepipe: DatePipe, public route: ActivatedRoute,public toastr: ToastrService,public dialog: MatDialog,public config: ConfigurationService,public appSettings: AppSettings) {
+      this.settings = this.appSettings.settings;
+      this.webhost = this.config.getimgUrl();
+      if(window.innerWidth < 787){
+          this.settings.HomeSidenavUserBlock = false;
+          this.settings.sidenavIsOpened = false;
+          this.settings.sidenavIsPinned = false;
+      }else{
+          this.settings.HomeSidenavUserBlock = true;
+          this.settings.sidenavIsOpened = true;
+          this.settings.sidenavIsPinned = true;
+      }
       this.terapp = this.fb.group({
           'appdate': ['', Validators.required],
           'apptime': null,
