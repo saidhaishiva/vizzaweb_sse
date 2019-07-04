@@ -83,6 +83,7 @@ export class CholaHealthProposalComponent implements OnInit {
   public webhost: any;
 
   public relationsame1: any;
+  public currentStep: any;
 
   constructor(public fb: FormBuilder, public authservice: AuthService, public config: ConfigurationService, public appSettings: AppSettings, public http: HttpClient, public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, public termService: HealthService, private toastr: ToastrService ) {
     let stepperindex = 0;
@@ -100,6 +101,7 @@ export class CholaHealthProposalComponent implements OnInit {
         }
       }
     });
+      this.currentStep  = stepperindex;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
