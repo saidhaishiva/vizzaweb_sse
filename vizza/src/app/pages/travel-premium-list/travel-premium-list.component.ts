@@ -603,10 +603,15 @@ export class TravelPremiumListComponent implements OnInit {
     }
     compareList(value) {
         console.log(value, 'lop1');
+        let plan;
         this.productLists = [];
         for (let i = 0; i < value.length; i++) {
             this.productLists.push({plan_id: value[i].plan_id, product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id});
+            if(value[i].product_id == '90'){
+                plan = value[i].plan_name;
+            }
         }
+
         const data = {
             'platform': 'web',
             'enquiry_id': this.enquiryDetails.enquiry_id,
@@ -615,6 +620,7 @@ export class TravelPremiumListComponent implements OnInit {
             'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+            'plan': plan ? plan : '',
 
 
         };
