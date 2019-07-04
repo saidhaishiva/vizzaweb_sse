@@ -113,6 +113,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
   public valuesubCalc: any;
   public Idv: any;
   public valid: any;
+  public currentStep: any;
 
   constructor(public fb: FormBuilder, public validation: ValidationService, public config: ConfigurationService, public route: ActivatedRoute, public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public fourWheeler: FourWheelerService ) {
     let stepperindex = 0;
@@ -132,6 +133,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
         }
       }
     });
+    this.currentStep  = stepperindex;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
@@ -196,7 +198,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       // quoteId: '',
       personalAccidentCoverForUnnamedPassengers: '',
       financierName: '',
-      addonValue: '',
+      addonValue: ['', Validators.compose([ Validators.maxLength(6)])],
       isFourWheelerFinanced: false,
       // isAddon: false,
       lossOfBaggage: 'No',
@@ -242,7 +244,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       previousinsurersCorrectAddress: '',
       voluntary: '',
       claimAmountReceived: '',
-      claimsReported: '',
+      claimsReported: ['', Validators.compose([ Validators.maxLength(2)])],
       previousPolicyType: ['', Validators.required],
       personalAccidentCover: '',
       accidentPaid: '',

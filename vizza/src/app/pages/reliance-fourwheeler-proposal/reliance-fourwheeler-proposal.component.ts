@@ -291,7 +291,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   ngOnInit() {
 
     this.buyBikeDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+    console.log(this.buyBikeDetails,'bikedetails');
     // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
 
     // this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
@@ -860,7 +862,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       this.proposerData = value;
       sessionStorage.stepper1Details = '';
       sessionStorage.stepper1Details = JSON.stringify(value);
-      this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
+      // this.riskDetails.controls['IDV'].patchValue(this.buyBikeDetails.Idv);
       if (this.relianceProposal.valid) {
         if(sessionStorage.proposerAge >= 18 ){
           stepper.next();
