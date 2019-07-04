@@ -256,38 +256,6 @@
                           </mat-form-field>
                         </div>
                         <div class="col-md-12 mt-1" >
-                          <h6 class="color-blue"> AUTOMOBILE DETAILS </h6>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100">
-                            <mat-select  placeholder="AUTOMOBILE" formControlName="autoflag" (change)="autoflag($event)" required>
-                              <mat-option value="Y">YES</mat-option>
-                              <mat-option value="N">NO</mat-option>
-                            </mat-select>
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
-                          <mat-form-field class="w-100">
-                              <mat-placeholder>Number<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                              <input matInput formControlName="autoNumber" (keypress)="numberValidate($event)">
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
-                              <mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                              <input matInput formControlName="autoName" (keypress)="nameValidate($event)">
-                          </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                          <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
-                              <mat-placeholder>Expiry Date (DD/MM/YYYY)<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                              <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" [min]="this.poldate" minlength="10" maxlength="10" autocomplete="off">
-                            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                            <mat-datepicker #picker2></mat-datepicker>
-                          </mat-form-field>
-                          <div class="error" *ngIf="automobdateError != ''">{{automobdateError}}</div>
-                        </div>
-                        <div class="col-md-12 mt-1" >
                           <h6 class="color-blue"> OTHER ADDONS LIST </h6>
                         </div>
                         <div class="col-md-4">
