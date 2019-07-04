@@ -179,7 +179,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.carEnquiryId = sessionStorage.fwEnquiryId;
     this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
     this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
-    this.premium = sessionStorage.packae_list;
+    this.premium = sessionStorage.packageListFw;
     const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
     console.log(poldate,'poldate');
     this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
