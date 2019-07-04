@@ -58,14 +58,14 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     this.vehicalNo = this.ListDetails.vehicalNumber;
     console.log(this.ListDetails, 'this.ListDetails');
     this.vehicalDetails = this.fb.group({
-      'vehicalNumber':  ['', Validators.required],
+      'vehicalNumber':  '',
       'registrationDate':  ['', Validators.required],
       'previousClaim': '',
       'enquiry': '',
       'vehicleModel':  ['', Validators.required],
       'manufacture': ['', Validators.required],
       'bussiness': ['', Validators.required],
-      'ncb': ['', Validators.required],
+      'ncb': '',
       'manufactureYear': ['', Validators.required],
       'vehicleCC': ['', Validators.required],
       'variant':  ['', Validators.required],
@@ -327,7 +327,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
   }
   enquiryQuation(value) {
-    if(this.vehicalDetails.valid) {
+    // if(this.vehicalDetails.valid) {
       const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -352,10 +352,11 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
       'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value,
-      'rto_code': this.rto,
+      // 'rto_code': this.rto,
       'prev_insurance_name': this.enquiryFormData.prev_insurance_name
 
       };
+      console.log(data,'data');
       sessionStorage.vehicledetailsfw = JSON.stringify(data);
       this.fwService.getEnquiryDetails(data).subscribe(
           (successData) => {
@@ -365,7 +366,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
             this.enquiryFailure(error);
           }
       );
-    }
+    // }
   }
   public enquirySuccess(successData){
     if (successData.IsSuccess) {
