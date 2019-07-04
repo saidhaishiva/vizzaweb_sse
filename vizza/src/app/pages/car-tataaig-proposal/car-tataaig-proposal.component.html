@@ -50,7 +50,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="proposerDob" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate" required>
+                          <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)" formControlName="proposerDob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10" autocomplete="off"  [max]="minDate" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                           <mat-error *ngIf="proposer.controls.proposerDob.errors?.required">DOB is Required</mat-error>
@@ -251,38 +251,6 @@
                         <mat-form-field class="w-100">
                           <textarea matInput placeholder="Address" rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
                         </mat-form-field>
-                      </div>
-                      <div class="col-md-12 mt-1" >
-                        <h6 class="color-blue"> AUTOMOBILE DETAILS </h6>
-                      </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select  placeholder="AUTOMOBILE" formControlName="autoflag" (change)="autoflag($event)" required>
-                            <mat-option value="Y">YES</mat-option>
-                            <mat-option value="N">NO</mat-option>
-                          </mat-select>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
-                        <mat-form-field class="w-100">
-                          <mat-placeholder>Number<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput formControlName="autoNumber" (keypress)="numberValidate($event)">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
-                          <mat-placeholder>Name<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput formControlName="autoName" (keypress)="nameValidate($event)">
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3">
-                        <mat-form-field class="w-100" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
-                          <mat-placeholder>Expiry Date (DD/MM/YYYY)<span class="error" *ngIf="vehicle.controls['autoflag'].value == 'Y'">*</span></mat-placeholder>
-                          <input matInput [matDatepicker]="picker2" (keypress)="dobValidate($event)" formControlName="autoDob" (dateInput)="addEvent($event,'autoDob')" (dateChange)="addEvent($event,'autoDob')" [min]="this.poldate" minlength="10" maxlength="10" autocomplete="off">
-                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                          <mat-datepicker #picker2></mat-datepicker>
-                        </mat-form-field>
-                        <div class="error" *ngIf="automobdateError != ''">{{automobdateError}}</div>
                       </div>
                       <div class="col-md-12 mt-1" >
                         <h6 class="color-blue"> OTHER ADDONS LIST </h6>
@@ -555,15 +523,6 @@
                       <li class="list-group-item" *ngIf="vehicalFormData.Tyresecure != ''"><strong> Tyre Secure </strong><span *ngIf="vehicalFormData.Tyresecure == true">Yes</span></li>
                       <li class="list-group-item" *ngIf="vehicalFormData.protectioncover != ''"><strong> NCB protection cover </strong><span *ngIf="vehicalFormData.protectioncover == true">Yes</span></li>
                       <li class="list-group-item" *ngIf="vehicalFormData.Roadside != ''"><strong> Roadside Assistance </strong><span *ngIf="vehicalFormData.Roadside == true">Yes</span></li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="col-md-6" *ngIf="vehicle.controls['autoflag'].value == 'Y'">
-                  <div class="p-3">
-                    <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>AutoMobile Name:</strong> {{vehicalFormData.autoName}} </li>
-                      <li class="list-group-item"><strong>AutoMobile Number:</strong> {{vehicalFormData.autoNumber}} </li>
-                      <li class="list-group-item"><strong>Expiry Date:</strong> {{vehicalFormData.autoDob}} </li>
                     </ul>
                   </div>
                 </div>
