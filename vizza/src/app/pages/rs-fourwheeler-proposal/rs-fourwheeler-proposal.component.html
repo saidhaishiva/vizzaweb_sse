@@ -434,7 +434,7 @@
                                                 <div class="col-md-3 mt-3" *ngIf="vehical.controls['isBiFuelKitYes'].value == 'InBuilt'" >
                                                     <mat-form-field class="w-100">
                                                         <mat-placeholder>Addon Value<span class="error" >*</span></mat-placeholder>
-                                                          <input matInput  formControlName="addonValue" maxlength="6" (keypress)="numberValidate($event)" keypress)="addonlimit($event)"  autocomplete="off" >
+                                                          <input matInput  formControlName="addonValue" maxlength="6" (keypress)="numberValidate($event)" (keypress)="addonlimit($event)"  autocomplete="off" >
                                                     </mat-form-field>
                                                 </div>
                                             </div>
