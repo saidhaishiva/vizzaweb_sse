@@ -57,7 +57,7 @@
                 <p class="pTitle" matTooltip="{{plists.plan_name}}">{{plists.plan_name | titlecase }}</p>
               </td>
               <td class="col-md-1">
-                <p class="mt-4">{{plists.sum_insured_amount | currency}}</p>
+                <p class="mt-4"> $ {{plists.sum_insured_amount }}</p>
               </td>
               <td *ngFor="let keys of plists.key_features; let i = index;" class="col-md-1">
                 <p class="text-center mt-4">{{keys.key_features_value}}</p>
