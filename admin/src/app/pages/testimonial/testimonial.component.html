@@ -62,19 +62,25 @@
                 {{row.status}}
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="profile">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <div>
+                  <span class="imageclose mr-2"><img src="{{webhost + '/' + row.profile_pic}}" style="height:50px;width: 100px;"/></span>
+                </div>
+              </ng-template>
+            </ngx-datatable-column>
             <ngx-datatable-column name="Action">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <i class="material-icons"  (click)="edit(row)" style="cursor: pointer" >
+                <i class="material-icons" style="cursor: pointer" >
                   edit
                 </i>
 
-                <i class="material-icons" (click)="delete(row)" style="cursor: pointer" >
+                <i class="material-icons" style="cursor: pointer" >
                   delete
                 </i>
 
               </ng-template>
             </ngx-datatable-column>
-
           </ngx-datatable>
 
 
