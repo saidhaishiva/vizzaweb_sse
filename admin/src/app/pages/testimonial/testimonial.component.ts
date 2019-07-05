@@ -88,4 +88,18 @@ export class TestimonialComponent implements OnInit {
 
     });
   }
+
+  edit(row) {
+    const dialogRef = this.dialog.open(EdittestimonialComponent, {
+      width: '400px',
+      data: row,
+
+    });
+    dialogRef.afterClosed().subscribe(res => {
+      if (res) {
+        this.testimonialList();
+      }
+
+    });
+  }
 }

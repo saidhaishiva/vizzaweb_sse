@@ -120,7 +120,7 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100" >
-                                                    <input matInput placeholder="Aadhar Number" formControlName="proposerPaAadhar" maxlength="10" pattern="^([a-zA-Z]){3}([0-9]){7}?$" (keypress)="idValidate($event)">
+                                                    <input matInput placeholder="Aadhar Number" formControlName="proposerPaAadhar" minlength="12"  maxlength="12"  (keypress)="idValidate($event)">
                                                     <mat-error *ngIf="proposer.controls.proposerPaAadhar.hasError('pattern')"> Enter Valid Voter Id </mat-error>
                                                 </mat-form-field>
                                             </div>
@@ -176,7 +176,7 @@
                                                     <mat-error *ngIf="proposer.controls.proposerPaDistrict.errors?.required">District is Required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-6">
                                                 <mat-form-field class="w-100">
                                                     <input matInput placeholder="City"  formControlName="proposerPaCity" autocomplete="off" readonly required>
                                                     <mat-error *ngIf="proposer.controls.proposerPaCity.errors?.required">City is Required</mat-error>
@@ -345,7 +345,7 @@
                                         <div class="row">
                                             <div class="col-md-3" *ngIf="this.getBuyDetails.plan_code == '1902'">
                                                 <mat-form-field class="w-100">
-                                                    <mat-placeholder> Coverage SubOption ID <span class="error">*</span></mat-placeholder>
+                                                    <mat-placeholder> Coverage Sub OptionID <span class="error">*</span></mat-placeholder>
                                                     <mat-select formControlName="coveragesubOptionID">
                                                         <mat-option *ngFor="let coverage of coverSubList | keys" value="{{coverage.key}}">{{coverage.value}}</mat-option>
                                                     </mat-select>
@@ -444,7 +444,7 @@
                                             <div class="col-md-12 mt-3">
                                                 <mat-checkbox formControlName="sameAsDetail" (change)="sameAsProposer($event)"><strong>SAME AS PROPOSER</strong></mat-checkbox>
                                             </div>
-                                            <div class="col-md-3" >
+                                            <div class="col-md-3" [ngStyle]="{'pointer-events':'none'}">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="Title" formControlName="insurePaTitle" (change)="insurechangeGender('insure')" required readonly>
                                                         <mat-option value="Mr.">Mr.</mat-option>
@@ -493,7 +493,7 @@
                                                     <input matInput placeholder="Age" formControlName="insurePaAge" autocomplete="off" autocomplete="off" readonly [readonly]="inputReadonly">
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" [ngStyle]="{'pointer-events':'none'}">
                                                 <mat-form-field class="w-100">
                                                     <mat-select placeholder="Occupation"  (change)="insureOccupationList()" formControlName="insureOccupationList" required readonly>
                                                         <mat-option *ngFor="let occupation of insureroccupation | keys" value="{{occupation.key}}">{{occupation.value}}</mat-option>
@@ -501,7 +501,7 @@
                                                     <mat-error *ngIf="insure.controls.insureOccupationList.errors?.required">Occupation is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <div class="col-md-3">
+                                            <div class="col-md-3" [ngStyle]="{'pointer-events':'none'}">
                                                 <mat-form-field class="w-100">
                                                     <mat-select  placeholder="Relationship with Proposer" formControlName="relationshipWithProposer" required readonly>
                                                         <mat-option value="345">Self</mat-option>
