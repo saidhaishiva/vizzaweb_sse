@@ -288,7 +288,7 @@ export class BikeInsuranceComponent implements OnInit {
 
             let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                 width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
-                height: '600px'
+                height: '500px'
             })
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
