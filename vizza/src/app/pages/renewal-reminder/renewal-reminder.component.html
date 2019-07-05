@@ -101,16 +101,16 @@
                   </div>
 
 
-                  <div class="col-md-12 pt-5 btn-uploade">
                     <h4 class="text-center mt-3">Upload your policy here</h4>
                     <div class = "row">
-                    <div class="col-md-6">
-                      <div class="custom-file">
-                        <input type="file" class="cust\om-file-input" accept=".doc, .docx, .pdf"  (change)="onUpload()"  aria-describedby="inputGroupFileAddon01" >
-                        <label class="custom-file-label"> Upload Your Resume</label>
+                      <div class="col-md-6">
+                        <div class="custom-file">
+                          <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf" (change)="uploadProof($event)"   aria-describedby="inputGroupFileAddon01">
+                          <label class="custom-file-label"> Upload Your Resume <span class="error">*</span></label>
+                        </div>
+                        <p class="error" *ngIf="!uploadTypeTest">Your Resume is required</p>
+                        <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
                       </div>
-                      <!--<p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>-->
-                    </div>
                     <div class="col-md-6 whatsapp">
                       <div class="custom-file">
                         <p fxLayoutAlign="center center" class="w-100">  <i class="fab fa-whatsapp"></i> <span>WhatApp your policy<br> @ 86085 00088</span></p>
@@ -124,7 +124,6 @@
                   <div class="col-md-12 text-right mt-3">
                     <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
                   </div>
-                </div>
               </div>
               </div>
             </form>
