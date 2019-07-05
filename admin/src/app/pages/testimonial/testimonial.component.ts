@@ -79,26 +79,13 @@ export class TestimonialComponent implements OnInit {
 
   speical(){
     const dialogRef = this.dialog.open(AddtestimonialComponent, {
-      width: '400px'
+      width: '800px'
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
         this.testimonialList();
       }
 
-    });
-  }
-
-  edit(row) {
-    const dialogRef = this.dialog.open(EdittestimonialComponent, {
-      width: '400px',
-      data: row,
-
-    });
-    dialogRef.afterClosed().subscribe(res => {
-      if (res) {
-        this.testimonialList();
-      }
     });
   }
 }
