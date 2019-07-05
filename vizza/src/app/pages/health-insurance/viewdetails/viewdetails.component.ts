@@ -40,6 +40,7 @@ export class ViewdetailsComponent implements OnInit {
     url: any;
     fileUploadPath: any;
     productName: any;
+    productLogo: any;
     sumInsuredAmount: any;
     step: any;
 
@@ -48,6 +49,7 @@ export class ViewdetailsComponent implements OnInit {
         this.settings = this.appSettings.settings;
         this.productId = data.productId;
         this.productName = data.productName;
+        this.productLogo = data.productLogo;
         this.webhost = this.config.getimgUrl();
         this.testPath = '/uploads/religare1120002190099_1539679118.pdf';
        // this.id = 0;

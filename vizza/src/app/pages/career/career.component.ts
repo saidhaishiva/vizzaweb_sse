@@ -30,6 +30,7 @@ webhost: any;
     getBase64: any;
    uploadType: any;
    uploadTypeTest: any;
+    imageSrc: string;
 
     @ViewChild('myForm') myForm: NgForm;
 
@@ -48,12 +49,16 @@ webhost: any;
   ngOnInit() {
       this.jobProfile();
       this.uploadTypeTest= true;
+      this.imageSrc = '';
+      this.uploadType = '';
+      this.getBase64 = '';
   }
 
-update(value: NgForm) {
+  update(value: NgForm) {
+      console.log(this.getBase64,'this.getBase64this.getBase64')
     console.log(value,'ddddd');
     console.log(this.uploadType,'ddddd');
-        if(this.uploadType == undefined){
+        if(this.uploadType == '' ){
             this.uploadTypeTest= false;
         }else{
             this.uploadTypeTest= true;
@@ -67,7 +72,7 @@ update(value: NgForm) {
                 'base64': this.getBase64,
                 'file_ext': this.uploadType
             };
-            this.settings.loadingSpinner = true;
+            // this.settings.loadingSpinner = true;
             this.common.careerupdate(data).subscribe(
                 (successData) => {
                     this.updateSuccess(successData);
@@ -83,11 +88,14 @@ update(value: NgForm) {
 
 
     updateSuccess(successData) {
-        this.settings.loadingSpinner = false;
+        // this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
             this.form.reset();
             this.myForm.resetForm();
+            this.imageSrc = '';
+            this.uploadType = '';
+            this.getBase64 = '';
         }
         this.uploadAddressProofName ='';
     }
@@ -142,6 +150,17 @@ update(value: NgForm) {
       // console.log(event, 'jhgfghj');
       //   typeList = split( event.target.files[0].type);
       //   console.log(typeList, 'typeList');
+        if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+
+            const reader = new FileReader();
+            reader.onload = e => this.imageSrc = reader.result;
+
+            reader.readAsDataURL(file);
+            console.log(reader,'sssssss');
+            console.log(this.imageSrc,'this.imageSrc');
+
+        }
     }
     onUploadFinished( basecode) {
         this.getBase64 = basecode[0][1];

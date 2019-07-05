@@ -439,6 +439,12 @@ export class BikeInsuranceComponent implements OnInit {
 
 
     }
+    bikeinsurer(){
+        const dialogRef = this.dialog.open(BikeInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
+    }
 }
 @Component({
     selector: 'bikeinsurer',

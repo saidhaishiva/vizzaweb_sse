@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
-import {FormBuilder,FormGroup,Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
@@ -10,6 +10,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {ViewChild} from '@angular/core';
+
 export const MY_FORMATS = {
   parse: {
     dateInput: 'DD/MM/YYYY',
@@ -22,7 +24,6 @@ export const MY_FORMATS = {
     monthYearA11yLabel: 'MM YYYY',
   },
 };
-
 
 @Component({
   selector: 'app-renewal-reminder',
@@ -47,12 +48,22 @@ export class RenewalReminderComponent implements OnInit {
   paymentFrequency: any;
   allImage: any;
   fileDetails: any;
-  getUrl: any;
   url: any;
+
+  // getUrl: any;
   fileUploadPath: any;
   today: any;
   maxDate: any;
   dateError: any;
+
+  public uploadAddressProofName: any;
+  public uploadType: any;
+  public getBase64: any;
+  public uploadTypeTest: boolean;
+  public imageSrc: string;
+
+  @ViewChild('myForm') myForm: NgForm;
+
   constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
     this.form =  this.fb.group({
       'insurename': ['', Validators.compose([Validators.required])],
@@ -74,7 +85,6 @@ export class RenewalReminderComponent implements OnInit {
     this.settings.sidenavIsPinned = false;
     this.commentBox = false;
     this.selectDate = '';
-    this.fileUploadPath = '';
     this.allImage = [];
     this.today = new Date();
 
@@ -91,6 +101,12 @@ export class RenewalReminderComponent implements OnInit {
   ngOnInit() {
     this.getPolicyTypes();
     this.getcompanyList();
+
+    this.uploadTypeTest= true;
+    this.fileUploadPath = '';
+    this.imageSrc = '';
+    this.uploadType = '';
+    this.getBase64 = '';
   }
 
 
@@ -160,16 +176,8 @@ export class RenewalReminderComponent implements OnInit {
   policyRenewalSuccess(successData) {
     if (successData.IsSuccess == true) {
       this.toastr.success(successData.ResponseObject);
-      this.form.controls['insurename'].patchValue('');
-      this.form.controls['insureemail'].patchValue('');
-      this.form.controls['insurepolicytype'].patchValue('');
-      this.form.controls['insuremobile'].patchValue('');
-      this.form.controls['insurepolicyno'].patchValue('');
-      this.form.controls['insurepremiumamount'].patchValue('');
-      this.form.controls['insurecompanyname'].patchValue('');
-      this.form.controls['paymentfrequeny'].patchValue('');
-      this.form.controls['startdate'].patchValue('');
-      this.form.controls['enddate'].patchValue('');
+      this.form.reset();
+      this.myForm.resetForm();
     } else {
       this.toastr.error(successData.ErrorObject);
     }
@@ -249,13 +257,9 @@ export class RenewalReminderComponent implements OnInit {
     }
   }
 
-  readUrl(event: any) {
-    this.getUrl = '';
+  uploadProof(event: any) {
     let getUrlEdu = [];
-    this.fileDetails = [];
-    for (let i = 0; i < event.target.files.length; i++) {
-      this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
-    }
+    // let typeList = [];
     for (let i = 0; i < event.target.files.length; i++) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
@@ -265,22 +269,39 @@ export class RenewalReminderComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[i]);
     }
+    this.uploadAddressProofName = event.target.files[0].name;
+    this.uploadType =  event.target.files[0].type;
+    this.uploadTypeTest = true;
+    console.log(this.uploadType, 'jhgfghj');
+    // console.log(event, 'jhgfghj');
+    //   typeList = split( event.target.files[0].type);
+    //   console.log(typeList, 'typeList');
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
 
+      const reader = new FileReader();
+      reader.onload = e => this.imageSrc = reader.result;
+
+      reader.readAsDataURL(file);
+      console.log(reader,'sssssss');
+      console.log(this.imageSrc,'this.imageSrc');
+
+    }
   }
-  onUploadFinished(event) {
-    this.allImage.push(event);
+  onUploadFinished( basecode) {
+    this.getBase64 = basecode[0][1];
   }
   onUpload() {
+    console.log(this.getBase64,'this.getBase64this.getBase64');
+    console.log(this.getBase64.toString(),'this.getBase64.toString()this.getBase64.toString()');
+    console.log(this.uploadType,'this.uploadTypethis.uploadType');
+    console.log(this.uploadType.toString(),'this.uploadTypethis.toString().uploadType.toString()');
     const data = {
       'platform': 'web',
-      'image_path': '',
-        'file_type': '1'
+      'image_path': this.getBase64.toString(),
+        'file_type': this.uploadType.toString()
     };
-    // let length = this.allImage.length-1;
-    // for (let k = 0; k < this.allImage[length].length; k++) {
-    //   this.fileDetails[k].image = this.allImage[length][k][1];
-    // }
-    // data.image_path = this.fileDetails;
+
     this.common.fileUploadPolicyHome(data).subscribe(
         (successData) => {
           this.fileUploadSuccess(successData);
