@@ -16,7 +16,7 @@
                     <div class="row">
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Proposer Name" formControlName="Proposername" (keypress)="data($event)">
+                          <input matInput placeholder="Proposer Name" formControlName="Proposername" (keypress)="data($event)" maxlength="50">
                           <mat-error *ngIf="form.controls.Proposername.errors?.required">Insure Name is required</mat-error>
                           <mat-error *ngIf="form.controls.Proposername.hasError('minlength')">Insure Name isn't long enough, minimum of 3 characters</mat-error>
                           <mat-icon matSuffix>person</mat-icon>
@@ -40,13 +40,13 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Policy No" formControlName="insurepolicyno" >
+                          <input matInput placeholder="Policy No" formControlName="insurepolicyno" maxlength="50">
                           <mat-error *ngIf="form.controls.insurepolicyno.errors?.required">Insurance Policy No is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Premium Amount" formControlName="insurepremiumamount" (keypress)="keyPress($event)">
+                          <input matInput placeholder="Premium Amount" formControlName="insurepremiumamount" (keypress)="keyPress($event)" maxlength="50">
                           <mat-error *ngIf="form.controls.insurepremiumamount.errors?.required">Insurance Policy No is required</mat-error>
                         </mat-form-field>
                       </div>
