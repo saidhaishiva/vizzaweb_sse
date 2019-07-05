@@ -473,7 +473,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['policyTypeName'].patchValue(this.policyTypeList[this.vehical.controls['policyType'].value]);
 
   }
-
+  alternateChange(event) {
+    if (this.proposer['controls'].alterMobile.value.length == 10) {
+      if(this.proposer['controls'].alterMobile.value == this.proposer['controls'].alterMobile.value) {
+        this.mobileNumber = 'Alternate number should be different from mobile number';
+      } else {
+        this.mobileNumber = '';
+      }
+    } else {
+      this.mobileNumber = '';
+    }
+    sessionStorage.mobileNumber = this.mobileNumber;
+  }
   policyType() {
     const data = {
       'platform': 'web',
@@ -1054,18 +1065,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
 
 
-  alternateChange(event) {
-    if (event.target.value.length == 10) {
-      if(event.target.value == this.proposer.get('mobile').value) {
-        this.mobileNumber = 'Alternate number should be different from mobile number';
-      } else {
-        this.mobileNumber = '';
-      }
-    } else {
-      // this.mobileNumber = 'false';
-    }
-    sessionStorage.mobileNumber = this.mobileNumber;
-  }
+  // alternateChange(event) {
+  //   if (event.target.value.length == 10) {
+  //     if(event.target.value == this.proposer.get('mobile').value) {
+  //       this.mobileNumber = 'Alternate number should be different from mobile number';
+  //     } else {
+  //       this.mobileNumber = '';
+  //     }
+  //   } else {
+  //     // this.mobileNumber = 'false';
+  //   }
+  //   sessionStorage.mobileNumber = this.mobileNumber;
+  // }
 
   // session Data
   sessionData() {

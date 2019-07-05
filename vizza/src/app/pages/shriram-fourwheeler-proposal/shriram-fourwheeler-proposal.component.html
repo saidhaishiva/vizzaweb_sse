@@ -79,7 +79,7 @@
                                                     <input matInput placeholder="Alternate No"   (keypress)="numberValidate($event)"  maxlength="10" formControlName="alterMobile" autocomplete="off" >
                                                     <mat-error *ngIf="proposer.controls.alterMobile.hasError('pattern')">Enter Valid  Alternate Number</mat-error>
                                                 </mat-form-field>
-                                                <!-- <div class="error" *ngIf="mobile != '' && mobile != 'true'">{{mobile}}</div>-->
+                                                <div class="error" *ngIf="mobileNumber != '' && mobileNumber != 'true'">{{mobileNumber}}</div>
                                             </div>
 
                                             <div class="col-md-3">
