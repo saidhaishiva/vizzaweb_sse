@@ -39,14 +39,13 @@ export class CareerListComponent implements OnInit {
     this.careerList();
   }
   public careerList() {
+    alert();
     const data = {
       'platform': 'web',
-      'role_id': this.auth.getAdminRoleId(),
-      'adminid': this.auth.getAdminId(),
     };
     // this.loadingIndicator = true;
 
-    this.branchservice.testimonialList(data).subscribe(
+    this.branchservice.careerDetails(data).subscribe(
         (successData) => {
           this.careerSuccess(successData);
         },
@@ -58,8 +57,9 @@ export class CareerListComponent implements OnInit {
 
   public careerSuccess(success) {
     console.log(success);
-    this.loadingIndicator = false;
+    // this.loadingIndicator = false;
     if (success.IsSuccess) {
+      alert('in');
       this.data = success.ResponseObject;
       this.total = success.ResponseObject.length;
       this.rows = this.data;
