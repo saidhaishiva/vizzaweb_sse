@@ -28,19 +28,24 @@ export class EdittestimonialComponent implements OnInit {
     console.log(this.getDetails);
 
     this.form = this.fb.group({
+      'comments': ['', Validators.compose([Validators.required])],
       'name': ['', Validators.compose([Validators.required])],
-      'mobilenumber': ['', Validators.compose([Validators.required])],
-      'email': ['', Validators.compose([Validators.required])],
-
+      'designation': ['', Validators.compose([Validators.required])],
+      'company': ['', Validators.compose([Validators.required])],
     });
     this.dialogRef.disableClose = true;
 
   }
 
   ngOnInit() {
-    this.form.controls['name'].setValue(this.getDetails.manager_name);
-    this.form.controls['mobilenumber'].setValue(this.getDetails.manager_mobile);
-    this.form.controls['email'].setValue(this.getDetails.manager_email);
+    this.form.controls['comments'].setValue(this.getDetails.comments);
+    this.form.controls['name'].setValue(this.getDetails.customer_name);
+    this.form.controls['designation'].setValue(this.getDetails.designation);
+    this.form.controls['company'].setValue(this.getDetails.company_name);
+  }
+
+  close(): void {
+    this.dialogRef.close();
   }
 
   edit() {

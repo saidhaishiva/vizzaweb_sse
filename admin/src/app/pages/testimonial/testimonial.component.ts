@@ -79,7 +79,7 @@ export class TestimonialComponent implements OnInit {
 
   speical(){
     const dialogRef = this.dialog.open(AddtestimonialComponent, {
-      width: '400px'
+      width: '800px'
     });
     dialogRef.afterClosed().subscribe(res => {
       if (res) {
@@ -99,6 +99,7 @@ export class TestimonialComponent implements OnInit {
       if (res) {
         this.testimonialList();
       }
+
     });
   }
 }

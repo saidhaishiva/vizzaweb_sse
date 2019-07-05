@@ -1,3 +1,72 @@
-<p>
-  career-list works!
-</p>
+
+<section>
+  <div class="flex-p">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-right h-100">
+          <mat-form-field class="w-25">
+            <input matInput placeholder="Search By Name..." (keyup)="updateFilter($event)">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div fxLayout="column">
+        <div class="flex-p">
+
+          <ngx-datatable
+                  #table
+                  class="material"
+                  [headerHeight]="50"
+                  [limit]="10"
+                  [columnMode]="'force'"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [rows]="rows"
+                  [count]="total"
+                  [loadingIndicator]="loadingIndicator"
+                  [selected]="selected"
+                  [selectionType]="'checkbox'">
+
+
+            <ngx-datatable-column name="S.No">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <div>{{rowIndex+1}}</div>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name=" Customer Name">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.customer_name}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Company Name">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.company_name}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Designation">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.designation}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Resume">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <h6 (click)="path()"style="color: #3F51B5">Resume<i class="material-icons">
+                  remove_red_eye
+                </i></h6>
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>

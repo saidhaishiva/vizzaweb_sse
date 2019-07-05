@@ -1,13 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {Settings} from '../../../app.settings.model';
-import {AppSettings} from '../../../app.settings';
-import {AuthService} from '../../../shared/services/auth.service';
-import {BranchService} from '../../../shared/services/branch.service';
-import {DatePipe} from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {CommonService} from '../../../shared/services/common.service';
+import {ConfigurationService} from '../../../shared/services/configuration.service';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 import {ToastrService} from 'ngx-toastr';
-import {MatDialogRef} from '@angular/material';
-
+import { BranchService } from '../../../shared/services/branch.service';
 
 @Component({
   selector: 'app-addtestimonial',
@@ -16,20 +13,24 @@ import {MatDialogRef} from '@angular/material';
 })
 export class AddtestimonialComponent implements OnInit {
   public form: FormGroup;
-  public response: any;
-  public status: any;
-  public settings: Settings;
-  public responsedata: any;
-  loadingIndicator: boolean = true;
+  public fileUploadPath: any;
+  type: any;
+  size: any;
+  getUrl1: any;
+  url:any;
+  getUrl:any;
+  profile:any;
+  webhost: any;
 
-  constructor(public appSettings: AppSettings, public forms: FormBuilder, public auth: AuthService, public branchservice: BranchService,
-              public toastr: ToastrService ,public dialogRef: MatDialogRef<AddtestimonialComponent>) {
-    this.dialogRef.disableClose = true;
-
-    this.form = this.forms.group ({
+  constructor(public dialogRef: MatDialogRef<AddtestimonialComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any, public  fb: FormBuilder ,public config: ConfigurationService, public branchservice: BranchService, public toastr: ToastrService) {
+    this.profile = '';
+    this.webhost = this.config.getimgUrl();
+    this.form = this.fb.group({
       'name': ['', Validators.compose([Validators.required])],
-      'mobilenumber': ['', Validators.compose([Validators.required])],
-      'email': ['', Validators.compose([Validators.required, Validators.pattern("^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$")])],
+      'designation': ['', Validators.compose([Validators.required])],
+      'company': ['', Validators.compose([Validators.required])],
+      'comments': ['', Validators.compose([Validators.required])],
     });
   }
 
@@ -40,61 +41,89 @@ export class AddtestimonialComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public addPosManager(): void {
+  submit(form) {
+    console.log(form.value, 'formform');
     if (this.form.valid) {
       const data = {
-        'role_id': this.auth.getAdminRoleId(),
-        'adminid': this.auth.getAdminId(),
         'platform': 'web',
-        'manager_name': this.form.controls['name'].value,
-        'manager_mobile': this.form.controls['mobilenumber'].value,
-        'manager_email': this.form.controls['email'].value,
+        'customer_name': this.form.controls['name'].value,
+        'designation': this.form.controls['designation'].value,
+        'company_name': this.form.controls['company'].value,
+        'profile_pic': this.profile == undefined ? '' : this.profile,
+        'comments': this.form.controls['comments'].value
       };
-
-      this.loadingIndicator = true;
-      this.branchservice.addPosManager(data).subscribe(
+      console.log(data);
+      this.branchservice.addTestimonial(data).subscribe(
           (successData) => {
-            this.addPosSuccess(successData);
+            this.addtestimonialSuccess(successData);
           },
           (error) => {
-            this.addPosFailure(error);
+            this.addtestimonialFailure(error);
           }
       );
     }
   }
-  public addPosSuccess(success) {
-    console.log(success);
-    this.loadingIndicator = false;
-    if (success.IsSuccess) {
-      this.toastr.success(success.ResponseObject);
-      this.dialogRef.close(success.IsSuccess);
+  public addtestimonialSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.toastr.success(successData.ResponseObject);
+      this.dialogRef.close(true);
+    }
+  }
+  public addtestimonialFailure(error) {
+    console.log(error);
+  }
 
+  readUrl(event: any, type) {
+    this.type = type;
+    this.size = event.srcElement.files[0].size;
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.getUrl1 = [];
+        this.url = event.target.result;
+        this.getUrl = this.url.split(',');
+        this.getUrl1.push(this.url.split(','));
+        this.onUploadFinished(this.getUrl);
+
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+  onUploadFinished(event) {
+    this.getUrl = event[1];
+    const data = {
+      'platform': 'web',
+      'uploadtype': 'single',
+      'images': this.getUrl,
+    };
+    console.log(data, 'dfdfdsfdsfdsfds');
+    this.branchservice.fileUpload(data).subscribe(
+        (successData) => {
+          this.fileUploadSuccess(successData);
+        },
+        (error) => {
+          this.fileUploadFailure(error);
+        }
+    );
+  }
+  public fileUploadSuccess(successData) {
+    if (successData.IsSuccess == true) {
+      this.fileUploadPath = successData.ResponseObject.imagePath;
+      if (this.type == 'profile') {
+        this.profile = this.fileUploadPath;
+
+      }
     } else {
-      this.toastr.error(success.ErrorObject);
-
+      this.toastr.error(successData.ErrorObject, 'Failed');
     }
   }
 
-  public addPosFailure(error) {
+  public fileUploadFailure(error) {
+    console.log(error);
+  }
 
-  }
-  public keyPress(event: any) {
-    if (event.charCode !== 0) {
-      const pattern =/[0-9 ]/;
-      const inputChar = String.fromCharCode(event.charCode);
-      if (!pattern.test(inputChar)) {
-        event.preventDefault();
-      }
-    }
-  }
-  public onChar(event: any) {
-    if (event.charCode !== 0) {
-      const pattern = /[a-zA-Z]/;
-      const inputChar = String.fromCharCode(event.charCode);
-      if (!pattern.test(inputChar)) {
-        event.preventDefault();
-      }
-    }
-  }
 
 }
