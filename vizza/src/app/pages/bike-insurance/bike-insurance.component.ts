@@ -265,15 +265,22 @@ export class BikeInsuranceComponent implements OnInit {
             // "prev_insurer": this.bikeInsurance.controls['previousCompany'].value ? this.bikeInsurance.controls['previousCompany'].value : '',
         }
         console.log(data, 'data');
+        console.log(this.bikeInsurance,'bikegroup');
 
-        this.bikeService.getMotorHomeDetails(data).subscribe(
-            (successData) => {
-                this.bikeDetailsSuccess(successData, data);
-            },
-            (error) => {
-                this.bikeDetailsFailure(error);
-            }
-        );
+        console.log(this.bikeInsurance.valid,'valuevalid');
+        if(this.bikeInsurance.valid) {
+            this.bikeService.getMotorHomeDetails(data).subscribe(
+                (successData) => {
+                    this.bikeDetailsSuccess(successData, data);
+                },
+                (error) => {
+                    this.bikeDetailsFailure(error);
+                }
+            );
+        }else{
+            this.toastr.error('Please select the Mandatory field');
+
+        }
     }
 
     public bikeDetailsSuccess(successData, data) {
