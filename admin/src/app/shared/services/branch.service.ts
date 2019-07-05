@@ -326,7 +326,7 @@ export class BranchService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
-        const url = this.configurationService.getHost() + 'admin/ListMedia' ;
+        const url = 'http://13.127.24.123/vizza/api/index.php/home/testemonial/list_testemonials' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

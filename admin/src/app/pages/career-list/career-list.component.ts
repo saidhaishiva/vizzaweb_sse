@@ -7,6 +7,8 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {BranchService} from '../../shared/services/branch.service';
 import {MatDialog} from '@angular/material';
 import {Router} from '@angular/router';
+import {AddtestimonialComponent} from '../testimonial/addtestimonial/addtestimonial.component';
+import {PathPopupComponent} from './path-popup/path-popup.component';
 
 @Component({
   selector: 'app-career-list',
@@ -42,9 +44,9 @@ export class CareerListComponent implements OnInit {
       'role_id': this.auth.getAdminRoleId(),
       'adminid': this.auth.getAdminId(),
     };
-    this.loadingIndicator = true;
+    // this.loadingIndicator = true;
 
-    this.branchservice.careerDetails(data).subscribe(
+    this.branchservice.testimonialList(data).subscribe(
         (successData) => {
           this.careerSuccess(successData);
         },
@@ -80,7 +82,14 @@ export class CareerListComponent implements OnInit {
   }
 
 
+  path(){
+    const dialogRef = this.dialog.open(PathPopupComponent, {
+      width: '400px'
+    });
+    dialogRef.afterClosed().subscribe(res => {
 
+    });
+  }
 
 
 }
