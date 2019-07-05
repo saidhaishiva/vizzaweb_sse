@@ -26,39 +26,19 @@ export class CholaHealthPaymentSuccessComponent implements OnInit {
 
   constructor(public config: ConfigurationService, public router: Router, public proposalservice: HealthService, public route: ActivatedRoute, public appSettings: AppSettings, public toast: ToastrService, public auth: AuthService, public dialog: MatDialog) {
     this.settings = this.appSettings.settings;
-    this.remainingStatus = false;
+
     this.route.params.forEach((params) => {
-      console.log(params.id);
       this.paymentStatus = params.status;
       this.proposalId = params.proId;
       this.policyStatus = params.policyStatus;
     });
-    let groupDetails = JSON.parse(sessionStorage.groupDetails);
-    for(let i = 0; i < groupDetails.family_groups.length; i++) {
-      if(groupDetails.family_groups[i].name == groupDetails.family_groups[sessionStorage.changedTabIndex].name){
-        groupDetails.family_groups[i].status = 1;
-      }
-    }
-    let status = groupDetails.family_groups.filter(data => data.status == 0);
-    if(status.length > 0) {
-      this.remainingStatus = true;
-    }
-    sessionStorage.groupDetails = JSON.stringify(groupDetails);
-
   }
   ngOnInit() {
-    // sessionStorage.hdfc_health_proposal_id = '';
-    // sessionStorage.hdfcStep1 = '';
-    // sessionStorage.hdfcStep2 = '';
-    // sessionStorage.hdfcHealthNomineeDetails = '';
-    // sessionStorage.sameAsinsure = '';
-    // sessionStorage.pincodeValid = '';
-    // sessionStorage.hdfcHealthProposerAge = '';
-    // sessionStorage.hdfcHealthInsurerAge = '';
-    // sessionStorage.buyProductdetails = '';
-    // sessionStorage.changedTabDetails = '';
-
   }
+  retry() {
+    this.router.navigate(['/chola-health-proposal'  + '/' + true]);
+  }
+
 
   DownloadPdf() {
     const data = {
@@ -77,42 +57,29 @@ export class CholaHealthPaymentSuccessComponent implements OnInit {
           this.downloadPdfFailure(error);
         }
     );
-
   }
   public downloadPdfSuccess(successData) {
+    this.type = successData.ResponseObject.type;
+    this.path = successData.ResponseObject.path;
     this.settings.loadingSpinner = false;
+
     if (successData.IsSuccess == true) {
-      this.type = successData.ResponseObject.type;
-      this.path = successData.ResponseObject.path;
 
       this.currenturl = this.config.getimgUrl();
       if (this.type == 'pdf') {
-        console.log(successData.ResponseObject, 'www333');
         window.open(this.currenturl + '/' +  this.path,'_blank');
       } else if (this.type === 'pdf') {
-        console.log(successData.ResponseObject, 'www3444');
         window.open(this.currenturl + '/' +  this.path,'_blank');
       } else {
         this.downloadMessage();
       }
     } else {
       this.toast.error(successData.ErrorObject);
-
     }
 
   }
   public downloadPdfFailure(error) {
-    this.settings.loadingSpinner = false;
-    console.log(error);
   }
-  retry() {
-    this.router.navigate(['/chola-health-proposal'  + '/' + true]);
-  }
-  pay(){
-    sessionStorage.policyLists = JSON.stringify({index: 0, value: []});
-    this.router.navigate(['/healthinsurance']);
-  }
-
   downloadMessage() {
     const dialogRef = this.dialog.open(DownloadMessageCholaHealth, {
       width: '400px',
@@ -121,7 +88,6 @@ export class CholaHealthPaymentSuccessComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 
@@ -130,13 +96,13 @@ export class CholaHealthPaymentSuccessComponent implements OnInit {
 @Component({
   selector: 'downloadmessagecholahealth',
   template: `<div mat-dialog-content class="text-center">
-        <label> {{data}} </label>
-    </div>
-    <div mat-dialog-actions style="justify-content: center">
-        <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
-    </div>`,
+    <label> {{data}} </label>
+  </div>
+  <div mat-dialog-actions style="justify-content: center">
+    <button mat-raised-button color="primary" (click)="onNoClick()">Ok</button>
+  </div>`,
 })
-export class DownloadMessageCholaHealth {
+export class DownloadMessageCholaHealth{
 
   constructor(
       public dialogRef: MatDialogRef<DownloadMessageCholaHealth>,

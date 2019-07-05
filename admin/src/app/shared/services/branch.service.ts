@@ -44,6 +44,28 @@ export class BranchService {
             .catch(this.handleError);
 
     }
+    addTestimonial(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://13.127.24.123/vizza/api/index.php/home/testemonial/add' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
+    fileUpload(data) {
+        const json = JSON.stringify(data);
+        const token = this.auth.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = 'http://13.127.24.123/vizza/api/index.php/home/common/webupload';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     addPosManager(data) {
         const json = JSON.stringify(data);
         const token = this.auth.getAccessToken();
@@ -292,6 +314,19 @@ export class BranchService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
         };
         const url = this.configurationService.getHost() + 'dm/dm_manager_delete' ;
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+
+    }
+    // career List
+    careerDetails(data) {
+        const json = JSON.stringify(data);
+        const token = this.auth.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Accesstoken': token})
+        };
+        const url = this.configurationService.getHost() + 'admin/ListMedia' ;
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

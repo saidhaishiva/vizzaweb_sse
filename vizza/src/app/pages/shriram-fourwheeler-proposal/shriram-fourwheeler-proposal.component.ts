@@ -473,7 +473,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
     this.vehical.controls['policyTypeName'].patchValue(this.policyTypeList[this.vehical.controls['policyType'].value]);
 
   }
-
+  alternateChange(event) {
+    if (this.proposer['controls'].alterMobile.value.length == 10) {
+      if(this.proposer['controls'].alterMobile.value == this.proposer['controls'].alterMobile.value) {
+        this.mobileNumber = 'Alternate number should be different from mobile number';
+      } else {
+        this.mobileNumber = '';
+      }
+    } else {
+      this.mobileNumber = '';
+    }
+    sessionStorage.mobileNumber = this.mobileNumber;
+  }
   policyType() {
     const data = {
       'platform': 'web',
@@ -642,15 +653,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       this.finance = true;
       this.vehical.controls['hypothecationType'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationAddress1'].setValidators([Validators.required]);
+      this.vehical.controls['hypothecationAddress2'].setValidators([Validators.required]);
       this.vehical.controls['hypothecationBankName'].setValidators([Validators.required]);
 
     } else{
       this.finance = false;
       this.vehical.controls['hypothecationType'].setValidators(null);
       this.vehical.controls['hypothecationAddress1'].setValidators(null);
+      this.vehical.controls['hypothecationAddress2'].setValidators(null);
       this.vehical.controls['hypothecationBankName'].setValidators(null);
       this.vehical.controls['hypothecationType'].patchValue('');
       this.vehical.controls['hypothecationAddress1'].patchValue('');
+      this.vehical.controls['hypothecationAddress2'].patchValue('');
       this.vehical.controls['hypothecationBankName'].patchValue('');
     }
   }
@@ -960,7 +974,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "PreInspectionReportYN": "0",
         "PreInspection": "",
         "BreakIn": "NO",
-        "AddonPackage": '',
+        "AddonPackage": this.buyBikeDetails.plan_code,
         "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
         "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
         "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamed'].value == true ? this.siValue : '',
@@ -1051,18 +1065,18 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
 
 
-  alternateChange(event) {
-    if (event.target.value.length == 10) {
-      if(event.target.value == this.proposer.get('mobile').value) {
-        this.mobileNumber = 'Alternate number should be different from mobile number';
-      } else {
-        this.mobileNumber = '';
-      }
-    } else {
-      // this.mobileNumber = 'false';
-    }
-    sessionStorage.mobileNumber = this.mobileNumber;
-  }
+  // alternateChange(event) {
+  //   if (event.target.value.length == 10) {
+  //     if(event.target.value == this.proposer.get('mobile').value) {
+  //       this.mobileNumber = 'Alternate number should be different from mobile number';
+  //     } else {
+  //       this.mobileNumber = '';
+  //     }
+  //   } else {
+  //     // this.mobileNumber = 'false';
+  //   }
+  //   sessionStorage.mobileNumber = this.mobileNumber;
+  // }
 
   // session Data
   sessionData() {

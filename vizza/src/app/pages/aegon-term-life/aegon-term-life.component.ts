@@ -62,6 +62,7 @@ export class AegonTermLifeComponent implements OnInit {
   public proposerFormData: any;
   public nomineeFormData: any;
   public occupationList: any;
+  public annualList: any;
   public stepper1: any;
   public personalData: any;
   public nomineeRelationship: any;
@@ -75,9 +76,11 @@ export class AegonTermLifeComponent implements OnInit {
   public stepper2: any;
   public requestedUrl: any;
   public sum_insured_amount:any;
+  public maritialList:any;
 
   public inputReadonly: boolean;
   public apponiteeList: boolean;
+  public sum_insure: any;
 
 
 
@@ -115,7 +118,6 @@ export class AegonTermLifeComponent implements OnInit {
       dob: '',
       relationship: '',
       pincode: '',
-      city: '',
       state: '',
       fatherName: '',
       maritalStatus: '',
@@ -123,7 +125,7 @@ export class AegonTermLifeComponent implements OnInit {
       qualifictionOther:'',
       employeeType: '',
       natureOfWork: '',
-      annualIncome: '',
+      annualIncome: ['', Validators.required],
       incomeError: '',
       smoker: '',
       isExistingPolicyHolder: '',
@@ -149,11 +151,12 @@ export class AegonTermLifeComponent implements OnInit {
       pStateName:'',
       pCityName:'',
       cCityName:'',
-      adbrSumAssured:'',
+      adbrSumAssured:['',Validators.compose([Validators.minLength(5),Validators.maxLength(8)])],
       deathBenefitSA:'',
       deathBenefitTISA:'',
       enchancedCISA:'',
       icirSumAssured:'',
+      criticalIllnessError:'',
       // deathBenefitSAName:'',
       // deathBenefitTISAName:'',
 
@@ -203,6 +206,7 @@ export class AegonTermLifeComponent implements OnInit {
     this.getState();
     this.checkSum();
     this.checkSumAs();
+    this.getcitylist();
 
 
   }
@@ -283,13 +287,27 @@ export class AegonTermLifeComponent implements OnInit {
 
     }
   }
-  addAnnual(){
-    // if(this.personal.controls['annualIncome'].value >= 200000 &&  this.personal.controls['annualIncome'].value <= 9999900000){
-    //   this.personal.controls['incomeError'].patchValue('');
-    // }else {
-    //   this.personal.controls['incomeError'].patchValue('Annual Income should be 2 Lakhs and above');
-    // }
-  }
+  // addAnnual(){
+  //   if(this.personal.controls['annualIncome'].value >= 200000 &&  this.personal.controls['annualIncome'].value <= 9999900000){
+  //     this.personal.controls['incomeError'].patchValue('');
+  //   }else {
+  //     this.personal.controls['incomeError'].patchValue('Annual Income should be 2 Lakhs and above');
+  //   }
+  // }
+
+  validateAccidental(event:any){
+    if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'){
+      if((this.personal.controls['adbrSumAssured'].value >=50000) && (this.personal.controls['adbrSumAssured'].value <=30000000)) {
+        this.personal.controls['adbrSumAssured'].patchValue(this.personal.controls['adbrSumAssured'].value);
+
+      }
+      else{
+        this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
+
+      }
+    }
+    }
+
   validateCriticalIllness(type) {
     if(type == 'LHP') {
       if(this.personal.controls['deathBenefitTISA'].value == 5000000 ){
@@ -367,7 +385,52 @@ export class AegonTermLifeComponent implements OnInit {
         } else {
           this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 15 Lakhs');
         }
+      }else if(this.personal.controls['deathBenefitTISA'].value == 10000000 ){
+      if(this.personal.controls['icirSumAssured'].value <= 2000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+        this.personal.controls['criticalIllnessError'].patchValue('');
+      } else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 20 Lakhs');
       }
+    }
+    else if(this.personal.controls['deathBenefitTISA'].value == 12500000 ){
+      if(this.personal.controls['icirSumAssured'].value <= 2500000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+        this.personal.controls['criticalIllnessError'].patchValue('');
+      } else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 25 Lakhs');
+      }
+    }else if(this.personal.controls['deathBenefitTISA'].value == 15000000 ){
+      if(this.personal.controls['icirSumAssured'].value <= 3000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+        this.personal.controls['criticalIllnessError'].patchValue('');
+      } else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 30 Lakhs');
+      }
+    }else if(this.personal.controls['deathBenefitTISA'].value == 17500000 ){
+      if(this.personal.controls['icirSumAssured'].value <= 3500000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+        this.personal.controls['criticalIllnessError'].patchValue('');
+      } else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 35 Lakhs');
+      }
+    }else if(this.personal.controls['deathBenefitTISA'].value == 20000000 ){
+      if(this.personal.controls['icirSumAssured'].value <= 4000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+        this.personal.controls['criticalIllnessError'].patchValue('');
+      } else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 40 Lakhs');
+      }
+    }else if(this.personal.controls['deathBenefitTISA'].value == 22500000 ){
+      if(this.personal.controls['icirSumAssured'].value <= 4500000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+        this.personal.controls['criticalIllnessError'].patchValue('');
+      } else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 45 Lakhs');
+      }
+    }
+    else if(this.personal.controls['deathBenefitTISA'].value == 25000000 ){
+      if(this.personal.controls['icirSumAssured'].value <= 5000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
+        this.personal.controls['criticalIllnessError'].patchValue('');
+      } else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 50 Lakhs');
+      }
+    }
+
     }
 
   }
@@ -521,137 +584,13 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.personal.valid, 'checked');
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
+        if( this.personal.controls['criticalIllnessError'].value == ''){
+          stepper.next();
+          this.topScroll();
 
-        if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'){
-          if((value.adbrSumAssured >=50000) && (value.adbrSumAssured <=30000000)) {
-            stepper.next();
-            this.topScroll();
-          }
-          else{
-            this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
-
-          }
+        }else{
+          this.toastr.error('Check the Addon Details');
         }
-
-
-
-        if(this.lifePremiumList.benefit_option == 'LH' || this.lifePremiumList.benefit_option == 'LHP') {
-          console.log(this.lifePremiumList.benefit_option,'first');
-
-          if ((this.lifePremiumList.sum_insured_amount <= 5000000) && (value.annualIncome <= 200000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 1000000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 1000000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must not be 10 Lakhs and above')
-            }
-
-          }
-
-         else if ((this.lifePremiumList.sum_insured_amount <= 7500000) && (value.annualIncome <= 300000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 1500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 1500000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must not be 15 Lakhs and above')
-            }
-
-          }
-
-
-
-         else if ((this.lifePremiumList.sum_insured_amount <= 10000000) && (value.annualIncome <= 400000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 2000000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 2000000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must be 20 Lakhs and above')
-            }
-
-          }
-
-
-          else if ((this.lifePremiumList.sum_insured_amount <= 12500000) && (value.annualIncome <= 500000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 2500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 2500000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must be 25 Lakhs and above')
-            }
-
-          }
-
-          else if ((this.lifePremiumList.sum_insured_amount <= 15000000) && (value.annualIncome <= 600000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 3000000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 3000000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must be 30 Lakhs and above')
-            }
-
-          }
-          else if ((this.lifePremiumList.sum_insured_amount <= 17500000) && (value.annualIncome <= 700000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 3500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 3500000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must be 35 Lakhs and above')
-            }
-
-          }
-          else if ((this.lifePremiumList.sum_insured_amount <= 20000000) && (value.annualIncome <= 800000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 4000000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 4000000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must be 40 Lakhs and above')
-            }
-
-          }
-          else if ((this.lifePremiumList.sum_insured_amount <= 22500000) && (value.annualIncome <= 900000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 4500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 4500000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must be 45 Lakhs and above')
-            }
-
-          }
-          else if ((this.lifePremiumList.sum_insured_amount >= 25000000) && (value.annualIncome <= 1000000)) {
-            if((this.lifePremiumList.benefit_option == 'LH' && this.personal.controls.icirSumAssured.value <= 4500000) || (this.lifePremiumList.benefit_option == 'LHP' && this.personal.controls.enchancedCISA.value <= 4500000)){
-
-              stepper.next();
-              this.topScroll();
-
-            } else {
-              this.toastr.error('Sum Assured must be 50 Lakhs and above')
-            }
-
-          } else {
-            this.toastr.error('Annual income must be 10 Lakhs and above')
-          }
-
-
-
-        }
-
-
 
       } else {
         this.toastr.error('Proposer age should be 18 or above');
@@ -727,7 +666,6 @@ export class AegonTermLifeComponent implements OnInit {
   }
   public getoccupationlistFailure(error) {
   }
-
   getcitylist() {
     const data = {
       'platform': 'web',
@@ -805,6 +743,75 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
 
+  getAnnual(title) {
+    const data = {
+
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'validate_Annual_Income' : this.personal.controls['annualIncome'].value,
+      'sum_insured': this.personal.controls['deathBenefitTISA'].value,
+    }
+    console.log(data,'data')
+
+    this.TermLifeService.getAnnuallist(data).subscribe(
+        (successData) => {
+          this.getAnnuallistSuccess(successData, title);
+        },
+        (error) => {
+          this.getAnnuallistFailure(error);
+        }
+    );
+  }
+  public getAnnuallistSuccess(successData, title) {
+    if (successData.IsSuccess) {
+      this.annualList = successData.ResponseObject;
+      console.log(title,'title');
+      if (title == 'personal') {
+        if (this.personal.controls['annualIncome'].value >= 200000 && this.personal.controls['annualIncome'].value <= 9999900000) {
+          this.personal.controls['annualIncome'].patchValue(this.response.annualIncome);
+        }else {
+          this.toastr.error('Annual Income should be 2 Lakhs and above');
+        }
+      }
+
+    }
+  }
+  public getAnnuallistFailure(error) {
+  }
+
+
+  getMaritalList(value){
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'titleValue': value
+    }
+    if (value !='') {
+      this.TermLifeService.getMaritalList(data).subscribe(
+          (successData) => {
+            this.maritalListSuccess(successData);
+          },
+          (error) => {
+            this.maritalListFailure(error);
+          }
+      );
+      console.log(data,'datapin')
+    }
+  }
+  public maritalListSuccess(successData){
+    if (successData.IsSuccess) {
+      this.maritialList = successData.ResponseObject;
+    }
+  }
+
+  public maritalListFailure(error){
+
+  }
+  /////////////////////
   getPostal(pin, title) {
     const data = {
       'platform': 'web',
@@ -821,25 +828,21 @@ export class AegonTermLifeComponent implements OnInit {
             this.pincodeListFailure(error);
           }
       );
+      console.log(data,'datapin')
     }
   }
+
   public pincodeListSuccess(successData, title) {
     if (successData.IsSuccess) {
       this.response = successData.ResponseObject;
       // this.personal.controls['custMailStateCd'].patchValue(this.response.state_code);
       if (title == 'personal') {
         if (Object.keys(this.response).length === 0) {
-          this.personal.controls['pCity'].patchValue('');
           this.personal.controls['pState'].patchValue('');
-          this.cityList = {};
         } else {
-          this.cityList = this.response.city;
-          console.log(this.cityList,'this.cityList')
           this.personal.controls['pState'].patchValue(this.response.state);
           console.log(this.personal.controls['pState'].value,'this.state')
 
-          this.personal.controls['pCity'].patchValue(this.response.city);
-          console.log(this.personal.controls['pCity'].value,'this.city');
 
         }
       }
@@ -848,9 +851,6 @@ export class AegonTermLifeComponent implements OnInit {
     } else {
       this.toastr.error('Invalid Pincode');
       if (title == 'personal') {
-        sessionStorage.cityList = '';
-        this.cityList = {};
-        this.personal.controls['pCity'].patchValue('');
         this.personal.controls['pState'].patchValue('');
 
       }
@@ -880,6 +880,11 @@ export class AegonTermLifeComponent implements OnInit {
   changeState()
   {
     this.personal.controls['pStateName'].patchValue(this.stateList[this.personal.controls['pState'].value]);
+
+  }
+  changecState()
+  {
+    this.personal.controls['cStateName'].patchValue(this.stateList[this.personal.controls['cState'].value]);
 
   }
   changenState()
@@ -949,9 +954,11 @@ export class AegonTermLifeComponent implements OnInit {
         deathBenefitTISA: stepper1.deathBenefitTISA,
         enchancedCISA: stepper1.enchancedCISA,
         icirSumAssured: stepper1.icirSumAssured,
+        criticalIllnessError: stepper1.criticalIllnessError,
 
 
       });
+      console.log( this.personal,' this.personal')
     }
     if (sessionStorage.stepper2 != '' && sessionStorage.stepper2 != undefined) {
       let stepper2 = JSON.parse(sessionStorage.stepper2);
@@ -987,6 +994,7 @@ export class AegonTermLifeComponent implements OnInit {
 
 
   }
+
 
   // proposal Creation
 

@@ -45,6 +45,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public ListDetails : any;
   public bussinessList : any;
   public enquiryFormData : any;
+  public vehicledetailsfw : any;
   public cityDetails : any;
   public vehicalNo : any;
   public options : any;
@@ -88,6 +89,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   }
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
+    // this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
     this.rto = sessionStorage.RtoFour;
 
     this.claimpercent();
@@ -334,7 +336,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       'enquiry_id': '0',
-      'vehicle_no':this.vehicalDetails.controls['vehicalNumber'].value,
+      'vehicle_no':this.vehicalDetails.controls['vehicalNumber'].value ? this.vehicalDetails.controls['vehicalNumber'].value : '',
       'registration_date': this.vehicalDetails.controls['registrationDate'].value,
       'previous_policy_expiry_date':this.vehicalDetails.controls['previousPolicyExpiry'].value == null ? '' :this.vehicalDetails.controls['previousPolicyExpiry'].value,
       'previous_policy_no':"12344556",
@@ -352,7 +354,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       'previous_policy_start_date':this.vehicalDetails.controls['previousPolicyStart'].value == null ? '' : this.vehicalDetails.controls['previousPolicyStart'].value ,
       'business_type':this.ListDetails.business_type,
       'registration_city': this.vehicalDetails.controls['city'].value,
-      // 'rto_code': this.rto,
+      'rto_code': this.rto,
       'prev_insurance_name': this.enquiryFormData.prev_insurance_name
 
       };
