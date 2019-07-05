@@ -1,8 +1,4 @@
-<div class="flex-p text-right">
-  <button mat-raised-button color="primary" type="button" class="button-right" (click)="addMedia()"><i class="material-icons">
-    add
-  </i> Add</button>
-</div>
+
 <div>
 
   <div [innerHtml]="testeditor">
@@ -73,19 +69,12 @@
                 {{row.post_days}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Action">
+
+            <ngx-datatable-column name="Resume">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <i class="material-icons"  (click)="edit(row)" style="cursor: pointer" >
-                  edit
-                </i>
-
-                <i class="material-icons" (click)="delete(row)" style="cursor: pointer" >
-                  delete
-                </i>
-
+                {{row.post_days}}
               </ng-template>
             </ngx-datatable-column>
-
           </ngx-datatable>
 
 

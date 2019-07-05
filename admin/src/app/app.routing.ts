@@ -87,7 +87,7 @@ export const routes: Routes = [
             { path: 'dm-edit/:id', component: EditDmComponent, data: { breadcrumb: 'Edit DM' } },
             { path: 'dm-profile/:id/:status', component: DmProfileComponent, data: { breadcrumb: 'DM Profile' } },
             { path: 'testimonial', component: TestimonialComponent, data: { breadcrumb: 'Testimoinial'} },
-            { path: 'careerList', component: CareerListComponent, data: { breadcrumb: 'Testimoinial'} }
+            { path: 'careerList', component: CareerListComponent, data: { breadcrumb: 'Career'} }
 
 
         ]
