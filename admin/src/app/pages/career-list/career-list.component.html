@@ -1,18 +1,11 @@
 
-<div>
-
-  <div [innerHtml]="testeditor">
-
-  </div>
-</div>
-
 <section>
   <div class="flex-p">
     <div class="row">
       <div class="col-md-12">
         <div class="text-right h-100">
           <mat-form-field class="w-25">
-            <input matInput placeholder="Search By Reference..." (keyup)="updateFilter($event)">
+            <input matInput placeholder="Search By Name..." (keyup)="updateFilter($event)">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
         </div>
@@ -34,6 +27,7 @@
                   [rowHeight]="'auto'"
                   [rows]="rows"
                   [count]="total"
+                  [loadingIndicator]="loadingIndicator"
                   [selected]="selected"
                   [selectionType]="'checkbox'">
 
@@ -43,38 +37,29 @@
                 <div>{{rowIndex+1}}</div>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Content">
+            <ngx-datatable-column name=" Customer Name">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <div [innerHtml]="row.content">
-                </div>
+                {{row.customer_name}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Reference By">
+            <ngx-datatable-column name="Company Name">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.refrence_by}}
+                {{row.company_name}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Reference Date">
+            <ngx-datatable-column name="Designation">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.refrence_date | date:'dd-MMM-yy'}}
+                {{row.designation}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="Publish Date">
+            <ngx-datatable-column name="Resume">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.publish_date | date:'dd-MMM-yy'}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Publish Days">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.post_days}}
+                <h6 (click)="path()"style="color: #3F51B5">Resume<i class="material-icons">
+                  remove_red_eye
+                </i></h6>
               </ng-template>
             </ngx-datatable-column>
 
-            <ngx-datatable-column name="Resume">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.post_days}}
-              </ng-template>
-            </ngx-datatable-column>
           </ngx-datatable>
 
 

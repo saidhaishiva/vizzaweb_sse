@@ -338,7 +338,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
 
   changeFinancialType(){
-    this.riskDetails.controls['FinanceTypeValue'].patchValue(this.financialTypeList[this.riskDetails.controls['FinanceTypeValue'].value]);
+    this.riskDetails.controls['FinanceTypeValue'].patchValue(this.financialTypeList[this.riskDetails.controls['FinanceType'].value]);
   }
   changenRelation(){
     this.coverDetails.controls['nrelationValue'].patchValue(this.relationListData[this.coverDetails.controls['nrelation'].value]);
