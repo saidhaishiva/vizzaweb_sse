@@ -119,7 +119,7 @@ export class BikeInsuranceComponent implements OnInit {
         this.claimpercent();
         this.bussinessType();
         this.getpreviousCompany();
-        // this.getCityLists();
+        this.getCityLists();
         this.sessionData();
 
     }

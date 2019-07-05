@@ -188,10 +188,10 @@
             <mat-expansion-panel expanded>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  VEHICAL DETAILS
+                    VEHICLE DETAILS
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <ng-template matStepLabel>VEHICAL DETAILS</ng-template>
+              <ng-template matStepLabel>VEHICLE DETAILS</ng-template>
               <div class="row mt-3">
                 <div class="col-md-12 box-card pt-3 pb-3" >
                   <form [formGroup]="vehical">
@@ -338,7 +338,7 @@
                     <div class="row">
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Previous Policy No"  formControlName="policyNumber"  required autocomplete="off">
+                          <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" maxlength="8"  required autocomplete="off">
                             <mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>
 
                         </mat-form-field>
