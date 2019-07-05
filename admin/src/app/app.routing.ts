@@ -45,6 +45,7 @@ import {EditDmComponent} from './pages/edit-dm/edit-dm.component';
 import {AddcenterComponent} from './pages/mediacenter/addcenter/addcenter.component';
 import {EditmediaComponent} from './pages/mediacenter/editmedia/editmedia.component';
 import { TestimonialComponent} from './pages/testimonial/testimonial.component';
+import {CareerListComponent} from './pages/career-list/career-list.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -85,7 +86,8 @@ export const routes: Routes = [
             { path: 'dm-add', component: AddDmComponent, data: { breadcrumb: 'Add DM' } },
             { path: 'dm-edit/:id', component: EditDmComponent, data: { breadcrumb: 'Edit DM' } },
             { path: 'dm-profile/:id/:status', component: DmProfileComponent, data: { breadcrumb: 'DM Profile' } },
-            { path: 'testimonial', component: TestimonialComponent, data: { breadcrumb: 'Testimoinial'} }
+            { path: 'testimonial', component: TestimonialComponent, data: { breadcrumb: 'Testimoinial'} },
+            { path: 'careerList', component: CareerListComponent, data: { breadcrumb: 'Testimoinial'} }
 
 
         ]
