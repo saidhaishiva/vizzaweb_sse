@@ -191,6 +191,9 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
         this.premium = sessionStorage.packae_list;
         console.log(this.premium);
+        if(this.premium != 'Comprehensive_premium') {
+            this.vehicle.controls['coverdrive'].patchValue('ODD03')
+        }
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
         console.log(poldate, 'poldate');
         this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
@@ -466,10 +469,6 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     }
 
-    select() {
-        this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
-    }
-
     chooseflag(event: any) {
         if (this.proposer.controls['driveflag'].value == 'Y') {
             this.proposer.controls['driveFirstname'].patchValue(this.proposer.controls['proposerFirstname'].value);
@@ -562,6 +561,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatavehicle = JSON.stringify(value);
         if (this.vehicle.valid) {
             console.log(value, 'vehicle');
+            this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
             stepper.next();
         }
     }

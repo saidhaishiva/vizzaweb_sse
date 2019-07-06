@@ -255,39 +255,39 @@
                               <textarea matInput rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-12 mt-1" >
+                        <div class="col-md-12 mt-1">
                           <h6 class="color-blue"> OTHER ADDONS LIST </h6>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4" [ngStyle]="{'pointer-events': premium != 'Comprehensive_premium' ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" (change)="select()" readonly required>
+                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" readonly required>
                               <mat-option *ngFor="let cover of coverlist | keys" value="{{cover.key}}">{{cover.value}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Associationmember"><strong> Automobile_Association_Membership </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Voluntary"><strong> Voluntary_Deductibles </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Antitheft"><strong> Anti_theft_device </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Tppdrestrict"><strong> TPPD_Restricted </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="depreciation"><strong> Depreciation_ReImbursement </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Consumableexpense"><strong> Consumables_expenses </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Returninvoice"><strong> Return_to_Invoice </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2">
+                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Roadsideassistance"><strong> Roadside_Assistance </strong></mat-checkbox>
                         </div>
                       </div>
@@ -451,7 +451,7 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
+                        <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}} {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.proposerGender}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.proposerEmail != ''"><strong>Email Id:</strong> {{proposerFormData.proposerEmail}}</li>
