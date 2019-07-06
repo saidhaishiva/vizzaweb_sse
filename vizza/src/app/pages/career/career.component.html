@@ -49,16 +49,17 @@
 
                         <!--</div>-->
                         <div class="col-md-6">
-                                <div class="custom-file">
+                                <div class="custom-file mt-3">
                                     <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf" (change)="uploadProof($event)"   aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label"> Upload Your Resume <span class="error">*</span></label>
                                 </div>
                             <p class="error" *ngIf="!uploadTypeTest">Your Resume is required</p>
+                            <!--<img *ngIf="imageSrc != ''" id="blah" [src]="imageSrc || 'http://placehold.it/180'" width="100px" height="100px" alt="your image" />-->
                             <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field class="w-100">
-                                <textarea matInput placeholder="Cover Letter" formControlName="cover" (keypress)="nameValidate($event)" autocomplete="off" required></textarea>
+                                <textarea matInput placeholder="Cover Letter" formControlName="cover" autocomplete="off" required></textarea>
                                 <!--<i class="fas fa-location-arrow"></i>-->
                                 <mat-icon matSuffix>arrow</mat-icon>
                             <mat-error *ngIf="form.controls.cover.errors?.required">Cover Letter is required</mat-error>
@@ -66,7 +67,7 @@
 
                         </div>
                     </div>
-                    <button mat-raised-button color="primary"  (click)="update(form.value)">Submit</button>
+                    <button mat-raised-button class="mt-3" color="primary"  (click)="update(form.value)">Submit</button>
 
                 </mat-card>
             </form>
