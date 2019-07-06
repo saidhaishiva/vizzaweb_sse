@@ -308,7 +308,7 @@ export const routes: Routes = [
             { path: 'four-wheeler-list', component: FourWheelerProductListComponent, data: { breadcrumb: 'Four Wheeler Home'}},
             { path: 'four-wheeler-shriram/:stepper', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
             { path: 'learning-center', component: LearningCenterComponent, data: { breadcrumb: 'Learning Center'}},
-            { path: 'edelweiss-term-life', component: EdelweissTermLifeComponent, data: { breadcrumb: 'Edelweiss TermLife Component'}},
+            { path: 'edelweiss-term-life/:stepper', component: EdelweissTermLifeComponent, data: { breadcrumb: 'Edelweiss TermLife Component'}},
             { path: 'car-tataaig-payment-success/:status/:proId', component: CarTataaigPaymentSuccessComponent, data: { breadcrumb: 'carTataaig payment'} },
             { path: 'reliance-twowheeler-motor-payment-success/:status/:proId', component: RelianceTwowheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance Twowheeler payment'}},
             { path: 'gold-suraksha', component: BajajGoldSurakshaComponent, data: { breadcrumb: 'Bajaj- Gold Suraksha'}},
