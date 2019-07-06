@@ -81,7 +81,6 @@ export class BikeTataaigProposalComponent implements OnInit {
     public premium: any;
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public config: ConfigurationService, public route: ActivatedRoute) {
-        let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
                 stepperindex = 4;
@@ -98,6 +97,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 }
             }
         });
+        let stepperindex = 0;
         this.currentStep = stepperindex;
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
