@@ -45,9 +45,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public settings: Settings;
     public currentStep: any;
     public minDate: any;
-    public maxdate: any;
     public proposerdateError: any;
-    public automobdateError: any;
     public preNamelist: any;
     public proposerGenderlist: any;
     public relationlist: any;
@@ -106,7 +104,6 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         const miniDate = new Date();
         this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
-        this.maxdate = this.minDate;
         console.log(this.minDate, 'tdy');
 
         this.proposer = this.fb.group({
