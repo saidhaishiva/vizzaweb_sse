@@ -6,9 +6,9 @@
       <div class="container-fluid h-claim">
         <section class="row">
           <div class="insurance-renewal w-100">
-            <form [formGroup]="form">
               <div class="container">
                 <div class="row" fxLayoutAlign="center center">
+                  <form #myForm="ngForm" [formGroup]="form">
                   <div class="col-md-12 pr-4" >
                     <div class="row">
                       <div class="col-md-6">
@@ -91,26 +91,26 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-12 text-center">
+                  <div class="col-md-12 text-center mt-3">
                     <button mat-raised-button class="bg-danger text-white" (click)="renewal(form.value)">Set Remider</button>
                   </div>
-                  <div style="width: 75%; height: 10px; border-bottom: 1px solid black; text-align: center">
+                  <div style="width: 100%; height: 10px; border-bottom: 1px solid black; text-align: center; margin-top:10px;">
                     <span style="font-size: 18px; background-color: #D6D4ED; padding: 0 10px;">
                       (or) <!--Padding is optional-->
                     </span>
                   </div>
+                  </form>
 
-
-                  <div class="col-md-12 pt-5 btn-uploade">
                     <h4 class="text-center mt-3">Upload your policy here</h4>
                     <div class = "row">
-                    <div class="col-md-6">
-                      <div class="custom-file">
-                        <input type="file" class="cust\om-file-input" accept=".doc, .docx, .pdf"  (change)="onUpload()"  aria-describedby="inputGroupFileAddon01" >
-                        <label class="custom-file-label"> Upload Your Resume</label>
+                      <div class="col-md-6">
+                        <div class="custom-file">
+                          <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf, .jpeg, .png" (change)="uploadProof($event)"   aria-describedby="inputGroupFileAddon01">
+                          <label class="custom-file-label"> Upload Your Resume <span class="error">*</span></label>
+                        </div>
+                        <p class="error" *ngIf="!uploadTypeTest">Your Resume is required</p>
+                        <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
                       </div>
-                      <!--<p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>-->
-                    </div>
                     <div class="col-md-6 whatsapp">
                       <div class="custom-file">
                         <p fxLayoutAlign="center center" class="w-100">  <i class="fab fa-whatsapp"></i> <span>WhatApp your policy<br> @ 86085 00088</span></p>
@@ -121,13 +121,11 @@
                   <div class="col-md-12 text-center mt-5">
                     <button mat-raised-button class="bg-danger text-white" (click)="onUpload()">Set Remider</button>
                   </div>
-                  <div class="col-md-12 text-right mt-3">
-                    <button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>
-                  </div>
-                </div>
+                  <!--<div class="col-md-12 text-right mt-3">-->
+                    <!--<button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>-->
+                  <!--</div>-->
               </div>
               </div>
-            </form>
 
           </div>
         </section>

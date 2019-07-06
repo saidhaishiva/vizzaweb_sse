@@ -113,6 +113,7 @@ import { TestimonialComponent } from './pages/testimonial/testimonial.component'
 import { AddtestimonialComponent } from './pages/testimonial/addtestimonial/addtestimonial.component';
 import { EdittestimonialComponent } from './pages/testimonial/edittestimonial/edittestimonial.component';
 import { CareerListComponent } from './pages/career-list/career-list.component';
+import { PathPopupComponent } from './pages/career-list/path-popup/path-popup.component';
 
 @NgModule({
     imports: [
@@ -209,7 +210,8 @@ import { CareerListComponent } from './pages/career-list/career-list.component';
         TestimonialComponent,
         AddtestimonialComponent,
         EdittestimonialComponent,
-        CareerListComponent
+        CareerListComponent,
+        PathPopupComponent
     ],
     providers: [
         AppSettings,
@@ -228,6 +230,6 @@ import { CareerListComponent } from './pages/career-list/career-list.component';
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
     ],
     bootstrap: [AppComponent],
-    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, RejectDm, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent,AddtestimonialComponent,EdittestimonialComponent]
+    entryComponents: [ ClinicimageviewComponent, PosnotesComponent, RejectPOS, RejectDm, AddsubjectComponent, AddcategoryComponent, UpdatecategoryComponent, UpdatesubjectComponent, AddbranchComponent,ListquestionComponent, EditquestionComponent, EditbranchComponent, UploadExcel, EditposmanagerComponent, AddposmanagerComponent, AddrenewalComponent, AdddmComponent, EditdmComponent,AddtestimonialComponent,EdittestimonialComponent, PathPopupComponent]
 })
 export class AppModule { }

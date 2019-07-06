@@ -661,7 +661,7 @@ export class TravelRelianceProposalComponent implements OnInit {
                     }
                 }
                 if (this.insurerData[a].type == 'Child1' || this.insurerData[a].type == 'Child2') {
-                    this.insurerData[a].type == 'Child1' ? this.totalInsureChildDetails = [] : '';
+                   // this.insurerData[a].type == 'Child1' ? this.totalInsureChildDetails = [] : '';
                     this.totalInsureChildDetails.push({
                         'ChildName': this.insurerData[a].insurechildFullname,
                         'ChildRelationID': this.insurerData[a].relationship,

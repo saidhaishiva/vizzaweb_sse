@@ -28,66 +28,72 @@ export class EdittestimonialComponent implements OnInit {
     console.log(this.getDetails);
 
     this.form = this.fb.group({
+      'comments': ['', Validators.compose([Validators.required])],
       'name': ['', Validators.compose([Validators.required])],
-      'mobilenumber': ['', Validators.compose([Validators.required])],
-      'email': ['', Validators.compose([Validators.required])],
-
+      'designation': ['', Validators.compose([Validators.required])],
+      'company': ['', Validators.compose([Validators.required])],
     });
     this.dialogRef.disableClose = true;
 
   }
 
   ngOnInit() {
-    this.form.controls['name'].setValue(this.getDetails.manager_name);
-    this.form.controls['mobilenumber'].setValue(this.getDetails.manager_mobile);
-    this.form.controls['email'].setValue(this.getDetails.manager_email);
+    this.form.controls['comments'].setValue(this.getDetails.comments);
+    this.form.controls['name'].setValue(this.getDetails.customer_name);
+    this.form.controls['designation'].setValue(this.getDetails.designation);
+    this.form.controls['company'].setValue(this.getDetails.company_name);
   }
 
-  edit() {
-    if (this.form.valid) {
-      const data = {
-        'role_id': this.auth.getAdminRoleId(),
-        'adminid': this.auth.getAdminId(),
-        'platform': 'web',
-        'manager_name': this.form.controls['name'].value,
-        'manager_mobile': this.form.controls['mobilenumber'].value,
-        'manager_email': this.form.controls['email'].value,
-        'manager_id': this.getDetails.manager_id
-      };
-
-      this.loadingIndicator = true;
-      this.branchservice.editPosManager(data).subscribe(
-          (successData) => {
-            this.editPosSuccess(successData);
-          },
-          (error) => {
-            this.editPosFailure(error);
-          }
-      );
-    }
+  close(): void {
+    this.dialogRef.close();
   }
 
-  public editPosSuccess(success) {
-    console.log(success);
-    this.loadingIndicator = false;
-    if (success.IsSuccess) {
-      this.toastr.success(success.ResponseObject);
-      this.dialogRef.close(success.IsSuccess);
+  // edit() {
+  //   if (this.form.valid) {
+  //     const data = {
+  //       'role_id': this.auth.getAdminRoleId(),
+  //       'adminid': this.auth.getAdminId(),
+  //       'platform': 'web',
+  //       'manager_name': this.form.controls['name'].value,
+  //       'manager_mobile': this.form.controls['mobilenumber'].value,
+  //       'manager_email': this.form.controls['email'].value,
+  //       'manager_id': this.getDetails.manager_id
+  //     };
+  //
+  //     this.loadingIndicator = true;
+  //     this.branchservice.editPosManager(data).subscribe(
+  //         (successData) => {
+  //           this.editPosSuccess(successData);
+  //         },
+  //         (error) => {
+  //           this.editPosFailure(error);
+  //         }
+  //     );
+  //   }
+  // }
 
+  // public editPosSuccess(success) {
+  //   console.log(success);
+  //   this.loadingIndicator = false;
+  //   if (success.IsSuccess) {
+  //     this.toastr.success(success.ResponseObject);
+  //     this.dialogRef.close(success.IsSuccess);
+  //
+  //
+  //   } else {
+  //     this.toastr.error(success.ErrorObject);
+  //
+  //   }
+  // }
 
-    } else {
-      this.toastr.error(success.ErrorObject);
+  // public editPosFailure(error) {
+  //   this.settings.loadingSpinner = false;
+  //   if (error.status === 401) {
+  //     this.status = error.status;
+  //   }
+  //
+  // }
 
-    }
-  }
-
-  public editPosFailure(error) {
-    this.settings.loadingSpinner = false;
-    if (error.status === 401) {
-      this.status = error.status;
-    }
-
-  }
   public keyPress(event: any) {
     if (event.charCode !== 0) {
       const pattern =/[0-9 ]/;

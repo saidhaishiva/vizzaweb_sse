@@ -974,7 +974,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "PreInspectionReportYN": "0",
         "PreInspection": "",
         "BreakIn": "NO",
-        "AddonPackage": '',
+        "AddonPackage": this.buyBikeDetails.plan_code,
         "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
         "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
         "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamed'].value == true ? this.siValue : '',

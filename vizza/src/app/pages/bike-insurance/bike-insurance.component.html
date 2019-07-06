@@ -9,7 +9,7 @@
                         <img src="assets/img/Motor-Two-wheeler-inner-banner.png" class="w-100">
                         <div class="aboutContent">
                             <h4>About Bike Insurance</h4>
-                           <p style="text-align: left;">There is no time to explain, Don’t let accidents..… <button class="btn btn-sm"  style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>  </div>
+                           <p style="text-align: left;">There is no time to explain, Don’t let accidents..… <button class="btn btn-sm"  style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;" (click)="bikeinsurer()"> Know More</button></p>  </div>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                                         <mat-form-field class="w-100 text-left">
                                             <mat-placeholder>RTO AREA
                                             </mat-placeholder>
-                                            <mat-select  formControlName="city" (change)="rtoCity()" required>
+                                            <mat-select  formControlName="city" (change)="rtoCity()">
                                                 <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                             </mat-select>
                                             <mat-error *ngIf="bikeInsurance.controls.city.errors?.required">city is required</mat-error>

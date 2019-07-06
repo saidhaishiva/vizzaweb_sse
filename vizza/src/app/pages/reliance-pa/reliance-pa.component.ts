@@ -1447,7 +1447,7 @@ export class ReliancePaComponent implements OnInit {
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
-      for (let i = 0; i < this.RelationshipList.length; i++) {
+      for (let i = 0; i <= this.RelationshipList.length; i++) {
         if (this.RelationshipList[i].relationship_id == this.nominee.controls['relationshipWithInsure'].value) {
           this.nominee.controls['relationshipname'].patchValue(this.RelationshipList[i].relatinship_name);
         }

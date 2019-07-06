@@ -265,15 +265,22 @@ export class BikeInsuranceComponent implements OnInit {
             // "prev_insurer": this.bikeInsurance.controls['previousCompany'].value ? this.bikeInsurance.controls['previousCompany'].value : '',
         }
         console.log(data, 'data');
+        console.log(this.bikeInsurance,'bikegroup');
 
-        this.bikeService.getMotorHomeDetails(data).subscribe(
-            (successData) => {
-                this.bikeDetailsSuccess(successData, data);
-            },
-            (error) => {
-                this.bikeDetailsFailure(error);
-            }
-        );
+        console.log(this.bikeInsurance.valid,'valuevalid');
+        if(this.bikeInsurance.valid) {
+            this.bikeService.getMotorHomeDetails(data).subscribe(
+                (successData) => {
+                    this.bikeDetailsSuccess(successData, data);
+                },
+                (error) => {
+                    this.bikeDetailsFailure(error);
+                }
+            );
+        }else{
+            this.toastr.error('Please select the Mandatory field');
+
+        }
     }
 
     public bikeDetailsSuccess(successData, data) {
@@ -288,7 +295,7 @@ export class BikeInsuranceComponent implements OnInit {
 
             let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                 width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
-                height: '600px'
+                height: '500px'
             })
             dialogRef.disableClose = true;
             dialogRef.afterClosed().subscribe(result => {
@@ -431,6 +438,12 @@ export class BikeInsuranceComponent implements OnInit {
         }
 
 
+    }
+    bikeinsurer(){
+        const dialogRef = this.dialog.open(BikeInsurer, {
+            width: '1200px',
+        });
+        dialogRef.disableClose = true;
     }
 }
 @Component({

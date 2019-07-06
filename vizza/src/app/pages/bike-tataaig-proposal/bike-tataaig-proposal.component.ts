@@ -45,9 +45,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public settings: Settings;
     public currentStep: any;
     public minDate: any;
-    public maxdate: any;
     public proposerdateError: any;
-    public automobdateError: any;
     public preNamelist: any;
     public proposerGenderlist: any;
     public relationlist: any;
@@ -81,7 +79,6 @@ export class BikeTataaigProposalComponent implements OnInit {
     public premium: any;
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public config: ConfigurationService, public route: ActivatedRoute) {
-        let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
                 stepperindex = 4;
@@ -98,6 +95,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 }
             }
         });
+        let stepperindex = 0;
         this.currentStep = stepperindex;
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -106,7 +104,6 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         const miniDate = new Date();
         this.minDate = new Date(miniDate.getFullYear(), miniDate.getMonth(), miniDate.getDate());
-        this.maxdate = this.minDate;
         console.log(this.minDate, 'tdy');
 
         this.proposer = this.fb.group({
@@ -194,6 +191,9 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
         this.premium = sessionStorage.packae_list;
         console.log(this.premium);
+        if(this.premium != 'Comprehensive_premium') {
+            this.vehicle.controls['coverdrive'].patchValue('ODD03')
+        }
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
         console.log(poldate, 'poldate');
         this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
@@ -469,10 +469,6 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     }
 
-    select() {
-        this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
-    }
-
     chooseflag(event: any) {
         if (this.proposer.controls['driveflag'].value == 'Y') {
             this.proposer.controls['driveFirstname'].patchValue(this.proposer.controls['proposerFirstname'].value);
@@ -565,6 +561,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatavehicle = JSON.stringify(value);
         if (this.vehicle.valid) {
             console.log(value, 'vehicle');
+            this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
             stepper.next();
         }
     }
