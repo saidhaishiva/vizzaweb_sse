@@ -140,7 +140,7 @@ export class AddposComponent implements OnInit {
         this.aadharfront = '';
         this.aadharback = '';
         this.pancard = '';
-        this.education = '';
+        this.education = [];
         this.chequeleaf= '';
     }
 
@@ -295,10 +295,12 @@ export class AddposComponent implements OnInit {
                     this.pancard = this.fileUploadPath;
                 }
                 if (this.type == 'education') {
-                    this.education = this.fileUploadPath;
-                    // console.log(this.education.push(this.fileUploadPath), 'eddddd');
-                    // console.log(this.education.length ,'kleeee');
-                    // this.education.push(this.education);
+                    for( let i = 0 ;i< this.fileUploadPath.length;i++) {
+                        this.education.push(this.fileUploadPath[i]);
+                    }
+
+                    console.log(this.education,'kleeee');
+                    console.log(this.fileUploadPath,'this.fileUploadPath');
                 }
                 if (this.type == 'chequeleaf') {
                     this.chequeleaf = this.fileUploadPath;
@@ -314,15 +316,15 @@ export class AddposComponent implements OnInit {
     }
     removeImage(value,i){
         console.log(i, 'inddddd');
-        let ddd = this.education;
-        console.log(ddd, 'ddd');
+        // let ddd = this.education;
+        // console.log(ddd, 'ddd');
         // if(ddd[i] == 'empty'){
         //     this.education= [];
         // }
        // delete this.fileUploadPath[0];
         // delete ddd[i];
-        this.fileUploadPath.splice(i,i);
-       // this.eduImages.image.removeAt(i);
+        this.education.splice(i,i);
+        // this.education.removeAt(i);
        //  ddd.splice(i, 0);
         // delete ddd[i];
 
