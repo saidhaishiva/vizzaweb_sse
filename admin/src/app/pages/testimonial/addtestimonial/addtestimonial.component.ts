@@ -42,7 +42,6 @@ export class AddtestimonialComponent implements OnInit {
   }
 
   submit(form) {
-    console.log(form.value, 'formform');
     if (this.form.valid) {
       const data = {
         'platform': 'web',
