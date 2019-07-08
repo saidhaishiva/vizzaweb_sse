@@ -85,25 +85,14 @@
                     <mat-icon matSuffix>place</mat-icon>
                   </mat-form-field>
                 </div>
-                <div class="col-md-12 pt-4 insurance-renewal">
-                  <!--<div class="h-border-bottom text-center"></div>-->
-                  <h4 class="text-center">Upload your policy here</h4>
-                  <ul fxLayoutAlign="center center">
-                    <li class="pull-left"> <label class="btn-bs-file btn mr-3">
-                      <i class="fa fa-camera" aria-hidden="true"></i> Browse
-                      <input type="file" multiple (change)="readUrl($event)"/>
-                    </label>
-                      <div *ngFor="let names of fileDetails" class="mb-2">
-                        <a> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAUZSURBVGhD7ZlfTFNXHMedD8uW7G3Z3sxe9rZkPvg+MikoLX+EtjA0TibuD2jmXJYYcINpBBMYCsgGYWgkE9ht6YiEP2U6HSpwyxikMIUBFQhDpkD52xYQ+O2ccspO23P/NBVaE77J56W9597vp+fewz1hx3a2s53nkyZDy5uNOr7WqOdXEUtGncncqOcrjHrT6YbqNqWxqn0XOTR4EqLVvrYvSv1OuEq7x0VZoaG7vKQWxLj2Q83cj5erO7+/VKHPzb6S9XX6paMHD6a+R59HHrG7Qw8ceJ3U8T1YIEypKVWoNIthKg0EEoVSvYq61L+vjHuL1JOXzMzMnQqV+jfWSQMJ+lFH9+/XvEFqSgcN0rgGFxSVwsPeQRgaHgsI/QMjwFXXQkRMgrOPKiaxgNSUDpqNEjzoWMopsNuXweF4FnByLhY5RQ59eBwa9aZHeLFp4Phkne6vl0lt74Sp1BV4UHpG1saJbI5lGJ2zQf/0PPRZN5e/0TWGZ20wY/v/R/yp0uAUUccfBbQ60tQBwEukuns8RewIy8wCPLTObSl9SGjeviQlAg16Uyip7h5PkRnbEvNCW8H4vENSxMiZUkh193iKTC44mBfZCv5Bt7PkjHCmWFLdPS+aiJFrfZtUd8+LJIJejRYyM2Enqe4ef0UsswvwxL4Io/N25ve+IEPERGp7xx+RIXThNbQeujLl8G+hkHFrlZHa3vFHxLq4TBTWs7q2xjxOLpIzwrWdJLW944/IBJoBOsurq8zj5CIl0sTxe0lt7/gjgv8q25+tOCXwbIwwnpOuCSu0jj/x+pyFlEgD1yn8Eunvw44ZmJmHXsbnmJzOFkjnb0H31DTzexpxEX6cVGbneYgIwQ32wsd3apwUdrczj6ERE0Evj7+Syuxslsj98XFIab6xIYL5xTLAPNaFxIzkkcrs+CpiRvc863OanskZ5+1ES2CON9ciwX+ZYzCiM6IzJZHK7PgigiWSi/PA0NXF/N5FcU+Hl4SLdP4mdCNR1jgxkSYdv4dUZscXkbOGnyHs268gOvsM3B60MI9pHBmCTxgCNIVm9vMiIrLCca2vksrsyBW5zrc6JVwk5mdD+5j7bdLxdBJO3qtnlvfEYOl3G4sRFuH7SF3hyBH5/dEQRGalu4lgUsuKoGdifVl9gDjfcZdZmkUqWgjwgkBfR0gErVh6Ulc4UiLmp1ZIKsr1knCRoa90Hne9/wGzsBhpbe7Pi+CMcHwGqSscb5HFjRNjvtFVMAVocm8b4TOPpVYu+WYTJWJnighupuh4iizYl537Z3zi8tb7zOI04edOQ1J9FbOkXKoH15+XKfQjsmdEYDNFx1NkfVYczudCdT6NWZ7mg8oSZjlfwM9LH3qFcV2fFhHdTNFhiWAeW6fhZrcZ6jo7BKn98w8oNd3doNLcAXdGh3yieXQYLJQExkNEeDNFR0gkkHjcWsKbKTrBLiK6maIT7CKimyk6wS4iupmiE8wisZqkFVJTOsEsEqM+7CA1pRPMIpGxh+ZITekolJoreNCJU2nMkwaCy8VXXSJjpKZ0FBGaY3hQeKQWDDUNMDu7/r4TCGy2JWjjOyFac9gpEqdJukFqSick5MgrCpW6Dw8MJiKiEyE+/tPdpKa8hMck7ApTqu+xThgINAnJkJ9zrYbU8z17o9TvhkbEqdHJtJvJviht/JGPTnz+5Rdnv8s4c1F34Vwxn3fh6uOCnPK1siLDUl1VS6no/wu3s53tyMyOHf8BxPxClGkvShkAAAAASUVORK5CYII=">
-                          {{names.name}}</a>
-                      </div>
-                    </li>
-                    <li class="pull-right"> <label class="btn-bs-file btn " (click)="onUpload()">
-                      <i class="fa fa-cloud-download" aria-hidden="true"></i> Upload
-                    </label>
-                      <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="200" alt="Image preview...">
-                    </li>
-                  </ul>
+                <div class="col-md-12">
+                  <div class="custom-file">
+                    <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf, .jpeg, .png" (change)="readUrl($event)"   aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label"> Upload Your Resume <span class="error">*</span></label>
+                  </div>
+                  <p class="error" *ngIf="!uploadTypeTest">Your Resume is required</p>
+                  <a *ngFor="let names of fileDetails"> <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="100px" width="100px" alt="Image preview...">
+                    {{names.name}}</a>
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-raised-button class="bg-info text-white" (click)="claimAssitance(form.value)">Submit</button>
