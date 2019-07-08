@@ -39,7 +39,7 @@ export class CareerListComponent implements OnInit {
     this.careerList();
   }
   public careerList() {
-    alert();
+    // alert();
     const data = {
       'platform': 'web',
     };
@@ -59,7 +59,7 @@ export class CareerListComponent implements OnInit {
     console.log(success);
     // this.loadingIndicator = false;
     if (success.IsSuccess) {
-      alert('in');
+      // alert('in');
       this.data = success.ResponseObject;
       this.total = success.ResponseObject.length;
       this.rows = this.data;
