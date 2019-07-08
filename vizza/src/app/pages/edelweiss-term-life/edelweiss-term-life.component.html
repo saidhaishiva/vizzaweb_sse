@@ -981,7 +981,7 @@
                                    </div>
                                    <div class="col-md-3">
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Employement Type" formControlName="employementType"  required  class="w-100">
+                                           <mat-select  placeholder="Employement Type" formControlName="employementType"  (change)="geteemploymentType()" required  class="w-100">
                                                <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <!--<mat-error *ngIf="insureArray.controls.employementType.errors?.required">Employement Type is required</mat-error>-->
