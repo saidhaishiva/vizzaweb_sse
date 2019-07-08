@@ -54,7 +54,7 @@
                                     <label class="custom-file-label"> Upload Your Resume <span class="error">*</span></label>
                                 </div>
                             <p class="error" *ngIf="!uploadTypeTest">Your Resume is required</p>
-                            <!--<img *ngIf="imageSrc != ''" id="blah" [src]="imageSrc || 'http://placehold.it/180'" width="100px" height="100px" alt="your image" />-->
+                            <img *ngIf="imageSrc != ''" id="blah" [src]="imageSrc || 'http://placehold.it/180'" width="100px" height="100px" alt="your image" />
                             <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
                         </div>
                         <div class="col-md-6">
