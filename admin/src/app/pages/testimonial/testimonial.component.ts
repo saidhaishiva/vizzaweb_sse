@@ -29,7 +29,9 @@ export class TestimonialComponent implements OnInit {
   public settings: Settings;
 
 
-  constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) { }
+  constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+    this.webhost = this.config.getimgUrl();
+  }
 
   ngOnInit() {
     this.testimonialList();
@@ -87,6 +89,10 @@ export class TestimonialComponent implements OnInit {
       }
 
     });
+  }
+
+  approve() {
+    console.log('get');
   }
 
   edit(row) {

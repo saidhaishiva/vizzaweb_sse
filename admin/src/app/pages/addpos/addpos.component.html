@@ -230,7 +230,7 @@
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.education.valid"  type="button">Next</button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="(!form.controls.education.valid) && (education.length == '')"  type="button">Next</button>
                             </div>
                         </mat-tab>
                         <mat-tab label="Bank Details" formGroupName="bankdetails">
