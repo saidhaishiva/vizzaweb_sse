@@ -3,9 +3,11 @@ import { Settings} from '../../app.settings.model';
 import { AuthService} from '../../shared/services/auth.service';
 import { Router, ActivatedRoute} from '@angular/router';
 import { ToastrService} from 'ngx-toastr';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { CommonService} from '../../shared/services/common.service';
 import { AppSettings} from '../../app.settings';
+import {ViewChild} from '@angular/core';
+
 
 @Component({
   selector: 'app-new-contact',
@@ -27,6 +29,9 @@ export class NewContactComponent implements OnInit {
 
   public uploadTypeTest: any;
   imageSrc: string;
+
+  @ViewChild('myForm') myForm: NgForm;
+
   constructor(public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
     this.fileUploadPath = '';
@@ -48,34 +53,44 @@ export class NewContactComponent implements OnInit {
     this.getBase64 = '';
   }
   public contactDetails(): void {
+    if(this.uploadType == '' ){
+      this.uploadTypeTest= false;
+    }else {
     if (this.form.valid) {
-      const data = {
-        'name': this.form.controls['name'].value,
-        'email': this.form.controls['email'].value,
-        'subject': this.form.controls['subject'].value,
-        'message': this.form.controls['message'].value,
-        'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-        'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-        'platform': 'web',
-        'base64': this.getBase64,
-        'file_ext': this.uploadType
-      };
-      this.commonService.contactDetails(data).subscribe(
-          (successData) => {
-            this.getDetailsSuccess(successData);
-          },
-          (error) => {
-            this.getDetailsFailure(error);
-          }
-      );
+        const data = {
+          'name': this.form.controls['name'].value,
+          'email': this.form.controls['email'].value,
+          'subject': this.form.controls['subject'].value,
+          'message': this.form.controls['message'].value,
+          'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+          'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+          'platform': 'web',
+          'base64': this.getBase64,
+          'file_ext': this.uploadType
+        };
+        this.commonService.contactDetails(data).subscribe(
+            (successData) => {
+              this.getDetailsSuccess(successData);
+            },
+            (error) => {
+              this.getDetailsFailure(error);
+            }
+        );
+      }
     }
   }
   public getDetailsSuccess(successData) {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       this.data = successData.ResponseObject;
-    } else {
       this.toastr.success('Contact details added successfully');
+      this.form.reset();
+      this.myForm.resetForm();
+      this.imageSrc = '';
+      this.uploadAddressProofName = '';
+      this.getBase64 = '';
+    } else {
+      this.toastr.error(successData.ErrorObject);
     }
   }
 

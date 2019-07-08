@@ -109,7 +109,7 @@
                           <label class="custom-file-label"> Upload Your Attachment <span class="error">*</span></label>
                         </div>
                         <p class="error" *ngIf="!uploadTypeTest">Your Attachment is required</p>
-                        <a *ngFor="let names of fileDetails"> <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="100px" width="100px" alt="Image preview...">
+                        <a class="mt-3" *ngFor="let names of fileDetails"> <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="100px" width="100px" alt="Image preview...">
                           {{names.name}}</a>
                       </div>
                     <div class="col-md-6 whatsapp">
