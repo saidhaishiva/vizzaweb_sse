@@ -1739,7 +1739,7 @@ preInsureList() {
                             "TownCode": this.insured.controls['insuredPaCity'].value,
                         }
                     },
-                    "BirthDate": this.insured.controls['insuredPaDob'].value,
+                    "BirthDate": this.datepipe.transform(this.insured.controls['insuredPaDob'].value, 'y-MM-dd'),
                     "ContactInformation": {
                         "ContactNumber": {
                             "ContactNumber": {
@@ -1775,7 +1775,7 @@ preInsureList() {
                 },
                 "Age":  this.insured.controls['insuredPaAge'].value,
                 "AnnualIncome": this.insured.controls['insuredAnnual'].value,
-                "BirthDate":  this.insured.controls['insuredPaDob'].value,
+                "BirthDate":  this.datepipe.transform(this.insured.controls['insuredPaDob'].value, 'y-MM-dd'),
                 "ClientCode": "PolicyHolder",
                 "ContactInformation": {
                     "ContactNumber": {
