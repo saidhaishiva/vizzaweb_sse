@@ -786,15 +786,15 @@
                             </mat-form-field>
                           </div>
 
-                          <div class="col-md-3" *ngIf="i == 1">
+                          <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'spouse'">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Full Name" formControlName="insurespouseFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i == 1">
+                              <input matInput placeholder="Full Name" formControlName="insurespouseFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'spouse'">
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Full  Name is required</mat-error>
                             </mat-form-field>
                           </div>
-                          <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Child1' || relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Child2'">
+                          <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Child1' || relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Child1'">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Child Full Name" formControlName="insurechildFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="i >= 2">
+                              <input matInput placeholder="Child Full Name" formControlName="insurechildFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required] ="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Child1' || relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Child1'">
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Child  Name is required</mat-error>
                             </mat-form-field>
                           </div>

@@ -1182,7 +1182,7 @@ proposal(stepper){
       this.vehical.controls['vehicleRegisteredName'].patchValue(stepper2.vehicleRegisteredName);
       this.vehical.controls['drivingExperience'].patchValue(stepper2.drivingExperience);
       this.vehical.controls['averageMonthlyMileageRun'].patchValue(stepper2.averageMonthlyMileageRun);
-      this.vehical.controls['accidentCoverForPaidDriver'].patchValue(stepper2.accidentCoverForPaidDriver);
+      // this.vehical.controls['accidentCoverForPaidDriver'].patchValue(stepper2.accidentCoverForPaidDriver);
       this.vehical.controls['companyName'].patchValue(stepper2.companyName);
       this.vehical.controls['idv'].patchValue(stepper2.idv);
       this.vehical.controls['isTwoWheelerFinanced'].patchValue(stepper2.isTwoWheelerFinanced);
