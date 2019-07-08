@@ -80,7 +80,6 @@ export class EdittestimonialComponent implements OnInit {
   }
 
   public editPosSuccess(success) {
-    console.log(success);
     this.loadingIndicator = false;
     if (success.IsSuccess) {
       this.toastr.success(success.ResponseObject);
