@@ -59,12 +59,21 @@
         </div>
       </div>
           <div class="col-md-12">
-            <div class="custom-file">
-              <input type="file" class="custom-file-input" accept=".doc, .docx, .pdf, .jpeg" (change)="uploadProof($event)"   aria-describedby="inputGroupFileAddon01" >
-              <label class="custom-file-label"> Upload Your Document</label>
+            <div class="custom-file mt-3">
+              <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf, .jpeg" (change)="uploadProof($event)"   aria-describedby="inputGroupFileAddon01">
+              <label class="custom-file-label"> Upload Your Attachment <span class="error">*</span></label>
             </div>
+            <p class="error" *ngIf="!uploadTypeTest">Your Attachment is required</p>
+            <img *ngIf="imageSrc != ''" id="blah" [src]="imageSrc || 'http://placehold.it/180'" width="100px" height="100px" alt="your image" />
             <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
           </div>
+          <!--<div class="col-md-12">-->
+            <!--<div class="custom-file">-->
+              <!--<input type="file" class="custom-file-input" accept=".doc, .docx, .pdf, .jpeg" (change)="uploadProof($event)"   aria-describedby="inputGroupFileAddon01" >-->
+              <!--<label class="custom-file-label"> Upload Your Document</label>-->
+            <!--</div>-->
+            <!--<p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>-->
+          <!--</div>-->
       <div class="row mt-4">
         <div class="col-md-12 text-center">
           <button mat-raised-button color="primary">Submit</button>

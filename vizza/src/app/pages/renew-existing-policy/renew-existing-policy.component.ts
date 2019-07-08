@@ -22,6 +22,7 @@ export class RenewExistingPolicyComponent implements OnInit {
     public selectDate: any;
     public settings: Settings;
     commentBox: boolean;
+    uploadTypeTest: boolean;
     comments: any;
     webhost: any;
     policyTypes: any;
@@ -57,6 +58,7 @@ export class RenewExistingPolicyComponent implements OnInit {
     ngOnInit() {
         this.getPolicyTypes();
         this.getcompanyList();
+        this.uploadTypeTest = true;
     }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
@@ -162,7 +164,7 @@ export class RenewExistingPolicyComponent implements OnInit {
         let getUrlEdu = [];
         this.fileDetails = [];
         for (let i = 0; i < event.target.files.length; i++) {
-            this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+            this.fileDetails.push({'image': this.fileUploadPath, 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
         }
         for (let i = 0; i < event.target.files.length; i++) {
             const reader = new FileReader();
@@ -201,6 +203,7 @@ export class RenewExistingPolicyComponent implements OnInit {
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess) {
             this.fileUploadPath = successData.ResponseObject.imagePath;
+            this.uploadTypeTest = true;
             this.toastr.success( successData.ResponseObject.message);
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');

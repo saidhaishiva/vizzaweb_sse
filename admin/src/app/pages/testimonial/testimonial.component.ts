@@ -40,6 +40,7 @@ export class TestimonialComponent implements OnInit {
   public testimonialList() {
     const data = {
       'platform': 'web',
+      'role_id': '1',
     };
     this.loadingIndicator = true;
 
@@ -97,7 +98,7 @@ export class TestimonialComponent implements OnInit {
 
   edit(row) {
     const dialogRef = this.dialog.open(EdittestimonialComponent, {
-      width: '400px',
+      width: '800px',
       data: row,
 
     });
