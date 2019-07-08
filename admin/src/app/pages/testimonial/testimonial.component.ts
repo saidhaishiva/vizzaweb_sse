@@ -40,6 +40,7 @@ export class TestimonialComponent implements OnInit {
   public testimonialList() {
     const data = {
       'platform': 'web',
+      'role_id': '1',
     };
     this.loadingIndicator = true;
 
