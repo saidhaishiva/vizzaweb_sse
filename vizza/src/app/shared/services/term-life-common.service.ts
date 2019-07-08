@@ -270,6 +270,17 @@ export class TermLifeCommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    ifscBasedGetDetails(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'bajaj/ifsc_code';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
     diseaseList(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -650,7 +661,18 @@ export class TermLifeCommonService {
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
-    } getePremiumTerm(data) {
+    }
+    bdutyListEdelweiss(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/duty';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getePremiumTerm(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})

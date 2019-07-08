@@ -289,6 +289,9 @@ export class LifeBajajProposalComponent implements OnInit {
       micrCode:'',
       paymentMode:'',
       bankProof:'',
+      bankCity:'',
+      bankDistrict:'',
+      bankState:''
     },{validator: matchingPasswords('accountNo','reAccountNo')}
     );
       this.familyDiseaseForm = this.Proposer.group({
@@ -1709,6 +1712,7 @@ samerelationShip(){
   public apointeeRelationFailure(error) {
   }
 
+
   getPostal(pin, title) {
     const data = {
       'platform': 'web',
@@ -1755,10 +1759,46 @@ samerelationShip(){
 
   public pincodeListFailure(error) {
   }
+  downloadForm() {
+    window.open("https://balicuat.bajajallianz.com/lifeinsurance/traditionalProds/generatePdf.do?p_in_obj_1.stringval2=BI_PDF&p_in_var_2=1000000102");
+  }
+
+  ifscBasedGetDetails(ifsc) {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'ifsc_code': ifsc
+    }
+    if(ifsc.length == 11) {
+      this.termService.ifscBasedGetDetails(data).subscribe(
+          (successData) => {
+            this.ifscSuccess(successData);
+          },
+          (error) => {
+            this.ifscFailure(error);
+          }
+      );
+    }
+  }
+  public ifscSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.bankDetail.controls['bankName'].patchValue(successData.ResponseObject.bank_name);
+      this.bankDetail.controls['branchName'].patchValue(successData.ResponseObject.bank_branch);
+      this.bankDetail.controls['micrCode'].patchValue(successData.ResponseObject.bank_micr);
+      // this.bankDetail.controls['bankAddress'].patchValue(successData.ResponseObject.bank_address);
+      this.bankDetail.controls['bankCity'].patchValue(successData.ResponseObject.bank_city);
+      this.bankDetail.controls['bankDistrict'].patchValue(successData.ResponseObject.bank_district);
+      this.bankDetail.controls['bankState'].patchValue(successData.ResponseObject.bank_state);
+
+    }
+  }
+  public ifscFailure(error) {
+  }
 
 
 
-  politicalReson() {
+    politicalReson() {
     if (this.proposer.controls['politicallyExposedPerson'].value == 'Yes') {
       this.proposer.controls['ifYesGiveDetails'].setValidators([Validators.required]);
       this.proposer.controls['ifYesGiveDetails'].updateValueAndValidity();
@@ -2121,7 +2161,7 @@ samerelationShip(){
       },
       "bank_deatils": {
         "accountHolderName": this.bankDetail.controls['accountHolderName'].value,
-        "bankName": this.bankDetail.controls['bankName'].value =='OTHER' ? this.bankDetail.controls['otherName'].value : this.bankDetail.controls['bankName'].value,
+        "bankName": this.bankDetail.controls['bankName'].value,
         "branchName": this.bankDetail.controls['branchName'].value,
         "accountNo": this.bankDetail.controls['accountNo'].value,
         "accountType": this.bankDetail.controls['accountType'].value,
@@ -2349,6 +2389,9 @@ samerelationShip(){
           micrCode: lifeBajajBankDetails.micrCode,
           paymentMode: lifeBajajBankDetails.paymentMode,
           bankProof: lifeBajajBankDetails.bankProof,
+          bankCity: lifeBajajBankDetails.bankCity,
+          bankDistrict: lifeBajajBankDetails.bankDistrict,
+          bankState: lifeBajajBankDetails.bankState
         });
     }
 

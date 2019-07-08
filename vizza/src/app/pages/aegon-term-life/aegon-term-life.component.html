@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Gender" formControlName="gender" (change)="getMaritalList($event.target.value)" required>
+                            <mat-select placeholder="Gender" formControlName="gender" (change)="getMaritalList() " required>
                               <mat-option value="M">Male</mat-option>
                               <mat-option value="F">Female</mat-option>
                             </mat-select>
@@ -119,7 +119,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Employee Type" formControlName="employeeType" autocomplete="off" required (change)="changeOccupationlist()">
+                            <mat-select placeholder="Employee Type" formControlName="employeeType" autocomplete="off" required (change)="changeEmpType()">
                               <mat-option *ngFor="let list of empTypeList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -147,7 +147,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" required autocomplete="off" (input) = "getAnnual($event.target.value,'personal')">
+                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" required autocomplete="off" >
                             <mat-error *ngIf="personal.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                           </mat-form-field>
                           <div class="error" *ngIf="personal.controls['incomeError'].value != ''">{{personal.controls['incomeError'].value}}</div>

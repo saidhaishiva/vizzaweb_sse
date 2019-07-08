@@ -39,7 +39,7 @@ export class CareerListComponent implements OnInit {
     this.careerList();
   }
   public careerList() {
-    alert();
+    // alert();
     const data = {
       'platform': 'web',
     };
@@ -59,7 +59,7 @@ export class CareerListComponent implements OnInit {
     console.log(success);
     // this.loadingIndicator = false;
     if (success.IsSuccess) {
-      alert('in');
+      // alert('in');
       this.data = success.ResponseObject;
       this.total = success.ResponseObject.length;
       this.rows = this.data;
@@ -83,12 +83,13 @@ export class CareerListComponent implements OnInit {
 
 
   path(){
-    const dialogRef = this.dialog.open(PathPopupComponent, {
-      width: '400px'
-    });
-    dialogRef.afterClosed().subscribe(res => {
-
-    });
+    this.data.path;
+    // const dialogRef = this.dialog.open(PathPopupComponent, {
+    //   width: '400px'
+    // });
+    // dialogRef.afterClosed().subscribe(res => {
+    //
+    // });
   }
 
 

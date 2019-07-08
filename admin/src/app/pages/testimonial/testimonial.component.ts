@@ -29,7 +29,9 @@ export class TestimonialComponent implements OnInit {
   public settings: Settings;
 
 
-  constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) { }
+  constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+    this.webhost = this.config.getimgUrl();
+  }
 
   ngOnInit() {
     this.testimonialList();
@@ -38,6 +40,7 @@ export class TestimonialComponent implements OnInit {
   public testimonialList() {
     const data = {
       'platform': 'web',
+      'role_id': '1',
     };
     this.loadingIndicator = true;
 
@@ -89,9 +92,13 @@ export class TestimonialComponent implements OnInit {
     });
   }
 
+  approve() {
+    console.log('get');
+  }
+
   edit(row) {
     const dialogRef = this.dialog.open(EdittestimonialComponent, {
-      width: '400px',
+      width: '800px',
       data: row,
 
     });
