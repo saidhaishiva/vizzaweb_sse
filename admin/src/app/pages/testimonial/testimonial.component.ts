@@ -7,6 +7,7 @@ import {BranchService} from '../../shared/services/branch.service';
 import {MatDialog} from '@angular/material';
 import { AddtestimonialComponent } from './addtestimonial/addtestimonial.component';
 import { EdittestimonialComponent } from './edittestimonial/edittestimonial.component';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class TestimonialComponent implements OnInit {
   public settings: Settings;
 
 
-  constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog) {
+  constructor(public auth: AuthService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public toastr: ToastrService) {
     this.webhost = this.config.getimgUrl();
   }
 
@@ -92,8 +93,30 @@ export class TestimonialComponent implements OnInit {
     });
   }
 
-  approve() {
-    console.log('get');
+  approve(row) {
+    const data = {
+      'platform': "web",
+      'role_id': "1",
+      'testemonial_id': row.id,
+      'testemonial_status': row.status,
+    };
+    console.log(data,'approvedata');
+    this.branchservice.statusupdate(data).subscribe(
+        (successData) => {
+          this.approveSuccess(successData);
+        },
+        (error) => {
+          this.approveFailure(error);
+        }
+    );
+  }
+  approveSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.toastr.success(successData.ResponseObject);
+     }
+  }
+  approveFailure(error) {
+
   }
 
   edit(row) {
