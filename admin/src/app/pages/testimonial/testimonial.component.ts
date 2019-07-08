@@ -56,11 +56,9 @@ export class TestimonialComponent implements OnInit {
   }
 
   public testimonialSuccess(success) {
-    console.log(success);
     this.loadingIndicator = false;
     if (success.IsSuccess) {
       this.data = success.ResponseObject;
-      console.log(this.data,'data');
       this.total = success.ResponseObject.length;
       this.rows = this.data;
       this.temp = this.data;
@@ -73,6 +71,7 @@ export class TestimonialComponent implements OnInit {
   }
 
   updateFilter(event) {
+    console.log(event,'ed');
     const val = event.target.value.toLowerCase();
     const temp = this.temp.filter(function (d) {
       return d.manager_name.toLowerCase().indexOf(val) !== -1 || !val;
