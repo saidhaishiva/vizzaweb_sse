@@ -84,13 +84,13 @@ export class CareerListComponent implements OnInit {
 
 
   path(){
-    this.data.path;
-    // const dialogRef = this.dialog.open(PathPopupComponent, {
-    //   width: '400px'
-    // });
-    // dialogRef.afterClosed().subscribe(res => {
-    //
-    // });
+    const dialogRef = this.dialog.open(PathPopupComponent, {
+      width: '600px',
+      height: '300px'
+    });
+    dialogRef.afterClosed().subscribe(res => {
+
+    });
   }
 
 

@@ -204,15 +204,31 @@
                                 </div>
                                 <div class="w-100">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
+                                        <input type="file" multiple class="custom-file-input" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01" accept=".png, .jpg, .jpeg">
                                         <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
                                         <!--<div class="error" *ngIf !="form.controls.educationlist.controls.educationdocument.valid">Education Back Image is required</div>-->
                                     </div>
                                 </div>
-                                <div class="row w-100">
-                                    <div class="col-md-12">
-                                        <div *ngIf="education != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+                                <!--<div class="row w-100">-->
+                                    <!--<div class="col-md-12">-->
+                                        <!--<div *ngIf="education != ''"><span class="imageclose mr-2"><img src="{{webhost + '/' + education}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>-->
+                                        <!--</div>-->
+                                        <!--<i class="material-icons mt-4" style="cursor: pointer;" (click)="removeImage(i)">-->
+                                            <!--clear-->
+                                        <!--</i>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <div class="row mt-2">
+                                    <div class="col-md-12" *ngFor="let eduImgs of education; let i = index">
+                                        <div class="col-md-4" >
+                                            <span class="imageclose mr-2 mt-4" >
+                                                <img src="{{webhost + '/' + eduImgs}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
+                                            </span>
                                         </div>
+                                        <i class="material-icons mt-4" style="cursor: pointer;" (click)="removeImage(i)">
+                                            clear
+                                        </i>
+
                                     </div>
                                 </div>
                                 <hr>

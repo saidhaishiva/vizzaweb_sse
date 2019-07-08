@@ -62,27 +62,26 @@
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="status">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value" ngx-datatable-header-template >
-                <select class="draggable" style="z-index:1000">
-                  <option value="volvo">7</option>
-                  <option value="saab">Saab</option>
-                  <option value="mercedes">Mercedes</option>
-                  <option value="audi">Audi</option>
-                </select>
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value" >
+                <mat-form-field>
+                  <!--<mat-label>Status</mat-label>-->
+                  <mat-select>
+                    <mat-option value="1">New</mat-option>
+                    <mat-option value="2">Hired</mat-option>
+                    <mat-option value="3">Rejected</mat-option>
+                    <mat-option value="4">Interviewed</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </ng-template>
             </ngx-datatable-column>
-            <!--<ngx-datatable-column name={{col}} width="230" [resizeable]="true">-->
-              <!--<ng-template let-column="column" ngx-datatable-header-template >-->
-          <!--<select class="draggable" style="z-index:1000">-->
-                <!--<option value="volvo">7</option>-->
-                <!--<option value="saab">Saab</option>-->
-                <!--<option value="mercedes">Mercedes</option>-->
-                <!--<option value="audi">Audi</option>-->
-                <!--</select>-->
+            <ngx-datatable-column name="Action">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+             <i class="material-icons" (click)="path()" style="cursor: pointer;">
+                  more_vert
+                </i>
 
-              <!--</ng-template>-->
-            <!--</ngx-datatable-column>-->
-
+              </ng-template>
+            </ngx-datatable-column>
 
           </ngx-datatable>
 
