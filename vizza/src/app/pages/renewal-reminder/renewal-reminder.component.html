@@ -105,14 +105,13 @@
                     <div class = "row">
                       <div class="col-md-6">
                         <div class="custom-file">
-                          <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf, .jpeg, .png" (change)="readUrl($event)"   aria-describedby="inputGroupFileAddon01">
-                          <label class="custom-file-label"> Upload Your Resume <span class="error">*</span></label>
+                          <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf, image/*" (change)="readUrl($event)"   aria-describedby="inputGroupFileAddon01">
+                          <label class="custom-file-label"> Upload Your Attachment <span class="error">*</span></label>
                         </div>
-                        <p class="error" *ngIf="!uploadTypeTest">Your Resume is required</p>
+                        <p class="error" *ngIf="!uploadTypeTest">Your Attachment is required</p>
                         <a *ngFor="let names of fileDetails"> <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="100px" width="100px" alt="Image preview...">
                           {{names.name}}</a>
                       </div>
-                      <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="100px" width="100px" alt="Image preview...">
                     <div class="col-md-6 whatsapp">
                       <div class="custom-file">
                         <p fxLayoutAlign="center center" class="w-100">  <i class="fab fa-whatsapp"></i> <span>WhatApp your policy<br> @ 86085 00088</span></p>
@@ -121,7 +120,7 @@
 
                   </div>
                   <div class="col-md-12 text-center mt-5">
-                    <button mat-raised-button class="bg-danger text-white" (click)="onUpload()">Upload Document</button>
+                    <button mat-raised-button class="bg-danger text-white" (click)="onUpload()">Upload Attachment</button>
                   </div>
                   <!--<div class="col-md-12 text-right mt-3">-->
                     <!--<button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>-->
