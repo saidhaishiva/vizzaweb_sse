@@ -46,6 +46,7 @@ export class AddtestimonialComponent implements OnInit {
     if (this.form.valid) {
       const data = {
         'platform': 'web',
+        'role_id': '1',
         'customer_name': this.form.controls['name'].value,
         'designation': this.form.controls['designation'].value,
         'company_name': this.form.controls['company'].value,
