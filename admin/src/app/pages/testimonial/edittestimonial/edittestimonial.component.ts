@@ -85,8 +85,6 @@ export class EdittestimonialComponent implements OnInit {
     if (success.IsSuccess) {
       this.toastr.success(success.ResponseObject);
       this.dialogRef.close(success.IsSuccess);
-
-
     } else {
       this.toastr.error(success.ErrorObject);
 
