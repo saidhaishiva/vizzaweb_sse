@@ -6,6 +6,7 @@ import {AuthService} from '../../../shared/services/auth.service';
 import {BranchService} from '../../../shared/services/branch.service';
 import {ToastrService} from 'ngx-toastr';
 import {MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ConfigurationService } from '../../../shared/services/configuration.service';
 
 
 @Component({
@@ -18,14 +19,18 @@ export class EdittestimonialComponent implements OnInit {
   public response: any;
   public status: any;
   public settings: Settings;
+  public profile: any;
   public responsedata: any;
   loadingIndicator: boolean = true;
   getDetails: any;
+  webhost: any;
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<EdittestimonialComponent>, public auth: AuthService, public branchservice: BranchService, private toastr: ToastrService, public appSettings: AppSettings,
-              @Inject(MAT_DIALOG_DATA) public data: any) {
+              @Inject(MAT_DIALOG_DATA) public data: any, public config: ConfigurationService  ) {
     this.getDetails = data;
     console.log(this.getDetails);
+    this.webhost = this.config.getimgUrl();
+    this.profile = this.getDetails.profile_pic;
 
     this.form = this.fb.group({
       'comments': ['', Validators.compose([Validators.required])],

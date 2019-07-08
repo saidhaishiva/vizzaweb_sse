@@ -97,7 +97,7 @@ export class TestimonialComponent implements OnInit {
 
   edit(row) {
     const dialogRef = this.dialog.open(EdittestimonialComponent, {
-      width: '400px',
+      width: '800px',
       data: row,
 
     });
