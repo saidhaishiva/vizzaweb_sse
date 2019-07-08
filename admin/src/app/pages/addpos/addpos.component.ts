@@ -316,20 +316,7 @@ export class AddposComponent implements OnInit {
     }
     removeImage(value,i){
         console.log(i, 'inddddd');
-        // let ddd = this.education;
-        // console.log(ddd, 'ddd');
-        // if(ddd[i] == 'empty'){
-        //     this.education= [];
-        // }
-       // delete this.fileUploadPath[0];
-        // delete ddd[i];
-        this.education.splice(i,i);
-        // this.education.removeAt(i);
-       //  ddd.splice(i, 0);
-        // delete ddd[i];
-
-
-        // this.education[i] = [];
+        this.education.splice(i,1);
     }
     submit(value) {
         console.log(this.dob, 'dateeee');
