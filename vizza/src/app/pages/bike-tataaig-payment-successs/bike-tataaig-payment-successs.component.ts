@@ -33,7 +33,7 @@ export class BikeTataaigPaymentSuccesssComponent implements OnInit {
   ngOnInit() {
   }
   retry() {
-    this.router.navigate(['/bike-shriram-proposal'  + '/' + true]);
+    this.router.navigate(['/bike-tataaig-proposal'  + '/' + true]);
   }
 
   DownloadPdf() {

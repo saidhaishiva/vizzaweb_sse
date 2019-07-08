@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../shared/services/auth.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog, MatStepper} from '@angular/material';
 import {DatePipe} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {CommonService} from '../../shared/services/common.service';
@@ -35,14 +35,17 @@ export const MY_FORMATS = {
 })
 export class EdelweissTermLifeComponent implements OnInit {
   public proposer: FormGroup;
+  public insureArray: FormGroup;
+  public bankDetail: FormGroup;
   public etitle: any;
   public egender: any;
   public emaritalStatus: any;
   public einvesting: any;
   public ePremiumTerm: any;
-  public ePolicyTerm: any;
-  public eFrequency: any;
-  public eStaff: any;
+  public policyTermList: any;
+  public frequencyList: any;
+  public mobileNo: any;
+  public staffList: any;
   public eAgeProof: any;
   public eIdProof: any;
   public eAddressProof: any;
@@ -50,6 +53,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public eState: any;
   public eemploymentType: any;
   public eDuty: any;
+  public bduty: any;
   public eHeightFeet: any;
   public eHeightInches: any;
   public ePolicyCategory: any;
@@ -58,19 +62,29 @@ export class EdelweissTermLifeComponent implements OnInit {
   public proposerAge: any;
   public dateError: any;
   public today: any;
+  public currentStep: any;
+  public personalData: any;
+  public summaryData: any;
+  public requestedUrl: any;
+  public insurerData: any;
+  public totalInsureDetails: any;
+  public insurePersons: any;
+  public payingTermList: any;
 
 
 
 
-  constructor( public Proposer: FormBuilder,public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService, ) {
+
+  constructor( public fb: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService, ) {
+    this.requestedUrl = '';
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         stepperindex = 6;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           let summaryData = JSON.parse(sessionStorage.summaryData);
-          // this.summaryData = summaryData;
-          // this.requestedUrl = summaryData.biUrlLink;
+          this.summaryData = summaryData;
+          this.requestedUrl = summaryData.biUrlLink;
           // this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           // this.bankDetailFormData = JSON.parse(sessionStorage.bankDetailFormData);
           // this.nomineeDetailFormData = JSON.parse(sessionStorage.nomineeDetailFormData);
@@ -79,23 +93,25 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       }
     });
-
-    this.proposer = this.Proposer.group({
-      title: ['', Validators.required],
-      firstName: ['', Validators.required],
+    this.currentStep = stepperindex;
+    this.totalInsureDetails = [];
+    this.proposer = this.fb.group({
+      title: '',
+      firstName: '',
       midName: '',
-      lastName: ['', Validators.required],
+      lastName: '',
       gender: ['', Validators.compose([Validators.required])],
       dob: ['', Validators.compose([Validators.required])],
-      age: ['', Validators.required],
-      email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      phoneNo: ['', Validators.compose([ Validators.required,Validators.pattern('[6-9]\\d{9}')])],
+      age: '',
+      email: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
       ResidencePhoneNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       maritalStatus: ['', Validators.required],
-      annualIncome: '',
-      pan:['', Validators.compose([Validators.required, Validators.minLength(10)])],
-      maidName:'',
-      nationality:'',
+      pan: ['', Validators.compose([ Validators.minLength(10)])],
+      maidName: '',
+      fatherhusbandName: '',
+      nationality: '',
+      otherQualification: '',
       smoker: '',
       motherMaidName: '',
       FHName: '',
@@ -117,6 +133,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       perCity: '',
       isCurrPerAddrSame: '',
       isPerAddrIsCorrAddr: '',
+      isPoliticallyExposed: '',
       education: '',
       otherEducation: '',
       highestQualification: '',
@@ -125,12 +142,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       courseDuration: '',
       courseYear: '',
       studentInstruction: '',
-      employementType: '',
-      employementTypeOther: '',
       employerName: '',
-      employerAddr: '',
       designation: '',
-      natureOfDuty: '',
       experienceInYears: '',
       occupationType: '',
       noOfEmployees: '',
@@ -156,11 +169,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       FamPhysicianAddr1: '',
       FamPhysicianAddr2: '',
       FamPhysicianPhone: '',
-      identityProof: '',
       ageProof: '',
       otherAgeProof: '',
       corrAddrProof: '',
-      addrProof: '',
+
       incomeProof: '',
       incomeProofText: '',
       isCA: '',
@@ -183,12 +195,28 @@ export class EdelweissTermLifeComponent implements OnInit {
       isTaxResOfIndia: '',
       aadhaarNo: '',
       dob1: '',
+    });
 
+    this.insureArray = this.fb.group({
+      'items' : this.fb.array([
+        this.initItemRows()
+      ])
+    });
+
+    this.bankDetail = this.fb.group({
+      accountNo: '',
+      name: '',
+      ifscCode: '',
+      investmentStrategy: '',
 
     });
   }
 
   ngOnInit() {
+    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    // this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    // this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    // this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
     this.geteTitle();
     this.geteGender();
     this.geteMaritalStatus();
@@ -209,8 +237,73 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getePolicyCategory();
     this.geteNomineeRelation();
     this.geteInsuranceRepository();
+
+
+
+
+
+    // this.sessionData();
+
   }
 
+  initItemRows() {
+    return this.fb.group(
+        {
+          rolecd: 'PRIMARY',
+          title: '',
+          firstName: '',
+          midName: '',
+          lastName: '',
+          gender: ['', Validators.compose([Validators.required])],
+          dob: ['', Validators.compose([Validators.required])],
+          maritalStatus: ['', Validators.required],
+
+          nationality: '',
+          emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+          pan: ['', Validators.compose([ Validators.minLength(10)])],
+          aadhaarNo: '',
+          fatherhusbandName: '',
+          ageProofId: '',
+          highestQualification: '',
+          otherQualification: '',
+          mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
+
+          currAddr1: '',
+          currAddr2: '',
+          currAddr3: '',
+          currPincode: '',
+          currState: '',
+          currCity: '',
+          perAddr1: '',
+          perAddr2: '',
+          perAddr3: '',
+          perPincode: '',
+          perState: '',
+          perCity: '',
+          isCurrPerAddrSame: '',
+          insureAccNo: '',
+          insureHistory: '',
+          medicalTreatment: '',
+          receivedTreatment1: '',
+          receivedTreatment2: '',
+          categorization: '',
+          addrProof: '',
+          identityProof: '',
+          specification: '',
+          isPoliticallyExposed: '',
+          taxResidence: '',
+          annualIncome: '',
+          employerAddr: '',
+          natureOfDuty: '',
+          employementTypeOther: '',
+          employementType: '',
+
+
+
+
+        }
+    );
+  }
 
 
   // Dame validation
@@ -254,6 +347,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
   }
+
 
   addEvent(event) {
     if (event.value != null) {
@@ -303,6 +397,110 @@ export class EdelweissTermLifeComponent implements OnInit {
     return age;
   }
 
+  // Personal Details
+  proposerDetails(stepper: MatStepper, value) {
+    this.personalData = value;
+    sessionStorage.stepper1Details = '';
+    sessionStorage.stepper1Details = JSON.stringify(value);
+    console.log(this.proposer, 'this.personal');
+    if (this.proposer.valid) {
+      if (sessionStorage.personalAge >= 18) {
+        if (this.mobileNo == '' || this.mobileNo == 'true') {
+          this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.proposer.controls['personalTitle'].value);
+          this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.proposer.controls['personalFirstname'].value);
+          this.insureArray['controls'].items['controls'][0]['controls'].personalLastname.patchValue(this.proposer.controls['personalLastname'].value);
+          this.insureArray['controls'].items['controls'][0]['controls'].personalDob.patchValue(this.proposer.controls['personalDob'].value);
+          this.insureArray['controls'].items['controls'][0]['controls'].personalGender.patchValue(this.proposer.controls['personalGender'].value);
+          this.insureArray['controls'].items['controls'][0]['controls'].personalrelationship.patchValue('Self');
+          // this.insureArray['controls'].items['controls'][0]['controls'].personalrelationshipName.patchValue(this.relationshipList['Self']);
+          for (let i= 0; i < this.insureArray.value.items.length; i++) {
+            if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Spouse') {
+              this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Spouse');
+              // this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue(this.relationshipList['Spouse']);
+            } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Son') {
+              this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Child1');
+              this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue('Son');
+            } else if (this.insureArray['controls'].items['controls'][i]['controls'].type.value == 'Daughter') {
+              this.insureArray['controls'].items['controls'][i]['controls'].personalrelationship.patchValue('Child2');
+              this.insureArray['controls'].items['controls'][i]['controls'].personalrelationshipName.patchValue('Daughter');
+            }
+          }
+          console.log(this.insureArray.value.items,"relationship length")
+
+          stepper.next();
+          this.topScroll();
+          // this.nextStep();
+        }
+        console.log(this.proposer, 'this.personal');
+      } else {
+        this.toastr.error('Proposer age should be 18 or above');
+      }
+    }
+  }
+  // Insure Details
+  edelweissInsureDetails(stepper: MatStepper, value, i) {
+    sessionStorage.stepper2Details = '';
+    sessionStorage.stepper2Details = JSON.stringify(value);
+    console.log(value, 'this.value');
+    console.log(this.insureArray.valid, 'this.valid');
+    // let dateErrorMsg = [];
+    if (this.insureArray.valid) {
+      let pedValid = true;
+      for (let i= 0; i < this.insureArray.value.items.length; i++) {
+        // if (this.insureArray['controls'].items['controls'][i]['controls'].preExistingDisease.value == 'Yes') {
+        //   pedValid = false;
+        // }
+        // if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value != '') {
+        //   dateErrorMsg.push(2);
+        //
+        // } else if (this.insureArray['controls'].items['controls'][i]['controls'].insurerDobError.value == '') {
+        //   dateErrorMsg.push(3);
+        //
+        // }
+      }
+      console.log(pedValid, 'pedValid');
+      if (pedValid) {
+        this.insurerData = value.items;
+        console.log(this.insurerData, 'this.insurerData');
+        this.totalInsureDetails = [];
+        for (let i = 0; i < this.insurePersons.length; i++) {
+          this.totalInsureDetails.push({
+            'Title': this.insurerData[i].personalTitle,
+            'FirstName': this.insurerData[i].personalFirstname,
+            'LastName': this.insurerData[i].personalLastname,
+            'Gender': this.insurerData[i].personalGender,
+            'DOB': this.datepipe.transform(this.insurerData[i].personalDob, 'y-MM-dd'),
+            'Relationship': this.insurerData[i].personalrelationship,
+            // 'SumInsured': this.buyProductdetails.suminsured_amount,
+            'PreExistingDisease': this.insurerData[i].preExistingDisease
+          });
+        }
+        // if (dateErrorMsg.includes(2)) {
+        //   this.toastr.error('check the date');
+        // } else {
+        //   stepper.next();
+        //   this.topScroll();
+        // }
+      } else {
+        this.toastr.error(' Sorry, PreExistingDisease are not allowed to purchase policy ');
+      }
+    }
+
+  }
+  isPolitical(event: any) {
+    if (this.proposer.controls['isPoliticallyExposed'].value == true) {
+      this.proposer.controls['specification'].patchValue(this.proposer.controls['specification'].value);
+
+      this.proposer.controls['specification'].setValidators([Validators.required]);
+    } else {
+      this.proposer.controls['specification'].patchValue('');
+
+      this.proposer.controls['specification'].setValidators(null);
+
+    }
+    this.proposer.controls['specification'].updateValueAndValidity();
+
+  }
 // Services
 
   geteTitle() {
@@ -411,6 +609,31 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public geteInvestingFailure(error) {
   }
+  setbdutyList() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    }
+    this.termService.bdutyListEdelweiss(data).subscribe(
+        (successData) => {
+          this.setRelationshipSuccess(successData);
+        },
+        (error) => {
+          this.setRelationshipFailure(error);
+        }
+    );
+  }
+
+  public setRelationshipSuccess(successData) {
+    if (successData.IsSuccess == true) {
+      this.bduty = successData.ResponseObject;
+    }
+
+
+  }
+  public setRelationshipFailure(error) {
+  }
   getePremiumTerm() {
     const data = {
       'platform': 'web',
@@ -457,11 +680,37 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public getePolicyTermSuccess(successData) {
     if (successData.IsSuccess) {
-      this.ePolicyTerm = successData.ResponseObject;
+      this.policyTermList = successData.ResponseObject;
     }
   }
 
   public getePolicyTermFailure(error) {
+  }
+  getPremiumList() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.getPremiumList(data).subscribe(
+        (successData) => {
+          this.getPremiumSuccess(successData);
+        },
+        (error) => {
+          this.getPremiumFailure(error);
+        }
+    );
+  }
+
+  public getPremiumSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.payingTermList = successData.ResponseObject;
+    }
+  }
+
+  public getPremiumFailure(error) {
   }
   geteFrequency() {
     const data = {
@@ -483,7 +732,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public geteFrequencySuccess(successData) {
     if (successData.IsSuccess) {
-      this.eFrequency = successData.ResponseObject;
+      this.frequencyList = successData.ResponseObject;
     }
   }
 
@@ -510,7 +759,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public geteStaffSuccess(successData) {
     if (successData.IsSuccess) {
-      this.eStaff = successData.ResponseObject;
+      this.staffList = successData.ResponseObject;
     }
   }
 

@@ -253,7 +253,7 @@ export class TermLifePremiumListComponent implements OnInit {
                     if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 2550) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'monthly' && parseInt(value.totalpremium) < 450) {
+                    if(value.payment_mode == 'monthlyste' && parseInt(value.totalpremium) < 450) {
                         paymentModeValid = false;
                     }
 
@@ -262,6 +262,8 @@ export class TermLifePremiumListComponent implements OnInit {
                             this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                         } else if (value.product_id == 87 ) {
                             this.router.navigate(['/aegon-term-life'  + '/' + false]);
+                        } else if (value.product_id == 92 ) {
+                            this.router.navigate(['/edelweiss-term-life'  + '/' + false]);
                         }
                     } else {
                         let dialogRef = this.dialog.open(PaymentModeValidate, {
