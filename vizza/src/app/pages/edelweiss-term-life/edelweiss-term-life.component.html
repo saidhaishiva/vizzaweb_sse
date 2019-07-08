@@ -872,31 +872,31 @@
                                                <div class="row">
                                                    <div class="col-md-6">
                                                        <mat-form-field class="w-100">
-                                                           <input matInput placeholder="Current Address" formControlName="currAddr1" maxlength="10" autocomplete="off" (keypress)="addressValidate($event);typeAddress($event);">
+                                                           <input matInput placeholder="Current Address" formControlName="currAddr1" maxlength="10" autocomplete="off" >
                                                            <!--<mat-error *ngIf="insureArray.controls.currAddr1.errors?.required">Current Address is required</mat-error>-->
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-6">
                                                        <mat-form-field class="w-100">
-                                                           <input matInput placeholder="Current Address2" formControlName="currAddr2" maxlength="10" required autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
+                                                           <input matInput placeholder="Current Address2" formControlName="currAddr2" maxlength="10" required autocomplete="off"  >
                                                            <!--<mat-error *ngIf="insureArray.controls.currAddr2.errors?.required">Current Address2 is required</mat-error>-->
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-6">
                                                        <mat-form-field class="w-100">
-                                                           <input matInput placeholder="Current Address3" formControlName="currAddr3"  required autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
+                                                           <input matInput placeholder="Current Address3" formControlName="currAddr3"  required autocomplete="off" >
                                                            <!--<mat-error *ngIf="insureArray.controls.currAddr3.errors?.required">Current Address3 is required</mat-error>-->
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-6">
                                                        <mat-form-field class="w-100">
-                                                           <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event);typeAddress($event)">
+                                                           <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event);">
                                                            <!--<mat-error *ngIf="insureArray.controls.currCity.errors?.required">District is required</mat-error>-->
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-6">
                                                        <mat-form-field class="w-100">
-                                                           <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event);typeAddress($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="currPincode" autocomplete="off" required >
+                                                           <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  (input)="getPostal($event.target.value, 'personal')" formControlName="currPincode"autocomplete="off" required >
                                                            <!--<mat-error *ngIf="insureArray.controls.currPincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
                                                            <!--<mat-error *ngIf="insureArray.controls.currPincode.hasError('required')">Pincode Is Required</mat-error>-->
                                                            <!--<mat-error *ngIf="insureArray.controls.currPincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
@@ -984,13 +984,13 @@
                                            <mat-select  placeholder="Employement Type" formControlName="employementType"  required  class="w-100">
                                                <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
-                                           <mat-error *ngIf="insureArray.controls.employementType.errors?.required">Employement Type is required</mat-error>
+                                           <!--<mat-error *ngIf="insureArray.controls.employementType.errors?.required">Employement Type is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-12">
                                        <mat-form-field class="w-100">
                                            <input matInput placeholder="Other Employement Type " formControlName="employementTypeOther" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
-                                           <mat-error *ngIf="insureArray.controls.employementTypeOther.errors?.required">Employement Type Other is required</mat-error>
+                                           <!--<mat-error *ngIf="insureArray.controls.employementTypeOther.errors?.required">Employement Type Other is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-3">
@@ -1004,7 +1004,7 @@
                                    <div class="col-md-6">
                                        <mat-form-field class="w-100">
                                            <input matInput placeholder="Address of employer" formControlName="employerAddr" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
-                                           <mat-error *ngIf="insureArray.controls.employerAddr.errors?.required">Employer Address Type Other is required</mat-error>
+                                           <!--<mat-error *ngIf="insureArray.controls.employerAddr.errors?.required">Employer Address Type Other is required</mat-error>-->
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-6">
