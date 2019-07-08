@@ -53,14 +53,36 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Applying Date">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.created_on}}
+                {{row.created_on  | date: 'dd/MM/yyyy'}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="status">
+            <ngx-datatable-column name="Resume">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 <button mat-raised-button color="primary" (click)="path()">Download</button>
               </ng-template>
             </ngx-datatable-column>
+            <ngx-datatable-column name="status">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value" ngx-datatable-header-template >
+                <select class="draggable" style="z-index:1000">
+                  <option value="volvo">7</option>
+                  <option value="saab">Saab</option>
+                  <option value="mercedes">Mercedes</option>
+                  <option value="audi">Audi</option>
+                </select>
+              </ng-template>
+            </ngx-datatable-column>
+            <!--<ngx-datatable-column name={{col}} width="230" [resizeable]="true">-->
+              <!--<ng-template let-column="column" ngx-datatable-header-template >-->
+          <!--<select class="draggable" style="z-index:1000">-->
+                <!--<option value="volvo">7</option>-->
+                <!--<option value="saab">Saab</option>-->
+                <!--<option value="mercedes">Mercedes</option>-->
+                <!--<option value="audi">Audi</option>-->
+                <!--</select>-->
+
+              <!--</ng-template>-->
+            <!--</ngx-datatable-column>-->
+
 
           </ngx-datatable>
 
