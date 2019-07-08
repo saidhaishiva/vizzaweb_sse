@@ -25,6 +25,7 @@ export class ClaimAssistanceComponent implements OnInit {
     fileUploadPath: any;
     webhost: any;
     public settings: Settings;
+    public uploadTypeTest: boolean;
 
     constructor(public fb: FormBuilder, public common: CommonService, public toastr: ToastrService, public dialog: MatDialog,public auth: AuthService,public appSettings: AppSettings,public config : ConfigurationService) {
         this.form = this.fb.group({
@@ -42,6 +43,7 @@ export class ClaimAssistanceComponent implements OnInit {
         this.settings.sidenavIsOpened = true;
         this.settings.sidenavIsPinned = true;
         this.fileUploadPath = '';
+        this.uploadTypeTest= true;
         this.allImage = [];
     }
 
@@ -114,6 +116,7 @@ export class ClaimAssistanceComponent implements OnInit {
     }
     onUploadFinished(event) {
         this.allImage.push(event);
+        this.onUpload();
     }
     onUpload() {
         const data = {
@@ -183,6 +186,7 @@ export class ClaimAssistanceComponent implements OnInit {
     claimAssistanceSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.toastr.success(successData.ResponseObject);
+            this.uploadTypeTest= true;
         } else {
             this.toastr.error(successData.ErrorObject);
         }
