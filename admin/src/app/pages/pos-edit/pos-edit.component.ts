@@ -142,7 +142,7 @@ export class PosEditComponent implements OnInit {
       this.aadharfront = '';
       this.aadharback = '';
       this.pancard = '';
-      this.education = '';
+      this.education = [];
       this.chequeleaf= '';
       this.route.params.forEach((params: Params) => {
           this.posid = params.id;
@@ -400,6 +400,10 @@ export class PosEditComponent implements OnInit {
             }
             if (this.type == 'education') {
                 this.education = this.fileUploadPath;
+                for( let i = 0 ;i< this.fileUploadPath.length;i++) {
+                    this.education.push(this.fileUploadPath[i]);
+                }
+
             }
             if (this.type == 'chequeleaf') {
                 this.chequeleaf = this.fileUploadPath;
@@ -412,6 +416,10 @@ export class PosEditComponent implements OnInit {
     }
     public fileUploadFailure(error) {
         console.log(error);
+    }
+    removeImage(i){
+        console.log(i, 'inddddd');
+        this.education.splice(i,1);
     }
 //Update admin pos profile
     updateAdminPosProfile(event){

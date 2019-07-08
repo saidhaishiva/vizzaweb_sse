@@ -53,12 +53,33 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Applying Date">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.created_on}}
+                {{row.created_on  | date: 'dd/MM/yyyy'}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Resume">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <button mat-raised-button color="primary" (click)="path()">Download</button>
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="status">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value" >
+                <mat-form-field>
+                  <!--<mat-label>Status</mat-label>-->
+                  <mat-select>
+                    <mat-option value="1">New</mat-option>
+                    <mat-option value="2">Hired</mat-option>
+                    <mat-option value="3">Rejected</mat-option>
+                    <mat-option value="4">Interviewed</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Action">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <button mat-raised-button color="primary" (click)="path()">Download</button>
+             <i class="material-icons" (click)="path()" style="cursor: pointer;">
+                  more_vert
+                </i>
+
               </ng-template>
             </ngx-datatable-column>
 
