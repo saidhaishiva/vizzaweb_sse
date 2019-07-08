@@ -114,23 +114,16 @@ export class EdelweissTermLifeComponent implements OnInit {
       lastName: '',
       gender: ['', Validators.compose([Validators.required])],
       dob: ['', Validators.compose([Validators.required])],
-      age: '',
-      email: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
-      mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
-      ResidencePhoneNo: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       maritalStatus: ['', Validators.required],
-      pan: ['', Validators.compose([ Validators.minLength(10)])],
-      maidName: '',
-      fatherhusbandName: '',
       nationality: '',
-      otherQualification: '',
-      smoker: '',
-      motherMaidName: '',
-      FHName: '',
-      otherNationality: '',
+      emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
+      pan: ['', Validators.compose([ Validators.minLength(10)])],
+      aadhaarNo: '',
+      fatherhusbandName: '',
       ageProofId: '',
-      emailId: '',
-      alternate_cnt_no: '',
+      highestQualification: '',
+      otherQualification: '',
+      mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
       currAddr1: '',
       currAddr2: '',
       currAddr3: '',
@@ -144,69 +137,13 @@ export class EdelweissTermLifeComponent implements OnInit {
       perState: '',
       perCity: '',
       isCurrPerAddrSame: '',
-      isPerAddrIsCorrAddr: '',
-      isPoliticallyExposed: '',
-      education: '',
-      otherEducation: '',
-      highestQualification: '',
-      collegeNameLoc: '',
-      course: '',
-      courseDuration: '',
-      courseYear: '',
-      studentInstruction: '',
-      employerName: '',
-      designation: '',
-      experienceInYears: '',
-      occupationType: '',
-      noOfEmployees: '',
-      natureOfBusiness: '',
-      incomeSourceDetails: '',
-      familyDiease_Ind: '',
-      isIncomeSource: '',
-      familyDiease_Details: '',
-      hasfamilyAppliedETLI: '',
-      otherPolicy_Ind: '',
-      otherPolicy_InsurerName: '',
-      otherPolicy_OtherInsurerName: '',
-      otherPolicy_Reason: '',
-      otherPolicy_Date: '',
-      CIB_Ind: '',
-      CIB_InsurerName: '',
-      CIB_Reason: '',
-      CIB_Date: '',
-      isPEP: '',
-      pepReason: '',
-      hasFamPhysician: '',
-      FamPhysicianName: '',
-      FamPhysicianAddr1: '',
-      FamPhysicianAddr2: '',
-      FamPhysicianPhone: '',
-      ageProof: '',
-      otherAgeProof: '',
-      corrAddrProof: '',
+      employementTypeOther: '',
+      employementType: '',
+      natureduty: '',
+      employerAddr: '',
+      annualIncome: '',
+      taxResidence: '',
 
-      incomeProof: '',
-      incomeProofText: '',
-      isCA: '',
-      hasEIAccount: '',
-      EIAccountNo: '',
-      applyEIAccount: '',
-      EIARepository: '',
-      wantEPolicy: '',
-      relationLAProposer: '',
-      relationLAProposerText: '',
-      height: ['', Validators.compose([Validators.minLength(3)])],
-      heightFeets: '',
-      heightInches: '',
-      heightCentimeters: '',
-      weight: '',
-      clientId: '',
-      hasWeightChanged: '',
-      weightChange: '',
-      weightChangeReason: '',
-      isTaxResOfIndia: '',
-      aadhaarNo: '',
-      dob1: '',
     });
 
     this.insureArray = this.fb.group({
@@ -218,6 +155,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.bankDetail = this.fb.group({
       accountNo: '',
       name: '',
+      location: '',
       ifscCode: '',
       investmentStrategy: '',
 
@@ -244,6 +182,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteState();
     this.geteemploymentType();
     this.geteDuty();
+    this.setbdutyList();
     this.geteHeightFeet();
     this.geteHeightInches();
     this.getePolicyCategory();
@@ -259,6 +198,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   initItemRows() {
+    alert('1');
     return this.fb.group(
         {
           rolecd: 'PRIMARY',
@@ -293,31 +233,30 @@ export class EdelweissTermLifeComponent implements OnInit {
           perState: '',
           perCity: '',
           isCurrPerAddrSame: '',
-          insureHistory: '',
-          medicalTreatment: '',
-          receivedTreatment1: '',
-          receivedTreatment2: '',
-          categorization: '',
-          addrProof: '',
-          identityProof: '',
-          specification: '',
-          isPoliticallyExposed: '',
-          taxResidence: '',
-          annualIncome: '',
-          employerAddr: '',
-          natureOfDuty: '',
           employementTypeOther: '',
           employementType: '',
-          insureAccNo: '',
+          natureduty: '',
+          employerAddr: '',
+          annualIncome: '',
+          taxResidence: '',
+          isPoliticallyExposed: 'No',
+          specification: '',
+          identityProof: '',
+          categorization: '',
+          addrProof: '',
+          heightFeets: '',
+          heightInches: '',
+          weight: '',
+          medicalTreatment: 'No',
+          receivedTreatment1: 'No',
+          receivedTreatment2: 'No',
+          insureHistory: 'No',
+          insureAccNo: 'No',
           provideAccNo: '',
-          epolicy: '',
-          einsureAccNo: '',
-          insureRepository: '',
-          epolicy1: '',
-
-
-
-
+          epolicy: 'No',
+          einsureAccNo: 'No',
+          epolicy1: 'No',
+          insureRepository: 'No',
         }
     );
   }
@@ -497,6 +436,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
   isPolitical(event: any) {
+    alert('j');
     if (this.proposer.controls['isPoliticallyExposed'].value == true) {
       this.proposer.controls['specification'].patchValue(this.proposer.controls['specification'].value);
 
