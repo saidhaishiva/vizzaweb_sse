@@ -62,7 +62,7 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Approved">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <mat-slide-toggle (change)="approve()"></mat-slide-toggle>
+                <mat-slide-toggle (change)="approve(row)"></mat-slide-toggle>
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="profile">
