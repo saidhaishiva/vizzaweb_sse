@@ -771,7 +771,7 @@
                                            </div>
                                            <div class="col-md-3">
                                                <mat-form-field class="w-100">
-                                                   <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event,'dob')" (dateChange)="addEvent($event,'dob')" minlength="10" maxlength="10"
+                                                   <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" minlength="10" maxlength="10"
                                                           autocomplete="off"   required>
                                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                                                    <mat-datepicker #picker1></mat-datepicker>
@@ -792,8 +792,8 @@
                                            </div>
                                            <div class="col-md-3">
                                                <mat-form-field class="w-100">
-                                                   <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
-                                                       <mat-option *ngFor="let list of maritalStatusList | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                   <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="geteMaritalStatus()" required  class="w-100">
+                                                       <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                                    </mat-select>
                                                    <!--<mat-error *ngIf="insureArray.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>-->
                                                </mat-form-field>
@@ -841,7 +841,7 @@
                                            </div>
                                            <div class="col-md-3">
                                                <mat-form-field class="w-100">
-                                                   <mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (change)="changeAddressProof()" required  class="w-100">
+                                                   <mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (change)="geteQualification()" required  class="w-100">
                                                        <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                                    </mat-select>
                                                    <!--<mat-error *ngIf="insureArray.controls.highestQualification.errors?.required">Highest Qualification is required</mat-error>-->
