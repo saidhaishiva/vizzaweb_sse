@@ -73,6 +73,7 @@ export class AddposComponent implements OnInit {
     allImage: any;
     testtttttt: any;
     roleId: any;
+    eduImages: any;
     img: boolean;
     public passwordHide: boolean = true;
     personalCitys: any;
@@ -185,6 +186,11 @@ export class AddposComponent implements OnInit {
     //     this.allImage.push(event);
     //     console.log(this.allImage, 'eventevent');
     // }
+    // removeItems(index) {
+    //    this.eduImages =  this.education;
+    //     this.eduImages.removeAt(index);
+    //
+    // }
     readUrl(event: any, type) {
         this.type = type;
         this.getUrl = '';
@@ -221,10 +227,11 @@ export class AddposComponent implements OnInit {
 
 
     }
+
     onUploadFinished(event) {
         this.allImage.push(event);
         console.log(this.allImage, 'this.fileDetails');
-
+        this.eduImages = [];
         const data = {
             'platform': 'web',
             'flag':'pos',
@@ -249,7 +256,14 @@ export class AddposComponent implements OnInit {
             }
             data.uploadtype = 'multiple';
             data.images = this.fileDetails;
+            this.eduImages.push(data.images);
+            console.log(this.eduImages[0].image, 'this.eduImages');
+            //     this.removeItems('');
         } else {
+            if(this.type == 'education'){
+                data.uploadtype = 'multiple';
+                data.images = this.fileDetails;
+            }
             this.getUrl = event[1];
             data.uploadtype = 'single';
             data.images = this.getUrl;
@@ -282,6 +296,9 @@ export class AddposComponent implements OnInit {
                 }
                 if (this.type == 'education') {
                     this.education = this.fileUploadPath;
+                    // console.log(this.education.push(this.fileUploadPath), 'eddddd');
+                    // console.log(this.education.length ,'kleeee');
+                    // this.education.push(this.education);
                 }
                 if (this.type == 'chequeleaf') {
                     this.chequeleaf = this.fileUploadPath;
@@ -294,6 +311,23 @@ export class AddposComponent implements OnInit {
         }
     public fileUploadFailure(error) {
             console.log(error);
+    }
+    removeImage(value,i){
+        console.log(i, 'inddddd');
+        let ddd = this.education;
+        console.log(ddd, 'ddd');
+        // if(ddd[i] == 'empty'){
+        //     this.education= [];
+        // }
+       // delete this.fileUploadPath[0];
+        // delete ddd[i];
+        this.fileUploadPath.splice(i,i);
+       // this.eduImages.image.removeAt(i);
+       //  ddd.splice(i, 0);
+        // delete ddd[i];
+
+
+        // this.education[i] = [];
     }
     submit(value) {
         console.log(this.dob, 'dateeee');
