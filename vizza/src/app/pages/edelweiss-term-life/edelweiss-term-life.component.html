@@ -39,15 +39,15 @@
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
+
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" [max]="today"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event,'dob')" (dateChange)="addEvent($event,'dob')" minlength="10" maxlength="10"
-                                 autocomplete="off"   required>
-                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                          <mat-datepicker #picker1></mat-datepicker>
-                          <mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>
+                          <input matInput [matDatepicker]="picker" [max]="minDate"  placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" autocomplete="off" maxlength="10" minlength="10" required>
+                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                          <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="dateError != ''">{{dateError}}</div>
-                        <!--<div class="error" *ngIf="insuredPaDob > minDate">Future Date not allowed</div>-->
+                          <!--<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>-->
                       </div>
 
                       <div class="col-md-3">
@@ -61,8 +61,8 @@
                       </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
-                                    <mat-option *ngFor="let list of maritalStatusList | keys" [value]= list.key> {{list.value}} </mat-option>
+                                <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="geteMaritalStatus()" required  class="w-100">
+                                    <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="proposer.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
                             </mat-form-field>
@@ -110,18 +110,17 @@
                         </div>
                         <div class="col-md-3">
                             <mat-form-field class="w-100">
-                                <mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (change)="changeAddressProof()" required  class="w-100">
+                                <mat-select  placeholder="Highest Qualification" formControlName="highestQualification" (change)="geteAddressProof()" required  class="w-100">
                                     <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="proposer.controls.highestQualification.errors?.required">Highest Qualification is required</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                            <mat-form-field class="w-100">
-                                <mat-select  placeholder="Other Qualification Details" formControlName="otherQualification"  required  class="w-100">
-                                    <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="proposer.controls.highestQualification.errors?.required">Highest Qualification is required</mat-error>
+                            <mat-form-field class="w-100"  *ngIf="proposer.controls['highestQualification'].value == 'Others (Specify)'" >
+
+                                <input matInput placeholder="Other Qualification Details"  formControlName="otherQualification"  maxlength="45" autocomplete="off" required >
+                                <mat-error *ngIf="proposer.controls.otherQualification.errors?.required">other Qualification is required</mat-error>
                             </mat-form-field>
                         </div>
                         <div class="col-md-3 mt-1">
@@ -186,31 +185,33 @@
                           <div class="row">
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Current Address" formControlName="currAddr1" maxlength="10" autocomplete="off" (keypress)="addressValidate($event);typeAddress($event);">
+                                  <input maxlength="80" matInput placeholder=" Current Address" formControlName="currAddr1"  autocomplete="off" required>
+
                                 <mat-error *ngIf="proposer.controls.currAddr1.errors?.required">Current Address is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Current Address2" formControlName="currAddr2" maxlength="10" required autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Current Address2" formControlName="currAddr2" maxlength="80" required autocomplete="off"  >
                                 <mat-error *ngIf="proposer.controls.currAddr2.errors?.required">Current Address2 is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Current Address3" formControlName="currAddr3"  required autocomplete="off"  (keypress)="addressValidate($event);typeAddress($event)">
+                                <input matInput placeholder="Current Address3" formControlName="currAddr3"  maxlength="80" required autocomplete="off" >
                                 <mat-error *ngIf="proposer.controls.currAddr3.errors?.required">Current Address3 is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event);typeAddress($event)">
+                                <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" required >
                                 <mat-error *ngIf="proposer.controls.currCity.errors?.required">District is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event);typeAddress($event)" minlength="6"   maxlength="6" (input)="getPostal($event.target.value, 'personal')" formControlName="currPincode" autocomplete="off" required >
+                                  <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  (input)="getPostal($event.target.value, 'personal')" formControlName="currPincode"autocomplete="off" required >
+
                                 <mat-error *ngIf="proposer.controls.currPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                 <mat-error *ngIf="proposer.controls.currPincode.hasError('required')">Pincode Is Required</mat-error>
                                 <mat-error *ngIf="proposer.controls.currPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -237,7 +238,7 @@
                           <div class="row">
                             <h6 class="color-blue ml-3">PERMANENT ADDRESS</h6>
                             <div class="text-right w-50">
-                              <mat-checkbox formControlName="isCurrPerAddrSame" (change)="sameAddress($event)" ><strong>Same as Communication Address</strong></mat-checkbox>
+                              <mat-checkbox formControlName="isCurrPerAddrSame" (change)="sameAddress()" ><strong>Same as Communication Address</strong></mat-checkbox>
                             </div>
                           </div>
                           <div class="row">
@@ -1207,16 +1208,54 @@
                                <h6 class="color-blue">INSURANCE REPOSITORY</h6>
                            </div>
 
-                           <div class="col-md-12">
-                               <mat-radio-group formControlName="insureAccNo" >
-                                   <p>o you have an e-insurance account number?  </p>
+                           <div class="col-md-3">
+                               <mat-radio-group formControlName="insureAccNo" (change)="isInsureAccNo()" >
+                                   <p>Do you have an e-insurance account number?  </p>
                                    <mat-radio-button value="Y" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="N">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
 
+                           <div class="col-md-3 " *ngIf="insureArray.controls['insureAccNo'].value == 'Y'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>If yes, please provide account number<span class="error" >*</span></mat-placeholder>
+
+                                   <input matInput  formControlName="provideAccNo"    autocomplete="off" >
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-3" *ngIf="insureArray.controls['insureAccNo'].value == 'Y'">
+                               <mat-radio-group formControlName="epolicy" >
+                                   <p>Would you like to have an e policy?    </p>
+                                   <mat-radio-button value="Y" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="N">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-3" *ngIf="insureArray.controls['insureAccNo'].value == 'N'">
+                               <mat-radio-group formControlName=" einsureAccNo"  >
+                                   <p>Would you like to apply for e-insurance account no. </p>
+                                   <mat-radio-button value="Y" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="N">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-3" *ngIf="insureArray.controls['einsureAccNo'].value == 'Y'">
+                               <mat-radio-group formControlName=" epolicy1"  >
+                                   <p>Would you like to have an e policy?   </p>
+                                   <mat-radio-button value="Y" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="N">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-3 " *ngIf="insureArray.controls['einsureAccNo'].value == 'Y'" >
+                               <mat-form-field class="w-100">
+
+                                   <mat-placeholder>Specify the Insurance Repository Name for eIA creation. List of Insurance Repository: <span class="error" *ngIf="insureArray.controls['einsureAccNo'].value == 'Y'">*</span></mat-placeholder>
+                                   <mat-select  formControlName="insureRepository"  (change)=" geteInsuranceRepository()" >
+                                       <mat-option *ngFor="let insureRepositorys of eInsuranceRepository | keys" value="{{insureRepositorys.key}}" > {{insureRepositorys.value}} </mat-option>
+                                   </mat-select>
+                               </mat-form-field>
+                           </div>
+
                         </div>
-                    <div class="proposal-buttom mt-3 text-right w-100" *ngIf="items.length -1 == i" >
+                    <div class="proposal-buttom mt-3 text-right w-100">
                                    <!--*ngIf="items.length -1 == i"-->
                        <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
                        <button mat-raised-button color="primaryBlue"  (click)="edelweissInsureDetails(stepper, insureArray.value,i)">Next</button>
@@ -1226,69 +1265,69 @@
        </form>
    </mat-accordion>
 </mat-step>
-           <mat-step [stepControl]="">
-               <ng-template matStepLabel>POLICY DETAILS</ng-template>
-               <mat-accordion class="mt-4 w-100 float-left">
-                   <mat-expansion-panel expanded>
-                       <mat-expansion-panel-header>
-                           <mat-panel-title>POLICY DETAILS</mat-panel-title>
-                       </mat-expansion-panel-header>
-                       <ng-template matStepLabel>POLICY DETAILS</ng-template>
-                       <div class="row mt-3">
-                           <div class="col-md-12 box-card pt-3 pb-3" >
-                               <form [formGroup]="bankDetail">
-                                   <div>
-                                       <div class="row">
-                                           <div class="col-md-4">
-                                               <mat-form-field class="w-100">
-                                                   <input matInput placeholder="Sum Assured" formControlName="sumAssured" maxlength="20"    autocomplete="off" required>
-                                                   <!--<mat-error *ngIf="bankDetail.controls.accountNo.errors?.required">Account No is required</mat-error>-->
-                                               </mat-form-field>
-                                           </div>
-                                           <div class="col-md-3">
-                                               <mat-form-field class="w-100">
-                                                   <mat-select  placeholder="Premium Paying Term"  formControlName="premiumPayingTerm" (change)="geteHeightInches()"  class="w-100">
-                                                       <mat-option *ngFor="let list of payingTermList | keys" [value]= list.key> {{list.value}} </mat-option>
-                                                   </mat-select>
-                                                   <!--<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>-->
-                                               </mat-form-field>
-                                           </div>
+           <!--<mat-step [stepControl]="">-->
+               <!--<ng-template matStepLabel>POLICY DETAILS</ng-template>-->
+               <!--<mat-accordion class="mt-4 w-100 float-left">-->
+                   <!--<mat-expansion-panel expanded>-->
+                       <!--<mat-expansion-panel-header>-->
+                           <!--<mat-panel-title>POLICY DETAILS</mat-panel-title>-->
+                       <!--</mat-expansion-panel-header>-->
+                       <!--<ng-template matStepLabel>POLICY DETAILS</ng-template>-->
+                       <!--<div class="row mt-3">-->
+                           <!--<div class="col-md-12 box-card pt-3 pb-3" >-->
+                               <!--<form [formGroup]="bankDetail">-->
+                                   <!--<div>-->
+                                       <!--<div class="row">-->
+                                           <!--<div class="col-md-4">-->
+                                               <!--<mat-form-field class="w-100">-->
+                                                   <!--<input matInput placeholder="Sum Assured" formControlName="sumAssured" maxlength="20"    autocomplete="off" required>-->
+                                                   <!--&lt;!&ndash;<mat-error *ngIf="bankDetail.controls.accountNo.errors?.required">Account No is required</mat-error>&ndash;&gt;-->
+                                               <!--</mat-form-field>-->
+                                           <!--</div>-->
+                                           <!--<div class="col-md-3">-->
+                                               <!--<mat-form-field class="w-100">-->
+                                                   <!--<mat-select  placeholder="Premium Paying Term"  formControlName="premiumPayingTerm" (change)="geteHeightInches()"  class="w-100">-->
+                                                       <!--<mat-option *ngFor="let list of payingTermList | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                   <!--</mat-select>-->
+                                                   <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>&ndash;&gt;-->
+                                               <!--</mat-form-field>-->
+                                           <!--</div>-->
 
-                                           <div class="col-md-4">
-                                               <mat-form-field class="w-100">
-                                                   <mat-select placeholder="Policy Term" formControlName="policyTerm" (change)="geteHeightInches()"  class="w-100">
-                                                       <mat-option *ngFor="let list of policyTermList | keys" [value]= list.key> {{list.value}} </mat-option>
-                                                   </mat-select>
-                                                   <!--<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>-->
-                                               </mat-form-field>
-                                           </div>
-                                           <div class="col-md-4">
-                                               <mat-form-field class="w-100">
-                                                   <mat-select  placeholder="Frequency"  formControlName="frequency" (change)="geteHeightInches()"  class="w-100">
-                                                       <mat-option *ngFor="let list of frequencyList | keys" [value]= list.key> {{list.value}} </mat-option>
-                                                   </mat-select>
-                                                   <!--<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>-->                                               </mat-form-field>
-                                           </div>
-                                           <div class="col-md-4">
-                                               <mat-form-field class="w-100">
-                                                   <mat-select  placeholder="Staff"  formControlName="staff" (change)="geteHeightInches()"  class="w-100">
-                                                       <mat-option *ngFor="let list of staffList | keys" [value]= list.key> {{list.value}} </mat-option>
-                                                   </mat-select>
-                                                   <!--<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>-->                                               </mat-form-field>
-                                           </div>
-                                       </div>
-                                   </div>
-                                   <!--<div class="proposal-buttom mb-3 text-right w-100">-->
-                                       <!--<button mat-button matStepperPrevious (click)="topScroll()">Back</button>-->
-                                       <!--&lt;!&ndash;<button mat-button matStepperNext>Next</button>&ndash;&gt;-->
-                                       <!--<button mat-raised-button color="primaryBlue"   (click)="policyDetailNext(stepper, bankDetail.value)">Next</button>-->
+                                           <!--<div class="col-md-4">-->
+                                               <!--<mat-form-field class="w-100">-->
+                                                   <!--<mat-select placeholder="Policy Term" formControlName="policyTerm" (change)="geteHeightInches()"  class="w-100">-->
+                                                       <!--<mat-option *ngFor="let list of policyTermList | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                   <!--</mat-select>-->
+                                                   <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>&ndash;&gt;-->
+                                               <!--</mat-form-field>-->
+                                           <!--</div>-->
+                                           <!--<div class="col-md-4">-->
+                                               <!--<mat-form-field class="w-100">-->
+                                                   <!--<mat-select  placeholder="Frequency"  formControlName="frequency" (change)="geteHeightInches()"  class="w-100">-->
+                                                       <!--<mat-option *ngFor="let list of frequencyList | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                   <!--</mat-select>-->
+                                                   <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>&ndash;&gt;                                               </mat-form-field>-->
+                                           <!--</div>-->
+                                           <!--<div class="col-md-4">-->
+                                               <!--<mat-form-field class="w-100">-->
+                                                   <!--<mat-select  placeholder="Staff"  formControlName="staff" (change)="geteHeightInches()"  class="w-100">-->
+                                                       <!--<mat-option *ngFor="let list of staffList | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                                   <!--</mat-select>-->
+                                                   <!--&lt;!&ndash;<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>&ndash;&gt;                                               </mat-form-field>-->
+                                           <!--</div>-->
+                                       <!--</div>-->
                                    <!--</div>-->
-                               </form>
-                           </div>
-                       </div>
-                   </mat-expansion-panel>
-               </mat-accordion>
-           </mat-step>
+                                   <!--&lt;!&ndash;<div class="proposal-buttom mb-3 text-right w-100">&ndash;&gt;-->
+                                       <!--&lt;!&ndash;<button mat-button matStepperPrevious (click)="topScroll()">Back</button>&ndash;&gt;-->
+                                       <!--&lt;!&ndash;&lt;!&ndash;<button mat-button matStepperNext>Next</button>&ndash;&gt;&ndash;&gt;-->
+                                       <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue"   (click)="policyDetailNext(stepper, bankDetail.value)">Next</button>&ndash;&gt;-->
+                                   <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                               <!--</form>-->
+                           <!--</div>-->
+                       <!--</div>-->
+                   <!--</mat-expansion-panel>-->
+               <!--</mat-accordion>-->
+           <!--</mat-step>-->
 
 
       <mat-step [stepControl]="">
