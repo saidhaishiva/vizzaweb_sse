@@ -212,23 +212,25 @@
                             </div>
                             <div class="w-100">
                                 <div class="custom-file">
-                                    <input type="file" multiple class="custom-file-input" formControlName="educationdocument" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
+                                    <input type="file" multiple class="custom-file-input" formControlName="educationdocument"  accept=".png, .jpg, .jpeg" (change)="readUrl($event, 'education')"   aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-12"  *ngIf="education.length != 0">
-                                    <div class="col-md-4" *ngFor="let eduImgs of education">
+                                <div class="col-md-12" *ngFor="let eduImgs of education; let i = index">
+                                    <div class="col-md-4" >
                                             <span class="imageclose mr-2" >
                                                 <img src="{{webhost + '/' + eduImgs}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
                                             </span>
                                     </div>
+                                    <button mat-mini-fab color="accent" (click)="removeImage(eduImgs,i)">-</button>
+
                                 </div>
                             </div>
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.education.valid"  type="button">Next</button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="(!form.controls.education.valid) && (education.length == '')"  type="button">Next</button>
                             </div>
                         </mat-tab>
                         <mat-tab label="Bank Details" formGroupName="bankdetails">

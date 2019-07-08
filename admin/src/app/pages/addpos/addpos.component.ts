@@ -73,6 +73,7 @@ export class AddposComponent implements OnInit {
     allImage: any;
     testtttttt: any;
     roleId: any;
+    eduImages: any;
     img: boolean;
     public passwordHide: boolean = true;
     personalCitys: any;
@@ -139,7 +140,7 @@ export class AddposComponent implements OnInit {
         this.aadharfront = '';
         this.aadharback = '';
         this.pancard = '';
-        this.education = '';
+        this.education = [];
         this.chequeleaf= '';
     }
 
@@ -185,6 +186,11 @@ export class AddposComponent implements OnInit {
     //     this.allImage.push(event);
     //     console.log(this.allImage, 'eventevent');
     // }
+    // removeItems(index) {
+    //    this.eduImages =  this.education;
+    //     this.eduImages.removeAt(index);
+    //
+    // }
     readUrl(event: any, type) {
         this.type = type;
         this.getUrl = '';
@@ -221,10 +227,11 @@ export class AddposComponent implements OnInit {
 
 
     }
+
     onUploadFinished(event) {
         this.allImage.push(event);
         console.log(this.allImage, 'this.fileDetails');
-
+        this.eduImages = [];
         const data = {
             'platform': 'web',
             'flag':'pos',
@@ -249,7 +256,14 @@ export class AddposComponent implements OnInit {
             }
             data.uploadtype = 'multiple';
             data.images = this.fileDetails;
+            this.eduImages.push(data.images);
+            console.log(this.eduImages[0].image, 'this.eduImages');
+            //     this.removeItems('');
         } else {
+            if(this.type == 'education'){
+                data.uploadtype = 'multiple';
+                data.images = this.fileDetails;
+            }
             this.getUrl = event[1];
             data.uploadtype = 'single';
             data.images = this.getUrl;
@@ -281,7 +295,12 @@ export class AddposComponent implements OnInit {
                     this.pancard = this.fileUploadPath;
                 }
                 if (this.type == 'education') {
-                    this.education = this.fileUploadPath;
+                    for( let i = 0 ;i< this.fileUploadPath.length;i++) {
+                        this.education.push(this.fileUploadPath[i]);
+                    }
+
+                    console.log(this.education,'kleeee');
+                    console.log(this.fileUploadPath,'this.fileUploadPath');
                 }
                 if (this.type == 'chequeleaf') {
                     this.chequeleaf = this.fileUploadPath;
@@ -294,6 +313,10 @@ export class AddposComponent implements OnInit {
         }
     public fileUploadFailure(error) {
             console.log(error);
+    }
+    removeImage(value,i){
+        console.log(i, 'inddddd');
+        this.education.splice(i,1);
     }
     submit(value) {
         console.log(this.dob, 'dateeee');

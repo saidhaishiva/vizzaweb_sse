@@ -61,7 +61,7 @@ export class BranchService {
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = 'http://13.127.24.123/vizza/api/index.php/home/common/webupload';
+        const url = 'http://13.127.24.123/vizza/api/index.php/pos/common/webupload';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
             .catch(this.handleError);

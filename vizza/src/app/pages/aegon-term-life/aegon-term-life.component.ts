@@ -865,6 +865,7 @@ export class AegonTermLifeComponent implements OnInit {
             this.getEmpTypeFailure(error);
           }
       );
+      console.log(data,'datapin')
     }
   }
   public getEmpTypeSuccess(successData){
@@ -876,6 +877,7 @@ export class AegonTermLifeComponent implements OnInit {
   public getEmpTypeFailure(error){
 
   }
+
 
   /////////////////////
   getPostal(pin, title) {
@@ -939,6 +941,9 @@ export class AegonTermLifeComponent implements OnInit {
   }
   changeAppointeerelationship() {
     this.nominee.controls['aRelationName'].patchValue(this.appointeeRelationList[this.nominee.controls['aRelation'].value]);
+  }
+  changeEmpType() {
+    this.personal.controls['employeeTypeName'].patchValue(this.empTypeList[this.personal.controls['employeeType'].value]);
   }
   changeState()
   {
