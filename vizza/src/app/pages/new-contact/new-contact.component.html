@@ -27,7 +27,7 @@
       <p class="text-center">We will get back to you at the earliest.</p>
       <div class="space-top-35"></div>
       <mat-card>
-        <form [formGroup]="form"  (ngSubmit)="contactDetails()">
+        <form #myForm="ngForm" [formGroup]="form"  (ngSubmit)="contactDetails()">
           <div class="row">
             <div class="col-md-6">
               <mat-form-field class="w-100">
