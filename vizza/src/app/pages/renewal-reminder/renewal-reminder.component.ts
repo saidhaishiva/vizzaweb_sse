@@ -49,18 +49,17 @@ export class RenewalReminderComponent implements OnInit {
   allImage: any;
   fileDetails: any;
   url: any;
-
-  // getUrl: any;
+  getUrl: any;
   fileUploadPath: any;
   today: any;
   maxDate: any;
   dateError: any;
-
-  public uploadAddressProofName: any;
-  public uploadType: any;
-  public getBase64: any;
   public uploadTypeTest: boolean;
-  public imageSrc: string;
+
+  // public uploadAddressProofName: any;
+  // public uploadType: any;
+  // public getBase64: any;
+  // public imageSrc: string;
 
   @ViewChild('myForm') myForm: NgForm;
 
@@ -101,12 +100,12 @@ export class RenewalReminderComponent implements OnInit {
   ngOnInit() {
     this.getPolicyTypes();
     this.getcompanyList();
-
     this.uploadTypeTest= true;
     this.fileUploadPath = '';
-    this.imageSrc = '';
-    this.uploadType = '';
-    this.getBase64 = '';
+
+    // this.imageSrc = '';
+    // this.uploadType = '';
+    // this.getBase64 = '';
   }
 
 
@@ -257,9 +256,13 @@ export class RenewalReminderComponent implements OnInit {
     }
   }
 
-  uploadProof(event: any) {
+  readUrl(event: any) {
+    this.getUrl = '';
     let getUrlEdu = [];
-    // let typeList = [];
+    this.fileDetails = [];
+    for (let i = 0; i < event.target.files.length; i++) {
+      this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+    }
     for (let i = 0; i < event.target.files.length; i++) {
       const reader = new FileReader();
       reader.onload = (event: any) => {
@@ -269,39 +272,23 @@ export class RenewalReminderComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[i]);
     }
-    this.uploadAddressProofName = event.target.files[0].name;
-    this.uploadType =  event.target.files[0].type;
-    this.uploadTypeTest = true;
-    console.log(this.uploadType, 'jhgfghj');
-    // console.log(event, 'jhgfghj');
-    //   typeList = split( event.target.files[0].type);
-    //   console.log(typeList, 'typeList');
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
 
-      const reader = new FileReader();
-      reader.onload = e => this.imageSrc = reader.result;
-
-      reader.readAsDataURL(file);
-      console.log(reader,'sssssss');
-      console.log(this.imageSrc,'this.imageSrc');
-
-    }
   }
-  onUploadFinished( basecode) {
-    this.getBase64 = basecode[0][1];
+  onUploadFinished(event) {
+    this.allImage.push(event);
   }
   onUpload() {
-    console.log(this.getBase64,'this.getBase64this.getBase64');
-    console.log(this.getBase64.toString(),'this.getBase64.toString()this.getBase64.toString()');
-    console.log(this.uploadType,'this.uploadTypethis.uploadType');
-    console.log(this.uploadType.toString(),'this.uploadTypethis.toString().uploadType.toString()');
+    console.log(this.allImage.length,'this.allImage.length');
     const data = {
       'platform': 'web',
-      'image_path': this.getBase64.toString(),
-        'file_type': this.uploadType.toString()
+      'image_path': '',
+      'file_type': '1'
     };
-
+    let length = this.allImage.length-1;
+    for (let k = 0; k < this.allImage[length].length; k++) {
+      this.fileDetails[k].image = this.allImage[length][k][1];
+    }
+    data.image_path = this.fileDetails;
     this.common.fileUploadPolicyHome(data).subscribe(
         (successData) => {
           this.fileUploadSuccess(successData);
@@ -311,16 +298,15 @@ export class RenewalReminderComponent implements OnInit {
         }
     );
   }
-
   public fileUploadSuccess(successData) {
     if (successData.IsSuccess) {
       this.fileUploadPath = successData.ResponseObject.imagePath;
+      this.uploadTypeTest = true;
       this.toastr.success( successData.ResponseObject.message);
     } else {
       this.toastr.error(successData.ErrorObject, 'Failed');
     }
   }
-
   public fileUploadFailure(error) {
   }
 

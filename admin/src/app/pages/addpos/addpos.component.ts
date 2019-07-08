@@ -314,7 +314,7 @@ export class AddposComponent implements OnInit {
     public fileUploadFailure(error) {
             console.log(error);
     }
-    removeImage(value,i){
+    removeImage(i){
         console.log(i, 'inddddd');
         this.education.splice(i,1);
     }
