@@ -29,9 +29,10 @@ export class CareerListComponent implements OnInit {
   public total: any;
   public settings: Settings;
   val: any;
+  col: any;
   testeditor: any;
   constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
-
+  this.col = ['one'];
 
   }
 
