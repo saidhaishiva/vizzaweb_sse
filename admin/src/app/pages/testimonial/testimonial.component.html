@@ -58,8 +58,11 @@
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="status">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value"><span *ngIf="row.status == '1'">Active</span><span *ngIf="row.status != '1'">InActive</span></ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Approved">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.status}}
+                <mat-slide-toggle (change)="approve(row)"></mat-slide-toggle>
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="profile">
@@ -82,8 +85,6 @@
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>
-
-
         </div>
       </div>
 

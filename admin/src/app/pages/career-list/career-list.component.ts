@@ -29,9 +29,10 @@ export class CareerListComponent implements OnInit {
   public total: any;
   public settings: Settings;
   val: any;
+  col: any;
   testeditor: any;
   constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
-
+  this.col = ['one'];
 
   }
 
@@ -83,13 +84,13 @@ export class CareerListComponent implements OnInit {
 
 
   path(){
-    this.data.path;
-    // const dialogRef = this.dialog.open(PathPopupComponent, {
-    //   width: '400px'
-    // });
-    // dialogRef.afterClosed().subscribe(res => {
-    //
-    // });
+    const dialogRef = this.dialog.open(PathPopupComponent, {
+      width: '600px',
+      height: '300px'
+    });
+    dialogRef.afterClosed().subscribe(res => {
+
+    });
   }
 
 

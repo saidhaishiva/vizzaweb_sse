@@ -240,7 +240,6 @@ export class TravelProposalComponent implements OnInit {
 
 
     ngOnInit() {
-      this.placevisting = sessionStorage.travelPlan;
         this.placeOfVisits();
         this.insurerRelationship();
         this.assigneeRelationship();
@@ -248,7 +247,6 @@ export class TravelProposalComponent implements OnInit {
         this.getIlnessDetails();
         this.gstIdList();
         this.visaTypeList();
-        this.placeOf();
 
 
       //  this.enquiryId = sessionStorage.enquiryId;
@@ -267,10 +265,6 @@ export class TravelProposalComponent implements OnInit {
         this.sessionData();
     }
 
-    placeOf() {
-        this.personal.controls['placeOfVisit'].patchValue(this.placevisting);
-
-    }
 
     setStep(index: number) {
         this.step = index;
@@ -735,12 +729,14 @@ export class TravelProposalComponent implements OnInit {
                     'proposerAddressOne': this.personalData.personalAddress,
                     'proposerAddressTwo': this.personalData.personalAddress2,
                     'proposerAreaId': this.personalData.personalArea,
+                    'proposerAreaValue': this.personalData.personalAreaName,
 
                     'physicianName': this.personalData.physicianName,
                     'physicianContactNumber': this.personalData.physicianContactNumber,
                     'travelDeclaration': this.personalData.travelDeclaration ? 1 : 0,
 
                     'personalCity': this.personalData.personalCity,
+                    'personalCityValue': this.personalData.personalCityName,
                     'personalState': this.personalData.personalState,
                     'insureds': this.allInsuredData
 
@@ -961,6 +957,19 @@ export class TravelProposalComponent implements OnInit {
         if (successData.IsSuccess) {
             this.placeOfVisiLists = successData.ResponseObject;
             console.log(this.placeOfVisiLists,'this.placeOfVisiLists' );
+
+            this.placevisting = JSON.parse(sessionStorage.travelPlan);
+            let getCpountryCode = [];
+            this.placevisting.forEach((selectedData) => {
+                console.log(selectedData, 'selectedData');
+                let i = this.placeOfVisiLists.findIndex(getIndex => getIndex.country_name == selectedData);
+                getCpountryCode.push(this.placeOfVisiLists[i].country_code);
+            });
+            console.log(getCpountryCode);
+            this.personal.controls['placeOfVisit'].patchValue(getCpountryCode);
+
+
+
         } else {
             this.toastr.error(successData.ErrorObject);
         }

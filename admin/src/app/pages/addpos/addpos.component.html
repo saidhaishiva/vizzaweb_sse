@@ -216,21 +216,23 @@
                                     <label class="custom-file-label"><span class="error">*</span> Educational Documents</label>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mt-2">
                                 <div class="col-md-12" *ngFor="let eduImgs of education; let i = index">
                                     <div class="col-md-4" >
-                                            <span class="imageclose mr-2" >
+                                            <span class="imageclose mr-2 mt-4" >
                                                 <img src="{{webhost + '/' + eduImgs}}" class="img-thumbnail" style="height:150px;width: 250px;"/>
                                             </span>
                                     </div>
-                                    <button mat-mini-fab color="accent" (click)="removeImage(eduImgs,i)">-</button>
+                                     <i class="material-icons mt-4" style="cursor: pointer;" (click)="removeImage(i)">
+                                        clear
+                                    </i>
 
                                 </div>
                             </div>
                             <hr>
                             <div style="padding-left: 10px" fxLayout="row" fxLayoutAlign="end end">
                                 <button mat-button type="button" class="mr-3" (click)="previousStep()" mat-raised-button color="warn"><i class="material-icons">keyboard_backspace</i></button>
-                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="!form.controls.education.valid"  type="button">Next</button>
+                                <button color="primary" mat-raised-button (click)="nextStep()" [disabled]="(!form.controls.education.valid) && (education.length == '')"  type="button">Next</button>
                             </div>
                         </mat-tab>
                         <mat-tab label="Bank Details" formGroupName="bankdetails">

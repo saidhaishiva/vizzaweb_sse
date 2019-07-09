@@ -70,7 +70,7 @@
           </div>
         </div>
         <div class="col-sm-12 mt-3 text-center">
-          <button mat-raised-button color="primary" (click)="submit(form)">Submit</button>
+          <button mat-raised-button color="primary" (click)="edit()">Submit</button>
         </div>
 
       </form>
@@ -83,7 +83,7 @@
 <section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
   <div class="row mb-3" >
     <div class="col-sm-12 col-xs-12 col-md-12 text-right">
-      <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+      <mat-icon (click)="close()" style="cursor: pointer">close</mat-icon>
     </div>
   </div>
 
@@ -150,7 +150,7 @@
           </div>
         </div>
         <div class="col-sm-12 col-xs-12 col-md-12 mt-3 text-center">
-          <button mat-raised-button color="primary" (click)="submit(form)">Submit</button>
+          <button mat-raised-button color="primary" (click)="edit()">Submit</button>
         </div>
 
       </form>

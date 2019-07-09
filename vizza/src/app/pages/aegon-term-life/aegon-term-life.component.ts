@@ -78,6 +78,8 @@ export class AegonTermLifeComponent implements OnInit {
   public sum_insured_amount:any;
   public maritialList:any;
   public appointeeRelationList:any;
+  public citycList:any;
+  public citynList:any;
 
   public inputReadonly: boolean;
   public apponiteeList: boolean;
@@ -99,7 +101,7 @@ export class AegonTermLifeComponent implements OnInit {
         stepperindex = 2;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
-          // this.requestedUrl = this.summaryData.proposalUrl;
+          this.requestedUrl = this.summaryData.redirectLink;
           // this.RediretUrlLink = this.summaryData.PaymentURL;
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
@@ -150,6 +152,7 @@ export class AegonTermLifeComponent implements OnInit {
       isAddressSame: false,
       qualifictionName:'',
       natureOfWorkName:'',
+      employeeTypeName:'',
       pStateName:'',
       pCityName:'',
       cCityName:'',
@@ -203,14 +206,14 @@ export class AegonTermLifeComponent implements OnInit {
     //
     // }
     this.getQualificationList();
-    this.getoccupationlist();
+
     this.getnomineerelationship();
     this.getState();
     this.checkSum();
     this.checkSumAs();
-    this.getcitylist();
-    this.getEmpType();
+
     this.getAppointeeRelation();
+    // this.getoccupationlist();
 
 
   }
@@ -662,7 +665,9 @@ export class AegonTermLifeComponent implements OnInit {
           this.getoccupationlistFailure(error);
         }
     );
+      console.log(data,'datapin')
   }
+
 
   public getoccupationlistSuccess(successData) {
     if (successData.IsSuccess) {
@@ -699,7 +704,62 @@ export class AegonTermLifeComponent implements OnInit {
   public getcitylistFailure(error) {
   }
 
-  getnomineerelationship() {
+
+    getcitylistC() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            'state_name': this.personal.controls['cState'].value,
+        }
+        this.TermLifeService.getcitylist(data).subscribe(
+            (successData) => {
+                this.getcityclistSuccess(successData);
+            },
+            (error) => {
+                this.getcityclistFailure(error);
+            }
+        );
+        console.log(data,'dataCity')
+    }
+
+    public getcityclistSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.citycList = successData.ResponseObject;
+        }
+    }
+    public getcityclistFailure(error) {
+    }
+    getcitylistn() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            'state_name': this.nominee.controls['nState'].value,
+        }
+        this.TermLifeService.getcitylist(data).subscribe(
+            (successData) => {
+                this.getcitynlistSuccess(successData);
+            },
+            (error) => {
+                this.getcitynlistFailure(error);
+            }
+        );
+        console.log(data,'dataCity')
+    }
+
+    public getcitynlistSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.citynList = successData.ResponseObject;
+        }
+    }
+    public getcitynlistFailure(error) {
+    }
+
+
+    getnomineerelationship() {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -770,7 +830,6 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   public stateSuccess(successData) {
-    alert();
     if (successData.IsSuccess) {
       this.stateList = successData.ResponseObject;
     }
@@ -779,43 +838,39 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
 
-  getAnnual(title) {
-    const data = {
-
-      'platform': 'web',
-      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'validate_Annual_Income' : this.personal.controls['annualIncome'].value,
-      'sum_insured': this.personal.controls['deathBenefitTISA'].value,
-    }
-    console.log(data,'data')
-
-    this.TermLifeService.getAnnuallist(data).subscribe(
-        (successData) => {
-          this.getAnnuallistSuccess(successData, title);
-        },
-        (error) => {
-          this.getAnnuallistFailure(error);
+    getAnnual(){
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            'age':sessionStorage.proposerAge,
+            'emp_type' :this.personal.controls['employeeType'].value,
+            'education' : this.personal.controls['qualifiction'].value,
+            'nationality' :'Indian',
+            'annual_income':this.personal.controls['annualIncome'].value,
+            'sum_assured':this.personal.controls['deathBenefitSA'].value
         }
-    );
-  }
-  public getAnnuallistSuccess(successData, title) {
-    if (successData.IsSuccess) {
-      this.annualList = successData.ResponseObject;
-      console.log(title,'title');
-      if (title == 'personal') {
-        if (this.personal.controls['annualIncome'].value >= 200000 && this.personal.controls['annualIncome'].value <= 9999900000) {
-          this.personal.controls['annualIncome'].patchValue(this.response.annualIncome);
-        }else {
-          this.toastr.error('Annual Income should be 2 Lakhs and above');
+
+            this.TermLifeService.getAnnuallist(data).subscribe(
+                (successData) => {
+                    this.getAnnuallistSuccess(successData);
+                },
+                (error) => {
+                    this.getAnnuallistFailure(error);
+                }
+            );
+            console.log(data,'datapin')
+    }
+             public getAnnuallistSuccess(successData){
+                if (successData.IsSuccess) {
+                 this.annualList = successData.ResponseObject;
         }
-      }
+    }
+
+    public getAnnuallistFailure(error){
 
     }
-  }
-  public getAnnuallistFailure(error) {
-  }
 
 
   getMaritalList(){
@@ -865,6 +920,7 @@ export class AegonTermLifeComponent implements OnInit {
             this.getEmpTypeFailure(error);
           }
       );
+      console.log(data,'datapin')
     }
   }
   public getEmpTypeSuccess(successData){
@@ -876,6 +932,7 @@ export class AegonTermLifeComponent implements OnInit {
   public getEmpTypeFailure(error){
 
   }
+
 
   /////////////////////
   getPostal(pin, title) {
@@ -923,7 +980,8 @@ export class AegonTermLifeComponent implements OnInit {
     this.personal.controls['qualifictionName'].patchValue(this.qualificationList[this.personal.controls['qualifiction'].value]);
   }
   changeOccupationlist() {
-    this.personal.controls['natureOfWorkName'].patchValue(this.occupationList[this.personal.controls['natureOfWork'].value]);
+     this.personal.controls['natureOfWorkName'].patchValue(this.occupationList[this.personal.controls['natureOfWork'].value]);
+
   }
   changeCitylist() {
     this.personal.controls['pCityName'].patchValue(this.cityList[this.personal.controls['pCity'].value]);
@@ -940,19 +998,27 @@ export class AegonTermLifeComponent implements OnInit {
   changeAppointeerelationship() {
     this.nominee.controls['aRelationName'].patchValue(this.appointeeRelationList[this.nominee.controls['aRelation'].value]);
   }
+  changeEmpType() {
+    this.personal.controls['employeeTypeName'].patchValue(this.empTypeList[this.personal.controls['employeeType'].value]);
+    this.getoccupationlist();
+
+  }
   changeState()
   {
     this.personal.controls['pStateName'].patchValue(this.stateList[this.personal.controls['pState'].value]);
-
+    this.getcitylist();
   }
   changecState()
   {
     this.personal.controls['cStateName'].patchValue(this.stateList[this.personal.controls['cState'].value]);
+    this.getcitylistC();
 
   }
   changenState()
   {
+
     this.nominee.controls['nStateName'].patchValue(this.stateList[this.nominee.controls['nState'].value]);
+    this.getcitylistn();
 
   }
   checkSum()
@@ -1009,6 +1075,7 @@ export class AegonTermLifeComponent implements OnInit {
         isAddressSame: stepper1.isAddressSame,
         qualifictionName: stepper1.qualifictionName,
         natureOfWorkName: stepper1.natureOfWorkName,
+         employeeTypeName: stepper1.employeeTypeName,
         pCityName: stepper1.pCityName,
         cCityName: stepper1.cCityName,
         pStateName: stepper1.pStateName,
@@ -1107,7 +1174,7 @@ export class AegonTermLifeComponent implements OnInit {
             "cCity": this.personal.controls['cCity'].value,
             "cState": this.personal.controls['cState'].value,
             "cPincode": this.personal.controls['cPincode'].value,
-            "isAddressSame": this.personal.controls['isAddressSame'].value
+            "isAddressSame": this.personal.controls['isAddressSame'].value ,"YES" : "NO"
           },
           "nomineeDetail": {
             "tittle": this.nomineeData.ntitle,
@@ -1169,7 +1236,7 @@ export class AegonTermLifeComponent implements OnInit {
       this.topScroll();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
-      // this.requestedUrl = this.summaryData.proposalUrl;
+      this.requestedUrl = this.summaryData.redirectLink;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.ProposalId;
       this.proposerFormData = this.personal.value;

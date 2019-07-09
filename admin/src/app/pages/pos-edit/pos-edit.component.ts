@@ -126,8 +126,7 @@ export class PosEditComponent implements OnInit {
               pancard: ['',Validators.compose( [Validators.required])]
           }),
           educationlist: this.fb.group({
-              qualification: ['', Validators.compose([Validators.required])],
-              educationdocument:['', Validators.compose( [Validators.required])]
+              qualification: ['', Validators.compose([Validators.required])]
 
           }),
           bankdetails: this.fb.group({
@@ -206,7 +205,6 @@ export class PosEditComponent implements OnInit {
                 }),
                 educationlist: this.fb.group({
                     qualification: this.personal.doc_education,
-                    education: this.personal.doc_edu_certificate_img
                 }),
                 bankdetails: this.fb.group({
                     bankname: this.personal.bank_name,
@@ -221,6 +219,7 @@ export class PosEditComponent implements OnInit {
             this.pancard = this.personal.doc_pan_img;
             this.education = this.personal.doc_edu_certificate_img;
             this.chequeleaf = this.personal.check_leaf_upload_img;
+            console.log(this.education, 'this.education');
         }
     }
 
@@ -399,7 +398,9 @@ export class PosEditComponent implements OnInit {
                 this.pancard = this.fileUploadPath;
             }
             if (this.type == 'education') {
-                this.education = this.fileUploadPath;
+                for( let i = 0 ;i< this.fileUploadPath.length;i++) {
+                    this.education.push(this.fileUploadPath[i]);
+                }
             }
             if (this.type == 'chequeleaf') {
                 this.chequeleaf = this.fileUploadPath;
@@ -412,6 +413,10 @@ export class PosEditComponent implements OnInit {
     }
     public fileUploadFailure(error) {
         console.log(error);
+    }
+    removeImage(i){
+        console.log(i, 'inddddd');
+        this.education.splice(i,1);
     }
 //Update admin pos profile
     updateAdminPosProfile(event){

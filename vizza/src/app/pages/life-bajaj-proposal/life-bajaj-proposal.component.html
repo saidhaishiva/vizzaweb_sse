@@ -13,6 +13,8 @@
                 <div class="row mt-1">
                   <div class="col-md-12 box-card pt-3">
                     <div class="row">
+                      <!--<a (click)="downloadForm()" >Download</a>-->
+
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" required>
@@ -868,28 +870,36 @@
                     <div>
                       <div class="row">
                         <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="IFSC Code" class="text-uppercase" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" (keyup)="ifscBasedGetDetails($event.target.value)"  maxlength="11"  autocomplete="off" required>
+                            <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">IFSC Code is required</mat-error>
+                            <mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
                             <mat-form-field class="w-100">
-                                <mat-select placeholder="Bank Name" formControlName="bankName" (change)="changeBank()" class="w-100" required>
-                                    <mat-option value="HDFC"> HDFC </mat-option>
-                                    <mat-option value="ICICI"> ICICI </mat-option>
-                                    <mat-option value="SBI"> SBI </mat-option>
-                                    <mat-option value="AXIS"> AXIS </mat-option>
-                                    <mat-option value="OTHER"> OTHER </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="bankDetail.controls.bankName.errors?.required">Bank Name is required</mat-error>
+                                <!--<mat-select placeholder="Bank Name" formControlName="bankName" (change)="changeBank()" class="w-100" required>-->
+                                    <!--<mat-option value="HDFC"> HDFC </mat-option>-->
+                                    <!--<mat-option value="ICICI"> ICICI </mat-option>-->
+                                    <!--<mat-option value="SBI"> SBI </mat-option>-->
+                                    <!--<mat-option value="AXIS"> AXIS </mat-option>-->
+                                    <!--<mat-option value="OTHER"> OTHER </mat-option>-->
+                                <!--</mat-select>-->
+                              <input matInput placeholder="Name"  formControlName="bankName" readonly (keypress)="nameValidate($event)"  autocomplete="off" >
+                              <mat-error *ngIf="bankDetail.controls.bankName.errors?.required">Bank Name is required</mat-error>
                             </mat-form-field>
                         </div>
 
-                        <div class="col-md-4" *ngIf="bankDetail.controls['bankName'].value == 'OTHER'">
-                          <mat-form-field class="w-100">
-                              <input matInput placeholder="Name"  formControlName="otherName" (keypress)="nameValidate($event)"   autocomplete="off" >
-                              <mat-error *ngIf="bankDetail.controls.otherName.errors?.required">Name is required</mat-error>
-                          </mat-form-field>
-                        </div>
+                        <!--<div class="col-md-4" *ngIf="bankDetail.controls['bankName'].value == 'OTHER'">-->
+                          <!--<mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="Name"  formControlName="otherName" (keypress)="nameValidate($event)"   autocomplete="off" >-->
+                              <!--<mat-error *ngIf="bankDetail.controls.otherName.errors?.required">Name is required</mat-error>-->
+                          <!--</mat-form-field>-->
+                        <!--</div>-->
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Branch Name"  formControlName="branchName" (keypress)="nameValidate($event)"   autocomplete="off" required>
+                            <input matInput placeholder="Branch Name"  formControlName="branchName" readonly (keypress)="nameValidate($event)"   autocomplete="off">
                             <mat-error *ngIf="bankDetail.controls.branchName.errors?.required">Branch Name is required</mat-error>
                           </mat-form-field>
                         </div>
@@ -922,24 +932,17 @@
                             <mat-error *ngIf="bankDetail.controls.accountType.errors?.required">Account Type is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4">
-                          <mat-form-field class="w-100">
-                            <input matInput placeholder="IFSC Code" class="text-uppercase" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" maxlength="11"  autocomplete="off" required>
-                            <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
-                            <mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>
 
-                          </mat-form-field>
-                        </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="MICR Code"  formControlName="micrCode" maxlength="9" (keypress)="numberValidate($event)"   autocomplete="off">
+                            <input matInput placeholder="MICR Code"  formControlName="micrCode" maxlength="9" readonly (keypress)="numberValidate($event)"   autocomplete="off">
                             <mat-error *ngIf="bankDetail.controls.micrCode.errors?.required">Micr Code is required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
                             <mat-select matInput placeholder="Renewal Payment Mode" formControlName="paymentMode" autocomplete="off" required>
-                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value !='OTHER'">EMAND</mat-option>
+                              <mat-option value="EMAND" *ngIf="bankDetail.controls['bankName'].value =='ICICI BANK LIMITED' || bankDetail.controls['bankName'].value =='STATE BANK OF INDIA' || bankDetail.controls['bankName'].value =='AXIS BANK' || bankDetail.controls['bankName'].value =='HDFC BANK'">EMAND</mat-option>
                               <mat-option value="CCSI">CCSI</mat-option>
                               <mat-option value="NACH">NACH</mat-option>
                               <mat-option value="Cash-Cheque" *ngIf="enquiryFormData.lifePayment == 'yearly'">Cash-Cheque</mat-option>
@@ -955,6 +958,26 @@
                             <mat-error *ngIf="bankDetail.controls.bankProof.errors?.required">Bank Proof is required</mat-error>
                           </mat-form-field>
                         </div>
+
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="City"  formControlName="bankCity"  readonly autocomplete="off">
+                            <!--<mat-error *ngIf="bankDetail.controls.bankCity.errors?.required">Micr Code is required</mat-error>-->
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="District"  formControlName="bankDistrict"  readonly autocomplete="off">
+                            <!--<mat-error *ngIf="bankDetail.controls.bankDistrict.errors?.required">Micr Code is required</mat-error>-->
+                          </mat-form-field>
+                        </div>
+                        <div class="col-md-4">
+                          <mat-form-field class="w-100">
+                            <input matInput placeholder="State"  formControlName="bankState"  readonly autocomplete="off">
+                            <!--<mat-error *ngIf="bankDetail.controls.bankState.errors?.required">Micr Code is required</mat-error>-->
+                          </mat-form-field>
+                        </div>
+
                       </div>
                     </div>
                     <div class="proposal-buttom mb-3 text-right w-100">
