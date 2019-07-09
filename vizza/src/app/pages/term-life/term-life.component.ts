@@ -281,7 +281,7 @@ export class TermLifeComponent implements OnInit {
                         'policy_paying_term': this.TermLife.controls.lifePolicy.value,
                         'benefit_term': this.TermLife.controls.lifeBenefitTerm.value,
                         'payment_mode': this.TermLife.controls.lifePayment.value,
-                        'smoker': this.TermLife.controls.lifesmoker.value ? 'y' : ' n',
+                        'smoker': this.TermLife.controls.lifesmoker.value,
                         'pincode': this.TermLife.controls.lifePincode.value
                     };
                     console.log(data, 'dattttaaaaa');
