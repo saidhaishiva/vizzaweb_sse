@@ -54,8 +54,11 @@
                                     <label class="custom-file-label"> Upload Your Resume <span class="error">*</span></label>
                                 </div>
                             <p class="error" *ngIf="!uploadTypeTest">Your Resume is required</p>
-                            <!--<img *ngIf="imageSrc != ''" id="blah" [src]="imageSrc || 'http://placehold.it/180'" width="100px" height="100px" alt="your image" />-->
-                            <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
+                            <img *ngIf="fileUploadPathDOCX !=''" src="assets/img/upload-icons/docx-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                            <img *ngIf="fileUploadPathDOC !=''" src="assets/img/upload-icons/doc-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                            <img *ngIf="fileUploadPathPDF !=''" src="assets/img/upload-icons/pdf-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                            <!--<img *ngIf="imageSrc !=''" [src]="imageSrc" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">-->
+                            <p *ngIf="filePath !=''" class="mt-1" style="color: green;">{{uploadAddressProofName}}</p>
                         </div>
                         <div class="col-md-6">
                             <mat-form-field class="w-100">
