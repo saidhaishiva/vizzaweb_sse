@@ -617,7 +617,7 @@
             <div class="row box-card" *ngFor="let list of insuredFormData">
               <div class="col-md-6">
                 <div class="p-3">
-                  <h6 class="color-blue">{{list.type | uppercase}}</h6>
+                  <h6 class="color-blue"> INSURED DETAILS FOR {{list.type | uppercase}}</h6>
                   <ul class="m-0 list-group">
                     <li class="list-group-item"><strong>Name:</strong> {{list.ins_name}}</li>
                     <li class="list-group-item"><strong>D.O.B:</strong> {{list.ins_dob | date: 'dd/MM/yyyy'}}</li>
@@ -785,7 +785,7 @@
                       </div>
                       <div class="col-sm-12 col-xs-12 col-md-12">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Aadhar Number(Last Four Digits)" (keypress)="numberValidate($event)"  minlength="12"  maxlength="12" formControlName="personalAadhar" autocomplete="off">
+                          <input matInput placeholder="Aadhar Number(Last Four Digits)" (keypress)="numberValidate($event)"  minlength="4"  maxlength="4" formControlName="personalAadhar" autocomplete="off">
                           <mat-error *ngIf="personal.controls.personalAadhar.hasError('minlength')">Aadhar Number isn't long enough, minimum of 4 characters</mat-error>
                         </mat-form-field>
                       </div>
@@ -1345,7 +1345,7 @@
               <div class="row box-card" *ngFor="let list of insuredFormData">
                 <div class="col-sm-12 col-xs-12 col-md-12">
                   <div class="pl-3 pr-3 pt-0 pb-0 ">
-                    <h6 class="color-blue">{{list.type | uppercase}}</h6>
+                    <h6 class="color-blue"> INSURED DETAILS FOR {{list.type | uppercase}}</h6>
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Name:</strong> {{list.ins_name}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{list.ins_dob | date: 'dd/MM/yyyy'}}</li>
