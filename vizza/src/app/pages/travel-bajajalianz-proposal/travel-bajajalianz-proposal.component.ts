@@ -415,13 +415,13 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                     'pvpassportNo': this.insurerData.items[i].passportNo,
                     'pvage': this.insurerData.items[i].age,
                     'pvsex': this.insurerData.items[i].sex,
-                    'pvdob': this.insurerData.items[i].idob
+                    'pvdob': this.datepipe.transform(this.insurerData.items[i].idob, 'y-MM-dd')
                 });
             }
         } else{
             sessionStorage.stepper1bajajDetails = '';
             sessionStorage.stepper1bajajDetails = JSON.stringify(value);
-            this.insuredDataArray = [''];
+            this.insuredDataArray = [];
         }
         const data = {
             "platform": "web",
