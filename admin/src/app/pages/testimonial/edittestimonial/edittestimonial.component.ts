@@ -22,8 +22,14 @@ export class EdittestimonialComponent implements OnInit {
   public profile: any;
   public responsedata: any;
   loadingIndicator: boolean = true;
+  public fileUploadPath: any;
   getDetails: any;
   webhost: any;
+  type: any;
+  size: any;
+  getUrl1: any;
+  url: any;
+  getUrl: any;
 
   constructor(public fb: FormBuilder, public dialogRef: MatDialogRef<EdittestimonialComponent>, public auth: AuthService, public branchservice: BranchService, private toastr: ToastrService, public appSettings: AppSettings,
               @Inject(MAT_DIALOG_DATA) public data: any, public config: ConfigurationService  ) {
@@ -96,6 +102,59 @@ export class EdittestimonialComponent implements OnInit {
       this.status = error.status;
     }
 
+  }
+
+  readUrl(event: any, type) {
+    this.type = type;
+    this.size = event.srcElement.files[0].size;
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = (event: any) => {
+        this.getUrl1 = [];
+        this.url = event.target.result;
+        this.getUrl = this.url.split(',');
+        this.getUrl1.push(this.url.split(','));
+        this.onUploadFinished(this.getUrl);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onUploadFinished(event) {
+    this.getUrl = event[1];
+    const data = {
+      'platform': 'web',
+      'uploadtype': 'single',
+      'images': this.getUrl,
+    };
+    console.log(data, 'dfdfdsfdsfdsfds');
+    this.branchservice.fileUpload(data).subscribe(
+        (successData) => {
+          this.fileUploadSuccess(successData);
+        },
+        (error) => {
+          this.fileUploadFailure(error);
+        }
+    );
+  }
+
+  public fileUploadSuccess(successData) {
+    if (successData.IsSuccess == true) {
+      this.fileUploadPath = successData.ResponseObject.imagePath;
+      if (this.type == 'profile') {
+        this.profile = this.fileUploadPath;
+
+      }
+    } else {
+      this.toastr.error(successData.ErrorObject, 'Failed');
+    }
+  }
+
+  public fileUploadFailure(error) {
+    console.log(error);
   }
 
   public keyPress(event: any) {
