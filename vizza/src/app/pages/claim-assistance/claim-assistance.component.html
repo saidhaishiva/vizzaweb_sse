@@ -95,7 +95,7 @@
                   <img *ngIf="fileUploadPathDOC !=''" src="assets/img/upload-icons/doc-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
                   <img *ngIf="fileUploadPathPDF !=''" src="assets/img/upload-icons/pdf-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
                   <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
-                  <p *ngIf="filePath !=''" class="mt-1">{{filePath}}</p>
+                  <p *ngIf="filePath !=''" class="mt-1" style="color: green;">{{filePath}}</p>
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-raised-button class="bg-info text-white" (click)="claimAssitance(form.value)">Submit</button>
