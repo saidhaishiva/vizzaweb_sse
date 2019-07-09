@@ -160,6 +160,7 @@ export class AegonTermLifeComponent implements OnInit {
       deathBenefitSA:'',
       deathBenefitTISA:'',
       enchancedCISA:'',
+      cStateName:'',
       icirSumAssured:'',
       criticalIllnessError:'',
       // deathBenefitSAName:'',
@@ -189,6 +190,7 @@ export class AegonTermLifeComponent implements OnInit {
       nCityName:'',
       nRelationName:'',
       nStateName:'',
+      aRelationName:'',
 
 
 
@@ -535,27 +537,7 @@ export class AegonTermLifeComponent implements OnInit {
     return age;
   }
 
-  // sameAddress(event) {
-  //   if (event.checked) {
-  //     console.log(event.checked,'checked');
-  //     // this.personal.controls['isAddressSame'].value){
-  //
-  //     this.personal.controls['pAddress1'].patchValue(this.personal.controls['cAddress1'].value);
-  //     this.personal.controls['pAddress2'].patchValue(this.personal.controls['cAddress2'].value);
-  //     this.personal.controls['pCity'].patchValue(this.personal.controls['cCity'].value);
-  //     this.personal.controls['pState'].patchValue(this.personal.controls['cState'].value);
-  //     this.personal.controls['pPincode'].patchValue(this.personal.controls['cPincode'].value);
-  //
-  //
-  //   } else {
-  //     this.personal.controls['pAddress1'].patchValue('');
-  //     this.personal.controls['pAddress2'].patchValue('');
-  //     this.personal.controls['pCity'].patchValue('');
-  //     this.personal.controls['pState'].patchValue('');
-  //     this.personal.controls['pPincode'].patchValue('');
-  //
-  //   }
-  // }
+
   // SAME AS ADDRESS
   sameAddress(value:any){
     if (this.personal.controls['isAddressSame'].value) {
@@ -731,6 +713,7 @@ export class AegonTermLifeComponent implements OnInit {
     }
     public getcityclistFailure(error) {
     }
+
     getcitylistn() {
         const data = {
             'platform': 'web',
@@ -869,6 +852,7 @@ export class AegonTermLifeComponent implements OnInit {
     }
 
     public getAnnuallistFailure(error){
+      this.toastr.error('Annual Income Should Greater than or equal to 3Lak');
 
     }
 
@@ -958,17 +942,8 @@ export class AegonTermLifeComponent implements OnInit {
   public pincodeListSuccess(successData, title) {
     if (successData.IsSuccess) {
       this.response = successData.ResponseObject;
-      // this.personal.controls['custMailStateCd'].patchValue(this.response.state_code);
-      // if (title == 'personal') {
-      //   if (Object.keys(this.response).length === 0) {
-      //     this.personal.controls['pState'].patchValue('');
-      //   } else {
-      //     this.personal.controls['pState'].patchValue(this.response.state);
-      //     console.log(this.personal.controls['pState'].value,'this.state')
-      //
-      //
-      //   }
-      } else {
+
+       } else {
       this.toastr.error('Invalid Pincode');
     }
 
@@ -1159,9 +1134,9 @@ export class AegonTermLifeComponent implements OnInit {
             "smoker": this.personal.controls['smoker'].value,
             "isExistingPolicyHolder": this.personal.controls['isExistingPolicyHolder'].value,
             "isPoliticleExposed": this.personal.controls['isPoliticleExposed'].value,
-            "diabeteDuration": this.personal.controls['diabeteDuration'].value,
-            "isHousewife": this.personal.controls['isHousewife'].value,
-            "isHusbandCover": this.personal.controls['isHusbandCover'].value
+            "diabeteDuration": this.personal.controls['diabeteDuration'].value ? '0' : '1',
+            "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
+            "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
           },
           "addressDetail": {
             "pAddress1": this.personal.controls['pAddress1'].value,
@@ -1174,7 +1149,7 @@ export class AegonTermLifeComponent implements OnInit {
             "cCity": this.personal.controls['cCity'].value,
             "cState": this.personal.controls['cState'].value,
             "cPincode": this.personal.controls['cPincode'].value,
-            "isAddressSame": this.personal.controls['isAddressSame'].value ,"YES" : "NO"
+            "isAddressSame": this.personal.controls['isAddressSame'].value ? 'YES' : 'NO'
           },
           "nomineeDetail": {
             "tittle": this.nomineeData.ntitle,
