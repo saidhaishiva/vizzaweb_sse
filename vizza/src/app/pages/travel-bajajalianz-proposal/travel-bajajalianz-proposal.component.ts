@@ -415,13 +415,13 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                     'pvpassportNo': this.insurerData.items[i].passportNo,
                     'pvage': this.insurerData.items[i].age,
                     'pvsex': this.insurerData.items[i].sex,
-                    'pvdob': this.insurerData.items[i].idob
+                    'pvdob': this.datepipe.transform(this.insurerData.items[i].idob, 'y-MM-dd')
                 });
             }
         } else{
             sessionStorage.stepper1bajajDetails = '';
             sessionStorage.stepper1bajajDetails = JSON.stringify(value);
-            this.insuredDataArray = [''];
+            this.insuredDataArray = [];
         }
         const data = {
             "platform": "web",
@@ -533,15 +533,26 @@ export class TravelBajajalianzProposalComponent implements OnInit {
                 let dob_days = '';
                 dob_days = this.datepipe.transform(this.bajajProposal.controls['dob'].value, 'dd-MM-y');
                 let getProposerAgeDays = this.DobDaysCalculate(dob_days);
-
                 let ageValidStatus = true;
-                if(getProposerAgeDays > 180 && getProposerAgeDays < 22280  ){
-                    ageValidStatus = true;
-                } else{
-                    ageValidStatus = false;
-                    //5motns ,26 days that is 177 days ,,,max 60 yrs 11 mnts ,30 days that is 22279.
-                    this.toastr.error('Age should be 6 months to 60 years');
+
+                console.log(getProposerAgeDays,'agedays');
+                if(this.getTravelPremiumList.plan_name1 == 'Senior Citizen'){
+                    if(getProposerAgeDays > 22279 && getProposerAgeDays < 25932 ){
+                        ageValidStatus = true;
+                    } else{
+                        ageValidStatus = false;
+                        this.toastr.error('Senior Citizen Age should be 61 years to 70 years');
+                    }
+                }else{
+                    if(getProposerAgeDays > 180 && getProposerAgeDays < 22280  ){
+                        ageValidStatus = true;
+                    } else{
+                        ageValidStatus = false;
+                        //5motns ,26 days that is 177 days ,,,max 60 yrs 11 mnts ,30 days that is 22279.
+                        this.toastr.error('Age should be 6 months to 60 years');
+                    }
                 }
+
                 if(ageValidStatus) {
                     this.setting.loadingSpinner = true;
                     this.travelservice.getProposal(data).subscribe(
@@ -705,6 +716,7 @@ export class TravelBajajalianzProposalComponent implements OnInit {
 
     ageValidation(i, type) {
         console.log(type,'hfgjfj');
+
         if(this.getEnquiryDetails.travel_user_type == 'family'){
             console.log(type);
             console.log('in');
@@ -720,7 +732,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             // } else {
             //     this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 6 months to 21 years');
             // }
-
             if((this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value < 181 && type == 'Child1') || (this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value > 8034 && type == 'Child1')) {
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('Age should be 6 months to 21 years');
             } else if(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 181 && type == 'Child1')  {
@@ -739,7 +750,6 @@ export class TravelBajajalianzProposalComponent implements OnInit {
             } else if(this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].ins_days.value >= 6574 && type == 'Spouse')  {
                 this.bajajInsuredTravel['controls'].items['controls'][i]['controls'].insurerDobError.patchValue('');
             }
-
         }
 
     }

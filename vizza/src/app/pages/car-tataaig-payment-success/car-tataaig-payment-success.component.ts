@@ -36,7 +36,7 @@ export class CarTataaigPaymentSuccessComponent implements OnInit {
   }
 
   retry() {
-    this.router.navigate(['/bike-shriram-proposal'  + '/' + true]);
+    this.router.navigate(['/car-tataaig-proposal'  + '/' + true]);
   }
 
   DownloadPdf() {
