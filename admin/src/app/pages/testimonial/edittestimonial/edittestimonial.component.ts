@@ -68,7 +68,7 @@ export class EdittestimonialComponent implements OnInit {
         'customer_name': this.form.controls['name'].value,
         'designation': this.form.controls['designation'].value,
         'company_name': this.form.controls['company'].value,
-        'profile_pic': this.getDetails.profile_pic,
+        'profile_pic': this.profile,
         'comments': this.form.controls['comments'].value,
         'testemonial_status': this.getDetails.status,
       };
