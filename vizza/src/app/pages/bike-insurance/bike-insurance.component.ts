@@ -268,7 +268,7 @@ export class BikeInsuranceComponent implements OnInit {
         console.log(this.bikeInsurance,'bikegroup');
 
         console.log(this.bikeInsurance.valid,'valuevalid');
-        if(this.bikeInsurance.valid) {
+        // if(this.bikeInsurance.valid) {
             this.bikeService.getMotorHomeDetails(data).subscribe(
                 (successData) => {
                     this.bikeDetailsSuccess(successData, data);
@@ -277,10 +277,10 @@ export class BikeInsuranceComponent implements OnInit {
                     this.bikeDetailsFailure(error);
                 }
             );
-        }else{
-            this.toastr.error('Please select the Mandatory field');
-
-        }
+        // }else{
+        //     this.toastr.error('Please select the Mandatory field');
+        //
+        // }
     }
 
     public bikeDetailsSuccess(successData, data) {
