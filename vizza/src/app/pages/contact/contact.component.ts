@@ -22,13 +22,18 @@ export class ContactComponent implements OnInit {
     public uploadAddressProofName: any;
     public uploadType: any;
     public getBase64: any;
-    public fileUploadPath: any;
     public data: any;
     public getUrl: any;
     public fileDetails: any;
     public allImage: any;
 
     public uploadTypeTest: any;
+    public allowedExtensionsPDF: any;
+    public allowedExtensionsDOC: any;
+    public allowedExtensionsDOCX: any;
+    public fileUploadPathPDF: any;
+    public fileUploadPathDOC: any;
+    public fileUploadPathDOCX: any;
     imageSrc: string;
 
     @ViewChild('myForm') myForm: NgForm;
@@ -36,7 +41,6 @@ export class ContactComponent implements OnInit {
     constructor(public dialogRef: MatDialogRef<ComparelistComponent>,
               @Inject(MAT_DIALOG_DATA)  public data1: any,  public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings,public common: CommonService) {
       this.settings = this.appSettings.settings;
-      this.fileUploadPath = '';
       this.allImage = [];
 
 
@@ -55,6 +59,10 @@ export class ContactComponent implements OnInit {
       this.imageSrc = '';
       this.uploadType = '';
       this.getBase64 = '';
+      this.uploadAddressProofName = '';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOC= '';
+      this.fileUploadPathDOCX= '';
   }
     public contactDetails(): void {
         if(this.uploadType == '' ){
@@ -94,6 +102,9 @@ export class ContactComponent implements OnInit {
             this.imageSrc = '';
             this.uploadAddressProofName = '';
             this.getBase64 = '';
+            this.fileUploadPathPDF= '';
+            this.fileUploadPathDOC= '';
+            this.fileUploadPathDOCX= '';
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -107,6 +118,10 @@ export class ContactComponent implements OnInit {
     }
 
     uploadProof(event: any) {
+        this.allowedExtensionsPDF = /(\.pdf)$/i;
+        this.allowedExtensionsDOC = /(\.doc)$/i;
+        this.allowedExtensionsDOCX = /(\.docx)$/i;
+
         let getUrlEdu = [];
         // let typeList = [];
         for (let i = 0; i < event.target.files.length; i++) {
@@ -121,20 +136,34 @@ export class ContactComponent implements OnInit {
         this.uploadAddressProofName = event.target.files[0].name;
         this.uploadType =  event.target.files[0].type;
         this.uploadTypeTest = true;
-        // console.log(this.uploadType, 'jhgfghj');
-        // console.log(event, 'jhgfghj');
-        //   typeList = split( event.target.files[0].type);
-        //   console.log(typeList, 'typeList');
-        if (event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
 
-            const reader = new FileReader();
-            reader.onload = e => this.imageSrc = reader.result;
+        if(this.allowedExtensionsPDF.exec(this.uploadAddressProofName)){
+            this.fileUploadPathPDF= 'pdf';
+            this.fileUploadPathDOC= '';
+            this.fileUploadPathDOCX= '';
+            this.imageSrc = '';
+        }else if(this.allowedExtensionsDOC.exec(this.uploadAddressProofName)){
+            this.fileUploadPathDOC= 'doc';
+            this.fileUploadPathPDF= '';
+            this.fileUploadPathDOCX= '';
+            this.imageSrc = '';
+        }else if(this.allowedExtensionsDOCX.exec(this.uploadAddressProofName)){
+            this.fileUploadPathDOCX= 'docx';
+            this.fileUploadPathPDF= '';
+            this.fileUploadPathDOC= '';
+            this.imageSrc = '';
+        }else {
+            if (event.target.files && event.target.files[0]) {
+                const file = event.target.files[0];
 
-            reader.readAsDataURL(file);
-            // console.log(reader,'sssssss');
-            // console.log(this.imageSrc,'this.imageSrc');
+                const reader = new FileReader();
+                reader.onload = e => this.imageSrc = reader.result;
 
+                reader.readAsDataURL(file);
+                this.fileUploadPathPDF= '';
+                this.fileUploadPathDOC= '';
+                this.fileUploadPathDOCX= '';
+            }
         }
     }
     onUploadFinished( basecode) {

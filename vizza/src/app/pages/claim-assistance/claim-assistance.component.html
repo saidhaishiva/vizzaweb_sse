@@ -20,7 +20,7 @@
         <div class="card-block">
           <mat-card style="background: linear-gradient(to bottom, #C0E3F5 0%, #f2dbdc 100%) !important;">
             <h2 class="w-100 text-center" >Let us assist you</h2>
-            <form [formGroup]="form">
+            <form #myForm="ngForm" [formGroup]="form">
 
               <div class="row">
                 <div class="col-md-12">
@@ -91,8 +91,11 @@
                     <label class="custom-file-label"> Upload Your Attachment <span class="error">*</span></label>
                   </div>
                   <p class="error" *ngIf="!uploadTypeTest">Your Attachment is required</p>
-                  <a class="mt-3" *ngFor="let names of fileDetails"> <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="100px" width="100px" alt="Image preview...">
-                    {{names.name}}</a>
+                  <img *ngIf="fileUploadPathDOCX !=''" src="assets/img/upload-icons/docx-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                  <img *ngIf="fileUploadPathDOC !=''" src="assets/img/upload-icons/doc-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                  <img *ngIf="fileUploadPathPDF !=''" src="assets/img/upload-icons/pdf-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                  <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                  <p *ngIf="filePath !=''" class="mt-1">{{filePath}}</p>
                 </div>
                 <div class="col-md-12 text-center mt-3">
                   <button mat-raised-button class="bg-info text-white" (click)="claimAssitance(form.value)">Submit</button>
