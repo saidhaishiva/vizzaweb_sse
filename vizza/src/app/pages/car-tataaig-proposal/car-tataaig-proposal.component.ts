@@ -776,8 +776,6 @@ export class CarTataaigProposalComponent implements OnInit {
 
   //Proposal Creation
   createproposal(stepper: MatStepper) {
-    console.log(this.previouspolicy.controls['preflag'].value,'preflag');
-    console.log(this.vehicle.controls['autoDob'].value,'expry date');
     const data = {
       "platform": "web",
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
