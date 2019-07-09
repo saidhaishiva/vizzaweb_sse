@@ -87,6 +87,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public buyBikeDetails: any;
   public enquiryFormData: any;
   public bikeEnquiryId: any;
+  public buyProduct: any;
   public currentStep: any;
   public ProposalId: any;
 
@@ -141,6 +142,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       occupation : ['' , Validators.required],
       maritalStatus : [''],
       nationality : [''],
+      titleValue : [''],
       address : ['' , Validators.required],
       paddress : ['' , Validators.required],
       raddress : ['' , Validators.required],
@@ -296,7 +298,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
 
-    // this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
+    this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
     // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
     // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     // this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
@@ -345,6 +347,10 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
   changenOtherRelation(){
     this.coverDetails.controls['nOtherRelationValue'].patchValue(this.relationListData[this.coverDetails.controls['nOtherRelation'].value]);
+  }
+  changeTitle(){
+    this.relianceProposal.controls['titleValue'].patchValue(this.titleList[this.relianceProposal.controls['title'].value]);
+    console.log(this.relianceProposal.controls['titleValue'],'valueee');
   }
   changenpOtherRelation(){
     this.coverDetails.controls['npOtherRelationValue'].patchValue(this.relationListData[this.coverDetails.controls['npOtherRelation'].value]);
@@ -857,7 +863,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
   //stepper
   nextTab(stepper,value,type) {
-
     if (type == 'stepper1') {
       this.proposerData = value;
       sessionStorage.stepper1Details = '';
@@ -887,9 +892,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
       if (this.coverDetails.valid) {
-        stepper.next();
-        this.topScroll();
+        console.log(typeof (this.buyProduct.business_type),'type');
+        if (this.buyProduct.business_type == 1){
 
+          this.createProposal(stepper, value);
+        }else{
+          stepper.next();
+          this.topScroll();
+        }
       }else{
         this.toastr.error('Please Select the Mandatory Fields')
 
@@ -925,6 +935,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         occupation: this.getStepper1.occupation,
         maritalStatus: this.getStepper1.maritalStatus,
         nationality: this.getStepper1.nationality,
+        titleValue: this.getStepper1.titleValue,
         address: this.getStepper1.address,
         paddress: this.getStepper1.paddress,
         raddress: this.getStepper1.raddress,
@@ -1382,8 +1393,11 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
     // stepper.next();
     // this.topScroll();
-    sessionStorage.stepper4Details = '';
-    sessionStorage.stepper4Details = JSON.stringify(value);
+    if (this.buyProduct.business_type !=1) {
+      sessionStorage.stepper4Details = '';
+      sessionStorage.stepper4Details = JSON.stringify(value);
+    }
+
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -1664,17 +1678,32 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         }
       }
     };
-    if (this.previousInsurance.valid) {
-      this.setting.loadingSpinner = true;
-      this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
-          (successData) => {
-            this.getProposalSucccess(successData, stepper);
-          },
-          (error) => {
-            this.getProposalFailure(error);
-          }
-      );
-      console.log(data, 'data');
+    if(this.buyProduct.business_type == 1){
+      if (this.coverDetails.valid) {
+        this.setting.loadingSpinner = true;
+        this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
+            (successData) => {
+              this.getProposalSucccess(successData, stepper);
+            },
+            (error) => {
+              this.getProposalFailure(error);
+            }
+        );
+        console.log(data, 'data');
+      }
+    }else{
+      if (this.previousInsurance.valid) {
+        this.setting.loadingSpinner = true;
+        this.fourWheelerInsurance.fourWheelergetProposal(data).subscribe(
+            (successData) => {
+              this.getProposalSucccess(successData, stepper);
+            },
+            (error) => {
+              this.getProposalFailure(error);
+            }
+        );
+        console.log(data, 'data');
+      }
     }
   }
 
