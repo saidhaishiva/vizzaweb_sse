@@ -1,165 +1,165 @@
-<!--&lt;!&ndash;destop view&ndash;&gt;-->
-<!--<section class="d-none d-sm-none d-md-none d-lg-block">-->
-  <!--<div class="row mb-3" >-->
-    <!--<div class="col-sm-12 text-right">-->
-      <!--<mat-icon (click)="close()" style="cursor: pointer">close</mat-icon>-->
-    <!--</div>-->
-  <!--</div>-->
+<!--destop view-->
+<section class="d-none d-sm-none d-md-none d-lg-block">
+  <div class="row mb-3" >
+    <div class="col-sm-12 text-right">
+      <mat-icon (click)="close()" style="cursor: pointer">close</mat-icon>
+    </div>
+  </div>
 
-  <!--<div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">-->
-    <!--<div fxFlex="100" fxFlex.gt-sm="90" fxFlex.sm="90" class="flex-p">-->
-      <!--<form [formGroup]="form" >-->
-        <!--<div class="row">-->
-          <!--<div class="col-sm-12">-->
+  <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex="100" fxFlex.gt-sm="90" fxFlex.sm="90" class="flex-p">
+      <form [formGroup]="form" >
+        <div class="row">
+          <div class="col-sm-12">
+            <mat-form-field class="w-100">
+              <textarea matInput placeholder="Leave a comment" formControlName="comments" required></textarea>
+              <mat-error *ngIf="form.controls.comments.errors?.required">Enter any Comments</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field class="w-100">
+              <!--<mat-placeholder>-->
+              <!--<mat-icon>person</mat-icon>-->
+              <!--Name-->
+              <!--</mat-placeholder>-->
+              <input matInput placeholder="Name" formControlName="name" required>
+              <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Designation" formControlName="designation" required >
+              <mat-error *ngIf="form.controls.designation.errors?.required">Designation is required</mat-error>
+              <!--<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required-->
+              <!--</mat-error>-->
+              <!--<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long-->
+              <!--enough, minimum of 10 characters-->
+              <!--</mat-error>-->
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Company Name" formControlName="company" required >
+              <mat-error *ngIf="form.controls.company.errors?.required">Company name is required</mat-error>
+              <!--<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required-->
+              <!--</mat-error>-->
+              <!--<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long-->
+              <!--enough, minimum of 10 characters-->
+              <!--</mat-error>-->
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12">
             <!--<mat-form-field class="w-100">-->
-              <!--<textarea matInput placeholder="Leave a comment" formControlName="comments" required></textarea>-->
-              <!--<mat-error *ngIf="form.controls.comments.errors?.required">Enter any Comments</mat-error>-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-          <!--<div class="col-sm-12">-->
-            <!--<mat-form-field class="w-100">-->
-              <!--&lt;!&ndash;<mat-placeholder>&ndash;&gt;-->
-              <!--&lt;!&ndash;<mat-icon>person</mat-icon>&ndash;&gt;-->
-              <!--&lt;!&ndash;Name&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-placeholder>&ndash;&gt;-->
-              <!--<input matInput placeholder="Name" formControlName="name" required>-->
-              <!--<mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-          <!--<div class="col-sm-12">-->
-            <!--<mat-form-field class="w-100">-->
-              <!--<input matInput placeholder="Designation" formControlName="designation" required >-->
-              <!--<mat-error *ngIf="form.controls.designation.errors?.required">Designation is required</mat-error>-->
-              <!--&lt;!&ndash;<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
-              <!--&lt;!&ndash;<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long&ndash;&gt;-->
-              <!--&lt;!&ndash;enough, minimum of 10 characters&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-          <!--<div class="col-sm-12">-->
-            <!--<mat-form-field class="w-100">-->
-              <!--<input matInput placeholder="Company Name" formControlName="company" required >-->
-              <!--<mat-error *ngIf="form.controls.company.errors?.required">Company name is required</mat-error>-->
-              <!--&lt;!&ndash;<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
-              <!--&lt;!&ndash;<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long&ndash;&gt;-->
-              <!--&lt;!&ndash;enough, minimum of 10 characters&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-          <!--<div class="col-sm-12">-->
-            <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-            <!--&lt;!&ndash;<mat-placeholder>&ndash;&gt;-->
-            <!--&lt;!&ndash;<mat-icon>add_a_photo</mat-icon>&ndash;&gt;-->
-            <!--&lt;!&ndash;</mat-placeholder>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="custom-file">&ndash;&gt;-->
-            <!--<input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')">-->
-            <!--<label class="custom-file-label">-->
-              <!--Profile Picture</label>-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-          <!--</div>-->
-
-        <!--</div>-->
-        <!--<div class="row w-100">-->
-          <!--<div class="col-md-12">-->
-            <!--<div *ngIf="profile != ''">-->
-              <!--<span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>-->
+            <!--<mat-placeholder>-->
+            <!--<mat-icon>add_a_photo</mat-icon>-->
+            <!--</mat-placeholder>-->
+            <!--<div class="custom-file">-->
+            <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')">
+            <label class="custom-file-label">
+              Profile Picture</label>
             <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-sm-12 mt-3 text-center">-->
-          <!--<button mat-raised-button color="primary" (click)="edit(form)">Submit</button>-->
-        <!--</div>-->
-
-      <!--</form>-->
-
-    <!--</div>-->
-  <!--</div>-->
-<!--</section>-->
-
-<!--&lt;!&ndash;mobile view&ndash;&gt;-->
-<!--<section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">-->
-  <!--<div class="row mb-3" >-->
-    <!--<div class="col-sm-12 col-xs-12 col-md-12 text-right">-->
-      <!--<mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>-->
-    <!--</div>-->
-  <!--</div>-->
-
-  <!--<div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">-->
-    <!--<div fxFlex="100" fxFlex.gt-sm="90" fxFlex.sm="90" class="flex-p">-->
-      <!--<form [formGroup]="form" >-->
-        <!--<div class="row">-->
-          <!--<div class="col-sm-12 col-xs-12 col-md-12">-->
-            <!--<mat-form-field class="w-100">-->
-              <!--<textarea matInput placeholder="Leave a comment" formControlName="comments" required></textarea>-->
             <!--</mat-form-field>-->
-          <!--</div>-->
-          <!--<div class="col-sm-12 col-xs-12 col-md-12">-->
-            <!--<mat-form-field class="w-100">-->
-              <!--&lt;!&ndash;<mat-placeholder>&ndash;&gt;-->
-              <!--&lt;!&ndash;<mat-icon>person</mat-icon>&ndash;&gt;-->
-              <!--&lt;!&ndash;Name&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-placeholder>&ndash;&gt;-->
-              <!--<input matInput placeholder="Name" formControlName="name" required>-->
-              <!--<mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-          <!--<div class="col-sm-12 col-xs-12 col-md-12">-->
-            <!--<mat-form-field class="w-100">-->
-              <!--<input matInput placeholder="Designation" formControlName="designation" required >-->
-              <!--<mat-error *ngIf="form.controls.designation.errors?.required">Designation is required</mat-error>-->
-              <!--&lt;!&ndash;<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
-              <!--&lt;!&ndash;<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long&ndash;&gt;-->
-              <!--&lt;!&ndash;enough, minimum of 10 characters&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-          <!--<div class="col-sm-12 col-xs-12 col-md-12">-->
-            <!--<mat-form-field class="w-100">-->
-              <!--<input matInput placeholder="Company Name" formControlName="company" required >-->
-              <!--<mat-error *ngIf="form.controls.company.errors?.required">Company name is required</mat-error>-->
-              <!--&lt;!&ndash;<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
-              <!--&lt;!&ndash;<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long&ndash;&gt;-->
-              <!--&lt;!&ndash;enough, minimum of 10 characters&ndash;&gt;-->
-              <!--&lt;!&ndash;</mat-error>&ndash;&gt;-->
-            <!--</mat-form-field>-->
-          <!--</div>-->
-          <!--<div class="col-sm-12 col-xs-12 col-md-12">-->
-            <!--&lt;!&ndash;<mat-form-field class="w-100">&ndash;&gt;-->
-            <!--&lt;!&ndash;<mat-placeholder>&ndash;&gt;-->
-            <!--&lt;!&ndash;<mat-icon>add_a_photo</mat-icon>&ndash;&gt;-->
-            <!--&lt;!&ndash;</mat-placeholder>&ndash;&gt;-->
-            <!--&lt;!&ndash;<div class="custom-file">&ndash;&gt;-->
-            <!--<input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')">-->
-            <!--<label class="custom-file-label"><span class="error">*</span>-->
-              <!--Profile Picture</label>-->
-            <!--&lt;!&ndash;</div>&ndash;&gt;-->
-            <!--&lt;!&ndash;</mat-form-field>&ndash;&gt;-->
-          <!--</div>-->
+          </div>
 
-        <!--</div>-->
-        <!--<div class="row w-100">-->
-          <!--<div class="col-sm-12 col-xs-12 col-md-12">-->
-            <!--<div *ngIf="profile != ''">-->
-              <!--<span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>-->
+        </div>
+        <div class="row w-100">
+          <div class="col-md-12">
+            <div *ngIf="profile != ''">
+              <span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 mt-3 text-center">
+          <button mat-raised-button color="primary" (click)="edit(form)">Submit</button>
+        </div>
+
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<!--mobile view-->
+<section class="d-xl-none d-lg-none d-md-block d-block d-sm-block">
+  <div class="row mb-3" >
+    <div class="col-sm-12 col-xs-12 col-md-12 text-right">
+      <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+    </div>
+  </div>
+
+  <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex="100" fxFlex.gt-sm="90" fxFlex.sm="90" class="flex-p">
+      <form [formGroup]="form" >
+        <div class="row">
+          <div class="col-sm-12 col-xs-12 col-md-12">
+            <mat-form-field class="w-100">
+              <textarea matInput placeholder="Leave a comment" formControlName="comments" required></textarea>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 col-xs-12 col-md-12">
+            <mat-form-field class="w-100">
+              <!--<mat-placeholder>-->
+              <!--<mat-icon>person</mat-icon>-->
+              <!--Name-->
+              <!--</mat-placeholder>-->
+              <input matInput placeholder="Name" formControlName="name" required>
+              <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 col-xs-12 col-md-12">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Designation" formControlName="designation" required >
+              <mat-error *ngIf="form.controls.designation.errors?.required">Designation is required</mat-error>
+              <!--<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required-->
+              <!--</mat-error>-->
+              <!--<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long-->
+              <!--enough, minimum of 10 characters-->
+              <!--</mat-error>-->
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 col-xs-12 col-md-12">
+            <mat-form-field class="w-100">
+              <input matInput placeholder="Company Name" formControlName="company" required >
+              <mat-error *ngIf="form.controls.company.errors?.required">Company name is required</mat-error>
+              <!--<mat-error *ngIf="form.controls.mobile.errors?.required">Mobile number is required-->
+              <!--</mat-error>-->
+              <!--<mat-error *ngIf="form.controls.mobile.hasError('minlength')">Mobile number isn't long-->
+              <!--enough, minimum of 10 characters-->
+              <!--</mat-error>-->
+            </mat-form-field>
+          </div>
+          <div class="col-sm-12 col-xs-12 col-md-12">
+            <!--<mat-form-field class="w-100">-->
+            <!--<mat-placeholder>-->
+            <!--<mat-icon>add_a_photo</mat-icon>-->
+            <!--</mat-placeholder>-->
+            <!--<div class="custom-file">-->
+            <input type="file" class="custom-file-input" (change)="readUrl($event, 'profile')">
+            <label class="custom-file-label"><span class="error">*</span>
+              Profile Picture</label>
             <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--<div class="col-sm-12 col-xs-12 col-md-12 mt-3 text-center">-->
-          <!--<button mat-raised-button color="primary" (click)="submit(form)">Submit</button>-->
-        <!--</div>-->
+            <!--</mat-form-field>-->
+          </div>
 
-      <!--</form>-->
+        </div>
+        <div class="row w-100">
+          <div class="col-sm-12 col-xs-12 col-md-12">
+            <div *ngIf="profile != ''">
+              <span class="imageclose mr-2"><img src="{{webhost + '/' + profile}}" class="img-thumbnail" style="height:150px;width: 250px;"/></span>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-xs-12 col-md-12 mt-3 text-center">
+          <button mat-raised-button color="primary" (click)="submit(form)">Submit</button>
+        </div>
 
-    <!--</div>-->
-  <!--</div>-->
-<!--</section>-->
-<!--<style>-->
-  <!--.mat-dialog-container {-->
-    <!--background: linear-gradient(to bottom, #ffcc66 0%, #ffff99 100%) !important;-->
-  <!--}-->
-<!--</style>-->
+      </form>
+
+    </div>
+  </div>
+</section>
+<style>
+  .mat-dialog-container {
+    background: linear-gradient(to bottom, #ffcc66 0%, #ffff99 100%) !important;
+  }
+</style>
