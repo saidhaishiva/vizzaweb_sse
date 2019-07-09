@@ -19,11 +19,11 @@
                     <th style="padding-right: 56px;">
                         KEY FEATURES
                     </th>
-                    <th *ngFor="let list of compareDetails.productdetails; let i = index;" align="center" class="text-center">
+                    <th *ngFor="let list of compareDetails.productdetails; let i = index;" >
                         <img src="{{webhost + '/' + list.product_logo}}">
                         <br>
-                        <p class="content-color pt-2">{{list.product_name}}</p>
-                        <button mat-raised-button color="accent" (click)="buyProduct(list)">Buy</button>
+                        <p class="content-color pt-2 text-center">{{list.product_name}}</p>
+                        <button mat-raised-button color="accent" class="text-center" (click)="buyProduct(list)">Buy</button>
 
                     </th>
                 </tr>

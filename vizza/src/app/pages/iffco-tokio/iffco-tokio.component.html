@@ -261,7 +261,7 @@
                             <mat-select placeholder="Title" formControlName="proposerTitle" (change)="insureChangeGender(i)" [disabled]="sameValue" required>
                               <mat-option value="MR">Mr</mat-option>
                               <mat-option value="MS">Ms</mat-option>
-                              <mat-option value="MRS">Mrs</mat-option>
+                              <mat-option value="MRS" [hidden]="insureArray['controls'].items['controls'][i]['controls'].type.value == 'Son'">Mrs</mat-option>
                             </mat-select>
                             <mat-error *ngIf="insureArray.invalid">Title is required</mat-error>
                           </mat-form-field>

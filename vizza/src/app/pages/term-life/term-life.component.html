@@ -186,7 +186,11 @@
                     Are You Smoker
                   </div>
                   <div class="col-md-4 text-right">
-                    <mat-slide-toggle formControlName="lifesmoker"></mat-slide-toggle>
+                    <!--<mat-slide-toggle formControlName="lifePincodesmoker"></mat-slide-toggle>-->
+                    <mat-radio-group formControlName="lifesmoker" >
+                      <mat-radio-button value="y" class="mr-2">Yes</mat-radio-button>
+                      <mat-radio-button value="n">No</mat-radio-button>
+                    </mat-radio-group>
                   </div>
                 </div>
                 <div fxLayoutAlign="center center" class="mt-4">

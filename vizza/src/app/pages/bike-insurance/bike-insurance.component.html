@@ -115,16 +115,11 @@
                                     </div>
                                     <div class="col-md-12" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">
                                         <mat-form-field class="w-100 text-left">
-                                            <mat-placeholder>NCB Percent(%)
-                                            </mat-placeholder>
-                                            <span class="text-right"><mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy.">help</mat-icon></span>
+                                            <mat-placeholder> NCB Percent(%) <span class="text-right"><mat-icon aria-hidden="false" aria-label="Example home icon" matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy.">help</mat-icon></span></mat-placeholder>
                                             <mat-select   (change)="setSession()" formControlName="ncb"  required >
-
-
                                                 <!--<i class="material-icons"><span matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy."</span>-->
                                                     <!--help-->
                                                 <!--</i>-->
-
                                            <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>

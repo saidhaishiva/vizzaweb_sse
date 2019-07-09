@@ -523,9 +523,10 @@
                           <mat-error *ngIf="nomineeDetails.controls.religareNomineeName.errors?.required">Name of Nominee is required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4"><mat-form-field class="w-100">
+                      <div class="col-md-4">
+                        <mat-form-field class="w-100">
                         <mat-select placeholder="Relationship with Insured"  formControlName="religareRelationship" [required]="buyProductdetails.product_id == 1">
-                          <mat-option *ngFor="let relationship of insureRelationList | keys" [hidden]="sameRelationship == relationship.key" value="{{relationship.value}}" >
+                          <mat-option *ngFor="let relationship of insureRelationList | keys" [ngStyle]="{'display': sameRelationship == relationship.key ? 'none' : 'block' }" value="{{relationship.value}}" >
                             {{relationship.value}}
                           </mat-option>
                         </mat-select>
@@ -632,6 +633,7 @@
                             </mat-panel-title>
                             <mat-panel-description>
                               <!--<mat-slide-toggle (change)="questionYes(i, $event)" disabled readonly>{{item.mStatus}}</mat-slide-toggle>-->
+                              <p>{{item.mStatus | uppercase}}</p>
                             </mat-panel-description>
                           </mat-expansion-panel-header>
                           <table class="qesTable able table-striped mt-3">
