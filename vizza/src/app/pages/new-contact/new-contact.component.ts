@@ -21,20 +21,24 @@ export class NewContactComponent implements OnInit {
   public uploadAddressProofName: any;
   public uploadType: any;
   public getBase64: any;
-  public fileUploadPath: any;
   public data: any;
   public getUrl: any;
   public fileDetails: any;
   public allImage: any;
 
   public uploadTypeTest: any;
+  public allowedExtensionsPDF: any;
+  public allowedExtensionsDOC: any;
+  public allowedExtensionsDOCX: any;
+  public fileUploadPathPDF: any;
+  public fileUploadPathDOC: any;
+  public fileUploadPathDOCX: any;
   imageSrc: string;
 
   @ViewChild('myForm') myForm: NgForm;
 
   constructor(public fb: FormBuilder, public commonService: CommonService, public auth: AuthService, public toastr: ToastrService, public appSettings: AppSettings) {
     this.settings = this.appSettings.settings;
-    this.fileUploadPath = '';
 
     this.form = this.fb.group({
       'name': ['', Validators.compose([Validators.required])],
@@ -51,12 +55,16 @@ export class NewContactComponent implements OnInit {
     this.imageSrc = '';
     this.uploadType = '';
     this.getBase64 = '';
+    this.uploadAddressProofName = '';
+    this.fileUploadPathPDF= '';
+    this.fileUploadPathDOC= '';
+    this.fileUploadPathDOCX= '';
   }
   public contactDetails(): void {
     if(this.uploadType == '' ){
       this.uploadTypeTest= false;
     }else {
-    if (this.form.valid) {
+      if (this.form.valid) {
         const data = {
           'name': this.form.controls['name'].value,
           'email': this.form.controls['email'].value,
@@ -89,6 +97,9 @@ export class NewContactComponent implements OnInit {
       this.imageSrc = '';
       this.uploadAddressProofName = '';
       this.getBase64 = '';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOC= '';
+      this.fileUploadPathDOCX= '';
     } else {
       this.toastr.error(successData.ErrorObject);
     }
@@ -102,6 +113,10 @@ export class NewContactComponent implements OnInit {
   }
 
   uploadProof(event: any) {
+    this.allowedExtensionsPDF = /(\.pdf)$/i;
+    this.allowedExtensionsDOC = /(\.doc)$/i;
+    this.allowedExtensionsDOCX = /(\.docx)$/i;
+
     let getUrlEdu = [];
     // let typeList = [];
     for (let i = 0; i < event.target.files.length; i++) {
@@ -116,17 +131,34 @@ export class NewContactComponent implements OnInit {
     this.uploadAddressProofName = event.target.files[0].name;
     this.uploadType =  event.target.files[0].type;
     this.uploadTypeTest = true;
-    // console.log(this.uploadType, 'jhgfghj');
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
 
-      const reader = new FileReader();
-      reader.onload = e => this.imageSrc = reader.result;
+    if(this.allowedExtensionsPDF.exec(this.uploadAddressProofName)){
+      this.fileUploadPathPDF= 'pdf';
+      this.fileUploadPathDOC= '';
+      this.fileUploadPathDOCX= '';
+      this.imageSrc = '';
+    }else if(this.allowedExtensionsDOC.exec(this.uploadAddressProofName)){
+      this.fileUploadPathDOC= 'doc';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOCX= '';
+      this.imageSrc = '';
+    }else if(this.allowedExtensionsDOCX.exec(this.uploadAddressProofName)){
+      this.fileUploadPathDOCX= 'docx';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOC= '';
+      this.imageSrc = '';
+    }else {
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
 
-      reader.readAsDataURL(file);
-      // console.log(reader,'sssssss');
-      // console.log(this.imageSrc,'this.imageSrc');
+        const reader = new FileReader();
+        reader.onload = e => this.imageSrc = reader.result;
 
+        reader.readAsDataURL(file);
+        this.fileUploadPathPDF= '';
+        this.fileUploadPathDOC= '';
+        this.fileUploadPathDOCX= '';
+      }
     }
   }
   onUploadFinished( basecode) {

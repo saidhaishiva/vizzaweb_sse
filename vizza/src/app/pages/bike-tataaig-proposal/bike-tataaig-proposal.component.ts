@@ -192,7 +192,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.premium = sessionStorage.packae_list;
         console.log(this.premium);
         if(this.premium != 'Comprehensive_premium') {
-            this.vehicle.controls['coverdrive'].patchValue('ODD03')
+            this.vehicle.controls['coverdrive'].patchValue('ODD01')
         }
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
         console.log(poldate, 'poldate');

@@ -77,6 +77,7 @@ export class CarTataaigProposalComponent implements OnInit {
   public carProposerAge: any;
   public agecount: any;
   public premium: any;
+  public visible: any;
 
 
   constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService ) {
@@ -171,6 +172,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.getRelationList();
     this.package();
     this.sessionData();
+    this.visible = false;
     this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
     console.log(this.vehicledata);
     this.buycarDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
@@ -414,6 +416,7 @@ export class CarTataaigProposalComponent implements OnInit {
     console.log(this.vehicle.controls['packagevalue'].value, 'alue');
     this.vehicle.controls['packagevalue'].patchValue(this.packagelist[this.vehicle.controls['package'].value]);
     if (this.vehicle.controls['package'].value == '1') {
+      this.visible = true;
       this.vehicle.controls['Repairofglass'].patchValue(true);
       this.vehicle.controls['Depreciation'].patchValue('');
       this.vehicle.controls['Invoice'].patchValue('');
@@ -425,6 +428,7 @@ export class CarTataaigProposalComponent implements OnInit {
       this.vehicle.controls['Tyresecure'].patchValue('');
       this.vehicle.controls['Roadside'].patchValue('');
     }else if(this.vehicle.controls['package'].value == '2'){
+      this.visible = true;
       this.vehicle.controls['personaloss'].patchValue(true);
       this.vehicle.controls['transport'].patchValue(true);
       this.vehicle.controls['keyReplacement'].patchValue(true);
@@ -436,6 +440,7 @@ export class CarTataaigProposalComponent implements OnInit {
       this.vehicle.controls['Consumableexpence'].patchValue('');
       this.vehicle.controls['Tyresecure'].patchValue('');
     }else if(this.vehicle.controls['package'].value == '3') {
+      this.visible = true;
       this.vehicle.controls['Depreciation'].patchValue(true);
       this.vehicle.controls['personaloss'].patchValue(true);
       this.vehicle.controls['transport'].patchValue(true);
@@ -447,6 +452,7 @@ export class CarTataaigProposalComponent implements OnInit {
       this.vehicle.controls['Consumableexpence'].patchValue('');
       this.vehicle.controls['Tyresecure'].patchValue('');
     }else if(this.vehicle.controls['package'].value == '4') {
+      this.visible = true;
       this.vehicle.controls['Depreciation'].patchValue(true);
       this.vehicle.controls['personaloss'].patchValue(true);
       this.vehicle.controls['transport'].patchValue(true);
@@ -458,6 +464,7 @@ export class CarTataaigProposalComponent implements OnInit {
       this.vehicle.controls['Invoice'].patchValue('');
       this.vehicle.controls['Tyresecure'].patchValue('');
     }else if(this.vehicle.controls['package'].value == '5') {
+      this.visible = true;
       this.vehicle.controls['Depreciation'].patchValue(true);
       this.vehicle.controls['personaloss'].patchValue(true);
       this.vehicle.controls['transport'].patchValue(true);
@@ -469,6 +476,7 @@ export class CarTataaigProposalComponent implements OnInit {
       this.vehicle.controls['Invoice'].patchValue('');
       this.vehicle.controls['Enginesecure'].patchValue('');
     }else if(this.vehicle.controls['package'].value == '6') {
+      this.visible = true;
       this.vehicle.controls['Depreciation'].patchValue(true);
       this.vehicle.controls['personaloss'].patchValue(true);
       this.vehicle.controls['transport'].patchValue(true);
@@ -480,6 +488,7 @@ export class CarTataaigProposalComponent implements OnInit {
       this.vehicle.controls['Roadside'].patchValue(true);
       this.vehicle.controls['Invoice'].patchValue('');
     }else if(this.vehicle.controls['package'].value == '7') {
+      this.visible = true;
       this.vehicle.controls['Depreciation'].patchValue(true);
       this.vehicle.controls['Invoice'].patchValue(true);
       this.vehicle.controls['personaloss'].patchValue(true);
@@ -776,8 +785,6 @@ export class CarTataaigProposalComponent implements OnInit {
 
   //Proposal Creation
   createproposal(stepper: MatStepper) {
-    console.log(this.previouspolicy.controls['preflag'].value,'preflag');
-    console.log(this.vehicle.controls['autoDob'].value,'expry date');
     const data = {
       "platform": "web",
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
