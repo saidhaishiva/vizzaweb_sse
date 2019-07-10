@@ -192,7 +192,15 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.premium = sessionStorage.packae_list;
         console.log(this.premium);
         if(this.premium != 'Comprehensive_premium') {
-            this.vehicle.controls['coverdrive'].patchValue('ODD01')
+            this.vehicle.controls['coverdrive'].patchValue('ODD01');
+            this.vehicle.controls['Associationmember'].patchValue('');
+            this.vehicle.controls['Voluntary'].patchValue('');
+            this.vehicle.controls['Antitheft'].patchValue('');
+            this.vehicle.controls['Tppdrestrict'].patchValue('');
+            this.vehicle.controls['depreciation'].patchValue('');
+            this.vehicle.controls['Consumableexpense'].patchValue('');
+            this.vehicle.controls['Returninvoice'].patchValue('');
+            this.vehicle.controls['Roadsideassistance'].patchValue('');
         }
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
         console.log(poldate, 'poldate');
@@ -637,7 +645,6 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Consumableexpense: this.getstepper2.Consumableexpense,
                 Returninvoice: this.getstepper2.Returninvoice,
                 Roadsideassistance: this.getstepper2.Roadsideassistance,
-
             })
         }
         if (sessionStorage.tataprepolicy != '' && sessionStorage.tataprepolicy != undefined) {
