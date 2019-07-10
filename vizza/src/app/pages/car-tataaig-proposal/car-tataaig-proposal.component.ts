@@ -167,12 +167,12 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.visible = false;
     this.getGenderlist();
     this.getNamelist();
     this.getRelationList();
     this.package();
     this.sessionData();
-    this.visible = false;
     this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
     console.log(this.vehicledata);
     this.buycarDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
@@ -754,8 +754,8 @@ export class CarTataaigProposalComponent implements OnInit {
         Tyresecure: this.getstepper2.Tyresecure,
         protectioncover: this.getstepper2.protectioncover,
         Roadside: this.getstepper2.Roadside,
-
       })
+      this.visible = true;
     }
     if (sessionStorage.tatacarprepolicy != '' && sessionStorage.tatacarprepolicy != undefined) {
       this.getstepper3 = JSON.parse(sessionStorage.tatacarprepolicy);
