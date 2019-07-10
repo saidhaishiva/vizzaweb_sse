@@ -26,7 +26,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="First Name" formControlName="proposerFirstname" (keypress)="nameValidate($event)" autocomplete="on" required>
-                          <mat-error *ngIf="proposer.controls.proposerFirstname.errors?.required">First Name is Required</mat-error>
+                          <mat-error *ngIf="proposer.controls.proposerFirstname.errors?.required">FirstName is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -37,7 +37,7 @@
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Last Name" formControlName="proposerLastname"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                          <mat-error *ngIf="proposer.controls.proposerLastname.errors?.required">Last Name is Required</mat-error>
+                          <mat-error *ngIf="proposer.controls.proposerLastname.errors?.required">LastName is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
@@ -153,11 +153,13 @@
                           <mat-placeholder>First Name<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveFirstname" (keypress)="nameValidate($event)" autocomplete="off" readonly>
                         </mat-form-field>
+                        <mat-error *ngIf="proposer.controls.driveFirstname.errors?.required">FirstName is Required</mat-error>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Last Name<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" readonly>
+                          <mat-error *ngIf="proposer.controls.driveLastname.errors?.required">LastName is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events':'none'}">
@@ -166,18 +168,21 @@
                           <mat-select formControlName="driveGender" readonly>
                             <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
+                          <mat-error *ngIf="proposer.controls.driveGender.errors?.required">Gender is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Age<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3" readonly>
+                          <mat-error *ngIf="proposer.controls.driveAge.errors?.required">Age is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Driving Experience<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="drivingexp"  (keypress)="numValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="proposer.controls.drivingexp.errors?.required">Driving Experience is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events':'none'}">
@@ -188,6 +193,7 @@
                             <mat-option value="Married">Married</mat-option>
                             <mat-option value="Others">Others</mat-option>
                           </mat-select>
+                          <mat-error *ngIf="proposer.controls.drivemaritalStatus.errors?.required">Maritial status is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
@@ -237,6 +243,7 @@
                             <mat-option value="bank">BANK</mat-option>
                             <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
                           </mat-select>
+                          <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="vehicle.controls['Financetype'].value == true">
@@ -245,11 +252,14 @@
                           <mat-autocomplete #auto="matAutocomplete">
                             <mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>
                           </mat-autocomplete>
+                          <mat-error *ngIf="vehicle.controls.bankName.errors?.required">BankName is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="vehicle.controls['Financetype'].value == true">
                         <mat-form-field class="w-100">
-                          <textarea matInput placeholder="Address" rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
+                          <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                          <textarea matInput rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
+                          <mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-12 mt-2" >
