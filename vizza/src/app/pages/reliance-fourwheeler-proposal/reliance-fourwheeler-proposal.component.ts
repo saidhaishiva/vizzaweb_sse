@@ -789,7 +789,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       if (type == 'nominee') {
         console.log(this.nomineeAge, 'nomineeAge');
         sessionStorage.nomineeAge = this.nomineeAge;
-        if (sessionStorage.nomineeAge <= 18) {
+        if (sessionStorage.nomineeAge < 18) {
           this.showNominee = true;
           this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
           this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
@@ -812,7 +812,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       if (type == 'npnominee') {
         console.log(this.npnomineeAge, 'npnomineeAge');
         sessionStorage.npnomineeAge = this.npnomineeAge;
-        if (sessionStorage.npnomineeAge <= 18) {
+        if (sessionStorage.npnomineeAge < 18) {
 
           this.npshowNominee = true;
           this.coverDetails.controls['npappointeeName'].setValidators([Validators.required]);
@@ -1081,7 +1081,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     }
 
     if(sessionStorage.nomineeAge != '' && sessionStorage.nomineeAge != undefined) {
-      if (sessionStorage.nomineeAge <= 18) {
+      if (sessionStorage.nomineeAge < 18) {
         this.showNominee = true;
         this.coverDetails.controls['cappointeeName'].setValidators([Validators.required]);
         this.coverDetails.controls['cappointeeName'].updateValueAndValidity();
@@ -1102,7 +1102,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
 
     if(sessionStorage.npnomineeAge != '' && sessionStorage.npnomineeAge != undefined) {
-      if (sessionStorage.npnomineeAge <= 18) {
+      if (sessionStorage.npnomineeAge < 18) {
         this.npshowNominee = true;
         this.coverDetails.controls['npappointeeName'].setValidators([Validators.required]);
         this.coverDetails.controls['npappointeeName'].updateValueAndValidity();
