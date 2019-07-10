@@ -592,8 +592,8 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
-                          <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passenegers Covered is required</mat-error>
+                          <input matInput placeholder="No Of Unnamed Passengers Covered"  (keypress)="numberValidate($event)" formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
+                          <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passengers Covered is required</mat-error>
                         </mat-form-field>
                       </div>
                     </div>
@@ -1100,7 +1100,7 @@
                 <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''">
                   <h4 class="mt-4"></h4>
                     <ul class="m-0 list-group">
-                    <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passenegers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
                     </ul>
                   </div>
 
