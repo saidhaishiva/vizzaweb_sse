@@ -251,7 +251,19 @@
                                 <mat-radio-button value="No">No</mat-radio-button>
                             </mat-radio-group>
                         </div>
+                        <div class="col-md-3">
+                            <mat-form-field class="w-100">
+                                <mat-select placeholder="Is Two Wheeler Financed Value"  formControlName="isTwoWheelerFinancedValue" (change)="changehypothecation()" required>
+                                    <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
 
+                        <div class="col-md-3">
+                            <mat-form-field class="w-100">
+                                <input matInput placeholder="Financier Name"  formControlName="financierName"  autocomplete="off" required>
+                            </mat-form-field>
+                        </div>
                     </div>
                     <div class="row">
                         <h6 class="color-blue mt-4 ml-2">OTHER ADDONS LIST</h6>
@@ -289,27 +301,7 @@
                         </div>
                       </div>
 
-                      <div class="row mt-2">
-                          <div class="col-md-6">
-                              <mat-checkbox   formControlName="isTwoWheelerFinanced" (change)="isFinaced()" >Is Two Wheeler Financed</mat-checkbox>
-                          </div>
-                      </div>
-                      <div class="row" *ngIf="vehical.controls['isTwoWheelerFinanced'].value == true">
 
-                          <div class="col-md-3">
-                              <mat-form-field class="w-100">
-                                  <mat-select placeholder="Is Two Wheeler Financed Value"  formControlName="isTwoWheelerFinancedValue" (change)="changehypothecation()" [required]="vehical.controls['isTwoWheelerFinanced'].value == true">
-                                      <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
-                                  </mat-select>
-                              </mat-form-field>
-                          </div>
-
-                          <div class="col-md-3">
-                              <mat-form-field class="w-100">
-                                  <input matInput placeholder="Financier Name"  formControlName="financierName"  autocomplete="off" [required]="vehical.controls['isTwoWheelerFinanced'].value == true">
-                              </mat-form-field>
-                          </div>
-                      </div>
 
 
                     <div class="row">
@@ -571,7 +563,7 @@
                       <li class="list-group-item" *ngIf="vehicalFormData.drivingExperience != ''"><strong>Driving Experience:</strong> {{vehicalFormData.drivingExperience}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss != ''"><strong>Electrical Access:</strong> <span *ngIf="vehicalFormData.coverelectricalaccesss == true">Yes</span></li>
                       <li class="list-group-item"><strong>Vehicle Registered Name:</strong> {{vehicalFormData.vehicleRegisteredName}}</li>
-                      <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''" ><strong>Financier Name :</strong> {{vehicalFormData.financierName }}</li>
+                      <li class="list-group-item"  ><strong>Financier Name :</strong> {{vehicalFormData.financierName }}</li>
 
                     </ul>
                   </div>
@@ -581,7 +573,7 @@
                     <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
                         <li class="list-group-item"><strong>Vechile OwnerShip Changed:</strong> {{vehicalFormData.vechileOwnerShipChanged}}</li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.isTwoWheelerFinancedValue != ''" ><strong>Is Two Wheeler Financed Value:</strong> {{vehicalFormData.isTwoWheelerFinancedValue }}</li>
+                        <li class="list-group-item" ><strong>Is Two Wheeler Financed Value:</strong> {{vehicalFormData.isTwoWheelerFinancedValue }}</li>
 
                     </ul>
                   </div>
