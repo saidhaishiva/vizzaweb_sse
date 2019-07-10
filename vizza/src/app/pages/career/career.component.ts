@@ -38,6 +38,7 @@ webhost: any;
     public fileUploadPathPDF: any;
     public fileUploadPathDOC: any;
     public fileUploadPathDOCX: any;
+    public filePath: any;
 
     @ViewChild('myForm') myForm: NgForm;
 

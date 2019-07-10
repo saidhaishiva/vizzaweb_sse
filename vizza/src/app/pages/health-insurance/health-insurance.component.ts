@@ -914,7 +914,7 @@ export class HealthInsuranceComponent implements OnInit {
     // view key features details
     viewKeyList(value) {
         let dialogRef = this.dialog.open(ViewdetailsComponent, {
-            width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo}
+            width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo, scheme: value.scheme}
         });
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result => {
