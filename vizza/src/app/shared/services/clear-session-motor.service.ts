@@ -28,8 +28,22 @@ export class ClearSessionMotorService {
   //   sessionStorage.stepper2 = '';
   //   sessionStorage.stepper3 = '';
   //   sessionStorage.stepper4 = '';
-      //tataaig two wheeler
 
+      // tataAig two wheeler
+    sessionStorage.summaryDatabiketata = '';
+    sessionStorage.proposerAge = '';
+    sessionStorage.tatabikeproposer = '';
+    sessionStorage.tatabikevehicle = '';
+    sessionStorage.tatabikeprepolicy = '';
+    sessionStorage.tatabikenominee = '';
+    sessionStorage.tataBikeproposalID = '';
 
+      //  tataAig four wheeler
+    sessionStorage.summaryDatacartata = '';
+    sessionStorage.carproposerAge = '';
+    sessionStorage.tatacarproposer = '';
+    sessionStorage.tatacarvehicle = '';
+    sessionStorage.tatacarprepolicy = '';
+    sessionStorage.tatacarnominee = '';
   }
 }
