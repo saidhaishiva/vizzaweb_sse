@@ -784,7 +784,6 @@ export class BikeTataaigProposalComponent implements OnInit {
             }
         };
         console.log(data, 'dataproposal');
-        sessionStorage.bikeproposaldata = JSON.stringify(data);
         this.settings.loadingSpinner = true;
         this.bikeinsurance.proposal(data).subscribe(
             (successData) => {
@@ -804,9 +803,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.summaryData = successData.ResponseObject;
             console.log(this.summaryData, 'summary');
             this.Proposalnumber = this.summaryData.Proposal_Number;
-            console.log(this.Proposalnumber, 'pronum');
             this.PaymentRedirect = this.summaryData.PaymentRedirect;
-            console.log(this.PaymentRedirect, 'redirect');
             this.PaymentReturn = this.summaryData.PaymentReturn;
             sessionStorage.tataBikeproposalID = this.summaryData.ProposalId;
             this.proposerFormData = this.proposer.value;
