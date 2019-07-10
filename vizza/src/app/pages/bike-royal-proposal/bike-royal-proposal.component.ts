@@ -684,25 +684,25 @@ public apponiteeList: boolean;
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
         if (i != 0) {
         }
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.setValidators([Validators.required]);
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.setValidators([Validators.required]);
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.setValidators([Validators.required]);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.setValidators([Validators.required]);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.setValidators([Validators.required]);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.setValidators([Validators.required]);
       }
     } else {
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
         if ( i !=  0) {
         }
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
       }
     }
     for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
       if ( i !=  0) {
       }
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.updateValueAndValidity();
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.updateValueAndValidity();
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.updateValueAndValidity();
     }
   }
 
@@ -712,9 +712,9 @@ public apponiteeList: boolean;
           for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
              if ( i !=  0) {
         }
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
       }
 
     }
