@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class ClearSessionMotorService {
 
   constructor() {}
-  // clearSessionbikeData() {
+  clearSessionbikeData() {
   // //   //home bike
   // //   // sessionStorage.enquiryFormData = '';
   // //   // sessionStorage.Rto = '';
@@ -28,5 +28,8 @@ export class ClearSessionMotorService {
   //   sessionStorage.stepper2 = '';
   //   sessionStorage.stepper3 = '';
   //   sessionStorage.stepper4 = '';
-  // }
+      //tataaig two wheeler
+
+
+  }
 }
