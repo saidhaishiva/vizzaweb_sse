@@ -117,7 +117,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-md-4">
-                            <mat-form-field class="w-100"  *ngIf="proposer.controls['highestQualification'].value == 'Others (Specify)'" >
+                            <mat-form-field class="w-100"  *ngIf="proposer.controls['highestQualification'].value == '8'" >
 
                                 <input matInput placeholder="Other Qualification Details"  formControlName="otherQualification"  maxlength="45" autocomplete="off" required >
                                 <mat-error *ngIf="proposer.controls.otherQualification.errors?.required">other Qualification is required</mat-error>
@@ -323,7 +323,7 @@
                                    <div class="col-md-12 box-card pt-3">
                                        <mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure()" ><strong>Same as proposer</strong></mat-checkbox>
                                        </div>
-                                       <div class="row">
+                                       <div class="row p-3">
                                            <div class="col-md-4" >
                                                <!--[ngStyle]="{'pointer-events': i == 0 ? 'none' : ''}"-->
                                                <mat-form-field class="w-100">
@@ -430,11 +430,10 @@
                                                </mat-form-field>
                                            </div>
                                            <div class="col-md-4">
-                                               <mat-form-field class="w-100">
-                                                   <mat-select  placeholder="Other Qualification Details" formControlName="otherQualification"  required  class="w-100">
-                                                       <mat-option *ngFor="let list of eQualification | keys" [value]= list.key> {{list.value}} </mat-option>
-                                                   </mat-select>
-                                                   <!--<mat-error *ngIf="insureArray.controls.highestQualification.errors?.required">Highest Qualification is required</mat-error>-->
+                                               <mat-form-field class="w-100"  *ngIf="insureArray.controls['highestQualification'].value == '8'" >
+
+                                                   <input matInput placeholder="Other Qualification Details"  formControlName="otherQualification"  maxlength="45" autocomplete="off" required >
+                                                   <mat-error *ngIf="proposer.controls.otherQualification.errors?.required">other Qualification is required</mat-error>
                                                </mat-form-field>
                                            </div>
                                            <div class="col-md-4">
@@ -446,10 +445,12 @@
                                            </div>
                                        </div>
 
-                                   <div class="row" fxLayoutAlign="center center">
+                                   <div class="row p-3" fxLayoutAlign="center center">
                                        <div class="col-md-6">
                                            <div class="box-card addressBox">
+                                               <div class="row p-1">
                                                <h6 class="color-blue">CURRENT ADDRESS</h6>
+                                               </div>
                                                <div class="row">
                                                    <div class="col-md-12">
                                                        <mat-form-field class="w-100">
@@ -502,7 +503,7 @@
                                        </div>
                                        <div class="col-md-6">
                                            <div class="box-card addressBox">
-                                               <div class="row">
+                                               <div class="row p-1">
                                                    <h6 class="color-blue ">PERMANENT ADDRESS</h6>
                                                    <div class="text-right w-50">
                                                        <mat-checkbox formControlName="isCurrPerAddrSame" (change)="sameAddress()" ><strong>Same as Communication</strong></mat-checkbox>
@@ -558,8 +559,8 @@
                                            </div>
                                        </div>
                                    </div>
-                               <div class="row">
-                                   <div class="col-md-12 mt-2">
+                               <div class="row p-3">
+                                   <div class="col-md-12 ">
                                        <h6 class="color-blue">EMPLOYEMENT</h6>
                                    </div>
                                    <div class="col-md-4">
@@ -601,9 +602,8 @@
                                    <div class="col-md-12">
                                        <mat-radio-group formControlName="taxResidence" >
                                            <p>Tax Residence Declaration </p>
-
-                                           <mat-radio-button value="Yes" class="mr-2"> LA is a tax resident of India and not of any other country</mat-radio-button>
                                            <mat-radio-button value="No">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
+                                           <mat-radio-button value="Yes" class="mr-2"> LA is a tax resident of India and not of any other country</mat-radio-button>
                                        </mat-radio-group>
                                    </div>
 
@@ -611,25 +611,27 @@
                                </div>
 
 
-                       <div class="row">
-                           <div class="col-md-12 mt-2">
+                       <div class="row p-3">
+                           <div class="col-md-12">
                                <h6 class="color-blue">OTHER DETAILS</h6>
                            </div>
-                           <div class="row" >
-                               <div class="col-md-6 mt-3">
+
+                           <div class="row p-3" >
+                               <div class="col-md-6 ">
                                    <mat-checkbox   formControlName="isPoliticallyExposed" (change)="isPolitical($event)" >Politically Exposed Person</mat-checkbox>
                                </div>
                            </div>
-                           <div class="row" >
-                               <div class="col-md-3" *ngIf="insureArray.controls['isPoliticallyExposed'].value == true" >
+
+                           <div class="row p-3" >
+                               <div class="col-md-4" *ngIf="insureArray.controls['isPoliticallyExposed'].value == true" >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Please specify<span class="error" *ngIf="insureArray.controls['isPoliticallyExposed'].value == true">*</span></mat-placeholder>
 
                                        <input matInput  formControlName="specification"   autocomplete="off" >
                                    </mat-form-field>
                                </div>
-                           </div>
-                           <div class="col-md-3">
+
+                           <div class="col-md-4">
                                <mat-form-field class="w-100">
                                    <mat-select  placeholder="Identity Proof" formControlName="identityProof" (change)="geteIdProof()" required  class="w-100">
                                        <mat-option *ngFor="let list of eIdProof | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -637,7 +639,7 @@
                                    <!--<mat-error *ngIf="proposer.controls.identityProof.errors?.required">Id Proof is required</mat-error>-->
                                </mat-form-field>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-4">
                                <mat-form-field class="w-100">
                                    <mat-select  placeholder="Address Proof" formControlName="addrProof" (change)="geteAddressProof()" required  class="w-100">
                                        <mat-option *ngFor="let list of eAddressProof | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -645,20 +647,20 @@
                                    <!--<mat-error *ngIf="proposer.controls.addrProof.errors?.required">Address Proof is required</mat-error>-->
                                </mat-form-field>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-4">
                                <mat-form-field class="w-100">
                                    <mat-select  placeholder="Policy categorization" formControlName="categorization" (change)="getePolicyCategory()" required  class="w-100">
                                        <mat-option *ngFor="let list of ePolicyCategory | keys" [value]= list.key> {{list.value}} </mat-option>
                                    </mat-select>
                                    <!--<mat-error *ngIf="proposer.controls.identityProof.errors?.required">Id Proof is required</mat-error>-->
                                </mat-form-field>
-
                            </div>
-                       <div class="row">
-                           <div class="col-md-12 mt-2">
+                           </div>
+                       <div class="row p-3">
+                           <div class="col-md-12 ">
                                <h6 class="color-blue">LIFESTYLE DETAILS</h6>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-4">
                            <mat-form-field class="w-100">
                            <mat-select  placeholder="Height Feets" formControlName="heightFeets" (change)="geteHeightFeet()"  class="w-100">
                            <mat-option *ngFor="let list of eHeightFeet | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -666,7 +668,7 @@
                            <!--<mat-error *ngIf="proposer.controls.heightFeets.errors?.required">Income Proof is required</mat-error>-->
                            </mat-form-field>
                            </div>
-                           <div class="col-md-3">
+                           <div class="col-md-4">
                            <mat-form-field class="w-100">
                            <mat-select  placeholder="Height Inches" formControlName="heightInches" (change)="geteHeightInches()"  class="w-100">
                            <mat-option *ngFor="let list of eHeightInches | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -674,9 +676,9 @@
                            <!--<mat-error *ngIf="proposer.controls.heightInches.errors?.required">Income Proof is required</mat-error>-->
                            </mat-form-field>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-4">
                            <mat-form-field class="w-100">
-                           <input matInput placeholder="weight" formControlName="weight" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
+                           <input matInput placeholder="weight" formControlName="weight" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)" >
                            <!--<mat-error *ngIf="proposer.controls.weight.errors?.required">weight is required</mat-error>-->
                            </mat-form-field>
                            </div>
@@ -705,7 +707,7 @@
 
                        </div>
 
-                       <div class="row">
+                       <div class="row p-3">
                            <div class="col-md-12 mt-2">
                                <h6 class="color-blue">INSURANCE HISTORY</h6>
                            </div>
@@ -719,7 +721,7 @@
                            </div>
 
                        </div>
-                       <div class="row">
+                       <div class="row p-3">
                            <div class="col-md-12 mt-2">
                                <h6 class="color-blue">INSURANCE REPOSITORY</h6>
                            </div>
