@@ -833,12 +833,12 @@ export class TermLifeCommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
-    getChecPincode(data) {
+    edelweissProposalCreation(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
-        const url = this.configurationService.getHostTerm() + 'cholahealth/pincode';
+        const url = this.configurationService.getHostTerm() + 'edelweiss/bigeneration';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);

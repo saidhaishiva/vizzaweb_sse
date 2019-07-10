@@ -30,7 +30,7 @@ export class FourWheelerProductListComponent implements OnInit {
   compherhensive: any;
   getEnquiry: any;
   policyTerm: any;
-  initialProductList: any;
+  initialProductListfw: any;
   constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService) {
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
@@ -38,7 +38,7 @@ export class FourWheelerProductListComponent implements OnInit {
     this.settings.sidenavIsPinned = false;
     this.webhost = this.config.getimgUrl();
     this.compareArray = [];
-    this.initialProductList = [];
+    this.initialProductListfw = [];
     this.thirdParty = false;
     this.policyTerm = '1';
     this.compherhensive = 'Comprehensive_premium';
@@ -56,8 +56,8 @@ export class FourWheelerProductListComponent implements OnInit {
     if(sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists !=undefined) {
       this.setAllProductLists  = JSON.parse(sessionStorage.setAllProductLists);
     }
-    if(sessionStorage.initialProductList != '' && sessionStorage.initialProductList !=undefined) {
-      this.initialProductList  = JSON.parse(sessionStorage.initialProductList);
+    if(sessionStorage.initialProductListfw != '' && sessionStorage.initialProductListfw !=undefined) {
+      this.initialProductListfw  = JSON.parse(sessionStorage.initialProductListfw);
     }
     if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
       this.filterCompany = JSON.parse(sessionStorage.filterCompany);
@@ -88,7 +88,7 @@ export class FourWheelerProductListComponent implements OnInit {
 
   }
   public companyListSuccess(successData) {
-    console.log(successData.ResponseObjeallProductListsct);
+    // console.log(successData.ResponseObjeallProductListsct);
     if (successData.IsSuccess) {
       this.allCompanyList = successData.ResponseObject;
       let all = ['All'];
@@ -157,10 +157,10 @@ export class FourWheelerProductListComponent implements OnInit {
       }
 
 
-      this.initialProductList = this.allProductLists.filter(data => data.year_type == '1');
+      this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
       this.setAllProductLists = this.allProductLists;
       sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
-      sessionStorage.initialProductList = JSON.stringify(this.initialProductList);
+      sessionStorage.initialProductListfw = JSON.stringify(this.initialProductListfw);
 
     }
   }
@@ -232,12 +232,12 @@ export class FourWheelerProductListComponent implements OnInit {
     // }
     sessionStorage.packageListFw = this.compherhensive;
     if(this.policyTerm == '2'){
-      this.initialProductList = this.allProductLists.filter(data => data.year_type == '2');
+      this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '2');
     } else if(this.policyTerm == '3'){
-      this.initialProductList = this.allProductLists.filter(data => data.year_type == '3');
+      this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
     }
     else{
-      this.initialProductList = this.allProductLists.filter(data => data.year_type == '1');
+      this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
 
     }
   }
