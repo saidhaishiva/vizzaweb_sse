@@ -33,6 +33,7 @@ export class NewContactComponent implements OnInit {
   public fileUploadPathPDF: any;
   public fileUploadPathDOC: any;
   public fileUploadPathDOCX: any;
+  public filePath: any;
   imageSrc: string;
 
   @ViewChild('myForm') myForm: NgForm;

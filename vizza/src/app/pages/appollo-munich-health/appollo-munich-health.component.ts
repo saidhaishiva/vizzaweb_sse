@@ -2008,7 +2008,7 @@ export class AppolloMunichComponent implements OnInit {
                     'proposerMobile': this.insurerData[i].proposerMobile,
                     'FamilySize': this.insurerData[i].proposerFamilySize,
                     'Age': this.insurerData[i].proposerAge,
-                    'BirthDate': this.insurerData[i].proposerDob,
+                    'BirthDate': this.datepipe.transform(this.insurerData[i].proposerDob, 'y-MM-dd'),
                     'ClientCode': this.insurerData[i].ClientCode,
                     "ContactInformation": {
                         "ContactNumber": {

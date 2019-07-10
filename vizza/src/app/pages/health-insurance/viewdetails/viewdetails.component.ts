@@ -43,11 +43,13 @@ export class ViewdetailsComponent implements OnInit {
     productLogo: any;
     sumInsuredAmount: any;
     step: any;
+    scheme: any;
 
     constructor(public dialogRef: MatDialogRef<ViewdetailsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService,public appSettings: AppSettings, public config: ConfigurationService, public common: HealthService, public fb: FormBuilder, public toastr: ToastrService) {
         this.settings = this.appSettings.settings;
         this.productId = data.productId;
+        this.scheme = data.scheme;
         this.productName = data.productName;
         this.productLogo = data.productLogo;
         this.webhost = this.config.getimgUrl();
@@ -83,7 +85,7 @@ export class ViewdetailsComponent implements OnInit {
           }
         maxAge = Math.max.apply(null, ages);
       }
-      this.viewKeyFeatures(this.productId, maxAge);
+      this.viewKeyFeatures(maxAge);
   }
     onNoClick(): void {
         this.dialogRef.close()
@@ -147,13 +149,14 @@ export class ViewdetailsComponent implements OnInit {
         this.step++;
     }
 
-    viewKeyFeatures(value, maxAge) {
+    viewKeyFeatures(maxAge) {
         const data = {
             'platform': 'web',
             'userid': 1,
             'roleid': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-            'productid': value,
+            'productid': this.productId,
+            'scheme': this.scheme,
             'si_amount': this.sumInsuredAmount,
             'age': maxAge
 
