@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Gender" formControlName="gender" (change)="getMaritalList()" (change)="getEmpType()" (change)="getnomineerelationship()" required>
+                            <mat-select placeholder="Gender" formControlName="gender" (change)="getMaritalList()" (change)="getEmpType()"  (change)="changeGender()" (change)="getnomineerelationship()" required>
                               <mat-option value="M">Male</mat-option>
                               <mat-option value="F">Female</mat-option>
                             </mat-select>
@@ -297,8 +297,8 @@
 
 
                             <div class="col-md-6"  [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
-                              <mat-form-field class="w-100" (change)="changecCitylist()" >
-                              <mat-select placeholder="City" formControlName="cCity" autocomplete="off"  readonly>
+                              <mat-form-field class="w-100"  >
+                              <mat-select placeholder="City" formControlName="cCity" autocomplete="off"  (change)="changecCitylist()">
                                 <mat-option *ngFor="let city of citycList | keys" [value]= 'city.value'>
                                   {{city.value}}
                                 </mat-option>
@@ -327,7 +327,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <h6 class="color-blue">ADD ON</h6>
+                        <h6 class="color-blue">ADDON</h6>
                       </div>
 
                       <div class="col-md-4">
@@ -364,6 +364,7 @@
                       </div>
                       </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
+                      <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                       <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" >Next</button>
                     </div>
                   </div>
@@ -538,7 +539,7 @@
                                       <mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>
                                     </mat-form-field>
                                   </div>
-                                  <div class="col-md-4" *ngIf="nominee.controls.nRelation.value == 'Others'" >
+                                  <div class="col-md-4" *ngIf="nominee.controls.aRelation.value == 'Other'" >
                                     <mat-form-field class="w-100">
                                       <input matInput placeholder="Appointee Relation Other"  formControlName="appointeeRelationOther" (keypress)="numberValidate($event)"   autocomplete="off">
                                       <!--<mat-error *ngIf="nominee.controls.aPercentage.errors?.required">Percentage is required</mat-error>-->
@@ -562,6 +563,7 @@
 
 
                           <div class="proposal-buttom mt-3 text-right w-100">
+                            <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                             <button mat-raised-button color="primaryBlue"  (click)="nomineeDetails(stepper, nominee.value)" >Next</button>
                           </div>
                         </div>
@@ -596,7 +598,7 @@
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}.{{proposerFormData.firstName}} {{proposerFormData.middleName}} {{proposerFormData.lastName}} </li>
-                        <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.gender}} </li>
+                        <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.genderValue}} </li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
                         <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                         <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
@@ -638,17 +640,10 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="p-3">
-                      <ul class="m-0 list-group">
-
-                      </ul>
-                    </div>
-                  </div>
 
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                      <h6 class="color-blue mt-4">COMMUNICATION DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Personal Address 1:</strong> {{proposerFormData.pAddress1}}</li>
                         <li class="list-group-item"><strong>Personal Address 2:</strong> {{proposerFormData.pAddress2}}</li>
@@ -661,7 +656,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue mt-4"></h6>
+                      <h6 class="color-blue "></h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Communication Address1:</strong> {{proposerFormData.cAddress1}}</li>
                         <li class="list-group-item"><strong>Communication Address2:</strong> {{proposerFormData.cAddress2}}</li>
@@ -739,18 +734,22 @@
 
                 </div>
               </section>
+              <div>
 
+                <pdf-viewer src="{{requestedUrl}}"
+                            [render-text]="true"
+                            style="display: block;"
+                ></pdf-viewer>
+              </div>
               <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
               <hr>
 
               <div class="row">
                 <div class="col-md-12 text-center">
-                  <form action={{summaryData.PaymentActionUrl}}  method='post' #form>
 
-
+                  <a href="{{summaryData.redirectLink}}">Pay Now</a>
                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                    <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
-                  </form>
+                    <button mat-raised-button color="primaryBlue" [disabled]="!declaration" >Pay Now</button>
                 </div>
               </div>
 
