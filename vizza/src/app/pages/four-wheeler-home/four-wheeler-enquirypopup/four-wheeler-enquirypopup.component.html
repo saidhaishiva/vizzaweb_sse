@@ -48,16 +48,16 @@
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Chassis Number" class="text-uppercase" formControlName="chasissNumber"  maxlength= "17" (keypress)="idValidate($event)" required>
+        <input matInput placeholder="Chassis Number" class="text-uppercase" formControlName="chasissNumber" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" maxlength= "17" (keypress)="idValidate($event)" required>
         <mat-error *ngIf="vehicalDetails.controls.chasissNumber.errors?.required">Chasiss Number is required</mat-error>
-        <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+        <mat-error *ngIf="vehicalDetails.controls.chasissNumber.hasError('pattern')">Vehicle No containing at least one number and letter</mat-error>
       </mat-form-field>
     </div>
     <div class="col-md-3">
       <mat-form-field class="w-100">
-        <input matInput placeholder="Engine number " class="text-uppercase" formControlName="engine"  maxlength= "15" (keypress)="idValidate($event)" required>
+        <input matInput placeholder="Engine number " class="text-uppercase" formControlName="engine" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" maxlength= "15" (keypress)="idValidate($event)" required>
         <mat-error *ngIf="vehicalDetails.controls.engine.errors?.required">Engine number is required</mat-error>
-        <!--<mat-error *ngIf="vehicalDetails.controls.vehicalNumber.hasError('pattern')">Please Enter Correct Format</mat-error>-->
+        <mat-error *ngIf="vehicalDetails.controls.engine.hasError('pattern')">Vehicle No containing at least one number and letter</mat-error>
       </mat-form-field>
     </div>
     <div class="col-md-3">
