@@ -164,10 +164,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       isCurrPerAddrSame: '',
       employementTypeOther: '',
       employementType: '',
+      employerName: '',
       natureduty: '',
       employerAddr: '',
       annualIncome: '',
-      taxResidence: 'No',
+      taxResidence: '',
 
     });
 
@@ -205,10 +206,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       isCurrPerAddrSame: '',
       employementTypeOther: '',
       employementType: '',
+      employerName: '',
       natureduty: '',
       employerAddr: '',
       annualIncome: '',
-      taxResidence: 'No',
+      taxResidence: '',
       isPoliticallyExposed: false,
       specification: '',
       identityProof: '',
@@ -217,16 +219,16 @@ export class EdelweissTermLifeComponent implements OnInit {
       heightFeets: '',
       heightInches: '',
       weight: '',
-      medicalTreatment: 'No',
-      receivedTreatment1: 'No',
-      receivedTreatment2: 'No',
-      insureHistory: 'No',
-      insureAccNo: 'No',
+      medicalTreatment: '',
+      receivedTreatment1: '',
+      receivedTreatment2: '',
+      insureHistory: '',
+      insureAccNo: '',
       provideAccNo: '',
-      epolicy: 'No',
-      einsureAccNo: 'No',
-      epolicy1: 'No',
-      insureRepository: 'No',
+      epolicy: '',
+      einsureAccNo: '',
+      epolicy1: '',
+      insureRepository: '',
       sameAsProposer: false,
 
     });
@@ -446,7 +448,8 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['perCity'].patchValue(this.proposer.controls['currState'].value),
           this.insureArray.controls['isCurrPerAddrSame'].patchValue(this.proposer.controls['isCurrPerAddrSame'].value),
           this.insureArray.controls['employementTypeOther'].patchValue(this.proposer.controls['employementTypeOther'].value),
-          this.insureArray.controls['employementType'].patchValue(this.proposer.controls['currAddr3'].value),
+          this.insureArray.controls['employementType'].patchValue(this.proposer.controls['employementType'].value),
+          this.insureArray.controls['employerName'].patchValue(this.proposer.controls['employerName'].value),
           this.insureArray.controls['natureduty'].patchValue(this.proposer.controls['natureduty'].value),
           this.insureArray.controls['employerAddr'].patchValue(this.proposer.controls['employerAddr'].value),
           this.insureArray.controls['annualIncome'].patchValue(this.proposer.controls['annualIncome'].value),
@@ -484,6 +487,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['isCurrPerAddrSame'].patchValue(''),
           this.insureArray.controls['employementTypeOther'].patchValue(''),
           this.insureArray.controls['employementType'].patchValue(''),
+          this.insureArray.controls['employerName'].patchValue(''),
           this.insureArray.controls['natureduty'].patchValue(''),
           this.insureArray.controls['employerAddr'].patchValue(''),
           this.insureArray.controls['annualIncome'].patchValue(''),
@@ -532,15 +536,15 @@ export class EdelweissTermLifeComponent implements OnInit {
           }
         }
       }
-      if ( i == 0) {
+      if ( i == 0){
         sessionStorage.nomineAge = this.getAge;
       }
 
-      if ( i != 0) {
-        if(this.getAge < 18) {
+      if ( i != 0){
+        if(this.getAge < 18){
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(1);
           console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalue');
-        } else {
+        }else{
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(0);
           console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalueelsee');
         }
@@ -555,7 +559,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators(null);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue('');
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeRelationToNominee.patchValue('');
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
 
       }
@@ -626,17 +630,20 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
   }
+
+
+
   // Personal Details
   proposerDetails(stepper: MatStepper, value) {
     this.personalData = value;
     sessionStorage.stepper1Details = '';
     sessionStorage.stepper1Details = JSON.stringify(value);
-    console.log(this.proposer, 'this.personal');
+    console.log(this.proposer, 'proposer');
     if (this.proposer.valid) {
       if (sessionStorage.proposerAge >= 18) {
         stepper.next();
       } else {
-        this.toastr.error('Proposer age should be 18 or above');
+        this.toastr.error('Proposer Age should be 18 or above');
 
       }
 
@@ -646,11 +653,17 @@ export class EdelweissTermLifeComponent implements OnInit {
   edelweissInsureDetails(stepper: MatStepper, value) {
     sessionStorage.stepper2Details = '';
     sessionStorage.stepper2Details = JSON.stringify(value);
-    console.log(value, 'this.value');
+    console.log(this.insureArray, 'insureArray');
     console.log(this.insureArray.valid, 'this.valid');
     // let dateErrorMsg = [];
     if (this.insureArray.valid) {
+      if (sessionStorage.proposerAge >= 18) {
       stepper.next();
+      this.topScroll();
+      } else {
+        this.toastr.error('Insurer Age should be 18 or above');
+
+      }
     }
 
   }
@@ -662,25 +675,25 @@ export class EdelweissTermLifeComponent implements OnInit {
     sessionStorage.stepper4Details = '';
     sessionStorage.stepper4Details = JSON.stringify(value);
     console.log( sessionStorage.stepper4Details);
-    if (this.nomineeDetail.valid) {
-      const nomineeDetails = [];
-      this.nomineeData = value.itemsNominee;
-      console.log(this.nomineeData, 'nomineeData');
-      for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
-        nomineeDetails.push({
-          'nomineeName': this.nomineeData.value.itemsNominee[i].nomineeName,
-          'gender': this.nomineeData.value.itemsNominee[i].gender,
-          'nDob': this.datepipe.transform(this.nomineeData.value.itemsNominee[i].nDob, 'y-MM-dd'),
-          'nomineeRelationship': this.nomineeData.value.itemsNominee[i].nomineeRelationship,
-          'aName': this.nomineeData.value.itemsNominee[i].aName,
-          'aGender': this.nomineeData.value.itemsNominee[i].aGender,
-          'appointeeDob': this.datepipe.transform(this.nomineeData.value.itemsNominee[i].appointeeDob, 'y-MM-dd') == null ? '' : this.datepipe.transform(this.nomineeDetails.value.itemsNominee[i].appointeeDob, 'y-MM-dd'),
-          'relationToInsured': this.nomineeData.value.itemsNominee[i].relationToInsured,
-
-        });
-      }
+    // if (this.nomineeDetail.valid) {
+    // //   const nomineeDetails = [];
+    // //   this.nomineeData = value.itemsNominee;
+    // //   console.log(this.nomineeData, 'nomineeData');
+    // //   for (let i = 0; i < this.nomineeDetail.value.itemsNominee.length; i++) {
+    // //     nomineeDetails.push({
+    // //       'nomineeName': this.nomineeData.value.itemsNominee[i].nomineeName,
+    // //       'gender': this.nomineeData.value.itemsNominee[i].gender,
+    // //       'nDob': this.datepipe.transform(this.nomineeData.value.itemsNominee[i].nDob, 'y-MM-dd'),
+    // //       'nomineeRelationship': this.nomineeData.value.itemsNominee[i].nomineeRelationship,
+    // //       'aName': this.nomineeData.value.itemsNominee[i].aName,
+    // //       'aGender': this.nomineeData.value.itemsNominee[i].aGender,
+    // //       'appointeeDob': this.datepipe.transform(this.nomineeData.value.itemsNominee[i].appointeeDob, 'y-MM-dd') == null ? '' : this.datepipe.transform(this.nomineeDetails.value.itemsNominee[i].appointeeDob, 'y-MM-dd'),
+    // //       'relationToInsured': this.nomineeData.value.itemsNominee[i].relationToInsured,
+    //
+    //     });
+    //   }
       stepper.next();
-    }
+    // }
   }
 
   // bank detail proposal
@@ -713,50 +726,62 @@ export class EdelweissTermLifeComponent implements OnInit {
   existingInsure() {
 
 
-    if (this.bankDetail.controls['coverelectricalaccesss'].value == true) {
+    if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
 
     } else {
 
-      for (let i=0; i < this.bankDetail['controls'].electricalAccess['controls'].length; i++) {
+      for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
 
 
         if ( i !=  0) {
         }
-        this.bankDetail['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-        this.bankDetail['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-        this.bankDetail['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
       }
 
     }
   }
 
-  eleAccessReq() {
-    if (this.bankDetail.controls['cover_non_elec_acc'].value == true) {
+  existingInsureReq() {
+    if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
 
-      for (let i = 0; i < this.bankDetail['controls'].nonelectricalAccess['controls'].length; i++) {
+      for (let i = 0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
 
 
-        this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.setValidators([Validators.required]);
-        this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.setValidators([Validators.required]);
-        this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators([Validators.required]);
       }
 
     } else {
       for (let i = 0; i <  this.bankDetail['controls'].nonelectricalAccess['controls'].length; i++) {
 
 
-        this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-        this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-        this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
       }
 
     }
     for (let i = 0; i <  this.bankDetail['controls'].nonelectricalAccess['controls'].length; i++) {
 
 
-      this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.updateValueAndValidity();
-      this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.updateValueAndValidity();
-      this.bankDetail['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.updateValueAndValidity();
+      this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.updateValueAndValidity();
+      this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.updateValueAndValidity();
+      this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.updateValueAndValidity();
+      this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.updateValueAndValidity();
+      this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.updateValueAndValidity();
+      this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.updateValueAndValidity();
     }
 
 
@@ -824,285 +849,285 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log( 'proposal');
 
     const data = {
-      // "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      // "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      // "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      // "platform": "web",
-      // "product_id": this.lifePremiumList.product_id,
-      // "suminsured_amount": sessionStorage.selectedAmountTravel,
-      // "policy_id": this.getEnquiryDetials.policy_id,
-      // "productDetails":{
-      //   "policyTerm":"10",
-      //   "premiumPayingTerm":"5",
-      //   "frequency":"Yearly",
-      //   "sumAssured":"100000"
-      // },
-      // "isLAProposerSame":"N",
-      // "LifeAssured":{
-      //   "nomineeData":[
-      //     {
-      //       "nomineeNumber":"1",
-      //       "name":"tanvi",
-      //       "dob":"30/06/1952",
-      //       "gender":"M",
-      //       "relation":"MOTHER",
-      //       "allocation":"100",
-      //       "appointee":{
-      //         "name":"AASHISH",
-      //         "dob":"15/10/1992",
-      //         "relation":"",
-      //         "gender":""
-      //       }
-      //     }
-      //   ],
-      //   "title":this.personal.controls['personalFirstname'].value,
-      //   "firstName":this.personal.controls['personalFirstname'].value,
-      //   "middleName":"H",
-      //   "lastName":"Kumari",
-      //   "dob":"30-06-1989",
-      //   "gender":"M",
-      //   "isSmoker":"Y",
-      //   "maritalStatus":"S",
-      //   "pan":"BTVPK1234X",
-      //   "maidName":"",
-      //   "motherMaidName":"Neha",
-      //   "FHName":"Sandesh",
-      //   "nationality":"1",
-      //   "otherNationality":"Indian",
-      //   "ageProofId":"1",
-      //   "emailId":"abc@gmail.com",
-      //   "phoneNo":"9999999999",
-      //   "ResidencePhoneNo":"",
-      //   "currAddr1":"ca1",
-      //   "currAddr2":"ca2",
-      //   "currAddr3":"ca3",
-      //   "currPincode":"410210",
-      //   "currState":"Maharashtra",
-      //   "currCity":"Mumbai",
-      //   "perAddr1":"pa1",
-      //   "perAddr2":"pa2",
-      //   "perAddr3":"pa3",
-      //   "perPincode":"400008",
-      //   "perState":"Maharashtra",
-      //   "perCity":"Mumbai",
-      //   "isCurrPerAddrSame":"N",
-      //   "isPerAddrIsCorrAddr":"Y",
-      //   "education":"2",
-      //   "otherEducation":"",
-      //   "highestQualification":"MCA",
-      //   "collegeNameLoc":"VJTI Mumbai",
-      //   "employementType":"1",
-      //   "employementTypeOther":null,
-      //   "employerName":"Edelweiss Tokio Life Insurance Pvt. Ltd.",
-      //   "employerAddr":"Mumbai",
-      //   "designation":"Senior Executive",
-      //   "natureOfDuty":"Office Work",
-      //   "experienceInYears":"3",
-      //   "occupationType":"IT",
-      //   "noOfEmployees":"250-1000",
-      //   "natureOfBusiness":"",
-      //   "annualIncome":"200000",
-      //   "isIncomeSource":"Y",
-      //   "incomeSourceDetails":"",
-      //   "familyDiease_Ind":"N",
-      //   "familyDiease_Details":"",
-      //   "hasfamilyAppliedETLI":"N",
-      //   "otherPolicy_Ind":"Y",
-      //   "otherPolicy_InsurerName":"Bharti AXA Life Insurance Co. Ltd.",
-      //   "otherPolicy_OtherInsurerName":"",
-      //   "otherPolicy_Reason":"other policy reason",
-      //   "otherPolicy_Date":"07/09/2015",
-      //   "CIB_Ind":"Y",
-      //   "CIB_InsurerName":"Some Insurer name",
-      //   "CIB_Reason":"some reason",
-      //   "CIB_Date":"06/09/2015",
-      //   "isPEP":"N",
-      //   "pepReason":"politically exposed person",
-      //   "hasFamPhysician":"Y",
-      //   "FamPhysicianName":"MyPhysicianName",
-      //   "FamPhysicianAddr1":"some address",
-      //   "FamPhysicianAddr2":"some more address",
-      //   "FamPhysicianPhone":"8888888888",
-      //   "identityProof":"1",
-      //   "ageProof":"1",
-      //   "otherAgeProof":"",
-      //   "addrProof":"1",
-      //   "corrAddrProof":"1",
-      //   "incomeProof":"1",
-      //   "hasEIAccount":"Y",
-      //   "EIAccountNo":"1234567890",
-      //   "applyEIAccount":"Yes",
-      //   "EIARepository":"NSDL Data Management Limited",
-      //   "wantEPolicy":"N",
-      //   "relationLAProposer":"",
-      //   "height":"5",
-      //   "heightFeets":"5",
-      //   "heightInches":"3",
-      //   "heightCentimeters":"162",
-      //   "weight":"70",
-      //   "hasWeightChanged":"Y",
-      //   "weightChange":"2",
-      //   "weightChangeReason":"DIET",
-      //   "isStaff":"N",
-      //   "employeeCode":"",
-      //   "isTaxResOfIndia":"Y",
-      //   "isHospitalized":"N",
-      //   "hospitalizedDate":"",
-      //   "isRecovered":"Y",
-      //   "nonRecoveryDetails":"",
-      //   "aadhaarNo":"",
-      //   "questionnaires":{
-      //     "medicationInd":"N",
-      //     "diagnosedInd":"N",
-      //     "aidsInd":"N"
-      //   },
-      //   "bank":{
-      //     "accountNo":"",
-      //     "name":"",
-      //     "location":"",
-      //     "ifscCode":"",
-      //     "investmentStrategy":""
-      //   },
-      //   "existingInsurance_Ind":"Y",
-      //   "existingInsurance":[    //**
-      //     {
-      //       "policyNo":"1234567890",
-      //       "companyName":"Birla Sun Life Insurance Co. Ltd",
-      //       "yearOfIssue":"2015",
-      //       "sumAssured":"500000",
-      //       "annualizedPremium":"50000",
-      //       "policyStatus":"Active",
-      //       "acceptanceTerm":"Standard"
-      //     }
-      //   ]
-      // },
-      // "Spouse":null,
-      // "Proposer":{
-      //   "title":"1",
-      //   "firstName":"Rinku",
-      //   "middleName":"makad",
-      //   "lastName":"Kambale",
-      //   "dob":"30-06-1989",
-      //   "gender":"M",
-      //   "isSmoker":"",
-      //   "maritalStatus":"S",
-      //   "pan":"BTVPK1234D",
-      //   "maidName":"",
-      //   "motherMaidName":"",
-      //   "FHName":"B",
-      //   "nationality":"1",
-      //   "otherNationality":"Indian",
-      //   "ageProofId":"1",
-      //   "emailId":"rk@abc.com",
-      //   "phoneNo":"8888888888",
-      //   "ResidencePhoneNo":"",
-      //   "alternate_cnt_no":"",
-      //   "currAddr1":"ca1",
-      //   "currAddr2":"ca2",
-      //   "currAddr3":"ca3",
-      //   "currPincode":"410210",
-      //   "currState":"Maharashtra",
-      //   "currCity":"navi Mumbai",
-      //   "perAddr1":"pa1",
-      //   "perAddr2":"pa2",
-      //   "perAddr3":"pa3",
-      //   "perPincode":"400008",
-      //   "perState":"Maharashtra",
-      //   "perCity":"Mumbai",
-      //   "isCurrPerAddrSame":"N",
-      //   "isPerAddrIsCorrAddr":"Y",
-      //   "education":"2",
-      //   "otherEducation":"",
-      //   "highestQualification":"MCA",
-      //   "collegeNameLoc":"DJTI Mumbai",
-      //   "course":"",
-      //   "courseDuration":"",
-      //   "courseYear":"",
-      //   "studentInstruction":"",
-      //   "employementType":"1",
-      //   "employementTypeOther":null,
-      //   "employerName":"Edelweiss Tokio Life Insurance Pvt. Ltd.",    //***
-      //   "employerAddr":"Mumbai",
-      //   "designation":"Senior Executive officer",
-      //   "natureOfDuty":"Office Work extra",
-      //   "experienceInYears":"3",
-      //   "occupationType":"IT",
-      //   "noOfEmployees":"250-1000",
-      //   "natureOfBusiness":"",
-      //   "annualIncome":"200000",
-      //   "isIncomeSource":"Y",
-      //   "incomeSourceDetails":"",
-      //   "familyDiease_Ind":"N",
-      //   "familyDiease_Details":"",
-      //   "hasfamilyAppliedETLI":"Y",
-      //   "otherPolicy_Ind":"Y",
-      //   "otherPolicy_InsurerName":"Bharti AXA Life Insurance Co. Ltd.",
-      //   "otherPolicy_OtherInsurerName":"",
-      //   "otherPolicy_Reason":"other policy reason",
-      //   "otherPolicy_Date":"07/09/2015",
-      //   "CIB_Ind":"Y",
-      //   "CIB_InsurerName":"Some 1 Insurer name",
-      //   "CIB_Reason":"some reason",
-      //   "CIB_Date":"06/09/2015",
-      //   "isPEP":"N",
-      //   "pepReason":"",
-      //   "hasFamPhysician":"Y",
-      //   "FamPhysicianName":"MyPhysicianName",
-      //   "FamPhysicianAddr1":"some address",
-      //   "FamPhysicianAddr2":"some more address",
-      //   "FamPhysicianPhone":"8888888888",
-      //   "identityProof":"1",
-      //   "ageProof":"1",
-      //   "otherAgeProof":"",
-      //   "addrProof":"1",
-      //   "corrAddrProof":"1",
-      //   "incomeProof":"1",
-      //   "incomeProofText":"",
-      //   "isCA":"",
-      //   "hasEIAccount":"Y",
-      //   "EIAccountNo":"1234567890",
-      //   "applyEIAccount":"Yes",
-      //   "EIARepository":"NSDL1 Data Management Limited",
-      //   "wantEPolicy":"N",
-      //   "relationLAProposer":"",
-      //   "relationLAProposerText":"",
-      //   "height":"5",
-      //   "heightFeets":"5",
-      //   "heightInches":"3",
-      //   "heightCentimeters":"162",
-      //   "weight":"70",
-      //   "clientId":"",
-      //   "hasWeightChanged":"Y",
-      //   "weightChange":"2",
-      //   "weightChangeReason":"DIET",
-      //   "isTaxResOfIndia":"Y",
-      //   "aadhaarNo":"435673849202",
-      //   "questionnaires":{
-      //     "medicationInd":"N",
-      //     "diagnosedInd":"N",
-      //     "aidsInd":"N"
-      //   },
-      //   "bank":{
-      //     "accountNo":"",
-      //     "name":"",
-      //     "location":"",
-      //     "ifscCode":"",
-      //     "investmentStrategy":""
-      //   },
-      //   "existingInsurance_Ind":"Y",
-      //   "existingInsurance":[
-      //     {
-      //       "policyNo":"1234567890",
-      //       "companyName":"Birla1 Sun Life Insurance Co. Ltd",
-      //       "yearOfIssue":"2015",
-      //       "sumAssured":"500000",
-      //       "annualizedPremium":"50000",
-      //       "policyStatus":"Active",
-      //       "acceptanceTerm":"Standard"
-      //     }
-      //   ],
-      //   "familyIncomeData":null
-      // }
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status":  this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "platform": "web",
+      "product_id": this.lifePremiumList.product_id,
+      "suminsured_amount": sessionStorage.selectedAmountTravel,
+      "policy_id": this.getEnquiryDetials.policy_id,
+      "productDetails":{
+        "policyTerm":"",
+        "premiumPayingTerm":"",
+        "frequency":"",
+        "sumAssured":""
+      },
+      "isLAProposerSame":"",
+      "LifeAssured": {
+        "nomineeData": [
+          {
+            "nomineeNumber":"",
+            "name":"",
+            "dob":"",
+            "gender":"",
+            "relation":"",
+            "allocation":"",
+            "appointee":{
+              "name":"",
+              "dob":"",
+              "relation":"",
+              "gender":""
+            }
+          }
+        ],
+        "title":this.proposer.controls['personalFirstname'].value,
+        "firstName":this.proposer.controls['personalFirstname'].value,
+        "middleName":this.proposer.controls['personalFirstname'].value,
+        "lastName":this.proposer.controls['personalFirstname'].value,
+        "dob":this.proposer.controls['personalFirstname'].value,
+        "gender":this.proposer.controls['personalFirstname'].value,
+        "isSmoker":"Y",
+        "maritalStatus":this.proposer.controls['personalFirstname'].value,
+        "pan":this.proposer.controls['personalFirstname'].value,
+        "maidName":"",
+        "motherMaidName":"Neha",
+        "FHName":"Sandesh",
+        "nationality":this.proposer.controls['personalFirstname'].value,
+        "otherNationality":"Indian",
+        "ageProofId":this.proposer.controls['personalFirstname'].value,
+        "emailId":this.proposer.controls['personalFirstname'].value,
+        "phoneNo":this.proposer.controls['personalFirstname'].value,
+        "ResidencePhoneNo":"",
+        "currAddr1":this.proposer.controls['personalFirstname'].value,
+        "currAddr2":this.proposer.controls['personalFirstname'].value,
+        "currAddr3":this.proposer.controls['personalFirstname'].value,
+        "currPincode":this.proposer.controls['personalFirstname'].value,
+        "currState":this.proposer.controls['personalFirstname'].value,
+        "currCity":this.proposer.controls['personalFirstname'].value,
+        "perAddr1":this.proposer.controls['personalFirstname'].value,
+        "perAddr2":this.proposer.controls['personalFirstname'].value,
+        "perAddr3":this.proposer.controls['personalFirstname'].value,
+        "perPincode":this.proposer.controls['personalFirstname'].value,
+        "perState":this.proposer.controls['personalFirstname'].value,
+        "perCity":this.proposer.controls['personalFirstname'].value,
+        "isCurrPerAddrSame":this.proposer.controls['personalFirstname'].value,
+        "isPerAddrIsCorrAddr":"",
+        "education":"",
+        "otherEducation":"",
+        "highestQualification":"",
+        "collegeNameLoc":"",
+        "employementType":"",
+        "employementTypeOther":"",
+        "employerName":this.proposer.controls['personalFirstname'].value,
+        "employerAddr":this.proposer.controls['personalFirstname'].value,
+        "designation":"",
+        "natureOfDuty":this.proposer.controls['personalFirstname'].value,
+        "experienceInYears":"",
+        "occupationType":"",
+        "noOfEmployees":"",
+        "natureOfBusiness":"",
+        "annualIncome":this.proposer.controls['personalFirstname'].value,
+        "isIncomeSource":"",
+        "incomeSourceDetails":"",
+        "familyDiease_Ind":"",
+        "familyDiease_Details":"",
+        "hasfamilyAppliedETLI":"",
+        "otherPolicy_Ind":"",
+        "otherPolicy_InsurerName":"",
+        "otherPolicy_OtherInsurerName":"",
+        "otherPolicy_Reason":"",
+        "otherPolicy_Date":"",
+        "CIB_Ind":"",
+        "CIB_InsurerName":"",
+        "CIB_Reason":"",
+        "CIB_Date":"",
+        "isPEP":"",
+        "pepReason":"",
+        "hasFamPhysician":"",
+        "FamPhysicianName":"",
+        "FamPhysicianAddr1":"",
+        "FamPhysicianAddr2":"",
+        "FamPhysicianPhone":"",
+        "identityProof":this.proposer.controls['personalFirstname'].value,
+        "ageProof":this.proposer.controls['personalFirstname'].value,
+        "otherAgeProof":"",
+        "addrProof":this.proposer.controls['personalFirstname'].value,
+        "corrAddrProof":"",
+        "incomeProof":"",
+        "hasEIAccount":"",
+        "EIAccountNo":"",
+        "applyEIAccount":"",
+        "EIARepository":"",
+        "wantEPolicy":"",
+        "relationLAProposer":"",
+        "height":this.proposer.controls['personalFirstname'].value,
+        "heightFeets":this.proposer.controls['personalFirstname'].value,
+        "heightInches":this.proposer.controls['personalFirstname'].value,
+        "heightCentimeters":"",
+        "weight":this.proposer.controls['personalFirstname'].value,
+        "hasWeightChanged":"",
+        "weightChange":"",
+        "weightChangeReason":"",
+        "isStaff":"",
+        "employeeCode":"",
+        "isTaxResOfIndia":"",
+        "isHospitalized":"",
+        "hospitalizedDate":"",
+        "isRecovered":"",
+        "nonRecoveryDetails":"",
+        "aadhaarNo":"",
+        "questionnaires":{
+          "medicationInd":"",
+          "diagnosedInd":"",
+          "aidsInd":""
+        },
+        "bank":{
+          "accountNo":"",
+          "name":"",
+          "location":"",
+          "ifscCode":"",
+          "investmentStrategy":""
+        },
+        "existingInsurance_Ind":"",
+        "existingInsurance":[
+          {
+            "policyNo":"",
+            "companyName":"",
+            "yearOfIssue":"",
+            "sumAssured":"",
+            "annualizedPremium":"",
+            "policyStatus":"",
+            "acceptanceTerm":""
+          }
+        ]
+      },
+      "Spouse":"",
+      "Proposer":{
+        "title":this.proposer.controls['personalFirstname'].value,
+        "firstName":this.proposer.controls['personalFirstname'].value,
+        "middleName":this.proposer.controls['personalFirstname'].value,
+        "lastName":this.proposer.controls['personalFirstname'].value,
+        "dob":this.proposer.controls['personalFirstname'].value,
+        "gender":this.proposer.controls['personalFirstname'].value,
+        "isSmoker":"",
+        "maritalStatus":this.proposer.controls['personalFirstname'].value,
+        "pan":this.proposer.controls['personalFirstname'].value,
+        "maidName":"",
+        "motherMaidName":"",
+        "FHName":"B",
+        "nationality":this.proposer.controls['personalFirstname'].value,
+        "otherNationality":"",
+        "ageProofId":this.proposer.controls['personalFirstname'].value,
+        "emailId":this.proposer.controls['personalFirstname'].value,
+        "phoneNo":this.proposer.controls['personalFirstname'].value,
+        "ResidencePhoneNo":"",
+        "alternate_cnt_no":"",
+        "currAddr1":this.proposer.controls['personalFirstname'].value,
+        "currAddr2":this.proposer.controls['personalFirstname'].value,
+        "currAddr3":this.proposer.controls['personalFirstname'].value,
+        "currPincode":this.proposer.controls['personalFirstname'].value,
+        "currState":this.proposer.controls['personalFirstname'].value,
+        "currCity":this.proposer.controls['personalFirstname'].value,
+        "perAddr1":this.proposer.controls['personalFirstname'].value,
+        "perAddr2":this.proposer.controls['personalFirstname'].value,
+        "perAddr3":this.proposer.controls['personalFirstname'].value,
+        "perPincode":this.proposer.controls['personalFirstname'].value,
+        "perState":this.proposer.controls['personalFirstname'].value,
+        "perCity":this.proposer.controls['personalFirstname'].value,
+        "isCurrPerAddrSame":this.proposer.controls['personalFirstname'].value,
+        "isPerAddrIsCorrAddr":"Y",
+        "education":"2",
+        "otherEducation":"",
+        "highestQualification":"MCA",
+        "collegeNameLoc":"DJTI Mumbai",
+        "course":"",
+        "courseDuration":"",
+        "courseYear":"",
+        "studentInstruction":"",
+        "employementType":this.proposer.controls['personalFirstname'].value,
+        "employementTypeOther":this.proposer.controls['personalFirstname'].value,
+        "employerName":this.proposer.controls['personalFirstname'].value,
+        "employerAddr":this.proposer.controls['personalFirstname'].value,
+        "designation":"Senior Executive officer",
+        "natureOfDuty":this.proposer.controls['personalFirstname'].value,
+        "experienceInYears":"",
+        "occupationType":"",
+        "noOfEmployees":"",
+        "natureOfBusiness":"",
+        "annualIncome":this.proposer.controls['personalFirstname'].value,
+        "isIncomeSource":"",
+        "incomeSourceDetails":"",
+        "familyDiease_Ind":"",
+        "familyDiease_Details":"",
+        "hasfamilyAppliedETLI":"",
+        "otherPolicy_Ind":"",
+        "otherPolicy_InsurerName":"",
+        "otherPolicy_OtherInsurerName":"",
+        "otherPolicy_Reason":"",
+        "otherPolicy_Date":"",
+        "CIB_Ind":"",
+        "CIB_InsurerName":"",
+        "CIB_Reason":"",
+        "CIB_Date":"",
+        "isPEP":"",
+        "pepReason":"",
+        "hasFamPhysician":"",
+        "FamPhysicianName":"",
+        "FamPhysicianAddr1":"",
+        "FamPhysicianAddr2":"",
+        "FamPhysicianPhone":"",
+        "identityProof":"",
+        "ageProof":"",
+        "otherAgeProof":"",
+        "addrProof":"",
+        "corrAddrProof":"",
+        "incomeProof":"",
+        "incomeProofText":"",
+        "isCA":"",
+        "hasEIAccount":"",
+        "EIAccountNo":"",
+        "applyEIAccount":"",
+        "EIARepository":"",
+        "wantEPolicy":"",
+        "relationLAProposer":"",
+        "relationLAProposerText":"",
+        "height":"",
+        "heightFeets":"",
+        "heightInches":"",
+        "heightCentimeters":"",
+        "weight":"",
+        "clientId":"",
+        "hasWeightChanged":"",
+        "weightChange":"",
+        "weightChangeReason":"",
+        "isTaxResOfIndia":"",
+        "aadhaarNo":"",
+        "questionnaires":{
+          "medicationInd":"",
+          "diagnosedInd":"",
+          "aidsInd":""
+        },
+        "bank":{
+          "accountNo":"",
+          "name":"",
+          "location":"",
+          "ifscCode":"",
+          "investmentStrategy":""
+        },
+        "existingInsurance_Ind":"",
+        "existingInsurance":[
+          {
+            "policyNo":"",
+            "companyName":"",
+            "yearOfIssue":"",
+            "sumAssured":"",
+            "annualizedPremium":"",
+            "policyStatus":"",
+            "acceptanceTerm":""
+          }
+        ],
+        "familyIncomeData":""
+      }
 
       }
 
@@ -1793,6 +1818,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         isCurrPerAddrSame: this.getStepper1.isCurrPerAddrSame,
         employementTypeOther: this.getStepper1.employementTypeOther,
         employementType: this.getStepper1.employementType,
+        employerName: this.getStepper1.employerName,
         natureduty: this.getStepper1.natureduty,
         employerAddr: this.getStepper1.employerAddr,
         annualIncome: this.getStepper1.annualIncome,
@@ -1838,6 +1864,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         isCurrPerAddrSame: this.getStepper2.isCurrPerAddrSame,
         employementTypeOther: this.getStepper2.employementTypeOther,
         employementType: this.getStepper2.employementType,
+        employerName: this.getStepper2.employerName,
         natureduty: this.getStepper2.natureduty,
         employerAddr: this.getStepper2.employerAddr,
         annualIncome: this.getStepper2.annualIncome,
