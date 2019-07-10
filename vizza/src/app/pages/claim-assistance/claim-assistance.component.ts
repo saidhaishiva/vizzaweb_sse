@@ -112,7 +112,6 @@ export class ClaimAssistanceComponent implements OnInit {
     }
     readUrl(event: any) {
         this.filePath = event.target.files[0].name;
-        console.log(this.filePath,'pathvalue');
         this.allowedExtensionsPDF = /(\.pdf)$/i;
         this.allowedExtensionsDOC = /(\.doc)$/i;
         this.allowedExtensionsDOCX = /(\.docx)$/i;
