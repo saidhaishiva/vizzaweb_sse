@@ -349,6 +349,8 @@ export class RenewalReminderComponent implements OnInit {
       this.fileUploadPathPDF= '';
       this.fileUploadPathDOC= '';
       this.fileUploadPathDOCX= '';
+      this.filePath= '';
+      this.toastr.success( 'Upload Attachment Successfully');
     }
   }
 
