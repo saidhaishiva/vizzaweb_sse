@@ -58,12 +58,12 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-75" *ngIf="travelUserType">
-                          <input matInput [(ngModel)]="courseDuration" maxlength="2" placeholder="Course Duration(In Month)" (keyup)="typeCourseDuration()" (keypress)="numberOnly($event)">
+                          <input matInput [(ngModel)]="courseDuration" maxlength="2" placeholder="Course Duration(In Month)" (keyup)="typeCourseDuration()" (keypress)="numberOnly($event)" [required]="travelUserType">
                         </mat-form-field>
                       </div>
                      <div class="col-md-6">
                        <mat-form-field class="w-75"  *ngIf="travelUserType">
-                         <input matInput  [(ngModel)]="sem" maxlength="2" placeholder="Semester" (keyup)="typeSemester()" (keypress)="numberOnly($event)">
+                         <input matInput  [(ngModel)]="sem" maxlength="2" placeholder="Semester" (keyup)="typeSemester()" (keypress)="numberOnly($event)" [required]="travelUserType">
                        </mat-form-field>
                      </div>
                     </div>
