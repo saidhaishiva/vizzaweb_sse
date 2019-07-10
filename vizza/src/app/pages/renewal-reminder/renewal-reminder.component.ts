@@ -50,16 +50,19 @@ export class RenewalReminderComponent implements OnInit {
   fileDetails: any;
   url: any;
   getUrl: any;
-  fileUploadPath: any;
   today: any;
   maxDate: any;
   dateError: any;
-  public uploadTypeTest: boolean;
 
-  // public uploadAddressProofName: any;
-  // public uploadType: any;
-  // public getBase64: any;
-  // public imageSrc: string;
+  public fileUploadPath: any;
+  public uploadTypeTest: boolean;
+  public allowedExtensionsPDF: any;
+  public allowedExtensionsDOC: any;
+  public allowedExtensionsDOCX: any;
+  public fileUploadPathPDF: any;
+  public fileUploadPathDOC: any;
+  public fileUploadPathDOCX: any;
+  public filePath: any;
 
   @ViewChild('myForm') myForm: NgForm;
 
@@ -102,10 +105,12 @@ export class RenewalReminderComponent implements OnInit {
     this.getcompanyList();
     this.uploadTypeTest= true;
     this.fileUploadPath = '';
-
-    // this.imageSrc = '';
-    // this.uploadType = '';
-    // this.getBase64 = '';
+    this.uploadTypeTest = true;
+    this.filePath = '';
+    this.fileUploadPath = '';
+    this.fileUploadPathPDF= '';
+    this.fileUploadPathDOC= '';
+    this.fileUploadPathDOCX= '';
   }
 
 
@@ -257,11 +262,16 @@ export class RenewalReminderComponent implements OnInit {
   }
 
   readUrl(event: any) {
+    this.filePath = event.target.files[0].name;
+    this.allowedExtensionsPDF = /(\.pdf)$/i;
+    this.allowedExtensionsDOC = /(\.doc)$/i;
+    this.allowedExtensionsDOCX = /(\.docx)$/i;
+
     this.getUrl = '';
     let getUrlEdu = [];
     this.fileDetails = [];
     for (let i = 0; i < event.target.files.length; i++) {
-      this.fileDetails.push({'image': '', 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
+      this.fileDetails.push({'image': this.fileUploadPath, 'size': event.target.files[i].size, 'type': event.target.files[i].type, 'name': event.target.files[i].name});
     }
     for (let i = 0; i < event.target.files.length; i++) {
       const reader = new FileReader();
@@ -276,6 +286,7 @@ export class RenewalReminderComponent implements OnInit {
   }
   onUploadFinished(event) {
     this.allImage.push(event);
+    this.onUpload();
   }
   onUpload() {
     console.log(this.allImage.length,'this.allImage.length');
@@ -300,7 +311,27 @@ export class RenewalReminderComponent implements OnInit {
   }
   public fileUploadSuccess(successData) {
     if (successData.IsSuccess) {
-      this.fileUploadPath = successData.ResponseObject.imagePath;
+      if(this.allowedExtensionsPDF.exec(this.filePath)){
+        this.fileUploadPathPDF= 'pdf';
+        this.fileUploadPathDOC= '';
+        this.fileUploadPathDOCX= '';
+        this.fileUploadPath = '';
+      }else if(this.allowedExtensionsDOC.exec(this.filePath)){
+        this.fileUploadPathDOC= 'doc';
+        this.fileUploadPathPDF= '';
+        this.fileUploadPathDOCX= '';
+        this.fileUploadPath = '';
+      }else if(this.allowedExtensionsDOCX.exec(this.filePath)){
+        this.fileUploadPathDOCX= 'docx';
+        this.fileUploadPathPDF= '';
+        this.fileUploadPathDOC= '';
+        this.fileUploadPath = '';
+      }else {
+        this.fileUploadPath = successData.ResponseObject.imagePath;
+        this.fileUploadPathPDF= '';
+        this.fileUploadPathDOC= '';
+        this.fileUploadPathDOCX= '';
+      }
       this.uploadTypeTest = true;
       this.toastr.success( successData.ResponseObject.message);
     } else {
@@ -308,6 +339,18 @@ export class RenewalReminderComponent implements OnInit {
     }
   }
   public fileUploadFailure(error) {
+  }
+  renewalReminderUpload(){
+    if(this.filePath == '' ){
+      this.uploadTypeTest= false;
+    }else{
+      this.uploadTypeTest = true;
+      this.fileUploadPath = '';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOC= '';
+      this.fileUploadPathDOCX= '';
+      this.filePath= '';
+    }
   }
 
 }

@@ -263,37 +263,37 @@
                             <mat-error *ngIf="vehicle.controls.package.errors?.required">Package is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2'">
+                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && visible != false">
                         <mat-checkbox formControlName="Depreciation"><strong> Depreciation Reimbursement </strong></mat-checkbox>
                       </div>
                       <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value == '7'">
                         <mat-checkbox formControlName="Invoice"><strong> Return to Invoice </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1'">
+                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && visible != false">
                         <mat-checkbox formControlName="keyReplacement"><strong> Key Replacement </strong></mat-checkbox>
                       </div>
                       <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value == '4' || vehicle.controls['package'].value == '6' || vehicle.controls['package'].value == '7'">
                         <mat-checkbox formControlName="Enginesecure"><strong> Engine Secure </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && vehicle.controls['package'].value != '3'">
+                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && vehicle.controls['package'].value != '2' && vehicle.controls['package'].value != '3' && visible != false">
                         <mat-checkbox formControlName="Consumableexpence"><strong> Consumable Expences </strong></mat-checkbox>
                       </div>
                       <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value == '5' || vehicle.controls['package'].value == '6' || vehicle.controls['package'].value == '7'">
                         <mat-checkbox formControlName="Tyresecure"><strong> Tyre Secure </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-4 mt-2" *ngIf="enquiryFormData.ncb_percent != '0'&&enquiryFormData.ncb_percent != '20'&&enquiryFormData.ncb_percent != '25'">
+                      <div class="col-md-4 mt-2" *ngIf="enquiryFormData.ncb_percent != '0'&&enquiryFormData.ncb_percent != '20' && enquiryFormData.ncb_percent != '25'">
                         <mat-checkbox formControlName="protectioncover"><strong> NCB protection cover </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events': vehicle.controls['package'].value != '1' ?'none' : ''}">
+                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events': vehicle.controls['package'].value != '1' ?'none' : ''}" *ngIf="visible != false">
                         <mat-checkbox formControlName="Roadside"><strong> Roadside Assistance </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1'">
+                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && visible != false">
                         <mat-checkbox formControlName="personaloss"><strong> Loss of Personal belongings(IDV) </strong></mat-checkbox>
                       </div>
-                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}">
+                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="visible != false">
                         <mat-checkbox formControlName="Repairofglass"><strong> Repair of glass, plastic fibre and rubber glass<span class="error">*</span></strong></mat-checkbox>
                       </div>
-                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1'">
+                      <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value != '1' && visible != false">
                         <mat-checkbox formControlName="transport"><strong> Emergency transport and Hotel expences(IDV) </strong></mat-checkbox>
                       </div>
                       </div>
@@ -445,8 +445,8 @@
               </div>
               <div class="col-md-8">
                 <ul class="summary-head">
-                  <li><span>Insurer: </span><img src="{{webhost + '/' + buycarDetails.company_logo}}" class="img-thumbnail" style="width: 49px;" /> </li>
-                  <li><span>Premium: </span><span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></li>
+                  <li><span>Insurer : </span><img src="{{webhost + '/' + buycarDetails.company_logo}}" class="img-thumbnail" style="width: 49px;" /> </li>
+                  <li><span>Premium : </span><span><i class="fas fa-rupee-sign"></i> {{summaryData.premium}}</span></li>
                   <li></li>
                 </ul>
               </div>

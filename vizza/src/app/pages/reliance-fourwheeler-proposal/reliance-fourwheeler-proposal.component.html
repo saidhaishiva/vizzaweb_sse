@@ -18,7 +18,7 @@
                     <div class="row">
                       <div class="col-md-3 mt-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title"  required>
+                          <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" required>
                             <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="relianceProposal.controls.title.errors?.required">Title is required</mat-error>
@@ -592,8 +592,8 @@
 
                       <div class="col-md-4 mt-0">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="No Of Unnamed Passenegers Covered"  formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
-                          <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passenegers Covered is required</mat-error>
+                          <input matInput placeholder="No Of Unnamed Passengers Covered"  (keypress)="numberValidate($event)" formControlName="NoOfUnnamedPassenegersCovered"  autocomplete="off" required>
+                          <mat-error *ngIf="coverDetails.controls.NoOfUnnamedPassenegersCovered.errors?.required">No Of Unnamed Passengers Covered is required</mat-error>
                         </mat-form-field>
                       </div>
                     </div>
@@ -846,7 +846,7 @@
 
 
                   
-                  <div class="proposal-buttom mt-3 text-right w-100">
+                  <div class="proposal-buttom mt-3 text-right w-100" >
                     <button mat-button matStepperPrevious color="primaryBlue" class="text-light" (click)="topScroll()">Back</button>
 
                     <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,coverDetails.value,'stepper3')" >Next</button>
@@ -857,7 +857,7 @@
           </mat-accordion>
         </mat-step>
 
-        <mat-step [stepControl]="">
+        <mat-step [stepControl]="" *ngIf="buyProduct.business_type !=1">
           <ng-template matStepLabel>Previous Insurance Details</ng-template>
           <mat-accordion class="mt-4 w-100 float-left">
             <form [formGroup]="previousInsurance">
@@ -1068,26 +1068,43 @@
               <h5 class="mt-3 sub-title"> VECHILE / COVER DETAILS </h5>
               <div class="row box-card">
 
-                      <div class="col-md-6 w-100">
-                        <h2 class="color-blue">VEHICLE DETAILS</h2>
+                <div class="col-md-6">
+                  <h4 class="mt-4"></h4>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
+                  </ul>
+                </div>
 
-                        <ul class="m-0 list-group">
-                          <!--                                              <li class="list-group-item" *ngIf="coverFormData.InsurancePremium != ''"><strong>Insurance Premium:</strong><span *ngIf="coverFormData.InsurancePremium == true">Yes</span><span *ngIf="coverFormData.InsurancePremium == false">No</span> </li>-->
-                          <!--                                              <li class="list-group-item" *ngIf="coverFormData.IsRoadTaxcover != ''"><strong>Road Tax:</strong><span *ngIf="coverFormData.IsRoadTaxcover == true">Yes</span><span *ngIf="coverFormData.IsRoadTaxcover == false">No</span> </li>-->
-                          <li class="list-group-item" *ngIf="coverFormData.fuelTypeValue != ''"><strong>fuelType:</strong> {{coverFormData.fuelTypeValue}}</li>
-                        </ul>
-                      </div>
+                <div class="col-md-6">
+                  <h4 class="mt-4"></h4>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == true">Yes</span><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered != ''"><strong>Liability to Paid Driver:</strong><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == true">Yes</span><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.IsRoadTaxcover != ''"><strong>Road Tax cover:</strong><span *ngIf="coverFormData.IsRoadTaxcover == true">Yes</span><span *ngIf="coverFormData.IsRoadTaxcover == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.IsTotalCover != ''"><strong>Total Cover:</strong><span *ngIf="coverFormData.IsTotalCover == true">Yes</span><span *ngIf="coverFormData.IsTotalCover == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.IsRegistrationCover != ''"><strong>Registration Cover:</strong><span *ngIf="coverFormData.IsRegistrationCover == true">Yes</span><span *ngIf="coverFormData.IsRegistrationCover == false">No</span> </li>
+                  </ul>
+                </div>
 
-                      <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''">
-                        <h2 class="color-blue m-2">PA to Unnamed Passenger</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered != ''"><strong>PA to Unnamed Passenger :</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == true">Yes</span><span *ngIf="coverFormData.UnnamedPassengerCovered == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>Sum Insured:</strong> {{coverFormData.UnnamedPassengersSI}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passenegers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
-                        </ul>
-                      </div>
+                <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''">
+                  <h2 class="color-blue m-2">PA to Unnamed Passenger</h2>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengerCovered != ''"><strong>PA to Unnamed Passenger :</strong><span *ngIf="coverFormData.UnnamedPassengerCovered == true">Yes</span><span *ngIf="coverFormData.UnnamedPassengerCovered == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.UnnamedPassengersSI != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>Sum Insured:</strong> {{coverFormData.UnnamedPassengersSI}}</li>
+                  </ul>
+                </div>
 
-                      <div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">
+                <div class="col-md-6" *ngIf="coverFormData.UnnamedPassengerCovered != ''">
+                  <h4 class="mt-4"></h4>
+                    <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="coverFormData.NoOfUnnamedPassenegersCovered != '' && coverFormData.UnnamedPassengerCovered ==true "><strong>No Of Passengers:</strong> {{coverFormData.NoOfUnnamedPassenegersCovered}}</li>
+                    </ul>
+                  </div>
+
+                <div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">
                         <h2 class="color-blue m-2">PA to Named Passenger</h2>
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.PAToNamedPassenger != ''"><strong>PA to Named Passenger :</strong><span *ngIf="coverFormData.PAToNamedPassenger == true">Yes</span><span *ngIf="coverFormData.PAToNamedPassenger == false">No</span> </li>
@@ -1095,26 +1112,56 @@
                           <li class="list-group-item" *ngIf="coverFormData.nppassengerName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Passenger Name:</strong> {{coverFormData.nppassengerName}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.npappointeeName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Appointee Name:</strong> {{coverFormData.npappointeeName}}</li>
                           <li class="list-group-item" *ngIf="coverFormData.npnomineeName != '' && coverFormData.PAToNamedPassenger ==true "><strong>Nominee Name:</strong> {{coverFormData.npnomineeName}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.npDob != '' && coverFormData.PAToNamedPassenger ==true"><strong>Nominee Dob:</strong> {{coverFormData.npDob | date: 'dd/MM/yyyy'}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.nprelation != '' && coverFormData.PAToNamedPassenger ==true "><strong>Relation:</strong> {{coverFormData.nprelationValue}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.npOtherRelation != '' && coverFormData.PAToNamedPassenger == true "><strong>Other Relation:</strong> {{coverFormData.npOtherRelationValue}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.npAddress != '' && coverFormData.PAToNamedPassenger == true "><strong>Nominee Address:</strong> {{coverFormData.npAddress}}</li>
                         </ul>
                       </div>
+                  <div class="col-md-6" *ngIf="coverFormData.PAToNamedPassenger != ''">
+                    <h4 class="mt-4"></h4>
+                    <ul class="m-0 list-group">
+                      <li class="list-group-item" *ngIf="coverFormData.npDob != '' && coverFormData.PAToNamedPassenger ==true"><strong>Nominee Dob:</strong> {{coverFormData.npDob | date: 'dd/MM/yyyy'}}</li>
+                      <li class="list-group-item" *ngIf="coverFormData.nprelation != '' && coverFormData.PAToNamedPassenger ==true "><strong>Relation:</strong> {{coverFormData.nprelationValue}}</li>
+                      <li class="list-group-item" *ngIf="coverFormData.npOtherRelation != '' && coverFormData.PAToNamedPassenger == true "><strong>Other Relation:</strong> {{coverFormData.npOtherRelationValue}}</li>
+                      <li class="list-group-item" *ngIf="coverFormData.npAddress != '' && coverFormData.PAToNamedPassenger == true "><strong>Nominee Address:</strong> {{coverFormData.npAddress}}</li>
+                    </ul>
+                  </div>
 
-                      <div class="col-md-6" *ngIf="coverFormData.AutomobileAssociationMember == true">
-                        <h2 class="color-blue m-2">Automobile Association Membership</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.AutomobileAssociationMember != ''"><strong>Automobile Association Membership:</strong><span *ngIf="coverFormData.AutomobileAssociationMember == true">Yes</span><span *ngIf="coverFormData.AutomobileAssociationMember == false">No</span> </li>
-                        </ul>
-                      </div>
+                <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd == true">
+                  <h2 class="color-blue m-2">PA to Owner Driver</h2>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''"><strong>PA to Owner Driver:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == true">Yes</span><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverdSi != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>PA To Owner Driver Coverd SI:</strong> {{coverFormData.PAToOwnerDriverCoverdSi}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.cappointeeName != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Appointee Name:</strong> {{coverFormData.cappointeeName}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.cnomineeName != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Nominee Name:</strong> {{coverFormData.cnomineeName}}</li>
+                  </ul>
+                </div>
 
-                      <div class="col-md-6" *ngIf="coverFormData.AntiTheftDeviceFitted == true">
-                        <h2 class="color-blue m-2">Anti-Theft Device</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.AntiTheftDeviceFitted != ''"><strong>Anti-Theft Device :</strong><span *ngIf="coverFormData.AntiTheftDeviceFitted == true">Yes</span><span *ngIf="coverFormData.AntiTheftDeviceFitted == false">No</span> </li>
-                        </ul>
-                      </div>
+                <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd == true">
+                  <h4 class="mt-4"></h4>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="coverFormData.cnDob != '' && coverFormData.PAToOwnerDriverCoverd ==true"><strong>Nominee Dob:</strong> {{coverFormData.cnDob | date: 'dd/MM/yyyy'}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Other Relation:</strong> {{coverFormData.nOtherRelation}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
+                  </ul>
+                </div>
+
+                <div class="col-md-6" *ngIf="coverFormData.IsBiFuelKit == true">
+                  <h2 class="color-blue m-2">BiFuel Kit</h2>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>BiFuel Kit:</strong><span *ngIf="coverFormData.IsBiFuelKit == true">Yes</span><span *ngIf="coverFormData.IsBiFuelKit == false">No</span> </li>
+                    <li class="list-group-item" *ngIf="coverFormData.BiFuelKitSi != '' && coverFormData.IsBiFuelKit ==true "><strong>Sum Insured:</strong> {{coverFormData.BiFuelKitSi}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>CNG/LPG kit attached:</strong><span *ngIf="coverFormData.cpgLpgKit == true">Yes</span><span *ngIf="coverFormData.cpgLpgKit == false">No</span> </li>
+                  </ul>
+                </div>
+                <div class="col-md-6" *ngIf="coverFormData.IsBiFuelKit == true">
+                  <h4 class="mt-4"></h4>
+                  <ul class="m-0 list-group">
+                    <li class="list-group-item" *ngIf="coverFormData.bifueltype != '' && coverFormData.IsBiFuelKit ==true "><strong>Bifuel type:</strong> {{coverFormData.bifueltype}}</li>
+                    <li class="list-group-item" *ngIf="coverFormData.fittngType != '' && coverFormData.cpgLpgKit ==true "><strong>Fitting Type:</strong> {{coverFormData.fittngType}}</li>
+                  </ul>
+                </div>
+
+
+
 
 <!--                      <div class="col-md-12" *ngIf="coverFormData.PAToOwnerDriverCoverd != true">-->
 <!--                        <h2 class="color-blue">PA to Owner Driver</h2>-->
@@ -1128,21 +1175,6 @@
 <!--                          <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>-->
 <!--                        </ul>-->
 <!--                      </div>-->
-
-                      <div class="col-md-6" *ngIf="coverFormData.PAToOwnerDriverCoverd == true">
-                        <h2 class="color-blue m-2">PA to Owner Driver</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverd != ''"><strong>PA to Owner Driver:</strong><span *ngIf="coverFormData.PAToOwnerDriverCoverd == true">Yes</span><span *ngIf="coverFormData.PAToOwnerDriverCoverd == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.PAToOwnerDriverCoverdSi != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>PA To Owner Driver Coverd SI:</strong> {{coverFormData.PAToOwnerDriverCoverdSi}}</li>
-
-                          <li class="list-group-item" *ngIf="coverFormData.cappointeeName != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Appointee Name:</strong> {{coverFormData.cappointeeName}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.cnomineeName != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Nominee Name:</strong> {{coverFormData.cnomineeName}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.cnDob != '' && coverFormData.PAToOwnerDriverCoverd ==true"><strong>Nominee Dob:</strong> {{coverFormData.cnDob | date: 'dd/MM/yyyy'}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.nrelation != '' && coverFormData.PAToOwnerDriverCoverd ==true "><strong>Relation:</strong> {{coverFormData.nrelation}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.nOtherRelation != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Other Relation:</strong> {{coverFormData.nOtherRelation}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.cnAddress != '' && coverFormData.PAToOwnerDriverCoverd == true "><strong>Nominee Address:</strong> {{coverFormData.cnAddress}}</li>
-                        </ul>
-                      </div>
 
                       <div class="col-md-6" *ngIf="coverFormData.NilDepreciationCoverage == true">
                         <h2 class="color-blue m-2">Nil Depreciation</h2>
@@ -1158,20 +1190,6 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.TPPDCover != ''"><strong>TPPD Restrictred:</strong><span *ngIf="coverFormData.TPPDCover == true">Yes</span><span *ngIf="coverFormData.TPPDCover == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.TPPDCoverSi != '' && coverFormData.TPPDCover ==true "><strong>Sum Insured:</strong> {{coverFormData.TPPDCoverSi}}</li>
-                        </ul>
-                      </div>
-
-                      <div class="col-md-6" *ngIf="coverFormData.BasicODCoverage == true">
-                        <h2 class="color-blue m-2">Basic OD </h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.BasicODCoverage != ''"><strong>Basic OD :</strong><span *ngIf="coverFormData.BasicODCoverage == true">Yes</span><span *ngIf="coverFormData.BasicODCoverage == false">No</span> </li>
-                        </ul>
-                      </div>
-
-                      <div class="col-md-6" *ngIf="coverFormData.BasicLiability == true">
-                        <h2 class="color-blue m-2">Basic Liability</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.BasicLiability != ''"><strong>Basic Liability:</strong><span *ngIf="coverFormData.BasicLiability == true">Yes</span><span *ngIf="coverFormData.BasicLiability == false">No</span> </li>
                         </ul>
                       </div>
 
@@ -1196,29 +1214,10 @@
                         <ul class="m-0 list-group">
                           <li class="list-group-item" *ngIf="coverFormData.IsNonElectricalItemFitted != ''"><strong>Non Electrical Accessories:</strong><span *ngIf="coverFormData.IsNonElectricalItemFitted == true">Yes</span><span *ngIf="coverFormData.IsNonElectricalItemFitted == false">No</span> </li>
                           <li class="list-group-item" *ngIf="coverFormData.NonElectricalItemsTotalSI != '' && coverFormData.IsNonElectricalItemFitted ==true "><strong>Sum Insured:</strong> {{coverFormData.NonElectricalItemsTotalSI}}</li>
-
                         </ul>
                       </div>
 
-                      <div class="col-md-6" *ngIf="coverFormData.IsBiFuelKit == true">
-                        <h2 class="color-blue m-2">BiFuel Kit</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>BiFuel Kit:</strong><span *ngIf="coverFormData.IsBiFuelKit == true">Yes</span><span *ngIf="coverFormData.IsBiFuelKit == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.BiFuelKitSi != '' && coverFormData.IsBiFuelKit ==true "><strong>Sum Insured:</strong> {{coverFormData.BiFuelKitSi}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.IsBiFuelKit != ''"><strong>CNG/LPG kit attached:</strong><span *ngIf="coverFormData.cpgLpgKit == true">Yes</span><span *ngIf="coverFormData.cpgLpgKit == false">No</span> </li>
-                          <li class="list-group-item" *ngIf="coverFormData.bifueltype != '' && coverFormData.IsBiFuelKit ==true "><strong>Bifuel type:</strong> {{coverFormData.bifueltype}}</li>
-                          <li class="list-group-item" *ngIf="coverFormData.fittngType != '' && coverFormData.cpgLpgKit ==true "><strong>Fitting Type:</strong> {{coverFormData.fittngType}}</li>
 
-                        </ul>
-                      </div>
-
-                      <div class="col-md-6" *ngIf="coverFormData.LiabilityToPaidDriverCovered == true">
-                        <h2 class="color-blue m-2">Liability to Paid Driver</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.LiabilityToPaidDriverCovered != ''"><strong>Liability to Paid Driver:</strong><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == true">Yes</span><span *ngIf="coverFormData.LiabilityToPaidDriverCovered == false">No</span> </li>
-<!--                          <li class="list-group-item" *ngIf="coverFormData.paPaidDriverSi != '' && coverFormData.paPaidDriver ==true "><strong>SumInsured:</strong> {{coverFormData.paPaidDriverSi}}</li>-->
-                        </ul>
-                      </div>
 
 
                       <div class="col-md-6" *ngIf="coverFormData.IsPAToDriverCovered == true">
@@ -1228,38 +1227,6 @@
                           <li class="list-group-item" *ngIf="coverFormData.IsPAToDriverCoveredSi != '' && coverFormData.IsPAToDriverCovered ==true "><strong>PA To Driver Covered SI:</strong> {{coverFormData.IsPAToDriverCoveredSi}}</li>
                         </ul>
                       </div>
-                      <div class="col-md-12" *ngIf="coverFormData.IsRoadTaxcover == true">
-                        <h2 class="color-blue m-2">Road Tax cover</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.IsRoadTaxcover != ''"><strong>Road Tax cover:</strong><span *ngIf="coverFormData.IsRoadTaxcover == true">Yes</span><span *ngIf="coverFormData.IsRoadTaxcover == false">No</span> </li>
-
-                        </ul>
-
-                      </div>
-
-                      <div class="col-md-6" *ngIf="coverFormData.IsRegistrationCover == true">
-                        <h2 class="color-blue m-2">Registration Cover</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.IsRegistrationCover != ''"><strong>Registration Cover:</strong><span *ngIf="coverFormData.IsRegistrationCover == true">Yes</span><span *ngIf="coverFormData.IsRegistrationCover == false">No</span> </li>
-
-                        </ul>
-                      </div>
-
-                      <div class="col-md-6" *ngIf="coverFormData.IsTotalCover == true">
-                        <h2 class="color-blue m-2">Total Cover</h2>
-                        <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="coverFormData.IsTotalCover != ''"><strong>Total Cover:</strong><span *ngIf="coverFormData.IsTotalCover == true">Yes</span><span *ngIf="coverFormData.IsTotalCover == false">No</span> </li>
-
-                        </ul>
-
-                      </div>
-
-                      <div class="col-md-12">
-                        <ul class="m-0 list-group">
-<!--                          <li class="list-group-item" *ngIf="coverFormData.InsurancePremium != ''"><strong>Insurance Premium:</strong><span *ngIf="coverFormData.InsurancePremium == true">Yes</span><span *ngIf="coverFormData.InsurancePremium == false">No</span> </li>-->
-                        </ul>
-                </div>
-
               </div>
             </section>
             <section>

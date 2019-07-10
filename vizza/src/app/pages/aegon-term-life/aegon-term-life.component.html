@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Gender" formControlName="gender" (change)="getMaritalList() " required>
+                            <mat-select placeholder="Gender" formControlName="gender" (change)="getMaritalList()" (change)="getEmpType()"  (change)="changeGender()" (change)="getnomineerelationship()" required>
                               <mat-option value="M">Male</mat-option>
                               <mat-option value="F">Female</mat-option>
                             </mat-select>
@@ -82,25 +82,27 @@
                         </mat-form-field></div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Father Name" formControlName="fatherName" (keypress)="nameValidate($event)"  autocomplete="off"  >
+                            <input matInput placeholder="Father Name" formControlName="fatherName" (keypress)="nameValidate($event)"  autocomplete="off"  required>
                             <mat-error *ngIf="personal.controls.fatherName.errors?.required">Father Name is required</mat-error>
+                          </mat-form-field>
+                        </div>
+
+                        <div class="col-md-3">
+                          <mat-form-field class="w-100">
+                            <mat-select placeholder="Marital Status" formControlName="maritalStatus" autocomplete="off" (change)="getnomineerelationship()" required>
+                              <mat-option *ngFor="let list of maritialList | keys" [value]= 'list.value'>
+                                {{list.value}}
+                              </mat-option>
+                              <!--<mat-option value="MRS">Mrs</mat-option>-->
+                            </mat-select>
+                            <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Maritial Status is required</mat-error>
+
                           </mat-form-field>
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Marital Status" formControlName="maritalStatus" >
-                            <mat-option value="Single">Single</mat-option>
-                            <mat-option value="Married">Married</mat-option>
-                            <!--<mat-option value="MRS">Mrs</mat-option>-->
-                          </mat-select>
-                          <mat-error *ngIf="personal.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
-
-                        </mat-form-field>
-                        </div>
-                        <div class="col-md-3">
-                        <mat-form-field class="w-100">
-                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList()">
-                            <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.key'>
+                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList()" required>
+                            <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
 
@@ -110,7 +112,7 @@
 
                         </mat-form-field>
                         </div>
-                        <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == '15'">
+                        <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Others'">
                           <mat-form-field class="w-100">
                             <input matInput placeholder="Qualifiction Other" formControlName="qualifictionOther" (keypress)="nameValidate($event)"  autocomplete="off"  [required]="qualificationList" >
                             <mat-error *ngIf="personal.controls.qualifictionOther.errors?.required">Qualifiction Other is required</mat-error>
@@ -136,7 +138,7 @@
                         <!--</div>-->
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Nature Of Work" formControlName="natureOfWork" autocomplete="off" required (change)="changeOccupationlist()">
+                            <mat-select placeholder="Nature Of Work" formControlName="natureOfWork" autocomplete="off" required (change)="changeOccupationlist()" >
                               <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -147,10 +149,10 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" required autocomplete="off" >
+                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (keyup)="getAnnual()" required autocomplete="off" >
                             <mat-error *ngIf="personal.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                           </mat-form-field>
-                          <div class="error" *ngIf="personal.controls['incomeError'].value != ''">{{personal.controls['incomeError'].value}}</div>
+                          <!--<div class="error" *ngIf="personal.controls['incomeError'].value != ''">{{personal.controls['incomeError'].value}}</div>-->
                         </div>
 
                         <div class="col-md-3">
@@ -164,38 +166,37 @@
                         <div class="col-md-3">
                           <mat-radio-group formControlName="smoker">
                             <p>Smoker</p>
-                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="N">No</mat-radio-button>
+                            <mat-radio-button value="YES" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="NO">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3">
                           <mat-radio-group formControlName="isExistingPolicyHolder" >
                             <p>Is Existing Policy Holder</p>
-                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="N">No</mat-radio-button>
+                            <mat-radio-button value="YES" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="NO">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3">
                           <mat-radio-group formControlName="isPoliticleExposed" >
                             <p>Politically Exposed Person</p>
-                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="N">No</mat-radio-button>
+                            <mat-radio-button value="YES" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="NO">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
-
 
                         <div class="col-md-3">
                           <mat-radio-group formControlName="isHousewife" >
                             <p>Is Housewife</p>
-                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="N">No</mat-radio-button>
+                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="No">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3">
                           <mat-radio-group formControlName="isHusbandCover" >
                             <p>Is Husband Cover</p>
-                            <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
-                            <mat-radio-button value="N">No</mat-radio-button>
+                            <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                            <mat-radio-button value="No">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
 
@@ -284,17 +285,21 @@
                                 <mat-error *ngIf="personal.controls.cAddress2.errors?.required">Address 2 is required</mat-error>
                               </mat-form-field>
                             </div>
-                            <div class="col-md-6"><mat-form-field class="w-100">
-                              <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="cPincode" autocomplete="off"  [readonly]="this.personal.controls['isAddressSame'].value" (input)="getPostal($event.target.value,'personal')" >
-                              <mat-error *ngIf="personal.controls.cPincode.hasError('minlength')">Pincode should be 6 digits</mat-error>
-                              <mat-error *ngIf="personal.controls.cPincode.hasError('required')">Pincode required</mat-error>
-                              <mat-error *ngIf="personal.controls.cPincode.hasError('pattern')">Enter Valid  Pincode</mat-error>
-                            </mat-form-field></div>
+                            <div class="col-md-6" [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
+                              <mat-form-field class="w-100">
+                                <mat-select placeholder="State" formControlName="cState" autocomplete="off" (change)="changecState()">
+                                  <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                                    {{list.value}}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="personal.controls.cState.errors?.required">State is required</mat-error>
+                              </mat-form-field></div>
+
 
                             <div class="col-md-6"  [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
-                              <mat-form-field class="w-100" (change)="changecCitylist()" >
-                              <mat-select placeholder="City" formControlName="cCity" autocomplete="off" >
-                                <mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>
+                              <mat-form-field class="w-100"  >
+                              <mat-select placeholder="City" formControlName="cCity" autocomplete="off"  (change)="changecCitylist()">
+                                <mat-option *ngFor="let city of citycList | keys" [value]= 'city.value'>
                                   {{city.value}}
                                 </mat-option>
                               </mat-select>
@@ -306,15 +311,13 @@
                                 <!--<mat-error *ngIf="personal.controls.cCity.errors?.required">City is required</mat-error>-->
                               <!--</mat-form-field>-->
                             <!--</div>-->
-                            <div class="col-md-6" [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
-                              <mat-form-field class="w-100">
-                              <mat-select placeholder="State" formControlName="cState" autocomplete="off" (change)="changecState()">
-                                <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
-                                  {{list.value}}
-                                </mat-option>
-                              </mat-select>
-                              <mat-error *ngIf="personal.controls.cState.errors?.required">State is required</mat-error>
+                            <div class="col-md-6"><mat-form-field class="w-100">
+                              <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="cPincode" autocomplete="off"  [readonly]="this.personal.controls['isAddressSame'].value" (input)="getPostal($event.target.value,'personal')" >
+                              <mat-error *ngIf="personal.controls.cPincode.hasError('minlength')">Pincode should be 6 digits</mat-error>
+                              <mat-error *ngIf="personal.controls.cPincode.hasError('required')">Pincode required</mat-error>
+                              <mat-error *ngIf="personal.controls.cPincode.hasError('pattern')">Enter Valid  Pincode</mat-error>
                             </mat-form-field></div>
+
 
 
 
@@ -324,7 +327,7 @@
                     </div>
                     <div class="row">
                       <div class="col-md-12">
-                        <h6 class="color-blue">ADD ON</h6>
+                        <h6 class="color-blue">ADDON</h6>
                       </div>
 
                       <div class="col-md-4">
@@ -361,6 +364,7 @@
                       </div>
                       </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
+                      <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                       <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" >Next</button>
                     </div>
                   </div>
@@ -431,7 +435,7 @@
                                  <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relation is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3" *ngIf="nominee.controls.nRelation.value == '9'"  >
+                              <div class="col-md-3" *ngIf="nominee.controls.nRelation.value == 'Others'"  >
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Relation Other" formControlName="relationOther" (keypress)="nameValidate($event)"  autocomplete="off" required >
                                   <mat-error *ngIf="nominee.controls.relationOther.errors?.required">Relation Other is required</mat-error>
@@ -450,6 +454,25 @@
                                 </mat-form-field>
                               </div>
 
+
+
+                              <div class="col-md-3"><mat-form-field class="w-100">
+                                <mat-select placeholder="State" formControlName="nState" autocomplete="off" (change)="changenState()" >
+                                  <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                                    {{list.value}}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="nominee.controls.nState.errors?.required">State is required</mat-error>
+                              </mat-form-field></div>
+                              <div class="col-md-3"><mat-form-field class="w-100" >
+                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" (change)="changeNcitylist()">
+                                  <mat-option *ngFor="let city of citynList | keys" [value]= 'city.value'>
+                                    {{city.value}}
+                                  </mat-option>
+
+                                </mat-select>
+                                <mat-error *ngIf="nominee.controls.nCity.errors?.required">City is required</mat-error>
+                              </mat-form-field></div>
                               <div class="col-md-3"><mat-form-field class="w-100">
                                 <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="nPincode" autocomplete="off" required (input)="getPostal($event.target.value,'nominee')">
                                 <mat-error *ngIf="nominee.controls.nPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
@@ -457,24 +480,6 @@
                                 <mat-error *ngIf="nominee.controls.nPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                               </mat-form-field></div>
 
-
-                              <div class="col-md-3"><mat-form-field class="w-100">
-                                <mat-select placeholder="State" formControlName="nState" autocomplete="off" (change)="getcitylist()" >
-                                  <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
-                                    {{list.value}}
-                                  </mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="nominee.controls.nState.errors?.required">State is required</mat-error>
-                              </mat-form-field></div>
-                              <div class="col-md-6"><mat-form-field class="w-100" >
-                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" (change)="changeNcitylist()">
-                                  <mat-option *ngFor="let city of cityList | keys" [value]= 'city.value'>
-                                    {{city.value}}
-                                  </mat-option>
-
-                                </mat-select>
-                                <mat-error *ngIf="nominee.controls.nCity.errors?.required">City is required</mat-error>
-                              </mat-form-field></div>
                               <!--<div class="col-md-3">-->
                                 <!--<mat-form-field class="w-100">-->
                                   <!--<input matInput placeholder="City" formControlName="nCity" (keypress)="nameValidate($event)"  autocomplete="off" required >-->
@@ -534,7 +539,7 @@
                                       <mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>
                                     </mat-form-field>
                                   </div>
-                                  <div class="col-md-4" *ngIf="nominee.controls.nRelation.value == '9'" >
+                                  <div class="col-md-4" *ngIf="nominee.controls.aRelation.value == 'Other'" >
                                     <mat-form-field class="w-100">
                                       <input matInput placeholder="Appointee Relation Other"  formControlName="appointeeRelationOther" (keypress)="numberValidate($event)"   autocomplete="off">
                                       <!--<mat-error *ngIf="nominee.controls.aPercentage.errors?.required">Percentage is required</mat-error>-->
@@ -558,6 +563,7 @@
 
 
                           <div class="proposal-buttom mt-3 text-right w-100">
+                            <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                             <button mat-raised-button color="primaryBlue"  (click)="nomineeDetails(stepper, nominee.value)" >Next</button>
                           </div>
                         </div>
@@ -592,11 +598,11 @@
                     <div class="p-3">
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Name:</strong>{{proposerFormData.title}}.{{proposerFormData.firstName}} {{proposerFormData.middleName}} {{proposerFormData.lastName}} </li>
-                        <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.gender}} </li>
-                        <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
+                        <li class="list-group-item"><strong>Gender:</strong> {{proposerFormData.genderValue}} </li>
                         <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob  | date: 'dd/MM/yyyy'}}</li>
+                        <li class="list-group-item"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                         <li class="list-group-item"><strong>Email:</strong> {{proposerFormData.email}}</li>
-                        <li class="list-group-item"><strong>Relationship:</strong> {{proposerFormData.relationship}}</li>
+                        <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fatherName}}</li>
                       </ul>
                     </div>
                   </div>
@@ -604,41 +610,40 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>City:</strong> {{proposerFormData.city}}</li>
-                        <li class="list-group-item"><strong>State:</strong> {{proposerFormData.state}}</li>
-                        <li class="list-group-item"><strong>Father Name:</strong> {{proposerFormData.fatherName}}</li>
+
                         <li class="list-group-item"><strong>Marital Status:</strong> {{proposerFormData.maritalStatus}}</li>
                         <li class="list-group-item"><strong>Qualifiction:</strong> {{proposerFormData.qualifiction}}</li>
                         <li class="list-group-item"><strong>Employee Type:</strong> {{proposerFormData.employeeType}}</li>
+                        <li class="list-group-item"><strong>Nature Of Work:</strong>{{proposerFormData.natureOfWork}} </li>
+                        <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}} </li>
+                        <li class="list-group-item"><strong>Smoker:</strong> {{proposerFormData.smoker}}</li>
                         </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Nature Of Work:</strong>{{proposerFormData.natureOfWork}} </li>
-                        <li class="list-group-item"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}} </li>
-                        <li class="list-group-item"><strong>Smoker:</strong> {{proposerFormData.smoker}}</li>
                         <li class="list-group-item"><strong>Is Existing Policy Holder:</strong> {{proposerFormData.isExistingPolicyHolder}}</li>
                         <li class="list-group-item"><strong>Is Politicle Exposed:</strong> {{proposerFormData.isPoliticleExposed}}</li>
                         <li class="list-group-item"><strong>Diabete Duration:</strong> {{proposerFormData.diabeteDuration}}</li>
+
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
+
                         <li class="list-group-item"><strong>Is Housewife:</strong>{{proposerFormData.isHousewife}} </li>
                         <li class="list-group-item"><strong>Is Husband Cover:</strong> {{proposerFormData.isHusbandCover}} </li>
                         <li class="list-group-item"><strong>Is Address Same:</strong> {{proposerFormData.isAddressSame}}</li>
-
                       </ul>
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue">COMMUNICATION DETAILS</h6>
+                      <h6 class="color-blue mt-4">COMMUNICATION DETAILS</h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Personal Address 1:</strong> {{proposerFormData.pAddress1}}</li>
                         <li class="list-group-item"><strong>Personal Address 2:</strong> {{proposerFormData.pAddress2}}</li>
@@ -651,13 +656,25 @@
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
-                      <h6 class="color-blue mt-4"></h6>
+                      <h6 class="color-blue "></h6>
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Communication Address1:</strong> {{proposerFormData.cAddress1}}</li>
                         <li class="list-group-item"><strong>Communication Address2:</strong> {{proposerFormData.cAddress2}}</li>
                         <li class="list-group-item"><strong>Communication City:</strong> {{proposerFormData.cCity}}</li>
                         <li class="list-group-item"><strong>Communication State:</strong> {{proposerFormData.cState}}</li>
                         <li class="list-group-item"><strong>Communication Pincode:</strong> {{proposerFormData.cPincode}}</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="p-3">
+                      <h6 class="color-blue mt-4">ADDON</h6>
+                      <ul class="m-0 list-group">
+                        <li class="list-group-item"><strong>Death Benefit SA:</strong> {{proposerFormData.deathBenefitSA}}</li>
+                        <li class="list-group-item"><strong>Death Benefit TISA:</strong> {{proposerFormData.deathBenefitTISA}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.adbrSumAssured != ''"><strong>Accidental Death Benefit:</strong> {{proposerFormData.adbrSumAssured}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.enchancedCISA != ''"><strong>Enhanced Critical Illness Benefit (Lump Sum):</strong> {{proposerFormData.enchancedCISA}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.icirSumAssured != ''"><strong>Basic Critical Illness Benefit (Lump Sum):</strong> {{proposerFormData.icirSumAssured}}</li>
                       </ul>
                     </div>
                   </div>
@@ -679,7 +696,7 @@
                             <li class="list-group-item"><strong>Nominee Relation:</strong> {{nomineeFormData.nRelation}}</li>
                             <li class="list-group-item"><strong>Nominee Address 1:</strong> {{nomineeFormData.nAddress1}}</li>
                             <li class="list-group-item"><strong>Nominee Address 2:</strong> {{nomineeFormData.nAddress2}}</li>
-                            <li class="list-group-item"><strong>Nominee City:</strong> {{nomineeFormData.nCity}}</li>
+
                           </ul>
                         </div>
                       </div>
@@ -690,12 +707,11 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
+                            <li class="list-group-item"><strong>Nominee City:</strong> {{nomineeFormData.nCity}}</li>
                             <li class="list-group-item"><strong>Nominee State:</strong> {{nomineeFormData.nState}}</li>
                             <li class="list-group-item"><strong>Nominee Pincode:</strong> {{nomineeFormData.nPincode}}</li>
                             <li class="list-group-item"><strong>Nominee Percentage:</strong> {{nomineeFormData.nPercentage}}</li>
-                            <li class="list-group-item"><strong>Nominee Address 1:</strong> {{nomineeFormData.nAddress1}}</li>
-                            <li class="list-group-item"><strong>Nominee Address 2:</strong> {{nomineeFormData.nAddress2}}</li>
-                            <li class="list-group-item"><strong>Appointee Title:</strong> {{nomineeFormData.atitle}} . {{nomineeFormData.aFullName}}</li>
+
                           </ul>
                         </div>
                       </div>
@@ -706,9 +722,10 @@
                       <div class="row">
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
-                            <li class="list-group-item"><strong>Appointee DOB:</strong> {{nomineeFormData.adob}}</li>
-                            <li class="list-group-item"><strong>Appointee Relation:</strong> {{nomineeFormData.aRelation}}</li>
-                            <li class="list-group-item"><strong>Appointee Percentage:</strong> {{nomineeFormData.aPercentage}}</li>
+                            <li class="list-group-item" *ngIf="nomineeFormData.atitle != '' && nomineeFormData.aFullName != ''"><strong>Appointee Title:</strong> {{nomineeFormData.atitle}} . {{nomineeFormData.aFullName}}</li>
+                            <li class="list-group-item" *ngIf="nomineeFormData.adob != ''"><strong>Appointee DOB:</strong> {{nomineeFormData.adob}}</li>
+                            <li class="list-group-item" *ngIf="nomineeFormData.aRelation != ''"><strong>Appointee Relation:</strong> {{nomineeFormData.aRelation}}</li>
+                            <li class="list-group-item" *ngIf="nomineeFormData.aPercentage != ''"><strong>Appointee Percentage:</strong> {{nomineeFormData.aPercentage}}</li>
                           </ul>
                         </div>
                       </div>
@@ -717,18 +734,22 @@
 
                 </div>
               </section>
+              <div>
 
+                <pdf-viewer src="{{requestedUrl}}"
+                            [render-text]="true"
+                            style="display: block;"
+                ></pdf-viewer>
+              </div>
               <p class="mt-2 pl-3"><mat-checkbox [(ngModel)]="declaration">I hereby declare all  the  details provided above are correct</mat-checkbox></p>
               <hr>
 
               <div class="row">
                 <div class="col-md-12 text-center">
-                  <form action={{summaryData.PaymentActionUrl}}  method='post' #form>
 
-
+                  <a href="{{summaryData.redirectLink}}">Pay Now</a>
                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                    <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()">Pay Now</button>
-                  </form>
+                    <button mat-raised-button color="primaryBlue" [disabled]="!declaration" >Pay Now</button>
                 </div>
               </div>
 

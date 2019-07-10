@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Component, Inject, OnInit, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import {ToastrService} from 'ngx-toastr';
 import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
@@ -26,6 +26,16 @@ export class ClaimAssistanceComponent implements OnInit {
     webhost: any;
     public settings: Settings;
     public uploadTypeTest: boolean;
+    public allowedExtensionsPDF: any;
+    public allowedExtensionsDOC: any;
+    public allowedExtensionsDOCX: any;
+    public fileUploadPathPDF: any;
+    public fileUploadPathDOC: any;
+    public fileUploadPathDOCX: any;
+    public filePath: any;
+
+    @ViewChild('myForm') myForm: NgForm;
+
 
     constructor(public fb: FormBuilder, public common: CommonService, public toastr: ToastrService, public dialog: MatDialog,public auth: AuthService,public appSettings: AppSettings,public config : ConfigurationService) {
         this.form = this.fb.group({
@@ -42,7 +52,11 @@ export class ClaimAssistanceComponent implements OnInit {
         this.settings.HomeSidenavUserBlock = true;
         this.settings.sidenavIsOpened = true;
         this.settings.sidenavIsPinned = true;
+        this.filePath = '';
         this.fileUploadPath = '';
+        this.fileUploadPathPDF= '';
+        this.fileUploadPathDOC= '';
+        this.fileUploadPathDOCX= '';
         this.uploadTypeTest= true;
         this.allImage = [];
     }
@@ -97,6 +111,12 @@ export class ClaimAssistanceComponent implements OnInit {
         }
     }
     readUrl(event: any) {
+        this.filePath = event.target.files[0].name;
+        this.allowedExtensionsPDF = /(\.pdf)$/i;
+        this.allowedExtensionsDOC = /(\.doc)$/i;
+        this.allowedExtensionsDOCX = /(\.docx)$/i;
+
+
         this.getUrl = '';
         let getUrlEdu = [];
         this.fileDetails = [];
@@ -141,8 +161,30 @@ export class ClaimAssistanceComponent implements OnInit {
 
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess) {
-            this.fileUploadPath = successData.ResponseObject.imagePath;
+            if(this.allowedExtensionsPDF.exec(this.filePath)){
+                this.fileUploadPathPDF= 'pdf';
+                this.fileUploadPathDOC= '';
+                this.fileUploadPathDOCX= '';
+                this.fileUploadPath = '';
+            }else if(this.allowedExtensionsDOC.exec(this.filePath)){
+                this.fileUploadPathDOC= 'doc';
+                this.fileUploadPathPDF= '';
+                this.fileUploadPathDOCX= '';
+                this.fileUploadPath = '';
+            }else if(this.allowedExtensionsDOCX.exec(this.filePath)){
+                this.fileUploadPathDOCX= 'docx';
+                this.fileUploadPathPDF= '';
+                this.fileUploadPathDOC= '';
+                this.fileUploadPath = '';
+            }else{
+                this.fileUploadPath = successData.ResponseObject.imagePath;
+                this.fileUploadPathPDF= '';
+                this.fileUploadPathDOC= '';
+                this.fileUploadPathDOCX= '';
+            }
             this.toastr.success( successData.ResponseObject.message);
+            this.uploadTypeTest= true;
+
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
@@ -160,33 +202,44 @@ export class ClaimAssistanceComponent implements OnInit {
     }
 
     claimAssitance(values) {
-        if (this.form.valid) {
-            const data = {
-                'platform': 'web',
-                'role_id': this.auth.getPosRoleId() != 0  ? this.auth.getPosRoleId() : '4',
-                'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
-                'insurence_type': this.form.controls['insurance'].value,
-                'company_name': this.form.controls['companyName'].value,
-                'contact_person' : this.form.controls['contactPerson'].value,
-                'mobile': this.form.controls['mobile'].value,
-                'email': this.form.controls['email'].value,
-                'pincode': this.form.controls['pincode'].value,
-            };
+        if(this.filePath == '' ){
+            this.uploadTypeTest= false;
+        }else {
+            if (this.form.valid) {
+                const data = {
+                    'platform': 'web',
+                    'role_id': this.auth.getPosRoleId() != 0 ? this.auth.getPosRoleId() : '4',
+                    'user_id': this.auth.getPosUserId() != null ? this.auth.getPosUserId() : '0',
+                    'insurence_type': this.form.controls['insurance'].value,
+                    'company_name': this.form.controls['companyName'].value,
+                    'contact_person': this.form.controls['contactPerson'].value,
+                    'mobile': this.form.controls['mobile'].value,
+                    'email': this.form.controls['email'].value,
+                    'pincode': this.form.controls['pincode'].value,
+                };
 
-            this.common.claimAssistanceHome(data).subscribe(
-                (successData) => {
-                    this.claimAssistanceSuccess(successData);
-                },
-                (error) => {
-                    this.claimAssistanceFailure(error);
-                }
-            );
+                this.common.claimAssistanceHome(data).subscribe(
+                    (successData) => {
+                        this.claimAssistanceSuccess(successData);
+                    },
+                    (error) => {
+                        this.claimAssistanceFailure(error);
+                    }
+                );
+            }
         }
     }
     claimAssistanceSuccess(successData) {
         if (successData.IsSuccess == true) {
             this.toastr.success(successData.ResponseObject);
+            this.form.reset();
+            this.myForm.resetForm();
             this.uploadTypeTest= true;
+            this.filePath = '';
+            this.fileUploadPath = '';
+            this.fileUploadPathPDF= '';
+            this.fileUploadPathDOC= '';
+            this.fileUploadPathDOCX= '';
         } else {
             this.toastr.error(successData.ErrorObject);
         }

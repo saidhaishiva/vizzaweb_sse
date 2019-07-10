@@ -521,14 +521,7 @@ public apponiteeList: boolean;
       stepper.next();
     }
   }
-  isFinaced(){
-    if(this.vehical.controls['isTwoWheelerFinanced'].value == true){
 
-    }else{
-      this.vehical.controls['isTwoWheelerFinancedValue'].patchValue('');
-      this.vehical.controls['financierName'].patchValue('');
-    }
-  }
 
 
   changehypothecation() {
@@ -678,6 +671,47 @@ public apponiteeList: boolean;
   }
   public milageFailure(error) {
   }
+  // electrical accesories request
+  getelectricalaccesmanidatory() {
+    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+      for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+        if (i != 0) {
+        }
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.setValidators([Validators.required]);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.setValidators([Validators.required]);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.setValidators([Validators.required]);
+      }
+    } else {
+      for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+        if ( i !=  0) {
+        }
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
+      }
+    }
+    for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+      if ( i !=  0) {
+      }
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.updateValueAndValidity();
+    }
+  }
+
+  getelectricalAccessDetail() {
+    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+      } else {
+          for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+             if ( i !=  0) {
+        }
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
+      }
+
+    }
+  }
   changePaType() {
     const data = {
       'platform': 'web',
@@ -820,6 +854,7 @@ public apponiteeList: boolean;
       this.previousInsure.controls['accidentPaid'].patchValue('');
     }
   }
+
    // next
     previousDetails(stepper: MatStepper,value){
       sessionStorage.stepper3 = JSON.stringify(value);
