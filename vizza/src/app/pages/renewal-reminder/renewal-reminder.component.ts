@@ -349,6 +349,7 @@ export class RenewalReminderComponent implements OnInit {
       this.fileUploadPathPDF= '';
       this.fileUploadPathDOC= '';
       this.fileUploadPathDOCX= '';
+      this.filePath= '';
     }
   }
 

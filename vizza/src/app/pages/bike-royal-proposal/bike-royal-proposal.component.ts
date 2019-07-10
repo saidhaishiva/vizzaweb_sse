@@ -521,14 +521,7 @@ public apponiteeList: boolean;
       stepper.next();
     }
   }
-  isFinaced(){
-    if(this.vehical.controls['isTwoWheelerFinanced'].value == true){
 
-    }else{
-      this.vehical.controls['isTwoWheelerFinancedValue'].patchValue('');
-      this.vehical.controls['financierName'].patchValue('');
-    }
-  }
 
 
   changehypothecation() {
