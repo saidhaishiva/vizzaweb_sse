@@ -678,6 +678,47 @@ public apponiteeList: boolean;
   }
   public milageFailure(error) {
   }
+  // electrical accesories request
+  getelectricalaccesmanidatory() {
+    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+      for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+        if (i != 0) {
+        }
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.setValidators([Validators.required]);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.setValidators([Validators.required]);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.setValidators([Validators.required]);
+      }
+    } else {
+      for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+        if ( i !=  0) {
+        }
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+      }
+    }
+    for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+      if ( i !=  0) {
+      }
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.updateValueAndValidity();
+    }
+  }
+
+  getelectricalAccessDetail() {
+    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+      } else {
+          for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+             if ( i !=  0) {
+        }
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+      }
+
+    }
+  }
   changePaType() {
     const data = {
       'platform': 'web',
@@ -820,6 +861,7 @@ public apponiteeList: boolean;
       this.previousInsure.controls['accidentPaid'].patchValue('');
     }
   }
+
    // next
     previousDetails(stepper: MatStepper,value){
       sessionStorage.stepper3 = JSON.stringify(value);
