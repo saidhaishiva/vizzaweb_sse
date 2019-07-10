@@ -112,7 +112,6 @@ export class ClaimAssistanceComponent implements OnInit {
     }
     readUrl(event: any) {
         this.filePath = event.target.files[0].name;
-        console.log(this.filePath,'pathvalue');
         this.allowedExtensionsPDF = /(\.pdf)$/i;
         this.allowedExtensionsDOC = /(\.doc)$/i;
         this.allowedExtensionsDOCX = /(\.docx)$/i;
@@ -184,6 +183,8 @@ export class ClaimAssistanceComponent implements OnInit {
                 this.fileUploadPathDOCX= '';
             }
             this.toastr.success( successData.ResponseObject.message);
+            this.uploadTypeTest= true;
+
         } else {
             this.toastr.error(successData.ErrorObject, 'Failed');
         }
@@ -201,27 +202,31 @@ export class ClaimAssistanceComponent implements OnInit {
     }
 
     claimAssitance(values) {
-        if (this.form.valid) {
-            const data = {
-                'platform': 'web',
-                'role_id': this.auth.getPosRoleId() != 0  ? this.auth.getPosRoleId() : '4',
-                'user_id': this.auth.getPosUserId() != null  ? this.auth.getPosUserId() : '0',
-                'insurence_type': this.form.controls['insurance'].value,
-                'company_name': this.form.controls['companyName'].value,
-                'contact_person' : this.form.controls['contactPerson'].value,
-                'mobile': this.form.controls['mobile'].value,
-                'email': this.form.controls['email'].value,
-                'pincode': this.form.controls['pincode'].value,
-            };
+        if(this.filePath == '' ){
+            this.uploadTypeTest= false;
+        }else {
+            if (this.form.valid) {
+                const data = {
+                    'platform': 'web',
+                    'role_id': this.auth.getPosRoleId() != 0 ? this.auth.getPosRoleId() : '4',
+                    'user_id': this.auth.getPosUserId() != null ? this.auth.getPosUserId() : '0',
+                    'insurence_type': this.form.controls['insurance'].value,
+                    'company_name': this.form.controls['companyName'].value,
+                    'contact_person': this.form.controls['contactPerson'].value,
+                    'mobile': this.form.controls['mobile'].value,
+                    'email': this.form.controls['email'].value,
+                    'pincode': this.form.controls['pincode'].value,
+                };
 
-            this.common.claimAssistanceHome(data).subscribe(
-                (successData) => {
-                    this.claimAssistanceSuccess(successData);
-                },
-                (error) => {
-                    this.claimAssistanceFailure(error);
-                }
-            );
+                this.common.claimAssistanceHome(data).subscribe(
+                    (successData) => {
+                        this.claimAssistanceSuccess(successData);
+                    },
+                    (error) => {
+                        this.claimAssistanceFailure(error);
+                    }
+                );
+            }
         }
     }
     claimAssistanceSuccess(successData) {

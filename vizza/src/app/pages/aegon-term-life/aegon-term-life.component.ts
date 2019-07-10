@@ -75,12 +75,13 @@ export class AegonTermLifeComponent implements OnInit {
   public settings: Settings;
   public stepper2: any;
   public requestedUrl: any;
+  public redirectUrl: any;
   public sum_insured_amount:any;
   public maritialList:any;
   public appointeeRelationList:any;
   public citycList:any;
   public citynList:any;
-
+  public declaration: any;
   public inputReadonly: boolean;
   public apponiteeList: boolean;
   public sum_insure: any;
@@ -95,14 +96,15 @@ export class AegonTermLifeComponent implements OnInit {
   constructor(public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings) {
     let stepperindex = 0;
     this.requestedUrl = '';
+    this.redirectUrl='';
 
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         stepperindex = 2;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
-          this.requestedUrl = this.summaryData.redirectLink;
-          // this.RediretUrlLink = this.summaryData.PaymentURL;
+          this.redirectUrl = this.summaryData.redirectLink;
+          this.requestedUrl = this.summaryData.bilink;
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
           this.proposalId = this.summaryData.ProposalId;
@@ -119,6 +121,7 @@ export class AegonTermLifeComponent implements OnInit {
       lastName: '',
       middleName: '',
       gender: '',
+      genderValue: '',
       dob: '',
       relationship: '',
       pincode: '',
@@ -216,7 +219,7 @@ export class AegonTermLifeComponent implements OnInit {
 
     this.getAppointeeRelation();
     // this.getoccupationlist();
-
+    this.sessionData();
 
   }
 
@@ -544,24 +547,31 @@ export class AegonTermLifeComponent implements OnInit {
       console.log(this.personal.controls['isAddressSame'].value,'ifff');
       this.inputReadonly = true;
       this.personal.controls['cAddress1'].patchValue(this.personal.controls['pAddress1'].value);
-      console.log(this.personal.controls['cAddress1'].value,'ytfhfasd');
           this.personal.controls['cAddress2'].patchValue(this.personal.controls['pAddress2'].value);
           this.personal.controls['cCity'].patchValue(this.personal.controls['pCity'].value);
+          this.personal.controls['cCityName'].patchValue(this.personal.controls['pCityName'].value);
           this.personal.controls['cState'].patchValue(this.personal.controls['pState'].value);
           this.personal.controls['cPincode'].patchValue(this.personal.controls['pPincode'].value);
+      this.citycList = JSON.parse(sessionStorage.cityList);
+      sessionStorage.citycList = JSON.stringify(this.citycList);
+
 
     } else {
       this.inputReadonly = false;
       this.personal.controls['cAddress1'].patchValue('');
           this.personal.controls['cAddress2'].patchValue('');
+          this.personal.controls['cCityName'].patchValue('');
           this.personal.controls['cCity'].patchValue('');
           this.personal.controls['cState'].patchValue('');
           this.personal.controls['cPincode'].patchValue('');
-
+      if (sessionStorage.citycList != '' && sessionStorage.citycList != undefined) {
+        this.citycList = JSON.parse(sessionStorage.citycList);
+      } else {
+        this.citycList = {};
+      }
     }
 
   }
-
 
   // NEXT BUTTON
 
@@ -681,6 +691,7 @@ export class AegonTermLifeComponent implements OnInit {
   public getcitylistSuccess(successData) {
     if (successData.IsSuccess) {
       this.cityList = successData.ResponseObject;
+      sessionStorage.cityList = JSON.stringify(this.cityList);
     }
   }
   public getcitylistFailure(error) {
@@ -709,6 +720,9 @@ export class AegonTermLifeComponent implements OnInit {
     public getcityclistSuccess(successData) {
         if (successData.IsSuccess) {
             this.citycList = successData.ResponseObject;
+          sessionStorage.citycList = JSON.stringify(this.citycList);
+          console.log(this.citycList,'this.citycList')
+
         }
     }
     public getcityclistFailure(error) {
@@ -816,6 +830,7 @@ export class AegonTermLifeComponent implements OnInit {
     if (successData.IsSuccess) {
       this.stateList = successData.ResponseObject;
     }
+
   }
   public stateFailure(error) {
   }
@@ -848,11 +863,14 @@ export class AegonTermLifeComponent implements OnInit {
              public getAnnuallistSuccess(successData){
                 if (successData.IsSuccess) {
                  this.annualList = successData.ResponseObject;
-        }
+        }else
+          {
+            this.toastr.error(successData.ErrorObject);
+          }
     }
 
     public getAnnuallistFailure(error){
-      this.toastr.error('Annual Income Should Greater than or equal to 3Lak');
+
 
     }
 
@@ -958,6 +976,10 @@ export class AegonTermLifeComponent implements OnInit {
      this.personal.controls['natureOfWorkName'].patchValue(this.occupationList[this.personal.controls['natureOfWork'].value]);
 
   }
+
+  changeGender(){
+  this.personal.controls['genderValue'].patchValue(this.personal.controls['gender'].value == 'M' ? 'MALE' : 'FEMALE');
+  }
   changeCitylist() {
     this.personal.controls['pCityName'].patchValue(this.cityList[this.personal.controls['pCity'].value]);
   }
@@ -1007,6 +1029,12 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   sessionData() {
+    if (sessionStorage.cityList != '' && sessionStorage.cityList != undefined) {
+      this.cityList = JSON.parse(sessionStorage.cityList);
+    }
+    if (sessionStorage.citycList != '' && sessionStorage.citycList != undefined) {
+      this.citycList = JSON.parse(sessionStorage.citycList);
+    }
     if (sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
       let stepper1 = JSON.parse(sessionStorage.stepper1);
 
@@ -1211,7 +1239,8 @@ export class AegonTermLifeComponent implements OnInit {
       this.topScroll();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
-      this.requestedUrl = this.summaryData.redirectLink;
+      this.requestedUrl = this.summaryData.bilink;
+      this.redirectUrl = this.summaryData.redirectLink;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.ProposalId;
       this.proposerFormData = this.personal.value;
