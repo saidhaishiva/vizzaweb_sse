@@ -266,7 +266,6 @@ export class RenewExistingPolicyComponent implements OnInit {
             this.fileUploadPathDOC= '';
             this.fileUploadPathDOCX= '';
             this.filePath= '';
-            this.toastr.success( 'Upload Attachment Successfully');
         }
     }
 }
