@@ -1,7 +1,7 @@
 <div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">
   <div fxFlex="100" fxFlex.gt-sm="60" fxFlex.sm="60" class="flex-p">
     <h3 class="text-center w-100" style="color:#44004E;"><img src="assets/img/bell-icon.png" class="logo-size">&nbsp;Renewal Reminder</h3>
-    <mat-card style="background: linear-gradient(to bottom, #f2dbdc 0%, #c4daf8 100%);">
+    <mat-card class="AllFormView" style="background: linear-gradient(to bottom, #7C95AA 30%, #6C6287 70%); color:#fff;">
 
       <div class="container-fluid h-claim">
         <section class="row">
@@ -94,33 +94,43 @@
                   <div class="col-md-12 text-center mt-3">
                     <button mat-raised-button class="bg-danger text-white" (click)="renewal(form.value)">Set Remider</button>
                   </div>
-                  <div style="width: 100%; height: 10px; border-bottom: 1px solid black; text-align: center; margin-top:10px;">
-                    <span style="font-size: 18px; background-color: #D6D4ED; padding: 0 10px;">
+                  <div style="width: 100%; height: 10px; border-bottom: 1px solid #fff; text-align: center; margin-top:10px;">
+                    <span style="font-size: 18px; background-color: #727594; padding: 0 10px;">
                       (or) <!--Padding is optional-->
                     </span>
                   </div>
                   </form>
-
-                    <h4 class="text-center mt-3">Upload your policy here</h4>
-                    <div class = "row">
-                      <div class="col-md-6">
-                        <div class="custom-file">
-                          <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf, image/*" (change)="readUrl($event)"   aria-describedby="inputGroupFileAddon01">
-                          <label class="custom-file-label"> Upload Your Attachment <span class="error">*</span></label>
-                        </div>
-                        <p class="error" *ngIf="!uploadTypeTest">Your Attachment is required</p>
-                        <a class="mt-3" *ngFor="let names of fileDetails"> <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="100px" width="100px" alt="Image preview...">
-                          {{names.name}}</a>
+                    <div class="col-md-12">
+                      <h4 class="text-center mt-3">Upload your policy here</h4>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="custom-file">
+                        <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf, image/*" (change)="readUrl($event)"   aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label"> Upload Your Attachment <span class="error">*</span></label>
                       </div>
+                      <p class="error" *ngIf="!uploadTypeTest">Your Attachment is required</p>
+                      <img *ngIf="fileUploadPathDOCX !=''" src="assets/img/upload-icons/docx-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                      <img *ngIf="fileUploadPathDOC !=''" src="assets/img/upload-icons/doc-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                      <img *ngIf="fileUploadPathPDF !=''" src="assets/img/upload-icons/pdf-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                      <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                      <p *ngIf="filePath !=''" class="mt-1" style="color: green;">{{filePath}}</p>
+                    </div>
+                      <!--<div class="col-md-6">-->
+                        <!--<div class="custom-file">-->
+                          <!--<input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf, image/*" (change)="readUrl($event)"   aria-describedby="inputGroupFileAddon01">-->
+                          <!--<label class="custom-file-label"> Upload Your Attachment <span class="error">*</span></label>-->
+                        <!--</div>-->
+                        <!--<p class="error" *ngIf="!uploadTypeTest">Your Attachment is required</p>-->
+                        <!--<a class="mt-3" *ngFor="let names of fileDetails"> <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail" height="100px" width="100px" alt="Image preview...">-->
+                          <!--{{names.name}}</a>-->
+                      <!--</div>-->
                     <div class="col-md-6 whatsapp">
                       <div class="custom-file">
                         <p fxLayoutAlign="center center" class="w-100">  <i class="fab fa-whatsapp"></i> <span>WhatApp your policy<br> @ 86085 00088</span></p>
                     </div>
                     </div>
-
-                  </div>
                   <div class="col-md-12 text-center mt-5">
-                    <button mat-raised-button class="bg-danger text-white" (click)="onUpload()">Upload Attachment</button>
+                    <button mat-raised-button class="bg-danger text-white" renewalReminderUpload()>Set Remider</button>
                   </div>
                   <!--<div class="col-md-12 text-right mt-3">-->
                     <!--<button mat-button type="reset" style="color: #000"><i class="material-icons">refresh</i> Reset</button>-->

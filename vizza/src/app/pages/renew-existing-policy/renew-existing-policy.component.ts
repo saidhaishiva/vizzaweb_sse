@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {AppSettings} from '../../app.settings';
 import {Settings} from '../../app.settings.model';
-import {FormBuilder,FormGroup,Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {AuthService} from '../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
 import {ToastrService} from 'ngx-toastr';
@@ -22,7 +22,6 @@ export class RenewExistingPolicyComponent implements OnInit {
     public selectDate: any;
     public settings: Settings;
     commentBox: boolean;
-    uploadTypeTest: boolean;
     comments: any;
     webhost: any;
     policyTypes: any;
@@ -30,10 +29,22 @@ export class RenewExistingPolicyComponent implements OnInit {
     fileDetails: any;
     getUrl: any;
     url: any;
-    fileUploadPath: any;
     today: any;
     maxDate: any;
     companyList : any;
+
+    public fileUploadPath: any;
+    public uploadTypeTest: boolean;
+    public allowedExtensionsPDF: any;
+    public allowedExtensionsDOC: any;
+    public allowedExtensionsDOCX: any;
+    public fileUploadPathPDF: any;
+    public fileUploadPathDOC: any;
+    public fileUploadPathDOCX: any;
+    public filePath: any;
+
+    @ViewChild('myForm') myForm: NgForm;
+
     constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
         this.form =  this.fb.group({
             'Proposername': ['', Validators.compose([Validators.required])],
@@ -51,14 +62,19 @@ export class RenewExistingPolicyComponent implements OnInit {
         this.settings.sidenavIsPinned = false;
         this.commentBox = false;
         this.selectDate = '';
-        this.fileUploadPath = '';
         this.allImage = [];
     }
 
     ngOnInit() {
         this.getPolicyTypes();
         this.getcompanyList();
+        this.fileUploadPath = '';
         this.uploadTypeTest = true;
+        this.filePath = '';
+        this.fileUploadPath = '';
+        this.fileUploadPathPDF= '';
+        this.fileUploadPathDOC= '';
+        this.fileUploadPathDOCX= '';
     }
     public keyPress(event: any) {
         if (event.charCode !== 0) {
@@ -153,6 +169,8 @@ export class RenewExistingPolicyComponent implements OnInit {
     policyRenewalSuccess(successData) {
         if (successData. IsSuccess== true) {
             this.toastr.success(successData.ResponseObject);
+            this.form.reset();
+            this.myForm.resetForm();
         } else {
             this.toastr.error(successData.ErrorObject);
         }
@@ -160,6 +178,12 @@ export class RenewExistingPolicyComponent implements OnInit {
     policyRenewalFailure(error) {
     }
     readUrl(event: any) {
+
+        this.filePath = event.target.files[0].name;
+        this.allowedExtensionsPDF = /(\.pdf)$/i;
+        this.allowedExtensionsDOC = /(\.doc)$/i;
+        this.allowedExtensionsDOCX = /(\.docx)$/i;
+
         this.getUrl = '';
         let getUrlEdu = [];
         this.fileDetails = [];
@@ -179,6 +203,7 @@ export class RenewExistingPolicyComponent implements OnInit {
     }
     onUploadFinished(event) {
         this.allImage.push(event);
+        this.onUpload();
     }
     onUpload() {
         const data = {
@@ -202,7 +227,27 @@ export class RenewExistingPolicyComponent implements OnInit {
     }
     public fileUploadSuccess(successData) {
         if (successData.IsSuccess) {
-            this.fileUploadPath = successData.ResponseObject.imagePath;
+            if(this.allowedExtensionsPDF.exec(this.filePath)){
+                this.fileUploadPathPDF= 'pdf';
+                this.fileUploadPathDOC= '';
+                this.fileUploadPathDOCX= '';
+                this.fileUploadPath = '';
+            }else if(this.allowedExtensionsDOC.exec(this.filePath)){
+                this.fileUploadPathDOC= 'doc';
+                this.fileUploadPathPDF= '';
+                this.fileUploadPathDOCX= '';
+                this.fileUploadPath = '';
+            }else if(this.allowedExtensionsDOCX.exec(this.filePath)){
+                this.fileUploadPathDOCX= 'docx';
+                this.fileUploadPathPDF= '';
+                this.fileUploadPathDOC= '';
+                this.fileUploadPath = '';
+            }else {
+                this.fileUploadPath = successData.ResponseObject.imagePath;
+                this.fileUploadPathPDF= '';
+                this.fileUploadPathDOC= '';
+                this.fileUploadPathDOCX= '';
+            }
             this.uploadTypeTest = true;
             this.toastr.success( successData.ResponseObject.message);
         } else {
@@ -210,6 +255,17 @@ export class RenewExistingPolicyComponent implements OnInit {
         }
     }
     public fileUploadFailure(error) {
+    }
+    renewExixtingPolicyUpload(){
+        if(this.filePath == '' ){
+            this.uploadTypeTest= false;
+        }else{
+            this.uploadTypeTest = true;
+            this.fileUploadPath = '';
+            this.fileUploadPathPDF= '';
+            this.fileUploadPathDOC= '';
+            this.fileUploadPathDOCX= '';
+        }
     }
 }
 
