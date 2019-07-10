@@ -786,9 +786,9 @@
                             </mat-form-field>
                           </div>
 
-                          <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'spouse'">
+                          <div class="col-md-3" *ngIf="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Spouse'">
                             <mat-form-field class="w-100">
-                              <input matInput placeholder="Full Name" formControlName="insurespouseFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'spouse'">
+                              <input matInput placeholder="Full Name" formControlName="insurespouseFullname"  (keypress)="nameValidate($event)" autocomplete="off" [required]="relianceInsuredTravel['controls'].items['controls'][i]['controls'].type.value == 'Spouse'">
                               <mat-error *ngIf="relianceInsuredTravel.invalid">Full  Name is required</mat-error>
                             </mat-form-field>
                           </div>
