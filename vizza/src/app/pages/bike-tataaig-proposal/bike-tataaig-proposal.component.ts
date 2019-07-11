@@ -189,17 +189,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
         this.premium = sessionStorage.packae_list;
-        console.log(this.premium);
         if(this.premium != 'Comprehensive_premium') {
             this.vehicle.controls['coverdrive'].patchValue('ODD01');
-            this.vehicle.controls['Associationmember'].patchValue('');
-            this.vehicle.controls['Voluntary'].patchValue('');
-            this.vehicle.controls['Antitheft'].patchValue('');
-            this.vehicle.controls['Tppdrestrict'].patchValue('');
-            this.vehicle.controls['depreciation'].patchValue('');
-            this.vehicle.controls['Consumableexpense'].patchValue('');
-            this.vehicle.controls['Returninvoice'].patchValue('');
-            this.vehicle.controls['Roadsideassistance'].patchValue('');
         }
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
         console.log(poldate, 'poldate');
@@ -559,7 +550,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 this.toastr.error('Proposer Age should be 18 or above');
             }
         } else {
-            this.toastr.error('Please Fill All The Mandtory Fields');
+            this.toastr.error('Please Fill All The Mandatory Fields');
         }
     }
 
