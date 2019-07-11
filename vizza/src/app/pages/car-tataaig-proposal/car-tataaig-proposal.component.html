@@ -291,7 +291,7 @@
                       <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events':'none'}" *ngIf="vehicle.controls['package'].value == '5' || vehicle.controls['package'].value == '6' || vehicle.controls['package'].value == '7'">
                         <mat-checkbox formControlName="Tyresecure"><strong> Tyre Secure <span class="error">*</span></strong></mat-checkbox>
                       </div>
-                      <div class="col-md-4 mt-2" *ngIf="enquiryFormData.ncb_percent != '0'&&enquiryFormData.ncb_percent != '20' && enquiryFormData.ncb_percent != '25'">
+                      <div class="col-md-4 mt-2" *ngIf="enquiryFormData.ncb_percent != '0'&& enquiryFormData.ncb_percent != '20' && enquiryFormData.ncb_percent != '25'">
                         <mat-checkbox formControlName="protectioncover"><strong> NCB protection cover <span class="error">*</span></strong></mat-checkbox>
                       </div>
                       <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events': vehicle.controls['package'].value != '1' ?'none' : ''}" *ngIf="visible != false">
@@ -308,7 +308,7 @@
                       </div>
                       </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
-                      <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                      <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
                       <button mat-raised-button color="primaryBlue"  (click)="vehicleDetails(stepper,vehicle.value)" >Next</button>
                     </div>
                   </div>
@@ -392,7 +392,7 @@
                                 </mat-form-field>
                               </div>
                               <div class="proposal-buttom mt-3 text-right w-100">
-                                <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                                <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
                                 <button mat-raised-button color="primaryBlue"  (click)="prepolicyDetails(stepper,previouspolicy.value)" >Next</button>
                               </div>
                             </div>
@@ -435,7 +435,7 @@
                         </mat-form-field>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
-                        <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                        <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
                         <button mat-raised-button color="primaryBlue"  (click)="nomineeDetails(stepper,nominee.value)" >Next</button>
                       </div>
                     </div>
