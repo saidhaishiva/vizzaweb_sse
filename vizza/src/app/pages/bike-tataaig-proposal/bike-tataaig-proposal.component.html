@@ -467,14 +467,14 @@
                         <li class="list-group-item" *ngIf="proposerFormData.proposerMobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.proposerMobile}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.proposerAadhar != ''"><strong>Aadhar Id:</strong> {{proposerFormData.proposerAadhar}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong>{{proposerFormData.maritalStatus}}</li>
+                        <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.Addressone}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.Addresstwo != ''"><strong>Address 2:</strong> {{proposerFormData.Addresstwo}}</li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.Addressone}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.Addresstwo != ''"><strong>Address 2:</strong> {{proposerFormData.Addresstwo}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.Addressthree != ''"><strong>Address 3:</strong> {{proposerFormData.Addressthree}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.Addressfour != ''"><strong>Address 4:</strong> {{proposerFormData.Addressfour}}</li>
                         <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.proposerPincode}}</li>
@@ -516,20 +516,20 @@
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
                         <li class="list-group-item"><strong>PACover_for_OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember != '' && vehicalFormData.Associationmember != null && vehicalFormData.Associationmember != false"><strong>Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary != null && vehicalFormData.Voluntary != false"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft != '' && vehicalFormData.Antitheft != null && vehicalFormData.Antitheft != false"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft== true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember != '' && vehicalFormData.Associationmember == true"><strong>Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary == true"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft != '' && vehicalFormData.Antitheft == true"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft== true">Yes</span></li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict != '' && vehicalFormData.Tppdrestrict != null && vehicalFormData.Tppdrestrict != false"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict == true">Yes</span></li>
-                          <li class="list-group-item" *ngIf="vehicalFormData.depreciation != '' && vehicalFormData.depreciation != null && vehicalFormData.depreciation != false"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense != '' && vehicalFormData.Consumableexpense != null && vehicalFormData.Consumableexpense != false"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice != '' && vehicalFormData.Returninvoice != null && vehicalFormData.Returninvoice != false"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance != '' && vehicalFormData.Roadsideassistance != null && vehicalFormData.Roadsideassistance != false"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance == true">Yes</span></li>
+                          <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict != '' && vehicalFormData.Tppdrestrict == true"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict == true">Yes</span></li>
+                          <li class="list-group-item" *ngIf="vehicalFormData.depreciation != '' && vehicalFormData.depreciation == true"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense != ''&& vehicalFormData.Consumableexpense == true"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice != '' && vehicalFormData.Returninvoice == true"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance != '' && vehicalFormData.Roadsideassistance == true"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance == true">Yes</span></li>
                       </ul>
                     </div>
                   </div>
