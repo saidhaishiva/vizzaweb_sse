@@ -50,7 +50,9 @@ export class AegonTermLifeComponent implements OnInit {
   public dateError: any;
   public dateError1: any;
   public dateError2: any;
+  public annualError: any;
   public incomeError: any;
+  public webhost: any;
   public today: any;
   public qualificationList: any;
   public summaryData: any;
@@ -123,9 +125,6 @@ export class AegonTermLifeComponent implements OnInit {
       middleName: '',
       gender: ['', Validators.required],
       dob: ['', Validators.required],
-      relationship: ['', Validators.required],
-      pincode: ['', Validators.required],
-      state: ['', Validators.required],
       fatherName: ['', Validators.required],
       maritalStatus:['', Validators.required],
       qualifiction: ['', Validators.required],
@@ -134,12 +133,12 @@ export class AegonTermLifeComponent implements OnInit {
       natureOfWork: ['', Validators.required],
       annualIncome: ['', Validators.required],
       incomeError: '',
-      smoker: '',
-      isExistingPolicyHolder: '',
-      isPoliticleExposed: '',
-      diabeteDuration: '',
-      isHousewife: '',
-      isHusbandCover: '',
+      smoker: ['', Validators.required],
+      isExistingPolicyHolder: ['', Validators.required],
+      isPoliticleExposed: ['', Validators.required],
+      diabeteDuration: ['', Validators.required],
+      isHousewife: ['', Validators.required],
+      isHusbandCover: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pAddress1: ['', Validators.required],
@@ -156,9 +155,9 @@ export class AegonTermLifeComponent implements OnInit {
       qualifictionName:'',
       natureOfWorkName:'',
       employeeTypeName:'',
-      pStateName:['', Validators.required],
-      pCityName:['', Validators.required],
-      cCityName:['', Validators.required],
+      pStateName:'',
+      pCityName:'',
+      cCityName:'',
       adbrSumAssured:['',Validators.compose([Validators.minLength(5),Validators.maxLength(8)])],
       deathBenefitSA:'',
       deathBenefitTISA:'',
@@ -184,16 +183,16 @@ export class AegonTermLifeComponent implements OnInit {
       nState: ['', Validators.required],
       nPincode: ['', Validators.required],
       nPercentage:['', Validators.required],
-      atitle: ['', Validators.required],
-      aFullName:['', Validators.required],
-      adob: ['', Validators.required],
-      aRelation: ['', Validators.required],
+      atitle: '',
+      aFullName:'',
+      adob: '',
+      aRelation: '',
       appointeeRelationOther:'',
-      aPercentage: ['', Validators.required],
-      nCityName:['', Validators.required],
-      nRelationName:['', Validators.required],
-      nStateName:['', Validators.required],
-      aRelationName:['', Validators.required],
+      aPercentage: '',
+      nCityName:'',
+      nRelationName:'',
+      nStateName:'',
+      aRelationName:'',
 
 
 
@@ -311,11 +310,11 @@ export class AegonTermLifeComponent implements OnInit {
     if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'){
       if((this.personal.controls['adbrSumAssured'].value >=50000) && (this.personal.controls['adbrSumAssured'].value <=30000000)) {
         this.personal.controls['adbrSumAssured'].patchValue(this.personal.controls['adbrSumAssured'].value);
-
+        this.annualError = '';
       }
       else{
-        this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
-
+        // this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
+        this.annualError = 'adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores';
       }
     }
     }
@@ -528,7 +527,7 @@ export class AegonTermLifeComponent implements OnInit {
     }
   }
   appointeeAgeValid(event: any) {
-    if (this.nominee.controls['apponiteeList'].value ) {
+    if (this.nominee.controls['apponiteeList'].value == true ) {
       this.nominee.controls['atitle'].patchValue(this.nominee.controls['atitle'].value);
       this.nominee.controls['aFullName'].patchValue(this.nominee.controls['aFullName'].value);
       this.nominee.controls['adob'].patchValue(this.nominee.controls['adob'].value);
@@ -706,6 +705,8 @@ export class AegonTermLifeComponent implements OnInit {
   public getoccupationlistSuccess(successData) {
     if (successData.IsSuccess) {
       this.occupationList = successData.ResponseObject;
+      sessionStorage.occupationList = JSON.stringify(this.occupationList);
+
     }
   }
   public getoccupationlistFailure(error) {
@@ -820,6 +821,8 @@ export class AegonTermLifeComponent implements OnInit {
   public nomineerelationshipSuccess(successData) {
     if (successData.IsSuccess) {
       this.nomineeRelationship = successData.ResponseObject;
+      sessionStorage.nomineeRelationship = JSON.stringify(this.nomineeRelationship);
+
     }
   }
   public nomineerelationshipFailure(error) {
@@ -940,6 +943,8 @@ export class AegonTermLifeComponent implements OnInit {
   public maritalListSuccess(successData){
     if (successData.IsSuccess) {
       this.maritialList = successData.ResponseObject;
+      sessionStorage.maritialList = JSON.stringify(this.maritialList);
+
     }
   }
 
@@ -970,6 +975,7 @@ export class AegonTermLifeComponent implements OnInit {
   public getEmpTypeSuccess(successData){
     if (successData.IsSuccess) {
       this.empTypeList = successData.ResponseObject;
+      sessionStorage.empTypeList = JSON.stringify(this.empTypeList);
     }
   }
 
@@ -1079,6 +1085,18 @@ export class AegonTermLifeComponent implements OnInit {
     if (sessionStorage.cityList != '' && sessionStorage.cityList != undefined) {
       this.cityList = JSON.parse(sessionStorage.cityList);
     }
+    if (sessionStorage.empTypeList != '' && sessionStorage.empTypeList != undefined) {
+      this.empTypeList = JSON.parse(sessionStorage.empTypeList);
+    }
+    if (sessionStorage.maritialList != '' && sessionStorage.maritialList != undefined) {
+          this.maritialList = JSON.parse(sessionStorage.maritialList);
+        }
+    if (sessionStorage.nomineeRelationship != '' && sessionStorage.nomineeRelationship != undefined) {
+      this.nomineeRelationship = JSON.parse(sessionStorage.nomineeRelationship);
+    }
+    if (sessionStorage.occupationList != '' && sessionStorage.occupationList != undefined) {
+      this.occupationList = JSON.parse(sessionStorage.occupationList);
+    }
 
     if (sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
       let stepper1 = JSON.parse(sessionStorage.stepper1);
@@ -1092,8 +1110,6 @@ export class AegonTermLifeComponent implements OnInit {
         dob: this.datepipe.transform(stepper1.dob, 'y-MM-dd'),
         email: stepper1.email,
         mobile: stepper1.mobile,
-        pincode: stepper1.pincode,
-        relationship: stepper1.relationship,
         fatherName: stepper1.fatherName,
         maritalStatus: stepper1.maritalStatus,
         qualifiction: stepper1.qualifiction,
@@ -1118,8 +1134,6 @@ export class AegonTermLifeComponent implements OnInit {
         cCity: stepper1.cCity,
         cState: stepper1.cState,
         cPincode: stepper1.cPincode,
-        state: stepper1.state,
-        city: stepper1.city,
         isAddressSame: stepper1.isAddressSame,
         qualifictionName: stepper1.qualifictionName,
         natureOfWorkName: stepper1.natureOfWorkName,
