@@ -1,5 +1,4 @@
 <div class="container-fluid">
-  <!--    apolloMunichProposal-->
   <div class="row apolloMunichProposal mb-4">
     <div class="col-md-12">
       <mat-horizontal-stepper #stepper>
@@ -94,33 +93,29 @@
                       </div>
 
                       <div class="row" fxLayoutAlign="center center">
-
-
-                        <div class="col-md-12">
+                          <div class="col-md-6">
                           <div class="box-card addressBox">
-
                             <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
-
                             <div class="row">
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-12">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 1" rows="2" formControlName="address4" autocomplete="off" maxlength="30" required>
                                   <mat-error *ngIf="proposer.controls.address.errors?.required">Address is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-12">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 2" rows="2" formControlName="address5" maxlength="30"   autocomplete="off" required>
                                   <mat-error *ngIf="proposer.controls.address2.errors?.required">Address2 is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-12">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 3" rows="2" formControlName="address6"  maxlength="30"  autocomplete="off">
                                   <mat-error *ngIf="proposer.controls.address3.errors?.required">Address3 is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode1"  (input)="getPostalCode($event.target.value,'comm')" autocomplete="off" required>
                                   <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
@@ -128,63 +123,55 @@
                                   <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="State" formControlName="statecom"  autocomplete="off" readonly required >
                                   <mat-error *ngIf="proposer.controls.statecom.errors?.required">State is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="City" formControlName="citycom"  autocomplete="off" readonly required>
                                   <mat-error *ngIf="proposer.controls.citycom.errors?.required">City is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="District" formControlName="districtcom"  autocomplete="off" readonly required>
                                   <mat-error *ngIf="proposer.controls.districtcom.errors?.required">District is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="LandMark" formControlName="landmarkcom"  autocomplete="off" >
                                 </mat-form-field>
                               </div>
-
                             </div>
                           </div>
                         </div>
-
-                      </div>
-                      <div class="row" fxLayoutAlign="center center">
-
-
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                           <div class="box-card addressBox">
-
                             <h6 class="color-blue">PERMANENT ADDRESS</h6>
-
                             <div class="row">
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-12">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required>
                                   <mat-error *ngIf="proposer.controls.address.errors?.required">Address is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-12">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 2" rows="2" formControlName="address2" maxlength="30"   autocomplete="off" required>
                                   <mat-error *ngIf="proposer.controls.address2.errors?.required">Address2 is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-12">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 3" rows="2" formControlName="address3"  maxlength="30"  autocomplete="off">
                                   <mat-error *ngIf="proposer.controls.address3.errors?.required">Address3 is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode"  (input)="getPostalCode($event.target.value,'proposer')" autocomplete="off" required>
                                   <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
@@ -192,45 +179,36 @@
                                   <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="State" formControlName="statepermanent"  autocomplete="off" readonly required >
                                   <mat-error *ngIf="proposer.controls.statepermanent.errors?.required">State is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="City" formControlName="citypermanent"  autocomplete="off" readonly required>
                                   <mat-error *ngIf="proposer.controls.citypermanent.errors?.required">City is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="District" formControlName="districtpermanent"  autocomplete="off" readonly required>
                                   <mat-error *ngIf="proposer.controls.districtpermanent.errors?.required">District is required</mat-error>
                                 </mat-form-field>
                               </div>
-                              <div class="col-md-3 mt-3">
+                              <div class="col-md-6">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="LandMark" formControlName="landmarkpermanent"  autocomplete="off" >
                                 </mat-form-field>
-                              </div>
-
+                            </div>
                             </div>
                           </div>
                         </div>
-
                       </div>
-
-
-
                       <div class="proposal-buttom mt-3 text-right w-100">
-
-                        <!--                        <button mat-raised-button color="primaryBlue"  (click)="createProposal(proposer.value)" >Next</button>-->
-
                         <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,proposer.value,'stepper1')" >Next</button>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -238,6 +216,7 @@
             </form>
           </mat-accordion>
         </mat-step>
+
         <mat-step [stepControl]="">
           <ng-template matStepLabel>VEHICLE DETAILS/PREVIOUS POLICY</ng-template>
           <mat-accordion class="w-100 float-left">
