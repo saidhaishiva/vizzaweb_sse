@@ -6,7 +6,7 @@
         <mat-step [stepControl]="">
           <ng-template matStepLabel>PROPOSER DETAILS</ng-template>
           <mat-accordion class="w-100 float-left">
-            <form [formGroup]="customerDetails">
+            <form [formGroup]="proposer">
               <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
@@ -21,13 +21,13 @@
                           <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" required>
                             <mat-option *ngFor="let title of titleList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="customerDetails.controls.title.errors?.required">Title is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="First Name" formControlName="firstName"  (keypress)="nameValidate($event)" autocomplete="off" required >
-                          <mat-error *ngIf="customerDetails.controls.firstName.errors?.required">First Name is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.firstName.errors?.required">First Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 mt-3">
@@ -38,7 +38,7 @@
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Last Name" formControlName="lastName" (keypress)="nameValidate($event)" required>
-                          <mat-error *ngIf="customerDetails.controls.lastName.errors?.required">last Name is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.lastName.errors?.required">last Name is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 mt-3">
@@ -47,7 +47,7 @@
                             <mat-option value="Male">Male</mat-option>
                             <mat-option value="Female">Female</mat-option>
                           </mat-select>
-                          <mat-error *ngIf="customerDetails.controls.gender.errors?.required">Gender is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 mt-3">
@@ -55,22 +55,22 @@
                           <input matInput [matDatepicker]="picker" [max]="today" placeholder="DOB (DD/MM/YYYY)"   formControlName="dob" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
-                          <mat-error *ngIf="customerDetails.controls.dob.errors?.required">DOB is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.dob.errors?.required">DOB is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
                       </div>
                       <div class="col-md-3 mt-3"><mat-form-field class="w-100">
                         <input matInput placeholder="Email ID"   formControlName="email"  autocomplete="off" required>
-                        <mat-error *ngIf="customerDetails.controls.email.errors?.required">Email ID is required</mat-error>
-                        <mat-error *ngIf="customerDetails.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                        <mat-error *ngIf="proposer.controls.email.errors?.required">Email ID is required</mat-error>
+                        <mat-error *ngIf="proposer.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
                       </mat-form-field>
                       </div>
 
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"   maxlength="10" formControlName="mobile" autocomplete="off" required>
-                          <mat-error *ngIf="customerDetails.controls.mobile.errors?.required">Mobile Number is required</mat-error>
-                          <mat-error *ngIf="customerDetails.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                          <mat-error *ngIf="proposer.controls.mobile.errors?.required">Mobile Number is required</mat-error>
+                          <mat-error *ngIf="proposer.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 mt-3">
@@ -81,72 +81,144 @@
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="GST Number"  minlength="15"  maxlength="15"  class="text-uppercase" formControlName="gstNumber" (keypress)="idValidate($event)" pattern="^([0-9]){2}([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}([0-9]){1}([a-zA-Z]){1}([a-zA-Z0-9]){1}?$"  autocomplete="off" >
-                          <mat-error *ngIf="customerDetails.controls.gstNumber.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
-                          <mat-error *ngIf="customerDetails.controls.gstNumber.hasError('pattern')">Enter Valid GST Number</mat-error>
+                          <mat-error *ngIf="proposer.controls.gstNumber.hasError('minlength')">GST Number isn't long enough, minimum of 15 characters</mat-error>
+                          <mat-error *ngIf="proposer.controls.gstNumber.hasError('pattern')">Enter Valid GST Number</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 mt-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="PAN Number" formControlName="personalPan" minlength="10" class="text-uppercase" (keypress)="idValidate($event)" maxlength="10" pattern="^([a-zA-Z]){5}([0-9]){4}([a-zA-Z]){1}?$" autocomplete="off">
+                          <!--<mat-error *ngIf="personal.controls.personalPan.hasError('minlength')">PAN Number isn't long enough, minimum of 10 characters</mat-error>-->
+                          <mat-error *ngIf="proposer.controls.personalPan.hasError('pattern')"> Enter Valid PAN Number </mat-error>
                         </mat-form-field>
                       </div>
 
                       <div class="row" fxLayoutAlign="center center">
 
 
-<!--                        <div class="col-md-12">-->
-<!--                          <div class="box-card addressBox">-->
+                        <div class="col-md-12">
+                          <div class="box-card addressBox">
 
-<!--                            <h6 class="color-blue">COMMUNICATION ADDRESS</h6>-->
+                            <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
 
-<!--                            <div class="row">-->
-<!--                              <div class="col-md-3 mt-3">-->
-<!--                                <mat-form-field class="w-100">-->
-<!--                                  <input matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required>-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.address.errors?.required">Address is required</mat-error>-->
-<!--                                </mat-form-field>-->
-<!--                              </div>-->
-<!--                              <div class="col-md-3 mt-3">-->
-<!--                                <mat-form-field class="w-100">-->
-<!--                                  <input matInput placeholder="Address 2" rows="2" formControlName="address2" maxlength="30"   autocomplete="off" required>-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.address2.errors?.required">Address2 is required</mat-error>-->
-<!--                                </mat-form-field>-->
-<!--                              </div>-->
-<!--                              <div class="col-md-3 mt-3">-->
-<!--                                <mat-form-field class="w-100">-->
-<!--                                  <input matInput placeholder="Address 3" rows="2" formControlName="address3"  maxlength="30"  autocomplete="off">-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.address3.errors?.required">Address3 is required</mat-error>-->
-<!--                                </mat-form-field>-->
-<!--                              </div>-->
-<!--                              <div class="col-md-3 mt-3">-->
-<!--                                <mat-form-field class="w-100">-->
-<!--                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode"  (input)="pincode($event.target.value,'comm')" autocomplete="off" required>-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.pincode.hasError('required')">Pincode required</mat-error>-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>-->
-<!--                                </mat-form-field>-->
-<!--                              </div>-->
-<!--                              <div class="col-md-3 mt-3">-->
-<!--                                <mat-form-field class="w-100">-->
-<!--                                  <input matInput placeholder="State" formControlName="state"  autocomplete="off" readonly required >-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.state.errors?.required">State is required</mat-error>-->
-<!--                                </mat-form-field>-->
-<!--                              </div>-->
-<!--                              <div class="col-md-3 mt-3">-->
-<!--                                <mat-form-field class="w-100">-->
-<!--                                  <input matInput placeholder="City" formControlName="city"  autocomplete="off" readonly required>-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.city.errors?.required">City is required</mat-error>-->
-<!--                                </mat-form-field>-->
-<!--                              </div>-->
-<!--                              <div class="col-md-3 mt-3">-->
-<!--                                <mat-form-field class="w-100">-->
-<!--                                  <input matInput placeholder="District" formControlName="district"  autocomplete="off" readonly required>-->
-<!--                                  <mat-error *ngIf="customerDetails.controls.district.errors?.required">District is required</mat-error>-->
-<!--                                </mat-form-field>-->
-<!--                              </div>-->
-<!--                              <div class="col-md-3 mt-3">-->
-<!--                                <mat-form-field class="w-100">-->
-<!--                                  <input matInput placeholder="LandMark" formControlName="landmark"  autocomplete="off" >-->
-<!--                                </mat-form-field>-->
-<!--                              </div>-->
-<!--                            </div>-->
-<!--                          </div>-->
-<!--                        </div>-->
+                            <div class="row">
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 1" rows="2" formControlName="address4" autocomplete="off" maxlength="30" required>
+                                  <mat-error *ngIf="proposer.controls.address.errors?.required">Address is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 2" rows="2" formControlName="address5" maxlength="30"   autocomplete="off" required>
+                                  <mat-error *ngIf="proposer.controls.address2.errors?.required">Address2 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 3" rows="2" formControlName="address6"  maxlength="30"  autocomplete="off">
+                                  <mat-error *ngIf="proposer.controls.address3.errors?.required">Address3 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode1"  (input)="getPostalCode($event.target.value,'comm')" autocomplete="off" required>
+                                  <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                  <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode required</mat-error>
+                                  <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="State" formControlName="statecom"  autocomplete="off" readonly required >
+                                  <mat-error *ngIf="proposer.controls.statecom.errors?.required">State is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="City" formControlName="citycom"  autocomplete="off" readonly required>
+                                  <mat-error *ngIf="proposer.controls.citycom.errors?.required">City is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="District" formControlName="districtcom"  autocomplete="off" readonly required>
+                                  <mat-error *ngIf="proposer.controls.districtcom.errors?.required">District is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="LandMark" formControlName="landmarkcom"  autocomplete="off" >
+                                </mat-form-field>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                      <div class="row" fxLayoutAlign="center center">
+
+
+                        <div class="col-md-12">
+                          <div class="box-card addressBox">
+
+                            <h6 class="color-blue">PERMANENT ADDRESS</h6>
+
+                            <div class="row">
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required>
+                                  <mat-error *ngIf="proposer.controls.address.errors?.required">Address is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 2" rows="2" formControlName="address2" maxlength="30"   autocomplete="off" required>
+                                  <mat-error *ngIf="proposer.controls.address2.errors?.required">Address2 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 3" rows="2" formControlName="address3"  maxlength="30"  autocomplete="off">
+                                  <mat-error *ngIf="proposer.controls.address3.errors?.required">Address3 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode"  (input)="getPostalCode($event.target.value,'proposer')" autocomplete="off" required>
+                                  <mat-error *ngIf="proposer.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                  <mat-error *ngIf="proposer.controls.pincode.hasError('required')">Pincode required</mat-error>
+                                  <mat-error *ngIf="proposer.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="State" formControlName="statepermanent"  autocomplete="off" readonly required >
+                                  <mat-error *ngIf="proposer.controls.statepermanent.errors?.required">State is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="City" formControlName="citypermanent"  autocomplete="off" readonly required>
+                                  <mat-error *ngIf="proposer.controls.citypermanent.errors?.required">City is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="District" formControlName="districtpermanent"  autocomplete="off" readonly required>
+                                  <mat-error *ngIf="proposer.controls.districtpermanent.errors?.required">District is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="LandMark" formControlName="landmarkpermanent"  autocomplete="off" >
+                                </mat-form-field>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
 
                       </div>
 
@@ -154,9 +226,9 @@
 
                       <div class="proposal-buttom mt-3 text-right w-100">
 
-                        <!--                        <button mat-raised-button color="primaryBlue"  (click)="createProposal(customerDetails.value)" >Next</button>-->
+                        <!--                        <button mat-raised-button color="primaryBlue"  (click)="createProposal(proposer.value)" >Next</button>-->
 
-                        <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,customerDetails.value,'stepper1')" >Next</button>
+                        <button mat-raised-button color="primaryBlue"  (click)="nextTab(stepper,proposer.value,'stepper1')" >Next</button>
                       </div>
 
                     </div>
@@ -166,6 +238,250 @@
             </form>
           </mat-accordion>
         </mat-step>
+        <mat-step [stepControl]="">
+          <ng-template matStepLabel>VEHICLE DETAILS/PREVIOUS POLICY</ng-template>
+          <mat-accordion class="w-100 float-left">
+            <form [formGroup]="vechicle">
+              <mat-expansion-panel expanded>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    VECHILE DETAILS
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="row mt-1" >
+                  <div class="col-md-12 box-card pt-3">
+                    <div class="row">
+                      <div class="col-md-12 mt-1">
+                        <h6 class="color-blue"> VEHICLE DETAILS </h6>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Engine No" formControlName="engine" readonly (keypress)="numberValidate($event)"  required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Chassis No" formControlName="chassis" (keypress)="numberValidate($event)" readonly  required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Vechicle Model" formControlName="vehiclemodel" (keypress)="numberValidate($event)" readonly required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 ">
+                        <mat-form-field class="w-100">
+                          <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate"  (keypress)="dobValidate($event)" [disabled]="vechicle.controls['Vehicleregdate'].value" minlength="10"  maxlength="10"   autocomplete="off" required>
+                          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)"  required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)"  required>
+                        </mat-form-field>
+                      </div>
+                        <div class="col-md-12 mt-3">
+                            <mat-checkbox formControlName="Financetype"  (change)="check($event)" ><strong> If Vehicle is Finance? </strong></mat-checkbox>
+                        </div>
+                        <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true">
+                            <mat-form-field class="w-100">
+                                <mat-placeholder>Agreement Type<span class="error" *ngIf="vechicle.controls['Financetype'].value == true ">*</span></mat-placeholder>
+                                <mat-select  formControlName="Agreement"  >
+                                    <mat-option value="Hire Purchase">Hire Purchase</mat-option>
+                                    <mat-option value="Hypothecation ">Hypothecation</mat-option>
+                                    <mat-option value="Lease ">Lease</mat-option>
+                                    <mat-error *ngIf="vechicle.controls.Agreement.errors?.required">Agreement Type is required</mat-error>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true" >
+                            <mat-form-field class="w-100" >
+                                <mat-placeholder>Financier Code<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                                <mat-select  formControlName="financiercode" (change)="financiercode()" (change)="changefinancecompany()" >
+                                    <mat-option *ngFor="let finance of financeList | keys" value="{{finance.key}}" > {{finance.value}} </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-3 mt-3" *ngIf="vechicle.controls['Financetype'].value == true">
+                            <mat-form-field class="w-100">
+                                <mat-placeholder>Branch Name<span class="error" *ngIf="vechicle.controls['Financetype'].value == true">*</span></mat-placeholder>
+                                <input matInput  maxlength="4" formControlName="fibranchname" (keypress)="nameValidate($event)"  >
+                                <mat-error *ngIf="vechicle.controls.fibranchname.errors?.required">Branch name is required</mat-error>
+                            </mat-form-field>
+                        </div>
+                      <div class="col-md-12 mt-3">
+                        <h6 class="color-blue"> PREVIOUS POLICY DETAILS </h6>
+                      </div>
+                      <div class="col-md-3 mt-3">
+                      <mat-form-field class="w-100" >
+                        <mat-select placeholder="Previous Insurance Company" formControlName="Previouscompany" (change)="changeInsuranceCompany()" required>
+                          <mat-option *ngFor="let company of companyList | keys" value="{{company.key}}" > {{company.value}} </mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="vechicle.controls.Previouscompany.errors?.required">previous company is required</mat-error>
+                      </mat-form-field>
+                      </div>
+                      <div class="col-md-3 mt-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="NCB %" formControlName="ncb" maxlength="3" (keypress)="numberValidate($event)"  required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-4 mt-3">
+                        <mat-form-field class="w-100">
+                          <input matInput [matDatepicker]="picker2" [max]="today" placeholder="Previous Policy EndDate(DD/MM/YYYY)" [disabled]="vechicle.controls['previousenddate']!=''"  formControlName="previousenddate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                          <mat-error *ngIf="vechicle.controls.previousenddate.errors?.required">previous Policy Endate is required</mat-error>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 mt-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Previous Policy No" formControlName="previouspolicyno" maxlength="20"  required>
+                        </mat-form-field>
+                      </div>
+                      <div class="col-md-3 mt-3">
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv" (keypress)="numberValidate($event)"  required>
+                        </mat-form-field>
+                      </div>
+                </div>
+                  </div>
+                </div>
+                <div class="proposal-buttom mt-3 text-right w-100">
+                  <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                  <button mat-raised-button  color="primaryBlue" (click)="nextTab(stepper,vechicle.value,'stepper2')" >Next</button>
+                </div>
+              </mat-expansion-panel>
+            </form>
+          </mat-accordion>
+        </mat-step>
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel>ADDONS</ng-template>
+              <mat-accordion class="w-100 float-left">
+                  <form [formGroup]="addOns">
+                      <mat-expansion-panel expanded>
+                          <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                  ADDON DETAILS
+                              </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <div class="row mt-1" >
+                              <div class="col-md-12 box-card pt-3">
+                                  <div class="row">
+                                      <div class="col-md-12 mt-1">
+                                          <h6 class="color-blue"> ADDON DETAILS </h6>
+                                      </div>
+                                      <div class="col-md-3">
+                                          <mat-form-field class="w-100">
+                                              <input matInput placeholder="ExtensionCountryCode" formControlName="extentioncountry" autocomplete="off"   required>
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-3">
+                                          <mat-form-field class="w-100">
+                                              <input matInput placeholder="Policy Tenture" formControlName="policytenture" autocomplete="off"   >
+                                          </mat-form-field>
+                                      </div>
+                                      <div class="col-md-3 ">
+                                          <mat-form-field class="w-100">
+                                              <mat-select placeholder="Effectivedrivinglicense" formControlName="drivinglicence"  >
+                                                  <mat-option value="true">True</mat-option>
+                                                  <mat-option value="false">False</mat-option>
+                                              </mat-select>
+                                          </mat-form-field>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="proposal-buttom mt-3 text-right w-100">
+                              <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                              <button mat-raised-button  color="primaryBlue" (click)="nextTab(stepper,vechicle.value,'stepper3')" >Next</button>
+                          </div>
+                      </mat-expansion-panel>
+                  </form>
+              </mat-accordion>
+          </mat-step>
+          <mat-step [stepControl]="">
+              <ng-template matStepLabel> BANK DETAILS</ng-template>
+              <mat-accordion class="w-100 float-left">
+                  <form [formGroup]="BankDetails">
+                      <mat-expansion-panel expanded>
+                          <mat-expansion-panel-header>
+                              <mat-panel-title>
+                                  ADDON DETAILS
+                              </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <div class="row mt-1" >
+                              <div class="col-md-12 box-card pt-3">
+                                  <div class="row">
+                                      <div class="col-md-12 mt-1">
+                                          <h6 class="color-blue"> BANK DETAILS </h6>
+                                          <div class="col-md-3 mt-3">
+                                              <mat-form-field class="w-100" >
+                                                  <mat-select placeholder="Bank Name" formControlName="Bankname" (change)="changebankname()" required>
+                                                      <mat-option *ngFor="let bank of bankList | keys" value="{{bank.key}}" > {{bank.value}} </mat-option>
+                                                  </mat-select>
+                                                  <mat-error *ngIf="BankDetails.controls.Bankname.errors?.required">Bank Name is Required</mat-error>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="col-md-3 mt-3">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Bank Branch Name" formControlName="Branch" autocomplete="off" required  >
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="col-md-3 mt-3">
+                                              <mat-form-field class="w-100">
+                                                  <mat-select placeholder="Payment Mode" formControlName="paymentmode" required >
+                                                      <mat-option value="C">Cheque</mat-option>
+                                                      <mat-option value="CL">Credit Limit</mat-option>
+                                                      <mat-option value="CD">CD Balance</mat-option>
+                                                      <mat-option value="EP">Electronic Bank Payment</mat-option>
+                                                      <mat-option value="FT">Fund Transfer</mat-option>
+                                                  </mat-select>
+                                                  <mat-error *ngIf="BankDetails.controls.paymentmode.errors?.required">Payment Mode is Required</mat-error>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="col-md-3 mt-3">
+                                              <mat-form-field class="w-100">
+                                                  <mat-select placeholder="Payer Type" formControlName="Payertype" required>
+                                                      <mat-option value="DEALER">DEALER</mat-option>
+                                                      <mat-option value="CUSTOMER">CUSTOMER</mat-option>
+                                                  </mat-select>
+                                                  <mat-error *ngIf="BankDetails.controls.Payertype.errors?.required">Payer type is Required</mat-error>
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="col-md-3 mt-3">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput placeholder="Reference Number" formControlName="refrenceno" autocomplete="off" required  >
+                                              </mat-form-field>
+                                          </div>
+                                          <div class="col-md-3 mt-3">
+                                              <mat-form-field class="w-100">
+                                                  <input matInput [matDatepicker]="picker4" [max]="today" placeholder="Payment Date(DD/MM/YYYY)"   formControlName="Paymentdate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                                  <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                                                  <mat-datepicker #picker4></mat-datepicker>
+                                                  <mat-error *ngIf="proposer.controls.dob.errors?.required">Payment date is required</mat-error>
+                                              </mat-form-field>
+                                              <div class="error" *ngIf="personalDobError != ''">{{personalDobError}}</div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="proposal-buttom mt-3 text-right w-100">
+                              <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                              <button mat-raised-button  color="primaryBlue" (click)="nextTab(stepper,vechicle.value,'stepper3')" >Next</button>
+                          </div>
+                      </mat-expansion-panel>
+                  </form>
+              </mat-accordion>
+          </mat-step>
+
       </mat-horizontal-stepper>
     </div>
   </div>
