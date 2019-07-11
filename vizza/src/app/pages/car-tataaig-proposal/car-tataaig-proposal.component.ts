@@ -771,7 +771,7 @@ export class CarTataaigProposalComponent implements OnInit {
         Tyresecure: this.getstepper2.Tyresecure,
         protectioncover: this.getstepper2.protectioncover,
         Roadside: this.getstepper2.Roadside,
-      })
+      });
       this.visible = true;
     }
     if (sessionStorage.tatacarprepolicy != '' && sessionStorage.tatacarprepolicy != undefined) {
