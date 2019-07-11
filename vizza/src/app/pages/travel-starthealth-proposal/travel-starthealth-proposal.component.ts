@@ -597,14 +597,14 @@ export class TravelProposalComponent implements OnInit {
             }
 
 
-            setTimeout(() => {
-                if (this.getStepper1.personalPincode != '') {
-                    this.getPostal(this.getStepper1.personalPincode, 'personal');
-                    this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
-                    this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
-                    this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
-
-                } },1000);
+            // setTimeout(() => {
+            //     if (this.getStepper1.personalPincode != '') {
+            //         this.getPostal(this.getStepper1.personalPincode, 'personal');
+            //         this.personal.controls['personalPincode'].setValue(this.getStepper1.personalPincode);
+            //         this.personal.controls['personalState'].setValue(this.getStepper1.personalState);
+            //         this.personal.controls['personalCity'].setValue(this.getStepper1.personalCity);
+            //
+            //     } },1000);
         }
 
 
@@ -645,7 +645,6 @@ export class TravelProposalComponent implements OnInit {
         sessionStorage.stepper1DetailsForTravel = JSON.stringify(value);
         this.personalData = value;
         console.log(this.personalData,'hgfsdfdsjfg');
-        console.log(this.personal.controls['personalgstIdType'].value,'8809809');
        // this.personalData.personalDob = this.datepipe.transform(this.personalData.personalDob, 'MMM d, y');
         console.log(this.personalDobError);
         if (this.personal.valid && this.personalDobError == '') {
@@ -702,6 +701,7 @@ export class TravelProposalComponent implements OnInit {
 
             if (this.insureArray.valid) {
                 let valid = false;
+                console.log(this.personalData, 'firstform');
                 const data = {
                     'platform': 'web',
                     'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
