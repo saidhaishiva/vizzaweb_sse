@@ -559,7 +559,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 this.toastr.error('Proposer Age should be 18 or above');
             }
         } else {
-            this.toastr.error('Please Fill All The Mandtory Fields');
+            this.toastr.error('Please Fill All The Mandatory Fields');
         }
     }
 
