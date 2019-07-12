@@ -542,12 +542,12 @@ public electricaAccessories: boolean;
     let totalAmount = this.valueAmount.reduce((a, b) => parseInt(a) + parseInt(b));
 
     if(this.vehical.valid) {
-      if ((totalAmount <= 50000)) {
+      // if ((totalAmount <= 50000)) {
         stepper.next();
-      } else{
-        this.toastr.error('Electrical Accessories Values should be less than  equal to 50,000');
-
-      }
+      // } else{
+      //   this.toastr.error('Electrical Accessories Values should be less than  equal to 50,000');
+      //
+      // }
     }
   }
 
