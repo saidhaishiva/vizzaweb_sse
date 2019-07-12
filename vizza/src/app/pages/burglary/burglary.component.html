@@ -95,15 +95,15 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Appintment Date(DD/MM/YYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
-                    <mat-error *ngIf="burgapp.controls.appdate.errors?.required">Appintment Date is required</mat-error>
+                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                    <mat-error *ngIf="burgapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput type="time" atp-time-picker  formControlName="apptime" required />
+                    <input matInput placeholder="Appointment Time (HH:MM)" type="time" atp-time-picker  formControlName="apptime" required />
                     <mat-error *ngIf="burgapp.controls.apptime.errors?.required">Appointment Time is required</mat-error>
                   </mat-form-field>
                 </div>
