@@ -13,7 +13,9 @@ import {BikeInsuranceService} from '../../shared/services/bike-insurance.service
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
 import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import {ViewKeyfeaturesComponent} from './view-keyfeatures/view-keyfeatures.component';
 @Component({
   selector: 'app-bike-premium-list',
   templateUrl: './bike-premium-list.component.html',
@@ -263,7 +265,7 @@ export class BikePremiumListComponent implements OnInit {
 // view key features details
     viewKeyList(value) {
         console.log(value, 'value');
-        let dialogRef = this.dialog.open(ViewdetailsComponent, {
+        let dialogRef = this.dialog.open(ViewKeyfeaturesComponent, {
             width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo, scheme: value.scheme}
         });
         dialogRef.disableClose = true;

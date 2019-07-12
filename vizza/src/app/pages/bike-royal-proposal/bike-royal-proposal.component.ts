@@ -425,6 +425,7 @@ public apponiteeList: boolean;
     } else{
       this.toastr.error(successData.ErrorObject);
       this.proposer.controls['rcity'].patchValue('');
+      console.log(this.proposer.controls['rcityName'].value,'citytyty');
 
     }
   }
@@ -675,24 +676,18 @@ public apponiteeList: boolean;
   getelectricalaccesmanidatory() {
     if (this.vehical.controls['coverelectricalaccesss'].value == true) {
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-        if (i != 0) {
-        }
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.setValidators([Validators.required]);
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.setValidators([Validators.required]);
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.setValidators([Validators.required]);
       }
     } else {
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-        if ( i !=  0) {
-        }
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
       }
     }
     for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-      if ( i !=  0) {
-      }
       this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.updateValueAndValidity();
       this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.updateValueAndValidity();
       this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.updateValueAndValidity();
@@ -703,8 +698,7 @@ public apponiteeList: boolean;
     if (this.vehical.controls['coverelectricalaccesss'].value == true) {
       } else {
           for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-             if ( i !=  0) {
-        }
+
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
