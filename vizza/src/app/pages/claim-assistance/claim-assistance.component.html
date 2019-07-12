@@ -72,7 +72,7 @@
                   <mat-form-field class="w-100">
                     <input matInput placeholder="Email" formControlName="email" required>
                     <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
-                    <mat-error *ngIf="form.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                    <!--<mat-error *ngIf="form.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>-->
                     <mat-icon matSuffix>email</mat-icon>
                   </mat-form-field>
                 </div>

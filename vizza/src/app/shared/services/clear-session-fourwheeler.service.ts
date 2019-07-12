@@ -15,6 +15,15 @@ export class ClearSessionFourwheelerService {
     sessionStorage.tatacarnominee = '';
     sessionStorage.tatacarproposalID = '';
 
+    // Four Wheeler Royal Sundaram
+    sessionStorage.summaryData = '';
+    sessionStorage.royalFourWheelerproposalID = '';
+    sessionStorage.stepper1 = '';
+    sessionStorage.stepper2 = '';
+    sessionStorage.stepper3 = '';
+    sessionStorage.stepper4 = '';
+
+
   }
 
 }
