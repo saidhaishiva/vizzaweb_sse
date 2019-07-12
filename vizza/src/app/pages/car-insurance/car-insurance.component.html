@@ -98,7 +98,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
                     <mat-error *ngIf="carapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
