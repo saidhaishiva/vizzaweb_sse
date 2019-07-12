@@ -89,18 +89,22 @@ public respincodeList: any;
 public vehicledetails: any;
 public premiumAmount: any;
 public currentStep: any;
+public valueAmount: any;
+public valueDetails: any;
 public apponiteeList: boolean;
+public addList: boolean;
+public electricaAccessories: boolean;
   constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
     let stepperindex = 0;
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         stepperindex = 4;
         if (sessionStorage.summaryData1 != '' && sessionStorage.summaryData1 != undefined) {
-          this.summaryData1 = JSON.parse(sessionStorage.summaryData1);
-          this.PaymentRedirect =  this.summaryData1.PaymentRedirect;
-          this.PaymentReturn =  this.summaryData1.PaymentReturn;
-          this.ElcValue =  this.summaryData1.ElcValue;
-          this.VehicleSubLine =  this.summaryData1.VehicleSubLine;
+          this.summaryData = JSON.parse(sessionStorage.summaryData1);
+          this.PaymentRedirect =  this.summaryData.PaymentRedirect;
+          this.PaymentReturn =  this.summaryData.PaymentReturn;
+          this.ElcValue =  this.summaryData.ElcValue;
+          this.VehicleSubLine =  this.summaryData.VehicleSubLine;
           this.VersionNo =  this.summaryData1.VersionNo;
           sessionStorage.shiramFwProposalID = this.ProposalId;
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
@@ -123,7 +127,7 @@ public apponiteeList: boolean;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
     this.settings.sidenavIsPinned = false;
-
+    this.electricaAccessories = false;
     this.proposer = this.fb.group({
       title: ['', Validators.required],
       firstname: ['', Validators.required],
@@ -195,6 +199,8 @@ public apponiteeList: boolean;
           appointeeRelationship: '',
         appointeeAge: ''
       });
+    this.addList = false;
+
   }
 
 
@@ -258,28 +264,34 @@ public apponiteeList: boolean;
   addItems(){
     this.addElectrical =  this.vehical.get('electricalAccess') as FormArray;
     this.addElectrical.push(this.create());
+    if (this.addElectrical.length > 5) {
+      this.addList = true;
+    } else {
+      this.addList = false;
+    }
     console.log(this.addElectrical, 'this.addElectrical');
   }
   removeItems(index){
+    this.addList = false;
     let ssss =  this.vehical.get('electricalAccess') as FormArray;
     ssss.removeAt(index);
   }
   // non  electrical
-  createnonElectrical(){
-    return new FormGroup({
-      namesOfNonElectrical: new FormControl('', Validators.required),
-      modelnonElectrical :  new FormControl('', Validators.required),
-      valuenonelectrical :  new FormControl('', Validators.required),
-    });
-  }
-  addnonEelctricalItems(){
-    this.addnonElectrical =  this.vehical.get('nonelectricalAccess') as FormArray;
-    this.addnonElectrical.push(this.createnonElectrical());
-  }
-  removenonEelctricalItems(index){
-    let ssss =  this.vehical.get('nonelectricalAccess') as FormArray;
-    ssss.removeAt(index);
-  }
+  // createnonElectrical(){
+  //   return new FormGroup({
+  //     namesOfNonElectrical: new FormControl('', Validators.required),
+  //     modelnonElectrical :  new FormControl('', Validators.required),
+  //     valuenonelectrical :  new FormControl('', Validators.required),
+  //   });
+  // }
+  // addnonEelctricalItems(){
+  //   this.addnonElectrical =  this.vehical.get('nonelectricalAccess') as FormArray;
+  //   this.addnonElectrical.push(this.createnonElectrical());
+  // }
+  // removenonEelctricalItems(index){
+  //   let ssss =  this.vehical.get('nonelectricalAccess') as FormArray;
+  //   ssss.removeAt(index);
+  // }
   // title
 
   title(){
@@ -435,7 +447,10 @@ public apponiteeList: boolean;
     addEventPrevious(evnt){
 
     }
+  regCity() {
+    this.proposer.controls['rcityName'].patchValue(this.respincodeList[this.proposer.controls['rcity'].value]);
 
+  }
   // dob validation
   addEvent(event,type) {
     if (event.value != null) {
@@ -490,6 +505,7 @@ public apponiteeList: boolean;
         this.proposer.controls['rpincode'].patchValue( this.proposer.controls['pincode'].value),
         this.proposer.controls['rstate'].patchValue( this.proposer.controls['state'].value),
         this.proposer.controls['rcity'].patchValue( this.proposer.controls['city'].value)
+        this.proposer.controls['rcityName'].patchValue( this.proposer.controls['cityName'].value)
       } else {
         this.proposer.controls['raddress'].patchValue(''),
         this.proposer.controls['raddress2'].patchValue(''),
@@ -518,8 +534,20 @@ public apponiteeList: boolean;
     console.log(value);
     sessionStorage.stepper2 = '';
     sessionStorage.stepper2 = JSON.stringify(value);
-    if(this.vehical.valid){
-      stepper.next();
+    this.valueAmount = [];
+    this.valueDetails =  this.vehical.value.electricalAccess;
+    console.log(this.valueDetails,'valueList')
+    this.valueDetails.forEach(data => this.valueAmount.push(data.elecValue));
+    sessionStorage.valueList = this.valueDetails;
+    let totalAmount = this.valueAmount.reduce((a, b) => parseInt(a) + parseInt(b));
+
+    if(this.vehical.valid) {
+      if ((totalAmount <= 50000)) {
+        stepper.next();
+      } else{
+        this.toastr.error('Electrical Accessories Values should be less than  equal to 50,000');
+
+      }
     }
   }
 
@@ -682,30 +710,34 @@ public apponiteeList: boolean;
       }
     } else {
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue(null);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue(null);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue(null);
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
+
       }
     }
-    for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.updateValueAndValidity();
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.updateValueAndValidity();
-      this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.updateValueAndValidity();
-    }
+    // for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+    //   this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.updateValueAndValidity();
+    //   this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.updateValueAndValidity();
+    //   this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.updateValueAndValidity();
+    // }
   }
 
-  getelectricalAccessDetail() {
-    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
-      } else {
-          for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
-      }
-
-    }
-  }
+  // getelectricalAccessDetail() {
+  //   if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+  //     } else {
+  //         for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+  //
+  //       this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
+  //       this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
+  //       this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
+  //     }
+  //
+  //   }
+  // }
   changePaType() {
     const data = {
       'platform': 'web',
@@ -1151,7 +1183,22 @@ proposal(stepper){
 
   }
   // policyType(){
+  isFinaced() {
+    if (this.vehical.controls['isTwoWheelerFinanced'].value == true) {
+      this.vehical.controls['isTwoWheelerFinancedValue'].setValidators([Validators.required]);
+      this.vehical.controls['financierName'].setValidators([Validators.required]);
+    } else {
+      this.vehical.controls['isTwoWheelerFinancedValue'].patchValue('');
+      this.vehical.controls['financierName'].patchValue('');
 
+      this.vehical.controls['isTwoWheelerFinancedValue'].setValidators(null);
+      this.vehical.controls['financierName'].setValidators(null);
+
+    }
+    this.vehical.controls['isTwoWheelerFinancedValue'].updateValueAndValidity();
+    this.vehical.controls['financierName'].updateValueAndValidity();
+
+  }
   // }
 //session Data
   sessionData(){
@@ -1216,12 +1263,12 @@ proposal(stepper){
       this.vehical.controls['idv'].patchValue(stepper2.idv);
       this.vehical.controls['isTwoWheelerFinanced'].patchValue(stepper2.isTwoWheelerFinanced);
       this.vehical.controls['financierName'].patchValue(stepper2.financierName);
-      this.vehical.controls['hypothecationType'].patchValue(stepper2.hypothecationType);
+      this.vehical.controls['isTwoWheelerFinancedValue'].patchValue(stepper2.isTwoWheelerFinancedValue);
       this.vehical.controls['typeOfCover'].patchValue(stepper2.typeOfCover);
       this.vehical.controls['vechileOwnerShipChanged'].patchValue(stepper2.vechileOwnerShipChanged);
       this.vehical.controls['electricalAccess'].patchValue(stepper2.electricalAccess);
-      this.vehical.controls['nonelectricalAccess'].patchValue(stepper2.nonelectricalAccess);
-      this.vehical.controls['accidentPaid'].patchValue(stepper2.accidentPaid);
+      // this.vehical.controls['nonelectricalAccess'].patchValue(stepper2.nonelectricalAccess);
+      // this.vehical.controls['accidentPaid'].patchValue(stepper2.accidentPaid);
 
       // if(stepper2.coverelectricalaccesss == true){
       //   for(let j = 0; j < this.vehical.controls['electricalAccess'].value.length; j++){
