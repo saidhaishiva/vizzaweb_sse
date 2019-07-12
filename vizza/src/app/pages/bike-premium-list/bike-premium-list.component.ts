@@ -12,7 +12,10 @@ import {Settings} from '../../app.settings.model';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {ClearSessionMotorService} from '../../shared/services/clear-session-motor.service';
-
+import {ViewdetailsComponent} from '../health-insurance/viewdetails/viewdetails.component';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import {ViewKeyfeaturesComponent} from './view-keyfeatures/view-keyfeatures.component';
 @Component({
   selector: 'app-bike-premium-list',
   templateUrl: './bike-premium-list.component.html',
@@ -36,7 +39,7 @@ export class BikePremiumListComponent implements OnInit {
     getEnquiry: any;
     policyTerm: any;
     initialProductList: any;
-    constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
+    constructor(public auth: AuthService, public datepipe: DatePipe,public dialog: MatDialog,public clearSession: ClearSessionMotorService, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
         this.settings.sidenavIsOpened = false;
@@ -48,12 +51,13 @@ export class BikePremiumListComponent implements OnInit {
         this.policyTerm = '1';
         this.compherhensive = 'Comprehensive_premium';
         sessionStorage.packae_list = this.compherhensive;
+        this.clearSession.clearSessionbikeData();
+
     }
     ngOnInit()
     {
         this.getCompanyList();
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-        // this.clearSession.clearSessionbikeData();
         this.sessionData();
     }
     sessionData() {
@@ -258,6 +262,17 @@ export class BikePremiumListComponent implements OnInit {
         }
     }
 
+// view key features details
+    viewKeyList(value) {
+        console.log(value, 'value');
+        let dialogRef = this.dialog.open(ViewKeyfeaturesComponent, {
+            width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo, scheme: value.scheme}
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+        });
+
+    }
 
     buyProduct(value) {
         console.log(value,'value');

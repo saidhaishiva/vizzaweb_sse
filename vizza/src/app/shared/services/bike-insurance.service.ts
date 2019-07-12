@@ -29,7 +29,18 @@ export class BikeInsuranceService {
       headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
     };
     const url = this.configurationService.getBikeInsurance() + 'productlist/company';
-    return this.http.post(url, httpOptions)
+    return this.http.post(url,json, httpOptions)
+        .map(this.extractData)
+        .catch(this.handleError);
+  }
+  viewKeyFeatureList(data) {
+    const json = JSON.stringify(data);
+    const token = this.authService.getAccessToken();
+    const httpOptions = {
+      headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+    };
+    const url = this.configurationService.getBikeInsurance() + 'productlist/view_keyfeatures';
+    return this.http.post(url,json,httpOptions)
         .map(this.extractData)
         .catch(this.handleError);
   }

@@ -152,12 +152,14 @@
                         <mat-form-field class="w-100">
                           <mat-placeholder>First Name<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveFirstname" (keypress)="nameValidate($event)" autocomplete="off" readonly>
+                          <mat-error *ngIf="proposer.controls.driveFirstname.errors?.required">FirstName is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Last Name<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveLastname"  (keypress)="nameValidate($event)" autocomplete="off" readonly>
+                          <mat-error *ngIf="proposer.controls.driveLastname.errors?.required">LastName is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
@@ -166,18 +168,21 @@
                           <mat-select formControlName="driveGender">
                             <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
+                          <mat-error *ngIf="proposer.controls.driveGender.errors?.required">Gender is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Age<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="driveAge"  (keypress)="numberValidate($event)" maxlength="3" readonly>
+                          <mat-error *ngIf="proposer.controls.driveAge.errors?.required">Age is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Driving Experience<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
                           <input matInput formControlName="drivingexp"  (keypress)="numValidate($event)" autocomplete="off">
+                          <mat-error *ngIf="proposer.controls.drivingexp.errors?.required">Driving Experience is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events': proposer.controls['driveflag'].value == 'Y' ? 'none' : ''}">
@@ -188,6 +193,7 @@
                             <mat-option value="Married">Married</mat-option>
                             <mat-option value="Others">Others</mat-option>
                           </mat-select>
+                          <mat-error *ngIf="proposer.controls.drivemaritalStatus.errors?.required">Maritial status is Required</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
@@ -238,6 +244,7 @@
                                 <mat-option value="bank">BANK</mat-option>
                                 <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
                               </mat-select>
+                              <mat-error *ngIf="vehicle.controls.banktype.errors?.required">BankType is Required</mat-error>
                             </mat-form-field>
                           </div>
                         <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
@@ -247,12 +254,14 @@
                             <mat-autocomplete #auto="matAutocomplete">
                               <mat-option *ngFor="let bank of banklist | keys" value="{{bank.key}}">{{bank.value}}</mat-option>
                             </mat-autocomplete>
+                            <mat-error *ngIf="vehicle.controls.bankName.errors?.required">BankName is Required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4" *ngIf="vehicle.controls['Financetype'].value == true">
                           <mat-form-field class="w-100">
                               <mat-placeholder>Address<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
                               <textarea matInput rows="2" formControlName="Address" autocomplete="off" maxlength="30"></textarea>
+                            <mat-error *ngIf="vehicle.controls.Address.errors?.required">Address is Required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-12 mt-1">
@@ -292,7 +301,7 @@
                         </div>
                       </div>
                       <div class="proposal-buttom mt-3 text-right w-100">
-                        <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                        <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
                         <button mat-raised-button color="primaryBlue"  (click)="vehicleDetails(stepper,vehicle.value)" >Next</button>
                       </div>
                       </div>
@@ -313,7 +322,7 @@
                 <div class="row mt-1">
               <div class="col-md-12 box-card pt-3">
                 <div class="row">
-                  <div class="col-md-3" [ngStyle]="{'pointer-events':'none'}">
+                  <div class="col-md-4" [ngStyle]="{'pointer-events':'none'}">
                     <mat-form-field class="w-100">
                       <mat-select  placeholder="Is there any rollover with previous policy?" (change)="changeflag($event)" formControlName="preflag" required>
                         <mat-option value="Y">Yes</mat-option>
@@ -322,7 +331,7 @@
                       <mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
+                  <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <mat-select formControlName="preName" (change)="selectopt()">
@@ -330,7 +339,7 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="5">
@@ -376,7 +385,7 @@
                     </mat-form-field>
                   </div>
                 <div class="proposal-buttom mt-3 text-right w-100">
-                  <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                  <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
                   <button mat-raised-button color="primaryBlue"  (click)="prepolicyDetails(stepper,previouspolicy.value)" >Next</button>
                 </div>
                 </div>
@@ -419,7 +428,7 @@
                           </mat-form-field>
                         </div>
                         <div class="proposal-buttom mt-3 text-right w-100">
-                          <button mat-button matStepperPrevious (click)="topScroll()">Back</button>
+                          <button mat-raised-button color="primaryBlue" matStepperPrevious (click)="topScroll()">Back</button>
                           <button mat-raised-button color="primaryBlue"  (click)="nomineeDetails(stepper,nominee.value)" >Next</button>
                         </div>
                       </div>
@@ -458,14 +467,14 @@
                         <li class="list-group-item" *ngIf="proposerFormData.proposerMobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.proposerMobile}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.proposerAadhar != ''"><strong>Aadhar Id:</strong> {{proposerFormData.proposerAadhar}}</li>
                         <li class="list-group-item"><strong>Marital Status:</strong>{{proposerFormData.maritalStatus}}</li>
+                        <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.Addressone}}</li>
+                        <li class="list-group-item" *ngIf="proposerFormData.Addresstwo != ''"><strong>Address 2:</strong> {{proposerFormData.Addresstwo}}</li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.Addressone}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.Addresstwo != ''"><strong>Address 2:</strong> {{proposerFormData.Addresstwo}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.Addressthree != ''"><strong>Address 3:</strong> {{proposerFormData.Addressthree}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.Addressfour != ''"><strong>Address 4:</strong> {{proposerFormData.Addressfour}}</li>
                         <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.proposerPincode}}</li>
@@ -507,20 +516,20 @@
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>FINANCE NAME:</strong> {{vehicalFormData.bankName}} </li>
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
                         <li class="list-group-item"><strong>PACover_for_OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember != '' && vehicalFormData.Associationmember != null && vehicalFormData.Associationmember != false"><strong>Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary != null && vehicalFormData.Voluntary != false"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft != '' && vehicalFormData.Antitheft != null && vehicalFormData.Antitheft != false"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft== true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Associationmember != '' && vehicalFormData.Associationmember == true"><strong>Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary == true"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Antitheft != '' && vehicalFormData.Antitheft == true"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft== true">Yes</span></li>
                       </ul>
                     </div>
                   </div>
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                          <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict != '' && vehicalFormData.Tppdrestrict != null && vehicalFormData.Tppdrestrict != false"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict == true">Yes</span></li>
-                          <li class="list-group-item" *ngIf="vehicalFormData.depreciation != '' && vehicalFormData.depreciation != null && vehicalFormData.depreciation != false"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense != '' && vehicalFormData.Consumableexpense != null && vehicalFormData.Consumableexpense != false"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice != '' && vehicalFormData.Returninvoice != null && vehicalFormData.Returninvoice != false"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance != '' && vehicalFormData.Roadsideassistance != null && vehicalFormData.Roadsideassistance != false"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance == true">Yes</span></li>
+                          <li class="list-group-item" *ngIf="vehicalFormData.Tppdrestrict != '' && vehicalFormData.Tppdrestrict == true"><strong>TPPD_Restricted:</strong><span *ngIf="vehicalFormData.Tppdrestrict == true">Yes</span></li>
+                          <li class="list-group-item" *ngIf="vehicalFormData.depreciation != '' && vehicalFormData.depreciation == true"><strong>Depreciation_ReImbursement:</strong><span *ngIf="vehicalFormData.depreciation == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Consumableexpense != ''&& vehicalFormData.Consumableexpense == true"><strong>Consumables_expenses:</strong><span *ngIf="vehicalFormData.Consumableexpense == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Returninvoice != '' && vehicalFormData.Returninvoice == true"><strong>Return_to_Invoice:</strong><span *ngIf="vehicalFormData.Returninvoice == true">Yes</span></li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.Roadsideassistance != '' && vehicalFormData.Roadsideassistance == true"><strong>Roadside_Assistance:</strong><span *ngIf="vehicalFormData.Roadsideassistance == true">Yes</span></li>
                       </ul>
                     </div>
                   </div>

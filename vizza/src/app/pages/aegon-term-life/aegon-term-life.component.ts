@@ -50,7 +50,9 @@ export class AegonTermLifeComponent implements OnInit {
   public dateError: any;
   public dateError1: any;
   public dateError2: any;
+  public annualError: any;
   public incomeError: any;
+  public webhost: any;
   public today: any;
   public qualificationList: any;
   public summaryData: any;
@@ -93,6 +95,7 @@ export class AegonTermLifeComponent implements OnInit {
 
 
 
+
   constructor(public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings) {
     let stepperindex = 0;
     this.requestedUrl = '';
@@ -117,41 +120,37 @@ export class AegonTermLifeComponent implements OnInit {
     this.settings= this.appSettings.settings;
     this.personal = this.fb.group({
       title: ['', Validators.required],
-      firstName: '',
-      lastName: '',
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       middleName: '',
-      gender: '',
-      genderValue: '',
-      dob: '',
-      relationship: '',
-      pincode: '',
-      state: '',
-      fatherName: '',
-      maritalStatus: '',
-      qualifiction: '',
+      gender: ['', Validators.required],
+      dob: ['', Validators.required],
+      fatherName: ['', Validators.required],
+      maritalStatus:['', Validators.required],
+      qualifiction: ['', Validators.required],
       qualifictionOther:'',
-      employeeType: '',
-      natureOfWork: '',
+      employeeType: ['', Validators.required],
+      natureOfWork: ['', Validators.required],
       annualIncome: ['', Validators.required],
       incomeError: '',
-      smoker: '',
-      isExistingPolicyHolder: '',
-      isPoliticleExposed: '',
-      diabeteDuration: '',
-      isHousewife: '',
-      isHusbandCover: '',
+      smoker: ['', Validators.required],
+      isExistingPolicyHolder: ['', Validators.required],
+      isPoliticleExposed: ['', Validators.required],
+      diabeteDuration: ['', Validators.required],
+      isHousewife: ['', Validators.required],
+      isHusbandCover: ['', Validators.required],
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
-      pAddress1: '',
-      pAddress2: '',
-      pPincode: '',
-      pCity: '',
-      pState: '',
-      cAddress1: '',
-      cAddress2: '',
-      cCity: '',
-      cState: '',
-      cPincode: '',
+      pAddress1: ['', Validators.required],
+      pAddress2: ['', Validators.required],
+      pPincode: ['', Validators.required],
+      pCity: ['', Validators.required],
+      pState: ['', Validators.required],
+      cAddress1: ['', Validators.required],
+      cAddress2: ['', Validators.required],
+      cCity: ['', Validators.required],
+      cState: ['', Validators.required],
+      cPincode: ['', Validators.required],
       isAddressSame: false,
       qualifictionName:'',
       natureOfWorkName:'',
@@ -172,20 +171,20 @@ export class AegonTermLifeComponent implements OnInit {
 
     });
     this.nominee = this.fb.group({
-      ntitle: '',
-      nfirstName: '',
-      nlastName: '',
-      ndob: '',
-      nRelation: '',
+      ntitle: ['', Validators.required],
+      nfirstName: ['', Validators.required],
+      nlastName: ['', Validators.required],
+      ndob: ['', Validators.required],
+      nRelation: ['', Validators.required],
       relationOther: '',
-      nAddress1: '',
-      nAddress2: '',
-      nCity: '',
-      nState: '',
-      nPincode: '',
-      nPercentage: '',
+      nAddress1: ['', Validators.required],
+      nAddress2: ['', Validators.required],
+      nCity: ['', Validators.required],
+      nState: ['', Validators.required],
+      nPincode: ['', Validators.required],
+      nPercentage:['', Validators.required],
       atitle: '',
-      aFullName: '',
+      aFullName:'',
       adob: '',
       aRelation: '',
       appointeeRelationOther:'',
@@ -311,11 +310,11 @@ export class AegonTermLifeComponent implements OnInit {
     if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'){
       if((this.personal.controls['adbrSumAssured'].value >=50000) && (this.personal.controls['adbrSumAssured'].value <=30000000)) {
         this.personal.controls['adbrSumAssured'].patchValue(this.personal.controls['adbrSumAssured'].value);
-
+        this.annualError = '';
       }
       else{
-        this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
-
+        // this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
+        this.annualError = 'adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores';
       }
     }
     }
@@ -483,6 +482,7 @@ export class AegonTermLifeComponent implements OnInit {
     }
   }
 
+
   addEvent1(event) {
     if (event.value != null) {
       let selectedDate = '';
@@ -526,6 +526,47 @@ export class AegonTermLifeComponent implements OnInit {
 
     }
   }
+  appointeeAgeValid(event: any) {
+    if (this.nominee.controls['apponiteeList'].value == true ) {
+      this.nominee.controls['atitle'].patchValue(this.nominee.controls['atitle'].value);
+      this.nominee.controls['aFullName'].patchValue(this.nominee.controls['aFullName'].value);
+      this.nominee.controls['adob'].patchValue(this.nominee.controls['adob'].value);
+      this.nominee.controls['aRelation'].patchValue(this.nominee.controls['aRelation'].value);
+      this.nominee.controls['appointeeRelationOther'].patchValue(this.nominee.controls['appointeeRelationOther'].value);
+      this.nominee.controls['aPercentage'].patchValue(this.nominee.controls['aPercentage'].value);
+
+      this.nominee.controls['atitle'].setValidators([Validators.required]);
+      this.nominee.controls['aFullName'].setValidators([Validators.required]);
+      this.nominee.controls['adob'].setValidators([Validators.required]);
+      this.nominee.controls['aRelation'].setValidators([Validators.required]);
+      this.nominee.controls['appointeeRelationOther'].setValidators([Validators.required]);
+      this.nominee.controls['aPercentage'].setValidators([Validators.required]);
+    } else {
+      this.nominee.controls['atitle'].patchValue('');
+      this.nominee.controls['aFullName'].patchValue('');
+      this.nominee.controls['adob'].patchValue('');
+      this.nominee.controls['aRelation'].patchValue('');
+      this.nominee.controls['appointeeRelationOther'].patchValue('');
+      this.nominee.controls['aPercentage'].patchValue('');
+
+      this.nominee.controls['atitle'].setValidators(null);
+      this.nominee.controls['aFullName'].setValidators(null);
+      this.nominee.controls['adob'].setValidators(null);
+      this.nominee.controls['aRelation'].setValidators(null);
+      this.nominee.controls['appointeeRelationOther'].setValidators(null);
+      this.nominee.controls['aPercentage'].setValidators(null);
+
+    }
+    this.nominee.controls['atitle'].updateValueAndValidity();
+    this.nominee.controls['aFullName'].updateValueAndValidity();
+    this.nominee.controls['adob'].updateValueAndValidity();
+    this.nominee.controls['aRelation'].updateValueAndValidity();
+    this.nominee.controls['appointeeRelationOther'].updateValueAndValidity();
+    this.nominee.controls['aPercentage'].updateValueAndValidity();
+
+  }
+
+
 
   // AGE VALIDATION
   ageCalculate(dob) {
@@ -546,28 +587,28 @@ export class AegonTermLifeComponent implements OnInit {
     if (this.personal.controls['isAddressSame'].value) {
       console.log(this.personal.controls['isAddressSame'].value,'ifff');
       this.inputReadonly = true;
-      this.personal.controls['cAddress1'].patchValue(this.personal.controls['pAddress1'].value);
-          this.personal.controls['cAddress2'].patchValue(this.personal.controls['pAddress2'].value);
-          this.personal.controls['cCity'].patchValue(this.personal.controls['pCity'].value);
-          this.personal.controls['cCityName'].patchValue(this.personal.controls['pCityName'].value);
-          this.personal.controls['cState'].patchValue(this.personal.controls['pState'].value);
-          this.personal.controls['cPincode'].patchValue(this.personal.controls['pPincode'].value);
-      this.citycList = JSON.parse(sessionStorage.cityList);
-      sessionStorage.citycList = JSON.stringify(this.citycList);
+      this.personal.controls['pAddress1'].patchValue(this.personal.controls['cAddress1'].value);
+          this.personal.controls['pAddress2'].patchValue(this.personal.controls['cAddress2'].value);
+          this.personal.controls['pCity'].patchValue(this.personal.controls['cCity'].value);
+          this.personal.controls['pCityName'].patchValue(this.personal.controls['cCityName'].value);
+          this.personal.controls['pState'].patchValue(this.personal.controls['cState'].value);
+          this.personal.controls['pPincode'].patchValue(this.personal.controls['cPincode'].value);
+          this.cityList = JSON.parse(sessionStorage.citycList);
+          sessionStorage.cityList = JSON.stringify(this.cityList);
 
 
     } else {
       this.inputReadonly = false;
-      this.personal.controls['cAddress1'].patchValue('');
-          this.personal.controls['cAddress2'].patchValue('');
-          this.personal.controls['cCityName'].patchValue('');
-          this.personal.controls['cCity'].patchValue('');
-          this.personal.controls['cState'].patchValue('');
-          this.personal.controls['cPincode'].patchValue('');
-      if (sessionStorage.citycList != '' && sessionStorage.citycList != undefined) {
-        this.citycList = JSON.parse(sessionStorage.citycList);
+      this.personal.controls['pAddress1'].patchValue('');
+          this.personal.controls['pAddress2'].patchValue('');
+          this.personal.controls['pCityName'].patchValue('');
+          this.personal.controls['pCity'].patchValue('');
+          this.personal.controls['pState'].patchValue('');
+          this.personal.controls['pPincode'].patchValue('');
+      if (sessionStorage.cityList != '' && sessionStorage.cityList != undefined) {
+        this.cityList = JSON.parse(sessionStorage.cityList);
       } else {
-        this.citycList = {};
+        this.cityList = {};
       }
     }
 
@@ -664,9 +705,40 @@ export class AegonTermLifeComponent implements OnInit {
   public getoccupationlistSuccess(successData) {
     if (successData.IsSuccess) {
       this.occupationList = successData.ResponseObject;
+      sessionStorage.occupationList = JSON.stringify(this.occupationList);
+
     }
   }
   public getoccupationlistFailure(error) {
+  }
+  getcitylistC() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      'state_name': this.personal.controls['cState'].value,
+    }
+    this.TermLifeService.getcitylist(data).subscribe(
+        (successData) => {
+          this.getcityclistSuccess(successData);
+        },
+        (error) => {
+          this.getcityclistFailure(error);
+        }
+    );
+    console.log(data,'dataCity')
+  }
+
+  public getcityclistSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.citycList = successData.ResponseObject;
+      sessionStorage.citycList = JSON.stringify(this.citycList);
+      console.log(this.citycList,'this.citycList')
+
+    }
+  }
+  public getcityclistFailure(error) {
   }
 
   getcitylist() {
@@ -698,35 +770,6 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
 
-    getcitylistC() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-            'state_name': this.personal.controls['cState'].value,
-        }
-        this.TermLifeService.getcitylist(data).subscribe(
-            (successData) => {
-                this.getcityclistSuccess(successData);
-            },
-            (error) => {
-                this.getcityclistFailure(error);
-            }
-        );
-        console.log(data,'dataCity')
-    }
-
-    public getcityclistSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.citycList = successData.ResponseObject;
-          sessionStorage.citycList = JSON.stringify(this.citycList);
-          console.log(this.citycList,'this.citycList')
-
-        }
-    }
-    public getcityclistFailure(error) {
-    }
 
     getcitylistn() {
         const data = {
@@ -778,6 +821,8 @@ export class AegonTermLifeComponent implements OnInit {
   public nomineerelationshipSuccess(successData) {
     if (successData.IsSuccess) {
       this.nomineeRelationship = successData.ResponseObject;
+      sessionStorage.nomineeRelationship = JSON.stringify(this.nomineeRelationship);
+
     }
   }
   public nomineerelationshipFailure(error) {
@@ -898,6 +943,8 @@ export class AegonTermLifeComponent implements OnInit {
   public maritalListSuccess(successData){
     if (successData.IsSuccess) {
       this.maritialList = successData.ResponseObject;
+      sessionStorage.maritialList = JSON.stringify(this.maritialList);
+
     }
   }
 
@@ -928,6 +975,7 @@ export class AegonTermLifeComponent implements OnInit {
   public getEmpTypeSuccess(successData){
     if (successData.IsSuccess) {
       this.empTypeList = successData.ResponseObject;
+      sessionStorage.empTypeList = JSON.stringify(this.empTypeList);
     }
   }
 
@@ -977,15 +1025,16 @@ export class AegonTermLifeComponent implements OnInit {
 
   }
 
-  changeGender(){
-  this.personal.controls['genderValue'].patchValue(this.personal.controls['gender'].value == 'M' ? 'MALE' : 'FEMALE');
+  // changeGender(){
+  // this.personal.controls['genderValue'].patchValue(this.personal.controls['gender'].value == 'M' ? 'MALE' : 'FEMALE');
+  // }
+  changecCitylist() {
+    this.personal.controls['cCityName'].patchValue(this.cityList[this.personal.controls['cCity'].value]);
   }
   changeCitylist() {
     this.personal.controls['pCityName'].patchValue(this.cityList[this.personal.controls['pCity'].value]);
   }
-  changecCitylist() {
-    this.personal.controls['cCityName'].patchValue(this.cityList[this.personal.controls['cCity'].value]);
-  }
+
   changeNcitylist() {
     this.nominee.controls['nCityName'].patchValue(this.cityList[this.nominee.controls['nCity'].value]);
   }
@@ -1000,17 +1049,18 @@ export class AegonTermLifeComponent implements OnInit {
     this.getoccupationlist();
 
   }
-  changeState()
-  {
-    this.personal.controls['pStateName'].patchValue(this.stateList[this.personal.controls['pState'].value]);
-    this.getcitylist();
-  }
   changecState()
   {
     this.personal.controls['cStateName'].patchValue(this.stateList[this.personal.controls['cState'].value]);
     this.getcitylistC();
 
   }
+  changeState()
+  {
+    this.personal.controls['pStateName'].patchValue(this.stateList[this.personal.controls['pState'].value]);
+    this.getcitylist();
+  }
+
   changenState()
   {
 
@@ -1029,12 +1079,25 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   sessionData() {
-    if (sessionStorage.cityList != '' && sessionStorage.cityList != undefined) {
-      this.cityList = JSON.parse(sessionStorage.cityList);
-    }
     if (sessionStorage.citycList != '' && sessionStorage.citycList != undefined) {
       this.citycList = JSON.parse(sessionStorage.citycList);
     }
+    if (sessionStorage.cityList != '' && sessionStorage.cityList != undefined) {
+      this.cityList = JSON.parse(sessionStorage.cityList);
+    }
+    if (sessionStorage.empTypeList != '' && sessionStorage.empTypeList != undefined) {
+      this.empTypeList = JSON.parse(sessionStorage.empTypeList);
+    }
+    if (sessionStorage.maritialList != '' && sessionStorage.maritialList != undefined) {
+          this.maritialList = JSON.parse(sessionStorage.maritialList);
+        }
+    if (sessionStorage.nomineeRelationship != '' && sessionStorage.nomineeRelationship != undefined) {
+      this.nomineeRelationship = JSON.parse(sessionStorage.nomineeRelationship);
+    }
+    if (sessionStorage.occupationList != '' && sessionStorage.occupationList != undefined) {
+      this.occupationList = JSON.parse(sessionStorage.occupationList);
+    }
+
     if (sessionStorage.stepper1 != '' && sessionStorage.stepper1 != undefined) {
       let stepper1 = JSON.parse(sessionStorage.stepper1);
 
@@ -1047,8 +1110,6 @@ export class AegonTermLifeComponent implements OnInit {
         dob: this.datepipe.transform(stepper1.dob, 'y-MM-dd'),
         email: stepper1.email,
         mobile: stepper1.mobile,
-        pincode: stepper1.pincode,
-        relationship: stepper1.relationship,
         fatherName: stepper1.fatherName,
         maritalStatus: stepper1.maritalStatus,
         qualifiction: stepper1.qualifiction,
@@ -1073,8 +1134,6 @@ export class AegonTermLifeComponent implements OnInit {
         cCity: stepper1.cCity,
         cState: stepper1.cState,
         cPincode: stepper1.cPincode,
-        state: stepper1.state,
-        city: stepper1.city,
         isAddressSame: stepper1.isAddressSame,
         qualifictionName: stepper1.qualifictionName,
         natureOfWorkName: stepper1.natureOfWorkName,
@@ -1099,7 +1158,7 @@ export class AegonTermLifeComponent implements OnInit {
         ntitle: stepper2.ntitle,
         nfirstName: stepper2.nfirstName,
         nlastName: stepper2.nlastName,
-        ndob: stepper2.ndob,
+        ndob: this.datepipe.transform(stepper2.ndob, 'y-MM-dd'),
         nRelation: stepper2.nRelation,
         relationOther: stepper2.relationOther,
         nAddress1: stepper2.nAddress1,

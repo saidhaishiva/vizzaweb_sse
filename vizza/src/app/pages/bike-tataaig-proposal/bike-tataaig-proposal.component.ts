@@ -79,23 +79,22 @@ export class BikeTataaigProposalComponent implements OnInit {
     public premium: any;
 
     constructor(public fb: FormBuilder, public validation: ValidationService, public bikeinsurance: BikeInsuranceService, public appSettings: AppSettings, public toastr: ToastrService, public authservice: AuthService, public datepipe: DatePipe, public config: ConfigurationService, public route: ActivatedRoute) {
+        let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
                 stepperindex = 4;
-                if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
-                    this.summaryData = JSON.parse(sessionStorage.summaryData);
-                    this.ProposalId = this.summaryData.ProposalId;
+                if (sessionStorage.summaryDatabiketata != '' && sessionStorage.summaryDatabiketata != undefined) {
+                    this.summaryData = JSON.parse(sessionStorage.summaryDatabiketata);
                     this.PaymentRedirect = this.summaryData.PaymentRedirect;
                     this.PaymentReturn = this.summaryData.PaymentReturn;
                     this.proposerFormData = JSON.parse(sessionStorage.tatabikeproposer);
-                    this.vehicalFormData = JSON.parse(sessionStorage.tatavehicle);
-                    this.previousFormData = JSON.parse(sessionStorage.tataprepolicy);
-                    this.nomineeFormData = JSON.parse(sessionStorage.tatanominee);
-                    sessionStorage.tataBikeproposalID = this.ProposalId;
+                    this.vehicalFormData = JSON.parse(sessionStorage.tatabikevehicle);
+                    this.previousFormData = JSON.parse(sessionStorage.tatabikeprepolicy);
+                    this.nomineeFormData = JSON.parse(sessionStorage.tatabikenominee);
+                    this.ProposalId = sessionStorage.tataBikeproposalID;
                 }
             }
         });
-        let stepperindex = 0;
         this.currentStep = stepperindex;
         this.settings = this.appSettings.settings;
         this.webhost = this.config.getimgUrl();
@@ -190,9 +189,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
         this.premium = sessionStorage.packae_list;
-        console.log(this.premium);
         if(this.premium != 'Comprehensive_premium') {
-            this.vehicle.controls['coverdrive'].patchValue('ODD01')
+            this.vehicle.controls['coverdrive'].patchValue('ODD01');
         }
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
         console.log(poldate, 'poldate');
@@ -249,7 +247,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 }
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.proposerAge = this.bikeProposerAge;
+                sessionStorage.bikeproposerAge = this.bikeProposerAge;
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
@@ -260,7 +258,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 console.log(dob, 'ageob');
                 this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.proposerAge = this.bikeProposerAge;
+                sessionStorage.bikeproposerAge = this.bikeProposerAge;
             }
         }
     }
@@ -474,7 +472,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.proposer.controls['driveFirstname'].patchValue(this.proposer.controls['proposerFirstname'].value);
             this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
             this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
-            this.proposer.controls['driveAge'].patchValue(sessionStorage.proposerAge);
+            this.proposer.controls['driveAge'].patchValue(sessionStorage.bikeproposerAge);
             this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
             this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
             this.proposer.controls['driveLastname'].setValidators([Validators.required]);
@@ -539,8 +537,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikeproposer = '';
         sessionStorage.tatabikeproposer = JSON.stringify(value);
         if (this.proposer.valid) {
-            if (sessionStorage.proposerAge >= 18) {
-                this.agecount = sessionStorage.proposerAge;
+            if (sessionStorage.bikeproposerAge >= 18) {
+                this.agecount = sessionStorage.bikeproposerAge;
                 let exp = this.agecount - 18;
                 if (this.proposer.controls['drivingexp'].value <= exp) {
                     console.log(value, 'proposer');
@@ -552,13 +550,13 @@ export class BikeTataaigProposalComponent implements OnInit {
                 this.toastr.error('Proposer Age should be 18 or above');
             }
         } else {
-            this.toastr.error('Please Fill All The Mandtory Fields');
+            this.toastr.error('Please Fill All The Mandatory Fields');
         }
     }
 
     vehicleDetails(stepper: MatStepper, value) {
-        sessionStorage.tatavehicle = '';
-        sessionStorage.tatavehicle = JSON.stringify(value);
+        sessionStorage.tatabikevehicle = '';
+        sessionStorage.tatabikevehicle = JSON.stringify(value);
         if (this.vehicle.valid) {
             console.log(value, 'vehicle');
             this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
@@ -567,8 +565,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     prepolicyDetails(stepper: MatStepper, value) {
-        sessionStorage.tataprepolicy = '';
-        sessionStorage.tataprepolicy = JSON.stringify(value);
+        sessionStorage.tatabikeprepolicy = '';
+        sessionStorage.tatabikeprepolicy = JSON.stringify(value);
         if (this.previouspolicy.valid) {
             console.log(value, 'prepolicy');
             stepper.next();
@@ -576,8 +574,8 @@ export class BikeTataaigProposalComponent implements OnInit {
     }
 
     nomineeDetails(stepper: MatStepper, value) {
-        sessionStorage.tatanominee = '';
-        sessionStorage.tatanominee = JSON.stringify(value);
+        sessionStorage.tatabikenominee = '';
+        sessionStorage.tatabikenominee = JSON.stringify(value);
         if (this.nominee.valid) {
             this.QuoteList(stepper);
         }
@@ -618,8 +616,8 @@ export class BikeTataaigProposalComponent implements OnInit {
                 drivemaritalStatus: this.getstepper1.drivemaritalStatus,
             })
         }
-        if (sessionStorage.tatavehicle != '' && sessionStorage.tatavehicle != undefined) {
-            this.getstepper2 = JSON.parse(sessionStorage.tatavehicle);
+        if (sessionStorage.tatabikevehicle != '' && sessionStorage.tatabikevehicle != undefined) {
+            this.getstepper2 = JSON.parse(sessionStorage.tatabikevehicle);
             this.vehicle = this.fb.group({
                 engine: this.getstepper2.engine,
                 chassis: this.getstepper2.chassis,
@@ -637,11 +635,10 @@ export class BikeTataaigProposalComponent implements OnInit {
                 Consumableexpense: this.getstepper2.Consumableexpense,
                 Returninvoice: this.getstepper2.Returninvoice,
                 Roadsideassistance: this.getstepper2.Roadsideassistance,
-
             })
         }
-        if (sessionStorage.tataprepolicy != '' && sessionStorage.tataprepolicy != undefined) {
-            this.getstepper3 = JSON.parse(sessionStorage.tataprepolicy);
+        if (sessionStorage.tatabikeprepolicy != '' && sessionStorage.tatabikeprepolicy != undefined) {
+            this.getstepper3 = JSON.parse(sessionStorage.tatabikeprepolicy);
             this.previouspolicy = this.fb.group({
                 preflag: this.getstepper3.preflag,
                 preName: this.getstepper3.preName,
@@ -656,8 +653,8 @@ export class BikeTataaigProposalComponent implements OnInit {
                 preCity: this.getstepper3.preCity,
             })
         }
-        if (sessionStorage.tatanominee != '' && sessionStorage.tatanominee != undefined) {
-            this.getstepper4 = JSON.parse(sessionStorage.tatanominee);
+        if (sessionStorage.tatabikenominee != '' && sessionStorage.tatabikenominee != undefined) {
+            this.getstepper4 = JSON.parse(sessionStorage.tatabikenominee);
             this.nominee = this.fb.group({
                 nomieeName: this.getstepper4.nomieeName,
                 nomineeAge: this.getstepper4.nomineeAge,
@@ -777,7 +774,6 @@ export class BikeTataaigProposalComponent implements OnInit {
             }
         };
         console.log(data, 'dataproposal');
-        sessionStorage.bikeproposaldata = JSON.stringify(data);
         this.settings.loadingSpinner = true;
         this.bikeinsurance.proposal(data).subscribe(
             (successData) => {
@@ -795,11 +791,10 @@ export class BikeTataaigProposalComponent implements OnInit {
             stepper.next();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
+            sessionStorage.summaryDatabiketata = JSON.stringify(this.summaryData );
             console.log(this.summaryData, 'summary');
             this.Proposalnumber = this.summaryData.Proposal_Number;
-            console.log(this.Proposalnumber, 'pronum');
             this.PaymentRedirect = this.summaryData.PaymentRedirect;
-            console.log(this.PaymentRedirect, 'redirect');
             this.PaymentReturn = this.summaryData.PaymentReturn;
             sessionStorage.tataBikeproposalID = this.summaryData.ProposalId;
             this.proposerFormData = this.proposer.value;

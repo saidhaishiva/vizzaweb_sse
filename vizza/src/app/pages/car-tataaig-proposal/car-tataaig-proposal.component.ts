@@ -10,6 +10,7 @@ import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
+import { ActivatedRoute } from '@angular/router';
 
 
 export const MY_FORMATS = {
@@ -80,9 +81,25 @@ export class CarTataaigProposalComponent implements OnInit {
   public visible: any;
 
 
-  constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService ) {
+  constructor(public fb: FormBuilder,public validation: ValidationService,public datepipe: DatePipe,public carinsurance: FourWheelerService,public toastr: ToastrService,public authservice: AuthService,public appSettings: AppSettings,public config: ConfigurationService,public route: ActivatedRoute ) {
 
     let stepperindex = 0;
+    this.route.params.forEach((params) => {
+      if (params.stepper == true || params.stepper == 'true') {
+        stepperindex = 4;
+        if (sessionStorage.summaryDatacartata != '' && sessionStorage.summaryDatacartata != undefined) {
+          this.summaryData = JSON.parse(sessionStorage.summaryDatacartata);
+          this.ProposalId = this.summaryData.ProposalId;
+          this.PaymentRedirect = this.summaryData.PaymentRedirect;
+          this.PaymentReturn = this.summaryData.PaymentReturn;
+          this.proposerFormData = JSON.parse(sessionStorage.tatacarproposer);
+          this.vehicalFormData = JSON.parse(sessionStorage.tatacarvehicle);
+          this.previousFormData = JSON.parse(sessionStorage.tatacarprepolicy);
+          this.nomineeFormData = JSON.parse(sessionStorage.tatacarnominee);
+          this.ProposalId = sessionStorage.tatacarproposalID;
+        }
+      }
+    });
     this.currentStep = stepperindex;
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
@@ -754,7 +771,7 @@ export class CarTataaigProposalComponent implements OnInit {
         Tyresecure: this.getstepper2.Tyresecure,
         protectioncover: this.getstepper2.protectioncover,
         Roadside: this.getstepper2.Roadside,
-      })
+      });
       this.visible = true;
     }
     if (sessionStorage.tatacarprepolicy != '' && sessionStorage.tatacarprepolicy != undefined) {
@@ -852,7 +869,6 @@ export class CarTataaigProposalComponent implements OnInit {
       }
     };
     console.log(data,'dataproposal');
-    sessionStorage.bikeproposaldata = JSON.stringify(data);
     this.settings.loadingSpinner = true;
     this.carinsurance.proposal(data).subscribe(
         (successData) => {
@@ -870,11 +886,10 @@ export class CarTataaigProposalComponent implements OnInit {
       stepper.next();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
-      console.log(this.summaryData, 'summary');
+      sessionStorage.summaryDatacartata = JSON.stringify(this.summaryData);
       this.Proposalnumber = this.summaryData.Proposal_Number;
       console.log(this.Proposalnumber, 'pronum');
       this.PaymentRedirect = this.summaryData.PaymentRedirect;
-      console.log(this.PaymentRedirect, 'redirect');
       this.PaymentReturn = this.summaryData.PaymentReturn;
       sessionStorage.tatacarproposalID = this.ProposalId;
       this.proposerFormData = this.proposer.value;

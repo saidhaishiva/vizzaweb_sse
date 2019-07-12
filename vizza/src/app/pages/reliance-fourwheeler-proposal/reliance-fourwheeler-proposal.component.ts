@@ -1220,7 +1220,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.fuelTypeListSucccess(successData);
         },
         (error) => {
-          this.occupationFailure(error);
+          this.fuelTypeListFailure(error);
         }
     );
   }
@@ -1266,7 +1266,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.getPaidDriverSiSucccess(successData);
         },
         (error) => {
-          this.fourWheelervoluntaryAmountListFailure(error);
+          this.getPaidDriverSiFailure(error);
         }
     );
   }
@@ -1392,7 +1392,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   createProposal(stepper,value) {
 
     // stepper.next();
-    // this.topScroll();
+    this.topScroll();
     if (this.buyProduct.business_type !=1) {
       sessionStorage.stepper4Details = '';
       sessionStorage.stepper4Details = JSON.stringify(value);
@@ -1489,6 +1489,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         'Cover': {
           // 'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ,
           'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
+          'NoOfUnnamedPassenegersCovered': this.coverDetails.controls['NoOfUnnamedPassenegersCovered'].value ,
           'IsAutomobileAssociationMember': this.coverDetails.controls['AutomobileAssociationMember'].value ? 'true' : 'false',
           'IsPAToOwnerDriverCoverd': this.coverDetails.controls['PAToOwnerDriverCoverd'].value ? 'true' : 'false',
           'IsLiabilityToPaidDriverCovered': this.coverDetails.controls['LiabilityToPaidDriverCovered'].value ? 'true' : 'false',

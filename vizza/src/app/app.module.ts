@@ -314,6 +314,9 @@ import { ErectionRiskPolicyComponent } from './pages/erection-risk-policy/erecti
 import { UlipComponent } from './pages/ulip/ulip.component';
 import { GroupTravelComponent } from './pages/group-travel/group-travel.component';
 import { HdfcTwoWheelerProposalComponent } from './pages/hdfc-two-wheeler-proposal/hdfc-two-wheeler-proposal.component';
+import { ViewKeyfeaturesComponent } from './pages/bike-premium-list/view-keyfeatures/view-keyfeatures.component';
+import {ClearSessionMotorService} from './shared/services/clear-session-motor.service';
+import { ClearSessionFourwheelerService } from './shared/services/clear-session-fourwheeler.service';
 
 @NgModule({
     imports: [
@@ -586,7 +589,8 @@ import { HdfcTwoWheelerProposalComponent } from './pages/hdfc-two-wheeler-propos
         ErectionRiskPolicyComponent,
         UlipComponent,
         GroupTravelComponent,
-        HdfcTwoWheelerProposalComponent
+        HdfcTwoWheelerProposalComponent,
+        ViewKeyfeaturesComponent
     ],
     providers: [
         AppSettings,
@@ -627,6 +631,8 @@ import { HdfcTwoWheelerProposalComponent } from './pages/hdfc-two-wheeler-propos
         BikeInsuranceService,
         ClearSessionTravelService,
         FourWheelerService,
+        ClearSessionMotorService,
+        ClearSessionFourwheelerService,
 
         { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         { provide: OverlayContainer, useClass: CustomOverlayContainer }
@@ -636,7 +642,7 @@ import { HdfcTwoWheelerProposalComponent } from './pages/hdfc-two-wheeler-propos
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent
     ]
 })
 export class AppModule { }
