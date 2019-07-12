@@ -667,8 +667,15 @@ export class CarTataaigProposalComponent implements OnInit {
     sessionStorage.tatacarprepolicy = '';
     sessionStorage.tatacarprepolicy = JSON.stringify(value);
     if (this.previouspolicy.valid) {
-      console.log(value, 'prepolicy');
-      stepper.next();
+      if (this.enquiryFormData.business_type != '1') {
+        if(this.previouspolicy.controls['prepolno'].value != '') {
+          console.log(value, 'prepolicy');
+          stepper.next();
+        } else {
+          this.toastr.error('Policy No should not be empty');
+        }
+
+      }
     }
   }
 
