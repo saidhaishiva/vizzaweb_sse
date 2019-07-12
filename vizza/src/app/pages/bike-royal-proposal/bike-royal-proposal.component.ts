@@ -172,6 +172,8 @@ public electricaAccessories: boolean;
       financierName: '',
       isTwoWheelerFinanced: '',
       hypothecationType: '',
+      totalAmount: '',
+
       typeOfCover: '',
         vechileOwnerShipChanged: 'No',
 
@@ -537,17 +539,17 @@ public electricaAccessories: boolean;
     this.valueAmount = [];
     this.valueDetails =  this.vehical.value.electricalAccess;
     console.log(this.valueDetails,'valueList')
-    this.valueDetails.forEach(data => this.valueAmount.push(data.elecValue));
-    sessionStorage.valueList = this.valueDetails;
+    this.valueDetails.forEach(data => this.valueAmount.push(data.Value));
+    sessionStorage.valueDetails = this.valueDetails;
     let totalAmount = this.valueAmount.reduce((a, b) => parseInt(a) + parseInt(b));
 
     if(this.vehical.valid) {
-      // if ((totalAmount <= 50000)) {
+      if ((totalAmount <= 50000)) {
         stepper.next();
-      // } else{
-      //   this.toastr.error('Electrical Accessories Values should be less than  equal to 50,000');
-      //
-      // }
+      } else{
+        this.toastr.error('Electrical Accessories Values should be less than  equal to 50,000');
+
+      }
     }
   }
 
@@ -710,20 +712,20 @@ public electricaAccessories: boolean;
       }
     } else {
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue(null);
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue(null);
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue(null);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.setValidators(null);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.setValidators(null);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.setValidators(null);
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.patchValue('');
 
       }
     }
-    // for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-    //   this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.updateValueAndValidity();
-    //   this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.updateValueAndValidity();
-    //   this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.updateValueAndValidity();
-    // }
+    for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].NameOfElectronicAccessories.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].MakeModel.updateValueAndValidity();
+      this.vehical['controls'].electricalAccess['controls'][i]['controls'].Value.updateValueAndValidity();
+    }
   }
 
   // getelectricalAccessDetail() {
@@ -1015,6 +1017,8 @@ proposal(stepper){
           "policyStartDate": '2019-06-03',
           "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
+      "valueofelectricalaccessories": this.vehical.controls['totalAmount'].value,
+
       "electricalAccessories": {
         "electronicAccessoriesDetails": this.vehical.value.electricalAccess ,
       },
@@ -1131,6 +1135,8 @@ proposal(stepper){
           "accidentCoverForPaidDriver": '',
           "policyStartDate": '2019-04-01',
           "typeOfCover": this.vehical.controls['typeOfCover'].value? this.vehical.controls['typeOfCover'].value : '',
+          "valueofelectricalaccessories": this.vehical.controls['totalAmount'].value,
+
           "cover_elec_acc": this.vehical.controls['coverelectricalaccesss'].value ? 'Yes' : 'No',
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
@@ -1265,6 +1271,7 @@ proposal(stepper){
       this.vehical.controls['financierName'].patchValue(stepper2.financierName);
       this.vehical.controls['isTwoWheelerFinancedValue'].patchValue(stepper2.isTwoWheelerFinancedValue);
       this.vehical.controls['typeOfCover'].patchValue(stepper2.typeOfCover);
+      this.vehical.controls['totalAmount'].patchValue(stepper2.totalAmount);
       this.vehical.controls['vechileOwnerShipChanged'].patchValue(stepper2.vechileOwnerShipChanged);
       this.vehical.controls['electricalAccess'].patchValue(stepper2.electricalAccess);
       // this.vehical.controls['nonelectricalAccess'].patchValue(stepper2.nonelectricalAccess);

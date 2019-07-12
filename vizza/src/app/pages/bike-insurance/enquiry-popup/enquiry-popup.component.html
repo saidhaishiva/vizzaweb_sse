@@ -106,7 +106,7 @@
       <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
       <!--<mat-form-field>-->
         <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" ></ngx-select-dropdown>
-        <!--<mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>-->
+        <mat-error *ngIf="vehicalDetails.controls.city.errors?.required">city is required</mat-error>
 
       <!--</mat-form-field>-->
       <!--<mat-form-field class="example-full-width">-->

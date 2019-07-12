@@ -178,6 +178,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
       paforUnnamed: '',
       paforUnnamedSI: '',
       hypothecationType: '',
+      hypothecationTypeName: '',
       hypothecationAddress1: '',
       hypothecationAddress2: '',
       hypothecationAddress3: '',
@@ -538,6 +539,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   }
 // hypo type
   changehypothecationType() {
+
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -562,7 +564,10 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   }
   public hypothecationTypeFailure(error) {
   }
+hypoName(){
+  this.vehical.controls['hypothecationTypeName'].patchValue(this.hypothecationTypeDetails[this.vehical.controls['hypothecationType'].value]);
 
+}
   // hypo pincode
   getHypoPostalCode(pin) {
     const data = {
@@ -977,11 +982,11 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         "AddonPackage": this.buyBikeDetails.plan_code,
         "NilDepreciationCoverYN": this.vehical.controls['nilDepreciationCover'].value == true ? '1' : '0',
         "PAforUnnamedPassengerYN": this.vehical.controls['paforUnnamed'].value == true ? '1' : '0',
-        "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamed'].value == true ? this.siValue : '',
+        "PAforUnnamedPassengerSI": this.vehical.controls['paforUnnamed'].value == true ? this.siValue.toString() : '',
         "ElectricalaccessYN": this.vehical.controls['electricalAccess'].value == true ? '1' : '0',
-        "ElectricalaccessSI": this.vehical.controls['electricalAccess'].value == true ? this.siValue : '',
+        "ElectricalaccessSI": this.vehical.controls['electricalAccess'].value == true ? this.siValue.toString() : '',
         "NonElectricalaccessYN": this.vehical.controls['nonElectricalAccess'].value == true ? '1' : '0',
-        "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccess'].value == true ? this.siValue : '',
+        "NonElectricalaccessSI":  this.vehical.controls['nonElectricalAccess'].value == true ? this.siValue.toString() : '',
         "PAPaidDriverConductorCleanerYN": "0",
         "PAPaidDriverConductorCleanerSI": "",
         "PAPaidDriverCount": "",
@@ -1118,6 +1123,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
         nonElectricalAccess:stepper2.nonElectricalAccess,
         nonElectricalAccessSI: stepper2.nonElectricalAccessSI,
         hypothecationType: stepper2.hypothecationType,
+        hypothecationTypeName: stepper2.hypothecationTypeName,
         paforUnnamed: stepper2.paforUnnamed,
         paforUnnamedSI: stepper2.paforUnnamedSI,
         hypothecationAddress1:stepper2.hypothecationAddress1,
