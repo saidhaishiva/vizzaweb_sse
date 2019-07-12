@@ -84,6 +84,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   public PaymentRedirect : any;
 
   public buyBikeDetails: any;
+  public buyProduct: any;
   public enquiryFormData: any;
   public bikeEnquiryId: any;
 
@@ -282,6 +283,8 @@ export class RelianceMotorProposalComponent implements OnInit {
   ngOnInit() {
 
     this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
+    this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
+
     console.log(this.buyBikeDetails,'buybikedetails');
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
@@ -691,11 +694,16 @@ export class RelianceMotorProposalComponent implements OnInit {
       sessionStorage.stepper3Details = '';
       sessionStorage.stepper3Details = JSON.stringify(value);
       if (this.coverDetails.valid) {
-        stepper.next();
-        this.topScroll();
+        console.log(typeof (this.buyProduct.business_type),'type');
+        if (this.buyProduct.business_type == 1){
 
+          this.createProposal(stepper, value);
+        }else{
+          stepper.next();
+          this.topScroll();
+        }
       }else{
-        this.toastr.error('Please fill the Mandatory Fields')
+        this.toastr.error('Please Select the Mandatory Fields')
 
       }
     }
@@ -1174,8 +1182,11 @@ export class RelianceMotorProposalComponent implements OnInit {
   createProposal(stepper,value){
     // stepper.next();
     this.topScroll();
-    sessionStorage.stepper4Details = '';
-    sessionStorage.stepper4Details = JSON.stringify(value);
+
+    if (this.buyProduct.business_type !=1) {
+      sessionStorage.stepper4Details = '';
+      sessionStorage.stepper4Details = JSON.stringify(value);
+    }
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -1427,17 +1438,33 @@ export class RelianceMotorProposalComponent implements OnInit {
         }
       }
     };
-    this.setting.loadingSpinner = true;
-
-    this.bikeInsurance.getProposal(data).subscribe(
-        (successData) => {
-          this.getProposalSucccess(successData,stepper);
-        },
-        (error) => {
-          this.getProposalFailure(error);
-        }
-    );
-    console.log(data,'data');
+    if(this.buyProduct.business_type == 1){
+      if (this.coverDetails.valid) {
+        this.setting.loadingSpinner = true;
+        this.bikeInsurance.getProposal(data).subscribe(
+            (successData) => {
+              this.getProposalSucccess(successData, stepper);
+            },
+            (error) => {
+              this.getProposalFailure(error);
+            }
+        );
+        console.log(data, 'data');
+      }
+    }else{
+      if (this.previousInsurance.valid) {
+        this.setting.loadingSpinner = true;
+        this.bikeInsurance.getProposal(data).subscribe(
+            (successData) => {
+              this.getProposalSucccess(successData, stepper);
+            },
+            (error) => {
+              this.getProposalFailure(error);
+            }
+        );
+        console.log(data, 'data');
+      }
+    }
   }
 
   getProposalSucccess(successData,stepper) {

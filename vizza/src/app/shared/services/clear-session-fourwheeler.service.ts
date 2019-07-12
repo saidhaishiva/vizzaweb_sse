@@ -23,7 +23,17 @@ export class ClearSessionFourwheelerService {
     sessionStorage.stepper3 = '';
     sessionStorage.stepper4 = '';
 
-
+//reliance four wheeler
+    sessionStorage.summaryData = '';
+    sessionStorage.relianceFourwheelerproposalID = '';
+    sessionStorage.proposerAge = '';
+    sessionStorage.nomineeAge = '';
+    sessionStorage.npnomineeAge = '';
+    sessionStorage.stepper1Details = '';
+    sessionStorage.stepper2Details = '';
+    sessionStorage.stepper3Details = '';
+    sessionStorage.stepper4Details = '';
+    sessionStorage.proposerFormData = '';
   }
 
 }

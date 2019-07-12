@@ -1392,7 +1392,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   createProposal(stepper,value) {
 
     // stepper.next();
-    // this.topScroll();
+    this.topScroll();
     if (this.buyProduct.business_type !=1) {
       sessionStorage.stepper4Details = '';
       sessionStorage.stepper4Details = JSON.stringify(value);

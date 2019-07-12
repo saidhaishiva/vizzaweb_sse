@@ -901,6 +901,14 @@ export class ReliagretravelproposalComponent implements OnInit {
                // this.toastr.error('Insurer Date of birth date should be atleast 5 months old');
             } else if (ageValidate.includes(2)) {
                 stepper.next();
+                for (let i = 0; i < this.religareTravelQuestionsList.length; i++) {
+                    if(this.religareTravelQuestionsList[i].field_type == 'datefield') {
+                        console.log(this.religarePersonal.controls.sponserdob.value, 'value');
+                        this.religareTravelQuestionsList[i].fieldValue = this.religarePersonal.controls.sponserdob.value;
+                    }
+
+
+                }
                 this.topScroll();
                 this.nextStep();
                 this.religareTravelMobileTrue2 = false;
@@ -973,6 +981,15 @@ export class ReliagretravelproposalComponent implements OnInit {
                 this.religareTravelQuestionsList[i].checked = false;
                 this.religareTravelQuestionsList[i].status = 'No';
                 this.religareTravelQuestionsList[i].fieldValue = '';
+                // if(this.religareTravelQuestionsList[i].field_type == 'datefield') {
+                //
+                //     alert('d');
+                //     console.log(this.religarePersonal.controls.sponserdob.value, 'value');
+                //     this.religareTravelQuestionsList[i].fieldValue = this.religarePersonal.controls.sponserdob.value;
+                //
+                // }
+
+
             }
             for (let i = 0; i < this.religareTravelQuestionsList[0].sub_questions_list.length; i++) {
                 this.religareTravelQuestionsList[0].sub_questions_list[i].fieldValue = '';
