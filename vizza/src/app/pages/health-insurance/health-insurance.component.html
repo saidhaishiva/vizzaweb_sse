@@ -82,10 +82,10 @@
                   <p class="ml-2 mt-3" >{{lists.name | uppercase}}</p>
                 </ng-template>
                 <ng-template matTabLabel *ngIf="lists.status == 1" style="background-color: green !important; pointer-events: none !important;">
-                  <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                       width="48" height="48"
-                       viewBox="0 0 192 192"
-                       style=" fill:#000000;"><g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal"><path d="M0,192v-192h192v192z" fill="none"></path><g id="Layer_1"><path d="M149.6,164h-107.2c-4,0 -7.2,-2.8 -8,-6.4l-14.4,-73.6h152l-14.8,73.6c-0.8,3.6 -4,6.4 -7.6,6.4z" fill="#388e3c"></path><path d="M101.6,22.4c-3.2,-3.2 -8,-3.2 -11.2,0l-48,48c-3.2,3.2 -3.2,8 0,11.2c1.6,1.6 3.6,2.4 5.6,2.4c2,0 4,-0.8 5.6,-2.4l48,-48c3.2,-3.2 3.2,-8 0,-11.2z" fill="#2e7d32"></path><path d="M149.6,70.4l-48,-48c-3.2,-3.2 -8,-3.2 -11.2,0c-3.2,3.2 -3.2,8 0,11.2l48,48c1.6,1.6 3.6,2.4 5.6,2.4c2,0 4,-0.8 5.6,-2.4c3.2,-3.2 3.2,-8 0,-11.2z" fill="#1b5e20"></path><path d="M172,92h-152c-4.4,0 -8,-3.6 -8,-8v-8c0,-4.4 3.6,-8 8,-8h152c4.4,0 8,3.6 8,8v8c0,4.4 -3.6,8 -8,8z" fill="#4caf50"></path><path d="M100,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M116,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M68,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M84,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path><path d="M137.656,106.352c-1.532,-1.532 -3.576,-2.344 -5.66,-2.344c-1.032,0 -2.068,0.2 -3.06,0.608c-2.988,1.24 -4.936,4.156 -4.936,7.392v51.992h25.6c3.6,0 6.8,-2.8 7.6,-6.4l5.308,-26.396z" fill="#2e7d32"></path><rect x="17.77239" y="44.9465" transform="rotate(-23.12937) scale(3.99991,3.99991)" width="3.018" height="14.841" fill="#bdbdbd"></rect><path d="M132,112.008v68l20,-20h28z" fill="#bdbdbd"></path><path d="M132,100h-8c0,0 0,43.2 0,44c0,2.4 1.6,4 4,4c2.4,0 4,-1.6 4,-4c0,-0.8 0,-44 0,-44z" fill="#1b5e20"></path></g></g></svg>                    <p class="ml-2 mt-3" >{{lists.name | uppercase}} (Purchased)</p>
+                  <i class="material-icons" style="color: #28a745">
+                    shopping_basket
+                  </i>
+                  <p class="ml-2 mt-3" >{{lists.name | uppercase}} (Purchased)</p>
                 </ng-template>
               </mat-tab>
             </mat-tab-group>
