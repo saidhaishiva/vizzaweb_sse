@@ -37,13 +37,5 @@ export class ClearSessionMotorService {
     sessionStorage.tatabikeprepolicy = '';
     sessionStorage.tatabikenominee = '';
     sessionStorage.tataBikeproposalID = '';
-
-      //  tataAig four wheeler
-    sessionStorage.summaryDatacartata = '';
-    sessionStorage.carproposerAge = '';
-    sessionStorage.tatacarproposer = '';
-    sessionStorage.tatacarvehicle = '';
-    sessionStorage.tatacarprepolicy = '';
-    sessionStorage.tatacarnominee = '';
   }
 }
