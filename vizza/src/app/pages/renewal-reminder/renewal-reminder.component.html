@@ -14,8 +14,8 @@
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Proposer name" formControlName="insurename" (keypress)="data($event)" maxlength="30">
-                          <mat-error *ngIf="form.controls.insurename.errors?.required">Insure Name is required</mat-error>
-                          <mat-error *ngIf="form.controls.insurename.hasError('minlength')">Insure Name isn't long enough, minimum of 3 characters</mat-error>
+                          <mat-error *ngIf="form.controls.insurename.errors?.required">Proposer Name is required</mat-error>
+                          <mat-error *ngIf="form.controls.insurename.hasError('minlength')">Proposer Name isn't long enough, minimum of 3 characters</mat-error>
                           <mat-icon matSuffix>person</mat-icon>
                         </mat-form-field>
                       </div>
@@ -44,7 +44,7 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Policy No" formControlName="insurepolicyno" maxlength="15">
+                          <input matInput placeholder="Policy No" formControlName="insurepolicyno" maxlength="30">
                           <mat-error *ngIf="form.controls.insurepolicyno.errors?.required">Insurance Policy No is required</mat-error>
                         </mat-form-field>
                       </div>
@@ -72,7 +72,7 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker" placeholder="Start date(DD/MM/YYYY)" [min]="today" maxlength="10" formControlName="startdate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')" (keypress)="keyPress($event)" >
+                          <input matInput [matDatepicker]="picker" placeholder="Start date (DD/MM/YYYY)" [min]="today" maxlength="10" formControlName="startdate" (dateInput)="chooseDate($event, 'sDate')"  (dateChange)="chooseDate($event, 'sDate')" (keypress)="dobValidate($event)" >
                           <mat-error *ngIf="form.controls.startdate.errors?.required">Start Date is required</mat-error>
                           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                           <mat-datepicker #picker></mat-datepicker>
@@ -82,7 +82,7 @@
                       </div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" placeholder="End date(DD/MM/YYYY)" [min]="maxDate"  formControlName="enddate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')" maxlength="10" (keypress)="keyPress($event)">
+                          <input matInput [matDatepicker]="picker1" placeholder="End date (DD/MM/YYYY)" [min]="maxDate"  formControlName="enddate" (dateInput)="chooseDate($event, 'eDate')"  (dateChange)="chooseDate($event, 'eDate')" maxlength="10" (keypress)="dobValidate($event)">
                           <mat-error *ngIf="form.controls.enddate.errors?.required">End Date is required</mat-error>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
