@@ -258,7 +258,7 @@
                                         <div class="row" *ngIf="finance">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (change)="changehypothecation()" [required]="finance" >
+                                                    <mat-select placeholder="Hypothecation Type"  formControlName="hypothecationType" (change)="changehypothecation(); hypoName()" [required]="finance" >
                                                         <mat-option *ngFor="let hypothecationTypebk of hypothecationTypeDetails | keys " value="{{hypothecationTypebk.key}}" > {{hypothecationTypebk.value}} </mat-option>
                                                     </mat-select>
                                                 </mat-form-field>
@@ -578,7 +578,7 @@
                                             <li class="list-group-item"  *ngIf="vehicalFormData.nonElectricalAccess != ''"><strong>Non Electrical Access :</strong><span *ngIf="vehicalFormData.nonElectricalAccess == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.paforUnnamed != ''" ><strong>Pa For Unnamed:</strong> <span *ngIf="vehicalFormData.paforUnnamed == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.isFinanced != ''" ><strong>Is Vehicle Financed:</strong> <span *ngIf="vehicalFormData.isFinanced == true">Yes</span></li>
-                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationType}}</li>
+                                            <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationType != ''"><strong>Hypothecation Type:</strong> {{vehicalFormData.hypothecationTypeName}}</li>
                                             <li class="list-group-item"  *ngIf="vehicalFormData.hypothecationBankName != ''"><strong>Hypothecation Bank Name:</strong> {{vehicalFormData.hypothecationBankName}}</li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.CNGKit != ''" ><strong>CNGKit:</strong> <span *ngIf="vehicalFormData.CNGKit == true">Yes</span></li>
                                             <li class="list-group-item" *ngIf="vehicalFormData.geographicalArea != ''" ><strong>Geographical Area:</strong> <span *ngIf="vehicalFormData.geographicalArea == true">Yes</span></li>
