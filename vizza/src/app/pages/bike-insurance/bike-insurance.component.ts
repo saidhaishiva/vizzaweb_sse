@@ -89,7 +89,6 @@ export class BikeInsuranceComponent implements OnInit {
             'registrationDate': ['', Validators.required],
             'previousClaim': 'Yes',
             'enquiry': '',
-            'bussiness': '',
             'ncb': '',
             'previousPolicyExpiry': '',
             'previousPolicyStart': '',
@@ -117,7 +116,7 @@ export class BikeInsuranceComponent implements OnInit {
         sessionStorage.premiumAmount = '';
         sessionStorage.premiumAmount1 = '';
         this.claimpercent();
-        this.bussinessType();
+        // this.bussinessType();
         this.getpreviousCompany();
         this.getCityLists();
         this.sessionData();
@@ -268,7 +267,7 @@ export class BikeInsuranceComponent implements OnInit {
         console.log(this.bikeInsurance,'bikegroup');
 
         console.log(this.bikeInsurance.valid,'valuevalid');
-        // if(this.bikeInsurance.valid) {
+        if(this.bikeInsurance.valid) {
             this.bikeService.getMotorHomeDetails(data).subscribe(
                 (successData) => {
                     this.bikeDetailsSuccess(successData, data);
@@ -280,7 +279,7 @@ export class BikeInsuranceComponent implements OnInit {
         // }else{
         //     this.toastr.error('Please select the Mandatory field');
         //
-        // }
+        }
     }
 
     public bikeDetailsSuccess(successData, data) {
@@ -291,7 +290,7 @@ export class BikeInsuranceComponent implements OnInit {
             sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
             sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
             sessionStorage.enquiryFormData = JSON.stringify(data);
-            // if (this.bikeInsurance.valid) {
+            if (this.bikeInsurance.valid) {
 
             let dialogRef = this.dialog.open(EnquiryPopupComponent, {
                 width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
@@ -301,7 +300,7 @@ export class BikeInsuranceComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
             });
 
-        // }
+        }
 
         } else {
             this.toastr.error(successData.ErrorObject);
@@ -364,33 +363,33 @@ export class BikeInsuranceComponent implements OnInit {
 
     public companyFailure(error) {
     }
-
-    bussinessType() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-            'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-            'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
-
-        }
-        this.bikeService.getBuissnessList(data).subscribe(
-            (successData) => {
-                this.typeSuccess(successData);
-            },
-            (error) => {
-                this.typeFailure(error);
-            }
-        );
-    }
-
-    public typeSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.bussinessList = successData.ResponseObject;
-        }
-    }
-
-    public typeFailure(error) {
-    }
+    //
+    // bussinessType() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+    //         'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+    //         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'
+    //
+    //     }
+    //     this.bikeService.getBuissnessList(data).subscribe(
+    //         (successData) => {
+    //             this.typeSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.typeFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // public typeSuccess(successData) {
+    //     if (successData.IsSuccess) {
+    //         this.bussinessList = successData.ResponseObject;
+    //     }
+    // }
+    //
+    // public typeFailure(error) {
+    // }
 
     idValidate(event: any) {
         this.validation.idValidate(event);
@@ -405,7 +404,7 @@ export class BikeInsuranceComponent implements OnInit {
                 'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),
                 'previousClaim': stepper.previousClaim,
                 'enquiry': stepper.enquiry,
-                'bussiness': stepper.bussiness,
+                // 'bussiness': stepper.bussiness,
                 'ncb': stepper.ncb,
                 'previousPolicyExpiry': this.datePipe.transform(stepper.previousPolicyExpiry, 'y-MM-dd'),
                 'previousPolicyStart': this.datePipe.transform(stepper.previousPolicyStart, 'y-MM-dd'),
@@ -431,13 +430,35 @@ export class BikeInsuranceComponent implements OnInit {
         if (event == 0) {
             this.typeList = 'new';
             console.log(this.typeList,'0');
+            this.bikeInsurance.controls['registrationDate'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['city'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['previousPolicyExpiry'].setValidators(null);
+            this.bikeInsurance.controls['previousPolicyStart'].setValidators(null);
+            this.bikeInsurance.controls['previousCompany'].setValidators(null);
+            this.bikeInsurance.controls['vehicalNumber'].setValidators(null);
+            this.bikeInsurance.controls['previousCompany'].patchValue('');
+            this.bikeInsurance.controls['previousPolicyStart'].patchValue('');
+            this.bikeInsurance.controls['previousPolicyExpiry'].patchValue('');
+            this.bikeInsurance.controls['ncb'].patchValue('');
+            this.bikeInsurance.controls['vehicalNumber'].patchValue('');
+
         } else {
             this.typeList = 'other';
             console.log(this.typeList,'1');
-
+            this.bikeInsurance.controls['registrationDate'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['city'].setValidators(null);
+            this.bikeInsurance.controls['previousPolicyExpiry'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['previousPolicyStart'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['vehicalNumber'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['previousCompany'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['city'].patchValue('');
         }
-
-
+        this.bikeInsurance.controls['registrationDate'].updateValueAndValidity();
+        this.bikeInsurance.controls['city'].updateValueAndValidity();
+        this.bikeInsurance.controls['previousPolicyExpiry'].updateValueAndValidity();
+        this.bikeInsurance.controls['previousPolicyStart'].updateValueAndValidity();
+        this.bikeInsurance.controls['previousCompany'].updateValueAndValidity();
+        this.bikeInsurance.controls['vehicalNumber'].updateValueAndValidity();
     }
     bikeinsurer(){
         const dialogRef = this.dialog.open(BikeInsurer, {

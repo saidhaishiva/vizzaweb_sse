@@ -89,7 +89,6 @@ export class FourWheelerHomeComponent implements OnInit {
       'registrationDate': ['', Validators.required],
       'previousClaim': 'Yes',
       'enquiry': '',
-      'bussiness': '',
       'ncb': '',
       'previousPolicyExpiry': '',
       'previousPolicyStart': '',
@@ -227,14 +226,16 @@ export class FourWheelerHomeComponent implements OnInit {
       "prev_insurance_name": this.fourWheeler.controls['previousCompany'].value ? this.fourWheeler.controls['previousCompany'].value : '',
     }
     console.log(data, 'data');
-    this.fwService.getMotorHomeDetails(data).subscribe(
-        (successData) => {
-          this.bikeDetailsSuccess(successData, data);
-        },
-        (error) => {
-          this.bikeDetailsFailure(error);
-        }
-    );
+    if (this.fourWheeler.valid) {
+      this.fwService.getMotorHomeDetails(data).subscribe(
+          (successData) => {
+            this.bikeDetailsSuccess(successData, data);
+          },
+          (error) => {
+            this.bikeDetailsFailure(error);
+          }
+      );
+    }
   }
 
   public bikeDetailsSuccess(successData, data) {
@@ -357,7 +358,6 @@ export class FourWheelerHomeComponent implements OnInit {
         'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),
         'previousClaim': stepper.previousClaim,
         'enquiry': stepper.enquiry,
-        'bussiness': stepper.bussiness,
         'ncb': stepper.ncb,
         'previousPolicyExpiry': this.datePipe.transform(stepper.previousPolicyExpiry, 'y-MM-dd'),
         'previousPolicyStart': this.datePipe.transform(stepper.previousPolicyStart, 'y-MM-dd'),
@@ -380,13 +380,37 @@ export class FourWheelerHomeComponent implements OnInit {
     this.typeList = '';
     if (event == 0) {
       this.typeList = 'new';
+      this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
+      this.fourWheeler.controls['city'].setValidators([Validators.required]);
+      this.fourWheeler.controls['previousPolicyExpiry'].setValidators(null);
+      this.fourWheeler.controls['previousPolicyStart'].setValidators(null);
+      this.fourWheeler.controls['previousCompany'].setValidators(null);
+      this.fourWheeler.controls['vehicalNumber'].setValidators(null);
+      this.fourWheeler.controls['previousCompany'].patchValue('');
+      this.fourWheeler.controls['previousPolicyStart'].patchValue('');
+      this.fourWheeler.controls['previousPolicyExpiry'].patchValue('');
+      this.fourWheeler.controls['ncb'].patchValue('');
+      this.fourWheeler.controls['vehicalNumber'].patchValue('');
       console.log(this.typeList,'0');
     } else {
       this.typeList = 'other';
       console.log(this.typeList,'1');
-
+      this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
+      this.fourWheeler.controls['city'].setValidators(null);
+      this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
+      this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
+      this.fourWheeler.controls['vehicalNumber'].setValidators([Validators.required]);
+      this.fourWheeler.controls['previousCompany'].setValidators([Validators.required]);
+      // this.fourWheeler.controls['registrationDate'].patchValue('');
+      this.fourWheeler.controls['city'].patchValue('');
     }
-
+    this.fourWheeler.controls['registrationDate'].updateValueAndValidity();
+    this.fourWheeler.controls['city'].updateValueAndValidity();
+    this.fourWheeler.controls['ncb'].updateValueAndValidity();
+    this.fourWheeler.controls['previousPolicyExpiry'].updateValueAndValidity();
+    this.fourWheeler.controls['previousPolicyStart'].updateValueAndValidity();
+    this.fourWheeler.controls['previousCompany'].updateValueAndValidity();
+    this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
 
   }
 }

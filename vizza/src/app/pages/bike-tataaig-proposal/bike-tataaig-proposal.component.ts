@@ -46,7 +46,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public currentStep: any;
     public minDate: any;
     public proposerdateError: any;
-    public preNamelist: any;
+    // public preNamelist: any;
     public proposerGenderlist: any;
     public relationlist: any;
     public getstepper1: any;
@@ -154,8 +154,8 @@ export class BikeTataaigProposalComponent implements OnInit {
 
         this.previouspolicy = this.fb.group({
             preflag: ['', Validators.required],
-            preName: '',
-            preNamevalue: '',
+            // preName: '',
+            // preNamevalue: '',
             prepolno: '',
             preAddressone: ['', Validators.required],
             preAddresstwo: '',
@@ -176,7 +176,7 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     ngOnInit() {
         this.getGenderlist();
-        this.getNamelist();
+        // this.getNamelist();
         this.getRelationList();
         this.coverdriveList();
         this.sessionData();
@@ -354,35 +354,35 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     }
 
-    //PreviousPolicy NameList
-    getNamelist() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-        };
-        this.bikeinsurance.NameList(data).subscribe(
-            (successData) => {
-                this.prepolicyNameListSuccess(successData);
-            },
-            (error) => {
-                this.prepolicyNameListFailure(error);
-            }
-        );
-    }
+    // //PreviousPolicy NameList
+    // getNamelist() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    //     };
+    //     this.bikeinsurance.NameList(data).subscribe(
+    //         (successData) => {
+    //             this.prepolicyNameListSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.prepolicyNameListFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // prepolicyNameListSuccess(successData) {
+    //     this.preNamelist = successData.ResponseObject;
+    // }
+    //
+    // prepolicyNameListFailure(error) {
+    //
+    // }
 
-    prepolicyNameListSuccess(successData) {
-        this.preNamelist = successData.ResponseObject;
-    }
-
-    prepolicyNameListFailure(error) {
-
-    }
-
-    selectopt() {
-        this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
-        console.log(this.previouspolicy.controls['preNamevalue'].value,'name');
-    }
+    // selectopt() {
+    //     this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
+    //     console.log(this.previouspolicy.controls['preNamevalue'].value,'name');
+    // }
 
     //Nominee RelationList
     getRelationList() {
@@ -520,18 +520,18 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['Address'].updateValueAndValidity();
     }
 
-    changeflag(event: any) {
-        if (this.previouspolicy.controls['preflag'].value == 'Y') {
-            this.previouspolicy.controls['preName'].setValidators([Validators.required]);
-            this.previouspolicy.controls['prepolno'].setValidators([Validators.required]);
-        } else if (this.previouspolicy.controls['preflag'].value == 'N') {
-            this.previouspolicy.controls['preName'].patchValue('');
-            this.previouspolicy.controls['preName'].setValidators(null);
-            this.previouspolicy.controls['prepolno'].setValidators(null);
-        }
-        this.previouspolicy.controls['preName'].updateValueAndValidity();
-        this.previouspolicy.controls['prepolno'].updateValueAndValidity();
-    }
+    // changeflag(event: any) {
+    //     if (this.previouspolicy.controls['preflag'].value == 'Y') {
+    //         // this.previouspolicy.controls['preName'].setValidators([Validators.required]);
+    //         this.previouspolicy.controls['prepolno'].setValidators([Validators.required]);
+    //     } else if (this.previouspolicy.controls['preflag'].value == 'N') {
+    //         // this.previouspolicy.controls['preName'].patchValue('');
+    //         this.previouspolicy.controls['preName'].setValidators(null);
+    //         this.previouspolicy.controls['prepolno'].setValidators(null);
+    //     }
+    //     this.previouspolicy.controls['preName'].updateValueAndValidity();
+    //     this.previouspolicy.controls['prepolno'].updateValueAndValidity();
+    // }
 
     proposerDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikeproposer = '';
@@ -568,8 +568,14 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikeprepolicy = '';
         sessionStorage.tatabikeprepolicy = JSON.stringify(value);
         if (this.previouspolicy.valid) {
-            console.log(value, 'prepolicy');
-            stepper.next();
+            if (this.enquiryFormData.business_type != '1') {
+                if (this.previouspolicy.controls['prepolno'].value != '') {
+                    console.log(value, 'prepolicy');
+                    stepper.next();
+                } else {
+                    this.toastr.error('Policy No should not be empty');
+                }
+            }
         }
     }
 
@@ -641,8 +647,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.getstepper3 = JSON.parse(sessionStorage.tatabikeprepolicy);
             this.previouspolicy = this.fb.group({
                 preflag: this.getstepper3.preflag,
-                preName: this.getstepper3.preName,
-                preNamevalue: this.getstepper3.preNamevalue,
+                // preName: this.getstepper3.preName,
+                // preNamevalue: this.getstepper3.preNamevalue,
                 prepolno: this.getstepper3.prepolno,
                 preAddressone: this.getstepper3.preAddressone,
                 preAddresstwo: this.getstepper3.preAddresstwo,
@@ -744,7 +750,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 },
                 "prevpolicy": {
                     "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == '' ? 'N' : this.previouspolicy.controls['preflag'].value,
-                    "name": this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
+                    // "name": this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
                     "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
                     "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,
                     "address3": this.previouspolicy.controls['preAddressthree'].value == null ? '' : this.previouspolicy.controls['preAddressthree'].value,
