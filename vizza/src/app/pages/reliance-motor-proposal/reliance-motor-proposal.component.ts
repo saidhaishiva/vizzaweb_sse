@@ -1049,7 +1049,7 @@ export class RelianceMotorProposalComponent implements OnInit {
             this.fuelTypeListSucccess(successData);
           },
           (error) => {
-            this.occupationFailure(error);
+            this.fuelTypeListFailure(error);
           }
       );
     }
@@ -1136,7 +1136,7 @@ export class RelianceMotorProposalComponent implements OnInit {
           this.getPaSiSucccess(successData);
         },
         (error) => {
-          this.voluntaryAmountListFailure(error);
+          this.getPaSiFailure(error);
         }
     );
   }

@@ -11,6 +11,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {ViewChild} from '@angular/core';
+import {ValidationService} from '../../shared/services/validation.service';
 
 export const MY_FORMATS = {
   parse: {
@@ -66,7 +67,7 @@ export class RenewalReminderComponent implements OnInit {
 
   @ViewChild('myForm') myForm: NgForm;
 
-  constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe , public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
+  constructor(public auth: AuthService, public fb: FormBuilder, public datepipe: DatePipe ,public validation: ValidationService, public appSettings: AppSettings, public toastr: ToastrService, public config: ConfigurationService, public common: CommonService, public dialog: MatDialog) {
     this.form =  this.fb.group({
       'insurename': ['', Validators.compose([Validators.required])],
       'startdate': ['', Validators.compose([Validators.required])],
@@ -261,6 +262,8 @@ export class RenewalReminderComponent implements OnInit {
     }
   }
 
+
+
   readUrl(event: any) {
     this.filePath = event.target.files[0].name;
     this.allowedExtensionsPDF = /(\.pdf)$/i;
@@ -344,6 +347,8 @@ export class RenewalReminderComponent implements OnInit {
     if(this.filePath == '' ){
       this.uploadTypeTest= false;
     }else{
+      this.toastr.success( 'Set Remainder successfully');
+
       this.uploadTypeTest = true;
       this.fileUploadPath = '';
       this.fileUploadPathPDF= '';
@@ -351,6 +356,11 @@ export class RenewalReminderComponent implements OnInit {
       this.fileUploadPathDOCX= '';
       this.filePath= '';
     }
+  }
+
+  //
+  dobValidate(event: any){
+    this.validation.dobValidate(event);
   }
 
 }

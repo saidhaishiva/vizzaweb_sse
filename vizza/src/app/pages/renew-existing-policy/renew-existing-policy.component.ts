@@ -260,6 +260,8 @@ export class RenewExistingPolicyComponent implements OnInit {
         if(this.filePath == '' ){
             this.uploadTypeTest= false;
         }else{
+            this.toastr.success( 'Set Remainder successfully');
+
             this.uploadTypeTest = true;
             this.fileUploadPath = '';
             this.fileUploadPathPDF= '';

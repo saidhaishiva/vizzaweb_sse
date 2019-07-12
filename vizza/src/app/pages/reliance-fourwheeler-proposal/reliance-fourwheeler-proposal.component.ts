@@ -1220,7 +1220,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.fuelTypeListSucccess(successData);
         },
         (error) => {
-          this.occupationFailure(error);
+          this.fuelTypeListFailure(error);
         }
     );
   }
@@ -1266,7 +1266,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.getPaidDriverSiSucccess(successData);
         },
         (error) => {
-          this.fourWheelervoluntaryAmountListFailure(error);
+          this.getPaidDriverSiFailure(error);
         }
     );
   }
