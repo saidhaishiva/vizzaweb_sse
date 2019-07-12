@@ -31,7 +31,7 @@ export class ClearSessionMotorService {
 
       // tataAig two wheeler
     sessionStorage.summaryDatabiketata = '';
-    sessionStorage.proposerAge = '';
+    sessionStorage.bikeproposerAge = '';
     sessionStorage.tatabikeproposer = '';
     sessionStorage.tatabikevehicle = '';
     sessionStorage.tatabikeprepolicy = '';
