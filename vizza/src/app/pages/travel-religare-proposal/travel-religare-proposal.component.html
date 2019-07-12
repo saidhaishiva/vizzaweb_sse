@@ -468,8 +468,8 @@
 
                       <div class=" col-md-12" *ngIf="item.field_type == 'datefield'">
                         <mat-form-field class="w-50" >
-                          <input matInput [matDatepicker]="picker2" [max]="today" [(ngModel)]="item.fieldValue" (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required="{{item.question_set_code == 'SPDsponsorDetails'}}">
-                          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                          <input matInput [matDatepicker]="picker2" [max]="today" [(ngModel)]="item.fieldValue"  readonly (keypress)="dobValidate($event)"  minlength="10"  maxlength="10"   autocomplete="off"  required="{{item.question_set_code == 'SPDsponsorDetails'}}">
+                          <mat-datepicker-toggle matSuffix [for]="picker2" disabled></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
                         </mat-form-field>
                         <!--<div class="error" *ngIf="personalDobError !=''">{{personalDobError}}</div>-->
