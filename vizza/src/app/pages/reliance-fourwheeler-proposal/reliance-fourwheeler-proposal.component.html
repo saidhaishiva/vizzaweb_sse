@@ -108,185 +108,205 @@
 <!--                        </mat-form-field>-->
 <!--                      </div>-->
 
-                      <div class="col-md-12 mt-2">
-                        <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required>
-                          <mat-error *ngIf="relianceProposal.controls.address.errors?.required">Address is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 2" rows="2" formControlName="address2" maxlength="30"   autocomplete="off" required>
-                          <mat-error *ngIf="relianceProposal.controls.address2.errors?.required">Address2 is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 3" rows="2" formControlName="address3"  maxlength="30"  autocomplete="off">
-                          <mat-error *ngIf="relianceProposal.controls.address3.errors?.required">Address3 is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode"  (input)="pincode($event.target.value,'comm')" autocomplete="off" required>
-                          <mat-error *ngIf="relianceProposal.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                          <mat-error *ngIf="relianceProposal.controls.pincode.hasError('required')">Pincode required</mat-error>
-                          <mat-error *ngIf="relianceProposal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="State" formControlName="state"  autocomplete="off" readonly required >
-                          <mat-error *ngIf="relianceProposal.controls.state.errors?.required">State is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="City" formControlName="city"  autocomplete="off" readonly required>
-                          <mat-error *ngIf="relianceProposal.controls.city.errors?.required">City is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="District" formControlName="district"  autocomplete="off" readonly required>
-                          <mat-error *ngIf="relianceProposal.controls.district.errors?.required">District is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="LandMark" formControlName="landmark"  autocomplete="off" >
-                        </mat-form-field>
-                      </div>
+                      <div class="row" fxLayoutAlign="center center">
 
-                      <div class="col-md-12 mt-2">
-                        <h6 class="color-blue">PERMANENT ADDRESS</h6>
-                      </div>
 
-                      <div class="col-md-12 mt-3">
-                        <div class="row">
-                        <div class="col-md-6">
-                          <mat-checkbox formControlName="sameAsAddress" (change)="sameAsAddress('pcomm')" ><strong>Same as Communication Address</strong></mat-checkbox>
-                        </div>
-                        </div>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 1" rows="2" formControlName="paddress" autocomplete="off" maxlength="30" required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.paddress.errors?.required">Address is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 2" rows="2" formControlName="paddress2" maxlength="30"   autocomplete="off" required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.paddress2.errors?.required">Address2 is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 3" rows="2" formControlName="paddress3"  maxlength="30"  autocomplete="off" [readonly]="relianceProposal.controls.sameAsAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.paddress3.errors?.required">Address3 is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="ppincode" (input)="pincode($event.target.value,'perm')" autocomplete="off" required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.ppincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                          <mat-error *ngIf="relianceProposal.controls.ppincode.hasError('required')">Pincode required</mat-error>
-                          <mat-error *ngIf="relianceProposal.controls.ppincode.hasError('pattern')">Enter Valid  Pin</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="State" formControlName="pstate"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.pstate.errors?.required">State is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="City" formControlName="pcity"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.pcity.errors?.required">City is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="District" formControlName="pdistrict"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.pdistrict.errors?.required">District is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="LandMark" formControlName="plandmark"  autocomplete="off" [readonly]="relianceProposal.controls.sameAsAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.plandmark.errors?.required">District is required</mat-error>
+                        <div class="col-md-12">
+                          <div class="box-card addressBox">
 
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-12 mt-2">
-                        <h6 class="color-blue">REGISTRATION ADDRESS</h6>
-                      </div>
-                      <div class="col-md-12 mt-3">
-                        <div class="row">
+                            <h6 class="color-blue">COMMUNICATION ADDRESS</h6>
 
-                          <div class="col-md-6">
-                            <mat-checkbox formControlName="regSameAscommAddress" (change)="sameAsAddress('regcomm')" [checked]="checkcomm"><strong>Same as Communication Address</strong></mat-checkbox>
-                          </div>
-                          <div class="col-md-6">
-                            <mat-checkbox formControlName="regSameAspermAddress" (change)="sameAsAddress('regperm')" [checked]="checkperm"><strong>Same as Permanent Address</strong></mat-checkbox>
+                            <div class="row">
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 1" rows="2" formControlName="address" autocomplete="off" maxlength="30" required>
+                                  <mat-error *ngIf="relianceProposal.controls.address.errors?.required">Address is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 2" rows="2" formControlName="address2" maxlength="30"   autocomplete="off" required>
+                                  <mat-error *ngIf="relianceProposal.controls.address2.errors?.required">Address2 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 3" rows="2" formControlName="address3"  maxlength="30"  autocomplete="off">
+                                  <mat-error *ngIf="relianceProposal.controls.address3.errors?.required">Address3 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="pincode"  (input)="pincode($event.target.value,'comm')" autocomplete="off" required>
+                                  <mat-error *ngIf="relianceProposal.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                  <mat-error *ngIf="relianceProposal.controls.pincode.hasError('required')">Pincode required</mat-error>
+                                  <mat-error *ngIf="relianceProposal.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="State" formControlName="state"  autocomplete="off" readonly required >
+                                  <mat-error *ngIf="relianceProposal.controls.state.errors?.required">State is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="City" formControlName="city"  autocomplete="off" readonly required>
+                                  <mat-error *ngIf="relianceProposal.controls.city.errors?.required">City is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="District" formControlName="district"  autocomplete="off" readonly required>
+                                  <mat-error *ngIf="relianceProposal.controls.district.errors?.required">District is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="LandMark" formControlName="landmark"  autocomplete="off" >
+                                </mat-form-field>
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 1" rows="2" formControlName="raddress" autocomplete="off" maxlength="30" required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.raddress.errors?.required">Address is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 2" rows="2" formControlName="raddress2" maxlength="30"   autocomplete="off" required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.raddress2.errors?.required">Address2 is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="Address 3" rows="2" formControlName="raddress3"  maxlength="30"  autocomplete="off" [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.raddress3.errors?.required">Address3 is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="rpincode" (input)="pincode($event.target.value,'registration')" autocomplete="off" required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.rpincode.hasError('minlength')">Pin should be 6 digits</mat-error>
-                          <mat-error *ngIf="relianceProposal.controls.rpincode.hasError('required')">Pincode required</mat-error>
-                          <mat-error *ngIf="relianceProposal.controls.rpincode.hasError('pattern')">Enter Valid  Pin</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="State" formControlName="rstate"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.rstate.errors?.required">State is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="City" formControlName="rcity"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.rcity.errors?.required">City is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="District" formControlName="rdistrict"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.rdistrict.errors?.required">District is required</mat-error>
-                        </mat-form-field>
-                      </div>
-                      <div class="col-md-3 mt-3">
-                        <mat-form-field class="w-100">
-                          <input matInput placeholder="LandMark" formControlName="rlandmark"  autocomplete="off" [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
-                          <mat-error *ngIf="relianceProposal.controls.rlandmark.errors?.required">District is required</mat-error>
 
-                        </mat-form-field>
+                        <div class="col-md-12">
+                          <div class="box-card addressBox">
+
+                            <h6 class="color-blue">PERMANENT ADDRESS</h6>
+
+                            <div class="row">
+
+                              <div class="col-md-12 mt-3">
+                                <div class="row">
+                                  <div class="col-md-6">
+                                    <mat-checkbox formControlName="sameAsAddress" (change)="sameAsAddress('pcomm')" ><strong>Same as Communication Address</strong></mat-checkbox>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 1" rows="2" formControlName="paddress" autocomplete="off" maxlength="30" required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.paddress.errors?.required">Address is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 2" rows="2" formControlName="paddress2" maxlength="30"   autocomplete="off" required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.paddress2.errors?.required">Address2 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 3" rows="2" formControlName="paddress3"  maxlength="30"  autocomplete="off" [readonly]="relianceProposal.controls.sameAsAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.paddress3.errors?.required">Address3 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="ppincode" (input)="pincode($event.target.value,'perm')" autocomplete="off" required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.ppincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                  <mat-error *ngIf="relianceProposal.controls.ppincode.hasError('required')">Pincode required</mat-error>
+                                  <mat-error *ngIf="relianceProposal.controls.ppincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="State" formControlName="pstate"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.pstate.errors?.required">State is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="City" formControlName="pcity"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.pcity.errors?.required">City is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="District" formControlName="pdistrict"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.sameAsAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.pdistrict.errors?.required">District is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="LandMark" formControlName="plandmark"  autocomplete="off" [readonly]="relianceProposal.controls.sameAsAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.plandmark.errors?.required">District is required</mat-error>
+
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-12">
+                          <div class="box-card addressBox">
+                            <h6 class="color-blue">REGISTRATION ADDRESS</h6>
+                            <div class="row">
+
+                              <div class="col-md-12 mt-3">
+                                <div class="row">
+
+                                  <div class="col-md-6">
+                                    <mat-checkbox formControlName="regSameAscommAddress" (change)="sameAsAddress('regcomm')" [checked]="checkcomm"><strong>Same as Communication Address</strong></mat-checkbox>
+                                  </div>
+                                  <div class="col-md-6">
+                                    <mat-checkbox formControlName="regSameAspermAddress" (change)="sameAsAddress('regperm')" [checked]="checkperm"><strong>Same as Permanent Address</strong></mat-checkbox>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 1" rows="2" formControlName="raddress" autocomplete="off" maxlength="30" required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.raddress.errors?.required">Address is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 2" rows="2" formControlName="raddress2" maxlength="30"   autocomplete="off" required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.raddress2.errors?.required">Address2 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="Address 3" rows="2" formControlName="raddress3"  maxlength="30"  autocomplete="off" [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.raddress3.errors?.required">Address3 is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="PIN Code"  (keypress)="numberValidate($event)" pattern="[1-9][0-9]{5}"  minlength="6" maxlength="6" formControlName="rpincode" (input)="pincode($event.target.value,'registration')" autocomplete="off" required [readonly]="relianceProposal.controls.regSameAscommAddress.value || relianceProposal.controls.regSameAspermAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.rpincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                                  <mat-error *ngIf="relianceProposal.controls.rpincode.hasError('required')">Pincode required</mat-error>
+                                  <mat-error *ngIf="relianceProposal.controls.rpincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="State" formControlName="rstate"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true|| relianceProposal.controls.regSameAspermAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.rstate.errors?.required">State is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="City" formControlName="rcity"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.rcity.errors?.required">City is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="District" formControlName="rdistrict"  autocomplete="off" readonly required [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.rdistrict.errors?.required">District is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                              <div class="col-md-3 mt-3">
+                                <mat-form-field class="w-100">
+                                  <input matInput placeholder="LandMark" formControlName="rlandmark"  autocomplete="off" [readonly]="relianceProposal.controls.regSameAscommAddress.value == true || relianceProposal.controls.regSameAspermAddress.value == true">
+                                  <mat-error *ngIf="relianceProposal.controls.rlandmark.errors?.required">District is required</mat-error>
+                                </mat-form-field>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
 
                       <div class="proposal-buttom mt-3 text-right w-100">
