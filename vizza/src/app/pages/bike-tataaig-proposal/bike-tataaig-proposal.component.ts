@@ -247,7 +247,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 }
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.proposerAge = this.bikeProposerAge;
+                sessionStorage.bikeproposerAge = this.bikeProposerAge;
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
@@ -258,7 +258,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 console.log(dob, 'ageob');
                 this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.proposerAge = this.bikeProposerAge;
+                sessionStorage.bikeproposerAge = this.bikeProposerAge;
             }
         }
     }
@@ -472,7 +472,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.proposer.controls['driveFirstname'].patchValue(this.proposer.controls['proposerFirstname'].value);
             this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
             this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
-            this.proposer.controls['driveAge'].patchValue(sessionStorage.proposerAge);
+            this.proposer.controls['driveAge'].patchValue(sessionStorage.bikeproposerAge);
             this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
             this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
             this.proposer.controls['driveLastname'].setValidators([Validators.required]);
@@ -537,8 +537,8 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikeproposer = '';
         sessionStorage.tatabikeproposer = JSON.stringify(value);
         if (this.proposer.valid) {
-            if (sessionStorage.proposerAge >= 18) {
-                this.agecount = sessionStorage.proposerAge;
+            if (sessionStorage.bikeproposerAge >= 18) {
+                this.agecount = sessionStorage.bikeproposerAge;
                 let exp = this.agecount - 18;
                 if (this.proposer.controls['drivingexp'].value <= exp) {
                     console.log(value, 'proposer');

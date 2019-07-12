@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
+import { ClearSessionFourwheelerService } from '../../shared/services/clear-session-fourwheeler.service';
 
 @Component({
   selector: 'app-four-wheeler-product-list',
@@ -31,7 +32,7 @@ export class FourWheelerProductListComponent implements OnInit {
   getEnquiry: any;
   policyTerm: any;
   initialProductListfw: any;
-  constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService) {
+  constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService, public clearsession: ClearSessionFourwheelerService) {
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
     this.settings.sidenavIsOpened = false;
@@ -43,6 +44,7 @@ export class FourWheelerProductListComponent implements OnInit {
     this.policyTerm = '1';
     this.compherhensive = 'Comprehensive_premium';
     sessionStorage.packageListFw = this.compherhensive;
+    this.clearsession.clearSessionfourwheelerData();
   }
   ngOnInit() {
       this.getCompanyList();

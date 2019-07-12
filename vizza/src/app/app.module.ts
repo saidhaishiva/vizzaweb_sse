@@ -316,6 +316,7 @@ import { GroupTravelComponent } from './pages/group-travel/group-travel.componen
 import { HdfcTwoWheelerProposalComponent } from './pages/hdfc-two-wheeler-proposal/hdfc-two-wheeler-proposal.component';
 import { ViewKeyfeaturesComponent } from './pages/bike-premium-list/view-keyfeatures/view-keyfeatures.component';
 import {ClearSessionMotorService} from './shared/services/clear-session-motor.service';
+import { ClearSessionFourwheelerService } from './shared/services/clear-session-fourwheeler.service';
 
 @NgModule({
     imports: [
@@ -631,6 +632,7 @@ import {ClearSessionMotorService} from './shared/services/clear-session-motor.se
         ClearSessionTravelService,
         FourWheelerService,
         ClearSessionMotorService,
+        ClearSessionFourwheelerService,
 
         { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         { provide: OverlayContainer, useClass: CustomOverlayContainer }

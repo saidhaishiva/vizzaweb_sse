@@ -322,7 +322,7 @@
                 <div class="row mt-1">
               <div class="col-md-12 box-card pt-3">
                 <div class="row">
-                  <div class="col-md-3" [ngStyle]="{'pointer-events':'none'}">
+                  <div class="col-md-4" [ngStyle]="{'pointer-events':'none'}">
                     <mat-form-field class="w-100">
                       <mat-select  placeholder="Is there any rollover with previous policy?" (change)="changeflag($event)" formControlName="preflag" required>
                         <mat-option value="Y">Yes</mat-option>
@@ -331,7 +331,7 @@
                       <mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
+                  <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <mat-select formControlName="preName" (change)="selectopt()">
@@ -339,7 +339,7 @@
                       </mat-select>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-3">
+                  <div class="col-md-4">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
                       <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="5">

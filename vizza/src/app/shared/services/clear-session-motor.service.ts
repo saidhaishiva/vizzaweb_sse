@@ -31,19 +31,11 @@ export class ClearSessionMotorService {
 
       // tataAig two wheeler
     sessionStorage.summaryDatabiketata = '';
-    sessionStorage.proposerAge = '';
+    sessionStorage.bikeproposerAge = '';
     sessionStorage.tatabikeproposer = '';
     sessionStorage.tatabikevehicle = '';
     sessionStorage.tatabikeprepolicy = '';
     sessionStorage.tatabikenominee = '';
     sessionStorage.tataBikeproposalID = '';
-
-      //  tataAig four wheeler
-    sessionStorage.summaryDatacartata = '';
-    sessionStorage.carproposerAge = '';
-    sessionStorage.tatacarproposer = '';
-    sessionStorage.tatacarvehicle = '';
-    sessionStorage.tatacarprepolicy = '';
-    sessionStorage.tatacarnominee = '';
   }
 }
