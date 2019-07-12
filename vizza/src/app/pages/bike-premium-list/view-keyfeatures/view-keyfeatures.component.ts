@@ -47,6 +47,7 @@ export class ViewKeyfeaturesComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService,public appSettings: AppSettings, public config: ConfigurationService, public common: BikeInsuranceService, public fb: FormBuilder, public toastr: ToastrService) {
     this.settings = this.appSettings.settings;
     this.productId = data.productId;
+    console.log(this.productId, 'this.productId');
     this.scheme = data.scheme;
     this.productName = data.productName;
     this.productLogo = data.productLogo;
@@ -73,17 +74,17 @@ export class ViewKeyfeaturesComponent implements OnInit {
       let setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
       this.sumInsuredAmount = setAllProductLists[0].suminsured_amount;
     }
-    if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
-      let allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
-      let ages = [];
-      for (let i = 0; i < allPolicyDetails.length; i++) {
-        for (let j = 0; j < allPolicyDetails[i].family_members.length; j++) {
-          ages.push(allPolicyDetails[i].family_members[j].age);
-        }
-      }
-      maxAge = Math.max.apply(null, ages);
-    }
-    this.viewKeyFeatures(maxAge);
+    // if (sessionStorage.allPolicyDetails != undefined && sessionStorage.allPolicyDetails != '') {
+    //   let allPolicyDetails = JSON.parse(sessionStorage.allPolicyDetails);
+    //   let ages = [];
+    //   for (let i = 0; i < allPolicyDetails.length; i++) {
+    //     for (let j = 0; j < allPolicyDetails[i].family_members.length; j++) {
+    //       ages.push(allPolicyDetails[i].family_members[j].age);
+    //     }
+    //   }
+    //   maxAge = Math.max.apply(null, ages);
+    // }
+    this.viewKeyFeatures();
   }
   onNoClick(): void {
     this.dialogRef.close()
@@ -147,14 +148,13 @@ export class ViewKeyfeaturesComponent implements OnInit {
     this.step++;
   }
 
-  viewKeyFeatures(maxAge) {
+  viewKeyFeatures() {
     const data = {
       'platform': 'web',
-      'userid': 1,
-      'roleid': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : 0,
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
       'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
-      'productid': this.productId,
-
+      "product_id": this.productId
     };
     this.settings.loadingSpinner = true;
     this.common.viewKeyFeatureList(data).subscribe(
