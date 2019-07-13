@@ -439,7 +439,6 @@ export class BikeInsuranceComponent implements OnInit {
             this.bikeInsurance.controls['previousCompany'].patchValue('');
             this.bikeInsurance.controls['previousPolicyStart'].patchValue('');
             this.bikeInsurance.controls['previousPolicyExpiry'].patchValue('');
-            this.bikeInsurance.controls['ncb'].patchValue('');
             this.bikeInsurance.controls['vehicalNumber'].patchValue('');
 
         } else {
