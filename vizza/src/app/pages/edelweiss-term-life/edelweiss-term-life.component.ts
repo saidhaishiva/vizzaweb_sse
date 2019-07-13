@@ -854,7 +854,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
 
-  othrhighQualify(event: any) {
+  othrhighQualify() {
 
     if (this.proposer.controls['highestQualification'].value == '8') {
       this.proposer.controls['otherQualification'].patchValue(this.proposer.controls['otherQualification'].value);
@@ -870,7 +870,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
-  othrhighQualify1(event: any) {
+  othrhighQualify1() {
 
     if (this.insureArray.controls['highestQualification'].value == '8') {
       this.insureArray.controls['otherQualification'].patchValue(this.insureArray.controls['otherQualification'].value);
