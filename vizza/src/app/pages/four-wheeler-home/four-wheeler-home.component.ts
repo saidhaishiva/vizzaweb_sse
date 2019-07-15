@@ -85,8 +85,9 @@ export class FourWheelerHomeComponent implements OnInit {
     this.listDetails = false;
 
     this.fourWheeler = this.fb.group({
-      'vehicalNumber': ['', Validators.required],
-      'registrationDate': ['', Validators.required],
+      'vehicalNumber':'',
+      'registrationDate': '',
+      'registrationDateNew': '',
       'previousClaim': 'Yes',
       'enquiry': '',
       'ncb': '',
@@ -99,7 +100,11 @@ export class FourWheelerHomeComponent implements OnInit {
     this.showSelf = false;
     this.previousDate = true;
     this.typeList = 'new';
-
+    if (this.typeList == 'new') {
+      this.getType(0);
+    } else{
+      this.getType(1);
+    }
   }
 
   ngOnInit() {
@@ -217,7 +222,7 @@ export class FourWheelerHomeComponent implements OnInit {
       "enquiry_id": 0,
       "pos_status": this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       "vehicle_no": this.fourWheeler.controls['vehicalNumber'].value,
-      "registration_date": this.fourWheeler.controls['registrationDate'].value,
+      "registration_date": this.fourWheeler.controls['registrationDate'].value ? this.fourWheeler.controls['registrationDate'].value : this.fourWheeler.controls['registrationDateNew'].value,
       "previous_claim_YN": this.fourWheeler.controls['previousClaim'].value == 'No' ? '0' : '1',
       "previous_policy_expiry_date": this.fourWheeler.controls['previousPolicyExpiry'].value ? this.fourWheeler.controls['previousPolicyExpiry'].value : '',
       "previous_policy_start_date": this.fourWheeler.controls['previousPolicyStart'].value ? this.fourWheeler.controls['previousPolicyStart'].value : '',
@@ -356,6 +361,7 @@ export class FourWheelerHomeComponent implements OnInit {
       this.fourWheeler = this.fb.group({
         'vehicalNumber': stepper.vehicalNumber,
         'registrationDate': this.datePipe.transform(stepper.registrationDate, 'y-MM-dd'),
+        'registrationDateNew': this.datePipe.transform(stepper.registrationDateNew, 'y-MM-dd'),
         'previousClaim': stepper.previousClaim,
         'enquiry': stepper.enquiry,
         'ncb': stepper.ncb,
@@ -380,7 +386,8 @@ export class FourWheelerHomeComponent implements OnInit {
     this.typeList = '';
     if (event == 0) {
       this.typeList = 'new';
-      this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
+      this.fourWheeler.controls['registrationDateNew'].setValidators([Validators.required]);
+      this.fourWheeler.controls['registrationDate'].setValidators(null);
       this.fourWheeler.controls['city'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousPolicyExpiry'].setValidators(null);
       this.fourWheeler.controls['previousPolicyStart'].setValidators(null);
@@ -396,6 +403,7 @@ export class FourWheelerHomeComponent implements OnInit {
       this.typeList = 'other';
       console.log(this.typeList,'1');
       this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
+      this.fourWheeler.controls['registrationDateNew'].setValidators(null);
       this.fourWheeler.controls['city'].setValidators(null);
       this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
@@ -405,6 +413,7 @@ export class FourWheelerHomeComponent implements OnInit {
       this.fourWheeler.controls['city'].patchValue('');
     }
     this.fourWheeler.controls['registrationDate'].updateValueAndValidity();
+    this.fourWheeler.controls['registrationDateNew'].updateValueAndValidity();
     this.fourWheeler.controls['city'].updateValueAndValidity();
     this.fourWheeler.controls['ncb'].updateValueAndValidity();
     this.fourWheeler.controls['previousPolicyExpiry'].updateValueAndValidity();

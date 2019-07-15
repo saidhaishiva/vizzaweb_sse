@@ -43,7 +43,7 @@ export class NewContactComponent implements OnInit {
 
     this.form = this.fb.group({
       'name': ['', Validators.compose([Validators.required])],
-      'email': ['', Validators.compose([Validators.required])],
+      'email': ['', Validators.compose([Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       'subject': ['', Validators.compose([Validators.required])],
       'message': ['', Validators.compose([Validators.required])],
       // 'profile': ['',Validators.compose( [Validators.required])]
@@ -77,6 +77,7 @@ export class NewContactComponent implements OnInit {
           'base64': this.getBase64,
           'file_ext': this.uploadType
         };
+        this.settings.loadingSpinner = true;
         this.commonService.contactDetails(data).subscribe(
             (successData) => {
               this.getDetailsSuccess(successData);

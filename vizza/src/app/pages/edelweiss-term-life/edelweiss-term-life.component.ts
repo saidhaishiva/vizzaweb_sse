@@ -142,10 +142,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       gender: ['', Validators.compose([Validators.required])],
       dob: ['', Validators.compose([Validators.required])],
       maritalStatus: ['', Validators.required],
+      maritalStatusName: '',
       nationality: '',
       emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       pan: ['', Validators.compose([ Validators.minLength(10)])],
       aadhaarNo: '',
+        ageProofIdName: '',
       fatherhusbandName: '',
       ageProofId: '',
       highestQualification: '',
@@ -166,8 +168,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       isCurrPerAddrSame: '',
       employementTypeOther: '',
       employementType: '',
+        employementTypeName: '',
       employerName: '',
       natureduty: '',
+        naturedutyName: '',
       employerAddr: '',
       annualIncome: '',
       taxResidence: '',
@@ -175,21 +179,24 @@ export class EdelweissTermLifeComponent implements OnInit {
     });
 
     this.insureArray = this.fb.group({
-      title: '',
-      firstName: '',
+
+      investing: ['', Validators.compose([Validators.required])],
+      title: ['', Validators.compose([Validators.required])],
+      firstName: ['', Validators.compose([Validators.required])],
       midName: '',
-      lastName: '',
+      lastName: ['', Validators.compose([Validators.required])],
       gender: ['', Validators.compose([Validators.required])],
       dob: ['', Validators.compose([Validators.required])],
       maritalStatus: ['', Validators.required],
-
+      maritalStatusName: '',
       nationality: '',
       emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       pan: ['', Validators.compose([ Validators.minLength(10)])],
       aadhaarNo: '',
+        ageProofIdName: '',
       fatherhusbandName: '',
-      ageProofId: '',
-      highestQualification: '',
+      ageProofId: ['', Validators.compose([Validators.required])],
+      highestQualification: ['', Validators.compose([Validators.required])],
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
 
@@ -208,8 +215,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       isCurrPerAddrSame: '',
       employementTypeOther: '',
       employementType: '',
+        employementTypeName: '',
       employerName: '',
       natureduty: '',
+        naturedutyName: '',
       employerAddr: '',
       annualIncome: '',
       taxResidence: '',
@@ -295,6 +304,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           nDob: ['', Validators.required],
           gender: ['', Validators.required],
           nomineeRelationship: ['', Validators.required],
+          nomineeRelationshipName: '',
           nomineeDobValidError: '',
           appointeeDobValidError: '',
           showAppointee: false,
@@ -437,10 +447,29 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.proposer.controls['perCity'].value, 'eeeeeeee');
     }
   }
+  sameAddress1() {
+    if (this.insureArray.controls['isCurrPerAddrSame'].value == true) {
+      this.insureArray.controls['perAddr1'].patchValue( this.insureArray.controls['currAddr1'].value),
+          this.insureArray.controls['perAddr2'].patchValue( this.insureArray.controls['currAddr2'].value),
+          this.insureArray.controls['perAddr3'].patchValue( this.insureArray.controls['currAddr3'].value),
+          this.insureArray.controls['perCity'].patchValue( this.insureArray.controls['currCity'].value),
+          this.insureArray.controls['perPincode'].patchValue( this.insureArray.controls['currPincode'].value),
+          this.insureArray.controls['perState'].patchValue( this.insureArray.controls['currState'].value)
+      console.log(this.insureArray.controls['perCity'].value, 'ghghghj');
+    } else {
+      this.insureArray.controls['perAddr1'].patchValue(''),
+          this.insureArray.controls['perAddr2'].patchValue(''),
+          this.insureArray.controls['perAddr3'].patchValue(''),
+          this.insureArray.controls['perCity'].patchValue(''),
+          this.insureArray.controls['perPincode'].patchValue(''),
+          this.insureArray.controls['perState'].patchValue('')
+      console.log(this.insureArray.controls['perCity'].value, 'eeeeeeee');
+    }
+  }
 
   sameAsInsure() {
 
-    if (this.insureArray.controls['sameAsProposer'].value == true) {
+    if (this.insureArray.controls['investing'].value == 'SELF') {
 
           this.insureArray.controls['title'].patchValue(this.proposer.controls['title'].value),
           this.insureArray.controls['firstName'].patchValue(this.proposer.controls['firstName'].value),
@@ -825,19 +854,51 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
 
-  isPolitical(event: any) {
+  othrhighQualify() {
 
-    if (this.proposer.controls['isPoliticallyExposed'].value == true) {
-      this.proposer.controls['specification'].patchValue(this.proposer.controls['specification'].value);
+    if (this.proposer.controls['highestQualification'].value == '8') {
+      this.proposer.controls['otherQualification'].patchValue(this.proposer.controls['otherQualification'].value);
 
-      this.proposer.controls['specification'].setValidators([Validators.required]);
+      this.proposer.controls['otherQualification'].setValidators([Validators.required]);
     } else {
-      this.proposer.controls['specification'].patchValue('');
+      this.proposer.controls['otherQualification'].patchValue('');
 
-      this.proposer.controls['specification'].setValidators(null);
+      this.proposer.controls['otherQualification'].setValidators(null);
 
     }
-    this.proposer.controls['specification'].updateValueAndValidity();
+    this.proposer.controls['otherQualification'].updateValueAndValidity();
+
+  }
+
+  othrhighQualify1() {
+
+    if (this.insureArray.controls['highestQualification'].value == '8') {
+      this.insureArray.controls['otherQualification'].patchValue(this.insureArray.controls['otherQualification'].value);
+
+      this.insureArray.controls['otherQualification'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['otherQualification'].patchValue('');
+
+      this.insureArray.controls['otherQualification'].setValidators(null);
+
+    }
+    this.insureArray.controls['otherQualification'].updateValueAndValidity();
+
+  }
+
+  isPolitical(event: any) {
+
+    if (this.insureArray.controls['isPoliticallyExposed'].value == true) {
+      this.insureArray.controls['specification'].patchValue(this.insureArray.controls['specification'].value);
+
+      this.insureArray.controls['specification'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['specification'].patchValue('');
+
+      this.insureArray.controls['specification'].setValidators(null);
+
+    }
+    this.insureArray.controls['specification'].updateValueAndValidity();
 
   }
 
@@ -997,12 +1058,12 @@ export class EdelweissTermLifeComponent implements OnInit {
       "suminsured_amount": sessionStorage.selectedAmountTravel,
       "policy_id": this.getEnquiryDetials.policy_id,
       "productDetails":{
-        "policyTerm":"",
-        "premiumPayingTerm":"",
-        "frequency":"",
-        "sumAssured":""
+        "policyTerm":this.enquiryFormData.lifeBenefitTerm,
+        "premiumPayingTerm":this.enquiryFormData.lifePolicy,
+        "frequency":this.enquiryFormData.lifePayment,
+        "sumAssured": sessionStorage.selectedAmountTravel,
       },
-      "isLAProposerSame":"",
+      "isLAProposerSame":this.insureArray.controls['investing'].value,
       "LifeAssured": {
         "nomineeData": nomineeDetails,
         // [
@@ -1063,7 +1124,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "employerName":this.insureArray.controls['employerName'].value,
         "employerAddr":this.insureArray.controls['employerAddr'].value,
         "designation":"",
-        "natureOfDuty":this.insureArray.controls['natureduty'].value,
+        "natureOfDuty":this.insureArray.controls['naturedutyName'].value,
         "experienceInYears":"",
         "occupationType":"",
         "noOfEmployees":"",
@@ -1071,7 +1132,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "annualIncome":this.insureArray.controls['annualIncome'].value,
         "isIncomeSource":"",
         "incomeSourceDetails":"",
-        "familyDiease_Ind":"",
+        "familyDiease_Ind":this.insureArray.controls['insureHistory'].value,
         "familyDiease_Details":"",
         "hasfamilyAppliedETLI":"",
         "otherPolicy_Ind":"",
@@ -1083,26 +1144,26 @@ export class EdelweissTermLifeComponent implements OnInit {
         "CIB_InsurerName":"",
         "CIB_Reason":"",
         "CIB_Date":"",
-        "isPEP":this.bankDetail.controls['isPoliticallyExposed'].value ? 'Yes' : 'No',
-        "pepReason":this.bankDetail.controls['specification'].value,
+        "isPEP":this.insureArray.controls['isPoliticallyExposed'].value ? 'Yes' : 'No',
+        "pepReason":this.insureArray.controls['specification'].value,
         "hasFamPhysician":"",
         "FamPhysicianName":"",
         "FamPhysicianAddr1":"",
         "FamPhysicianAddr2":"",
         "FamPhysicianPhone":"",
         "identityProof":this.insureArray.controls['identityProof'].value,
-        "ageProof":this.insureArray.controls['personalFirstname'].value,
+        "ageProof":this.insureArray.controls['ageProofId'].value,
         "otherAgeProof":"",
         "addrProof":this.insureArray.controls['addrProof'].value,
         "corrAddrProof":"",
         "incomeProof":"",
         "hasEIAccount":"",
-        "EIAccountNo":"",
-        "applyEIAccount":"",
-        "EIARepository":"",
+        "EIAccountNo":this.insureArray.controls['einsureAccNo'].value,
+        "applyEIAccount":this.insureArray.controls['provideAccNo'].value,
+        "EIARepository":this.insureArray.controls['insureRepository'].value,
         "wantEPolicy":"",
-        "relationLAProposer":"",
-        "height":this.insureArray.controls['personalFirstname'].value,
+        "relationLAProposer":this.insureArray.controls['investing'].value,
+        "height":"",
         "heightFeets":this.insureArray.controls['heightFeets'].value,
         "heightInches":this.insureArray.controls['heightInches'].value,
         "heightCentimeters":"",
@@ -1130,7 +1191,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "ifscCode":this.bankDetail.controls['ifscCode'].value,
           "investmentStrategy":this.bankDetail.controls['investmentStrategy'].value,
         },
-        "existingInsurance_Ind":this.bankDetail.controls['existingInsurance_Ind'].value ? 'Yes' : 'No',
+        "existingInsurance_Ind":this.bankDetail.controls['existingInsuranceInd'].value ? 'Yes' : 'No',
         "existingInsurance": this.bankDetail.value.existingInsurance,
         //     [
         //   {
@@ -1941,12 +2002,14 @@ export class EdelweissTermLifeComponent implements OnInit {
         gender: this.getStepper1.gender,
         dob: this.datepipe.transform(this.getStepper1.dob, 'y-MM-dd'),
         maritalStatus: this.getStepper1.maritalStatus,
+        maritalStatusName: this.getStepper1.maritalStatusName,
         nationality: this.getStepper1.nationality,
         emailId: this.getStepper1.emailId,
         pan: this.getStepper1.pan,
         aadhaarNo: this.getStepper1.aadhaarNo,
         fatherhusbandName: this.getStepper1.fatherhusbandName,
         ageProofId: this.getStepper1.ageProofId,
+          ageProofIdName: this.getStepper1.ageProofIdName,
         highestQualification: this.getStepper1.highestQualification,
         otherQualification: this.getStepper1.otherQualification,
         mobileNo: this.getStepper1.mobileNo,
@@ -1965,8 +2028,10 @@ export class EdelweissTermLifeComponent implements OnInit {
         isCurrPerAddrSame: this.getStepper1.isCurrPerAddrSame,
         employementTypeOther: this.getStepper1.employementTypeOther,
         employementType: this.getStepper1.employementType,
+          employementTypeName: this.getStepper1.employementTypeName,
         employerName: this.getStepper1.employerName,
         natureduty: this.getStepper1.natureduty,
+          naturedutyName: this.getStepper1.naturedutyName,
         employerAddr: this.getStepper1.employerAddr,
         annualIncome: this.getStepper1.annualIncome,
         taxResidence: this.getStepper1.taxResidence,
@@ -1980,6 +2045,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.getStepper2 = JSON.parse(sessionStorage.stepper2Details);
       this.insureArray = this.fb.group({
 
+        investing: this.getStepper2.investing,
         title: this.getStepper2.title,
         firstName: this.getStepper2.firstName,
         midName: this.getStepper2.midName,
@@ -1987,12 +2053,14 @@ export class EdelweissTermLifeComponent implements OnInit {
         gender: this.getStepper2.gender,
         dob: this.datepipe.transform(this.getStepper2.dob, 'y-MM-dd'),
         maritalStatus: this.getStepper2.maritalStatus,
+        maritalStatusName: this.getStepper2.maritalStatusName,
         nationality: this.getStepper2.nationality,
         emailId: this.getStepper2.emailId,
         pan: this.getStepper2.pan,
         aadhaarNo: this.getStepper2.aadhaarNo,
         fatherhusbandName: this.getStepper2.fatherhusbandName,
         ageProofId: this.getStepper2.ageProofId,
+          ageProofIdName: this.getStepper2.ageProofIdName,
         highestQualification: this.getStepper2.highestQualification,
         otherQualification: this.getStepper2.otherQualification,
         mobileNo: this.getStepper2.mobileNo,
@@ -2011,8 +2079,10 @@ export class EdelweissTermLifeComponent implements OnInit {
         isCurrPerAddrSame: this.getStepper2.isCurrPerAddrSame,
         employementTypeOther: this.getStepper2.employementTypeOther,
         employementType: this.getStepper2.employementType,
+          employementTypeName: this.getStepper2.employementTypeName,
         employerName: this.getStepper2.employerName,
         natureduty: this.getStepper2.natureduty,
+          naturedutyName: this.getStepper2.naturedutyName,
         employerAddr: this.getStepper2.employerAddr,
         annualIncome: this.getStepper2.annualIncome,
         taxResidence: this.getStepper2.taxResidence,
@@ -2043,7 +2113,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         type: this.getStepper2.type,
       });
     }
-    console.log(this.getStepper2, ' stepper2 ');
+    console.log(this.insureArray, ' stepper2 ');
 
 
 
@@ -2056,6 +2126,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(this.datepipe.transform(getStepper3.itemsNominee[i].nDob, 'y-MM-dd'));
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].gender.patchValue(getStepper3.itemsNominee[i].gender);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.patchValue(getStepper3.itemsNominee[i].nomineeRelationship);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(getStepper3.itemsNominee[i].nomineeRelationshipName);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(getStepper3.itemsNominee[i].nomineeDobValidError);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(getStepper3.itemsNominee[i].showAppointee);
 
@@ -2104,18 +2175,37 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.bankDetail, " stepper4 ");
 
   }
-  changeTitle()
+
+    changeMarital() {
+
+        this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
+    }
+    changeMarital1() {
+        this.insureArray.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.insureArray.controls['maritalStatus'].value]);
+    }
+    ageProofName() {
+        this.proposer.controls['ageProofIdName'].patchValue(this.eAgeProof[this.proposer.controls['ageProofId'].value]);
+    }
+    ageProofName1() {
+        this.insureArray.controls['ageProofIdName'].patchValue(this.eAgeProof[this.insureArray.controls['ageProofId'].value]);
+    }
+    employementTypeName() {
+        this.proposer.controls['employementTypeName'].patchValue(this.eemploymentType[this.proposer.controls['employementType'].value]);
+    }
+    employementTypeName1() {
+        this.insureArray.controls['employementTypeName'].patchValue(this.eemploymentType[this.insureArray.controls['employementType'].value]);
+    }
+    setbdutyListName() {
+        this.proposer.controls['naturedutyName'].patchValue(this.bduty[this.proposer.controls['natureduty'].value]);
+    }
+    setbdutyListName1() {
+        this.insureArray.controls['enaturedutyName'].patchValue(this.bduty[this.insureArray.controls['natureduty'].value]);
+    }
+    geteNomineeRelationName()
   {
-    this.proposer.controls['titleName'].patchValue(this.etitle[this.proposer.controls['title'].value]);
+      this.nomineeDetail.controls['nomineeRelationshipName'].patchValue(this.eNomineeRelation[this.nomineeDetail.controls['nomineeRelationship'].value]);
   }
-  changeGender() {
-    this.proposer.controls['genderName'].patchValue(this.egender[this.proposer.controls['gender'].value]);
 
-  }
-  changeMaritalStatus() {
-    this.proposer.controls['GenderName'].patchValue(this.emaritalStatus[this.proposer.controls['Gender'].value]);
-
-  }
 
 
 }

@@ -317,6 +317,7 @@ import { HdfcTwoWheelerProposalComponent } from './pages/hdfc-two-wheeler-propos
 import { ViewKeyfeaturesComponent } from './pages/bike-premium-list/view-keyfeatures/view-keyfeatures.component';
 import {ClearSessionMotorService} from './shared/services/clear-session-motor.service';
 import { ClearSessionFourwheelerService } from './shared/services/clear-session-fourwheeler.service';
+import { EdelweissTermLifePaymentSuccessComponent } from './pages/edelweiss-term-life-payment-success/edelweiss-term-life-payment-success.component';
 
 @NgModule({
     imports: [
@@ -590,7 +591,8 @@ import { ClearSessionFourwheelerService } from './shared/services/clear-session-
         UlipComponent,
         GroupTravelComponent,
         HdfcTwoWheelerProposalComponent,
-        ViewKeyfeaturesComponent
+        ViewKeyfeaturesComponent,
+        EdelweissTermLifePaymentSuccessComponent
     ],
     providers: [
         AppSettings,
