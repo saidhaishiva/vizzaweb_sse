@@ -243,7 +243,9 @@ export class BikePremiumListComponent implements OnInit {
             this.initialProductList = this.allProductLists.filter(data => data.year_type == '2');
          } else if(this.policyTerm == '3'){
                 this.initialProductList = this.allProductLists.filter(data => data.year_type == '3');
-            }
+            } else if(this.policyTerm == '5'){
+            this.initialProductList = this.allProductLists.filter(data => data.year_type == '5');
+        }
         else{
             this.initialProductList = this.allProductLists.filter(data => data.year_type == '1');
 
@@ -266,7 +268,7 @@ export class BikePremiumListComponent implements OnInit {
     viewKeyList(value) {
         console.log(value, 'value');
         let dialogRef = this.dialog.open(ViewKeyfeaturesComponent, {
-            width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo, scheme: value.scheme}
+            width: '1500px', data: {productId : value.product_id, productName: value.product_name, productLogo: value.company_logo}
         });
         dialogRef.disableClose = true;
         dialogRef.afterClosed().subscribe(result => {

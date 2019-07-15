@@ -37,19 +37,19 @@
                                                     <mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>
                                                 </mat-form-field>
                                             </div>
-                                            <!--<div class="col-md-3" *ngIf="proposer.controls['title'].value == 'Mr'">-->
-                                            <!--<mat-form-field class="w-100">-->
-                                            <!--<input matInput placeholder="Gender" formControlName="gender" readonly required >-->
-                                            <!--<mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>-->
-                                            <!--</mat-form-field>-->
-                                            <!--</div>-->
+                                            <div class="col-md-3" *ngIf="proposer.controls['title'].value == 'Mr'">
+                                                <mat-form-field class="w-100">
+                                                <input matInput placeholder="Gender" formControlName="gender" readonly required >
+                                                <mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
                                             <!--<div class="col-md-3" *ngIf="proposer.controls['title'].value == 'Ms' || proposer.controls['title'].value == 'Mrs'">-->
-                                            <!--<div class="col-md-3" *ngIf="!genderList">-->
-                                                <!--<mat-form-field class="w-100">-->
-                                                    <!--<input matInput placeholder="Gender" formControlName="gender" readonly required >-->
-                                                    <!--<mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>-->
-                                                <!--</mat-form-field>-->
-                                            <!--</div>-->
+                                            <div class="col-md-3" *ngIf="!genderList">
+                                                <mat-form-field class="w-100">
+                                                    <input matInput placeholder="Gender" formControlName="gender" readonly required >
+                                                    <mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>
+                                                </mat-form-field>
+                                            </div>
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
                                                     <input matInput [matDatepicker]="picker1"  placeholder="DOB (DD/MM/YYYY)" id="datepicker" (keypress)="dobValidate($event)" [max]="minDate"  formControlName="dob" (dateInput)="addEvent($event,'proposer')" (dateChange)="addEvent($event,'proposer')" minlength="10" maxlength="10"

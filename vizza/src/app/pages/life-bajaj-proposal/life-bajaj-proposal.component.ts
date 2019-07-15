@@ -94,7 +94,6 @@ export class LifeBajajProposalComponent implements OnInit {
   public proposalNextList:any;
   public proposalFormPdf:any;
   public appointeeDobValidError:any;
-
   public getDays:any;
   public getAge:any;
   public slectedIndex:any;
@@ -138,8 +137,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public bankProofPath: any;
   public idProofPath: any;
 
-
-    constructor(public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
+   constructor(public Proposer: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,) {
         this.requestedUrl = '';
         let stepperindex = 0;
         this.route.params.forEach((params) => {
@@ -181,7 +179,7 @@ export class LifeBajajProposalComponent implements OnInit {
       alterMobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
       maritalStatus: ['', Validators.required],
       annualIncome: '',
-        alterMobileError: '',
+      alterMobileError: '',
       occupationList: ['', Validators.compose([Validators.required])],
       height: ['', Validators.compose([Validators.minLength(3)])],
       weight: '',
@@ -258,14 +256,14 @@ export class LifeBajajProposalComponent implements OnInit {
       isPancard: true,
       jointAcName:'',
       amtTransaction:'',
-        dateoftransaction:'',
+      dateoftransaction:'',
       isAppliedPan:'',
       dateofapplication:'',
       ackNumber:'',
       totalIncome:'',
-        agriculturalIncome:'',
-        otherAgriculturalIncome:'',
-        modeOfTransaction:'',
+      agriculturalIncome:'',
+      otherAgriculturalIncome:'',
+      modeOfTransaction:'',
     });
     this.settings = this.appSettings.settings;
     this.settings.HomeSidenavUserBlock = false;
@@ -309,16 +307,16 @@ export class LifeBajajProposalComponent implements OnInit {
     this.proposalGenStatus = true;
     this.optGenStatus = true;
     this.optValidStatus = true;
-      this.skipUploadStatus = true;
-      this.fileUploadStatus = true;
+    this.skipUploadStatus = true;
+    this.fileUploadStatus = true;
 
   }
 
 
   ngOnInit() {
-      this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-      this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-      this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
 
     this.paIdList();
@@ -1150,7 +1148,6 @@ samerelationShip(){
   public proposerTypeFailure(error) {
   }
 
-
   // this function will Document Language List
   docLanguage() {
     const data = {
@@ -1252,7 +1249,6 @@ samerelationShip(){
 
   public citizenshipListFailure(error) {
   }
-
 
   country() {
     const data = {

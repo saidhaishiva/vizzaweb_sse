@@ -45,16 +45,16 @@ export class ViewKeyfeaturesComponent implements OnInit {
 
   constructor(public dialogRef: MatDialogRef<ViewKeyfeaturesComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService, public validation: ValidationService,public appSettings: AppSettings, public config: ConfigurationService, public common: BikeInsuranceService, public fb: FormBuilder, public toastr: ToastrService) {
-    this.settings = this.appSettings.settings;
+    console.log(data, 'data');
     this.productId = data.productId;
     console.log(this.productId, 'this.productId');
-    this.scheme = data.scheme;
     this.productName = data.productName;
     this.productLogo = data.productLogo;
     this.webhost = this.config.getimgUrl();
     this.testPath = '/uploads/religare1120002190099_1539679118.pdf';
     // this.id = 0;
     // this.value = '<p>List</p><ul><li>Test 1</li><li>Test 2</li><li>Test 3</li><li>Test 4</li></ul>';
+    this.settings = this.appSettings.settings;
 
     this.fileUploadPath = '';
 
@@ -151,9 +151,9 @@ export class ViewKeyfeaturesComponent implements OnInit {
   viewKeyFeatures() {
     const data = {
       'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : 0,
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
       "product_id": this.productId
     };
     this.settings.loadingSpinner = true;
