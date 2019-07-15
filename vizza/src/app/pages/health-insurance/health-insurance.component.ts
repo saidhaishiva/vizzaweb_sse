@@ -493,6 +493,7 @@ export class HealthInsuranceComponent implements OnInit {
                     this.common.getFamilyLists(data).subscribe(
                         (successData) => {
                             this.getFamilyListsSuccess(successData, 0, type);
+                            this.topScroll();
                         },
                         (error) => {
                             this.getFamilyListsFailure(error);
@@ -508,6 +509,10 @@ export class HealthInsuranceComponent implements OnInit {
         } else {
             this.healthProceed = true;
         }
+    }
+
+    topScroll() {
+        document.getElementById('main-content').scrollTop = 0;
     }
 
     public getFamilyListsSuccess(successData, index, type) {
@@ -1595,6 +1600,7 @@ export class AgeValidate {
             this.dialogRef.close(result);
         }
     }
+
 }
 
 

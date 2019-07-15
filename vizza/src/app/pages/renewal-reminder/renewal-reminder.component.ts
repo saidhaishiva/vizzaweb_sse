@@ -53,7 +53,8 @@ export class RenewalReminderComponent implements OnInit {
   getUrl: any;
   today: any;
   maxDate: any;
-  dateError: any;
+  sdateError: any;
+  edateError: any;
 
   public fileUploadPath: any;
   public uploadTypeTest: boolean;
@@ -89,7 +90,8 @@ export class RenewalReminderComponent implements OnInit {
     this.commentBox = false;
     this.selectDate = '';
     this.allImage = [];
-    this.today = new Date();
+    let today = new Date();
+    this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
 
     this.paymentFrequency = [
@@ -124,11 +126,20 @@ export class RenewalReminderComponent implements OnInit {
     if (event.value != null) {
       if (typeof event.value._i == 'string') {
         const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-        if (pattern.test(event.value._i) && event.value._i.length == 10) {
-          this.dateError = '';
-        } else {
-          this.dateError = 'Enter Valid Date';
+        if(type == 'sDate'){
+          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+            this.sdateError = '';
+          } else {
+            this.sdateError = 'Enter Valid Date';
+          }
+        }else{
+          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+            this.edateError = '';
+          } else {
+              this.edateError = 'Enter Valid Date';
+          }
         }
+
         let selectedDate;
         selectedDate = event.value._i;
 
@@ -138,7 +149,7 @@ export class RenewalReminderComponent implements OnInit {
           }
         }
       } else if (typeof event.value._i == 'object') {
-        this.dateError = '';
+        this.sdateError = '';
         if (type == 'sDate') {
           this.maxDate = event.value;
         }
