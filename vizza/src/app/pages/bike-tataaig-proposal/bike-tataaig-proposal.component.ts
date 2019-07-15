@@ -189,7 +189,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
         this.premium = sessionStorage.packae_list;
-        if(this.premium != 'Comprehensive_premium') {
+        if (this.premium != 'Comprehensive_premium') {
             this.vehicle.controls['coverdrive'].patchValue('ODD01');
         }
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
@@ -237,6 +237,8 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     addEvent(event: any) {
         if (event.value != null) {
+            let selectedDate = '';
+            this.bikeProposerAge = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -245,9 +247,12 @@ export class BikeTataaigProposalComponent implements OnInit {
                 } else {
                     this.proposerdateError = 'Enter Valid Date';
                 }
+                selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.bikeproposerAge = this.bikeProposerAge;
+                if (selectedDate.length == 10) {
+                    this.bikeProposerAge = this.ageCalculate(dob);
+                    console.log(this.bikeProposerAge,'agein');
+                }
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
@@ -255,11 +260,8 @@ export class BikeTataaigProposalComponent implements OnInit {
                 } else {
                     this.proposerdateError = 'Enter Valid Date';
                 }
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, 'ageob');
-                this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.bikeproposerAge = this.bikeProposerAge;
             }
+            sessionStorage.bikeproposerAge = this.bikeProposerAge;
         }
     }
 
@@ -537,18 +539,18 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikeproposer = '';
         sessionStorage.tatabikeproposer = JSON.stringify(value);
         if (this.proposer.valid) {
-            if (sessionStorage.bikeproposerAge >= 18) {
-                this.agecount = sessionStorage.bikeproposerAge;
-                let exp = this.agecount - 18;
-                if (this.proposer.controls['drivingexp'].value <= exp) {
-                    console.log(value, 'proposer');
-                    stepper.next();
+                if (sessionStorage.bikeproposerAge >= 18) {
+                    this.agecount = sessionStorage.bikeproposerAge;
+                    let exp = this.agecount - 18;
+                    if (this.proposer.controls['drivingexp'].value <= exp) {
+                        console.log(value, 'proposer');
+                        stepper.next();
+                    } else {
+                        this.toastr.error('Invalid Driving Experience');
+                    }
                 } else {
-                    this.toastr.error('Invalid Driving Experience');
+                    this.toastr.error('Proposer Age should be 18 or above');
                 }
-            } else {
-                this.toastr.error('Proposer Age should be 18 or above');
-            }
         } else {
             this.toastr.error('Please Fill All The Mandatory Fields');
         }
