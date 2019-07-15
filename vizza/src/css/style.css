@@ -540,6 +540,12 @@ a:hover {
 .scrollmenu {
   flex-wrap: nowrap; }
 
+/*mobile view*/
+@media screen and (max-width: 767px){
+  .scrollmenu {
+    flex-wrap: wrap; }
+}
+
 .proposal .mat-checkbox-layout {
   white-space: pre-wrap; }
 .proposal .add-nominee {
