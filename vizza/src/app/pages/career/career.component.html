@@ -53,6 +53,8 @@
                                     <input type="file"  class="custom-file-input" accept=".doc, .docx, .pdf" (change)="uploadProof($event)"   aria-describedby="inputGroupFileAddon01">
                                     <label class="custom-file-label"> Upload Your Resume <span class="error">*</span></label>
                                 </div>
+                            <p><span class="imglabel" style="color: #28a745"> <strong>Allowed file size :</strong><span> 1MB</span>, <strong>Allowed file type :</strong> <span>doc, docx, pdf</span></span>
+
                             <p class="error" *ngIf="!uploadTypeTest">Your Resume is required</p>
                             <img *ngIf="fileUploadPathDOCX !=''" src="assets/img/upload-icons/docx-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
                             <img *ngIf="fileUploadPathDOC !=''" src="assets/img/upload-icons/doc-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">

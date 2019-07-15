@@ -2113,7 +2113,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         type: this.getStepper2.type,
       });
     }
-    console.log(this.getStepper2, ' stepper2 ');
+    console.log(this.insureArray, ' stepper2 ');
 
 
 
@@ -2177,6 +2177,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
     changeMarital() {
+
         this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
     }
     changeMarital1() {

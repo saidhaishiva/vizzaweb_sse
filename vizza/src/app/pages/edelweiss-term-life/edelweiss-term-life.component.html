@@ -61,7 +61,7 @@
                       </div>
                         <div class="col-md-4">
                             <mat-form-field class="w-100">
-                                <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="geteMaritalStatus()" required  class="w-100">
+                                <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="changeMarital()" required  class="w-100">
                                     <mat-option *ngFor="let list of emaritalStatus | keys" [value]= list.key> {{list.value}} </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="proposer.controls.maritalStatus.errors?.required">Marital Status is required</mat-error>
@@ -246,7 +246,7 @@
                   <div class="col-md-12 mt-2">
                     <h6 class="color-blue">EMPLOYEMENT</h6>
                   </div>
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <mat-form-field class="w-100">
                             <input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
                             <mat-error *ngIf="proposer.controls.employerName.errors?.required">Employer Name  is required</mat-error>
@@ -277,19 +277,19 @@
                     </div>
 
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <mat-form-field class="w-100">
                             <input matInput placeholder="Address of employer" formControlName="employerAddr" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
-                            <mat-error *ngIf="proposer.controls.employerAddr.errors?.required">Other Employer Address   is required</mat-error>
+                            <mat-error *ngIf="proposer.controls.employerAddr.errors?.required"> Employer Address   is required</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <mat-form-field class="w-100">
                             <input matInput placeholder="Annual Income" formControlName="annualIncome" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)" >
                             <mat-error *ngIf="proposer.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                         </mat-form-field>
                     </div>
-                    <div class="col-md-12">
+                    <div class="col-md-6">
                         <mat-radio-group formControlName="taxResidence" >
                             <p>Tax Residence Declaration </p>
                             <mat-radio-button value="No">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
@@ -325,7 +325,7 @@
                                    <!--</mat-panel-title>-->
                                <!--</mat-expansion-panel-header>-->
                                <div class="row" >
-                                   <div class="col-md-12 box-card pt-3">
+                                   <div class="col-md-6 box-card pt-3">
                                        <!--<mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure()" ><strong>Same as proposer</strong></mat-checkbox>-->
                                        <mat-form-field class="w-100">
                                            <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure()" class="w-100" required >
@@ -563,13 +563,13 @@
                                    <div class="col-md-12 ">
                                        <h6 class="color-blue">EMPLOYEMENT</h6>
                                    </div>
-                                   <div class="col-md-3">
+                                   <div class="col-md-4">
                                        <mat-form-field class="w-100">
                                            <input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
-                                           <mat-error *ngIf="insureArray.controls.employerName.errors?.required">Employer Name Type Other is required</mat-error>
+                                           <mat-error *ngIf="insureArray.controls.employerName.errors?.required">Employer Name  is required</mat-error>
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-3">
+                                   <div class="col-md-4">
                                        <mat-form-field class="w-100">
                                            <mat-select  placeholder="Employement Type" formControlName="employementType"  (change)="geteemploymentType()" required  class="w-100" >
                                                <mat-option *ngFor="let list of eemploymentType | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -577,13 +577,13 @@
                                            <mat-error *ngIf="insureArray.controls.employementType.errors?.required">Employement Type is required</mat-error>
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-3" *ngIf="insureArray.controls['employementType'].value == '9'">
+                                   <div class="col-md-4" *ngIf="insureArray.controls['employementType'].value == '9'">
                                        <mat-form-field class="w-100" >
                                            <input matInput placeholder="Other Employement Type " formControlName="employementTypeOther" maxlength="50" autocomplete="off" required  >
-                                           <mat-error *ngIf="insureArray.controls.employementTypeOther.errors?.required">Employement Type Other is required</mat-error>
+                                           <mat-error *ngIf="insureArray.controls.employementTypeOther.errors?.required"> Employement Type  is required</mat-error>
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-3">
+                                   <div class="col-md-4">
                                        <mat-form-field class="w-100">
                                            <mat-select  placeholder="nature of duty/business" formControlName="natureduty"  required (change)="setbdutyList()" class="w-100" >
                                                <mat-option *ngFor="let list of bduty | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -592,20 +592,20 @@
                                        </mat-form-field>
                                    </div>
 
-                                   <div class="col-md-6">
+                                   <div class="col-md-4">
                                        <mat-form-field class="w-100">
                                            <input matInput placeholder="Address of employer" formControlName="employerAddr" maxlength="50" autocomplete="off" required  >
-                                           <mat-error *ngIf="insureArray.controls.employerAddr.errors?.required">Employer Address  Other is required</mat-error>
+                                           <mat-error *ngIf="insureArray.controls.employerAddr.errors?.required">Employer Address   is required</mat-error>
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-6">
+                                   <div class="col-md-4">
                                        <mat-form-field class="w-100">
                                            <input matInput placeholder="Annual Income" formControlName="annualIncome" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event)"  >
                                            <mat-error *ngIf="insureArray.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                                        </mat-form-field>
                                    </div>
 
-                                   <div class="col-md-12">
+                                   <div class="col-md-6">
                                        <mat-radio-group formControlName="taxResidence"  >
                                            <p>Tax Residence Declaration </p>
                                            <mat-radio-button value="No">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
