@@ -35,7 +35,7 @@
                   <!--</div>-->
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker1" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDateNew"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" [required]="typeList == 'new'">
                       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                       <mat-datepicker #picker1></mat-datepicker>
                       <mat-error *ngIf="fourWheeler.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
@@ -46,7 +46,7 @@
                     <mat-form-field class="w-100 text-left">
                       <mat-placeholder>RTO AREA
                       </mat-placeholder>
-                      <mat-select  formControlName="city" (change)="rtoCity()" required>
+                      <mat-select  formControlName="city" (change)="rtoCity()" [required]="typeList == 'new'">
                         <mat-option *ngFor="let paCity of cityDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                       </mat-select>
                       <mat-error *ngIf="fourWheeler.controls.city.errors?.required">city is required</mat-error>
@@ -69,7 +69,7 @@
 
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" class="text-uppercase" maxlength="10" minlength="9" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" (keypress)="idValidate($event)" (keyup)="setSession()" required>
+                      <input matInput placeholder="Vehicle No" formControlName="vehicalNumber" class="text-uppercase" maxlength="10" minlength="9" pattern="\S*(\S*([a-zA-Z]\S*[0-9])|([0-9]\S*[a-zA-Z]))\S*" (keypress)="idValidate($event)" (keyup)="setSession()" [required]="typeList != 'new'">
                       <mat-error *ngIf="fourWheeler.controls.vehicalNumber.errors?.required">Vehicle No is required</mat-error>
                       <mat-error *ngIf="fourWheeler.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>
                       <mat-error *ngIf="fourWheeler.controls.vehicalNumber.hasError('minlength')">Vehicle No isn't long enough, minimum of 9 characters</mat-error>
@@ -78,7 +78,7 @@
                   </div>
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <input matInput [matDatepicker]="picker4" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker4" placeholder="Registration Date (DD/MM/YYYY)"  [max]="minDate" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="registrationDate"  (dateInput)="addEvent($event, 'regitser')"  (dateChange)="addEvent($event, 'regitser')"  maxlength="10" minlength="10" [required]="typeList != 'new'">
                       <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                       <mat-datepicker #picker4 ></mat-datepicker>
                       <mat-error *ngIf="fourWheeler.controls.registrationDate.errors?.required">Registration Date is required</mat-error>
@@ -87,7 +87,7 @@
                   </div>
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="fourWheeler.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addstart($event)"  (dateChange)="addstart($event)"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker2" placeholder="Previous Policy StartDate (DD/MM/YYYY)" [min]="fourWheeler.controls['registrationDate'].value" (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyStart"  (dateInput)="addstart($event)"  (dateChange)="addstart($event)"  maxlength="10" minlength="10" [required]="typeList != 'new'">
                       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                       <mat-datepicker #picker2></mat-datepicker>
                       <mat-error *ngIf="fourWheeler.controls.previousPolicyStart.errors?.required">Start Date is required</mat-error>
@@ -95,7 +95,7 @@
                   </div>
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="fourWheeler.controls['previousPolicyStart'].value"  (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addend($event)"  (dateChange)="addend($event)"  maxlength="10" minlength="10" required>
+                      <input matInput [matDatepicker]="picker3" placeholder="Previous Policy ExpiryDate (DD/MM/YYYY)" [min]="fourWheeler.controls['previousPolicyStart'].value"  (keyup)="setSession()" (keypress)="dobValidate($event)" formControlName="previousPolicyExpiry"  (dateInput)="addend($event)"  (dateChange)="addend($event)"  maxlength="10" minlength="10" [required]="typeList != 'new'">
                       <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                       <mat-datepicker #picker3></mat-datepicker>
                       <mat-error *ngIf="fourWheeler.controls.previousPolicyExpiry.errors?.required">End Date is required</mat-error>
@@ -103,7 +103,7 @@
                   </div>
                   <div class="col-md-12">
                     <mat-form-field class="w-100 text-left">
-                      <mat-select placeholder="Previous Company" formControlName="previousCompany"  required>
+                      <mat-select placeholder="Previous Company" formControlName="previousCompany"  [required]="typeList != 'new'">
                         <mat-option *ngFor="let title of companyList | keys" value="{{title.key}}" > {{title.value}} </mat-option>
                       </mat-select>
                       <mat-error *ngIf="fourWheeler.controls.previousCompany.errors?.required">Previous Company is required</mat-error>
@@ -111,7 +111,7 @@
                   </div>
                   <div class="col-md-12">
                     <p class="mt-2">Previous Claim ? <span class="error">*</span></p>
-                    <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="setSession();changeNcbAmt()">
+                    <mat-radio-group class="pl-3 mt-2" formControlName="previousClaim" (change)="setSession();changeNcbAmt()" >
                       <mat-radio-button value="Yes">Yes</mat-radio-button>
                       <mat-radio-button value="No">No</mat-radio-button>
                     </mat-radio-group>
@@ -131,7 +131,7 @@
                   <div class="col-md-10" *ngIf="fourWheeler.controls['previousClaim'].value == 'No'">
                     <mat-form-field class="w-100 text-left">
                       <mat-placeholder> NCB Percent(%)</mat-placeholder>
-                      <mat-select (change)="setSession()" formControlName="ncb"  required >
+                      <mat-select (change)="setSession()" formControlName="ncb"  [required]="typeList != 'new'" >
                         <!--<i class="material-icons"><span matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy."</span>-->
                         <!--help-->
                         <!--</i>-->
