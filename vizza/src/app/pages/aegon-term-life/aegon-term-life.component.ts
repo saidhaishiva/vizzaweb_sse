@@ -324,6 +324,7 @@ export class AegonTermLifeComponent implements OnInit {
   // }
 
   validateAccidental(event:any){
+    console.log(this.personal.controls['deathBenefitSA'].value, 'err');
     if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP') {
       if (this.personal.controls['deathBenefitSA'].value > 30000000) {
         this.annualError = ' Maximum Accidental Death Benifit should be 30000000';

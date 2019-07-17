@@ -11,6 +11,7 @@ import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ValidationService} from '../../shared/services/validation.service';
 import {Subject} from 'rxjs';
 import {Observable} from 'rxjs';
+import {ClearSessionTermlifeService} from '../../shared/services/clear-session-termlife.service';
 
 @Component({
   selector: 'app-term-life-premium-list',
@@ -31,7 +32,7 @@ export class TermLifePremiumListComponent implements OnInit {
     enquiryFromDetials: any;
     checkAllStatus: boolean;
     public keyUp = new Subject<string>();
-  constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService) {
+  constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService,public clearSession: ClearSessionTermlifeService) {
       this.settings = this.appSettings.settings;
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
@@ -41,6 +42,7 @@ export class TermLifePremiumListComponent implements OnInit {
       this.selectedAmountTravel = '5000000';
       sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
       this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+      this.clearSession.clearSessiontermData();
       // once user typing stoped after calling function
       const observable = this.keyUp
           .map(value => event)
