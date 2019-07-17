@@ -89,6 +89,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
   public hypothecationTypeDetails : any;
   public enquiryFormData : any;
   public bikeEnquiryId : any;
+  public packagelist : any;
   public siValue : any;
   // public policyDatevalidate : any;
   public currentStep : any;
@@ -231,7 +232,7 @@ export class ShriramFourwheelerProposalComponent implements OnInit {
 
   ngOnInit() {
     this.buyBikeDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
-    // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+    this.packagelist = sessionStorage.packageListFw;
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
 
     this.changeTitle();
@@ -936,6 +937,8 @@ hypoName(){
       "created_by": "",
       'proposal_id': sessionStorage.shiramFwProposalID == '' || sessionStorage.shiramFwProposalID == undefined ? '' : sessionStorage.shiramFwProposalID,
       "geogrophicalExtensionCover": "false",
+      "package_type": this.packagelist,
+
       "motorProposalObj": {
         // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
         "InsuredPrefix": "1",

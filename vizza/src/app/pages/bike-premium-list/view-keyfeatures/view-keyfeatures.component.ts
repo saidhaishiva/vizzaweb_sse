@@ -151,10 +151,10 @@ export class ViewKeyfeaturesComponent implements OnInit {
   viewKeyFeatures() {
     const data = {
       'platform': 'web',
-      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
-      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4',
-      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
-      "product_id": this.productId
+      'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0'.toString(),
+      'role_id': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : '4'.toString(),
+      'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0'.toString(),
+      "product_id": this.productId.toString()
     };
     this.settings.loadingSpinner = true;
     this.common.viewKeyFeatureList(data).subscribe(

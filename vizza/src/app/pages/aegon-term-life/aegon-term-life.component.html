@@ -507,8 +507,8 @@
                           <div class="row">
                             <h6 class="color-blue p-3" >APPOINTEE DETAILS</h6>
                           </div>
-                          <div class="col-md-12 p-3  box-card">
-                          <div class="row p-3">
+                          <div class="col-md-12 p-3 ">
+                          <div class="row ">
                             <div class="col-md-4">
                               <mat-form-field class="w-100">
                                 <mat-placeholder>Appointee Title<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
@@ -775,7 +775,7 @@
                 <div class="col-md-12 text-center">
                   <!--<a href="{{summaryData.redirectLink}}">Pay Now</a>-->
                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" ><a href="{{summaryData.redirectLink}}">Pay Now</a></button>
+                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" ><a href="{{summaryData.redirectLink}}" style="color : #fffff ;">Pay Now</a></button>
                 </div>
               </div>
             </section>
