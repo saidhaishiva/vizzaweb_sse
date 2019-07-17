@@ -1,40 +1,38 @@
 <i class="material-icons text-right"  (click)="close()">
     cancel
 </i>
-    <h3 align="center">Schedule Details</h3>
+<div fxLayoutWrap fxLayout="row" fxLayoutAlign="center">
+    <div fxFlex="100" fxFlex.gt-sm="90" fxFlex.sm="90" class="flex-p">
+        <form [formGroup]="form">
+            <div class="row">
+                <div class="col-sm-12">
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="Mail" formControlName="email" required >
+                        <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
+                        <mat-error *ngIf="form.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
 
-   <form [formGroup]="form">
-        <div class="row">
-            <div class="col-md-6">
-                <mat-form-field class="w-100">
-                    <input matInput placeholder="First name" formControlName="name"  autocomplete="off" required>
-                    <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
-                </mat-form-field>
+                    </mat-form-field>
+                 </div>
             </div>
-            <div class="col-md-6">
-                <mat-form-field class="w-100">
-                    <input matInput placeholder="Email" formControlName="email"  autocomplete="off" required>
-                    <mat-error *ngIf="form.controls.email.errors?.required">Email is required</mat-error>
-                </mat-form-field>
+            <div class="row">
+                <div class="col-sm-12">
+                    <mat-form-field class="w-100">
+                        <input matInput placeholder="Subject" formControlName="subject">
+                    </mat-form-field>
+                </div>
             </div>
-        </div>
-       <div class="row">
-            <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-12 mb-4">
+                    <quill-editor  formControlName="message" required></quill-editor>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-sm-12  text-right">
+                    <button mat-raised-button color="primary" (click)="submit()">Send</button>
+                </div>
+            </div>
+        </form>
 
-            <mat-form-field class="w-100">
-              <input matInput placeholder="Mobile" formControlName="mobile"   autocomplete="off" required>
-              <mat-error *ngIf="form.controls.name.errors?.required">Mobile is required</mat-error>
-            </mat-form-field>
-            </div>
-            <div class="col-md-6">
-
-            <mat-form-field class="w-100">
-              <input matInput placeholder="Status" formControlName="status"   autocomplete="off" required>
-              <mat-error *ngIf="form.controls.name.errors?.required">Name is required</mat-error>
-            </mat-form-field>
-            </div>
-        </div>
-       <button color="primary" mat-raised-button class="text-center" type="button">Next</button>
-
-   </form>
+    </div>
+</div>
 

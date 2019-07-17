@@ -10,11 +10,6 @@ export class ClearSessionTermlifeService {
     sessionStorage.summaryData='';
     sessionStorage.stepper1='';
     sessionStorage.stepper2='';
-    sessionStorage.enquiryFormData='';
-    sessionStorage.lifePremiumList='';
-    sessionStorage.getEnquiryDetials='';
-    sessionStorage.enquiryFromDetials='';
-
   }
 
 }
