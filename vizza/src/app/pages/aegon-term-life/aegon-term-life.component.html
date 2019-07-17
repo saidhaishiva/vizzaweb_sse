@@ -496,7 +496,7 @@
                               <!--Appointee details-->
                               <div *ngIf="apponiteeList==true">
                                 <div class="row">
-                                  <h6 class="color-blue mr-2 col-md-12"  style=" margin-left: 20px;">APPOINTEE DETAILS</h6>
+                                  <h6 class="color-blue mr-2 "  style=" margin-left: 20px;">APPOINTEE DETAILS</h6>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-3">
@@ -725,7 +725,7 @@
                             <li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nCity}}</li>
                             <li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nState}}</li>
                             <li class="list-group-item"><strong>Pincode:</strong> {{nomineeFormData.nPincode}}</li>
-                            <li class="list-group-item"><strong>Percentage:</strong> {{nomineeFormData.nPercentage}}</li>
+                            <!--<li class="list-group-item"><strong>Percentage:</strong> {{nomineeFormData.nPercentage}}</li>-->
 
                           </ul>
                         </div>
@@ -750,7 +750,6 @@
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                            <li class="list-group-item" *ngIf="nomineeFormData.aRelation != ''"><strong>Appointee Relation:</strong> {{nomineeFormData.aRelation}}</li>
-                            <li class="list-group-item" *ngIf="nomineeFormData.aPercentage != ''"><strong>Appointee Percentage:</strong> {{nomineeFormData.aPercentage}}</li>
                           </ul>
                         </div>
                       </div>

@@ -82,7 +82,7 @@
                           <img *ngIf="fileUploadPathDOCX !=''" src="assets/img/upload-icons/docx-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
                           <img *ngIf="fileUploadPathDOC !=''" src="assets/img/upload-icons/doc-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
                           <img *ngIf="fileUploadPathPDF !=''" src="assets/img/upload-icons/pdf-icon.png" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
-                          <img *ngIf="fileUploadPath !=''" src="{{webhost + '/' + fileUploadPath}}" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
+                          <img *ngIf="imageSrc !=''" [src]="imageSrc" class="img-thumbnail mt-3" height="100px" width="100px" alt="Image preview...">
                           <p *ngIf="filePath !=''" class="mt-1" style="color: green;">{{filePath}}</p>
                       </div>
                     <div class="col-md-6 whatsapp">

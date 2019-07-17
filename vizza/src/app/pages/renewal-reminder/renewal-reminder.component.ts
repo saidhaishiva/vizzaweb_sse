@@ -65,6 +65,8 @@ export class RenewalReminderComponent implements OnInit {
   public fileUploadPathDOC: any;
   public fileUploadPathDOCX: any;
   public filePath: any;
+  imageSrc: string;
+
 
   @ViewChild('myForm') myForm: NgForm;
 
@@ -107,13 +109,14 @@ export class RenewalReminderComponent implements OnInit {
     this.getPolicyTypes();
     this.getcompanyList();
     this.uploadTypeTest= true;
-    this.fileUploadPath = '';
     this.uploadTypeTest = true;
     this.filePath = '';
     this.fileUploadPath = '';
     this.fileUploadPathPDF= '';
     this.fileUploadPathDOC= '';
     this.fileUploadPathDOCX= '';
+    this.imageSrc = '';
+
   }
 
 
@@ -296,11 +299,37 @@ export class RenewalReminderComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[i]);
     }
+    if(this.allowedExtensionsPDF.exec(this.filePath)){
+      this.fileUploadPathPDF= 'pdf';
+      this.fileUploadPathDOC= '';
+      this.fileUploadPathDOCX= '';
+      this.imageSrc = '';
+    }else if(this.allowedExtensionsDOC.exec(this.filePath)){
+      this.fileUploadPathDOC= 'doc';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOCX= '';
+      this.imageSrc = '';
+    }else if(this.allowedExtensionsDOCX.exec(this.filePath)){
+      this.fileUploadPathDOCX= 'docx';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOC= '';
+      this.imageSrc = '';
+    }else {
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
 
+        const reader = new FileReader();
+        reader.onload = e => this.imageSrc = reader.result;
+
+        reader.readAsDataURL(file);
+        this.fileUploadPathPDF= '';
+        this.fileUploadPathDOC= '';
+        this.fileUploadPathDOCX= '';
+      }
+    }
   }
   onUploadFinished(event) {
     this.allImage.push(event);
-    this.onUpload();
   }
   onUpload() {
     console.log(this.allImage.length,'this.allImage.length');
@@ -325,27 +354,6 @@ export class RenewalReminderComponent implements OnInit {
   }
   public fileUploadSuccess(successData) {
     if (successData.IsSuccess) {
-      if(this.allowedExtensionsPDF.exec(this.filePath)){
-        this.fileUploadPathPDF= 'pdf';
-        this.fileUploadPathDOC= '';
-        this.fileUploadPathDOCX= '';
-        this.fileUploadPath = '';
-      }else if(this.allowedExtensionsDOC.exec(this.filePath)){
-        this.fileUploadPathDOC= 'doc';
-        this.fileUploadPathPDF= '';
-        this.fileUploadPathDOCX= '';
-        this.fileUploadPath = '';
-      }else if(this.allowedExtensionsDOCX.exec(this.filePath)){
-        this.fileUploadPathDOCX= 'docx';
-        this.fileUploadPathPDF= '';
-        this.fileUploadPathDOC= '';
-        this.fileUploadPath = '';
-      }else {
-        this.fileUploadPath = successData.ResponseObject.imagePath;
-        this.fileUploadPathPDF= '';
-        this.fileUploadPathDOC= '';
-        this.fileUploadPathDOCX= '';
-      }
       this.uploadTypeTest = true;
       this.toastr.success( successData.ResponseObject.message);
     } else {
@@ -358,10 +366,9 @@ export class RenewalReminderComponent implements OnInit {
     if(this.filePath == '' ){
       this.uploadTypeTest= false;
     }else{
-      this.toastr.success( 'Set Remainder successfully');
-
+      this.onUpload();
       this.uploadTypeTest = true;
-      this.fileUploadPath = '';
+      this.imageSrc = '';
       this.fileUploadPathPDF= '';
       this.fileUploadPathDOC= '';
       this.fileUploadPathDOCX= '';
