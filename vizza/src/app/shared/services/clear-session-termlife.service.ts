@@ -6,6 +6,7 @@ export class ClearSessionTermlifeService {
   constructor() { }
   clearSessiontermData()
   {
+    alert();
     //Aegon term life
     sessionStorage.summaryData='';
     sessionStorage.stepper1='';
