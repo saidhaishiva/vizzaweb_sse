@@ -251,14 +251,13 @@ export class BikeTataaigProposalComponent implements OnInit {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (selectedDate.length == 10) {
                     this.bikeProposerAge = this.ageCalculate(dob);
-                    console.log(this.bikeProposerAge,'agein');
+                    console.log(this.bikeProposerAge, 'agein');
                 }
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
                     this.proposerdateError = '';
-                } else {
-                    this.proposerdateError = 'Enter Valid Date';
+                    this.bikeProposerAge = this.ageCalculate(dob);
                 }
             }
             sessionStorage.bikeproposerAge = this.bikeProposerAge;

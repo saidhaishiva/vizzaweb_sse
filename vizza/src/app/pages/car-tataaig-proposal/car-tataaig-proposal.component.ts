@@ -206,6 +206,9 @@ export class CarTataaigProposalComponent implements OnInit {
     if (this.enquiryFormData.business_type != '1') {
       this.previouspolicy.controls['preflag'].patchValue('Y');
     }
+    if (this.premium != 'Comprehensive_premium') {
+      this.vehicle.controls['package'].patchValue('ODD01');
+    }
   }
 
   // changeflag(event: any) {
@@ -255,6 +258,8 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   addEvent(event: any) {
+    let selectedDate = '';
+    this.carProposerAge = '';
     let dob = '';
     if (event.value != null) {
       if (typeof event.value._i == 'string') {
@@ -264,19 +269,18 @@ export class CarTataaigProposalComponent implements OnInit {
         } else {
           this.proposerdateError = 'Enter Valid Date';
         }
+        selectedDate = event.value._i;
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        this.carProposerAge = this.ageCalculate(dob);
-        sessionStorage.carproposerAge = this.carProposerAge;
+        if (selectedDate.length == 10) {
+          this.carProposerAge = this.ageCalculate(dob);
+        }
       } else if (typeof event.value._i == 'object') {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
           this.proposerdateError = '';
+          this.carProposerAge = this.ageCalculate(dob);
         }
-      } else {
-        this.proposerdateError = 'Enter Valid Date';
       }
-      dob = this.datepipe.transform(event.value, 'y-MM-dd');
-      this.carProposerAge = this.ageCalculate(dob);
       sessionStorage.carproposerAge = this.carProposerAge;
     }
   }

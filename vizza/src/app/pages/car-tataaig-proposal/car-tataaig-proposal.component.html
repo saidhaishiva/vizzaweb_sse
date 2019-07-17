@@ -267,7 +267,7 @@
                       <div class="col-md-12 mt-1" >
                         <h6 class="color-blue"> OTHER ADDONS LIST </h6>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" [ngStyle]="{'pointer-events': premium != 'Comprehensive_premium' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Addons Package" formControlName="package" (change)="selectopt($event)" required>
                             <mat-option *ngFor="let package of packagelist | keys" value="{{package.key}}">{{package.value}}</mat-option>
@@ -294,7 +294,7 @@
                         <mat-checkbox formControlName="Tyresecure"><strong> Tyre Secure <span class="error">*</span></strong></mat-checkbox>
                       </div>
                       <div class="col-md-4 mt-2" *ngIf="enquiryFormData.ncb_percent != '0'&& enquiryFormData.ncb_percent != '20' && enquiryFormData.ncb_percent != '25'">
-                        <mat-checkbox formControlName="protectioncover"><strong> NCB protection cover <span class="error">*</span></strong></mat-checkbox>
+                        <mat-checkbox formControlName="protectioncover"><strong> NCB protection cover </strong></mat-checkbox>
                       </div>
                       <div class="col-md-4 mt-2" [ngStyle]="{'pointer-events': vehicle.controls['package'].value != '1' ?'none' : ''}" *ngIf="visible != false">
                         <mat-checkbox formControlName="Roadside"><strong> Roadside Assistance <span class="error" *ngIf="vehicle.controls['package'].value != '1'">*</span></strong></mat-checkbox>
@@ -470,7 +470,7 @@
                 <div class="col-md-6">
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}}. {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
+                      <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.proposerTitle}} {{proposerFormData.proposerFirstname}} {{proposerFormData.proposerMidname}} {{proposerFormData.proposerLastname}}</li>
                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.proposerDob | date: 'dd/MM/yyyy'}}</li>
                       <li class="list-group-item"><strong>Gender:</strong>{{proposerFormData.proposerGender}}</li>
                       <li class="list-group-item" *ngIf="proposerFormData.proposerEmail != ''"><strong>Email Id:</strong> {{proposerFormData.proposerEmail}}</li>
@@ -503,7 +503,7 @@
                     </ul>
                   </div>
                 </div>
-                <div class="col-md-6" *ngIf="proposer.controls['driveflag'].value == 'Y'">
+                <div class="col-md-6 mt-4" *ngIf="proposer.controls['driveflag'].value == 'Y'">
                   <div class="p-3">
                     <ul class="m-0 list-group">
                       <li class="list-group-item"><strong>Driving Experience:</strong> {{proposerFormData.drivingexp}}</li>
@@ -548,8 +548,7 @@
 
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <!--<li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preNamevalue}}</li>-->
-                      <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
+?                      <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
                     </ul>
                   </div>
                   <div class="p-3">
