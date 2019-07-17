@@ -1207,7 +1207,7 @@ export class ReliagretravelproposalComponent implements OnInit {
             'trip_type': this.getEnquiryDetails.travel_plan_type,
             'plan_name': this.getTravelPremiumList.plan_name,
             'company_name': this.getTravelPremiumList.company_name,
-            'suminsured_amount': this.getEnquiryDetails.sum_insured_amount,
+            'suminsured_amount': this.getTravelPremiumList.sum_insured_amount,
             'proposer_insurer_details': this.totalReligareData,
             'travel_geography_code': this.getTravelPremiumList.geography_code,
             'maxTripPeriod':this.getEnquiryDetails.day_count,
