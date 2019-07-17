@@ -39,6 +39,7 @@ export class BikePremiumListComponent implements OnInit {
     getEnquiry: any;
     policyTerm: any;
     initialProductList: any;
+    vehicleDetalis: any;
     constructor(public auth: AuthService, public datepipe: DatePipe,public dialog: MatDialog,public clearSession: ClearSessionMotorService, public appSettings: AppSettings,public router: Router,public bikeService: BikeInsuranceService, public config: ConfigurationService) {
         this.settings = this.appSettings.settings;
         this.settings.HomeSidenavUserBlock = false;
@@ -48,7 +49,6 @@ export class BikePremiumListComponent implements OnInit {
         this.compareArray = [];
         this.initialProductList = [];
         this.thirdParty = false;
-        this.policyTerm = '1';
         this.compherhensive = 'Comprehensive_premium';
         sessionStorage.packae_list = this.compherhensive;
         this.clearSession.clearSessionbikeData();
@@ -58,7 +58,14 @@ export class BikePremiumListComponent implements OnInit {
     {
         this.getCompanyList();
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+        this.vehicleDetalis = JSON.parse(sessionStorage.vehicledetails);
         this.sessionData();
+      if(this.vehicleDetalis.business_type == '1'){
+          this.policyTerm = '5';
+      }  else {
+          this.policyTerm = '1';
+
+      }
     }
     sessionData() {
         if(sessionStorage.getEnquiryDetials != '' && sessionStorage.getEnquiryDetials !=undefined) {
