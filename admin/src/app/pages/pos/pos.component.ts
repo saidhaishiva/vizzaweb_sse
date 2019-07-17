@@ -298,5 +298,45 @@ export class PosComponent implements OnInit {
     public branchListFailure(error) {
 
     }
+    getDownload(){
+        let posStatus = '';
+        if(this.tabValue == 'inactive'){
+             posStatus = '0';
+        } else if(this.tabValue == 'active') {
+             posStatus = '1';
+        }  else if(this.tabValue == 'rejected') {
+          posStatus = '2';
+        } else if(this.tabValue == 'onhold') {
+            posStatus = '3';
+        }
+
+const data = {
+            'platform': 'web',
+            'role_id': this.auth.getAdminRoleId(),
+            'admin_id': this.auth.getAdminId(),
+            'pos_status': posStatus
+        };
+        this.common.getDownloadPosReport(data).subscribe(
+            (successData) => {
+                this.downloadSuccess(successData);
+            },
+            (error) => {
+                this.downloadFailure(error);
+            }
+        );
+    }
+    public downloadSuccess(success) {
+        console.log(success);
+        if (success.IsSuccess) {
+            window.open(success.ResponseObject, '_self');
+
+        } else {
+        }
+    }
+
+    public downloadFailure(error) {
+
+    }
+
 }
 

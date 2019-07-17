@@ -60,7 +60,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"    formControlName="dob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                             <mat-error *ngIf="personal.controls.dob.errors?.required">DOB is required</mat-error>
@@ -149,7 +149,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (keyup)="getAnnual()" required autocomplete="off"  maxlength="10">
+                            <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (keyup)="keyUp.next()" required autocomplete="off"  maxlength="10">
                             <mat-error *ngIf="personal.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                           </mat-form-field>
                           <!--<div class="error" *ngIf="personal.controls['incomeError'].value != ''">{{personal.controls['incomeError'].value}}</div>-->
@@ -157,7 +157,7 @@
 
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                              <input matInput placeholder="Diabete Duration(Year)" formControlName="diabeteDuration" (keypress)="numberValidate($event)"  autocomplete="off"  >
+                              <input matInput placeholder="Diabete Duration(Year)" formControlName="diabeteDuration" (keypress)="numberValidate($event)"  autocomplete="off"  required>
                               <mat-error *ngIf="personal.controls.diabeteDuration.errors?.required">Diabete Duration is required</mat-error>
                             </mat-form-field>
 
@@ -340,7 +340,7 @@
                       </div>
                       <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Accidental Death Benefit" formControlName="adbrSumAssured" maxlength="8" minlength="5" autocomplete="off" required (keypress)="numberValidate($event)" (keypress)="validateAccidental($event)" >
+                          <input matInput placeholder="Accidental Death Benefit (Minimum 50000)" formControlName="adbrSumAssured" maxlength="8" minlength="5" autocomplete="off" required (keypress)="numberValidate($event)" (keyup)="validateAccidental($event)" >
                           <mat-error *ngIf="personal.controls.adbrSumAssured.errors?.required">Accidental Death Benefit is required</mat-error>
                         </mat-form-field>
                         <div class="error" *ngIf="annualError != ''">{{annualError}}</div>
@@ -362,7 +362,7 @@
                       </div>
                       </div>
                     <div class="proposal-buttom mt-3 text-right w-100">
-                      <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
+                      <!--<button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>-->
                       <button mat-raised-button color="primaryBlue"  (click)="personalDetails(stepper, personal.value)" >Next</button>
                     </div>
                   </div>
@@ -485,18 +485,18 @@
                                 <!--</mat-form-field>-->
                               <!--</div>-->
 
-                              <div class="col-md-3">
-                                <mat-form-field class="w-100">
-                                  <input matInput placeholder="Percentage" formControlName="nPercentage" (keypress)="numberValidate($event)"  autocomplete="off" required >
-                                  <mat-error *ngIf="nominee.controls.nPercentage.errors?.required">Percentage is required</mat-error>
-                                </mat-form-field>
-                              </div>
+                              <!--<div class="col-md-3">-->
+                                <!--<mat-form-field class="w-100">-->
+                                  <!--<input matInput placeholder="Percentage" formControlName="nPercentage" (keypress)="numberValidate($event)"  autocomplete="off" required >-->
+                                  <!--<mat-error *ngIf="nominee.controls.nPercentage.errors?.required">Percentage is required</mat-error>-->
+                                <!--</mat-form-field>-->
+                              <!--</div>-->
 
 
                               <!--Appointee details-->
                               <div *ngIf="apponiteeList==true">
                                 <div class="row">
-                                  <h6 class="color-blue mr-2" >APPOINTEE DETAILS</h6>
+                                  <h6 class="color-blue mr-2 "  style=" margin-left: 20px;">APPOINTEE DETAILS</h6>
                                 </div>
                                 <div class="row">
                                   <div class="col-md-3">
@@ -519,7 +519,7 @@
 
                                     </mat-form-field>
                                   </div>
-                                  <div class="col-md-3">
+                                  <div class="col-md-4">
                                     <mat-form-field class="w-100">
                                       <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
                                       <input matInput [matDatepicker]="picker3" [max]="today" (keypress)="dobValidate($event)"  formControlName="adob" (dateInput)="addEvent1( $event)" (dateChange)="addEvent1( $event)" minlength="10"  maxlength="10"   autocomplete="off">
@@ -529,7 +529,7 @@
                                     </mat-form-field>
                                     <!--<div class="error" *ngIf="dateError2 != ''">{{dateError2}}</div>-->
                                   </div>
-                                  <div class="col-md-3">
+                                  <div class="col-md-4">
                                     <mat-form-field class="w-100">
                                       <mat-placeholder>Appointee Relation<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
                                       <mat-select formControlName="aRelation" autocomplete="off"  (change)="changeAppointeerelationship()">
@@ -547,13 +547,7 @@
                                     </mat-form-field>
                                   </div>
 
-                                  <div class="col-md-4" >
-                                    <mat-form-field class="w-100">
-                                      <mat-placeholder> Appointee Percentage <span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
-                                      <input matInput  formControlName="aPercentage" (keypress)="numberValidate($event)"   autocomplete="off">
-                                      <!--<mat-error *ngIf="nominee.controls.aPercentage.errors?.required">Percentage is required</mat-error>-->
-                                    </mat-form-field>
-                                  </div>
+
                                 </div>
                               </div>
 
@@ -731,7 +725,7 @@
                             <li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nCity}}</li>
                             <li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nState}}</li>
                             <li class="list-group-item"><strong>Pincode:</strong> {{nomineeFormData.nPincode}}</li>
-                            <li class="list-group-item"><strong>Percentage:</strong> {{nomineeFormData.nPercentage}}</li>
+                            <!--<li class="list-group-item"><strong>Percentage:</strong> {{nomineeFormData.nPercentage}}</li>-->
 
                           </ul>
                         </div>
@@ -756,7 +750,6 @@
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                            <li class="list-group-item" *ngIf="nomineeFormData.aRelation != ''"><strong>Appointee Relation:</strong> {{nomineeFormData.aRelation}}</li>
-                            <li class="list-group-item" *ngIf="nomineeFormData.aPercentage != ''"><strong>Appointee Percentage:</strong> {{nomineeFormData.aPercentage}}</li>
                           </ul>
                         </div>
                       </div>

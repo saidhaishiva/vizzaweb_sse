@@ -50,9 +50,9 @@
                                                         <!--</mat-select>-->
                                                     <!--</mat-form-field>-->
                                                 </div>
-                                                <div class="col-md-6 ">
+                                                <div class="col-md-6">
                                                     <div class="row">
-                                                        <div class="col-md-6">
+                                                        <div class="col-md-4">
                                                             <mat-form-field class="w-100" *ngIf="tabValue == 'onhold'">
                                                                 <mat-select placeholder="Filter by status" [(ngModel)]="selectedList" (change)="filterPending()">
                                                                     <mat-option *ngFor="let list of allLists" [value]="list.name">
@@ -60,7 +60,8 @@
                                                                     </mat-option>
                                                                 </mat-select>
                                                             </mat-form-field>
-                                                            <mat-form-field class="w-100" *ngIf="tabValue == 'active'">
+
+                                                        <mat-form-field class="w-100" *ngIf="tabValue == 'active'">
                                                                 <mat-select placeholder="Manager List" [(ngModel)]="posManager" (change)="filtermanagerWise()">
                                                                     <mat-option  value="all" (change)="allActiveLists()"> All
                                                                     </mat-option>
@@ -70,7 +71,14 @@
                                                                 </mat-select>
                                                             </mat-form-field>
                                                         </div>
-                                                        <div class="col-md-6">
+
+                                                        <div class="col-md-4 text-center mt-2">
+                                                            <button mat-raised-button color="primary"  (click)="getDownload()"><i class="material-icons">
+                                                                cloud_download
+                                                            </i> Download</button>
+                                                        </div>
+
+                                                        <div class="col-md-4">
                                                             <mat-form-field class="w-100">
                                                                 <input matInput placeholder="Search ..." (keyup)="updateFilter($event)">
                                                                 <mat-icon matSuffix>search</mat-icon>

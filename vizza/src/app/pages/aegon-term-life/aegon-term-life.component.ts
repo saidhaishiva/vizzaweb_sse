@@ -18,6 +18,7 @@ import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
+import {Observable, Subject} from 'rxjs';
 
 
 export const MY_FORMATS = {
@@ -61,6 +62,7 @@ export class AegonTermLifeComponent implements OnInit {
   public lifePremiumList: any;
   public stateList: any;
   public getEnquiryDetials: any;
+  public enquiryFromDetials: any;
   public proposerFormData: any;
   public nomineeFormData: any;
   public occupationList: any;
@@ -88,6 +90,7 @@ export class AegonTermLifeComponent implements OnInit {
   public apponiteeList: boolean;
   public sum_insure: any;
   public empTypeList: any;
+  public keyUp = new Subject<string>();
 
 
 
@@ -118,6 +121,17 @@ export class AegonTermLifeComponent implements OnInit {
     this.inputReadonly=false;
     this.apponiteeList = false;
     this.settings= this.appSettings.settings;
+    const observable = this.keyUp
+        .map(value => event)
+        .debounceTime(1000)
+        .distinctUntilChanged()
+        .flatMap((search) => {
+          return Observable.of(search).delay(1000);
+        })
+        .subscribe((data) => {
+          console.log(data, 'data');
+          this.getAnnual();
+        });
     this.personal = this.fb.group({
       title: ['', Validators.required],
       firstName: ['', Validators.required],
@@ -158,7 +172,7 @@ export class AegonTermLifeComponent implements OnInit {
       pStateName:'',
       pCityName:'',
       cCityName:'',
-      adbrSumAssured:['',Validators.compose([Validators.minLength(5),Validators.maxLength(8)])],
+      adbrSumAssured:['', Validators.required],
       deathBenefitSA:'',
       deathBenefitTISA:'',
       enchancedCISA:'',
@@ -166,7 +180,7 @@ export class AegonTermLifeComponent implements OnInit {
       icirSumAssured:'',
       criticalIllnessError:'',
       // deathBenefitSAName:'',
-      // deathBenefitTISAName:'',
+      // deathBenefitTISAName:'',['',Validators.compose([Validators.minLength(5),Validators.maxLength(8)])]
 
 
     });
@@ -182,13 +196,13 @@ export class AegonTermLifeComponent implements OnInit {
       nCity: ['', Validators.required],
       nState: ['', Validators.required],
       nPincode: ['', Validators.required],
-      nPercentage:['', Validators.required],
+      // nPercentage:['', Validators.required],
       atitle: '',
       aFullName:'',
       adob: '',
       aRelation: '',
       appointeeRelationOther:'',
-      aPercentage: '',
+      // aPercentage: '',
       nCityName:'',
       nRelationName:'',
       nStateName:'',
@@ -203,6 +217,7 @@ export class AegonTermLifeComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     // if(){
     //     this.personal.controls['adbrSumAssured'].patchValue(this.lifePremiumList.sum_insured_amount);
     // } else {
@@ -219,6 +234,8 @@ export class AegonTermLifeComponent implements OnInit {
     this.getAppointeeRelation();
     // this.getoccupationlist();
     this.sessionData();
+    this.personal.controls['dob'].patchValue (this.enquiryFromDetials.dob);
+    this.personal.controls['adbrSumAssured'].patchValue (50000);
 
   }
 
@@ -307,16 +324,20 @@ export class AegonTermLifeComponent implements OnInit {
   // }
 
   validateAccidental(event:any){
-    if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP'){
-      if((this.personal.controls['adbrSumAssured'].value >=50000) && (this.personal.controls['adbrSumAssured'].value <=30000000)) {
-        this.personal.controls['adbrSumAssured'].patchValue(this.personal.controls['adbrSumAssured'].value);
-        this.annualError = '';
-      }
-      else{
-        // this.toastr.error('adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores');
-        this.annualError = 'adbrSumAssured should be minimum Fifty Thousand to maximum Three Crores';
+    console.log(this.personal.controls['deathBenefitSA'].value, 'err');
+    if(this.lifePremiumList.benefit_option == 'L' || this.lifePremiumList.benefit_option == 'LP') {
+      if (this.personal.controls['deathBenefitSA'].value > 30000000) {
+        this.annualError = ' Maximum Accidental Death Benifit should be 30000000';
+      } else {
+        if (this.personal.controls['adbrSumAssured'].value <= this.personal.controls['deathBenefitSA'].value) {
+          this.annualError = '';
+        } else {
+          this.annualError = 'Maximum Accidental Death Benifit should be' + this.personal.controls['deathBenefitSA'].value;
+        }
       }
     }
+
+
     }
 
   validateCriticalIllness(type) {
@@ -533,28 +554,24 @@ export class AegonTermLifeComponent implements OnInit {
       this.nominee.controls['adob'].patchValue(this.nominee.controls['adob'].value);
       this.nominee.controls['aRelation'].patchValue(this.nominee.controls['aRelation'].value);
       this.nominee.controls['appointeeRelationOther'].patchValue(this.nominee.controls['appointeeRelationOther'].value);
-      this.nominee.controls['aPercentage'].patchValue(this.nominee.controls['aPercentage'].value);
 
       this.nominee.controls['atitle'].setValidators([Validators.required]);
       this.nominee.controls['aFullName'].setValidators([Validators.required]);
       this.nominee.controls['adob'].setValidators([Validators.required]);
       this.nominee.controls['aRelation'].setValidators([Validators.required]);
       this.nominee.controls['appointeeRelationOther'].setValidators([Validators.required]);
-      this.nominee.controls['aPercentage'].setValidators([Validators.required]);
     } else {
       this.nominee.controls['atitle'].patchValue('');
       this.nominee.controls['aFullName'].patchValue('');
       this.nominee.controls['adob'].patchValue('');
       this.nominee.controls['aRelation'].patchValue('');
       this.nominee.controls['appointeeRelationOther'].patchValue('');
-      this.nominee.controls['aPercentage'].patchValue('');
 
       this.nominee.controls['atitle'].setValidators(null);
       this.nominee.controls['aFullName'].setValidators(null);
       this.nominee.controls['adob'].setValidators(null);
       this.nominee.controls['aRelation'].setValidators(null);
       this.nominee.controls['appointeeRelationOther'].setValidators(null);
-      this.nominee.controls['aPercentage'].setValidators(null);
 
     }
     this.nominee.controls['atitle'].updateValueAndValidity();
@@ -562,7 +579,6 @@ export class AegonTermLifeComponent implements OnInit {
     this.nominee.controls['adob'].updateValueAndValidity();
     this.nominee.controls['aRelation'].updateValueAndValidity();
     this.nominee.controls['appointeeRelationOther'].updateValueAndValidity();
-    this.nominee.controls['aPercentage'].updateValueAndValidity();
 
   }
 
@@ -625,6 +641,7 @@ export class AegonTermLifeComponent implements OnInit {
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
         if( this.personal.controls['criticalIllnessError'].value == ''){
+
           stepper.next();
           this.topScroll();
 
@@ -1166,13 +1183,12 @@ export class AegonTermLifeComponent implements OnInit {
         nCity: stepper2.nCity,
         nState: stepper2.nState,
         nPincode: stepper2.nPincode,
-        nPercentage: stepper2.nPercentage,
+        // nPercentage: stepper2.nPercentage,
         atitle: stepper2.atitle,
         aFullName: stepper2.aFullName,
         adob: stepper2.adob,
         aRelation: stepper2.aRelation,
         appointeeRelationOther: stepper2.appointeeRelationOther,
-        aPercentage: stepper2.aPercentage,
         nCityName: stepper2.nCityName,
         nRelationName: stepper2.nRelationName,
         nStateName: stepper2.nStateName,
@@ -1250,13 +1266,12 @@ export class AegonTermLifeComponent implements OnInit {
             "city": this.nomineeData.nCity,
             "state":  this.nomineeData.nState,
             "pincode":  this.nomineeData.nPincode,
-            "percent": this.nomineeData.nPercentage,
+            "percent": "100",
             "appointeeTittle":  this.nomineeData.atitle,
             "appointeeFullName":  this.nomineeData.aFullName,
             "appointeeDob":  this.nomineeData.adob,
             "appointeeRelation":  this.nomineeData.aRelation,
             "appointeeRelationOther":  this.nomineeData.appointeeRelationOther,
-            "appointeePercent":  this.nomineeData.aPercentage
           },
           "addonITerm": {
             "adbr": "NO",
