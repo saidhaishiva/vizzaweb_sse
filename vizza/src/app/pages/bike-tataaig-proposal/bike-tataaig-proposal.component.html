@@ -536,12 +536,12 @@
                   </div>
               </section>
               <section *ngIf="enquiryFormData.business_type != '1'">
-                <h5 class="mt-3 sub-title"> PREVIOUS POLICY  DETAILS </h5>
+                <h5 class="mt-3 sub-title"> PREVIOUS POLICY  DETAILS </h5>Is there any rollover with previous policy?
                 <div class="row box-card">
                   <div class="col-md-6">
                     <div class="p-3 mt-2">
                       <ul class="m-0 list-group">
-                        <!--<li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preNamevalue}}</li>-->
+                        <li class="list-group-item"><strong>Is there any rollover with previous policy?:</strong><span *ngIf="previousFormData.preflag == 'Y'">Yes</span></li>
                         <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
                       </ul>
                     </div>
