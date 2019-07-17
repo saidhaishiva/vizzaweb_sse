@@ -1045,16 +1045,17 @@
                <ng-template matStepLabel>SUMMARY</ng-template>
                <section class="summary-details" *ngIf="summaryData">
                    <div class="row">
-                       <div class="col-md-6">
-                           <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{buyProduct.plan_name | titlecase}}/ IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{buyProduct.Idv}}</span></h4>-->
-                           <!--&lt;!&ndash;<h4 class="mt-4"><span style="font-size: 17px; color: #666;" *ngIf = "productDetails.ThridParty_premium"> Plan Name: {{productDetails.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></h4>&ndash;&gt;-->
+                       <div class="col-md-4">
+                           <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{lifePremiumList.sum_insured_amount}}</span></h4>
                        </div>
-                       <div class="col-md-6 mt-4">
+                       <div class="col-md-8">
+                           <h4 class="mt-4"></h4>
                            <ul class="summary-head">
-                               <!--<li><span>Insurer:</span><img src="{{webhost + '/' + buyProduct.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>-->
-                               <!--<li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{buyProduct.Comprehensive_premium}}</span></li>-->
-                               <!--&lt;!&ndash;<li><span>Premium:</span><span *ngIf = "productDetails.ThridParty_premium"><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>&ndash;&gt;-->
-                               <!--&lt;!&ndash;<li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>&ndash;&gt;-->
+
+                               <li><span>Insurer:</span><img src="{{ webhost + '/' + lifePremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
+
+                               <!--<li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{lifePremiumList.totalpremium}}</span></li>-->
+                               <!--<li><span>Service Tax:</span><span><i class="fas fa-rupee-sign"></i> {{lifePremiumList.servicetax}}</span></li>-->
                                <li></li>
                            </ul>
                        </div>
