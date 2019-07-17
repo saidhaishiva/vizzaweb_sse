@@ -196,7 +196,7 @@ export class AegonTermLifeComponent implements OnInit {
       nCity: ['', Validators.required],
       nState: ['', Validators.required],
       nPincode: ['', Validators.required],
-      nPercentage:['', Validators.required],
+      // nPercentage:['', Validators.required],
       atitle: '',
       aFullName:'',
       adob: '',
