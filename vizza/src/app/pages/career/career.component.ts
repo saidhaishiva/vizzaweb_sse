@@ -148,7 +148,8 @@ webhost: any;
 
 
     uploadProof(event: any) {
-        this.allowedExtensionsPDF = /(\.pdf)$/i;
+      console.log(this.allowedExtensionsPDF, 'allowedExtensionsPDFallowedExtensionsPDF');
+        this.allowedExtensionsPDF = /(\.pdf, .doc, .docx)$/i;
         this.allowedExtensionsDOC = /(\.doc)$/i;
         this.allowedExtensionsDOCX = /(\.docx)$/i;
 
