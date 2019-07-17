@@ -2198,10 +2198,10 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
   changeTitle() {
     this.proposer.controls['titleName'].patchValue(this.etitle[this.proposer.controls['title'].value]);
+    console.log(this.proposer.controls['titleName'].value,'title2222222');
   }
   changeTitle1() {
     this.insureArray.controls['titleName'].patchValue(this.etitle[this.insureArray.controls['title'].value]);
-    console.log(this.insureArray.controls['titleName'].value,'title2222222');
   }
     changeMarital() {
     this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
