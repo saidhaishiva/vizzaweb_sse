@@ -44,10 +44,10 @@ export class TermLifePremiumListComponent implements OnInit {
       // once user typing stoped after calling function
       const observable = this.keyUp
           .map(value => event)
-          .debounceTime(100)
+          .debounceTime(1000)
           .distinctUntilChanged()
           .flatMap((search) => {
-              return Observable.of(search).delay(100);
+              return Observable.of(search).delay(1000);
           })
           .subscribe((data) => {
               console.log(data, 'data');
