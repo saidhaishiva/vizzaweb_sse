@@ -135,10 +135,11 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.taxRequired = '';
     this.step = 0;
     this.proposer = this.fb.group({
-      title: '',
-      firstName: '',
+      title:  ['', Validators.compose([Validators.required])],
+      titleName: '',
+      firstName: ['', Validators.compose([Validators.required])],
       midName: '',
-      lastName: '',
+      lastName: ['', Validators.compose([Validators.required])],
       gender: ['', Validators.compose([Validators.required])],
       dob: ['', Validators.compose([Validators.required])],
       maritalStatus: ['', Validators.required],
@@ -149,8 +150,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       aadhaarNo: '',
         ageProofIdName: '',
       fatherhusbandName: '',
-      ageProofId: '',
-      highestQualification: '',
+      ageProofId: ['', Validators.compose([Validators.required])],
+      highestQualification: ['', Validators.compose([Validators.required])],
+      highestQualificationName: '',
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
       currAddr1: '',
@@ -183,6 +185,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       investing: ['', Validators.compose([Validators.required])],
       title: ['', Validators.compose([Validators.required])],
       firstName: ['', Validators.compose([Validators.required])],
+      titleName: '',
       midName: '',
       lastName: ['', Validators.compose([Validators.required])],
       gender: ['', Validators.compose([Validators.required])],
@@ -197,6 +200,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       fatherhusbandName: '',
       ageProofId: ['', Validators.compose([Validators.required])],
       highestQualification: ['', Validators.compose([Validators.required])],
+      highestQualificationName: '',
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
 
@@ -474,6 +478,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.insureArray.controls['investing'].value == 'SELF') {
 
           this.insureArray.controls['title'].patchValue(this.proposer.controls['title'].value),
+          this.insureArray.controls['titleName'].patchValue(this.proposer.controls['titleName'].value),
           this.insureArray.controls['firstName'].patchValue(this.proposer.controls['firstName'].value),
           this.insureArray.controls['midName'].patchValue(this.proposer.controls['midName'].value),
           this.insureArray.controls['lastName'].patchValue(this.proposer.controls['lastName'].value),
@@ -487,6 +492,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['fatherhusbandName'].patchValue(this.proposer.controls['fatherhusbandName'].value),
           this.insureArray.controls['ageProofId'].patchValue(this.proposer.controls['ageProofId'].value),
           this.insureArray.controls['highestQualification'].patchValue(this.proposer.controls['highestQualification'].value),
+          this.insureArray.controls['highestQualificationName'].patchValue(this.proposer.controls['highestQualificationName'].value),
           this.insureArray.controls['otherQualification'].patchValue(this.proposer.controls['otherQualification'].value),
           this.insureArray.controls['mobileNo'].patchValue(this.proposer.controls['mobileNo'].value),
           this.insureArray.controls['currAddr1'].patchValue(this.proposer.controls['currAddr1'].value),
@@ -512,6 +518,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           console.log(this.insureArray.controls['title'].value, 'ghghghj');
     } else {
           this.insureArray.controls['title'].patchValue(''),
+          this.insureArray.controls['titleName'].patchValue(''),
           this.insureArray.controls['firstName'].patchValue(''),
           this.insureArray.controls['midName'].patchValue(''),
           this.insureArray.controls['lastName'].patchValue(''),
@@ -524,7 +531,9 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['aadhaarNo'].patchValue(''),
           this.insureArray.controls['fatherhusbandName'].patchValue(''),
           this.insureArray.controls['ageProofId'].patchValue(''),
+          this.insureArray.controls['ageProofIdName'].patchValue(''),
           this.insureArray.controls['highestQualification'].patchValue(''),
+          this.insureArray.controls['highestQualificationName'].patchValue(''),
           this.insureArray.controls['otherQualification'].patchValue(''),
           this.insureArray.controls['mobileNo'].patchValue(''),
           this.insureArray.controls['currAddr1'].patchValue(''),
@@ -1998,6 +2007,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.proposer = this.fb.group({
 
         title: this.getStepper1.title,
+        titleName: this.getStepper1.titleName,
         firstName: this.getStepper1.firstName,
         midName: this.getStepper1.midName,
         lastName: this.getStepper1.lastName,
@@ -2013,6 +2023,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         ageProofId: this.getStepper1.ageProofId,
           ageProofIdName: this.getStepper1.ageProofIdName,
         highestQualification: this.getStepper1.highestQualification,
+        highestQualificationName: this.getStepper1.highestQualificationName,
         otherQualification: this.getStepper1.otherQualification,
         mobileNo: this.getStepper1.mobileNo,
         currAddr1: this.getStepper1.currAddr1,
@@ -2049,6 +2060,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
         investing: this.getStepper2.investing,
         title: this.getStepper2.title,
+        titleName: this.getStepper2.titleName,
         firstName: this.getStepper2.firstName,
         midName: this.getStepper2.midName,
         lastName: this.getStepper2.lastName,
@@ -2064,6 +2076,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         ageProofId: this.getStepper2.ageProofId,
           ageProofIdName: this.getStepper2.ageProofIdName,
         highestQualification: this.getStepper2.highestQualification,
+        highestQualificationName: this.getStepper2.highestQualificationName,
         otherQualification: this.getStepper2.otherQualification,
         mobileNo: this.getStepper2.mobileNo,
         currAddr1: this.getStepper2.currAddr1,
@@ -2183,14 +2196,15 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.bankDetail, " stepper4 ");
 
   }
-
+  changeTitle() {
+    this.proposer.controls['titleName'].patchValue(this.etitle[this.proposer.controls['title'].value]);
+    console.log(this.proposer.controls['titleName'].value,'title2222222');
+  }
+  changeTitle1() {
+    this.insureArray.controls['titleName'].patchValue(this.etitle[this.insureArray.controls['title'].value]);
+  }
     changeMarital() {
-    console.log('hghjjhd');
-    console.log(this.emaritalStatus[this.proposer.controls['maritalStatus'].value],'marital1111');
-    console.log(this.proposer.controls['maritalStatus'].value,'3333333')
-
-        this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
-    console.log(this.proposer.controls['maritalStatusName'].value,'22222222222');
+    this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
 
     }
     changeMarital1() {

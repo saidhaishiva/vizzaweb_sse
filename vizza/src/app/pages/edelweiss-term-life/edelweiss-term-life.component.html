@@ -15,7 +15,7 @@
                     <div class="row">
                       <div class="col-md-4" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="title"  required>
+                          <mat-select placeholder="Title" formControlName="title" (change)="changeTitle()" required>
                             <mat-option *ngFor="let list of etitle | keys" [value]= list.key> {{list.value}} </mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.title.errors?.required">Title is required</mat-error>
@@ -337,7 +337,7 @@
                                        <div class="row p-3" >
                                            <div class="col-md-4" >
                                                <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value ? 'none' : ''}">
-                                                   <mat-select  placeholder="Title" formControlName="title"  class="w-100" required >
+                                                   <mat-select  placeholder="Title" formControlName="title" (change)="changeTitle1()" class="w-100" required >
                                                        <mat-option *ngFor="let list of etitle | keys" [value]= list.key> {{list.value}} </mat-option>
                                                    </mat-select>
                                                    <mat-error *ngIf="insureArray.controls.title.errors?.required">Title is required</mat-error>
@@ -1068,7 +1068,7 @@
                                <div class="p-3">
 
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.title}} {{proposerFormData.firstName}} {{proposerFormData.midName}} {{proposerFormData.lastName}}</li>
+                                       <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.titleName}} {{proposerFormData.firstName}} {{proposerFormData.midName}} {{proposerFormData.lastName}}</li>
                                        <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.gender != ''"><strong>gender :</strong> {{proposerFormData.gender}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.maritalStatus != ''"><strong>maritalStatus :</strong> {{proposerFormData.maritalStatusName}}</li>
@@ -1133,7 +1133,7 @@
                                <div class="p-3">
 
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.title}} {{insuredFormData.firstName}} {{insuredFormData.midName}} {{insuredFormData.lastName}}</li>
+                                       <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.titleName}} {{insuredFormData.firstName}} {{insuredFormData.midName}} {{insuredFormData.lastName}}</li>
                                        <li class="list-group-item"><strong>D.O.B:</strong> {{insuredFormData.dob | date: 'dd/MM/yyyy'}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.gender != ''"><strong>gender :</strong> {{insuredFormData.gender}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.maritalStatus != ''"><strong>maritalStatus :</strong> {{insuredFormData.maritalStatusName}}</li>

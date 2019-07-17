@@ -2936,12 +2936,12 @@ btn-uploade{
   @media only screen and (max-width: 992px) {
     .carousel-control-prev {
       position: absolute;
-      left: 0px !important;
+      left: -15px !important;
       //padding-top: 150px;
     }
     .carousel-control-next {
       position: absolute;
-      right: 0px !important;
+      right: -15px !important;
       //padding-top: 150px;
     }
   }
