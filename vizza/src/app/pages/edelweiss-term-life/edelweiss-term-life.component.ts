@@ -485,12 +485,14 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['gender'].patchValue(this.proposer.controls['gender'].value),
           this.insureArray.controls['dob'].patchValue(this.proposer.controls['dob'].value),
           this.insureArray.controls['maritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value),
+          this.insureArray.controls['maritalStatusName'].patchValue(this.proposer.controls['maritalStatusName'].value),
           this.insureArray.controls['nationality'].patchValue(this.proposer.controls['nationality'].value),
           this.insureArray.controls['emailId'].patchValue(this.proposer.controls['emailId'].value),
           this.insureArray.controls['pan'].patchValue(this.proposer.controls['pan'].value),
           this.insureArray.controls['aadhaarNo'].patchValue(this.proposer.controls['aadhaarNo'].value),
           this.insureArray.controls['fatherhusbandName'].patchValue(this.proposer.controls['fatherhusbandName'].value),
           this.insureArray.controls['ageProofId'].patchValue(this.proposer.controls['ageProofId'].value),
+          this.insureArray.controls['ageProofIdName'].patchValue(this.proposer.controls['ageProofIdName'].value),
           this.insureArray.controls['highestQualification'].patchValue(this.proposer.controls['highestQualification'].value),
           this.insureArray.controls['highestQualificationName'].patchValue(this.proposer.controls['highestQualificationName'].value),
           this.insureArray.controls['otherQualification'].patchValue(this.proposer.controls['otherQualification'].value),
@@ -510,8 +512,10 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['isCurrPerAddrSame'].patchValue(this.proposer.controls['isCurrPerAddrSame'].value),
           this.insureArray.controls['employementTypeOther'].patchValue(this.proposer.controls['employementTypeOther'].value),
           this.insureArray.controls['employementType'].patchValue(this.proposer.controls['employementType'].value),
+          this.insureArray.controls['employementTypeName'].patchValue(this.proposer.controls['employementTypeName'].value),
           this.insureArray.controls['employerName'].patchValue(this.proposer.controls['employerName'].value),
           this.insureArray.controls['natureduty'].patchValue(this.proposer.controls['natureduty'].value),
+          this.insureArray.controls['naturedutyName'].patchValue(this.proposer.controls['naturedutyName'].value),
           this.insureArray.controls['employerAddr'].patchValue(this.proposer.controls['employerAddr'].value),
           this.insureArray.controls['annualIncome'].patchValue(this.proposer.controls['annualIncome'].value),
           this.insureArray.controls['taxResidence'].patchValue(this.proposer.controls['taxResidence'].value)
@@ -2197,6 +2201,9 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
   changeTitle() {
+    console.log('gjh');
+    console.log(this.etitle[this.proposer.controls['title'].value],'titlemnnnk');
+
     this.proposer.controls['titleName'].patchValue(this.etitle[this.proposer.controls['title'].value]);
     console.log(this.proposer.controls['titleName'].value,'title2222222');
   }
