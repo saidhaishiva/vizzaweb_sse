@@ -71,7 +71,7 @@ export class CareerListComponent implements OnInit {
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const temp = this.temp.filter(function (d) {
-      return d.refrence_by.toLowerCase().indexOf(val) !== -1 || !val;
+      return d.applicant_name.toLowerCase().indexOf(val) !== -1 || !val;
     });
     this.rows = temp;
     this.table.offset = 0;
@@ -80,10 +80,10 @@ export class CareerListComponent implements OnInit {
   public careerFailure(error) {
 
   }
-  getMail(){
+  getMail(value){
     const dialogRef = this.dialog.open(PathPopupComponent, {
-      width: '900px',
-      // height: '500px'
+      width: '900px', data: {careerid : value.id, email: value.applicant_email}
+        // height: '500px'
     });
     dialogRef.afterClosed().subscribe(res => {
 
