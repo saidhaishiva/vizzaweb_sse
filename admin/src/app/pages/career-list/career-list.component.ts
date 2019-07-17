@@ -71,7 +71,10 @@ export class CareerListComponent implements OnInit {
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const temp = this.temp.filter(function (d) {
-      return d.applicant_name.toLowerCase().indexOf(val) !== -1 || !val;
+      if(d.applicant_name.toLowerCase().indexOf(val) !== -1  || d.applicant_email.toLowerCase().indexOf(val) !== -1 || d.applicant_mobile.toLowerCase().indexOf(val) !== -1 || !val){
+        return d.applicant_name.toLowerCase().indexOf(val) !== -1 ||  d.applicant_email.toLowerCase().indexOf(val) !== -1 || d.applicant_mobile.toLowerCase().indexOf(val) !== -1 || !val;
+
+      }
     });
     this.rows = temp;
     this.table.offset = 0;
