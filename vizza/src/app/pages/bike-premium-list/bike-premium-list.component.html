@@ -36,7 +36,7 @@
                                     <mat-placeholder class="myclass font-weight-bold">Premium type ($)</mat-placeholder>
                                     <mat-select [(ngModel)]="compherhensive" (change)="premiumlist();listDetails()" >
                                         <mat-option value="Comprehensive_premium">Comprehensive Premium</mat-option>
-                                        <mat-option value="ThridParty_premium">ThridParty Premium</mat-option>
+                                        <mat-option value="ThridParty_premium" *ngIf="vehicleDetalis.business_type != '1'">ThridParty Premium</mat-option>
                                     </mat-select>
 
                                 </mat-form-field>

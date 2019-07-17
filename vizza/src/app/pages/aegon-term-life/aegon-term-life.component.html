@@ -416,7 +416,7 @@
 
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <input matInput [matDatepicker]="picker2" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  (keypress)="appointeeAgeValid($event)"   formControlName="ndob" (dateInput)="addDate( $event)" (dateChange)="addEvent( $event)" (input)="ageNominee()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                  <input matInput [matDatepicker]="picker2" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  (keyup)="appointeeAgeValid($event)"   formControlName="ndob" (dateInput)="addDate( $event)" (dateChange)="addEvent( $event)" (input)="ageNominee()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                   <mat-datepicker #picker2></mat-datepicker>
                                   <mat-error *ngIf="nominee.controls.ndob.errors?.required">DOB is required</mat-error>
@@ -478,6 +478,7 @@
                                 <mat-error *ngIf="nominee.controls.nPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
                               </mat-form-field></div>
 
+
                               <!--<div class="col-md-3">-->
                                 <!--<mat-form-field class="w-100">-->
                                   <!--<input matInput placeholder="City" formControlName="nCity" (keypress)="nameValidate($event)"  autocomplete="off" required >-->
@@ -493,70 +494,73 @@
                               <!--</div>-->
 
 
-                              <!--Appointee details-->
-                              <div *ngIf="apponiteeList==true">
-                                <div class="row">
-                                  <h6 class="color-blue mr-2 col-md-12"  style=" margin-left: 20px;">APPOINTEE DETAILS</h6>
-                                </div>
-                                <div class="row">
-                                  <div class="col-md-3">
-                                    <mat-form-field class="w-100">
-                                      <mat-placeholder>Appointee Title<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
-                                      <mat-select formControlName="atitle" >
-                                        <mat-option value="MR">Mr</mat-option>
-                                        <mat-option value="MS">Ms</mat-option>
-                                        <!--<mat-option value="MRS">Mrs</mat-option>-->
-                                      </mat-select>
-                                      <!--<mat-error *ngIf="nominee.controls.atitle.errors?.required">Title is required</mat-error>-->
 
-                                    </mat-form-field>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <mat-form-field class="w-100">
-                                      <mat-placeholder> Appointee Full Name <span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
-                                      <input matInput formControlName="aFullName"  (keypress)="nameValidate($event)" autocomplete="off">
-                                      <!--<mat-error *ngIf="nominee.controls.aFullName.errors?.required">Apponitee Name is required</mat-error>-->
-
-                                    </mat-form-field>
-                                  </div>
-                                  <div class="col-md-4">
-                                    <mat-form-field class="w-100">
-                                      <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
-                                      <input matInput [matDatepicker]="picker3" [max]="today" (keypress)="dobValidate($event)"  formControlName="adob" (dateInput)="addEvent1( $event)" (dateChange)="addEvent1( $event)" minlength="10"  maxlength="10"   autocomplete="off">
-                                      <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
-                                      <mat-datepicker #picker3></mat-datepicker>
-                                      <!--<mat-error *ngIf="nominee.controls.adob.errors?.required">Appointee DOB is required</mat-error>-->
-                                    </mat-form-field>
-                                    <!--<div class="error" *ngIf="dateError2 != ''">{{dateError2}}</div>-->
-                                  </div>
-                                  <div class="col-md-4">
-                                    <mat-form-field class="w-100">
-                                      <mat-placeholder>Appointee Relation<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
-                                      <mat-select formControlName="aRelation" autocomplete="off"  (change)="changeAppointeerelationship()">
-                                        <mat-option *ngFor="let list of appointeeRelationList | keys" [value]= 'list.value'>
-                                          {{list.value}}
-                                        </mat-option>
-                                      </mat-select>
-                                      <mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>
-                                    </mat-form-field>
-                                  </div>
-                                  <div class="col-md-4" *ngIf="nominee.controls.aRelation.value == 'Other'" >
-                                    <mat-form-field class="w-100">
-                                      <input matInput placeholder="Appointee Relation Other"  formControlName="appointeeRelationOther" (keypress)="numberValidate($event)"   autocomplete="off">
-                                      <!--<mat-error *ngIf="nominee.controls.aPercentage.errors?.required">Percentage is required</mat-error>-->
-                                    </mat-form-field>
-                                  </div>
-
-
-                                </div>
-                              </div>
 
 
 
                             </div>
                           </div>
 
+                        <!--Appointee details-->
+                        <div *ngIf="apponiteeList==true">
 
+                          <div class="row">
+                            <h6 class="color-blue p-3" >APPOINTEE DETAILS</h6>
+                          </div>
+                          <div class="col-md-12 p-3 ">
+                          <div class="row ">
+                            <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                <mat-placeholder>Appointee Title<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
+                                <mat-select formControlName="atitle" >
+                                  <mat-option value="MR">Mr</mat-option>
+                                  <mat-option value="MS">Ms</mat-option>
+                                  <!--<mat-option value="MRS">Mrs</mat-option>-->
+                                </mat-select>
+                                <!--<mat-error *ngIf="nominee.controls.atitle.errors?.required">Title is required</mat-error>-->
+
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                <mat-placeholder> Appointee Full Name <span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
+                                <input matInput formControlName="aFullName"  (keypress)="nameValidate($event)" autocomplete="off">
+                                <!--<mat-error *ngIf="nominee.controls.aFullName.errors?.required">Apponitee Name is required</mat-error>-->
+
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                <mat-placeholder>DOB (DD/MM/YYYY)<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
+                                <input matInput [matDatepicker]="picker3" [max]="today" (keypress)="dobValidate($event)"  formControlName="adob" (dateInput)="addEvent1( $event)" (dateChange)="addEvent1( $event)" minlength="10"  maxlength="10"   autocomplete="off">
+                                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                                <mat-datepicker #picker3></mat-datepicker>
+                                <!--<mat-error *ngIf="nominee.controls.adob.errors?.required">Appointee DOB is required</mat-error>-->
+                              </mat-form-field>
+                              <!--<div class="error" *ngIf="dateError2 != ''">{{dateError2}}</div>-->
+                            </div>
+                            <div class="col-md-4">
+                              <mat-form-field class="w-100">
+                                <mat-placeholder>Appointee Relation<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
+                                <mat-select formControlName="aRelation" autocomplete="off"  (change)="changeAppointeerelationship()">
+                                  <mat-option *ngFor="let list of appointeeRelationList | keys" [value]= 'list.value'>
+                                    {{list.value}}
+                                  </mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>
+                              </mat-form-field>
+                            </div>
+                            <div class="col-md-4" *ngIf="nominee.controls.aRelation.value == 'Other'" >
+                              <mat-form-field class="w-100">
+                                <input matInput placeholder="Appointee Relation Other"  formControlName="appointeeRelationOther" (keypress)="numberValidate($event)"   autocomplete="off">
+                                <!--<mat-error *ngIf="nominee.controls.aPercentage.errors?.required">Percentage is required</mat-error>-->
+                              </mat-form-field>
+                            </div>
+
+
+                          </div>
+                        </div>
+                      </div>
 
                           <div class="proposal-buttom mt-3 text-right w-100">
                             <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
@@ -725,7 +729,7 @@
                             <li class="list-group-item"><strong>City:</strong> {{nomineeFormData.nCity}}</li>
                             <li class="list-group-item"><strong>State:</strong> {{nomineeFormData.nState}}</li>
                             <li class="list-group-item"><strong>Pincode:</strong> {{nomineeFormData.nPincode}}</li>
-                            <li class="list-group-item"><strong>Percentage:</strong> {{nomineeFormData.nPercentage}}</li>
+                            <!--<li class="list-group-item"><strong>Percentage:</strong> {{nomineeFormData.nPercentage}}</li>-->
 
                           </ul>
                         </div>
@@ -750,7 +754,6 @@
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                            <li class="list-group-item" *ngIf="nomineeFormData.aRelation != ''"><strong>Appointee Relation:</strong> {{nomineeFormData.aRelation}}</li>
-                            <li class="list-group-item" *ngIf="nomineeFormData.aPercentage != ''"><strong>Appointee Percentage:</strong> {{nomineeFormData.aPercentage}}</li>
                           </ul>
                         </div>
                       </div>
@@ -772,7 +775,7 @@
                 <div class="col-md-12 text-center">
                   <!--<a href="{{summaryData.redirectLink}}">Pay Now</a>-->
                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" ><a href="{{summaryData.redirectLink}}">Pay Now</a></button>
+                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" ><a href="{{summaryData.redirectLink}}" style="color : #fffff ;">Pay Now</a></button>
                 </div>
               </div>
             </section>
