@@ -46,7 +46,7 @@ public email: any;
         "platform" : "web",
         "role_id" : this.auth.getAdminRoleId(),
         "user_id" : this.auth.getAdminId(),
-        "career_id" :this.auth.getAdminId(),
+        "career_id" :this.careerId,
         "subject" : this.form.controls['subject'].value,
         "content" : this.form.controls['message'].value
       };
