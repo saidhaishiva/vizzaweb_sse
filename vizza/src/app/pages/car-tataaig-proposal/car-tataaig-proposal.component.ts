@@ -206,6 +206,9 @@ export class CarTataaigProposalComponent implements OnInit {
     if (this.enquiryFormData.business_type != '1') {
       this.previouspolicy.controls['preflag'].patchValue('Y');
     }
+    if (this.premium != 'Comprehensive_premium') {
+      this.vehicle.controls['package'].patchValue('ODD01');
+    }
   }
 
   // changeflag(event: any) {

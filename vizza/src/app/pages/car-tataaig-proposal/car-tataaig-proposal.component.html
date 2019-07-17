@@ -267,7 +267,7 @@
                       <div class="col-md-12 mt-1" >
                         <h6 class="color-blue"> OTHER ADDONS LIST </h6>
                       </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4" [ngStyle]="{'pointer-events': premium != 'Comprehensive_premium' ? 'none' : ''}">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Addons Package" formControlName="package" (change)="selectopt($event)" required>
                             <mat-option *ngFor="let package of packagelist | keys" value="{{package.key}}">{{package.value}}</mat-option>
@@ -548,8 +548,7 @@
 
                   <div class="p-3">
                     <ul class="m-0 list-group">
-                      <!--<li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preNamevalue}}</li>-->
-                      <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
+?                      <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
                     </ul>
                   </div>
                   <div class="p-3">
