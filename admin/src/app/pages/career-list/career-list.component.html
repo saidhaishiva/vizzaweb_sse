@@ -58,7 +58,10 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Resume">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <button mat-raised-button color="primary" (click)="path()">Download</button>
+                <!--<a href="img" download>Download</a>-->
+                <button mat-raised-button color="primary" (click)="imageDownload(row)"><i class="material-icons">
+                  cloud_download
+                </i> Download</button>
               </ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="status">
@@ -76,9 +79,10 @@
             </ngx-datatable-column>
             <ngx-datatable-column name="Action">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-             <i class="material-icons" (click)="path()" style="cursor: pointer;">
+             <i class="material-icons" style="cursor: pointer;" (click)="path(rowIndex)">
                   more_vert
                 </i>
+                <button mat-raised-button (click)="getMail()" *ngIf="list">Schedule Interview</button>
 
               </ng-template>
             </ngx-datatable-column>

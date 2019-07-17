@@ -1063,7 +1063,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "frequency":this.enquiryFormData.lifePayment,
         "sumAssured": sessionStorage.selectedAmountTravel,
       },
-      "isLAProposerSame":this.insureArray.controls['investing'].value,
+      "isLAProposerSame":"",
       "LifeAssured": {
         "nomineeData": nomineeDetails,
         // [
@@ -1132,7 +1132,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "annualIncome":this.insureArray.controls['annualIncome'].value,
         "isIncomeSource":"",
         "incomeSourceDetails":"",
-        "familyDiease_Ind":this.insureArray.controls['insureHistory'].value,
+        "familyDiease_Ind":this.insureArray.controls['insureHistory'].value ? 'Y' : 'N',
         "familyDiease_Details":"",
         "hasfamilyAppliedETLI":"",
         "otherPolicy_Ind":"",
@@ -1157,11 +1157,11 @@ export class EdelweissTermLifeComponent implements OnInit {
         "addrProof":this.insureArray.controls['addrProof'].value,
         "corrAddrProof":"",
         "incomeProof":"",
-        "hasEIAccount":"",
-        "EIAccountNo":this.insureArray.controls['einsureAccNo'].value,
+        "hasEIAccount":this.insureArray.controls['insureAccNo'].value,
+        "EIAccountNo":this.insureArray.controls['einsureAccNo'].value ,
         "applyEIAccount":this.insureArray.controls['provideAccNo'].value,
         "EIARepository":this.insureArray.controls['insureRepository'].value,
-        "wantEPolicy":"",
+        "wantEPolicy":this.insureArray.controls['epolicy'].value  ,
         "relationLAProposer":this.insureArray.controls['investing'].value,
         "height":"",
         "heightFeets":this.insureArray.controls['heightFeets'].value,
@@ -1180,9 +1180,9 @@ export class EdelweissTermLifeComponent implements OnInit {
         "isTaxResOfIndia":this.insureArray.controls['taxResidence'].value,
         "aadhaarNo":this.insureArray.controls['aadhaarNo'].value,
         "questionnaires":{
-          "medicationInd":this.insureArray.controls['medicalTreatment'].value,
-          "diagnosedInd":this.insureArray.controls['receivedTreatment1'].value,
-          "aidsInd":this.insureArray.controls['receivedTreatment2'].value,
+          "medicationInd":this.insureArray.controls['medicalTreatment'].value ? 'Y' : 'N',
+          "diagnosedInd":this.insureArray.controls['receivedTreatment1'].value ? 'Y' : 'N',
+          "aidsInd":this.insureArray.controls['receivedTreatment2'].value ? 'Y' : 'N',
         },
         "bank":{
           "accountNo":this.bankDetail.controls['accountNo'].value,
@@ -2147,11 +2147,15 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (sessionStorage.stepper4Details != '' && sessionStorage.stepper4Details != undefined) {
       let getStepper4 = JSON.parse(sessionStorage.stepper4Details);
+      console.log(getStepper4,'step4');
+      console.log(getStepper4.existingInsuranceInd,'indvalue');
+
 
       this.bankDetail.controls['existingInsuranceInd'].patchValue(getStepper4.existingInsuranceInd);
       // console.log(this.getStepper4.existingInsurance, ' getst2');
 
-      for (let i=0; i < this.getStepper4.existingInsurance.length; i++) {
+      console.log(getStepper4.existingInsurance.length,'lenght');
+      for (let i=0; i < getStepper4.existingInsurance.length; i++) {
         if ( i !=  0) {
           this.addItems();
         }
@@ -2163,11 +2167,11 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(getStepper4.existingInsurance[i].policyStatus);
       }
 
-        this.bankDetail.controls['accountNo'].patchValue(this.getStepper4.accountNo);
-        this.bankDetail.controls['name'].patchValue(this.getStepper4.name);
-        this.bankDetail.controls['location'].patchValue(this.getStepper4.location);
-        this.bankDetail.controls['ifscCode'].patchValue(this.getStepper4.ifscCode);
-        this.bankDetail.controls['investmentStrategy'].patchValue(this.getStepper4.investmentStrategy);
+        this.bankDetail.controls['accountNo'].patchValue(getStepper4.accountNo);
+        this.bankDetail.controls['name'].patchValue(getStepper4.name);
+        this.bankDetail.controls['location'].patchValue(getStepper4.location);
+        this.bankDetail.controls['ifscCode'].patchValue(getStepper4.ifscCode);
+        this.bankDetail.controls['investmentStrategy'].patchValue(getStepper4.investmentStrategy);
 
       console.log(this.bankDetail,'bankDetail');
     }
@@ -2177,11 +2181,17 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
     changeMarital() {
+    console.log('hghjjhd');
+    console.log(this.emaritalStatus[this.proposer.controls['maritalStatus'].value],'marital1111');
+    console.log(this.proposer.controls['maritalStatus'].value,'3333333')
 
         this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
+    console.log(this.proposer.controls['maritalStatusName'].value,'22222222222');
+
     }
     changeMarital1() {
         this.insureArray.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.insureArray.controls['maritalStatus'].value]);
+      console.log(this.insureArray.controls['maritalStatusName'].value,'122222222222');
     }
     ageProofName() {
         this.proposer.controls['ageProofIdName'].patchValue(this.eAgeProof[this.proposer.controls['ageProofId'].value]);
@@ -2199,11 +2209,16 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.proposer.controls['naturedutyName'].patchValue(this.bduty[this.proposer.controls['natureduty'].value]);
     }
     setbdutyListName1() {
-        this.insureArray.controls['enaturedutyName'].patchValue(this.bduty[this.insureArray.controls['natureduty'].value]);
+        this.insureArray.controls['naturedutyName'].patchValue(this.bduty[this.insureArray.controls['natureduty'].value]);
     }
-    geteNomineeRelationName()
+    geteNomineeRelationName(i)
   {
-      this.nomineeDetail.controls['nomineeRelationshipName'].patchValue(this.eNomineeRelation[this.nomineeDetail.controls['nomineeRelationship'].value]);
+    console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship,'hgjhjkj222222222')
+
+    console.log(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship],'lalkjsdjs')
+    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] )
+    console.log(this.nomineeDetail,'NOMINEEDETAIS');
+    console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName,'hghjhwweeee')
   }
 
 
