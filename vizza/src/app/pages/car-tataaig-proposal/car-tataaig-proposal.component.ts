@@ -206,6 +206,9 @@ export class CarTataaigProposalComponent implements OnInit {
     if (this.enquiryFormData.business_type != '1') {
       this.previouspolicy.controls['preflag'].patchValue('Y');
     }
+    if (this.premium != 'Comprehensive_premium') {
+      this.vehicle.controls['package'].patchValue('ODD01');
+    }
   }
 
   // changeflag(event: any) {
@@ -827,7 +830,7 @@ export class CarTataaigProposalComponent implements OnInit {
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "enquiry_id": this.carEnquiryId,
       "created_by": "",
-      "proposal_id": sessionStorage.tataCarproposalID == '' || sessionStorage.tataCarproposalID == undefined ? '' : sessionStorage.tataCarproposalID,
+      "proposal_id": sessionStorage.tatacarproposalID == '' || sessionStorage.tatacarproposalID == undefined ? '' : sessionStorage.tatacarproposalID,
       "motorproposalObj": {
         "quotation_no": this.Quotelist.productlist.quotation_no,
         "pol_sdate": this.enquiryFormData.business_type == '1'? this.datepipe.transform(this.minDate,'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
@@ -906,10 +909,9 @@ export class CarTataaigProposalComponent implements OnInit {
       this.summaryData = successData.ResponseObject;
       sessionStorage.summaryDatacartata = JSON.stringify(this.summaryData);
       this.Proposalnumber = this.summaryData.Proposal_Number;
-      console.log(this.Proposalnumber, 'pronum');
       this.PaymentRedirect = this.summaryData.PaymentRedirect;
       this.PaymentReturn = this.summaryData.PaymentReturn;
-      sessionStorage.tatacarproposalID = this.ProposalId;
+      sessionStorage.tatacarproposalID = this.summaryData.ProposalId;
       this.proposerFormData = this.proposer.value;
       this.vehicalFormData = this.vehicle.value;
       this.previousFormData = this.previouspolicy.value;
