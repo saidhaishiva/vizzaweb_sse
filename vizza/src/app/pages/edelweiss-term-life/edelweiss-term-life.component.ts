@@ -112,7 +112,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           let summaryData = JSON.parse(sessionStorage.summaryData);
           this.summaryData = summaryData;
-          this.requestedUrl = summaryData.biUrlLink;
+          this.requestedUrl = summaryData.payment_link;
           this.proposerFormData = JSON.parse(sessionStorage.proposerFormData);
           this.bankFormData = JSON.parse(sessionStorage.bankFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
@@ -225,8 +225,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       isPoliticallyExposed: false,
       specification: '',
       identityProof: '',
+      identityProofName: '',
       categorization: '',
       addrProof: '',
+      addrProofName: '',
       heightFeets: '',
       heightInches: '',
       weight: '',
@@ -1355,7 +1357,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.topScroll();
       this.toastr.success('BI Genereated successfully!!');
       this.summaryData = successData.ResponseObject;
-      this.requestedUrl = this.summaryData.biUrlLink;
+      this.requestedUrl = this.summaryData.payment_link;
       sessionStorage.summaryData = JSON.stringify(this.summaryData);
       this.proposalId = this.summaryData.ProposalId;
       this.proposerFormData = this.proposer.value;
@@ -2089,8 +2091,10 @@ export class EdelweissTermLifeComponent implements OnInit {
         isPoliticallyExposed: this.getStepper2.isPoliticallyExposed,
         specification: this.getStepper2.specification,
         identityProof: this.getStepper2.identityProof,
+        identityProofName: this.getStepper2.identityProofName,
         categorization: this.getStepper2.categorization,
         addrProof: this.getStepper2.addrProof,
+        addrProofName: this.getStepper2.addrProofName,
         heightFeets: this.getStepper2.heightFeets,
         heightInches: this.getStepper2.heightInches,
         weight: this.getStepper2.weight,
@@ -2191,14 +2195,22 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
     changeMarital1() {
         this.insureArray.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.insureArray.controls['maritalStatus'].value]);
-      console.log(this.insureArray.controls['maritalStatusName'].value,'122222222222');
+      console.log(this.insureArray.controls['maritalStatusName'].value,'maritalStatus2222222');
     }
     ageProofName() {
         this.proposer.controls['ageProofIdName'].patchValue(this.eAgeProof[this.proposer.controls['ageProofId'].value]);
+      console.log(this.proposer.controls['ageProofIdName'].value,'ageProof');
     }
     ageProofName1() {
         this.insureArray.controls['ageProofIdName'].patchValue(this.eAgeProof[this.insureArray.controls['ageProofId'].value]);
     }
+  qualificationName() {
+    this.proposer.controls['highestQualificationName'].patchValue(this.eQualification[this.proposer.controls['highestQualification'].value]);
+    console.log(this.proposer.controls['highestQualificationName'].value,'highestQualification');
+  }
+  qualificationName1() {
+    this.insureArray.controls['highestQualificationName'].patchValue(this.eQualification[this.insureArray.controls['highestQualification'].value]);
+  }
     employementTypeName() {
         this.proposer.controls['employementTypeName'].patchValue(this.eemploymentType[this.proposer.controls['employementType'].value]);
     }
@@ -2211,6 +2223,12 @@ export class EdelweissTermLifeComponent implements OnInit {
     setbdutyListName1() {
         this.insureArray.controls['naturedutyName'].patchValue(this.bduty[this.insureArray.controls['natureduty'].value]);
     }
+  idProofName() {
+    this.insureArray.controls['identityProofName'].patchValue(this.eIdProof[this.insureArray.controls['identityProof'].value]);
+  }
+  addressProofName() {
+    this.insureArray.controls['addrProofName'].patchValue(this.eAddressProof[this.insureArray.controls['addrProof'].value]);
+  }
     geteNomineeRelationName(i)
   {
     console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship,'hgjhjkj222222222')

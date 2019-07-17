@@ -333,7 +333,7 @@
                             <div class="row">
                               <div class="col-md-4" [ngStyle]="{'pointer-events':'none'}" >
                                 <mat-form-field class="w-100">
-                                  <mat-select  placeholder="PREVIOUS POLICY" formControlName="preflag" required>
+                                  <mat-select  placeholder="Is there any rollover with previous policy?" formControlName="preflag" required>
                                     <mat-option value="Y">Yes</mat-option>
                                     <mat-option value="N">No</mat-option>
                                   </mat-select>
@@ -548,7 +548,8 @@
 
                   <div class="p-3">
                     <ul class="m-0 list-group">
-?                      <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
+                      <li class="list-group-item"><strong>Is there any rollover with previous policy?:</strong><span *ngIf="previousFormData.preflag == 'Y'"></span>Yes</li>
+                      <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
                     </ul>
                   </div>
                   <div class="p-3">
