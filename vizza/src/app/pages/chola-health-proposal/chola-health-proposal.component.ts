@@ -84,6 +84,7 @@ export class CholaHealthProposalComponent implements OnInit {
 
   public relationsame1: any;
   public currentStep: any;
+  public nomineerelationshipList: any;
 
   constructor(public fb: FormBuilder, public authservice: AuthService, public config: ConfigurationService, public appSettings: AppSettings, public http: HttpClient, public route: ActivatedRoute, public datepipe: DatePipe, public validation: ValidationService, public termService: HealthService, private toastr: ToastrService ) {
     let stepperindex = 0;
@@ -467,7 +468,7 @@ export class CholaHealthProposalComponent implements OnInit {
     sessionStorage.stepper1Details = JSON.stringify(value);
       console.log(this.personal, 'this.personal');
     if (this.personal.valid) {
-       if (sessionStorage.personalAge >= 18) {
+       if ((sessionStorage.personalAge >= 18) && (sessionStorage.personalAge <= 65)) {
           if (this.mobileNumber == '' || this.mobileNumber == 'true') {
               this.insureArray['controls'].items['controls'][0]['controls'].personalTitle.patchValue(this.personal.controls['personalTitle'].value);
               this.insureArray['controls'].items['controls'][0]['controls'].personalFirstname.patchValue(this.personal.controls['personalFirstname'].value);
@@ -496,7 +497,7 @@ export class CholaHealthProposalComponent implements OnInit {
           }
            console.log(this.personal, 'this.personal');
        } else {
-       this.toastr.error('Proposer age should be 18 or above');
+       this.toastr.error('Proposer age between 18 to 65');
       }
     }
   }
@@ -507,6 +508,19 @@ export class CholaHealthProposalComponent implements OnInit {
     console.log(value, 'this.value');
     console.log(this.insureArray.valid, 'this.valid');
       let dateErrorMsg = [];
+
+
+      let relationList = this.relationshipList;
+      this.nomineerelationshipList = relationList;
+      for ( let nrelation in this.nomineerelationshipList) {
+          if (nrelation == 'Self') {
+              delete this.nomineerelationshipList.Self;
+          }
+          console.log(this.nomineerelationshipList, 'nomineerelationshipList');
+      }
+
+
+
     if (this.insureArray.valid) {
             let pedValid = true;
         for (let i= 0; i < this.insureArray.value.items.length; i++) {
@@ -869,6 +883,7 @@ console.log( sessionStorage.stepper3Details);
   public setRelationshipSuccess(successData) {
     if (successData.IsSuccess == true) {
       this.relationshipList = successData.ResponseObject;
+        console.log(this.relationshipList, 'relationshipListwee');
     }
 
 
