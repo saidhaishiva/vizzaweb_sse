@@ -831,6 +831,7 @@ export class CarTataaigProposalComponent implements OnInit {
       "enquiry_id": this.carEnquiryId,
       "created_by": "",
       "proposal_id": sessionStorage.tatacarproposalID == '' || sessionStorage.tatacarproposalID == undefined ? '' : sessionStorage.tatacarproposalID,
+      'package_type': this.premium,
       "motorproposalObj": {
         "quotation_no": this.Quotelist.productlist.quotation_no,
         "pol_sdate": this.enquiryFormData.business_type == '1'? this.datepipe.transform(this.minDate,'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
