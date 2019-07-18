@@ -11,6 +11,7 @@ import { AuthService} from '../../shared/services/auth.service';
 import { DatePipe} from '@angular/common';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import { ActivatedRoute } from '@angular/router';
+import {isUpperCase} from 'tslint/lib/utils';
 
 
 export const MY_FORMATS = {
