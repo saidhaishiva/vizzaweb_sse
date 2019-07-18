@@ -466,7 +466,7 @@
                                                <div class="row" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value ? 'none' : ''}">
                                                    <div class="col-md-12">
                                                        <mat-form-field class="w-100">
-                                                           <input matInput placeholder="Current Address" formControlName="currAddr1" maxlength="10" autocomplete="off" >
+                                                           <input matInput placeholder="Current Address1" formControlName="currAddr1" maxlength="10" autocomplete="off" >
                                                            <mat-error *ngIf="insureArray.controls.currAddr1.errors?.required">Current Address is required</mat-error>
                                                        </mat-form-field>
                                                    </div>
@@ -1071,14 +1071,14 @@
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.titleName}} {{proposerFormData.firstName}} {{proposerFormData.midName}} {{proposerFormData.lastName}}</li>
                                        <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.dob | date: 'dd/MM/yyyy'}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.gender != ''"><strong>gender :</strong> {{proposerFormData.gender}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.maritalStatus != ''"><strong>maritalStatus :</strong> {{proposerFormData.maritalStatusName}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.nationality != ''"><strong>nationality :</strong> {{proposerFormData.nationality}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.emailId != ''"><strong>emailId:</strong>{{proposerFormData.emailId}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.gender != ''"><strong>Gender :</strong> {{proposerFormData.gender}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.maritalStatus != ''"><strong>Marital Status :</strong> {{proposerFormData.maritalStatusName}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.nationality != ''"><strong>Nationality :</strong> {{proposerFormData.nationality}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.emailId != ''"><strong>Email Id:</strong>{{proposerFormData.emailId}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.pan != ''"><strong>PAN No:</strong>{{proposerFormData.pan | uppercase}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.aadhaarNo != ''"><strong>aadhaarNo:</strong> {{proposerFormData.aadhaarNo}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.fatherhusbandName != ''"><strong>fatherhusbandName:</strong> {{proposerFormData.fatherhusbandName}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.ageProofId != ''"><strong>ageProofId:</strong> {{proposerFormData.ageProofIdName }}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.aadhaarNo != ''"><strong>Aadhaar No:</strong> {{proposerFormData.aadhaarNo}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.fatherhusbandName != ''"><strong>Father/Husband Name:</strong> {{proposerFormData.fatherhusbandName}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.ageProofId != ''"><strong>AgeProof Id:</strong> {{proposerFormData.ageProofIdName }}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1086,16 +1086,16 @@
                                <div class="p-3">
 
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item" *ngIf="proposerFormData.mobileNo != ''"><strong>mobileNo:</strong> {{proposerFormData.mobileNo}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.highestQualification != ''"><strong>highestQualification:</strong> {{proposerFormData.highestQualificationName}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.otherQualification != ''"><strong>otherQualification:</strong> {{proposerFormData.otherQualification}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.employerName != ''"><strong>employerName:</strong> {{proposerFormData.employerName}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.employementType != ''"><strong>employementType:</strong> {{proposerFormData.employementTypeName}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.employementTypeOther != ''"><strong>employementTypeOther:</strong> {{proposerFormData.employementTypeOther}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.natureduty != ''"><strong>natureduty:</strong> {{proposerFormData.naturedutyName}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.employerAddr != ''"><strong>employerAddr:</strong> {{proposerFormData.employerAddr}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.annualIncome != ''"><strong>annualIncome:</strong> {{proposerFormData.annualIncome}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.taxResidence != ''"><strong>taxResidence:</strong> {{proposerFormData.taxResidence}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.mobileNo != ''"><strong>MobileNo:</strong> {{proposerFormData.mobileNo}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.highestQualification != ''"><strong>Highest Qualification:</strong> {{proposerFormData.highestQualificationName}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.otherQualification != ''"><strong>Other Qualification:</strong> {{proposerFormData.otherQualification}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.employerName != ''"><strong>Employer Name:</strong> {{proposerFormData.employerName}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.employementType != ''"><strong>Employement Type:</strong> {{proposerFormData.employementTypeName}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.employementTypeOther != ''"><strong>Employement Type Other:</strong> {{proposerFormData.employementTypeOther}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.natureduty != ''"><strong>Nature Of Duty:</strong> {{proposerFormData.naturedutyName}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.employerAddr != ''"><strong>Employer Address:</strong> {{proposerFormData.employerAddr}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.annualIncome != ''"><strong>Annual Income:</strong> {{proposerFormData.annualIncome}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.taxResidence != ''"><strong>Tax Residence:</strong> {{proposerFormData.taxResidence}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1103,12 +1103,12 @@
                                <div class="p-3">
                                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>currAddr1:</strong> {{proposerFormData.currAddr1}}</li>
-                                       <li class="list-group-item"  ><strong>currAddr 2:</strong> {{proposerFormData.currAddr2}}</li>
-                                       <li class="list-group-item"  *ngIf="proposerFormData.currAddr3 != ''" ><strong>currAddr3:</strong> {{proposerFormData.currAddr3}}</li>
-                                       <li class="list-group-item"><strong>currPincode:</strong> {{proposerFormData.currPincode}}</li>
-                                       <li class="list-group-item"><strong>currState:</strong> {{proposerFormData.currState}}</li>
-                                       <li class="list-group-item"><strong>currCity:</strong> {{proposerFormData.currCity}}</li>
+                                       <li class="list-group-item"><strong>Current Address1:</strong> {{proposerFormData.currAddr1}}</li>
+                                       <li class="list-group-item"  ><strong>Current Address2:</strong> {{proposerFormData.currAddr2}}</li>
+                                       <li class="list-group-item"  *ngIf="proposerFormData.currAddr3 != ''" ><strong>Current Address3:</strong> {{proposerFormData.currAddr3}}</li>
+                                       <li class="list-group-item"><strong>Pincode:</strong> {{proposerFormData.currPincode}}</li>
+                                       <li class="list-group-item"><strong>State:</strong> {{proposerFormData.currState}}</li>
+                                       <li class="list-group-item"><strong>City:</strong> {{proposerFormData.currCity}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1116,12 +1116,12 @@
                                <div class=" p-3">
                                    <h6 class="color-blue">REGISTRATION DETAILS</h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>perAddr1:</strong> {{proposerFormData.perAddr1}}</li>
-                                       <li class="list-group-item"><strong>perAddr2:</strong> {{proposerFormData.perAddr2}}</li>
-                                       <li class="list-group-item" ><strong>perAddr3:</strong>  {{proposerFormData.perAddr3}}</li>
-                                       <li class="list-group-item" ><strong>perPincode:</strong> {{proposerFormData.perPincode}}</li>
-                                       <li class="list-group-item" ><strong>perState:</strong> {{proposerFormData.perState}}</li>
-                                       <li class="list-group-item" ><strong>perCity:</strong> {{proposerFormData.perCity}}</li>
+                                       <li class="list-group-item"><strong>Permanent Address1:</strong> {{proposerFormData.perAddr1}}</li>
+                                       <li class="list-group-item"><strong>Permanent Address2:</strong> {{proposerFormData.perAddr2}}</li>
+                                       <li class="list-group-item" ><strong>Permanent Address3:</strong>  {{proposerFormData.perAddr3}}</li>
+                                       <li class="list-group-item" ><strong>Pincode:</strong> {{proposerFormData.perPincode}}</li>
+                                       <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.perState}}</li>
+                                       <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.perCity}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1136,23 +1136,23 @@
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.titleName}} {{insuredFormData.firstName}} {{insuredFormData.midName}} {{insuredFormData.lastName}}</li>
                                        <li class="list-group-item"><strong>D.O.B:</strong> {{insuredFormData.dob | date: 'dd/MM/yyyy'}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.gender != ''"><strong>gender :</strong> {{insuredFormData.gender}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.maritalStatus != ''"><strong>maritalStatus :</strong> {{insuredFormData.maritalStatusName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.nationality != ''"><strong>nationality :</strong> {{insuredFormData.nationality}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.emailId != ''"><strong>emailId:</strong>{{insuredFormData.emailId}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.gender != ''"><strong>Gender :</strong> {{insuredFormData.gender}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.maritalStatus != ''"><strong>Marital Status :</strong> {{insuredFormData.maritalStatusName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.nationality != ''"><strong>Nationality :</strong> {{insuredFormData.nationality}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.emailId != ''"><strong>Email Id:</strong>{{insuredFormData.emailId}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.pan != ''"><strong>PAN No:</strong>{{insuredFormData.pan | uppercase}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.aadhaarNo != ''"><strong>aadhaarNo:</strong> {{insuredFormData.aadhaarNo}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.fatherhusbandName != ''"><strong>fatherhusbandName:</strong> {{insuredFormData.fatherhusbandName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.ageProofId != ''"><strong>ageProofId:</strong> {{insuredFormData.ageProofIdName }}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.mobileNo != ''"><strong>mobileNo:</strong> {{insuredFormData.mobileNo}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.highestQualification != ''"><strong>highestQualification:</strong> {{insuredFormData.highestQualificationName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.otherQualification != ''"><strong>otherQualification:</strong> {{insuredFormData.otherQualification}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.employerName != ''"><strong>employerName:</strong> {{insuredFormData.employerName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.employementType != ''"><strong>employementType:</strong> {{insuredFormData.employementTypeName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.employementTypeOther != ''"><strong>employementTypeOther:</strong> {{insuredFormData.employementTypeOther}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>natureduty:</strong> {{insuredFormData.naturedutyName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>employerAddr:</strong> {{insuredFormData.employerAddr}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>annualIncome:</strong> {{insuredFormData.annualIncome}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.aadhaarNo != ''"><strong>Aadhaar No:</strong> {{insuredFormData.aadhaarNo}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.fatherhusbandName != ''"><strong>Father/Husband Name:</strong> {{insuredFormData.fatherhusbandName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.ageProofId != ''"><strong>AgeProof Id:</strong> {{insuredFormData.ageProofIdName }}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.mobileNo != ''"><strong>Mobile No:</strong> {{insuredFormData.mobileNo}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.highestQualification != ''"><strong>Highest Qualification:</strong> {{insuredFormData.highestQualificationName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.otherQualification != ''"><strong>Other Qualification:</strong> {{insuredFormData.otherQualification}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.employerName != ''"><strong>Employer Name:</strong> {{insuredFormData.employerName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.employementType != ''"><strong>Employement Type:</strong> {{insuredFormData.employementTypeName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.employementTypeOther != ''"><strong>Employement Type Other:</strong> {{insuredFormData.employementTypeOther}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>Nature Of Duty:</strong> {{insuredFormData.naturedutyName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address:</strong> {{insuredFormData.employerAddr}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>Annual Income:</strong> {{insuredFormData.annualIncome}}</li>
 
                                    </ul>
                                </div>
@@ -1163,24 +1163,24 @@
                                    <ul class="m-0 list-group">
 
 
-                                       <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>taxResidence:</strong> {{insuredFormData.taxResidence}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed != ''"><strong>isPoliticallyExposed:</strong> {{insuredFormData.isPoliticallyExposed}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>specification:</strong> {{insuredFormData.specification}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.categorization != ''"><strong>categorization:</strong> {{insuredFormData.categorization}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>addrProof:</strong> {{insuredFormData.addrProofName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>identityProof:</strong> {{insuredFormData.identityProofName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>heightFeets:</strong> {{insuredFormData.heightFeets}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.heightInches != ''"><strong>heightInches:</strong> {{insuredFormData.heightInches}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.weight != ''"><strong>weight:</strong> {{insuredFormData.weight}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.medicalTreatment != ''"><strong>medicalTreatment:</strong> {{insuredFormData.medicalTreatment}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment1 != ''"><strong>receivedTreatment1:</strong> {{insuredFormData.receivedTreatment1}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment2 != ''"><strong>receivedTreatment2:</strong> {{insuredFormData.receivedTreatment2}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>insureHistory:</strong> {{insuredFormData.insureHistory}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>insureAccNo:</strong> {{insuredFormData.insureAccNo}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>provideAccNo:</strong> {{insuredFormData.provideAccNo}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.epolicy != ''"><strong>epolicy:</strong> {{insuredFormData.epolicy}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>einsureAccNo:</strong> {{insuredFormData.einsureAccNo}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>epolicy1:</strong> {{insuredFormData.epolicy1}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence:</strong> {{insuredFormData.taxResidence}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed != ''"><strong>Is Politically Exposed:</strong> {{insuredFormData.isPoliticallyExposed}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>Specification:</strong> {{insuredFormData.specification}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.categorization != ''"><strong>Categorization:</strong> {{insuredFormData.categorization}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>Address Proof:</strong> {{insuredFormData.addrProofName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>Identity Proof:</strong> {{insuredFormData.identityProofName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>Height Feets:</strong> {{insuredFormData.heightFeets}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.heightInches != ''"><strong>Height Inches:</strong> {{insuredFormData.heightInches}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.weight != ''"><strong>Weight:</strong> {{insuredFormData.weight}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.medicalTreatment != ''"><strong>Medical Treatment:</strong> {{insuredFormData.medicalTreatment}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment1 != ''"><strong>Received Treatment1:</strong> {{insuredFormData.receivedTreatment1}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment2 != ''"><strong>Received Treatment2:</strong> {{insuredFormData.receivedTreatment2}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Insure History:</strong> {{insuredFormData.insureHistory}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Insure Account No:</strong> {{insuredFormData.insureAccNo}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>Provide Account No:</strong> {{insuredFormData.provideAccNo}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.epolicy != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>Would you like to apply for e-insurance Account No:</strong> {{insuredFormData.einsureAccNo}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy1}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>insureRepository:</strong> {{insuredFormData.insureRepository}}</li>
                                    </ul>
                                </div>
