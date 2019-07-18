@@ -1,6 +1,6 @@
 <section class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
   <div class="container-fluid">
-    <div class="row religareHealthProposal">
+    <div class="row aegonlifeProposal">
       <div class="col-md-12">
         <mat-horizontal-stepper  #stepper >
           <mat-step [stepControl]="personal">
@@ -343,7 +343,7 @@
                           <input matInput placeholder="Accidental Death Benefit (Minimum 50000)" formControlName="adbrSumAssured" maxlength="8" minlength="5" autocomplete="off" required (keypress)="numberValidate($event)" (keyup)="validateAccidental($event)" >
                           <mat-error *ngIf="personal.controls.adbrSumAssured.errors?.required">Accidental Death Benefit is required</mat-error>
                         </mat-form-field>
-                        <div class="error" *ngIf="annualError != ''">{{annualError}}</div>
+                        <div class="color" *ngIf="annualError != ''">{{annualError}}</div>
 
                       </div>
                       <div class="col-md-5" *ngIf="lifePremiumList.benefit_option == 'LHP'">
@@ -775,7 +775,7 @@
                 <div class="col-md-12 text-center">
                   <!--<a href="{{summaryData.redirectLink}}">Pay Now</a>-->
                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" ><a href="{{summaryData.redirectLink}}" style="color : #fffff ;">Pay Now</a></button>
+                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" ><a href="{{summaryData.redirectLink}}">Pay Now</a></button>
                 </div>
               </div>
             </section>

@@ -332,7 +332,7 @@ export class AegonTermLifeComponent implements OnInit {
         if (this.personal.controls['adbrSumAssured'].value <= this.personal.controls['deathBenefitSA'].value) {
           this.annualError = '';
         } else {
-          this.annualError = 'Maximum Accidental Death Benifit should be' + this.personal.controls['deathBenefitSA'].value;
+          this.annualError = 'Maximum Accidental Death Benifit should be ' + this.personal.controls['deathBenefitSA'].value;
         }
       }
     }
