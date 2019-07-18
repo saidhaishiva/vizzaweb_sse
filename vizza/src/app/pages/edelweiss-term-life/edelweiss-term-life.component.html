@@ -1172,16 +1172,16 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>Height Feets:</strong> {{insuredFormData.heightFeets}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.heightInches != ''"><strong>Height Inches:</strong> {{insuredFormData.heightInches}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.weight != ''"><strong>Weight:</strong> {{insuredFormData.weight}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.medicalTreatment != ''"><strong>Medical Treatment:</strong> {{insuredFormData.medicalTreatment}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment1 != ''"><strong>Received Treatment1:</strong> {{insuredFormData.receivedTreatment1}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment2 != ''"><strong>Received Treatment2:</strong> {{insuredFormData.receivedTreatment2}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Insure History:</strong> {{insuredFormData.insureHistory}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Insure Account No:</strong> {{insuredFormData.insureAccNo}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.medicalTreatment != ''"><strong>Are you currently taking any medication or medical treatment OR in the past 5 years, have you been advised to undergo any surgery, medical investigation or medical treatment for any medical condition (other than common cold, flu, etc.)?:</strong> {{insuredFormData.medicalTreatment}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment1 != ''"><strong>Have you ever been diagnosed or / received treatment for any heart, kidney, liver disease including Hepatitis B, cerebrovascular disease including stroke, paralysis, lung disease, cancer, tumor or physical deformity? :</strong> {{insuredFormData.receivedTreatment1}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment or advice for HIV infection/AIDS related or any other sexually transmitted disease?:</strong> {{insuredFormData.receivedTreatment2}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness including renewal and reinstatement ever been declined, deferred, withdrawn or accepted at special rates or terms by Edelweiss Tokio Life Insurance Co. or any other insurance company in India / Overseas:</strong> {{insuredFormData.insureHistory}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Do you have an e-insurance account number?:</strong> {{insuredFormData.insureAccNo}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>Provide Account No:</strong> {{insuredFormData.provideAccNo}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.epolicy != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>Would you like to apply for e-insurance Account No:</strong> {{insuredFormData.einsureAccNo}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy1}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>insureRepository:</strong> {{insuredFormData.insureRepository}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>Specify the Insurance Repository Name for eIA creation. List of Insurance Repository:</strong> {{insuredFormData.insureRepository}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1189,12 +1189,12 @@
                                <div class="p-3">
                                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>currAddr1:</strong> {{insuredFormData.currAddr1}}</li>
-                                       <li class="list-group-item"  ><strong>currAddr 2:</strong> {{insuredFormData.currAddr2}}</li>
-                                       <li class="list-group-item"  *ngIf="insuredFormData.currAddr3 != ''" ><strong>currAddr3:</strong> {{insuredFormData.currAddr3}}</li>
-                                       <li class="list-group-item"><strong>currPincode:</strong> {{insuredFormData.currPincode}}</li>
-                                       <li class="list-group-item"><strong>currState:</strong> {{insuredFormData.currState}}</li>
-                                       <li class="list-group-item"><strong>currCity:</strong> {{insuredFormData.currCity}}</li>
+                                       <li class="list-group-item"><strong>Current Address1:</strong> {{insuredFormData.currAddr1}}</li>
+                                       <li class="list-group-item"  ><strong>Current Address2:</strong> {{insuredFormData.currAddr2}}</li>
+                                       <li class="list-group-item"  *ngIf="insuredFormData.currAddr3 != ''" ><strong>Current Address3:</strong> {{insuredFormData.currAddr3}}</li>
+                                       <li class="list-group-item"><strong>Pincode:</strong> {{insuredFormData.currPincode}}</li>
+                                       <li class="list-group-item"><strong>State:</strong> {{insuredFormData.currState}}</li>
+                                       <li class="list-group-item"><strong>City:</strong> {{insuredFormData.currCity}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1202,12 +1202,12 @@
                                <div class=" p-3">
                                    <h6 class="color-blue">REGISTRATION DETAILS</h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item" *ngIf="insuredFormData.perAddr1 != ''"><strong>perAddr1:</strong> {{insuredFormData.perAddr1}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.perAddr2 != ''"><strong>perAddr2:</strong> {{insuredFormData.perAddr2}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.perAddr3 != ''"><strong>perAddr3:</strong>  {{insuredFormData.perAddr3}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.perPincode != ''" ><strong>perPincode:</strong> {{insuredFormData.perPincode}}</li>
-                                       <li class="list-group-item"  *ngIf="insuredFormData.perState != ''"><strong>perState:</strong> {{insuredFormData.perState}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.perCity != ''"><strong>perCity:</strong> {{insuredFormData.perCity}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.perAddr1 != ''"><strong>Permanent Address1:</strong> {{insuredFormData.perAddr1}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.perAddr2 != ''"><strong>Permanent Address2:</strong> {{insuredFormData.perAddr2}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.perAddr3 != ''"><strong>Permanent Address3:</strong>  {{insuredFormData.perAddr3}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.perPincode != ''" ><strong>Pincode:</strong> {{insuredFormData.perPincode}}</li>
+                                       <li class="list-group-item"  *ngIf="insuredFormData.perState != ''"><strong>State:</strong> {{insuredFormData.perState}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.perCity != ''"><strong>City:</strong> {{insuredFormData.perCity}}</li>
                                    </ul>
                                </div>
                            </div>
