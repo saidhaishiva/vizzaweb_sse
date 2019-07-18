@@ -193,7 +193,7 @@ export class IffcoTokioComponent implements OnInit {
             proposerCityName: '',
             typeAddress: ['', Validators.required],
             criticalIllness: 'N',
-            roomRentWaiver: 'N',
+            roomRentWaiver: '',
             additionalFacts: 'N',
             pastInsuranceDeclined: 'N',
             sameas: false,
@@ -264,6 +264,7 @@ export class IffcoTokioComponent implements OnInit {
         console.log(this.nomineeFormData, '3');
         this.numberValidateErr = false;
         this.buyProductdetails = JSON.parse(sessionStorage.buyProductdetails);
+        console.log(this.buyProductdetails,'this.buyProductdetails');
         this.getFamilyDetails = JSON.parse(sessionStorage.changedTabDetails);
         this.insurePersons = this.getFamilyDetails.family_members;
 
@@ -292,6 +293,14 @@ export class IffcoTokioComponent implements OnInit {
             //     this.insureArray['controls'].items['controls'][i]['controls'].title.patchValue('Ms');
             //     this.insureArray['controls'].items['controls'][i]['controls'].proposerGender.patchValue('Female');
             // }
+
+        }
+        if(this.buyProductdetails.product_name == "Family Health Protector Individual" && this.buyProductdetails.suminsured_amount >= 500000) {
+            this.proposer.controls['roomRentWaiver'].patchValue('Y');
+        } else  if(this.buyProductdetails.product_name == "Family Health Protector Family" && this.buyProductdetails.suminsured_amount >= 700000) {
+            this.proposer.controls['roomRentWaiver'].patchValue('Y');
+        } else {
+            this.proposer.controls['roomRentWaiver'].patchValue('');
 
         }
         this.relationshipList();
