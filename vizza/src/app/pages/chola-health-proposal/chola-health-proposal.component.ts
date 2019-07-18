@@ -917,6 +917,7 @@ console.log( sessionStorage.stepper3Details);
                      "InsuranceDetails": "Family",
                     "ProposalDetails": {
                         "ClsMIBLProposalDetails": {
+                            "Title": this.personal.controls['personalTitle'].value,
                             "FirstName": this.personal.controls['personalFirstname'].value,
                             "LastName":this.personal.controls['personalLastname'].value,
                             "DOB":this.datepipe.transform(this.personal.controls['personalDob'].value, 'y-MM-dd'),
@@ -926,6 +927,7 @@ console.log( sessionStorage.stepper3Details);
                             "Email": this.personal.controls['personalEmail'].value,
                             "Address1": this.personal.controls['personalAddress'].value,
                             "Address2": this.personal.controls['personalAddress2'].value,
+                            "State": this.personal.controls['personalState'].value,
                             "City": this.personal.controls['personalCity'].value,
                             "Pincode": this.personal.controls['personalPincode'].value,
                             "STDCode": this.personal.controls['personalstdcode'].value,
