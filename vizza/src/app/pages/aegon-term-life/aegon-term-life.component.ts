@@ -332,7 +332,7 @@ export class AegonTermLifeComponent implements OnInit {
         if (this.personal.controls['adbrSumAssured'].value <= this.personal.controls['deathBenefitSA'].value) {
           this.annualError = '';
         } else {
-          this.annualError = 'Maximum Accidental Death Benifit should be' + this.personal.controls['deathBenefitSA'].value;
+          this.annualError = 'Maximum Accidental Death Benifit should be ' + this.personal.controls['deathBenefitSA'].value;
         }
       }
     }
@@ -548,7 +548,7 @@ export class AegonTermLifeComponent implements OnInit {
     }
   }
   appointeeAgeValid(event: any) {
-    if (this.nominee.controls['apponiteeList'].value == true ) {
+    if ( this.apponiteeList == true ) {
       this.nominee.controls['atitle'].patchValue(this.nominee.controls['atitle'].value);
       this.nominee.controls['aFullName'].patchValue(this.nominee.controls['aFullName'].value);
       this.nominee.controls['adob'].patchValue(this.nominee.controls['adob'].value);

@@ -29,18 +29,12 @@
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-md-3">
-                                                <mat-form-field class="w-100">
+                                                <mat-form-field class="w-100"  *ngIf="genderList">
                                                     <mat-select placeholder="Gender" formControlName="gender" required>
                                                         <mat-option value="M">Male</mat-option>
                                                         <mat-option value="F">Female</mat-option>
                                                     </mat-select>
                                                     <mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>
-                                                </mat-form-field>
-                                            </div>
-                                            <div class="col-md-3" *ngIf="proposer.controls['title'].value == 'Mr'">
-                                                <mat-form-field class="w-100">
-                                                <input matInput placeholder="Gender" formControlName="gender" readonly required >
-                                                <mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>
                                                 </mat-form-field>
                                             </div>
                                             <!--<div class="col-md-3" *ngIf="proposer.controls['title'].value == 'Ms' || proposer.controls['title'].value == 'Mrs'">-->

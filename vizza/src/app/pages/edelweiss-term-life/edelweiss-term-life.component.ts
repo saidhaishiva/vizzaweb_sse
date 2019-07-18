@@ -135,10 +135,11 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.taxRequired = '';
     this.step = 0;
     this.proposer = this.fb.group({
-      title: '',
-      firstName: '',
+      title:  ['', Validators.compose([Validators.required])],
+      titleName: '',
+      firstName: ['', Validators.compose([Validators.required])],
       midName: '',
-      lastName: '',
+      lastName: ['', Validators.compose([Validators.required])],
       gender: ['', Validators.compose([Validators.required])],
       dob: ['', Validators.compose([Validators.required])],
       maritalStatus: ['', Validators.required],
@@ -149,8 +150,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       aadhaarNo: '',
         ageProofIdName: '',
       fatherhusbandName: '',
-      ageProofId: '',
-      highestQualification: '',
+      ageProofId: ['', Validators.compose([Validators.required])],
+      highestQualification: ['', Validators.compose([Validators.required])],
+      highestQualificationName: '',
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
       currAddr1: '',
@@ -183,6 +185,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       investing: ['', Validators.compose([Validators.required])],
       title: ['', Validators.compose([Validators.required])],
       firstName: ['', Validators.compose([Validators.required])],
+      titleName: '',
       midName: '',
       lastName: ['', Validators.compose([Validators.required])],
       gender: ['', Validators.compose([Validators.required])],
@@ -197,6 +200,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       fatherhusbandName: '',
       ageProofId: ['', Validators.compose([Validators.required])],
       highestQualification: ['', Validators.compose([Validators.required])],
+      highestQualificationName: '',
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
 
@@ -474,19 +478,23 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.insureArray.controls['investing'].value == 'SELF') {
 
           this.insureArray.controls['title'].patchValue(this.proposer.controls['title'].value),
+          this.insureArray.controls['titleName'].patchValue(this.proposer.controls['titleName'].value),
           this.insureArray.controls['firstName'].patchValue(this.proposer.controls['firstName'].value),
           this.insureArray.controls['midName'].patchValue(this.proposer.controls['midName'].value),
           this.insureArray.controls['lastName'].patchValue(this.proposer.controls['lastName'].value),
           this.insureArray.controls['gender'].patchValue(this.proposer.controls['gender'].value),
           this.insureArray.controls['dob'].patchValue(this.proposer.controls['dob'].value),
           this.insureArray.controls['maritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value),
+          this.insureArray.controls['maritalStatusName'].patchValue(this.proposer.controls['maritalStatusName'].value),
           this.insureArray.controls['nationality'].patchValue(this.proposer.controls['nationality'].value),
           this.insureArray.controls['emailId'].patchValue(this.proposer.controls['emailId'].value),
           this.insureArray.controls['pan'].patchValue(this.proposer.controls['pan'].value),
           this.insureArray.controls['aadhaarNo'].patchValue(this.proposer.controls['aadhaarNo'].value),
           this.insureArray.controls['fatherhusbandName'].patchValue(this.proposer.controls['fatherhusbandName'].value),
           this.insureArray.controls['ageProofId'].patchValue(this.proposer.controls['ageProofId'].value),
+          this.insureArray.controls['ageProofIdName'].patchValue(this.proposer.controls['ageProofIdName'].value),
           this.insureArray.controls['highestQualification'].patchValue(this.proposer.controls['highestQualification'].value),
+          this.insureArray.controls['highestQualificationName'].patchValue(this.proposer.controls['highestQualificationName'].value),
           this.insureArray.controls['otherQualification'].patchValue(this.proposer.controls['otherQualification'].value),
           this.insureArray.controls['mobileNo'].patchValue(this.proposer.controls['mobileNo'].value),
           this.insureArray.controls['currAddr1'].patchValue(this.proposer.controls['currAddr1'].value),
@@ -504,14 +512,17 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['isCurrPerAddrSame'].patchValue(this.proposer.controls['isCurrPerAddrSame'].value),
           this.insureArray.controls['employementTypeOther'].patchValue(this.proposer.controls['employementTypeOther'].value),
           this.insureArray.controls['employementType'].patchValue(this.proposer.controls['employementType'].value),
+          this.insureArray.controls['employementTypeName'].patchValue(this.proposer.controls['employementTypeName'].value),
           this.insureArray.controls['employerName'].patchValue(this.proposer.controls['employerName'].value),
           this.insureArray.controls['natureduty'].patchValue(this.proposer.controls['natureduty'].value),
+          this.insureArray.controls['naturedutyName'].patchValue(this.proposer.controls['naturedutyName'].value),
           this.insureArray.controls['employerAddr'].patchValue(this.proposer.controls['employerAddr'].value),
           this.insureArray.controls['annualIncome'].patchValue(this.proposer.controls['annualIncome'].value),
           this.insureArray.controls['taxResidence'].patchValue(this.proposer.controls['taxResidence'].value)
           console.log(this.insureArray.controls['title'].value, 'ghghghj');
     } else {
           this.insureArray.controls['title'].patchValue(''),
+          this.insureArray.controls['titleName'].patchValue(''),
           this.insureArray.controls['firstName'].patchValue(''),
           this.insureArray.controls['midName'].patchValue(''),
           this.insureArray.controls['lastName'].patchValue(''),
@@ -524,7 +535,9 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['aadhaarNo'].patchValue(''),
           this.insureArray.controls['fatherhusbandName'].patchValue(''),
           this.insureArray.controls['ageProofId'].patchValue(''),
+          this.insureArray.controls['ageProofIdName'].patchValue(''),
           this.insureArray.controls['highestQualification'].patchValue(''),
+          this.insureArray.controls['highestQualificationName'].patchValue(''),
           this.insureArray.controls['otherQualification'].patchValue(''),
           this.insureArray.controls['mobileNo'].patchValue(''),
           this.insureArray.controls['currAddr1'].patchValue(''),
@@ -974,30 +987,42 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
 
-  guardianAgeValid(event: any) {
-    if (this.nomineeDetail.controls['guardianList'].value == true) {
-      this.nomineeDetail.controls['guardianName'].patchValue(this.nomineeDetail.controls['guardianName'].value);
-      this.nomineeDetail.controls['guardianAge'].patchValue(this.nomineeDetail.controls['guardianAge'].value);
-      this.nomineeDetail.controls['guardianRelationship'].patchValue(this.nomineeDetail.controls['guardianRelationship'].value);
-
-      this.nomineeDetail.controls['guardianName'].setValidators([Validators.required]);
-      this.nomineeDetail.controls['guardianAge'].setValidators([Validators.required]);
-      this.nomineeDetail.controls['guardianRelationship'].setValidators([Validators.required]);
-    } else {
-      this.nomineeDetail.controls['guardianName'].patchValue('');
-      this.nomineeDetail.controls['guardianAge'].patchValue('');
-      this.nomineeDetail.controls['guardianRelationship'].patchValue('');
-
-      this.nomineeDetail.controls['guardianName'].setValidators(null);
-      this.nomineeDetail.controls['guardianAge'].setValidators(null);
-      this.nomineeDetail.controls['guardianRelationship'].setValidators(null);
-
-    }
-    this.nomineeDetail.controls['guardianName'].updateValueAndValidity();
-    this.nomineeDetail.controls['guardianAge'].updateValueAndValidity();
-    this.nomineeDetail.controls['guardianRelationship'].updateValueAndValidity();
-
-  }
+  // appointeeValid(event: any,i) {
+  //   if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true) {
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.value );
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.value );
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.value );
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.value );
+  //
+  //
+  //
+  //
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.setValidators([Validators.required]);
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.setValidators([Validators.required]);
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators([Validators.required]);
+  //
+  //   } else {
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue('');
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
+  //
+  //
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators(null);
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.setValidators(null);
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.setValidators(null);
+  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators(null);
+  //
+  //
+  //   }
+  //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.updateValueAndValidity();
+  //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.updateValueAndValidity();
+  //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.updateValueAndValidity();
+  //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.updateValueAndValidity();
+  //
+  //
+  // }
 
 
   isInsureAccNo() {
@@ -1998,6 +2023,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.proposer = this.fb.group({
 
         title: this.getStepper1.title,
+        titleName: this.getStepper1.titleName,
         firstName: this.getStepper1.firstName,
         midName: this.getStepper1.midName,
         lastName: this.getStepper1.lastName,
@@ -2013,6 +2039,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         ageProofId: this.getStepper1.ageProofId,
           ageProofIdName: this.getStepper1.ageProofIdName,
         highestQualification: this.getStepper1.highestQualification,
+        highestQualificationName: this.getStepper1.highestQualificationName,
         otherQualification: this.getStepper1.otherQualification,
         mobileNo: this.getStepper1.mobileNo,
         currAddr1: this.getStepper1.currAddr1,
@@ -2049,6 +2076,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
         investing: this.getStepper2.investing,
         title: this.getStepper2.title,
+        titleName: this.getStepper2.titleName,
         firstName: this.getStepper2.firstName,
         midName: this.getStepper2.midName,
         lastName: this.getStepper2.lastName,
@@ -2064,6 +2092,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         ageProofId: this.getStepper2.ageProofId,
           ageProofIdName: this.getStepper2.ageProofIdName,
         highestQualification: this.getStepper2.highestQualification,
+        highestQualificationName: this.getStepper2.highestQualificationName,
         otherQualification: this.getStepper2.otherQualification,
         mobileNo: this.getStepper2.mobileNo,
         currAddr1: this.getStepper2.currAddr1,
@@ -2183,30 +2212,28 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.bankDetail, " stepper4 ");
 
   }
+  changeTitle() {
 
+    this.proposer.controls['titleName'].patchValue(this.etitle[this.proposer.controls['title'].value]);
+  }
+  changeTitle1() {
+    this.insureArray.controls['titleName'].patchValue(this.etitle[this.insureArray.controls['title'].value]);
+  }
     changeMarital() {
-    console.log('hghjjhd');
-    console.log(this.emaritalStatus[this.proposer.controls['maritalStatus'].value],'marital1111');
-    console.log(this.proposer.controls['maritalStatus'].value,'3333333')
-
-        this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
-    console.log(this.proposer.controls['maritalStatusName'].value,'22222222222');
+    this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
 
     }
     changeMarital1() {
         this.insureArray.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.insureArray.controls['maritalStatus'].value]);
-      console.log(this.insureArray.controls['maritalStatusName'].value,'maritalStatus2222222');
     }
     ageProofName() {
         this.proposer.controls['ageProofIdName'].patchValue(this.eAgeProof[this.proposer.controls['ageProofId'].value]);
-      console.log(this.proposer.controls['ageProofIdName'].value,'ageProof');
     }
     ageProofName1() {
         this.insureArray.controls['ageProofIdName'].patchValue(this.eAgeProof[this.insureArray.controls['ageProofId'].value]);
     }
   qualificationName() {
     this.proposer.controls['highestQualificationName'].patchValue(this.eQualification[this.proposer.controls['highestQualification'].value]);
-    console.log(this.proposer.controls['highestQualificationName'].value,'highestQualification');
   }
   qualificationName1() {
     this.insureArray.controls['highestQualificationName'].patchValue(this.eQualification[this.insureArray.controls['highestQualification'].value]);
@@ -2231,12 +2258,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
     geteNomineeRelationName(i)
   {
-    console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship,'hgjhjkj222222222')
 
-    console.log(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship],'lalkjsdjs')
     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] )
-    console.log(this.nomineeDetail,'NOMINEEDETAIS');
-    console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName,'hghjhwweeee')
   }
 
 
