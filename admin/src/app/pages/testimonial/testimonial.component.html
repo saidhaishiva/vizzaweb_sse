@@ -57,7 +57,7 @@
                 {{row.designation}}
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="status">
+            <ngx-datatable-column name="Status">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value"><span *ngIf="row.status == '1'">Active</span><span *ngIf="row.status == '0'">InActive</span></ng-template>
             </ngx-datatable-column>
             <ngx-datatable-column name="Approved">
@@ -65,7 +65,7 @@
                 <mat-slide-toggle  [checked]="row.status == '1'"  (change)="approve(row,$event)"></mat-slide-toggle>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="profile">
+            <ngx-datatable-column name="Profile">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
                 <div>
                   <span class="imageclose mr-2"><img src="{{webhost + '/' + row.profile_pic}}" style="height:50px;width: 100px;"/></span>
