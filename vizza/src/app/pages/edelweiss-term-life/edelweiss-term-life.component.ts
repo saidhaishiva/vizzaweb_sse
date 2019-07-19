@@ -981,7 +981,17 @@ export class EdelweissTermLifeComponent implements OnInit {
 
 
     if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
-
+      // for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
+      //   console.log('ssssssss')
+      //   if (i != 0) {
+      //   }
+      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value);
+      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value);
+      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value);
+      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value);
+      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value);
+      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value);
+      // }
     } else {
 
       for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
@@ -1036,7 +1046,15 @@ export class EdelweissTermLifeComponent implements OnInit {
               this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
               this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
               this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
+
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators(null);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators(null);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.setValidators(null);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators(null);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators(null);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators(null);
       }
+
 
 
     }
