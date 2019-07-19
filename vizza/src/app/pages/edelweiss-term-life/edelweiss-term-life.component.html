@@ -1127,7 +1127,7 @@
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item"><strong>Permanent Address1:</strong> {{proposerFormData.perAddr1}}</li>
                                        <li class="list-group-item"><strong>Permanent Address2:</strong> {{proposerFormData.perAddr2}}</li>
-                                       <li class="list-group-item" ><strong>Permanent Address3:</strong>  {{proposerFormData.perAddr3}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.perAddr3 != ''"><strong>Permanent Address3:</strong>  {{proposerFormData.perAddr3}}</li>
                                        <li class="list-group-item" ><strong>Permanent Pincode:</strong> {{proposerFormData.perPincode}}</li>
                                        <li class="list-group-item" ><strong>Permanent State:</strong> {{proposerFormData.perState}}</li>
                                        <li class="list-group-item" ><strong>Permanent City:</strong> {{proposerFormData.perCity}}</li>

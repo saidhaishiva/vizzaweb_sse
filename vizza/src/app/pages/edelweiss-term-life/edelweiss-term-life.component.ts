@@ -509,7 +509,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['perAddr3'].patchValue(this.proposer.controls['perAddr3'].value),
           this.insureArray.controls['perPincode'].patchValue(this.proposer.controls['perPincode'].value),
           this.insureArray.controls['perState'].patchValue(this.proposer.controls['perState'].value),
-          this.insureArray.controls['perCity'].patchValue(this.proposer.controls['currState'].value),
+          this.insureArray.controls['perCity'].patchValue(this.proposer.controls['perCity'].value),
           this.insureArray.controls['isCurrPerAddrSame'].patchValue(this.proposer.controls['isCurrPerAddrSame'].value),
           this.insureArray.controls['employementTypeOther'].patchValue(this.proposer.controls['employementTypeOther'].value),
           this.insureArray.controls['employementType'].patchValue(this.proposer.controls['employementType'].value),
