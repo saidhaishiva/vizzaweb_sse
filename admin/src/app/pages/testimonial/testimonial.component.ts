@@ -92,12 +92,13 @@ export class TestimonialComponent implements OnInit {
     });
   }
 
-  approve(row) {
+  approve(row,event) {
+    console.log(event.checked,'ver');
     const data = {
       'platform': "web",
       'role_id': "1",
       'testemonial_id': row.id,
-      'testemonial_status': row.status,
+      'testemonial_status': event.checked == true ? '1' : '0',
     };
     console.log(data,'approvedata');
     this.branchservice.statusupdate(data).subscribe(
@@ -112,6 +113,7 @@ export class TestimonialComponent implements OnInit {
   approveSuccess(successData) {
     if (successData.IsSuccess) {
       this.toastr.success(successData.ResponseObject);
+      this.testimonialList();
      }
   }
   approveFailure(error) {
