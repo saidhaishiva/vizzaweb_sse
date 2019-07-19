@@ -746,7 +746,6 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <!--*ngIf="insureArray.controls['insureAccNo'].value == 'Y'"-->
                            <div class="col-md-4 " *ngIf="insureArray.controls['insureAccNo'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>If yes, please provide account number<span class="error" >*</span></mat-placeholder>
@@ -754,34 +753,29 @@
                                    <input matInput  formControlName="provideAccNo"    autocomplete="off"  (keypress)="numberValidate($event)" minlength="10" maxlength="12">
                                </mat-form-field>
                            </div>
-                           <!--*ngIf="insureArray.controls['insureAccNo'].value == 'Y'"-->
-                           <!--<div class="col-md-4" *ngIf="insureArray.controls['insureAccNo'].value == 'Yes'">-->
-                               <!--<mat-radio-group formControlName="epolicy" >-->
-                                   <!--<p>Would you like to have an e policy?    </p>-->
-                                   <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
-                                   <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                               <!--</mat-radio-group>-->
-                           <!--</div>-->
-                           <!--*ngIf="insureArray.controls['insureAccNo'].value == 'N'"-->
+                           <div class="col-md-4" *ngIf="insureArray.controls['insureAccNo'].value == 'Yes'">
+                               <mat-radio-group formControlName="epolicy" >
+                                   <p>Would you like to have an e policy?   <span class="error" >*</span> </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
                            <div class="col-md-4" *ngIf="insureArray.controls['insureAccNo'].value == 'No'">
                                <mat-radio-group formControlName="einsureAccNo"  >
-                                   <p>Would you like to apply for e-insurance account no. </p>
+                                   <p>Would you like to apply for e-insurance account no. <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <!--*ngIf="insureArray.controls['einsureAccNo'].value == 'Y'"-->
                            <div class="col-md-4" *ngIf="insureArray.controls['einsureAccNo'].value == 'Yes'" >
                                <mat-radio-group formControlName="epolicy1"  >
-                                   <p>Would you like to have an e policy?   </p>
+                                   <p>Would you like to have an e policy?  <span class="error" >*</span> </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <!--*ngIf="insureArray.controls['einsureAccNo'].value == 'Y'"-->
                            <div class="col-md-6 mt-2" *ngIf="insureArray.controls['einsureAccNo'].value == 'Yes'" >
                                <mat-form-field class="w-100">
-                                   <!--*ngIf="insureArray.controls['einsureAccNo'].value == 'Y'"-->
                                    <mat-placeholder> Specify the Insurance Repository Name for eIA creation. List of Insurance Repository: <span class="error" >*</span></mat-placeholder>
                                    <mat-select  formControlName="insureRepository"  (change)=" geteInsuranceRepository()" >
                                        <mat-option *ngFor="let insureRepositorys of eInsuranceRepository | keys" value="{{insureRepositorys.key}}" > {{insureRepositorys.value}} </mat-option>
@@ -867,11 +861,14 @@
 
                                            <!--<div *ngIf="showAppointee==true">-->
 
+                                           <div class="row" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">
+                                               <h6 class="color-blue mt-3 ml-3"  *ngIf="i ==0">APPOINTEE DETAILS</h6>
 
-                                           <div class="row p-3" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">
+                                           </div>
+
+                                           <div class="row ml-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">
                                            <!--<div class="row p-3" *ngIf="nomineeDetail.controls['showAppointee'].value==true">-->
                                                <!--<div class="row ">-->
-                                                   <h6 class="color-blue p-3" *ngIf="i ==0" >APPOINTEE DETAILS</h6>
                                                <!--</div >-->
                                                <div class="row ">
                                                <div class="col-md-12 box-card" >
@@ -1178,7 +1175,8 @@
 
 
                                        <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong> Yes</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong>Yes</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == false"><strong>Is Politically Exposed :</strong>No</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>Specification :</strong> {{insuredFormData.specification}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.categorization != ''"><strong>Categorization :</strong> {{insuredFormData.categorization}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>Address Proof :</strong> {{insuredFormData.addrProofName}}</li>
