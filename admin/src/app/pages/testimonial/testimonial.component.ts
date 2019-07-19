@@ -229,12 +229,12 @@ export class TestimonialComponent implements OnInit {
 
   UpdateSuccess(successData) {
     if (successData.IsSuccess) {
-      this.toastr.error(successData.ResponseObject);
+      this.toastr.success(successData.ResponseObject);
       this.testimonialList(this.tabValue);
     }
   }
 
   UpdateFailure(error) {
-
+    console.log(error);
   }
 }
