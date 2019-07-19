@@ -141,7 +141,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       midName: '',
       lastName: ['', Validators.compose([Validators.required])],
       gender: ['', Validators.compose([Validators.required])],
-      dob: ['', Validators.compose([Validators.required])],
+      dob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       maritalStatus: ['', Validators.required],
       maritalStatusName: '',
       nationality: '',
@@ -155,27 +155,27 @@ export class EdelweissTermLifeComponent implements OnInit {
       highestQualificationName: '',
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
-      currAddr1: '',
-      currAddr2: '',
+      currAddr1: ['', Validators.compose([Validators.required])],
+      currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
-      currPincode: '',
-      currState: '',
-      currCity: '',
-      perAddr1: '',
-      perAddr2: '',
+      currPincode: ['', Validators.compose([Validators.required])],
+      currState: ['', Validators.compose([Validators.required])],
+      currCity: ['', Validators.compose([Validators.required])],
+      perAddr1: ['', Validators.compose([Validators.required])],
+      perAddr2: ['', Validators.compose([Validators.required])],
       perAddr3: '',
-      perPincode: '',
-      perState: '',
-      perCity: '',
+      perPincode: ['', Validators.compose([Validators.required])],
+      perState: ['', Validators.compose([Validators.required])],
+      perCity: ['', Validators.compose([Validators.required])],
       isCurrPerAddrSame: '',
       employementTypeOther: '',
-      employementType: '',
+      employementType: ['', Validators.compose([Validators.required])],
         employementTypeName: '',
       employerName: '',
-      natureduty: '',
+      natureduty: ['', Validators.compose([Validators.required])],
         naturedutyName: '',
-      employerAddr: '',
-      annualIncome: '',
+      employerAddr: ['', Validators.compose([Validators.required])],
+      annualIncome: ['', Validators.compose([Validators.required])],
       taxResidence: '',
 
     });
@@ -189,13 +189,13 @@ export class EdelweissTermLifeComponent implements OnInit {
       midName: '',
       lastName: ['', Validators.compose([Validators.required])],
       gender: ['', Validators.compose([Validators.required])],
-      dob: ['', Validators.compose([Validators.required])],
+      dob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
       maritalStatus: ['', Validators.required],
       maritalStatusName: '',
       nationality: '',
       emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       pan: ['', Validators.compose([ Validators.minLength(10)])],
-      aadhaarNo: '',
+      aadhaarNo: ['', Validators.compose([Validators.required])],
         ageProofIdName: '',
       fatherhusbandName: '',
       ageProofId: ['', Validators.compose([Validators.required])],
@@ -204,38 +204,38 @@ export class EdelweissTermLifeComponent implements OnInit {
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
 
-      currAddr1: '',
-      currAddr2: '',
+      currAddr1: ['', Validators.compose([Validators.required])],
+      currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
-      currPincode: '',
-      currState: '',
-      currCity: '',
-      perAddr1: '',
-      perAddr2: '',
+      currPincode: ['', Validators.compose([Validators.required])],
+      currState: ['', Validators.compose([Validators.required])],
+      currCity: ['', Validators.compose([Validators.required])],
+      perAddr1: ['', Validators.compose([Validators.required])],
+      perAddr2: ['', Validators.compose([Validators.required])],
       perAddr3: '',
-      perPincode: '',
-      perState: '',
-      perCity: '',
+      perPincode: ['', Validators.compose([Validators.required])],
+      perState: ['', Validators.compose([Validators.required])],
+      perCity: ['', Validators.compose([Validators.required])],
       isCurrPerAddrSame: '',
       employementTypeOther: '',
-      employementType: '',
+      employementType: ['', Validators.compose([Validators.required])],
         employementTypeName: '',
       employerName: '',
-      natureduty: '',
+      natureduty: ['', Validators.compose([Validators.required])],
         naturedutyName: '',
-      employerAddr: '',
-      annualIncome: '',
+      employerAddr: ['', Validators.compose([Validators.required])],
+      annualIncome: ['', Validators.compose([Validators.required])],
       taxResidence: '',
       isPoliticallyExposed: false,
       specification: '',
-      identityProof: '',
+      identityProof: ['', Validators.compose([Validators.required])],
       identityProofName: '',
-      categorization: '',
-      addrProof: '',
+      categorization: ['', Validators.compose([Validators.required])],
+      addrProof: ['', Validators.compose([Validators.required])],
       addrProofName: '',
-      heightFeets: '',
-      heightInches: '',
-      weight: '',
+      heightFeets: ['', Validators.compose([Validators.required])],
+      heightInches: ['', Validators.compose([Validators.required])],
+      weight: ['', Validators.compose([Validators.required])],
       medicalTreatment: '',
       receivedTreatment1: '',
       receivedTreatment2: '',
@@ -251,10 +251,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     });
 
     this.bankDetail = this.fb.group({
-      accountNo: '',
-      name: '',
-      location: '',
-      ifscCode: '',
+      accountNo: ['', Validators.compose([Validators.required])],
+      name: ['', Validators.compose([Validators.required])],
+      location: ['', Validators.compose([Validators.required])],
+      ifscCode: ['', Validators.compose([Validators.required])],
       investmentStrategy: '',
       existingInsuranceInd: false,
       existingInsurance : new FormArray([
@@ -307,7 +307,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         {
           rolecd: 'PRIMARY',
           nomineeName: ['', Validators.required],
-          nDob: ['', Validators.required],
+          nDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
           gender: ['', Validators.required],
           nomineeRelationship: ['', Validators.required],
           nomineeRelationshipName: '',
@@ -317,7 +317,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           relationToInsured: '',
           aGender: '',
           nomineeAgeVal: '',
-          appointeeDob: '',
+          appointeeDob: ['', Validators.compose([ Validators.minLength(10)])],
           aName: '',
         }
     );
@@ -372,11 +372,12 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   addItems() {
-    this.addExistingInsurance =  this.bankDetail.get('existingInsurance') as FormArray;
-    this.addExistingInsurance.push(this.create());
-    console.log(this.addExistingInsurance, 'this.addExistingInsurance');
-    console.log('eror3');
-
+    if (this.bankDetail.get('existingInsurance').value.length < 5) {
+      this.addExistingInsurance = this.bankDetail.get('existingInsurance') as FormArray;
+      this.addExistingInsurance.push(this.create());
+      console.log(this.addExistingInsurance, 'this.addExistingInsurance');
+      console.log('eror3');
+    }
   }
   removeItems(index) {
     let ssss =  this.bankDetail.get('existingInsurance') as FormArray;
@@ -702,7 +703,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     // add NOmineee
     addNominee(event) {
-        if (this.nomineeDetail.valid) {
+        // if (this.nomineeDetail.valid) {
             console.log(this.nomineeDetail.get('itemsNominee').value.length,'valueeee')
             if (this.nomineeDetail.get('itemsNominee').value.length < 5) {
                 let nomineeForm = this.nomineeDetail.get('itemsNominee') as FormArray;
@@ -710,7 +711,7 @@ export class EdelweissTermLifeComponent implements OnInit {
             }
 
         }
-    }
+    // }
 
     removeNominee(event, index) {
         let nomineeForm = this.nomineeDetail.get('itemsNominee') as FormArray;
@@ -726,9 +727,9 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
   }
-  appointeeAgeValid(event: any) {
+  appointeeAgeValid(event: any,i) {
 
-    if (this.nomineeDetail.controls['apponiteeList'].value ) {
+    if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true ) {
       this.nomineeDetail.controls['aName'].patchValue(this.nomineeDetail.controls['aName'].value);
       this.nomineeDetail.controls['aGender'].patchValue(this.nomineeDetail.controls['aGender'].value);
       this.nomineeDetail.controls['appointeeDob'].patchValue(this.nomineeDetail.controls['appointeeDob'].value);
@@ -898,6 +899,38 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
     this.insureArray.controls['otherQualification'].updateValueAndValidity();
+
+  }
+
+  employmentTypereq() {
+
+    if (this.proposer.controls['employementType'].value == '9') {
+      this.proposer.controls['employementTypeOther'].patchValue(this.proposer.controls['employementTypeOther'].value);
+
+      this.proposer.controls['employementTypeOther'].setValidators([Validators.required]);
+    } else {
+      this.proposer.controls['employementTypeOther'].patchValue('');
+
+      this.proposer.controls['employementTypeOther'].setValidators(null);
+
+    }
+    this.proposer.controls['employementTypeOther'].updateValueAndValidity();
+
+  }
+
+  employmentTypereq1() {
+
+    if (this.insureArray.controls['employementType'].value == '9') {
+      this.insureArray.controls['employementTypeOther'].patchValue(this.insureArray.controls['otherQualification'].value);
+
+      this.insureArray.controls['employementTypeOther'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['employementTypeOther'].patchValue('');
+
+      this.insureArray.controls['employementTypeOther'].setValidators(null);
+
+    }
+    this.insureArray.controls['employementTypeOther'].updateValueAndValidity();
 
   }
 
@@ -1535,6 +1568,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public setRelationshipSuccess(successData) {
     if (successData.IsSuccess == true) {
       this.bduty = successData.ResponseObject;
+      console.log(this.bduty,'fghdg')
     }
 
 
