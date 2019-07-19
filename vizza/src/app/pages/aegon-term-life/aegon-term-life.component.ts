@@ -646,7 +646,7 @@ export class AegonTermLifeComponent implements OnInit {
           this.topScroll();
 
         }else{
-          this.toastr.error('Check the Addon Details');
+          this.toastr.error(this.personal.controls['criticalIllnessError'].value);
         }
 
       } else {
@@ -1311,7 +1311,7 @@ export class AegonTermLifeComponent implements OnInit {
     if (successData.IsSuccess == true) {
       stepper.next();
       this.topScroll();
-      this.toastr.success('Proposal created successfully!!');
+      this.toastr.success('BI Generated Sucessfully!!');
       this.summaryData = successData.ResponseObject;
       this.requestedUrl = this.summaryData.bilink;
       this.redirectUrl = this.summaryData.redirectLink;
