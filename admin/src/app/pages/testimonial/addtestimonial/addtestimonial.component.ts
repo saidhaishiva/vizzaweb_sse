@@ -23,7 +23,7 @@ export class AddtestimonialComponent implements OnInit {
   webhost: any;
 
   constructor(public dialogRef: MatDialogRef<AddtestimonialComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, public  fb: FormBuilder ,public config: ConfigurationService, public branchservice: BranchService, public toastr: ToastrService) {
+              public  fb: FormBuilder ,public config: ConfigurationService, public branchservice: BranchService, public toastr: ToastrService) {
     this.profile = '';
     this.webhost = this.config.getimgUrl();
     this.form = this.fb.group({
