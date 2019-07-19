@@ -118,6 +118,7 @@ export class IffcoTokioComponent implements OnInit {
     public nomineecityDetails: any;
     public nomineestateDetails: any;
     public xmlString: any;
+    public rentDetails: any;
     public numberValidateErr: boolean;
 
     public healthIffcoTrue0: boolean;
@@ -297,11 +298,17 @@ export class IffcoTokioComponent implements OnInit {
         }
         if(this.buyProductdetails.product_name == "Family Health Protector Individual" && this.buyProductdetails.suminsured_amount >= 500000) {
             this.proposer.controls['roomRentWaiver'].patchValue('Y');
+            this.rentDetails = false;
         } else  if(this.buyProductdetails.product_name == "Family Health Protector Family" && this.buyProductdetails.suminsured_amount >= 700000) {
             this.proposer.controls['roomRentWaiver'].patchValue('Y');
+            this.rentDetails = false;
         } else {
             this.proposer.controls['roomRentWaiver'].patchValue('');
+            this.rentDetails = true;
+                if(this.rentDetails == true){
+                    this.proposer.controls['roomRentWaiver'].patchValue('N');
 
+                }
         }
         this.relationshipList();
         this.occupationList();
