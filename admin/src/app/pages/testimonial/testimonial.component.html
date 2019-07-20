@@ -2,18 +2,31 @@
   <button mat-raised-button color="primary" type="button" class="button-right" (click)="speical()"><i class="material-icons">
     add
   </i> Add</button>
-
 </div>
-<section>
-  <div class="flex-p">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="text-right h-100">
-          <mat-form-field class="w-25">
-            <input matInput placeholder="Search By Name..." (keyup)="updateFilter($event)">
-            <mat-icon matSuffix>search</mat-icon>
-          </mat-form-field>
-        </div>
+<section id="appointment" class="doctorlist">
+  <div class="row pr-2 pl-2">
+    <div class="col-md-6">
+      <mat-button-toggle-group #group="matButtonToggleGroup" (change)="tabChange(group.value)" [value]="tabValue">
+        <mat-button-toggle value="inactive">
+          <mat-icon style="color: #8c40a5;">timer</mat-icon>Pending
+        </mat-button-toggle>
+        <mat-button-toggle value="active">
+          <mat-icon style="color: green;"> touch_app</mat-icon> Active
+        </mat-button-toggle>
+        <mat-button-toggle value="rejected">
+          <mat-icon style="color: red;">block</mat-icon> Rejected
+        </mat-button-toggle>
+        <mat-button-toggle value="onhold">
+          <mat-icon style="color: orange;">check</mat-icon> OnHold
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <div class="col-md-6">
+      <div class="text-right h-100">
+        <mat-form-field class="w-50">
+          <input matInput placeholder="Search By Name..." (keyup)="updateFilter($event)">
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
       </div>
     </div>
   </div>
@@ -31,64 +44,95 @@
                   [footerHeight]="50"
                   [rowHeight]="'auto'"
                   [rows]="rows"
-                  [count]="total"
                   [loadingIndicator]="loadingIndicator"
                   [selected]="selected"
-                  [selectionType]="'checkbox'">
+                  [selectionType]="'checkbox'"
+          >
 
 
-            <ngx-datatable-column name="S.No">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <div>{{rowIndex+1}}</div>
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name=" Customer Name">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.customer_name}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Company Name">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.company_name}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Designation">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                {{row.designation}}
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Status">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value"><span *ngIf="row.status == '1'">Active</span><span *ngIf="row.status == '0'">InActive</span></ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Approved">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <mat-slide-toggle  [checked]="row.status == '1'"  (change)="approve(row,$event)"></mat-slide-toggle>
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Profile">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <div>
-                  <span class="imageclose mr-2"><img src="{{webhost + '/' + row.profile_pic}}" style="height:50px;width: 100px;"/></span>
-                </div>
-              </ng-template>
-            </ngx-datatable-column>
-            <ngx-datatable-column name="Action">
-              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
-                <i class="material-icons" (click)=edit(row) style="cursor: pointer" >
-                  edit
-                </i>
+            <ngx-datatable-column name="customer_name">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex"  let-value="value" let-row="row"  >
+                <mat-card class="mt-viwe-profile">
+                  <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+                    <h3 class="user-name"  style="cursor: pointer"><span>{{row.customer_name | titlecase}}</span></h3>
+                    <div class="float-left">
+                      <div class="bg-primary" fxLayout="row" fxLayoutAlign="space-between center">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger">
+                          <mat-icon style="text-align: center;color: white;">more_vert</mat-icon>
+                        </button>
+                      </div>
+                      <mat-menu #menu="matMenu" xPosition="before">
+                                                <span (mouseleave)="menuTrigger.closeMenu()">
+                                                    <button mat-menu-item (click)="edit(row)" *ngIf="roleId == '1'">
+                                                       <mat-icon class="material-icons">mode_edit</mat-icon><span>Edit</span>
+                                                    </button>
+                                                    <button mat-menu-item>
+                                                         <mat-icon class="material-icons">delete</mat-icon><span>Delete</span>
+                                                    </button>
+                                                </span>
+                      </mat-menu>
+                    </div>
 
-                <i class="material-icons" style="cursor: pointer" >
-                  delete
-                </i>
+                  </div>
 
+                  <div class="user-content" fxLayout="row" fxLayoutAlign="space-around center">
+                    <div fxFlex="20" fxFlex.xs="30" fxLayout="column" fxLayoutAlign="center center">
+                      <div class="user-img" style="cursor: pointer">
+                        <img *ngIf="row.profile_pic == ''" src="assets/img/userImg.png" class="transition-2">
+                        <img *ngIf="row.profile_pic != ''" src="{{webhost + '/' + row.profile_pic}}" class="transition-2 rounded-circle">
+                      </div>
+                    </div>
+
+                    <div fxFlex="100" fxFlex.xs="70" fxLayout="row" fxLayout.xs="column" class="user-details transition-2" >
+                      <div fxFlex="40"  fxLayout="column">
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="muted-text" matTooltip="Customer Name">person</mat-icon>
+                          <span>{{row.customer_name}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="muted-text" matTooltip="Company Name">domain</mat-icon>
+                          <span>{{row.company_name | limitTo: 12}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="muted-text" matTooltip="Designation">account_circle</mat-icon>
+                          <span>{{row.designation}}</span>
+                        </p>
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="muted-text" matTooltip="Status">thumbs_up_down</mat-icon>
+                          <span *ngIf="row.status == '1'">Active</span><span *ngIf="row.status == '0'">InActive</span>
+                        </p>
+                      </div>
+                      <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
+                        <p fxLayout="row" fxLayoutAlign="start center">
+                          <mat-icon class="muted-text" matTooltip="Comments">comment</mat-icon>
+                          <span>{{row.comments}}</span>
+                        </p>
+                      </div>
+                      <div fxFlex="20" fxFlex.xs="100" fxLayout="column">
+                        <mat-slide-toggle [checked]="row.status == 1" (change)="updatestatus(row,$event)"></mat-slide-toggle>
+                      </div>
+                    </div>
+                  </div>
+                </mat-card>
               </ng-template>
             </ngx-datatable-column>
           </ngx-datatable>
         </div>
       </div>
-
     </div>
   </div>
-
 </section>
+<style>
+  datatable-header-cell{
+    display: block;
+  }
+  datatable-header{
+    height: auto !important;
+  }
+  .datatable-header-cell-wrapper{
+    display: none;
+  }
+  .docStatus {
+    color: white !important;
+  }
+</style>
