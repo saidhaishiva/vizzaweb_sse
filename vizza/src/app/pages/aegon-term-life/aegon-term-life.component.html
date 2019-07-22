@@ -480,22 +480,34 @@
                               </mat-form-field>
                               <!--<div class="error" *ngIf="dateError2 != ''">{{dateError2}}</div>-->
                             </div>
-                            <div class="col-md-4">
+                            <!--<div class="col-md-4">-->
+                              <!--<mat-form-field class="w-100">-->
+                                <!--<mat-placeholder>Relationship with Nominee<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>-->
+                                <!--<mat-select formControlName="aRelation" autocomplete="off"  (change)="changeAppointeerelationship()">-->
+                                  <!--<mat-option *ngFor="let list of appointeeRelationList | keys" [value]= 'list.value'>-->
+                                    <!--{{list.value}}-->
+                                  <!--</mat-option>-->
+                                <!--</mat-select>-->
+                                <!--<mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>-->
+                              <!--</mat-form-field>-->
+                            <!--</div>-->
+
+
+
+                            <div class="col-md-3">
                               <mat-form-field class="w-100">
-                                <mat-placeholder>Relationship with Nominee<span class="error" *ngIf="apponiteeList == true">*</span></mat-placeholder>
-                                <mat-select formControlName="aRelation" autocomplete="off"  (change)="changeAppointeerelationship()">
+                                <mat-select placeholder="Relationship with Nominee" formControlName="aRelation" autocomplete="off" required >
                                   <mat-option *ngFor="let list of appointeeRelationList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
                                 </mat-select>
-                                <mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>
+                                <!--<mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relationship with insured is required</mat-error>-->
                               </mat-form-field>
                             </div>
-
-                            <div class="col-md-3" *ngIf=" nominee.controls.aRelation.value == 'Others'">
+                            <div class="col-md-3" *ngIf=" nominee.controls.aRelation.value == 'Other'">
                               <mat-form-field class="w-100">
                                 <input matInput placeholder="Relationship with Other" formControlName="appointeeRelationOther" (keypress)="nameValidate($event)"  autocomplete="off" >
-                                <mat-error *ngIf="nominee.controls.appointeeRelationOther.errors?.required">Relationship with Other is required</mat-error>
+                                <!--<mat-error *ngIf="nominee.controls.appointeeRelationOther.errors?.required">Relationship with Other is required</mat-error>-->
                               </mat-form-field>
                             </div>
 
@@ -612,7 +624,7 @@
                       <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Death Benefit SA:</strong> {{proposerFormData.deathBenefitSA}}</li>
                         <li class="list-group-item"><strong>Death Benefit TISA:</strong> {{proposerFormData.deathBenefitTISA}}</li>
-                        <li class="list-group-item" *ngIf="proposerFormData.adbrSumAssured != ''"><strong>Accidental Death Benefit:</strong> {{proposerFormData.adbrSumAssured}}</li>
+                        <li class="list-group-item" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'"><strong>Accidental Death Benefit:</strong> {{proposerFormData.adbrSumAssured}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.enchancedCISA != ''"><strong>Enhanced Critical Illness Benefit (Lump Sum):</strong> {{proposerFormData.enchancedCISA}}</li>
                         <li class="list-group-item" *ngIf="proposerFormData.icirSumAssured != ''"><strong>Basic Critical Illness Benefit (Lump Sum):</strong> {{proposerFormData.icirSumAssured}}</li>
                       </ul>
