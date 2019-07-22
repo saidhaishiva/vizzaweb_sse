@@ -164,7 +164,7 @@
                             <div class="col-md-4">
                               <mat-form-field class="w-100">
                                 <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" required >
-                                <mat-error *ngIf="proposer.controls.currCity.errors?.required">State is required</mat-error>
+                                <mat-error *ngIf="proposer.controls.currCity.errors?.required">Current City is required</mat-error>
                               </mat-form-field>
                             </div>
                             <div class="col-md-4">
@@ -350,7 +350,7 @@
                                            </div>
                                            <div class="col-md-4">
                                                <mat-form-field class="w-100" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
-                                                   <input matInput placeholder="First Name" formControlName="firstName"  (keypress)="nameValidate($event)" autocomplete="off"   required  >
+                                                   <input matInput placeholder="First Name" formControlName="firstName" maxlength="45" (keypress)="nameValidate($event)" autocomplete="off"   required  >
                                                    <mat-error *ngIf="insureArray.controls.firstName.errors?.required">Title is required</mat-error>
                                                </mat-form-field>
                                            </div>
@@ -420,7 +420,7 @@
                                            </div>
                                            <div class="col-md-4" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
                                                <mat-form-field class="w-100">
-                                                   <input matInput placeholder="Aadhaar No" formControlName="aadhaarNo" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" >
+                                                   <input matInput placeholder="Aadhaar No" formControlName="aadhaarNo" minlength="12"  maxlength="12" autocomplete="off" required (keypress)="numberValidate($event)" >
                                                    <mat-error *ngIf="insureArray.controls.aadhaarNo.errors?.required">Aadhaar No is required</mat-error>
                                                </mat-form-field>
                                            </div>
@@ -488,7 +488,7 @@
                                                    <div class="col-md-4">
                                                        <mat-form-field class="w-100">
                                                            <input matInput placeholder="City" formControlName="currCity" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event);" >
-                                                           <mat-error *ngIf="insureArray.controls.currCity.errors?.required">State is required</mat-error>
+                                                           <mat-error *ngIf="insureArray.controls.currCity.errors?.required">Current City is required</mat-error>
                                                        </mat-form-field>
                                                    </div>
                                                    <div class="col-md-4">
@@ -954,13 +954,13 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="name"  formControlName="name" (keypress)="nameValidate($event)"   autocomplete="off" required>
+                            <input matInput placeholder="name"  formControlName="name" (keypress)="nameValidate($event)"  maxlength="20" autocomplete="off" required>
                             <mat-error *ngIf="bankDetail.controls.name.errors?.required">Name is required</mat-error>
                           </mat-form-field>
                         </div>
                           <div class="col-md-4">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Location"  formControlName="location"   autocomplete="off" required>
+                                  <input matInput placeholder="Location"  formControlName="location"  maxlength="20" autocomplete="off" required>
                                   <mat-error *ngIf="bankDetail.controls.location.errors?.required">Location is required</mat-error>
                               </mat-form-field>
                           </div>
@@ -974,7 +974,7 @@
                         </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Investment Strategy"  formControlName="investmentStrategy" (keypress)="nameValidate($event)"   autocomplete="off" required>
+                            <input matInput placeholder="Investment Strategy"  formControlName="investmentStrategy" maxlength="15"  autocomplete="off" required>
                             <mat-error *ngIf="bankDetail.controls.investmentStrategy.errors?.required">Investment Strategy is required</mat-error>
                           </mat-form-field>
                         </div>
