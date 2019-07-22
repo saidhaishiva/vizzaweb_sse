@@ -244,16 +244,16 @@ export class TermLifePremiumListComponent implements OnInit {
             dialogRef.afterClosed().subscribe(result => {
                 if (result) {
                     let paymentModeValid = true;
-                    if(value.payment_mode == 'yearly' && parseInt(value.totalpremium) < 5000) {
+                    if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 1300) {
+                    if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 2550) {
+                    if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550) {
                         paymentModeValid = false;
                     }
-                    if(value.payment_mode == 'monthlyste' && parseInt(value.totalpremium) < 450) {
+                    if(value.payment_mode == 'monthlyste' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450) {
                         paymentModeValid = false;
                     }
 
@@ -278,16 +278,16 @@ export class TermLifePremiumListComponent implements OnInit {
             });
         }  else {
             let paymentModeValid = true;
-            if(value.payment_mode == 'yearly' && parseInt(value.totalpremium) < 5000) {
+            if(value.payment_mode == 'yearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 5000) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'quarterly' && parseInt(value.totalpremium) < 1300) {
+            if(value.payment_mode == 'quarterly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 1300) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'halfyearly' && parseInt(value.totalpremium) < 2550 ) {
+            if(value.payment_mode == 'halfyearly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 2550 ) {
                 paymentModeValid = false;
             }
-            if(value.payment_mode == 'monthly' && parseInt(value.totalpremium) < 450) {
+            if(value.payment_mode == 'monthly' && parseInt(value.company_id) == 6 && parseInt(value.totalpremium) < 450) {
                 paymentModeValid = false;
             }
 
