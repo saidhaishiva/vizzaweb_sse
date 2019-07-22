@@ -317,6 +317,8 @@ import { HdfcTwoWheelerProposalComponent } from './pages/hdfc-two-wheeler-propos
 import { ViewKeyfeaturesComponent } from './pages/bike-premium-list/view-keyfeatures/view-keyfeatures.component';
 import {ClearSessionMotorService} from './shared/services/clear-session-motor.service';
 import { ClearSessionFourwheelerService } from './shared/services/clear-session-fourwheeler.service';
+import { EdelweissTermLifePaymentSuccessComponent } from './pages/edelweiss-term-life-payment-success/edelweiss-term-life-payment-success.component';
+import { ClearSessionTermlifeService} from './shared/services/clear-session-termlife.service';
 
 @NgModule({
     imports: [
@@ -590,7 +592,8 @@ import { ClearSessionFourwheelerService } from './shared/services/clear-session-
         UlipComponent,
         GroupTravelComponent,
         HdfcTwoWheelerProposalComponent,
-        ViewKeyfeaturesComponent
+        ViewKeyfeaturesComponent,
+        EdelweissTermLifePaymentSuccessComponent
     ],
     providers: [
         AppSettings,
@@ -633,6 +636,7 @@ import { ClearSessionFourwheelerService } from './shared/services/clear-session-
         FourWheelerService,
         ClearSessionMotorService,
         ClearSessionFourwheelerService,
+        ClearSessionTermlifeService,
 
         { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
         { provide: OverlayContainer, useClass: CustomOverlayContainer }

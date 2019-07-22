@@ -11,6 +11,7 @@ import { AuthService} from '../../shared/services/auth.service';
 import { DatePipe} from '@angular/common';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import { ActivatedRoute } from '@angular/router';
+import {isUpperCase} from 'tslint/lib/utils';
 
 
 export const MY_FORMATS = {
@@ -46,7 +47,7 @@ export class BikeTataaigProposalComponent implements OnInit {
     public currentStep: any;
     public minDate: any;
     public proposerdateError: any;
-    public preNamelist: any;
+    // public preNamelist: any;
     public proposerGenderlist: any;
     public relationlist: any;
     public getstepper1: any;
@@ -154,8 +155,8 @@ export class BikeTataaigProposalComponent implements OnInit {
 
         this.previouspolicy = this.fb.group({
             preflag: ['', Validators.required],
-            preName: '',
-            preNamevalue: '',
+            // preName: '',
+            // preNamevalue: '',
             prepolno: '',
             preAddressone: ['', Validators.required],
             preAddresstwo: '',
@@ -176,7 +177,7 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     ngOnInit() {
         this.getGenderlist();
-        this.getNamelist();
+        // this.getNamelist();
         this.getRelationList();
         this.coverdriveList();
         this.sessionData();
@@ -189,7 +190,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
         this.premium = sessionStorage.packae_list;
-        if(this.premium != 'Comprehensive_premium') {
+        if (this.premium != 'Comprehensive_premium') {
             this.vehicle.controls['coverdrive'].patchValue('ODD01');
         }
         const poldate = new Date(this.vehicledata.previous_policy_expiry_date);
@@ -237,6 +238,8 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     addEvent(event: any) {
         if (event.value != null) {
+            let selectedDate = '';
+            this.bikeProposerAge = '';
             let dob = '';
             if (typeof event.value._i == 'string') {
                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
@@ -245,21 +248,20 @@ export class BikeTataaigProposalComponent implements OnInit {
                 } else {
                     this.proposerdateError = 'Enter Valid Date';
                 }
+                selectedDate = event.value._i;
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.bikeproposerAge = this.bikeProposerAge;
+                if (selectedDate.length == 10) {
+                    this.bikeProposerAge = this.ageCalculate(dob);
+                    console.log(this.bikeProposerAge, 'agein');
+                }
             } else if (typeof event.value._i == 'object') {
                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
                 if (dob.length == 10) {
                     this.proposerdateError = '';
-                } else {
-                    this.proposerdateError = 'Enter Valid Date';
+                    this.bikeProposerAge = this.ageCalculate(dob);
                 }
-                dob = this.datepipe.transform(event.value, 'y-MM-dd');
-                console.log(dob, 'ageob');
-                this.bikeProposerAge = this.ageCalculate(dob);
-                sessionStorage.bikeproposerAge = this.bikeProposerAge;
             }
+            sessionStorage.bikeproposerAge = this.bikeProposerAge;
         }
     }
 
@@ -354,35 +356,35 @@ export class BikeTataaigProposalComponent implements OnInit {
 
     }
 
-    //PreviousPolicy NameList
-    getNamelist() {
-        const data = {
-            'platform': 'web',
-            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
-        };
-        this.bikeinsurance.NameList(data).subscribe(
-            (successData) => {
-                this.prepolicyNameListSuccess(successData);
-            },
-            (error) => {
-                this.prepolicyNameListFailure(error);
-            }
-        );
-    }
+    // //PreviousPolicy NameList
+    // getNamelist() {
+    //     const data = {
+    //         'platform': 'web',
+    //         'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4'
+    //     };
+    //     this.bikeinsurance.NameList(data).subscribe(
+    //         (successData) => {
+    //             this.prepolicyNameListSuccess(successData);
+    //         },
+    //         (error) => {
+    //             this.prepolicyNameListFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // prepolicyNameListSuccess(successData) {
+    //     this.preNamelist = successData.ResponseObject;
+    // }
+    //
+    // prepolicyNameListFailure(error) {
+    //
+    // }
 
-    prepolicyNameListSuccess(successData) {
-        this.preNamelist = successData.ResponseObject;
-    }
-
-    prepolicyNameListFailure(error) {
-
-    }
-
-    selectopt() {
-        this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
-        console.log(this.previouspolicy.controls['preNamevalue'].value,'name');
-    }
+    // selectopt() {
+    //     this.previouspolicy.controls['preNamevalue'].patchValue(this.preNamelist[this.previouspolicy.controls['preName'].value]);
+    //     console.log(this.previouspolicy.controls['preNamevalue'].value,'name');
+    // }
 
     //Nominee RelationList
     getRelationList() {
@@ -520,35 +522,35 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.vehicle.controls['Address'].updateValueAndValidity();
     }
 
-    changeflag(event: any) {
-        if (this.previouspolicy.controls['preflag'].value == 'Y') {
-            this.previouspolicy.controls['preName'].setValidators([Validators.required]);
-            this.previouspolicy.controls['prepolno'].setValidators([Validators.required]);
-        } else if (this.previouspolicy.controls['preflag'].value == 'N') {
-            this.previouspolicy.controls['preName'].patchValue('');
-            this.previouspolicy.controls['preName'].setValidators(null);
-            this.previouspolicy.controls['prepolno'].setValidators(null);
-        }
-        this.previouspolicy.controls['preName'].updateValueAndValidity();
-        this.previouspolicy.controls['prepolno'].updateValueAndValidity();
-    }
+    // changeflag(event: any) {
+    //     if (this.previouspolicy.controls['preflag'].value == 'Y') {
+    //         // this.previouspolicy.controls['preName'].setValidators([Validators.required]);
+    //         this.previouspolicy.controls['prepolno'].setValidators([Validators.required]);
+    //     } else if (this.previouspolicy.controls['preflag'].value == 'N') {
+    //         // this.previouspolicy.controls['preName'].patchValue('');
+    //         this.previouspolicy.controls['preName'].setValidators(null);
+    //         this.previouspolicy.controls['prepolno'].setValidators(null);
+    //     }
+    //     this.previouspolicy.controls['preName'].updateValueAndValidity();
+    //     this.previouspolicy.controls['prepolno'].updateValueAndValidity();
+    // }
 
     proposerDetails(stepper: MatStepper, value) {
         sessionStorage.tatabikeproposer = '';
         sessionStorage.tatabikeproposer = JSON.stringify(value);
         if (this.proposer.valid) {
-            if (sessionStorage.bikeproposerAge >= 18) {
-                this.agecount = sessionStorage.bikeproposerAge;
-                let exp = this.agecount - 18;
-                if (this.proposer.controls['drivingexp'].value <= exp) {
-                    console.log(value, 'proposer');
-                    stepper.next();
+                if (sessionStorage.bikeproposerAge >= 18) {
+                    this.agecount = sessionStorage.bikeproposerAge;
+                    let exp = this.agecount - 18;
+                    if (this.proposer.controls['drivingexp'].value <= exp) {
+                        console.log(value, 'proposer');
+                        stepper.next();
+                    } else {
+                        this.toastr.error('Invalid Driving Experience');
+                    }
                 } else {
-                    this.toastr.error('Invalid Driving Experience');
+                    this.toastr.error('Proposer Age should be 18 or above');
                 }
-            } else {
-                this.toastr.error('Proposer Age should be 18 or above');
-            }
         } else {
             this.toastr.error('Please Fill All The Mandatory Fields');
         }
@@ -568,8 +570,14 @@ export class BikeTataaigProposalComponent implements OnInit {
         sessionStorage.tatabikeprepolicy = '';
         sessionStorage.tatabikeprepolicy = JSON.stringify(value);
         if (this.previouspolicy.valid) {
-            console.log(value, 'prepolicy');
-            stepper.next();
+            if (this.enquiryFormData.business_type != '1') {
+                if (this.previouspolicy.controls['prepolno'].value != '') {
+                    console.log(value, 'prepolicy');
+                    stepper.next();
+                } else {
+                    this.toastr.error('Policy No should not be empty');
+                }
+            }
         }
     }
 
@@ -641,8 +649,8 @@ export class BikeTataaigProposalComponent implements OnInit {
             this.getstepper3 = JSON.parse(sessionStorage.tatabikeprepolicy);
             this.previouspolicy = this.fb.group({
                 preflag: this.getstepper3.preflag,
-                preName: this.getstepper3.preName,
-                preNamevalue: this.getstepper3.preNamevalue,
+                // preName: this.getstepper3.preName,
+                // preNamevalue: this.getstepper3.preNamevalue,
                 prepolno: this.getstepper3.prepolno,
                 preAddressone: this.getstepper3.preAddressone,
                 preAddresstwo: this.getstepper3.preAddresstwo,
@@ -715,6 +723,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             "enquiry_id": this.bikeEnquiryId,
             "created_by": "",
             "proposal_id": sessionStorage.tataBikeproposalID == '' || sessionStorage.tataBikeproposalID == undefined ? '' : sessionStorage.tataBikeproposalID,
+            'package_type': this.premium,
             "motorproposalObj": {
                 "quotation_no": this.Quotelist.productlist.quotation_no,
                 "pol_sdate": this.enquiryFormData.business_type == '1' ? this.datepipe.transform(this.minDate, 'yMMdd') : this.datepipe.transform(this.poldate, 'yMMdd'),
@@ -744,7 +753,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 },
                 "prevpolicy": {
                     "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == '' ? 'N' : this.previouspolicy.controls['preflag'].value,
-                    "name": this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
+                    // "name": this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
                     "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
                     "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,
                     "address3": this.previouspolicy.controls['preAddressthree'].value == null ? '' : this.previouspolicy.controls['preAddressthree'].value,

@@ -237,6 +237,8 @@ export class FourWheelerProductListComponent implements OnInit {
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '2');
     } else if(this.policyTerm == '3'){
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
+    } else if(this.policyTerm == '5'){
+      this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '5');
     }
     else{
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');

@@ -19,6 +19,8 @@ export class GrouppopupComponent implements OnInit {
   }
 
   ngOnInit() {
+      this.topScroll();
+      alert('hello');
   }
     onNoClick(): void {
         this.dialogRef.close();

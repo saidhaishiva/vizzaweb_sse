@@ -240,7 +240,7 @@
                           <div class="col-md-4 mt-3" *ngIf="vehicle.controls['Financetype'].value == true">
                             <mat-form-field class="w-100">
                                 <mat-placeholder>Type<span class="error" *ngIf="vehicle.controls['Financetype'].value == true">*</span></mat-placeholder>
-                                <mat-select formControlName="banktype" readonly>
+                                <mat-select formControlName="banktype">
                                 <mat-option value="bank">BANK</mat-option>
                                 <mat-option value="nonbank financier">NONBANK FINANCIER</mat-option>
                               </mat-select>
@@ -324,25 +324,25 @@
                 <div class="row">
                   <div class="col-md-4" [ngStyle]="{'pointer-events':'none'}">
                     <mat-form-field class="w-100">
-                      <mat-select  placeholder="Is there any rollover with previous policy?" (change)="changeflag($event)" formControlName="preflag" required>
+                      <mat-select  placeholder="Is there any rollover with previous policy?" formControlName="preflag" required>
                         <mat-option value="Y">Yes</mat-option>
                         <mat-option value="N">No</mat-option>
                       </mat-select>
                       <mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">
-                    <mat-form-field class="w-100">
-                      <mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                      <mat-select formControlName="preName" (change)="selectopt()">
-                        <mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.key}}">{{Namelist.value}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
+                  <!--<div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>-->
+                      <!--<mat-select formControlName="preName" (change)="selectopt()">-->
+                        <!--<mat-option *ngFor="let Namelist of preNamelist | keys" value="{{Namelist.key}}">{{Namelist.value}}</mat-option>-->
+                      <!--</mat-select>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
-                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="5">
+                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="6">
                     </mat-form-field>
                   </div>
                   <div class="col-md-12 mt-1">
@@ -541,7 +541,7 @@
                   <div class="col-md-6">
                     <div class="p-3 mt-2">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>NAME:</strong> {{previousFormData.preNamevalue}}</li>
+                        <li class="list-group-item"><strong>Is there any rollover with previous policy?:</strong><span *ngIf="previousFormData.preflag == 'Y'">Yes</span></li>
                         <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
                       </ul>
                     </div>

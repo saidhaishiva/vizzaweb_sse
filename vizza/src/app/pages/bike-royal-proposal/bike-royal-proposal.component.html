@@ -5,7 +5,7 @@
 
         <mat-step [stepControl]="">
 
-          <ng-template matStepLabel >PROPOSER </ng-template>
+          <ng-template matStepLabel >PROPOSER DETAILS </ng-template>
           <mat-accordion class=" w-100 float-left">
             <form [formGroup]="proposer" >
               <mat-expansion-panel expanded>
@@ -174,7 +174,6 @@
                       </div>
                   </div>
                 <div class="proposal-buttom mt-3 text-right w-100">
-                <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                 <button mat-raised-button color="primaryBlue" (click)="proposerDetails(stepper,proposer.value)">Next</button>
                 </div>
               </mat-expansion-panel>
@@ -245,7 +244,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                            <p>Vechile OwnerShip Changed </p>
+                            <p>Vehicle OwnerShip Changed </p>
                             <mat-radio-group formControlName="vechileOwnerShipChanged">
                                 <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                                 <mat-radio-button value="No">No</mat-radio-button>
@@ -282,17 +281,20 @@
                               <div class="row" [formGroupName]="i">
                                    <div class="col-md-3">
                                       <mat-form-field class="w-100">
-                                          <input matInput placeholder="Name Of Electronic Accessories"  formControlName="NameOfElectronicAccessories"  autocomplete="off" [required]="vehical.controls['coverelectricalaccesss'].value == true">
+                                          <mat-placeholder>Name Of Electronic Accessories <span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span> </mat-placeholder>
+                                          <input matInput   formControlName="NameOfElectronicAccessories"  autocomplete="off">
                                       </mat-form-field>
                                   </div>
                                   <div class="col-md-3">
                                       <mat-form-field class="w-100">
-                                          <input matInput  placeholder="Make Model" formControlName="MakeModel"  autocomplete="off" [required]="vehical.controls['coverelectricalaccesss'].value == true">
+                                          <mat-placeholder>Make Model <span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span> </mat-placeholder>
+                                          <input matInput  formControlName="MakeModel"  autocomplete="off" >
                                       </mat-form-field>
                                   </div>
                                   <div class="col-md-3">
                                       <mat-form-field class="w-100">
-                                          <input matInput placeholder="Value"  formControlName="Value"  autocomplete="off" (keypress)="numberValidate($event)" [required]="vehical.controls['coverelectricalaccesss'].value == true">
+                                          <mat-placeholder>Value <span class="error" *ngIf="vehical.controls['coverelectricalaccesss'].value == true">*</span> </mat-placeholder>
+                                          <input matInput  formControlName="Value"  autocomplete="off" (keypress)="numberValidate($event)" >
                                       </mat-form-field>
                                   </div>
                                   <button mat-mini-fab	*ngIf="i == 0" color="accent" (click)="addItems()"  [disabled]="addList">+</button>
@@ -448,7 +450,7 @@
                       <div class="row">
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Apponitee Name"  formControlName="appointeeName" (keypress)="nameValidate($event)" [required]="apponiteeList" autocomplete="off">
+                            <input matInput placeholder="Appointee Name"  formControlName="appointeeName" (keypress)="nameValidate($event)" [required]="apponiteeList" autocomplete="off">
                           </mat-form-field>
                         </div>
                           <div class="col-md-4">
@@ -458,7 +460,7 @@
                           </div>
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Apponitee RelationShip"  formControlName="appointeeRelationship" [required]="apponiteeList" >
+                            <mat-select placeholder="Appointee Relationship"  formControlName="appointeeRelationship" [required]="apponiteeList" >
                               <mat-option *ngFor="let paCity of nomineeRelation | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                             </mat-select>
                             <!--<mat-error *ngIf="proposer.controls.city.errors?.required">City is required</mat-error>-->
@@ -488,8 +490,8 @@
               <div class="col-md-8 mt-4">
                 <ul class="summary-head">
                   <li><span>Insurer:</span><img src="{{webhost + '/' + productDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li  *ngIf = "!premiumAmount"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>
-                  <li *ngIf = "premiumAmount"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></li>
+                  <li  *ngIf = "packae_list == 'Comprehensive_premium'"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>
+                  <li *ngIf = "packae_list != 'Comprehensive_premium'"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></li>
                   <!--<li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>-->
                   <li></li>
                 </ul>
@@ -522,7 +524,7 @@
                       </div>
                   </div>
                   <div class="col-md-6">
-                      <p>COMMUNICATION DETAILS</p>
+                      <h6 class="color-blue">COMMUNICATION DETAILS</h6>
                       <div class="p-3">
                             <ul class="m-0 list-group">
                                 <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address}}</li>
@@ -563,7 +565,7 @@
                       <li class="list-group-item" *ngIf="vehicalFormData.drivingExperience != ''"><strong>Driving Experience:</strong> {{vehicalFormData.drivingExperience}}</li>
                       <li class="list-group-item" *ngIf="vehicalFormData.coverelectricalaccesss != ''"><strong>Electrical Access:</strong> <span *ngIf="vehicalFormData.coverelectricalaccesss == true">Yes</span></li>
                       <li class="list-group-item"><strong>Vehicle Registered Name:</strong> {{vehicalFormData.vehicleRegisteredName}}</li>
-                      <li class="list-group-item"  ><strong>Financier Name :</strong> {{vehicalFormData.financierName }}</li>
+                      <li class="list-group-item" *ngIf="vehicalFormData.financierName != ''" ><strong>Financier Name :</strong> {{vehicalFormData.financierName }}</li>
 
                     </ul>
                   </div>
@@ -573,7 +575,7 @@
                     <ul class="m-0 list-group">
                         <li class="list-group-item"><strong>Vehicle Mostly Driven On:</strong> {{vehicalFormData.vehicleMostlyDrivenOn}}</li>
                         <li class="list-group-item"><strong>Vechile OwnerShip Changed:</strong> {{vehicalFormData.vechileOwnerShipChanged}}</li>
-                        <li class="list-group-item" ><strong>Is Two Wheeler Financed Value:</strong> {{vehicalFormData.isTwoWheelerFinancedValue }}</li>
+                        <li class="list-group-item" *ngIf="vehicalFormData.isTwoWheelerFinancedValue != ''"><strong>Is Two Wheeler Financed Value:</strong> {{vehicalFormData.isTwoWheelerFinancedValue }}</li>
 
                     </ul>
                   </div>
@@ -584,9 +586,9 @@
                     <div class="col-md-6" *ngFor="let item of vehicalFormData.electricalAccess; let i = index;">
                         <div class="p-3">
                             <ul class="m-0 list-group">
-                                <li class="list-group-item" *ngIf="item.NameOfElectronicAccessories != '' || item.NameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{item.NameOfElectronicAccessories}}</li>
-                                <li class="list-group-item" *ngIf="item.MakeModel != '' || item.MakeModel != null"><strong>Make Model:</strong> {{item.MakeModel}}</li>
-                                <li class="list-group-item" *ngIf="item.Value != '' || item.Value != null"><strong>Value:</strong> {{item.Value}}</li>
+                                <li class="list-group-item" *ngIf="item.NameOfElectronicAccessories != ''"><strong> Name Of Electronic Accessories:</strong> {{item.NameOfElectronicAccessories}}</li>
+                                <li class="list-group-item" *ngIf="item.MakeModel != ''"><strong>Make Model:</strong> {{item.MakeModel}}</li>
+                                <li class="list-group-item" *ngIf="item.Value != ''"><strong>Value:</strong> {{item.Value}}</li>
                             </ul>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 
-<div class="container dashboard pa-home h-100 d-none d-sm-none d-md-none d-xl-block d-lg-block " *ngIf="firstPage">
-    <div class="row ">
+<div class="container dashboard pa-home h-100 d-none d-sm-none d-md-none d-lg-block " *ngIf="firstPage">
+    <div class="row">
         <h3 class="w-100 text-center text-color mb-3"><img src="assets/img/personal-accident.png" class="logo-size"> PERSONAL ACCIDENT</h3>
         <div class="col-lg-6 col-sm-12 col-xs-12">
             <div class="card-block">
@@ -139,7 +139,7 @@
                     </div>
                     <div class="col-md-6">
                       <mat-form-field class="w-100">
-                        <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                        <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
                         <mat-error *ngIf="fireapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
@@ -166,7 +166,7 @@
 
   </div>
 
-<div class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
+<div class="d-none d-sm-none d-md-none d-lg-block">
 <div class="row pa-home" id="product-list-pa" fxLayoutAlign="center start" *ngIf="secondPage">
     <div class="col-sm-12">
         <div fxLayout="column" >
@@ -608,7 +608,7 @@
                             </div>
                             <div class="col-md-6">
                                 <mat-form-field class="w-100">
-                                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
                                     <mat-error *ngIf="fireapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
                                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                     <mat-datepicker #picker></mat-datepicker>
@@ -662,13 +662,22 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-6" class="sun-insured paScroll">
-                    <mat-form-field class="w-100" >
-                        <mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>
-                        <mat-select [(ngModel)]="selectedAmountP" (change)="updateSumInsured()">
-                            <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount}}">{{amounts.si_amount}}</mat-option>
+                <div class="col-6 sun-insured paScroll">
+                    <!--<mat-form-field class="w-100" >-->
+                        <!--<mat-placeholder class="myclass font-weight-bold" matTooltip="Lacs">Sum insured</mat-placeholder>-->
+                        <!--<mat-select [(ngModel)]="selectedAmountP" (change)="updateSumInsured()">-->
+                            <!--<mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id" matTooltip="{{amounts.si_amount}}">{{amounts.si_amount}}</mat-option>-->
+                        <!--</mat-select>-->
+                    <!--</mat-form-field>-->
+
+                    <mat-form-field class="w-100">
+                        <mat-select placeholder="SUM INSURED" [(ngModel)]="selectedAmountP" (keypress)="keyPress($event)" (keyup)="updateSumInsured()" autocomplete="off">
+                            <mat-option *ngFor="let amounts of sumInsuredAmountLists" [value]="amounts.si_id">
+                                {{amounts.si_amount}}
+                            </mat-option>
                         </mat-select>
                     </mat-form-field>
+
                 </div>
             </div>
         </mat-card>
@@ -677,8 +686,10 @@
     <mat-card class="metacard" *ngFor="let plists of allProductLists;let i = index;let odd=odd;let even=even;" [hidden]="changeSuninsuredAmount != getSumInsureId">
         <div class="row mb-5 mt-3" >
             <div class="col-md-6 col-6">
-                <img class="mt-1 w-75" src="{{webhost + '/' + plists.company_logo}}">
-                <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
+                <div class="text-center">
+                    <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
+                    <p class="pTitle" matTooltip="{{plists.product_name}}">{{plists.product_name | titlecase }}</p>
+                </div>
             </div>
             <div class="col-md-3 col-3">
                 <p style="margin-bottom: 0rem !important;">Sum Insured</p>

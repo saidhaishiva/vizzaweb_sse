@@ -99,6 +99,7 @@ export class BikeShriramProposalComponent implements OnInit {
   public policyDatevalidate : any;
     public currentStep : any;
     public premiumAmount : any;
+    public packagelist : any;
 
   public genderList: boolean;
     constructor(public fb: FormBuilder, public validation: ValidationService,public route: ActivatedRoute, public config: ConfigurationService,public datepipe: DatePipe, public authservice: AuthService, private toastr: ToastrService,  public appSettings: AppSettings, public bikeInsurance: BikeInsuranceService ) {
@@ -228,6 +229,7 @@ export class BikeShriramProposalComponent implements OnInit {
       this.buyBikeDetails = JSON.parse(sessionStorage.buyProductDetails);
       this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
       this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
+      this.packagelist = sessionStorage.packae_list;
          this.changeTitle();
          this.changehypothecation();
          this.policyType();
@@ -917,6 +919,7 @@ export class BikeShriramProposalComponent implements OnInit {
           "created_by": "",
           'proposal_id': sessionStorage.shiramBikeproposalID == '' || sessionStorage.shiramBikeproposalID == undefined ? '' : sessionStorage.shiramBikeproposalID,
           "geogrophicalExtensionCover": "false",
+          "package_type": this.packagelist,
           "motorProposalObj": {
               // "PreviousPolicyFromDt": this.previousInsure.controls['previousdob'].value,
               "InsuredPrefix": "1",

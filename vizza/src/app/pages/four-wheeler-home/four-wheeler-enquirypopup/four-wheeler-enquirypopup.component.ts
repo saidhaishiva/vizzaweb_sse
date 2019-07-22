@@ -52,6 +52,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public config : any;
   public rto : any;
   public getDays : any;
+  public CityValid : boolean;
   constructor(public fb: FormBuilder, public fwService: FourWheelerService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
               public dialogRef: MatDialogRef<FourWheelerEnquirypopupComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {
@@ -85,7 +86,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       limitTo: 5
     };
 
-
+  this.CityValid = false;
   }
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
@@ -329,7 +330,14 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
 
   }
   enquiryQuation(value) {
-    // if(this.vehicalDetails.valid) {
+    if( this.vehicalDetails.controls['city'].value == ''){
+      this.CityValid = true;
+    } else {
+      this.CityValid = false;
+
+    }
+
+    if(this.vehicalDetails.valid) {
       const data = {
       'platform': 'web',
       'user_id': this.auth.getPosUserId() ? this.auth.getPosUserId() : '0',
@@ -368,7 +376,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
             this.enquiryFailure(error);
           }
       );
-    // }
+    }
   }
   public enquirySuccess(successData){
     if (successData.IsSuccess) {

@@ -103,7 +103,9 @@
       </mat-form-field>
     </div>
     <div class="col-md-3">
-      <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails" required></ngx-select-dropdown>
+      <mat-placeholder>Registration City <span class="color-red">*</span></mat-placeholder>
+      <ngx-select-dropdown  [config]="config"  formControlName="city"  [options]="cityDetails"></ngx-select-dropdown>
+      <div class="color-red" *ngIf="CityValid">City is required</div>
 
 
     </div>

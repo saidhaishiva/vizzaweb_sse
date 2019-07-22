@@ -258,7 +258,7 @@
         </mat-form-field>
         <div *ngIf="pinerror" class="ngError">Required</div>
         <div fxLayoutAlign="center center" class="mt-1">
-          <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList('mobile')">Proceed</button>
+          <button mat-raised-button color="accent"  class="ml-2 mr-2" type="button" (click)="getPolicyQuotationList('mobile'); topScroll();">Proceed</button>
           <button mat-button (click)="reset()" style="color: #000; position: absolute; right: 10px;"><i class="material-icons">refresh</i> Reset</button>
         </div>
       </mat-card>

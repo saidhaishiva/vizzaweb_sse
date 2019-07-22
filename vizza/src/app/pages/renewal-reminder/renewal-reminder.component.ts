@@ -53,7 +53,8 @@ export class RenewalReminderComponent implements OnInit {
   getUrl: any;
   today: any;
   maxDate: any;
-  dateError: any;
+  sdateError: any;
+  edateError: any;
 
   public fileUploadPath: any;
   public uploadTypeTest: boolean;
@@ -64,6 +65,8 @@ export class RenewalReminderComponent implements OnInit {
   public fileUploadPathDOC: any;
   public fileUploadPathDOCX: any;
   public filePath: any;
+  imageSrc: string;
+
 
   @ViewChild('myForm') myForm: NgForm;
 
@@ -89,7 +92,8 @@ export class RenewalReminderComponent implements OnInit {
     this.commentBox = false;
     this.selectDate = '';
     this.allImage = [];
-    this.today = new Date();
+    let today = new Date();
+    this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
 
     this.paymentFrequency = [
@@ -105,13 +109,14 @@ export class RenewalReminderComponent implements OnInit {
     this.getPolicyTypes();
     this.getcompanyList();
     this.uploadTypeTest= true;
-    this.fileUploadPath = '';
     this.uploadTypeTest = true;
     this.filePath = '';
     this.fileUploadPath = '';
     this.fileUploadPathPDF= '';
     this.fileUploadPathDOC= '';
     this.fileUploadPathDOCX= '';
+    this.imageSrc = '';
+
   }
 
 
@@ -124,11 +129,20 @@ export class RenewalReminderComponent implements OnInit {
     if (event.value != null) {
       if (typeof event.value._i == 'string') {
         const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
-        if (pattern.test(event.value._i) && event.value._i.length == 10) {
-          this.dateError = '';
-        } else {
-          this.dateError = 'Enter Valid Date';
+        if(type == 'sDate'){
+          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+            this.sdateError = '';
+          } else {
+            this.sdateError = 'Enter Valid Date';
+          }
+        }else{
+          if (pattern.test(event.value._i) && event.value._i.length == 10) {
+            this.edateError = '';
+          } else {
+              this.edateError = 'Enter Valid Date';
+          }
         }
+
         let selectedDate;
         selectedDate = event.value._i;
 
@@ -138,7 +152,7 @@ export class RenewalReminderComponent implements OnInit {
           }
         }
       } else if (typeof event.value._i == 'object') {
-        this.dateError = '';
+        this.sdateError = '';
         if (type == 'sDate') {
           this.maxDate = event.value;
         }
@@ -285,11 +299,37 @@ export class RenewalReminderComponent implements OnInit {
       };
       reader.readAsDataURL(event.target.files[i]);
     }
+    if(this.allowedExtensionsPDF.exec(this.filePath)){
+      this.fileUploadPathPDF= 'pdf';
+      this.fileUploadPathDOC= '';
+      this.fileUploadPathDOCX= '';
+      this.imageSrc = '';
+    }else if(this.allowedExtensionsDOC.exec(this.filePath)){
+      this.fileUploadPathDOC= 'doc';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOCX= '';
+      this.imageSrc = '';
+    }else if(this.allowedExtensionsDOCX.exec(this.filePath)){
+      this.fileUploadPathDOCX= 'docx';
+      this.fileUploadPathPDF= '';
+      this.fileUploadPathDOC= '';
+      this.imageSrc = '';
+    }else {
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
 
+        const reader = new FileReader();
+        reader.onload = e => this.imageSrc = reader.result;
+
+        reader.readAsDataURL(file);
+        this.fileUploadPathPDF= '';
+        this.fileUploadPathDOC= '';
+        this.fileUploadPathDOCX= '';
+      }
+    }
   }
   onUploadFinished(event) {
     this.allImage.push(event);
-    this.onUpload();
   }
   onUpload() {
     console.log(this.allImage.length,'this.allImage.length');
@@ -314,27 +354,6 @@ export class RenewalReminderComponent implements OnInit {
   }
   public fileUploadSuccess(successData) {
     if (successData.IsSuccess) {
-      if(this.allowedExtensionsPDF.exec(this.filePath)){
-        this.fileUploadPathPDF= 'pdf';
-        this.fileUploadPathDOC= '';
-        this.fileUploadPathDOCX= '';
-        this.fileUploadPath = '';
-      }else if(this.allowedExtensionsDOC.exec(this.filePath)){
-        this.fileUploadPathDOC= 'doc';
-        this.fileUploadPathPDF= '';
-        this.fileUploadPathDOCX= '';
-        this.fileUploadPath = '';
-      }else if(this.allowedExtensionsDOCX.exec(this.filePath)){
-        this.fileUploadPathDOCX= 'docx';
-        this.fileUploadPathPDF= '';
-        this.fileUploadPathDOC= '';
-        this.fileUploadPath = '';
-      }else {
-        this.fileUploadPath = successData.ResponseObject.imagePath;
-        this.fileUploadPathPDF= '';
-        this.fileUploadPathDOC= '';
-        this.fileUploadPathDOCX= '';
-      }
       this.uploadTypeTest = true;
       this.toastr.success( successData.ResponseObject.message);
     } else {
@@ -347,10 +366,9 @@ export class RenewalReminderComponent implements OnInit {
     if(this.filePath == '' ){
       this.uploadTypeTest= false;
     }else{
-      this.toastr.success( 'Set Remainder successfully');
-
+      this.onUpload();
       this.uploadTypeTest = true;
-      this.fileUploadPath = '';
+      this.imageSrc = '';
       this.fileUploadPathPDF= '';
       this.fileUploadPathDOC= '';
       this.fileUploadPathDOCX= '';

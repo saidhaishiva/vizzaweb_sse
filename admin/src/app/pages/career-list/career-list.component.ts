@@ -17,7 +17,6 @@ import {PathPopupComponent} from './path-popup/path-popup.component';
 })
 export class CareerListComponent implements OnInit {
   public webhost: any;
-  public data: any;
   @ViewChild(DatatableComponent) table: DatatableComponent;
   editing = {};
   rows = [];
@@ -30,10 +29,11 @@ export class CareerListComponent implements OnInit {
   public settings: Settings;
   val: any;
   col: any;
-  testeditor: any;
+  list: boolean;
+  img: any;
   constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
   this.col = ['one'];
-
+  this.list = false;
   }
 
   ngOnInit() {
@@ -60,11 +60,10 @@ export class CareerListComponent implements OnInit {
     console.log(success);
     // this.loadingIndicator = false;
     if (success.IsSuccess) {
-      // alert('in');
-      this.data = success.ResponseObject;
       this.total = success.ResponseObject.length;
-      this.rows = this.data;
-      this.temp = this.data;
+      this.rows = success.ResponseObject;
+      console.log(this.rows, 'this.rows');
+      this.temp = success.ResponseObject;
     } else {
     }
   }
@@ -72,7 +71,10 @@ export class CareerListComponent implements OnInit {
   updateFilter(event) {
     const val = event.target.value.toLowerCase();
     const temp = this.temp.filter(function (d) {
-      return d.refrence_by.toLowerCase().indexOf(val) !== -1 || !val;
+      if(d.applicant_name.toLowerCase().indexOf(val) !== -1  || d.applicant_email.toLowerCase().indexOf(val) !== -1 || d.applicant_mobile.toLowerCase().indexOf(val) !== -1 || !val){
+        return d.applicant_name.toLowerCase().indexOf(val) !== -1 ||  d.applicant_email.toLowerCase().indexOf(val) !== -1 || d.applicant_mobile.toLowerCase().indexOf(val) !== -1 || !val;
+
+      }
     });
     this.rows = temp;
     this.table.offset = 0;
@@ -81,17 +83,22 @@ export class CareerListComponent implements OnInit {
   public careerFailure(error) {
 
   }
-
-
-  path(){
+  getMail(value){
     const dialogRef = this.dialog.open(PathPopupComponent, {
-      width: '600px',
-      height: '300px'
+      width: '900px', data: {careerid : value.id, email: value.applicant_email}
+        // height: '500px'
     });
     dialogRef.afterClosed().subscribe(res => {
 
-    });
-  }
+    });  }
 
+  path(i){
+    this.list = true;
+  }
+imageDownload(value){
+  let currenturl = this.config.getimgUrl();
+  window.open(currenturl + '/' + value.file_path, '_blank');
+
+}
 
 }

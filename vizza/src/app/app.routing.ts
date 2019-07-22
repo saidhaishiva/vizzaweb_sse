@@ -161,6 +161,7 @@ import {UlipComponent} from './pages/ulip/ulip.component';
 import {SpecialContigencyPolicyComponent} from './pages/special-contigency-policy/special-contigency-policy.component';
 import {GroupTravelComponent} from './pages/group-travel/group-travel.component';
 import {HdfcTwoWheelerProposalComponent} from './pages/hdfc-two-wheeler-proposal/hdfc-two-wheeler-proposal.component';
+import {EdelweissTermLifePaymentSuccessComponent} from './pages/edelweiss-term-life-payment-success/edelweiss-term-life-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -309,6 +310,7 @@ export const routes: Routes = [
             { path: 'four-wheeler-shriram/:stepper', component: ShriramFourwheelerProposalComponent, data: { breadcrumb: 'Shriram Four Wheeler '}},
             { path: 'learning-center', component: LearningCenterComponent, data: { breadcrumb: 'Learning Center'}},
             { path: 'edelweiss-term-life/:stepper', component: EdelweissTermLifeComponent, data: { breadcrumb: 'Edelweiss TermLife Component'}},
+            { path: 'edelweiss-term-life-payment-success/:status/:proId', component: EdelweissTermLifePaymentSuccessComponent, data: { breadcrumb: 'Edelweiss term life payment'}},
             { path: 'car-tataaig-payment-success/:status/:proId', component: CarTataaigPaymentSuccessComponent, data: { breadcrumb: 'carTataaig payment'} },
             { path: 'reliance-twowheeler-motor-payment-success/:status/:proId', component: RelianceTwowheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance Twowheeler payment'}},
             { path: 'gold-suraksha', component: BajajGoldSurakshaComponent, data: { breadcrumb: 'Bajaj- Gold Suraksha'}},

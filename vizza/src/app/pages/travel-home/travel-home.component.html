@@ -2,21 +2,20 @@
   <div class="row my-flex-card">
     <!--<h2 class="w-100 text-center" style="color: #9769DF"><button mat-icon-button color="accent"><img src="assets/img/travel-insurance.png" class="logo-size"></button> Travel Insurance</h2>-->
       <h2 class="w-100 text-center" fxLayoutAlign="center center" style="color: #9769DF;"><img src="assets/img/travel-insurance.png" class="logo-size">&nbsp;Travel Insurance</h2>
-      <div class="col-md-6 col-sm-12 col-xs-12">
-      <div class="card">
-        <div class="card-block">
-          <div class="aboutImg">
-            <img src="assets/img/Travel-Inner-banner.png" class="w-100">
-            <div class="aboutContent">
-              <h4>About Travel Insurance</h4>
-              <p style="text-align: left;">Sometimes, things don’t go as planned. Wherever you go, we protect you.… <button class="btn btn-sm" (click)="travelInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-block">
+            <div class="aboutImg">
+              <img src="assets/img/Travel-Inner-banner.png" class="w-100">
+              <div class="aboutContent">
+                <h4>About Travel Insurance</h4>
+                <p style="text-align: left;">Sometimes, things don’t go as planned. Wherever you go, we protect you.… <button class="btn btn-sm" (click)="travelInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
-    <div *ngIf="show" class="col-md-6 col-sm-12 col-xs-12">
+    <div *ngIf="show" class="col-md-6">
       <div class="card">
         <div class="card-block">
           <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)" class="travel-box AllFormView">
@@ -573,7 +572,7 @@
 
     <!--// fire-->
 
-    <div *ngIf="!show" class="col-md-6 col-sm-12 col-xs-12">
+    <div *ngIf="!show" class="col-md-6">
       <div class="card">
         <div class="card-block AllFormView">
           <mat-card class="p-4" style="background: linear-gradient(to top, #E2C582 0%, #8AC2E7 100%) !important; color:#fff;">
@@ -655,7 +654,7 @@
                 </div>
                 <div class="col-md-6">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
                     <mat-error *ngIf="fireapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
@@ -678,10 +677,6 @@
       </div>
     </div>
 
-
-
-
-
   </div>
 </div>
 
@@ -693,7 +688,7 @@
     <h2 class="w-100 text-center" fxLayoutAlign="center center" style="color: #9769DF;"><img src="assets/img/travel-insurance.png" class="logo-size">&nbsp;Travel Insurance</h2>
     <p class="w-100 text-center"> <button class="btn btn-sm" (click)="travelInsurer()" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
 
-    <div *ngIf="show" class="col-md-12 col-sm-12 col-xs-12">
+    <div *ngIf="show" class="col-12">
       <div class="card">
         <div class="card-block">
           <mat-tab-group #tabGroup  (selectedIndexChange)="onSelectedIndexChange($event)" class="travel-box AllFormView">
@@ -1342,7 +1337,7 @@
                 </div>
                 <div class="col-sm-6 col-6">
                   <mat-form-field class="w-100">
-                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" required>
+                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
                     <mat-error *ngIf="fireapp.controls.appdate.errors?.required">Appointment Date is required</mat-error>
                     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
