@@ -393,14 +393,20 @@
                                  <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with insured is required</mat-error>
                                 </mat-form-field>
                               </div>
-
-                              <div class="col-md-4">
+                              <div class="col-md-3" *ngIf=" nominee.controls.nRelation.value == 'Others'">
                                 <mat-form-field class="w-100">
-                                  <mat-placeholder>Relationship with Other<span class="error" *ngIf="nominee.controls.nRelation.value == 'Others'" >*</span></mat-placeholder>
-                                  <input matInput   formControlName="relationOther" (keypress)="nameValidate($event)" autocomplete="off"  >
+                                  <input matInput placeholder="Relationship with Other" formControlName="relationOther" (keypress)="nameValidate($event)"  autocomplete="off"  [required]="nomineeRelationship" >
+                                  <mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with Other Other is required</mat-error>
                                 </mat-form-field>
-                                <!--<mat-error *ngIf="nomineeDetail.controls.guardianName.errors?.required">Guardian Name is required</mat-error>-->
                               </div>
+
+                              <!--<div class="col-md-4">-->
+                                <!--<mat-form-field class="w-100">-->
+                                  <!--<mat-placeholder>Relationship with Other<span class="error" *ngIf="nominee.controls['nRelation'].value == 'Others'" >*</span></mat-placeholder>-->
+                                  <!--<input matInput   formControlName="relationOther" (keypress)="nameValidate($event)" autocomplete="off"  >-->
+                                <!--</mat-form-field>-->
+                                <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.guardianName.errors?.required">Guardian Name is required</mat-error>&ndash;&gt;-->
+                              <!--</div>-->
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
                                   <input matInput placeholder="Address 1" formControlName="nAddress1" (keypress)="nameValidate($event)"  autocomplete="off" required >
@@ -485,13 +491,21 @@
                                 <mat-error *ngIf="nominee.controls.aRelation.errors?.required">Appointee Relation is required</mat-error>
                               </mat-form-field>
                             </div>
-                            <div class="col-md-4">
+
+                            <div class="col-md-3" *ngIf=" nominee.controls.aRelation.value == 'Others'">
                               <mat-form-field class="w-100">
-                                <mat-placeholder>Relationship with Other<span class="error" *ngIf="nominee.controls.aRelation.value == 'Other'">*</span></mat-placeholder>
-                                <input matInput   formControlName="appointeeRelationOther" (keypress)="nameValidate($event)" autocomplete="off"  >
+                                <input matInput placeholder="Relationship with Other" formControlName="appointeeRelationOther" (keypress)="nameValidate($event)"  autocomplete="off" >
+                                <mat-error *ngIf="nominee.controls.appointeeRelationOther.errors?.required">Relationship with Other is required</mat-error>
                               </mat-form-field>
-                              <!--<mat-error *ngIf="nomineeDetail.controls.guardianName.errors?.required">Guardian Name is required</mat-error>-->
                             </div>
+
+                            <!--<div class="col-md-4">-->
+                              <!--<mat-form-field class="w-100">-->
+                                <!--<mat-placeholder>Relationship with Other<span class="error" *ngIf="nominee.controls.aRelation.value == 'Others'">*</span></mat-placeholder>-->
+                                <!--<input matInput   formControlName="appointeeRelationOther" (keypress)="nameValidate($event)" autocomplete="off"  >-->
+                              <!--</mat-form-field>-->
+                              <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.controls.guardianName.errors?.required">Guardian Name is required</mat-error>&ndash;&gt;-->
+                            <!--</div>-->
                            </div>
                         </div>
                       </div>
