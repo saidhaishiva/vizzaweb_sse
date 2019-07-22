@@ -249,7 +249,7 @@
                   </div>
                     <div class="col-md-4">
                         <mat-form-field class="w-100">
-                            <input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" >
+                            <input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" required >
                             <mat-error *ngIf="proposer.controls.employerName.errors?.required">Employer Name  is required</mat-error>
                         </mat-form-field>
                     </div>
@@ -569,7 +569,7 @@
                                    </div>
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
-                                           <input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" >
+                                           <input matInput placeholder="Employer Name" formControlName="employerName" maxlength="50" autocomplete="off"  (keypress)="nameValidate($event)" required>
                                            <mat-error *ngIf="insureArray.controls.employerName.errors?.required">Employer Name  is required</mat-error>
                                        </mat-form-field>
                                    </div>
