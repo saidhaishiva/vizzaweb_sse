@@ -246,7 +246,7 @@ export class TestimonialComponent implements OnInit {
 
   rejectSuccess(successData) {
     if (successData.IsSuccess) {
-      this.toastr.success(successData.ResponseObject);
+      this.toastr.success('Rejected Successfully!');
       this.testimonialList(this.tabValue);
     }
   }
