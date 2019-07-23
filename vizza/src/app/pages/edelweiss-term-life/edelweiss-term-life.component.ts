@@ -171,7 +171,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       employementTypeOther: '',
       employementType: ['', Validators.compose([Validators.required])],
         employementTypeName: '',
-      employerName: '',
+      employerName: ['', Validators.compose([Validators.required])],
       natureduty: ['', Validators.compose([Validators.required])],
         naturedutyName: '',
       employerAddr: ['', Validators.compose([Validators.required])],
@@ -220,7 +220,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       employementTypeOther: '',
       employementType: ['', Validators.compose([Validators.required])],
         employementTypeName: '',
-      employerName: '',
+      employerName: ['', Validators.compose([Validators.required])],
       natureduty: ['', Validators.compose([Validators.required])],
         naturedutyName: '',
       employerAddr: ['', Validators.compose([Validators.required])],
@@ -796,7 +796,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.proposer, 'proposer');
     if (this.proposer.valid) {
       if (sessionStorage.proposerAge >= 18) {
-        stepper.next();
+          this.sameAsInsure();
+          stepper.next();
       } else {
         this.toastr.error('Proposer Age should be 18 or above');
 
