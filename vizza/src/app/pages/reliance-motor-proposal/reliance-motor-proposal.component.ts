@@ -5,11 +5,12 @@ import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ToastrService} from 'ngx-toastr';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {ActivatedRoute} from '@angular/router';
+import {idvvalidate} from '../reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 
 
 export const MY_FORMATS = {
@@ -97,7 +98,7 @@ export class RelianceMotorProposalComponent implements OnInit {
   personalDobError : any;
   previousDateError : any;
   ProposalId : any;
-  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public route: ActivatedRoute , public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
+  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService,public dialog: MatDialog, public route: ActivatedRoute , public validation: ValidationService ,private toastr: ToastrService, public bikeInsurance: BikeInsuranceService , public authservice: AuthService , public datepipe: DatePipe) {
 
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -1262,7 +1263,7 @@ export class RelianceMotorProposalComponent implements OnInit {
 
         },
         'Risk': {
-          'IDV': this.riskDetails.controls['IDV'].value,
+          'IDV': this.riskDetails.controls['IDV'].value.toString(),
           'IsVehicleHypothicated': this.riskDetails.controls['IsVehicleHypothicated'].value ? 'true' : 'false',
           'FinanceType': this.riskDetails.controls['FinanceType'].value,
           'FinancierName': this.riskDetails.controls['FinancierName'].value,
@@ -1494,7 +1495,19 @@ export class RelianceMotorProposalComponent implements OnInit {
 
     } else {
       this.setting.loadingSpinner = false;
-      this.toastr.error(successData.ErrorObject);
+      if(successData.type == 'idv') {
+        sessionStorage.changeIdvDetail = JSON.stringify(successData.ResponseObject);
+        let dialogRef = this.dialog.open(idvvalidate, {
+          width: '700px',
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+          this.riskDetails.controls.IDV.patchValue(result);
+          this.createProposal(stepper,this.previousInsurance.value);
+        });
+      }else{
+        this.toastr.error(successData.ErrorObject);
+      }
     }
   }
 

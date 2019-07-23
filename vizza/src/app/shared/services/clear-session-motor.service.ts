@@ -59,5 +59,6 @@ export class ClearSessionMotorService {
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper4Details = '';
     sessionStorage.proposerFormData = '';
+    sessionStorage.changeIdvDetail = '';
   }
 }
