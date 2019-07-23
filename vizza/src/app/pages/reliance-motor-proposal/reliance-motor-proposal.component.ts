@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
 import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ToastrService} from 'ngx-toastr';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {ActivatedRoute} from '@angular/router';
-import {idvvalidate} from '../reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 
 
 export const MY_FORMATS = {
@@ -1497,7 +1496,7 @@ export class RelianceMotorProposalComponent implements OnInit {
       this.setting.loadingSpinner = false;
       if(successData.type == 'idv') {
         sessionStorage.changeIdvDetail = JSON.stringify(successData.ResponseObject);
-        let dialogRef = this.dialog.open(idvvalidate, {
+        let dialogRef = this.dialog.open(idvvalidatetwoWheeler, {
           width: '700px',
         });
         dialogRef.disableClose = true;
@@ -1904,3 +1903,31 @@ export class RelianceMotorProposalComponent implements OnInit {
     this.validation.idValidate(event);
   }
 }
+
+export class idvvalidatetwoWheeler {
+  public idv : any;
+  public idfGroup : FormGroup;
+  constructor(
+      public dialogRef: MatDialogRef<idvvalidatetwoWheeler>,
+      @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder) {
+
+    this.idfGroup = this.fb.group({
+          // AgentName: [''],
+          IDV: [''],
+        }
+    );
+
+  }
+  ngOnInit(){
+    this.idv = JSON.parse(sessionStorage.changeIdvDetail);
+  }
+
+
+  onClick(result) {
+    if(result !=''){
+      this.dialogRef.close(this.idfGroup.controls.IDV.value);
+    }
+  }
+}
+
+
