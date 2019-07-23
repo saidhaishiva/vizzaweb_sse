@@ -34,6 +34,7 @@ export class ClearSessionFourwheelerService {
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper4Details = '';
     sessionStorage.proposerFormData = '';
+    sessionStorage.changeIdvDetail = '';
   }
 
 }

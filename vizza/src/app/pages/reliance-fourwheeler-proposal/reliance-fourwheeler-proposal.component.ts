@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder,FormGroup,Validators} from '@angular/forms';
 import {ValidationService} from '../../shared/services/validation.service';
 import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ToastrService} from 'ngx-toastr';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
 import {FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {ActivatedRoute} from '@angular/router';
+import {PaymentModeValidate} from '../term-life-premium-list/term-life-premium-list.component';
 
 
 export const MY_FORMATS = {
@@ -99,7 +100,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   npshowNominee : any;
   personalDobError : any;
   previousDateError : any;
-  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService ,private toastr: ToastrService, public fourWheelerInsurance: FourWheelerService , public authservice: AuthService , public datepipe: DatePipe) {
+  constructor(public fb: FormBuilder ,public appsetting: AppSettings,public config: ConfigurationService,public dialog: MatDialog, public route: ActivatedRoute, public validation: ValidationService ,private toastr: ToastrService, public fourWheelerInsurance: FourWheelerService , public authservice: AuthService , public datepipe: DatePipe) {
 
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -1391,6 +1392,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   /// create proposal
   createProposal(stepper,value) {
 
+    console.log(this.riskDetails.controls.IDV.value,'idvkjkljkjklj');
+
     // stepper.next();
     this.topScroll();
     if (this.buyProduct.business_type !=1) {
@@ -1473,7 +1476,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
         },
         'Risk': {
-          'IDV': this.riskDetails.controls['IDV'].value,
+          'IDV': this.riskDetails.controls['IDV'].value.toString(),
           'IsVehicleHypothicated': this.riskDetails.controls['IsVehicleHypothicated'].value ? 'true' : 'false',
           'FinanceType': this.riskDetails.controls['FinanceType'].value,
           'FinancierName': this.riskDetails.controls['FinancierName'].value,
@@ -1733,8 +1736,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
     } else {
       this.setting.loadingSpinner = false;
-
-      this.toastr.error(successData.ErrorObject);
+      if(successData.type == 'idv') {
+        sessionStorage.changeIdvDetail = JSON.stringify(successData.ResponseObject);
+        let dialogRef = this.dialog.open(idvvalidate, {
+          width: '700px',
+        });
+        dialogRef.disableClose = true;
+        dialogRef.afterClosed().subscribe(result => {
+          this.riskDetails.controls.IDV.patchValue(result);
+          this.createProposal(stepper,this.previousInsurance.value);
+        });
+      }else{
+        this.toastr.error(successData.ErrorObject);
+      }
     }
   }
 
@@ -1959,6 +1973,65 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   }
   dobValidate(event: any){
     this.validation.dobValidate(event);
+  }
+}
+
+
+
+
+@Component({
+  selector: 'idvvalidate',
+  template: `
+        <div class="container-fluid">
+            <div class="row" [formGroup]="idfGroup">
+                <div class="col-sm-12">
+
+                  <div class="col-md-12 mt-2" >
+                    <p>Please choose IDV Between (min {{idv.min}} - max {{idv.max}})</p>
+                  </div>
+
+                  <div class="col-md-12 mt-0" layout>
+                    <mat-slider flex md-discrete [value]= "idfGroup.controls.IDV.value" formControlName="IDV"
+                                step = "{{idv.min}"
+                                min="{{idv.min}}"
+                                max="{{idv.max}}">
+                    </mat-slider>
+                    <i style="font-size:14px" class="fa fa-inr">&#xf156;</i>{{idfGroup.controls.IDV.value}}
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Submit</button>
+        </div>
+    `,
+  styleUrls: ['./reliance-fourwheeler-proposal.component.scss']
+
+
+})
+export class idvvalidate {
+  public idv : any;
+  public idfGroup : FormGroup;
+  constructor(
+      public dialogRef: MatDialogRef<idvvalidate>,
+      @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder) {
+
+    this.idfGroup = this.fb.group({
+          // AgentName: [''],
+          IDV: [''],
+        }
+    );
+
+  }
+  ngOnInit(){
+    this.idv = JSON.parse(sessionStorage.changeIdvDetail);
+  }
+
+
+  onClick(result) {
+    if(result !=''){
+      this.dialogRef.close(this.idfGroup.controls.IDV.value);
+    }
   }
 }
 

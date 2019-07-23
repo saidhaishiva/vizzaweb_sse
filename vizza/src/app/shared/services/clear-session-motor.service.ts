@@ -38,17 +38,7 @@ export class ClearSessionMotorService {
     sessionStorage.tatabikenominee = '';
     sessionStorage.tataBikeproposalID = '';
 
-      //  tataAig four wheeler
-    sessionStorage.summaryDatacartata = '';
-    sessionStorage.carproposerAge = '';
-    sessionStorage.tatacarproposer = '';
-    sessionStorage.tatacarvehicle = '';
-    sessionStorage.tatacarprepolicy = '';
-    sessionStorage.tatacarnominee = '';
-
-
-    ///
-    //reliance two wheeler
+      //reliance two wheeler
     sessionStorage.summaryData = '';
     sessionStorage.relianceTwowheelerproposalID = '';
     sessionStorage.proposerAge = '';
@@ -59,5 +49,6 @@ export class ClearSessionMotorService {
     sessionStorage.stepper3Details = '';
     sessionStorage.stepper4Details = '';
     sessionStorage.proposerFormData = '';
+    sessionStorage.changeIdvDetail = '';
   }
 }
