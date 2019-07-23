@@ -16,9 +16,6 @@
         <mat-button-toggle value="rejected">
           <mat-icon style="color: red;">block</mat-icon> Rejected
         </mat-button-toggle>
-        <mat-button-toggle value="onhold">
-          <mat-icon style="color: orange;">check</mat-icon> OnHold
-        </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
     <div class="col-md-6">
@@ -63,11 +60,11 @@
                       </div>
                       <mat-menu #menu="matMenu" xPosition="before">
                                                 <span (mouseleave)="menuTrigger.closeMenu()">
-                                                    <button mat-menu-item (click)="edit(row)" *ngIf="roleId == '1'">
+                                                    <button mat-menu-item (click)="edit(row)">
                                                        <mat-icon class="material-icons">mode_edit</mat-icon><span>Edit</span>
                                                     </button>
-                                                    <button mat-menu-item>
-                                                         <mat-icon class="material-icons">delete</mat-icon><span>Delete</span>
+                                                    <button mat-menu-item (click)="rejectlist(row)" *ngIf="row.status != '2'">
+                                                         <mat-icon class="material-icons">clear</mat-icon><span>Reject</span>
                                                     </button>
                                                 </span>
                       </mat-menu>
