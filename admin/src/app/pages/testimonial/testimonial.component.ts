@@ -146,22 +146,7 @@ export class TestimonialComponent implements OnInit {
 
           }
         }
-      } else if (value == 'onhold') {
-        let POS = [];
-        this.rows = [];
-        this.temp = [];
-        for (let i = 0; i < successData.ResponseObject.length; i++) {
-          if (successData.ResponseObject[i].status === '3') {
-            this.posStatus = successData.ResponseObject[i].status;
-            POS.push(successData.ResponseObject[i]);
-            this.temp = [...POS];
-            this.rows = POS;
-            this.totalPOS = POS.length;
-
-          }
-        }
       }
-
     }
   }
 
