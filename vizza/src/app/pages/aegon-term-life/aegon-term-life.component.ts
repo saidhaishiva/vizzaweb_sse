@@ -234,7 +234,11 @@ export class AegonTermLifeComponent implements OnInit {
     this.getAppointeeRelation();
     // this.getoccupationlist();
     this.sessionData();
-    this.personal.controls['dob'].patchValue (this.enquiryFromDetials.dob);
+    if(this.personal.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd')))
+    {
+      this.addEvent(event)
+    }
+
     this.personal.controls['adbrSumAssured'].patchValue (50000);
 
   }
@@ -295,6 +299,7 @@ export class AegonTermLifeComponent implements OnInit {
         }
         selectedDate = event.value._i;
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        console.log(dob , 'dob');
         if (selectedDate.length == 10) {
           this.proposerAge = this.ageCalculate(dob);
           // sessionStorage.proposerAge = this.proposerAge;
@@ -582,6 +587,37 @@ export class AegonTermLifeComponent implements OnInit {
 
   }
 
+  otherNominee() {
+
+    if (this.nominee.controls['nRelation'].value == 'Others') {
+      this.nominee.controls['relationOther'].patchValue(this.nominee.controls['relationOther'].value);
+
+      this.nominee.controls['relationOther'].setValidators([Validators.required]);
+    } else {
+      this.nominee.controls['relationOther'].patchValue('');
+
+      this.nominee.controls['relationOther'].setValidators(null);
+
+    }
+    this.nominee.controls['relationOther'].updateValueAndValidity();
+
+  }
+
+  otherAppointee() {
+
+    if (this.nominee.controls['aRelation'].value == 'Others') {
+      this.nominee.controls['appointeeRelationOther'].patchValue(this.nominee.controls['appointeeRelationOther'].value);
+
+      this.nominee.controls['appointeeRelationOther'].setValidators([Validators.required]);
+    } else {
+      this.nominee.controls['appointeeRelationOther'].patchValue('');
+
+      this.nominee.controls['appointeeRelationOther'].setValidators(null);
+
+    }
+    this.nominee.controls['appointeeRelationOther'].updateValueAndValidity();
+
+  }
 
 
   // AGE VALIDATION
@@ -1058,9 +1094,9 @@ export class AegonTermLifeComponent implements OnInit {
   changenomineerelationship() {
     this.nominee.controls['nRelationName'].patchValue(this.nomineeRelationship[this.nominee.controls['nRelation'].value]);
   }
-  changeAppointeerelationship() {
-    this.nominee.controls['aRelationName'].patchValue(this.appointeeRelationList[this.nominee.controls['aRelation'].value]);
-  }
+  // changeAppointeerelationship() {
+  //   this.nominee.controls['aRelationName'].patchValue(this.appointeeRelationList[this.nominee.controls['aRelation'].value]);
+  // }
   changeEmpType() {
     this.personal.controls['employeeTypeName'].patchValue(this.empTypeList[this.personal.controls['employeeType'].value]);
     this.getoccupationlist();
