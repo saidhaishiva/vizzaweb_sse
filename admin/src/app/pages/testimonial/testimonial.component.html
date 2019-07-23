@@ -96,7 +96,7 @@
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
                           <mat-icon class="muted-text" matTooltip="Status">thumbs_up_down</mat-icon>
-                          <span *ngIf="row.status == '1'">Active</span><span *ngIf="row.status == '0'">InActive</span>
+                          <span *ngIf="row.status == '1'">Active</span><span *ngIf="row.status == '0'">InActive</span><span *ngIf="row.status == '2'">Rejected</span>
                         </p>
                       </div>
                       <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
@@ -106,7 +106,7 @@
                         </p>
                       </div>
                       <div fxFlex="20" fxFlex.xs="100" fxLayout="column">
-                        <mat-slide-toggle [checked]="row.status == 1" (change)="updatestatus(row,$event)"></mat-slide-toggle>
+                        <mat-slide-toggle [checked]="row.status == '1'" (change)="updatestatus(row,$event)"></mat-slide-toggle>
                       </div>
                     </div>
                   </div>
