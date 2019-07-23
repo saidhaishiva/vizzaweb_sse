@@ -796,7 +796,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.proposer, 'proposer');
     if (this.proposer.valid) {
       if (sessionStorage.proposerAge >= 18) {
-        stepper.next();
+          this.sameAsInsure();
+          stepper.next();
       } else {
         this.toastr.error('Proposer Age should be 18 or above');
 
