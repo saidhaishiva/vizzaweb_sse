@@ -488,14 +488,21 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   typeAddressDeatils1() {
-    if (this.proposer.controls['isCurrPerAddrSame'].value) {
-      this.insureArray.controls['perAddr1'].setValue( this.insureArray.controls['currAddr1'].value),
+    if (this.insureArray.controls['isCurrPerAddrSame'].value) {
+          this.insureArray.controls['perAddr1'].setValue( this.insureArray.controls['currAddr1'].value),
           this.insureArray.controls['perAddr2'].setValue( this.insureArray.controls['currAddr2'].value),
           this.insureArray.controls['perAddr3'].setValue( this.insureArray.controls['currAddr3'].value),
           this.insureArray.controls['perCity'].setValue( this.insureArray.controls['currCity'].value),
           this.insureArray.controls['perPincode'].setValue( this.insureArray.controls['currPincode'].value),
           this.insureArray.controls['perState'].setValue( this.insureArray.controls['currState'].value)
 
+    } else {
+          this.insureArray.controls['perAddr1'].setValue(''),
+          this.insureArray.controls['perAddr2'].setValue(''),
+          this.insureArray.controls['perAddr3'].setValue(''),
+          this.insureArray.controls['perCity'].setValue(''),
+          this.insureArray.controls['perPincode'].setValue(''),
+          this.insureArray.controls['perState'].setValue('')
     }
   }
 
