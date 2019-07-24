@@ -496,7 +496,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['perPincode'].setValue( this.insureArray.controls['currPincode'].value),
           this.insureArray.controls['perState'].setValue( this.insureArray.controls['currState'].value)
 
-    } else {
+    } else{
           this.insureArray.controls['perAddr1'].setValue(''),
           this.insureArray.controls['perAddr2'].setValue(''),
           this.insureArray.controls['perAddr3'].setValue(''),
