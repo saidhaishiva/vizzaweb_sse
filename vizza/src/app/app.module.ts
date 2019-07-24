@@ -285,8 +285,8 @@ import { BikeTataaigPaymentSuccesssComponent } from './pages/bike-tataaig-paymen
 import { RoyalsundaramMotorPaymentSuccessComponent } from './pages/royalsundaram-motor-payment-success/royalsundaram-motor-payment-success.component';
 import { CarTataaigProposalComponent } from './pages/car-tataaig-proposal/car-tataaig-proposal.component';
 import {PaymentModeValidate} from './pages/term-life-premium-list/term-life-premium-list.component';
-import {idvvalidatetwoWheeler} from './pages/reliance-motor-proposal/reliance-motor-proposal.component';
 import { idvvalidate } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
+import {idvvalidatetwoWheeler} from './pages/reliance-motor-proposal/reliance-motor-proposal.component';
 import { AegonTermLifeComponent } from './pages/aegon-term-life/aegon-term-life.component';
 import { BiketataaigDownloadPolicyComponent } from './pages/biketataaig-download-policy/biketataaig-download-policy.component';
 import { RsFourwheelerProposalComponent } from './pages/rs-fourwheeler-proposal/rs-fourwheeler-proposal.component';

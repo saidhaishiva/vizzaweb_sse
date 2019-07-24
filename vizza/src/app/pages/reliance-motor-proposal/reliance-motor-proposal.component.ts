@@ -1904,6 +1904,37 @@ export class RelianceMotorProposalComponent implements OnInit {
   }
 }
 
+@Component({
+  selector: 'idvvalidatetwoWheeler',
+  template: `
+        <div class="container-fluid">
+            <div class="row" [formGroup]="idfGroup">
+                <div class="col-sm-12">
+
+                  <div class="col-md-12 mt-2" >
+                    <p>Please choose IDV Between (min {{idv.min}} - max {{idv.max}})</p>
+                  </div>
+
+                  <div class="col-md-12 mt-0" layout>
+                    <mat-slider flex md-discrete [value]= "idfGroup.controls.IDV.value" formControlName="IDV"
+                                step = "{{idv.min}"
+                                min="{{idv.min}}"
+                                max="{{idv.max}}">
+                    </mat-slider>
+                    <i style="font-size:14px" class="fa fa-inr">&#xf156;</i>{{idfGroup.controls.IDV.value}}
+                  </div>
+                </div>
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+             <button mat-button class="secondary-bg-color" (click)="onClick(true)" >Submit</button>
+        </div>
+    `,
+  styleUrls: ['./reliance-motor-proposal.component.scss']
+
+
+})
+
 export class idvvalidatetwoWheeler {
   public idv : any;
   public idfGroup : FormGroup;
