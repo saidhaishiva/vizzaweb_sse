@@ -1,16 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
 import {DatePipe} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {ValidationService} from '../../shared/services/validation.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {Settings} from '../../app.settings.model';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
+import {PersonalInsurer} from '../personal-accident-home/personal-accident-home.component';
 
 
 export const MY_FORMATS = {
@@ -162,4 +163,52 @@ export class BajajGoldSurakshaComponent implements OnInit {
   nameValidate(event: any) {
     this.validation.nameValidate(event);
   }
+  bajajgoal() {
+    const dialogRef = this.dialog.open(BajajGoal, {
+      autoFocus: false,
+      maxHeight: '50vh'
+    });
+    dialogRef.disableClose = true;
+  }
+}
+@Component({
+  selector: 'BajajGoal',
+  template: `        
+        <div  class="container-fluid">
+        <div  class="row text-justify">
+            <div class="container">
+            <div class="col-sm-12 col-md-12  text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+            <div class="col-sm-8 col-md-8">
+                <h4 class="text-center" style="color: #17a2b8"> Why This Plan Should Not Be Missed by Anyone</h4>
+            </div>
+            <div id="personal-details">
+                <ol class="ml-4">
+                    <li> Rare opportunity to lock high returns for the next 10/15 years .</li>
+                    <li> Returns of up to 6.20% tax-free.</li>
+                    <li>FD rates as of Oct 2018 for 3-year FD is 7.5% and 5-year FD is 7.25% (constantly reducing)</li>
+                </ol>
+                  The current FD rates of about 7.25% (Oct 2018) will reduce significantly in the coming years because of the following major national and international developments: .
+                  <ol class="ml-4">
+                    <li> Reduction in crude oil prices .</li>
+                    <li> Decline in interest rate of G-Sec (Government of India Securities) .</li>
+                    <li>Appreciation of the Rupee.</li>
+                    <li>Decline in inflation.</li>
+                  </ol>
+            </div>
+         </div>
+        </div>
+        </div>`,
+})
+export class BajajGoal {
+
+  constructor(
+      public dialogRef: MatDialogRef<BajajGoal>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }
