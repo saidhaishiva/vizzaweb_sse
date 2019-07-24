@@ -236,11 +236,11 @@ export class EdelweissTermLifeComponent implements OnInit {
       heightFeets: ['', Validators.compose([Validators.required])],
       heightInches: ['', Validators.compose([Validators.required])],
       weight: ['', Validators.compose([Validators.required])],
-      medicalTreatment: '',
-      receivedTreatment1: '',
-      receivedTreatment2: '',
-      insureHistory: '',
-      insureAccNo: '',
+      medicalTreatment: 'No',
+      receivedTreatment1: 'No',
+      receivedTreatment2: 'No',
+      insureHistory: 'No',
+      insureAccNo: 'No',
       provideAccNo: '',
       epolicy: 'No',
       einsureAccNo: 'No',
@@ -252,6 +252,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     this.bankDetail = this.fb.group({
       accountNo: ['', Validators.compose([Validators.required])],
+      accName: ['', Validators.compose([Validators.required])],
       name: ['', Validators.compose([Validators.required])],
       location: ['', Validators.compose([Validators.required])],
       ifscCode: ['', Validators.compose([Validators.required])],
@@ -471,6 +472,30 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['perPincode'].patchValue(''),
           this.insureArray.controls['perState'].patchValue('')
       console.log(this.insureArray.controls['perCity'].value, 'eeeeeeee');
+    }
+  }
+
+  typeAddressDeatils() {
+    if (this.proposer.controls['isCurrPerAddrSame'].value) {
+      this.proposer.controls['perAddr1'].setValue( this.proposer.controls['currAddr1'].value),
+          this.proposer.controls['perAddr2'].setValue( this.proposer.controls['currAddr2'].value),
+          this.proposer.controls['perAddr3'].setValue( this.proposer.controls['currAddr3'].value),
+          this.proposer.controls['perCity'].setValue( this.proposer.controls['currCity'].value),
+          this.proposer.controls['perPincode'].setValue( this.proposer.controls['currPincode'].value),
+          this.proposer.controls['perState'].setValue( this.proposer.controls['currState'].value)
+
+    }
+  }
+
+  typeAddressDeatils1() {
+    if (this.proposer.controls['isCurrPerAddrSame'].value) {
+      this.insureArray.controls['perAddr1'].setValue( this.insureArray.controls['currAddr1'].value),
+          this.insureArray.controls['perAddr2'].setValue( this.insureArray.controls['currAddr2'].value),
+          this.insureArray.controls['perAddr3'].setValue( this.insureArray.controls['currAddr3'].value),
+          this.insureArray.controls['perCity'].setValue( this.insureArray.controls['currCity'].value),
+          this.insureArray.controls['perPincode'].setValue( this.insureArray.controls['currPincode'].value),
+          this.insureArray.controls['perState'].setValue( this.insureArray.controls['currState'].value)
+
     }
   }
 
@@ -732,7 +757,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     addNominee(event) {
         // if (this.nomineeDetail.valid) {
             console.log(this.nomineeDetail.get('itemsNominee').value.length,'valueeee')
-            if (this.nomineeDetail.get('itemsNominee').value.length < 5) {
+            if (this.nomineeDetail.get('itemsNominee').value.length < 2) {
                 let nomineeForm = this.nomineeDetail.get('itemsNominee') as FormArray;
                 nomineeForm.push(this.initItemRows());
             }
@@ -978,38 +1003,38 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
-  existingInsure() {
-
-
-    if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
-      // for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-      //   console.log('ssssssss')
-      //   if (i != 0) {
-      //   }
-      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value);
-      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value);
-      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value);
-      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value);
-      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value);
-      //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value);
-      // }
-    } else {
-
-      for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-
-
-        if ( i !=  0) {
-        }
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
-        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
-      }
-
-    }
-  }
+  // existingInsure() {
+  //
+  //
+  //   if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
+  //     // for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
+  //     //   console.log('ssssssss')
+  //     //   if (i != 0) {
+  //     //   }
+  //     //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value);
+  //     //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value);
+  //     //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value);
+  //     //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value);
+  //     //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value);
+  //     //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value);
+  //     // }
+  //   } else {
+  //
+  //     for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
+  //
+  //
+  //       if ( i !=  0) {
+  //       }
+  //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
+  //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
+  //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
+  //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
+  //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
+  //       this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
+  //     }
+  //
+  //   }
+  // }
 
   existingInsureReq() {
     console.log(this.bankDetail['controls'].existingInsurance['controls'].length,'value');
@@ -1020,12 +1045,12 @@ export class EdelweissTermLifeComponent implements OnInit {
         console.log('ssssssss')
         if (i != 0) {
         }
-        // this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value );
-        // this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value );
-        // this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value );
-        // this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value );
-        // this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value );
-        // this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value );
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value );
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value );
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value );
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value );
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value );
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value );
 
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators([Validators.required]);
               this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators([Validators.required]);
@@ -1046,7 +1071,7 @@ export class EdelweissTermLifeComponent implements OnInit {
               this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
               this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
               this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
+              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('Active');
 
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators(null);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators(null);
@@ -1115,7 +1140,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   isInsureAccNo() {
 
-    if (this.insureArray.controls['insureAccNo'].value == 'Yes'  && this.insureArray.controls['einsureAccNo'].value == 'No') {
+    if (this.insureArray.controls['insureAccNo'].value == 'Yes') {
       this.insureArray.controls['provideAccNo'].patchValue(this.insureArray.controls['provideAccNo'].value);
       this.insureArray.controls['epolicy'].patchValue(this.insureArray.controls['epolicy'].value);
 
@@ -1124,7 +1149,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     } else {
       this.insureArray.controls['provideAccNo'].patchValue('');
-      this.insureArray.controls['epolicy'].patchValue('');
+      this.insureArray.controls['epolicy'].patchValue('No');
       this.insureArray.controls['einsureAccNo'].patchValue('');
 
     }
@@ -1141,7 +1166,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.insureArray.controls['epolicy1'].setValidators([Validators.required]);
         this.insureArray.controls['insureRepository'].setValidators([Validators.required]);
       } else {
-        this.insureArray.controls['epolicy1'].patchValue('');
+        this.insureArray.controls['epolicy1'].patchValue('No');
         this.insureArray.controls['insureRepository'].patchValue('');
 
         this.insureArray.controls['provideAccNo'].setValidators(null);
@@ -1317,6 +1342,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         },
         "bank":{
           "accountNo":this.bankDetail.controls['accountNo'].value,
+          "accName":this.bankDetail.controls['accName'].value,
           "name":this.bankDetail.controls['name'].value,
           "location":this.bankDetail.controls['location'].value,
           "ifscCode":this.bankDetail.controls['ifscCode'].value,
@@ -2120,6 +2146,39 @@ export class EdelweissTermLifeComponent implements OnInit {
   public geteInsuranceRepositoryFailure(error) {
   }
 
+  ifscEdelweissDetails(ifsc) {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'ifsc_code': ifsc
+    }
+    if(ifsc.length == 11) {
+      this.termService.ifscEdelweissDetails(data).subscribe(
+          (successData) => {
+            this.ifscSuccess(successData);
+          },
+          (error) => {
+            this.ifscFailure(error);
+          }
+      );
+    }
+  }
+  public ifscSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.bankDetail.controls['name'].patchValue(successData.ResponseObject.bank_name);
+      this.bankDetail.controls['location'].patchValue(successData.ResponseObject.bank_branch);
+      // this.bankDetail.controls['micrCode'].patchValue(successData.ResponseObject.bank_micr);
+      // // this.bankDetail.controls['bankAddress'].patchValue(successData.ResponseObject.bank_address);
+      // this.bankDetail.controls['bankCity'].patchValue(successData.ResponseObject.bank_city);
+      // this.bankDetail.controls['bankDistrict'].patchValue(successData.ResponseObject.bank_district);
+      // this.bankDetail.controls['bankState'].patchValue(successData.ResponseObject.bank_state);
+
+    }
+  }
+  public ifscFailure(error) {
+  }
+
   // session Data
 
   sessionData() {
@@ -2312,6 +2371,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
 
         this.bankDetail.controls['accountNo'].patchValue(getStepper4.accountNo);
+        this.bankDetail.controls['accName'].patchValue(getStepper4.accName);
         this.bankDetail.controls['name'].patchValue(getStepper4.name);
         this.bankDetail.controls['location'].patchValue(getStepper4.location);
         this.bankDetail.controls['ifscCode'].patchValue(getStepper4.ifscCode);
