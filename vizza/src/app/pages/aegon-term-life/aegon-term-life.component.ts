@@ -99,7 +99,7 @@ export class AegonTermLifeComponent implements OnInit {
 
 
 
-  constructor(public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings) {
+  constructor(public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
     let stepperindex = 0;
     this.requestedUrl = '';
     this.redirectUrl='';
@@ -132,6 +132,8 @@ export class AegonTermLifeComponent implements OnInit {
           console.log(data, 'data');
           this.getAnnual();
         });
+    this.webhost = this.config.getimgUrl();
+
     this.personal = this.fb.group({
       title: ['', Validators.required],
       firstName: ['', Validators.required],
