@@ -31,6 +31,8 @@ export class CareerListComponent implements OnInit {
   col: any;
   list: boolean;
   img: any;
+  statusList: any;
+  statusValue: any;
   constructor(public auth: AuthService,  private toastr: ToastrService, public config: ConfigurationService, public branchservice: BranchService, public dialog: MatDialog, public router: Router) {
   this.col = ['one'];
   this.list = false;
@@ -38,13 +40,12 @@ export class CareerListComponent implements OnInit {
 
   ngOnInit() {
     this.careerList();
+    this.getStatusDetails();
   }
   public careerList() {
-    // alert();
     const data = {
       'platform': 'web',
     };
-    // this.loadingIndicator = true;
 
     this.branchservice.careerDetails(data).subscribe(
         (successData) => {
@@ -58,7 +59,7 @@ export class CareerListComponent implements OnInit {
 
   public careerSuccess(success) {
     console.log(success);
-    // this.loadingIndicator = false;
+    this.loadingIndicator = false;
     if (success.IsSuccess) {
       this.total = success.ResponseObject.length;
       this.rows = success.ResponseObject;
@@ -81,12 +82,14 @@ export class CareerListComponent implements OnInit {
   }
 
   public careerFailure(error) {
+    this.loadingIndicator = false;
+
 
   }
   getMail(value){
     const dialogRef = this.dialog.open(PathPopupComponent, {
-      width: '900px', data: {careerid : value.id, email: value.applicant_email}
-        // height: '500px'
+      width: '900px', data: {careerid : value.id, email: value.applicant_email},
+        height: '500px'
     });
     dialogRef.afterClosed().subscribe(res => {
 
@@ -100,5 +103,50 @@ imageDownload(value){
   window.open(currenturl + '/' + value.file_path, '_blank');
 
 }
+// status DropDown
+  getStatusDetails(){
+    const data = {
+      'platform': 'web',
+    };
+    this.branchservice.getStatus(data).subscribe(
+        (successData) => {
+          this.getStatusSuccess(successData);
+        },
+        (error) => {
+          this.getStatusFailure(error);
+        }
+    );
+  }
+     public getStatusSuccess(successData){
+       if (successData.IsSuccess) {
+         this.statusList = successData.ResponseObject;
+       }
+   }
+      public getStatusFailure(error){
+
+  }
+
+  //update status
+  updateStatusDetails(row){
+      const data = {
+        'platform': 'web',
+        'status' : row.status,
+        'id' : row.id
+      };
+      this.branchservice.updateStatus(data).subscribe(
+          (successData) => {
+            this.updateStatusSuccess(successData);
+          },
+          (error) => {
+            this.updateStatusFailure(error);
+          }
+      );
+    }
+      public updateStatusSuccess(successData){
+        this.careerList();
+      }
+      public updateStatusFailure(error){
+
+      }
 
 }

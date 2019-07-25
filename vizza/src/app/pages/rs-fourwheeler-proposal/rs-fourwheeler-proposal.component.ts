@@ -1765,7 +1765,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       console.log(this.vehical,'vehical');
     }
 
-    console.log(this.vehical, " stepper2 ");
+    console.log(this.vehical, ' stepper2 ');
 
     if (sessionStorage.stepper3 != '' && sessionStorage.stepper3 != undefined) {
       let stepper3 = JSON.parse(sessionStorage.stepper3);
@@ -1783,11 +1783,11 @@ export class RsFourwheelerProposalComponent implements OnInit {
         accidentPaid: stepper3.accidentPaid,
       });
     }
-    console.log(this.previousInsure, " stepper3 ");
+    console.log(this.previousInsure, ' stepper3 ');
 
     if (sessionStorage.stepper4 != '' && sessionStorage.stepper4 != undefined) {
       let stepper4 = JSON.parse(sessionStorage.stepper4);
-      if(stepper4.nomineeAge < 17){
+      if (stepper4.nomineeAge <= 17) {
         this.guardianList = true;
       }
       this.nomineeDetail = this.fb.group({
@@ -1800,7 +1800,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
       });
     }
-    console.log(this.nomineeDetail, " stepper4 ");
+    console.log(this.nomineeDetail, ' stepper4 ');
 
 
   }
