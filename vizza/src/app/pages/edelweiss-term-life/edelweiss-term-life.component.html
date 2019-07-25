@@ -859,17 +859,12 @@
                                            </div>
 
 
-                                           <!--<div *ngIf="showAppointee==true">-->
-
                                            <div class="row" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">
                                                <h6 class="color-blue mt-3 ml-3"  *ngIf="i ==0">APPOINTEE DETAILS</h6>
 
                                            </div>
 
                                            <div class="row ml-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">
-                                           <!--<div class="row p-3" *ngIf="nomineeDetail.controls['showAppointee'].value==true">-->
-                                               <!--<div class="row ">-->
-                                               <!--</div >-->
                                                <div class="row ">
                                                <div class="col-md-12 box-card" >
                                                <div class="row ">
@@ -888,18 +883,16 @@
                                                                   autocomplete="off" >
                                                            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                                                            <mat-datepicker #picker4></mat-datepicker>
-                                                           <!--<mat-error *ngIf="nomineeDetail.invalid">DOB is required</mat-error>-->
                                                        </mat-form-field>
-                                                       <!--<p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value}}</p>-->
                                                    </div>
-                                                   <div class="col-md-3" *ngIf="i ==0">
-                                                     <mat-form-field class="w-100">
-                                                       <mat-select placeholder="Gender" formControlName="aGender"  >
-                                                        <mat-option value="Male">Male</mat-option>
-                                                        <mat-option value="Female">Female</mat-option>
-                                                       </mat-select>
-                                                   <!--<mat-error *ngIf="nomineeDetail.invalid">Gender is required</mat-error>-->
-                                                      </mat-form-field>
+                                                   <div class="col-md-3" *ngIf="i ==0" >
+                                                       <mat-form-field class="w-100">
+                                                           <mat-placeholder>Gender<span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
+                                                           <mat-select  formControlName="aGender"  >
+                                                               <mat-option value="Male">Male</mat-option>
+                                                               <mat-option value="Female">Female</mat-option>
+                                                           </mat-select>
+                                                       </mat-form-field>
                                                    </div>
                                                    <div class="col-md-3" *ngIf="i ==0">
                                                        <mat-form-field class="w-100">
@@ -909,7 +902,6 @@
                                                                    {{list.value}}
                                                                </mat-option>
                                                            </mat-select>
-                                                           <!--<mat-error *ngIf="nomineeDetail.invalid">Appointee Relation To Nominee is required</mat-error>-->
                                                        </mat-form-field>
                                                    </div>
                                                </div>
@@ -1317,6 +1309,7 @@
                                                <li class="list-group-item" *ngIf="bankFormData.accountNo != ''" ><strong>Account Number:</strong> {{bankFormData.accountNo}}</li>
                                                <li class="list-group-item" *ngIf="bankFormData.accName != ''" ><strong>Account Holder Name:</strong> {{bankFormData.accName}}</li>
                                                <li class="list-group-item" *ngIf="bankFormData.investmentStrategy != ''"><strong>Investment Strategy:</strong> {{bankFormData.investmentStrategy}}</li>
+                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == false"><strong>Existing Insurance:</strong>No</li>
 
                                            </ul>
                                        </div>
@@ -1332,9 +1325,8 @@
                                <div class="p-3">
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Existing Insurance:</strong>Yes</li>
-                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == false"><strong>Existing Insurance:</strong>No</li>
-                                       <li class="list-group-item" *ngIf="item.companyName != ''"><strong> Company Name:</strong> {{item.companyName}}</li>
-                                       <li class="list-group-item" *ngIf="item.yearOfIssue != ''"><strong>Year Of Issue:</strong> {{item.yearOfIssue}}</li>
+                                       <li class="list-group-item" *ngIf="item.companyName != '' || item.companyName != null"><strong> Company Name:</strong> {{item.companyName}}</li>
+                                       <li class="list-group-item" *ngIf="item.yearOfIssue != '' || item.yearOfIssue != null"><strong>Year Of Issue:</strong> {{item.yearOfIssue}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1344,9 +1336,9 @@
                            <div class="col-md-6" >
                                <div class="p-3">
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item" *ngIf="item.sumAssured != ''"><strong>Sum Assured:</strong> {{item.sumAssured}}</li>
-                                       <li class="list-group-item" *ngIf="item.annualizedPremium != ''"><strong> Annualized Premium:</strong> {{item.annualizedPremium}}</li>
-                                       <li class="list-group-item" *ngIf="item.policyStatus != ''"><strong> Policy Status:</strong> {{item.policyStatus}}</li>
+                                       <li class="list-group-item" *ngIf="item.sumAssured != '' || item.sumAssured != null"><strong>Sum Assured:</strong> {{item.sumAssured}}</li>
+                                       <li class="list-group-item" *ngIf="item.annualizedPremium != '' || item.annualizedPremium != null"><strong> Annualized Premium:</strong> {{item.annualizedPremium}}</li>
+                                       <li class="list-group-item" *ngIf="item.policyStatus != '' || item.policyStatus != null"><strong> Policy Status:</strong> {{item.policyStatus}}</li>
                                    </ul>
                                </div>
                            </div>
