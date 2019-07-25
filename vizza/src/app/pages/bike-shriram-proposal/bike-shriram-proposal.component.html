@@ -337,7 +337,7 @@
                                         <div class="row">
                                             <div class="col-md-3">
                                                 <mat-form-field class="w-100">
-                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber" maxlength="8" minlength="8" (keypress)="idValidate($event)" required autocomplete="off">
+                                                    <input matInput placeholder="Previous Policy No"  formControlName="policyNumber"  minlength="8" (keypress)="idValidate($event)" required autocomplete="off">
                                                     <mat-error *ngIf="previousInsure.controls.policyNumber.hasError('minlength')">Previous Policy No isn't long enough, minimum of 8 characters</mat-error>
                                                     <mat-error *ngIf="previousInsure.controls.policyNumber.errors?.required">Previous Policy No is required</mat-error>
 

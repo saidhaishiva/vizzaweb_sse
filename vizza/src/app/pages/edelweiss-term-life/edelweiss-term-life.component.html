@@ -874,14 +874,14 @@
                                                <div class="col-md-12 box-card" >
                                                <div class="row ">
 
-                                                   <div class="col-md-4">
+                                                   <div class="col-md-3">
                                                        <mat-form-field class="w-100" *ngIf="i ==0">
                                                            <mat-placeholder> Appointee Name <span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
                                                            <input matInput formControlName="aName"  (keypress)="nameValidate($event)" autocomplete="off">
 
                                                        </mat-form-field>
                                                    </div>
-                                                   <div class="col-md-4" *ngIf="i ==0">
+                                                   <div class="col-md-3" *ngIf="i ==0">
                                                        <mat-form-field class="w-100">
                                                            <mat-placeholder >Appointee DOB (DD/MM/YYYY)<span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
                                                            <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="appointeeDob" (dateInput)="addEventNominee($event,i ,'appointee')" (dateChange)="addEventNominee($event,i, 'appointee')" minlength="10" maxlength="10"
@@ -892,7 +892,7 @@
                                                        </mat-form-field>
                                                        <!--<p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.value}}</p>-->
                                                    </div>
-                                                   <div class="col-md-4" *ngIf="i ==0">
+                                                   <div class="col-md-3" *ngIf="i ==0">
                                                      <mat-form-field class="w-100">
                                                        <mat-select placeholder="Gender" formControlName="aGender"  >
                                                         <mat-option value="Male">Male</mat-option>
@@ -901,7 +901,7 @@
                                                    <!--<mat-error *ngIf="nomineeDetail.invalid">Gender is required</mat-error>-->
                                                       </mat-form-field>
                                                    </div>
-                                                   <div class="col-md-4" *ngIf="i ==0">
+                                                   <div class="col-md-3" *ngIf="i ==0">
                                                        <mat-form-field class="w-100">
                                                            <mat-placeholder>Appointee Relation To Nominee  <span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
                                                            <mat-select formControlName="relationToInsured" autocomplete="off"  (change)="geteNomineeRelation()">
