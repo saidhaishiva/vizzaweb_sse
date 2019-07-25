@@ -5,7 +5,7 @@ import {DatePipe} from '@angular/common';
 import {AuthService} from '../../shared/services/auth.service';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
 import {ToastrService} from 'ngx-toastr';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {AppSettings} from '../../app.settings';
 import {ConfigurationService} from '../../shared/services/configuration.service';
@@ -46,6 +46,13 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   riskDetails : FormGroup;
   public titleList: any;
   public proposerData: any;
+  public inspReadonly: any;
+  public idvCaluculatedValue: any;
+  public sicoverValue: any;
+  public insuranceidvError: any;
+  public roadtaxidvError: any;
+  public registrationidvError: any;
+  public popupValue: any;
   public summaryData: any;
   public proposerFormData: any;
   public riskFormData: any;
@@ -76,6 +83,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   public commAddressList: any;
   public perAddressList: any;
   public regAddressList: any;
+  public inspectionAddressList: any;
   public checkcomm: boolean;
   public checkperm: boolean;
   public minDate: any;
@@ -181,6 +189,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // gstNumber : [''],
       sameAsAddress : [''],
       regSameAscommAddress : [''],
+      inspSameAscommAddress : [''],
       regSameAspermAddress : [''],
       occupationValue : [''],
       maritalStatusValue : [''],
@@ -189,6 +198,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
 
       mobile: ['', Validators.compose([Validators.pattern('[6789][0-9]{9}')])],
+
+      iaddress: [''],
+      iaddress2: [''],
+      iaddress3: [''],
+      ipincode: [''],
+      istate: [''],
+      istateId: [''],
+      idistrict: [''],
+      idistrictId: [''],
+      ilandmark: [''],
+      icountry: [''],
+      icity: [''],
+      icityId: [''],
     });
 
     this.previousInsurance = this.fb.group({
@@ -199,6 +221,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       // prevPolSold : ['',Validators.required],
       prevInsurerAddress: ['',Validators.required],
       prevInsuranceValue: [''],
+      inspectionId: [''],
+      inspectionDone: [''],
+      inspectionDate: [''],
       prevYearPolicyTypeValue: [''],
     });
 
@@ -255,7 +280,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       npAddress: [''],
       namedPassengersSI: [''],
       nppassengerName: [''],
+      registrationSI: [''],
+      roadtaxSI: [''],
+      insuranceSI: [''],
+      InsurancePremium: [''],
       fuelType: ['',Validators.required],
+
+      inspectionNo: [''],
+
     });
 
     this.riskDetails = this.fb.group({
@@ -267,7 +299,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           FinancierAddress: [''],
           IsVehicleHypothicated: [''],
           OtherSystemNameValue: [''],
-          FinanceTypeValue: [''],
+
         }
     );
     this.nationalityList = {
@@ -317,6 +349,51 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     this.unnamedSi();
     this.getPaidDriverSi();
     this.getTppdSi()
+
+  }
+
+
+  /////////////
+
+  idvCalculateDetails(value,type) {
+    console.log(value,'sdfsdf');
+    let valid = 25 / 100;
+    this.idvCaluculatedValue = valid * this.buyBikeDetails.Idv;
+    this.sicoverValue = this.idvCaluculatedValue /3;
+    console.log(this.sicoverValue,'value');
+
+    if (type == 'insurance'){
+      if (value < this.sicoverValue) {
+        this.insuranceidvError = '';
+      }else{
+        this.insuranceidvError = 'Given SI Amount should be less than ' + this.sicoverValue;
+      }
+    }
+
+    if (type == 'roadtax') {
+      if (value < this.sicoverValue) {
+        this.roadtaxidvError = '';
+      } else {
+        this.roadtaxidvError = 'Given SI Amount should be less than ' + this.sicoverValue;
+      }
+    }
+
+    if (type == 'registration') {
+      if (value < this.sicoverValue) {
+        this.registrationidvError = '';
+      }else{
+
+        this.registrationidvError = 'Given SI Amount should be less than ' + this.sicoverValue;
+      }
+    }
+
+    if (type == 'popupValue'){
+      if (value < this.sicoverValue) {
+        this.popupValue = true;
+      }else{
+        this.popupValue = false;
+      }
+    }
 
   }
 
@@ -731,6 +808,37 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
     }
   }
 
+  updateTotalCover(event){
+    if(event.checked){
+      console.log(this.coverDetails.controls['IsTotalCover'].value,'isvalue')
+      this.coverDetails.controls['IsRoadTaxcover'].patchValue(true);
+      this.coverDetails.controls['IsRegistrationCover'].patchValue(true);
+      this.coverDetails.controls['InsurancePremium'].patchValue(true);
+
+    }else{
+      this.coverDetails.controls['IsRoadTaxcover'].patchValue(false);
+      this.coverDetails.controls['IsRoadTaxcover'].updateValueAndValidity();
+
+      this.coverDetails.controls['roadtaxSI'].patchValue('');
+      this.coverDetails.controls['roadtaxSI'].updateValueAndValidity();
+
+      this.coverDetails.controls['InsurancePremium'].patchValue(false);
+      this.coverDetails.controls['InsurancePremium'].updateValueAndValidity();
+
+      this.coverDetails.controls['insuranceSI'].patchValue('');
+      this.coverDetails.controls['insuranceSI'].updateValueAndValidity();
+
+
+      this.coverDetails.controls['IsRegistrationCover'].patchValue(false);
+      this.coverDetails.controls['IsRegistrationCover'].updateValueAndValidity();
+
+      this.coverDetails.controls['registrationSI'].patchValue('');
+      this.coverDetails.controls['registrationSI'].updateValueAndValidity();
+
+
+    }
+  }
+
 
 
   //dob
@@ -747,11 +855,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
             this.personalDobError = '';
           } else if (type == 'nominee') {
             this.personalDobError = '';
+          }else if (type == 'iDate'){
+            this.personalDobError = '';
           }
         } else {
           if (type == 'proposor') {
             this.personalDobError = 'Enter Valid Dob';
           } else if (type == 'nominee') {
+            this.personalDobError = 'Enter Valid Dob';
+          } else if (type == 'iDate') {
             this.personalDobError = 'Enter Valid Dob';
           }
         }
@@ -765,18 +877,20 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           this.nomineeAge = this.ageCalculate(dob);
         } else {
           this.npnomineeAge = this.ageCalculate(dob);
-
         }
 
       } else if (typeof event.value._i == 'object') {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
+        if (dob.length == 10 && type == 'iDate') {
+          this.personalDobError = '';
+        }
         if (dob.length == 10 && type == 'proposor') {
           this.proposerAge = this.ageCalculate(dob);
           this.personalDobError = '';
           // sessionStorage.proposerAgeForTravel = this.proposerAge;
         } else if (type == "nominee") {
           this.nomineeAge = this.ageCalculate(dob);
-        }else {
+        } else {
           this.npnomineeAge = this.ageCalculate(dob);
 
         }
@@ -974,6 +1088,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         // gstNumber : this.getStepper1.gstNumber,
         sameAsAddress: this.getStepper1.sameAsAddress,
         regSameAscommAddress: this.getStepper1.regSameAscommAddress,
+        inspSameAscommAddress: this.getStepper1.inspSameAscommAddress,
         regSameAspermAddress: this.getStepper1.regSameAspermAddress,
         gender: this.getStepper1.gender,
         email: this.getStepper1.email,
@@ -981,6 +1096,19 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         occupationValue: this.getStepper1.occupationValue,
         maritalStatusValue: this.getStepper1.maritalStatusValue,
         nationalityValue: this.getStepper1.nationalityValue,
+        iaddress: this.getStepper1.iaddress,
+        iaddress2: this.getStepper1.iaddress2,
+        iaddress3: this.getStepper1.iaddress3,
+        ipincode: this.getStepper1.ipincode,
+        istate: this.getStepper1.istate,
+        istateId: this.getStepper1.istateId,
+        icountry: this.getStepper1.icountry,
+        idistrict: this.getStepper1.idistrict,
+        idistrictId: this.getStepper1.idistrictId,
+        icity: this.getStepper1.icity,
+        icityId: this.getStepper1.icityId,
+        ilandmark: this.getStepper1.ilandmark,
+
       });
     }
     console.log(this.relianceProposal, 'reliancproposal');
@@ -1007,7 +1135,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         PAToOwnerDriverCoverdSi: this.getStepper3.PAToOwnerDriverCoverdSi,
         AutomobileAssociationMember: this.getStepper3.AutomobileAssociationMember,
         AntiTheftDeviceFitted: this.getStepper3.AntiTheftDeviceFitted,
-        // InsurancePremium: this.getStepper3.InsurancePremium,
+        InsurancePremium: this.getStepper3.InsurancePremium,
         NilDepreciationCoverage: this.getStepper3.NilDepreciationCoverage,
         applicableRate: this.getStepper3.applicableRate,
         LiabilityToPaidDriverCovered: this.getStepper3.LiabilityToPaidDriverCovered,
@@ -1051,10 +1179,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         nOtherRelationValue: this.getStepper3.nOtherRelationValue,
         npOtherRelationValue: this.getStepper3.npOtherRelationValue,
         namedPassengersSI: this.getStepper3.namedPassengersSI,
+        roadtaxSI: this.getStepper3.roadtaxSI,
+        insuranceSI: this.getStepper3.insuranceSI,
+        registrationSI: this.getStepper3.insuranceSI,
         nppassengerName: this.getStepper3.nppassengerName,
         nrelationValue: this.getStepper3.nrelationValue,
         nprelationValue: this.getStepper3.nprelationValue,
         fuelTypeValue: this.getStepper3.fuelTypeValue,
+        inspectionNo: this.getStepper3.inspectionNo,
       });
 
       if (this.getStepper3.fuelType == 5) {
@@ -1134,6 +1266,9 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         prevInsurerAddress: this.getStepper4.prevInsurerAddress,
         prevInsuranceValue: this.getStepper4.prevInsuranceValue,
         prevYearPolicyTypeValue: this.getStepper4.prevYearPolicyTypeValue,
+        inspectionId: this.getStepper4.inspectionId,
+        inspectionDone: this.getStepper4.inspectionDone,
+        inspectionDate: this.datepipe.transform(this.getStepper4.inspectionDate, 'y-MM-dd'),
       });
     }
 
@@ -1392,7 +1527,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
   /// create proposal
   createProposal(stepper,value) {
 
-    console.log(this.riskDetails.controls.IDV.value,'idvkjkljkjklj');
+    // console.log(this.riskDetails.controls.IDV.value,'idvkjkljkjklj');
 
     // stepper.next();
     this.topScroll();
@@ -1400,7 +1535,6 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
       sessionStorage.stepper4Details = '';
       sessionStorage.stepper4Details = JSON.stringify(value);
     }
-
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -1462,7 +1596,8 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               'Pincode': this.relianceProposal.controls['rpincode'].value,
               'Country': '1',
               'NearestLandmark': this.relianceProposal.controls['rlandmark'].value
-            }
+            },
+            'InspectionAddress':{}
           },
           'EmailID': this.relianceProposal.controls['email'].value,
           'Salutation': this.relianceProposal.controls['title'].value,
@@ -1483,12 +1618,11 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'FinancierAddress': this.riskDetails.controls['FinancierAddress'].value,
           'IsRegAddressSameasCommAddress': this.relianceProposal.controls['regSameAscommAddress'].value ? 'true' : 'false',
           'IsRegAddressSameasPermanentAddress': this.relianceProposal.controls['regSameAspermAddress'].value ? 'true' : 'false',
-          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value ? 'true' : 'false'
+          'IsPermanentAddressSameasCommAddress': this.relianceProposal.controls['sameAsAddress'].value ? 'true' : 'false',
+          'IsInspectionAddressSameasCommAddress': this.relianceProposal.controls['inspSameAscommAddress'].value ? 'true' : 'false',
         },
         'Vehicle': {
-
-          'TypeOfFuel': this.coverDetails.controls['fuelType'].value
-        },
+          },
         'Cover': {
           // 'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ,
           'IsPAToUnnamedPassengerCovered': this.coverDetails.controls['UnnamedPassengerCovered'].value ? 'true' : 'false',
@@ -1511,11 +1645,15 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           'NonElectricalItemsTotalSI': this.coverDetails.controls['NonElectricalItemsTotalSI'].value,
           'IsBiFuelKit': this.coverDetails.controls['IsBiFuelKit'].value ? 'true' : 'false',
           'BiFuelKitSi': this.coverDetails.controls['BiFuelKitSi'].value,
+          'IsPAToNamedPassenger': this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
+          'IsPAToDriverCovered': this.coverDetails.controls['IsPAToDriverCovered'].value ? 'true' : 'false',
+
+
+
           'IsTotalCover': this.coverDetails.controls['IsTotalCover'].value ? 'true' : 'false',
           'IsRoadTaxcover': this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
-          'IsPAToDriverCovered': this.coverDetails.controls['IsPAToDriverCovered'].value ? 'true' : 'false',
           'IsRegistrationCover': this.coverDetails.controls['IsRegistrationCover'].value ? 'true' : 'false',
-          'IsPAToNamedPassenger': this.coverDetails.controls['PAToNamedPassenger'].value ? 'true' : 'false',
+          "IsInsurancePremium": this.coverDetails.controls['InsurancePremium'].value ? 'true' : 'false',
           "ElectricItems": {
             "ElectricalItems": {
               "ElectricalItemsID": "",
@@ -1623,23 +1761,40 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "SumInsured": this.coverDetails.controls['IsPAToDriverCoveredSi'].value
             }
           },
+          "TotalCover": {
+            "TotalCover": {
+              "IsMandatory": "true",
+              "IsChecked": this.coverDetails.controls['IsTotalCover'].value ? 'true' : 'false',
+              "NoOfItems": "",
+              "PackageName": ""
+            }
+          },
           "RegistrationCost": {
             "RegistrationCost": {
-              "IsMandatory": this.coverDetails.controls['IsRegistrationCover'].value ? 'true' : 'false',
+              "IsMandatory": this.coverDetails.controls['IsTotalCover'].value ? 'true' : 'false',
               "IsChecked": this.coverDetails.controls['IsRegistrationCover'].value ? 'true' : 'false',
-              "SumInsured": "20000",
+              "SumInsured": this.coverDetails.controls['registrationSI'].value,
               "NoOfItems": "",
               "PackageName": ""
             }
           },
           "RoadTax": {
             "RoadTax": {
-              "IsMandatory": this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
+              "IsMandatory": this.coverDetails.controls['IsTotalCover'].value ? 'true' : 'false',
               "IsChecked": this.coverDetails.controls['IsRoadTaxcover'].value ? 'true' : 'false',
               "NoOfItems": "",
               "PackageName": "",
-              "SumInsured": "1800",
+              "SumInsured": this.coverDetails.controls['roadtaxSI'].value,
               "PolicyCoverID": ""
+            }
+          },
+          "InsurancePremium": {
+            "InsurancePremium": {
+              "IsMandatory": this.coverDetails.controls['IsTotalCover'].value ? 'true' : 'false',
+              "IsChecked": this.coverDetails.controls['InsurancePremium'].value ? 'true' : 'false',
+              "NoOfItems": "",
+              "PackageName": "",
+              "SumInsured": this.coverDetails.controls['insuranceSI'].value
             }
           },
           "PAToPaidCleaner": "",
@@ -1671,17 +1826,67 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         //     }
         //   }
         // },
-        'PreviousInsuranceDetails': {
-          'PrevInsuranceID': '',
-          // 'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value ? 'true' : 'false',
-          'PrevYearInsurer': this.previousInsurance.controls['prevInsurance'].value,
-          'PrevYearPolicyNo': this.previousInsurance.controls['policyNumber'].value,
-          'PrevYearInsurerAddress': this.previousInsurance.controls['prevInsurerAddress'].value,
-          'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value
-          // 'PrevYearPolicyStartDate': this.previousInsurance.controls['prevPolStartDate'].value
-        }
+        'PreviousInsuranceDetails': { }
       }
     };
+
+    if(this.buyProduct.business_type ==6){
+      data.motorproposalObj.ClientDetails.ClientAddress.InspectionAddress = {
+        'AddressType': '0',
+        'Address1': this.relianceProposal.controls['iaddress'].value,
+        'Address2': this.relianceProposal.controls['iaddress2'].value,
+        'Address3': this.relianceProposal.controls['iaddress3'].value,
+        'CityID': this.relianceProposal.controls['icityId'].value,
+        'DistrictID': this.relianceProposal.controls['idistrictId'].value,
+        'StateID': this.relianceProposal.controls['istateId'].value,
+        'Pincode': this.relianceProposal.controls['ipincode'].value,
+        'Country': '1',
+        'NearestLandmark': this.relianceProposal.controls['ilandmark'].value
+      }
+    }else{
+      data.motorproposalObj.ClientDetails.ClientAddress.InspectionAddress = {}
+      }
+
+    if (this.buyProduct.business_type ==6) {
+      data.motorproposalObj.Vehicle ={
+        'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
+        'InspectionNo': this.coverDetails.controls['inspectionNo'].value
+      }
+    }else{
+      data.motorproposalObj.Vehicle ={
+        'TypeOfFuel': this.coverDetails.controls['fuelType'].value,
+      }
+    }
+
+    if(this.buyProduct.business_type == 2 || this.buyProduct.business_type == 5){
+      data.motorproposalObj.PreviousInsuranceDetails = {
+        'PrevInsuranceID': '',
+        // 'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value ? 'true' : 'false',
+        'PrevYearInsurer': this.previousInsurance.controls['prevInsurance'].value,
+        'PrevYearPolicyNo': this.previousInsurance.controls['policyNumber'].value,
+        'PrevYearInsurerAddress': this.previousInsurance.controls['prevInsurerAddress'].value,
+        'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value,
+        'InspectionID': this.previousInsurance.controls['inspectionId'].value,
+        'InspectionDate': this.datepipe.transform(this.previousInsurance.controls['inspectionDate'].value, 'y-MM-dd'),
+        'IsInspectionDone': this.previousInsurance.controls['inspectionDone'].value
+      }
+    }else {
+      data.motorproposalObj.PreviousInsuranceDetails = {
+        'PrevInsuranceID': '',
+        // 'IsVehicleOfPreviousPolicySold': this.previousInsurance.controls['prevPolSold'].value ? 'true' : 'false',
+        'PrevYearInsurer': this.previousInsurance.controls['prevInsurance'].value,
+        'PrevYearPolicyNo': this.previousInsurance.controls['policyNumber'].value,
+        'PrevYearInsurerAddress': this.previousInsurance.controls['prevInsurerAddress'].value,
+        'PrevYearPolicyType': this.previousInsurance.controls['prevYearPolicyType'].value
+        // 'PrevYearPolicyStartDate': this.previousInsurance.controls['prevPolStartDate'].value
+
+      }
+    }
+
+    console.log(data,'datavalue');
+
+
+
     if(this.buyProduct.business_type == 1){
       if (this.coverDetails.valid) {
         this.setting.loadingSpinner = true;
@@ -1742,9 +1947,20 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
           width: '700px',
         });
         dialogRef.disableClose = true;
-        dialogRef.afterClosed().subscribe(result => {
-          this.riskDetails.controls.IDV.patchValue(result);
-          this.createProposal(stepper,this.previousInsurance.value);
+        dialogRef.afterClosed().subscribe(result=> {
+          console.log(result,'inresult');
+          this.riskDetails.controls.IDV.patchValue(result.submitedIdv.toString());
+          this.coverDetails.controls['registrationSI'].patchValue(result.calValue.toString());
+          this.coverDetails.controls['roadtaxSI'].patchValue(result.calValue.toString());
+          this.coverDetails.controls['insuranceSI'].patchValue(result.calValue.toString());
+          this.createProposal(stepper, this.previousInsurance.value)
+
+          // this.idvCalculateDetails(result,'popupValue');
+          // if (this.popupValue){
+          //   this.createProposal(stepper, this.previousInsurance.value)
+          // }else {
+          //   this.toastr.error('Given SI Amount should be less than ' + this.sicoverValue);
+          // }
         });
       }else{
         this.toastr.error(successData.ErrorObject);
@@ -1800,6 +2016,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['rstateId'].patchValue(this.regAddressList.state_id);
         this.relianceProposal.controls['rdistrict'].patchValue(this.regAddressList.district_name);
         this.relianceProposal.controls['rdistrictId'].patchValue(this.regAddressList.district_id);
+      }else if(type == 'inspection'){
+        this.inspectionAddressList = successData.ResponseObject;
+        this.relianceProposal.controls['icity'].patchValue(this.inspectionAddressList.city_village_name);
+        this.relianceProposal.controls['icityId'].patchValue(this.inspectionAddressList.city_village_id);
+        this.relianceProposal.controls['istate'].patchValue(this.inspectionAddressList.state_name);
+        this.relianceProposal.controls['istateId'].patchValue(this.inspectionAddressList.state_id);
+        this.relianceProposal.controls['idistrict'].patchValue(this.inspectionAddressList.district_name);
+        this.relianceProposal.controls['idistrictId'].patchValue(this.inspectionAddressList.district_id);
       }
     } else if (successData.IsSuccess != true ){
       if (type == 'comm') {
@@ -1826,6 +2050,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['rstateId'].patchValue('');
         this.relianceProposal.controls['rdistrict'].patchValue('');
         this.relianceProposal.controls['rdistrictId'].patchValue('');
+      }else if (type == 'inspection'){
+        this.toastr.error('Fill Valid Pincode');
+        this.relianceProposal.controls['icity'].patchValue('');
+        this.relianceProposal.controls['icityId'].patchValue('');
+        this.relianceProposal.controls['istate'].patchValue('');
+        this.relianceProposal.controls['istateId'].patchValue('');
+        this.relianceProposal.controls['idistrict'].patchValue('');
+        this.relianceProposal.controls['idistrictId'].patchValue('');
       }
     }
 
@@ -1927,6 +2159,35 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
         this.relianceProposal.controls['rdistrictId'].patchValue('');
         this.relianceProposal.controls['rlandmark'].patchValue('');
       }
+    }else if (type == 'inspcomm'){
+      if (this.relianceProposal.controls['inspSameAscommAddress'].value ) {
+        // this.inspReadonly = true;
+        // this.relianceProposal.controls['inspSameAscommAddress'].patchValue(false);
+        this.relianceProposal.controls['iaddress'].patchValue(this.relianceProposal.controls['address'].value);
+        this.relianceProposal.controls['iaddress2'].patchValue(this.relianceProposal.controls['address2'].value);
+        this.relianceProposal.controls['iaddress3'].patchValue(this.relianceProposal.controls['address3'].value);
+        this.relianceProposal.controls['icity'].patchValue(this.relianceProposal.controls['city'].value);
+        this.relianceProposal.controls['icityId'].patchValue(this.relianceProposal.controls['cityId'].value);
+        this.relianceProposal.controls['ipincode'].patchValue(this.relianceProposal.controls['pincode'].value);
+        this.relianceProposal.controls['istate'].patchValue(this.relianceProposal.controls['state'].value);
+        this.relianceProposal.controls['istateId'].patchValue(this.relianceProposal.controls['stateId'].value);
+        this.relianceProposal.controls['idistrict'].patchValue(this.relianceProposal.controls['district'].value);
+        this.relianceProposal.controls['idistrictId'].patchValue(this.relianceProposal.controls['districtId'].value);
+        this.relianceProposal.controls['ilandmark'].patchValue(this.relianceProposal.controls['landmark'].value);
+      }else{
+        // this.inspReadonly = false;
+        this.relianceProposal.controls['iaddress'].patchValue('');
+        this.relianceProposal.controls['iaddress2'].patchValue('');
+        this.relianceProposal.controls['iaddress3'].patchValue('');
+        this.relianceProposal.controls['icity'].patchValue('');
+        this.relianceProposal.controls['icityId'].patchValue('');
+        this.relianceProposal.controls['ipincode'].patchValue('');
+        this.relianceProposal.controls['istate'].patchValue('');
+        this.relianceProposal.controls['istateId'].patchValue('');
+        this.relianceProposal.controls['idistrict'].patchValue('');
+        this.relianceProposal.controls['idistrictId'].patchValue('');
+        this.relianceProposal.controls['ilandmark'].patchValue('');
+      }
     }
   }
 
@@ -2012,9 +2273,14 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 export class idvvalidate {
   public idv : any;
   public idfGroup : FormGroup;
+  public popupValue : any;
+  public sicoverValue : any;
+  public idvCaluculatedValue : any;
+  public buyBikeDetails : any;
+  public resArray : any;
   constructor(
       public dialogRef: MatDialogRef<idvvalidate>,
-      @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder) {
+      @Inject(MAT_DIALOG_DATA) public data: any, public fb: FormBuilder,private toastr: ToastrService) {
 
     this.idfGroup = this.fb.group({
           // AgentName: [''],
@@ -2025,12 +2291,49 @@ export class idvvalidate {
   }
   ngOnInit(){
     this.idv = JSON.parse(sessionStorage.changeIdvDetail);
+    this.buyBikeDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
+
   }
+
+  idvCalculateDetails(value,type) {
+    alert('1');
+    console.log(value,'childvalue');
+    let valid = 25 / 100;
+    this.idvCaluculatedValue = valid * value;
+
+    // this.idvCaluculatedValue = valid * this.buyBikeDetails.Idv;
+    this.sicoverValue = this.idvCaluculatedValue /3;
+    console.log(this.sicoverValue,'value');
+
+    if (type == 'popupValue'){
+      if (value < this.sicoverValue) {
+        this.popupValue = true;
+      }else{
+        this.popupValue = false;
+      }
+    }
+
+  }
+
 
 
   onClick(result) {
     if(result !=''){
-      this.dialogRef.close(this.idfGroup.controls.IDV.value);
+
+      this.idvCalculateDetails(this.idfGroup.controls.IDV.value,'popupValue');
+        // this.dialogRef.close(this.idfGroup.controls.IDV.value);
+      const idvData = {
+        'calValue':this.sicoverValue,
+        'submitedIdv':this.idfGroup.controls.IDV.value
+      };
+        this.dialogRef.close(idvData);
+
+      console.log(this.popupValue,'popvalue');
+      // if (this.popupValue == true){
+      //   this.dialogRef.close(this.idfGroup.controls.IDV.value);
+      // }else {
+      //   this.toastr.error('Given SI Amount should be less than ' + this.sicoverValue);
+      // }
     }
   }
 }
