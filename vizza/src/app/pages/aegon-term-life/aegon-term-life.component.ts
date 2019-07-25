@@ -243,6 +243,7 @@ export class AegonTermLifeComponent implements OnInit {
     sessionStorage.proposerAge = this.proposerAge;
 
     this.personal.controls['adbrSumAssured'].patchValue (50000);
+    console.log(this.personal.controls['adbrSumAssured'],'this.personal.controls[\'adbrSumAssured\']')
     this.personal.controls['enchancedCISA'].patchValue (500000);
     this.personal.controls['icirSumAssured'].patchValue (500000);
     this.personal.controls['gender'].patchValue(this.enquiryFromDetials.gender);
@@ -343,7 +344,8 @@ export class AegonTermLifeComponent implements OnInit {
       if (this.personal.controls['deathBenefitSA'].value > 30000000) {
         this.annualError = ' Maximum Accidental Death Benefit should be 30000000';
       } else {
-        if ((this.personal.controls['adbrSumAssured'].value <= this.personal.controls['deathBenefitSA'].value) && (this.personal.controls['adbrSumAssured'].value <= 50000)) {
+        if ((this.personal.controls['adbrSumAssured'].value <= this.personal.controls['deathBenefitSA'].value) && (this.personal.controls['adbrSumAssured'].value >= 50000)) {
+          console.log(this.personal.controls['adbrSumAssured'].value,'this.personal.controls[\'adbrSumAssured\'].value')
           this.annualError = '';
         } else {
           this.annualError = 'Minimum 50000 And Maximum Accidental Death Benefit should be ' + this.personal.controls['deathBenefitSA'].value;
