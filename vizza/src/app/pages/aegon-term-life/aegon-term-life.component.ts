@@ -1312,7 +1312,7 @@ export class AegonTermLifeComponent implements OnInit {
             "smoker": this.personal.controls['smoker'].value == 'y'? 'YES' : 'NO',
             "isExistingPolicyHolder": this.personal.controls['isExistingPolicyHolder'].value,
             "isPoliticleExposed": this.personal.controls['isPoliticleExposed'].value,
-            "diabeteDuration": this.personal.controls['diabeteDuration'].value ? '0' : '1',
+            "diabeteDuration": this.personal.controls['diabeteDuration'].value == null || this.personal.controls['diabeteDuration'].value == '' ? '0' : this.personal.controls['diabeteDuration'].value,
             "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
             "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
           },
