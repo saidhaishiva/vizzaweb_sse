@@ -249,6 +249,9 @@ export class AegonTermLifeComponent implements OnInit {
     this.personal.controls['enchancedCISA'].patchValue (500000);
     this.personal.controls['icirSumAssured'].patchValue (500000);
     this.personal.controls['gender'].patchValue(this.enquiryFromDetials.gender);
+    this.getMaritalList();
+    this.getnomineerelationship();
+    this.getEmpType();
     this.personal.controls['cPincode'].patchValue(this.enquiryFromDetials.pincode);
     this.personal.controls['smoker'].patchValue(this.enquiryFromDetials.smoker);
 
