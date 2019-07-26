@@ -357,7 +357,7 @@ export class LifeBajajProposalComponent implements OnInit {
       this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
       this.changeGender();
       this.proposer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
-        this.getPostal(this.proposer.controls['pincode'].value, 'personal');
+      this.getPostal(this.proposer.controls['pincode'].value, 'personal');
 
 
   }
