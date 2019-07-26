@@ -148,7 +148,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       emailId: ['', Validators.compose([ Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       pan: ['', Validators.compose([ Validators.minLength(10)])],
       aadhaarNo: '',
-        ageProofIdName: '',
+      ageProofIdName: '',
       fatherhusbandName: '',
       ageProofId: ['', Validators.compose([Validators.required])],
       highestQualification: ['', Validators.compose([Validators.required])],
@@ -240,7 +240,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       receivedTreatment1: 'No',
       receivedTreatment2: 'No',
       insureHistory: 'No',
-      insureAccNo: 'No',
+      insureAccNo: '',
       provideAccNo: '',
       epolicy: 'No',
       einsureAccNo: 'No',
@@ -253,8 +253,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.bankDetail = this.fb.group({
       accountNo: ['', Validators.compose([Validators.required])],
       accName: ['', Validators.compose([Validators.required])],
-      name: ['', Validators.compose([Validators.required])],
-      location: ['', Validators.compose([Validators.required])],
+      name: '',
+      location: '',
       ifscCode: ['', Validators.compose([Validators.required])],
       investmentStrategy: '',
       existingInsuranceInd: false,
@@ -376,6 +376,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.bankDetail.get('existingInsurance').value.length < 5) {
       this.addExistingInsurance = this.bankDetail.get('existingInsurance') as FormArray;
       this.addExistingInsurance.push(this.create());
+      this.existingInsureReq();
       console.log(this.addExistingInsurance, 'this.addExistingInsurance');
       console.log('eror3');
     }
@@ -452,7 +453,6 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.proposer.controls['perCity'].patchValue(''),
           this.proposer.controls['perPincode'].patchValue(''),
           this.proposer.controls['perState'].patchValue('')
-      console.log(this.proposer.controls['perCity'].value, 'eeeeeeee');
     }
   }
   sameAddress1() {
@@ -471,7 +471,6 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['perCity'].patchValue(''),
           this.insureArray.controls['perPincode'].patchValue(''),
           this.insureArray.controls['perState'].patchValue('')
-      console.log(this.insureArray.controls['perCity'].value, 'eeeeeeee');
     }
   }
 
@@ -593,7 +592,6 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['employerAddr'].patchValue(''),
           this.insureArray.controls['annualIncome'].patchValue(''),
           this.insureArray.controls['taxResidence'].patchValue('')
-          console.log(this.insureArray.controls['taxResidence'].value, 'eeeeeeee');
 
     }
   }
@@ -632,6 +630,8 @@ export class EdelweissTermLifeComponent implements OnInit {
         else if (typeof event.value._i == 'object') {
           if (dob.length == 10) {
             this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+
             this.getAge = this.ageCalculate(dob);
             this.getDays = this.ageCalculateInsurer(dob_days);
           }
@@ -642,7 +642,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
 
       if ( i != 0) {
-        if (this.getAge <= 18){
+        if (this.getAge <= 18) {
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(1);
           console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalue');
         } else {
@@ -654,24 +654,16 @@ export class EdelweissTermLifeComponent implements OnInit {
       console.log(this.getAge,'getaage');
       if (this.getAge <= 18) {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(true);
-      //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
-      // } else {
-      //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(false);
-      //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators(null);
-      //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
-      //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
-      //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue('');
-      //   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
-      //   if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true && i == 0) {
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.value );
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.value );
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.value );
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.value );
 
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.setValidators([Validators.required]);
-          this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators([Validators.required]);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value );
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value );
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aGender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aGender.value );
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value );
+
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.setValidators([Validators.required]);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.setValidators([Validators.required]);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aGender.setValidators([Validators.required]);
+          this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.setValidators([Validators.required]);
 
         } else {
           this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(false);
@@ -690,7 +682,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.updateValueAndValidity();
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.updateValueAndValidity();
 
-      // }
+
     } else if(type == 'appointee') {
 
       if (event.value != null) {
@@ -786,38 +778,6 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
   }
-  // appointeeAgeValid(event: any,i) {
-  //
-  //   if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true ) {
-  //     this.nomineeDetail.controls['aName'].patchValue(this.nomineeDetail.controls['aName'].value);
-  //     this.nomineeDetail.controls['aGender'].patchValue(this.nomineeDetail.controls['aGender'].value);
-  //     this.nomineeDetail.controls['appointeeDob'].patchValue(this.nomineeDetail.controls['appointeeDob'].value);
-  //     this.nomineeDetail.controls['relationToInsured'].patchValue(this.nomineeDetail.controls['aRelation'].value);
-  //
-  //     this.nomineeDetail.controls['aName'].setValidators([Validators.required]);
-  //     this.nomineeDetail.controls['aGender'].setValidators([Validators.required]);
-  //     this.nomineeDetail.controls['appointeeDob'].setValidators([Validators.required]);
-  //     this.nomineeDetail.controls['relationToInsured'].setValidators([Validators.required]);
-  //
-  //   } else {
-  //     this.nomineeDetail.controls['aName'].patchValue('');
-  //     this.nomineeDetail.controls['aGender'].patchValue('');
-  //     this.nomineeDetail.controls['appointeeDob'].patchValue('');
-  //     this.nomineeDetail.controls['relationToInsured'].patchValue('');
-  //
-  //
-  //     this.nomineeDetail.controls['aName'].setValidators(null);
-  //     this.nomineeDetail.controls['aGender'].setValidators(null);
-  //     this.nomineeDetail.controls['appointeeDob'].setValidators(null);
-  //     this.nomineeDetail.controls['relationToInsured'].setValidators(null);
-  //
-  //   }
-  //   this.nomineeDetail.controls['aName'].updateValueAndValidity();
-  //   this.nomineeDetail.controls['aGender'].updateValueAndValidity();
-  //   this.nomineeDetail.controls['appointeeDob'].updateValueAndValidity();
-  //   this.nomineeDetail.controls['relationToInsured'].updateValueAndValidity();
-  //
-  // }
 
 
   // Personal Details
@@ -860,7 +820,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   // nominee details
   nomineeDetailNext(stepper, value) {
-    console.log(value);
+    console.log(value,'value');
     sessionStorage.stepper3Details = JSON.stringify(value);
     console.log(this.nomineeDetail.valid, 'this.nomineeDetail.valid');
     console.log(this.nomineeDetail.get('itemsNominee')['controls'].length,'length');
@@ -885,21 +845,22 @@ export class EdelweissTermLifeComponent implements OnInit {
     for (let i=0; i < this.nomineeDetail.get('itemsNominee')['controls'].length; i++) {
       if ( this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value == 1) {
         nominee2ageval = true;
+
       } else {
         nominee2ageval = false;
       }
     }
+    console.log(nominee2ageval, 'nominee2ageval');
     console.log(nomineeValid, 'nomineeVLID');
-    if (this.nomineeDetail.valid) {
-
+    if (this.nomineeDetail.controls.itemsNominee.valid) {
         if (!nomineeValid) {
-          if (!nominee2ageval) {
+          if (nominee2ageval == false) {
             if (appointeeAge) {
               if (this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value != '' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value != '' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value != '' && this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aGender.value != '') {
                 stepper.next();
                 this.topScroll();
               } else {
-                this.toastr.error('Please fill the appointee details');
+                this.toastr.error('Please fill the Appointee Details');
               }
             } else {
               this.toastr.error('Appointee Age should be greater than 18.');
@@ -925,8 +886,19 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log( sessionStorage.stepper4Details);
     if (this.bankDetail.valid) {
       console.log(this.bankDetail.valid,'bankDetailvalid')
-
-      this.proposal(stepper);
+      // if (this.bankDetail.controls.existingInsurance.valid) {
+        this.proposal(stepper);
+      // }
+      // for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
+      //         console.log('ssssssss')
+      //         if (i != 0) {
+      //         }
+      //   if ((this.bankDetail.controls['existingInsuranceInd'].value == true) && (this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value != null && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value != null && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value != '' && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value != null && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value != null && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value != null)) {
+      //     this.proposal(stepper);
+      //   } else {
+      //     this.toastr.error('Please fill the Existing Insurance Details');
+      //   }
+      // }
     }
   }
 
@@ -1046,10 +1018,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   existingInsureReq() {
     console.log(this.bankDetail['controls'].existingInsurance['controls'].length,'value');
     if (this.bankDetail.controls['existingInsuranceInd'].value == true) {
-      console.log('sharmila')
 
       for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-        console.log('ssssssss')
         if (i != 0) {
         }
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value );
@@ -1060,25 +1030,23 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value );
 
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators([Validators.required]);
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators([Validators.required]);
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.setValidators([Validators.required]);
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators([Validators.required]);
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators([Validators.required]);
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators([Validators.required]);
       }
 
     } else if (this.bankDetail.controls['existingInsuranceInd'].value == false) {
-      console.log('ggggggggggg')
       for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-
-        if ( i !=  0) {
+      if ( i !=  0) {
         }
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
-              this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('Active');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
 
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators(null);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators(null);
@@ -1087,10 +1055,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators(null);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators(null);
       }
-
-
-
-    }
+     }
     for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
 
       if ( i !=  0) {
@@ -1109,18 +1074,18 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   appointeeAgeValid(event: any, i) {
     if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true && i == 0) {
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.value );
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.value );
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.value );
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.value );
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.value );
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.value );
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aGender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aGender.value );
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.value );
 
 
 
 
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.setValidators([Validators.required]);
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators([Validators.required]);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.setValidators([Validators.required]);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.setValidators([Validators.required]);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aGender.setValidators([Validators.required]);
+      this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.setValidators([Validators.required]);
 
     } else {
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
@@ -1129,10 +1094,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
 
 
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.setValidators(null);
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators(null);
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.setValidators('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.setValidators('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators('');
 
 
     }
@@ -2323,8 +2288,13 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (sessionStorage.stepper3Details!= '' && sessionStorage.stepper3Details != undefined) {
       let getStepper3 = JSON.parse(sessionStorage.stepper3Details);
+      if (getStepper3.itemsNominee.length > 1) {
+        this.addNominee(event);
+      }
       console.log(getStepper3.itemsNominee[0].nomineeName, ' patchval ');
       console.log(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nomineeName, ' nnName ');
+      console.log(getStepper3,'333333');
+      console.log(getStepper3.itemsNominee.length,'length');
       for (let i = 0; i < getStepper3.itemsNominee.length; i++) {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeName.patchValue(getStepper3.itemsNominee[i].nomineeName);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(this.datepipe.transform(getStepper3.itemsNominee[i].nDob, 'y-MM-dd'));
@@ -2334,12 +2304,12 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue(getStepper3.itemsNominee[i].nomineeDobValidError);
         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(getStepper3.itemsNominee[i].showAppointee);
 
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(getStepper3.itemsNominee[i].aName);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(getStepper3.itemsNominee[i].nomineeAgeVal);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(this.datepipe.transform(getStepper3.itemsNominee[i].appointeeDob, 'y-MM-dd'));
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(getStepper3.itemsNominee[i].aGender);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue(getStepper3.itemsNominee[i].appointeeDobValidError);
-        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(getStepper3.itemsNominee[i].relationToInsured);
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aName.patchValue(getStepper3.itemsNominee[0].aName);
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nomineeAgeVal.patchValue(getStepper3.itemsNominee[0].nomineeAgeVal);
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDob.patchValue(this.datepipe.transform(getStepper3.itemsNominee[0].appointeeDob, 'y-MM-dd'));
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].aGender.patchValue(getStepper3.itemsNominee[0].aGender);
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].appointeeDobValidError.patchValue(getStepper3.itemsNominee[0].appointeeDobValidError);
+        this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].relationToInsured.patchValue(getStepper3.itemsNominee[0].relationToInsured);
       }
     }
     console.log(this.nomineeDetail, ' stepper3 ');
@@ -2434,10 +2404,11 @@ export class EdelweissTermLifeComponent implements OnInit {
   addressProofName() {
     this.insureArray.controls['addrProofName'].patchValue(this.eAddressProof[this.insureArray.controls['addrProof'].value]);
   }
-    geteNomineeRelationName(i)
-  {
-
-    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] )
+  // policychange(i) {
+  //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('Active');
+  // }
+    geteNomineeRelationName(i) {
+   this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] )
   }
 
 
