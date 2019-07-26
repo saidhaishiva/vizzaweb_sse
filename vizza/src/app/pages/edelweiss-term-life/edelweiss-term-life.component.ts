@@ -254,7 +254,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       accountNo: ['', Validators.compose([Validators.required])],
       accName: ['', Validators.compose([Validators.required])],
       name: ['', Validators.compose([Validators.required])],
-      location: ['', Validators.compose([Validators.required])],
+      location: ['', Validators.compose([Validators.required, Validators.minLength(45)])],
       ifscCode: ['', Validators.compose([Validators.required])],
       investmentStrategy: '',
       existingInsuranceInd: false,

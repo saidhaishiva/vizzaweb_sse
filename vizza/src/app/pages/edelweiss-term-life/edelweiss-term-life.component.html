@@ -850,7 +850,7 @@
                                                </div>
                                                <div class="col-md-4">
                                                    <mat-form-field class="w-100">
-                                                       <mat-select  placeholder="Nominee Relation with Insured" formControlName="nomineeRelationship" (change)="geteNomineeRelationName(i)"  class="w-100">
+                                                       <mat-select  placeholder="Nominee Relation with Insured" formControlName="nomineeRelationship" (change)="geteNomineeRelationName(i)" required class="w-100">
                                                            <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
                                                        </mat-select>
                                                        <mat-error *ngIf="nomineeDetail.invalid">Relation is required</mat-error>
@@ -955,7 +955,7 @@
                         </div>
                           <div class="col-md-4">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="Branch Name"  formControlName="location"  maxlength="20" autocomplete="off" required>
+                                  <input matInput placeholder="Branch Name"  formControlName="location"  maxlength="45" autocomplete="off" required>
                                   <mat-error *ngIf="bankDetail.controls.location.errors?.required">Location is required</mat-error>
                               </mat-form-field>
                           </div>
