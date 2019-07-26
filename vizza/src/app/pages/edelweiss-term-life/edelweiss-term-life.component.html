@@ -1262,7 +1262,7 @@
                                <div class="p-3">
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="item.aName != ''"><strong>Appointee Name:</strong> {{item.aName}}</li>
-                                       <li class="list-group-item" *ngIf="item.appointeeDob != ''"><strong>Appointee Dob:</strong> {{item.appointeeDob | date: 'dd/MM/yyyy' }}</li>
+                                       <li class="list-group-item" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true"><strong>Appointee Dob:</strong> {{item.appointeeDob | date: 'dd/MM/yyyy' }}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1309,7 +1309,6 @@
                                                <li class="list-group-item" *ngIf="bankFormData.accountNo != ''" ><strong>Account Number:</strong> {{bankFormData.accountNo}}</li>
                                                <li class="list-group-item" *ngIf="bankFormData.accName != ''" ><strong>Account Holder Name:</strong> {{bankFormData.accName}}</li>
                                                <li class="list-group-item" *ngIf="bankFormData.investmentStrategy != ''"><strong>Investment Strategy:</strong> {{bankFormData.investmentStrategy}}</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == false"><strong>Existing Insurance:</strong>No</li>
 
                                            </ul>
                                        </div>
@@ -1324,9 +1323,10 @@
                            <div class="col-md-6" >
                                <div class="p-3">
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == false"><strong>Existing Insurance:</strong>Yes</li>
-                                       <li class="list-group-item" *ngIf="item.companyName != '' || item.companyName != null"><strong> Company Name:</strong> {{item.companyName}}</li>
-                                       <li class="list-group-item" *ngIf="item.yearOfIssue != '' || item.yearOfIssue != null"><strong>Year Of Issue:</strong> {{item.yearOfIssue}}</li>
+                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Existing Insurance:</strong>yes</li>
+                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == false"><strong>Existing Insurance:</strong>No</li>
+                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Company Name:</strong> {{item.companyName}}</li>
+                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Year Of Issue:</strong> {{item.yearOfIssue}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1336,9 +1336,9 @@
                            <div class="col-md-6" >
                                <div class="p-3">
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item" *ngIf="item.sumAssured != '' || item.sumAssured != null"><strong>Sum Assured:</strong> {{item.sumAssured}}</li>
-                                       <li class="list-group-item" *ngIf="item.annualizedPremium != '' || item.annualizedPremium != null"><strong> Annualized Premium:</strong> {{item.annualizedPremium}}</li>
-                                       <li class="list-group-item" *ngIf="item.policyStatus != '' || item.policyStatus != null"><strong> Policy Status:</strong> {{item.policyStatus}}</li>
+                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Sum Assured:</strong> {{item.sumAssured}}</li>
+                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Annualized Premium:</strong> {{item.annualizedPremium}}</li>
+                                       <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Policy Status:</strong> {{item.policyStatus}}</li>
                                    </ul>
                                </div>
                            </div>
