@@ -376,6 +376,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (this.bankDetail.get('existingInsurance').value.length < 5) {
       this.addExistingInsurance = this.bankDetail.get('existingInsurance') as FormArray;
       this.addExistingInsurance.push(this.create());
+      this.existingInsureReq();
       console.log(this.addExistingInsurance, 'this.addExistingInsurance');
       console.log('eror3');
     }
