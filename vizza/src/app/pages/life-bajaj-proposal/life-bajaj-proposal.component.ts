@@ -81,6 +81,7 @@ export class LifeBajajProposalComponent implements OnInit {
   public lifePremiumList:any;
   public today:any;
   public getEnquiryDetials:any;
+  public enquiryFromDetials:any;
   public idProofList:any;
   public incomeProofList:any;
   public ageProofsList:any;
@@ -317,7 +318,9 @@ export class LifeBajajProposalComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-    this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
+    this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+
+      this.proposer.controls['amtTransaction'].patchValue(this.lifePremiumList.totalpremium);
 
     this.paIdList();
     this.ageProof();
@@ -345,6 +348,18 @@ export class LifeBajajProposalComponent implements OnInit {
     this.getDiseaseList();
     this.samerelationShip();
     this.sessionData();
+
+      this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+      let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+      this.bajajAge = this.ageCalculate(dob);
+      sessionStorage.bajajproposerAge = this.bajajAge;
+      this.proposer.controls['age'].patchValue(this.bajajAge);
+      this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+      this.changeGender();
+      this.proposer.controls['pincode'].patchValue(this.enquiryFromDetials.pincode);
+        this.getPostal(this.proposer.controls['pincode'].value, 'personal');
+
+
   }
 
   nomineeItems() {
