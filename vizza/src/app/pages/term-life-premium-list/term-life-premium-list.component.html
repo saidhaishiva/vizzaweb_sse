@@ -57,8 +57,11 @@
 
               <td align="center"  class="col-md-3 text-center">
                 <img class="mt-1" src="{{webhost + '/' + plists.company_logo}}">
-                <p class="pTitle" matTooltip="{{plists.product_display_name}}">{{plists.product_display_name | titlecase }}</p>
+                <p  *ngIf="plists.product_id != 87 && plists.product_id != 86" class="pTitle" matTooltip="{{plists.product_display_name}}">{{plists.product_display_name | titlecase }}</p>
+                <p *ngIf="plists.product_id == 87 || plists.product_id == 86" class="pTitle" style="margin-bottom: 0rem;" matTooltip="{{plists.product_name}}">{{plists.product_name| titlecase }}</p>
+                <p *ngIf="plists.product_id == 87 || plists.product_id == 86" class="pTitle" style="margin-bottom: 0rem;" matTooltip="{{plists.product_uin_number}}">{{plists.product_uin_number | uppercase }}</p>
               </td>
+
               <td class="col-md-1 text-center">
                 <!--<p class="mt-4">{{plists.sum_insured_amount | currency}}</p>-->
                 <p class="mt-4">&#8377; {{plists.sum_insured_amount}}</p>
