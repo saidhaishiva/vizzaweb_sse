@@ -134,6 +134,19 @@
                         <mat-error *ngIf="proposer.controls.mobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                         </div>
+                        <div class="col-md-4">
+                            <p>Staff</p>
+                            <mat-radio-group formControlName="isStaff" (change)="staffChange()">
+                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                <mat-radio-button value="No">No</mat-radio-button>
+                            </mat-radio-group>
+                        </div>
+                        <div class="col-md-4" *ngIf="proposer.controls['isStaff'].value == 'Yes'" >
+                            <mat-form-field class="w-100"  >
+                                <mat-placeholder>Employee Code<span class="error"  *ngIf="proposer.controls['isStaff'].value == 'Yes'" >*</span></mat-placeholder>
+                                <input matInput   formControlName="employeeCode"   maxlength="10" autocomplete="off">
+                            </mat-form-field>
+                        </div>
 
                        </div>
                       </div>
@@ -457,6 +470,19 @@
                                                    <input matInput placeholder="Mobile No" (keypress)="numberValidate($event)"  maxlength="10" formControlName="mobileNo" autocomplete="off" required >
                                                    <mat-error *ngIf="insureArray.controls.mobileNo.errors?.required">Mobile Number is required</mat-error>
                                                    <mat-error *ngIf="insureArray.controls.mobileNo.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                                               </mat-form-field>
+                                           </div>
+                                           <div class="col-md-4">
+                                               <p>Staff</p>
+                                               <mat-radio-group formControlName="isStaff" (change)="staffChange1()">
+                                                   <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                                   <mat-radio-button value="No">No</mat-radio-button>
+                                               </mat-radio-group>
+                                           </div>
+                                           <div class="col-md-4" *ngIf="insureArray.controls['isStaff'].value == 'Yes'" >
+                                               <mat-form-field class="w-100"  >
+                                                   <mat-placeholder>Employee Code<span class="error"  *ngIf="insureArray.controls['isStaff'].value == 'Yes'" >*</span></mat-placeholder>
+                                                   <input matInput   formControlName="employeeCode"   maxlength="10" autocomplete="off">
                                                </mat-form-field>
                                            </div>
                                        </div>
@@ -860,7 +886,7 @@
 
 
                                            <div class="row" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">
-                                               <h6 class="color-blue mt-3 ml-3"  *ngIf="i ==0">APPOINTEE DETAILS</h6>
+                                               <h6 class="color-blue mt-3 ml-3"  >APPOINTEE DETAILS</h6>
 
                                            </div>
 
@@ -870,13 +896,13 @@
                                                <div class="row ">
 
                                                    <div class="col-md-3">
-                                                       <mat-form-field class="w-100" *ngIf="i ==0">
+                                                       <mat-form-field class="w-100" >
                                                            <mat-placeholder> Appointee Name <span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
                                                            <input matInput formControlName="aName"  (keypress)="nameValidate($event)" autocomplete="off">
 
                                                        </mat-form-field>
                                                    </div>
-                                                   <div class="col-md-3" *ngIf="i ==0">
+                                                   <div class="col-md-3" >
                                                        <mat-form-field class="w-100">
                                                            <mat-placeholder >Appointee DOB (DD/MM/YYYY)<span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
                                                            <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="appointeeDob" (dateInput)="addEventNominee($event,i ,'appointee')" (dateChange)="addEventNominee($event,i, 'appointee')" minlength="10" maxlength="10"
@@ -885,7 +911,7 @@
                                                            <mat-datepicker #picker4></mat-datepicker>
                                                        </mat-form-field>
                                                    </div>
-                                                   <div class="col-md-3" *ngIf="i ==0" >
+                                                   <div class="col-md-3"  >
                                                        <mat-form-field class="w-100">
                                                            <mat-placeholder>Gender<span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
                                                            <mat-select  formControlName="aGender"  >
@@ -894,7 +920,7 @@
                                                            </mat-select>
                                                        </mat-form-field>
                                                    </div>
-                                                   <div class="col-md-3" *ngIf="i ==0">
+                                                   <div class="col-md-3" >
                                                        <mat-form-field class="w-100">
                                                            <mat-placeholder>Appointee Relation To Nominee  <span class="error" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value==true">*</span></mat-placeholder>
                                                            <mat-select formControlName="relationToInsured" autocomplete="off"  (change)="geteNomineeRelation()">
