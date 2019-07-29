@@ -154,7 +154,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         });
 
         this.previouspolicy = this.fb.group({
-            preflag: ['', Validators.required],
+            // preflag: ['', Validators.required],
             // preName: '',
             // preNamevalue: '',
             prepolno: '',
@@ -197,9 +197,9 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(poldate, 'poldate');
         this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
         console.log(this.poldate, 'policy date');
-        if (this.enquiryFormData.business_type != '1') {
-            this.previouspolicy.controls['preflag'].patchValue('Y');
-        }
+        // if (this.enquiryFormData.business_type != '1') {
+        //     this.previouspolicy.controls['preflag'].patchValue('Y');
+        // }
     }
 
     nameValidate(event: any) {
@@ -648,7 +648,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         if (sessionStorage.tatabikeprepolicy != '' && sessionStorage.tatabikeprepolicy != undefined) {
             this.getstepper3 = JSON.parse(sessionStorage.tatabikeprepolicy);
             this.previouspolicy = this.fb.group({
-                preflag: this.getstepper3.preflag,
+                // preflag: this.getstepper3.preflag,
                 // preName: this.getstepper3.preName,
                 // preNamevalue: this.getstepper3.preNamevalue,
                 prepolno: this.getstepper3.prepolno,
@@ -752,7 +752,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "chassis_no": this.vehicle.controls['chassis'].value
                 },
                 "prevpolicy": {
-                    "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == '' ? 'N' : this.previouspolicy.controls['preflag'].value,
+                    "flag": this.enquiryFormData.business_type == '1'? 'N' : 'Y',
                     // "name": this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
                     "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
                     "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,

@@ -368,68 +368,68 @@ export class AegonTermLifeComponent implements OnInit {
         if(this.personal.controls['enchancedCISA'].value <= 1000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 10 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 10 Lakhs');
+        }
 
       } else if(this.personal.controls['deathBenefitTISA'].value == 7500000 ){
         if(this.personal.controls['enchancedCISA'].value <= 1500000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 15 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 15 Lakhs');
+        }
       }else if(this.personal.controls['deathBenefitTISA'].value == 10000000 ){
         if(this.personal.controls['enchancedCISA'].value <= 2000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 20 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 20 Lakhs');
+        }
       }
       else if(this.personal.controls['deathBenefitTISA'].value == 12500000 ){
         if(this.personal.controls['enchancedCISA'].value <= 2500000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 25 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 25 Lakhs');
+        }
       }else if(this.personal.controls['deathBenefitTISA'].value == 15000000 ){
         if(this.personal.controls['enchancedCISA'].value <= 3000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 30 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 30 Lakhs');
+        }
       }else if(this.personal.controls['deathBenefitTISA'].value == 17500000 ){
         if(this.personal.controls['enchancedCISA'].value <= 3500000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 35 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 35 Lakhs');
+        }
       }else if(this.personal.controls['deathBenefitTISA'].value == 20000000 ){
         if(this.personal.controls['enchancedCISA'].value <= 4000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 40 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 40 Lakhs');
+        }
       }else if(this.personal.controls['deathBenefitTISA'].value == 22500000 ){
         if(this.personal.controls['enchancedCISA'].value <= 4500000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 45 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 45 Lakhs');
+        }
       }
       else if(this.personal.controls['deathBenefitTISA'].value == 25000000 ){
         if(this.personal.controls['enchancedCISA'].value <= 5000000 && this.personal.controls['enchancedCISA'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 50 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 50 Lakhs');
+        }
       }
     } else if(type == 'LH') {
 
@@ -438,68 +438,68 @@ export class AegonTermLifeComponent implements OnInit {
         if(this.personal.controls['icirSumAssured'].value <= 1000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 10 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 10 Lakhs');
+        }
 
       } else if(this.personal.controls['deathBenefitTISA'].value == 7500000 ){
         if(this.personal.controls['icirSumAssured'].value <= 1500000 && this.personal.controls['icirSumAssured'].value >= 500000) {
           this.personal.controls['criticalIllnessError'].patchValue('');
         }
-        // else {
-        //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 15 Lakhs');
-        // }
+        else {
+          this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 15 Lakhs');
+        }
       }else if(this.personal.controls['deathBenefitTISA'].value == 10000000 ){
       if(this.personal.controls['icirSumAssured'].value <= 2000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
         this.personal.controls['criticalIllnessError'].patchValue('');
       }
-      // else {
-      //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 20 Lakhs');
-      // }
+      else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 20 Lakhs');
+      }
     }
     else if(this.personal.controls['deathBenefitTISA'].value == 12500000 ){
       if(this.personal.controls['icirSumAssured'].value <= 2500000 && this.personal.controls['icirSumAssured'].value >= 500000) {
         this.personal.controls['criticalIllnessError'].patchValue('');
       }
-      // else {
-      //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 25 Lakhs');
-      // }
+      else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 25 Lakhs');
+      }
     }else if(this.personal.controls['deathBenefitTISA'].value == 15000000 ){
       if(this.personal.controls['icirSumAssured'].value <= 3000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
         this.personal.controls['criticalIllnessError'].patchValue('');
       }
-      // else {
-      //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 30 Lakhs');
-      // }
+      else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 30 Lakhs');
+      }
     }else if(this.personal.controls['deathBenefitTISA'].value == 17500000 ){
       if(this.personal.controls['icirSumAssured'].value <= 3500000 && this.personal.controls['icirSumAssured'].value >= 500000) {
         this.personal.controls['criticalIllnessError'].patchValue('');
       }
-      // // else {
-      //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 35 Lakhs');
-      // }
+      else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 35 Lakhs');
+      }
     }else if(this.personal.controls['deathBenefitTISA'].value == 20000000 ){
       if(this.personal.controls['icirSumAssured'].value <= 4000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
         this.personal.controls['criticalIllnessError'].patchValue('');
       }
-      // else {
-      //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 40 Lakhs');
-      // }
+      else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 40 Lakhs');
+      }
     }else if(this.personal.controls['deathBenefitTISA'].value == 22500000 ){
       if(this.personal.controls['icirSumAssured'].value <= 4500000 && this.personal.controls['icirSumAssured'].value >= 500000) {
         this.personal.controls['criticalIllnessError'].patchValue('');
       }
-      // else {
-      //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 45 Lakhs');
-      // }
+      else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 45 Lakhs');
+      }
     }
     else if(this.personal.controls['deathBenefitTISA'].value == 25000000 ){
       if(this.personal.controls['icirSumAssured'].value <= 5000000 && this.personal.controls['icirSumAssured'].value >= 500000) {
         this.personal.controls['criticalIllnessError'].patchValue('');
       }
-      // else {
-      //   this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 50 Lakhs');
-      // }
+      else {
+        this.personal.controls['criticalIllnessError'].patchValue('Critical Illness Benefit should be 5 to 50 Lakhs');
+      }
     }
 
     }
@@ -528,11 +528,9 @@ export class AegonTermLifeComponent implements OnInit {
         }
 
       } else if (typeof event.value._i == 'object') {
-        // dob = this.datepipe.transform(event.value, 'MMM d, y');
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
           this.nomineeAge = this.ageCalculate(dob);
-          // sessionStorage.insuredAgePA = this.proposerAge;
 
         }
         this.dateError1 = '';
@@ -567,7 +565,6 @@ export class AegonTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
           this.appointeeAge = this.ageCalculate(dob);
-          // sessionStorage.insuredAgePA = this.proposerAge;
 
         }
         this.dateError2 = '';
@@ -744,13 +741,16 @@ export class AegonTermLifeComponent implements OnInit {
     sessionStorage.stepper2 = JSON.stringify(value);
     console.log(this.nominee.valid, 'checked');
     if(this.nominee.valid) {
-      if(sessionStorage.appointeeAge >= 18)
-      {
+      if(this.apponiteeList == true){
+      if(sessionStorage.appointeeAge >= 18) {
         console.log(this.nomineeData,'nomm')
         this.proposal(stepper);
-      }
-      else {
+      } else {
         this.toastr.error('Appointee age should be 18 or above');
+
+      }
+      }else {
+        this.proposal(stepper);
 
       }
 
