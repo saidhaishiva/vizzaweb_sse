@@ -310,7 +310,7 @@
                           <input matInput placeholder=" Enhanced Critical Illness Benefit (Lump Sum)" formControlName="enchancedCISA" maxlength="10" autocomplete="off" (keyup)="validateCriticalIllness('LHP')" required (keypress)="numberValidate($event)" >
                           <mat-error *ngIf="personal.controls.enchancedCISA.errors?.required">Enhanced Critical Illness Benefit (Lump Sum) is required</mat-error>
                         </mat-form-field>
-                        <div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{personal.controls['criticalIllnessError'].value}}</div>
+                        <div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>
 
                       </div>
                       <div class="col-md-5" *ngIf="lifePremiumList.benefit_option == 'LH'">
@@ -318,7 +318,7 @@
                           <input matInput placeholder="Basic Critical Illness Benefit (Lump Sum)" formControlName="icirSumAssured" maxlength="10" autocomplete="off" (keyup)="validateCriticalIllness('LH')" required (keypress)="numberValidate($event)" >
                           <mat-error *ngIf="personal.controls.icirSumAssured.errors?.required">Basic Critical Illness Benefit (Lump Sum) is required</mat-error>
                         </mat-form-field>
-                        <div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{personal.controls['criticalIllnessError'].value}}</div>
+                        <div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>
 
                       </div>
                       </div>
@@ -511,16 +511,17 @@
               <div class="row">
                 <div class="col-md-4">
                   <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{lifePremiumList.sum_insured_amount}}</span></h4>
-                  <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{lifePremiumList.product_display_name}}</span></h4>-->
+                  <!--<h4><span style="font-size: 17px; color: #666;"> Plan Name: &nbsp; {{lifePremiumList.product_display_name}}</span></h4>-->
+                  <!--<li><span>Plan Name:</span><span><i class="fas fa-rupee-sign"></i> {{lifePremiumList.product_display_name}}</span></li>-->
                 </div>
                 <div class="col-md-8">
                   <h4 class="mt-4"></h4>
                   <ul class="summary-head">
-                    <li><span>Plan Name:</span><span><i class="fas fa-rupee-sign"></i> {{lifePremiumList.product_display_name}}</span></li>
+                    <li><span>Plan Name:</span><span style="font-size: 16px;"> {{lifePremiumList.product_display_name}}</span></li>
                     <li><span>Insurer:</span><img src="{{ webhost + '/' + lifePremiumList.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                    <li><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{lifePremiumList.basepremium}}</span></li>
-                    <li><span>Service Tax:</span><span><i class="fas fa-rupee-sign"></i> {{lifePremiumList.servicetax}}</span></li>
-                    <li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{lifePremiumList.totalpremium}}</span></li>
+                    <li><span>Premium:</span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{summaryData.basePremium}}</span></li>
+                    <li><span>GST:</span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{summaryData.gst}}</span></li>
+                    <li><span>Total Premium:</span><span style="font-size: 16px;"><i class="fas fa-rupee-sign"></i> {{summaryData.totalPremium}}</span></li>
                     <li></li>
                   </ul>
                 </div>
