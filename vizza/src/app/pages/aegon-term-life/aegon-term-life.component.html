@@ -377,7 +377,7 @@
 
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <input matInput [matDatepicker]="picker2" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  (keyup)="appointeeAgeValid($event)"   formControlName="ndob" (dateInput)="addDate( $event)" (dateChange)="addEvent( $event)" (input)="ageNominee()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                  <input matInput [matDatepicker]="picker2" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  (keyup)="appointeeAgeValid($event)"   formControlName="ndob" (dateInput)="addDate( $event)" (dateChange)="addDate( $event)" (input)="ageNominee()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                   <mat-datepicker #picker2></mat-datepicker>
                                   <mat-error *ngIf="nominee.controls.ndob.errors?.required">DOB is required</mat-error>
@@ -603,8 +603,8 @@
                         <li class="list-group-item"><strong>Death Benefit SA:</strong> {{proposerFormData.deathBenefitSA}}</li>
                         <li class="list-group-item"><strong>Death Benefit TISA:</strong> {{proposerFormData.deathBenefitTISA}}</li>
                         <li class="list-group-item" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'"><strong>Accidental Death Benefit:</strong> {{proposerFormData.adbrSumAssured}}</li>
-                        <li class="list-group-item" *ngIf="(lifePremiumList.benefit_option == 'LH' || lifePremiumList.benefit_option == 'LHP')"><strong>Enhanced Critical Illness Benefit (Lump Sum):</strong> {{proposerFormData.enchancedCISA}}</li>
-                        <li class="list-group-item" *ngIf="(lifePremiumList.benefit_option == 'LH' || lifePremiumList.benefit_option == 'LHP')"><strong>Basic Critical Illness Benefit (Lump Sum):</strong> {{proposerFormData.icirSumAssured}}</li>
+                        <li class="list-group-item" *ngIf="(lifePremiumList.benefit_option == 'LHP') "><strong>Enhanced Critical Illness Benefit (Lump Sum):</strong> {{proposerFormData.enchancedCISA}}</li>
+                        <li class="list-group-item" *ngIf="(lifePremiumList.benefit_option == 'LH')"><strong>Basic Critical Illness Benefit (Lump Sum):</strong> {{proposerFormData.icirSumAssured}}</li>
                       </ul>
                     </div>
                   </div>
