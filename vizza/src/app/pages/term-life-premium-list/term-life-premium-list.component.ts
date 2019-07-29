@@ -161,6 +161,8 @@ export class TermLifePremiumListComponent implements OnInit {
             for (let i = 0; i < this.allProductLists.length; i++) {
                 this.allProductLists[i].compare = false;
                 this.allProductLists[i].shortlist = false;
+                this.allProductLists[i].product_name = this.allProductLists[i].product_display_name.split('/')[0];
+                this.allProductLists[i].product_uin_number = this.allProductLists[i].product_display_name.split('/')[1];
                 let dob = this.datepipe.transform(this.allProductLists[i].dob, 'y-MM-dd');
                 this.allProductLists[i].age = this.ageCalculate(dob);
                 // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
@@ -173,6 +175,7 @@ export class TermLifePremiumListComponent implements OnInit {
             //     this.enquiryDetails.sum_insured_amount = this.allProductLists[0].sum_insured_amount;
             // }
         }
+        console.log(this.allProductLists,'allllist');
     }
     public getProductListFailure(error) {
         this.settings.loadingSpinner = false;

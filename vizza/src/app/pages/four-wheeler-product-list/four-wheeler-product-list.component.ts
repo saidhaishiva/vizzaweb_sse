@@ -31,6 +31,7 @@ export class FourWheelerProductListComponent implements OnInit {
   compherhensive: any;
   getEnquiry: any;
   policyTerm: any;
+  vehicledetailsfw: any;
   initialProductListfw: any;
   constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService, public clearsession: ClearSessionFourwheelerService) {
     this.settings = this.appSettings.settings;
@@ -41,7 +42,6 @@ export class FourWheelerProductListComponent implements OnInit {
     this.compareArray = [];
     this.initialProductListfw = [];
     this.thirdParty = false;
-    this.policyTerm = '1';
     this.compherhensive = 'Comprehensive_premium';
     sessionStorage.packageListFw = this.compherhensive;
     this.clearsession.clearSessionfourwheelerData();
@@ -49,6 +49,7 @@ export class FourWheelerProductListComponent implements OnInit {
   ngOnInit() {
       this.getCompanyList();
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
+    this.vehicledetailsfw = sessionStorage.vehicledetailsfw;
     this.sessionData();
   }
   sessionData() {
@@ -69,6 +70,16 @@ export class FourWheelerProductListComponent implements OnInit {
         this.checkAllStatus = false;
       }
     }
+    if(this.vehicledetailsfw.business_type == '1'){
+      this.policyTerm = '3';
+      this.premiumlist();
+
+    }  else {
+      this.policyTerm = '1';
+      this.premiumlist();
+
+    }
+
 
   }
   getCompanyList() {
@@ -158,8 +169,12 @@ export class FourWheelerProductListComponent implements OnInit {
         this.allProductLists[i].year_type == '1';
       }
 
+      if(this.policyTerm == '3'){
+        this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
+      } else {
+        this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
 
-      this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
+      }
       this.setAllProductLists = this.allProductLists;
       sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
       sessionStorage.initialProductListfw = JSON.stringify(this.initialProductListfw);
@@ -237,8 +252,6 @@ export class FourWheelerProductListComponent implements OnInit {
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '2');
     } else if(this.policyTerm == '3'){
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
-    } else if(this.policyTerm == '5'){
-      this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '5');
     }
     else{
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
