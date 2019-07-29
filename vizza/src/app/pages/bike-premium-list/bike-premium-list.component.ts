@@ -60,12 +60,7 @@ export class BikePremiumListComponent implements OnInit {
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
         this.vehicleDetalis = JSON.parse(sessionStorage.vehicledetails);
         this.sessionData();
-      if(this.vehicleDetalis.business_type == '1'){
-          this.policyTerm = '5';
-      }  else {
-          this.policyTerm = '1';
 
-      }
     }
     sessionData() {
         if(sessionStorage.getEnquiryDetials != '' && sessionStorage.getEnquiryDetials !=undefined) {
@@ -84,6 +79,16 @@ export class BikePremiumListComponent implements OnInit {
             } else {
                 this.checkAllStatus = false;
             }
+        }
+
+        if(this.vehicleDetalis.business_type == '1'){
+            this.policyTerm = '5';
+            this.premiumlist();
+
+        }  else {
+            this.policyTerm = '1';
+            this.premiumlist();
+
         }
 
     }
@@ -174,8 +179,11 @@ export class BikePremiumListComponent implements OnInit {
                 this.allProductLists[i].year_type == '1';
             }
 
-
-           this.initialProductList = this.allProductLists.filter(data => data.year_type == '1');
+            if(this.policyTerm == '5'){
+                this.initialProductList = this.allProductLists.filter(data => data.year_type == '5');
+            } else {
+                this.initialProductList = this.allProductLists.filter(data => data.year_type == '1');
+            }
             this.setAllProductLists = this.allProductLists;
             sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
             sessionStorage.initialProductList = JSON.stringify(this.initialProductList);
@@ -245,7 +253,6 @@ export class BikePremiumListComponent implements OnInit {
     }
     premiumlist(){
         sessionStorage.packae_list = this.compherhensive;
-
         if(this.policyTerm == '2'){
             this.initialProductList = this.allProductLists.filter(data => data.year_type == '2');
          } else if(this.policyTerm == '3'){

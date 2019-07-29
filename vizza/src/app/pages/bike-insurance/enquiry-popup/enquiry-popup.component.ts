@@ -221,6 +221,8 @@
         'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : '0',
         'manufacture': this.vehicalDetails.controls['manufacture'].value,
         'model':  this.vehicalDetails.controls['vehicleModel'].value,
+        'variant':  this.vehicalDetails.controls['variant'].value
+
       }
       this.bikeService.getCCList(data).subscribe(
           (successData) => {
