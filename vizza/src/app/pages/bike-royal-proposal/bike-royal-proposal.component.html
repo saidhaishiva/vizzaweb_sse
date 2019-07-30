@@ -484,14 +484,14 @@
           <section class="summary-details" *ngIf="summaryData">
             <div class="row">
               <div class="col-md-4">
-                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{productDetails.plan_name | titlecase}} / IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.Idv}}</span></h4>
+                <h4 class="mt-4"><span style="font-size: 17px; color: #666;"> Plan Name: {{productDetails.plan_name | titlecase}} / IDV: &nbsp;<i class="fas fa-rupee-sign"></i> {{summaryData1.Idv}}</span></h4>
                 <!--<h4 class="mt-4"><span style="font-size: 17px; color: #666;" *ngIf = "productDetails.ThridParty_premium"> Plan Name: {{productDetails.plan_name | titlecase}} / Sum Insured: &nbsp;<i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></h4>-->
               </div>
               <div class="col-md-8 mt-4">
                 <ul class="summary-head">
                   <li><span>Insurer:</span><img src="{{webhost + '/' + productDetails.company_logo}}" class="img-thumbnail" style="width: 125px;" /> </li>
-                  <li  *ngIf = "packae_list == 'Comprehensive_premium'"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.Comprehensive_premium}}</span></li>
-                  <li *ngIf = "packae_list == 'ThridParty_premium'"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{productDetails.ThridParty_premium}}</span></li>
+                  <li *ngIf="packaeList != 'ThridParty_premium'"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData1.Comprehensive_premium}}</span></li>
+                  <li *ngIf="packaeList == 'ThridParty_premium'"><span>Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData1.ThridParty_premium}}</span></li>
                   <!--<li><span>Total Premium:</span><span><i class="fas fa-rupee-sign"></i> {{summaryData.FinalPremium}}</span></li>-->
                   <li></li>
                 </ul>
