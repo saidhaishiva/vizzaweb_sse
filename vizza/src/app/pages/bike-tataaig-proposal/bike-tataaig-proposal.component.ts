@@ -278,6 +278,14 @@ export class BikeTataaigProposalComponent implements OnInit {
         return age;
     }
 
+    choosegen() {
+        if(this.proposer.controls['proposerTitle'].value == 'Mr.') {
+            this.proposer.controls['proposerGender'].patchValue('MALE');
+        }else if(this.proposer.controls['proposerTitle'].value == 'Mrs.' || this.proposer.controls['proposerTitle'].value == 'Miss.' ) {
+            this.proposer.controls['proposerGender'].patchValue('FEMALE');
+        }
+    }
+
 
     //Proposer GenderList
     getGenderlist() {
