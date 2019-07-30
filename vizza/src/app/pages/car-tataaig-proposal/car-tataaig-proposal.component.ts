@@ -163,7 +163,7 @@ export class CarTataaigProposalComponent implements OnInit {
     });
 
     this.previouspolicy = this.fb.group({
-      preflag: ['', Validators.required],
+      // preflag: ['', Validators.required],
       // preName: ['', Validators.required],
       // preNamevalue: '',
       prepolno: '',
@@ -203,9 +203,9 @@ export class CarTataaigProposalComponent implements OnInit {
     console.log(poldate,'poldate');
     this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
     console.log(this.poldate, 'policy date');
-    if (this.enquiryFormData.business_type != '1') {
-      this.previouspolicy.controls['preflag'].patchValue('Y');
-    }
+    // if (this.enquiryFormData.business_type != '1') {
+    //   this.previouspolicy.controls['preflag'].patchValue('Y');
+    // }
     if (this.premium != 'Comprehensive_premium') {
       this.vehicle.controls['package'].patchValue('ODD01');
     }
@@ -347,6 +347,14 @@ export class CarTataaigProposalComponent implements OnInit {
 
   proposerpincodeListFailure(error) {
 
+  }
+
+  choosegen() {
+    if(this.proposer.controls['proposerTitle'].value == 'Mr.') {
+      this.proposer.controls['proposerGender'].patchValue('MALE');
+    }else if(this.proposer.controls['proposerTitle'].value == 'Mrs.' || this.proposer.controls['proposerTitle'].value == 'Miss.' ) {
+      this.proposer.controls['proposerGender'].patchValue('FEMALE');
+    }
   }
 
 //Proposer GenderList
@@ -798,7 +806,7 @@ export class CarTataaigProposalComponent implements OnInit {
     if (sessionStorage.tatacarprepolicy != '' && sessionStorage.tatacarprepolicy != undefined) {
       this.getstepper3 = JSON.parse(sessionStorage.tatacarprepolicy);
       this.previouspolicy = this.fb.group({
-        preflag: this.getstepper3.preflag,
+        // preflag: this.getstepper3.preflag,
         // preName: this.getstepper3.preName,
         // preNamevalue:  this.getstepper3.preNamevalue,
         prepolno: this.getstepper3.prepolno,
@@ -860,7 +868,7 @@ export class CarTataaigProposalComponent implements OnInit {
           "chassis_no": this.vehicle.controls['chassis'].value
         },
         "prevpolicy": {
-          "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == ''? 'N' : this.previouspolicy.controls['preflag'].value,
+          "flag": this.enquiryFormData.business_type == '1'? 'N' : 'Y',
           // "name":  this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
           "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
           "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,

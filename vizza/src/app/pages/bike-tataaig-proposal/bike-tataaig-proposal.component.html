@@ -16,7 +16,7 @@
                     <div class="row">
                       <div class="col-md-3" >
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Title" formControlName="proposerTitle" required>
+                          <mat-select placeholder="Title" formControlName="proposerTitle" (change)="choosegen()" required>
                             <mat-option value="Mr.">Mr.</mat-option>
                             <mat-option value="Mrs.">Mrs.</mat-option>
                             <mat-option value="Miss.">Miss.</mat-option>
@@ -69,13 +69,15 @@
                       </div>
                       <div class="col-md-3 mt-1">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"  maxlength="10" formControlName="proposerMobile" autocomplete="off">
+                          <input matInput placeholder="Mobile Number"  (keypress)="numberValidate($event)"  maxlength="10" formControlName="proposerMobile" autocomplete="off" required>
+                          <mat-error *ngIf="proposer.controls.proposerMobile.errors?.required">MobileNumber is required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerMobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Email ID"   formControlName="proposerEmail"  autocomplete="off">
+                          <input matInput placeholder="Email ID"   formControlName="proposerEmail"  autocomplete="off" required>
+                          <mat-error *ngIf="proposer.controls.proposerEmail.errors?.required">EmailId is required</mat-error>
                           <mat-error *ngIf="proposer.controls.proposerEmail.hasError('pattern')">Please Enter Correct Format</mat-error>
                         </mat-form-field>
                       </div>
@@ -322,15 +324,15 @@
                 <div class="row mt-1">
               <div class="col-md-12 box-card pt-3">
                 <div class="row">
-                  <div class="col-md-4" [ngStyle]="{'pointer-events':'none'}">
-                    <mat-form-field class="w-100">
-                      <mat-select  placeholder="Is there any rollover with previous policy?" formControlName="preflag" required>
-                        <mat-option value="Y">Yes</mat-option>
-                        <mat-option value="N">No</mat-option>
-                      </mat-select>
-                      <mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>
-                    </mat-form-field>
-                  </div>
+                  <!--<div class="col-md-4" [ngStyle]="{'pointer-events':'none'}">-->
+                    <!--<mat-form-field class="w-100">-->
+                      <!--<mat-select  placeholder="Is there any rollover with previous policy?" formControlName="preflag" required>-->
+                        <!--<mat-option value="Y">Yes</mat-option>-->
+                        <!--<mat-option value="N">No</mat-option>-->
+                      <!--</mat-select>-->
+                      <!--<mat-error *ngIf="previouspolicy.controls.preflag.errors?.required">Flag is Required</mat-error>-->
+                    <!--</mat-form-field>-->
+                  <!--</div>-->
                   <!--<div class="col-md-4" *ngIf="previouspolicy.controls['preflag'].value == 'Y'">-->
                     <!--<mat-form-field class="w-100">-->
                       <!--<mat-placeholder> Name <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>-->
@@ -341,7 +343,7 @@
                   <!--</div>-->
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
-                      <mat-placeholder> Policy No <span class="error" *ngIf="previouspolicy.controls['preflag'].value == 'Y'"> * </span></mat-placeholder>
+                      <mat-placeholder> Policy No <span class="error" *ngIf="this.enquiryFormData.business_type != '1'"> * </span></mat-placeholder>
                       <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="6">
                     </mat-form-field>
                   </div>
@@ -541,7 +543,7 @@
                   <div class="col-md-6">
                     <div class="p-3 mt-2">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item"><strong>Is there any rollover with previous policy?:</strong><span *ngIf="previousFormData.preflag == 'Y'">Yes</span></li>
+                        <li class="list-group-item"><strong>Is there any rollover with previous policy?:</strong><span *ngIf="enquiryFormData.business_type != '1'">Yes</span></li>
                         <li class="list-group-item"><strong>POLICY NO:</strong> {{previousFormData.prepolno}}</li>
                       </ul>
                     </div>
