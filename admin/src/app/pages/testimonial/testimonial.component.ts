@@ -60,7 +60,7 @@ export class TestimonialComponent implements OnInit {
               public config: ConfigurationService, public common: CommonService, public doctorService: DoctorsService, public branchservice: BranchService) {
     this.settings = this.appSettings.settings;
     // this.settings.loadingSpinner = true;
-    this.roleId = this.auth.getAdminId();
+    this.roleId = this.auth.getAdminRoleId();
     this.webhost = this.config.getimgUrl();
     this.filters = 'No';
     this.tabStatus = '0';

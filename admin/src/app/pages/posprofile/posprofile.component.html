@@ -59,14 +59,14 @@
                         cloud_off
                     </i> &nbsp; No Pan Card</p>
                 </div>
-                <div class="col-md-6" *ngIf="posData.doc_pan_img != '' && roleId == '1'" >
-                    <div class="text-left">
+                <div class="col-md-6" >
+                    <div class="text-left" *ngIf="roleId == '1'">
                         <mat-checkbox [(ngModel)]="isAlreadyAgent" >Already a Agent</mat-checkbox>
                     </div>
-                    <div class="text-left">
+                    <div class="text-left" *ngIf="roleId == '1'">
                         <mat-checkbox [(ngModel)]="panImage" >Pan Image</mat-checkbox>
                     </div>
-                    <img style="width: 250px; height: 150px;" src="{{webhost  +'/'+ posData.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
+                    <img style="width: 250px; height: 150px;"  *ngIf="posData.doc_pan_img != ''" src="{{webhost  +'/'+ posData.doc_pan_img}}" class="float-left img-thumbnail" (click)="viewImage(posData.doc_pan_img, 'Pan Card')">
                 </div>
             </div>
         </mat-expansion-panel>

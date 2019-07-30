@@ -111,7 +111,7 @@ export class PosprofileComponent implements OnInit {
 
     constructor(public route: ActivatedRoute, public datepipe: DatePipe, public auth: AuthService, public doctorService: DoctorsService, private toastr: ToastrService, public router: Router, public authService: AuthService,
                 public appSettings: AppSettings, public common: CommonService, public config: ConfigurationService, public dialog: MatDialog) {
-        this.roleId = this.auth.getAdminId();
+        this.roleId = this.auth.getAdminRoleId();
         this.physical = [];
         this.fileDetails = [];
         this.online = [];
