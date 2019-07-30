@@ -418,18 +418,9 @@ export class TravelRelianceProposalComponent implements OnInit {
             'SufferingSince': '',
             'PreExistingMC': ''
         };
+        this.totalInsureChildDetails = [];
 
-        this.totalInsureChildDetails = [{
-            'ChildName': '',
-            'ChildRelationID': '',
-            'DOB': '',
-            'PassportNo': '',
-            'NomineeName': '',
-            'NomineeRelationshipID': '',
-            'IsUnderMedication': 'false',
-            'PreExistingMC': '',
-            'SufferingSince': ''
-        }];
+
 
     }
 
@@ -675,6 +666,20 @@ export class TravelRelianceProposalComponent implements OnInit {
                     })
                 }
             }
+            if(this.totalInsureChildDetails == '') {
+                this.totalInsureChildDetails.push({
+                    'ChildName': '',
+                    'ChildRelationID': '',
+                    'DOB': '',
+                    'PassportNo': '',
+                    'NomineeName': '',
+                    'NomineeRelationshipID': '',
+                    'IsUnderMedication': 'false',
+                    'PreExistingMC': '',
+                    'SufferingSince': ''
+                });
+            }
+
             //age validation
             let ageValidate = [];
             for (let i = 0; i < this.insurerData.length; i++) {

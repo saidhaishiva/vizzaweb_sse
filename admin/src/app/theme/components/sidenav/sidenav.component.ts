@@ -30,7 +30,7 @@ export class SidenavComponent implements OnInit {
   }
 
     updateSideMenu(router) {
-        this.roleId = this.auth.getAdminId();
+        this.roleId = this.auth.getAdminRoleId();
         console.log(this.roleId, 'ifddddddd');
         if (this.roleId == '2') {
             console.log( 'inn');
