@@ -38,12 +38,14 @@ export class TravelViewKeyFeaturesComponent implements OnInit {
     getUrl: any;
     url: any;
     fileUploadPath: any;
+    plan_name: any;
     productName: any;
     travelType: any;
 
     constructor(public dialogRef: MatDialogRef<TravelViewKeyFeaturesComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: any, public auth: AuthService,public appSettings: AppSettings, public config: ConfigurationService, public common: CommonService, public travel: TravelService, public fb: FormBuilder, public toastr: ToastrService) {
         this.settings = this.appSettings.settings;
+        this.plan_name = data.plan_name;
         this.productName = data.planName;
         this.travelType = data.type;
         this.productId = data.product_id;
@@ -118,6 +120,7 @@ export class TravelViewKeyFeaturesComponent implements OnInit {
             'roleid': this.auth.getPosRoleId() ? this.auth.getPosRoleId() : 4,
             'pos_status': this.auth.getPosStatus() ? this.auth.getPosStatus() : 0,
             'plan_id': value,
+            'plan_name': this.plan_name != '' ? this.plan_name : '',
             'productid': this.productId,
             'type': this.travelType
 

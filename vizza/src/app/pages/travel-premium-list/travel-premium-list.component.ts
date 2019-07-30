@@ -556,7 +556,7 @@ export class TravelPremiumListComponent implements OnInit {
     viewKeyList(value) {
         console.log(value, 'valuevaluevaluevalue');
         let dialogRef = this.dialog.open(TravelViewKeyFeaturesComponent, {
-            width: '1500px', data:{ planName: value.plan_name, type: value.travel_user_type, product_id: value.product_id }
+            width: '1500px', data:{ planName: value.plan_name, type: value.travel_user_type, product_id: value.product_id, plan_name: value.plan_name1 }
         });
         dialogRef.disableClose = true;
 

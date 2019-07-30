@@ -729,7 +729,14 @@ export class EdelweissTermLifeComponent implements OnInit {
           }
         }
       }
-      sessionStorage.appointeeAge = this.getAge;
+      if ( i == 0) {
+        sessionStorage.appointeeAge = this.getAge;
+      } else {
+        sessionStorage.appointeeAge2 = this.getAge;
+      }
+      console.log(sessionStorage.appointeeAge2,'hgklddjkdhbjvn');
+
+
 
     }
   }
@@ -776,15 +783,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         nomineeForm.removeAt(1);
     }
 
-  // ageNominee(event,i) {
-  //   if (sessionStorage.nomineeAge <= 18) {
-  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true;
-  //     console.log(this.showAppointee,'cccccc')
-  //   } else {
-  //     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == false;
-  //
-  //   }
-  // }
+
 
 
   // Personal Details
@@ -833,10 +832,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.nomineeDetail.get('itemsNominee')['controls'].length,'length');
 
     // nomineeAge validate
-    let nomineeValid = true;
+    let nomineeValid = false;
     if (sessionStorage.nomineAge != '' && sessionStorage.nomineAge != undefined) {
       if (sessionStorage.nomineAge <= 18) {
-        nomineeValid = false;
+        nomineeValid = true;
       }
     }
     // appointeeAge validatate
@@ -844,6 +843,12 @@ export class EdelweissTermLifeComponent implements OnInit {
     if (sessionStorage.appointeeAge != '' && sessionStorage.appointeeAge != undefined) {
       if (sessionStorage.appointeeAge >= 18) {
         appointeeAge = true;
+      }
+    }
+    let appointeeAge2 = false;
+    if (sessionStorage.appointeeAge2 != '' && sessionStorage.appointeeAge2 != undefined ){
+      if ( sessionStorage.appointeeAge2 >=18 ) {
+        appointeeAge2 = true;
       }
     }
 
@@ -860,29 +865,17 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(nominee2ageval, 'nominee2ageval');
     console.log(nomineeValid, 'nomineeVLID');
     if (this.nomineeDetail.controls.itemsNominee.valid) {
-        if (nomineeValid==false) {
-          // if (nominee2ageval == false) {
-            if (appointeeAge == true) {
-              // for (let i = 0; i < this.nomineeDetail.get('itemsNominee')['controls'].length; i++) {
-              //   // if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.value != '' && this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.value != '' && this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.value != '' && this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.value != '') {
+
+            if ( appointeeAge == true && appointeeAge2 == true) {
+
+
                   stepper.next();
                   this.topScroll();
-              //   } else {
-              //     this.toastr.error('Please fill the Appointee Details');
-              //   }
-              // }
+
             } else {
               this.toastr.error('Appointee Age should be greater than 18.');
             }
-          // } else {
-          //   this.toastr.error('Nominee Age should be greater than 18.');
-          //
-          // }
 
-        } else {
-          stepper.next();
-          this.topScroll();
-        }
 
 
     }
@@ -895,19 +888,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log( sessionStorage.stepper4Details);
     if (this.bankDetail.valid) {
       console.log(this.bankDetail.valid,'bankDetailvalid')
-      // if (this.bankDetail.controls.existingInsurance.valid) {
         this.proposal(stepper);
-      // }
-      // for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
-      //         console.log('ssssssss')
-      //         if (i != 0) {
-      //         }
-      //   if ((this.bankDetail.controls['existingInsuranceInd'].value == true) && (this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.value != null && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.value != null && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].yearOfIssue.value != '' && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value != null && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value != null && this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value != null)) {
-      //     this.proposal(stepper);
-      //   } else {
-      //     this.toastr.error('Please fill the Existing Insurance Details');
-      //   }
-      // }
+
     }
   }
   staffChange() {
