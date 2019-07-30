@@ -267,7 +267,7 @@ export class TermLifePremiumListComponent implements OnInit {
                             this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                         } else if (value.product_id == 87 ) {
                             this.router.navigate(['/aegon-term-life'  + '/' + false]);
-                        } else if (value.product_id == 92 ) {
+                        } else if (value.product_id == 111 || value.product_id == 112 ) {
                             this.router.navigate(['/edelweiss-term-life'  + '/' + false]);
                         }
                     } else {
@@ -301,7 +301,7 @@ export class TermLifePremiumListComponent implements OnInit {
                     this.router.navigate(['/life-bajaj-proposal'  + '/' + false]);
                 } else if (value.product_id <= 87 && value.product_id >=86) {
                     this.router.navigate(['/aegon-term-life'  + '/' + false]);
-                } else if (value.product_id == 92 ) {
+                } else if (value.product_id == 111 || value.product_id == 112) {
                     this.router.navigate(['/edelweiss-term-life'  + '/' + false]);
                 }
             } else {
