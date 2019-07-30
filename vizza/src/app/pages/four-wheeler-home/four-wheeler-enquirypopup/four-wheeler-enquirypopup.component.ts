@@ -51,6 +51,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public options : any;
   public config : any;
   public rto : any;
+  public citySettings : any;
   public getDays : any;
   public CityValid : boolean;
   constructor(public fb: FormBuilder, public fwService: FourWheelerService, public router: Router, public datePipe: DatePipe, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService,
@@ -86,8 +87,44 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
       limitTo: 5
     };
 
-  this.CityValid = false;
-  }
+  // this.CityValid = false;
+  //   this.citySettings = {
+  //     singleSelection: false,
+  //     text: 'Select Speciality',
+  //     selectAllText: 'Select All',
+  //     unSelectAllText: 'UnSelect All',
+  //     enableSearchFilter: true,
+  //     classes: 'myclass custom-class',
+  //     noDataLabel: 'Speciality not found'
+  //   };
+
+
+}
+
+  // onItemSelect(item: any) {
+  //   if (this.selectedQualification.length > 0) {
+  //     this.qualificationError = '';
+  //   } else {
+  //     this.qualificationError = 'Qualification is Required';
+  //   }
+  // }
+  //
+  // OnItemDeSelect(item: any) {
+  //   // console.log(this.selectedItems);
+  //   if (this.selectedQualification.length > 0) {
+  //     this.qualificationError = '';
+  //   } else {
+  //     this.qualificationError = 'Qualification is Required';
+  //   }
+  // }
+  //
+  // onSelectAll(items: any) {
+  //   if (this.selectedQualification.length > 0) {
+  //     this.qualificationError = '';
+  //   } else {
+  //     this.qualificationError = 'Qualification is Required';
+  //   }
+  // }
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
     // this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
