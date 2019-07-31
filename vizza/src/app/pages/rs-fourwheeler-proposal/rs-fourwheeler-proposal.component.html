@@ -482,7 +482,7 @@
                                         <div class="row">
 
                                             <div class="col-md-6 mt-3" >
-                                                <mat-checkbox  formControlName="coverelectricalaccesss" (change)="eleAccess()" (change)="eleAccessReq()">Cover Electrical Accessories</mat-checkbox>
+                                                <mat-checkbox  formControlName="coverelectricalaccesss"  (change)="eleAccessReq()">Cover Electrical Accessories</mat-checkbox>
                                             </div>
                                         </div>
 
@@ -517,7 +517,7 @@
                                         <div class="row">
 
                                             <div class="col-md-6 mt-2">
-                                                <mat-checkbox  formControlName="cover_non_elec_acc"  (change)="noneleAccess()" (change)="noneleAccessReq()" >Cover Non Electrical Accessories</mat-checkbox>
+                                                <mat-checkbox  formControlName="cover_non_elec_acc"   (change)="noneleAccessReq()" >Cover Non Electrical Accessories</mat-checkbox>
                                             </div>
                                         </div>
                                         <div *ngIf="vehical.controls['cover_non_elec_acc'].value == true">
@@ -860,7 +860,7 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="item.nameOfElectronicAccessories != '' || item.nameOfElectronicAccessories != null"><strong> Name Of Electronic Accessories:</strong> {{item.nameOfElectronicAccessories}}</li>
                                             <li class="list-group-item" *ngIf="item.makeModel != '' || item.makeModel != null"><strong>Make Model:</strong> {{item.makeModel}}</li>
-                                            <li class="list-group-item" *ngIf="item.elecValue != '' || item.elecValue != null"><strong>Value:</strong> {{item.elecValue}}</li>
+                                            <li class="list-group-item" *ngIf="item.elecValue != '' || item.elecValue != null || item.elecValue != 'err'"><strong>Value:</strong> {{item.elecValue}}</li>
                                         </ul>
                                     </div>
                                 </div>
@@ -872,7 +872,7 @@
                                         <ul class="m-0 list-group">
                                             <li class="list-group-item" *ngIf="item.nameOfElectronicAccessories != '' || item.nameOfElectronicAccessories != null"><strong> Name Of Non Electronic Accessories:</strong> {{item.nameOfElectronicAccessories}}</li>
                                             <li class="list-group-item" *ngIf="item.makeModel != '' || item.makeModel != null"><strong>  Make Model:</strong> {{item.makeModel}}</li>
-                                            <li class="list-group-item" *ngIf="item.elecValue != '' || item.elecValue != null"><strong>Value:</strong> {{item.elecValue}}</li>
+                                            <li class="list-group-item" *ngIf="item.elecValue != '' || item.elecValue != null || item.elecValue != 'err'"><strong>Value:</strong> {{item.elecValue}}</li>
                                         </ul>
                                     </div>
                                 </div>
