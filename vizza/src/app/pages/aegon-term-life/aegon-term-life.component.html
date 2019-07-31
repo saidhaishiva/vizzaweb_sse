@@ -542,7 +542,7 @@
 
                             <div class="col-md-3" *ngIf=" nominee.controls.aRelation.value == 'Other'">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Relationship with Other" formControlName="appointeeRelationOther"  autocomplete="off" >
+                                <input matInput placeholder="Relationship with Other" formControlName="appointeeRelationOther"  autocomplete="off" (keypress)="nameValidate($event)">
                                 <!--<mat-error *ngIf="nominee.controls.appointeeRelationOther.errors?.required">Relationship with Other is required</mat-error>-->
                               </mat-form-field>
                             </div>
@@ -720,7 +720,7 @@
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                             <li class="list-group-item" *ngIf="nomineeFormData.aRelation != ''"><strong>Relationship:</strong> {{nomineeFormData.aRelation}}</li>
-                            <li class="list-group-item" *ngIf="nomineeFormData.appointeeRelationOther != ''"><strong> Relationship with Other:</strong> {{nomineeFormData.appointeeRelationOther}}</li>
+                            <li class="list-group-item" *ngIf="nomineeFormData.appointeeRelationOther != ''"><strong> Relationship with Other:</strong>{{nomineeFormData.appointeeRelationOther}}</li>
                           </ul>
                         </div>
                       </div>

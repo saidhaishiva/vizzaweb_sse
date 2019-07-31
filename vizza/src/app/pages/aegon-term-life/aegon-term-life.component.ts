@@ -94,7 +94,9 @@ export class AegonTermLifeComponent implements OnInit {
   public sum_insure: any;
   public empTypeList: any;
   public premiumData: any;
+  public annualData: any;
   public errorMsg: any;
+  public errAnnual: any;
 
   public keyUp = new Subject<string>();
 
@@ -732,7 +734,7 @@ export class AegonTermLifeComponent implements OnInit {
 
     }
   }
-3
+
   // NEXT BUTTON
 
   public personalDetails(stepper: MatStepper, value) {
@@ -744,12 +746,17 @@ export class AegonTermLifeComponent implements OnInit {
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
         if( this.personal.controls['criticalIllnessError'].value == ''){
-          if(this.premiumData){
-            stepper.next();
-            this.topScroll();
+          if(this.annualData) {
+            if (this.premiumData) {
 
-          } else {
-            this.toastr.error(this.errorMsg);
+              stepper.next();
+              this.topScroll();
+
+            } else {
+              this.toastr.error(this.errorMsg);
+            }
+          }else {
+            this.toastr.error(this.errAnnual);
           }
 
         }else{
@@ -1118,10 +1125,12 @@ export class AegonTermLifeComponent implements OnInit {
     }
              public getAnnuallistSuccess(successData){
                 if (successData.IsSuccess) {
+                  this.annualData = true;
                  this.annualList = successData.ResponseObject;
         }else
           {
-            this.toastr.error(successData.ErrorObject);
+            this.annualData = false;
+            this.errAnnual= successData.ErrorObject;
           }
     }
 
@@ -1298,9 +1307,7 @@ export class AegonTermLifeComponent implements OnInit {
     }
 
     if (sessionStorage.citynList != '' && sessionStorage.citynList != undefined) {
-      console.log('gjafdjhasfdyhf')
       this.citynList = JSON.parse(sessionStorage.citynList);
-      console.log(this.citynList , 'this.citynList')
     }
     if (sessionStorage.empTypeList != '' && sessionStorage.empTypeList != undefined) {
       this.empTypeList = JSON.parse(sessionStorage.empTypeList);
