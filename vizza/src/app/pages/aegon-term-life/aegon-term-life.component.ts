@@ -64,6 +64,8 @@ export class AegonTermLifeComponent implements OnInit {
   public premiumList: any;
   public getEnquiryDetials: any;
   public enquiryFromDetials: any;
+  public allProductLists: any;
+
   public proposerFormData: any;
   public nomineeFormData: any;
   public occupationList: any;
@@ -91,6 +93,9 @@ export class AegonTermLifeComponent implements OnInit {
   public apponiteeList: boolean;
   public sum_insure: any;
   public empTypeList: any;
+  public premiumData: any;
+  public errorMsg: any;
+
   public keyUp = new Subject<string>();
 
 
@@ -132,7 +137,7 @@ export class AegonTermLifeComponent implements OnInit {
         .subscribe((data) => {
           console.log(data, 'data');
           this.getAnnual();
-          this.getPremium();
+
         });
 
     const observable1 = this.keyUp
@@ -165,11 +170,11 @@ export class AegonTermLifeComponent implements OnInit {
       annualIncome: ['', Validators.required],
       incomeError: '',
       smoker: ['', Validators.required],
-      isExistingPolicyHolder: ['', Validators.required],
-      isPoliticleExposed: ['', Validators.required],
+      isExistingPolicyHolder:'NO',
+      isPoliticleExposed: 'NO',
       diabeteDuration: '',
-      isHousewife: ['', Validators.required],
-      isHusbandCover: ['', Validators.required],
+      isHousewife: 'No',
+      isHusbandCover: 'No',
       email: ['', Validators.compose([Validators.required, Validators.pattern('^(([^<>()[\\]\\\\.,;:\\s@\\\"]+(\\.[^<>()[\\]\\\\.,;:\\s@\\\"]+)*)|(\\\".+\\\"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$')])],
       mobile: ['', Validators.compose([Validators.required, Validators.pattern('[6789][0-9]{9}')])],
       pAddress1: ['', Validators.required],
@@ -234,8 +239,10 @@ export class AegonTermLifeComponent implements OnInit {
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+    console.log(this.lifePremiumList, 'this.lifePremiumList')
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+
     // if(){
     //     this.personal.controls['adbrSumAssured'].patchValue(this.lifePremiumList.sum_insured_amount);
     // } else {
@@ -248,7 +255,7 @@ export class AegonTermLifeComponent implements OnInit {
     this.getState();
     this.checkSum();
     this.checkSumAs();
-    this.getPremium();
+    // this.getPremium();
 
     this.getAppointeeRelation();
     // this.getoccupationlist();
@@ -725,7 +732,7 @@ export class AegonTermLifeComponent implements OnInit {
 
     }
   }
-
+3
   // NEXT BUTTON
 
   public personalDetails(stepper: MatStepper, value) {
@@ -737,9 +744,13 @@ export class AegonTermLifeComponent implements OnInit {
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
         if( this.personal.controls['criticalIllnessError'].value == ''){
+          if(this.premiumData){
+            stepper.next();
+            this.topScroll();
 
-          stepper.next();
-          this.topScroll();
+          } else {
+            this.toastr.error(this.errorMsg);
+          }
 
         }else{
           this.toastr.error("Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA");
@@ -1060,11 +1071,24 @@ export class AegonTermLifeComponent implements OnInit {
 
   public premiumSuccess(successData) {
     if (successData.IsSuccess) {
+       this.premiumData = true;
       this.premiumList = successData.ResponseObject;
+      this.lifePremiumList.adbrPremium = this.premiumList.adbrPremium;
+      this.lifePremiumList.dethBenefit = this.premiumList.dethBenefit;
+      this.lifePremiumList.eCiPremium = this.premiumList.eCiPremium;
+      this.lifePremiumList.baseCiPremium = this.premiumList.baseCiPremium;
+      this.lifePremiumList.wopPremium = this.premiumList.wopPremium;
+      this.lifePremiumList.total = this.premiumList.total;
+      console.log(this.premiumList, 'this.premiumList')
+      console.log(this.lifePremiumList, 'this.lifePremiumList')
+    }else{
+     this.premiumData = false;
+     this.errorMsg = successData.ErrorObject;
     }
 
   }
   public premiumFailure(error) {
+
   }
 
 
