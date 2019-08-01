@@ -137,7 +137,7 @@
                         <div class="col-md-4">
                             <p>Staff</p>
                             <mat-radio-group formControlName="isStaff" (change)="staffChange()">
-                                <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
+                                <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                 <mat-radio-button value="No">No</mat-radio-button>
                             </mat-radio-group>
                         </div>
@@ -695,6 +695,7 @@
                                </mat-form-field>
                            </div>
                            </div>
+
                        <div class="row p-3">
                            <div class="col-md-12 ">
                                <h6 class="color-blue">LIFESTYLE DETAILS</h6>
@@ -721,10 +722,188 @@
                            <mat-error *ngIf="insureArray.controls.weight.errors?.required">weight is required</mat-error>
                            </mat-form-field>
                            </div>
-
-
-
+                           <div class="col-md-4">
+                               <mat-radio-group formControlName="planOption" >
+                                   <p>Plan Option</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
                        </div>
+
+                           <div class="row p-3">
+                               <div class="col-md-12">
+                                   <h6 class="color-blue">ADDON</h6>
+                               </div>
+
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="workSiteFlag" >
+                                       <p>WorkSite Flag</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <input matInput placeholder="Investment Strategy" formControlName="investmentStrategy" maxlength="50" autocomplete="off" required  >
+                                       <mat-error *ngIf="insureArray.controls.investmentStrategy.errors?.required">Investment Strategy is required</mat-error>
+                                   </mat-form-field>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="risingStar" >
+                                       <p>Rising Star</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+
+                           <div class="col-md-4">
+                               <mat-form-field class="w-100">
+                                   <mat-select  placeholder="Policy Option" formControlName="policyOption" (change)="getPolicyOption()"  class="w-100" required>
+                                       <mat-option *ngFor="let list of epolicyOption | keys" [value]= list.key> {{list.value}} </mat-option>
+                                   </mat-select>
+                                   <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-4">
+                               <mat-form-field class="w-100">
+                                   <input matInput placeholder="additionalBenefit" formControlName="additionalBenefit" maxlength="50" autocomplete="off" required  >
+                                   <mat-error *ngIf="insureArray.controls.additionalBenefit.errors?.required">additionalBenefit is required</mat-error>
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-4">
+                               <mat-radio-group formControlName="TopUpBenefit" (change)="isTopUpBenefit()" >
+                                   <p>Top Up Benefit</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-4 " *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Top Up Benefit Percentage<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="topUpBenefitPercentage"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-4 " *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Top Up Rate<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="topUpRate"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-4">
+                               <mat-radio-group formControlName="betterHalfBenefit" (change)="isbetterHalfBenefit()" >
+                                   <p>Better Half Benefit</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-4">
+                           <mat-radio-group formControlName="waiverOfPremiumBenefit" >
+                               <p>Waiver Of Premium Benefit</p>
+                               <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                               <mat-radio-button value="No">No</mat-radio-button>
+                           </mat-radio-group>
+                           </div>
+                           <div class="col-md-4">
+                               <mat-radio-group formControlName="criticalIllness" (change)="iscriticalIllness()" >
+                                   <p>Critical Illness</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-4 " *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="criticalsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-4">
+                               <mat-radio-group formControlName="isADB" (change)="isDeathBenefit()" >
+                                   <p>Accidental Death Benefit</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-4 " *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-4">
+                               <mat-radio-group formControlName="isATPD" (change)="isAccidentalTotal()" >
+                                   <p>Accidental Total and Permanent Disability</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-4 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="sumAssuredATPD"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-4">
+                               <mat-radio-group formControlName="isHCB" (change)="isHospitalCash()" >
+                                   <p>Hospital Cash Benefit</p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-4 " *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="sumAssuredHCB"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                               </mat-form-field>
+                           </div>
+                         </div>
+
+
+                           <div class="row p-3">
+                               <div class="col-md-12">
+                                   <h6 class="color-blue">DEATH BENEFIT OPTIONS</h6>
+                               </div>
+
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <mat-select  placeholder="Payout Option" formControlName="payoutOption" (change)="getpayoutOption()"  class="w-100" required>
+                                           <mat-option *ngFor="let list of epayoutOption | keys" [value]= list.key> {{list.value}} </mat-option>
+                                       </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>
+                                   </mat-form-field>
+                               </div>
+                               <!--<div class="col-md-4">-->
+                                   <!--<mat-form-field class="w-100">-->
+                                       <!--<input matInput placeholder="lumpsumProportion" formControlName="lumpsumProportion" maxlength="50" autocomplete="off" required  >-->
+                                       <!--<mat-error *ngIf="insureArray.controls.lumpsumProportion.errors?.required">lumpsumProportion is required</mat-error>-->
+                                   <!--</mat-form-field>-->
+                               <!--</div>-->
+                               <!--<div class="col-md-4">-->
+                                   <!--<mat-form-field class="w-100">-->
+                                       <!--<input matInput placeholder="monthlyIncomeOption" formControlName="monthlyIncomeOption" maxlength="50" autocomplete="off" required  >-->
+                                       <!--<mat-error *ngIf="insureArray.controls.monthlyIncomeOption.errors?.required">monthlyIncomeOption is required</mat-error>-->
+                                   <!--</mat-form-field>-->
+                               <!--</div>-->
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <input matInput placeholder="Payout Percentage Income" formControlName="payoutPercentageIncome" maxlength="20" (keypress)="numberValidate($event)" autocomplete="off" required  >
+                                       <mat-error *ngIf="insureArray.controls.payoutPercentageIncreasingIncome.errors?.required">payoutPercentageIncreasingIncome is required</mat-error>
+                                   </mat-form-field>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <input matInput placeholder="No Of Months" formControlName="noOfMonths" (keypress)="numberValidate($event)" maxlength="5" autocomplete="off" required  >
+                                       <mat-error *ngIf="insureArray.controls.noOfMonths.errors?.required">noOfMonths is required</mat-error>
+                                   </mat-form-field>
+                               </div>
+
+                           </div>
 
                        <div class="row p-3">
                            <div class="col-md-12">
@@ -902,18 +1081,13 @@
                            <div class="col-md-4">
                                <mat-form-field class="w-100">
                                    <input matInput placeholder="Other Health Information" formControlName="healthInformation" maxlength="50" autocomplete="off" required  >
-                                   <!--<mat-error *ngIf="medicalDetail.controls.healthInformation.errors?.required">Other Health Information is required</mat-error>-->
+                                   <mat-error *ngIf="medicalDetail.controls.healthInformation.errors?.required">Other Health Information is required</mat-error>
                                </mat-form-field>
                            </div>
 
-                           <!--<div class="row">-->
+                           <div class="row p-3">
+                               <div class="col-md-12 ">
 
-                               <!--<div class="col-md-6 mt-3" >-->
-                                   <!--<mat-checkbox  formControlName="existingInsuranceInd"  (change)="existingInsureReq()">Existing Insurance</mat-checkbox>-->
-                               <!--</div>-->
-                           <!--</div>-->
-
-                           <!--<div *ngIf="bankDetail.controls['existingInsuranceInd'].value == true">-->
                                <div  formArrayName="medicalQuestions" *ngFor="let item of medicalDetail.get('medicalQuestions')['controls']; let i = index;">
                                    <div class="row" [formGroupName]="i">
                                        <div class="col-md-4">
@@ -924,12 +1098,12 @@
                                        </div>
                                        <div class="col-md-4">
                                            <mat-form-field class="w-100">
-                                               <input matInput [matDatepicker]="picker5" [max]="minDate"  placeholder="Date Diagnois (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datediagnois" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" autocomplete="off" maxlength="10" minlength="10" required>
+                                               <input matInput [matDatepicker]="picker5" [max]="minDate"  placeholder="Date Diagnois (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datediagnois" (dateInput)="addEventMedical($event,i,'medical')" (dateChange)="addEventMedical($event,i,'medical')" autocomplete="off" maxlength="10" minlength="10" required>
                                                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
                                                <mat-datepicker #picker5></mat-datepicker>
                                                <!--<mat-error *ngIf="medicalDetail.invalid">Diagnois Date is required</mat-error>-->
                                            </mat-form-field>
-                                           <!--<p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].nomineeDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].nomineeDobValidError.value}}</p>-->
+                                           <!--<p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.value}}</p>-->
                                        </div>
                                        <div class="col-md-4">
                                            <mat-form-field class="w-100">
@@ -952,12 +1126,12 @@
                                        </div>
                                        <div class="col-md-4">
                                            <mat-form-field class="w-100">
-                                               <input matInput [matDatepicker]="picker6" [max]="minDate"  placeholder="Follow Up Date (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datefollowup" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" autocomplete="off" maxlength="10" minlength="10" required>
+                                               <input matInput [matDatepicker]="picker6" [max]="minDate"  placeholder="Follow Up Date (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="datefollowup" (dateInput)="addEventMedical($event,i,'medicalfollowup')" (dateChange)="addEventMedical($event,i,'medicalfollowup')" autocomplete="off" maxlength="10" minlength="10" required>
                                                <mat-datepicker-toggle matSuffix [for]="picker6"></mat-datepicker-toggle>
                                                <mat-datepicker #picker6></mat-datepicker>
                                                <!--<mat-error *ngIf="nomineeDetail.invalid">Follow Up Date is required</mat-error>-->
                                            </mat-form-field>
-                                           <!--<p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].nomineeDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].nomineeDobValidError.value}}</p>-->
+                                           <!--<p class="error mb-0" *ngIf="medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value != ''">{{medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.value}}</p>-->
                                        </div>
                                        <div class="col-md-4">
                                            <mat-form-field class="w-100">
@@ -976,14 +1150,14 @@
                                        <button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeMedItems(i)">-</button>
                                    </div>
                                </div>
-                           <!--</div>-->
-
-
+                           </div>
+                           </div>
+                       </div>
                            <div class="proposal-buttom mt-3 text-right w-100">
                                <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
                                <button mat-raised-button color="primaryBlue" (click)="medicalDetails(stepper, medicalDetail.value)">Next</button>
                            </div>
-                       </div>
+
                        </mat-expansion-panel>
                    </form>
                </mat-accordion>
