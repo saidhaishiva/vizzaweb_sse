@@ -281,56 +281,13 @@
                         </div>
                       </div>
                     </div>
-                    <!--<div class="row">-->
-                      <!--<div class="col-md-12">-->
-                        <!--<h6 class="color-blue">ADDON</h6>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Death Benefit SA" formControlName="deathBenefitSA" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)"  (change)="checkSum()" readonly>-->
-                          <!--<mat-error *ngIf="personal.controls.deathBenefitSA.errors?.required">Death Benefit SA is required</mat-error>-->
-                          <!--&lt;!&ndash;<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />&ndash;&gt;-->
-
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' && lifePremiumList.benefit_option == 'LP'&& lifePremiumList.benefit_option == 'LH' && lifePremiumList.benefit_option == 'LHP'">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Death Benefit TISA" formControlName="deathBenefitTISA" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)" (change)="checkSumAs()" readonly>-->
-                          <!--<mat-error *ngIf="personal.controls.deathBenefitTISA.errors?.required">Death Benefit TISA is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Accidental Death Benefit (Minimum 50000)" formControlName="adbrSumAssured" maxlength="8" autocomplete="off" required (keypress)="numberValidate($event)" (keyup)="validateAccidental($event)" >-->
-                          <!--<mat-error *ngIf="personal.controls.adbrSumAssured.errors?.required">Accidental Death Benefit is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                        <!--<div class="color" *ngIf="annualError != ''">{{annualError}}</div>-->
-
-                      <!--</div>-->
-                      <!--<div class="col-md-5" *ngIf="lifePremiumList.benefit_option == 'LHP'">-->
-                        <!--<mat-form-field class="w-100" >-->
-                          <!--<input matInput placeholder=" Enhanced Critical Illness Benefit (Lump Sum)" formControlName="enchancedCISA" maxlength="10" autocomplete="off" (keyup)="validateCriticalIllness('LHP')" required (keypress)="numberValidate($event)" >-->
-                          <!--<mat-error *ngIf="personal.controls.enchancedCISA.errors?.required">Enhanced Critical Illness Benefit (Lump Sum) is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                        <!--<div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>-->
-
-                      <!--</div>-->
-                      <!--<div class="col-md-5" *ngIf="lifePremiumList.benefit_option == 'LH'">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Basic Critical Illness Benefit (Lump Sum)" formControlName="icirSumAssured" maxlength="10" autocomplete="off" (keyup)="validateCriticalIllness('LH')" required (keypress)="numberValidate($event)" >-->
-                          <!--<mat-error *ngIf="personal.controls.icirSumAssured.errors?.required">Basic Critical Illness Benefit (Lump Sum) is required</mat-error>-->
-                        <!--</mat-form-field>-->
-                        <!--<div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>-->
-
-                      <!--</div>-->
-                      <!--</div>-->
 
 
                     <div class="col-md-12 box-card pt-3">
                       <div class="col-md-12">
                       <h6 class="color-blue">ADDON</h6>
                       </div>
-                      <div class="row">
+                      <div class="row addressBox " >
 
 
                         <div class="col-md-4">
@@ -347,34 +304,69 @@
                             <mat-error *ngIf="personal.controls.deathBenefitTISA.errors?.required">Death Benefit TISA is required</mat-error>
                           </mat-form-field>
                         </div>
-                        <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
+
+
+                        <div class="col-md-4">
+                        <p><strong>Premium</strong><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.dethBenefit}}</p>
+                        </div>
+
+                        </div>
+
+                      <div class="row addressBox" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
+                         <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Accidental Death Benefit (Minimum 50000)" formControlName="adbrSumAssured" maxlength="8" autocomplete="off" required (keypress)="numberValidate($event)" (keyup)="validateAccidental($event)" >
+                            <input matInput placeholder="Accidental Death Benefit (Minimum 50000)" formControlName="adbrSumAssured" maxlength="8" autocomplete="off" required (keypress)="numberValidate($event)" (keyup)="keyUp.next()" >
                             <mat-error *ngIf="personal.controls.adbrSumAssured.errors?.required">Accidental Death Benefit is required</mat-error>
                           </mat-form-field>
                           <div class="color" *ngIf="annualError != ''">{{annualError}}</div>
-
                         </div>
-                        <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LHP'">
+
+                        <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
+                          <p><strong>Premium</strong><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.adbrPremium}}</p>
+                        </div>
+                       </div>
+
+                      <div class="row addressBox" *ngIf="lifePremiumList.benefit_option == 'LHP'">
+                         <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LHP'">
                           <mat-form-field class="w-100" >
-                            <input matInput placeholder=" Enhanced Critical Illness Benefit (Lump Sum)" formControlName="enchancedCISA" maxlength="10" autocomplete="off"  required (keypress)="numberValidate($event) " >
+                            <input matInput placeholder=" Enhanced Critical Illness Benefit (Lump Sum)" formControlName="enchancedCISA" maxlength="10" autocomplete="off"  required (keypress)="numberValidate($event) " (keyup)="keyUp.next()">
                             <mat-error *ngIf="personal.controls.enchancedCISA.errors?.required">Enhanced Critical Illness Benefit (Lump Sum) is required</mat-error>
                           </mat-form-field>
                           <div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>
 
                         </div>
-                        <!--<div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LHP'">-->
-                          <!--<mat-form-field class="w-100" >-->
-                            <!--<p><strong>Wop Enhanced Critical Illness Benefit</strong><i class="fas fa-rupee-sign"></i>{{}}</p>-->
-                          <!--</mat-form-field>-->
-                        <!--</div>-->
+                        <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LHP'">
+                        <p><strong>Premium</strong><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.eCiPremium}}</p>
+
+                        </div>
+
+                      </div>
+                      <div class="row addressBox" *ngIf="lifePremiumList.benefit_option == 'LH'">
                         <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LH'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Basic Critical Illness Benefit (Lump Sum)" formControlName="icirSumAssured" maxlength="10" autocomplete="off" (keyup)="validateCriticalIllness('LH')" required (keypress)="numberValidate($event)" >
+                            <input matInput placeholder="Basic Critical Illness Benefit (Lump Sum)" formControlName="icirSumAssured" maxlength="10" autocomplete="off"  required (keypress)="numberValidate($event)" (keyup)="keyUp.next()" >
                             <mat-error *ngIf="personal.controls.icirSumAssured.errors?.required">Basic Critical Illness Benefit (Lump Sum) is required</mat-error>
                           </mat-form-field>
                           <div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>
-
+                        </div>
+                        <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LH'">
+                          <p><strong>Premium</strong><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.baseCiPremium}}</p>
+                        </div>
+                      </div>
+                      <div class="row addressBox" *ngIf = "lifePremiumList.benefit_option == 'LP'||lifePremiumList.benefit_option == 'LH'||lifePremiumList.benefit_option == 'LHP'">
+                        <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'LP'||lifePremiumList.benefit_option == 'LH'||lifePremiumList.benefit_option == 'LHP'">
+                          <p><strong>Wop Enhanced Critical Illness Benefit</strong></p>
+                        </div>
+                        <div class="col-md-4 ml-5" *ngIf = "lifePremiumList.benefit_option == 'LP'||lifePremiumList.benefit_option == 'LH'||lifePremiumList.benefit_option == 'LHP'">
+                          <p><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.wopPremium}}</p>
+                        </div>
+                      </div>
+                      <div class="row addressBox">
+                        <div class="col-md-4">
+                          <p><strong>Total Premium</strong></p>
+                        </div>
+                        <div class="col-md-4 ml-5">
+                          <p><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.total}}</p>
                         </div>
                       </div>
                     </div>
@@ -550,7 +542,7 @@
 
                             <div class="col-md-3" *ngIf=" nominee.controls.aRelation.value == 'Other'">
                               <mat-form-field class="w-100">
-                                <input matInput placeholder="Relationship with Other" formControlName="appointeeRelationOther"  autocomplete="off" >
+                                <input matInput placeholder="Relationship with Other" formControlName="appointeeRelationOther"  autocomplete="off" (keypress)="nameValidate($event)">
                                 <!--<mat-error *ngIf="nominee.controls.appointeeRelationOther.errors?.required">Relationship with Other is required</mat-error>-->
                               </mat-form-field>
                             </div>
@@ -728,7 +720,7 @@
                         <div class="col-md-12">
                           <ul class="m-0 list-group">
                             <li class="list-group-item" *ngIf="nomineeFormData.aRelation != ''"><strong>Relationship:</strong> {{nomineeFormData.aRelation}}</li>
-                            <li class="list-group-item" *ngIf="nomineeFormData.appointeeRelationOther != ''"><strong> Relationship with Other:</strong> {{nomineeFormData.appointeeRelationOther}}</li>
+                            <li class="list-group-item" *ngIf="nomineeFormData.appointeeRelationOther != ''"><strong> Relationship with Other:</strong>{{nomineeFormData.appointeeRelationOther}}</li>
                           </ul>
                         </div>
                       </div>
