@@ -323,6 +323,7 @@ import { ClearSessionFourwheelerService } from './shared/services/clear-session-
 import { EdelweissTermLifePaymentSuccessComponent } from './pages/edelweiss-term-life-payment-success/edelweiss-term-life-payment-success.component';
 import { ClearSessionTermlifeService} from './shared/services/clear-session-termlife.service';
 import { HdfcTwoWheelerPaymentComponent } from './pages/hdfc-two-wheeler-payment/hdfc-two-wheeler-payment.component';
+import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-download-policy/hdfctwowheeler-download-policy.component';
 
 @NgModule({
     imports: [
@@ -601,7 +602,8 @@ import { HdfcTwoWheelerPaymentComponent } from './pages/hdfc-two-wheeler-payment
         ViewKeyfeaturesComponent,
         EdelweissTermLifePaymentSuccessComponent,
         BajajGoal,
-        HdfcTwoWheelerPaymentComponent
+        HdfcTwoWheelerPaymentComponent,
+        HdfctwowheelerDownloadPolicyComponent
     ],
     providers: [
         AppSettings,
