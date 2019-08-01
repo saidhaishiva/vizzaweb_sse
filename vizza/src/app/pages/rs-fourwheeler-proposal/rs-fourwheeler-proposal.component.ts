@@ -622,31 +622,33 @@ export class RsFourwheelerProposalComponent implements OnInit {
     sessionStorage.stepper2 = JSON.stringify(this.vehical.value);
     console.log(sessionStorage.stepper2, 'stepper2')
     console.log(this.vehical.value, ' value')
-    console.log(this.vehical.valid, ' Vecvalid')
+      console.log(this.vehical.valid, ' Vecvalid1111');
     // if (check.checked == true) {
 
       if (this.vehical.valid ) {
+          console.log(this.vehical.valid, ' Vecvalid');
       this.valueCalc = [];
       this.valueList =  this.vehical.value.electricalAccess;
-
-      console.log(this.valueList,'valueList')
       this.valueList.forEach(data => this.valueCalc.push(data.elecValue));
-      console.log(this.valueCalc,'jhgjghgh');
       sessionStorage.valueList = this.valueList;
-      let total = this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b));
+      console.log(this.valueList,'gfgffjhjh')
+      console.log(sessionStorage.valueList,'sessionStoragevalueList')
+
+      let total = this.valueCalc[0] != '' ? this.valueCalc.reduce((a, b) => parseInt(a) + parseInt(b)) : 'err';
       console.log(total,"total")
 
     this.valuesubCalc = [];
-    let valueSubList =  this.vehical.value.nonelectricalAccess;
-    console.log(valueSubList, 'nonvalueList');
-    valueSubList.forEach(data => this.valuesubCalc.push(data.elecValue));
-    console.log(this.valuesubCalc,'subvalue');
-    let subTotal = this.valuesubCalc.reduce((a, b) => parseInt(a) + parseInt(b));
-    console.log(subTotal,'subtotal');
-    sessionStorage.subTotal = subTotal;
+     this.valueSubList =  this.vehical.value.nonelectricalAccess;
+     this.valueSubList.forEach(data => this.valuesubCalc.push(data.elecValue));
+    sessionStorage.valueSubList = this.valueSubList;
+  console.log(this.valueSubList,'valueSubList')
+  console.log(sessionStorage.valueSubList,'sessionStoragevalueSubList')
 
-    if ((total <= 50000)   ) {
-      if (subTotal <= 20000) {
+    let subTotal = this.valuesubCalc[0] != '' ? this.valuesubCalc.reduce((a, b) => parseInt(a) + parseInt(b)) : 'err';
+    console.log(subTotal,'subtotal');
+
+    if (total <= 50000 || total == 'err') {
+      if (subTotal <= 20000 || subTotal == 'err') {
         stepper.next();
         this.topScroll();
     } else {
@@ -687,7 +689,27 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   }
 
-
+  // eleAccess() {
+  //     if (this.vehical.controls['coverelectricalaccesss'].value == true) {
+  //     this.vehical.controls['total'].patchValue(this.vehical.controls['total'].value);
+  //     }
+  //     else {
+  //     this.vehical.controls['total'].patchValue('null');
+  //     }
+    // else {
+    //
+    //     for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
+    //
+    //
+    //       if ( i !=  0) {
+    //       }
+    //       this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+    //       this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+    //       this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+    //     }
+    //
+    //   }
+    // }
 
   eleAccessReq() {
     console.log(this.vehical['controls'].electricalAccess['controls'].length,'value');
@@ -697,12 +719,19 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
         if (i != 0) {
         }
+
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue(this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.value);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue(this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.value);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue(this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.value);
+
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.setValidators([Validators.required]);
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.setValidators([Validators.required]);
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.setValidators([Validators.required]);
       }
 
-    } else {
+    } else
+    if (this.vehical.controls['coverelectricalaccesss'].value == false)
+      {
       for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
 
         if ( i !=  0) {
@@ -710,6 +739,10 @@ export class RsFourwheelerProposalComponent implements OnInit {
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
         this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.setValidators(null);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.setValidators(null);
+        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.setValidators(null);
       }
 
 
@@ -726,42 +759,54 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   }
   noneleAccessReq() {
-    if (this.vehical.controls['cover_non_elec_acc'].value == true) {
 
+    if (this.vehical.controls['cover_non_elec_acc'].value == true) {
+        for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
+
+            if (i != 0) {
+            }
+
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue(this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.value);
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue(this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.value);
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue(this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.value);
+
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.setValidators([Validators.required]);
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.setValidators([Validators.required]);
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.setValidators([Validators.required]);
+        }
+
+    } else
+    if (this.vehical.controls['cover_non_elec_acc'].value == false)
+    {
+        for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
+
+            if ( i !=  0) {
+            }
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.setValidators(null);
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.setValidators(null);
+            this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.setValidators(null);
+        }
+
+
+    }
       for (let i=0; i < this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
 
-        if (i != 0) {
-        }
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.setValidators([Validators.required]);
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.setValidators([Validators.required]);
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.setValidators([Validators.required]);
+          if ( i !=  0) {
+          }
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.updateValueAndValidity();
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.updateValueAndValidity();
+          this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.updateValueAndValidity();
       }
-
-    } else {
-      for (let i=0; i <  this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
-
-        if ( i !=  0) {
-        }
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
-      }
-
-     }
-    for (let i=0; i <  this.vehical['controls'].nonelectricalAccess['controls'].length; i++) {
-
-      if ( i !=  0) {
-      }
-      this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.updateValueAndValidity();
-      this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.updateValueAndValidity();
-      this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.updateValueAndValidity();
-    }
 
 
   }
 
-  guardianAgeValid(event: any) {
-    if (this.nomineeDetail.controls['guardianList'].value == true) {
+  guardianAgeValid(event:any) {
+    if (this.guardianList == true) {
       this.nomineeDetail.controls['guardianName'].patchValue(this.nomineeDetail.controls['guardianName'].value);
       this.nomineeDetail.controls['guardianAge'].patchValue(this.nomineeDetail.controls['guardianAge'].value);
       this.nomineeDetail.controls['guardianRelationship'].patchValue(this.nomineeDetail.controls['guardianRelationship'].value);
@@ -769,7 +814,9 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.nomineeDetail.controls['guardianName'].setValidators([Validators.required]);
       this.nomineeDetail.controls['guardianAge'].setValidators([Validators.required]);
       this.nomineeDetail.controls['guardianRelationship'].setValidators([Validators.required]);
-    } else {
+    } else
+        if (this.guardianList == false)
+        {
       this.nomineeDetail.controls['guardianName'].patchValue('');
       this.nomineeDetail.controls['guardianAge'].patchValue('');
       this.nomineeDetail.controls['guardianRelationship'].patchValue('');
@@ -850,40 +897,22 @@ export class RsFourwheelerProposalComponent implements OnInit {
 
   }
 
-  eleAccess() {
 
-
-    if (this.vehical.controls['coverelectricalaccesss'].value == true) {
-
-      } else {
-
-      for (let i=0; i < this.vehical['controls'].electricalAccess['controls'].length; i++) {
-
-
-        if ( i !=  0) {
-        }
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-        this.vehical['controls'].electricalAccess['controls'][i]['controls'].elecValue.patchValue('');
-      }
-
-    }
-  }
-  noneleAccess() {
-    if (this.vehical.controls['cover_non_elec_acc'].value == true) {
-
-    } else {
-
-      for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
-        if ( i !=  0) {
-        }
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
-        this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
-      }
-
-    }
-  }
+  // noneleAccess() {
+  //   if (this.vehical.controls['cover_non_elec_acc'].value == true) {
+  //
+  //   } else {
+  //
+  //     for (let i=0; i < this.getStepper2.nonelectricalAccess.length; i++) {
+  //       if ( i !=  0) {
+  //       }
+  //       this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].nameOfElectronicAccessories.patchValue('');
+  //       this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].makeModel.patchValue('');
+  //       this.vehical['controls'].nonelectricalAccess['controls'][i]['controls'].elecValue.patchValue('');
+  //     }
+  //
+  //   }
+  // }
 
 
   changefinancedValue() {
@@ -1355,6 +1384,22 @@ export class RsFourwheelerProposalComponent implements OnInit {
   // proposal creation
   proposal(stepper) {
     console.log(this.vehical.value, 'jjjcoverelectricalaccesss');
+      // let electricalValue = [];
+      // for (let i = 0; i < this.vehical.value.electricalAccess.length; i++) {
+      //     electricalValue.push({
+      //         "nameOfElectronicAccessories": this.vehical.value.electricalAccess[i].nameOfElectronicAccessories,
+      //         "makeModel" :  this.vehical.value.electricalAccess[i].makeModel,
+      //         "elecValue": this.vehical.value.electricalAccess[i].elecValue ? 'err' : '',
+      //     });
+      // }
+      // let nonlectricalValue = [];
+      // for (let i = 0; i < this.vehical.value.electricalAccess.length; i++) {
+      //     electricalValue.push({
+      //         "nameOfElectronicAccessories": this.vehical.value.electricalAccess[i].nameOfElectronicAccessories,
+      //         "makeModel" :  this.vehical.value.electricalAccess[i].makeModel,
+      //         "elecValue": this.vehical.value.electricalAccess[i].elecValue ? 'err' : '',
+      //     });
+      // }
 
     const data = {
       "platform": "web",
@@ -1413,12 +1458,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
-          "valueofelectricalaccessories": this.vehical.controls['total'].value,
+          "valueofelectricalaccessories": this.vehical.controls['total'].value == 'err' ? '' : this.vehical.controls['total'].value,
           "cover_non_elec_acc": this.vehical.controls['cover_non_elec_acc'].value ? 'Yes' : 'No',
           "nonElectricalAccesories": {
                 "nonelectronicAccessoriesDetails": this.vehical.value.nonelectricalAccess,
             },
-          "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value,
+          "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value == 'err' ? '' : this.vehical.controls['subTotal'].value,
 
           "fibreGlass": this.vehical.controls['fibreGlass'].value ,
           "financierName": this.vehical.controls['financierName'].value,
@@ -1434,8 +1479,8 @@ export class RsFourwheelerProposalComponent implements OnInit {
           // "noClaimBonusPercent": "1",
           "personalAccidentCoverForUnnamedPassengers": this.vehical.controls['personalAccidentCoverForUnnamedPassengers'].value,
           // "personalaccidentcoverforunnamedpassengers": "0",
-          "policyED":  this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
-          "policySD": this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd') : '',
+          "policyED":  this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') ? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
+          "policySD": this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd') ? this.datepipe.transform(this.buyProduct.previous_policy_start_date, 'y-MM-dd') : '',
           "previousInsurerName": this.previousInsure.controls['previousInsured'].value ? this.previousInsure.controls['previousInsured'].value : '',
           // "previousPolicyExpiryDate": this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd')? this.datepipe.transform(this.buyProduct.previous_policy_expiry_date, 'y-MM-dd') : '',
           "previousPolicyType": this.previousInsure.controls['previousPolicyType'].value ? this.previousInsure.controls['previousPolicyType'].value : '',
@@ -1592,12 +1637,12 @@ export class RsFourwheelerProposalComponent implements OnInit {
           "electricalAccessories": {
             "electronicAccessoriesDetails": this.vehical.value.electricalAccess,
           },
-          "valueofelectricalaccessories": this.vehical.controls['total'].value,
+          "valueofelectricalaccessories": this.vehical.controls['total'].value == 'err' ? '' : this.vehical.controls['total'].value,
             "cover_non_elec_acc": this.vehical.controls['cover_non_elec_acc'].value ? 'Yes' : 'No',
             "nonElectricalAccesories": {
                 "nonelectronicAccessoriesDetails": this.vehical.value.nonelectricalAccess,
             },
-          "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value,
+          "valueofnonelectricalaccessories": this.vehical.controls['subTotal'].value == 'err' ? '' : this.vehical.controls['subTotal'].value,
           "addonValue": this.vehical.controls['addonValue'].value,
           "typeOfCover": this.vehical.controls['typeOfCover'].value,
             "keyreplacement": this.vehical.controls['keyreplacement'].value ,
@@ -1762,6 +1807,7 @@ export class RsFourwheelerProposalComponent implements OnInit {
       this.vehical.controls['legalliabilityToPaidDriver'].patchValue(this.getStepper2.legalliabilityToPaidDriver);
       this.vehical.controls['total'].patchValue(this.getStepper2.total);
       this.vehical.controls['subTotal'].patchValue(this.getStepper2.subTotal);
+
       console.log(this.vehical,'vehical');
     }
 

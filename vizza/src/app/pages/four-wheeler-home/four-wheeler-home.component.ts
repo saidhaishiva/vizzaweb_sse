@@ -248,7 +248,7 @@ export class FourWheelerHomeComponent implements OnInit {
       this.bikeList = successData.ResponseObject;
       console.log(this.bikeList, 'hgdj');
       this.enquiry = this.bikeList;
-      sessionStorage.bikeListDetails = JSON.stringify(this.bikeList);
+      sessionStorage.carListDetails = JSON.stringify(this.bikeList);
       sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
       sessionStorage.enquiryFormDatafw = JSON.stringify(data);
         let dialogRef = this.dialog.open(FourWheelerEnquirypopupComponent, {

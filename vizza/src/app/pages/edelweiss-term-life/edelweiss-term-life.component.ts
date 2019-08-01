@@ -37,10 +37,12 @@ export const MY_FORMATS = {
 export class EdelweissTermLifeComponent implements OnInit {
   public proposer: FormGroup;
   public insureArray: FormGroup;
+  public medicalDetail: FormGroup;
   public bankDetail: FormGroup;
   public nomineeDetail: FormGroup;
   public itemsNominee: any;
   public addExistingInsurance: any;
+  public addmedicalQuestions: any;
   public etitle: any;
   public egender: any;
   public minDate: any;
@@ -49,6 +51,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public taxRequired: any;
   public getStepper1: any;
   public getStepper2: any;
+  public getMedicalDetail: any;
   public getStepper3: any;
   public getStepper4: any;
   public getDays: any;
@@ -239,9 +242,6 @@ export class EdelweissTermLifeComponent implements OnInit {
       heightFeets: ['', Validators.compose([Validators.required])],
       heightInches: ['', Validators.compose([Validators.required])],
       weight: ['', Validators.compose([Validators.required])],
-      medicalTreatment: 'No',
-      receivedTreatment1: 'No',
-      receivedTreatment2: 'No',
       insureHistory: 'No',
       insureAccNo: '',
       provideAccNo: '',
@@ -252,6 +252,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       sameAsProposer: false,
 
     });
+
+      this.medicalDetail = this.fb.group({
+          medicalTreatment: 'No',
+          receivedTreatment1: 'No',
+          receivedTreatment2: 'No',
+          tobaccoInd: '',
+          tobaccoDetails: '',
+          tobaccoStopDetails: '',
+          diabetesInd: '',
+          cancerDieaseInd: '',
+          deformityInd: '',
+          pregnantInd: '',
+          pregnantweeks: '',
+          femaleDieaseInd: '',
+          healthInformation: '',
+          medicalQuestions : new FormArray([
+              this.medicalQuesCreate()
+          ]),
+
+      });
 
     this.bankDetail = this.fb.group({
       accountNo: ['', Validators.compose([Validators.required])],
@@ -266,6 +286,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       ]),
 
     });
+
     this.nomineeDetail = this.fb.group({
       'itemsNominee' : this.fb.array([
         this.initItemRows()
@@ -393,6 +414,37 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
+    // Medical Question Create
+    medicalQuesCreate() {
+        return new FormGroup({
+            disease: new FormControl(),
+            datediagnois :  new FormControl(),
+            treatment :  new FormControl(),
+            dosage: new FormControl(),
+            doctor :  new FormControl(),
+            datefollowup :  new FormControl(),
+            anycomplications :  new FormControl(),
+            remarks :  new FormControl()
+        });
+    }
+
+    addMedItems() {
+        if (this.medicalDetail.get('medicalQuestions').value.length < 5) {
+            this.addmedicalQuestions = this.medicalDetail.get('medicalQuestions') as FormArray;
+            this.addmedicalQuestions.push(this.create());
+            // this.existingInsureReq();
+            console.log(this.addmedicalQuestions, 'this.addmedicalQuestions');
+            console.log('addmedicalQuestions');
+        }
+    }
+    removeMedItems(index) {
+        let removeQue =  this.medicalDetail.get('medicalQuestions') as FormArray;
+        console.log(removeQue,'ssssss')
+        removeQue.removeAt(index);
+        console.log(index, 'this.index');
+
+
+    }
   addEvent(event) {
     if (event.value != null) {
       let selectedDate = '';
@@ -765,6 +817,139 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
 
+// // date of medical
+//     addEventMedical(event, i, type) {
+//         if(type == 'nominee') {
+//             if (event.value != null) {
+//                 let selectedDate = '';
+//                 let dob = '';
+//                 let dob_days = '';
+//                 this.getAge = '';
+//                 this.getDays;
+//                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
+//                 dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+//
+//                 if (typeof event.value._i == 'string') {
+//                     const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+//                     if (pattern.test(event.value._i) && event.value._i.length == 10) {
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+//
+//                     } else {
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('Enter Valid DOB');
+//                     }
+//
+//                     selectedDate = event.value._i;
+//
+//                     if (selectedDate.length == 10) {
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+//                         this.getAge = this.ageCalculate(dob);
+//                         this.getDays = this.ageCalculateInsurer(dob_days);
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+//
+//                     }
+//
+//                 }
+//                 else if (typeof event.value._i == 'object') {
+//                     if (dob.length == 10) {
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeDobValidError.patchValue('');
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(dob);
+//
+//                         this.getAge = this.ageCalculate(dob);
+//                         this.getDays = this.ageCalculateInsurer(dob_days);
+//                     }
+//                 }
+//             }
+//             if ( i == 0) {
+//                 sessionStorage.nomineAge = this.getAge;
+//             }
+//
+//             if ( i != 0) {
+//                 if (this.getAge <= 18) {
+//                     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(1);
+//                     console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalue');
+//                 } else {
+//                     this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.patchValue(0);
+//                     console.log(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value,'nomineeagevalueelsee');
+//                 }
+//
+//             }
+//
+//
+//         } else if(type == 'appointee') {
+//
+//             if (event.value != null) {
+//                 let selectedDate = '';
+//                 let dob = '';
+//                 let dob_days = '';
+//                 this.getAge = '';
+//                 this.getDays;
+//                 dob = this.datepipe.transform(event.value, 'y-MM-dd');
+//                 dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+//
+//                 if (typeof event.value._i == 'string') {
+//                     const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+//                     if (pattern.test(event.value._i) && event.value._i.length == 10) {
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+//
+//                     } else {
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
+//                     }
+//
+//                     selectedDate = event.value._i;
+//
+//                     if (selectedDate.length == 10) {
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+//                         this.getAge = this.ageCalculate(dob);
+//                         this.getDays = this.ageCalculateInsurer(dob_days);
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(dob);
+//
+//                     }
+//
+//                 }
+//                 else if (typeof event.value._i == 'object') {
+//                     if (dob.length == 10) {
+//                         this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
+//                         this.getAge = this.ageCalculate(dob);
+//                         this.getDays = this.ageCalculateInsurer(dob_days);
+//                     }
+//                 }
+//             }
+//             if ( i == 0) {
+//                 sessionStorage.appointeeAge = this.getAge;
+//             } else {
+//                 sessionStorage.appointeeAge2 = this.getAge;
+//             }
+//             console.log(sessionStorage.appointeeAge2,'hgklddjkdhbjvn');
+//
+//
+//
+//         }
+//     }
+//
+//     ageCalculateInsurer(getDays) {
+//         let a = moment(getDays, 'DD/MM/YYYY');
+//         let b = moment(new Date(), 'DD/MM/YYYY');
+//         let days = b.diff(a, 'days');
+//         return days;
+//     }
+//
+//     dateOfApplicationEvent(event) {
+//         if (event.value != null) {
+//             if (typeof event.value._i == 'string') {
+//                 const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+//                 if (pattern.test(event.value._i) && event.value._i.length == 10) {
+//                     this.dopDateError = '';
+//                 } else {
+//                     this.dopDateError = 'Enter Valid Date';
+//                 }
+//
+//             } else if (typeof event.value._i == 'object') {
+//                 this.dopDateError = '';
+//             }
+//
+//         }
+//     }
+
 
     // add NOmineee
     addNominee(event) {
@@ -820,6 +1005,18 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
     }
 
+  }
+
+    // Medical Details
+    medicalDetails(stepper: MatStepper, value) {
+        sessionStorage.medicalQuesDetails = '';
+        sessionStorage.medicalQuesDetails = JSON.stringify(value);
+        console.log(this.medicalDetail, 'medicalDetail');
+        console.log(this.medicalDetail.valid, 'this.valid');
+        if (this.medicalDetail.valid) {
+            stepper.next();
+            this.topScroll();
+        }
   }
 
 
@@ -1176,6 +1373,46 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['insureRepository'].updateValueAndValidity();
 
   }
+
+  istobaccoInd() {
+
+    if (this.medicalDetail.controls['tobaccoInd'].value == 'Yes') {
+      this.medicalDetail.controls['tobaccoDetails'].patchValue(this.medicalDetail.controls['tobaccoDetails'].value);
+      this.medicalDetail.controls['tobaccoDetails'].setValidators([Validators.required]);
+
+      this.medicalDetail.controls['tobaccoStopDetails'].patchValue('');
+      this.medicalDetail.controls['tobaccoStopDetails'].setValidators(null);
+
+    } else
+      if (this.medicalDetail.controls['tobaccoInd'].value == 'No') {
+      this.medicalDetail.controls['tobaccoStopDetails'].patchValue(this.medicalDetail.controls['tobaccoStopDetails'].value);
+      this.medicalDetail.controls['tobaccoStopDetails'].setValidators([Validators.required]);
+
+      this.medicalDetail.controls['tobaccoDetails'].patchValue('');
+      this.medicalDetail.controls['tobaccoDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['tobaccoDetails'].updateValueAndValidity();
+    this.medicalDetail.controls['tobaccoStopDetails'].updateValueAndValidity();
+
+  }
+
+    ispregnantInd() {
+
+        if (this.medicalDetail.controls['pregnantInd'].value == true) {
+            this.medicalDetail.controls['pregnantweeks'].patchValue(this.medicalDetail.controls['pregnantweeks'].value);
+
+            this.medicalDetail.controls['pregnantweeks'].setValidators([Validators.required]);
+        } else {
+            this.medicalDetail.controls['pregnantweeks'].patchValue('');
+
+            this.medicalDetail.controls['pregnantweeks'].setValidators(null);
+
+        }
+        this.medicalDetail.controls['pregnantweeks'].updateValueAndValidity();
+
+    }
+
 
   // proposal creation
 
@@ -2290,9 +2527,6 @@ export class EdelweissTermLifeComponent implements OnInit {
         heightFeets: this.getStepper2.heightFeets,
         heightInches: this.getStepper2.heightInches,
         weight: this.getStepper2.weight,
-        receivedTreatment1: this.getStepper2.receivedTreatment1,
-        medicalTreatment: this.getStepper2.medicalTreatment,
-        receivedTreatment2: this.getStepper2.receivedTreatment2,
         insureHistory: this.getStepper2.insureHistory,
         insureAccNo: this.getStepper2.insureAccNo,
         provideAccNo: this.getStepper2.provideAccNo,
@@ -2310,6 +2544,69 @@ export class EdelweissTermLifeComponent implements OnInit {
       });
     }
     console.log(this.insureArray, ' stepper2 ');
+
+      // if (sessionStorage.medicalQuesDetails != '' && sessionStorage.medicalQuesDetails != undefined) {
+      //     this.getMedicalDetail = JSON.parse(sessionStorage.medicalQuesDetails);
+      //     this.medicalDetail = this.fb.group({
+      //
+      //
+      //         receivedTreatment1: this.getMedicalDetail.receivedTreatment1,
+      //         medicalTreatment: this.getMedicalDetail.medicalTreatment,
+      //         receivedTreatment2: this.getMedicalDetail.receivedTreatment2,
+      //         tobaccoInd: this.getMedicalDetail.tobaccoInd,
+      //         tobaccoDetails: this.getMedicalDetail.tobaccoDetails,
+      //         tobaccoStopDetails: this.getMedicalDetail.tobaccoStopDetails,
+      //         diabetesInd: this.getMedicalDetail.diabetesInd,
+      //         cancerDieaseInd: this.getMedicalDetail.cancerDieaseInd,
+      //         deformityInd: this.getMedicalDetail.deformityInd,
+      //         pregnantInd: this.getMedicalDetail.pregnantInd,
+      //         pregnantweeks: this.getMedicalDetail.pregnantweeks,
+      //         femaleDieaseInd: this.getMedicalDetail.femaleDieaseInd,
+      //         healthInformation: this.getMedicalDetail.healthInformation,
+      //
+      //     });
+      // }
+      if (sessionStorage.medicalQuesDetails != '' && sessionStorage.medicalQuesDetails != undefined) {
+          let getMedicalDetail = JSON.parse(sessionStorage.medicalQuesDetails);
+          console.log(getMedicalDetail,'step4');
+
+
+          // this.medicalDetail.controls['existingInsuranceInd'].patchValue(getMedicalDetail.existingInsuranceInd);
+
+          console.log(getMedicalDetail.medicalQuestions.length,'lenght');
+          for (let i=0; i < getMedicalDetail.medicalQuestions.length; i++) {
+              if ( i !=  0) {
+                  this.addMedItems();
+              }
+
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(getMedicalDetail.medicalQuestions[i].disease);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(getMedicalDetail.medicalQuestions[i].datediagnois);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(getMedicalDetail.medicalQuestions[i].treatment);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(getMedicalDetail.medicalQuestions[i].dosage);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(getMedicalDetail.medicalQuestions[i].doctor);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(getMedicalDetail.medicalQuestions[i].datefollowup);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(getMedicalDetail.medicalQuestions[i].anycomplications);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(getMedicalDetail.medicalQuestions[i].remarks);
+          }
+
+          this.medicalDetail.controls['receivedTreatment1'].patchValue(getMedicalDetail.receivedTreatment1);
+          this.medicalDetail.controls['medicalTreatment'].patchValue(getMedicalDetail.medicalTreatment);
+          this.medicalDetail.controls['receivedTreatment2'].patchValue(getMedicalDetail.receivedTreatment2);
+          this.medicalDetail.controls['tobaccoInd'].patchValue(getMedicalDetail.tobaccoInd);
+          this.medicalDetail.controls['tobaccoDetails'].patchValue(getMedicalDetail.tobaccoDetails);
+          this.medicalDetail.controls['tobaccoStopDetails'].patchValue(getMedicalDetail.tobaccoStopDetails);
+          this.medicalDetail.controls['diabetesInd'].patchValue(getMedicalDetail.diabetesInd);
+          this.medicalDetail.controls['cancerDieaseInd'].patchValue(getMedicalDetail.cancerDieaseInd);
+          this.medicalDetail.controls['deformityInd'].patchValue(getMedicalDetail.deformityInd);
+          this.medicalDetail.controls['pregnantInd'].patchValue(getMedicalDetail.pregnantInd);
+          this.medicalDetail.controls['pregnantweeks'].patchValue(getMedicalDetail.pregnantweeks);
+          this.medicalDetail.controls['femaleDieaseInd'].patchValue(getMedicalDetail.femaleDieaseInd);
+          this.medicalDetail.controls['healthInformation'].patchValue(getMedicalDetail.healthInformation);
+
+          console.log(this.medicalDetail,'medicalDetail');
+      }
+
+      console.log(this.medicalDetail, ' medicalQuesDetails ');
 
 
 
