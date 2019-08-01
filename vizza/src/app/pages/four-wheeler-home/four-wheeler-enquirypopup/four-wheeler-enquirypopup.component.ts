@@ -45,7 +45,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   public ListDetails : any;
   public bussinessList : any;
   public enquiryFormData : any;
-  public vehicledetailsfw : any;
+  public carListDetails : any;
   public cityDetails : any;
   public vehicalNo : any;
   public options : any;
@@ -127,7 +127,7 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
   // }
   ngOnInit() {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormDatafw);
-    // this.vehicledetailsfw = JSON.parse(sessionStorage.vehicledetailsfw);
+    this.carListDetails = JSON.parse(sessionStorage.carListDetails);
     this.rto = sessionStorage.RtoFour;
 
     this.claimpercent();
