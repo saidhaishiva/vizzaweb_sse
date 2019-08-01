@@ -1397,7 +1397,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
-    ispregnantInd(event: any) {
+    ispregnantInd() {
 
         if (this.medicalDetail.controls['pregnantInd'].value == true) {
             this.medicalDetail.controls['pregnantweeks'].patchValue(this.medicalDetail.controls['pregnantweeks'].value);
