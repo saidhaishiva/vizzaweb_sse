@@ -144,7 +144,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             coverdrive: ['', Validators.required],
             coverdrivevalue: '',
             Associationmember: '',
-            Voluntary: '',
+            // Voluntary: '',
             Antitheft: '',
             Tppdrestrict: '',
             depreciation: '',
@@ -154,7 +154,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         });
 
         this.previouspolicy = this.fb.group({
-            preflag: ['', Validators.required],
+            // preflag: ['', Validators.required],
             // preName: '',
             // preNamevalue: '',
             prepolno: '',
@@ -197,9 +197,9 @@ export class BikeTataaigProposalComponent implements OnInit {
         console.log(poldate, 'poldate');
         this.poldate = new Date(poldate.getFullYear(), poldate.getMonth(), poldate.getDate() + 1);
         console.log(this.poldate, 'policy date');
-        if (this.enquiryFormData.business_type != '1') {
-            this.previouspolicy.controls['preflag'].patchValue('Y');
-        }
+        // if (this.enquiryFormData.business_type != '1') {
+        //     this.previouspolicy.controls['preflag'].patchValue('Y');
+        // }
     }
 
     nameValidate(event: any) {
@@ -276,6 +276,14 @@ export class BikeTataaigProposalComponent implements OnInit {
             age = age - 1;
         }
         return age;
+    }
+
+    choosegen() {
+        if(this.proposer.controls['proposerTitle'].value == 'Mr.') {
+            this.proposer.controls['proposerGender'].patchValue('MALE');
+        }else if(this.proposer.controls['proposerTitle'].value == 'Mrs.' || this.proposer.controls['proposerTitle'].value == 'Miss.' ) {
+            this.proposer.controls['proposerGender'].patchValue('FEMALE');
+        }
     }
 
 
@@ -636,7 +644,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 coverdrive: this.getstepper2.coverdrive,
                 coverdrivevalue: this.getstepper2.coverdrivevalue,
                 Associationmember: this.getstepper2.Associationmember,
-                Voluntary: this.getstepper2.Voluntary,
+                // Voluntary: this.getstepper2.Voluntary,
                 Antitheft: this.getstepper2.Antitheft,
                 Tppdrestrict: this.getstepper2.Tppdrestrict,
                 depreciation: this.getstepper2.depreciation,
@@ -648,7 +656,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         if (sessionStorage.tatabikeprepolicy != '' && sessionStorage.tatabikeprepolicy != undefined) {
             this.getstepper3 = JSON.parse(sessionStorage.tatabikeprepolicy);
             this.previouspolicy = this.fb.group({
-                preflag: this.getstepper3.preflag,
+                // preflag: this.getstepper3.preflag,
                 // preName: this.getstepper3.preName,
                 // preNamevalue: this.getstepper3.preNamevalue,
                 prepolno: this.getstepper3.prepolno,
@@ -683,7 +691,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             'revised_idv': this.buyBikeDetails.Idv,
             'PACover_for_OwnerDriver': this.vehicle.controls['coverdrive'].value,
             'Automobile_Association_Membership': this.vehicle.controls['Associationmember'].value == true ? 'Y' : 'N',
-            'Voluntary_Deductibles': this.vehicle.controls['Voluntary'].value == true ? 'Y' : 'N',
+            // 'Voluntary_Deductibles': this.vehicle.controls['Voluntary'].value == true ? 'Y' : 'N',
             'Anti_theft_device': this.vehicle.controls['Antitheft'].value == true ? 'Y' : 'N',
             'TPPD_Restricted': this.vehicle.controls['Tppdrestrict'].value == true ? 'Y' : 'N',
             'Depreciation_ReImbursement': this.vehicle.controls['depreciation'].value == true ? 'Y' : 'N',
@@ -752,7 +760,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                     "chassis_no": this.vehicle.controls['chassis'].value
                 },
                 "prevpolicy": {
-                    "flag": this.previouspolicy.controls['preflag'].value == null || this.previouspolicy.controls['preflag'].value == '' ? 'N' : this.previouspolicy.controls['preflag'].value,
+                    "flag": this.enquiryFormData.business_type == '1'? 'N' : 'Y',
                     // "name": this.previouspolicy.controls['preName'].value == null ? '' : this.previouspolicy.controls['preName'].value,
                     "address1": this.previouspolicy.controls['preAddressone'].value == null ? '' : this.previouspolicy.controls['preAddressone'].value,
                     "address2": this.previouspolicy.controls['preAddresstwo'].value == null ? '' : this.previouspolicy.controls['preAddresstwo'].value,

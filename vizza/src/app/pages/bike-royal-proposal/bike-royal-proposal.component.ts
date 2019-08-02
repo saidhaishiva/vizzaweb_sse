@@ -91,6 +91,7 @@ public premiumAmount: any;
 public currentStep: any;
 public valueAmount: any;
 public valueDetails: any;
+public packaeList: any;
 public apponiteeList: boolean;
 public addList: boolean;
 public electricaAccessories: boolean;
@@ -214,6 +215,7 @@ public electricaAccessories: boolean;
     this.vehicledetails = JSON.parse(sessionStorage.vehicledetails);
     this.productDetails = JSON.parse(sessionStorage.buyProductDetails);
     this.premiumAmount = sessionStorage.premiumAmount;
+    this.packaeList =  sessionStorage.packae_list;
 
     this.title();
     this.getOccupation();
