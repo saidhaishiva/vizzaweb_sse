@@ -1224,14 +1224,14 @@
                                    <input matInput  formControlName="tobaccoDetails"    autocomplete="off"   maxlength="45">
                                </mat-form-field>
                            </div>
-                           <!--<div class="col-md-4" *ngIf="medicalDetail.controls['tobaccoInd'].value == 'Yes'">-->
-                               <!--<mat-radio-group formControlName="tobaccoStopInd" (change)="istobaccoInd()" >-->
-                                   <!--<p>Are u Continuing Tobacco ?  </p>-->
-                                   <!--<mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>-->
-                                   <!--<mat-radio-button value="No">No</mat-radio-button>-->
-                               <!--</mat-radio-group>-->
-                           <!--</div>-->
-                           <div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoInd'].value == 'No'" >
+                           <div class="col-md-4" *ngIf="medicalDetail.controls['tobaccoInd'].value == 'Yes'">
+                               <mat-radio-group formControlName="tobaccoStopInd" (change)="istobaccoStopInd()" >
+                                   <p>Are u Stopped using Tobacco ?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-4 " *ngIf="medicalDetail.controls['tobaccoStopInd'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Tobacco Stop Details<span class="error" >*</span></mat-placeholder>
 
@@ -1510,7 +1510,7 @@
 
                           <div class="col-md-4">
                               <mat-form-field class="w-100">
-                                  <input matInput placeholder="IFSC Code" class="text-uppercase" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" (keyup)="ifscEdelweissDetails($event.target.value)"  maxlength="11"  autocomplete="off" required>
+                                  <input matInput placeholder="IFSC Code" class="text-uppercase" formControlName="ifscCode" pattern="^[A-Za-z]{4}0[a-zA-Z0-9]{6}$" (keyup)="getifscEdelweissDetails($event.target.value)"  maxlength="11"  autocomplete="off" required>
                                   <mat-error *ngIf="bankDetail.controls.ifscCode.errors?.required">Ifsc Code is required</mat-error>
                                   <mat-error *ngIf="bankDetail.controls.ifscCode.hasError('pattern')">Please Enter Correct Format</mat-error>
 

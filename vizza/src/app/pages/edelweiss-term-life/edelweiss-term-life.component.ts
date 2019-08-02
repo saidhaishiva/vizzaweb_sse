@@ -85,6 +85,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public eNomineeRelation: any;
   public eInsuranceRepository: any;
   public etopUpRates: any;
+  public eDocumentProof: any;
+  public eIncomeProof: any;
   public proposerAge: any;
   public proposerSpouseAge: any;
   public dateError: any;
@@ -382,6 +384,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteNomineeRelation();
     this.geteInsuranceRepository();
     this.getetopUpRate();
+    this.geteDocumentProof();
+    this.geteIncomeProof();
     this.sessionData();
 
   }
@@ -1519,21 +1523,41 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.medicalDetail.controls['tobaccoInd'].value == 'Yes') {
       this.medicalDetail.controls['tobaccoDetails'].patchValue(this.medicalDetail.controls['tobaccoDetails'].value);
+      this.medicalDetail.controls['tobaccoStopInd'].patchValue(this.medicalDetail.controls['tobaccoStopInd'].value);
+
       this.medicalDetail.controls['tobaccoDetails'].setValidators([Validators.required]);
+      this.medicalDetail.controls['tobaccoStopInd'].setValidators([Validators.required]);
+
+
+    } else
+      if (this.medicalDetail.controls['tobaccoInd'].value == 'No') {
+
+
+      this.medicalDetail.controls['tobaccoDetails'].patchValue('');
+      this.medicalDetail.controls['tobaccoStopInd'].patchValue('');
+
+      this.medicalDetail.controls['tobaccoDetails'].setValidators(null);
+      this.medicalDetail.controls['tobaccoStopInd'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['tobaccoDetails'].updateValueAndValidity();
+    this.medicalDetail.controls['tobaccoStopInd'].updateValueAndValidity();
+
+  }
+  istobaccoStopInd() {
+
+    if (this.medicalDetail.controls['tobaccoStopInd'].value == 'Yes') {
+      this.medicalDetail.controls['tobaccoStopDetails'].patchValue(this.medicalDetail.controls['tobaccoStopDetails'].value);
+      this.medicalDetail.controls['tobaccoStopDetails'].setValidators([Validators.required]);
+
+    } else
+    if (this.medicalDetail.controls['tobaccoStopInd'].value == 'No') {
+
 
       this.medicalDetail.controls['tobaccoStopDetails'].patchValue('');
       this.medicalDetail.controls['tobaccoStopDetails'].setValidators(null);
 
-    } else
-      if (this.medicalDetail.controls['tobaccoInd'].value == 'No') {
-      this.medicalDetail.controls['tobaccoStopDetails'].patchValue(this.medicalDetail.controls['tobaccoStopDetails'].value);
-      this.medicalDetail.controls['tobaccoStopDetails'].setValidators([Validators.required]);
-
-      this.medicalDetail.controls['tobaccoDetails'].patchValue('');
-      this.medicalDetail.controls['tobaccoDetails'].setValidators(null);
-
     }
-    this.medicalDetail.controls['tobaccoDetails'].updateValueAndValidity();
     this.medicalDetail.controls['tobaccoStopDetails'].updateValueAndValidity();
 
   }
@@ -1850,7 +1874,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "aidsInd":this.medicalDetail.controls['receivedTreatment2'].value ? 'Y' : 'N',
           "tobaccoInd":this.medicalDetail.controls['tobaccoInd'].value ? 'Y' : 'N',
           "tobaccoDetails":this.medicalDetail.controls['tobaccoDetails'].value ? 'Y' : 'N',
-          // "tobaccoStopInd":this.medicalDetail.controls['tobaccoStopDetails'].value ? 'Y' : 'N',
+          "tobaccoStopInd":this.medicalDetail.controls['tobaccoStopInd'].value ? 'Y' : 'N',
           "tobaccoStopDetails":this.medicalDetail.controls['tobaccoStopDetails'].value ? 'Y' : 'N',
           "diabetesInd":this.medicalDetail.controls['diabetesInd'].value ? 'Y' : 'N',
           "cancerDieaseInd":this.medicalDetail.controls['cancerDieaseInd'].value ? 'Y' : 'N',
@@ -1884,17 +1908,17 @@ export class EdelweissTermLifeComponent implements OnInit {
         // ]
       },
       "Spouse":{
-        "title":"2",
-        "firstName":"zzz",
-        "middleName":"sss",
-        "lastName":"ccc",
-        "dob":"07-06-1994",
-        "emailId":"zzz@gmail.com",
-        "phoneNo":"8989897878",
-        "isSmoker":"No",
-        "isStaff":"N",
-        "employeeCode":"",
-        "relationLAProposer":""
+        "title":this.proposer.controls['stitle'].value,
+        "firstName":this.proposer.controls['sfirstName'].value,
+        "middleName":this.proposer.controls['smidName'].value,
+        "lastName":this.proposer.controls['slastName'].value,
+        "dob":this.datepipe.transform(this.proposer.controls['sdob'].value, 'y-MM-dd'),
+        "emailId":this.proposer.controls['semailId'].value,
+        "phoneNo":this.proposer.controls['smobileNo'].value,
+        "isSmoker":this.proposer.controls['isSmokerSpouse'].value,
+        "isStaff":this.proposer.controls['isStaffSpouse'].value,
+        "employeeCode":this.proposer.controls['employeeCodeSpouse'].value,
+        "relationLAProposer":this.proposer.controls['relationSpouseProposer'].value,
       },
       "Proposer":{
         "title":this.proposer.controls['title'].value,
@@ -2816,7 +2840,61 @@ export class EdelweissTermLifeComponent implements OnInit {
   public getetopUpRateFailure(error) {
   }
 
-  ifscEdelweissDetails(ifsc) {
+  geteDocumentProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissDocumentProof(data).subscribe(
+        (successData) => {
+          this.geteDocumentProofSuccess(successData);
+        },
+        (error) => {
+          this.geteDocumentProofFailure(error);
+        }
+    );
+  }
+
+  public geteDocumentProofSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eDocumentProof = successData.ResponseObject;
+    }
+  }
+
+  public geteDocumentProofFailure(error) {
+  }
+
+  geteIncomeProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissIncomeProof(data).subscribe(
+        (successData) => {
+          this.geteIncomeProofSuccess(successData);
+        },
+        (error) => {
+          this.geteIncomeProofFailure(error);
+        }
+    );
+  }
+
+  public geteIncomeProofSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eIncomeProof = successData.ResponseObject;
+    }
+  }
+
+  public geteIncomeProofFailure(error) {
+  }
+
+  getifscEdelweissDetails(ifsc) {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
