@@ -193,7 +193,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
     console.log(this.vehicledata);
     this.buycarDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
-    this.enquiryFormData = JSON.parse(sessionStorage.bikeListDetails);
+    this.enquiryFormData = JSON.parse(sessionStorage.carListDetails);
     console.log(this.enquiryFormData, 'enquiry data');
     this.carEnquiryId = sessionStorage.fwEnquiryId;
     this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);

@@ -32,6 +32,7 @@ export class FourWheelerProductListComponent implements OnInit {
   getEnquiry: any;
   policyTerm: any;
   vehicledetailsfw: any;
+  carListDetails: any;
   initialProductListfw: any;
   constructor(public auth: AuthService, public datepipe: DatePipe, public appSettings: AppSettings, public router: Router, public fwService: FourWheelerService, public config: ConfigurationService, public clearsession: ClearSessionFourwheelerService) {
     this.settings = this.appSettings.settings;
@@ -45,42 +46,48 @@ export class FourWheelerProductListComponent implements OnInit {
     this.compherhensive = 'Comprehensive_premium';
     sessionStorage.packageListFw = this.compherhensive;
     this.clearsession.clearSessionfourwheelerData();
+    this.carListDetails = JSON.parse(sessionStorage.carListDetails);
+    let type = this.carListDetails.type;
+    let bussiness = this.carListDetails.business_type;
+    console.log(type, 'type');
+    console.log(bussiness, 'bussiness');
+    console.log(this.carListDetails, 'carListDetails');
+    if(this.carListDetails.business_type =='1'){
+      this.policyTerm ='3';
+    } else {
+      this.policyTerm ='1';
+    }
+    console.log(this.policyTerm, '  this.policyTerm');
   }
   ngOnInit() {
-      this.getCompanyList();
+    this.getCompanyList();
     this.fwEnquiryId = sessionStorage.fwEnquiryId;
-    this.vehicledetailsfw = sessionStorage.vehicledetailsfw;
     this.sessionData();
+
+
   }
   sessionData() {
-    if(sessionStorage.getEnquiryDetials != '' && sessionStorage.getEnquiryDetials !=undefined) {
-      this.getEnquiryDetials  = JSON.parse(sessionStorage.getEnquiryDetials);
+    if (sessionStorage.getEnquiryDetials != '' && sessionStorage.getEnquiryDetials != undefined) {
+      this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     }
-    if(sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists !=undefined) {
-      this.setAllProductLists  = JSON.parse(sessionStorage.setAllProductLists);
+    if (sessionStorage.setAllProductLists != '' && sessionStorage.setAllProductLists != undefined) {
+      this.setAllProductLists = JSON.parse(sessionStorage.setAllProductLists);
+      this.allProductLists = JSON.parse(sessionStorage.setAllProductLists);
+      console.log(this.allProductLists, 'this.allProductLists');
     }
-    if(sessionStorage.initialProductListfw != '' && sessionStorage.initialProductListfw !=undefined) {
-      this.initialProductListfw  = JSON.parse(sessionStorage.initialProductListfw);
-      console.log(this.initialProductListfw, 'dfghjkljhgf')
+    if (sessionStorage.initialProductListfw != '' && sessionStorage.initialProductListfw != undefined) {
+      this.initialProductListfw = JSON.parse(sessionStorage.initialProductListfw);
+      console.log(this.initialProductListfw, 'dfghjkljhgf');
+      this.premiumlist();
     }
     if (sessionStorage.filterCompany != undefined && sessionStorage.filterCompany != '') {
       this.filterCompany = JSON.parse(sessionStorage.filterCompany);
-      if(this.filterCompany.includes('All')) {
+      if (this.filterCompany.includes('All')) {
         this.checkAllStatus = true;
       } else {
         this.checkAllStatus = false;
       }
     }
-    if(this.vehicledetailsfw.business_type == '1'){
-      this.policyTerm = '3';
-      this.premiumlist();
-    }  else {
-      this.policyTerm = '1';
-      this.premiumlist();
-
-    }
-
-
   }
   getCompanyList() {
     const data = {
@@ -109,7 +116,6 @@ export class FourWheelerProductListComponent implements OnInit {
         all.push(this.allCompanyList[i].company_name)
       }
       this.filterCompany = all;
-      console.log(sessionStorage.allProductLists, 'ppp');
       if (sessionStorage.setAllProductLists == undefined || sessionStorage.setAllProductLists == '') {
         console.log('inn');
         this.getProductList(this.allCompanyList);
@@ -164,16 +170,11 @@ export class FourWheelerProductListComponent implements OnInit {
         // this.allProductLists[i].premium_amount_format = this.numberWithCommas(this.allProductLists[i].total_premium);
         //this.allProductLists[i].suminsured_amount_format = this.numberWithCommas(this.allProductLists[i].sum_insured_amount);
       }
-
-      for (let i = 0; i < this.allProductLists.length; i++) {
-        this.allProductLists[i].year_type == '1';
+      if(this.carListDetails.business_type =='1'){
+        this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
+      } else {
+        this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
       }
-
-      if(this.policyTerm == '3'){
-          this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
-        } else {
-          this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');
-        }
       this.setAllProductLists = this.allProductLists;
       sessionStorage.setAllProductLists = JSON.stringify(this.allProductLists);
       sessionStorage.initialProductListfw = JSON.stringify(this.initialProductListfw);
@@ -240,7 +241,7 @@ export class FourWheelerProductListComponent implements OnInit {
   premiumlist(){
     sessionStorage.packageListFw = this.compherhensive;
     console.log(this.allProductLists, 'hgfdhj');
-     if(this.policyTerm == '3'){
+     if(this.carListDetails.business_type =='1'){
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '3');
     } else{
       this.initialProductListfw = this.allProductLists.filter(data => data.year_type == '1');

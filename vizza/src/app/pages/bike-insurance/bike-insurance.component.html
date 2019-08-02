@@ -108,8 +108,8 @@
                                     </div>
                                     <div class="col-md-10" *ngIf="bikeInsurance.controls['previousClaim'].value == 'No'">
                                         <mat-form-field class="w-100 text-left">
-                                            <mat-placeholder> NCB Percent(%)</mat-placeholder>
-                                            <mat-select (change)="setSession()" formControlName="ncb"  required >
+                                            <mat-placeholder> NCB Percent(%) <span class="error">*</span></mat-placeholder>
+                                            <mat-select (change)="setSession()" formControlName="ncb"  >
                                            <mat-option *ngFor="let paCity of claimDetails | keys" value="{{paCity.key}}" > {{paCity.value}} </mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="bikeInsurance.controls.ncb.errors?.required">Ncb is required</mat-error>

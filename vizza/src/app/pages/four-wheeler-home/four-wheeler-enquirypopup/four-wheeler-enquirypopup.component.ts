@@ -358,9 +358,9 @@ export class FourWheelerEnquirypopupComponent implements OnInit {
     console.log(getRegPolicyYear,'getPolicyYear');
     let getLength = this.vehicalDetails.controls['manufactureYear'].value;
     console.log(getLength, 'getLengthgetLength');
+    let minLength = getLength-2;
     if(getLength.length == 4) {
-      if(getRegPolicyYear < getLength ){
-        console.log(getLength, 'getLength');
+      if(getRegPolicyYear < getLength || getRegPolicyYear < minLength){
         this.toastr.error("Manufacturing year should be equal to registration year or less than  Year of registration.");
       }
 
