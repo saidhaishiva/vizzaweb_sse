@@ -397,6 +397,7 @@ export class FourWheelerHomeComponent implements OnInit {
       this.fourWheeler.controls['previousPolicyStart'].patchValue('');
       this.fourWheeler.controls['previousPolicyExpiry'].patchValue('');
       this.fourWheeler.controls['ncb'].patchValue('');
+      this.fourWheeler.controls['previousClaim'].patchValue('');
       this.fourWheeler.controls['vehicalNumber'].patchValue('');
       console.log(this.typeList,'0');
     } else {
@@ -406,6 +407,7 @@ export class FourWheelerHomeComponent implements OnInit {
       this.fourWheeler.controls['registrationDateNew'].setValidators(null);
       this.fourWheeler.controls['city'].setValidators(null);
       this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
+      this.fourWheeler.controls['previousClaim'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
       this.fourWheeler.controls['vehicalNumber'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousCompany'].setValidators([Validators.required]);
@@ -416,6 +418,7 @@ export class FourWheelerHomeComponent implements OnInit {
     this.fourWheeler.controls['registrationDateNew'].updateValueAndValidity();
     this.fourWheeler.controls['city'].updateValueAndValidity();
     this.fourWheeler.controls['ncb'].updateValueAndValidity();
+    this.fourWheeler.controls['previousClaim'].updateValueAndValidity();
     this.fourWheeler.controls['previousPolicyExpiry'].updateValueAndValidity();
     this.fourWheeler.controls['previousPolicyStart'].updateValueAndValidity();
     this.fourWheeler.controls['previousCompany'].updateValueAndValidity();

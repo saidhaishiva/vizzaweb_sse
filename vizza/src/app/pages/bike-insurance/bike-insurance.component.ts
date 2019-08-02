@@ -417,6 +417,7 @@ export class BikeInsuranceComponent implements OnInit {
                 this.bikeInsurance.controls['previousPolicyExpiry'].patchValue('');
                 this.bikeInsurance.controls['vehicalNumber'].patchValue('');
                 this.bikeInsurance.controls['registrationDate'].patchValue('');
+                this.bikeInsurance.controls['previousClaim'].patchValue('');
 
 
 
@@ -430,8 +431,10 @@ export class BikeInsuranceComponent implements OnInit {
             this.bikeInsurance.controls['previousPolicyStart'].setValidators([Validators.required]);
             this.bikeInsurance.controls['vehicalNumber'].setValidators([Validators.required]);
             this.bikeInsurance.controls['previousCompany'].setValidators([Validators.required]);
+            this.bikeInsurance.controls['previousClaim'].setValidators([Validators.required]);
             this.bikeInsurance.controls['city'].patchValue('');
             this.bikeInsurance.controls['registrationDate'].patchValue('');
+
         }
 
         this.bikeInsurance.controls['registrationDate'].updateValueAndValidity();
@@ -441,6 +444,9 @@ export class BikeInsuranceComponent implements OnInit {
         this.bikeInsurance.controls['previousPolicyStart'].updateValueAndValidity();
         this.bikeInsurance.controls['previousCompany'].updateValueAndValidity();
         this.bikeInsurance.controls['vehicalNumber'].updateValueAndValidity();
+        this.bikeInsurance.controls['ncb'].updateValueAndValidity();
+        this.bikeInsurance.controls['previousClaim'].updateValueAndValidity();
+
     }
     bikeinsurer(){
         const dialogRef = this.dialog.open(BikeInsurer, {
