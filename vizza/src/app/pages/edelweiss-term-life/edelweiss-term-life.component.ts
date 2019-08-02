@@ -37,10 +37,12 @@ export const MY_FORMATS = {
 export class EdelweissTermLifeComponent implements OnInit {
   public proposer: FormGroup;
   public insureArray: FormGroup;
+  public medicalDetail: FormGroup;
   public bankDetail: FormGroup;
   public nomineeDetail: FormGroup;
   public itemsNominee: any;
   public addExistingInsurance: any;
+  public addmedicalQuestions: any;
   public etitle: any;
   public egender: any;
   public minDate: any;
@@ -49,6 +51,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public taxRequired: any;
   public getStepper1: any;
   public getStepper2: any;
+  public getMedicalDetail: any;
   public getStepper3: any;
   public getStepper4: any;
   public getDays: any;
@@ -73,6 +76,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public eDuty: any;
   public bduty: any;
   public eHeightFeet: any;
+  public epolicyOption: any;
+  public epayoutOption: any;
   public eHeightInches: any;
   public ePolicyCategory: any;
   public eNomineeRelation: any;
@@ -239,9 +244,6 @@ export class EdelweissTermLifeComponent implements OnInit {
       heightFeets: ['', Validators.compose([Validators.required])],
       heightInches: ['', Validators.compose([Validators.required])],
       weight: ['', Validators.compose([Validators.required])],
-      medicalTreatment: 'No',
-      receivedTreatment1: 'No',
-      receivedTreatment2: 'No',
       insureHistory: 'No',
       insureAccNo: '',
       provideAccNo: '',
@@ -249,9 +251,52 @@ export class EdelweissTermLifeComponent implements OnInit {
       einsureAccNo: 'No',
       epolicy1: 'No',
       insureRepository: '',
+      planOption: '',
+      workSiteFlag: '',
+      investmentStrategy: '',
+      risingStar: '',
+      policyOption: '',
+      additionalBenefit: '',
+      TopUpBenefit: '',
+      topUpBenefitPercentage: '',
+      topUpRate: '',
+      betterHalfBenefit: '',
+      betterHalfsumAssured: '',
+      waiverOfPremiumBenefit: '',
+      criticalIllness: '',
+      criticalsumAssured: '',
+      isADB: '',
+      sumAssuredADB: '',
+      isATPD: '',
+      sumAssuredATPD: '',
+      isHCB: '',
+      sumAssuredHCB: '',
+      payoutOption: '',
+      noOfMonths: '',
+      payoutPercentageIncome: '',
       sameAsProposer: false,
 
     });
+
+      this.medicalDetail = this.fb.group({
+          medicalTreatment: 'No',
+          receivedTreatment1: 'No',
+          receivedTreatment2: 'No',
+          tobaccoInd: '',
+          tobaccoDetails: '',
+          tobaccoStopDetails: '',
+          diabetesInd: '',
+          cancerDieaseInd: '',
+          deformityInd: '',
+          pregnantInd: '',
+          pregnantweeks: '',
+          femaleDieaseInd: '',
+          healthInformation: '',
+          medicalQuestions : new FormArray([
+              this.medicalQuesCreate()
+          ]),
+
+      });
 
     this.bankDetail = this.fb.group({
       accountNo: ['', Validators.compose([Validators.required])],
@@ -266,6 +311,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       ]),
 
     });
+
     this.nomineeDetail = this.fb.group({
       'itemsNominee' : this.fb.array([
         this.initItemRows()
@@ -393,6 +439,39 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
+    // Medical Question Create
+    medicalQuesCreate() {
+        return new FormGroup({
+            disease: new FormControl(),
+            datediagnois :  new FormControl(),
+            treatment :  new FormControl(),
+            dosage: new FormControl(),
+            doctor :  new FormControl(),
+            datefollowup :  new FormControl(),
+            anycomplications :  new FormControl(),
+            remarks :  new FormControl(),
+            medicalDobValidError :  new FormControl(),
+            medicalfollowDobValidError :  new FormControl()
+        });
+    }
+
+    addMedItems() {
+        if (this.medicalDetail.get('medicalQuestions').value.length < 5) {
+            this.addmedicalQuestions = this.medicalDetail.get('medicalQuestions') as FormArray;
+            this.addmedicalQuestions.push(this.create());
+            // this.existingInsureReq();
+            console.log(this.addmedicalQuestions, 'this.addmedicalQuestions');
+            console.log('addmedicalQuestions');
+        }
+    }
+    removeMedItems(index) {
+        let removeQue =  this.medicalDetail.get('medicalQuestions') as FormArray;
+        console.log(removeQue,'ssssss')
+        removeQue.removeAt(index);
+        console.log(index, 'this.index');
+
+
+    }
   addEvent(event) {
     if (event.value != null) {
       let selectedDate = '';
@@ -765,6 +844,121 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
   }
 
+// // date of medical
+    addEventMedical(event, i, type) {
+        if(type == 'medical') {
+            if (event.value != null) {
+                let selectedDate = '';
+                let dob = '';
+                let dob_days = '';
+                this.getAge = '';
+                this.getDays;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
+                if (typeof event.value._i == 'string') {
+                    const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
+
+                    } else {
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('Enter Valid DOB');
+                    }
+
+                    selectedDate = event.value._i;
+
+                    if (selectedDate.length == 10) {
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
+                        this.getAge = this.ageCalculate(dob);
+                        this.getDays = this.ageCalculatemedical(dob_days);
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
+
+                    }
+
+                }
+                else if (typeof event.value._i == 'object') {
+                    if (dob.length == 10) {
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
+
+                        this.getAge = this.ageCalculate(dob);
+                        this.getDays = this.ageCalculatemedical(dob_days);
+                    }
+                }
+            }
+
+
+        } else if(type == 'medicalfollowup') {
+
+            if (event.value != null) {
+                let selectedDate = '';
+                let dob = '';
+                let dob_days = '';
+                this.getAge = '';
+                this.getDays;
+                dob = this.datepipe.transform(event.value, 'y-MM-dd');
+                dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
+
+                if (typeof event.value._i == 'string') {
+                    const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                    if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
+
+                    } else {
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('Enter Valid DOB');
+                    }
+
+                    selectedDate = event.value._i;
+
+                    if (selectedDate.length == 10) {
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
+                        this.getAge = this.ageCalculate(dob);
+                        this.getDays = this.ageCalculatemedical(dob_days);
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(dob);
+
+                    }
+
+                }
+                else if (typeof event.value._i == 'object') {
+                    if (dob.length == 10) {
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalfollowDobValidError.patchValue('');
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(dob);
+                        this.getAge = this.ageCalculate(dob);
+                        this.getDays = this.ageCalculatemedical(dob_days);
+                    }
+                }
+            }
+
+
+
+
+        }
+    }
+
+  ageCalculatemedical(getDays) {
+        let a = moment(getDays, 'DD/MM/YYYY');
+        let b = moment(new Date(), 'DD/MM/YYYY');
+        let days = b.diff(a, 'days');
+        return days;
+    }
+
+    dateOfmedicalEvent(event) {
+        if (event.value != null) {
+            if (typeof event.value._i == 'string') {
+                const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
+                if (pattern.test(event.value._i) && event.value._i.length == 10) {
+                    this.dopDateError = '';
+                } else {
+                    this.dopDateError = 'Enter Valid Date';
+                }
+
+            } else if (typeof event.value._i == 'object') {
+                this.dopDateError = '';
+            }
+
+        }
+    }
+
 
     // add NOmineee
     addNominee(event) {
@@ -820,6 +1014,18 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
     }
 
+  }
+
+    // Medical Details
+    medicalDetails(stepper: MatStepper, value) {
+        sessionStorage.medicalQuesDetails = '';
+        sessionStorage.medicalQuesDetails = JSON.stringify(value);
+        console.log(this.medicalDetail, 'medicalDetail');
+        console.log(this.medicalDetail.valid, 'this.valid');
+        if (this.medicalDetail.valid) {
+            stepper.next();
+            this.topScroll();
+        }
   }
 
 
@@ -1177,6 +1383,140 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   }
 
+  istobaccoInd() {
+
+    if (this.medicalDetail.controls['tobaccoInd'].value == 'Yes') {
+      this.medicalDetail.controls['tobaccoDetails'].patchValue(this.medicalDetail.controls['tobaccoDetails'].value);
+      this.medicalDetail.controls['tobaccoDetails'].setValidators([Validators.required]);
+
+      this.medicalDetail.controls['tobaccoStopDetails'].patchValue('');
+      this.medicalDetail.controls['tobaccoStopDetails'].setValidators(null);
+
+    } else
+      if (this.medicalDetail.controls['tobaccoInd'].value == 'No') {
+      this.medicalDetail.controls['tobaccoStopDetails'].patchValue(this.medicalDetail.controls['tobaccoStopDetails'].value);
+      this.medicalDetail.controls['tobaccoStopDetails'].setValidators([Validators.required]);
+
+      this.medicalDetail.controls['tobaccoDetails'].patchValue('');
+      this.medicalDetail.controls['tobaccoDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['tobaccoDetails'].updateValueAndValidity();
+    this.medicalDetail.controls['tobaccoStopDetails'].updateValueAndValidity();
+
+  }
+
+    ispregnantInd() {
+
+        if (this.medicalDetail.controls['pregnantInd'].value == true) {
+            this.medicalDetail.controls['pregnantweeks'].patchValue(this.medicalDetail.controls['pregnantweeks'].value);
+
+            this.medicalDetail.controls['pregnantweeks'].setValidators([Validators.required]);
+        } else {
+            this.medicalDetail.controls['pregnantweeks'].patchValue('');
+
+            this.medicalDetail.controls['pregnantweeks'].setValidators(null);
+
+        }
+        this.medicalDetail.controls['pregnantweeks'].updateValueAndValidity();
+
+    }
+  isTopUpBenefit() {
+
+    if (this.insureArray.controls['TopUpBenefit'].value == true) {
+      this.insureArray.controls['topUpRate'].patchValue(this.medicalDetail.controls['topUpRate'].value);
+      this.insureArray.controls['topUpBenefitPercentage'].patchValue(this.medicalDetail.controls['topUpBenefitPercentage'].value);
+
+      this.insureArray.controls['topUpBenefitPercentage'].setValidators([Validators.required]);
+      this.insureArray.controls['topUpRate'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['topUpRate'].patchValue('');
+      this.insureArray.controls['topUpBenefitPercentage'].patchValue('');
+
+      this.insureArray.controls['topUpRate'].setValidators(null);
+      this.insureArray.controls['topUpBenefitPercentage'].setValidators(null);
+
+    }
+    this.insureArray.controls['topUpRate'].updateValueAndValidity();
+    this.insureArray.controls['topUpBenefitPercentage'].updateValueAndValidity();
+
+  }
+  isbetterHalfBenefit() {
+
+    if (this.medicalDetail.controls['betterHalfBenefit'].value == true) {
+      this.insureArray.controls['betterHalfsumAssured'].patchValue(this.insureArray.controls['sumAssured'].value);
+
+      this.insureArray.controls['betterHalfsumAssured'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['betterHalfsumAssured'].patchValue('');
+
+      this.insureArray.controls['betterHalfsumAssured'].setValidators(null);
+
+    }
+    this.insureArray.controls['betterHalfsumAssured'].updateValueAndValidity();
+
+  }
+  iscriticalIllness() {
+
+    if (this.medicalDetail.controls['criticalIllness'].value == true) {
+      this.insureArray.controls['criticalsumAssured'].patchValue(this.insureArray.controls['criticalsumAssured'].value);
+
+      this.insureArray.controls['criticalsumAssured'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['criticalsumAssured'].patchValue('');
+
+      this.insureArray.controls['criticalsumAssured'].setValidators(null);
+
+    }
+    this.insureArray.controls['criticalsumAssured'].updateValueAndValidity();
+
+  }
+
+  isDeathBenefit() {
+
+    if (this.medicalDetail.controls['isADB'].value == true) {
+      this.insureArray.controls['sumAssuredADB'].patchValue(this.insureArray.controls['sumAssuredADB'].value);
+
+      this.insureArray.controls['sumAssuredADB'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['sumAssuredADB'].patchValue('');
+
+      this.insureArray.controls['sumAssuredADB'].setValidators(null);
+
+    }
+    this.insureArray.controls['sumAssuredADB'].updateValueAndValidity();
+
+  }
+  isAccidentalTotal() {
+
+    if (this.medicalDetail.controls['isATPD'].value == true) {
+      this.insureArray.controls['sumAssuredATPD'].patchValue(this.insureArray.controls['sumAssuredATPD'].value);
+
+      this.insureArray.controls['sumAssuredATPD'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['sumAssuredATPD'].patchValue('');
+
+      this.insureArray.controls['sumAssuredATPD'].setValidators(null);
+
+    }
+    this.insureArray.controls['sumAssuredATPD'].updateValueAndValidity();
+
+  }
+  isHospitalCash() {
+
+    if (this.medicalDetail.controls['isHCB'].value == true) {
+      this.insureArray.controls['sumAssuredHCB'].patchValue(this.insureArray.controls['sumAssuredHCB'].value);
+
+      this.insureArray.controls['sumAssuredHCB'].setValidators([Validators.required]);
+    } else {
+      this.insureArray.controls['sumAssuredHCB'].patchValue('');
+
+      this.insureArray.controls['sumAssuredHCB'].setValidators(null);
+
+    }
+    this.insureArray.controls['sumAssuredHCB'].updateValueAndValidity();
+
+  }
   // proposal creation
 
   proposal(stepper) {
@@ -1211,6 +1551,49 @@ export class EdelweissTermLifeComponent implements OnInit {
         "premiumPayingTerm":this.enquiryFormData.lifePolicy,
         "frequency":this.enquiryFormData.lifePayment,
         "sumAssured": sessionStorage.selectedAmountTravel,
+        "planOption": "N",
+        "riderDetails": {
+          "workSiteFlag":"No",
+          "investmentStrategy":"",
+          "risingStar":"No",
+          "policyOption":"Life Cover with Level Sum Assured",
+          "additionalBenefit":"",
+          "topUpBenefit": {
+            "isTopUpBenefit": "false",
+            "topUpBenefitPercentage":"",
+            "topUpRate": ""
+          },
+          "betterHalf": {
+            "betterHalfBenefit":"No",
+            "sumAssured": "20000000"
+          },
+          "WOP": {
+            "waiverOfPremiumBenefit": "false"
+          },
+          "CI": {
+            "criticalIllness": "false",
+            "sumAssured": "100000"
+          },
+          "ADB": {
+            "isADB": "false",
+            "sumAssured": "100000"
+          },
+          "ATPD": {
+            "isATPD": "false",
+            "sumAssured": "100000"
+          },
+          "HCB": {
+            "isHCB": "false",
+            "sumAssured": "100000"
+          }
+        },
+        "DeathBenefitOptions": {
+          "payoutOption": "LumpSum",
+          "lumpsumProportion": "100",
+          "monthlyIncomeOption": "Level",
+          "payoutPercentageIncreasingIncome":"0",
+          "noOfMonths": "0"
+        }
       },
       "isLAProposerSame":"",
       "LifeAssured": {
@@ -1332,6 +1715,39 @@ export class EdelweissTermLifeComponent implements OnInit {
           "medicationInd":this.insureArray.controls['medicalTreatment'].value ? 'Y' : 'N',
           "diagnosedInd":this.insureArray.controls['receivedTreatment1'].value ? 'Y' : 'N',
           "aidsInd":this.insureArray.controls['receivedTreatment2'].value ? 'Y' : 'N',
+          "tobaccoInd":"Y",
+          "tobaccoDetails":"2,2,2,2,2|2,2,2,2|2,2",
+          "tobaccoStopInd":"Y",
+          "tobaccoStopDetails":"2,Alcohol,Doctor Advice",
+          "diabetesInd":"Y",
+          "cancerDieaseInd":"Y",
+          "deformityInd":"N",
+          "pregnantInd":"Y",
+          "pregnantweeks":"3",
+          "femaleDiease_Ind":"Y",
+          "healthInformation":"Other illness details",
+          "medicalQuestions":[
+            {
+              "disease":"Disease Name",
+              "datediagnois":"13-02-2018",
+              "treatment":"Treatment Text",
+              "dosage":"Dosage Text",
+              "doctor":"Doctor1",
+              "datefollowup":"01-01-2019",
+              "anycomplications":"complications1",
+              "remarks":"Remarks Text"
+            },
+            {
+              "disease":"Disease Name2",
+              "datediagnois":"17-05-2018",
+              "treatment":"Treatment Text2",
+              "dosage":"Dosage Text2",
+              "doctor":"Doctor2",
+              "datefollowup":"02-01-2019",
+              "anycomplications":"complications2",
+              "remarks":"Remarks Text2"
+            }
+          ]
         },
         "bank":{
           "accountNo":this.bankDetail.controls['accountNo'].value,
@@ -2036,6 +2452,59 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public geteHeightFeetFailure(error) {
   }
+
+  getPolicyOption() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.getepolicyOption(data).subscribe(
+        (successData) => {
+          this.getepolicyOptionSuccess(successData);
+        },
+        (error) => {
+          this.getepolicyOptionFailure(error);
+        }
+    );
+  }
+
+  public getepolicyOptionSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.epolicyOption = successData.ResponseObject;
+    }
+  }
+
+  public getepolicyOptionFailure(error) {
+  }
+  getpayoutOption() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.getepayoutOption(data).subscribe(
+        (successData) => {
+          this.getepayoutOptionSuccess(successData);
+        },
+        (error) => {
+          this.getepayoutOptionFailure(error);
+        }
+    );
+  }
+
+  public getepayoutOptionSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.epayoutOption = successData.ResponseObject;
+    }
+  }
+
+  public getepayoutOptionFailure(error) {
+  }
   geteHeightInches() {
     const data = {
       'platform': 'web',
@@ -2290,9 +2759,6 @@ export class EdelweissTermLifeComponent implements OnInit {
         heightFeets: this.getStepper2.heightFeets,
         heightInches: this.getStepper2.heightInches,
         weight: this.getStepper2.weight,
-        receivedTreatment1: this.getStepper2.receivedTreatment1,
-        medicalTreatment: this.getStepper2.medicalTreatment,
-        receivedTreatment2: this.getStepper2.receivedTreatment2,
         insureHistory: this.getStepper2.insureHistory,
         insureAccNo: this.getStepper2.insureAccNo,
         provideAccNo: this.getStepper2.provideAccNo,
@@ -2300,6 +2766,29 @@ export class EdelweissTermLifeComponent implements OnInit {
         einsureAccNo: this.getStepper2.einsureAccNo,
         epolicy1: this.getStepper2.epolicy1,
         insureRepository: this.getStepper2.insureRepository,
+        planOption:  this.getStepper2.planOption,
+        workSiteFlag:  this.getStepper2.workSiteFlag,
+        investmentStrategy: this.getStepper2.investmentStrategy,
+        risingStar:  this.getStepper2.risingStar,
+        policyOption:  this.getStepper2.policyOption,
+        additionalBenefit: this.getStepper2.additionalBenefit,
+        TopUpBenefit:  this.getStepper2.TopUpBenefit,
+        topUpBenefitPercentage:  this.getStepper2.topUpBenefitPercentage,
+        topUpRate:  this.getStepper2.topUpRate,
+        betterHalfBenefit:  this.getStepper2.betterHalfBenefit,
+        betterHalfsumAssured:  this.getStepper2.betterHalfsumAssured,
+        waiverOfPremiumBenefit: this.getStepper2.waiverOfPremiumBenefit,
+        criticalIllness:  this.getStepper2.criticalIllness,
+        criticalsumAssured: this.getStepper2.criticalsumAssured,
+        isADB:  this.getStepper2.isADB,
+        sumAssuredADB:  this.getStepper2.sumAssuredADB,
+        isATPD:  this.getStepper2.isATPD,
+        sumAssuredATPD:  this.getStepper2.sumAssuredATPD,
+        isHCB:  this.getStepper2.isHCB,
+        sumAssuredHCB: this.getStepper2.sumAssuredHCB,
+        payoutOption:  this.getStepper2.payoutOption,
+        payoutPercentageIncome:  this.getStepper2.payoutPercentageIncome,
+        noOfMonths:  this.getStepper2.noOfMonths,
         sameasreadonly: this.getStepper2.sameasreadonly,
         sameas: this.getStepper2.sameas,
         sameAsProposer: this.getStepper2.sameAsProposer,
@@ -2310,6 +2799,69 @@ export class EdelweissTermLifeComponent implements OnInit {
       });
     }
     console.log(this.insureArray, ' stepper2 ');
+
+      // if (sessionStorage.medicalQuesDetails != '' && sessionStorage.medicalQuesDetails != undefined) {
+      //     this.getMedicalDetail = JSON.parse(sessionStorage.medicalQuesDetails);
+      //     this.medicalDetail = this.fb.group({
+      //
+      //
+      //         receivedTreatment1: this.getMedicalDetail.receivedTreatment1,
+      //         medicalTreatment: this.getMedicalDetail.medicalTreatment,
+      //         receivedTreatment2: this.getMedicalDetail.receivedTreatment2,
+      //         tobaccoInd: this.getMedicalDetail.tobaccoInd,
+      //         tobaccoDetails: this.getMedicalDetail.tobaccoDetails,
+      //         tobaccoStopDetails: this.getMedicalDetail.tobaccoStopDetails,
+      //         diabetesInd: this.getMedicalDetail.diabetesInd,
+      //         cancerDieaseInd: this.getMedicalDetail.cancerDieaseInd,
+      //         deformityInd: this.getMedicalDetail.deformityInd,
+      //         pregnantInd: this.getMedicalDetail.pregnantInd,
+      //         pregnantweeks: this.getMedicalDetail.pregnantweeks,
+      //         femaleDieaseInd: this.getMedicalDetail.femaleDieaseInd,
+      //         healthInformation: this.getMedicalDetail.healthInformation,
+      //
+      //     });
+      // }
+      if (sessionStorage.medicalQuesDetails != '' && sessionStorage.medicalQuesDetails != undefined) {
+          let getMedicalDetail = JSON.parse(sessionStorage.medicalQuesDetails);
+          console.log(getMedicalDetail,'step4');
+
+
+          // this.medicalDetail.controls['existingInsuranceInd'].patchValue(getMedicalDetail.existingInsuranceInd);
+
+          console.log(getMedicalDetail.medicalQuestions.length,'lenght');
+          for (let i=0; i < getMedicalDetail.medicalQuestions.length; i++) {
+              if ( i !=  0) {
+                  this.addMedItems();
+              }
+
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(getMedicalDetail.medicalQuestions[i].disease);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(getMedicalDetail.medicalQuestions[i].datediagnois);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(getMedicalDetail.medicalQuestions[i].treatment);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].dosage.patchValue(getMedicalDetail.medicalQuestions[i].dosage);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].doctor.patchValue(getMedicalDetail.medicalQuestions[i].doctor);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datefollowup.patchValue(getMedicalDetail.medicalQuestions[i].datefollowup);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].anycomplications.patchValue(getMedicalDetail.medicalQuestions[i].anycomplications);
+              this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].remarks.patchValue(getMedicalDetail.medicalQuestions[i].remarks);
+          }
+
+          this.medicalDetail.controls['receivedTreatment1'].patchValue(getMedicalDetail.receivedTreatment1);
+          this.medicalDetail.controls['medicalTreatment'].patchValue(getMedicalDetail.medicalTreatment);
+          this.medicalDetail.controls['receivedTreatment2'].patchValue(getMedicalDetail.receivedTreatment2);
+          this.medicalDetail.controls['tobaccoInd'].patchValue(getMedicalDetail.tobaccoInd);
+          this.medicalDetail.controls['tobaccoDetails'].patchValue(getMedicalDetail.tobaccoDetails);
+          this.medicalDetail.controls['tobaccoStopDetails'].patchValue(getMedicalDetail.tobaccoStopDetails);
+          this.medicalDetail.controls['diabetesInd'].patchValue(getMedicalDetail.diabetesInd);
+          this.medicalDetail.controls['cancerDieaseInd'].patchValue(getMedicalDetail.cancerDieaseInd);
+          this.medicalDetail.controls['deformityInd'].patchValue(getMedicalDetail.deformityInd);
+          this.medicalDetail.controls['pregnantInd'].patchValue(getMedicalDetail.pregnantInd);
+          this.medicalDetail.controls['pregnantweeks'].patchValue(getMedicalDetail.pregnantweeks);
+          this.medicalDetail.controls['femaleDieaseInd'].patchValue(getMedicalDetail.femaleDieaseInd);
+          this.medicalDetail.controls['healthInformation'].patchValue(getMedicalDetail.healthInformation);
+
+          console.log(this.medicalDetail,'medicalDetail');
+      }
+
+      console.log(this.medicalDetail, ' medicalQuesDetails ');
 
 
 

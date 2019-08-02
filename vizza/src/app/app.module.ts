@@ -322,6 +322,8 @@ import {ClearSessionMotorService} from './shared/services/clear-session-motor.se
 import { ClearSessionFourwheelerService } from './shared/services/clear-session-fourwheeler.service';
 import { EdelweissTermLifePaymentSuccessComponent } from './pages/edelweiss-term-life-payment-success/edelweiss-term-life-payment-success.component';
 import { ClearSessionTermlifeService} from './shared/services/clear-session-termlife.service';
+import { HdfcTwoWheelerPaymentComponent } from './pages/hdfc-two-wheeler-payment/hdfc-two-wheeler-payment.component';
+import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-download-policy/hdfctwowheeler-download-policy.component';
 
 @NgModule({
     imports: [
@@ -599,7 +601,9 @@ import { ClearSessionTermlifeService} from './shared/services/clear-session-term
         HdfcTwoWheelerProposalComponent,
         ViewKeyfeaturesComponent,
         EdelweissTermLifePaymentSuccessComponent,
-        BajajGoal
+        BajajGoal,
+        HdfcTwoWheelerPaymentComponent,
+        HdfctwowheelerDownloadPolicyComponent
     ],
     providers: [
         AppSettings,
