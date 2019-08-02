@@ -97,6 +97,7 @@ export class AegonTermLifeComponent implements OnInit {
   public annualData: any;
   public errorMsg: any;
   public errAnnual: any;
+  public minDate: any;
 
   public keyUp = new Subject<string>();
 
@@ -111,7 +112,8 @@ export class AegonTermLifeComponent implements OnInit {
     let stepperindex = 0;
     this.requestedUrl = '';
     this.redirectUrl='';
-
+    const minDate = new Date();
+    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         stepperindex = 2;
@@ -553,6 +555,7 @@ export class AegonTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
           this.nomineeAge = this.ageCalculate(dob);
+          console.log(this.nomineeAge, ' this.nomineeAg');
 
         }
 
@@ -560,6 +563,7 @@ export class AegonTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
           this.nomineeAge = this.ageCalculate(dob);
+          console.log(this.nomineeAge,'age')
 
         }
         this.dateError1 = '';
@@ -604,7 +608,7 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   ageNominee() {
-    if(sessionStorage.nomineeAge <= 18){
+    if(sessionStorage.nomineeAge < 18){
       this.apponiteeList = true;
       console.log(this.apponiteeList,'cccccc')
     } else {
@@ -678,13 +682,14 @@ export class AegonTermLifeComponent implements OnInit {
 
   // AGE VALIDATION
   ageCalculate(dob) {
+    console.log(dob,'dob');
     let today = new Date();
     let birthDate = new Date(dob);
     let age = today.getFullYear() - birthDate.getFullYear();
     let m = today.getMonth() - birthDate.getMonth();
-    let dd = today.getDate() - birthDate.getDate();
-    if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
-      age = age - 1;
+    let dd = today.getDate()- birthDate.getDate();
+    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+      age = age-1;
     }
     return age;
   }
