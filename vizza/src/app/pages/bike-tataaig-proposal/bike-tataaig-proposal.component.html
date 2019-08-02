@@ -280,9 +280,9 @@
                         <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Associationmember"><strong> Automobile_Association_Membership </strong></mat-checkbox>
                         </div>
-                        <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
-                          <mat-checkbox formControlName="Voluntary"><strong> Voluntary_Deductibles </strong></mat-checkbox>
-                        </div>
+                        <!--<div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">-->
+                          <!--<mat-checkbox formControlName="Voluntary"><strong> Voluntary_Deductibles </strong></mat-checkbox>-->
+                        <!--</div>-->
                         <div class="col-md-4 mt-2" *ngIf="premium != 'ThridParty_premium'">
                           <mat-checkbox formControlName="Antitheft"><strong> Anti_theft_device </strong></mat-checkbox>
                         </div>
@@ -344,7 +344,7 @@
                   <div class="col-md-4">
                     <mat-form-field class="w-100">
                       <mat-placeholder> Policy No <span class="error" *ngIf="this.enquiryFormData.business_type != '1'"> * </span></mat-placeholder>
-                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="6">
+                      <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off"  minlength="6">
                     </mat-form-field>
                   </div>
                   <div class="col-md-12 mt-1">
@@ -519,7 +519,7 @@
                         <li class="list-group-item" *ngIf="vehicle.controls['Financetype'].value == true"><strong>ADDRESS:</strong> {{vehicalFormData.Address}} </li>
                         <li class="list-group-item"><strong>PACover_for_OwnerDriver:</strong> {{vehicalFormData.coverdrivevalue}} </li>
                         <li class="list-group-item" *ngIf="vehicalFormData.Associationmember != '' && vehicalFormData.Associationmember == true"><strong>Association_Membership:</strong><span *ngIf="vehicalFormData.Associationmember == true">Yes</span></li>
-                        <li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary == true"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>
+                        <!--<li class="list-group-item" *ngIf="vehicalFormData.Voluntary != '' && vehicalFormData.Voluntary == true"><strong>Voluntary_Deductibles:</strong><span *ngIf="vehicalFormData.Voluntary == true">Yes</span></li>-->
                         <li class="list-group-item" *ngIf="vehicalFormData.Antitheft != '' && vehicalFormData.Antitheft == true"><strong>Anti_theft_device:</strong><span *ngIf="vehicalFormData.Antitheft== true">Yes</span></li>
                       </ul>
                     </div>
