@@ -42,7 +42,7 @@
                       </div>
                       <div class="col-md-3" [ngStyle]="{'pointer-events':'none'}">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="proposerGender">
+                          <mat-select placeholder="Gender" formControlName="proposerGender" required>
                             <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerGender.errors?.required">Gender is Required</mat-error>
