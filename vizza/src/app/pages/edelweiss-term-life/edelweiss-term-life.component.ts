@@ -100,6 +100,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public proposerFormData: any;
   public nomineeFormData: any;
   public insuredFormData: any;
+  public medicalFormData: any;
   public bankFormData: any;
   public proposalId: any;
   public nomineeDetails: any;
@@ -129,6 +130,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.bankFormData = JSON.parse(sessionStorage.bankFormData);
           this.nomineeFormData = JSON.parse(sessionStorage.nomineeFormData);
           this.insuredFormData = JSON.parse(sessionStorage.insuredFormData);
+          this.medicalFormData = JSON.parse(sessionStorage.medicalFormData);
           this.proposalId = this.summaryData.ProposalId;
           sessionStorage.edelweiss_term_life_id = this.proposalId;
         }
@@ -274,8 +276,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       heightInches: ['', Validators.compose([Validators.required])],
       weight: ['', Validators.compose([Validators.required])],
       hasWeightChanged: ['', Validators.compose([Validators.required])],
-      inbetweenweight: ['', Validators.compose([Validators.required])],
-      weightChangedreason: ['', Validators.compose([Validators.required])],
+      inbetweenweight: '',
+      weightChangedreason: '',
       insureHistory: 'No',
       insureAccNo: '',
       provideAccNo: '',
@@ -316,6 +318,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           receivedTreatment2: 'No',
           tobaccoInd: '',
           tobaccoDetails: '',
+          tobaccoStopInd: '',
           tobaccoStopDetails: '',
           diabetesInd: '',
           cancerDieaseInd: '',
@@ -965,14 +968,14 @@ export class EdelweissTermLifeComponent implements OnInit {
                         this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculatemedical(dob_days);
-                        // this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
 
                     }
 
                 } else if (typeof event.value._i == 'object') {
                     if (dob.length == 10) {
                         this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].medicalDobValidError.patchValue('');
-                        // this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
+                        this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(dob);
 
                         this.getAge = this.ageCalculate(dob);
                         this.getDays = this.ageCalculatemedical(dob_days);
@@ -1139,13 +1142,14 @@ export class EdelweissTermLifeComponent implements OnInit {
     }
     // appointeeAge validatate
     let appointeeAge = false;
-    if (sessionStorage.appointeeAge != '' || sessionStorage.appointeeAge != undefined) {
+    if (sessionStorage.appointeeAge != '' && sessionStorage.appointeeAge != undefined) {
       if (sessionStorage.appointeeAge >= 18) {
         appointeeAge = true;
       }
     }
+
     let appointeeAge2 = false;
-    if (sessionStorage.appointeeAge2 != '' || sessionStorage.appointeeAge2 != undefined ) {
+    if (sessionStorage.appointeeAge2 != '' && sessionStorage.appointeeAge2 != undefined ) {
       if ( sessionStorage.appointeeAge2 >=18 ) {
         appointeeAge2 = true;
       }
@@ -1169,7 +1173,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(nomineeValid, 'nomineeVLID');
     if (this.nomineeDetail.controls.itemsNominee.valid) {
 
-            if ( appointeeAge == true && appointeeAge2 == true) {
+            if ( appointeeAge == true || appointeeAge2 == true) {
 
 
                   stepper.next();
@@ -1600,7 +1604,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   isbetterHalfBenefit() {
 
     if (this.medicalDetail.controls['betterHalfBenefit'].value == true) {
-      this.insureArray.controls['betterHalfsumAssured'].patchValue(this.insureArray.controls['sumAssured'].value);
+      this.insureArray.controls['betterHalfsumAssured'].patchValue(this.insureArray.controls['betterHalfsumAssured'].value);
 
       this.insureArray.controls['betterHalfsumAssured'].setValidators([Validators.required]);
     } else {
@@ -1857,7 +1861,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "heightInches":this.insureArray.controls['heightInches'].value,
         "heightCentimeters":"",
         "weight":this.insureArray.controls['weight'].value,
-        "hasWeightChanged":this.insureArray.controls['hasWeightChanged'].value,
+        "hasWeightChanged":this.insureArray.controls['hasWeightChanged'].value =='Same'? 'N' : 'Y',
         "weightChange":this.insureArray.controls['inbetweenweight'].value,
         "weightChangeReason":this.insureArray.controls['weightChangedreason'].value,
         "isStaff":this.insureArray.controls['isStaff'].value ? 'Y' : 'N',
@@ -2078,8 +2082,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.bankFormData = this.bankDetail.value;
       this.nomineeFormData = this.nomineeDetail.value.itemsNominee;
       this.insuredFormData = this.insureArray.value;
+      this.medicalFormData = this.medicalDetail.value;
       sessionStorage.proposerFormData = JSON.stringify(this.proposerFormData);
       sessionStorage.insuredFormData = JSON.stringify(this.insuredFormData);
+      sessionStorage.medicalFormData = JSON.stringify(this.medicalFormData);
       sessionStorage.bankFormData = JSON.stringify(this.bankFormData);
       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       sessionStorage.edelweiss_term_life_id = this.proposalId;
@@ -2087,6 +2093,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       console.log(this.proposerFormData, 'proposerFormData');
       console.log(this.insuredFormData,'insuredFormData');
+      console.log(this.medicalFormData,'medicalFormData');
       console.log(this.bankFormData,'bankFormData');
       console.log(this.nomineeFormData,'nomineeFormData');
     } else {
@@ -3146,6 +3153,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.medicalDetail.controls['receivedTreatment2'].patchValue(getMedicalDetail.receivedTreatment2);
           this.medicalDetail.controls['tobaccoInd'].patchValue(getMedicalDetail.tobaccoInd);
           this.medicalDetail.controls['tobaccoDetails'].patchValue(getMedicalDetail.tobaccoDetails);
+          this.medicalDetail.controls['tobaccoStopInd'].patchValue(getMedicalDetail.tobaccoStopInd);
           this.medicalDetail.controls['tobaccoStopDetails'].patchValue(getMedicalDetail.tobaccoStopDetails);
           this.medicalDetail.controls['diabetesInd'].patchValue(getMedicalDetail.diabetesInd);
           this.medicalDetail.controls['cancerDieaseInd'].patchValue(getMedicalDetail.cancerDieaseInd);

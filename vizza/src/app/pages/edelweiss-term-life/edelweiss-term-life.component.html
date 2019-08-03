@@ -396,8 +396,8 @@
                   <div class="row">
                       <div class="col-md-12 mt-2">
                           <h6 class="color-blue">TAX RESIDENCE DECLARATION</h6>
-                  <div class="col-md-6 mr-2">
-                      <mat-radio-group formControlName="taxResidence" >
+                  <div class="col-md-6 ">
+                      <mat-radio-group formControlName="taxResidence" class="mr-2"  >
                           <mat-radio-button value="LA is a tax resident of Other Country">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
                           <mat-radio-button value="LA is a tax resident of India" class="mr-2"> LA is a tax resident of India and not of any other country</mat-radio-button>
                       </mat-radio-group>
@@ -572,7 +572,7 @@
                                            </div>
                                        </div>
 
-                                   <div class="row" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
+                                   <div class="row p-3" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
                                        <div class="col-md-12 mt-2" *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
                                            <h6 class="color-blue">SPOUSE DETAILS</h6>
                                        </div>
@@ -626,7 +626,7 @@
                                                </mat-form-field>
                                            </div>
                                            <div class="col-md-4" *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
-                                               <p>Staff</p>
+                                               <p>Smoker</p>
                                                <mat-radio-group formControlName="isSmokerSpouse" >
                                                    <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                                    <mat-radio-button value="No">No</mat-radio-button>
@@ -900,20 +900,21 @@
                                    <mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>
                                </mat-form-field>
                            </div>
-                           <div class="col-md-3" *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' ">
+                           <div class="col-md-4 " *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' " >
                                <mat-form-field class="w-100">
-                                   <input matInput placeholder="Changed Weight" maxlength="3" formControlName="inbetweenweight" (keypress)="numberValidate($event)" autocomplete="off">
-                                   <mat-error *ngIf="insureArray.controls.inbetweenweight.errors?.required">Enter changed Weight</mat-error>
+                                   <mat-placeholder>Changed Weight<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="inbetweenweight"  maxlength="3"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
                                </mat-form-field>
                            </div>
-                           <div class="col-md-3" *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' ">
+                           <div class="col-md-4 " *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' " >
                                <mat-form-field class="w-100">
-                                   <mat-select  placeholder="Reason for weight changed" formControlName="weightChangedreason" (change)="changeWeightChanged()" class="w-100">
-                                       <mat-option *ngFor="let list of weightList | keys" [value]= list.key> {{list.value}} </mat-option>
+                                   <mat-placeholder>Reason for weight changed<span class="error" >*</span></mat-placeholder>
+                                   <mat-select  formControlName="weightChangedreason"  (change)=" changeWeightChanged()" >
+                                       <mat-option *ngFor="let list of weightList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                    </mat-select>
-                                   <mat-error *ngIf="insureArray.controls.weightChangedreason.errors?.required">Weight changed is required</mat-error>
                                </mat-form-field>
                            </div>
+
                            <div class="col-md-4">
                                <mat-radio-group formControlName="planOption" >
                                    <p>Plan Option</p>
@@ -935,7 +936,7 @@
                                        <mat-radio-button value="No">No</mat-radio-button>
                                    </mat-radio-group>
                                </div>
-                               <div class="col-md-4">
+                               <div class="col-md-4  mt-2">
                                    <mat-form-field class="w-100">
                                        <input matInput placeholder="Investment Strategy" formControlName="investmentStrategy" maxlength="50" autocomplete="off" required  >
                                        <mat-error *ngIf="insureArray.controls.investmentStrategy.errors?.required">Investment Strategy is required</mat-error>
@@ -949,7 +950,7 @@
                                    </mat-radio-group>
                                </div>
 
-                           <div class="col-md-4">
+                           <div class="col-md-4  mt-2">
                                <mat-form-field class="w-100">
                                    <mat-select  placeholder="Policy Option" formControlName="policyOption" (change)="getPolicyOption()"  class="w-100" required>
                                        <mat-option *ngFor="let list of epolicyOption | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -957,9 +958,9 @@
                                    <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>
                                </mat-form-field>
                            </div>
-                           <div class="col-md-4">
+                           <div class="col-md-4  mt-2">
                                <mat-form-field class="w-100">
-                                   <input matInput placeholder="additionalBenefit" formControlName="additionalBenefit" maxlength="50" autocomplete="off" required  >
+                                   <input matInput placeholder="Additional Benefit" formControlName="additionalBenefit" maxlength="50" autocomplete="off" required  >
                                    <mat-error *ngIf="insureArray.controls.additionalBenefit.errors?.required">additionalBenefit is required</mat-error>
                                </mat-form-field>
                            </div>
@@ -970,13 +971,13 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Top Up Benefit Percentage<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="topUpBenefitPercentage"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
                                </mat-form-field>
                            </div>
-                               <div class="col-md-6 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'"  >
+                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'"  >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Top Up Rate<span class="error" >*</span></mat-placeholder>
                                        <mat-select  formControlName="topUpRate"  (change)=" getetopUpRate()" >
@@ -992,7 +993,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1012,7 +1013,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="criticalsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1025,7 +1026,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1038,7 +1039,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="sumAssuredATPD"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1051,7 +1052,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="sumAssuredHCB"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1664,6 +1665,8 @@
 
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="proposerFormData.mobileNo != ''"><strong>Mobile No:</strong> {{proposerFormData.mobileNo}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.isStaff != ''"><strong>Staff:</strong> {{proposerFormData.isStaff}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.employeeCode != ''"><strong>Employee Code:</strong> {{proposerFormData.employeeCode}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.highestQualification != ''"><strong>Highest Qualification:</strong> {{proposerFormData.highestQualificationName}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.otherQualification != ''"><strong>Other Qualification:</strong> {{proposerFormData.otherQualification}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.employerName != ''"><strong>Employer Name:</strong> {{proposerFormData.employerName}}</li>
@@ -1676,6 +1679,33 @@
                                    </ul>
                                </div>
                            </div>
+
+
+
+                           <div class="col-md-6">
+                               <div class="p-3">
+                                   <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.stitle}} {{proposerFormData.sfirstName}} {{proposerFormData.smidName}} {{proposerFormData.slastName}}</li>
+                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.sdob | date: 'dd/MM/yyyy'}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.semailId != ''"><strong>Email Id:</strong> {{proposerFormData.semailId}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.smobileNo != ''"><strong>Mobile No:</strong> {{proposerFormData.smobileNo}}</li>
+
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class=" p-3">
+                                   <h6 class="color-blue mt-4"></h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item" *ngIf="proposerFormData.isSmokerSpouse != ''"><strong>Are U Smoker?:</strong> {{proposerFormData.isSmokerSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{proposerFormData.isStaffSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{proposerFormData.employeeCodeSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{proposerFormData.relationSpouseProposer}}</li>
+                                   </ul>
+                               </div>
+                           </div>
+
                            <div class="col-md-6">
                                <div class="p-3">
                                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
@@ -1732,16 +1762,6 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>Nature Of Duty :</strong> {{insuredFormData.naturedutyName}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>Annual Income :</strong> {{insuredFormData.annualIncome}}</li>
-
-                                   </ul>
-                               </div>
-                           </div>
-                           <div class="col-md-6">
-                               <div class="p-3">
-
-                                   <ul class="m-0 list-group">
-
-
                                        <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong>Yes</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == false"><strong>Is Politically Exposed :</strong>No</li>
@@ -1752,11 +1772,41 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>Height Feets :</strong> {{insuredFormData.heightFeets}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.heightInches != ''"><strong>Height Inches :</strong> {{insuredFormData.heightInches}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.weight != ''"><strong>Weight :</strong> {{insuredFormData.weight}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.hasWeightChanged != ''"><strong>Change in weight past 6 months :</strong> {{insuredFormData.hasWeightChanged}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.inbetweenweight != ''"><strong>Changed Weight :</strong> {{insuredFormData.inbetweenweight}}</li>
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class="p-3">
+
+                                   <ul class="m-0 list-group">
+
+
+                                       <li class="list-group-item" *ngIf="insuredFormData.weightChangedreason != ''"><strong>Reason for weight changed :</strong> {{insuredFormData.weightChangedreason}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.planOption != ''"><strong>planOption :</strong> {{insuredFormData.planOption}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.workSiteFlag != ''"><strong>workSiteFlag :</strong> {{insuredFormData.workSiteFlag}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.tobaccoInd != ''"><strong>Are u Tobacco User ? </strong> {{insuredFormData.tobaccoInd}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.tobaccoDetails != ''"><strong>Tobacco Details:</strong> {{insuredFormData.tobaccoDetails}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.tobaccoStopDetails != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.tobaccoStopDetails}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.investmentStrategy != ''"><strong>Investment Strategy </strong> {{insuredFormData.investmentStrategy}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.risingStar != ''"><strong>Rising Star:</strong> {{insuredFormData.risingStar}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.policyOption != ''"><strong>Policy Option:</strong> {{insuredFormData.policyOption}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.additionalBenefit != ''"><strong>additionalBenefit:</strong> {{insuredFormData.additionalBenefit}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.TopUpBenefit != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.TopUpBenefit}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.topUpBenefitPercentage != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.topUpBenefitPercentage}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.topUpRate != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.topUpRate}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.betterHalfBenefit != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.betterHalfBenefit}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.betterHalfsumAssured != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.betterHalfsumAssured}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.waiverOfPremiumBenefit != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.waiverOfPremiumBenefit}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.criticalIllness != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.criticalIllness}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.criticalsumAssured != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.criticalsumAssured}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isADB != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.isADB}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredADB != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.sumAssuredADB}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isATPD != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.isATPD}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredATPD != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.sumAssuredATPD}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isHCB != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.isHCB}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredHCB != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.sumAssuredHCB}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.payoutOption != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.payoutOption}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.payoutPercentageIncome != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.payoutPercentageIncome}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.noOfMonths != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.noOfMonths}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness:</strong> {{insuredFormData.insureHistory}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Do you have an e-insurance account number?:</strong> {{insuredFormData.insureAccNo}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>Provide Account No:</strong> {{insuredFormData.provideAccNo}}</li>
@@ -1764,6 +1814,29 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>E-Insurance Account Number:</strong> {{insuredFormData.einsureAccNo}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy1}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>Insurance Repository :</strong> {{insuredFormData.insureRepository}}</li>
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class="p-3">
+                                   <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
+                                       <li class="list-group-item"><strong>D.O.B:</strong> {{insuredFormData.sdob | date: 'dd/MM/yyyy'}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.semailId != ''"><strong>Email Id:</strong> {{insuredFormData.semailId}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.smobileNo != ''"><strong>Mobile No:</strong> {{insuredFormData.smobileNo}}</li>
+
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class=" p-3">
+                                   <h6 class="color-blue mt-4"></h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{insuredFormData.relationSpouseProposer}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1805,9 +1878,14 @@
                                    <div class="row">
                                        <div class="col-md-12">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="medicalDetail.medicalTreatment != ''"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalDetail.medicalTreatment}}</li>
-                                               <li class="list-group-item" *ngIf="medicalDetail.name != ''" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalDetail.name}}</li>
-                                               <li class="list-group-item" *ngIf="medicalDetail.location != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalDetail.location}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment != ''"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalFormData.medicalTreatment}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment1 != ''" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalFormData.receivedTreatment1}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalFormData.receivedTreatment2}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd != ''"><strong>Are u Tobacco User:</strong> {{medicalFormData.tobaccoInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tobaccoDetails != ''"><strong>Tobacco Details:</strong> {{medicalFormData.tobaccoDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd != ''"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoStopInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopDetails != ''"><strong>Tobacco Stop Details:</strong> {{medicalFormData.tobaccoStopDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.diabetesInd != ''"><strong>Diabetes:</strong> {{medicalFormData.diabetesInd}}</li>
 
                                            </ul>
                                        </div>
@@ -1819,9 +1897,12 @@
                                    <div class="row">
                                        <div class="col-md-12">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="medicalDetail.accountNo != ''" ><strong>Account Number:</strong> {{medicalDetail.accountNo}}</li>
-                                               <li class="list-group-item" *ngIf="medicalDetail.accName != ''" ><strong>Account Holder Name:</strong> {{medicalDetail.accName}}</li>
-                                               <li class="list-group-item" *ngIf="medicalDetail.investmentStrategy != ''"><strong>Investment Strategy:</strong> {{medicalDetail.investmentStrategy}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.cancerDieaseInd != ''" ><strong>Cancer Diease:</strong> {{medicalFormData.cancerDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.deformityInd != ''" ><strong>Deformity:</strong> {{medicalFormData.deformityInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.pregnantInd != ''"><strong>Pregnant:</strong> {{medicalFormData.pregnantInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.pregnantweeks != ''"><strong>Pregnant weeks:</strong> {{medicalFormData.pregnantweeks}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseInd != ''"><strong>Female Diease:</strong> {{medicalFormData.femaleDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.healthInformation != ''"><strong>Health Information:</strong> {{medicalFormData.healthInformation}}</li>
 
                                            </ul>
                                        </div>
@@ -1831,15 +1912,15 @@
 
                        </div>
                        <div class="row box-card">
-                           <div class="col-md-12" *ngFor="let item of bankFormData.existingInsurance; let i = index;">
+                           <div class="col-md-12" *ngFor="let item of medicalFormData.medicalQuestions; let i = index;">
                                <div class="row">
                                    <div class="col-md-6" >
                                        <div class="p-3">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Existing Insurance:</strong>yes</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == false"><strong>Existing Insurance:</strong>No</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Company Name:</strong> {{item.companyName}}</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Year Of Issue:</strong> {{item.yearOfIssue}}</li>
+                                               <li class="list-group-item" ><strong>Disease:</strong>{{item.disease}}</li>
+                                               <li class="list-group-item" ><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
+                                               <li class="list-group-item" ><strong>Treatment:</strong> {{item.treatment}}</li>
+                                               <li class="list-group-item" ><strong>Dosage:</strong> {{item.dosage}}</li>
                                            </ul>
                                        </div>
                                    </div>
@@ -1849,9 +1930,10 @@
                                    <div class="col-md-6" >
                                        <div class="p-3">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Sum Assured:</strong> {{item.sumAssured}}</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Annualized Premium:</strong> {{item.annualizedPremium}}</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Policy Status:</strong> {{item.policyStatus}}</li>
+                                               <li class="list-group-item" ><strong>Doctor:</strong> {{item.doctor}}</li>
+                                               <li class="list-group-item" ><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
+                                               <li class="list-group-item" ><strong>Complications:</strong> {{item.anycomplications}}</li>
+                                               <li class="list-group-item" ><strong>Remarks:</strong> {{item.remarks}}</li>
                                            </ul>
                                        </div>
                                    </div>
@@ -1992,7 +2074,6 @@
 
 
                                <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                               <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()" >Pay Now</button>-->
                                <button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>
                            </form>
                        </div>
@@ -2099,7 +2180,9 @@
                                <!--&lt;!&ndash;<form action={{proposalNextList.payment_link}}  method='post' #form>&ndash;&gt;-->
                                <!--&lt;!&ndash;&lt;!&ndash;<button mat-button color="warn" (click)="backAll()" >Back</button>&ndash;&gt;&ndash;&gt;-->
                                <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>&ndash;&gt;-->
-                               <!--&lt;!&ndash;</form>&ndash;&gt;-->
+           <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()" >Pay Now</button>&ndash;&gt;-->
+
+           <!--&lt;!&ndash;</form>&ndash;&gt;-->
                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
                                <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
