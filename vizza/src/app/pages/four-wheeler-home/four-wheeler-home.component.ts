@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Inject, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Settings} from '../../app.settings.model';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
@@ -8,7 +8,7 @@ import {ValidationService} from '../../shared/services/validation.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../shared/services/auth.service';
 import {ToastrService} from 'ngx-toastr';
-import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatDialog} from '@angular/material';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material';
 import {AppSettings} from '../../app.settings';
 import {CommonService} from '../../shared/services/common.service';
 import {EnquiryPopupComponent} from '../bike-insurance/enquiry-popup/enquiry-popup.component';
@@ -68,14 +68,14 @@ export class FourWheelerHomeComponent implements OnInit {
   public previousDate: boolean;
   public showSelf: boolean;
 
-  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe,public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService) {
+  constructor(public fb: FormBuilder, public fwService: FourWheelerService, public datePipe: DatePipe, public config: ConfigurationService, public validation: ValidationService, public datepipe: DatePipe, public route: ActivatedRoute, public auth: AuthService, public toastr: ToastrService, public dialog: MatDialog, public appSettings: AppSettings, public router: Router, public commonservices: CommonService, public toast: ToastrService) {
     this.settings = this.appSettings.settings;
     this.webhost = this.config.getimgUrl();
-    if(window.innerWidth < 787){
+    if (window.innerWidth < 787) {
       this.settings.HomeSidenavUserBlock = false;
       this.settings.sidenavIsOpened = false;
       this.settings.sidenavIsPinned = false;
-    }else{
+    } else {
       this.settings.HomeSidenavUserBlock = true;
       this.settings.sidenavIsOpened = true;
       this.settings.sidenavIsPinned = true;
@@ -85,7 +85,7 @@ export class FourWheelerHomeComponent implements OnInit {
     this.listDetails = false;
 
     this.fourWheeler = this.fb.group({
-      'vehicalNumber':'',
+      'vehicalNumber': '',
       'registrationDate': '',
       'registrationDateNew': '',
       'previousClaim': 'Yes',
@@ -94,7 +94,7 @@ export class FourWheelerHomeComponent implements OnInit {
       'previousPolicyExpiry': '',
       'previousPolicyStart': '',
       'previousCompany': '',
-      'city':''
+      'city': ''
     });
     this.expiry = false;
     this.showSelf = false;
@@ -102,7 +102,7 @@ export class FourWheelerHomeComponent implements OnInit {
     this.typeList = 'new';
     if (this.typeList == 'new') {
       this.getType(0);
-    } else{
+    } else {
       this.getType(1);
     }
   }
@@ -251,13 +251,13 @@ export class FourWheelerHomeComponent implements OnInit {
       sessionStorage.carListDetails = JSON.stringify(this.bikeList);
       sessionStorage.bikeEnquiryId = this.bikeList.enquiry_id;
       sessionStorage.enquiryFormDatafw = JSON.stringify(data);
-        let dialogRef = this.dialog.open(FourWheelerEnquirypopupComponent, {
-          width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
-          height: '600px'
-        })
-        dialogRef.disableClose = true;
-        dialogRef.afterClosed().subscribe(result => {
-        });
+      let dialogRef = this.dialog.open(FourWheelerEnquirypopupComponent, {
+        width: '1500px', data: {listData: successData.ResponseObject, disableClose: true},
+        height: '600px'
+      })
+      dialogRef.disableClose = true;
+      dialogRef.afterClosed().subscribe(result => {
+      });
 
 
     } else {
@@ -294,6 +294,7 @@ export class FourWheelerHomeComponent implements OnInit {
 
   public claimFailure(error) {
   }
+
   // previous company
   getpreviousCompany() {
     const data = {
@@ -322,14 +323,15 @@ export class FourWheelerHomeComponent implements OnInit {
   public companyFailure(error) {
   }
 
-  rtoCity(){
+  rtoCity() {
     sessionStorage.RtoFour = this.fourWheeler.controls['city'].value;
-    console.log(sessionStorage.RtoFour,'sessionStorage.Rto');
+    console.log(sessionStorage.RtoFour, 'sessionStorage.Rto');
   }
 
   idValidate(event: any) {
     this.validation.idValidate(event);
   }
+
   getCityLists() {
     const data = {
       'platform': 'web',
@@ -347,14 +349,17 @@ export class FourWheelerHomeComponent implements OnInit {
         }
     );
   }
-  public citySuccess(successData){
+
+  public citySuccess(successData) {
     if (successData.IsSuccess) {
       this.cityDetails = successData.ResponseObject;
       //
     }
   }
+
   public cityFailure(error) {
   }
+
   sessionData() {
     if (sessionStorage.enquiryFormDatafw != '' && sessionStorage.enquiryFormDatafw != undefined) {
       let stepper = JSON.parse(sessionStorage.enquiryFormDatafw);
@@ -397,15 +402,17 @@ export class FourWheelerHomeComponent implements OnInit {
       this.fourWheeler.controls['previousPolicyStart'].patchValue('');
       this.fourWheeler.controls['previousPolicyExpiry'].patchValue('');
       this.fourWheeler.controls['ncb'].patchValue('');
+      this.fourWheeler.controls['previousClaim'].patchValue('');
       this.fourWheeler.controls['vehicalNumber'].patchValue('');
-      console.log(this.typeList,'0');
+      console.log(this.typeList, '0');
     } else {
       this.typeList = 'other';
-      console.log(this.typeList,'1');
+      console.log(this.typeList, '1');
       this.fourWheeler.controls['registrationDate'].setValidators([Validators.required]);
       this.fourWheeler.controls['registrationDateNew'].setValidators(null);
       this.fourWheeler.controls['city'].setValidators(null);
       this.fourWheeler.controls['previousPolicyExpiry'].setValidators([Validators.required]);
+      this.fourWheeler.controls['previousClaim'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousPolicyStart'].setValidators([Validators.required]);
       this.fourWheeler.controls['vehicalNumber'].setValidators([Validators.required]);
       this.fourWheeler.controls['previousCompany'].setValidators([Validators.required]);
@@ -416,10 +423,56 @@ export class FourWheelerHomeComponent implements OnInit {
     this.fourWheeler.controls['registrationDateNew'].updateValueAndValidity();
     this.fourWheeler.controls['city'].updateValueAndValidity();
     this.fourWheeler.controls['ncb'].updateValueAndValidity();
+    this.fourWheeler.controls['previousClaim'].updateValueAndValidity();
     this.fourWheeler.controls['previousPolicyExpiry'].updateValueAndValidity();
     this.fourWheeler.controls['previousPolicyStart'].updateValueAndValidity();
     this.fourWheeler.controls['previousCompany'].updateValueAndValidity();
     this.fourWheeler.controls['vehicalNumber'].updateValueAndValidity();
 
   }
+
+
+  CarInsurer() {
+    const dialogRef = this.dialog.open(CarInsurer, {
+      width: '1200px',
+    });
+    dialogRef.disableClose = true;
+  }
+}
+
+@Component({
+  selector: 'carinsurer',
+  template: `        
+        <div class="container">
+        <div  class="row text-justify">
+        
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-8">
+                <h3 class="text-center" style="color: #22B9C6 "><img src="assets/img/car-insurance.png" class="logo-size"> About Car Insurance</h3>
+            </div>
+            <div class="col-sm-2 text-right">
+                <mat-icon (click)="onNoClick()" style="cursor: pointer">close</mat-icon>
+            </div>
+            <p>The owners of motor vehicles are not aware of  the important aspects of the risks andliabilities associated with owning and /or driving a  motor vehicle. Even though the Motor insurance policies can be bought or renewed online through internet the renewal dates are missed and the vehicle plies on the road without insurance. It is essential to know that as the owner of the vehicle the liability if any in the event of an accident rests on the motor vehicle owner and all negligence arising out of driving is with the driver. </p>
+            <p>The motor vehicle insurance has two parts</p>
+            <ol class="pl-5" type="i">
+                <li>The Own damage portion which takes care of damages and theft of the vehicle</li>
+                <li>The liability portion which takes care of liabilities arising at the time of an accident. The Third party damages could be Third party injury, Third party property damages, injury or death of the driver / conductor / cleaner / coolies. If the vehicle is not adequately insured the owner and the driver of the vehicle are at a huge risk from all angles.</li>
+            </ol>
+            <p>The introduction of long term Third party liability insurance in India is to be considered as a blessing in disguise to some extent. At the same time the probabilities of the risk of forgetting to renew the liability insurance prior to its expiry increases. The Own damage portion is also anticipating a change in the existing pattern very shortly. Motor vehicle insurance has also seen a slight betterment in tune with the international standards like the bumper to bumper cover.</p>
+            <p>Please feel free to get in touch with us for any help in motor vehicle insurance. You can contact us by email at cutomercare@vizzafin.comFOR ALL RENEWALS AND MOTOR VEHICLE INSURANCE RELATED QUERIES.</p>
+         </div>
+        </div>`,
+})
+export class CarInsurer {
+
+  constructor(
+      public dialogRef: MatDialogRef<CarInsurer>,
+      @Inject(MAT_DIALOG_DATA) public data: any) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
 }

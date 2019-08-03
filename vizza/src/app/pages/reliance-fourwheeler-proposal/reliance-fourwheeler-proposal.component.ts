@@ -331,7 +331,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
 
     this.bikeEnquiryId = sessionStorage.fwEnquiryId;
 
-    this.buyProduct = JSON.parse(sessionStorage.bikeListDetails);
+    this.buyProduct = JSON.parse(sessionStorage.carListDetails);
     // this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
     // this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     // this.productDetails = JSON.parse(sessionStorage.buyProductDetails);

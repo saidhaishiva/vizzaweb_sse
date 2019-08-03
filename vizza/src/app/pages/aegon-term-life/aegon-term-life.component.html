@@ -429,9 +429,10 @@
                                 </mat-form-field>
                               </div>
 
+
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <input matInput [matDatepicker]="picker2" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  (keyup)="appointeeAgeValid($event)"   formControlName="ndob" (dateInput)="addDate( $event)" (dateChange)="addDate( $event)" (input)="ageNominee()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                  <input matInput [matDatepicker]="picker2" [max]="minDate" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  (keyup)="appointeeAgeValid($event)"   formControlName="ndob" (dateInput)="addDate( $event)" (dateChange)="addDate($event); ageNominee()" (input)="ageNominee()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                   <mat-datepicker #picker2></mat-datepicker>
                                   <mat-error *ngIf="nominee.controls.ndob.errors?.required">DOB is required</mat-error>

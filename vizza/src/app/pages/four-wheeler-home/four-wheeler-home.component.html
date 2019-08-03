@@ -9,7 +9,7 @@
             <img src="assets/img/car-Inner-bannernw.jpg" class="w-100">
             <div class="aboutContent">
               <h4>About Car Insurance</h4>
-              <p style="text-align: left;">Accidents will happen, no matter how careful we are..… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;"> Know More</button></p>
+              <p style="text-align: left;">Accidents will happen, no matter how careful we are..… <button class="btn btn-sm" style="border: 1px solid #000; background-color: inherit; padding: 0px 3px; font-size:11px;" (click)="CarInsurer()"> Know More</button></p>
             </div>
           </div>
         </div>
@@ -130,8 +130,8 @@
                   <!--</div>-->
                   <div class="col-md-10" *ngIf="fourWheeler.controls['previousClaim'].value == 'No'">
                     <mat-form-field class="w-100 text-left">
-                      <mat-placeholder> NCB Percent(%)</mat-placeholder>
-                      <mat-select (change)="setSession()" formControlName="ncb"  [required]="typeList != 'new'" >
+                      <mat-placeholder> NCB Percent(%) <span class="error">*</span></mat-placeholder>
+                      <mat-select (change)="setSession()" formControlName="ncb"  >
                         <!--<i class="material-icons"><span matTooltip="Please confirm that the No Claim Bonus (NCB)% provided by you is accurate. If found incorrect, Insurance company may reject any claims made. You can check the NCB% from your previous insurance policy."</span>-->
                         <!--help-->
                         <!--</i>-->

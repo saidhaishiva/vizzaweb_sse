@@ -266,7 +266,6 @@ export class BikePremiumListComponent implements OnInit {
         }
     }
     listDetails(){
-
         if(this.compherhensive == 'ThridParty_premium'){
             this.thirdParty = true;
             sessionStorage.premiumAmount = this.thirdParty;
