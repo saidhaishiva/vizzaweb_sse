@@ -553,6 +553,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                     if (this.proposer.controls['drivingexp'].value <= exp) {
                         console.log(value, 'proposer');
                         stepper.next();
+                        this.topScroll();
                     } else {
                         this.toastr.error('Invalid Driving Experience');
                     }
@@ -571,6 +572,7 @@ export class BikeTataaigProposalComponent implements OnInit {
             console.log(value, 'vehicle');
             this.vehicle.controls['coverdrivevalue'].patchValue(this.coverlist[this.vehicle.controls['coverdrive'].value]);
             stepper.next();
+            this.topScroll();
         }
     }
 
@@ -582,6 +584,7 @@ export class BikeTataaigProposalComponent implements OnInit {
                 if (this.previouspolicy.controls['prepolno'].value != '') {
                     console.log(value, 'prepolicy');
                     stepper.next();
+                    this.topScroll();
                 } else {
                     this.toastr.error('Policy No should not be empty');
                 }
@@ -806,6 +809,7 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.settings.loadingSpinner = false;
         if (successData.IsSuccess) {
             stepper.next();
+            this.topScroll();
             this.toastr.success('Proposal created successfully!!');
             this.summaryData = successData.ResponseObject;
             sessionStorage.summaryDatabiketata = JSON.stringify(this.summaryData );
