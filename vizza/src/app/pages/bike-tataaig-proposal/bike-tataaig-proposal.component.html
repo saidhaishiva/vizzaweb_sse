@@ -40,9 +40,9 @@
                           <mat-error *ngIf="proposer.controls.proposerLastname.errors?.required">Last Name is Required</mat-error>
                         </mat-form-field>
                       </div>
-                      <div class="col-md-3">
+                      <div class="col-md-3" [ngStyle]="{'pointer-events':'none'}">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Gender" formControlName="proposerGender" required readonly>
+                          <mat-select placeholder="Gender" formControlName="proposerGender">
                             <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.proposerGender.errors?.required">Gender is Required</mat-error>
