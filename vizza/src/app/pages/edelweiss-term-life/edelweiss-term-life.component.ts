@@ -2097,6 +2097,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
 
+
 // Services
 
   geteTitle() {

@@ -1754,9 +1754,6 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.weight != ''"><strong>Weight :</strong> {{insuredFormData.weight}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.planOption != ''"><strong>planOption :</strong> {{insuredFormData.planOption}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.workSiteFlag != ''"><strong>workSiteFlag :</strong> {{insuredFormData.workSiteFlag}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.medicalTreatment != ''"><strong>Are you currently taking any medication or medical treatment:</strong> {{insuredFormData.medicalTreatment}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment1 != ''"><strong>Have you ever been diagnosed or / received treatment :</strong> {{insuredFormData.receivedTreatment1}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{insuredFormData.receivedTreatment2}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.tobaccoInd != ''"><strong>Are u Tobacco User ? </strong> {{insuredFormData.tobaccoInd}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.tobaccoDetails != ''"><strong>Tobacco Details:</strong> {{insuredFormData.tobaccoDetails}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.tobaccoStopDetails != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.tobaccoStopDetails}}</li>
@@ -1794,6 +1791,70 @@
                                        <li class="list-group-item"  *ngIf="insuredFormData.perState != ''"><strong> State:</strong> {{insuredFormData.perState}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.perCity != ''"><strong> City:</strong> {{insuredFormData.perCity}}</li>
                                    </ul>
+                               </div>
+
+                           </div>
+                       </div>
+                   </section>
+
+                   <section>
+                       <h5 class="mt-3 sub-title">MEDICAL HISTORY</h5>
+                       <div class="row box-card">
+                           <div class="col-md-6">
+                               <div class="p-3">
+                                   <div class="row">
+                                       <div class="col-md-12">
+                                           <ul class="m-0 list-group">
+                                               <li class="list-group-item" *ngIf="medicalDetail.medicalTreatment != ''"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalDetail.medicalTreatment}}</li>
+                                               <li class="list-group-item" *ngIf="medicalDetail.name != ''" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalDetail.name}}</li>
+                                               <li class="list-group-item" *ngIf="medicalDetail.location != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalDetail.location}}</li>
+
+                                           </ul>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class="p-3">
+                                   <div class="row">
+                                       <div class="col-md-12">
+                                           <ul class="m-0 list-group">
+                                               <li class="list-group-item" *ngIf="medicalDetail.accountNo != ''" ><strong>Account Number:</strong> {{medicalDetail.accountNo}}</li>
+                                               <li class="list-group-item" *ngIf="medicalDetail.accName != ''" ><strong>Account Holder Name:</strong> {{medicalDetail.accName}}</li>
+                                               <li class="list-group-item" *ngIf="medicalDetail.investmentStrategy != ''"><strong>Investment Strategy:</strong> {{medicalDetail.investmentStrategy}}</li>
+
+                                           </ul>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+
+                       </div>
+                       <div class="row box-card">
+                           <div class="col-md-12" *ngFor="let item of bankFormData.existingInsurance; let i = index;">
+                               <div class="row">
+                                   <div class="col-md-6" >
+                                       <div class="p-3">
+                                           <ul class="m-0 list-group">
+                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Existing Insurance:</strong>yes</li>
+                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == false"><strong>Existing Insurance:</strong>No</li>
+                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Company Name:</strong> {{item.companyName}}</li>
+                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Year Of Issue:</strong> {{item.yearOfIssue}}</li>
+                                           </ul>
+                                       </div>
+                                   </div>
+
+
+
+                                   <div class="col-md-6" >
+                                       <div class="p-3">
+                                           <ul class="m-0 list-group">
+                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Sum Assured:</strong> {{item.sumAssured}}</li>
+                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Annualized Premium:</strong> {{item.annualizedPremium}}</li>
+                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Policy Status:</strong> {{item.policyStatus}}</li>
+                                           </ul>
+                                       </div>
+                                   </div>
                                </div>
                            </div>
                        </div>

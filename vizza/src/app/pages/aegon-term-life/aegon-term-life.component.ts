@@ -616,6 +616,7 @@ export class AegonTermLifeComponent implements OnInit {
 
     }
   }
+
   appointeeAgeValid(event: any) {
     if ( this.apponiteeList == true ) {
       this.nominee.controls['atitle'].patchValue(this.nominee.controls['atitle'].value);
