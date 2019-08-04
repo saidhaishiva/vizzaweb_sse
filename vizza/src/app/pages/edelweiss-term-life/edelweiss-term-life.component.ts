@@ -112,8 +112,24 @@ export class EdelweissTermLifeComponent implements OnInit {
   public nomineeData: any;
   public showAppointee: boolean;
   public dopDateError: any;
-
-
+  public fileDetails: any;
+  public url: any;
+  public uploadIdProofName: any;
+  public uploadBankProofName: any;
+  public uploadAgeProofName: any;
+  public uploadAddressProofName: any;
+  public uploadCorrespondingAddressProofName: any;
+  public ageProofPath: any;
+  public addressProofPath: any;
+  public correspondingAddressProofPath: any;
+  public spouseAgeProofPath: any;
+  public PhotographPath: any;
+  public incomeProofPath: any;
+  public bankProofPath: any;
+  public idProofPath: any;
+  public allImage: any;
+  public documentPath: any;
+  public fileUploadStatus: boolean;
 
 
   constructor( public fb: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
@@ -138,6 +154,16 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
     });
     this.currentStep = stepperindex;
+    this.addressProofPath = [];
+    this.correspondingAddressProofPath = [];
+    this.spouseAgeProofPath = [];
+    this.PhotographPath = [];
+    this.incomeProofPath = [];
+    this.ageProofPath = [];
+    this.bankProofPath = [];
+    this.idProofPath = [];
+    this.allImage = [];
+    this.fileUploadStatus = true;
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
@@ -1249,12 +1275,309 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     }
   }
-  // document Upload
-  nextDocUpload(stepper) {
+
+  summaryNext(stepper) {
     stepper.next();
     this.topScroll();
   }
 
+  // document Upload
+  uploadProof(event: any, type) {
+
+    let getUrlEdu = [];
+    this.fileDetails = [];
+    if (type == 'address_proof') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'add_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadAddressProofName = this.fileDetails[0].name;
+
+    } else if (type == 'addressCorresponding_proof') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'addCores_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
+
+    } else if (type == 'ageSpouse_proof') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'spouseAge_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
+
+    } else if (type == 'income_proof') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'income_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
+
+    } else if (type == 'photograph_proof') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'photo_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
+
+    } else if (type == 'age_proof') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'age_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadAgeProofName = this.fileDetails[0].name;
+
+    } else if (type == 'id_proof') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'id_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadIdProofName = this.fileDetails[0].name;
+    } else if (type == 'bank_proof') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'bank_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadBankProofName = this.fileDetails[0].name;
+    }
+
+  }
+  onUploadFinished(values, basecode, type) {
+    values[0].base64 = basecode[0][1];
+
+    for (let k = 0; k < values.length; k++) {
+      if (this.allImage.indexOf(values[k].name) == -1) {
+        this.allImage.push(values[k]);
+      }
+    }
+    console.log(this.allImage , 'this.allImage.this.allImage.');
+    if (type == 'age_p') {
+      this.ageProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.ageProofPath.indexOf(values[k].name) == -1) {
+          this.ageProofPath.push(values[k]);
+        }
+      }
+    } else if (type == 'add_p') {
+      this.addressProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.addressProofPath.indexOf(values[k].name) == -1) {
+          this.addressProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'addCores_p') {
+      this.correspondingAddressProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.correspondingAddressProofPath.indexOf(values[k].name) == -1) {
+          this.correspondingAddressProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'spouseAge_p') {
+      this.spouseAgeProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.spouseAgeProofPath.indexOf(values[k].name) == -1) {
+          this.spouseAgeProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'income_p') {
+      this.incomeProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.incomeProofPath.indexOf(values[k].name) == -1) {
+          this.incomeProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'photo_p') {
+      this.PhotographPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.PhotographPath.indexOf(values[k].name) == -1) {
+          this.PhotographPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'id_p') {
+      this.idProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.idProofPath.indexOf(values[k].name) == -1) {
+          this.idProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'bank_p') {
+      this.bankProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.bankProofPath.indexOf(values[k].name) == -1) {
+          this.bankProofPath.push(values[k]);
+        }
+      }
+    }
+
+    console.log(this.ageProofPath, 'this.ageProofPath');
+    console.log(this.addressProofPath, 'this.addressProofPath');
+    console.log(this.correspondingAddressProofPath, 'this.correspondingAddressProofPath');
+    console.log(this.spouseAgeProofPath, 'this.spouseAgeProofPath');
+    console.log(this.incomeProofPath, 'this.incomeProofPath');
+    console.log(this.PhotographPath, 'this.PhotographPath');
+    console.log(this.bankProofPath, 'this.bankProofPath');
+    console.log(this.idProofPath, 'this.idProofPath');
+    console.log(this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath, this.correspondingAddressProofPath, this.spouseAgeProofPath, this.incomeProofPath, this.PhotographPath), 'this.conbvsgd');
+
+  }
+
+  uploadAll() {
+    const data = {
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "platform": "web",
+      "policy_id": this.getEnquiryDetials.policy_id,
+      "Persons": [{
+        "Documents": this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath, this.correspondingAddressProofPath, this.spouseAgeProofPath, this.incomeProofPath, this.PhotographPath),
+        "Type": "PH"
+      }]
+    };
+    console.log(data, 'dattattatata');
+    this.termService.fileUploadEdelweiss(data).subscribe(
+        (successData) => {
+          this.fileUploadSuccess(successData);
+        },
+        (error) => {
+          this.fileUploadFailure(error);
+        }
+    );
+  }
+
+
+  public fileUploadSuccess(successData) {
+    if (successData.IsSuccess == true) {
+      this.documentPath = successData.ResponseObject.filePath;
+      this.toastr.success(successData.ResponseObject.message, 'Success');
+      this.fileUploadStatus = false;
+    } else {
+      this.toastr.error(successData.ErrorObject, 'Failed');
+      this.fileUploadStatus = true;
+    }
+  }
+
+  public fileUploadFailure(error) {
+    console.log(error);
+  }
 
   staffChange() {
 
@@ -1572,7 +1895,351 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['insureRepository'].updateValueAndValidity();
 
   }
+  isdrugsInd() {
 
+    if (this.medicalDetail.controls['drugsInd'].value == true) {
+      this.medicalDetail.controls['drugsDetails'].patchValue(this.medicalDetail.controls['drugsDetails'].value);
+
+      this.medicalDetail.controls['drugsDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['drugsDetails'].patchValue('');
+
+      this.medicalDetail.controls['drugsDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['drugsDetails'].updateValueAndValidity();
+
+  }
+  isalcoholInd() {
+
+    if (this.medicalDetail.controls['alcoholInd'].value == true) {
+      this.medicalDetail.controls['alcoholDetails'].patchValue(this.medicalDetail.controls['alcoholDetails'].value);
+
+      this.medicalDetail.controls['alcoholDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['alcoholDetails'].patchValue('');
+
+      this.medicalDetail.controls['alcoholDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['alcoholDetails'].updateValueAndValidity();
+
+  }
+  isconsultDoctorInd() {
+
+    if (this.medicalDetail.controls['consultDoctorInd'].value == true) {
+      this.medicalDetail.controls['consultDoctorDetails'].patchValue(this.medicalDetail.controls['consultDoctorDetails'].value);
+
+      this.medicalDetail.controls['consultDoctorDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['consultDoctorDetails'].patchValue('');
+
+      this.medicalDetail.controls['consultDoctorDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['consultDoctorDetails'].updateValueAndValidity();
+
+  }
+  isECGInd() {
+
+    if (this.medicalDetail.controls['ECGInd'].value == true) {
+      this.medicalDetail.controls['ECGDetails'].patchValue(this.medicalDetail.controls['ECGDetails'].value);
+
+      this.medicalDetail.controls['ECGDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['ECGDetails'].patchValue('');
+
+      this.medicalDetail.controls['ECGDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['ECGDetails'].updateValueAndValidity();
+
+  }
+  isadmitInd() {
+
+    if (this.medicalDetail.controls['admitInd'].value == true) {
+      this.medicalDetail.controls['admitDetails'].patchValue(this.medicalDetail.controls['admitDetails'].value);
+
+      this.medicalDetail.controls['admitDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['admitDetails'].patchValue('');
+
+      this.medicalDetail.controls['admitDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['admitDetails'].updateValueAndValidity();
+
+  }
+  isheartDieaseInd() {
+
+    if (this.medicalDetail.controls['heartDieaseInd'].value == true) {
+      this.medicalDetail.controls['heartDieaseDetails'].patchValue(this.medicalDetail.controls['heartDieaseDetails'].value);
+
+      this.medicalDetail.controls['heartDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['heartDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['heartDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['heartDieaseDetails'].updateValueAndValidity();
+
+  }
+  isBPInd() {
+
+    if (this.medicalDetail.controls['BPInd'].value == true) {
+      this.medicalDetail.controls['BPDetails'].patchValue(this.medicalDetail.controls['BPDetails'].value);
+
+      this.medicalDetail.controls['BPDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['BPDetails'].patchValue('');
+
+      this.medicalDetail.controls['BPDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['BPDetails'].updateValueAndValidity();
+
+  }
+  isrespiratoryDieaseInd() {
+
+    if (this.medicalDetail.controls['respiratoryDieaseInd'].value == true) {
+      this.medicalDetail.controls['respiratoryDieaseDetails'].patchValue(this.medicalDetail.controls['respiratoryDieaseDetails'].value);
+
+      this.medicalDetail.controls['respiratoryDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['respiratoryDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['respiratoryDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['respiratoryDieaseDetails'].updateValueAndValidity();
+
+  }
+  isdiabetesInd() {
+
+    if (this.medicalDetail.controls['diabetesInd'].value == true) {
+      this.medicalDetail.controls['diabetesDetails'].patchValue(this.medicalDetail.controls['diabetesDetails'].value);
+
+      this.medicalDetail.controls['diabetesDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['diabetesDetails'].patchValue('');
+
+      this.medicalDetail.controls['diabetesDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['diabetesDetails'].updateValueAndValidity();
+
+  }
+  iskidneyDieaseInd() {
+
+    if (this.medicalDetail.controls['kidneyDieaseInd'].value == true) {
+      this.medicalDetail.controls['kidneyDieaseDetails'].patchValue(this.medicalDetail.controls['kidneyDieaseDetails'].value);
+
+      this.medicalDetail.controls['kidneyDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['kidneyDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['kidneyDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['kidneyDieaseDetails'].updateValueAndValidity();
+
+  }
+  isdigestiveDieaseInd() {
+
+    if (this.medicalDetail.controls['digestiveDieaseInd'].value == true) {
+      this.medicalDetail.controls['digestiveDieaseDetails'].patchValue(this.medicalDetail.controls['digestiveDieaseDetails'].value);
+
+      this.medicalDetail.controls['digestiveDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['digestiveDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['digestiveDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['digestiveDieaseDetails'].updateValueAndValidity();
+
+  }
+  iscancerDieaseInd() {
+
+    if (this.medicalDetail.controls['cancerDieaseInd'].value == true) {
+      this.medicalDetail.controls['cancerDieaseDetails'].patchValue(this.medicalDetail.controls['cancerDieaseDetails'].value);
+
+      this.medicalDetail.controls['cancerDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['cancerDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['cancerDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['cancerDieaseDetails'].updateValueAndValidity();
+
+  }
+  istropicalDieaseInd() {
+
+    if (this.medicalDetail.controls['tropicalDieaseInd'].value == true) {
+      this.medicalDetail.controls['tropicalDieaseDetails'].patchValue(this.medicalDetail.controls['tropicalDieaseDetails'].value);
+
+      this.medicalDetail.controls['tropicalDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['tropicalDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['tropicalDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['tropicalDieaseDetails'].updateValueAndValidity();
+
+  }
+  isthyroidDieaseInd() {
+
+    if (this.medicalDetail.controls['thyroidDieaseInd'].value == true) {
+      this.medicalDetail.controls['thyroidDieaseDetails'].patchValue(this.medicalDetail.controls['thyroidDieaseDetails'].value);
+
+      this.medicalDetail.controls['thyroidDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['thyroidDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['thyroidDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['thyroidDieaseDetails'].updateValueAndValidity();
+
+  }
+  isbloodDieaseInd() {
+
+    if (this.medicalDetail.controls['bloodDieaseInd'].value == true) {
+      this.medicalDetail.controls['bloodDieaseDetails'].patchValue(this.medicalDetail.controls['bloodDieaseDetails'].value);
+
+      this.medicalDetail.controls['bloodDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['bloodDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['bloodDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['bloodDieaseDetails'].updateValueAndValidity();
+
+  }
+  isnervousDieaseInd() {
+
+    if (this.medicalDetail.controls['nervousDieaseInd'].value == true) {
+      this.medicalDetail.controls['nervousDieaseDetails'].patchValue(this.medicalDetail.controls['nervousDieaseDetails'].value);
+
+      this.medicalDetail.controls['nervousDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['nervousDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['nervousDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['nervousDieaseDetails'].updateValueAndValidity();
+
+  }
+  isENTDieaseInd() {
+
+    if (this.medicalDetail.controls['ENTDieaseInd'].value == true) {
+      this.medicalDetail.controls['ENTDieaseDetails'].patchValue(this.medicalDetail.controls['ENTDieaseDetails'].value);
+
+      this.medicalDetail.controls['ENTDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['ENTDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['ENTDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['ENTDieaseDetails'].updateValueAndValidity();
+
+  }
+  ismuscleDieaseInd() {
+
+    if (this.medicalDetail.controls['muscleDieaseInd'].value == true) {
+      this.medicalDetail.controls['muscleDieaseDetails'].patchValue(this.medicalDetail.controls['muscleDieaseDetails'].value);
+
+      this.medicalDetail.controls['muscleDieaseDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['muscleDieaseDetails'].patchValue('');
+
+      this.medicalDetail.controls['muscleDieaseDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['muscleDieaseDetails'].updateValueAndValidity();
+
+  }
+  isalcoholicInd() {
+
+    if (this.medicalDetail.controls['alcoholicInd'].value == true) {
+      this.medicalDetail.controls['alcoholicDetails'].patchValue(this.medicalDetail.controls['alcoholicDetails'].value);
+
+      this.medicalDetail.controls['alcoholicDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['alcoholicDetails'].patchValue('');
+
+      this.medicalDetail.controls['alcoholicDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['alcoholicDetails'].updateValueAndValidity();
+
+  }
+  isotherIllnessInd() {
+
+    if (this.medicalDetail.controls['otherIllnessInd'].value == true) {
+      this.medicalDetail.controls['otherIllnessDetails'].patchValue(this.medicalDetail.controls['otherIllnessDetails'].value);
+
+      this.medicalDetail.controls['otherIllnessDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['otherIllnessDetails'].patchValue('');
+
+      this.medicalDetail.controls['otherIllnessDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['otherIllnessDetails'].updateValueAndValidity();
+
+  }
+  isdeformityInd() {
+
+    if (this.medicalDetail.controls['deformityInd'].value == true) {
+      this.medicalDetail.controls['deformityDetails'].patchValue(this.medicalDetail.controls['deformityDetails'].value);
+
+      this.medicalDetail.controls['deformityDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['deformityDetails'].patchValue('');
+
+      this.medicalDetail.controls['deformityDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['deformityDetails'].updateValueAndValidity();
+
+  }
+  issymptomsInd() {
+
+    if (this.medicalDetail.controls['symptomsInd'].value == true) {
+      this.medicalDetail.controls['symptomsDetails'].patchValue(this.medicalDetail.controls['symptomsDetails'].value);
+
+      this.medicalDetail.controls['symptomsDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['symptomsDetails'].patchValue('');
+
+      this.medicalDetail.controls['symptomsDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['symptomsDetails'].updateValueAndValidity();
+
+  }
+  isfemaleDieaseInd() {
+
+    if (this.medicalDetail.controls['femaleDieaseInd'].value == true) {
+      this.medicalDetail.controls['femaleDieaseWeeks'].patchValue(this.medicalDetail.controls['femaleDieaseWeeks'].value);
+
+      this.medicalDetail.controls['femaleDieaseWeeks'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['femaleDieaseWeeks'].patchValue('');
+
+      this.medicalDetail.controls['femaleDieaseWeeks'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['femaleDieaseWeeks'].updateValueAndValidity();
+
+  }
   istobaccoInd() {
 
     if (this.medicalDetail.controls['tobaccoInd'].value == 'Yes') {
@@ -1959,64 +2626,64 @@ export class EdelweissTermLifeComponent implements OnInit {
         "aadhaarNo":this.insureArray.controls['aadhaarNo'].value,
         "questionnaires":{
           "healthInformation":this.medicalDetail.controls['healthInformation'].value ? 'Y' : 'N',
-          "drugsInd":"Y",
-          "drugsDetails":"jsfhk skd",
-          "alcoholInd":"Y",
-          "alcoholDetails":"2~2~2",
+          "drugsInd":this.medicalDetail.controls['drugsInd'].value ? 'Y' : 'N',
+          "drugsDetails":this.medicalDetail.controls['drugsDetails'].value,
+          "alcoholInd":this.medicalDetail.controls['alcoholInd'].value ? 'Y' : 'N',
+          "alcoholDetails":this.medicalDetail.controls['alcoholDetails'].value,
           "tobaccoInd":this.medicalDetail.controls['tobaccoInd'].value ? 'Y' : 'N',
           "tobaccoDetails":this.medicalDetail.controls['tobaccoDetails'].value ? 'Y' : 'N',
           "tobaccoStopInd":this.medicalDetail.controls['tobaccoStopInd'].value ? 'Y' : 'N',
           "tobaccoStopDetails":this.medicalDetail.controls['tobaccoStopDetails'].value ? 'Y' : 'N',
-          "consultDoctorInd":"Y",
-          "consultDoctorDetails":"kjsfksd",
-          "ECGInd":"Y",
-          "ECGDetails":"hkjdhsk",
-          "admitInd":"Y",
-          "admitDetails":"nbjsdknk",
-          "medicationInd":this.medicalDetail.controls['medicalTreatment'].value ? 'Y' : 'N',
-          "medicationDetails":"fdsfdsf",
-          "diagnosedInd":this.medicalDetail.controls['receivedTreatment1'].value ? 'Y' : 'N',
-          "diagnosedDetails":"fdsfd ",
-          "heartDieaseInd":"Y",
-          "heartDieaseDetails":"hfksjdhfkh",
-          "BPInd":"Y",
-          "BPDetails":"hfksjdhfkh",
-          "respiratoryDieaseInd":"Y",
-          "respiratoryDieaseDetails":"hfksjdhfkh",
+          "consultDoctorInd":this.medicalDetail.controls['consultDoctorInd'].value ? 'Y' : 'N',
+          "consultDoctorDetails":this.medicalDetail.controls['consultDoctorDetails'].value,
+          "ECGInd":this.medicalDetail.controls['ECGInd'].value ? 'Y' : 'N',
+          "ECGDetails":this.medicalDetail.controls['ECGDetails'].value,
+          "admitInd":this.medicalDetail.controls['admitInd'].value ? 'Y' : 'N',
+          "admitDetails":this.medicalDetail.controls['admitDetails'].value,
+          "medicationInd":this.medicalDetail.controls['medicationInd'].value ? 'Y' : 'N',
+          "medicationDetails":this.medicalDetail.controls['medicationDetails'].value,
+          "diagnosedInd":this.medicalDetail.controls['diagnosedInd'].value ? 'Y' : 'N',
+          "diagnosedDetails":this.medicalDetail.controls['diagnosedDetails'].value,
+          "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd'].value ? 'Y' : 'N',
+          "heartDieaseDetails":this.medicalDetail.controls['heartDieaseDetails'].value,
+          "BPInd":this.medicalDetail.controls['BPInd'].value ? 'Y' : 'N',
+          "BPDetails":this.medicalDetail.controls['BPDetails'].value,
+          "respiratoryDieaseInd":this.medicalDetail.controls['respiratoryDieaseInd'].value ? 'Y' : 'N',
+          "respiratoryDieaseDetails":this.medicalDetail.controls['respiratoryDieaseDetails'].value,
           "diabetesInd":this.medicalDetail.controls['diabetesInd'].value ? 'Y' : 'N',
-          "diabetesDetails":"hfksjdhfkh",
-          "kidneyDieaseInd":"Y",
-          "kidneyDieaseDetails":"hfksjdhfkh",
-          "digestiveDieaseInd":"Y",
-          "digestiveDieaseDetails":"hfksjdhfkh",
+          "diabetesDetails":this.medicalDetail.controls['diabetesDetails'].value,
+          "kidneyDieaseInd":this.medicalDetail.controls['kidneyDieaseInd'].value ? 'Y' : 'N',
+          "kidneyDieaseDetails":this.medicalDetail.controls['kidneyDieaseDetails'].value,
+          "digestiveDieaseInd":this.medicalDetail.controls['digestiveDieaseInd'].value ? 'Y' : 'N',
+          "digestiveDieaseDetails":this.medicalDetail.controls['digestiveDieaseDetails'].value,
           "cancerDieaseInd":this.medicalDetail.controls['cancerDieaseInd'].value ? 'Y' : 'N',
-          "cancerDieaseDetails":"hfksjdhfkh",
-          "tropicalDieaseInd":"Y",
-          "tropicalDieaseDetails":"hfksjdhfkh",
-          "thyroidDieaseInd":"Y",
-          "thyroidDieaseDetails":"hfksjdhfkh",
-          "bloodDieaseInd":"Y",
-          "bloodDieaseDetails":"hfksjdhfkh",
-          "nervousDieaseInd":"Y",
-          "nervousDieaseDetails":"hfksjdhfkh",
-          "ENTDieaseInd":"Y",
-          "ENTDieaseDetails":"hfksjdhfkh",
-          "muscleDieaseInd":"Y",
-          "muscleDieaseDetails":"hfksjdhfkh",
-          "aidsInd":this.medicalDetail.controls['receivedTreatment2'].value ? 'Y' : 'N',
-          "aidsDetails":"hfksjdhfkh",
-          "alcoholicInd":"Y",
-          "alcoholicDetails":"hfksjdhfkh",
-          "otherIllnessInd":"Y",
-          "otherIllnessDetails":"hfksjdhfkh",
+          "cancerDieaseDetails":this.medicalDetail.controls['cancerDieaseDetails'].value,
+          "tropicalDieaseInd":this.medicalDetail.controls['tropicalDieaseInd'].value ? 'Y' : 'N',
+          "tropicalDieaseDetails":this.medicalDetail.controls['tropicalDieaseDetails'].value,
+          "thyroidDieaseInd":this.medicalDetail.controls['thyroidDieaseInd'].value ? 'Y' : 'N',
+          "thyroidDieaseDetails":this.medicalDetail.controls['thyroidDieaseDetails'].value,
+          "bloodDieaseInd":this.medicalDetail.controls['bloodDieaseInd'].value ? 'Y' : 'N',
+          "bloodDieaseDetails":this.medicalDetail.controls['bloodDieaseDetails'].value,
+          "nervousDieaseInd":this.medicalDetail.controls['nervousDieaseInd'].value ? 'Y' : 'N',
+          "nervousDieaseDetails":this.medicalDetail.controls['nervousDieaseDetails'].value,
+          "ENTDieaseInd":this.medicalDetail.controls['ENTDieaseInd'].value ? 'Y' : 'N',
+          "ENTDieaseDetails":this.medicalDetail.controls['ENTDieaseDetails'].value,
+          "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd'].value ? 'Y' : 'N',
+          "muscleDieaseDetails":this.medicalDetail.controls['muscleDieaseDetails'].value,
+          "aidsInd":this.medicalDetail.controls['aidsInd'].value ? 'Y' : 'N',
+          "aidsDetails":this.medicalDetail.controls['aidsDetails'].value,
+          "alcoholicInd":this.medicalDetail.controls['alcoholicInd'].value ? 'Y' : 'N',
+          "alcoholicDetails":this.medicalDetail.controls['alcoholicDetails'].value,
+          "otherIllnessInd":this.medicalDetail.controls['otherIllnessInd'].value ? 'Y' : 'N',
+          "otherIllnessDetails":this.medicalDetail.controls['otherIllnessDetails'].value,
           "deformityInd":this.medicalDetail.controls['deformityInd'].value ? 'Y' : 'N',
-          "deformityDetails":"hfksjdhfkh",
-          "symptomsInd":"Y",
-          "symptomsDetails":"hfksjdhfkh",
+          "deformityDetails":this.medicalDetail.controls['deformityDetails'].value,
+          "symptomsInd":this.medicalDetail.controls['symptomsInd'].value ? 'Y' : 'N',
+          "symptomsDetails":this.medicalDetail.controls['symptomsDetails'].value,
           "pregnantInd":this.medicalDetail.controls['pregnantInd'].value ? 'Y' : 'N',
           "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ? 'Y' : 'N',
           "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value ? 'Y' : 'N',
-          "femaleDieaseWeeks":"",
+          "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks'].value,
           "medicalQuestions":"",
         },
         "bank":{
@@ -3283,20 +3950,20 @@ export class EdelweissTermLifeComponent implements OnInit {
               }
           }
 
-          this.medicalDetail.controls['healthInformation'].patchValue(getMedicalDetail.healthInformation);
-          this.medicalDetail.controls['drugsInd'].patchValue(getMedicalDetail.drugsInd);
-          this.medicalDetail.controls['drugsDetails'].patchValue(getMedicalDetail.drugsDetails);
-          this.medicalDetail.controls['alcoholInd'].patchValue(getMedicalDetail.alcoholInd);
-          this.medicalDetail.controls['alcoholDetails'].patchValue(getMedicalDetail.alcoholDetails);
-          this.medicalDetail.controls['tobaccoInd'].patchValue(getMedicalDetail.tobaccoInd);
-          this.medicalDetail.controls['tobaccoDetails'].patchValue(getMedicalDetail.tobaccoDetails);
-          this.medicalDetail.controls['tobaccoStopInd'].patchValue(getMedicalDetail.tobaccoStopInd);
-          this.medicalDetail.controls['tobaccoStopDetails'].patchValue(getMedicalDetail.tobaccoStopDetails);
-          this.medicalDetail.controls['consultDoctorInd'].patchValue(getMedicalDetail.consultDoctorInd);
-          this.medicalDetail.controls['consultDoctorDetails'].patchValue(getMedicalDetail.consultDoctorDetails);
-          this.medicalDetail.controls['ECGInd'].patchValue(getMedicalDetail.ECGInd);
-          this.medicalDetail.controls['ECGDetails'].patchValue(getMedicalDetail.ECGDetails);
-          this.medicalDetail.controls['admitInd'].patchValue(getMedicalDetail.admitInd);
+        this.medicalDetail.controls['healthInformation'].patchValue(getMedicalDetail.healthInformation);
+        this.medicalDetail.controls['drugsInd'].patchValue(getMedicalDetail.drugsInd);
+        this.medicalDetail.controls['drugsDetails'].patchValue(getMedicalDetail.drugsDetails);
+        this.medicalDetail.controls['alcoholInd'].patchValue(getMedicalDetail.alcoholInd);
+        this.medicalDetail.controls['alcoholDetails'].patchValue(getMedicalDetail.alcoholDetails);
+        this.medicalDetail.controls['tobaccoInd'].patchValue(getMedicalDetail.tobaccoInd);
+        this.medicalDetail.controls['tobaccoDetails'].patchValue(getMedicalDetail.tobaccoDetails);
+        this.medicalDetail.controls['tobaccoStopInd'].patchValue(getMedicalDetail.tobaccoStopInd);
+        this.medicalDetail.controls['tobaccoStopDetails'].patchValue(getMedicalDetail.tobaccoStopDetails);
+        this.medicalDetail.controls['consultDoctorInd'].patchValue(getMedicalDetail.consultDoctorInd);
+        this.medicalDetail.controls['consultDoctorDetails'].patchValue(getMedicalDetail.consultDoctorDetails);
+        this.medicalDetail.controls['ECGInd'].patchValue(getMedicalDetail.ECGInd);
+        this.medicalDetail.controls['ECGDetails'].patchValue(getMedicalDetail.ECGDetails);
+        this.medicalDetail.controls['admitInd'].patchValue(getMedicalDetail.admitInd);
         this.medicalDetail.controls['admitDetails'].patchValue(getMedicalDetail.admitDetails);
         this.medicalDetail.controls['medicalTreatment'].patchValue(getMedicalDetail.medicalTreatment);
         this.medicalDetail.controls['medicationDetails'].patchValue(getMedicalDetail.medicationDetails);
@@ -3311,7 +3978,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.medicalDetail.controls['diabetesInd'].patchValue(getMedicalDetail.diabetesInd);
         this.medicalDetail.controls['diabetesDetails'].patchValue(getMedicalDetail.diabetesDetails);
         this.medicalDetail.controls['kidneyDieaseInd'].patchValue(getMedicalDetail.kidneyDieaseInd);
-        this.medicalDetail.controls['kidneyDieaseDetails'].patchValue(getMedicalDetail.receivedTreatment1);
+        this.medicalDetail.controls['kidneyDieaseDetails'].patchValue(getMedicalDetail.kidneyDieaseDetails);
         this.medicalDetail.controls['digestiveDieaseInd'].patchValue(getMedicalDetail.digestiveDieaseInd);
         this.medicalDetail.controls['digestiveDieaseDetails'].patchValue(getMedicalDetail.digestiveDieaseDetails);
         this.medicalDetail.controls['cancerDieaseInd'].patchValue(getMedicalDetail.cancerDieaseInd);
@@ -3330,7 +3997,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.medicalDetail.controls['muscleDieaseDetails'].patchValue(getMedicalDetail.muscleDieaseDetails);
         this.medicalDetail.controls['receivedTreatment2'].patchValue(getMedicalDetail.receivedTreatment2);
         this.medicalDetail.controls['aidsDetails'].patchValue(getMedicalDetail.aidsDetails);
-        this.medicalDetail.controls['alcoholicInd'].patchValue(getMedicalDetail.tobaccoDetails);
+        this.medicalDetail.controls['alcoholicInd'].patchValue(getMedicalDetail.alcoholicInd);
         this.medicalDetail.controls['alcoholicDetails'].patchValue(getMedicalDetail.alcoholicDetails);
         this.medicalDetail.controls['otherIllnessInd'].patchValue(getMedicalDetail.otherIllnessInd);
         this.medicalDetail.controls['otherIllnessDetails'].patchValue(getMedicalDetail.otherIllnessDetails);
@@ -3468,9 +4135,6 @@ export class EdelweissTermLifeComponent implements OnInit {
   addressProofName() {
     this.insureArray.controls['addrProofName'].patchValue(this.eAddressProof[this.insureArray.controls['addrProof'].value]);
   }
-  // policychange(i) {
-  //   this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('Active');
-  // }
     geteNomineeRelationName(i) {
    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] );
   }
