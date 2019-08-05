@@ -1,17 +1,28 @@
 
 <section>
   <div class="flex-p">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="text-right h-100">
-          <mat-form-field class="w-25">
+    <div class="row  text-right h-100">
+      <div class="col-md-6">
+
+        </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-6 text-center mt-2">
+          <mat-form-field class="w-100">
+            <input matInput placeholder="Status List ..." (keyup)="searchFilter($event)">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+          <div class="col-md-6">
+          <mat-form-field class="w-100">
             <input matInput placeholder="Search ..." (keyup)="updateFilter($event)">
             <mat-icon matSuffix>search</mat-icon>
           </mat-form-field>
         </div>
       </div>
+      </div>
     </div>
-  </div>
+
   <div class="row">
     <div class="col-md-12">
       <div fxLayout="column">
@@ -64,7 +75,7 @@
                 </i> Download</button>
               </ng-template>
             </ngx-datatable-column>
-            <ngx-datatable-column name="status">
+            <ngx-datatable-column name="status List">
               <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value" >
                 <mat-form-field class="mt-2 w-100">
                   <mat-select  placeholder="Status" (change)="updateStatusDetails(row)" [(ngModel)]="row.status" required  class="w-100">
@@ -100,5 +111,5 @@
 
     </div>
   </div>
-
+  </div>
 </section>
