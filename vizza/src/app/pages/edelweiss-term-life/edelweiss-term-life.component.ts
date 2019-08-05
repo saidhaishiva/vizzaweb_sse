@@ -1322,7 +1322,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   // document Upload
   uploadProof(event: any, type) {
-
+  console.log(event,'event');
     let getUrlEdu = [];
     this.fileDetails = [];
     if (type == 'address_proof') {
@@ -2295,6 +2295,53 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalDetail.controls['femaleDieaseWeeks'].updateValueAndValidity();
 
   }
+  ismedicationInd() {
+
+    if (this.medicalDetail.controls['medicalTreatment'].value == true) {
+      this.medicalDetail.controls['medicationDetails'].patchValue(this.medicalDetail.controls['medicationDetails'].value);
+
+      this.medicalDetail.controls['medicationDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['medicationDetails'].patchValue('');
+
+      this.medicalDetail.controls['medicationDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['medicationDetails'].updateValueAndValidity();
+
+  }
+  isdiagnosedInd() {
+
+    if (this.medicalDetail.controls['receivedTreatment1'].value == true) {
+      this.medicalDetail.controls['diagnosedDetails'].patchValue(this.medicalDetail.controls['diagnosedDetails'].value);
+
+      this.medicalDetail.controls['diagnosedDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['diagnosedDetails'].patchValue('');
+
+      this.medicalDetail.controls['diagnosedDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['diagnosedDetails'].updateValueAndValidity();
+
+  }
+
+  isaidsInd() {
+
+    if (this.medicalDetail.controls['receivedTreatment2'].value == true) {
+      this.medicalDetail.controls['aidsDetails'].patchValue(this.medicalDetail.controls['aidsDetails'].value);
+
+      this.medicalDetail.controls['aidsDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['aidsDetails'].patchValue('');
+
+      this.medicalDetail.controls['aidsDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['aidsDetails'].updateValueAndValidity();
+
+  }
+
   istobaccoInd() {
 
     if (this.medicalDetail.controls['tobaccoInd'].value == 'Yes') {
@@ -2739,7 +2786,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ? 'Y' : 'N',
           "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value ? 'Y' : 'N',
           "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks'].value,
-          "medicalQuestions":"",
+          "medicalQuestions":this.medicalDetail.value.medicalQuestions,
         },
         "bank":{
           "accountNo":this.bankDetail.controls['accountNo'].value,
