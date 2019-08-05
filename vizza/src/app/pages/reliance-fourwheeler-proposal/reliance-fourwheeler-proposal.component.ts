@@ -1727,7 +1727,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               'PackageName': '',
               'AppointeeName': this.coverDetails.controls['cappointeeName'].value,
               'NomineeName': this.coverDetails.controls['cnomineeName'].value,
-              'NomineeDOB': this.coverDetails.controls['cnDob'].value,
+              'NomineeDOB': this.datepipe.transform(this.coverDetails.controls['cnDob'].value, 'y-MM-dd'),
               'NomineeRelationship': this.coverDetails.controls['nrelation'].value,
               'NomineeAddress': this.coverDetails.controls['cnAddress'].value,
               'OtherRelation': this.coverDetails.controls['nOtherRelation'].value
@@ -1742,7 +1742,7 @@ export class RelianceFourwheelerProposalComponent implements OnInit {
               "SumInsured": this.coverDetails.controls['namedPassengersSI'].value,
               "PassengerName": this.coverDetails.controls['nppassengerName'].value,
               "NomineeName": this.coverDetails.controls['npnomineeName'].value,
-              "NomineeDOB": this.coverDetails.controls['npDob'].value,
+              "NomineeDOB": this.datepipe.transform(this.coverDetails.controls['npDob'].value, 'y-MM-dd'),
               "NomineeRelationship": this.coverDetails.controls['nprelation'].value,
               "NomineeAddress": this.coverDetails.controls['npAddress'].value,
               "OtherRelation": this.coverDetails.controls['npOtherRelation'].value,

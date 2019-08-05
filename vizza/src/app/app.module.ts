@@ -199,8 +199,6 @@ import { previousDisease} from './pages/bajaj-alianz/bajaj-alianz.component';
 import { ApollomunichPaPaymentSuccessComponent } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
 import { DownloadAppolloPersonalAccident } from './pages/apollomunich-pa-payment-success/apollomunich-pa-payment-success.component';
 import { BurglaryInsurer} from './pages/burglary/burglary.component';
-import { CarInsuranceComponent } from './pages/car-insurance/car-insurance.component';
-import {CarInsurer} from './pages/car-insurance/car-insurance.component';
 import { BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import { BikeInsurer} from './pages/bike-insurance/bike-insurance.component';
 import { ReliagretravelproposalComponent } from './pages/travel-religare-proposal/travel-religare-proposal.component';
@@ -293,6 +291,7 @@ import { RsFourwheelerProposalComponent } from './pages/rs-fourwheeler-proposal/
 import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 import {FourWheelerService} from './shared/services/four-wheeler.service';
 import {FourWheelerHomeComponent} from './pages/four-wheeler-home/four-wheeler-home.component';
+import {CarInsurer} from './pages/four-wheeler-home/four-wheeler-home.component';
 import {FourWheelerProductListComponent} from './pages/four-wheeler-product-list/four-wheeler-product-list.component';
 import { FourWheelerEnquirypopupComponent } from './pages/four-wheeler-home/four-wheeler-enquirypopup/four-wheeler-enquirypopup.component';
 import { RelianceFourwheelerPaymentSuccessComponent } from './pages/reliance-fourwheeler-payment-success/reliance-fourwheeler-payment-success.component';
@@ -501,7 +500,6 @@ import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-do
         DownloadAppolloPersonalAccident,
         FireInsurer,
         BurglaryInsurer,
-        CarInsuranceComponent,
         CarInsurer,
         BikeInsuranceComponent,
         BikeInsurer,
