@@ -43,7 +43,6 @@ import {PaymentSuccessTravelComponent} from './pages/payment-success-travel/paym
 import {AppolloMunichComponent} from './pages/appollo-munich-health/appollo-munich-health.component';
 import {IffcoTokioComponent} from './pages/iffco-tokio/iffco-tokio.component';
 import {ApollomunichPaymentSuccessComponent} from './pages/apollomunich-payment-success/apollomunich-payment-success.component';
-import {CarInsuranceComponent} from './pages/car-insurance/car-insurance.component';
 import {BikeInsuranceComponent } from './pages/bike-insurance/bike-insurance.component';
 import {TermLifeComponent} from './pages/term-life/term-life.component';
 import {HdfcHealthInsuranceComponent} from './pages/hdfc-health-insurance/hdfc-health-insurance.component';
@@ -263,7 +262,6 @@ export const routes: Routes = [
             { path: 'bajajalianz-payment-success/:status/:proId', component: BajajalianzPaymentSuccessComponent, data: { breadcrumb: 'Bajaj Alianz Payment Success'} },
             { path: 'bajaj-download-policy/:proId', component: BajajDownloadPolicyComponent, data: { breadcrumb: 'Bajaj Alianz Download Policy'} },
             { path: 'appollopa/:stepper',component: AppollomunichpaComponent, data:{ breadcrumb: 'Appllo PA'},canDeactivate: [AppolloPaproposaldeactivateGuardService]},
-            { path: 'car-insurance', component: CarInsuranceComponent, data:{breadcrumb: 'Car Insurance'}},
             { path: 'bike-insurance', component: BikeInsuranceComponent, data:{breadcrumb: 'Bike Insurance'}},
             { path: 'religaretravel/:stepper', component: ReliagretravelproposalComponent, data:{breadcrumb: 'Religare Travel Proposal'}},
             { path: 'reliancetravel/:stepper', component: TravelRelianceProposalComponent, data:{breadcrumb: 'Reliance Travel Proposal'}},
