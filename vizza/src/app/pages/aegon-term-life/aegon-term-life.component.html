@@ -274,7 +274,7 @@
 
 
                             <div class="col-md-6"><mat-form-field class="w-100">
-                              <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="pPincode" autocomplete="off" required (input)="getPostal($event.target.value,'personal')" [readonly]="this.personal.controls['isAddressSame'].value">
+                              <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"  maxlength="6"  formControlName="pPincode" autocomplete="off" required (input)="getPostal($event.target.value,'personal')" [readonly]="this.personal.controls['isAddressSame'].value">
                               <mat-error *ngIf="personal.controls.pPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                               <mat-error *ngIf="personal.controls.pPincode.hasError('required')">Pincode is required</mat-error>
                               <mat-error *ngIf="personal.controls.pPincode.hasError('pattern')">Enter Valid  Pin</mat-error>
@@ -294,7 +294,7 @@
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Death Benefit SA" formControlName="deathBenefitSA" maxlength="50" autocomplete="off" required (keypress)="nameValidate($event)"  (change)="checkSum()" readonly>
+                            <input matInput placeholder="Death Benefit SA" formControlName="deathBenefitSA" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event); getPremium()"  (change)="checkSum()" (keyup)="validatesuminsured()">
                             <mat-error *ngIf="personal.controls.deathBenefitSA.errors?.required">Death Benefit SA is required</mat-error>
                             <!--<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />-->
 

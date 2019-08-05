@@ -52,6 +52,7 @@ export class AegonTermLifeComponent implements OnInit {
   public dateError1: any;
   public dateError2: any;
   public annualError: any;
+  public sumError: any;
   public incomeError: any;
   public webhost: any;
   public today: any;
@@ -139,10 +140,10 @@ export class AegonTermLifeComponent implements OnInit {
     this.settings= this.appSettings.settings;
     const observable = this.keyUp
         .map(value => event)
-        .debounceTime(1000)
+        .debounceTime(500)
         .distinctUntilChanged()
         .flatMap((search) => {
-          return Observable.of(search).delay(1000);
+          return Observable.of(search).delay(500);
         })
         .subscribe((data) => {
           console.log(data, 'data');
@@ -462,6 +463,14 @@ export class AegonTermLifeComponent implements OnInit {
       }
     }
 
+
+    }
+    validatesuminsured(){
+      if (this.personal.controls['deathBenefitSA'].value >= 2500000){
+      this.sumError = ''
+      }else{
+        this.sumError = 'Sum assured should be above 2500000 '
+      }
 
     }
 
@@ -1161,6 +1170,7 @@ export class AegonTermLifeComponent implements OnInit {
       this.premiumList = successData.ResponseObject;
       this.lifePremiumList.adbrPremium = this.premiumList.adbrPremium;
       this.lifePremiumList.dethBenefit = this.premiumList.dethBenefit;
+      sessionStorage.deathBenefitSA =   this.personal.controls['deathBenefitSA'].value;
       this.lifePremiumList.eCiPremium = this.premiumList.eCiPremium;
       this.lifePremiumList.baseCiPremium = this.premiumList.baseCiPremium;
       this.lifePremiumList.wopPremium = this.premiumList.wopPremium;
@@ -1365,9 +1375,14 @@ export class AegonTermLifeComponent implements OnInit {
     this.getcitylistn();
 
   }
-  checkSum()
-{
-  this.personal.controls['deathBenefitSA'].patchValue(this.lifePremiumList.sum_insured_amount);
+  checkSum() {
+    if (this.personal.controls['deathBenefitSA'].value == '') {
+      this.personal.controls['deathBenefitSA'].patchValue(this.lifePremiumList.sum_insured_amount);
+
+    } else {
+      this.personal.controls['deathBenefitSA'].updateValueAndValidity();
+
+        }
 }
 
   checkSumAs()
@@ -1440,7 +1455,7 @@ export class AegonTermLifeComponent implements OnInit {
         isAddressSame: stepper1.isAddressSame,
         qualifictionName: stepper1.qualifictionName,
         natureOfWorkName: stepper1.natureOfWorkName,
-         employeeTypeName: stepper1.employeeTypeName,
+        employeeTypeName: stepper1.employeeTypeName,
         pCityName: stepper1.pCityName,
         cCityName: stepper1.cCityName,
         pStateName: stepper1.pStateName,
