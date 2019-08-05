@@ -114,6 +114,7 @@ import { AddtestimonialComponent } from './pages/testimonial/addtestimonial/addt
 import { EdittestimonialComponent } from './pages/testimonial/edittestimonial/edittestimonial.component';
 import { CareerListComponent } from './pages/career-list/career-list.component';
 import { PathPopupComponent } from './pages/career-list/path-popup/path-popup.component';
+import { TestimonialmanagerComponent } from './pages/testimonialmanager/testimonialmanager.component';
 
 @NgModule({
     imports: [
@@ -212,6 +213,7 @@ import { PathPopupComponent } from './pages/career-list/path-popup/path-popup.co
         EdittestimonialComponent,
         CareerListComponent,
         PathPopupComponent,
+        TestimonialmanagerComponent
     ],
     providers: [
         AppSettings,

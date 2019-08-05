@@ -16,6 +16,9 @@
         <mat-button-toggle value="rejected">
           <mat-icon style="color: red;">block</mat-icon> Rejected
         </mat-button-toggle>
+        <mat-button-toggle value="onhold">
+          <mat-icon style="color: orange;">check</mat-icon> OnHold
+        </mat-button-toggle>
       </mat-button-toggle-group>
     </div>
     <div class="col-md-6">
@@ -60,11 +63,11 @@
                       </div>
                       <mat-menu #menu="matMenu" xPosition="before">
                                                 <span (mouseleave)="menuTrigger.closeMenu()">
-                                                    <button mat-menu-item (click)="edit(row)">
+                                                    <button mat-menu-item (click)="edit(row)" *ngIf="roleId == '1'">
                                                        <mat-icon class="material-icons">mode_edit</mat-icon><span>Edit</span>
                                                     </button>
-                                                    <button mat-menu-item (click)="rejectlist(row)" *ngIf="row.status != '2'">
-                                                         <mat-icon class="material-icons">clear</mat-icon><span>Reject</span>
+                                                    <button mat-menu-item>
+                                                         <mat-icon class="material-icons">delete</mat-icon><span>Delete</span>
                                                     </button>
                                                 </span>
                       </mat-menu>
@@ -96,7 +99,7 @@
                         </p>
                         <p fxLayout="row" fxLayoutAlign="start center">
                           <mat-icon class="muted-text" matTooltip="Status">thumbs_up_down</mat-icon>
-                          <span *ngIf="row.status == '1'">Active</span><span *ngIf="row.status == '0'">InActive</span><span *ngIf="row.status == '2'">Rejected</span>
+                          <span *ngIf="row.status == '1'">Active</span><span *ngIf="row.status == '0'">InActive</span>
                         </p>
                       </div>
                       <div fxFlex="40" fxFlex.xs="100" fxLayout="column">
@@ -106,7 +109,7 @@
                         </p>
                       </div>
                       <div fxFlex="20" fxFlex.xs="100" fxLayout="column">
-                        <mat-slide-toggle [checked]="row.status == '1'" (change)="updatestatus(row,$event)"></mat-slide-toggle>
+                        <mat-slide-toggle [checked]="row.status == 1" (change)="updatestatus(row,$event)"></mat-slide-toggle>
                       </div>
                     </div>
                   </div>
