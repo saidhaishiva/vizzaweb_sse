@@ -1322,7 +1322,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   // document Upload
   uploadProof(event: any, type) {
-
+  console.log(event,'event');
     let getUrlEdu = [];
     this.fileDetails = [];
     if (type == 'address_proof') {
