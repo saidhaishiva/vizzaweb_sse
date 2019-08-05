@@ -396,8 +396,8 @@
                   <div class="row">
                       <div class="col-md-12 mt-2">
                           <h6 class="color-blue">TAX RESIDENCE DECLARATION</h6>
-                  <div class="col-md-6 mr-2">
-                      <mat-radio-group formControlName="taxResidence" >
+                  <div class="col-md-6 ">
+                      <mat-radio-group formControlName="taxResidence" class="mr-2"  >
                           <mat-radio-button value="LA is a tax resident of Other Country">If LA is tax resident of another country then please fill in the FATCA/CRS form which will be mailed to you after payment</mat-radio-button>
                           <mat-radio-button value="LA is a tax resident of India" class="mr-2"> LA is a tax resident of India and not of any other country</mat-radio-button>
                       </mat-radio-group>
@@ -572,7 +572,7 @@
                                            </div>
                                        </div>
 
-                                   <div class="row" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
+                                   <div class="row p-3" [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" >
                                        <div class="col-md-12 mt-2" *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
                                            <h6 class="color-blue">SPOUSE DETAILS</h6>
                                        </div>
@@ -626,7 +626,7 @@
                                                </mat-form-field>
                                            </div>
                                            <div class="col-md-4" *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
-                                               <p>Staff</p>
+                                               <p>Smoker</p>
                                                <mat-radio-group formControlName="isSmokerSpouse" >
                                                    <mat-radio-button value="Yes" >Yes</mat-radio-button>
                                                    <mat-radio-button value="No">No</mat-radio-button>
@@ -839,6 +839,19 @@
                                        <input matInput  formControlName="specification"   autocomplete="off" >
                                    </mat-form-field>
                                </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="isCriminal" (change)="isCriminalInd()" >
+                                       <p>Are You A Criminal</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mb-2" *ngIf="insureArray.controls['isCriminal'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Criminal Details<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="criminalDetails"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
+                                   </mat-form-field>
+                               </div>
 
                            <div class="col-md-4">
                                <mat-form-field class="w-100">
@@ -864,6 +877,33 @@
                                    <mat-error *ngIf="insureArray.controls.categorization.errors?.required">Policy categorization is required</mat-error>
                                </mat-form-field>
                            </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="travelOutsideIndia" >
+                                       <p>Travel Outside India</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="pilot" >
+                                       <p>Pilot</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4">
+                                   <mat-radio-group formControlName="adventurousActivities" (change)="isadventurous()" >
+                                       <p>Adventurous Activities</p>
+                                       <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                       <mat-radio-button value="No">No</mat-radio-button>
+                                   </mat-radio-group>
+                               </div>
+                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['adventurousActivities'].value == 'Yes'" >
+                                   <mat-form-field class="w-100">
+                                       <mat-placeholder>Adventurous Activities Details<span class="error" >*</span></mat-placeholder>
+                                       <input matInput  formControlName="adventurousActivitiesDetails"    autocomplete="off"   maxlength="10">
+                                   </mat-form-field>
+                               </div>
                            </div>
 
                        <div class="row p-3">
@@ -900,20 +940,21 @@
                                    <mat-error *ngIf="insureArray.controls.hasWeightChanged.errors?.required">Change in weight past 6 months is required</mat-error>
                                </mat-form-field>
                            </div>
-                           <div class="col-md-3" *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' ">
+                           <div class="col-md-4 " *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' " >
                                <mat-form-field class="w-100">
-                                   <input matInput placeholder="Changed Weight" maxlength="3" formControlName="inbetweenweight" (keypress)="numberValidate($event)" autocomplete="off">
-                                   <mat-error *ngIf="insureArray.controls.inbetweenweight.errors?.required">Enter changed Weight</mat-error>
+                                   <mat-placeholder>Changed Weight<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="inbetweenweight"  maxlength="3"  autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
                                </mat-form-field>
                            </div>
-                           <div class="col-md-3" *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' ">
+                           <div class="col-md-4 " *ngIf="insureArray.controls['hasWeightChanged'].value == 'Gained' || insureArray.controls['hasWeightChanged'].value == 'Lost' " >
                                <mat-form-field class="w-100">
-                                   <mat-select  placeholder="Reason for weight changed" formControlName="weightChangedreason" (change)="changeWeightChanged()" class="w-100">
-                                       <mat-option *ngFor="let list of weightList | keys" [value]= list.key> {{list.value}} </mat-option>
+                                   <mat-placeholder>Reason for weight changed<span class="error" >*</span></mat-placeholder>
+                                   <mat-select  formControlName="weightChangedreason"  (change)=" changeWeightChanged()" >
+                                       <mat-option *ngFor="let list of weightList | keys" value="{{list.key}}" > {{list.value}} </mat-option>
                                    </mat-select>
-                                   <mat-error *ngIf="insureArray.controls.weightChangedreason.errors?.required">Weight changed is required</mat-error>
                                </mat-form-field>
                            </div>
+
                            <div class="col-md-4">
                                <mat-radio-group formControlName="planOption" >
                                    <p>Plan Option</p>
@@ -935,7 +976,7 @@
                                        <mat-radio-button value="No">No</mat-radio-button>
                                    </mat-radio-group>
                                </div>
-                               <div class="col-md-4">
+                               <div class="col-md-4  mt-2">
                                    <mat-form-field class="w-100">
                                        <input matInput placeholder="Investment Strategy" formControlName="investmentStrategy" maxlength="50" autocomplete="off" required  >
                                        <mat-error *ngIf="insureArray.controls.investmentStrategy.errors?.required">Investment Strategy is required</mat-error>
@@ -949,7 +990,7 @@
                                    </mat-radio-group>
                                </div>
 
-                           <div class="col-md-4">
+                           <div class="col-md-4  mt-2">
                                <mat-form-field class="w-100">
                                    <mat-select  placeholder="Policy Option" formControlName="policyOption" (change)="getPolicyOption()"  class="w-100" required>
                                        <mat-option *ngFor="let list of epolicyOption | keys" [value]= list.key> {{list.value}} </mat-option>
@@ -957,9 +998,9 @@
                                    <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>
                                </mat-form-field>
                            </div>
-                           <div class="col-md-4">
+                           <div class="col-md-4  mt-2">
                                <mat-form-field class="w-100">
-                                   <input matInput placeholder="additionalBenefit" formControlName="additionalBenefit" maxlength="50" autocomplete="off" required  >
+                                   <input matInput placeholder="Additional Benefit" formControlName="additionalBenefit" maxlength="50" autocomplete="off" required  >
                                    <mat-error *ngIf="insureArray.controls.additionalBenefit.errors?.required">additionalBenefit is required</mat-error>
                                </mat-form-field>
                            </div>
@@ -970,13 +1011,13 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Top Up Benefit Percentage<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="topUpBenefitPercentage"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="3">
                                </mat-form-field>
                            </div>
-                               <div class="col-md-6 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'"  >
+                               <div class="col-md-4 mt-2" *ngIf="insureArray.controls['TopUpBenefit'].value == 'Yes'"  >
                                    <mat-form-field class="w-100">
                                        <mat-placeholder>Top Up Rate<span class="error" >*</span></mat-placeholder>
                                        <mat-select  formControlName="topUpRate"  (change)=" getetopUpRate()" >
@@ -992,7 +1033,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['betterHalfBenefit'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="betterHalfsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1012,7 +1053,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="criticalsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1025,7 +1066,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1038,7 +1079,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="sumAssuredATPD"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1051,7 +1092,7 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4 " *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
+                           <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
                                    <input matInput  formControlName="sumAssuredHCB"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
@@ -1073,18 +1114,7 @@
                                        <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>
                                    </mat-form-field>
                                </div>
-                               <!--<div class="col-md-4">-->
-                                   <!--<mat-form-field class="w-100">-->
-                                       <!--<input matInput placeholder="lumpsumProportion" formControlName="lumpsumProportion" maxlength="50" autocomplete="off" required  >-->
-                                       <!--<mat-error *ngIf="insureArray.controls.lumpsumProportion.errors?.required">lumpsumProportion is required</mat-error>-->
-                                   <!--</mat-form-field>-->
-                               <!--</div>-->
-                               <!--<div class="col-md-4">-->
-                                   <!--<mat-form-field class="w-100">-->
-                                       <!--<input matInput placeholder="monthlyIncomeOption" formControlName="monthlyIncomeOption" maxlength="50" autocomplete="off" required  >-->
-                                       <!--<mat-error *ngIf="insureArray.controls.monthlyIncomeOption.errors?.required">monthlyIncomeOption is required</mat-error>-->
-                                   <!--</mat-form-field>-->
-                               <!--</div>-->
+
                                <div class="col-md-4">
                                    <mat-form-field class="w-100">
                                        <input matInput placeholder="Payout Percentage Income" formControlName="payoutPercentageIncome" maxlength="20" (keypress)="numberValidate($event)" autocomplete="off" required  >
@@ -1188,29 +1218,76 @@
                            </mat-expansion-panel-header>
                        <div class="row mt-3">
                            <div class="col-md-12">
-                               <mat-radio-group formControlName="medicalTreatment" >
+                               <mat-radio-group formControlName="medicalTreatment" (change)="istobaccoInd()">
                                    <p>Are you currently taking any medication or medical treatment OR in the past 5 years, have you been advised to undergo any surgery, medical investigation or medical treatment for any medical condition (other than common cold, flu, etc.)? </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
+                           <div class="col-md-8 " *ngIf="medicalDetail.controls['medicalTreatment'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Medication Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="medicationDetails"  autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
                            <div class="col-md-12">
-                               <mat-radio-group formControlName="receivedTreatment1" >
+                               <mat-radio-group formControlName="receivedTreatment1" (change)="istobaccoInd()">
                                    <p>Have you ever been diagnosed or / received treatment for any heart, kidney, liver disease including Hepatitis B, cerebrovascular disease including stroke, paralysis, lung disease, cancer, tumor or physical deformity? </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
+                           <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment1'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Diagnosed Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="diagnosedDetails"  autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
                            <div class="col-md-12">
-                               <mat-radio-group formControlName="receivedTreatment2" >
+                               <mat-radio-group formControlName="receivedTreatment2" (change)="istobaccoInd()">
                                    <p>Have you or your spouse or your parents ever suffered from or received treatment or advice for HIV infection/AIDS related or any other sexually transmitted disease?</p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
+                           <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment2'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>AIDS Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="aidsDetails"  autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="drugsInd" (change)="isdrugsInd()" >
+                                   <p>Are u Drugs User?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
 
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['drugsInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Drugs Details<span class="error" >*</span></mat-placeholder>
 
-                           <div class="col-md-4">
+                                   <input matInput  formControlName="drugsDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="alcoholInd" (change)="isalcoholInd()" >
+                                   <p>Are u Alcohol User?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['alcoholInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Alcohol Details<span class="error" >*</span></mat-placeholder>
+
+                                   <input matInput  formControlName="alcoholDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+
+                           <div class="col-md-6">
                                <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" >
                                    <p>Are u Tobacco User?  </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
@@ -1238,46 +1315,298 @@
                                    <input matInput  formControlName="tobaccoStopDetails"    autocomplete="off"   maxlength="45">
                                </mat-form-field>
                            </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="diabetesInd" >
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="consultDoctorInd" (change)="isconsultDoctorInd()" >
+                                   <p>Are u Consulting Doctor?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['consultDoctorInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Consulting Doctor Details<span class="error" >*</span></mat-placeholder>
+
+                                   <input matInput  formControlName="consultDoctorDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="ECGInd" (change)="isECGInd()" >
+                                   <p>ECG?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['ECGInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>ECG Details<span class="error" >*</span></mat-placeholder>
+
+                                   <input matInput  formControlName="ECGDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="admitInd" (change)="isadmitInd()" >
+                                   <p>Admit?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['admitInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Admit Details<span class="error" >*</span></mat-placeholder>
+
+                                   <input matInput  formControlName="admitDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="heartDieaseInd" (change)="isheartDieaseInd()" >
+                                   <p>Heart Diease?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['heartDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Heart Diease Details<span class="error" >*</span></mat-placeholder>
+
+                                   <input matInput  formControlName="heartDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="BPInd" (change)="isBPInd()" >
+                                   <p>BP?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['BPInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>BP Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="BPDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                                   <mat-radio-group formControlName="respiratoryDieaseInd" (change)="isrespiratoryDieaseInd()" >
+                                   <p>Respiratory Diease?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['respiratoryDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Respiratory Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="respiratoryDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="diabetesInd" (change)="isdiabetesInd()">
                                    <p>Diabetes ? </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="cancerDieaseInd" >
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['diabetesInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Diabetes Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="diabetesDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="kidneyDieaseInd" (change)="iskidneyDieaseInd()">
+                                   <p>Kidney Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['kidneyDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Kidney Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="kidneyDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="digestiveDieaseInd" (change)="isdigestiveDieaseInd()">
+                                   <p>Digestive Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['digestiveDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Digestive Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="digestiveDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="cancerDieaseInd" (change)="iscancerDieaseInd()">
                                    <p>Cancer Diease ? </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="deformityInd" >
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['cancerDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Cancer Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="cancerDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="tropicalDieaseInd" (change)="istropicalDieaseInd()">
+                                   <p>Tropical Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['tropicalDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Tropical Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="tropicalDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="thyroidDieaseInd" (change)="isthyroidDieaseInd()">
+                                   <p>Thyroid Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['thyroidDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Thyroid Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="thyroidDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="bloodDieaseInd" (change)="isbloodDieaseInd()">
+                                   <p>Blood Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['bloodDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Blood Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="bloodDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="nervousDieaseInd" (change)="isnervousDieaseInd()">
+                                   <p>Nervous Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['nervousDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Nervous Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="nervousDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="ENTDieaseInd" (change)="isENTDieaseInd()">
+                                   <p>ENT Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['ENTDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>ENT Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="ENTDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="muscleDieaseInd" (change)="ismuscleDieaseInd()">
+                                   <p>Muscle Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['muscleDieaseInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Muscle Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="muscleDieaseDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="alcoholicInd" (change)="isalcoholicInd()">
+                                   <p>Alcoholic Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['alcoholicInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Alcoholic Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="alcoholicDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="otherIllnessInd" (change)="isotherIllnessInd()">
+                                   <p>Other Illness Diease? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['otherIllnessInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Other Illness Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="otherIllnessDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="deformityInd" (change)="isdeformityInd()">
                                    <p>Deformity ? </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-                           <div class="col-md-4" *ngIf="proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2'">
-                               <mat-radio-group formControlName="pregnantInd" (change)="ispregnantInd()" >
-                                   <p> Pregnant ?  </p>
-                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
-                                   <mat-radio-button value="No">No</mat-radio-button>
-                               </mat-radio-group>
-                           </div>
-                           <div class="col-md-4 " *ngIf="medicalDetail.controls['pregnantInd'].value == 'Yes' && proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2'" >
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['deformityInd'].value == 'Yes'" >
                                <mat-form-field class="w-100">
-                                   <mat-placeholder>Pregnant weeks<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="pregnantweeks"  autocomplete="off"   maxlength="45">
+                                   <mat-placeholder>Deformity Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="deformityDetails"    autocomplete="off"   maxlength="45">
                                </mat-form-field>
                            </div>
-                           <div class="col-md-4">
-                               <mat-radio-group formControlName="femaleDieaseInd" >
-                                   <p>femaleDiease ? </p>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="symptomsInd" (change)="issymptomsInd()">
+                                   <p>Symptoms ? </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Symptoms Diease Details<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="symptomsDetails"    autocomplete="off"   maxlength="45">
+                               </mat-form-field>
+                           </div>
+
+                           <div class="col-md-6" *ngIf="proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2'">
+                               <mat-radio-group formControlName="pregnantInd" (change)="ispregnantInd()" >
+                                   <p> Pregnant?  </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['pregnantInd'].value == 'Yes' && proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2'" >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Pregnant weeks<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="pregnantweeks"  autocomplete="off" maxlength="45">
+                               </mat-form-field>
+                           </div>
+                           <div class="col-md-6">
+                               <mat-radio-group formControlName="femaleDieaseInd" (change)="isfemaleDieaseInd()">
+                                   <p>Female Diease ? </p>
+                                   <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
+                                   <mat-radio-button value="No">No</mat-radio-button>
+                               </mat-radio-group>
+                           </div>
+                           <div class="col-md-6 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes' " >
+                               <mat-form-field class="w-100">
+                                   <mat-placeholder>Female Diease weeks<span class="error" >*</span></mat-placeholder>
+                                   <input matInput  formControlName="femaleDieaseWeeks"  autocomplete="off" maxlength="45">
+                               </mat-form-field>
                            </div>
 
                            <div class="col-md-4">
@@ -1664,6 +1993,8 @@
 
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="proposerFormData.mobileNo != ''"><strong>Mobile No:</strong> {{proposerFormData.mobileNo}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.isStaff != ''"><strong>Staff:</strong> {{proposerFormData.isStaff}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.employeeCode != ''"><strong>Employee Code:</strong> {{proposerFormData.employeeCode}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.highestQualification != ''"><strong>Highest Qualification:</strong> {{proposerFormData.highestQualificationName}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.otherQualification != ''"><strong>Other Qualification:</strong> {{proposerFormData.otherQualification}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.employerName != ''"><strong>Employer Name:</strong> {{proposerFormData.employerName}}</li>
@@ -1676,6 +2007,33 @@
                                    </ul>
                                </div>
                            </div>
+
+
+
+                           <div class="col-md-6">
+                               <div class="p-3">
+                                   <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.stitle}} {{proposerFormData.sfirstName}} {{proposerFormData.smidName}} {{proposerFormData.slastName}}</li>
+                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.sdob | date: 'dd/MM/yyyy'}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.semailId != ''"><strong>Email Id:</strong> {{proposerFormData.semailId}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.smobileNo != ''"><strong>Mobile No:</strong> {{proposerFormData.smobileNo}}</li>
+
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class=" p-3">
+                                   <h6 class="color-blue mt-4"></h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item" *ngIf="proposerFormData.isSmokerSpouse != ''"><strong>Are U Smoker?:</strong> {{proposerFormData.isSmokerSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{proposerFormData.isStaffSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{proposerFormData.employeeCodeSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{proposerFormData.relationSpouseProposer}}</li>
+                                   </ul>
+                               </div>
+                           </div>
+
                            <div class="col-md-6">
                                <div class="p-3">
                                    <h6 class="color-blue">COMMUNICATION DETAILS</h6>
@@ -1732,6 +2090,21 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.natureduty != ''"><strong>Nature Of Duty :</strong> {{insuredFormData.naturedutyName}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.employerAddr != ''"><strong>Employer Address :</strong> {{insuredFormData.employerAddr}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.annualIncome != ''"><strong>Annual Income :</strong> {{insuredFormData.annualIncome}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong>Yes</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == false"><strong>Is Politically Exposed :</strong>No</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>Specification :</strong> {{insuredFormData.specification}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isCriminal != ''"><strong>Are u Criminal :</strong> {{insuredFormData.isCriminal}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.criminalDetails != ''"><strong>Criminal Details :</strong> {{insuredFormData.criminalDetails}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.categorization != ''"><strong>Categorization :</strong> {{insuredFormData.categorization}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.travelOutsideIndia != ''"><strong>Travel Outside India :</strong> {{insuredFormData.travelOutsideIndia}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.pilot != ''"><strong>Pilot :</strong> {{insuredFormData.pilot}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.adventurousActivities != ''"><strong>Adventurous Activities :</strong> {{insuredFormData.adventurousActivities}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.adventurousActivitiesDetails != ''"><strong>Adventurous Activities Details :</strong> {{insuredFormData.adventurousActivitiesDetails}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>Address Proof :</strong> {{insuredFormData.addrProofName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>Identity Proof :</strong> {{insuredFormData.identityProofName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>Height Feets :</strong> {{insuredFormData.heightFeets}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.heightInches != ''"><strong>Height Inches :</strong> {{insuredFormData.heightInches}}</li>
 
                                    </ul>
                                </div>
@@ -1741,22 +2114,33 @@
 
                                    <ul class="m-0 list-group">
 
-
-                                       <li class="list-group-item" *ngIf="insuredFormData.taxResidence != ''"><strong>Tax Residence :</strong> {{insuredFormData.taxResidence}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == true"><strong>Is Politically Exposed :</strong>Yes</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.isPoliticallyExposed == false"><strong>Is Politically Exposed :</strong>No</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.specification != ''"><strong>Specification :</strong> {{insuredFormData.specification}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.categorization != ''"><strong>Categorization :</strong> {{insuredFormData.categorization}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.addrProof != ''"><strong>Address Proof :</strong> {{insuredFormData.addrProofName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.identityProof != ''"><strong>Identity Proof :</strong> {{insuredFormData.identityProofName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.heightFeets != ''"><strong>Height Feets :</strong> {{insuredFormData.heightFeets}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.heightInches != ''"><strong>Height Inches :</strong> {{insuredFormData.heightInches}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.weight != ''"><strong>Weight :</strong> {{insuredFormData.weight}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.planOption != ''"><strong>planOption :</strong> {{insuredFormData.planOption}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.workSiteFlag != ''"><strong>workSiteFlag :</strong> {{insuredFormData.workSiteFlag}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.tobaccoInd != ''"><strong>Are u Tobacco User ? </strong> {{insuredFormData.tobaccoInd}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.tobaccoDetails != ''"><strong>Tobacco Details:</strong> {{insuredFormData.tobaccoDetails}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.tobaccoStopDetails != ''"><strong>Tobacco Stop Details:</strong> {{insuredFormData.tobaccoStopDetails}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.hasWeightChanged != ''"><strong>Change in weight past 6 months :</strong> {{insuredFormData.hasWeightChanged}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.inbetweenweight != ''"><strong>Changed Weight :</strong> {{insuredFormData.inbetweenweight}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.weightChangedreason != ''"><strong>Reason for weight changed :</strong> {{insuredFormData.weightChangedreason}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.planOption != ''"><strong>Plan Option :</strong> {{insuredFormData.planOption}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.workSiteFlag != ''"><strong>Work Site Flag :</strong> {{insuredFormData.workSiteFlag}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.investmentStrategy != ''"><strong>Investment Strategy </strong> {{insuredFormData.investmentStrategy}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.risingStar != ''"><strong>Rising Star:</strong> {{insuredFormData.risingStar}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.policyOption != ''"><strong>Policy Option:</strong> {{insuredFormData.policyOption}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.additionalBenefit != ''"><strong>Additional Benefit:</strong> {{insuredFormData.additionalBenefit}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.TopUpBenefit != ''"><strong>Top Up Benefit:</strong> {{insuredFormData.TopUpBenefit}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.topUpBenefitPercentage != ''"><strong>Top Up Benefit Percentage:</strong> {{insuredFormData.topUpBenefitPercentage}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.topUpRate != ''"><strong>Top Up Rate:</strong> {{insuredFormData.topUpRate}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.betterHalfBenefit != ''"><strong>Better Half Benefit:</strong> {{insuredFormData.betterHalfBenefit}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.betterHalfsumAssured != ''"><strong>Better Half SumAssured:</strong> {{insuredFormData.betterHalfsumAssured}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.waiverOfPremiumBenefit != ''"><strong>Waiver Of Premium Benefit:</strong> {{insuredFormData.waiverOfPremiumBenefit}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.criticalIllness != ''"><strong>Critical Illness:</strong> {{insuredFormData.criticalIllness}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.criticalsumAssured != ''"><strong>Critical SumAssured:</strong> {{insuredFormData.criticalsumAssured}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isADB != ''"><strong> Accidental Death Benefit:</strong> {{insuredFormData.isADB}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredADB != ''"><strong>Sum Assured Of Accidental Death Benefit:</strong> {{insuredFormData.sumAssuredADB}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isATPD != ''"><strong>Accidental Total and Permanent Disability:</strong> {{insuredFormData.isATPD}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredATPD != ''"><strong>SumAssured Of Accidental Total and Permanent Disability:</strong> {{insuredFormData.sumAssuredATPD}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isHCB != ''"><strong>Hospital Cash Benefit:</strong> {{insuredFormData.isHCB}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.sumAssuredHCB != ''"><strong>SumAssured Of Hospital Cash Benefit:</strong> {{insuredFormData.sumAssuredHCB}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.payoutOption != ''"><strong>Payout Option:</strong> {{insuredFormData.payoutOption}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.payoutPercentageIncome != ''"><strong>Payout Percentage Income:</strong> {{insuredFormData.payoutPercentageIncome}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.noOfMonths != ''"><strong>No Of Months:</strong> {{insuredFormData.noOfMonths}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureHistory != ''"><strong>Has any application or proposal for life, health, accident or critical illness:</strong> {{insuredFormData.insureHistory}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureAccNo != ''"><strong>Do you have an e-insurance account number?:</strong> {{insuredFormData.insureAccNo}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.provideAccNo != ''"><strong>Provide Account No:</strong> {{insuredFormData.provideAccNo}}</li>
@@ -1764,6 +2148,29 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.einsureAccNo != ''"><strong>E-Insurance Account Number:</strong> {{insuredFormData.einsureAccNo}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.epolicy1 != ''"><strong>Would you like to have an e policy?:</strong> {{insuredFormData.epolicy1}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.insureRepository != ''"><strong>Insurance Repository :</strong> {{insuredFormData.insureRepository}}</li>
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class="p-3">
+                                   <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
+                                       <li class="list-group-item"><strong>D.O.B:</strong> {{insuredFormData.sdob | date: 'dd/MM/yyyy'}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.semailId != ''"><strong>Email Id:</strong> {{insuredFormData.semailId}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.smobileNo != ''"><strong>Mobile No:</strong> {{insuredFormData.smobileNo}}</li>
+
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6">
+                               <div class=" p-3">
+                                   <h6 class="color-blue mt-4"></h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{insuredFormData.relationSpouseProposer}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -1805,9 +2212,33 @@
                                    <div class="row">
                                        <div class="col-md-12">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="medicalDetail.medicalTreatment != ''"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalDetail.medicalTreatment}}</li>
-                                               <li class="list-group-item" *ngIf="medicalDetail.name != ''" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalDetail.name}}</li>
-                                               <li class="list-group-item" *ngIf="medicalDetail.location != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalDetail.location}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment != ''"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalFormData.medicalTreatment}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.medicationDetails != ''"><strong>Medication Details:</strong> {{medicalFormData.medicationDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment1 != ''" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalFormData.receivedTreatment1}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.diagnosedDetails != ''" ><strong>Diagnosed Details:</strong> {{medicalFormData.diagnosedDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalFormData.receivedTreatment2}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.aidsDetails != ''"><strong>AIDS Details:</strong> {{medicalFormData.aidsDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.drugsInd != ''"><strong>Are u Drugs User:</strong> {{medicalFormData.drugsInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.drugsDetails != ''"><strong>Drugs Details:</strong> {{medicalFormData.drugsDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.alcoholInd != ''"><strong>Are u Alcohol User:</strong> {{medicalFormData.alcoholInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.alcoholDetails != ''"><strong>Alcohol Details:</strong> {{medicalFormData.alcoholDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tobaccoInd != ''"><strong>Are u Tobacco User:</strong> {{medicalFormData.tobaccoInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tobaccoDetails != ''"><strong>Tobacco Details:</strong> {{medicalFormData.tobaccoDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopInd != ''"><strong>Are u Stopped using Tobacco:</strong> {{medicalFormData.tobaccoDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tobaccoStopDetails != ''" ><strong>Tobacco Stop Details:</strong> {{medicalFormData.tobaccoStopDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.consultDoctorInd != ''" ><strong>Are You Consulting Doctor:</strong> {{medicalFormData.consultDoctorInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.consultDoctorDetails != ''"><strong>Consulting Doctor Details:</strong> {{medicalFormData.consultDoctorDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.ECGInd != ''"><strong>ECG:</strong> {{medicalFormData.ECGInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.ECGDetails != ''"><strong>ECG Details:</strong> {{medicalFormData.ECGDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.admitInd != ''"><strong>Admit:</strong> {{medicalFormData.admitInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.admitDetails != ''"><strong>Admit Details:</strong> {{medicalFormData.admitDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.heartDieaseInd != ''"><strong>Heart DieaseInd:</strong> {{medicalFormData.heartDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.heartDieaseDetails != ''"><strong>Heart Diease Details:</strong> {{medicalFormData.heartDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.BPInd != ''"><strong>BP:</strong> {{medicalFormData.BPInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.BPDetails != ''"><strong>BP Details:</strong> {{medicalFormData.BPDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.respiratoryDieaseInd != ''" ><strong>Respiratory Diease:</strong> {{medicalFormData.respiratoryDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.respiratoryDieaseDetails != ''" ><strong>Respiratory Diease Details:</strong> {{medicalFormData.respiratoryDieaseDetails}}</li>
+
 
                                            </ul>
                                        </div>
@@ -1819,9 +2250,39 @@
                                    <div class="row">
                                        <div class="col-md-12">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="medicalDetail.accountNo != ''" ><strong>Account Number:</strong> {{medicalDetail.accountNo}}</li>
-                                               <li class="list-group-item" *ngIf="medicalDetail.accName != ''" ><strong>Account Holder Name:</strong> {{medicalDetail.accName}}</li>
-                                               <li class="list-group-item" *ngIf="medicalDetail.investmentStrategy != ''"><strong>Investment Strategy:</strong> {{medicalDetail.investmentStrategy}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.diabetesInd != ''"><strong>Diabetes:</strong> {{medicalFormData.diabetesInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.diabetesDetails != ''"><strong>Diabetes Details:</strong> {{medicalFormData.diabetesDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.kidneyDieaseInd != ''"><strong>Kidney Diease:</strong> {{medicalFormData.kidneyDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.kidneyDieaseDetails != ''"><strong>Kidney Diease Details:</strong> {{medicalFormData.kidneyDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.digestiveDieaseInd != ''"><strong>Digestive Diease:</strong> {{medicalFormData.digestiveDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.digestiveDieaseDetails != ''"><strong>Digestive Diease Details:</strong> {{medicalFormData.digestiveDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.cancerDieaseInd != ''"><strong>Cancer Diease:</strong> {{medicalFormData.cancerDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.cancerDieaseDetails != ''" ><strong>Cancer Diease Details:</strong> {{medicalFormData.cancerDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tropicalDieaseInd != ''" ><strong>Tropical Diease:</strong> {{medicalFormData.tropicalDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.tropicalDieaseDetails != ''"><strong>Tropical Diease Details:</strong> {{medicalFormData.tropicalDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.thyroidDieaseInd != ''"><strong>Thyroid Diease:</strong> {{medicalFormData.thyroidDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.thyroidDieaseDetails != ''"><strong>Thyroid Diease Details:</strong> {{medicalFormData.thyroidDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.bloodDieaseInd != ''"><strong>Blood Diease:</strong> {{medicalFormData.bloodDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.bloodDieaseDetails != ''" ><strong>Blood Diease Details:</strong> {{medicalFormData.bloodDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.nervousDieaseInd != ''" ><strong>Nervous Diease:</strong> {{medicalFormData.nervousDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.nervousDieaseDetails != ''"><strong>Nervous Diease Details:</strong> {{medicalFormData.nervousDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.ENTDieaseInd != ''"><strong>ENT Diease:</strong> {{medicalFormData.ENTDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.ENTDieaseDetails != ''"><strong>ENT Diease Details:</strong> {{medicalFormData.ENTDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.muscleDieaseInd != ''"><strong>Muscle Diease:</strong> {{medicalFormData.muscleDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.muscleDieaseDetails != ''" ><strong>Muscle Diease Details:</strong> {{medicalFormData.muscleDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.alcoholicInd != ''" ><strong>Alcoholic:</strong> {{medicalFormData.alcoholicInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.alcoholicDetails != ''"><strong>Alcoholic Details:</strong> {{medicalFormData.alcoholicDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.otherIllnessInd != ''"><strong>Other Illness:</strong> {{medicalFormData.otherIllnessInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.otherIllnessDetails != ''"><strong>OtherIllness Details:</strong> {{medicalFormData.otherIllnessDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.deformityInd != ''"><strong>Deformity:</strong> {{medicalFormData.deformityInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.deformityDetails != ''"><strong>Deformity Details:</strong> {{medicalFormData.deformityDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.symptomsInd != ''"><strong>Symptoms:</strong> {{medicalFormData.symptomsInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.symptomsDetails != ''"><strong>Symptoms Details:</strong> {{medicalFormData.symptomsDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.pregnantInd != ''"><strong>Pregnant:</strong> {{medicalFormData.pregnantInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.pregnantweeks != ''" ><strong>Pregnant weeks:</strong> {{medicalFormData.pregnantweeks}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseInd != ''" ><strong>Female Diease:</strong> {{medicalFormData.femaleDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseWeeks != ''"><strong>Female Diease Weeks:</strong> {{medicalFormData.femaleDieaseWeeks}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.healthInformation != ''"><strong>Health Information:</strong> {{medicalFormData.healthInformation}}</li>
 
                                            </ul>
                                        </div>
@@ -1831,15 +2292,15 @@
 
                        </div>
                        <div class="row box-card">
-                           <div class="col-md-12" *ngFor="let item of bankFormData.existingInsurance; let i = index;">
+                           <div class="col-md-12" *ngFor="let item of medicalFormData.medicalQuestions; let i = index;">
                                <div class="row">
                                    <div class="col-md-6" >
                                        <div class="p-3">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Existing Insurance:</strong>yes</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == false"><strong>Existing Insurance:</strong>No</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Company Name:</strong> {{item.companyName}}</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Year Of Issue:</strong> {{item.yearOfIssue}}</li>
+                                               <li class="list-group-item" ><strong>Disease:</strong>{{item.disease}}</li>
+                                               <li class="list-group-item" ><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
+                                               <li class="list-group-item" ><strong>Treatment:</strong> {{item.treatment}}</li>
+                                               <li class="list-group-item" ><strong>Dosage:</strong> {{item.dosage}}</li>
                                            </ul>
                                        </div>
                                    </div>
@@ -1849,9 +2310,10 @@
                                    <div class="col-md-6" >
                                        <div class="p-3">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong>Sum Assured:</strong> {{item.sumAssured}}</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Annualized Premium:</strong> {{item.annualizedPremium}}</li>
-                                               <li class="list-group-item" *ngIf="bankFormData.existingInsuranceInd == true"><strong> Policy Status:</strong> {{item.policyStatus}}</li>
+                                               <li class="list-group-item" ><strong>Doctor:</strong> {{item.doctor}}</li>
+                                               <li class="list-group-item" ><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
+                                               <li class="list-group-item" ><strong>Complications:</strong> {{item.anycomplications}}</li>
+                                               <li class="list-group-item" ><strong>Remarks:</strong> {{item.remarks}}</li>
                                            </ul>
                                        </div>
                                    </div>
@@ -1988,126 +2450,176 @@
                    <hr>
                    <div class="row">
                        <div class="col-md-12 text-center">
-                           <form action={{requestedUrl}}  method='POST' #form>
+                           <!--<form action={{requestedUrl}}  method='POST' #form>-->
 
 
                                <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                               <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()" >Pay Now</button>-->
-                               <button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>
-                           </form>
+                               <button mat-raised-button color="primaryBlue" (click)="summaryNext(stepper)">Next</button>
+                           <!--</form>-->
                        </div>
                    </div>
                </section>
            </mat-step>
 
-           <!--<mat-step [stepControl]="">-->
-               <!--<ng-template matStepLabel>DOCUMENTS</ng-template>-->
-               <!--<mat-accordion class="mt-4 w-100 float-left">-->
-                   <!--<mat-expansion-panel expanded>-->
-                       <!--<mat-expansion-panel-header>-->
-                           <!--<mat-panel-title>DOCUMENTS-->
-                           <!--</mat-panel-title>-->
-                       <!--</mat-expansion-panel-header>-->
-                       <!--<div class="row mt-3">-->
-                           <!--<div class="col-md-12 box-card pt-3 pb-3" >-->
+           <mat-step [stepControl]="">
+               <ng-template matStepLabel>DOCUMENTS</ng-template>
+               <mat-accordion class="mt-4 w-100 float-left">
+                   <mat-expansion-panel expanded>
+                       <mat-expansion-panel-header>
+                           <mat-panel-title>DOCUMENTS
+                           </mat-panel-title>
+                       </mat-expansion-panel-header>
+                       <div class="row mt-3">
+                           <div class="col-md-12 box-card pt-3 pb-3" >
 
-                               <!--<div class="row">-->
+                               <div class="row">
 
-                                   <!--<div class="col-md-12 mb-4">-->
-                                       <!--<p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>-->
-                                        <!--</span>-->
-                                       <!--</p>-->
+                                   <div class="col-md-12 mb-4">
+                                       <p><span class="imglabel"><strong>Allowed file size :</strong><span> 5MB</span>, <strong>Allowed file type :</strong> <span>png, jpg, jpeg</span>
+                                        </span>
+                                       </p>
+                                   </div>
+                                   <!--<div class="col-md-6 text-left mb-4">-->
+                                   <!--<span>-->
+                                   <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
+                                   <!--<button mat-raised-button color="primaryBlue" style="line-height: 28px;font-size: 13px;" (click)="form.submit()">Skip & Continue to Pay</button>-->
+                                   <!--</form>-->
+                                   <!--</span>-->
                                    <!--</div>-->
-                                   <!--&lt;!&ndash;<div class="col-md-6 text-left mb-4">&ndash;&gt;-->
-                                   <!--&lt;!&ndash;<span>&ndash;&gt;-->
-                                   <!--&lt;!&ndash;<form action={{proposalNextList.payment_link}}  method='post' #form>&ndash;&gt;-->
-                                   <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue" style="line-height: 28px;font-size: 13px;" (click)="form.submit()">Skip & Continue to Pay</button>&ndash;&gt;-->
-                                   <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                                   <!--&lt;!&ndash;</span>&ndash;&gt;-->
-                                   <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                                   <!--<div class="col-md-4">-->
+                                       <!--<h3>Identity Proof</h3>-->
+                                   <!--</div>-->
+                                   <!--<div class="col-md-4">-->
+                                       <!--<mat-form-field class="w-100">-->
+                                           <!--<mat-select  placeholder="Identity Proof" formControlName="identityProof" (change)="geteDocumentProof()"  class="w-100" required>-->
+                                               <!--<mat-option *ngFor="let list of eDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                           <!--</mat-select>-->
+                                           <!--&lt;!&ndash;<mat-error *ngIf="insureArray.controls.identityProof.errors?.required">Identity Proof is required</mat-error>&ndash;&gt;-->
+                                       <!--</mat-form-field>-->
+                                   <!--</div>-->
+                                   <div class="col-md-4">
+                                       <div class="text-left w-100">
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                               <label class="custom-file-label"> Identity Proof</label>
+                                           </div>
+                                       </div>
+                                       <p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="text-left w-100">
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                               <label class="custom-file-label"> Age Proof</label>
+                                           </div>
+                                       </div>
+                                       <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="text-left w-100">
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                               <label class="custom-file-label"> Address Proof</label>
+                                           </div>
+                                       </div>
+                                       <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="text-left w-100">
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'addressCorresponding_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                               <label class="custom-file-label"> Correspondence Address Proof</label>
+                                           </div>
+                                       </div>
+                                       <p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="text-left w-100">
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'ageSpouse_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                               <label class="custom-file-label"> Spouse Age Proof</label>
+                                           </div>
+                                       </div>
+                                       <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="text-left w-100">
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                               <label class="custom-file-label"> Income Proof</label>
+                                           </div>
+                                       </div>
+                                       <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="text-left w-100">
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                               <label class="custom-file-label">Photograph</label>
+                                           </div>
+                                       </div>
+                                       <p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>
+                                   </div>
 
-                                   <!--<div class="col-md-3">-->
-                                       <!--<div class="text-left w-100">-->
-                                           <!--<div class="custom-file">-->
-                                               <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_proof')"   aria-describedby="inputGroupFileAddon01" >-->
-                                               <!--<label class="custom-file-label"> Address Proof</label>-->
-                                           <!--</div>-->
-                                       <!--</div>-->
-                                       <!--<p class="mt-2" style="color: green;">{{uploadAddressProofName}}</p>-->
-                                   <!--</div>-->
-                                   <!--<div class="col-md-3">-->
-                                       <!--<div class="text-left w-100">-->
-                                           <!--<div class="custom-file">-->
-                                               <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_proof')"   aria-describedby="inputGroupFileAddon01" >-->
-                                               <!--<label class="custom-file-label"> Age Proof</label>-->
-                                           <!--</div>-->
-                                       <!--</div>-->
-                                       <!--<p class="mt-2" style="color: green;">{{uploadAgeProofName}}</p>-->
+                                   <div class="col-md-4">
+                                       <div class="text-left w-100">
+                                           <div class="custom-file">
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'bank_proof')"   aria-describedby="inputGroupFileAddon01" >
+                                               <label class="custom-file-label"> Bank statement</label>
+                                               <a>showing last 1 month transaction (other than bank interest transactions)</a>
+                                           </div>
+                                       </div>
+                                       <p class="mt-2" style="color: green;">{{uploadBankProofName}}</p>
+                                   </div>
+                               </div>
 
-                                   <!--</div>-->
-                                   <!--<div class="col-md-3">-->
-                                       <!--<div class="text-left w-100">-->
-                                           <!--<div class="custom-file">-->
-                                               <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_proof')"   aria-describedby="inputGroupFileAddon01" >-->
-                                               <!--<label class="custom-file-label"> ID Proof</label>-->
-                                           <!--</div>-->
-                                       <!--</div>-->
-                                       <!--<p class="mt-2" style="color: green;">{{uploadIdProofName}}</p>-->
-                                   <!--</div>-->
-                                   <!--<div class="col-md-3">-->
-                                       <!--<div class="text-left w-100">-->
-                                           <!--<div class="custom-file">-->
-                                               <!--<input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'bank_proof')"   aria-describedby="inputGroupFileAddon01" >-->
-                                               <!--<label class="custom-file-label"> Bank Proof</label>-->
-                                           <!--</div>-->
-                                       <!--</div>-->
-                                       <!--<p class="mt-2" style="color: green;">{{uploadBankProofName}}</p>-->
-                                   <!--</div>-->
-                               <!--</div>-->
+                               <div class="row" *ngIf="documentPath">
+                                   <div  class="col-md-3" *ngFor="let images of documentPath">
+                                       <p class="color-blue">{{images.file_type | uppercase}}</p>
+                                       <span class="imageclose mr-2" >
+                                        <img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:200px;width: 350px;"/>
+                                    </span>
+                                   </div>
+                               </div>
 
-                               <!--<div class="row" *ngIf="documentPath">-->
-                                   <!--<div  class="col-md-3" *ngFor="let images of documentPath">-->
-                                       <!--<p class="color-blue">{{images.file_type | uppercase}}</p>-->
-                                       <!--<span class="imageclose mr-2" >-->
-                                        <!--<img src="{{webhost + '/' + images.file_path}}" class="img-thumbnail" style="height:200px;width: 350px;"/>-->
-                                    <!--</span>-->
-                                   <!--</div>-->
-                               <!--</div>-->
+                               <div class="row mt-2">
+                                   <div class="col-md-6">
+                                       <div class="proposal-buttom text-right w-100">
+                                           <button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <div class="proposal-buttom text-left w-100">
+                                           <form action={{requestedUrl}}  method='POST' #form>
 
-                               <!--<div class="row mt-2">-->
-                                   <!--<div class="col-md-6">-->
-                                       <!--<div class="proposal-buttom text-right w-100">-->
-                                           <!--<button mat-raised-button color="primaryBlue" (click)="uploadAll()">Upload</button>-->
-                                       <!--</div>-->
-                                   <!--</div>-->
-                                   <!--<div class="col-md-6">-->
-                                       <!--<div class="proposal-buttom text-left w-100">-->
                                            <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
-                                               <!--<button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>-->
-                                           <!--</form>-->
-                                       <!--</div>-->
-                                   <!--</div>-->
+                                               <button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>
+                                           </form>
+                                       </div>
+                                   </div>
+                               </div>
+
+
+
+
+
+
+                               <!--<div class="row mt-4" >-->
+                               <!--<div class="col-sm-12 col-xs-12 text-center">-->
+                               <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
+                               <!--&lt;!&ndash;<button mat-button color="warn" (click)="backAll()" >Back</button>&ndash;&gt;-->
+                               <!--<button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>-->
+           <!--<button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="form.submit()" >Pay Now</button>-->
+
+           <!--</form>-->
+                               <!--</div>-->
                                <!--</div>-->
 
-
-
-
-
-
-                               <!--&lt;!&ndash;<div class="row mt-4" >&ndash;&gt;-->
-                               <!--&lt;!&ndash;<div class="col-sm-12 col-xs-12 text-center">&ndash;&gt;-->
-                               <!--&lt;!&ndash;<form action={{proposalNextList.payment_link}}  method='post' #form>&ndash;&gt;-->
-                               <!--&lt;!&ndash;&lt;!&ndash;<button mat-button color="warn" (click)="backAll()" >Back</button>&ndash;&gt;&ndash;&gt;-->
-                               <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue" (click)="form.submit()">Pay Now</button>&ndash;&gt;-->
-                               <!--&lt;!&ndash;</form>&ndash;&gt;-->
-                               <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                               <!--&lt;!&ndash;</div>&ndash;&gt;-->
-
-                           <!--</div>-->
-                       <!--</div>-->
-                   <!--</mat-expansion-panel>-->
-               <!--</mat-accordion>-->
-           <!--</mat-step>-->
+                           </div>
+                       </div>
+                   </mat-expansion-panel>
+               </mat-accordion>
+           </mat-step>
 
       </mat-horizontal-stepper>
 
