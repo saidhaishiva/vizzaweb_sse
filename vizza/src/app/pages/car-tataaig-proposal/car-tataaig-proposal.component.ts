@@ -193,7 +193,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.vehicledata = JSON.parse(sessionStorage.vehicledetailsfw);
     console.log(this.vehicledata);
     this.buycarDetails = JSON.parse(sessionStorage.buyFourwheelerProductDetails);
-    this.enquiryFormData = JSON.parse(sessionStorage.bikeListDetails);
+    this.enquiryFormData = JSON.parse(sessionStorage.carListDetails);
     console.log(this.enquiryFormData, 'enquiry data');
     this.carEnquiryId = sessionStorage.fwEnquiryId;
     this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
@@ -654,6 +654,7 @@ export class CarTataaigProposalComponent implements OnInit {
         if (this.proposer.controls['drivingexp'].value <= age) {
           console.log(value, 'proposer');
           stepper.next();
+          this.topScroll();
         } else {
           this.toastr.error('Invalid Driving Experience');
         }
@@ -672,6 +673,7 @@ export class CarTataaigProposalComponent implements OnInit {
     if (this.vehicle.valid) {
       console.log(value, 'vehicle');
       stepper.next();
+      this.topScroll();
     }
   }
 
@@ -683,6 +685,7 @@ export class CarTataaigProposalComponent implements OnInit {
         if(this.previouspolicy.controls['prepolno'].value != '') {
           console.log(value, 'prepolicy');
           stepper.next();
+          this.topScroll();
         } else {
           this.toastr.error('Policy No should not be empty');
         }
@@ -914,6 +917,7 @@ export class CarTataaigProposalComponent implements OnInit {
     this.settings.loadingSpinner = false;
     if (successData.IsSuccess) {
       stepper.next();
+      this.topScroll();
       this.toastr.success('Proposal created successfully!!');
       this.summaryData = successData.ResponseObject;
       sessionStorage.summaryDatacartata = JSON.stringify(this.summaryData);

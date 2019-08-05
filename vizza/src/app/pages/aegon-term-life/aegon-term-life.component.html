@@ -18,7 +18,7 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title"  required>
+                            <mat-select placeholder="Title" formControlName="title"  (change)="changeGender(); getMaritalList(); getEmpType(); getPremium()"  required>
                               <mat-option value="MR">Mr</mat-option>
                               <mat-option value="MS">Ms</mat-option>
                               <mat-option value="MRS">Mrs</mat-option>
@@ -46,7 +46,9 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Gender" formControlName="gender" (change)="getMaritalList(); getEmpType(); getnomineerelationship()" required>
+                            <!--<input matInput placeholder="Gender" formControlName="gender" autocomplete="off" required readonly >-->
+
+                            <mat-select placeholder="Gender" formControlName="gender" required>
                               <mat-option value="m">Male</mat-option>
                               <mat-option value="f">Female</mat-option>
                             </mat-select>
@@ -55,7 +57,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent( $event)" (dateChange)="addEvent( $event)"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent( $event);getPremium()" (dateChange)="addEvent( $event); getPremium()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                             <mat-error *ngIf="personal.controls.dob.errors?.required">DOB is required</mat-error>
@@ -83,7 +85,7 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Marital Status" formControlName="maritalStatus" autocomplete="off" (change)="getnomineerelationship()" required>
+                            <mat-select placeholder="Marital Status" formControlName="maritalStatus" autocomplete="off"  required>
                               <mat-option *ngFor="let list of maritialList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
@@ -147,7 +149,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="smoker" required>
+                          <mat-radio-group formControlName="smoker" required (change)="getPremium()">
                             <p>Smoker <span class="error" >*</span></p>
                             <mat-radio-button value="y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="n">No</mat-radio-button>
@@ -169,14 +171,14 @@
                         </div>
 
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="isHousewife" required>
+                          <mat-radio-group formControlName="isHousewife" required (change)="getPremium()">
                             <p>Is Housewife <span class="error" >*</span></p>
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="isHusbandCover" required>
+                          <mat-radio-group formControlName="isHusbandCover" required (change)="getPremium()">
                             <p>Is Husband Cover <span class="error" >*</span></p>
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
@@ -405,7 +407,7 @@
                             <div class="row">
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <mat-select placeholder="Title" formControlName="ntitle"  required>
+                                  <mat-select placeholder="Title" formControlName="ntitle" (change)="getnomineerelationship()" required>
                                     <mat-option value="MR">Mr</mat-option>
                                     <mat-option value="MS">Ms</mat-option>
                                     <mat-option value="MRS">Mrs</mat-option>
@@ -429,9 +431,10 @@
                                 </mat-form-field>
                               </div>
 
+
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <input matInput [matDatepicker]="picker2" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  (keyup)="appointeeAgeValid($event)"   formControlName="ndob" (dateInput)="addDate( $event)" (dateChange)="addDate( $event)" (input)="ageNominee()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                  <input matInput [matDatepicker]="picker2" [max]="minDate" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  (keyup)="appointeeAgeValid($event)"   formControlName="ndob" (dateInput)="addDate( $event)" (dateChange)="addDate($event); ageNominee()" (input)="ageNominee()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                                   <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                                   <mat-datepicker #picker2></mat-datepicker>
                                   <mat-error *ngIf="nominee.controls.ndob.errors?.required">DOB is required</mat-error>
@@ -454,21 +457,26 @@
                                   <!--<mat-error *ngIf="nominee.controls.nRelation.errors?.required">Relationship with Other Other is required</mat-error>-->
                                 </mat-form-field>
                               </div>
-
+                            </div>
+                              <div class="row mt-2">
+                              <div class="col-md-6 mb-3"><mat-checkbox formControlName="sameAsProposerAddress" (change)="sameascomAddress()"[disabled]=" disabledAddress"><strong>Same as Communication Address</strong></mat-checkbox></div>
+                              <div class="col-md-6 mb-3"><mat-checkbox formControlName="sameAsPermentAddress" (change)="sameasPerAddress()" [disabled]="disabledPerAddress"><strong>Same as Residence Address</strong></mat-checkbox></div>
+                              </div>
+                            <div class="row">
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <input matInput placeholder="Address 1" formControlName="nAddress1" (keypress)="idValidate($event)"  autocomplete="off" required >
+                                  <input matInput placeholder="Address 1" formControlName="nAddress1" (keypress)="idValidate($event)" [readonly]="sameComAddress"  autocomplete="off" required >
                                   <mat-error *ngIf="nominee.controls.nAddress1.errors?.required">Address 1 is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-3">
                                 <mat-form-field class="w-100">
-                                  <input matInput placeholder="Address 2" formControlName="nAddress2" (keypress)="idValidate($event)"  autocomplete="off" required >
+                                  <input matInput placeholder="Address 2" formControlName="nAddress2" (keypress)="idValidate($event)" [readonly]="sameComAddress" autocomplete="off" required >
                                   <mat-error *ngIf="nominee.controls.nAddress2.errors?.required">Address 2 is required</mat-error>
                                 </mat-form-field>
                               </div>
                               <div class="col-md-3"><mat-form-field class="w-100">
-                                <mat-select placeholder="State" formControlName="nState" autocomplete="off" (change)="changenState()" required>
+                                <mat-select placeholder="State" formControlName="nState" autocomplete="off" (change)="changenState()"  required>
                                   <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
@@ -476,7 +484,7 @@
                                 <mat-error *ngIf="nominee.controls.nState.errors?.required">State is required</mat-error>
                               </mat-form-field></div>
                               <div class="col-md-3"><mat-form-field class="w-100" >
-                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" (change)="changeNcitylist()" required>
+                                <mat-select placeholder="City" formControlName="nCity" autocomplete="off" (change)="changeNcitylist()"  required>
                                   <mat-option *ngFor="let city of citynList | keys" [value]= 'city.value'>
                                     {{city.value}}
                                   </mat-option>
@@ -484,7 +492,7 @@
                                 <mat-error *ngIf="nominee.controls.nCity.errors?.required">City is required</mat-error>
                               </mat-form-field></div>
                               <div class="col-md-3"><mat-form-field class="w-100">
-                                <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6"  formControlName="nPincode" autocomplete="off" required (input)="getPostal($event.target.value,'nominee')">
+                                <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6" [readonly]="sameComAddress"  maxlength="6"  formControlName="nPincode" autocomplete="off" required (input)="getPostal($event.target.value,'nominee')">
                                 <mat-error *ngIf="nominee.controls.nPincode.hasError('minlength')">Pin should be 6 digits</mat-error>
                                 <mat-error *ngIf="nominee.controls.nPincode.hasError('required')">Pincode is required</mat-error>
                                 <mat-error *ngIf="nominee.controls.nPincode.hasError('pattern')">Enter Valid  Pin</mat-error>

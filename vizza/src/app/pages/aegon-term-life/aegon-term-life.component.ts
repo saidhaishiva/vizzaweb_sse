@@ -97,6 +97,10 @@ export class AegonTermLifeComponent implements OnInit {
   public annualData: any;
   public errorMsg: any;
   public errAnnual: any;
+  public minDate: any;
+  public sameComAddress: any;
+  public disabledAddress: any;
+  public disabledPerAddress: any;
 
   public keyUp = new Subject<string>();
 
@@ -111,7 +115,8 @@ export class AegonTermLifeComponent implements OnInit {
     let stepperindex = 0;
     this.requestedUrl = '';
     this.redirectUrl='';
-
+    const minDate = new Date();
+    this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     this.route.params.forEach((params) => {
       if(params.stepper == true || params.stepper == 'true') {
         stepperindex = 2;
@@ -127,6 +132,9 @@ export class AegonTermLifeComponent implements OnInit {
       }
     });
     this.inputReadonly=false;
+    this.disabledAddress = false;
+    this.disabledPerAddress = false;
+
     this.apponiteeList = false;
     this.settings= this.appSettings.settings;
     const observable = this.keyUp
@@ -226,6 +234,8 @@ export class AegonTermLifeComponent implements OnInit {
       adob: '',
       aRelation: '',
       appointeeRelationOther:'',
+      sameAsProposerAddress: '',
+      sameAsPermentAddress: '',
       // aPercentage: '',
       nCityName:'',
       nRelationName:'',
@@ -253,11 +263,11 @@ export class AegonTermLifeComponent implements OnInit {
     // }
     this.getQualificationList();
 
-    this.getnomineerelationship();
     this.getState();
     this.checkSum();
     this.checkSumAs();
     // this.getPremium();
+    this.getnomineerelationship();
 
     this.getAppointeeRelation();
     // this.getoccupationlist();
@@ -270,20 +280,35 @@ export class AegonTermLifeComponent implements OnInit {
     if(this.enquiryFromDetials.gender == 'm')
     {
       this.personal.controls['title'].patchValue('MR');
+     if(this.personal.controls['gender'].value == 'm'){
+       this.personal.controls['gender'].patchValue('m');
+     } else{
+       this.personal.controls['gender'].patchValue('f');
+     }
     }else if(this.enquiryFromDetials.gender == 'f'){
-      this.personal.controls['title'].patchValue('MS')
+      this.personal.controls['title'].patchValue('MS');
+
     }
     this.personal.controls['adbrSumAssured'].patchValue (50000);
-    console.log(this.personal.controls['adbrSumAssured'],'this.personal.controls[\'adbrSumAssured\']')
+    console.log(this.personal.controls['adbrSumAssured'],'this.personal.controls[\'adbrSumAssured\']');
     this.personal.controls['enchancedCISA'].patchValue (500000);
     this.personal.controls['icirSumAssured'].patchValue (500000);
     this.personal.controls['gender'].patchValue(this.enquiryFromDetials.gender);
     this.getMaritalList();
-    this.getnomineerelationship();
     this.getEmpType();
+    this.getnomineerelationship();
     this.personal.controls['cPincode'].patchValue(this.enquiryFromDetials.pincode);
     this.personal.controls['smoker'].patchValue(this.enquiryFromDetials.smoker);
 
+
+  }
+
+  changeGender() {
+    if (this.personal.controls['title'].value == 'MR'){
+      this.personal.controls['gender'].patchValue('m');
+    } else {
+      this.personal.controls['gender'].patchValue('f');
+    }
 
   }
 
@@ -328,7 +353,57 @@ export class AegonTermLifeComponent implements OnInit {
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
   }
+  sameascomAddress(){
+    if (this.nominee.controls['sameAsProposerAddress'].value) {
+      this.sameComAddress = true;
+      this.disabledPerAddress = true;
+      this.nominee.controls['nAddress1'].patchValue(this.personal.controls['cAddress1'].value);
+      this.nominee.controls['nAddress2'].patchValue(this.personal.controls['cAddress2'].value);
+      this.nominee.controls['nState'].patchValue(this.personal.controls['cState'].value);
+      this.getcitylistn();
+      this.nominee.controls['nCity'].patchValue(this.personal.controls['cCity'].value);
+      this.nominee.controls['nCityName'].patchValue(this.personal.controls['cCityName'].value);
+      this.nominee.controls['nPincode'].patchValue(this.personal.controls['cPincode'].value);
+     console.log(this.nominee.controls['nCity'].value);
+    } else {
+      this.sameComAddress = false;
+      this.disabledPerAddress = false;
 
+      this.nominee.controls['nAddress1'].patchValue('');
+      this.nominee.controls['nAddress2'].patchValue('');
+      this.nominee.controls['nCityName'].patchValue('');
+      this.nominee.controls['nCity'].patchValue('');
+      this.nominee.controls['nState'].patchValue('');
+      this.nominee.controls['nPincode'].patchValue('');
+    }
+
+  }
+  sameasPerAddress(){
+    if (this.nominee.controls['sameAsPermentAddress'].value) {
+      this.disabledAddress = true;
+      this.sameComAddress = true;
+      this.nominee.controls['nAddress1'].patchValue(this.personal.controls['pAddress1'].value);
+      this.nominee.controls['nAddress2'].patchValue(this.personal.controls['pAddress2'].value);
+      this.nominee.controls['nState'].patchValue(this.personal.controls['pState'].value);
+      this.getcitylistn();
+      this.nominee.controls['nCity'].patchValue(this.personal.controls['pCity'].value);
+      this.nominee.controls['nCityName'].patchValue(this.personal.controls['pCityName'].value);
+      this.nominee.controls['nPincode'].patchValue(this.personal.controls['pPincode'].value);
+
+
+    } else {
+      this.sameComAddress = false;
+      this.disabledAddress = false;
+      this.nominee.controls['nAddress1'].patchValue('');
+      this.nominee.controls['nAddress2'].patchValue('');
+      this.nominee.controls['nCityName'].patchValue('');
+      this.nominee.controls['nCity'].patchValue('');
+      this.nominee.controls['nState'].patchValue('');
+      this.nominee.controls['nPincode'].patchValue('');
+
+    }
+
+  }
   addEvent(event) {
     if (event.value != null) {
       let selectedDate = '';
@@ -553,6 +628,7 @@ export class AegonTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (selectedDate.length == 10) {
           this.nomineeAge = this.ageCalculate(dob);
+          console.log(this.nomineeAge, ' this.nomineeAg');
 
         }
 
@@ -560,6 +636,7 @@ export class AegonTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
           this.nomineeAge = this.ageCalculate(dob);
+          console.log(this.nomineeAge,'age')
 
         }
         this.dateError1 = '';
@@ -604,7 +681,7 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   ageNominee() {
-    if(sessionStorage.nomineeAge <= 18){
+    if(sessionStorage.nomineeAge < 18){
       this.apponiteeList = true;
       console.log(this.apponiteeList,'cccccc')
     } else {
@@ -612,6 +689,7 @@ export class AegonTermLifeComponent implements OnInit {
 
     }
   }
+
   appointeeAgeValid(event: any) {
     if ( this.apponiteeList == true ) {
       this.nominee.controls['atitle'].patchValue(this.nominee.controls['atitle'].value);
@@ -678,13 +756,14 @@ export class AegonTermLifeComponent implements OnInit {
 
   // AGE VALIDATION
   ageCalculate(dob) {
+    console.log(dob,'dob');
     let today = new Date();
     let birthDate = new Date(dob);
     let age = today.getFullYear() - birthDate.getFullYear();
     let m = today.getMonth() - birthDate.getMonth();
-    let dd = today.getDate() - birthDate.getDate();
-    if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
-      age = age - 1;
+    let dd = today.getDate()- birthDate.getDate();
+    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
+      age = age-1;
     }
     return age;
   }
@@ -948,7 +1027,7 @@ export class AegonTermLifeComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'gender': this.personal.controls['gender'].value  == 'f' ? 'F' : 'M',
+      'gender': this.nominee.controls['ntitle'].value  == 'MR' ? 'M' : 'F',
       'marital_status' : this.personal.controls['maritalStatus'].value
     }
     this.TermLifeService.getnomineerelationship(data).subscribe(
@@ -1146,9 +1225,9 @@ export class AegonTermLifeComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'gender': this.personal.controls['gender'].value == 'f' ? 'F' : 'M',
+      'gender': this.personal.controls['title'].value == 'MR' ? 'M' : 'F',
     }
-    if (this.personal.controls['gender'].value !='') {
+    if (this.personal.controls['title'].value !='') {
       this.TermLifeService.getMaritalList(data).subscribe(
           (successData) => {
             this.maritalListSuccess(successData);
@@ -1178,9 +1257,9 @@ export class AegonTermLifeComponent implements OnInit {
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      'gender': this.personal.controls['gender'].value  == 'f' ? 'F' : 'M',
+      'gender': this.personal.controls['title'].value  == 'MR' ? 'M' : 'F',
     }
-    if (this.personal.controls['gender'].value !='') {
+    if (this.personal.controls['title'].value !='') {
       this.TermLifeService.getEmpTypeList(data).subscribe(
           (successData) => {
             this.getEmpTypeSuccess(successData);
@@ -1245,9 +1324,7 @@ export class AegonTermLifeComponent implements OnInit {
 
   }
 
-  // changeGender(){
-  // this.personal.controls['genderValue'].patchValue(this.personal.controls['gender'].value == 'M' ? 'MALE' : 'FEMALE');
-  // }
+
   changecCitylist() {
     this.personal.controls['cCityName'].patchValue(this.cityList[this.personal.controls['cCity'].value]);
   }
@@ -1397,8 +1474,9 @@ export class AegonTermLifeComponent implements OnInit {
         nAddress2: stepper2.nAddress2,
         nCity: stepper2.nCity,
         nState: stepper2.nState,
+        sameAsProposerAddress: stepper2.sameAsProposerAddress,
         nPincode: stepper2.nPincode,
-        // nPercentage: stepper2.nPercentage,
+        sameAsPermentAddress: stepper2.sameAsPermentAddress,
         atitle: stepper2.atitle,
         aFullName: stepper2.aFullName,
         // adob: stepper2.adob,
