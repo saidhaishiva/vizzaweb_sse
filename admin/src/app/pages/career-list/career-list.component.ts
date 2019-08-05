@@ -80,7 +80,17 @@ export class CareerListComponent implements OnInit {
     this.rows = temp;
     this.table.offset = 0;
   }
-
+  searchFilter(event){
+    console.log(event, 'event');
+    const val = event.target.value.toLowerCase();
+    const temp = this.temp.filter(function (d) {
+      if(d.status.toLowerCase().indexOf(val) !== -1){
+        return d.status.toLowerCase().indexOf(val) !== -1;
+      }
+    });
+    this.rows = temp;
+    this.table.offset = 0;
+  }
   public careerFailure(error) {
     this.loadingIndicator = false;
 
@@ -100,7 +110,7 @@ export class CareerListComponent implements OnInit {
   }
 imageDownload(value){
   let currenturl = this.config.getimgUrl();
-  window.open(currenturl + '/' + value.file_path, '_blank');
+  window.open(currenturl + '/' + value.file_path, '_top');
 
 }
 // status DropDown

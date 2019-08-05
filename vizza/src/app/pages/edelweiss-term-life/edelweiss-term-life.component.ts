@@ -40,6 +40,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public medicalDetail: FormGroup;
   public bankDetail: FormGroup;
   public nomineeDetail: FormGroup;
+  public documentDetail: FormGroup;
   public itemsNominee: any;
   public addExistingInsurance: any;
   public addmedicalQuestions: any;
@@ -87,6 +88,14 @@ export class EdelweissTermLifeComponent implements OnInit {
   public etopUpRates: any;
   public eDocumentProof: any;
   public eIncomeProof: any;
+  public eproposalProof: any;
+  public eageDocProof: any;
+  public eaddressProof: any;
+  public eaddressDocProof: any;
+  public ekycProof: any;
+  public eOtherDocumentProof: any;
+  public identityLifeProof: any;
+  public esalereqProof: any;
   public proposerAge: any;
   public proposerSpouseAge: any;
   public dateError: any;
@@ -431,6 +440,29 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     this.addmedicalQuestions = this.medicalDetail.get('medicalQuestions') as FormArray;
 
+    this.documentDetail = this.fb.group({
+      incomeLA: '',
+      identityLA: '',
+      addressLA: '',
+      ageLA: '',
+      documentLA: '',
+      proposalLA: '',
+      salereqLA: '',
+      // photoLA: '',
+      kycLA: '',
+      incomePA: '',
+      identityPA: '',
+      addressPA: '',
+      agePA: '',
+      documentPA: '',
+      proposalPA: '',
+      salereqPA: '',
+      // photoPA: '',
+      kycPA: '',
+
+
+    });
+
   }
 
   ngOnInit() {
@@ -465,6 +497,13 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getetopUpRate();
     this.geteDocumentProof();
     this.geteIncomeProof();
+    this.geteproposalProof();
+    this.geteageDocProof();
+    this.geteaddressDocProof();
+    this.getekycProof();
+    this.geteOtherDocumentProof();
+    this.geteidLifeProof();
+    this.getesalereqProof();
     this.sessionData();
 
   }
@@ -1307,154 +1346,156 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
       this.uploadAddressProofName = this.fileDetails[0].name;
 
-    } else if (type == 'addressCorresponding_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = ( event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'addCores_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
-
-    } else if (type == 'ageSpouse_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = ( event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'spouseAge_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
-
-    } else if (type == 'income_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = ( event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'income_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
-
-    } else if (type == 'photograph_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = ( event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'photo_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
-
-    } else if (type == 'age_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'age_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadAgeProofName = this.fileDetails[0].name;
-
-    } else if (type == 'id_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'id_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadIdProofName = this.fileDetails[0].name;
-    } else if (type == 'bank_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = (event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'bank_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadBankProofName = this.fileDetails[0].name;
     }
+    // else if (type == 'addressCorresponding_proof') {
+    //
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     this.fileDetails.push({
+    //       'base64': '',
+    //       'proofType': type,
+    //       'fileExt': event.target.files[i].type,
+    //       'name': event.target.files[i].name
+    //     });
+    //   }
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     const reader = new FileReader();
+    //     reader.onload = ( event: any) => {
+    //       this.url = event.target.result;
+    //       getUrlEdu.push(this.url.split(','));
+    //       this.onUploadFinished(this.fileDetails, getUrlEdu, 'addCores_p');
+    //     };
+    //     reader.readAsDataURL(event.target.files[i]);
+    //   }
+    //   this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
+    //
+    // } else if (type == 'ageSpouse_proof') {
+    //
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     this.fileDetails.push({
+    //       'base64': '',
+    //       'proofType': type,
+    //       'fileExt': event.target.files[i].type,
+    //       'name': event.target.files[i].name
+    //     });
+    //   }
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     const reader = new FileReader();
+    //     reader.onload = ( event: any) => {
+    //       this.url = event.target.result;
+    //       getUrlEdu.push(this.url.split(','));
+    //       this.onUploadFinished(this.fileDetails, getUrlEdu, 'spouseAge_p');
+    //     };
+    //     reader.readAsDataURL(event.target.files[i]);
+    //   }
+    //   this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
+    //
+    // } else if (type == 'income_proof') {
+    //
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     this.fileDetails.push({
+    //       'base64': '',
+    //       'proofType': type,
+    //       'fileExt': event.target.files[i].type,
+    //       'name': event.target.files[i].name
+    //     });
+    //   }
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     const reader = new FileReader();
+    //     reader.onload = ( event: any) => {
+    //       this.url = event.target.result;
+    //       getUrlEdu.push(this.url.split(','));
+    //       this.onUploadFinished(this.fileDetails, getUrlEdu, 'income_p');
+    //     };
+    //     reader.readAsDataURL(event.target.files[i]);
+    //   }
+    //   this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
+    //
+    // } else if (type == 'photograph_proof') {
+    //
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     this.fileDetails.push({
+    //       'base64': '',
+    //       'proofType': type,
+    //       'fileExt': event.target.files[i].type,
+    //       'name': event.target.files[i].name
+    //     });
+    //   }
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     const reader = new FileReader();
+    //     reader.onload = ( event: any) => {
+    //       this.url = event.target.result;
+    //       getUrlEdu.push(this.url.split(','));
+    //       this.onUploadFinished(this.fileDetails, getUrlEdu, 'photo_p');
+    //     };
+    //     reader.readAsDataURL(event.target.files[i]);
+    //   }
+    //   this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
+    //
+    // } else if (type == 'age_proof') {
+    //
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     this.fileDetails.push({
+    //       'base64': '',
+    //       'proofType': type,
+    //       'fileExt': event.target.files[i].type,
+    //       'name': event.target.files[i].name
+    //     });
+    //   }
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     const reader = new FileReader();
+    //     reader.onload = (event: any) => {
+    //       this.url = event.target.result;
+    //       getUrlEdu.push(this.url.split(','));
+    //       this.onUploadFinished(this.fileDetails, getUrlEdu, 'age_p');
+    //     };
+    //     reader.readAsDataURL(event.target.files[i]);
+    //   }
+    //   this.uploadAgeProofName = this.fileDetails[0].name;
+    //
+    // } else if (type == 'id_proof') {
+    //
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     this.fileDetails.push({
+    //       'base64': '',
+    //       'proofType': type,
+    //       'fileExt': event.target.files[i].type,
+    //       'name': event.target.files[i].name
+    //     });
+    //   }
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     const reader = new FileReader();
+    //     reader.onload = (event: any) => {
+    //       this.url = event.target.result;
+    //       getUrlEdu.push(this.url.split(','));
+    //       this.onUploadFinished(this.fileDetails, getUrlEdu, 'id_p');
+    //     };
+    //     reader.readAsDataURL(event.target.files[i]);
+    //   }
+    //   this.uploadIdProofName = this.fileDetails[0].name;
+    // } else if (type == 'bank_proof') {
+    //
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     this.fileDetails.push({
+    //       'base64': '',
+    //       'proofType': type,
+    //       'fileExt': event.target.files[i].type,
+    //       'name': event.target.files[i].name
+    //     });
+    //   }
+    //   for (let i = 0; i < event.target.files.length; i++) {
+    //     const reader = new FileReader();
+    //     reader.onload = (event: any) => {
+    //       this.url = event.target.result;
+    //       getUrlEdu.push(this.url.split(','));
+    //       this.onUploadFinished(this.fileDetails, getUrlEdu, 'bank_p');
+    //     };
+    //     reader.readAsDataURL(event.target.files[i]);
+    //   }
+    //   this.uploadBankProofName = this.fileDetails[0].name;
+    // }
 
   }
+
   onUploadFinished(values, basecode, type) {
     values[0].base64 = basecode[0][1];
 
@@ -1464,14 +1505,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
     }
     console.log(this.allImage , 'this.allImage.this.allImage.');
-    if (type == 'age_p') {
-      this.ageProofPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.ageProofPath.indexOf(values[k].name) == -1) {
-          this.ageProofPath.push(values[k]);
-        }
-      }
-    } else if (type == 'add_p') {
+    if (type == 'add_p') {
       this.addressProofPath = [];
       for (let k = 0; k < values.length; k++) {
         if (this.addressProofPath.indexOf(values[k].name) == -1) {
@@ -1479,57 +1513,65 @@ export class EdelweissTermLifeComponent implements OnInit {
         }
       }
     }
-    else if (type == 'addCores_p') {
-      this.correspondingAddressProofPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.correspondingAddressProofPath.indexOf(values[k].name) == -1) {
-          this.correspondingAddressProofPath.push(values[k]);
-        }
-      }
-    }
-    else if (type == 'spouseAge_p') {
-      this.spouseAgeProofPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.spouseAgeProofPath.indexOf(values[k].name) == -1) {
-          this.spouseAgeProofPath.push(values[k]);
-        }
-      }
-    }
-    else if (type == 'income_p') {
-      this.incomeProofPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.incomeProofPath.indexOf(values[k].name) == -1) {
-          this.incomeProofPath.push(values[k]);
-        }
-      }
-    }
-    else if (type == 'photo_p') {
-      this.PhotographPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.PhotographPath.indexOf(values[k].name) == -1) {
-          this.PhotographPath.push(values[k]);
-        }
-      }
-    }
-    else if (type == 'id_p') {
-      this.idProofPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.idProofPath.indexOf(values[k].name) == -1) {
-          this.idProofPath.push(values[k]);
-        }
-      }
-    }
-    else if (type == 'bank_p') {
-      this.bankProofPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.bankProofPath.indexOf(values[k].name) == -1) {
-          this.bankProofPath.push(values[k]);
-        }
-      }
-    }
+    // else if (type == 'age_p') {
+    //   this.ageProofPath = [];
+    //   for (let k = 0; k < values.length; k++) {
+    //     if (this.ageProofPath.indexOf(values[k].name) == -1) {
+    //       this.ageProofPath.push(values[k]);
+    //     }
+    //   }
+    // } else if (type == 'addCores_p') {
+    //   this.correspondingAddressProofPath = [];
+    //   for (let k = 0; k < values.length; k++) {
+    //     if (this.correspondingAddressProofPath.indexOf(values[k].name) == -1) {
+    //       this.correspondingAddressProofPath.push(values[k]);
+    //     }
+    //   }
+    // }
+    // else if (type == 'spouseAge_p') {
+    //   this.spouseAgeProofPath = [];
+    //   for (let k = 0; k < values.length; k++) {
+    //     if (this.spouseAgeProofPath.indexOf(values[k].name) == -1) {
+    //       this.spouseAgeProofPath.push(values[k]);
+    //     }
+    //   }
+    // }
+    // else if (type == 'income_p') {
+    //   this.incomeProofPath = [];
+    //   for (let k = 0; k < values.length; k++) {
+    //     if (this.incomeProofPath.indexOf(values[k].name) == -1) {
+    //       this.incomeProofPath.push(values[k]);
+    //     }
+    //   }
+    // }
+    // else if (type == 'photo_p') {
+    //   this.PhotographPath = [];
+    //   for (let k = 0; k < values.length; k++) {
+    //     if (this.PhotographPath.indexOf(values[k].name) == -1) {
+    //       this.PhotographPath.push(values[k]);
+    //     }
+    //   }
+    // }
+    // else if (type == 'id_p') {
+    //   this.idProofPath = [];
+    //   for (let k = 0; k < values.length; k++) {
+    //     if (this.idProofPath.indexOf(values[k].name) == -1) {
+    //       this.idProofPath.push(values[k]);
+    //     }
+    //   }
+    // }
+    // else if (type == 'bank_p') {
+    //   this.bankProofPath = [];
+    //   for (let k = 0; k < values.length; k++) {
+    //     if (this.bankProofPath.indexOf(values[k].name) == -1) {
+    //       this.bankProofPath.push(values[k]);
+    //     }
+    //   }
+    // }
 
-    console.log(this.ageProofPath, 'this.ageProofPath');
     console.log(this.addressProofPath, 'this.addressProofPath');
+    console.log(this.ageProofPath, 'this.ageProofPath');
+
     console.log(this.correspondingAddressProofPath, 'this.correspondingAddressProofPath');
     console.log(this.spouseAgeProofPath, 'this.spouseAgeProofPath');
     console.log(this.incomeProofPath, 'this.incomeProofPath');
@@ -1547,13 +1589,26 @@ export class EdelweissTermLifeComponent implements OnInit {
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "policy_id": this.getEnquiryDetials.policy_id,
-      "Persons": [{
-        "Documents": this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath, this.correspondingAddressProofPath, this.spouseAgeProofPath, this.incomeProofPath, this.PhotographPath),
-        "Type": "PH"
-      }]
+      "policyNo": this.summaryData.policy_no,
+      "transactionId": this.summaryData.receipt_no,
+      "isLaProp": "LA",
+      "contentType": "7",
+      "documentType": "4",
+      "fileExt": 'image/png',
+      "fileName": "000031500T_ACRForm.pdf",
+      "filedata": "JVBERi0xLjMNCjEgMCBvYmo",
+      // "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      // "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      // "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      // "platform": "web",
+      // "policy_id": this.getEnquiryDetials.policy_id,
+      // "Persons": [{
+      //   "Documents": this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath, this.correspondingAddressProofPath, this.spouseAgeProofPath, this.incomeProofPath, this.PhotographPath),
+      //   "Type": "PH"
+      // }]
     };
     console.log(data, 'dattattatata');
-    this.termService.fileUploadEdelweiss(data).subscribe(
+    this.termService.edelweissFileUpload(data).subscribe(
         (successData) => {
           this.fileUploadSuccess(successData);
         },
@@ -2640,9 +2695,9 @@ export class EdelweissTermLifeComponent implements OnInit {
           "ECGDetails":this.medicalDetail.controls['ECGDetails'].value,
           "admitInd":this.medicalDetail.controls['admitInd'].value ? 'Y' : 'N',
           "admitDetails":this.medicalDetail.controls['admitDetails'].value,
-          "medicationInd":this.medicalDetail.controls['medicationInd'].value ? 'Y' : 'N',
+          "medicationInd":this.medicalDetail.controls['medicalTreatment'].value ? 'Y' : 'N',
           "medicationDetails":this.medicalDetail.controls['medicationDetails'].value,
-          "diagnosedInd":this.medicalDetail.controls['diagnosedInd'].value ? 'Y' : 'N',
+          "diagnosedInd":this.medicalDetail.controls['receivedTreatment1'].value ? 'Y' : 'N',
           "diagnosedDetails":this.medicalDetail.controls['diagnosedDetails'].value,
           "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd'].value ? 'Y' : 'N',
           "heartDieaseDetails":this.medicalDetail.controls['heartDieaseDetails'].value,
@@ -2670,7 +2725,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "ENTDieaseDetails":this.medicalDetail.controls['ENTDieaseDetails'].value,
           "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd'].value ? 'Y' : 'N',
           "muscleDieaseDetails":this.medicalDetail.controls['muscleDieaseDetails'].value,
-          "aidsInd":this.medicalDetail.controls['aidsInd'].value ? 'Y' : 'N',
+          "aidsInd":this.medicalDetail.controls['receivedTreatment2'].value ? 'Y' : 'N',
           "aidsDetails":this.medicalDetail.controls['aidsDetails'].value,
           "alcoholicInd":this.medicalDetail.controls['alcoholicInd'].value ? 'Y' : 'N',
           "alcoholicDetails":this.medicalDetail.controls['alcoholicDetails'].value,
@@ -2855,7 +2910,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     console.log(data, ' fileeee');
     this.settings.loadingSpinner = true;
-    this.termService.edelweissProposalCreation(data).subscribe(
+      this.termService.edelweissProposalCreation(data).subscribe(
         (successData) => {
           this.setEdelProposalSuccess(successData, stepper);
         },
@@ -2887,6 +2942,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       sessionStorage.edelweiss_term_life_id = this.proposalId;
       // this.downloadFile(this.requestedUrl);
+console.log(this.summaryData,'summaryData');
+console.log(this.proposalId,'proposalId');
 
       console.log(this.proposerFormData, 'proposerFormData');
       console.log(this.insuredFormData,'insuredFormData');
@@ -3698,6 +3755,211 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public geteIncomeProofFailure(error) {
   }
+
+  geteproposalProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissProposalProof(data).subscribe(
+        (successData) => {
+          this.geteProposalProofSuccess(successData);
+        },
+        (error) => {
+          this.geteProposalProofFailure(error);
+        }
+    );
+  }
+
+  public geteProposalProofSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eproposalProof = successData.ResponseObject;
+    }
+  }
+
+  public geteProposalProofFailure(error) {
+  }
+  geteageDocProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissAgeProof(data).subscribe(
+        (successData) => {
+          this.geteAgeDocProofSuccess(successData);
+        },
+        (error) => {
+          this.geteAgeProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteAgeDocProofSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eageDocProof = successData.ResponseObject;
+    }
+  }
+
+  public geteAgeProofDocFailure(error) {
+  }
+
+
+  geteaddressDocProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissAddressProof(data).subscribe(
+        (successData) => {
+          this.geteAddressProofDocSuccess(successData);
+        },
+        (error) => {
+          this.geteAddressProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteAddressProofDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eaddressDocProof = successData.ResponseObject;
+    }
+  }
+  public geteAddressProofDocFailure(error) {
+  }
+  getekycProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissKYCProof(data).subscribe(
+        (successData) => {
+          this.geteKycProofDocSuccess(successData);
+        },
+        (error) => {
+          this.geteKycProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteKycProofDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.ekycProof = successData.ResponseObject;
+    }
+  }
+  public geteKycProofDocFailure(error) {
+  }
+  geteidLifeProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissidDocProof(data).subscribe(
+        (successData) => {
+          this.geteIdProofDocSuccess(successData);
+        },
+        (error) => {
+          this.geteIdProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteIdProofDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.identityLifeProof = successData.ResponseObject;
+    }
+  }
+  public geteIdProofDocFailure(error) {
+  }
+  geteOtherDocumentProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissOtherDocProof(data).subscribe(
+        (successData) => {
+          this.geteOtherDocSuccess(successData);
+        },
+        (error) => {
+          this.geteOtherDocFailure(error);
+        }
+    );
+  }
+
+  public geteOtherDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eOtherDocumentProof = successData.ResponseObject;
+    }
+  }
+  public geteOtherDocFailure(error) {
+  }
+  getesalereqProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissSalesReqProof(data).subscribe(
+        (successData) => {
+          this.geteSalesReqProofDocSuccess(successData);
+        },
+        (error) => {
+          this.geteSalesReqProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteSalesReqProofDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.esalereqProof = successData.ResponseObject;
+    }
+  }
+  public geteSalesReqProofDocFailure(error) {
+  }
+  // geteFileUpload() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+  //
+  //   }
+  //   this.termService.edelweissFileUpload(data).subscribe(
+  //       (successData) => {
+  //         this.geteFileUploadSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.geteFileUploadFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // public geteFileUploadSuccess(successData) {
+  //   if (successData.IsSuccess) {
+  //     this.esalereqProof = successData.ResponseObject;
+  //   }
+  // }
+  // public geteFileUploadFailure(error) {
+  // }
 
   getifscEdelweissDetails(ifsc) {
     const data = {

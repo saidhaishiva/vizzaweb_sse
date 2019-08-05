@@ -24,6 +24,7 @@ export class PagesComponent implements OnInit {
   public toggleSearchBar:boolean = false;
   private defaultMenu:string; //declared for return default menu when window resized 
   public scrolledContent:any;
+  public adminList:any;
 
   constructor(public appSettings:AppSettings, public router:Router, private menuService: MenuService){        
     this.settings = this.appSettings.settings;
@@ -38,6 +39,7 @@ export class PagesComponent implements OnInit {
     this.menuOption = this.settings.menu; 
     this.menuTypeOption = this.settings.menuType; 
     this.defaultMenu = this.settings.menu;
+    this.adminList = JSON.parse(sessionStorage.adminDetails);
   }
 
   ngAfterViewInit(){
