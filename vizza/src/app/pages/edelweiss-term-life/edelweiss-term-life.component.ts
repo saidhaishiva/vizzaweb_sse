@@ -2739,7 +2739,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ? 'Y' : 'N',
           "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value ? 'Y' : 'N',
           "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks'].value,
-          "medicalQuestions":"",
+          "medicalQuestions":this.medicalDetail.value.medicalQuestions,
         },
         "bank":{
           "accountNo":this.bankDetail.controls['accountNo'].value,
