@@ -2216,8 +2216,6 @@
                                                <li class="list-group-item" *ngIf="medicalFormData.medicationDetails != ''"><strong>Medication Details:</strong> {{medicalFormData.medicationDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment1 != ''" ><strong>Have you ever been diagnosed or / received treatment:</strong> {{medicalFormData.receivedTreatment1}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.diagnosedDetails != ''" ><strong>Diagnosed Details:</strong> {{medicalFormData.diagnosedDetails}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalFormData.receivedTreatment2}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.aidsDetails != ''"><strong>AIDS Details:</strong> {{medicalFormData.aidsDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.drugsInd != ''"><strong>Are u Drugs User:</strong> {{medicalFormData.drugsInd}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.drugsDetails != ''"><strong>Drugs Details:</strong> {{medicalFormData.drugsDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.alcoholInd != ''"><strong>Are u Alcohol User:</strong> {{medicalFormData.alcoholInd}}</li>
@@ -2238,7 +2236,8 @@
                                                <li class="list-group-item" *ngIf="medicalFormData.BPDetails != ''"><strong>BP Details:</strong> {{medicalFormData.BPDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.respiratoryDieaseInd != ''" ><strong>Respiratory Diease:</strong> {{medicalFormData.respiratoryDieaseInd}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.respiratoryDieaseDetails != ''" ><strong>Respiratory Diease Details:</strong> {{medicalFormData.respiratoryDieaseDetails}}</li>
-
+                                               <li class="list-group-item" *ngIf="medicalFormData.diabetesInd != ''"><strong>Diabetes:</strong> {{medicalFormData.diabetesInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.diabetesDetails != ''"><strong>Diabetes Details:</strong> {{medicalFormData.diabetesDetails}}</li>
 
                                            </ul>
                                        </div>
@@ -2250,8 +2249,8 @@
                                    <div class="row">
                                        <div class="col-md-12">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" *ngIf="medicalFormData.diabetesInd != ''"><strong>Diabetes:</strong> {{medicalFormData.diabetesInd}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.diabetesDetails != ''"><strong>Diabetes Details:</strong> {{medicalFormData.diabetesDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.receivedTreatment2 != ''"><strong>Have you or your spouse or your parents ever suffered from or received treatment:</strong> {{medicalFormData.receivedTreatment2}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.aidsDetails != ''"><strong>AIDS Details:</strong> {{medicalFormData.aidsDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.kidneyDieaseInd != ''"><strong>Kidney Diease:</strong> {{medicalFormData.kidneyDieaseInd}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.kidneyDieaseDetails != ''"><strong>Kidney Diease Details:</strong> {{medicalFormData.kidneyDieaseDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.digestiveDieaseInd != ''"><strong>Digestive Diease:</strong> {{medicalFormData.digestiveDieaseInd}}</li>
@@ -2262,8 +2261,8 @@
                                                <li class="list-group-item" *ngIf="medicalFormData.tropicalDieaseDetails != ''"><strong>Tropical Diease Details:</strong> {{medicalFormData.tropicalDieaseDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.thyroidDieaseInd != ''"><strong>Thyroid Diease:</strong> {{medicalFormData.thyroidDieaseInd}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.thyroidDieaseDetails != ''"><strong>Thyroid Diease Details:</strong> {{medicalFormData.thyroidDieaseDetails}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.bloodDieaseInd != ''"><strong>Blood Diease:</strong> {{medicalFormData.bloodDieaseInd}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.bloodDieaseDetails != ''" ><strong>Blood Diease Details:</strong> {{medicalFormData.bloodDieaseDetails}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.bloodDieaseInd != '' && lifePremiumList.product_id=='112'"><strong>Blood Diease:</strong> {{medicalFormData.bloodDieaseInd}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.bloodDieaseDetails != '' && lifePremiumList.product_id=='112'" ><strong>Blood Diease Details:</strong> {{medicalFormData.bloodDieaseDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.nervousDieaseInd != ''" ><strong>Nervous Diease:</strong> {{medicalFormData.nervousDieaseInd}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.nervousDieaseDetails != ''"><strong>Nervous Diease Details:</strong> {{medicalFormData.nervousDieaseDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.ENTDieaseInd != ''"><strong>ENT Diease:</strong> {{medicalFormData.ENTDieaseInd}}</li>
@@ -2297,10 +2296,10 @@
                                    <div class="col-md-6" >
                                        <div class="p-3">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" ><strong>Disease:</strong>{{item.disease}}</li>
-                                               <li class="list-group-item" ><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
-                                               <li class="list-group-item" ><strong>Treatment:</strong> {{item.treatment}}</li>
-                                               <li class="list-group-item" ><strong>Dosage:</strong> {{item.dosage}}</li>
+                                               <li class="list-group-item" *ngIf="item.disease != null"><strong>Disease:</strong>{{item.disease}}</li>
+                                               <li class="list-group-item" *ngIf=" item.datediagnois != null"><strong>Diagnois Date:</strong>{{item.datediagnois | date: 'dd/MM/yyyy'}}</li>
+                                               <li class="list-group-item" *ngIf="item.treatment != null"><strong>Treatment:</strong> {{item.treatment}}</li>
+                                               <li class="list-group-item" *ngIf="item.dosage != null"><strong>Dosage:</strong> {{item.dosage}}</li>
                                            </ul>
                                        </div>
                                    </div>
@@ -2310,10 +2309,10 @@
                                    <div class="col-md-6" >
                                        <div class="p-3">
                                            <ul class="m-0 list-group">
-                                               <li class="list-group-item" ><strong>Doctor:</strong> {{item.doctor}}</li>
-                                               <li class="list-group-item" ><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
-                                               <li class="list-group-item" ><strong>Complications:</strong> {{item.anycomplications}}</li>
-                                               <li class="list-group-item" ><strong>Remarks:</strong> {{item.remarks}}</li>
+                                               <li class="list-group-item" *ngIf="item.doctor != null"><strong>Doctor:</strong> {{item.doctor}}</li>
+                                               <li class="list-group-item" *ngIf="item.datefollowup != null"><strong>FollowUp Date:</strong> {{item.datefollowup | date: 'dd/MM/yyyy'}}</li>
+                                               <li class="list-group-item" *ngIf="item.anycomplications != null"><strong>Complications:</strong> {{item.anycomplications}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.remarks != null"><strong>Remarks:</strong> {{item.remarks}}</li>
                                            </ul>
                                        </div>
                                    </div>

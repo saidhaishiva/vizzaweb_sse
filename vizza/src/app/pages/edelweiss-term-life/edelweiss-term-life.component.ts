@@ -426,7 +426,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         tropicalDieaseDetails: '',
         thyroidDieaseInd: '',
         thyroidDieaseDetails: '',
-        bloodDieaseInd: ' ',
+        bloodDieaseInd: '',
         bloodDieaseDetails: '',
         nervousDieaseInd: '',
         nervousDieaseDetails: '',
@@ -1672,6 +1672,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': '1',
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1693,6 +1694,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': '2',
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
