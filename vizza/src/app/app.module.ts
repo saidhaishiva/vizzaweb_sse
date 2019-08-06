@@ -324,6 +324,7 @@ import { ClearSessionTermlifeService} from './shared/services/clear-session-term
 import { HdfcTwoWheelerPaymentComponent } from './pages/hdfc-two-wheeler-payment/hdfc-two-wheeler-payment.component';
 import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-download-policy/hdfctwowheeler-download-policy.component';
 import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.component';
+import { HdfcCarProposalComponent } from './pages/hdfc-car-proposal/hdfc-car-proposal.component';
 
 @NgModule({
     imports: [
@@ -603,7 +604,8 @@ import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.comp
         BajajGoal,
         HdfcTwoWheelerPaymentComponent,
         HdfctwowheelerDownloadPolicyComponent,
-        HdfcTermLifeComponent
+        HdfcTermLifeComponent,
+        HdfcCarProposalComponent
     ],
     providers: [
         AppSettings,
