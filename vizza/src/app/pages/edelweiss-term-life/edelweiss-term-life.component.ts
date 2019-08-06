@@ -1936,7 +1936,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       // "platform": "web",
       // "policy_id": this.getEnquiryDetials.policy_id,
       "Persons": [{
-        "Documents": this.ageProofPath.concat(this.ageProposalPath,this.addressProofPath, this.addressProposalPath, this.idProofPath,this.idProposalPath,this.incomeProposalPath, this.kycProofPath,this.kycProposalPath, this.documentProofPath,this.documentProposalPath, this.proposalProofPath,this.proposalProPath, this.salesReqProofPath,this.salesReqProposalPath, this.incomeProofPath, this.PhotographPath, this.PhotographProPath),
+        "Documents": this.ageProofPath.concat(this.ageProposalPath, this.addressProofPath, this.addressProposalPath, this.idProofPath, this.idProposalPath, this.incomeProposalPath, this.kycProofPath, this.kycProposalPath, this.documentProofPath, this.documentProposalPath, this.proposalProofPath,this.proposalProPath, this.salesReqProofPath, this.salesReqProposalPath, this.incomeProofPath, this.PhotographPath, this.PhotographProPath),
         "Type": "PH"
       }]
          }
