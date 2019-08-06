@@ -1364,6 +1364,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['addressLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1386,6 +1387,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['addressPA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1408,6 +1410,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['incomeLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1429,6 +1432,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['incomePA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1450,6 +1454,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['identityLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1470,6 +1475,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['identityPA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1490,6 +1496,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['ageLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1511,6 +1518,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['agePA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1532,6 +1540,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['documentLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1553,6 +1562,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['documentPA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1574,6 +1584,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['proposalLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1595,6 +1606,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['proposalPA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1616,6 +1628,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['salereqLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1637,6 +1650,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['salereqPA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1700,6 +1714,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['kycLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1720,6 +1735,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['kycPA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
