@@ -1437,27 +1437,17 @@ export class EdelweissTermLifeComponent implements OnInit {
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
         });
-        console.log( this.fileDetails,'666666666');
       }
       for (let i = 0; i < event.target.files.length; i++) {
         const reader = new FileReader();
         reader.onload = (event: any) => {
           this.url = event.target.result;
-          console.log(this.url,'777777777')
           getUrlEdu.push(this.url.split(','));
-          console.log(getUrlEdu,'arrayedu');
-          console.log(this.fileDetails,'filedetails');
           this.onUploadFinished(this.fileDetails, getUrlEdu, 'income_P');
 
-          console.log(getUrlEdu,'getUrlEdu');
         };
         reader.readAsDataURL(event.target.files[i]);
-        console.log(event.target.files[i],'9876543457')
-      }
-      this.uploadIncomeProposal = this.fileDetails[0].name;
-      console.log(this.uploadIncomeProposal,'88888888888')
-
-
+      } this.uploadIncomeProposal = this.fileDetails[0].name;
     }
 
       else if (type == 'id_LifeAssured') {
@@ -1802,13 +1792,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
     }
     else if (type == 'income_P') {
-        console.log('3456788765434');
       this.incomeProofProposalPath = [];
-      console.log(this.incomeProofProposalPath ,'55555555555')
       for (let k = 0; k < values.length; k++) {
         if (this.incomeProofProposalPath.indexOf(values[k].name) == -1) {
           this.incomeProofProposalPath.push(values[k]);
-          console.log(this.incomeProofProposalPath ,'555554444444444')
         }
       }
     }
