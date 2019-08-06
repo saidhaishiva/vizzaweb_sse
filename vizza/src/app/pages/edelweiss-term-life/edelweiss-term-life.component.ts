@@ -1321,7 +1321,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(nominee2ageval, 'nominee2ageval');
     console.log(nomineeValid, 'nomineeVLID');
     if (this.nomineeDetail.controls.itemsNominee.valid) {
-
+      // if ( nomineeValid == true || nominee2ageval = true ) {
             if ( appointeeAge == true || appointeeAge2 == true) {
 
 
@@ -1331,7 +1331,7 @@ export class EdelweissTermLifeComponent implements OnInit {
             } else {
               this.toastr.error('Appointee Age should be greater than 18.');
             }
-
+      // }
 
 
     }
