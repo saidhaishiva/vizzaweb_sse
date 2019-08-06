@@ -1917,6 +1917,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     // for (let i = 0; i < this.fileDetails; i++) {
          const data = {
 
+
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
@@ -1924,8 +1925,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       "policy_id": this.getEnquiryDetials.policy_id,
       "policyNo": this.summaryData.policy_no,
       "transactionId": this.summaryData.receipt_no,
-      "isLaProp": "LA",
-      "contentType": '',
+
       // "documentType": this.fileDetails[0].proofType,
       // "fileExt": this.fileDetails[0].fileExt,
       // "fileName": this.fileDetails[0].name,
@@ -1935,10 +1935,9 @@ export class EdelweissTermLifeComponent implements OnInit {
       // "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       // "platform": "web",
       // "policy_id": this.getEnquiryDetials.policy_id,
-      "Persons": [{
-        "Documents": this.ageProofPath.concat(this.ageProposalPath, this.addressProofPath, this.addressProposalPath, this.idProofPath, this.idProposalPath, this.incomeProposalPath, this.kycProofPath, this.kycProposalPath, this.documentProofPath, this.documentProposalPath, this.proposalProofPath,this.proposalProPath, this.salesReqProofPath, this.salesReqProposalPath, this.incomeProofPath, this.PhotographPath, this.PhotographProPath),
-        "Type": "PH"
-      }]
+           "Prop": this.ageProposalPath.concat(  this.addressProposalPath, this.idProposalPath, this.incomeProposalPath, this.kycProposalPath, this.documentProposalPath, this.proposalProPath,  this.salesReqProposalPath, this.PhotographProPath),
+             "La":this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.kycProofPath,this.documentProofPath, this.proposalProofPath,this.salesReqProofPath,  this.incomeProofPath, this.PhotographPath),
+
          }
 
     console.log(data, 'dattattatata');

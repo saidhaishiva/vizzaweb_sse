@@ -2487,9 +2487,11 @@
                                    </div>
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
-                                       <mat-select  placeholder="Address Proof" formControlName="addressLA" (change)="geteaddressDocProof()"  class="w-100" >
+                                       <mat-select  placeholder="Address Proof" formControlName="addressLA" (change)="geteaddressDocProof()"  class="w-100" required>
                                            <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.addressLA.errors?.required">Address Proof is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2509,6 +2511,8 @@
                                        <mat-select  placeholder="Income Proof" formControlName="incomeLA" (change)="geteIncomeProof()"  class="w-100" required>
                                            <mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
+                                        <mat-error *ngIf="documentDetail.controls.incomeLA.errors?.required">Income Proof is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2528,6 +2532,8 @@
                                        <mat-select  placeholder="Identity Proof" formControlName="identityLA" (change)="geteidLifeProof()"  class="w-100" required>
                                            <mat-option *ngFor="let list of identityLifeProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.identityLA.errors?.required">Identity Proof is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2547,6 +2553,8 @@
                                        <mat-select  placeholder="Age Proof" formControlName="ageLA" (change)="geteageDocProof()"  class="w-100" required>
                                            <mat-option *ngFor="let list of eageDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.ageLA.errors?.required">Age Proof is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2567,6 +2575,8 @@
                                        <mat-select  placeholder="Other Document" formControlName="documentLA" (change)="geteOtherDocumentProof()"  class="w-100" required>
                                            <mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.documentLA.errors?.required">Other Document is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2587,6 +2597,8 @@
                                        <mat-select  placeholder="Proposal Form" formControlName="proposalLA" (change)="geteproposalProof()"  class="w-100" required>
                                            <mat-option *ngFor="let list of eproposalProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.proposalLA.errors?.required">Proposal Form is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2607,6 +2619,8 @@
                                        <mat-select  placeholder="Sales Requirement" formControlName="salereqLA" (change)="getesalereqProof()"  class="w-100" required>
                                            <mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.salereqLA.errors?.required">Sales Requirement is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2626,6 +2640,8 @@
                                        <mat-select  placeholder="KYC" formControlName="kycLA" (change)="getekycProof()"  class="w-100" required>
                                            <mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.kycLA.errors?.required">KYC is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2666,9 +2682,11 @@
                                    </div>
                                    <div class="col-md-4">
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Address Proof" formControlName="addressPA" (change)="geteaddressDocProof()"  class="w-100" >
+                                           <mat-select  placeholder="Address Proof" formControlName="addressPA" (change)="geteaddressDocProof()"  class="w-100" required>
                                                <mat-option *ngFor="let list of eaddressDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.addressPA.errors?.required">Address Proof is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2688,6 +2706,8 @@
                                            <mat-select  placeholder="Income Proof" formControlName="incomePA" (change)="geteIncomeProof()"  class="w-100" required>
                                                <mat-option *ngFor="let list of eIncomeProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.incomePA.errors?.required">Income Proof is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2707,6 +2727,8 @@
                                            <mat-select  placeholder="Identity Proof" formControlName="identityPA" (change)="geteidLifeProof()"  class="w-100" required>
                                                <mat-option *ngFor="let list of identityLifeProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.identityPA.errors?.required">Identity Proof is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2726,6 +2748,8 @@
                                            <mat-select  placeholder="Age Proof" formControlName="agePA" (change)="geteageDocProof()"  class="w-100" required>
                                                <mat-option *ngFor="let list of eageDocProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.agePA.errors?.required">Age Proof is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2746,6 +2770,8 @@
                                            <mat-select  placeholder="Other Document" formControlName="documentPA" (change)="geteOtherDocumentProof()"  class="w-100" required>
                                                <mat-option *ngFor="let list of eOtherDocumentProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.documentPA.errors?.required">Other Document is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2766,6 +2792,8 @@
                                            <mat-select  placeholder="Proposal Form" formControlName="proposalPA" (change)="geteproposalProof()"  class="w-100" required>
                                                <mat-option *ngFor="let list of eproposalProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.proposalPA.errors?.required">Proposal Form is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2786,6 +2814,8 @@
                                            <mat-select  placeholder="Sales Requirement" formControlName="salereqPA" (change)="getesalereqProof()"  class="w-100" required>
                                                <mat-option *ngFor="let list of esalereqProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.salereqPA.errors?.required">Sales Requirement is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
@@ -2805,6 +2835,8 @@
                                            <mat-select  placeholder="KYC" formControlName="kycPA" (change)="getekycProof()"  class="w-100" required>
                                                <mat-option *ngFor="let list of ekycProof | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
+                                           <mat-error *ngIf="documentDetail.controls.kycPA.errors?.required">KYC is required</mat-error>
+
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-4">
