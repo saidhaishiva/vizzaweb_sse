@@ -2014,21 +2014,21 @@
 
 
 
-                           <div class="col-md-6">
+                           <div class="col-md-6" *ngIf="proposerFormData.maritalStatus == 'M'">
                                <div class="p-3">
-                                   <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   <h6 class="color-blue" *ngIf="proposerFormData.maritalStatus == 'M'">SPOUSE DETAILS</h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.stitle}} {{proposerFormData.sfirstName}} {{proposerFormData.smidName}} {{proposerFormData.slastName}}</li>
-                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.sdob | date: 'dd/MM/yyyy'}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.stitle != '' && proposerFormData.sfirstName != '' && proposerFormData.smidName != '' && proposerFormData.slastName != '' "><strong>Name:</strong> {{proposerFormData.stitle}} {{proposerFormData.sfirstName}} {{proposerFormData.smidName}} {{proposerFormData.slastName}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.sdob != '' || proposerFormData.sdob != null"><strong>D.O.B:</strong> {{proposerFormData.sdob | date: 'dd/MM/yyyy'}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.semailId != ''"><strong>Email Id:</strong> {{proposerFormData.semailId}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.smobileNo != ''"><strong>Mobile No:</strong> {{proposerFormData.smobileNo}}</li>
 
                                    </ul>
                                </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-6" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                                <div class=" p-3">
-                                   <h6 class="color-blue mt-4"></h6>
+                                   <h6 class="color-blue mt-4" *ngIf="proposerFormData.maritalStatus == 'M'"></h6>
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="proposerFormData.isSmokerSpouse != ''"><strong>Are U Smoker?:</strong> {{proposerFormData.isSmokerSpouse}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{proposerFormData.isStaffSpouse}}</li>
@@ -2155,21 +2155,22 @@
                                    </ul>
                                </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-6" *ngIf="proposerFormData.maritalStatus == 'M'">
                                <div class="p-3">
-                                   <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   <h6 class="color-blue" *ngIf="proposerFormData.maritalStatus == 'M'">SPOUSE DETAILS</h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
-                                       <li class="list-group-item"><strong>D.O.B:</strong> {{insuredFormData.sdob | date: 'dd/MM/yyyy'}}</li>
+
+                                       <li class="list-group-item" *ngIf="insuredFormData.stitle != '' && insuredFormData.sfirstName != '' && insuredFormData.smidName != '' && insuredFormData.slastName != '' "><strong>Name:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.sdob != '' || insuredFormData.sdob != null"><strong>D.O.B:</strong> {{insuredFormData.sdob | date: 'dd/MM/yyyy'}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.semailId != ''"><strong>Email Id:</strong> {{insuredFormData.semailId}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.smobileNo != ''"><strong>Mobile No:</strong> {{insuredFormData.smobileNo}}</li>
 
                                    </ul>
                                </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-6" *ngIf="proposerFormData.maritalStatus == 'M'">
                                <div class=" p-3">
-                                   <h6 class="color-blue mt-4"></h6>
+                                   <h6 class="color-blue mt-4" *ngIf="proposerFormData.maritalStatus == 'M'"></h6>
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>
