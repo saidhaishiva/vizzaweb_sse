@@ -609,6 +609,7 @@ import { DownloadMessageBajajTerm } from './pages/bajaj-term-payment-success/baj
         BajajTermPaymentSuccessComponent,
         DownloadMessageBajajTerm
     ],
+
     providers: [
         AppSettings,
         LoginService,
