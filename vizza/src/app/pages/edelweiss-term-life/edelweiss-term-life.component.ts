@@ -1287,10 +1287,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.nomineeDetail.get('itemsNominee')['controls'].length,'length');
 
     // nomineeAge validate
-    let nomineeValid = false;
+    let nomineeValid = true;
     if (sessionStorage.nomineAge != '' && sessionStorage.nomineAge != undefined) {
       if (sessionStorage.nomineAge <= 18) {
-        nomineeValid = true;
+        nomineeValid = false;
       }
     }
     // appointeeAge validatate
@@ -1314,57 +1314,42 @@ export class EdelweissTermLifeComponent implements OnInit {
     let nominee2ageval;
     for (let i=0; i < this.nomineeDetail.get('itemsNominee')['controls'].length; i++) {
       if ( this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value == 1) {
-        nominee2ageval = true;
+        nominee2ageval = false;
 
       } else {
-        nominee2ageval = false;
+        nominee2ageval = true;
       }
     }
-    console.log(sessionStorage.appointeeAge,'appointeeAge11232');
-
-    console.log(nominee2ageval, 'nominee2ageval');
-    console.log(nomineeValid, 'nomineeVLID');
-    console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
-
+    // console.log(sessionStorage.appointeeAge,' appointeeAge11232 ');
+    //
+    // console.log(nominee2ageval, 'nominee2ageval');
+    // console.log(nomineeValid, 'nomineeVLID');
+    // console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
+    // console.log(this.nomineeDetails.valid,'this.nomineeDetails.valid')
     if (this.nomineeDetail.controls.itemsNominee.valid) {
-      console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
-      // if (!nomineeValid || !nominee2ageval) {
-      //   console.log(!nomineeValid,'!nomineeValid0000000000');
-      //   console.log(!nominee2ageval,'! !nominee2ageval88888888');
-      //   stepper.next();
-      //   this.topScroll();
-      //   // if ( nomineeValid == true || nominee2ageval = true ) {
-      //   if (nomineeValid == true && appointeeAge == true) {
-      //     if (nominee2ageval == true && appointeeAge2 == true) {
-      //       stepper.next();
-      //       this.topScroll();
-      //     }
-      //   } else {
-      //     this.toastr.error('Appointee Age should be greater than 18.');
-      //   }
-      //   console.log(nominee2ageval, 'nominee2ageval333333');
-      //   console.log(appointeeAge, 'appointeeAge1111111111');
-      //   console.log(nomineeValid, 'nomineeValid66666666666');
-      //   console.log(appointeeAge2, 'appointeeAge244444444444');
-      //
-      // }
-      // if ((!nomineeValid && (appointeeAge == undefined || sessionStorage.appointeeAge != '')) || (!nominee2ageval && (appointeeAge2 == undefined || sessionStorage.appointeeAge2 != '' ))) {
       if (!nomineeValid || !nominee2ageval) {
-        console.log(!nomineeValid,'!nomineeValid0000000000');
-          console.log(!nominee2ageval,'! !nominee2ageval88888888');
-          console.log('9999999');
-        stepper.next();
-        this.topScroll();
-      } else  if ((nomineeValid == true && appointeeAge == true) || (nominee2ageval == true && appointeeAge2 == true)) {
-        console.log('45678');
-        stepper.next();
-        this.topScroll();
-        console.log('900');
-      } else {
-        console.log('3999');
-        this.toastr.error('Appointee Age should be greater than 18.');
-      }
+        // console.log(!nomineeValid,'111nomineeValid');
+        // console.log(nomineeValid,'2222nomineeValid');
+        // console.log(!nominee2ageval,'nominee2ageval111');
+        // console.log(nominee2ageval,'nominee2ageval33333333');
 
+            if (appointeeAge ) {
+              if (appointeeAge2 || appointeeAge2 == undefined ) {
+                stepper.next();
+                this.topScroll();
+                // console.log(appointeeAge2,'falseApp');
+              } else {
+                this.toastr.error('Appointee2 Age should be greater than 18.');
+                // console.log('1111');
+              }
+            } else {
+              this.toastr.error('Appointee Age should be greater than 18.');
+              // console.log('2222');
+            }
+          } else {
+          stepper.next();
+          this.topScroll();
+        }
     }
   }
 
