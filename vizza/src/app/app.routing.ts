@@ -163,6 +163,7 @@ import {GroupTravelComponent} from './pages/group-travel/group-travel.component'
 import {HdfcTwoWheelerProposalComponent} from './pages/hdfc-two-wheeler-proposal/hdfc-two-wheeler-proposal.component';
 import {EdelweissTermLifePaymentSuccessComponent} from './pages/edelweiss-term-life-payment-success/edelweiss-term-life-payment-success.component';
 import {BajajTermPaymentSuccessComponent} from './pages/bajaj-term-payment-success/bajaj-term-payment-success.component';
+import {HdfcCarProposalComponent} from './pages/hdfc-car-proposal/hdfc-car-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -321,6 +322,7 @@ export const routes: Routes = [
             { path: 'specialContigency', component: SpecialContigencyPolicyComponent, data: { breadcrumb: 'Special Contigency Policy'}},
             { path: 'groupTravel', component: GroupTravelComponent, data: { breadcrumb: 'Group Travel Insurance'}},
             { path: 'hdfc-twoWheeler-proposal/:stepper', component: HdfcTwoWheelerProposalComponent, data: { breadcrumb: 'hdfc-twoWheeler-proposal'}},
+            { path: 'hdfc-car-proposal/:stepper', component: HdfcCarProposalComponent, data: { breadcrumb: 'hdfc-car-proposal'}},
 
         ]
     },
