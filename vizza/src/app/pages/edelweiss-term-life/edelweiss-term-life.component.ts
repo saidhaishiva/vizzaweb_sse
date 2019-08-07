@@ -1327,6 +1327,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
 
     if (this.nomineeDetail.controls.itemsNominee.valid) {
+      console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
       // if (!nomineeValid || !nominee2ageval) {
       //   console.log(!nomineeValid,'!nomineeValid0000000000');
       //   console.log(!nominee2ageval,'! !nominee2ageval88888888');
@@ -1347,12 +1348,22 @@ export class EdelweissTermLifeComponent implements OnInit {
       //   console.log(appointeeAge2, 'appointeeAge244444444444');
       //
       // }
-          if (appointeeAge == true || appointeeAge2 == true) {
-            stepper.next();
-            this.topScroll();
-          } else {
-          this.toastr.error('Appointee Age should be greater than 18.');
-        }
+      // if ((!nomineeValid && (appointeeAge == undefined || sessionStorage.appointeeAge != '')) || (!nominee2ageval && (appointeeAge2 == undefined || sessionStorage.appointeeAge2 != '' ))) {
+      if (!nomineeValid || !nominee2ageval) {
+        console.log(!nomineeValid,'!nomineeValid0000000000');
+          console.log(!nominee2ageval,'! !nominee2ageval88888888');
+          console.log('9999999');
+        stepper.next();
+        this.topScroll();
+      } else  if ((nomineeValid == true && appointeeAge == true) || (nominee2ageval == true && appointeeAge2 == true)) {
+        console.log('45678');
+        stepper.next();
+        this.topScroll();
+        console.log('900');
+      } else {
+        console.log('3999');
+        this.toastr.error('Appointee Age should be greater than 18.');
+      }
 
     }
   }
@@ -2258,7 +2269,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
 
   appointeeAgeValid(event: any, i) {
-    if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true && i == 0) {
+    if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true ) {
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.value );
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.value );
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.value );
@@ -2273,10 +2284,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators([Validators.required]);
 
     } else {
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(' ');
 
 
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators('');
