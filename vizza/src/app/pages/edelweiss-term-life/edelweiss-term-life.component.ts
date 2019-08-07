@@ -44,6 +44,10 @@ export class EdelweissTermLifeComponent implements OnInit {
   public itemsNominee: any;
   public addExistingInsurance: any;
   public addmedicalQuestions: any;
+  public adbError: any;
+  public ciError: any;
+  public atpdError: any;
+  public hcbdError: any;
   public etitle: any;
   public egender: any;
   public minDate: any;
@@ -1320,19 +1324,46 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     console.log(nominee2ageval, 'nominee2ageval');
     console.log(nomineeValid, 'nomineeVLID');
+    console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
+
     if (this.nomineeDetail.controls.itemsNominee.valid) {
-      // if ( nomineeValid == true || nominee2ageval = true ) {
-            if ( appointeeAge == true || appointeeAge2 == true) {
-
-
-                  stepper.next();
-                  this.topScroll();
-
-            } else {
-              this.toastr.error('Appointee Age should be greater than 18.');
-            }
+      console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
+      // if (!nomineeValid || !nominee2ageval) {
+      //   console.log(!nomineeValid,'!nomineeValid0000000000');
+      //   console.log(!nominee2ageval,'! !nominee2ageval88888888');
+      //   stepper.next();
+      //   this.topScroll();
+      //   // if ( nomineeValid == true || nominee2ageval = true ) {
+      //   if (nomineeValid == true && appointeeAge == true) {
+      //     if (nominee2ageval == true && appointeeAge2 == true) {
+      //       stepper.next();
+      //       this.topScroll();
+      //     }
+      //   } else {
+      //     this.toastr.error('Appointee Age should be greater than 18.');
+      //   }
+      //   console.log(nominee2ageval, 'nominee2ageval333333');
+      //   console.log(appointeeAge, 'appointeeAge1111111111');
+      //   console.log(nomineeValid, 'nomineeValid66666666666');
+      //   console.log(appointeeAge2, 'appointeeAge244444444444');
+      //
       // }
-
+      // if ((!nomineeValid && (appointeeAge == undefined || sessionStorage.appointeeAge != '')) || (!nominee2ageval && (appointeeAge2 == undefined || sessionStorage.appointeeAge2 != '' ))) {
+      if (!nomineeValid || !nominee2ageval) {
+        console.log(!nomineeValid,'!nomineeValid0000000000');
+          console.log(!nominee2ageval,'! !nominee2ageval88888888');
+          console.log('9999999');
+        stepper.next();
+        this.topScroll();
+      } else  if ((nomineeValid == true && appointeeAge == true) || (nominee2ageval == true && appointeeAge2 == true)) {
+        console.log('45678');
+        stepper.next();
+        this.topScroll();
+        console.log('900');
+      } else {
+        console.log('3999');
+        this.toastr.error('Appointee Age should be greater than 18.');
+      }
 
     }
   }
@@ -1976,7 +2007,34 @@ export class EdelweissTermLifeComponent implements OnInit {
   public fileUploadFailure(error) {
     console.log(error);
   }
-
+  sumAssuredADBError(event:any) {
+    if (this.insureArray.controls['sumAssuredADB'].value > 10000 && this.insureArray.controls['sumAssuredADB'].value < 10000000) {
+      this.adbError ='';
+    } else {
+      this.adbError = 'SumAssured Accidental Death Benefit should be 10000 - 10000000';
+    }
+  }
+  sumAssuredATPDError(event:any) {
+    if (this.insureArray.controls['sumAssuredATPD'].value > 100000 && this.insureArray.controls['sumAssuredATPD'].value < 10000000) {
+      this.atpdError ='';
+    } else {
+      this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be 100000 - 10000000';
+    }
+  }
+  sumAssuredCiError(event:any) {
+    if (this.insureArray.controls['criticalsumAssured'].value > 100000 && this.insureArray.controls['criticalsumAssured'].value < 5000000) {
+      this.ciError ='';
+    } else {
+      this.ciError = 'SumAssured Critical Illness should be 100000 - 5000000';
+    }
+  }
+  sumAssuredHCBError(event:any) {
+    if (this.insureArray.controls['sumAssuredHCB'].value > 100000 && this.insureArray.controls['sumAssuredHCB'].value < 600000) {
+      this.hcbdError ='';
+    } else {
+      this.hcbdError = 'SumAssured Hospital Cash Benefit should be 100000 - 600000';
+    }
+  }
   staffChange() {
 
     if (this.proposer.controls['isStaff'].value == 'Yes') {
@@ -2211,7 +2269,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
 
   appointeeAgeValid(event: any, i) {
-    if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true && i == 0) {
+    if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true ) {
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.value );
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.value );
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.value );
@@ -2226,10 +2284,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators([Validators.required]);
 
     } else {
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(' ');
 
 
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators('');
@@ -2814,8 +2872,8 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.insureArray.controls['isADB'].value == true) {
       this.insureArray.controls['sumAssuredADB'].patchValue(this.insureArray.controls['sumAssuredADB'].value);
-
       this.insureArray.controls['sumAssuredADB'].setValidators([Validators.required]);
+
     } else {
       this.insureArray.controls['sumAssuredADB'].patchValue('');
 
