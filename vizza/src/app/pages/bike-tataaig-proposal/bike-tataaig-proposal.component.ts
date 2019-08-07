@@ -187,8 +187,10 @@ export class BikeTataaigProposalComponent implements OnInit {
         this.enquiryFormData = JSON.parse(sessionStorage.bikeListDetails);
         console.log(this.enquiryFormData, 'enquiry data');
         this.bikeEnquiryId = sessionStorage.bikeEnquiryId;
-        this.vehicle.controls['engine'].patchValue(this.vehicledata.engine_no);
-        this.vehicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
+        let engineno = this.vehicledata.engine_no.toUpperCase();
+        let chassisno = this.vehicledata.chassis_no.toUpperCase();
+        this.vehicle.controls['engine'].patchValue(engineno);
+        this.vehicle.controls['chassis'].patchValue(chassisno);
         this.premium = sessionStorage.packae_list;
         if (this.premium != 'Comprehensive_premium') {
             this.vehicle.controls['coverdrive'].patchValue('ODD01');
