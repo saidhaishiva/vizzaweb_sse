@@ -56,7 +56,6 @@ export class HdfcTermLifeComponent implements OnInit {
   public incomeError: any;
   public webhost: any;
   public today: any;
-  public qualificationList: any;
   public summaryData: any;
   public appTypeHdfcList: any;
   public addressHdfcList: any;
@@ -66,13 +65,63 @@ export class HdfcTermLifeComponent implements OnInit {
   public accountTypeHdfcList: any;
   public annualValueHdfcList: any;
   public assignmentTypeHdfcList: any;
+  public bussinessHdfcList: any;
   public relationAppointeeHdfcList: any;
+  public communicationModeHdfcList: any;
+  public impairmentEver4ListHdfcList: any;
+  public fhAliveHdfcList: any;
+  public docattributeHdfcList: any;
+  public countryListHdfcList: any;
+  public fundOptionHdfcList: any;
+  public cityListHdfcList: any;
+  public bankMasterHdfcList: any;
+  public educationListHdfcList: any;
+  public expectedStayHdfcList: any;
+  public fhDiseaseHdfcList: any;
+  public frequencyPayHdfcList: any;
+  public genderListHdfcList: any;
+  public heightListHdfcList: any;
+  public impairmentHdfcList: any;
+  public impairmentEver2HdfcList: any;
+  public impairmentEver3ListHdfcList: any;
+  public incomeDocTypeHdfcList: any;
+  public industryTypeHdfcList: any;
+  public insuranceTypeHdfcList: any;
+  public nationalityListHdfcList: any;
+  public nomineeLifeassuredListHdfcList: any;
+  public occupationTypeHdfcList: any;
+  public magnumRelationHdfcList: any;
+  public occupationListHdfcList: any;
+  public occupationHighRiskHdfcList: any;
+  public natureOfWorkHdfcList: any;
+  public medicalExamLocationHdfcList: any;
+  public partTypeListHdfcList: any;
+  public payerwithLifeHdfcList: any;
+  public modeOfPaymentHdfcList: any;
+  public productionCategoryHdfcList: any;
+  public prefferedLangHdfcList: any;
+  public previousInsurerHdfcList: any;
+  public proposerWithLifeAssureHdfcList: any;
+  public relWithHdfcList: any;
+  public riderHdfcList: any;
+  public weightListHdfcList: any;
+  public underwritingListHdfcList: any;
+  public tobbacoTypeHdfcList: any;
+  public titleListHdfcList: any;
+  public stateListHdfcList: any;
+  public sourceOfFundHdfcList: any;
+  public simultaneousHdfcList: any;
+  public residentialStatusHdfcList: any;
+  public typeOfContactListHdfcList: any;
+  public hdfcSecuritiesHdfcList: any;
+  public questionTypeHdfcList: any;
+  public insObjLstHdfcList: any;
+  public careOfHdfcList: any;
   public appSourceHdfcList: any;
   public avocationHdfcList: any;
   public appModeHdfcList: any;
   public enquiryFormData: any;
   public lifePremiumList: any;
-  public stateList: any;
   public premiumList: any;
   public getEnquiryDetials: any;
   public enquiryFromDetials: any;
@@ -95,8 +144,7 @@ export class HdfcTermLifeComponent implements OnInit {
   public sum_insured_amount:any;
   public maritialList:any;
   public appointeeRelationList:any;
-  public citycList:any;
-  public citynList:any;
+
   public declaration: any;
   public inputReadonly: boolean;
   public apponiteeList: boolean;
@@ -150,6 +198,53 @@ export class HdfcTermLifeComponent implements OnInit {
     this.webhost = this.config.getimgUrl();
 
     this.personal = this.fb.group({
+      title: ['', Validators.required],
+      firstnm: ['', Validators.required],
+      lastnm: ['', Validators.required],
+      gender: ['', Validators.required],
+      dob: ['', Validators.required],
+      fathernm: ['', Validators.required],
+      maritalstatus: ['', Validators.required],
+      eduqual: ['', Validators.required],
+      nationality: ['', Validators.required],
+      residentstatus: ['', Validators.required],
+      ishdfcempflg: ['', Validators.required],
+      exstngcustflg: ['', Validators.required],
+      isdisabledflg: ['', Validators.required],
+      pepflg: ['', Validators.required],
+      dematflg: ['', Validators.required],
+      smokerstatusflg: ['', Validators.required],
+      historyofconviction: ['', Validators.required],
+      houseno: ['', Validators.required],
+      street: ['', Validators.required],
+      landmark: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+      pincode: ['', Validators.required],
+      country: ['', Validators.required],
+      isAddressSame: ['', Validators.required],
+      chouseno: ['', Validators.required],
+      cstreet: ['', Validators.required],
+      clandmark: ['', Validators.required],
+      ccity: ['', Validators.required],
+      cstate: ['', Validators.required],
+      cpincode: ['', Validators.required],
+      ccountry: ['', Validators.required],
+      countrycode: ['', Validators.required],
+      mobilenum: ['', Validators.required],
+      expdurofstay: ['', Validators.required],
+      prfdcommaddr: ['', Validators.required],
+      prfdcommmode: ['', Validators.required],
+      prfdcommlang: ['', Validators.required],
+      occutype: ['', Validators.required],
+      employernm: ['', Validators.required],
+      annualincm: ['', Validators.required],
+      natureofoccu: ['', Validators.required],
+      addrline: ['', Validators.required],
+      existulipflag: ['', Validators.required],
+      sourcetype: ['', Validators.required],
+      fundpcntg: ['', Validators.required],
+
 
 
     });
@@ -176,8 +271,56 @@ export class HdfcTermLifeComponent implements OnInit {
     this.getavocationHdfc();
     this.getrelationAppointeeHdfc();
     this.getappSourceHdfc();
-
-
+    this.getbussinessHdfc();
+    this.getbankMasterHdfc();
+    this.getcareOfHdfc();
+    this.getcityListHdfc();
+    this.getcommunicationModeHdfc();
+    this.getcountryListHdfc();
+    this.getdocattributeHdfc();
+    this.geteducationListHdfc();
+    this.getexpectedStayHdfc();
+    this.getfhDiseaseHdfc();
+    this.getfhAliveHdfc();
+    this.getfrequencyPayHdfc();
+    this.getfundOptionHdfc();
+    this.getgenderListHdfc();
+    this.getheightListHdfc();
+    this.getimpairmentHdfc();
+    this.getimpairmentEver2Hdfc();
+    this.getimpairmentEver3ListHdfc();
+    this.getimpairmentEver4ListHdfc();
+    this.getincomeDocTypeHdfc();
+    this.getindustryTypeHdfc();
+    this.getinsuranceTypeHdfc();
+    this.getinsObjLstHdfc();
+    this.getnationalityListHdfc();
+    this.getnatureOfWorkHdfc();
+    this.getnomineeLifeassuredListHdfc();
+    this.getoccupationListHdfc();
+    this.getoccupationTypeHdfc();
+    this.getoccupationHighRiskHdfc();
+    this.getmagnumRelationHdfc();
+    this.getmedicalExamLocationHdfc();
+    this.getmodeOfPaymentHdfc();
+    this.getpartTypeListHdfc();
+    this.getpayerwithLifeHdfc();
+    this.getprefferedLangHdfc();
+    this.getpreviousInsurerHdfc();
+    this.getproductionCategoryHdfc();
+    this.getproposerWithLifeAssureHdfc();
+    this.getquestionTypeHdfc();
+    this.getrelWithHdfc();
+    this.gethdfcSecuritiesHdfc();
+    this.getresidentialStatusHdfc();
+    this.getriderHdfc();
+    this.getsimultaneousHdfc();
+    this.getsourceOfFundHdfc();
+    this.getstateListHdfc();
+    this.gettitleListHdfc();
+    this.gettobbacoTypeHdfc();
+    this.gettypeOfContactListHdfc();
+    this.getweightListHdfc();
   }
 
   // Dame validation
@@ -569,438 +712,1235 @@ getrelationAppointeeHdfc() {
   }
   public appSourceHdfcFailure(error) {
    }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
-// getAlcoholHdfc() {
-//     const data = {
-//       'platform': 'web',
-//       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//       'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//       'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//     }
-//     this.TermLifeService.alcoholHdfc(data).subscribe(
-//         (successData) => {
-//           this.alcoholHdfcSuccess(successData);
-//         },
-//         (error) => {
-//           this.alcoholHdfcFailure(error);
-//         }
-//     );
-//   }
-//
-//   public alcoholHdfcSuccess(successData) {
-//     if (successData.IsSuccess) {
-//       this.alcoholHdfcList = successData.ResponseObject;
-//     }
-//   }
-//   public alcoholHdfcFailure(error) {
-//   }
+getbussinessHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.bussinessHdfc(data).subscribe(
+        (successData) => {
+          this.bussinessHdfcSuccess(successData);
+        },
+        (error) => {
+          this.bussinessHdfcFailure(error);
+        }
+    );
+  }
+
+  public bussinessHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.bussinessHdfcList = successData.ResponseObject;
+    }
+  }
+  public bussinessHdfcFailure(error) {
+  }
+getbankMasterHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.bankMasterHdfc(data).subscribe(
+        (successData) => {
+          this.bankMasterHdfcSuccess(successData);
+        },
+        (error) => {
+          this.bankMasterHdfcFailure(error);
+        }
+    );
+  }
+
+  public bankMasterHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.bankMasterHdfcList = successData.ResponseObject;
+    }
+  }
+  public bankMasterHdfcFailure(error) {
+  }
+getcareOfHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.careOfHdfc(data).subscribe(
+        (successData) => {
+          this.careOfHdfcSuccess(successData);
+        },
+        (error) => {
+          this.careOfHdfcFailure(error);
+        }
+    );
+  }
+
+  public careOfHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.careOfHdfcList = successData.ResponseObject;
+    }
+  }
+  public careOfHdfcFailure(error) {
+  }
+getcityListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.cityListHdfc(data).subscribe(
+        (successData) => {
+          this.cityListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.cityListHdfcFailure(error);
+        }
+    );
+  }
+
+  public cityListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.cityListHdfcList = successData.ResponseObject;
+    }
+  }
+  public cityListHdfcFailure(error) {
+  }
+getcommunicationModeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.communicationModeHdfc(data).subscribe(
+        (successData) => {
+          this.communicationModeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.communicationModeHdfcFailure(error);
+        }
+    );
+  }
+
+  public communicationModeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.communicationModeHdfcList = successData.ResponseObject;
+    }
+  }
+  public communicationModeHdfcFailure(error) {
+  }
+getcountryListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.countryListHdfc(data).subscribe(
+        (successData) => {
+          this.countryListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.countryListHdfcFailure(error);
+        }
+    );
+  }
+
+  public countryListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.countryListHdfcList = successData.ResponseObject;
+    }
+  }
+  public countryListHdfcFailure(error) {
+  }
+getdocattributeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.docattributeHdfc(data).subscribe(
+        (successData) => {
+          this.docattributeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.docattributeHdfcFailure(error);
+        }
+    );
+  }
+
+  public docattributeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.docattributeHdfcList = successData.ResponseObject;
+    }
+  }
+  public docattributeHdfcFailure(error) {
+  }
+geteducationListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.educationListHdfc(data).subscribe(
+        (successData) => {
+          this.educationListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.educationListHdfcFailure(error);
+        }
+    );
+  }
+
+  public educationListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.educationListHdfcList = successData.ResponseObject;
+    }
+  }
+  public educationListHdfcFailure(error) {
+  }
+getexpectedStayHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.expectedStayHdfc(data).subscribe(
+        (successData) => {
+          this.expectedStayHdfcSuccess(successData);
+        },
+        (error) => {
+          this.expectedStayHdfcFailure(error);
+        }
+    );
+  }
+
+  public expectedStayHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.expectedStayHdfcList = successData.ResponseObject;
+    }
+  }
+  public expectedStayHdfcFailure(error) {
+  }
+getfhDiseaseHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.fhDiseaseHdfc(data).subscribe(
+        (successData) => {
+          this.fhDiseaseHdfcSuccess(successData);
+        },
+        (error) => {
+          this.fhDiseaseHdfcFailure(error);
+        }
+    );
+  }
+
+  public fhDiseaseHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.fhDiseaseHdfcList = successData.ResponseObject;
+    }
+  }
+  public fhDiseaseHdfcFailure(error) {
+  }
+getfhAliveHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.fhAliveHdfc(data).subscribe(
+        (successData) => {
+          this.fhAliveHdfcSuccess(successData);
+        },
+        (error) => {
+          this.fhAliveHdfcFailure(error);
+        }
+    );
+  }
+
+  public fhAliveHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.fhAliveHdfcList = successData.ResponseObject;
+    }
+  }
+  public fhAliveHdfcFailure(error) {
+  }
+getfrequencyPayHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.frequencyPayHdfc(data).subscribe(
+        (successData) => {
+          this.frequencyPayHdfcSuccess(successData);
+        },
+        (error) => {
+          this.frequencyPayHdfcFailure(error);
+        }
+    );
+  }
+
+  public frequencyPayHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.frequencyPayHdfcList = successData.ResponseObject;
+    }
+  }
+  public frequencyPayHdfcFailure(error) {
+  }
+getfundOptionHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.fundOptionHdfc(data).subscribe(
+        (successData) => {
+          this.fundOptionHdfcSuccess(successData);
+        },
+        (error) => {
+          this.fundOptionHdfcFailure(error);
+        }
+    );
+  }
+
+  public fundOptionHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.fundOptionHdfcList = successData.ResponseObject;
+    }
+  }
+  public fundOptionHdfcFailure(error) {
+  }
+getgenderListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.genderListHdfc(data).subscribe(
+        (successData) => {
+          this.genderListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.genderListHdfcFailure(error);
+        }
+    );
+  }
+
+  public genderListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.genderListHdfcList = successData.ResponseObject;
+    }
+  }
+  public genderListHdfcFailure(error) {
+  }
+
+getheightListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.heightListHdfc(data).subscribe(
+        (successData) => {
+          this.heightListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.heightListHdfcFailure(error);
+        }
+    );
+  }
+
+  public heightListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.heightListHdfcList = successData.ResponseObject;
+    }
+  }
+  public heightListHdfcFailure(error) {
+  }
+getimpairmentHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.impairmentHdfc(data).subscribe(
+        (successData) => {
+          this.impairmentHdfcSuccess(successData);
+        },
+        (error) => {
+          this.impairmentHdfcFailure(error);
+        }
+    );
+  }
+
+  public impairmentHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.impairmentHdfcList = successData.ResponseObject;
+    }
+  }
+  public impairmentHdfcFailure(error) {
+  }
+getimpairmentEver2Hdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.impairmentEver2Hdfc(data).subscribe(
+        (successData) => {
+          this.impairmentEver2HdfcSuccess(successData);
+        },
+        (error) => {
+          this.impairmentEver2HdfcFailure(error);
+        }
+    );
+  }
+
+  public impairmentEver2HdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.impairmentEver2HdfcList = successData.ResponseObject;
+    }
+  }
+  public impairmentEver2HdfcFailure(error) {
+  }
+getimpairmentEver3ListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.impairmentEver3ListHdfc(data).subscribe(
+        (successData) => {
+          this.impairmentEver3ListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.impairmentEver3ListHdfcFailure(error);
+        }
+    );
+  }
+
+  public impairmentEver3ListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.impairmentEver3ListHdfcList = successData.ResponseObject;
+    }
+  }
+  public impairmentEver3ListHdfcFailure(error) {
+  }
+getimpairmentEver4ListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.impairmentEver4ListHdfc(data).subscribe(
+        (successData) => {
+          this.impairmentEver4ListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.impairmentEver4ListHdfcFailure(error);
+        }
+    );
+  }
+
+  public impairmentEver4ListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.impairmentEver4ListHdfcList = successData.ResponseObject;
+    }
+  }
+  public impairmentEver4ListHdfcFailure(error) {
+  }
+getincomeDocTypeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.incomeDocTypeHdfc(data).subscribe(
+        (successData) => {
+          this.incomeDocTypeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.incomeDocTypeHdfcFailure(error);
+        }
+    );
+  }
+
+  public incomeDocTypeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.incomeDocTypeHdfcList = successData.ResponseObject;
+    }
+  }
+  public incomeDocTypeHdfcFailure(error) {
+  }
+getindustryTypeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.industryTypeHdfc(data).subscribe(
+        (successData) => {
+          this.industryTypeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.industryTypeHdfcFailure(error);
+        }
+    );
+  }
+
+  public industryTypeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.industryTypeHdfcList = successData.ResponseObject;
+    }
+  }
+  public industryTypeHdfcFailure(error) {
+  }
+getinsuranceTypeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.insuranceTypeHdfc(data).subscribe(
+        (successData) => {
+          this.insuranceTypeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.insuranceTypeHdfcFailure(error);
+        }
+    );
+  }
+
+  public insuranceTypeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.insuranceTypeHdfcList = successData.ResponseObject;
+    }
+  }
+  public insuranceTypeHdfcFailure(error) {
+  }
+getinsObjLstHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.insObjLstHdfc(data).subscribe(
+        (successData) => {
+          this.insObjLstHdfcSuccess(successData);
+        },
+        (error) => {
+          this.insObjLstHdfcFailure(error);
+        }
+    );
+  }
+
+  public insObjLstHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.insObjLstHdfcList = successData.ResponseObject;
+    }
+  }
+  public insObjLstHdfcFailure(error) {
+  }
+getnationalityListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.nationalityListHdfc(data).subscribe(
+        (successData) => {
+          this.nationalityListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.nationalityListHdfcFailure(error);
+        }
+    );
+  }
+
+  public nationalityListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.nationalityListHdfcList = successData.ResponseObject;
+    }
+  }
+  public nationalityListHdfcFailure(error) {
+  }
+getnatureOfWorkHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.natureOfWorkHdfc(data).subscribe(
+        (successData) => {
+          this.natureOfWorkHdfcSuccess(successData);
+        },
+        (error) => {
+          this.natureOfWorkHdfcFailure(error);
+        }
+    );
+  }
+
+  public natureOfWorkHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.natureOfWorkHdfcList = successData.ResponseObject;
+    }
+  }
+  public natureOfWorkHdfcFailure(error) {
+  }
+getnomineeLifeassuredListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.nomineeLifeassuredListHdfc(data).subscribe(
+        (successData) => {
+          this.nomineeLifeassuredListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.nomineeLifeassuredListHdfcFailure(error);
+        }
+    );
+  }
+
+  public nomineeLifeassuredListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.nomineeLifeassuredListHdfcList = successData.ResponseObject;
+    }
+  }
+  public nomineeLifeassuredListHdfcFailure(error) {
+  }
+getoccupationListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.occupationListHdfc(data).subscribe(
+        (successData) => {
+          this.occupationListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.occupationListHdfcFailure(error);
+        }
+    );
+  }
+
+  public occupationListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.occupationListHdfcList = successData.ResponseObject;
+    }
+  }
+  public occupationListHdfcFailure(error) {
+  }
+getoccupationTypeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.occupationTypeHdfc(data).subscribe(
+        (successData) => {
+          this.occupationTypeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.occupationTypeHdfcFailure(error);
+        }
+    );
+  }
+
+  public occupationTypeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.occupationTypeHdfcList = successData.ResponseObject;
+    }
+  }
+  public occupationTypeHdfcFailure(error) {
+  }
+getoccupationHighRiskHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.occupationHighRiskHdfc(data).subscribe(
+        (successData) => {
+          this.occupationHighRiskHdfcSuccess(successData);
+        },
+        (error) => {
+          this.occupationHighRiskHdfcFailure(error);
+        }
+    );
+  }
+
+  public occupationHighRiskHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.occupationHighRiskHdfcList = successData.ResponseObject;
+    }
+  }
+  public occupationHighRiskHdfcFailure(error) {
+  }
+getmagnumRelationHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.magnumRelationHdfc(data).subscribe(
+        (successData) => {
+          this.magnumRelationHdfcSuccess(successData);
+        },
+        (error) => {
+          this.magnumRelationHdfcFailure(error);
+        }
+    );
+  }
+
+  public magnumRelationHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.magnumRelationHdfcList = successData.ResponseObject;
+    }
+  }
+  public magnumRelationHdfcFailure(error) {
+  }
+getmedicalExamLocationHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.medicalExamLocationHdfc(data).subscribe(
+        (successData) => {
+          this.medicalExamLocationHdfcSuccess(successData);
+        },
+        (error) => {
+          this.medicalExamLocationHdfcFailure(error);
+        }
+    );
+  }
+
+  public medicalExamLocationHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.medicalExamLocationHdfcList = successData.ResponseObject;
+    }
+  }
+  public medicalExamLocationHdfcFailure(error) {
+  }
+getmodeOfPaymentHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.modeOfPaymentHdfc(data).subscribe(
+        (successData) => {
+          this.modeOfPaymentHdfcSuccess(successData);
+        },
+        (error) => {
+          this.modeOfPaymentHdfcFailure(error);
+        }
+    );
+  }
+
+  public modeOfPaymentHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.modeOfPaymentHdfcList = successData.ResponseObject;
+    }
+  }
+  public modeOfPaymentHdfcFailure(error) {
+  }
+getpartTypeListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.partTypeListHdfc(data).subscribe(
+        (successData) => {
+          this.partTypeListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.partTypeListHdfcFailure(error);
+        }
+    );
+  }
+
+  public partTypeListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.partTypeListHdfcList = successData.ResponseObject;
+    }
+  }
+  public partTypeListHdfcFailure(error) {
+  }
+getpayerwithLifeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.payerwithLifeHdfc(data).subscribe(
+        (successData) => {
+          this.payerwithLifeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.payerwithLifeHdfcFailure(error);
+        }
+    );
+  }
+
+  public payerwithLifeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.payerwithLifeHdfcList = successData.ResponseObject;
+    }
+  }
+  public payerwithLifeHdfcFailure(error) {
+  }
+getprefferedLangHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.prefferedLangHdfc(data).subscribe(
+        (successData) => {
+          this.prefferedLangHdfcSuccess(successData);
+        },
+        (error) => {
+          this.prefferedLangHdfcFailure(error);
+        }
+    );
+  }
+
+  public prefferedLangHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.prefferedLangHdfcList = successData.ResponseObject;
+    }
+  }
+  public prefferedLangHdfcFailure(error) {
+  }
+getpreviousInsurerHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.previousInsurerHdfc(data).subscribe(
+        (successData) => {
+          this.previousInsurerHdfcSuccess(successData);
+        },
+        (error) => {
+          this.previousInsurerHdfcFailure(error);
+        }
+    );
+  }
+
+  public previousInsurerHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.previousInsurerHdfcList = successData.ResponseObject;
+    }
+  }
+  public previousInsurerHdfcFailure(error) {
+  }
+getproductionCategoryHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.productionCategoryHdfc(data).subscribe(
+        (successData) => {
+          this.productionCategoryHdfcSuccess(successData);
+        },
+        (error) => {
+          this.productionCategoryHdfcFailure(error);
+        }
+    );
+  }
+
+  public productionCategoryHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.productionCategoryHdfcList = successData.ResponseObject;
+    }
+  }
+  public productionCategoryHdfcFailure(error) {
+  }
+
+getproposerWithLifeAssureHdfc()
+{
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.proposerWithLifeAssureHdfc(data).subscribe(
+        (successData) => {
+          this.proposerWithLifeAssureHdfcSuccess(successData);
+        },
+        (error) => {
+          this.proposerWithLifeAssureHdfcFailure(error);
+        }
+    );
+  }
+
+  public proposerWithLifeAssureHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.proposerWithLifeAssureHdfcList = successData.ResponseObject;
+    }
+  }
+  public proposerWithLifeAssureHdfcFailure(error) {
+  }
+
+  getquestionTypeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.questionTypeHdfc(data).subscribe(
+        (successData) => {
+          this.questionTypeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.questionTypeHdfcFailure(error);
+        }
+    );
+  }
+
+  public questionTypeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.questionTypeHdfcList = successData.ResponseObject;
+    }
+  }
+  public questionTypeHdfcFailure(error) {
+  }
+
+getrelWithHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.relWithHdfc(data).subscribe(
+        (successData) => {
+          this.relWithHdfcSuccess(successData);
+        },
+        (error) => {
+          this.relWithHdfcFailure(error);
+        }
+    );
+  }
+
+  public relWithHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.relWithHdfcList = successData.ResponseObject;
+    }
+  }
+  public relWithHdfcFailure(error) {
+  }
+gethdfcSecuritiesHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.hdfcSecuritiesHdfc(data).subscribe(
+        (successData) => {
+          this.hdfcSecuritiesHdfcSuccess(successData);
+        },
+        (error) => {
+          this.hdfcSecuritiesHdfcFailure(error);
+        }
+    );
+  }
+
+  public hdfcSecuritiesHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.hdfcSecuritiesHdfcList = successData.ResponseObject;
+    }
+  }
+  public hdfcSecuritiesHdfcFailure(error) {
+  }
+getresidentialStatusHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.residentialStatusHdfc(data).subscribe(
+        (successData) => {
+          this.residentialStatusHdfcSuccess(successData);
+        },
+        (error) => {
+          this.residentialStatusHdfcFailure(error);
+        }
+    );
+  }
+
+  public residentialStatusHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.residentialStatusHdfcList = successData.ResponseObject;
+    }
+  }
+  public residentialStatusHdfcFailure(error) {
+  }
+getriderHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.riderHdfc(data).subscribe(
+        (successData) => {
+          this.riderHdfcSuccess(successData);
+        },
+        (error) => {
+          this.riderHdfcFailure(error);
+        }
+    );
+  }
+
+  public riderHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.riderHdfcList = successData.ResponseObject;
+    }
+  }
+  public riderHdfcFailure(error) {
+  }
+getsimultaneousHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.simultaneousHdfc(data).subscribe(
+        (successData) => {
+          this.simultaneousHdfcSuccess(successData);
+        },
+        (error) => {
+          this.simultaneousHdfcFailure(error);
+        }
+    );
+  }
+
+  public simultaneousHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.simultaneousHdfcList = successData.ResponseObject;
+    }
+  }
+  public simultaneousHdfcFailure(error) {
+  }
+getsourceOfFundHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.sourceOfFundHdfc(data).subscribe(
+        (successData) => {
+          this.sourceOfFundHdfcSuccess(successData);
+        },
+        (error) => {
+          this.sourceOfFundHdfcFailure(error);
+        }
+    );
+  }
+
+  public sourceOfFundHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.sourceOfFundHdfcList = successData.ResponseObject;
+    }
+  }
+  public sourceOfFundHdfcFailure(error) {
+  }
+getstateListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.stateListHdfc(data).subscribe(
+        (successData) => {
+          this.stateListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.stateListHdfcFailure(error);
+        }
+    );
+  }
+
+  public stateListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.stateListHdfcList = successData.ResponseObject;
+    }
+  }
+  public stateListHdfcFailure(error) {
+  }
+gettitleListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.titleListHdfc(data).subscribe(
+        (successData) => {
+          this.titleListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.titleListHdfcFailure(error);
+        }
+    );
+  }
+
+  public titleListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.titleListHdfcList = successData.ResponseObject;
+    }
+  }
+  public titleListHdfcFailure(error) {
+  }
+gettobbacoTypeHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.tobbacoTypeHdfc(data).subscribe(
+        (successData) => {
+          this.tobbacoTypeHdfcSuccess(successData);
+        },
+        (error) => {
+          this.tobbacoTypeHdfcFailure(error);
+        }
+    );
+  }
+
+  public tobbacoTypeHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.tobbacoTypeHdfcList = successData.ResponseObject;
+    }
+  }
+  public tobbacoTypeHdfcFailure(error) {
+  }
+gettypeOfContactListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.typeOfContactListHdfc(data).subscribe(
+        (successData) => {
+          this.typeOfContactListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.typeOfContactListHdfcFailure(error);
+        }
+    );
+  }
+
+  public typeOfContactListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.typeOfContactListHdfcList = successData.ResponseObject;
+    }
+  }
+  public typeOfContactListHdfcFailure(error) {
+  }
+getunderwritingListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.underwritingListHdfc(data).subscribe(
+        (successData) => {
+          this.underwritingListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.underwritingListHdfcFailure(error);
+        }
+    );
+  }
+
+  public underwritingListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.underwritingListHdfcList = successData.ResponseObject;
+    }
+  }
+  public underwritingListHdfcFailure(error) {
+  }
+getweightListHdfc() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    }
+    this.TermLifeService.weightListHdfc(data).subscribe(
+        (successData) => {
+          this.weightListHdfcSuccess(successData);
+        },
+        (error) => {
+          this.weightListHdfcFailure(error);
+        }
+    );
+  }
+
+  public weightListHdfcSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.weightListHdfcList = successData.ResponseObject;
+    }
+  }
+  public weightListHdfcFailure(error) {
+  }
 
 
 }
