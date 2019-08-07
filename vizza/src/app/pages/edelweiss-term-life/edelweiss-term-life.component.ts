@@ -40,6 +40,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public medicalDetail: FormGroup;
   public bankDetail: FormGroup;
   public nomineeDetail: FormGroup;
+  public documentDetail: FormGroup;
   public itemsNominee: any;
   public addExistingInsurance: any;
   public addmedicalQuestions: any;
@@ -87,6 +88,14 @@ export class EdelweissTermLifeComponent implements OnInit {
   public etopUpRates: any;
   public eDocumentProof: any;
   public eIncomeProof: any;
+  public eproposalProof: any;
+  public eageDocProof: any;
+  public eaddressProof: any;
+  public eaddressDocProof: any;
+  public ekycProof: any;
+  public eOtherDocumentProof: any;
+  public identityLifeProof: any;
+  public esalereqProof: any;
   public proposerAge: any;
   public proposerSpouseAge: any;
   public dateError: any;
@@ -117,15 +126,39 @@ export class EdelweissTermLifeComponent implements OnInit {
   public uploadIdProofName: any;
   public uploadBankProofName: any;
   public uploadAgeProofName: any;
+  public uploadIncomeProofName: any;
   public uploadAddressProofName: any;
-  public uploadCorrespondingAddressProofName: any;
+  public uploadAddressProposal: any;
+  public uploadIncomeProposal: any;
+  public uploadIdProposal: any;
+  public uploadAgeProposal: any;
+  public uploadDocumentProofName: any;
+  public uploadDocumentProposal: any;
+  public proposalProofName: any;
+  public proposalProProof: any;
+  public salesReqProofName: any;
+  public salesReqProposal: any;
+  public photoProofName: any;
+  public photoProposal: any;
+  public kycProofName: any;
+  public kycProposal: any;
   public ageProofPath: any;
+  public ageProposalPath: any;
   public addressProofPath: any;
-  public correspondingAddressProofPath: any;
-  public spouseAgeProofPath: any;
-  public PhotographPath: any;
+  public idProposalPath: any;
+  public kycProposalPath: any;
+  public incomeProofProposalPath: any;
+  public addressProposalPath: any;
   public incomeProofPath: any;
-  public bankProofPath: any;
+  public documentProofPath: any;
+  public documentProposalPath: any;
+  public proposalProofPath: any;
+  public proposalProPath: any;
+  public salesReqProofPath: any;
+  public salesReqProposalPath: any;
+  public PhotographPath: any;
+  public PhotographProPath: any;
+  public kycProofPath: any;
   public idProofPath: any;
   public allImage: any;
   public documentPath: any;
@@ -155,12 +188,22 @@ export class EdelweissTermLifeComponent implements OnInit {
     });
     this.currentStep = stepperindex;
     this.addressProofPath = [];
-    this.correspondingAddressProofPath = [];
-    this.spouseAgeProofPath = [];
+    this.idProposalPath = [];
+    this.kycProposalPath = [];
+    this.incomeProofProposalPath = [];
+    this.addressProposalPath = [];
+    this.proposalProofPath = [];
+    this.proposalProPath = [];
+    this.salesReqProofPath = [];
+    this.salesReqProposalPath = [];
+    this.documentProofPath = [];
+    this.documentProposalPath = [];
     this.PhotographPath = [];
+    this.PhotographProPath = [];
     this.incomeProofPath = [];
     this.ageProofPath = [];
-    this.bankProofPath = [];
+    this.ageProposalPath = [];
+    this.kycProofPath = [];
     this.idProofPath = [];
     this.allImage = [];
     this.fileUploadStatus = true;
@@ -383,7 +426,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         tropicalDieaseDetails: '',
         thyroidDieaseInd: '',
         thyroidDieaseDetails: '',
-        bloodDieaseInd: ' ',
+        bloodDieaseInd: '',
         bloodDieaseDetails: '',
         nervousDieaseInd: '',
         nervousDieaseDetails: '',
@@ -431,6 +474,29 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     this.addmedicalQuestions = this.medicalDetail.get('medicalQuestions') as FormArray;
 
+    this.documentDetail = this.fb.group({
+      incomeLA: '',
+      identityLA: '',
+      addressLA: '',
+      ageLA: '',
+      documentLA: '',
+      proposalLA: '',
+      salereqLA: '',
+      // photoLA: '',
+      kycLA: '',
+      incomePA: '',
+      identityPA: '',
+      addressPA: '',
+      agePA: '',
+      documentPA: '',
+      proposalPA: '',
+      salereqPA: '',
+      // photoPA: '',
+      kycPA: '',
+
+
+    });
+
   }
 
   ngOnInit() {
@@ -465,6 +531,13 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getetopUpRate();
     this.geteDocumentProof();
     this.geteIncomeProof();
+    this.geteproposalProof();
+    this.geteageDocProof();
+    this.geteaddressDocProof();
+    this.getekycProof();
+    this.geteOtherDocumentProof();
+    this.geteidLifeProof();
+    this.getesalereqProof();
     this.sessionData();
 
   }
@@ -1248,7 +1321,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(nominee2ageval, 'nominee2ageval');
     console.log(nomineeValid, 'nomineeVLID');
     if (this.nomineeDetail.controls.itemsNominee.valid) {
-
+      // if ( nomineeValid == true || nominee2ageval = true ) {
             if ( appointeeAge == true || appointeeAge2 == true) {
 
 
@@ -1258,7 +1331,7 @@ export class EdelweissTermLifeComponent implements OnInit {
             } else {
               this.toastr.error('Appointee Age should be greater than 18.');
             }
-
+      // }
 
 
     }
@@ -1283,14 +1356,38 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   // document Upload
   uploadProof(event: any, type) {
-
+  console.log(event,'event');
     let getUrlEdu = [];
     this.fileDetails = [];
-    if (type == 'address_proof') {
+    if (type == 'address_LifeAssured') {
 
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['addressLA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'add_LA');
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+      this.uploadAddressProofName = this.fileDetails[0].name;
+
+    }
+    else if (type == 'address_Proposal') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['addressPA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1303,99 +1400,17 @@ export class EdelweissTermLifeComponent implements OnInit {
           getUrlEdu.push(this.url.split(','));
           this.onUploadFinished(this.fileDetails, getUrlEdu, 'add_p');
         };
-        reader.readAsDataURL(event.target.files[i]);
+        reader.readAsDataURL(event.target.files[0]);
       }
-      this.uploadAddressProofName = this.fileDetails[0].name;
+      this.uploadAddressProposal = this.fileDetails[0].name;
 
-    } else if (type == 'addressCorresponding_proof') {
+    }
+    else if (type == 'income_LifeAssured') {
 
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = ( event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'addCores_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
-
-    } else if (type == 'ageSpouse_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = ( event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'spouseAge_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
-
-    } else if (type == 'income_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = ( event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'income_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
-
-    } else if (type == 'photograph_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
-          'proofType': type,
-          'fileExt': event.target.files[i].type,
-          'name': event.target.files[i].name
-        });
-      }
-      for (let i = 0; i < event.target.files.length; i++) {
-        const reader = new FileReader();
-        reader.onload = ( event: any) => {
-          this.url = event.target.result;
-          getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'photo_p');
-        };
-        reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadCorrespondingAddressProofName = this.fileDetails[0].name;
-
-    } else if (type == 'age_proof') {
-
-      for (let i = 0; i < event.target.files.length; i++) {
-        this.fileDetails.push({
-          'base64': '',
+          'content_type': this.documentDetail.controls['incomeLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1406,17 +1421,62 @@ export class EdelweissTermLifeComponent implements OnInit {
         reader.onload = (event: any) => {
           this.url = event.target.result;
           getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'age_p');
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'income_LA');
         };
         reader.readAsDataURL(event.target.files[i]);
       }
-      this.uploadAgeProofName = this.fileDetails[0].name;
+      this.uploadIncomeProofName = this.fileDetails[0].name;
 
-    } else if (type == 'id_proof') {
+    } else if (type == 'income_Proposal') {
 
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['incomePA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'income_P');
+
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      } this.uploadIncomeProposal = this.fileDetails[0].name;
+    }
+
+      else if (type == 'id_LifeAssured') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['identityLA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'id_LA');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadIdProofName = this.fileDetails[0].name;
+    } else if (type == 'id_Proposal') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['identityPA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1431,12 +1491,13 @@ export class EdelweissTermLifeComponent implements OnInit {
         };
         reader.readAsDataURL(event.target.files[i]);
       }
-      this.uploadIdProofName = this.fileDetails[0].name;
-    } else if (type == 'bank_proof') {
+      this.uploadIdProposal = this.fileDetails[0].name;
+    } else if (type == 'age_LifeAssured') {
 
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
           'base64': '',
+          'content_type': this.documentDetail.controls['ageLA'].value,
           'proofType': type,
           'fileExt': event.target.files[i].type,
           'name': event.target.files[i].name
@@ -1447,14 +1508,256 @@ export class EdelweissTermLifeComponent implements OnInit {
         reader.onload = (event: any) => {
           this.url = event.target.result;
           getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'bank_p');
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'age_LA');
         };
         reader.readAsDataURL(event.target.files[i]);
       }
-      this.uploadBankProofName = this.fileDetails[0].name;
+      this.uploadAgeProofName = this.fileDetails[0].name;
+
+    } else if (type == 'age_Proposal') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['agePA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'age_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadAgeProposal = this.fileDetails[0].name;
+
+    } else if (type == 'document_LifeAssured') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['documentLA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'document_LA');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.uploadDocumentProofName = this.fileDetails[0].name;
+
+    } else if (type == 'document_Proposal') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['documentPA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'document_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this. uploadDocumentProposal= this.fileDetails[0].name;
+
+    } else if (type == 'proposal_LifeAssured') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['proposalLA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'proposal_LA');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.proposalProofName = this.fileDetails[0].name;
+
+    } else if (type == 'proposal_Proposal') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['proposalPA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'proposal_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.proposalProProof = this.fileDetails[0].name;
+
+    } else if (type == 'salesReq_LifeAssured') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['salereqLA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'salesReq_LA');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.salesReqProofName = this.fileDetails[0].name;
+
+    } else if (type == 'salesReq_Proposal') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['salereqPA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'salesReq_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.salesReqProposal = this.fileDetails[0].name;
+
+    } else if (type == 'photograph_LifeAssured') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': '1',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'photo_LA');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.photoProofName = this.fileDetails[0].name;
+
+    } else if (type == 'photograph_Proposal') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': '2',
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = ( event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'photo_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.photoProposal = this.fileDetails[0].name;
+
+    } else if (type == 'kyc_LifeAssured') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['kycLA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'kyc_LA');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.kycProofName = this.fileDetails[0].name;
+    } else if (type == 'kyc_Proposal') {
+
+      for (let i = 0; i < event.target.files.length; i++) {
+        this.fileDetails.push({
+          'base64': '',
+          'content_type': this.documentDetail.controls['kycPA'].value,
+          'proofType': type,
+          'fileExt': event.target.files[i].type,
+          'name': event.target.files[i].name
+        });
+      }
+      for (let i = 0; i < event.target.files.length; i++) {
+        const reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.url = event.target.result;
+          getUrlEdu.push(this.url.split(','));
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'kyc_p');
+        };
+        reader.readAsDataURL(event.target.files[i]);
+      }
+      this.kycProposal = this.fileDetails[0].name;
     }
 
   }
+
   onUploadFinished(values, basecode, type) {
     values[0].base64 = basecode[0][1];
 
@@ -1464,14 +1767,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       }
     }
     console.log(this.allImage , 'this.allImage.this.allImage.');
-    if (type == 'age_p') {
-      this.ageProofPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.ageProofPath.indexOf(values[k].name) == -1) {
-          this.ageProofPath.push(values[k]);
-        }
-      }
-    } else if (type == 'add_p') {
+    if (type == 'add_LA') {
       this.addressProofPath = [];
       for (let k = 0; k < values.length; k++) {
         if (this.addressProofPath.indexOf(values[k].name) == -1) {
@@ -1479,23 +1775,15 @@ export class EdelweissTermLifeComponent implements OnInit {
         }
       }
     }
-    else if (type == 'addCores_p') {
-      this.correspondingAddressProofPath = [];
+    else  if (type == 'add_p') {
+      this.addressProposalPath = [];
       for (let k = 0; k < values.length; k++) {
-        if (this.correspondingAddressProofPath.indexOf(values[k].name) == -1) {
-          this.correspondingAddressProofPath.push(values[k]);
+        if (this.addressProposalPath.indexOf(values[k].name) == -1) {
+          this.addressProposalPath.push(values[k]);
         }
       }
     }
-    else if (type == 'spouseAge_p') {
-      this.spouseAgeProofPath = [];
-      for (let k = 0; k < values.length; k++) {
-        if (this.spouseAgeProofPath.indexOf(values[k].name) == -1) {
-          this.spouseAgeProofPath.push(values[k]);
-        }
-      }
-    }
-    else if (type == 'income_p') {
+    else if (type == 'income_LA') {
       this.incomeProofPath = [];
       for (let k = 0; k < values.length; k++) {
         if (this.incomeProofPath.indexOf(values[k].name) == -1) {
@@ -1503,15 +1791,15 @@ export class EdelweissTermLifeComponent implements OnInit {
         }
       }
     }
-    else if (type == 'photo_p') {
-      this.PhotographPath = [];
+    else if (type == 'income_P') {
+      this.incomeProofProposalPath = [];
       for (let k = 0; k < values.length; k++) {
-        if (this.PhotographPath.indexOf(values[k].name) == -1) {
-          this.PhotographPath.push(values[k]);
+        if (this.incomeProofProposalPath.indexOf(values[k].name) == -1) {
+          this.incomeProofProposalPath.push(values[k]);
         }
       }
     }
-    else if (type == 'id_p') {
+    else if (type == 'id_LA') {
       this.idProofPath = [];
       for (let k = 0; k < values.length; k++) {
         if (this.idProofPath.indexOf(values[k].name) == -1) {
@@ -1519,41 +1807,152 @@ export class EdelweissTermLifeComponent implements OnInit {
         }
       }
     }
-    else if (type == 'bank_p') {
-      this.bankProofPath = [];
+    else if (type == 'id_p') {
+      this.idProposalPath = [];
       for (let k = 0; k < values.length; k++) {
-        if (this.bankProofPath.indexOf(values[k].name) == -1) {
-          this.bankProofPath.push(values[k]);
+        if (this.idProposalPath.indexOf(values[k].name) == -1) {
+          this.idProposalPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'age_LA') {
+      this.ageProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.ageProofPath.indexOf(values[k].name) == -1) {
+          this.ageProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'age_p') {
+      this.ageProposalPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.ageProposalPath.indexOf(values[k].name) == -1) {
+          this.ageProposalPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'document_LA') {
+      this.documentProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.documentProofPath.indexOf(values[k].name) == -1) {
+          this.documentProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'document_p') {
+      this.documentProposalPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.documentProposalPath.indexOf(values[k].name) == -1) {
+          this.documentProposalPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'proposal_LA') {
+      this.proposalProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.proposalProofPath.indexOf(values[k].name) == -1) {
+          this.proposalProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'proposal_p') {
+      this.proposalProPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.proposalProPath.indexOf(values[k].name) == -1) {
+          this.proposalProPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'salesReq_LA') {
+      this.salesReqProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.salesReqProofPath.indexOf(values[k].name) == -1) {
+          this.salesReqProofPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'salesReq_p') {
+      this.salesReqProposalPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.salesReqProposalPath.indexOf(values[k].name) == -1) {
+          this.salesReqProposalPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'photo_LA') {
+      this.PhotographPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.PhotographPath.indexOf(values[k].name) == -1) {
+          this.PhotographPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'photo_p') {
+      this.PhotographProPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.PhotographProPath.indexOf(values[k].name) == -1) {
+          this.PhotographProPath.push(values[k]);
+        }
+      }
+    }
+    else if (type == 'kyc_LA') {
+      this.kycProofPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.kycProofPath.indexOf(values[k].name) == -1) {
+          this.kycProofPath.push(values[k]);
+        }
+      }
+    }else if (type == 'kyc_p') {
+      this.kycProposalPath = [];
+      for (let k = 0; k < values.length; k++) {
+        if (this.kycProposalPath.indexOf(values[k].name) == -1) {
+          this.kycProposalPath.push(values[k]);
         }
       }
     }
 
-    console.log(this.ageProofPath, 'this.ageProofPath');
     console.log(this.addressProofPath, 'this.addressProofPath');
-    console.log(this.correspondingAddressProofPath, 'this.correspondingAddressProofPath');
-    console.log(this.spouseAgeProofPath, 'this.spouseAgeProofPath');
+    console.log(this.addressProposalPath, 'this.addressProposalPath');
+    console.log(this.ageProofPath, 'this.ageProofPath');
+    console.log(this.incomeProofProposalPath, 'this.incomeProofProposalPath');
+    console.log(this.idProposalPath, 'this.idProposalPath');
+    console.log(this.ageProposalPath, 'this.ageProposalPath');
+    console.log(this.documentProposalPath, 'this.documentProposalPath');
+    console.log(this.proposalProPath, 'this.proposalProPath');
     console.log(this.incomeProofPath, 'this.incomeProofPath');
+    console.log(this.documentProofPath, 'this.documentProofPath');
+    console.log(this.proposalProofPath, 'this.proposalProofPath');
+    console.log(this.salesReqProofPath, 'this.salesReqProofPath');
+    console.log(this.salesReqProposalPath, 'this.salesReqProposalPath');
     console.log(this.PhotographPath, 'this.PhotographPath');
-    console.log(this.bankProofPath, 'this.bankProofPath');
+    console.log(this.PhotographProPath, 'this.PhotographProPath');
+    console.log(this.kycProofPath, 'this.kycProofPath');
+    console.log(this.kycProposalPath, 'this.kycProposalPath');
     console.log(this.idProofPath, 'this.idProofPath');
-    console.log(this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath, this.correspondingAddressProofPath, this.spouseAgeProofPath, this.incomeProofPath, this.PhotographPath), 'this.conbvsgd');
 
   }
 
   uploadAll() {
-    const data = {
+         const data = {
+
+
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "policy_id": this.getEnquiryDetials.policy_id,
-      "Persons": [{
-        "Documents": this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.bankProofPath, this.correspondingAddressProofPath, this.spouseAgeProofPath, this.incomeProofPath, this.PhotographPath),
-        "Type": "PH"
-      }]
-    };
+      "policyNo": this.summaryData.policy_no,
+      "transactionId": this.summaryData.receipt_no,
+           "Prop": this.ageProposalPath.concat(  this.addressProposalPath, this.idProposalPath, this.kycProposalPath, this.documentProposalPath, this.proposalProPath,  this.salesReqProposalPath, this.incomeProofProposalPath, this.PhotographProPath),
+             "La":this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.kycProofPath, this.documentProofPath, this.proposalProofPath, this.salesReqProofPath,  this.incomeProofPath, this.PhotographPath),
+
+         }
+
     console.log(data, 'dattattatata');
-    this.termService.fileUploadEdelweiss(data).subscribe(
+    console.log(this.fileDetails[0].name, 'fileDetailsname');
+    console.log(this.ageProofPath.concat(this.ageProposalPath,this.addressProofPath, this.addressProposalPath, this.idProofPath,this.idProposalPath,this.incomeProofProposalPath, this.kycProofPath,this.kycProposalPath, this.documentProofPath,this.documentProposalPath, this.proposalProofPath,this.proposalProPath, this.salesReqProofPath,this.salesReqProposalPath, this.incomeProofPath, this.PhotographPath, this.PhotographProPath), 'resultttttttt');
+
+    this.termService.edelweissFileUpload(data).subscribe(
         (successData) => {
           this.fileUploadSuccess(successData);
         },
@@ -1562,7 +1961,6 @@ export class EdelweissTermLifeComponent implements OnInit {
         }
     );
   }
-
 
   public fileUploadSuccess(successData) {
     if (successData.IsSuccess == true) {
@@ -2240,6 +2638,53 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.medicalDetail.controls['femaleDieaseWeeks'].updateValueAndValidity();
 
   }
+  ismedicationInd() {
+
+    if (this.medicalDetail.controls['medicalTreatment'].value == true) {
+      this.medicalDetail.controls['medicationDetails'].patchValue(this.medicalDetail.controls['medicationDetails'].value);
+
+      this.medicalDetail.controls['medicationDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['medicationDetails'].patchValue('');
+
+      this.medicalDetail.controls['medicationDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['medicationDetails'].updateValueAndValidity();
+
+  }
+  isdiagnosedInd() {
+
+    if (this.medicalDetail.controls['receivedTreatment1'].value == true) {
+      this.medicalDetail.controls['diagnosedDetails'].patchValue(this.medicalDetail.controls['diagnosedDetails'].value);
+
+      this.medicalDetail.controls['diagnosedDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['diagnosedDetails'].patchValue('');
+
+      this.medicalDetail.controls['diagnosedDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['diagnosedDetails'].updateValueAndValidity();
+
+  }
+
+  isaidsInd() {
+
+    if (this.medicalDetail.controls['receivedTreatment2'].value == true) {
+      this.medicalDetail.controls['aidsDetails'].patchValue(this.medicalDetail.controls['aidsDetails'].value);
+
+      this.medicalDetail.controls['aidsDetails'].setValidators([Validators.required]);
+    } else {
+      this.medicalDetail.controls['aidsDetails'].patchValue('');
+
+      this.medicalDetail.controls['aidsDetails'].setValidators(null);
+
+    }
+    this.medicalDetail.controls['aidsDetails'].updateValueAndValidity();
+
+  }
+
   istobaccoInd() {
 
     if (this.medicalDetail.controls['tobaccoInd'].value == 'Yes') {
@@ -2640,9 +3085,9 @@ export class EdelweissTermLifeComponent implements OnInit {
           "ECGDetails":this.medicalDetail.controls['ECGDetails'].value,
           "admitInd":this.medicalDetail.controls['admitInd'].value ? 'Y' : 'N',
           "admitDetails":this.medicalDetail.controls['admitDetails'].value,
-          "medicationInd":this.medicalDetail.controls['medicationInd'].value ? 'Y' : 'N',
+          "medicationInd":this.medicalDetail.controls['medicalTreatment'].value ? 'Y' : 'N',
           "medicationDetails":this.medicalDetail.controls['medicationDetails'].value,
-          "diagnosedInd":this.medicalDetail.controls['diagnosedInd'].value ? 'Y' : 'N',
+          "diagnosedInd":this.medicalDetail.controls['receivedTreatment1'].value ? 'Y' : 'N',
           "diagnosedDetails":this.medicalDetail.controls['diagnosedDetails'].value,
           "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd'].value ? 'Y' : 'N',
           "heartDieaseDetails":this.medicalDetail.controls['heartDieaseDetails'].value,
@@ -2670,7 +3115,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "ENTDieaseDetails":this.medicalDetail.controls['ENTDieaseDetails'].value,
           "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd'].value ? 'Y' : 'N',
           "muscleDieaseDetails":this.medicalDetail.controls['muscleDieaseDetails'].value,
-          "aidsInd":this.medicalDetail.controls['aidsInd'].value ? 'Y' : 'N',
+          "aidsInd":this.medicalDetail.controls['receivedTreatment2'].value ? 'Y' : 'N',
           "aidsDetails":this.medicalDetail.controls['aidsDetails'].value,
           "alcoholicInd":this.medicalDetail.controls['alcoholicInd'].value ? 'Y' : 'N',
           "alcoholicDetails":this.medicalDetail.controls['alcoholicDetails'].value,
@@ -2684,7 +3129,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ? 'Y' : 'N',
           "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value ? 'Y' : 'N',
           "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks'].value,
-          "medicalQuestions":"",
+          "medicalQuestions":this.medicalDetail.value.medicalQuestions,
         },
         "bank":{
           "accountNo":this.bankDetail.controls['accountNo'].value,
@@ -2855,7 +3300,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     console.log(data, ' fileeee');
     this.settings.loadingSpinner = true;
-    this.termService.edelweissProposalCreation(data).subscribe(
+      this.termService.edelweissProposalCreation(data).subscribe(
         (successData) => {
           this.setEdelProposalSuccess(successData, stepper);
         },
@@ -2887,6 +3332,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       sessionStorage.nomineeFormData = JSON.stringify(this.nomineeFormData);
       sessionStorage.edelweiss_term_life_id = this.proposalId;
       // this.downloadFile(this.requestedUrl);
+console.log(this.summaryData,'summaryData');
+console.log(this.proposalId,'proposalId');
 
       console.log(this.proposerFormData, 'proposerFormData');
       console.log(this.insuredFormData,'insuredFormData');
@@ -3698,6 +4145,211 @@ export class EdelweissTermLifeComponent implements OnInit {
 
   public geteIncomeProofFailure(error) {
   }
+
+  geteproposalProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissProposalProof(data).subscribe(
+        (successData) => {
+          this.geteProposalProofSuccess(successData);
+        },
+        (error) => {
+          this.geteProposalProofFailure(error);
+        }
+    );
+  }
+
+  public geteProposalProofSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eproposalProof = successData.ResponseObject;
+    }
+  }
+
+  public geteProposalProofFailure(error) {
+  }
+  geteageDocProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissAgeProof(data).subscribe(
+        (successData) => {
+          this.geteAgeDocProofSuccess(successData);
+        },
+        (error) => {
+          this.geteAgeProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteAgeDocProofSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eageDocProof = successData.ResponseObject;
+    }
+  }
+
+  public geteAgeProofDocFailure(error) {
+  }
+
+
+  geteaddressDocProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissAddressProof(data).subscribe(
+        (successData) => {
+          this.geteAddressProofDocSuccess(successData);
+        },
+        (error) => {
+          this.geteAddressProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteAddressProofDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eaddressDocProof = successData.ResponseObject;
+    }
+  }
+  public geteAddressProofDocFailure(error) {
+  }
+  getekycProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissKYCProof(data).subscribe(
+        (successData) => {
+          this.geteKycProofDocSuccess(successData);
+        },
+        (error) => {
+          this.geteKycProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteKycProofDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.ekycProof = successData.ResponseObject;
+    }
+  }
+  public geteKycProofDocFailure(error) {
+  }
+  geteidLifeProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissidDocProof(data).subscribe(
+        (successData) => {
+          this.geteIdProofDocSuccess(successData);
+        },
+        (error) => {
+          this.geteIdProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteIdProofDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.identityLifeProof = successData.ResponseObject;
+    }
+  }
+  public geteIdProofDocFailure(error) {
+  }
+  geteOtherDocumentProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissOtherDocProof(data).subscribe(
+        (successData) => {
+          this.geteOtherDocSuccess(successData);
+        },
+        (error) => {
+          this.geteOtherDocFailure(error);
+        }
+    );
+  }
+
+  public geteOtherDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eOtherDocumentProof = successData.ResponseObject;
+    }
+  }
+  public geteOtherDocFailure(error) {
+  }
+  getesalereqProof() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.edelweissSalesReqProof(data).subscribe(
+        (successData) => {
+          this.geteSalesReqProofDocSuccess(successData);
+        },
+        (error) => {
+          this.geteSalesReqProofDocFailure(error);
+        }
+    );
+  }
+
+  public geteSalesReqProofDocSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.esalereqProof = successData.ResponseObject;
+    }
+  }
+  public geteSalesReqProofDocFailure(error) {
+  }
+  // geteFileUpload() {
+  //   const data = {
+  //     'platform': 'web',
+  //     'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+  //     'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+  //     'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+  //
+  //   }
+  //   this.termService.edelweissFileUpload(data).subscribe(
+  //       (successData) => {
+  //         this.geteFileUploadSuccess(successData);
+  //       },
+  //       (error) => {
+  //         this.geteFileUploadFailure(error);
+  //       }
+  //   );
+  // }
+  //
+  // public geteFileUploadSuccess(successData) {
+  //   if (successData.IsSuccess) {
+  //     this.esalereqProof = successData.ResponseObject;
+  //   }
+  // }
+  // public geteFileUploadFailure(error) {
+  // }
 
   getifscEdelweissDetails(ifsc) {
     const data = {
