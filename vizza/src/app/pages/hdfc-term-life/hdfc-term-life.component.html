@@ -19,7 +19,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Title" formControlName="title" autocomplete="off" required  >
-                              <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of titleListHdfcList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -43,7 +43,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Gender" formControlName="gender" autocomplete="off" required  >
-                              <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of genderListHdfcList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -81,7 +81,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Education Qualification" formControlName="eduqual"  required>
-                              <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of educationListHdfcList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -91,7 +91,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Nationality" formControlName="nationality"  required>
-                              <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of nationalityListHdfcList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -103,7 +103,7 @@
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
                             <mat-select placeholder="Residential Status" formControlName="residentstatus" autocomplete="off" required>
-                              <mat-option *ngFor="let list of occupationList | keys" [value]= 'list.value'>
+                              <mat-option *ngFor="let list of residentialStatusHdfcList | keys" [value]= 'list.value'>
                                 {{list.value}}
                               </mat-option>
                             </mat-select>
@@ -119,7 +119,7 @@
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="exstngcustflg" required>
+                              <mat-radio-group formControlName="exstngcustflg" required>
                             <p>Existing Customer flag <span class="error" >*</span></p>
                             <mat-radio-button value="Y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="N">No</mat-radio-button>
@@ -189,7 +189,7 @@
                             <div class="col-md-6">
                               <mat-form-field class="w-100"  >
                                 <mat-select placeholder="City" formControlName="city" autocomplete="off" required (keyup)="typeAddressDeatils()">
-                                  <mat-option *ngFor="let city of citycList | keys" [value]= 'city.value'>
+                                  <mat-option *ngFor="let city of cityListHdfcList | keys" [value]= 'city.value'>
                                     {{city.value}}
                                   </mat-option>
                                 </mat-select>
@@ -198,14 +198,14 @@
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
                                 <mat-select placeholder="State" formControlName="state" autocomplete="off" required (keyup)="typeAddressDeatils()">
-                                  <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                                  <mat-option *ngFor="let list of stateListHdfcList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="personal.controls.state.errors?.required">State is required</mat-error>
                               </mat-form-field></div>
                             <div class="col-md-6"><mat-form-field class="w-100">
-                              <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" required formControlName="cPincode" autocomplete="off"  (input)="getPostal($event.target.value,'personal')"  (keyup)="typeAddressDeatils()">
+                              <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" required formControlName="pincode" autocomplete="off"  (input)="getPostal($event.target.value,'personal')"  (keyup)="typeAddressDeatils()">
                               <mat-error *ngIf="personal.controls.cPincode.hasError('minlength')">Pincode should be 6 digits</mat-error>
                               <mat-error *ngIf="personal.controls.cPincode.hasError('required')">Pincode is required</mat-error>
                               <mat-error *ngIf="personal.controls.cPincode.hasError('pattern')">Enter Valid  Pincode</mat-error>
@@ -213,7 +213,7 @@
                             <div class="col-md-6">
                               <mat-form-field class="w-100">
                                 <mat-select placeholder="Country" formControlName="country" autocomplete="off" required (keyup)="typeAddressDeatils()">
-                                  <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                                  <mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
                                 </mat-select>
@@ -254,7 +254,7 @@
                             <div class="col-md-6"  [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
                               <mat-form-field class="w-100">
                                 <mat-select placeholder="City" formControlName="ccity" autocomplete="off" required (change)="changeCitylist()">
-                                  <mat-option *ngFor="let list of cityList | keys" [value]= 'list.value'>
+                                  <mat-option *ngFor="let list of cityListHdfcList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
                                 </mat-select>
@@ -264,7 +264,7 @@
                             <div class="col-md-6" [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
                               <mat-form-field class="w-100">
                                 <mat-select placeholder="State" formControlName="cstate" autocomplete="off" (change)="changeState()" required >
-                                  <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                                  <mat-option *ngFor="let list of stateListHdfcList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
                                 </mat-select>
@@ -281,7 +281,7 @@
                             <div class="col-md-6" [ngStyle]="{'pointer-events': this.personal.controls['isAddressSame'].value ? 'none' : ''}">
                               <mat-form-field class="w-100">
                                 <mat-select placeholder="Country" formControlName="ccountry" autocomplete="off" (change)="changeState()" required >
-                                  <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                                  <mat-option *ngFor="let list of countryListHdfcList | keys" [value]= 'list.value'>
                                     {{list.value}}
                                   </mat-option>
                                 </mat-select>
@@ -323,7 +323,7 @@
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Expected Duration Of Stay at the Correspondence address" formControlName="expdurofstay" autocomplete="off" required >
-                            <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of expectedStayHdfcList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
@@ -336,25 +336,25 @@
                               {{list.value}}
                             </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="personal.controls.prfdcommaddr.errors?.required">State is required</mat-error>
+                          <mat-error *ngIf="personal.controls.prfdcommaddr.errors?.required">Preferred Communication Address Type is required</mat-error>
                         </mat-form-field></div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Preferred Communication Mode" formControlName="prfdcommmode" autocomplete="off" required >
-                            <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of communicationModeHdfcList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="personal.controls.prfdcommmode.errors?.required">State is required</mat-error>
+                          <mat-error *ngIf="personal.controls.prfdcommmode.errors?.required">Preferred Communication Mode is required</mat-error>
                         </mat-form-field></div>
                       <div class="col-md-6">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Preferred Communication Language" formControlName="prfdcommlang" autocomplete="off" required >
-                            <mat-option *ngFor="let list of stateList | keys" [value]= 'list.value'>
+                            <mat-option *ngFor="let list of prefferedLangHdfcList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
-                          <mat-error *ngIf="personal.controls.prfdcommlang.errors?.required">State is required</mat-error>
+                          <mat-error *ngIf="personal.controls.prfdcommlang.errors?.required">Preferred Communication Mode is required</mat-error>
                         </mat-form-field></div>
                     </div>
                       <div class="col-md-12 box-card pt-3">
