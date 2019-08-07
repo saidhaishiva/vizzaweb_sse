@@ -5,10 +5,11 @@
         <img src="assets/img/success.gif" alt="">
         <h5>Thank you! Your payment is processed successfully..</h5>
         <p>Your Application Number {{applicationNo}}.</p>
+
         <!--<p>Click here to download PDF <button mat-button color="primary" (click)="DownloadPdf()">Download</button></p>-->
-        <button mat-raised-button color="primary" (click)="DownloadPdf()"><a href="receipt_link"></a>Recipt</button>
-        <button mat-raised-button color="primary" (click)="DownloadPdf()"><a href="bi_pdf_url"></a>PDF</button>
-        <button mat-raised-button color="primary" (click)="DownloadPdf()"><a href="proposal_form"></a>Proposal</button>
+        <button mat-raised-button color="primary" (click)="DownloadPdf('receipt')">Recipt</button>
+        <button mat-raised-button color="primary" (click)="DownloadPdf('pdf')">PDF</button>
+        <button mat-raised-button color="primary" (click)="DownloadPdf('proposl')">Proposal</button>
 
         <button mat-raised-button color="primary" routerLink="/home"> Done</button>
       </div>
