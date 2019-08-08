@@ -227,7 +227,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relation To Proposer" formControlName="relationSpouseProposer" (change)="geteNomineeRelation()" required>
+                                  <mat-select placeholder="Relation To Proposer" formControlName="relationSpouseProposer" (change)="geteSpouseeRelationName()" required>
                                       <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="proposer.controls.relationSpouseProposer.errors?.required">Relation To Proposer is required</mat-error>
@@ -647,7 +647,7 @@
                                            </div>
                                            <div class="col-md-3" *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
                                                <mat-form-field class="w-100">
-                                                   <mat-select placeholder="Relation To Insurer" formControlName="relationSpouseInsurer" (change)="geteNomineeRelation()" required>
+                                                   <mat-select placeholder="Relation To Insurer" formControlName="relationSpouseInsurer" (change)="geteSpouseeRelationInsureName()" required>
                                                        <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
                                                    </mat-select>
                                                    <mat-error *ngIf="insureArray.controls.relationSpouseInsurer.errors?.required">Relation To Insurer is required</mat-error>
@@ -2033,7 +2033,7 @@
                                        <li class="list-group-item" *ngIf="proposerFormData.isSmokerSpouse != ''"><strong>Are U Smoker?:</strong> {{proposerFormData.isSmokerSpouse}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{proposerFormData.isStaffSpouse}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{proposerFormData.employeeCodeSpouse}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{proposerFormData.relationSpouseProposer}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{proposerFormData.relationSpouseProposerName}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -2175,7 +2175,7 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{insuredFormData.relationSpouseProposer}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseInsurer != ''"><strong>Relation To Proposer:</strong> {{insuredFormData.relationSpouseInsurerName}}</li>
                                    </ul>
                                </div>
                            </div>

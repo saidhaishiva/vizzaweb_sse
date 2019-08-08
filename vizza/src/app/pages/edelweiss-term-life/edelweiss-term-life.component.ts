@@ -4833,6 +4833,12 @@ console.log(this.proposalId,'proposalId');
     geteNomineeRelationName(i) {
    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] );
   }
+    geteSpouseeRelationName() {
+        this.proposer.controls['relationSpouseProposerName'].patchValue(this.eNomineeRelation[this.proposer.controls['relationSpouseProposer'].value]);
+  }
+    geteSpouseeRelationInsureName() {
+        this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.eNomineeRelation[this.insureArray.controls['relationSpouseInsurer'].value]);
+    }
 
 
 
