@@ -44,6 +44,10 @@ export class EdelweissTermLifeComponent implements OnInit {
   public itemsNominee: any;
   public addExistingInsurance: any;
   public addmedicalQuestions: any;
+  public adbError: any;
+  public ciError: any;
+  public atpdError: any;
+  public hcbdError: any;
   public etitle: any;
   public egender: any;
   public minDate: any;
@@ -147,7 +151,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public addressProofPath: any;
   public idProposalPath: any;
   public kycProposalPath: any;
-  public incomeProposalPath: any;
+  public incomeProofProposalPath: any;
   public addressProposalPath: any;
   public incomeProofPath: any;
   public documentProofPath: any;
@@ -190,7 +194,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.addressProofPath = [];
     this.idProposalPath = [];
     this.kycProposalPath = [];
-    this.incomeProposalPath = [];
+    this.incomeProofProposalPath = [];
     this.addressProposalPath = [];
     this.proposalProofPath = [];
     this.proposalProPath = [];
@@ -1283,10 +1287,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.nomineeDetail.get('itemsNominee')['controls'].length,'length');
 
     // nomineeAge validate
-    let nomineeValid = false;
+    let nomineeValid = true;
     if (sessionStorage.nomineAge != '' && sessionStorage.nomineAge != undefined) {
       if (sessionStorage.nomineAge <= 18) {
-        nomineeValid = true;
+        nomineeValid = false;
       }
     }
     // appointeeAge validatate
@@ -1310,30 +1314,42 @@ export class EdelweissTermLifeComponent implements OnInit {
     let nominee2ageval;
     for (let i=0; i < this.nomineeDetail.get('itemsNominee')['controls'].length; i++) {
       if ( this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value == 1) {
-        nominee2ageval = true;
+        nominee2ageval = false;
 
       } else {
-        nominee2ageval = false;
+        nominee2ageval = true;
       }
     }
-    console.log(sessionStorage.appointeeAge,'appointeeAge11232');
-
-    console.log(nominee2ageval, 'nominee2ageval');
-    console.log(nomineeValid, 'nomineeVLID');
+    // console.log(sessionStorage.appointeeAge,' appointeeAge11232 ');
+    //
+    // console.log(nominee2ageval, 'nominee2ageval');
+    // console.log(nomineeValid, 'nomineeVLID');
+    // console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
+    // console.log(this.nomineeDetails.valid,'this.nomineeDetails.valid')
     if (this.nomineeDetail.controls.itemsNominee.valid) {
+      if (!nomineeValid || !nominee2ageval) {
+        // console.log(!nomineeValid,'111nomineeValid');
+        // console.log(nomineeValid,'2222nomineeValid');
+        // console.log(!nominee2ageval,'nominee2ageval111');
+        // console.log(nominee2ageval,'nominee2ageval33333333');
 
-            if ( appointeeAge == true || appointeeAge2 == true) {
-
-
-                  stepper.next();
-                  this.topScroll();
-
+            if (appointeeAge ) {
+              if (appointeeAge2 || appointeeAge2 == undefined ) {
+                stepper.next();
+                this.topScroll();
+                // console.log(appointeeAge2,'falseApp');
+              } else {
+                this.toastr.error('Appointee2 Age should be greater than 18.');
+                // console.log('1111');
+              }
             } else {
               this.toastr.error('Appointee Age should be greater than 18.');
+              // console.log('2222');
             }
-
-
-
+          } else {
+          stepper.next();
+          this.topScroll();
+        }
     }
   }
 
@@ -1444,12 +1460,13 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.url = event.target.result;
           getUrlEdu.push(this.url.split(','));
           this.onUploadFinished(this.fileDetails, getUrlEdu, 'income_P');
+
         };
         reader.readAsDataURL(event.target.files[i]);
-      }
-      this.uploadIncomeProposal = this.fileDetails[0].name;
+      } this.uploadIncomeProposal = this.fileDetails[0].name;
+    }
 
-    } else if (type == 'id_LifeAssured') {
+      else if (type == 'id_LifeAssured') {
 
       for (let i = 0; i < event.target.files.length; i++) {
         this.fileDetails.push({
@@ -1727,7 +1744,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         reader.onload = (event: any) => {
           this.url = event.target.result;
           getUrlEdu.push(this.url.split(','));
-          this.onUploadFinished(this.fileDetails, getUrlEdu, 'kyc_p');
+          this.onUploadFinished(this.fileDetails, getUrlEdu, 'kyc_LA');
         };
         reader.readAsDataURL(event.target.files[i]);
       }
@@ -1790,11 +1807,11 @@ export class EdelweissTermLifeComponent implements OnInit {
         }
       }
     }
-    else if (type == 'income_p') {
-      this.incomeProposalPath = [];
+    else if (type == 'income_P') {
+      this.incomeProofProposalPath = [];
       for (let k = 0; k < values.length; k++) {
-        if (this.incomeProposalPath.indexOf(values[k].name) == -1) {
-          this.incomeProposalPath.push(values[k]);
+        if (this.incomeProofProposalPath.indexOf(values[k].name) == -1) {
+          this.incomeProofProposalPath.push(values[k]);
         }
       }
     }
@@ -1913,7 +1930,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.addressProofPath, 'this.addressProofPath');
     console.log(this.addressProposalPath, 'this.addressProposalPath');
     console.log(this.ageProofPath, 'this.ageProofPath');
-    console.log(this.incomeProposalPath, 'this.incomeProposalPath');
+    console.log(this.incomeProofProposalPath, 'this.incomeProofProposalPath');
     console.log(this.idProposalPath, 'this.idProposalPath');
     console.log(this.ageProposalPath, 'this.ageProposalPath');
     console.log(this.documentProposalPath, 'this.documentProposalPath');
@@ -1932,7 +1949,6 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   uploadAll() {
-    // for (let i = 0; i < this.fileDetails; i++) {
          const data = {
 
 
@@ -1943,24 +1959,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       "policy_id": this.getEnquiryDetials.policy_id,
       "policyNo": this.summaryData.policy_no,
       "transactionId": this.summaryData.receipt_no,
-
-      // "documentType": this.fileDetails[0].proofType,
-      // "fileExt": this.fileDetails[0].fileExt,
-      // "fileName": this.fileDetails[0].name,
-      // "filedata": this.fileDetails[0].base64,
-      // "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-      // "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-      // "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-      // "platform": "web",
-      // "policy_id": this.getEnquiryDetials.policy_id,
-           "Prop": this.ageProposalPath.concat(  this.addressProposalPath, this.idProposalPath, this.incomeProposalPath, this.kycProposalPath, this.documentProposalPath, this.proposalProPath,  this.salesReqProposalPath, this.PhotographProPath),
-             "La":this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.kycProofPath,this.documentProofPath, this.proposalProofPath,this.salesReqProofPath,  this.incomeProofPath, this.PhotographPath),
+           "Prop": this.ageProposalPath.concat(  this.addressProposalPath, this.idProposalPath, this.kycProposalPath, this.documentProposalPath, this.proposalProPath,  this.salesReqProposalPath, this.incomeProofProposalPath, this.PhotographProPath),
+             "La":this.ageProofPath.concat(this.addressProofPath, this.idProofPath, this.kycProofPath, this.documentProofPath, this.proposalProofPath, this.salesReqProofPath,  this.incomeProofPath, this.PhotographPath),
 
          }
 
     console.log(data, 'dattattatata');
     console.log(this.fileDetails[0].name, 'fileDetailsname');
-    console.log(this.ageProofPath.concat(this.ageProposalPath,this.addressProofPath, this.addressProposalPath, this.idProofPath,this.idProposalPath,this.incomeProposalPath, this.kycProofPath,this.kycProposalPath, this.documentProofPath,this.documentProposalPath, this.proposalProofPath,this.proposalProPath, this.salesReqProofPath,this.salesReqProposalPath, this.incomeProofPath, this.PhotographPath, this.PhotographProPath), 'resultttttttt');
+    console.log(this.ageProofPath.concat(this.ageProposalPath,this.addressProofPath, this.addressProposalPath, this.idProofPath,this.idProposalPath,this.incomeProofProposalPath, this.kycProofPath,this.kycProposalPath, this.documentProofPath,this.documentProposalPath, this.proposalProofPath,this.proposalProPath, this.salesReqProofPath,this.salesReqProposalPath, this.incomeProofPath, this.PhotographPath, this.PhotographProPath), 'resultttttttt');
 
     this.termService.edelweissFileUpload(data).subscribe(
         (successData) => {
@@ -1971,7 +1977,6 @@ export class EdelweissTermLifeComponent implements OnInit {
         }
     );
   }
-  // }
 
   public fileUploadSuccess(successData) {
     if (successData.IsSuccess == true) {
@@ -1987,7 +1992,34 @@ export class EdelweissTermLifeComponent implements OnInit {
   public fileUploadFailure(error) {
     console.log(error);
   }
-
+  sumAssuredADBError(event:any) {
+    if (this.insureArray.controls['sumAssuredADB'].value > 10000 && this.insureArray.controls['sumAssuredADB'].value < 10000000) {
+      this.adbError ='';
+    } else {
+      this.adbError = 'SumAssured Accidental Death Benefit should be 10000 - 10000000';
+    }
+  }
+  sumAssuredATPDError(event:any) {
+    if (this.insureArray.controls['sumAssuredATPD'].value > 100000 && this.insureArray.controls['sumAssuredATPD'].value < 10000000) {
+      this.atpdError ='';
+    } else {
+      this.atpdError = 'SumAssured Accidental Total and Permanent Disability should be 100000 - 10000000';
+    }
+  }
+  sumAssuredCiError(event:any) {
+    if (this.insureArray.controls['criticalsumAssured'].value > 100000 && this.insureArray.controls['criticalsumAssured'].value < 5000000) {
+      this.ciError ='';
+    } else {
+      this.ciError = 'SumAssured Critical Illness should be 100000 - 5000000';
+    }
+  }
+  sumAssuredHCBError(event:any) {
+    if (this.insureArray.controls['sumAssuredHCB'].value > 100000 && this.insureArray.controls['sumAssuredHCB'].value < 600000) {
+      this.hcbdError ='';
+    } else {
+      this.hcbdError = 'SumAssured Hospital Cash Benefit should be 100000 - 600000';
+    }
+  }
   staffChange() {
 
     if (this.proposer.controls['isStaff'].value == 'Yes') {
@@ -2222,7 +2254,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
 
   appointeeAgeValid(event: any, i) {
-    if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true && i == 0) {
+    if (this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.value == true ) {
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.value );
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.value );
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.value );
@@ -2237,10 +2269,10 @@ export class EdelweissTermLifeComponent implements OnInit {
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.setValidators([Validators.required]);
 
     } else {
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue('');
-      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue('');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aGender.patchValue(' ');
+      this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].relationToInsured.patchValue(' ');
 
 
       this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aName.setValidators('');
@@ -2825,8 +2857,8 @@ export class EdelweissTermLifeComponent implements OnInit {
 
     if (this.insureArray.controls['isADB'].value == true) {
       this.insureArray.controls['sumAssuredADB'].patchValue(this.insureArray.controls['sumAssuredADB'].value);
-
       this.insureArray.controls['sumAssuredADB'].setValidators([Validators.required]);
+
     } else {
       this.insureArray.controls['sumAssuredADB'].patchValue('');
 

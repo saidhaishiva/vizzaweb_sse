@@ -325,6 +325,9 @@ import { HdfcTwoWheelerPaymentComponent } from './pages/hdfc-two-wheeler-payment
 import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-download-policy/hdfctwowheeler-download-policy.component';
 import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.component';
 import { HdfcCarProposalComponent } from './pages/hdfc-car-proposal/hdfc-car-proposal.component';
+import { BajajTermPaymentSuccessComponent } from './pages/bajaj-term-payment-success/bajaj-term-payment-success.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
     imports: [
@@ -355,6 +358,7 @@ import { HdfcCarProposalComponent } from './pages/hdfc-car-proposal/hdfc-car-pro
         SelectDropDownModule,
         // NgxMatSelectSearchModule,
         // AmazingTimePickerModule,
+        MatDialogModule,
         routing
     ],
     declarations: [
@@ -605,8 +609,10 @@ import { HdfcCarProposalComponent } from './pages/hdfc-car-proposal/hdfc-car-pro
         HdfcTwoWheelerPaymentComponent,
         HdfctwowheelerDownloadPolicyComponent,
         HdfcTermLifeComponent,
-        HdfcCarProposalComponent
+        HdfcCarProposalComponent,
+        BajajTermPaymentSuccessComponent,
     ],
+
     providers: [
         AppSettings,
         LoginService,
