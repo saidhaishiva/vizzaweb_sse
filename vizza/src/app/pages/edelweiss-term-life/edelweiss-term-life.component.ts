@@ -255,6 +255,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       isStaffSpouse: '',
       employeeCodeSpouse: '',
       relationSpouseProposer: '',
+      relationSpouseProposerName: '',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -315,6 +316,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       isStaffSpouse: '',
       employeeCodeSpouse: '',
       relationSpouseInsurer: '',
+      relationSpouseInsurerName: '',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -4077,6 +4079,7 @@ console.log(this.proposalId,'proposalId');
     if (successData.IsSuccess) {
       this.eNomineeRelation = successData.ResponseObject;
     }
+    console.log(this.eNomineeRelation,'this.eNomineeRelation')
   }
 
   public geteNomineeRelationFailure(error) {
@@ -4467,6 +4470,7 @@ console.log(this.proposalId,'proposalId');
         isStaffSpouse: this.getStepper1.isStaffSpouse,
         employeeCodeSpouse: this.getStepper1.employeeCodeSpouse,
         relationSpouseProposer: this.getStepper1.relationSpouseProposer,
+        relationSpouseProposerName: this.getStepper1.relationSpouseProposerName,
         currAddr1: this.getStepper1.currAddr1,
         currAddr2: this.getStepper1.currAddr2,
         currAddr3: this.getStepper1.currAddr3,
@@ -4515,7 +4519,7 @@ console.log(this.proposalId,'proposalId');
         aadhaarNo: this.getStepper2.aadhaarNo,
         fatherhusbandName: this.getStepper2.fatherhusbandName,
         ageProofId: this.getStepper2.ageProofId,
-          ageProofIdName: this.getStepper2.ageProofIdName,
+        ageProofIdName: this.getStepper2.ageProofIdName,
         highestQualification: this.getStepper2.highestQualification,
         highestQualificationName: this.getStepper2.highestQualificationName,
         otherQualification: this.getStepper2.otherQualification,
@@ -4548,10 +4552,10 @@ console.log(this.proposalId,'proposalId');
         isCurrPerAddrSame: this.getStepper2.isCurrPerAddrSame,
         employementTypeOther: this.getStepper2.employementTypeOther,
         employementType: this.getStepper2.employementType,
-          employementTypeName: this.getStepper2.employementTypeName,
+        employementTypeName: this.getStepper2.employementTypeName,
         employerName: this.getStepper2.employerName,
         natureduty: this.getStepper2.natureduty,
-          naturedutyName: this.getStepper2.naturedutyName,
+        naturedutyName: this.getStepper2.naturedutyName,
         employerAddr: this.getStepper2.employerAddr,
         annualIncome: this.getStepper2.annualIncome,
         taxResidence: this.getStepper2.taxResidence,
@@ -4568,6 +4572,7 @@ console.log(this.proposalId,'proposalId');
         adventurousActivitiesDetails: this.getStepper2.adventurousActivitiesDetails,
         addrProof: this.getStepper2.addrProof,
         addrProofName: this.getStepper2.addrProofName,
+        relationSpouseInsurerName: this.getStepper2.relationSpouseInsurerName,
         heightFeets: this.getStepper2.heightFeets,
         heightInches: this.getStepper2.heightInches,
         weight: this.getStepper2.weight,
@@ -4835,10 +4840,15 @@ console.log(this.proposalId,'proposalId');
   }
     geteSpouseeRelationName() {
         this.proposer.controls['relationSpouseProposerName'].patchValue(this.eNomineeRelation[this.proposer.controls['relationSpouseProposer'].value]);
+
   }
     geteSpouseeRelationInsureName() {
         this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.eNomineeRelation[this.insureArray.controls['relationSpouseInsurer'].value]);
-    }
+        console.log(this.eNomineeRelation,'changre');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
+        console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
+  }
 
 
 
