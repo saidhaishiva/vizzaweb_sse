@@ -1336,11 +1336,14 @@ export class EdelweissTermLifeComponent implements OnInit {
         // console.log(nominee2ageval,'nominee2ageval33333333');
 
             if (appointeeAge ) {
-              if (appointeeAge2 || appointeeAge2 == undefined ) {
+              // console.log(appointeeAge,'appointeeAgeentry')
+              if (appointeeAge2 || sessionStorage.appointeeAge2 == undefined ) {
+                // console.log(appointeeAge2,'aappointeeAge2eentry')
                 stepper.next();
                 this.topScroll();
                 // console.log(appointeeAge2,'falseApp');
-              } else {
+              }
+              else {
                 this.toastr.error('Appointee2 Age should be greater than 18.');
                 // console.log('1111');
               }
@@ -4844,10 +4847,10 @@ console.log(this.proposalId,'proposalId');
   }
     geteSpouseeRelationInsureName() {
         this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.eNomineeRelation[this.insureArray.controls['relationSpouseInsurer'].value]);
-        console.log(this.eNomineeRelation,'changre');
-        console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
-        console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
-        console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
+        // console.log(this.eNomineeRelation,'changre');
+        // console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
+        // console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
+        // console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
   }
 
 
