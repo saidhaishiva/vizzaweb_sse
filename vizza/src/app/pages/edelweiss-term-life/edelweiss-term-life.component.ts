@@ -44,6 +44,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public itemsNominee: any;
   public addExistingInsurance: any;
   public addmedicalQuestions: any;
+  public addmedFamilyQuestions: any;
   public adbError: any;
   public ciError: any;
   public atpdError: any;
@@ -76,6 +77,8 @@ export class EdelweissTermLifeComponent implements OnInit {
   public declaration: any;
   public eAddressProof: any;
   public eQualification: any;
+  public eAcceptanceTerm: any;
+  public ePolicyStatus: any;
   public eState: any;
   public eemploymentType: any;
   public eDuty: any;
@@ -83,6 +86,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public eHeightFeet: any;
   public epolicyOption: any;
   public epayoutOption: any;
+  public epayoutMonth: any;
   public eHeightInches: any;
   public eWeightChanged: any;
   public weightList: any;
@@ -242,7 +246,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       highestQualificationName: '',
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
-      isStaff: '',
+      isStaff: 'No',
       employeeCode: '',
       stitle: '',
       sfirstName: '',
@@ -251,8 +255,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       sdob: '',
       semailId: '',
       smobileNo: '',
-      isSmokerSpouse: '',
-      isStaffSpouse: '',
+      isSmokerSpouse: 'No',
+      isStaffSpouse: 'No',
       employeeCodeSpouse: '',
       relationSpouseProposer: '',
       relationSpouseProposerName: '',
@@ -303,7 +307,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       highestQualificationName: '',
       otherQualification: '',
       mobileNo: ['', Validators.compose([Validators.pattern('[6-9]\\d{9}')])],
-      isStaff: '',
+      isStaff: 'No',
       employeeCode: '',
       stitle: '',
       sfirstName: '',
@@ -312,8 +316,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       sdob: '',
       semailId: '',
       smobileNo: '',
-      isSmokerSpouse: '',
-      isStaffSpouse: '',
+      isSmokerSpouse: 'No',
+      isStaffSpouse: 'No',
       employeeCodeSpouse: '',
       relationSpouseInsurer: '',
       relationSpouseInsurerName: '',
@@ -341,14 +345,14 @@ export class EdelweissTermLifeComponent implements OnInit {
       taxResidence: '',
       isPoliticallyExposed: false,
       specification: '',
-      isCriminal: '',
+      isCriminal: 'No',
       criminalDetails: '',
       identityProof: ['', Validators.compose([Validators.required])],
       identityProofName: '',
       categorization: ['', Validators.compose([Validators.required])],
-      travelOutsideIndia: '',
-      pilot: '',
-      adventurousActivities: '',
+      travelOutsideIndia: 'No',
+      pilot: 'No',
+      adventurousActivities: 'No',
       adventurousActivitiesDetails: '',
       addrProof: ['', Validators.compose([Validators.required])],
       addrProofName: '',
@@ -365,25 +369,25 @@ export class EdelweissTermLifeComponent implements OnInit {
       einsureAccNo: 'No',
       epolicy1: 'No',
       insureRepository: '',
-      planOption: '',
-      workSiteFlag: '',
+      planOption: 'No',
+      workSiteFlag: 'No',
       investmentStrategy: '',
-      risingStar: '',
+      risingStar: 'No',
       policyOption: '',
       additionalBenefit: '',
-      TopUpBenefit: '',
+      TopUpBenefit: 'No',
       topUpBenefitPercentage: '',
       topUpRate: '',
-      betterHalfBenefit: '',
+      betterHalfBenefit: 'No',
       betterHalfsumAssured: '',
-      waiverOfPremiumBenefit: '',
-      criticalIllness: '',
+      waiverOfPremiumBenefit: 'No',
+      criticalIllness: 'No',
       criticalsumAssured: '',
-      isADB: '',
+      isADB: 'No',
       sumAssuredADB: '',
-      isATPD: '',
+      isATPD: 'No',
       sumAssuredATPD: '',
-      isHCB: '',
+      isHCB: 'No',
       sumAssuredHCB: '',
       payoutOption: '',
       noOfMonths: '',
@@ -393,68 +397,71 @@ export class EdelweissTermLifeComponent implements OnInit {
     });
 
       this.medicalDetail = this.fb.group({
-        medicalTreatment: '',
+        medicalTreatment: 'No',
         medicationDetails: '',
-        receivedTreatment1: '',
+        receivedTreatment1: 'No',
         diagnosedDetails:  '',
-        receivedTreatment2: '',
+        receivedTreatment2: 'No',
         aidsDetails: '',
         healthInformation: '',
-        drugsInd: '',
+        drugsInd: 'No',
         drugsDetails: '',
-        alcoholInd: '',
+        alcoholInd: 'No',
         alcoholDetails: '',
-        tobaccoInd: '',
+        tobaccoInd: 'No',
         tobaccoDetails: '',
         tobaccoStopInd: '',
         tobaccoStopDetails: '',
-        consultDoctorInd: '',
+        consultDoctorInd: 'No',
         consultDoctorDetails: '',
-        ECGInd: '',
+        ECGInd: 'No',
         ECGDetails: '',
-        admitInd: '',
+        admitInd: 'No',
         admitDetails:  '',
-        heartDieaseInd: '',
+        heartDieaseInd: 'No',
         heartDieaseDetails: '',
-        BPInd: '',
+        BPInd: 'No',
         BPDetails:  '',
-        respiratoryDieaseInd: '',
+        respiratoryDieaseInd: 'No',
         respiratoryDieaseDetails: '',
-        diabetesInd: '',
+        diabetesInd: 'No',
         diabetesDetails: '',
-        kidneyDieaseInd: '',
+        kidneyDieaseInd: 'No',
         kidneyDieaseDetails: '',
-        digestiveDieaseInd: '',
+        digestiveDieaseInd: 'No',
         digestiveDieaseDetails: '',
-        cancerDieaseInd: '',
+        cancerDieaseInd: 'No',
         cancerDieaseDetails: '',
-        tropicalDieaseInd: '',
+        tropicalDieaseInd: 'No',
         tropicalDieaseDetails: '',
-        thyroidDieaseInd: '',
+        thyroidDieaseInd: 'No',
         thyroidDieaseDetails: '',
-        bloodDieaseInd: '',
+        bloodDieaseInd: 'No',
         bloodDieaseDetails: '',
-        nervousDieaseInd: '',
+        nervousDieaseInd: 'No',
         nervousDieaseDetails: '',
-        ENTDieaseInd: '',
+        ENTDieaseInd: 'No',
         ENTDieaseDetails: '',
-        muscleDieaseInd: '',
+        muscleDieaseInd: 'No',
         muscleDieaseDetails: '',
-        alcoholicInd: '',
+        alcoholicInd: 'No',
         alcoholicDetails: '',
-        otherIllnessInd: '',
+        otherIllnessInd: 'No',
         otherIllnessDetails: '',
-        deformityInd: '',
+        deformityInd: 'No',
         deformityDetails: '',
-        symptomsInd: '',
+        symptomsInd: 'No',
         symptomsDetails: '',
-        pregnantInd: '',
+        pregnantInd: 'No',
         pregnantweeks: '',
-        femaleDieaseInd: '',
+        femaleDieaseInd: 'No',
         femaleDieaseWeeks: '',
         medicalQuestions : new FormArray([
               this.medicalQuesCreate()
           ]),
+        medicalFamilyQuestions : new FormArray([
+          this.medicalFamilyCreate()
+        ]),
 
       });
 
@@ -479,6 +486,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     });
 
     this.addmedicalQuestions = this.medicalDetail.get('medicalQuestions') as FormArray;
+    this.addmedFamilyQuestions = this.medicalDetail.get('medicalFamilyQuestions') as FormArray;
 
     this.documentDetail = this.fb.group({
       incomeLA: '',
@@ -488,7 +496,6 @@ export class EdelweissTermLifeComponent implements OnInit {
       documentLA: '',
       proposalLA: '',
       salereqLA: '',
-      // photoLA: '',
       kycLA: '',
       incomePA: '',
       identityPA: '',
@@ -497,7 +504,6 @@ export class EdelweissTermLifeComponent implements OnInit {
       documentPA: '',
       proposalPA: '',
       salereqPA: '',
-      // photoPA: '',
       kycPA: '',
 
 
@@ -521,6 +527,8 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteIdProof();
     this.geteAddressProof();
     this.geteQualification();
+    this.getepolicyStatus();
+    this.geteAcceptanceTerm();
     this.geteState();
     this.geteemploymentType();
     this.geteDuty();
@@ -532,6 +540,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteWeightChanged();
     this.changeWeightChanged();
     this.getePolicyCategory();
+    this.getpayoutMonth();
     this.geteNomineeRelation();
     this.geteInsuranceRepository();
     this.getetopUpRate();
@@ -614,7 +623,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       yearOfIssue :  new FormControl(),
       sumAssured: new FormControl(),
       annualizedPremium :  new FormControl(),
-      policyStatus :  new FormControl()
+      policyStatus :  new FormControl(),
+      acceptanceTerm :  new FormControl()
     });
   }
 
@@ -667,6 +677,32 @@ export class EdelweissTermLifeComponent implements OnInit {
 
 
     }
+
+  // Medical Family Create
+  medicalFamilyCreate() {
+    return new FormGroup({
+      relation: new FormControl(),
+      age :  new FormControl(),
+      healthStatus :  new FormControl(),
+      relationName :  new FormControl(),
+
+    });
+  }
+  addFamilyItems() {
+    if (this.medicalDetail.get('medicalFamilyQuestions').value.length < 5) {
+      this.addmedFamilyQuestions.push(this.medicalFamilyCreate());
+      // this.existingInsureReq();
+      console.log(this.addmedFamilyQuestions, 'this.addmedFamilyQuestions');
+    }
+  }
+  removeFamilyItems(index) {
+    let removeFamily =  this.medicalDetail.get('medicalFamilyQuestions') as FormArray;
+    console.log(removeFamily,'ssssss')
+    removeFamily.removeAt(index);
+    console.log(index, 'this.index');
+
+
+  }
   addEvent(event) {
     if (event.value != null) {
       let selectedDate = '';
@@ -2214,6 +2250,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.value );
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.value );
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.value );
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.patchValue(this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.value );
 
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators([Validators.required]);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators([Validators.required]);
@@ -2221,6 +2258,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators([Validators.required]);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators([Validators.required]);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators([Validators.required]);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.setValidators([Validators.required]);
       }
 
     } else if (this.bankDetail.controls['existingInsuranceInd'].value == false) {
@@ -2233,6 +2271,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue('');
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue('');
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue('');
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.patchValue('');
 
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyNo.setValidators(null);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].companyName.setValidators(null);
@@ -2240,6 +2279,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.setValidators(null);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.setValidators(null);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.setValidators(null);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.setValidators(null);
       }
      }
     for (let i=0; i < this.bankDetail['controls'].existingInsurance['controls'].length; i++) {
@@ -2252,6 +2292,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.updateValueAndValidity();
           this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.updateValueAndValidity();
           this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.updateValueAndValidity();
+          this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.updateValueAndValidity();
     }
 
 
@@ -3063,7 +3104,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "annualIncome":this.insureArray.controls['annualIncome'].value,
         "isIncomeSource":"",
         "incomeSourceDetails":"",
-        "familyDiease_Ind":this.insureArray.controls['insureHistory'].value ? 'Y' : 'N',
+        "familyDiease_Ind":this.insureArray.controls['insureHistory'].value  == 'Yes' ? 'Y' : 'N',
         "familyDiease_Details":"",
         "hasfamilyAppliedETLI":"",
         "otherPolicy_Ind":"",
@@ -3088,9 +3129,9 @@ export class EdelweissTermLifeComponent implements OnInit {
         "ageProof":this.insureArray.controls['ageProofId'].value,
         "otherAgeProof":"",
         "addrProof":this.insureArray.controls['addrProof'].value,
-        "travelOutsideIndiaInd":this.insureArray.controls['travelOutsideIndia'].value,
-        "pilotInd":this.insureArray.controls['pilot'].value,
-        "adventurousActivitiesInd":this.insureArray.controls['adventurousActivities'].value,
+        "travelOutsideIndiaInd":this.insureArray.controls['travelOutsideIndia'].value  == 'Yes' ? 'Y' : 'N',
+        "pilotInd":this.insureArray.controls['pilot'].value  == 'Yes' ? 'Y' : 'N',
+        "adventurousActivitiesInd":this.insureArray.controls['adventurousActivities'].value  == 'Yes' ? 'Y' : 'N',
         "adventurousActivitiesDetails":this.insureArray.controls['adventurousActivitiesDetails'].value,
         "corrAddrProof":"",
         "incomeProof":"",
@@ -3109,7 +3150,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "hasWeightChanged":this.insureArray.controls['hasWeightChanged'].value =='Same'? 'N' : 'Y',
         "weightChange":this.insureArray.controls['inbetweenweight'].value,
         "weightChangeReason":this.insureArray.controls['weightChangedreason'].value,
-        "isStaff":this.insureArray.controls['isStaff'].value ? 'Y' : 'N',
+        "isStaff":this.insureArray.controls['isStaff'].value == 'Yes' ? 'Y' : 'N',
         "employeeCode":this.insureArray.controls['employeeCode'].value,
         "isHospitalized":"",
         "hospitalizedDate":"",
@@ -3118,64 +3159,68 @@ export class EdelweissTermLifeComponent implements OnInit {
         "isTaxResOfIndia":this.insureArray.controls['taxResidence'].value,
         "aadhaarNo":this.insureArray.controls['aadhaarNo'].value,
         "questionnaires":{
-          "healthInformation":this.medicalDetail.controls['healthInformation'].value ? 'Y' : 'N',
-          "drugsInd":this.medicalDetail.controls['drugsInd'].value ? 'Y' : 'N',
+          "travelOutsideIndiaInd":this.insureArray.controls['travelOutsideIndia'].value  == 'Yes' ? 'Y' : 'N',
+          "pilotInd":this.insureArray.controls['pilot'].value  == 'Yes' ? 'Y' : 'N',
+          "adventurousActivitiesInd":this.insureArray.controls['adventurousActivities'].value  == 'Yes' ? 'Y' : 'N',
+          "adventurousActivitiesDetails":this.insureArray.controls['adventurousActivitiesDetails'].value,
+          "healthInformation":this.medicalDetail.controls['healthInformation'].value  == 'Yes' ? 'Y' : 'N',
+          "drugsInd":this.medicalDetail.controls['drugsInd'].value  == 'Yes' ? 'Y' : 'N',
           "drugsDetails":this.medicalDetail.controls['drugsDetails'].value,
-          "alcoholInd":this.medicalDetail.controls['alcoholInd'].value ? 'Y' : 'N',
+          "alcoholInd":this.medicalDetail.controls['alcoholInd'].value  == 'Yes' ? 'Y' : 'N',
           "alcoholDetails":this.medicalDetail.controls['alcoholDetails'].value,
-          "tobaccoInd":this.medicalDetail.controls['tobaccoInd'].value ? 'Y' : 'N',
-          "tobaccoDetails":this.medicalDetail.controls['tobaccoDetails'].value ? 'Y' : 'N',
-          "tobaccoStopInd":this.medicalDetail.controls['tobaccoStopInd'].value ? 'Y' : 'N',
-          "tobaccoStopDetails":this.medicalDetail.controls['tobaccoStopDetails'].value ? 'Y' : 'N',
-          "consultDoctorInd":this.medicalDetail.controls['consultDoctorInd'].value ? 'Y' : 'N',
+          "tobaccoInd":this.medicalDetail.controls['tobaccoInd'].value  == 'Yes' ? 'Y' : 'N',
+          "tobaccoDetails":this.medicalDetail.controls['tobaccoDetails'].value ,
+          "tobaccoStopInd":this.medicalDetail.controls['tobaccoStopInd'].value  == 'Yes' ? 'Y' : 'N',
+          "tobaccoStopDetails":this.medicalDetail.controls['tobaccoStopDetails'].value ,
+          "consultDoctorInd":this.medicalDetail.controls['consultDoctorInd'].value  == 'Yes' ? 'Y' : 'N',
           "consultDoctorDetails":this.medicalDetail.controls['consultDoctorDetails'].value,
-          "ECGInd":this.medicalDetail.controls['ECGInd'].value ? 'Y' : 'N',
+          "ECGInd":this.medicalDetail.controls['ECGInd'].value  == 'Yes' ? 'Y' : 'N',
           "ECGDetails":this.medicalDetail.controls['ECGDetails'].value,
-          "admitInd":this.medicalDetail.controls['admitInd'].value ? 'Y' : 'N',
+          "admitInd":this.medicalDetail.controls['admitInd'].value  == 'Yes' ? 'Y' : 'N',
           "admitDetails":this.medicalDetail.controls['admitDetails'].value,
-          "medicationInd":this.medicalDetail.controls['medicalTreatment'].value ? 'Y' : 'N',
+          "medicationInd":this.medicalDetail.controls['medicalTreatment'].value  == 'Yes' ? 'Y' : 'N',
           "medicationDetails":this.medicalDetail.controls['medicationDetails'].value,
-          "diagnosedInd":this.medicalDetail.controls['receivedTreatment1'].value ? 'Y' : 'N',
+          "diagnosedInd":this.medicalDetail.controls['receivedTreatment1'].value  == 'Yes' ? 'Y' : 'N',
           "diagnosedDetails":this.medicalDetail.controls['diagnosedDetails'].value,
-          "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd'].value ? 'Y' : 'N',
+          "heartDieaseInd":this.medicalDetail.controls['heartDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "heartDieaseDetails":this.medicalDetail.controls['heartDieaseDetails'].value,
-          "BPInd":this.medicalDetail.controls['BPInd'].value ? 'Y' : 'N',
+          "BPInd":this.medicalDetail.controls['BPInd'].value  == 'Yes' ? 'Y' : 'N',
           "BPDetails":this.medicalDetail.controls['BPDetails'].value,
-          "respiratoryDieaseInd":this.medicalDetail.controls['respiratoryDieaseInd'].value ? 'Y' : 'N',
+          "respiratoryDieaseInd":this.medicalDetail.controls['respiratoryDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "respiratoryDieaseDetails":this.medicalDetail.controls['respiratoryDieaseDetails'].value,
-          "diabetesInd":this.medicalDetail.controls['diabetesInd'].value ? 'Y' : 'N',
+          "diabetesInd":this.medicalDetail.controls['diabetesInd'].value  == 'Yes' ? 'Y' : 'N',
           "diabetesDetails":this.medicalDetail.controls['diabetesDetails'].value,
-          "kidneyDieaseInd":this.medicalDetail.controls['kidneyDieaseInd'].value ? 'Y' : 'N',
+          "kidneyDieaseInd":this.medicalDetail.controls['kidneyDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "kidneyDieaseDetails":this.medicalDetail.controls['kidneyDieaseDetails'].value,
-          "digestiveDieaseInd":this.medicalDetail.controls['digestiveDieaseInd'].value ? 'Y' : 'N',
+          "digestiveDieaseInd":this.medicalDetail.controls['digestiveDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "digestiveDieaseDetails":this.medicalDetail.controls['digestiveDieaseDetails'].value,
-          "cancerDieaseInd":this.medicalDetail.controls['cancerDieaseInd'].value ? 'Y' : 'N',
+          "cancerDieaseInd":this.medicalDetail.controls['cancerDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "cancerDieaseDetails":this.medicalDetail.controls['cancerDieaseDetails'].value,
-          "tropicalDieaseInd":this.medicalDetail.controls['tropicalDieaseInd'].value ? 'Y' : 'N',
+          "tropicalDieaseInd":this.medicalDetail.controls['tropicalDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "tropicalDieaseDetails":this.medicalDetail.controls['tropicalDieaseDetails'].value,
-          "thyroidDieaseInd":this.medicalDetail.controls['thyroidDieaseInd'].value ? 'Y' : 'N',
+          "thyroidDieaseInd":this.medicalDetail.controls['thyroidDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "thyroidDieaseDetails":this.medicalDetail.controls['thyroidDieaseDetails'].value,
-          "bloodDieaseInd":this.medicalDetail.controls['bloodDieaseInd'].value ? 'Y' : 'N',
+          "bloodDieaseInd":this.medicalDetail.controls['bloodDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "bloodDieaseDetails":this.medicalDetail.controls['bloodDieaseDetails'].value,
-          "nervousDieaseInd":this.medicalDetail.controls['nervousDieaseInd'].value ? 'Y' : 'N',
+          "nervousDieaseInd":this.medicalDetail.controls['nervousDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "nervousDieaseDetails":this.medicalDetail.controls['nervousDieaseDetails'].value,
-          "ENTDieaseInd":this.medicalDetail.controls['ENTDieaseInd'].value ? 'Y' : 'N',
+          "ENTDieaseInd":this.medicalDetail.controls['ENTDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "ENTDieaseDetails":this.medicalDetail.controls['ENTDieaseDetails'].value,
-          "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd'].value ? 'Y' : 'N',
+          "muscleDieaseInd":this.medicalDetail.controls['muscleDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "muscleDieaseDetails":this.medicalDetail.controls['muscleDieaseDetails'].value,
-          "aidsInd":this.medicalDetail.controls['receivedTreatment2'].value ? 'Y' : 'N',
+          "aidsInd":this.medicalDetail.controls['receivedTreatment2'].value  == 'Yes' ? 'Y' : 'N',
           "aidsDetails":this.medicalDetail.controls['aidsDetails'].value,
-          "alcoholicInd":this.medicalDetail.controls['alcoholicInd'].value ? 'Y' : 'N',
+          "alcoholicInd":this.medicalDetail.controls['alcoholicInd'].value  == 'Yes' ? 'Y' : 'N',
           "alcoholicDetails":this.medicalDetail.controls['alcoholicDetails'].value,
-          "otherIllnessInd":this.medicalDetail.controls['otherIllnessInd'].value ? 'Y' : 'N',
+          "otherIllnessInd":this.medicalDetail.controls['otherIllnessInd'].value  == 'Yes' ? 'Y' : 'N',
           "otherIllnessDetails":this.medicalDetail.controls['otherIllnessDetails'].value,
-          "deformityInd":this.medicalDetail.controls['deformityInd'].value ? 'Y' : 'N',
+          "deformityInd":this.medicalDetail.controls['deformityInd'].value == 'Yes' ? 'Y' : 'N',
           "deformityDetails":this.medicalDetail.controls['deformityDetails'].value,
-          "symptomsInd":this.medicalDetail.controls['symptomsInd'].value ? 'Y' : 'N',
+          "symptomsInd":this.medicalDetail.controls['symptomsInd'].value  == 'Yes' ? 'Y' : 'N',
           "symptomsDetails":this.medicalDetail.controls['symptomsDetails'].value,
-          "pregnantInd":this.medicalDetail.controls['pregnantInd'].value ? 'Y' : 'N',
-          "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ? 'Y' : 'N',
-          "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value ? 'Y' : 'N',
+          "pregnantInd":this.medicalDetail.controls['pregnantInd'].value  == 'Yes' ? 'Y' : 'N',
+          "pregnantweeks":this.medicalDetail.controls['pregnantweeks'].value ,
+          "femaleDiease_Ind":this.medicalDetail.controls['femaleDieaseInd'].value  == 'Yes' ? 'Y' : 'N',
           "femaleDieaseWeeks":this.medicalDetail.controls['femaleDieaseWeeks'].value,
           "medicalQuestions":this.medicalDetail.value.medicalQuestions,
         },
@@ -3232,7 +3277,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "ageProofId":this.proposer.controls['ageProofId'].value,
         "emailId":this.proposer.controls['emailId'].value,
         "phoneNo":this.proposer.controls['mobileNo'].value,
-        "isStaff":this.proposer.controls['isStaff'].value ? 'Y' : 'N',
+        "isStaff":this.proposer.controls['isStaff'].value == 'Yes' ? 'Y' : 'N',
         "employeeCode":this.proposer.controls['employeeCode'].value,
         "ResidencePhoneNo":"",
         "alternate_cnt_no":"",
@@ -3272,6 +3317,14 @@ export class EdelweissTermLifeComponent implements OnInit {
         "annualIncome":this.proposer.controls['annualIncome'].value,
         "isIncomeSource":"",
         "incomeSourceDetails":"",
+        "familyHistory":this.medicalDetail.value.medicalFamilyQuestions,
+          // {
+          //   "relation":"1",
+          //   "age":"50",
+          //   "healthStatus":"Healthy",
+          //   "ageOnDeath":"N/A",
+          //   "causeOfDeath":"N/A"
+          // }],
         "familyDiease_Ind":"",
         "familyDiease_Details":"",
         "hasfamilyAppliedETLI":"",
@@ -3291,6 +3344,8 @@ export class EdelweissTermLifeComponent implements OnInit {
         "FamPhysicianAddr1":"",
         "FamPhysicianAddr2":"",
         "FamPhysicianPhone":"",
+        "isCriminal":"",
+        "criminalDetails":"",
         "identityProof":"",
         "ageProof":"",
         "otherAgeProof":"",
@@ -3793,8 +3848,60 @@ console.log(this.proposalId,'proposalId');
       this.eQualification = successData.ResponseObject;
     }
   }
-
   public geteQualificationFailure(error) {
+  }
+
+  getepolicyStatus() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.getepolicyStatus(data).subscribe(
+        (successData) => {
+          this.getepolicyStatusSuccess(successData);
+        },
+        (error) => {
+          this.getepolicyStatusFailure(error);
+        }
+    );
+  }
+
+  public getepolicyStatusSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.ePolicyStatus = successData.ResponseObject;
+    }
+  }
+  public getepolicyStatusFailure(error) {
+  }
+
+  geteAcceptanceTerm() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.geteacceptanceTerm(data).subscribe(
+        (successData) => {
+          this.geteacceptanceTermSuccess(successData);
+        },
+        (error) => {
+          this.geteacceptanceTermFailure(error);
+        }
+    );
+  }
+
+  public geteacceptanceTermSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.eAcceptanceTerm = successData.ResponseObject;
+    }
+  }
+
+  public geteacceptanceTermFailure(error) {
   }
   geteState() {
     const data = {
@@ -3952,6 +4059,32 @@ console.log(this.proposalId,'proposalId');
   }
 
   public getepayoutOptionFailure(error) {
+  }
+  getpayoutMonth() {
+    const data = {
+      'platform': 'web',
+      'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      'pos_status': this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+
+    }
+    this.termService.getepayoutMonthOption(data).subscribe(
+        (successData) => {
+          this.getpayoutMonthSuccess(successData);
+        },
+        (error) => {
+          this.getpayoutMonthFailure(error);
+        }
+    );
+  }
+
+  public getpayoutMonthSuccess(successData) {
+    if (successData.IsSuccess) {
+      this.epayoutMonth = successData.ResponseObject;
+    }
+  }
+
+  public getpayoutMonthFailure(error) {
   }
   geteHeightInches() {
     const data = {
@@ -4455,7 +4588,7 @@ console.log(this.proposalId,'proposalId');
         aadhaarNo: this.getStepper1.aadhaarNo,
         fatherhusbandName: this.getStepper1.fatherhusbandName,
         ageProofId: this.getStepper1.ageProofId,
-          ageProofIdName: this.getStepper1.ageProofIdName,
+        ageProofIdName: this.getStepper1.ageProofIdName,
         highestQualification: this.getStepper1.highestQualification,
         highestQualificationName: this.getStepper1.highestQualificationName,
         otherQualification: this.getStepper1.otherQualification,
@@ -4652,6 +4785,22 @@ console.log(this.proposalId,'proposalId');
 
               }
           }
+        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions.length; i++) {
+          if ( i !=  0) {
+            this.addMedItems();
+            this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relation.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relation);
+            this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].age.patchValue(getMedicalDetail.medicalFamilyQuestions[i].age);
+            this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.patchValue(getMedicalDetail.medicalFamilyQuestions[i].healthStatus);
+            this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relationName);
+
+          } else if (i == 0) {
+
+            this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relation.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relation);
+            this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].age.patchValue(getMedicalDetail.medicalFamilyQuestions[i].age);
+            this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.patchValue(getMedicalDetail.medicalFamilyQuestions[i].healthStatus);
+
+          }
+        }
 
         this.medicalDetail.controls['healthInformation'].patchValue(getMedicalDetail.healthInformation);
         this.medicalDetail.controls['drugsInd'].patchValue(getMedicalDetail.drugsInd);
@@ -4779,6 +4928,7 @@ console.log(this.proposalId,'proposalId');
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].sumAssured.patchValue(getStepper4.existingInsurance[i].sumAssured);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].annualizedPremium.patchValue(getStepper4.existingInsurance[i].annualizedPremium);
         this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].policyStatus.patchValue(getStepper4.existingInsurance[i].policyStatus);
+        this.bankDetail['controls'].existingInsurance['controls'][i]['controls'].acceptanceTerm.patchValue(getStepper4.existingInsurance[i].acceptanceTerm);
       }
 
         this.bankDetail.controls['accountNo'].patchValue(getStepper4.accountNo);
@@ -4840,6 +4990,9 @@ console.log(this.proposalId,'proposalId');
   }
     geteNomineeRelationName(i) {
    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] );
+  }
+  geteFamRelationshipName(i) {
+    this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relationName.patchValue(this.eNomineeRelation[this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relation.value] );
   }
     geteSpouseeRelationName() {
         this.proposer.controls['relationSpouseProposerName'].patchValue(this.eNomineeRelation[this.proposer.controls['relationSpouseProposer'].value]);

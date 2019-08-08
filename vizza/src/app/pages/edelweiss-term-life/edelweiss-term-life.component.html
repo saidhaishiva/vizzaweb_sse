@@ -1131,6 +1131,14 @@
                                        <mat-error *ngIf="insureArray.controls.noOfMonths.errors?.required">noOfMonths is required</mat-error>
                                    </mat-form-field>
                                </div>
+                               <div class="col-md-4">
+                                   <mat-form-field class="w-100">
+                                       <mat-select  placeholder="No Of Months" formControlName="noOfMonths" (change)="getpayoutMonth()"  class="w-100" required>
+                                           <mat-option *ngFor="let list of epayoutMonth | keys" [value]= list.key> {{list.value}} </mat-option>
+                                       </mat-select>
+                                       <mat-error *ngIf="insureArray.controls.noOfMonths.errors?.required">No Of Months is required</mat-error>
+                                   </mat-form-field>
+                               </div>
 
                            </div>
 
@@ -1138,7 +1146,6 @@
                            <div class="col-md-12">
                                <h6 class="color-blue">INSURANCE HISTORY</h6>
                            </div>
-
                            <div class="col-md-12">
                                <mat-radio-group formControlName="insureHistory" >
                                    <p>Has any application or proposal for life, health, accident or critical illness including renewal and reinstatement ever been declined, deferred, withdrawn or accepted at special rates or terms by Edelweiss Tokio Life Insurance Co. or any other insurance company in India / Overseas.</p>
@@ -1146,7 +1153,6 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-
                        </div>
                        <div class="row p-3">
                            <div class="col-md-12 ">
@@ -1687,6 +1693,45 @@
                                </div>
                            </div>
                            </div>
+                           <div class="row p-3">
+                               <div class="col-md-12">
+                                   <h6 class="color-blue">FAMILY HISTORY</h6>
+                               </div>
+                               <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
+                                   <div class="col-md-12 ">
+
+                                       <div  formArrayName="medicalFamilyQuestions" *ngFor="let item of medicalDetail.get('medicalFamilyQuestions')['controls']; let i = index;">
+                                           <div class="row" [formGroupName]="i">
+                                               <div class="col-md-3">
+                                                   <mat-form-field class="w-100">
+                                                       <mat-select  placeholder="Relationship" formControlName="relation" (change)="geteFamRelationshipName(i)" required class="w-100">
+                                                           <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
+                                                       </mat-select>
+                                                       <mat-error *ngIf="medicalDetail.invalid">Relation is required</mat-error>
+                                                   </mat-form-field>
+                                               </div>
+                                               <div class="col-md-2">
+                                                   <mat-form-field class="w-100">
+                                                       <input matInput placeholder="Age" formControlName="age" maxlength="3" (keypress)="numberValidate($event)" autocomplete="off" required  >
+                                                       <mat-error *ngIf="medicalDetail.invalid">Age is required</mat-error>
+                                                   </mat-form-field>
+                                               </div>
+
+                                               <div class="col-md-6">
+                                                   <mat-form-field class="w-100">
+                                                       <input matInput placeholder="Health Status" formControlName="healthStatus" maxlength="50" autocomplete="off" required  >
+                                                       <mat-error *ngIf="medicalDetail.invalid">Health Status is required</mat-error>
+                                                   </mat-form-field>
+                                               </div>
+
+
+                                               <button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalFamilyQuestions').value.length < 5" color="accent"  (click)="addFamilyItems()">+</button>
+                                               <button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeFamilyItems(i)">-</button>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
                        </div>
                            <div class="proposal-buttom mt-3 text-right w-100">
                                <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
@@ -1925,12 +1970,23 @@
                                     </div>
 
                                     <div class="col-md-3" >
-                                       <mat-form-field class="w-100">
-                                         <mat-placeholder>Policy Status<span class="error" *ngIf="bankDetail.controls['existingInsuranceInd'].value == true">*</span></mat-placeholder>
-                                           <mat-select  formControlName="policyStatus"  >
-                                             <mat-option value="Active">Active</mat-option>
-                                              <mat-option value="Deactive">Deactive</mat-option>
-                                           </mat-select>
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Policy Status<span class="error" *ngIf="bankDetail.controls['existingInsuranceInd'].value == true">*</span></mat-placeholder>
+                                            <mat-select formControlName="policyStatus" autocomplete="off"  (change)="getepolicyStatus()">
+                                                <mat-option *ngFor="let list of ePolicyStatus | keys" [value]= 'list.value'>
+                                                    {{list.value}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-md-3" >
+                                        <mat-form-field class="w-100">
+                                            <mat-placeholder>Acceptance Term<span class="error" *ngIf="bankDetail.controls['existingInsuranceInd'].value == true">*</span></mat-placeholder>
+                                            <mat-select formControlName="acceptanceTerm" autocomplete="off"  (change)="geteAcceptanceTerm()">
+                                                <mat-option *ngFor="let list of eAcceptanceTerm | keys" [value]= 'list.value'>
+                                                    {{list.value}}
+                                                </mat-option>
+                                            </mat-select>
                                         </mat-form-field>
                                     </div>
                                     <button mat-mini-fab	*ngIf=" i == 0 && bankDetail.get('existingInsurance').value.length < 5" color="accent"  (click)="addItems()">+</button>
@@ -2175,7 +2231,7 @@
                                        <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseInsurer != ''"><strong>Relation To Proposer:</strong> {{insuredFormData.relationSpouseInsurerName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseInsurer != ''"><strong>Relation To Insurer:</strong> {{insuredFormData.relationSpouseInsurerName}}</li>
                                    </ul>
                                </div>
                            </div>
