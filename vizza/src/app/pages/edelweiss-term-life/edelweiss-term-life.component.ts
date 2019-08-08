@@ -255,6 +255,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       isStaffSpouse: '',
       employeeCodeSpouse: '',
       relationSpouseProposer: '',
+      relationSpouseProposerName: '',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -315,6 +316,7 @@ export class EdelweissTermLifeComponent implements OnInit {
       isStaffSpouse: '',
       employeeCodeSpouse: '',
       relationSpouseInsurer: '',
+      relationSpouseInsurerName: '',
       currAddr1: ['', Validators.compose([Validators.required])],
       currAddr2: ['', Validators.compose([Validators.required])],
       currAddr3: '',
@@ -1287,10 +1289,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.nomineeDetail.get('itemsNominee')['controls'].length,'length');
 
     // nomineeAge validate
-    let nomineeValid = false;
+    let nomineeValid = true;
     if (sessionStorage.nomineAge != '' && sessionStorage.nomineAge != undefined) {
       if (sessionStorage.nomineAge <= 18) {
-        nomineeValid = true;
+        nomineeValid = false;
       }
     }
     // appointeeAge validatate
@@ -1314,57 +1316,42 @@ export class EdelweissTermLifeComponent implements OnInit {
     let nominee2ageval;
     for (let i=0; i < this.nomineeDetail.get('itemsNominee')['controls'].length; i++) {
       if ( this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeAgeVal.value == 1) {
-        nominee2ageval = true;
+        nominee2ageval = false;
 
       } else {
-        nominee2ageval = false;
+        nominee2ageval = true;
       }
     }
-    console.log(sessionStorage.appointeeAge,'appointeeAge11232');
-
-    console.log(nominee2ageval, 'nominee2ageval');
-    console.log(nomineeValid, 'nomineeVLID');
-    console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
-
+    // console.log(sessionStorage.appointeeAge,' appointeeAge11232 ');
+    //
+    // console.log(nominee2ageval, 'nominee2ageval');
+    // console.log(nomineeValid, 'nomineeVLID');
+    // console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
+    // console.log(this.nomineeDetails.valid,'this.nomineeDetails.valid')
     if (this.nomineeDetail.controls.itemsNominee.valid) {
-      console.log(this.nomineeDetail.controls.itemsNominee.valid, 'this.nomineeDetail.controls');
-      // if (!nomineeValid || !nominee2ageval) {
-      //   console.log(!nomineeValid,'!nomineeValid0000000000');
-      //   console.log(!nominee2ageval,'! !nominee2ageval88888888');
-      //   stepper.next();
-      //   this.topScroll();
-      //   // if ( nomineeValid == true || nominee2ageval = true ) {
-      //   if (nomineeValid == true && appointeeAge == true) {
-      //     if (nominee2ageval == true && appointeeAge2 == true) {
-      //       stepper.next();
-      //       this.topScroll();
-      //     }
-      //   } else {
-      //     this.toastr.error('Appointee Age should be greater than 18.');
-      //   }
-      //   console.log(nominee2ageval, 'nominee2ageval333333');
-      //   console.log(appointeeAge, 'appointeeAge1111111111');
-      //   console.log(nomineeValid, 'nomineeValid66666666666');
-      //   console.log(appointeeAge2, 'appointeeAge244444444444');
-      //
-      // }
-      // if ((!nomineeValid && (appointeeAge == undefined || sessionStorage.appointeeAge != '')) || (!nominee2ageval && (appointeeAge2 == undefined || sessionStorage.appointeeAge2 != '' ))) {
       if (!nomineeValid || !nominee2ageval) {
-        console.log(!nomineeValid,'!nomineeValid0000000000');
-          console.log(!nominee2ageval,'! !nominee2ageval88888888');
-          console.log('9999999');
-        stepper.next();
-        this.topScroll();
-      } else  if ((nomineeValid == true && appointeeAge == true) || (nominee2ageval == true && appointeeAge2 == true)) {
-        console.log('45678');
-        stepper.next();
-        this.topScroll();
-        console.log('900');
-      } else {
-        console.log('3999');
-        this.toastr.error('Appointee Age should be greater than 18.');
-      }
+        // console.log(!nomineeValid,'111nomineeValid');
+        // console.log(nomineeValid,'2222nomineeValid');
+        // console.log(!nominee2ageval,'nominee2ageval111');
+        // console.log(nominee2ageval,'nominee2ageval33333333');
 
+            if (appointeeAge ) {
+              if (appointeeAge2 || appointeeAge2 == undefined ) {
+                stepper.next();
+                this.topScroll();
+                // console.log(appointeeAge2,'falseApp');
+              } else {
+                this.toastr.error('Appointee2 Age should be greater than 18.');
+                // console.log('1111');
+              }
+            } else {
+              this.toastr.error('Appointee Age should be greater than 18.');
+              // console.log('2222');
+            }
+          } else {
+          stepper.next();
+          this.topScroll();
+        }
     }
   }
 
@@ -4092,6 +4079,7 @@ console.log(this.proposalId,'proposalId');
     if (successData.IsSuccess) {
       this.eNomineeRelation = successData.ResponseObject;
     }
+    console.log(this.eNomineeRelation,'this.eNomineeRelation')
   }
 
   public geteNomineeRelationFailure(error) {
@@ -4482,6 +4470,7 @@ console.log(this.proposalId,'proposalId');
         isStaffSpouse: this.getStepper1.isStaffSpouse,
         employeeCodeSpouse: this.getStepper1.employeeCodeSpouse,
         relationSpouseProposer: this.getStepper1.relationSpouseProposer,
+        relationSpouseProposerName: this.getStepper1.relationSpouseProposerName,
         currAddr1: this.getStepper1.currAddr1,
         currAddr2: this.getStepper1.currAddr2,
         currAddr3: this.getStepper1.currAddr3,
@@ -4530,7 +4519,7 @@ console.log(this.proposalId,'proposalId');
         aadhaarNo: this.getStepper2.aadhaarNo,
         fatherhusbandName: this.getStepper2.fatherhusbandName,
         ageProofId: this.getStepper2.ageProofId,
-          ageProofIdName: this.getStepper2.ageProofIdName,
+        ageProofIdName: this.getStepper2.ageProofIdName,
         highestQualification: this.getStepper2.highestQualification,
         highestQualificationName: this.getStepper2.highestQualificationName,
         otherQualification: this.getStepper2.otherQualification,
@@ -4563,10 +4552,10 @@ console.log(this.proposalId,'proposalId');
         isCurrPerAddrSame: this.getStepper2.isCurrPerAddrSame,
         employementTypeOther: this.getStepper2.employementTypeOther,
         employementType: this.getStepper2.employementType,
-          employementTypeName: this.getStepper2.employementTypeName,
+        employementTypeName: this.getStepper2.employementTypeName,
         employerName: this.getStepper2.employerName,
         natureduty: this.getStepper2.natureduty,
-          naturedutyName: this.getStepper2.naturedutyName,
+        naturedutyName: this.getStepper2.naturedutyName,
         employerAddr: this.getStepper2.employerAddr,
         annualIncome: this.getStepper2.annualIncome,
         taxResidence: this.getStepper2.taxResidence,
@@ -4583,6 +4572,7 @@ console.log(this.proposalId,'proposalId');
         adventurousActivitiesDetails: this.getStepper2.adventurousActivitiesDetails,
         addrProof: this.getStepper2.addrProof,
         addrProofName: this.getStepper2.addrProofName,
+        relationSpouseInsurerName: this.getStepper2.relationSpouseInsurerName,
         heightFeets: this.getStepper2.heightFeets,
         heightInches: this.getStepper2.heightInches,
         weight: this.getStepper2.weight,
@@ -4847,6 +4837,17 @@ console.log(this.proposalId,'proposalId');
   }
     geteNomineeRelationName(i) {
    this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationshipName.patchValue(this.eNomineeRelation[this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nomineeRelationship.value] );
+  }
+    geteSpouseeRelationName() {
+        this.proposer.controls['relationSpouseProposerName'].patchValue(this.eNomineeRelation[this.proposer.controls['relationSpouseProposer'].value]);
+
+  }
+    geteSpouseeRelationInsureName() {
+        this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.eNomineeRelation[this.insureArray.controls['relationSpouseInsurer'].value]);
+        console.log(this.eNomineeRelation,'changre');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
+        console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
   }
 
 
