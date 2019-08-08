@@ -141,6 +141,7 @@ import {RoyalsundaramMotorPaymentSuccessComponent} from './pages/royalsundaram-m
 import {BikeTataaigPaymentSuccesssComponent} from './pages/bike-tataaig-payment-successs/bike-tataaig-payment-successs.component';
 import {CarTataaigProposalComponent} from './pages/car-tataaig-proposal/car-tataaig-proposal.component';
 import {AegonTermLifeComponent} from './pages/aegon-term-life/aegon-term-life.component';
+import {HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.component';
 import {RsFourwheelerProposalComponent} from './pages/rs-fourwheeler-proposal/rs-fourwheeler-proposal.component';
 import { RelianceFourwheelerProposalComponent } from './pages/reliance-fourwheeler-proposal/reliance-fourwheeler-proposal.component';
 import {FourWheelerHomeComponent} from './pages/four-wheeler-home/four-wheeler-home.component';
@@ -161,6 +162,8 @@ import {SpecialContigencyPolicyComponent} from './pages/special-contigency-polic
 import {GroupTravelComponent} from './pages/group-travel/group-travel.component';
 import {HdfcTwoWheelerProposalComponent} from './pages/hdfc-two-wheeler-proposal/hdfc-two-wheeler-proposal.component';
 import {EdelweissTermLifePaymentSuccessComponent} from './pages/edelweiss-term-life-payment-success/edelweiss-term-life-payment-success.component';
+import {BajajTermPaymentSuccessComponent} from './pages/bajaj-term-payment-success/bajaj-term-payment-success.component';
+import {HdfcCarProposalComponent} from './pages/hdfc-car-proposal/hdfc-car-proposal.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -295,12 +298,14 @@ export const routes: Routes = [
             { path: 'reliance-pa-payment-success/:status/:proId', component: ReliancePaPaymentSuccessComponent, data:{ breadcrumb: 'reliance pa'}},
             { path: 'bike-tataaig-proposal/:stepper', component: BikeTataaigProposalComponent, data: { breadcrumb:'Bike-Tataaig-proposal'}},
             { path: 'app-chola-health-payment-success/:status/:proId', component: CholaHealthPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
+            { path: 'bajaj-term-payment-success/:status/:policyNo/:applicationNo', component: BajajTermPaymentSuccessComponent, data: {breadcrumb: 'Payment Success'}},
             { path: 'enquiryPop', component: EnquiryPopupComponent, data: {breadcrumb: 'Vehicle List'}},
             { path: 'bike-tataaig-payment-success/:status/:proId', component: BikeTataaigPaymentSuccesssComponent, data:{ breadcrumb: 'bikeTataaig Payment'} },
             { path: 'car-tataaig-proposal/:stepper', component: CarTataaigProposalComponent, data: { breadcrumb: 'Car-Tataaig-proposal'}},
             { path: 'royal-sundaram-fourwheeler-proposal/:stepper', component: RsFourwheelerProposalComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
             { path: 'royalsundaram-mfw-payment-success/:status/:proId', component: RoyalsundaramMfwPaymentSuccessComponent, data: { breadcrumb: 'Rs-fourwheeler-proposal'}},
             { path: 'aegon-term-life/:stepper', component: AegonTermLifeComponent, data: { breadcrumb: 'aegon-term-life'}},
+            { path: 'hdfc-term-life/:stepper', component: HdfcTermLifeComponent, data: { breadcrumb: 'hdfc-term-life'}},
             { path: 'reliance-fourwheeler-motor-proposal/:stepper', component: RelianceFourwheelerProposalComponent, data: { breadcrumb: 'reliance-fourwheeler-motor-proposal'}},
             { path: 'reliance-fourwheeler-motor-payment-success/:status/:proId', component: RelianceFourwheelerPaymentSuccessComponent, data: { breadcrumb: 'reliance fourwheeler payment'}},
             { path: 'four-wheeler-home', component: FourWheelerHomeComponent, data: { breadcrumb: 'Four Wheeler Home'}},
@@ -317,6 +322,7 @@ export const routes: Routes = [
             { path: 'specialContigency', component: SpecialContigencyPolicyComponent, data: { breadcrumb: 'Special Contigency Policy'}},
             { path: 'groupTravel', component: GroupTravelComponent, data: { breadcrumb: 'Group Travel Insurance'}},
             { path: 'hdfc-twoWheeler-proposal/:stepper', component: HdfcTwoWheelerProposalComponent, data: { breadcrumb: 'hdfc-twoWheeler-proposal'}},
+            { path: 'hdfc-car-proposal/:stepper', component: HdfcCarProposalComponent, data: { breadcrumb: 'hdfc-car-proposal'}},
 
         ]
     },

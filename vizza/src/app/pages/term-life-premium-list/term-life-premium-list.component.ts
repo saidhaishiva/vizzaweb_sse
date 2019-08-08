@@ -30,6 +30,7 @@ export class TermLifePremiumListComponent implements OnInit {
     compareArray: any;
     selectedAmountTravel: any;
     enquiryFromDetials: any;
+    dethBenfit: any;
     checkAllStatus: boolean;
     public keyUp = new Subject<string>();
   constructor(public auth: AuthService, public datepipe: DatePipe, public dialog : MatDialog, public appSettings: AppSettings, public router: Router, public life: TermLifeCommonService, public config: ConfigurationService, public validation: ValidationService,public clearSession: ClearSessionTermlifeService) {
@@ -40,6 +41,11 @@ export class TermLifePremiumListComponent implements OnInit {
       this.webhost = this.config.getimgUrl();
       this.compareArray = [];
       this.selectedAmountTravel = '5000000';
+      this.dethBenfit = sessionStorage.deathBenefitSA;
+      if(this.selectedAmountTravel == '5000000'){
+      } else{
+         this.selectedAmountTravel = this.dethBenfit;
+      }
       sessionStorage.selectedAmountTravel = this.selectedAmountTravel;
       this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
       this.clearSession.clearSessiontermData();
@@ -269,6 +275,9 @@ export class TermLifePremiumListComponent implements OnInit {
                             this.router.navigate(['/aegon-term-life'  + '/' + false]);
                         } else if (value.product_id == 111 || value.product_id == 112 ) {
                             this.router.navigate(['/edelweiss-term-life'  + '/' + false]);
+                        }
+                        else if (value.product_id == 110 || value.product_id ==102  ) {
+                            this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                         }
                     } else {
                         let dialogRef = this.dialog.open(PaymentModeValidate, {

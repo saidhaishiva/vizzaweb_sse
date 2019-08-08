@@ -196,6 +196,7 @@ export class LoginComponent implements OnInit {
         console.log(successData);
         if (successData.IsSuccess) {
             this.admin = successData.ResponseObject.adm_details;
+            sessionStorage.adminDetails = JSON.stringify(this.admin);
             this.authService.setToken(this.admin.adm_id, this.admin.adm_roleid, this.admin.adm_firstname, successData.ResponseObject.Accesstoken)
             this.router.navigate(['/dashboard']);
         }

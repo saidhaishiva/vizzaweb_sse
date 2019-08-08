@@ -323,6 +323,11 @@ import { EdelweissTermLifePaymentSuccessComponent } from './pages/edelweiss-term
 import { ClearSessionTermlifeService} from './shared/services/clear-session-termlife.service';
 import { HdfcTwoWheelerPaymentComponent } from './pages/hdfc-two-wheeler-payment/hdfc-two-wheeler-payment.component';
 import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-download-policy/hdfctwowheeler-download-policy.component';
+import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.component';
+import { HdfcCarProposalComponent } from './pages/hdfc-car-proposal/hdfc-car-proposal.component';
+import { BajajTermPaymentSuccessComponent } from './pages/bajaj-term-payment-success/bajaj-term-payment-success.component';
+import {MatDialogModule} from '@angular/material/dialog';
+
 
 @NgModule({
     imports: [
@@ -353,6 +358,7 @@ import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-do
         SelectDropDownModule,
         // NgxMatSelectSearchModule,
         // AmazingTimePickerModule,
+        MatDialogModule,
         routing
     ],
     declarations: [
@@ -601,8 +607,12 @@ import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-do
         EdelweissTermLifePaymentSuccessComponent,
         BajajGoal,
         HdfcTwoWheelerPaymentComponent,
-        HdfctwowheelerDownloadPolicyComponent
+        HdfctwowheelerDownloadPolicyComponent,
+        HdfcTermLifeComponent,
+        HdfcCarProposalComponent,
+        BajajTermPaymentSuccessComponent,
     ],
+
     providers: [
         AppSettings,
         LoginService,
