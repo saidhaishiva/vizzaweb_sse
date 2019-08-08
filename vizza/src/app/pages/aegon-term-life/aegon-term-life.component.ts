@@ -1550,8 +1550,8 @@ export class AegonTermLifeComponent implements OnInit {
             "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
             "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
             'age':sessionStorage.proposerAge,
-            'emp_type' :this.personal.controls['employeeType'].value,
-            'education' : this.personal.controls['qualifiction'].value,
+            'emp_type' :this.personal.controls['employeeType'].value ? this.personal.controls['employeeType'].value : '',
+            'education' : this.personal.controls['qualifiction'].value ? this.personal.controls['qualifiction'].value : '',
             'nationality' :'Indian',
           },
           "addressDetail": {

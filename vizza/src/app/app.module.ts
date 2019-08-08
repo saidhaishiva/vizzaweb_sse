@@ -327,6 +327,7 @@ import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.comp
 import { HdfcCarProposalComponent } from './pages/hdfc-car-proposal/hdfc-car-proposal.component';
 import { BajajTermPaymentSuccessComponent } from './pages/bajaj-term-payment-success/bajaj-term-payment-success.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { HdfcCarPaymentSuccessComponent } from './pages/hdfc-car-payment-success/hdfc-car-payment-success.component';
 
 
 @NgModule({
@@ -611,6 +612,7 @@ import {MatDialogModule} from '@angular/material/dialog';
         HdfcTermLifeComponent,
         HdfcCarProposalComponent,
         BajajTermPaymentSuccessComponent,
+        HdfcCarPaymentSuccessComponent,
     ],
 
     providers: [
