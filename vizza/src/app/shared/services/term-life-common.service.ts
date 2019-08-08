@@ -792,6 +792,7 @@ export class TermLifeCommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+
     geteState(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
