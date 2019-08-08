@@ -25,7 +25,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="First Name" formControlName="proposerFirstname" (keypress)="nameValidate($event)" autocomplete="on" required>
+                          <input matInput placeholder="First Name" formControlName="proposerFirstname" (keypress)="nameValidate($event)" (keyup)="firstname($event)" autocomplete="on" required>
                           <mat-error *ngIf="proposer.controls.proposerFirstname.errors?.required">FirstName is Required</mat-error>
                         </mat-form-field>
                       </div>
@@ -36,7 +36,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Last Name" formControlName="proposerLastname"  (keypress)="nameValidate($event)" autocomplete="off" required >
+                          <input matInput placeholder="Last Name" formControlName="proposerLastname" (keypress)="nameValidate($event)" (keyup)="lastname($event)" autocomplete="off" required >
                           <mat-error *ngIf="proposer.controls.proposerLastname.errors?.required">LastName is Required</mat-error>
                         </mat-form-field>
                       </div>
@@ -59,7 +59,7 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" class="w-100" required>
+                          <mat-select  placeholder="Marital Status" formControlName="maritalStatus" (change)="maritial($event)" class="w-100" required>
                             <mat-option value="single">Single</mat-option>
                             <mat-option value="Married">Married</mat-option>
                             <mat-option value="Others">Others</mat-option>
@@ -167,7 +167,7 @@
                       <div class="col-md-3" *ngIf="proposer.controls['driveflag'].value == 'Y'" [ngStyle]="{'pointer-events':'none'}">
                         <mat-form-field class="w-100">
                           <mat-placeholder>Gender<span class="error" *ngIf="proposer.controls['driveflag'].value == 'Y'">*</span></mat-placeholder>
-                          <mat-select formControlName="driveGender" readonly>
+                          <mat-select formControlName="driveGender"(change)="gender($event)" readonly>
                             <mat-option *ngFor="let Genderlist of proposerGenderlist | keys" value="{{Genderlist.key}}">{{Genderlist.value}}</mat-option>
                           </mat-select>
                           <mat-error *ngIf="proposer.controls.driveGender.errors?.required">Gender is Required</mat-error>
@@ -353,7 +353,7 @@
                               <div class="col-md-4">
                                 <mat-form-field class="w-100">
                                   <mat-placeholder> Policy No <span class="error" *ngIf="enquiryFormData.business_type != '1'"> * </span></mat-placeholder>
-                                  <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" maxlength="10" minlength="6">
+                                  <input matInput formControlName="prepolno" (keypress)="numberValidate($event)" autocomplete="off" minlength="6">
                                   <mat-error *ngIf="previouspolicy.controls.prepolno.errors?.required">Policy NO is Required</mat-error>
                                 </mat-form-field>
                               </div>
