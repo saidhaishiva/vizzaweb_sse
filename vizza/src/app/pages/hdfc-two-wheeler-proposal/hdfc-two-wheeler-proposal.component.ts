@@ -118,12 +118,13 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.today = new Date(today.getFullYear(), today.getMonth(), today.getDate());
         this.tommarrow=this.today.setDate(this.today.getDate()+1);
         this.tommarrow=this.datepipe.transform(this.tommarrow,'dd/MM/y');
-       var  todaydate =new Date();
-       this.gggg=new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
-        this.tod=this.datepipe.transform(this.gggg,'dd/MM/y');
+         var  todaydate =new Date();
+         this.gggg=new Date(todaydate.getFullYear(), todaydate.getMonth(), todaydate.getDate());
+         this.tod=this.datepipe.transform(this.gggg,'dd/MM/y');
+        String ;this.tod = this.tod.substring(0, 10);
 
 
-
+console.log(this.gggg);
         console.log(this.tod,'today');
         console.log(this.tommarrow,'tommarow');
 
@@ -242,16 +243,16 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         console.log(this.vehicledata, 'iie');
         this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
-        this.vehicledetails = JSON.parse(sessionStorage.bikeListDetails);
+        // this.vehicledetails = JSON.parse(sessionStorage.bikeListDetails);
         this.vehicleidv=JSON.parse(sessionStorage.buyProductDetails);
         console.log(this.vehicleidv.Comprehensive_premium,'idv');
-        this.vechicle.controls['vehiclemodel'].patchValue(this.vehicledetails.vehicle_model);
-        this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledetails.registration_date, 'y-MM-dd'));
-        this.vechicle.controls['regno'].patchValue(this.vehicledetails.vehicle_no);
-        this.vechicle.controls['manufactureyear'].patchValue(this.vehicledetails.manu_yr);
-        this.vechicle.controls['Previouscompany'].patchValue(this.vehicledetails.prev_insurance_name);
-        this.vechicle.controls['ncb'].patchValue(this.vehicledetails.ncb_percent);
-        this.vechicle.controls['previousenddate'].patchValue(this.datepipe.transform(this.vehicledetails.previous_policy_expiry_date, 'y-MM-dd'));
+        this.vechicle.controls['vehiclemodel'].patchValue(this.vehicledata.vehicle_model);
+        this.vechicle.controls['Vehicleregdate'].patchValue(this.datepipe.transform(this.vehicledata.registration_date, 'y-MM-dd'));
+        this.vechicle.controls['regno'].patchValue(this.vehicledata.vehicle_no);
+        this.vechicle.controls['manufactureyear'].patchValue(this.vehicledata.manu_yr);
+        this.vechicle.controls['Previouscompany'].patchValue(this.vehicledata.prev_insurance_name);
+        this.vechicle.controls['ncb'].patchValue(this.vehicledata.ncb_percent);
+        this.vechicle.controls['previousenddate'].patchValue(this.datepipe.transform(this.vehicledata.previous_policy_expiry_date, 'y-MM-dd'));
         if(this.vechicle.controls['Vehicleregdate'].value){
             let regno ='';
             regno = this.datepipe.transform('2019-03-01', 'y-MM-dd');
@@ -330,32 +331,6 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             }
         );
     }
-    sameaspermenant(event){
-        console.log(event);
-        if (event.checked == true) {
-            console.log(this.proposer.controls['citycom'].value);
-
-            this.proposer.controls['address'].patchValue(this.proposer.controls['address4'].value);
-            this.proposer.controls['address2'].patchValue(this.proposer.controls['address5'].value);
-            this.proposer.controls['address3'].patchValue(this.proposer.controls['address6'].value);
-            this.proposer.controls['pincode'].patchValue(this.proposer.controls['pincode1'].value);
-            this.proposer.controls['statepermanent'].patchValue(this.proposer.controls['statecom'].value);
-            this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
-            this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
-            this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
-        } else if (event.checked != true) {
-            this.proposer.controls['address'].patchValue('');
-            this.proposer.controls['address2'].patchValue('');
-            this.proposer.controls['address3'].patchValue('');
-            this.proposer.controls['pincode'].patchValue('');
-            this.proposer.controls['statepermanent'].patchValue('');
-            this.proposer.controls['citypermanent'].patchValue('');
-            this.proposer.controls['districtpermanent'].patchValue('');
-            this.proposer.controls['landmarkpermanent'].patchValue('');
-
-        }
-
-    }
 
     financiername() {
         const data = {
@@ -379,6 +354,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
     public companysucccess(successData) {
         this.companyList = successData.ResponseObject;
+        sessionStorage.company = JSON.stringify(this.companyList);
 
     }
 
@@ -419,6 +395,32 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         this.addOns.controls['extentioncountryvalue'].patchValue(this.countryList[this.addOns.controls['extentioncountry'].value]);
     }
 
+    sameaspermenant(event){
+        console.log(event);
+        if (event.checked == true) {
+            console.log(this.proposer.controls['citycom'].value);
+
+            this.proposer.controls['address'].patchValue(this.proposer.controls['address4'].value);
+            this.proposer.controls['address2'].patchValue(this.proposer.controls['address5'].value);
+            this.proposer.controls['address3'].patchValue(this.proposer.controls['address6'].value);
+            this.proposer.controls['pincode'].patchValue(this.proposer.controls['pincode1'].value);
+            this.proposer.controls['statepermanent'].patchValue(this.proposer.controls['statecom'].value);
+            this.proposer.controls['citypermanent'].patchValue(this.proposer.controls['citycom'].value);
+            this.proposer.controls['districtpermanent'].patchValue(this.proposer.controls['districtcom'].value);
+            this.proposer.controls['landmarkpermanent'].patchValue(this.proposer.controls['landmarkcom'].value);
+        } else if (event.checked != true) {
+            this.proposer.controls['address'].patchValue('');
+            this.proposer.controls['address2'].patchValue('');
+            this.proposer.controls['address3'].patchValue('');
+            this.proposer.controls['pincode'].patchValue('');
+            this.proposer.controls['statepermanent'].patchValue('');
+            this.proposer.controls['citypermanent'].patchValue('');
+            this.proposer.controls['districtpermanent'].patchValue('');
+            this.proposer.controls['landmarkpermanent'].patchValue('');
+
+        }
+
+    }
 
     //
     //stepper
@@ -497,6 +499,7 @@ console.log('inn');
         if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist)
         }
+
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             this.getstepper1 = JSON.parse(sessionStorage.stepper1Details);
             this.proposer = this.fb.group({
@@ -534,6 +537,10 @@ console.log('inn');
 
             })
         }
+        if (sessionStorage.company != '' && sessionStorage.company != undefined) {
+            this.companyList = JSON.parse(sessionStorage.company)
+            console.log('innnworld');
+        }
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             this.getstepper2 = JSON.parse(sessionStorage.stepper2Details);
             this.vechicle = this.fb.group({
@@ -555,6 +562,7 @@ console.log('inn');
                 Previouscompanyvalue: this.getstepper2.Previouscompanyvalue,
                 financiercodevalue: this.getstepper2.financiercodevalue,
                 previouspolicyclaim: this.getstepper2.previouspolicyclaim,
+
             })
         }
         if (sessionStorage.stepper3Details != '' && sessionStorage.stepper3Details != undefined) {
@@ -814,6 +822,10 @@ console.log('inn');
             console.log(regno, 'reg');
             console.log(this.addOns.controls['ElecticalAccessoryIDV'].value, 'check');
         }
+        console.log(this.tommarrow);
+        console.log(this.tod);
+        console.log(this.companyList[this.vechicle.controls['Previouscompany'].value]);
+
         const data = {
 
             // "platform": "web",
@@ -918,7 +930,6 @@ console.log('inn');
             //
             // }
 
-
             "platform": "web",
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosUserId() : '4',
@@ -962,13 +973,14 @@ console.log('inn');
                     "Customer_GSTIN_State": ""
             },
             "Policy_Details": {
-                    "PolicyStartDate": this.today,
+                    "PolicyStartDate": this.tommarrow,
                     "PreviousPolicyEndDate": "",
-                    "ProposalDate": this.tommarrow,
+                    "ProposalDate":this.tod,
+
                     // "AgreementType": "",
                     // "FinancierCode": "",
                     // "BranchName": "",
-                    "PreviousPolicy_CorporateCustomerId_Mandatary":this.vechicle.controls['Previouscompanyvalue'].value ,
+                    "PreviousPolicy_CorporateCustomerId_Mandatary":this.vechicle.controls['Previouscompany'].value ,
                     "PreviousPolicy_NCBPercentage":this.vechicle.controls['ncb'].value,
                     "PreviousPolicy_PolicyEndDate":this.datepipe.transform(this.vechicle.controls['previousenddate'].value,'dd/MM/y'),
                     "PreviousPolicy_PolicyNo": this.vechicle.controls['previouspolicyno'].value,
@@ -984,7 +996,7 @@ console.log('inn');
                     "Vehicle_IDV": this.vehicleidv.Idv,
             },
             "Req_TW": {
-                "ExtensionCountryCode": this.addOns.controls['extentioncountryvalue'].value,
+                "ExtensionCountryCode": this.addOns.controls['extentioncountry'].value,
                     "POLICY_TENURE": "1",
                     "ExtensionCountryName": "",
                     "Effectivedrivinglicense":  this.addOns.controls['drivinglicence'].value,
@@ -1009,9 +1021,9 @@ console.log('inn');
             },
             "Payment_Details": {
                     "GC_PaymentID": "",
-                    "BANK_NAME":  this.BankDetails.controls['Banknamevalue'].value,
+                    "BANK_NAME":  this.BankDetails.controls['Bankname'].value,
                     "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
-                    "PAYMENT_MODE_CD": 'EP',
+                    "PAYMENT_MODE_CD": this.BankDetails.controls['paymentmode'].value,
                     "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
                     "PAYMENT_AMOUNT": '1928',
                     // this.vehicleidv.Comprehensive_premium,
