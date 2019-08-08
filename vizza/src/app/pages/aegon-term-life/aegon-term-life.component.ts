@@ -1549,6 +1549,10 @@ export class AegonTermLifeComponent implements OnInit {
             "diabeteDuration": this.personal.controls['diabeteDuration'].value == null || this.personal.controls['diabeteDuration'].value == '' ? '0' : this.personal.controls['diabeteDuration'].value,
             "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
             "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
+            'age':sessionStorage.proposerAge,
+            'emp_type' :this.personal.controls['employeeType'].value,
+            'education' : this.personal.controls['qualifiction'].value,
+            'nationality' :'Indian',
           },
           "addressDetail": {
             "pAddress1": this.personal.controls['pAddress1'].value,
