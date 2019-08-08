@@ -276,6 +276,9 @@ export class TermLifePremiumListComponent implements OnInit {
                         } else if (value.product_id == 111 || value.product_id == 112 ) {
                             this.router.navigate(['/edelweiss-term-life'  + '/' + false]);
                         }
+                        else if (value.product_id <= 110 && value.product_id >=102  ) {
+                            this.router.navigate(['/hdfc-term-life'  + '/' + false]);
+                        }
                     } else {
                         let dialogRef = this.dialog.open(PaymentModeValidate, {
                             width: '700px',
@@ -309,6 +312,8 @@ export class TermLifePremiumListComponent implements OnInit {
                     this.router.navigate(['/aegon-term-life'  + '/' + false]);
                 } else if (value.product_id == 111 || value.product_id == 112) {
                     this.router.navigate(['/edelweiss-term-life'  + '/' + false]);
+                }else if (value.product_id <= 110 && value.product_id >=102  ) {
+                    this.router.navigate(['/hdfc-term-life'  + '/' + false]);
                 }
             } else {
                 let dialogRef = this.dialog.open(PaymentModeValidate, {

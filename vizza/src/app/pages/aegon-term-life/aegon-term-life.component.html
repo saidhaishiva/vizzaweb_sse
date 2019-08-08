@@ -748,7 +748,7 @@
                 <div class="col-md-12 text-center">
                   <!--<a href="{{summaryData.redirectLink}}">Pay Now</a>-->
                     <button mat-button matStepperPrevious  (click)="topScroll()" >Back</button>
-                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" ><a href="{{summaryData.redirectLink}}">Pay Now</a></button>
+                  <button mat-raised-button color="primaryBlue" [disabled]="!declaration" routerLink="['{{summaryData.redirectLink}}']">Pay Now</button>
                 </div>
               </div>
             </section>

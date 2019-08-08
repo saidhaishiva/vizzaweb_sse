@@ -227,7 +227,7 @@
                           </div>
                           <div class="col-md-3" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                               <mat-form-field class="w-100">
-                                  <mat-select placeholder="Relation To Proposer" formControlName="relationSpouseProposer" (change)="geteNomineeRelation()" required>
+                                  <mat-select placeholder="Relation To Proposer" formControlName="relationSpouseProposer" (change)="geteSpouseeRelationName()" required>
                                       <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
                                   </mat-select>
                                   <mat-error *ngIf="proposer.controls.relationSpouseProposer.errors?.required">Relation To Proposer is required</mat-error>
@@ -647,7 +647,7 @@
                                            </div>
                                            <div class="col-md-3" *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
                                                <mat-form-field class="w-100">
-                                                   <mat-select placeholder="Relation To Insurer" formControlName="relationSpouseInsurer" (change)="geteNomineeRelation()" required>
+                                                   <mat-select placeholder="Relation To Insurer" formControlName="relationSpouseInsurer" (change)="geteSpouseeRelationInsureName()" required>
                                                        <mat-option *ngFor="let list of eNomineeRelation | keys" [value]= list.key> {{list.value}} </mat-option>
                                                    </mat-select>
                                                    <mat-error *ngIf="insureArray.controls.relationSpouseInsurer.errors?.required">Relation To Insurer is required</mat-error>
@@ -1056,8 +1056,9 @@
                            <div class="col-md-4 mt-2" *ngIf="insureArray.controls['criticalIllness'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="criticalsumAssured"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                   <input matInput  formControlName="criticalsumAssured"    autocomplete="off" (change)="sumAssuredCiError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                </mat-form-field>
+                               <div class="error" *ngIf="ciError != ''">{{ciError}}</div>
                            </div>
                            <div class="col-md-4">
                                <mat-radio-group formControlName="isADB" (change)="isDeathBenefit()" >
@@ -1069,8 +1070,9 @@
                            <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isADB'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                   <input matInput  formControlName="sumAssuredADB"    autocomplete="off"  (change)="sumAssuredADBError($event)"  (keypress)="numberValidate($event)" maxlength="10">
                                </mat-form-field>
+                               <div class="error" *ngIf="adbError != ''">{{adbError}}</div>
                            </div>
                            <div class="col-md-4">
                                <mat-radio-group formControlName="isATPD" (change)="isAccidentalTotal()" >
@@ -1082,8 +1084,9 @@
                            <div class="col-md-4 mt-2 " *ngIf="insureArray.controls['isATPD'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="sumAssuredATPD"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                   <input matInput  formControlName="sumAssuredATPD"    autocomplete="off" (change)="sumAssuredATPDError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                </mat-form-field>
+                               <div class="error" *ngIf="atpdError != ''">{{atpdError}}</div>
                            </div>
                            <div class="col-md-4">
                                <mat-radio-group formControlName="isHCB" (change)="isHospitalCash()" >
@@ -1095,8 +1098,9 @@
                            <div class="col-md-4 mt-2" *ngIf="insureArray.controls['isHCB'].value == 'Yes'" >
                                <mat-form-field class="w-100">
                                    <mat-placeholder>Sum Assured<span class="error" >*</span></mat-placeholder>
-                                   <input matInput  formControlName="sumAssuredHCB"    autocomplete="off"  (keypress)="numberValidate($event)" maxlength="10">
+                                   <input matInput  formControlName="sumAssuredHCB"    autocomplete="off" (change)="sumAssuredHCBError($event)" (keypress)="numberValidate($event)" maxlength="10">
                                </mat-form-field>
+                               <div class="error" *ngIf="hcbdError != ''">{{hcbdError}}</div>
                            </div>
                          </div>
 
@@ -1111,7 +1115,7 @@
                                        <mat-select  placeholder="Payout Option" formControlName="payoutOption" (change)="getpayoutOption()"  class="w-100" required>
                                            <mat-option *ngFor="let list of epayoutOption | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
-                                       <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Policy Option is required</mat-error>
+                                       <mat-error *ngIf="insureArray.controls.policyOption.errors?.required">Payout Option is required</mat-error>
                                    </mat-form-field>
                                </div>
 
@@ -1142,7 +1146,6 @@
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
                            </div>
-
                        </div>
                        <div class="row p-3">
                            <div class="col-md-12 ">
@@ -1679,6 +1682,7 @@
                                        </div>
                                        <button mat-mini-fab	*ngIf=" i == 0 && medicalDetail.get('medicalQuestions').value.length < 5" color="accent"  (click)="addMedItems()">+</button>
                                        <button mat-mini-fab	*ngIf="i != 0" color="accent"  (click)="removeMedItems(i)">-</button>
+
                                    </div>
                                </div>
                            </div>
@@ -2010,26 +2014,26 @@
 
 
 
-                           <div class="col-md-6">
+                           <div class="col-md-6" *ngIf="proposerFormData.maritalStatus == 'M'">
                                <div class="p-3">
-                                   <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   <h6 class="color-blue" *ngIf="proposerFormData.maritalStatus == 'M'">SPOUSE DETAILS</h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>Name:</strong> {{proposerFormData.stitle}} {{proposerFormData.sfirstName}} {{proposerFormData.smidName}} {{proposerFormData.slastName}}</li>
-                                       <li class="list-group-item"><strong>D.O.B:</strong> {{proposerFormData.sdob | date: 'dd/MM/yyyy'}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.stitle != '' && proposerFormData.sfirstName != '' && proposerFormData.smidName != '' && proposerFormData.slastName != '' "><strong>Name:</strong> {{proposerFormData.stitle}} {{proposerFormData.sfirstName}} {{proposerFormData.smidName}} {{proposerFormData.slastName}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.sdob != '' || proposerFormData.sdob != null"><strong>D.O.B:</strong> {{proposerFormData.sdob | date: 'dd/MM/yyyy'}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.semailId != ''"><strong>Email Id:</strong> {{proposerFormData.semailId}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.smobileNo != ''"><strong>Mobile No:</strong> {{proposerFormData.smobileNo}}</li>
 
                                    </ul>
                                </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-6" *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                                <div class=" p-3">
-                                   <h6 class="color-blue mt-4"></h6>
+                                   <h6 class="color-blue mt-4" *ngIf="proposerFormData.maritalStatus == 'M'"></h6>
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="proposerFormData.isSmokerSpouse != ''"><strong>Are U Smoker?:</strong> {{proposerFormData.isSmokerSpouse}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{proposerFormData.isStaffSpouse}}</li>
                                        <li class="list-group-item" *ngIf="proposerFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{proposerFormData.employeeCodeSpouse}}</li>
-                                       <li class="list-group-item" *ngIf="proposerFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{proposerFormData.relationSpouseProposer}}</li>
+                                       <li class="list-group-item" *ngIf="proposerFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{proposerFormData.relationSpouseProposerName}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -2151,26 +2155,27 @@
                                    </ul>
                                </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-6" *ngIf="proposerFormData.maritalStatus == 'M'">
                                <div class="p-3">
-                                   <h6 class="color-blue">SPOUSE DETAILS</h6>
+                                   <h6 class="color-blue" *ngIf="proposerFormData.maritalStatus == 'M'">SPOUSE DETAILS</h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item"><strong>Name:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
-                                       <li class="list-group-item"><strong>D.O.B:</strong> {{insuredFormData.sdob | date: 'dd/MM/yyyy'}}</li>
+
+                                       <li class="list-group-item" *ngIf="insuredFormData.stitle != '' && insuredFormData.sfirstName != '' && insuredFormData.smidName != '' && insuredFormData.slastName != '' "><strong>Name:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.sdob != '' || insuredFormData.sdob != null"><strong>D.O.B:</strong> {{insuredFormData.sdob | date: 'dd/MM/yyyy'}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.semailId != ''"><strong>Email Id:</strong> {{insuredFormData.semailId}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.smobileNo != ''"><strong>Mobile No:</strong> {{insuredFormData.smobileNo}}</li>
 
                                    </ul>
                                </div>
                            </div>
-                           <div class="col-md-6">
+                           <div class="col-md-6" *ngIf="proposerFormData.maritalStatus == 'M'">
                                <div class=" p-3">
-                                   <h6 class="color-blue mt-4"></h6>
+                                   <h6 class="color-blue mt-4" *ngIf="proposerFormData.maritalStatus == 'M'"></h6>
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseProposer != ''"><strong>Relation To Proposer:</strong> {{insuredFormData.relationSpouseProposer}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.relationSpouseInsurer != ''"><strong>Relation To Insurer:</strong> {{insuredFormData.relationSpouseInsurerName}}</li>
                                    </ul>
                                </div>
                            </div>
