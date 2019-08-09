@@ -899,6 +899,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['isStaffSpouse'].patchValue(this.proposer.controls['isStaffSpouse'].value),
           this.insureArray.controls['employeeCodeSpouse'].patchValue(this.proposer.controls['employeeCodeSpouse'].value),
           this.insureArray.controls['relationSpouseInsurer'].patchValue(this.proposer.controls['relationSpouseProposer'].value),
+          this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.proposer.controls['relationSpouseProposerName'].value),
           this.insureArray.controls['currAddr1'].patchValue(this.proposer.controls['currAddr1'].value),
           this.insureArray.controls['currAddr2'].patchValue(this.proposer.controls['currAddr2'].value),
           this.insureArray.controls['currAddr3'].patchValue(this.proposer.controls['currAddr3'].value),
@@ -1409,7 +1410,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     sessionStorage.stepper4Details = JSON.stringify(value);
     console.log( sessionStorage.stepper4Details);
     if (this.bankDetail.valid) {
-      console.log(this.bankDetail.valid,'bankDetailvalid')
+      console.log(this.bankDetail.valid, 'bankDetailvalid');
         this.proposal(stepper);
 
     }
@@ -4885,7 +4886,7 @@ console.log(this.proposalId,'proposalId');
           }
           console.log(getMedicalDetail.medicalFamilyQuestions,'medicalFamilyQuestionsLengthhh')
           console.log(getMedicalDetail.medicalQuestions.length,'78999778')
-        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions.length; i++) {
+        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions; i++) {
           console.log(getMedicalDetail.medicalFamilyQuestions.length,'444444444')
           if ( i !=  0) {
             this.addFamilyItems();
@@ -5101,10 +5102,10 @@ console.log(this.proposalId,'proposalId');
   }
     geteSpouseeRelationInsureName() {
         this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.eNomineeRelation[this.insureArray.controls['relationSpouseInsurer'].value]);
-        // console.log(this.eNomineeRelation,'changre');
-        // console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
-        // console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
-        // console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
+        console.log(this.eNomineeRelation,'changre');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
+        console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
   }
 
 

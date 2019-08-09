@@ -271,7 +271,7 @@
                         </div>
                         <div class="col-md-4" [ngStyle]="{'pointer-events': premium != 'Comprehensive_premium' ? 'none' : ''}">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" readonly required>
+                            <mat-select placeholder="PACover_for_OwnerDriver" formControlName="coverdrive" (change)="covervalue()" required>
                               <mat-option *ngFor="let cover of coverlist | keys" value="{{cover.key}}">{{cover.value}}</mat-option>
                             </mat-select>
                             <mat-error *ngIf="vehicle.controls.coverdrive.errors?.required">PACover_for_OwnerDriver is Required</mat-error>
@@ -411,8 +411,8 @@
                       <div class="row">
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Name" formControlName="nomieeName" (keypress)="nameValidate($event)" required>
-                              <mat-error *ngIf="nominee.controls.nomieeName.errors?.required">Name is Required</mat-error>
+                            <input matInput placeholder="Name" formControlName="nomineeName" (keypress)="nameValidate($event)" required>
+                              <mat-error *ngIf="nominee.controls.nomineeName.errors?.required">Name is Required</mat-error>
                           </mat-form-field>
                         </div>
                         <div class="col-md-4">
@@ -574,7 +574,7 @@
                   <div class="col-md-6">
                     <div class="p-3">
                       <ul class="m-0 list-group">
-                        <li class="list-group-item" *ngIf="nomineeFormData.nomieeName != ''"><strong>Name:</strong> {{nomineeFormData.nomieeName}}</li>
+                        <li class="list-group-item" *ngIf="nomineeFormData.nomineeName != ''"><strong>Name:</strong> {{nomineeFormData.nomineeName}}</li>
                         <li class="list-group-item" *ngIf="nomineeFormData.nomineeAge != ''"><strong>Age:</strong> {{nomineeFormData.nomineeAge}}</li>
                         <li class="list-group-item" *ngIf="nomineeFormData.nomineerelation != ''"><strong>Relation:</strong> {{nomineeFormData.nomineerelation}}</li>
                       </ul>
