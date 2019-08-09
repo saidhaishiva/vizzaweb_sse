@@ -177,7 +177,7 @@ export class CarTataaigProposalComponent implements OnInit {
     });
 
     this.nominee = this.fb.group({
-      nomieeName: ['', Validators.required],
+      nomineeName: ['', Validators.required],
       nomineeAge: ['', Validators.required],
       nomineerelation: ['', Validators.required],
     })
@@ -367,8 +367,10 @@ export class CarTataaigProposalComponent implements OnInit {
   choosegen() {
     if(this.proposer.controls['proposerTitle'].value == 'Mr.') {
       this.proposer.controls['proposerGender'].patchValue('MALE');
+      this.proposer.controls['driveGender'].patchValue('MALE')
     }else if(this.proposer.controls['proposerTitle'].value == 'Mrs.' || this.proposer.controls['proposerTitle'].value == 'Miss.' ) {
       this.proposer.controls['proposerGender'].patchValue('FEMALE');
+      this.proposer.controls['driveGender'].patchValue('FEMALE')
     }
   }
 
@@ -618,12 +620,12 @@ export class CarTataaigProposalComponent implements OnInit {
       this.proposer.controls['drivingexp'].setValidators([Validators.required]);
       // this.proposer.controls['drivemaritalStatus'].setValidators([Validators.required]);
     } else if (this.proposer.controls['driveflag'].value == 'N') {
-      this.proposer.controls['driveFirstname'].patchValue('');
-      this.proposer.controls['driveLastname'].patchValue('');
-      this.proposer.controls['driveGender'].patchValue('');
+      // this.proposer.controls['driveFirstname'].patchValue('');
+      // this.proposer.controls['driveLastname'].patchValue('');
+      // this.proposer.controls['driveGender'].patchValue('');
       // this.proposer.controls['driveAge'].patchValue('');
-      this.proposer.controls['drivingexp'].patchValue('');
-      this.proposer.controls['drivemaritalStatus'].patchValue('');
+      // this.proposer.controls['drivingexp'].patchValue('');
+      // this.proposer.controls['drivemaritalStatus'].patchValue('');
       //
       // this.proposer.controls['driveFirstname'].setValidators(null);
       // this.proposer.controls['driveLastname'].setValidators(null);
@@ -632,12 +634,12 @@ export class CarTataaigProposalComponent implements OnInit {
       this.proposer.controls['drivingexp'].setValidators(null);
       // this.proposer.controls['drivemaritalStatus'].setValidators(null);
     }
-    this.proposer.controls['driveFirstname'].updateValueAndValidity();
-    this.proposer.controls['driveLastname'].updateValueAndValidity();
-    this.proposer.controls['driveGender'].updateValueAndValidity();
-    this.proposer.controls['driveAge'].updateValueAndValidity();
+    // this.proposer.controls['driveFirstname'].updateValueAndValidity();
+    // this.proposer.controls['driveLastname'].updateValueAndValidity();
+    // this.proposer.controls['driveGender'].updateValueAndValidity();
+    // this.proposer.controls['driveAge'].updateValueAndValidity();
     this.proposer.controls['drivingexp'].updateValueAndValidity();
-    this.proposer.controls['drivemaritalStatus'].updateValueAndValidity();
+    // this.proposer.controls['drivemaritalStatus'].updateValueAndValidity();
   }
 
   check(event) {
@@ -839,7 +841,7 @@ export class CarTataaigProposalComponent implements OnInit {
     if (sessionStorage.tatacarnominee != '' && sessionStorage.tatacarnominee != undefined) {
       this.getstepper4 = JSON.parse(sessionStorage.tatacarnominee);
       this.nominee = this.fb.group({
-        nomieeName: this.getstepper4.nomieeName,
+        nomineeName: this.getstepper4.nomineeName,
         nomineeAge: this.getstepper4.nomineeAge,
         nomineerelation: this.getstepper4.nomineerelation,
       })
@@ -900,7 +902,7 @@ export class CarTataaigProposalComponent implements OnInit {
           "loanacno": ""
         },
         "nominee": {
-          "name": this.nominee.controls['nomieeName'].value,
+          "name": this.nominee.controls['nomineeName'].value,
           "age": this.nominee.controls['nomineeAge'].value,
           "relation": this.nominee.controls['nomineerelation'].value
         },

@@ -374,7 +374,7 @@
                       </div>
                       <div class="col-md-4 mt-3">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker2" [max]="today" placeholder="Previous Policy EndDate(DD/MM/YYYY)" [disabled]="vechicle.controls['previousenddate']!=''"  formControlName="previousenddate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
+                          <input matInput [matDatepicker]="picker2" [max]="today" placeholder="Previous Policy EndDate(DD/MM/YYYY)"  formControlName="previousenddate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
                           <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                           <mat-datepicker #picker2></mat-datepicker>
                           <mat-error *ngIf="vechicle.controls.previousenddate.errors?.required">previous Policy Endate is required</mat-error>
@@ -511,14 +511,14 @@
                                       </div>
                                       <div class="col-md-3">
                                           <mat-form-field class="w-100">
-                                              <input matInput placeholder="Nominee Name" rows="2"  formControlName="NomineeName" [(ngModel)]="NomineeName"  maxlength="30" (keyup)="onsubmit(NomineeName)" (keypress)="nameValidate($event)" autocomplete="off">
+                                              <input matInput placeholder="Nominee Name" rows="2"  formControlName="NomineeName"   maxlength="30" (keyup)="onsubmit('')" (keypress)="nameValidate($event)" autocomplete="off">
                                           </mat-form-field>
                                       </div>
                                       <div class="col-md-3">
                                           <mat-form-field class="w-100">
-                                              <mat-placeholder>Nominee age<span class="error" *ngIf="addOns.controls['NomineeName'].value !=''">*</span></mat-placeholder>
+                                              <mat-placeholder>Nominee age<span class="error" *ngIf="addOns.controls['NomineeAge'].value !=''">*</span></mat-placeholder>
 
-                                              <input matInput  rows="2" formControlName="NomineeAge" (keypress)="numberValidate($event)" maxlength="2" (keyup)="onsubmit(NomineeName)" autocomplete="off" >
+                                              <input matInput  rows="2" formControlName="NomineeAge" (keypress)="numberValidate($event)" maxlength="2" (keyup)="onsubmit('')" autocomplete="off" >
                                               <mat-error *ngIf="addOns.controls.NomineeAge.errors?.required">nominee age is Required</mat-error>
                                           </mat-form-field>
                                       </div>
@@ -536,8 +536,8 @@
                                               <mat-placeholder>Appointee Name<span class="error"  *ngIf="addOns.controls['NomineeAge'].value < 18 && addOns.controls['NomineeAge'].value !=''">*</span></mat-placeholder>
 
                                               <input matInput  rows="2" formControlName="appointeename" (keypress)="nameValidate($event)" maxlength="30" autocomplete="off">
-                                              <mat-error *ngIf="addOns.controls.appointeename.errors?.required && addOns.controls.nomineeRelation<18">appointee name is Required</mat-error>
-
+                                              <mat-error *ngIf="addOns.controls.appointeename.errors?.required">appointee name is Required</mat-error>
+{{addOns.controls.nomineeRelation.value}}
                                           </mat-form-field>
                                       </div>
                                       <div class="col-md-3">
@@ -545,7 +545,7 @@
                                               <mat-placeholder>Appointee Relationship<span class="error" *ngIf="addOns.controls['NomineeAge'].value < 18 && addOns.controls['NomineeAge'].value !='' ">*</span></mat-placeholder>
 
                                               <input matInput  rows="2" formControlName="appointeerelation" (keypress)="nameValidate($event)" maxlength="30"  autocomplete="off">
-                                              <mat-error *ngIf="addOns.controls.appointeerelation.errors?.required && addOns.controls.nomineeRelation<18">appointee relation is Required</mat-error>
+                                              <mat-error *ngIf="addOns.controls.appointeerelation.errors?.required">appointee relation is Required</mat-error>
 
                                           </mat-form-field>
                                       </div>
@@ -616,7 +616,7 @@
                                           </div>
                                           <div class="col-md-3 mt-3">
                                               <mat-form-field class="w-100">
-                                                  <input matInput [matDatepicker]="picker4" [min]="todaydate" [max]="todaydate" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  formControlName="Paymentdate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                                  <input matInput [matDatepicker]="picker4" [min]="gggg" [max]="gggg" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"  formControlName="Paymentdate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
                                                   <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                                                   <mat-datepicker #picker4></mat-datepicker>
                                                   <mat-error *ngIf="proposer.controls.dob.errors?.required">Payment date is required</mat-error>

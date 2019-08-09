@@ -499,6 +499,10 @@ console.log('inn');
         if (sessionStorage.districtlist != '' && sessionStorage.districtlist != undefined) {
             this.districtarray = JSON.parse(sessionStorage.districtlist)
         }
+        if (sessionStorage.company != '' && sessionStorage.company != undefined) {
+            this.companyList = JSON.parse(sessionStorage.company);
+            console.log('innnworld');
+        }
 
         if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
             this.getstepper1 = JSON.parse(sessionStorage.stepper1Details);
@@ -537,10 +541,7 @@ console.log('inn');
 
             })
         }
-        if (sessionStorage.company != '' && sessionStorage.company != undefined) {
-            this.companyList = JSON.parse(sessionStorage.company)
-            console.log('innnworld');
-        }
+
         if (sessionStorage.stepper2Details != '' && sessionStorage.stepper2Details != undefined) {
             this.getstepper2 = JSON.parse(sessionStorage.stepper2Details);
             this.vechicle = this.fb.group({
