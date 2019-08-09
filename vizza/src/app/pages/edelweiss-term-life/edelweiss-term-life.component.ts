@@ -561,7 +561,6 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getekycProof();
     this.geteOtherDocumentProof();
     this.geteidLifeProof();
-    this.geteSpouseeRelationInsureName();
     this.getesalereqProof();
     this.sessionData();
 
@@ -5103,10 +5102,10 @@ console.log(this.proposalId,'proposalId');
   }
     geteSpouseeRelationInsureName() {
         this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.eNomineeRelation[this.insureArray.controls['relationSpouseInsurer'].value]);
-        // console.log(this.eNomineeRelation,'changre');
-        // console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
-        // console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
-        // console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
+        console.log(this.eNomineeRelation,'changre');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
+        console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
   }
 
 
