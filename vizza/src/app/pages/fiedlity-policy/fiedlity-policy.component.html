@@ -1,0 +1,122 @@
+<div class="container dashboard h-100" fxLayoutAlign="start start">
+  <div class="row my-flex-card">
+    <h2 class="w-100 text-center" style="color:#DCE775;">&nbsp;Fiedlity Policy</h2>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-block">
+          <div class="aboutImg">
+            <img src="assets/img/Genaral Insurance (2).jpg" style="height:605px;" class="w-100">
+            <div class="aboutContent">
+              <h4>About Jewelers Block Policy</h4>
+
+              <!--<p>We serve to save your employees and your Business..… <button mat-button color="accent" (click)="LifeInsurer()" style="border: 1px solid #000;"> Know More</button></p>-->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+      <div class="card">
+        <div class="card-block">
+          <mat-card style="background:#DCE775 !important; color: #fff; height:available;">
+            <h2 class="w-100 text-center" >Let us assist you</h2>
+            <form [formGroup]="marineErr">
+              <div class="row">
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-select  placeholder="Insurance Type" formControlName ="insurance" required>
+                      <mat-option value="shopkeepers">Shopkeepers</mat-option>
+                      <mat-option value="marine">Marine Cargo Policy</mat-option>
+                      <mat-option value="money">Money Insurance</mat-option>
+                      <mat-option value="fire">Fire Policy</mat-option>
+                      <mat-option value="burglary">Burglary Policy</mat-option>
+                      <mat-option value="machinery">Machinery Breakdown Policy</mat-option>
+                      <mat-option value="electronics">Electronics Equiptment Policy</mat-option>
+                      <mat-option value="contractors">Contractors All Risk Policy</mat-option>
+                      <mat-option value="house-holders">House Holders Policy</mat-option>
+                      <mat-option value="public-liability">Public Liability</mat-option>
+                      <mat-option value="professional">Professional Indemnity Policy</mat-option>
+                      <mat-option value="workmen-compensation">Workmen Compensation</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="marineErr.controls.insurance.errors?.required">Insurance Type is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Company Name" formControlName="name" required>
+                    <mat-error *ngIf="marineErr.controls.name.errors?.required">Company Name is required</mat-error>
+                    <mat-error *ngIf="marineErr.controls.name.hasError('minlength')">Company Name isn't long enough, minimum of 3 characters</mat-error>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Contact Person" formControlName="contactperson" (keypress)="data($event)" required>
+                    <mat-error *ngIf="marineErr.controls.contactperson.errors?.required">Contact Person is required</mat-error>
+                    <mat-error *ngIf="marineErr.controls.contactperson.hasError('minlength')">Contact Person isn't long enough, minimum of 10 characters</mat-error>
+                    <mat-icon matSuffix>person</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Mobile" formControlName="mobile" (keypress)="keyPress($event)" required minlength="10"  maxlength="10">
+                    <mat-error *ngIf="marineErr.controls.mobile.errors?.required">Mobile number is required</mat-error>
+                    <mat-error *ngIf="marineErr.controls.mobile.hasError('minlength')">Mobile isn't long enough, minimum of 10 characters</mat-error>
+                    <mat-error *ngIf="marineErr.controls.mobile.hasError('pattern')">Enter Valid  Mobile Number</mat-error>
+                    <mat-icon matSuffix>call</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Email" formControlName="email" required>
+                    <mat-error *ngIf="marineErr.controls.email.errors?.required">Email is required</mat-error>
+                    <mat-error *ngIf="marineErr.controls.email.hasError('pattern')">Please Enter Correct Format</mat-error>
+                    <mat-icon matSuffix>email</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="PinCode"  pattern="[1-9][0-9]{5}" formControlName="pincode" (keypress)="keyPress($event)" minlength="6"   maxlength="6" (input)="getPincodeDetails($event.target.value, 'personal')"  autocomplete="off"  required>
+                    <mat-error *ngIf="marineErr.controls.pincode.errors?.required">Pincode is required</mat-error>
+                    <mat-error *ngIf="marineErr.controls.pincode.hasError('minlength')">Pin should be 6 digits</mat-error>
+                    <mat-error *ngIf="marineErr.controls.pincode.hasError('required')">Pincode required</mat-error>
+                    <mat-error *ngIf="marineErr.controls.pincode.hasError('pattern')">Enter Valid  Pin</mat-error>
+                    <mat-icon matSuffix>place</mat-icon>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12">
+                  <mat-form-field class="w-100">
+                    <mat-select  placeholder="Fix an Appointment (Call / Meet in Person)" formControlName="appointmentwith" required>
+                      <mat-option value="call">Call</mat-option>
+                      <mat-option value="meetinperson">Meet in Person</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="marineErr.controls.appointmentwith.errors?.required">Fix Appointment is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <input matInput [matDatepicker]="picker" placeholder="Appointment Date (DD/MM/YYYY)" formControlName="appdate" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)" maxlength="10" minlength="10" required>
+                    <mat-error *ngIf="marineErr.controls.appdate.errors?.required">Appointment Date is required</mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-6">
+                  <mat-form-field class="w-100">
+                    <input matInput placeholder="Appointment Time (HH:MM)" type="time" atp-time-picker  formControlName="apptime" required />
+                    <mat-error *ngIf="marineErr.controls.apptime.errors?.required">Appointment Time is required</mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-md-12 text-right mt-3">
+                  <button mat-button class="secondary-bg-color" type="reset"><i class="material-icons">replay</i> Reset</button>
+                  <button mat-button type="submit" style="background: #fff; color: #000" [disabled]="(!marineErr.valid ) || (!pincodeErrors)" (click)="jewKeeper(marineErr.value)">Submit</button>
+                </div>
+              </div>
+            </form>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+    <!--</div>-->
+  </div>
+</div>
