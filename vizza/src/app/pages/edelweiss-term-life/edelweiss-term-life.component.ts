@@ -561,6 +561,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.getekycProof();
     this.geteOtherDocumentProof();
     this.geteidLifeProof();
+    this.geteSpouseeRelationInsureName();
     this.getesalereqProof();
     this.sessionData();
 
@@ -899,6 +900,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['isStaffSpouse'].patchValue(this.proposer.controls['isStaffSpouse'].value),
           this.insureArray.controls['employeeCodeSpouse'].patchValue(this.proposer.controls['employeeCodeSpouse'].value),
           this.insureArray.controls['relationSpouseInsurer'].patchValue(this.proposer.controls['relationSpouseProposer'].value),
+          this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.proposer.controls['relationSpouseProposerName'].value),
           this.insureArray.controls['currAddr1'].patchValue(this.proposer.controls['currAddr1'].value),
           this.insureArray.controls['currAddr2'].patchValue(this.proposer.controls['currAddr2'].value),
           this.insureArray.controls['currAddr3'].patchValue(this.proposer.controls['currAddr3'].value),
@@ -1409,7 +1411,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     sessionStorage.stepper4Details = JSON.stringify(value);
     console.log( sessionStorage.stepper4Details);
     if (this.bankDetail.valid) {
-      console.log(this.bankDetail.valid,'bankDetailvalid')
+      console.log(this.bankDetail.valid, 'bankDetailvalid');
         this.proposal(stepper);
 
     }

@@ -431,7 +431,7 @@
                                    <div class="col-md-6 box-card pt-3">
                                        <!--<mat-checkbox formControlName="sameAsProposer"  (change)="sameAsInsure()" ><strong>Same as proposer</strong></mat-checkbox>-->
                                        <mat-form-field class="w-100">
-                                           <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure()" class="w-100" required >
+                                           <mat-select  placeholder="Are you investing for" formControlName="investing"  (change)="sameAsInsure()"  class="w-100" required >
                                                <mat-option *ngFor="let list of einvesting | keys" [value]= list.key> {{list.value}} </mat-option>
                                            </mat-select>
                                            <mat-error *ngIf="insureArray.controls.investing.errors?.required">Investing is required</mat-error>
@@ -2235,9 +2235,9 @@
                                    <h6 class="color-blue" *ngIf="lifePremiumList.product_id=='112'">ADDON DETAILS</h6>
                                    <ul class="m-0 list-group">
 
-                                       <li class="list-group-item" *ngIf="insuredFormData.stitle != '' "><strong>Accidental Death Premium:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.semailId != ''"><strong>Permanent Disability Premium:</strong> {{insuredFormData.semailId}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.criticalIllness != ''"><strong>Critical Illness Premium:</strong> {{insuredFormData.smobileNo}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isADB != ''"><strong>Accidental Death Premium:</strong> {{summaryData.accidental_death_premium}} </li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isATPD != ''"><strong>Permanent Disability Premium:</strong> {{summaryData.permanent_disability_premium}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.criticalIllness != ''"><strong>Critical Illness Premium:</strong> {{summaryData.critical_illness_premium}}</li>
 
                                    </ul>
                                </div>
@@ -2246,9 +2246,9 @@
                                <div class=" p-3">
                                    <h6 class="color-blue mt-4" *ngIf="lifePremiumList.product_id=='112'"></h6>
                                    <ul class="m-0 list-group">
-                                       <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Premium Waiver:</strong> {{insuredFormData.isSmokerSpouse}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Better Half Premium:</strong> {{insuredFormData.isStaffSpouse}}</li>
-                                       <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>HCB Premium:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.waiverOfPremiumBenefit != ''"><strong>Premium Waiver:</strong> {{summaryData.premium_waiver}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.betterHalfBenefit != ''"><strong>Better Half Premium:</strong> {{summaryData.better_half_premium}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isHCB != ''"><strong>HCB Premium:</strong> {{summaryData.hcb_premium}}</li>
                                    </ul>
                                </div>
                            </div>
@@ -2531,41 +2531,42 @@
 
 
                                <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                               <button mat-raised-button color="primaryBlue" (click)="getProposalNext(stepper)">Next</button>
+                               <!--<button mat-raised-button color="primaryBlue" (click)="getProposalNext(stepper)">Next</button>-->
+                               <button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>
                            <!--</form>-->
                        </div>
                    </div>
                </section>
            </mat-step>
 
-           <mat-step [stepControl]="">
-               <ng-template matStepLabel>PROPOSAL FORM</ng-template>
-               <mat-accordion class="mt-4 w-100 float-left">
-                   <mat-expansion-panel expanded>
-                       <mat-expansion-panel-header>
-                           <mat-panel-title>PROPOSAL FORM
-                           </mat-panel-title>
-                       </mat-expansion-panel-header>
-                       <div class="row mt-3">
-                           <div class="col-md-12 box-card pt-3 pb-3" >
+           <!--<mat-step [stepControl]="">-->
+               <!--<ng-template matStepLabel>PROPOSAL FORM</ng-template>-->
+               <!--<mat-accordion class="mt-4 w-100 float-left">-->
+                   <!--<mat-expansion-panel expanded>-->
+                       <!--<mat-expansion-panel-header>-->
+                           <!--<mat-panel-title>PROPOSAL FORM-->
+                           <!--</mat-panel-title>-->
+                       <!--</mat-expansion-panel-header>-->
+                       <!--<div class="row mt-3">-->
+                           <!--<div class="col-md-12 box-card pt-3 pb-3" >-->
 
-                               <pdf-viewer src="{{proposalNextList.proposal_form}}"
-                                           [render-text]="true"
-                                           style="display: block;"
+                               <!--<pdf-viewer src="{{proposalNextList.proposal_form}}"-->
+                                           <!--[render-text]="true"-->
+                                           <!--style="display: block;"-->
 
-                               ></pdf-viewer>
+                               <!--&gt;</pdf-viewer>-->
 
-                               <div class="col-md-12">
-                                   <div class="proposal-buttom text-center w-100">
-                                       <button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>
-                                   </div>
-                               </div>
+                               <!--<div class="col-md-12">-->
+                                   <!--<div class="proposal-buttom text-center w-100">-->
+                                       <!--<button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>-->
+                                   <!--</div>-->
+                               <!--</div>-->
 
-                           </div>
-                       </div>
-                   </mat-expansion-panel>
-               </mat-accordion>
-           </mat-step>
+                           <!--</div>-->
+                       <!--</div>-->
+                   <!--</mat-expansion-panel>-->
+               <!--</mat-accordion>-->
+           <!--</mat-step>-->
 
            <mat-step [stepControl]="">
                <ng-template matStepLabel>DOCUMENTS</ng-template>
