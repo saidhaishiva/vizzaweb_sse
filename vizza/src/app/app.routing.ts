@@ -164,6 +164,22 @@ import {HdfcTwoWheelerProposalComponent} from './pages/hdfc-two-wheeler-proposal
 import {EdelweissTermLifePaymentSuccessComponent} from './pages/edelweiss-term-life-payment-success/edelweiss-term-life-payment-success.component';
 import {BajajTermPaymentSuccessComponent} from './pages/bajaj-term-payment-success/bajaj-term-payment-success.component';
 import {HdfcCarProposalComponent} from './pages/hdfc-car-proposal/hdfc-car-proposal.component';
+import {ConsequentialLossPolicyComponent} from './pages/consequential-loss-policy/consequential-loss-policy.component';
+import {ContractorMachineryPolicyComponent} from './pages/contractor-machinery-policy/contractor-machinery-policy.component';
+import {MarineErectionComponent} from './pages/marine-erection/marine-erection.component';
+import {AdvanceLossProfitComponent} from './pages/advance-loss-profit/advance-loss-profit.component';
+import {MegaPackagePolicyComponent} from './pages/mega-package-policy/mega-package-policy.component';
+import {ContractorMachineryPlantComponent} from './pages/contractor-machinery-plant/contractor-machinery-plant.component';
+import {ProfessionalIndemnityPolicyComponent} from './pages/professional-indemnity-policy/professional-indemnity-policy.component';
+import {ProfessionalLiabiltyPolicyComponent} from './pages/professional-liabilty-policy/professional-liabilty-policy.component';
+import {DirectorsLiabilityPolicyComponent} from './pages/directors-liability-policy/directors-liability-policy.component';
+import {LiftPolicyComponent} from './pages/lift-policy/lift-policy.component';
+import {EmployeeLiabilityComponent} from './pages/employee-liability/employee-liability.component';
+import {CareerLiabilityPolicyComponent} from './pages/career-liability-policy/career-liability-policy.component';
+import {LiabilityInsuranceActComponent} from './pages/liability-insurance-act/liability-insurance-act.component';
+import {GolfersPolicyComponent} from './pages/golfers-policy/golfers-policy.component';
+import {FiedlityPolicyComponent} from './pages/fiedlity-policy/fiedlity-policy.component';
+import {ErectionRiskPolicyComponent} from './pages/erection-risk-policy/erection-risk-policy.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -207,9 +223,25 @@ export const routes: Routes = [
             { path: 'marinehull', component: MarinehullComponent, data: {breadcrumb: 'Marine Hull policy'}},
             { path: 'aviation', component: AviationComponent, data: {breadcrumb: 'Aviation Insurance'}},
             { path: 'money', component: MoneyComponent, data: {breadcrumb: ' Money Insurance'}},
+            { path: 'consequentialLossPolicy', component: ConsequentialLossPolicyComponent, data: {breadcrumb: ' Consequential Loss Policy Insurance'}},
+            { path: 'contractorMachineryPolicy', component: ContractorMachineryPolicyComponent, data: {breadcrumb: ' Contractor Machinery Policy'}},
+            { path: 'marineErectionComponent', component: MarineErectionComponent, data: {breadcrumb: 'Marine Erection Component'}},
+            { path: 'advanceLossProfit', component: AdvanceLossProfitComponent, data: {breadcrumb: 'Advance LossProfit Component'}},
             { path: 'fire', component: FireComponent, data: {breadcrumb: 'Fire Policy'}},
+            { path: 'mega', component: MegaPackagePolicyComponent, data: {breadcrumb: 'Mega Package Policy'}},
+            { path: 'contractorMachineryPlant', component: ContractorMachineryPlantComponent, data: {breadcrumb: 'Contractor Machinery Plant'}},
             { path: 'burglary', component: BurglaryComponent, data: {breadcrumb: 'Burglary Policy'}},
             { path: 'machinery', component: MachineryComponent, data: {breadcrumb: 'Machinery Breakdown Policy'}},
+            { path: 'professionalIndemnity', component: ProfessionalIndemnityPolicyComponent, data: {breadcrumb: 'Professional Indemnity Policy'}},
+            { path: 'professionalLiabilty', component: ProfessionalLiabiltyPolicyComponent, data: {breadcrumb: 'Professional Liabilty Policy'}},
+            { path: 'directorsLiabilty', component: DirectorsLiabilityPolicyComponent, data: {breadcrumb: 'Directors Liability Policy'}},
+            { path: 'liftPolicy', component: LiftPolicyComponent, data: {breadcrumb: 'Lift Policy'}},
+            { path: 'emplyoeeLiabilty', component: EmployeeLiabilityComponent, data: {breadcrumb: 'Employee Liability Policy'}},
+            { path: 'careerPolicy', component: CareerLiabilityPolicyComponent, data: {breadcrumb: 'Career Liability Policy'}},
+            { path: 'liabilityAct', component: LiabilityInsuranceActComponent, data: {breadcrumb: 'Liability Insurance Act Policy'}},
+            { path: 'golfersPolicy', component: GolfersPolicyComponent, data: {breadcrumb: 'Golfers Policy'}},
+            { path: 'fedlityPolicy', component: FiedlityPolicyComponent, data: {breadcrumb: 'FiedlityPolicy'}},
+            { path: 'erectionPolicy', component: ErectionRiskPolicyComponent, data: {breadcrumb: 'Machinery Breakdown Policy'}},
             { path: 'electronics', component: ElectronicsComponent, data: {breadcrumb: 'Electronics Equiptment Policy'}},
             { path: 'contractors', component: ContractorsComponent, data: {breadcrumb: 'Contractors All Risk Policy'}},
             { path: 'household', component: HouseholdComponent, data: {breadcrumb: 'House Holders Policy'}},

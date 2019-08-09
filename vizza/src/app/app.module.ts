@@ -328,6 +328,16 @@ import { HdfcCarProposalComponent } from './pages/hdfc-car-proposal/hdfc-car-pro
 import { BajajTermPaymentSuccessComponent } from './pages/bajaj-term-payment-success/bajaj-term-payment-success.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { HdfcCarPaymentSuccessComponent } from './pages/hdfc-car-payment-success/hdfc-car-payment-success.component';
+import { ContractorMachineryPlantComponent } from './pages/contractor-machinery-plant/contractor-machinery-plant.component';
+import { ProfessionalLiabiltyPolicyComponent } from './pages/professional-liabilty-policy/professional-liabilty-policy.component';
+import { LiftPolicyComponent } from './pages/lift-policy/lift-policy.component';
+import { ProfessionalIndemnityPolicyComponent } from './pages/professional-indemnity-policy/professional-indemnity-policy.component';
+import { DirectorsLiabilityPolicyComponent } from './pages/directors-liability-policy/directors-liability-policy.component';
+import { EmployeeLiabilityComponent } from './pages/employee-liability/employee-liability.component';
+import { CareerLiabilityPolicyComponent } from './pages/career-liability-policy/career-liability-policy.component';
+import { LiabilityInsuranceActComponent } from './pages/liability-insurance-act/liability-insurance-act.component';
+import { GolfersPolicyComponent } from './pages/golfers-policy/golfers-policy.component';
+import { FiedlityPolicyComponent } from './pages/fiedlity-policy/fiedlity-policy.component';
 
 
 @NgModule({
@@ -613,6 +623,16 @@ import { HdfcCarPaymentSuccessComponent } from './pages/hdfc-car-payment-success
         HdfcCarProposalComponent,
         BajajTermPaymentSuccessComponent,
         HdfcCarPaymentSuccessComponent,
+        ContractorMachineryPlantComponent,
+        ProfessionalLiabiltyPolicyComponent,
+        LiftPolicyComponent,
+        ProfessionalIndemnityPolicyComponent,
+        DirectorsLiabilityPolicyComponent,
+        EmployeeLiabilityComponent,
+        CareerLiabilityPolicyComponent,
+        LiabilityInsuranceActComponent,
+        GolfersPolicyComponent,
+        FiedlityPolicyComponent,
     ],
 
     providers: [

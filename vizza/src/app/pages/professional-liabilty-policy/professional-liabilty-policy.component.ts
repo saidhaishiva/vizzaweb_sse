@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CommonService} from '../../shared/services/common.service';
@@ -24,15 +25,15 @@ export const MY_FORMATS = {
 };
 
 @Component({
-  selector: 'app-marine-erection',
-  templateUrl: './marine-erection.component.html',
-  styleUrls: ['./marine-erection.component.scss'],
+  selector: 'app-professional-liabilty-policy',
+  templateUrl: './professional-liabilty-policy.component.html',
+  styleUrls: ['./professional-liabilty-policy.component.scss'],
   providers: [
     {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
     {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
   ]
 })
-export class MarineErectionComponent implements OnInit {
+export class ProfessionalLiabiltyPolicyComponent implements OnInit {
   public marineErr: FormGroup;
   public setDate: any;
   public selectDate: any;
