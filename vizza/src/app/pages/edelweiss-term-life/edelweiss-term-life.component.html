@@ -2206,9 +2206,9 @@
                                    </ul>
                                </div>
                            </div>
-                           <div class="col-md-6" *ngIf="proposerFormData.maritalStatus == 'M'">
+                           <div class="col-md-6" *ngIf="insuredFormData.maritalStatus == 'M'">
                                <div class="p-3">
-                                   <h6 class="color-blue" *ngIf="proposerFormData.maritalStatus == 'M'">SPOUSE DETAILS</h6>
+                                   <h6 class="color-blue" *ngIf="insuredFormData.maritalStatus == 'M'">SPOUSE DETAILS</h6>
                                    <ul class="m-0 list-group">
 
                                        <li class="list-group-item" *ngIf="insuredFormData.stitle != '' && insuredFormData.sfirstName != '' && insuredFormData.smidName != '' && insuredFormData.slastName != '' "><strong>Name:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
@@ -2219,14 +2219,36 @@
                                    </ul>
                                </div>
                            </div>
-                           <div class="col-md-6" *ngIf="proposerFormData.maritalStatus == 'M'">
+                           <div class="col-md-6" *ngIf="insuredFormData.maritalStatus == 'M'">
                                <div class=" p-3">
-                                   <h6 class="color-blue mt-4" *ngIf="proposerFormData.maritalStatus == 'M'"></h6>
+                                   <h6 class="color-blue mt-4" *ngIf="insuredFormData.maritalStatus == 'M'"></h6>
                                    <ul class="m-0 list-group">
                                        <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Smoker:</strong> {{insuredFormData.isSmokerSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Staff:</strong> {{insuredFormData.isStaffSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>Employee Code:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
                                        <li class="list-group-item" *ngIf="insuredFormData.relationSpouseInsurer != ''"><strong>Relation To Insurer:</strong> {{insuredFormData.relationSpouseInsurerName}}</li>
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                               <div class="p-3">
+                                   <h6 class="color-blue" *ngIf="lifePremiumList.product_id=='112'">ADDON DETAILS</h6>
+                                   <ul class="m-0 list-group">
+
+                                       <li class="list-group-item" *ngIf="insuredFormData.stitle != '' "><strong>Accidental Death Premium:</strong> {{insuredFormData.stitle}} {{insuredFormData.sfirstName}} {{insuredFormData.smidName}} {{insuredFormData.slastName}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.semailId != ''"><strong>Permanent Disability Premium:</strong> {{insuredFormData.semailId}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.criticalIllness != ''"><strong>Critical Illness Premium:</strong> {{insuredFormData.smobileNo}}</li>
+
+                                   </ul>
+                               </div>
+                           </div>
+                           <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                               <div class=" p-3">
+                                   <h6 class="color-blue mt-4" *ngIf="lifePremiumList.product_id=='112'"></h6>
+                                   <ul class="m-0 list-group">
+                                       <li class="list-group-item" *ngIf="insuredFormData.isSmokerSpouse != ''"><strong>Premium Waiver:</strong> {{insuredFormData.isSmokerSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.isStaffSpouse != ''"><strong>Better Half Premium:</strong> {{insuredFormData.isStaffSpouse}}</li>
+                                       <li class="list-group-item" *ngIf="insuredFormData.employeeCodeSpouse != ''"><strong>HCB Premium:</strong> {{insuredFormData.employeeCodeSpouse}}</li>
                                    </ul>
                                </div>
                            </div>
