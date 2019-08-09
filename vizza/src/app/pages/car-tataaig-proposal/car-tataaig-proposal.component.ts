@@ -177,7 +177,7 @@ export class CarTataaigProposalComponent implements OnInit {
     });
 
     this.nominee = this.fb.group({
-      nomieeName: ['', Validators.required],
+      nomineeName: ['', Validators.required],
       nomineeAge: ['', Validators.required],
       nomineerelation: ['', Validators.required],
     })
@@ -207,7 +207,6 @@ export class CarTataaigProposalComponent implements OnInit {
     //   this.previouspolicy.controls['preflag'].patchValue('Y');
     // }
     if (this.premium != 'Comprehensive_premium') {
-      this.vehicle.controls['package'].patchValue('ODD01');
     }
   }
 
@@ -257,6 +256,20 @@ export class CarTataaigProposalComponent implements OnInit {
     this.validation.space(event);
   }
 
+  firstname(event) {
+    this.proposer.controls['driveFirstname'].patchValue(event.target.value);
+  }
+
+  lastname(event) {
+    this.proposer.controls['driveLastname'].patchValue(event.target.value);
+  }
+
+  maritial() {
+    this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
+  }
+
+
+
   addEvent(event: any) {
     let selectedDate = '';
     this.carProposerAge = '';
@@ -282,6 +295,8 @@ export class CarTataaigProposalComponent implements OnInit {
         }
       }
       sessionStorage.carproposerAge = this.carProposerAge;
+      this.proposer.controls['driveAge'].patchValue(sessionStorage.carproposerAge);
+
     }
   }
 
@@ -352,8 +367,10 @@ export class CarTataaigProposalComponent implements OnInit {
   choosegen() {
     if(this.proposer.controls['proposerTitle'].value == 'Mr.') {
       this.proposer.controls['proposerGender'].patchValue('MALE');
+      this.proposer.controls['driveGender'].patchValue('MALE')
     }else if(this.proposer.controls['proposerTitle'].value == 'Mrs.' || this.proposer.controls['proposerTitle'].value == 'Miss.' ) {
       this.proposer.controls['proposerGender'].patchValue('FEMALE');
+      this.proposer.controls['driveGender'].patchValue('FEMALE')
     }
   }
 
@@ -595,35 +612,34 @@ export class CarTataaigProposalComponent implements OnInit {
       this.proposer.controls['driveFirstname'].patchValue(this.proposer.controls['proposerFirstname'].value);
       this.proposer.controls['driveLastname'].patchValue(this.proposer.controls['proposerLastname'].value);
       this.proposer.controls['driveGender'].patchValue(this.proposer.controls['proposerGender'].value);
-      this.proposer.controls['driveAge'].patchValue(sessionStorage.carproposerAge);
       this.proposer.controls['drivemaritalStatus'].patchValue(this.proposer.controls['maritalStatus'].value);
-      this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
-      this.proposer.controls['driveLastname'].setValidators([Validators.required]);
-      this.proposer.controls['driveGender'].setValidators([Validators.required]);
-      this.proposer.controls['driveAge'].setValidators([Validators.required]);
+      // this.proposer.controls['driveFirstname'].setValidators([Validators.required]);
+      // this.proposer.controls['driveLastname'].setValidators([Validators.required]);
+      // this.proposer.controls['driveGender'].setValidators([Validators.required]);
+      // this.proposer.controls['driveAge'].setValidators([Validators.required]);
       this.proposer.controls['drivingexp'].setValidators([Validators.required]);
-      this.proposer.controls['drivemaritalStatus'].setValidators([Validators.required]);
+      // this.proposer.controls['drivemaritalStatus'].setValidators([Validators.required]);
     } else if (this.proposer.controls['driveflag'].value == 'N') {
-      this.proposer.controls['driveFirstname'].patchValue('');
-      this.proposer.controls['driveLastname'].patchValue('');
-      this.proposer.controls['driveGender'].patchValue('');
-      this.proposer.controls['driveAge'].patchValue('');
-      this.proposer.controls['drivingexp'].patchValue('');
-      this.proposer.controls['drivemaritalStatus'].patchValue('');
-
-      this.proposer.controls['driveFirstname'].setValidators(null);
-      this.proposer.controls['driveLastname'].setValidators(null);
-      this.proposer.controls['driveGender'].setValidators(null);
-      this.proposer.controls['driveAge'].setValidators(null);
+      // this.proposer.controls['driveFirstname'].patchValue('');
+      // this.proposer.controls['driveLastname'].patchValue('');
+      // this.proposer.controls['driveGender'].patchValue('');
+      // this.proposer.controls['driveAge'].patchValue('');
+      // this.proposer.controls['drivingexp'].patchValue('');
+      // this.proposer.controls['drivemaritalStatus'].patchValue('');
+      //
+      // this.proposer.controls['driveFirstname'].setValidators(null);
+      // this.proposer.controls['driveLastname'].setValidators(null);
+      // this.proposer.controls['driveGender'].setValidators(null);
+      // this.proposer.controls['driveAge'].setValidators(null);
       this.proposer.controls['drivingexp'].setValidators(null);
-      this.proposer.controls['drivemaritalStatus'].setValidators(null);
+      // this.proposer.controls['drivemaritalStatus'].setValidators(null);
     }
-    this.proposer.controls['driveFirstname'].updateValueAndValidity();
-    this.proposer.controls['driveLastname'].updateValueAndValidity();
-    this.proposer.controls['driveGender'].updateValueAndValidity();
-    this.proposer.controls['driveAge'].updateValueAndValidity();
+    // this.proposer.controls['driveFirstname'].updateValueAndValidity();
+    // this.proposer.controls['driveLastname'].updateValueAndValidity();
+    // this.proposer.controls['driveGender'].updateValueAndValidity();
+    // this.proposer.controls['driveAge'].updateValueAndValidity();
     this.proposer.controls['drivingexp'].updateValueAndValidity();
-    this.proposer.controls['drivemaritalStatus'].updateValueAndValidity();
+    // this.proposer.controls['drivemaritalStatus'].updateValueAndValidity();
   }
 
   check(event) {
@@ -825,7 +841,7 @@ export class CarTataaigProposalComponent implements OnInit {
     if (sessionStorage.tatacarnominee != '' && sessionStorage.tatacarnominee != undefined) {
       this.getstepper4 = JSON.parse(sessionStorage.tatacarnominee);
       this.nominee = this.fb.group({
-        nomieeName: this.getstepper4.nomieeName,
+        nomineeName: this.getstepper4.nomineeName,
         nomineeAge: this.getstepper4.nomineeAge,
         nomineerelation: this.getstepper4.nomineerelation,
       })
@@ -886,18 +902,18 @@ export class CarTataaigProposalComponent implements OnInit {
           "loanacno": ""
         },
         "nominee": {
-          "name": this.nominee.controls['nomieeName'].value,
+          "name": this.nominee.controls['nomineeName'].value,
           "age": this.nominee.controls['nomineeAge'].value,
           "relation": this.nominee.controls['nomineerelation'].value
         },
         "driver": {
           "flag": this.proposer.controls['driveflag'].value,
-          "fname": this.proposer.controls['driveFirstname'].value,
-          "lname": this.proposer.controls['driveLastname'].value,
-          "gender": this.proposer.controls['driveGender'].value,
-          "age": this.proposer.controls['driveAge'].value,
+          "fname": this.proposer.controls['driveflag'].value == 'Y' ? this.proposer.controls['driveFirstname'].value : '',
+          "lname": this.proposer.controls['driveflag'].value == 'Y' ? this.proposer.controls['driveLastname'].value : '',
+          "gender": this.proposer.controls['driveflag'].value == 'Y' ? this.proposer.controls['driveGender'].value : '',
+          "age": this.proposer.controls['driveflag'].value == 'Y' ? this.proposer.controls['driveAge'].value : '',
           "drivingexp": this.proposer.controls['drivingexp'].value,
-          "marital_status": this.proposer.controls['drivemaritalStatus'].value,
+          "marital_status": this.proposer.controls['driveflag'].value == 'Y' ? this.proposer.controls['drivemaritalStatus'].value : '',
         }
       }
     };

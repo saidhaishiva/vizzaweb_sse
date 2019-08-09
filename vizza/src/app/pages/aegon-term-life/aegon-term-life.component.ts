@@ -19,6 +19,7 @@ import {ActivatedRoute} from '@angular/router';
 import * as moment from 'moment';
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {Observable, Subject} from 'rxjs';
+import {any} from 'codelyzer/util/function';
 
 
 export const MY_FORMATS = {
@@ -97,11 +98,31 @@ export class AegonTermLifeComponent implements OnInit {
   public premiumData: any;
   public annualData: any;
   public errorMsg: any;
+  public errorMsg1: any;
+  public errorMsg2: any;
+  public errorMsg3: any;
+  public errorMsg4: any;
+  public errorMsg5: any;
   public errAnnual: any;
   public minDate: any;
   public sameComAddress: any;
   public disabledAddress: any;
   public disabledPerAddress: any;
+  public icicMsg : any;
+  public ecsaMsg : any;
+  public adbsaMsg : any;
+  public dbsaMsg : any;
+  public husMsg : any;
+  public wifeMsg : any;
+  public smokerMsg : any;
+  public qulMsg : any;
+  public dobMsg : any;
+  public titleMsg : any;
+  public dobAnnualMsg:any;
+  public dbsaAnnualMsg:any;
+  public adbsaAnnualMsg:any;
+  public errorAnnaulMsg:any;
+  public annaulIncomeMsg:any;
 
   public keyUp = new Subject<string>();
 
@@ -140,27 +161,28 @@ export class AegonTermLifeComponent implements OnInit {
     this.settings= this.appSettings.settings;
     const observable = this.keyUp
         .map(value => event)
-        .debounceTime(500)
+        .debounceTime(200)
         .distinctUntilChanged()
         .flatMap((search) => {
-          return Observable.of(search).delay(500);
+          return Observable.of(search).delay(200);
         })
         .subscribe((data) => {
           console.log(data, 'data');
-          this.getAnnual();
+          this.getAnnual('annaulIncome');
 
         });
 
     const observable1 = this.keyUp
         .map(value => event)
-        .debounceTime(1000)
+        .debounceTime(100)
         .distinctUntilChanged()
         .flatMap((search) => {
-          return Observable.of(search).delay(1000);
+          return Observable.of(search).delay(100);
         })
         .subscribe((data) => {
           console.log(data, 'data');
-          this.getPremium();
+          this.getPremium('');
+
         });
     this.webhost = this.config.getimgUrl();
 
@@ -247,6 +269,12 @@ export class AegonTermLifeComponent implements OnInit {
 
 
     });
+
+    this.errorMsg1 = '';
+    this.errorMsg2 = '';
+    this.errorMsg3 = '';
+    this.errorMsg4 = '';
+    this.errorMsg = '';
   }
 
   ngOnInit() {
@@ -833,7 +861,7 @@ export class AegonTermLifeComponent implements OnInit {
     console.log(this.personal.valid, 'checked');
     if(this.personal.valid) {
       if(sessionStorage.proposerAge >= 18){
-        if( this.personal.controls['criticalIllnessError'].value == ''){
+
           if(this.annualData) {
             if (this.premiumData) {
 
@@ -844,18 +872,15 @@ export class AegonTermLifeComponent implements OnInit {
               this.toastr.error(this.errorMsg);
             }
           }else {
-            this.toastr.error(this.errAnnual);
+            this.toastr.error(this.errorAnnaulMsg);
           }
 
-        }else{
-          this.toastr.error("Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA");
-        }
-
-      } else {
+        } else {
         this.toastr.error('Proposer age should be 18 or above');
 
       }
-    }
+
+      }
 
   }
 
@@ -1111,16 +1136,17 @@ export class AegonTermLifeComponent implements OnInit {
   public stateFailure(error) {
   }
 
-  getPremium() {
+  getPremium(type) {
     const data = {
       "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
       "role_id":  this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
       "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
       "platform": "web",
       "product_id": this.lifePremiumList.product_id,
-      "suminsured_Amount":sessionStorage.selectedAmountTravel,
+      "suminsured_Amount":this.personal.controls['deathBenefitSA'].value,
       "policy_id": this.getEnquiryDetials.policy_id,
       "benefitOption": this.lifePremiumList.benefit_option,
+      "type":type,
       "personalInformation": {
 
         "gender": this.personal.controls['gender'].value == 'f' ? 'F' : 'M',
@@ -1130,6 +1156,10 @@ export class AegonTermLifeComponent implements OnInit {
         "diabeteDuration": this.personal.controls['diabeteDuration'].value == null || this.personal.controls['diabeteDuration'].value == '' ? '0' : this.personal.controls['diabeteDuration'].value,
         "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
         "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
+        'age':sessionStorage.proposerAge,
+        'emp_type' :this.personal.controls['employeeType'].value ? this.personal.controls['employeeType'].value : '',
+        'education' : this.personal.controls['qualifiction'].value ? this.personal.controls['qualifiction'].value : '',
+        'nationality' :'Indian',
       },
       "addressDetail": {
 
@@ -1176,10 +1206,65 @@ export class AegonTermLifeComponent implements OnInit {
       this.lifePremiumList.wopPremium = this.premiumList.wopPremium;
       this.lifePremiumList.total = this.premiumList.total;
       console.log(this.premiumList, 'this.premiumList')
-      console.log(this.lifePremiumList, 'this.lifePremiumList')
+      console.log(this.lifePremiumList, 'this.lifePremiumList');
+      this.errorMsg = '';
+      this.icicMsg = '';
+      this.ecsaMsg = '';
+      this.adbsaMsg = '';
+      this.dbsaMsg = '';
+      this.husMsg = '';
+      this.wifeMsg = '';
+      this.smokerMsg = '';
+      this.qulMsg = '';
+      this.dobMsg = '';
+      this.titleMsg = '';
+
     }else{
      this.premiumData = false;
-     this.errorMsg = successData.ErrorObject;
+      this.errorMsg = successData.ErrorObject;
+     if(successData.type == 'title')
+     {
+       this.titleMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'dob')
+     {
+       this.dobMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'qul')
+     {
+       this.qulMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'smoker')
+     {
+       this.smokerMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'wife')
+     {
+       this.wifeMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'hus')
+     {
+       this.husMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'dbsa')
+     {
+       this.dbsaMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'adbsa')
+     {
+       this.adbsaMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'ecsa')
+     {
+       this.ecsaMsg = successData.ErrorObject;
+     }
+     else if(successData.type == 'icic')
+     {
+       this.icicMsg = successData.ErrorObject;
+     }
+     else {
+       console.log(successData);
+     }
     }
 
   }
@@ -1188,7 +1273,7 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
 
-    getAnnual(){
+  getAnnual(type){
         const data = {
             'platform': 'web',
             'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -1197,6 +1282,7 @@ export class AegonTermLifeComponent implements OnInit {
             'age':sessionStorage.proposerAge,
             'emp_type' :this.personal.controls['employeeType'].value,
             'education' : this.personal.controls['qualifiction'].value,
+            'type':type,
             'nationality' :'Indian',
             'annual_income':this.personal.controls['annualIncome'].value,
             'sum_assured':this.personal.controls['deathBenefitSA'].value
@@ -1214,12 +1300,41 @@ export class AegonTermLifeComponent implements OnInit {
     }
              public getAnnuallistSuccess(successData){
                 if (successData.IsSuccess) {
+
                   this.annualData = true;
                  this.annualList = successData.ResponseObject;
+                  this.dobAnnualMsg = '';
+                  this.dbsaAnnualMsg = '';
+                  this.adbsaAnnualMsg = '';
+                  this.dbsaAnnualMsg = '';
+                  this.errorAnnaulMsg = '';
+                  this.annaulIncomeMsg = '';
+
         }else
           {
             this.annualData = false;
-            this.errAnnual= successData.ErrorObject;
+            this.errorAnnaulMsg = successData.ErrorObject;
+            if(successData.type == 'dob')
+            {
+              this.dobAnnualMsg = successData.ErrorObject;
+            }
+            else if(successData.type == 'dbsa')
+            {
+              this.dbsaAnnualMsg = successData.ErrorObject;
+            }
+            else if(successData.type == 'adbsa')
+            {
+              this.adbsaAnnualMsg = successData.ErrorObject;
+            }
+            else if(successData.type == 'annaulIncome')
+            {
+              this.annaulIncomeMsg = successData.ErrorObject;
+            }
+            else
+            {
+              console.log(successData);
+            }
+            console.log(this.annaulIncomeMsg,'AnnualIncome')
           }
     }
 
@@ -1550,8 +1665,8 @@ export class AegonTermLifeComponent implements OnInit {
             "isHousewife": this.personal.controls['isHousewife'].value ? '0' : '1',
             "isHusbandCover": this.personal.controls['isHusbandCover'].value ? '0' : '1',
             'age':sessionStorage.proposerAge,
-            'emp_type' :this.personal.controls['employeeType'].value,
-            'education' : this.personal.controls['qualifiction'].value,
+            'emp_type' :this.personal.controls['employeeType'].value ? this.personal.controls['employeeType'].value : '',
+            'education' : this.personal.controls['qualifiction'].value ? this.personal.controls['qualifiction'].value : '',
             'nationality' :'Indian',
           },
           "addressDetail": {

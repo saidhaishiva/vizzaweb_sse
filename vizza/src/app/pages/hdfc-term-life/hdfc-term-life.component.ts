@@ -45,7 +45,7 @@ export const MY_FORMATS = {
 export class HdfcTermLifeComponent implements OnInit {
 
   public personal: FormGroup;
-  public nominee: FormGroup;
+  public nomineeDetail: FormGroup;
   public proposerAge: any;
   public nomineeAge: any;
   public dateError: any;
@@ -141,10 +141,9 @@ export class HdfcTermLifeComponent implements OnInit {
   public stepper2: any;
   public requestedUrl: any;
   public redirectUrl: any;
-  public sum_insured_amount:any;
-  public maritialList:any;
-  public appointeeRelationList:any;
-
+  public sum_insured_amount: any;
+  public maritialList: any;
+  public appointeeRelationList: any;
   public declaration: any;
   public inputReadonly: boolean;
   public apponiteeList: boolean;
@@ -162,20 +161,14 @@ export class HdfcTermLifeComponent implements OnInit {
   public keyUp = new Subject<string>();
 
 
-
-
-
-
-
-
-  constructor(public validation: ValidationService, public authservice: AuthService ,public fb: FormBuilder,public route: ActivatedRoute,public TermLifeService: TermLifeCommonService,public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
+  constructor(public validation: ValidationService, public authservice: AuthService, public fb: FormBuilder, public route: ActivatedRoute, public TermLifeService: TermLifeCommonService, public datepipe: DatePipe, private toastr: ToastrService, public appSettings: AppSettings, public config: ConfigurationService) {
     let stepperindex = 0;
     this.requestedUrl = '';
-    this.redirectUrl='';
+    this.redirectUrl = '';
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     this.route.params.forEach((params) => {
-      if(params.stepper == true || params.stepper == 'true') {
+      if (params.stepper == true || params.stepper == 'true') {
         stepperindex = 2;
         if (sessionStorage.summaryData != '' && sessionStorage.summaryData != undefined) {
           this.summaryData = JSON.parse(sessionStorage.summaryData);
@@ -188,12 +181,12 @@ export class HdfcTermLifeComponent implements OnInit {
         }
       }
     });
-    this.inputReadonly=false;
+    this.inputReadonly = false;
     this.disabledAddress = false;
     this.disabledPerAddress = false;
 
     this.apponiteeList = false;
-    this.settings= this.appSettings.settings;
+    this.settings = this.appSettings.settings;
 
     this.webhost = this.config.getimgUrl();
 
@@ -204,6 +197,7 @@ export class HdfcTermLifeComponent implements OnInit {
       gender: ['', Validators.required],
       dob: ['', Validators.required],
       fathernm: ['', Validators.required],
+      email: ['', Validators.required],
       maritalstatus: ['', Validators.required],
       eduqual: ['', Validators.required],
       nationality: ['', Validators.required],
@@ -246,10 +240,12 @@ export class HdfcTermLifeComponent implements OnInit {
       fundpcntg: ['', Validators.required],
 
 
-
     });
-    this.nominee = this.fb.group({
 
+    this.nomineeDetail = this.fb.group({
+      'itemsNominee' : this.fb.array([
+        this.initItemRows()
+      ])
     });
   }
 
@@ -322,6 +318,43 @@ export class HdfcTermLifeComponent implements OnInit {
     this.gettypeOfContactListHdfc();
     this.getweightListHdfc();
   }
+  initItemRows() {
+
+    return this.fb.group(
+        {
+          rolecd: 'PRIMARY',
+          ntitle: ['', Validators.required],
+          nfirstnm: ['', Validators.required],
+          nlastnm: ['', Validators.required],
+          ngender: ['', Validators.required],
+          nmaritalstatus: ['', Validators.required],
+          entitlepctg: ['', Validators.required],
+          nrelationship: ['', Validators.required],
+          nmobilenum: ['', Validators.required],
+          nhouseno: ['', Validators.required],
+          nstreet: ['', Validators.required],
+          nlandmark: ['', Validators.required],
+          ncity: ['', Validators.required],
+          nstate: ['', Validators.required],
+          npincode: ['', Validators.required],
+          ncountry: ['', Validators.required],
+          nDob: ['', Validators.compose([Validators.required, Validators.minLength(10)])],
+          afirstnm: ['', Validators.required],
+          alastnm: ['', Validators.required],
+          agender: ['', Validators.required],
+          aDob: ['', Validators.required],
+          ahouseno: ['', Validators.required],
+          astreet: ['', Validators.required],
+          alandmark: ['', Validators.required],
+          acity: ['', Validators.required],
+          astate: ['', Validators.required],
+          acountry: ['', Validators.required],
+          apincode: ['', Validators.required],
+
+
+        }
+    );
+  }
 
   // Dame validation
   nameValidate(event: any) {
@@ -361,11 +394,10 @@ export class HdfcTermLifeComponent implements OnInit {
     this.validation.idValidate(event);
 
   }
+
   topScroll() {
     document.getElementById('main-content').scrollTop = 0;
   }
-
-
 
 
   addDate(event) {
@@ -392,7 +424,7 @@ export class HdfcTermLifeComponent implements OnInit {
         dob = this.datepipe.transform(event.value, 'y-MM-dd');
         if (dob.length == 10) {
           this.nomineeAge = this.ageCalculate(dob);
-          console.log(this.nomineeAge,'age')
+          console.log(this.nomineeAge, 'age')
 
         }
         this.dateError1 = '';
@@ -403,20 +435,85 @@ export class HdfcTermLifeComponent implements OnInit {
   }
 
 
-
   // AGE VALIDATION
   ageCalculate(dob) {
-    console.log(dob,'dob');
+    console.log(dob, 'dob');
     let today = new Date();
     let birthDate = new Date(dob);
     let age = today.getFullYear() - birthDate.getFullYear();
     let m = today.getMonth() - birthDate.getMonth();
-    let dd = today.getDate()- birthDate.getDate();
-    if( m < 0 || m == 0 && today.getDate() < birthDate.getDate()){
-      age = age-1;
+    let dd = today.getDate() - birthDate.getDate();
+    if (m < 0 || m == 0 && today.getDate() < birthDate.getDate()) {
+      age = age - 1;
     }
     return age;
   }
+
+  public personalDetails(stepper: MatStepper, value) {
+    // this.personalData = value;
+    console.log(value, 'eeeeeeeeeee');
+    sessionStorage.stepper1 = '';
+    sessionStorage.stepper1 = JSON.stringify(value);
+    // console.log(this.personal.valid, 'checked');
+    stepper.next();
+    this.topScroll();
+
+    // if(this.personal.valid) {
+    //   if(sessionStorage.proposerAge >= 18){
+    //   } else {
+    //     this.toastr.error('Proposer age should be 18 or above');
+    //
+    //   }
+    // }
+
+  }
+  //NEXT BUTTON NOMINEE
+  public nomineeDetails(stepper: MatStepper, value) {
+    console.log(value, 'nominee');
+    this.nomineeData= value;
+    sessionStorage.stepper2 = '';
+    sessionStorage.stepper2 = JSON.stringify(value);
+    // this.(stepper);
+    // if(this.nominee.valid) {
+    //   if(this.apponiteeList == true){
+    //     if(sessionStorage.appointeeAge >= 18) {
+    //       console.log(this.nomineeData,'nomm')
+    //       this.proposal(stepper);
+    //     } else {
+    //       this.toastr.error('Appointee age should be 18 or above');
+    //
+    //     }
+    //   }else {
+    //     this.proposal(stepper);
+    //
+    //   }
+    //
+    //
+    //
+    //   // stepper.next();
+    //   //   this.topScroll();
+    // }
+  }
+
+
+  // add NOmineee
+  addNominee(event) {
+    // if (this.nomineeDetail.valid) {
+    console.log(this.nomineeDetail.get('itemsNominee').value.length, 'valueeee')
+    if (this.nomineeDetail.get('itemsNominee').value.length < 2) {
+      let nomineeForm = this.nomineeDetail.get('itemsNominee') as FormArray;
+      nomineeForm.push(this.initItemRows());
+    }
+
+  }
+
+
+  removeNominee(event, index) {
+    let nomineeForm = this.nomineeDetail.get('itemsNominee') as FormArray;
+    nomineeForm.removeAt(1);
+  }
+
+
 
   getAddressHdfc() {
     const data = {
