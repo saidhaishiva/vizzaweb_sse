@@ -295,34 +295,34 @@
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Engine No" formControlName="engine"  (keypress)="numberValidate($event)"  required>
+                          <input matInput placeholder="Engine No" formControlName="engine"  (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Chassis No" formControlName="chassis" (keypress)="numberValidate($event)"   required>
+                          <input matInput placeholder="Chassis No" formControlName="chassis" (keypress)="numberValidate($event)" readonly  required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Vechicle Model" formControlName="vehiclemodel" (keypress)="numberValidate($event)"  required>
+                          <input matInput placeholder="Vechicle Model" formControlName="vehiclemodel" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3 ">
                         <mat-form-field class="w-100">
-                          <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate"  (keypress)="dobValidate($event)" [disabled]="vechicle.controls['Vehicleregdate'].value" minlength="10"  maxlength="10"   autocomplete="off" required>
+                          <input matInput [matDatepicker]="picker1" placeholder="Vehicle Registration Date(DD/MM/YYYY)"   formControlName="Vehicleregdate" readonly  (keypress)="dobValidate($event)" [disabled]="vechicle.controls['Vehicleregdate'].value" minlength="10"  maxlength="10"   autocomplete="off" required>
                           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                           <mat-datepicker #picker1></mat-datepicker>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)"  required>
+                          <input matInput placeholder="Registration No" formControlName="regno" (keypress)="numberValidate($event)" readonly required>
                         </mat-form-field>
                       </div>
                       <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)"  required>
+                          <input matInput placeholder="vehicle Manufacture Year" maxlength="4" formControlName="manufactureyear" (keypress)="numberValidate($event)" readonly  required>
                         </mat-form-field>
                       </div>
                         <div class="col-md-12 mt-3">
@@ -488,22 +488,22 @@
                                           </mat-form-field>
                                       </div>
                                       <div class="col-md-3 mt-1">
-                                          <mat-checkbox formControlName="IsPaidDriver" (change)="coveroutput($event)" ><strong> IsPaidDriver </strong></mat-checkbox>
+                                          <mat-checkbox formControlName="IsPaidDriver"  ><strong> IsPaidDriver </strong></mat-checkbox>
                                       </div>
                                       <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="zerodept" (change)="coveroutput($event)" ><strong> IszerodeptCover </strong></mat-checkbox>
+                                          <mat-checkbox formControlName="zerodept"  ><strong> IszerodeptCover </strong></mat-checkbox>
                                       </div>
                                       <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="ElecticalAccessoryIDV" (change)="coveroutput($event)" ><strong> ElecticalAccessoryIDV </strong></mat-checkbox>
+                                          <mat-checkbox formControlName="ElecticalAccessoryIDV"  ><strong> ElecticalAccessoryIDV </strong></mat-checkbox>
                                       </div>
                                       <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="NonElecticalAccessoryIDV" (change)="coveroutput($event)" ><strong> ElecticalAccessoryIDV </strong></mat-checkbox>
+                                          <mat-checkbox formControlName="NonElecticalAccessoryIDV"  ><strong> ElecticalAccessoryIDV </strong></mat-checkbox>
                                       </div>
                                       <div class="col-md-3 ">
-                                          <mat-checkbox formControlName="IsLimitedtoOwnPremises" (change)="coveroutput($event)" ><strong> IsLimitedtoOwnPremises </strong></mat-checkbox>
+                                          <mat-checkbox formControlName="IsLimitedtoOwnPremises"  ><strong> IsLimitedtoOwnPremises </strong></mat-checkbox>
                                       </div>
                                       <div class="col-md-3 mt-1">
-                                          <mat-checkbox formControlName="OtherLoadDiscRate" (change)="coveroutput($event)" ><strong> OtherLoadDiscRate </strong></mat-checkbox>
+                                          <mat-checkbox formControlName="OtherLoadDiscRate"  ><strong> OtherLoadDiscRate </strong></mat-checkbox>
                                       </div>
 
                                       <div class="col-md-12 mt-2">
@@ -616,7 +616,7 @@
                                           </div>
                                           <div class="col-md-3 mt-3">
                                               <mat-form-field class="w-100">
-                                                  <input matInput [matDatepicker]="picker4" [min]="gggg" [max]="gggg" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  formControlName="Paymentdate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
+                                                  <input matInput [matDatepicker]="picker4" [min]="todaydate" [max]="todaydate" placeholder="Payment Date(DD/MM/YYYY)" (dateInput)="addEvent($event)" (dateChange)="addEvent($event)"  formControlName="Paymentdate" (dateInput)="addEvent($event,'proposor')" (dateChange)="addEvent($event,'proposor')"   minlength="10"  maxlength="10"   autocomplete="off"  required >
                                                   <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                                                   <mat-datepicker #picker4></mat-datepicker>
                                                   <mat-error *ngIf="proposer.controls.dob.errors?.required">Payment date is required</mat-error>
@@ -662,7 +662,11 @@
                                       <li class="list-group-item" *ngIf="proposerFormData.mobile != ''"><strong>Mobile Number:</strong> {{proposerFormData.mobile}}</li>
                                       <li class="list-group-item"><strong>Marital Status:</strong>{{proposerFormData.maritalStatus}}</li>
                                       <li class="list-group-item"><strong>Address 1:</strong> {{proposerFormData.address4}}</li>
-                                      <li class="list-group-item" *ngIf="proposerFormData.address5 != ''"><strong>Address 2:</strong> {{proposerFormData.address5}}</li>
+                                      <li class="list-group-item"><strong>Address 2:</strong> {{proposerFormData.address5}}</li>
+                                      <li class="list-group-item" ><strong>PIN code:</strong> {{proposerFormData.pincode1}}</li>
+                                      <li class="list-group-item" ><strong>City:</strong> {{proposerFormData.citycom}}</li>
+                                      <li class="list-group-item" ><strong>State:</strong> {{proposerFormData.statecom}}</li>
+                                      <li class="list-group-item" ><strong>District:</strong> {{proposerFormData.districtcom}}</li>
 
                                   </ul>
                               </div>
@@ -673,9 +677,9 @@
                                       <li class="list-group-item" *ngIf="proposerFormData.address != ''"><strong>Address 3:</strong> {{proposerFormData.address}}</li>
                                       <li class="list-group-item" *ngIf="proposerFormData.address1 != ''"><strong>Address 4:</strong> {{proposerFormData.address1}}</li>
                                       <li class="list-group-item"><strong>PIN code:</strong> {{proposerFormData.pincode1}}</li>
-                                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.citycom}}</li>
-                                      <li class="list-group-item"><strong>State:</strong> {{proposerFormData.statecom}}</li>
-                                      <li class="list-group-item"><strong>District:</strong> {{proposerFormData.districtcom}}</li>
+                                      <li class="list-group-item"><strong>City:</strong> {{proposerFormData.citypermanent}}</li>
+                                      <li class="list-group-item"><strong>State:</strong> {{proposerFormData.statepermanent}}</li>
+                                      <li class="list-group-item"><strong>District:</strong> {{proposerFormData.districtpermanent}}</li>
                                   </ul>
                               </div>
                           </div>

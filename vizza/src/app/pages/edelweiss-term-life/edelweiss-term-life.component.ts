@@ -12,6 +12,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
+import {BajajLifeOpt} from '../life-bajaj-proposal/life-bajaj-proposal.component';
 
 export const MY_FORMATS = {
   parse: {
@@ -171,7 +172,11 @@ export class EdelweissTermLifeComponent implements OnInit {
   public allImage: any;
   public documentPath: any;
   public fileUploadStatus: boolean;
-
+  public proposalGenStatus: boolean;
+  public proposalNextList: any;
+  public proposalFormPdf: any;
+  public optGenStatus: boolean;
+  public otpGenList: any;
 
   constructor( public fb: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
@@ -215,6 +220,10 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.idProofPath = [];
     this.allImage = [];
     this.fileUploadStatus = true;
+    this.proposalGenStatus = true;
+    this.proposalNextList = '';
+      this.optGenStatus = true;
+      this.otpGenList = '';
     const minDate = new Date();
     this.minDate = new Date(minDate.getFullYear(), minDate.getMonth(), minDate.getDate());
     let today  = new Date();
@@ -890,6 +899,7 @@ export class EdelweissTermLifeComponent implements OnInit {
           this.insureArray.controls['isStaffSpouse'].patchValue(this.proposer.controls['isStaffSpouse'].value),
           this.insureArray.controls['employeeCodeSpouse'].patchValue(this.proposer.controls['employeeCodeSpouse'].value),
           this.insureArray.controls['relationSpouseInsurer'].patchValue(this.proposer.controls['relationSpouseProposer'].value),
+          this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.proposer.controls['relationSpouseProposerName'].value),
           this.insureArray.controls['currAddr1'].patchValue(this.proposer.controls['currAddr1'].value),
           this.insureArray.controls['currAddr2'].patchValue(this.proposer.controls['currAddr2'].value),
           this.insureArray.controls['currAddr3'].patchValue(this.proposer.controls['currAddr3'].value),
@@ -1400,16 +1410,21 @@ export class EdelweissTermLifeComponent implements OnInit {
     sessionStorage.stepper4Details = JSON.stringify(value);
     console.log( sessionStorage.stepper4Details);
     if (this.bankDetail.valid) {
-      console.log(this.bankDetail.valid,'bankDetailvalid')
+      console.log(this.bankDetail.valid, 'bankDetailvalid');
         this.proposal(stepper);
 
     }
   }
 
-  summaryNext(stepper) {
-    stepper.next();
-    this.topScroll();
-  }
+    nextDocUpload(stepper) {
+        stepper.next();
+        this.topScroll();
+    }
+
+  // summaryNext(stepper) {
+  //   stepper.next();
+  //   this.topScroll();
+  // }
 
   // document Upload
   uploadProof(event: any, type) {
@@ -4533,7 +4548,91 @@ console.log(this.proposalId,'proposalId');
   // public geteFileUploadFailure(error) {
   // }
 
-  getifscEdelweissDetails(ifsc) {
+    getProposalNext(stepper) {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'pos_status': '0',
+            'policy_id': this.getEnquiryDetials.policy_id
+        };
+        this.settings.loadingSpinner = true;
+        this.termService.getProposalNext(data).subscribe(
+            (successData) => {
+                this.ProposalNextSuccess(successData,stepper);
+            },
+            (error) => {
+                this.ProposalNextFailure(error);
+            }
+        );
+    }
+
+    public ProposalNextSuccess(successData,stepper) {
+        this.settings.loadingSpinner = false;
+        if (successData.IsSuccess) {
+            // this.toastr.success(successData.ResponseObject);
+
+            stepper.next();
+            this.topScroll();
+            this.proposalGenStatus = false;
+            this.proposalNextList = successData.ResponseObject;
+            this.proposalFormPdf = this.proposalNextList.proposal_form;
+            this.otpGen();
+        } else {
+            this.proposalGenStatus = true;
+            this.toastr.error(successData.ErrorObject);
+
+        }
+    }
+    public ProposalNextFailure(error) {
+        this.settings.loadingSpinner = false;
+    }
+
+    otpGen() {
+        const data = {
+            'platform': 'web',
+            'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            'policy_id':this.getEnquiryDetials.policy_id,
+        }
+        this.termService.otpGeneration(data).subscribe(
+            (successData) => {
+                this.otpGenerationlListSuccess(successData);
+            },
+            (error) => {
+                this.otpGenerationListFailure(error);
+            }
+        );
+    }
+
+    public otpGenerationlListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.optGenStatus = false;
+            this.otpGenList = successData.ResponseObject;
+
+            let dialogRef = this.dialog.open(BajajLifeOpt, {
+                width: '1200px'
+            });
+            dialogRef.disableClose = true;
+            dialogRef.afterClosed().subscribe(result => {
+                if(result) {
+
+                }
+
+            });
+
+        } else {
+            this.optGenStatus = true;
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public otpGenerationListFailure(error) {
+    }
+
+
+    getifscEdelweissDetails(ifsc) {
     const data = {
       'platform': 'web',
       'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
@@ -4787,7 +4886,7 @@ console.log(this.proposalId,'proposalId');
           }
           console.log(getMedicalDetail.medicalFamilyQuestions,'medicalFamilyQuestionsLengthhh')
           console.log(getMedicalDetail.medicalQuestions.length,'78999778')
-        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions.length; i++) {
+        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions; i++) {
           console.log(getMedicalDetail.medicalFamilyQuestions.length,'444444444')
           if ( i !=  0) {
             this.addFamilyItems();
@@ -5003,10 +5102,10 @@ console.log(this.proposalId,'proposalId');
   }
     geteSpouseeRelationInsureName() {
         this.insureArray.controls['relationSpouseInsurerName'].patchValue(this.eNomineeRelation[this.insureArray.controls['relationSpouseInsurer'].value]);
-        // console.log(this.eNomineeRelation,'changre');
-        // console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
-        // console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
-        // console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
+        console.log(this.eNomineeRelation,'changre');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'],'5555555555555');
+        console.log(this.insureArray.controls['relationSpouseInsurerName'].value,'6666');
+        console.log(this.insureArray.controls['relationSpouseInsurer'].value,'888888888888888888');
   }
 
 
