@@ -4885,7 +4885,7 @@ console.log(this.proposalId,'proposalId');
           }
           console.log(getMedicalDetail.medicalFamilyQuestions,'medicalFamilyQuestionsLengthhh')
           console.log(getMedicalDetail.medicalQuestions.length,'78999778')
-        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions.length; i++) {
+        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions; i++) {
           console.log(getMedicalDetail.medicalFamilyQuestions.length,'444444444')
           if ( i !=  0) {
             this.addFamilyItems();

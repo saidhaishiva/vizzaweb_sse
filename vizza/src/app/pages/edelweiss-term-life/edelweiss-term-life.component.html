@@ -1125,12 +1125,7 @@
                                        <mat-error *ngIf="insureArray.controls.payoutPercentageIncome.errors?.required">payoutPercentageIncreasingIncome is required</mat-error>
                                    </mat-form-field>
                                </div>
-                               <div class="col-md-4">
-                                   <mat-form-field class="w-100">
-                                       <input matInput placeholder="No Of Months" formControlName="noOfMonths" (keypress)="numberValidate($event)" maxlength="5" autocomplete="off" required  >
-                                       <mat-error *ngIf="insureArray.controls.noOfMonths.errors?.required">noOfMonths is required</mat-error>
-                                   </mat-form-field>
-                               </div>
+
                                <div class="col-md-4">
                                    <mat-form-field class="w-100">
                                        <mat-select  placeholder="No Of Months" formControlName="noOfMonths" (change)="getpayoutMonth()"  class="w-100" required>
