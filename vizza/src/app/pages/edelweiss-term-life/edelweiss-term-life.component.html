@@ -1692,7 +1692,7 @@
                            </div>
                            <div class="row p-3">
                                <div class="col-md-12">
-                                   <h6 class="color-blue">FAMILY HISTORY</h6>
+                                   <h6 class="color-blue" *ngIf="lifePremiumList.product_id=='112'">FAMILY HISTORY</h6>
                                </div>
                                <div class="row p-3" *ngIf="lifePremiumList.product_id=='112'">
                                    <div class="col-md-12 ">
@@ -2557,7 +2557,7 @@
 
 
                                <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
-                               <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="summaryNext(stepper)">Next</button>
+                               <button mat-raised-button color="primaryBlue" [disabled]="!declaration" (click)="getProposalNext(stepper)">Next</button>
                                <!--<button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>-->
                            <!--</form>-->
                        </div>
@@ -2604,23 +2604,7 @@
                        </mat-expansion-panel-header>
                        <div class="row mt-3">
                            <div class="col-md-12 box-card pt-3 pb-3" >
-                               <div class="container">
-                                   <div class="row">
-                                       <div class="col-md-12 text-center w-100">
-                                           <mat-form-field class="w-50">
-                                               <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
-                                           </mat-form-field>
-                                       </div>
-                                       <!--<div class="col-md-12">-->
-                                       <!--<div class="proposal-buttom mb-3 text-center w-100">-->
-                                       <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
-                                       <!--</div>-->
-                                       <!--</div>-->
-                                   </div>
-                               </div>
-                               <div mat-dialog-actions style="justify-content: center">
-                                   <button mat-button class="secondary-bg-color" (click)="otpVal()" >Ok</button>
-                               </div>
+
                                <!--<div class="container">-->
                                                <!--<div class="row">-->
                                                    <!--<div class="col-md-12 text-center w-100">-->
@@ -2658,7 +2642,8 @@
 
                                        <div class="col-md-12">
                                            <div class="proposal-buttom text-center w-100">
-                                               <button mat-raised-button color="primaryBlue" (click)="nextDocUpload(stepper)">Next</button>
+                                               <button mat-button matStepperPrevious  (click)="topScroll()">Back</button>
+                                               <button mat-raised-button color="primaryBlue" (click)="nextDocUpload()">Next</button>
                                            </div>
                                        </div>
 
@@ -2670,6 +2655,23 @@
                    </mat-expansion-panel>
                </mat-accordion>
            </mat-step>
+           <!--<div class="container">-->
+               <!--<div class="row">-->
+                   <!--<div class="col-md-12 text-center w-100">-->
+                       <!--<mat-form-field class="w-50">-->
+                           <!--<input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >-->
+                       <!--</mat-form-field>-->
+                   <!--</div>-->
+                   <!--&lt;!&ndash;<div class="col-md-12">&ndash;&gt;-->
+                   <!--&lt;!&ndash;<div class="proposal-buttom mb-3 text-center w-100">&ndash;&gt;-->
+                   <!--&lt;!&ndash;<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>&ndash;&gt;-->
+                   <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                   <!--&lt;!&ndash;</div>&ndash;&gt;-->
+               <!--</div>-->
+           <!--</div>-->
+           <!--&lt;!&ndash;<div mat-dialog-actions style="justify-content: center">&ndash;&gt;-->
+               <!--&lt;!&ndash;<button mat-button class="secondary-bg-color" (click)="otpVal()" >Ok</button>&ndash;&gt;-->
+           <!--&lt;!&ndash;</div>&ndash;&gt;-->
 
            <mat-step [stepControl]="">
                <ng-template matStepLabel>DOCUMENTS</ng-template>

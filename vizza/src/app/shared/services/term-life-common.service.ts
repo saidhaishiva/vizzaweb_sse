@@ -1066,17 +1066,7 @@ export class TermLifeCommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
-    edelweissOTPValidation(data) {
-        const json = JSON.stringify(data);
-        const token = this.authService.getAccessToken();
-        const httpOptions = {
-            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
-        };
-        const url = this.configurationService.getHostTerm() + 'edelweiss/verify_otp';
-        return this.http.post(url, json, httpOptions)
-            .map(this.extractData)
-            .catch(this.handleError);
-    }
+
     fileUploadEdelweiss(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -1094,6 +1084,16 @@ export class TermLifeCommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostTerm() + 'edelweiss/DocDownload';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissOtp(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/verify_otp';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
