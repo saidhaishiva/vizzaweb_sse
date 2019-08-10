@@ -560,8 +560,8 @@ export class AegonTermLifeComponent implements OnInit {
           this.errorMsg = 'Value must be multiple of 1,000';
         }
       }else{
-        this.adbsaMsg = 'Minimum Rider Sum Assured Should be 50,000 & Maximum of SA ';
-        this.errorMsg = 'Minimum Rider Sum Assured Should be 50,000 & Maximum of SA ';
+        this.adbsaMsg = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA ';
+        this.errorMsg = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA ';
       }
 
     }else{
@@ -578,8 +578,8 @@ export class AegonTermLifeComponent implements OnInit {
         if(sumInsured % 1000 == 0) {
           if(sumInsured > adbsumInsured)
           {
-            this.ecsaMsg = 'Enhance CI rider sum assured should be between 5Lac to Base SA';
-            this.errorMsg = 'Enhance CI rider sum assured should be between 5Lac to Base SA';
+            this.ecsaMsg = 'Enhance CI rider sum assured should be between 5Lac to 50 Lac or Base SA';
+            this.errorMsg = 'Enhance CI rider sum assured should be between 5Lac to 50 Lac or Base SA';
           }
           else {
             this.ecsaMsg = '';
@@ -592,8 +592,8 @@ export class AegonTermLifeComponent implements OnInit {
           this.errorMsg = 'Value must be multiple of 1,000';
         }
       }else{
-        this.ecsaMsg = 'Minimum Rider Sum Assured Should be Min 5Lac & Maximum 50 Lac';
-        this.errorMsg = 'Minimum Rider Sum Assured Should be Min 5Lac & Maximum 50 Lac';
+        this.ecsaMsg = 'Enhance CI rider sum assured should be between 5Lac to 50 Lac or Base SA';
+        this.errorMsg = 'Enhance CI rider sum assured should be between 5Lac to 50 Lac or Base SA';
       }
 
     }else{
@@ -610,8 +610,8 @@ export class AegonTermLifeComponent implements OnInit {
         if(sumInsured % 1000 == 0) {
         if(sumInsured > adbsumInsured)
         {
-          this.icicMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to Base SA';
-          this.errorMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to Base SA';
+          this.icicMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to 50 Lac or Base SA';
+          this.errorMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to 50 Lac or Base SA';
         }
         else {
           this.icicMsg = '';
@@ -624,8 +624,8 @@ export class AegonTermLifeComponent implements OnInit {
           this.errorMsg = 'Value must be multiple of 1,000';
         }
       }else{
-        this.icicMsg = 'Minimum Rider Sum Assured Should be Min 5Lac & Maximum 50 Lac';
-        this.errorMsg = 'Minimum Rider Sum Assured Should be Min 5Lac & Maximum 50 Lac';
+        this.icicMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to 50 Lac or Base SA';
+        this.errorMsg = 'Basic Critical Illness Benefit rider sum assured should be between 5Lac to 50 Lac or Base SA';
       }
     }else{
       this.icicMsg = 'Rider should not be Empty';
