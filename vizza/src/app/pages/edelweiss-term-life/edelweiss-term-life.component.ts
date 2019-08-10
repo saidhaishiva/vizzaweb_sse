@@ -2220,7 +2220,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['specification'].updateValueAndValidity();
 
   }
-    otpVal(stepper) {
+    otpVal() {
 
         const data = {
             // 'platform': 'web',
@@ -2239,7 +2239,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         }
         this.termService.edelweissOTPValidation(data).subscribe(
             (successData) => {
-                this.otpValidationListSuccess(successData, stepper);
+                this.otpValidationListSuccess(successData);
 
             },
             (error) => {
@@ -2248,12 +2248,12 @@ export class EdelweissTermLifeComponent implements OnInit {
         );
     }
 
-    public otpValidationListSuccess(successData, stepper) {
+    public otpValidationListSuccess(successData) {
         if (successData.IsSuccess) {
             this.toastr.success(successData.ResponseObject);
             // this.dialogRef.close(true);
-            stepper.next();
-            this.topScroll();
+            // stepper.next();
+            // this.topScroll();
         } else {
             this.toastr.error(successData.ErrorObject);
         }
