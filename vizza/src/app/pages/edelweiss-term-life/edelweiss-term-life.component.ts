@@ -662,7 +662,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     // Medical Question Create
     medicalQuesCreate() {
         return new FormGroup({
-            disease: new FormControl(),
+            disease : new FormControl(),
             datediagnois :  new FormControl(),
             treatment :  new FormControl(),
             dosage: new FormControl(),
@@ -693,7 +693,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   // Medical Family Create
   medicalFamilyCreate() {
     return new FormGroup({
-      relation: new FormControl(),
+      relation : new FormControl(),
       age :  new FormControl(),
       healthStatus :  new FormControl(),
       relationName :  new FormControl(),
