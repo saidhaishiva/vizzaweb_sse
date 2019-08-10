@@ -560,8 +560,8 @@ export class AegonTermLifeComponent implements OnInit {
           this.errorMsg = 'Value must be multiple of 1,000';
         }
       }else{
-        this.adbsaMsg = 'Minimum Rider Sum Assured Should be 50,000 & Maximum of SA ';
-        this.errorMsg = 'Minimum Rider Sum Assured Should be 50,000 & Maximum of SA ';
+        this.adbsaMsg = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA ';
+        this.errorMsg = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA ';
       }
 
     }else{
