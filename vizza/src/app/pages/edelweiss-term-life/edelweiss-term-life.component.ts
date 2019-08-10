@@ -4931,9 +4931,9 @@ console.log(this.proposalId,'proposalId');
           let getMedicalDetail = JSON.parse(sessionStorage.medicalQuesDetails);
           console.log(getMedicalDetail,'step4');
 
-          for (let i=0; i < getMedicalDetail.medicalQuestions; i++) {
+          for (let i=0; i < getMedicalDetail.medicalQuestions.length; i++) {
               if ( i !=  0) {
-                  // this.addMedItems();
+                  this.addMedItems();
                 this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(getMedicalDetail.medicalQuestions[i].disease);
                 this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datediagnois, 'y-MM-dd'));
                 this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(getMedicalDetail.medicalQuestions[i].treatment);
@@ -4955,10 +4955,10 @@ console.log(this.proposalId,'proposalId');
 
               }
           }
-        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions; i++) {
-          console.log(getMedicalDetail.medicalFamilyQuestions.length,'444444444')
+        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions.length; i++) {
+          // console.log(getMedicalDetail.medicalFamilyQuestions,'444444444')
           if ( i !=  0) {
-            // this.addFamilyItems();
+            this.addFamilyItems();
             this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relation.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relation);
             this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].age.patchValue(getMedicalDetail.medicalFamilyQuestions[i].age);
             this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.patchValue(getMedicalDetail.medicalFamilyQuestions[i].healthStatus);
