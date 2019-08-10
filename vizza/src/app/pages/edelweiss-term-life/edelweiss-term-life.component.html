@@ -2398,6 +2398,31 @@
                                </div>
                            </div>
                        </div>
+
+                       <div class="row box-card">
+                           <div class="col-md-12" *ngFor="let item of medicalFormData.medicalFamilyQuestions; let i = index;">
+                               <div class="row">
+                                   <div class="col-md-6" >
+                                       <div class="p-3">
+                                           <ul class="m-0 list-group">
+                                               <li class="list-group-item" *ngIf="item.relation != null"><strong>RelationShip:</strong>{{item.relation}}</li>
+                                               <li class="list-group-item" *ngIf="item.age != null"><strong>Age:</strong> {{item.age}}</li>
+                                           </ul>
+                                       </div>
+                                   </div>
+
+
+
+                                   <div class="col-md-6" >
+                                       <div class="p-3">
+                                           <ul class="m-0 list-group">
+                                               <li class="list-group-item" *ngIf="item.healthStatus != null"><strong>Health Status:</strong> {{item.healthStatus}}</li>
+                                           </ul>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
                    </section>
 
 
