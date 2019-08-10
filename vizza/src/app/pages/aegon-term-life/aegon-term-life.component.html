@@ -1,4 +1,4 @@
-<section class="d-none d-sm-none d-xl-block d-lg-block d-md-none">
+<section class="d-none d-sm-none d-xl-block d-lg-block d-md-none" xmlns="http://www.w3.org/1999/html">
   <div class="container-fluid">
     <div class="row aegonlifeProposal">
       <div class="col-md-12">
@@ -18,13 +18,15 @@
                       <div class="row">
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <mat-select placeholder="Title" formControlName="title"  (change)="changeGender(); getMaritalList(); getEmpType(); getPremium()"  required>
+                            <mat-select placeholder="Title" formControlName="title"  (change)="changeGender(); getMaritalList(); getEmpType(); getPremium('title')"  required>
                               <mat-option value="MR">Mr</mat-option>
                               <mat-option value="MS">Ms</mat-option>
                               <mat-option value="MRS">Mrs</mat-option>
                             </mat-select>
                             <mat-error *ngIf="personal.controls.title.errors?.required">Title is required</mat-error>
                           </mat-form-field>
+                          <div class="error" *ngIf="titleMsg != ''">{{titleMsg}}</div>
+
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
@@ -57,12 +59,14 @@
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
-                            <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent( $event);getPremium()" (dateChange)="addEvent( $event); getPremium()"  minlength="10"  maxlength="10"   autocomplete="off"  required >
+                            <input matInput [matDatepicker]="picker1" [max]="today" placeholder="DOB (DD/MM/YYYY)" (keypress)="dobValidate($event)"  formControlName="dob" (dateInput)="addEvent( $event);getPremium('dob');" (dateChange)="addEvent( $event); getPremium('dob');"  minlength="10"  maxlength="10"   autocomplete="off"  required >
                             <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
                             <mat-datepicker #picker1></mat-datepicker>
                             <mat-error *ngIf="personal.controls.dob.errors?.required">DOB is required</mat-error>
                           </mat-form-field>
                           <div class="error" *ngIf="dateError != ''">{{dateError}}</div>
+                          <div class="error" *ngIf="dobMsg != ''">{{dobMsg}}</div>
+                          <div class="error" *ngIf="dobAnnualMsg != ''">{{dobAnnualMsg}}</div>
                         </div>
                         <div class="col-md-3"><mat-form-field class="w-100">
                           <input matInput placeholder="Mobile Number" formControlName="mobile" minlength="10"  maxlength="10" (keypress)="numberValidate($event)" autocomplete="off" required>
@@ -95,13 +99,15 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList()" required>
+                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList(); getPremium('qul')" required>
                             <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>
                           </mat-select>
                           <mat-error *ngIf="personal.controls.qualifiction.errors?.required">Qualifiction is required</mat-error>
                         </mat-form-field>
+                          <div class="error" *ngIf="qulMsg != ''">{{qulMsg}}</div>
+
                         </div>
                         <div class="col-md-3" *ngIf=" personal.controls.qualifiction.value == 'Others'">
                           <mat-form-field class="w-100">
@@ -140,7 +146,7 @@
                             <input matInput placeholder="Annual Income" formControlName="annualIncome" (keypress)="numberValidate($event)" (keyup)="keyUp.next()" required autocomplete="off" min="100000"  maxlength="10">
                             <mat-error *ngIf="personal.controls.annualIncome.errors?.required">Annual Income is required</mat-error>
                           </mat-form-field>
-                          <!--<div class="error" *ngIf="personal.controls['incomeError'].value != ''">{{personal.controls['incomeError'].value}}</div>-->
+                          <div class="error" *ngIf="annaulIncomeMsg != ''">{{annaulIncomeMsg}}</div>
                         </div>
                         <div class="col-md-3">
                           <mat-form-field class="w-100">
@@ -149,7 +155,7 @@
                             </mat-form-field>
                         </div>
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="smoker" required (change)="getPremium()">
+                          <mat-radio-group formControlName="smoker" required (change)="getPremium('smoker')">
                             <p>Smoker <span class="error" >*</span></p>
                             <mat-radio-button value="y" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="n">No</mat-radio-button>
@@ -171,14 +177,14 @@
                         </div>
 
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="isHousewife" required (change)="getPremium()">
+                          <mat-radio-group formControlName="isHousewife" required (change)="getPremium('wife')">
                             <p>Is Housewife <span class="error" >*</span></p>
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
                           </mat-radio-group>
                         </div>
                         <div class="col-md-3">
-                          <mat-radio-group formControlName="isHusbandCover" required (change)="getPremium()">
+                          <mat-radio-group formControlName="isHusbandCover" required (change)="getPremium('hus')">
                             <p>Is Husband Cover <span class="error" >*</span></p>
                             <mat-radio-button value="Yes" class="mr-2">Yes</mat-radio-button>
                             <mat-radio-button value="No">No</mat-radio-button>
@@ -288,17 +294,28 @@
                     <div class="col-md-12 box-card pt-3">
                       <div class="col-md-12">
                       <h6 class="color-blue">ADDON</h6>
+                      <div class="error" *ngIf="errorMsg4 != ''">{{errorMsg4}}</div>
+                        <div class="error" *ngIf="errorMsg1 != ''">{{errorMsg1}}</div>
+                        <div class="error" *ngIf="errorMsg2 != ''">{{errorMsg2}}</div>
+                        <div class="error" *ngIf="errorMsg3 != ''">{{errorMsg3}}</div>
+
+
+
                       </div>
                       <div class="row addressBox " >
 
 
                         <div class="col-md-4">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Death Benefit SA" formControlName="deathBenefitSA" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event); getPremium()"  (change)="checkSum()" (keyup)="validatesuminsured()">
+                            <input matInput placeholder="Death Benefit SA" formControlName="deathBenefitSA" maxlength="50" autocomplete="off" required (keypress)="numberValidate($event); " (input)="getPremium('dbsa'); " (change)="checkSum()" >
                             <mat-error *ngIf="personal.controls.deathBenefitSA.errors?.required">Death Benefit SA is required</mat-error>
                             <!--<input type="number" oninput="validity.valid||(value ='50000000');"  step="1000" />-->
 
                           </mat-form-field>
+                          <div class="error" *ngIf="dbsaMsg != ''">{{dbsaMsg}}</div>
+                          <div class="error" *ngIf="dbsaAnnualMsg != ''">{{dbsaAnnualMsg}}</div>
+
+
                         </div>
                         <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' && lifePremiumList.benefit_option == 'LP'&& lifePremiumList.benefit_option == 'LH' && lifePremiumList.benefit_option == 'LHP'">
                           <mat-form-field class="w-100">
@@ -317,11 +334,13 @@
                       <div class="row addressBox" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
                          <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Accidental Death Benefit (Minimum 50000)" formControlName="adbrSumAssured" maxlength="8" autocomplete="off" required (keypress)="numberValidate($event)" (keyup)="keyUp.next()" >
+                            <input matInput placeholder="Accidental Death Benefit (Minimum 50000)" formControlName="adbrSumAssured" maxlength="8" autocomplete="off" required (keypress)="numberValidate($event)" (input)="getPremium('adbsa'); " >
                             <mat-error *ngIf="personal.controls.adbrSumAssured.errors?.required">Accidental Death Benefit is required</mat-error>
                           </mat-form-field>
-                          <div class="color" *ngIf="annualError != ''">{{annualError}}</div>
-                        </div>
+                           <div class="error" *ngIf="adbsaMsg != ''">{{adbsaMsg}}</div>
+                           <div class="error" *ngIf="adbsaAnnualMsg != ''">{{adbsaAnnualMsg}}</div>
+
+                         </div>
 
                         <div class="col-md-4" *ngIf = "lifePremiumList.benefit_option == 'L' || lifePremiumList.benefit_option == 'LP'">
                           <p><strong>Premium</strong><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.adbrPremium}}</p>
@@ -331,12 +350,13 @@
                       <div class="row addressBox" *ngIf="lifePremiumList.benefit_option == 'LHP'">
                          <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LHP'">
                           <mat-form-field class="w-100" >
-                            <input matInput placeholder=" Enhanced Critical Illness Benefit (Lump Sum)" formControlName="enchancedCISA" maxlength="10" autocomplete="off"  required (keypress)="numberValidate($event) " (keyup)="keyUp.next()">
+                            <input matInput placeholder=" Enhanced Critical Illness Benefit (Lump Sum)" formControlName="enchancedCISA" maxlength="10" autocomplete="off"  required (keypress)="numberValidate($event) " (input)="getPremium('ecsa')">
                             <mat-error *ngIf="personal.controls.enchancedCISA.errors?.required">Enhanced Critical Illness Benefit (Lump Sum) is required</mat-error>
                           </mat-form-field>
-                          <div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>
+                          <!--<div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>-->
+                           <div class="error" *ngIf="ecsaMsg != ''">{{ecsaMsg}}</div>
 
-                        </div>
+                         </div>
                         <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LHP'">
                         <p><strong>Premium</strong><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.eCiPremium}}</p>
 
@@ -346,10 +366,11 @@
                       <div class="row addressBox" *ngIf="lifePremiumList.benefit_option == 'LH'">
                         <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LH'">
                           <mat-form-field class="w-100">
-                            <input matInput placeholder="Basic Critical Illness Benefit (Lump Sum)" formControlName="icirSumAssured" maxlength="10" autocomplete="off"  required (keypress)="numberValidate($event)" (keyup)="keyUp.next()" >
+                            <input matInput placeholder="Basic Critical Illness Benefit (Lump Sum)" formControlName="icirSumAssured" maxlength="10" autocomplete="off"  required (keypress)="numberValidate($event)" (input)="getPremium('icic')" >
                             <mat-error *ngIf="personal.controls.icirSumAssured.errors?.required">Basic Critical Illness Benefit (Lump Sum) is required</mat-error>
                           </mat-form-field>
-                          <div class="color" *ngIf="personal.controls['criticalIllnessError'].value != ''">{{"Basic CI SA Should be min. 5 Lac and max. 50Lac or equal to Base SA"}}</div>
+                          <div class="error" *ngIf="icicMsg != ''">{{icicMsg}}</div>
+
                         </div>
                         <div class="col-md-4" *ngIf="lifePremiumList.benefit_option == 'LH'">
                           <p><strong>Premium</strong><i class="fas fa-rupee-sign pl-3"></i>{{lifePremiumList.baseCiPremium}}</p>
