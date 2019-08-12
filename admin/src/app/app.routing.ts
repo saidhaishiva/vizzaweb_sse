@@ -47,6 +47,8 @@ import {EditmediaComponent} from './pages/mediacenter/editmedia/editmedia.compon
 import { TestimonialComponent} from './pages/testimonial/testimonial.component';
 import {CareerListComponent} from './pages/career-list/career-list.component';
 import {MetaDetailsComponent} from './pages/meta-details/meta-details.component';
+import {AddMetaDetailComponent} from './pages/meta-details/add-meta-detail/add-meta-detail.component';
+import {EditMetaDetailComponent} from './pages/meta-details/edit-meta-detail/edit-meta-detail.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -90,6 +92,8 @@ export const routes: Routes = [
             { path: 'testimonial', component: TestimonialComponent, data: { breadcrumb: 'Testimonial'} },
             { path: 'careerList', component: CareerListComponent, data: { breadcrumb: 'Career'} },
             { path: 'metaDetails', component: MetaDetailsComponent, data: { breadcrumb: 'Meta Details'} },
+            { path: 'addMetaDetails', component: AddMetaDetailComponent, data: { breadcrumb: 'Add Meta Details'} },
+            { path: 'editMetaDetails/:id', component: EditMetaDetailComponent, data: { breadcrumb: 'Edit Meta Details'} },
         ]
     },
     { path: 'login',  loadChildren: 'app/pages/login/login.module#LoginModule' },
