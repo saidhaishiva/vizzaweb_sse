@@ -365,7 +365,8 @@ export class EdelweissTermLifeComponent implements OnInit {
       categorization: ['', Validators.compose([Validators.required])],
       travelOutsideIndia: 'No',
       pilot: 'No',
-      adventurousActivities: 'No',
+      adventurousActivities: '',
+      adventurousActivitiesName: '',
       adventurousActivitiesDetails: '',
       addrProof: ['', Validators.compose([Validators.required])],
       addrProofName: '',
@@ -4894,6 +4895,7 @@ console.log(this.proposalId,'proposalId');
         investing: this.getStepper2.investing,
         title: this.getStepper2.title,
         titleName: this.getStepper2.titleName,
+        adventurousActivitiesName: this.getStepper2.adventurousActivitiesName,
         firstName: this.getStepper2.firstName,
         midName: this.getStepper2.midName,
         lastName: this.getStepper2.lastName,
@@ -5203,6 +5205,9 @@ console.log(this.proposalId,'proposalId');
   }
   changeTitle1() {
     this.insureArray.controls['titleName'].patchValue(this.etitle[this.insureArray.controls['title'].value]);
+  }
+  isadventurousName() {
+    this.insureArray.controls['adventurousActivitiesName'].patchValue(this.eAdActivity[this.insureArray.controls['adventurousActivities'].value]);
   }
     changeMarital() {
     this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);

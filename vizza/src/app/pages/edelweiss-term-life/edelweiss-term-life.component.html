@@ -900,7 +900,7 @@
                                </div>
                                <div class="col-md-4">
                                    <mat-form-field class="w-100">
-                                       <mat-select  placeholder="Adventurous Activities" formControlName="adventurousActivities" (change)="isadventurous()" required  class="w-100">
+                                       <mat-select  placeholder="Adventurous Activities" formControlName="adventurousActivities" (change)="isadventurous()" (change)="isadventurousName()" required  class="w-100">
                                            <mat-option *ngFor="let list of eAdActivity | keys" [value]= list.key> {{list.value}} </mat-option>
                                        </mat-select>
                                        <mat-error *ngIf="insureArray.controls.adventurousActivities.errors?.required">Adventurous Activities is required</mat-error>
