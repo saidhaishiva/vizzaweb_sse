@@ -12,7 +12,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
-import {BajajLifeOpt} from '../life-bajaj-proposal/life-bajaj-proposal.component';
+
 
 export const MY_FORMATS = {
   parse: {
@@ -179,6 +179,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public proposalFormPdf: any;
   public optGenStatus: boolean;
   public otpGenList: any;
+  public enquiryFromDetials:any;
 
   constructor( public fb: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
@@ -527,8 +528,9 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+    this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
+    // this.geteGender();
     this.geteTitle();
-    this.geteGender();
     this.geteMaritalStatus();
     this.geteInvesting();
     this.getePremiumTerm();
@@ -567,6 +569,28 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteidLifeProof();
     this.getesalereqProof();
     this.sessionData();
+    this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+    this.proposerAge = this.ageCalculate(dob);
+    sessionStorage.proposerAge = this.proposerAge;
+    // this.proposer.controls['age'].patchValue(this.proposerAge);
+    this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+
+    // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
+
+    if (this.enquiryFromDetials.gender == 'm') {
+      this.proposer.controls['title'].patchValue('1');
+      // if (this.enquiryFromDetials.gender == 'm') {
+      //   this.proposer.controls['gender'].patchValue('Male');
+      // } else {
+      //   this.proposer.controls['gender'].patchValue('Female');
+      // }
+    } else if (this.enquiryFromDetials.gender == 'f') {
+      this.proposer.controls['title'].patchValue('2');
+
+    }
+    this.proposer.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
+    // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
 
   }
 
@@ -2220,47 +2244,47 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['specification'].updateValueAndValidity();
 
   }
-    otpVal() {
-
-        const data = {
-            // 'platform': 'web',
-            // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            // 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            // 'policy_id': getEnquiryDetials.policy_id,
-            // 'otp': this.otpCode
-            "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-            "platform": "web",
-            "product_id": this.lifePremiumList.product_id,
-            "policy_id": this.getEnquiryDetials.policy_id,
-            "transaction_id": this.summaryData.receipt_no,
-            "otp":this.otpCode
-        }
-        this.termService.edelweissOTPValidation(data).subscribe(
-            (successData) => {
-                this.otpValidationListSuccess(successData);
-
-            },
-            (error) => {
-                this.otpValidationListFailure(error);
-            }
-        );
-    }
-
-    public otpValidationListSuccess(successData) {
-        if (successData.IsSuccess) {
-            this.toastr.success(successData.ResponseObject);
-            // this.dialogRef.close(true);
-            // stepper.next();
-            // this.topScroll();
-        } else {
-            this.toastr.error(successData.ErrorObject);
-        }
-    }
-
-    public otpValidationListFailure(error) {
-    }
+    // otpVal(stepper) {
+    //
+    //     const data = {
+    //         // 'platform': 'web',
+    //         // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         // 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    //         // 'policy_id': getEnquiryDetials.policy_id,
+    //         // 'otp': this.otpCode
+    //         "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    //         "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    //         "platform": "web",
+    //         "product_id": this.lifePremiumList.product_id,
+    //         "policy_id": this.getEnquiryDetials.policy_id,
+    //         "transaction_id": this.summaryData.receipt_no,
+    //         "otp":this.otpCode
+    //     }
+    //     this.termService.edelweissOTPValidation(data).subscribe(
+    //         (successData) => {
+    //             this.otpValidationListSuccess(successData,stepper);
+    //
+    //         },
+    //         (error) => {
+    //             this.otpValidationListFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // public otpValidationListSuccess(successData,stepper) {
+    //     if (successData.IsSuccess) {
+    //         this.toastr.success(successData.ResponseObject);
+    //         // this.dialogRef.close(true);
+    //         stepper.next();
+    //         this.topScroll();
+    //     } else {
+    //         this.toastr.error(successData.ErrorObject);
+    //     }
+    // }
+    //
+    // public otpValidationListFailure(error) {
+    // }
 
   // existingInsure() {
   //
@@ -4592,6 +4616,64 @@ console.log(this.proposalId,'proposalId');
   }
   public geteSalesReqProofDocFailure(error) {
   }
+
+  getProposalNext(stepper) {
+    const data = {
+      // 'platform': 'web',
+      // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      // 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      // 'pos_status': '0',
+      // 'policy_id': this.getEnquiryDetials.policy_id
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "platform": "web",
+      "product_id": "112",
+      "policy_id": this.getEnquiryDetials.policy_id,
+      "transaction_id":this.summaryData.receipt_no,
+      "policy_no":this.summaryData.policy_no,
+    };
+    this.settings.loadingSpinner = true;
+    this.termService.edelweissDownloadPdf(data).subscribe(
+        (successData) => {
+          this.ProposalNextSuccess(successData,stepper);
+        },
+        (error) => {
+          this.ProposalNextFailure(error);
+        }
+    );
+  }
+
+  public ProposalNextSuccess(successData,stepper) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess) {
+      // this.toastr.success(successData.ResponseObject);
+
+      stepper.next();
+      this.topScroll();
+      this.proposalGenStatus = false;
+      this.proposalNextList = successData.ResponseObject;
+      this.proposalFormPdf = this.proposalNextList.proposal_form;
+      let dialogRef = this.dialog.open(EdelweissOpt, {
+        width: '1200px'
+      });
+      dialogRef.disableClose = true;
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+
+        }
+
+      });
+
+    } else {
+      this.proposalGenStatus = true;
+      this.toastr.error(successData.ErrorObject);
+
+    }
+  }
+  public ProposalNextFailure(error) {
+    this.settings.loadingSpinner = false;
+  }
   // geteFileUpload() {
   //   const data = {
   //     'platform': 'web',
@@ -5180,90 +5262,89 @@ console.log(this.proposalId,'proposalId');
 
 
 }
-// @Component({
-//     selector: 'edelweissopt',
-//     template: `
-//         <div class="container">
-//             <div class="row">
-//                 <div class="col-md-12 text-center w-100">
-//                     <mat-form-field class="w-50">
-//                         <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
-//                     </mat-form-field>
-//                 </div>
-//                 <!--<div class="col-md-12">-->
-//                     <!--<div class="proposal-buttom mb-3 text-center w-100">-->
-//                         <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
-//                     <!--</div>-->
-//                 <!--</div>-->
-//             </div>
-//         </div>
-//         <div mat-dialog-actions style="justify-content: center">
-//             <button mat-button class="secondary-bg-color" (click)="otpVal()" >Ok</button>
-//         </div>
-//     `
-// })
-// export class EdelweissOpt {
-//     otpCode: any;
-//     constructor(
-//         public dialogRef: MatDialogRef<EdelweissOpt>,
-//         @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
-//         this.otpCode = '';
-//
-//     }
-//     // // Number validation
-//     // numberValidate(event: any) {
-//     //   this.validation.numberValidate(event);
-//     // }
-//
-//     onNoClick(): void {
-//         this.dialogRef.close(true);
-//     }
-//
-//     otpVal() {
-//         let summaryData = JSON.parse(sessionStorage.summaryData);
-//         summaryData = summaryData;
-//         console.log(summaryData,'fghjkkj')
-//         let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-//        let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-//         let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-//         const data = {
-//             // 'platform': 'web',
-//             // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//             // 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//             // 'policy_id': getEnquiryDetials.policy_id,
-//             // 'otp': this.otpCode
-//             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//             "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//             "platform": "web",
-//             "product_id": lifePremiumList.product_id,
-//             "policy_id": getEnquiryDetials.policy_id,
-//             "transaction_id": summaryData.receipt_no,
-//             "otp":this.otpCode
-//         }
-//         this.termService.edelweissOTPValidation(data).subscribe(
-//             (successData) => {
-//                 this.otpValidationListSuccess(successData);
-//             },
-//             (error) => {
-//                 this.otpValidationListFailure(error);
-//             }
-//         );
-//     }
-//
-//     public otpValidationListSuccess(successData) {
-//         if (successData.IsSuccess) {
-//             this.toastr.success(successData.ResponseObject);
-//             this.dialogRef.close(true);
-//         } else {
-//             this.toastr.error(successData.ErrorObject);
-//         }
-//     }
-//
-//     public otpValidationListFailure(error) {
-//     }
-//
-//     numberValidate(event: any) {
-//         this.validation.numberValidate(event);
-//     }
-// }
+@Component({
+    selector: ' edelweissopt ',
+    template: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <mat-form-field class="w-50">
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
+                    </mat-form-field>
+                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+          <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
+        </div>
+    `
+})
+export class EdelweissOpt {
+    otpCode: any;
+    constructor(
+        public dialogRef: MatDialogRef<EdelweissOpt>,
+        @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
+        this.otpCode = '';
+
+    }
+    // // Number validation
+    // numberValidate(event: any) {
+    //   this.validation.numberValidate(event);
+    // }
+
+     onNoClick(): void {
+    this.dialogRef.close(true);
+      }
+
+    otpEdVal() {
+        let summaryData = JSON.parse(sessionStorage.summaryData);
+        summaryData = summaryData;
+        console.log(summaryData,'44444444')
+        let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+      console.log(getEnquiryDetials,'11111111')
+       let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+      console.log(enquiryFormData,'22222222')
+        let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+      console.log(lifePremiumList,'333333333')
+        const data = {
+          "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            "platform": "web",
+            "product_id": lifePremiumList.product_id,
+            "policy_id": getEnquiryDetials.policy_id,
+            "transaction_id": summaryData.receipt_no,
+            "otp":this.otpCode
+        }
+        console.log(data, '999999999');
+        this.termService.edelweissOtp(data).subscribe(
+            (successData) => {
+                this.otpValidationListSuccess(successData);
+            },
+            (error) => {
+                this.otpValidationListFailure(error);
+            }
+        );
+    }
+
+    public otpValidationListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.dialogRef.close(true);
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public otpValidationListFailure(error) {
+    }
+
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
+    }
+}
