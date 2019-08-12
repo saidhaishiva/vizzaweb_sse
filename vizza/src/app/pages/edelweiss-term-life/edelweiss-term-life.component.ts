@@ -12,7 +12,7 @@ import {ConfigurationService} from '../../shared/services/configuration.service'
 import {TermLifeCommonService} from '../../shared/services/term-life-common.service';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import * as moment from 'moment';
-import {BajajLifeOpt} from '../life-bajaj-proposal/life-bajaj-proposal.component';
+
 
 export const MY_FORMATS = {
   parse: {
@@ -662,7 +662,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     // Medical Question Create
     medicalQuesCreate() {
         return new FormGroup({
-            disease: new FormControl(),
+            disease : new FormControl(),
             datediagnois :  new FormControl(),
             treatment :  new FormControl(),
             dosage: new FormControl(),
@@ -693,7 +693,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   // Medical Family Create
   medicalFamilyCreate() {
     return new FormGroup({
-      relation: new FormControl(),
+      relation : new FormControl(),
       age :  new FormControl(),
       healthStatus :  new FormControl(),
       relationName :  new FormControl(),
@@ -2220,47 +2220,47 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.insureArray.controls['specification'].updateValueAndValidity();
 
   }
-    otpVal(stepper) {
-
-        const data = {
-            // 'platform': 'web',
-            // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            // 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            // 'policy_id': getEnquiryDetials.policy_id,
-            // 'otp': this.otpCode
-            "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-            "platform": "web",
-            "product_id": this.lifePremiumList.product_id,
-            "policy_id": this.getEnquiryDetials.policy_id,
-            "transaction_id": this.summaryData.receipt_no,
-            "otp":this.otpCode
-        }
-        this.termService.edelweissOTPValidation(data).subscribe(
-            (successData) => {
-                this.otpValidationListSuccess(successData, stepper);
-
-            },
-            (error) => {
-                this.otpValidationListFailure(error);
-            }
-        );
-    }
-
-    public otpValidationListSuccess(successData, stepper) {
-        if (successData.IsSuccess) {
-            this.toastr.success(successData.ResponseObject);
-            // this.dialogRef.close(true);
-            stepper.next();
-            this.topScroll();
-        } else {
-            this.toastr.error(successData.ErrorObject);
-        }
-    }
-
-    public otpValidationListFailure(error) {
-    }
+    // otpVal(stepper) {
+    //
+    //     const data = {
+    //         // 'platform': 'web',
+    //         // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         // 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    //         // 'policy_id': getEnquiryDetials.policy_id,
+    //         // 'otp': this.otpCode
+    //         "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+    //         "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+    //         "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+    //         "platform": "web",
+    //         "product_id": this.lifePremiumList.product_id,
+    //         "policy_id": this.getEnquiryDetials.policy_id,
+    //         "transaction_id": this.summaryData.receipt_no,
+    //         "otp":this.otpCode
+    //     }
+    //     this.termService.edelweissOTPValidation(data).subscribe(
+    //         (successData) => {
+    //             this.otpValidationListSuccess(successData,stepper);
+    //
+    //         },
+    //         (error) => {
+    //             this.otpValidationListFailure(error);
+    //         }
+    //     );
+    // }
+    //
+    // public otpValidationListSuccess(successData,stepper) {
+    //     if (successData.IsSuccess) {
+    //         this.toastr.success(successData.ResponseObject);
+    //         // this.dialogRef.close(true);
+    //         stepper.next();
+    //         this.topScroll();
+    //     } else {
+    //         this.toastr.error(successData.ErrorObject);
+    //     }
+    // }
+    //
+    // public otpValidationListFailure(error) {
+    // }
 
   // existingInsure() {
   //
@@ -4592,6 +4592,64 @@ console.log(this.proposalId,'proposalId');
   }
   public geteSalesReqProofDocFailure(error) {
   }
+
+  getProposalNext(stepper) {
+    const data = {
+      // 'platform': 'web',
+      // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      // 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      // 'pos_status': '0',
+      // 'policy_id': this.getEnquiryDetials.policy_id
+      "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+      "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+      "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+      "platform": "web",
+      "product_id": "112",
+      "policy_id": this.getEnquiryDetials.policy_id,
+      "transaction_id":this.summaryData.receipt_no,
+      "policy_no":this.summaryData.policy_no,
+    };
+    this.settings.loadingSpinner = true;
+    this.termService.edelweissDownloadPdf(data).subscribe(
+        (successData) => {
+          this.ProposalNextSuccess(successData,stepper);
+        },
+        (error) => {
+          this.ProposalNextFailure(error);
+        }
+    );
+  }
+
+  public ProposalNextSuccess(successData,stepper) {
+    this.settings.loadingSpinner = false;
+    if (successData.IsSuccess) {
+      // this.toastr.success(successData.ResponseObject);
+
+      stepper.next();
+      this.topScroll();
+      this.proposalGenStatus = false;
+      this.proposalNextList = successData.ResponseObject;
+      this.proposalFormPdf = this.proposalNextList.proposal_form;
+      let dialogRef = this.dialog.open(EdelweissOpt, {
+        width: '1200px'
+      });
+      dialogRef.disableClose = true;
+      dialogRef.afterClosed().subscribe(result => {
+        if(result) {
+
+        }
+
+      });
+
+    } else {
+      this.proposalGenStatus = true;
+      this.toastr.error(successData.ErrorObject);
+
+    }
+  }
+  public ProposalNextFailure(error) {
+    this.settings.loadingSpinner = false;
+  }
   // geteFileUpload() {
   //   const data = {
   //     'platform': 'web',
@@ -4931,9 +4989,9 @@ console.log(this.proposalId,'proposalId');
           let getMedicalDetail = JSON.parse(sessionStorage.medicalQuesDetails);
           console.log(getMedicalDetail,'step4');
 
-          for (let i=0; i < getMedicalDetail.medicalQuestions; i++) {
+          for (let i=0; i < getMedicalDetail.medicalQuestions.length; i++) {
               if ( i !=  0) {
-                  // this.addMedItems();
+                  this.addMedItems();
                 this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].disease.patchValue(getMedicalDetail.medicalQuestions[i].disease);
                 this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].datediagnois.patchValue(this.datepipe.transform(getMedicalDetail.medicalQuestions[i].datediagnois, 'y-MM-dd'));
                 this.medicalDetail['controls'].medicalQuestions['controls'][i]['controls'].treatment.patchValue(getMedicalDetail.medicalQuestions[i].treatment);
@@ -4955,10 +5013,10 @@ console.log(this.proposalId,'proposalId');
 
               }
           }
-        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions; i++) {
-          console.log(getMedicalDetail.medicalFamilyQuestions.length,'444444444')
+        for (let i=0; i < getMedicalDetail.medicalFamilyQuestions.length; i++) {
+          // console.log(getMedicalDetail.medicalFamilyQuestions,'444444444')
           if ( i !=  0) {
-            // this.addFamilyItems();
+            this.addFamilyItems();
             this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].relation.patchValue(getMedicalDetail.medicalFamilyQuestions[i].relation);
             this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].age.patchValue(getMedicalDetail.medicalFamilyQuestions[i].age);
             this.medicalDetail['controls'].medicalFamilyQuestions['controls'][i]['controls'].healthStatus.patchValue(getMedicalDetail.medicalFamilyQuestions[i].healthStatus);
@@ -5180,90 +5238,89 @@ console.log(this.proposalId,'proposalId');
 
 
 }
-// @Component({
-//     selector: 'edelweissopt',
-//     template: `
-//         <div class="container">
-//             <div class="row">
-//                 <div class="col-md-12 text-center w-100">
-//                     <mat-form-field class="w-50">
-//                         <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
-//                     </mat-form-field>
-//                 </div>
-//                 <!--<div class="col-md-12">-->
-//                     <!--<div class="proposal-buttom mb-3 text-center w-100">-->
-//                         <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
-//                     <!--</div>-->
-//                 <!--</div>-->
-//             </div>
-//         </div>
-//         <div mat-dialog-actions style="justify-content: center">
-//             <button mat-button class="secondary-bg-color" (click)="otpVal()" >Ok</button>
-//         </div>
-//     `
-// })
-// export class EdelweissOpt {
-//     otpCode: any;
-//     constructor(
-//         public dialogRef: MatDialogRef<EdelweissOpt>,
-//         @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
-//         this.otpCode = '';
-//
-//     }
-//     // // Number validation
-//     // numberValidate(event: any) {
-//     //   this.validation.numberValidate(event);
-//     // }
-//
-//     onNoClick(): void {
-//         this.dialogRef.close(true);
-//     }
-//
-//     otpVal() {
-//         let summaryData = JSON.parse(sessionStorage.summaryData);
-//         summaryData = summaryData;
-//         console.log(summaryData,'fghjkkj')
-//         let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-//        let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
-//         let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
-//         const data = {
-//             // 'platform': 'web',
-//             // 'user_id': this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//             // 'role_id': this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//             // 'policy_id': getEnquiryDetials.policy_id,
-//             // 'otp': this.otpCode
-//             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-//             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
-//             "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-//             "platform": "web",
-//             "product_id": lifePremiumList.product_id,
-//             "policy_id": getEnquiryDetials.policy_id,
-//             "transaction_id": summaryData.receipt_no,
-//             "otp":this.otpCode
-//         }
-//         this.termService.edelweissOTPValidation(data).subscribe(
-//             (successData) => {
-//                 this.otpValidationListSuccess(successData);
-//             },
-//             (error) => {
-//                 this.otpValidationListFailure(error);
-//             }
-//         );
-//     }
-//
-//     public otpValidationListSuccess(successData) {
-//         if (successData.IsSuccess) {
-//             this.toastr.success(successData.ResponseObject);
-//             this.dialogRef.close(true);
-//         } else {
-//             this.toastr.error(successData.ErrorObject);
-//         }
-//     }
-//
-//     public otpValidationListFailure(error) {
-//     }
-//
-//     numberValidate(event: any) {
-//         this.validation.numberValidate(event);
-//     }
-// }
+@Component({
+    selector: ' edelweissopt ',
+    template: `
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center w-100">
+                    <mat-form-field class="w-50">
+                        <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
+                    </mat-form-field>
+                </div>
+                <!--<div class="col-md-12">-->
+                    <!--<div class="proposal-buttom mb-3 text-center w-100">-->
+                        <!--<button mat-raised-button color="primaryBlue" (click)="otpVal(stepper)">Submit</button>-->
+                    <!--</div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div mat-dialog-actions style="justify-content: center">
+          <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
+        </div>
+    `
+})
+export class EdelweissOpt {
+    otpCode: any;
+    constructor(
+        public dialogRef: MatDialogRef<EdelweissOpt>,
+        @Inject(MAT_DIALOG_DATA) public data: any, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService) {
+        this.otpCode = '';
+
+    }
+    // // Number validation
+    // numberValidate(event: any) {
+    //   this.validation.numberValidate(event);
+    // }
+
+     onNoClick(): void {
+    this.dialogRef.close(true);
+      }
+
+    otpEdVal() {
+        let summaryData = JSON.parse(sessionStorage.summaryData);
+        summaryData = summaryData;
+        console.log(summaryData,'44444444')
+        let getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
+      console.log(getEnquiryDetials,'11111111')
+       let enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
+      console.log(enquiryFormData,'22222222')
+        let lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
+      console.log(lifePremiumList,'333333333')
+        const data = {
+          "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
+            "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosRoleId() : '4',
+            "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
+            "platform": "web",
+            "product_id": lifePremiumList.product_id,
+            "policy_id": getEnquiryDetials.policy_id,
+            "transaction_id": summaryData.receipt_no,
+            "otp":this.otpCode
+        }
+        console.log(data, '999999999');
+        this.termService.edelweissOtp(data).subscribe(
+            (successData) => {
+                this.otpValidationListSuccess(successData);
+            },
+            (error) => {
+                this.otpValidationListFailure(error);
+            }
+        );
+    }
+
+    public otpValidationListSuccess(successData) {
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+            this.dialogRef.close(true);
+        } else {
+            this.toastr.error(successData.ErrorObject);
+        }
+    }
+
+    public otpValidationListFailure(error) {
+    }
+
+    numberValidate(event: any) {
+        this.validation.numberValidate(event);
+    }
+}
