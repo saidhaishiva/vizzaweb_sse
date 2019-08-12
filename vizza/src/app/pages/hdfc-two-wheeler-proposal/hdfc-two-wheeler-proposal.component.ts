@@ -85,6 +85,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public tommarrow: any;
     public gggg: any;
     public tod: any;
+    public Financetype: boolean;
 
 
     public financiercodevalue: any;
@@ -93,11 +94,14 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
 
     constructor(public fb: FormBuilder, public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe) {
+        this.Financetype= false;
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
                 stepperindex = 4;
                 if (sessionStorage.summaryDatabikeHdfc != '' && sessionStorage.summaryDatabikeHdfc != undefined) {
+                    alert('ttt');
+                    console.log('summary in n ');
                     this.summaryData = JSON.parse(sessionStorage.summaryDatabikeHdfc);
                     this.PaymentRedirect = this.summaryData.PaymentRedirect;
                     this.PaymentReturn = this.summaryData.PaymentReturn;
@@ -124,7 +128,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         String ;this.tod = this.tod.substring(0, 10);
 
 
-console.log(this.gggg);
+        console.log(this.gggg);
         console.log(this.tod,'today');
         console.log(this.tommarrow,'tommarow');
 
@@ -184,6 +188,7 @@ console.log(this.gggg);
             Previouscompanyvalue: [''],
             financiercodevalue: [''],
             previouspolicyclaim:['', Validators.required],
+            // Financetyp:['']
 
         });
         this.addOns = this.fb.group({
@@ -243,6 +248,8 @@ console.log(this.gggg);
         console.log(this.vehicledata, 'iie');
         this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
+        console.log(this.vehicledata.previous_claim_YN,'llll');
+        this.vechicle.controls['previouspolicyclaim'].patchValue(this.vehicledata.previous_claim_YN =='1'?'YES':'NO');
         // this.vehicledetails = JSON.parse(sessionStorage.bikeListDetails);
         this.vehicleidv=JSON.parse(sessionStorage.buyProductDetails);
         console.log(this.vehicleidv.Comprehensive_premium,'idv');
@@ -665,6 +672,7 @@ console.log('inn');
             this.vechicle.controls['Agreement'].setValidators(null);
             this.vechicle.controls['financiercode'].setValidators(null);
             this.vechicle.controls['fibranchname'].setValidators(null);
+
         }
         this.vechicle.controls['Agreement'].updateValueAndValidity();
         this.vechicle.controls['financiercode'].updateValueAndValidity();
@@ -1026,7 +1034,7 @@ console.log('inn');
                     "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
                     "PAYMENT_MODE_CD": this.BankDetails.controls['paymentmode'].value,
                     "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
-                    "PAYMENT_AMOUNT": '1928',
+                    "PAYMENT_AMOUNT": this.vehicleidv.Comprehensive_premium,
                     // this.vehicleidv.Comprehensive_premium,
                     "INSTRUMENT_NUMBER": this.BankDetails.controls['refrenceno'].value,
                     "PAYMENT_DATE":this.datepipe.transform(this.BankDetails.controls['Paymentdate'].value,'dd/MM/y'),
@@ -1072,7 +1080,7 @@ console.log(successData,'succc');
             console.log(this.previousFormData, 'pre');
             this.bankFormData = this.BankDetails.value;
             console.log(this.bankFormData, 'bank');
-
+console.log(stepper,'111');
 
         }else {
             if (successData.ErrorDes) {
