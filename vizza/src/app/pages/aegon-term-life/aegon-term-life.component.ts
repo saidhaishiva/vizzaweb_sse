@@ -545,7 +545,7 @@ export class AegonTermLifeComponent implements OnInit {
       if(sumInsured >= 50000 && sumInsured <= adbsumInsured){
         if(sumInsured % 1000 == 0)
         {
-          if(adbsumInsured > 30000000)
+          if(sumInsured > 30000000)
           {
             this.adbsaMsg = 'The maximum eligibility of this rider is 3 Cr';
             this.errorMsg = 'The maximum eligibility of this rider is 3 Cr';
