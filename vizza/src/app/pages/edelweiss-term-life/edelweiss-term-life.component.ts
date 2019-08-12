@@ -529,7 +529,7 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
     this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
-    this.geteGender();
+    // this.geteGender();
     this.geteTitle();
     this.geteMaritalStatus();
     this.geteInvesting();
@@ -574,17 +574,17 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.proposerAge = this.ageCalculate(dob);
     sessionStorage.proposerAge = this.proposerAge;
     // this.proposer.controls['age'].patchValue(this.proposerAge);
-    // this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
-    //
+    this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+
     // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
 
     if (this.enquiryFromDetials.gender == 'm') {
       this.proposer.controls['title'].patchValue('1');
-      if (this.enquiryFromDetials.gender == 'm') {
-        this.proposer.controls['gender'].patchValue('Male');
-      } else {
-        this.proposer.controls['gender'].patchValue('Female');
-      }
+      // if (this.enquiryFromDetials.gender == 'm') {
+      //   this.proposer.controls['gender'].patchValue('Male');
+      // } else {
+      //   this.proposer.controls['gender'].patchValue('Female');
+      // }
     } else if (this.enquiryFromDetials.gender == 'f') {
       this.proposer.controls['title'].patchValue('2');
 

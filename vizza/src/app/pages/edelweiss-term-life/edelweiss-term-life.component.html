@@ -49,7 +49,14 @@
                         <!--<div class="error" *ngIf="dateError != ''">{{dateError}}</div>-->
                           <!--<div class="error" *ngIf="insurerdateError != ''">{{insurerdateError}}</div>-->
                       </div>
-
+                        <!--<div class="col-md-4">-->
+                            <!--<mat-form-field class="w-100">-->
+                                <!--<mat-select  placeholder="Gender" formControlName="gender" (change)="geteGender()" required  class="w-100">-->
+                                    <!--<mat-option *ngFor="let list of egender | keys" [value]= list.key> {{list.value}} </mat-option>-->
+                                <!--</mat-select>-->
+                                <!--<mat-error *ngIf="proposer.controls.gender.errors?.required">Gender is required</mat-error>-->
+                            <!--</mat-form-field>-->
+                        <!--</div>-->
                       <div class="col-md-4">
                         <mat-form-field class="w-100">
                           <mat-select placeholder="Gender" formControlName="gender" required>
