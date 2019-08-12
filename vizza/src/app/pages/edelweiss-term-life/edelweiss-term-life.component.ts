@@ -179,6 +179,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public proposalFormPdf: any;
   public optGenStatus: boolean;
   public otpGenList: any;
+  public enquiryFromDetials:any;
 
   constructor( public fb: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
@@ -527,8 +528,9 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.enquiryFormData = JSON.parse(sessionStorage.enquiryFormData);
     this.lifePremiumList = JSON.parse(sessionStorage.lifePremiumList);
     this.getEnquiryDetials = JSON.parse(sessionStorage.getEnquiryDetials);
-    this.geteTitle();
+    this.enquiryFromDetials = JSON.parse(sessionStorage.enquiryFromDetials);
     this.geteGender();
+    this.geteTitle();
     this.geteMaritalStatus();
     this.geteInvesting();
     this.getePremiumTerm();
@@ -567,6 +569,28 @@ export class EdelweissTermLifeComponent implements OnInit {
     this.geteidLifeProof();
     this.getesalereqProof();
     this.sessionData();
+    this.proposer.controls['dob'].patchValue (this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd'));
+    let dob = this.datepipe.transform(this.enquiryFromDetials.dob, 'y-MM-dd');
+    this.proposerAge = this.ageCalculate(dob);
+    sessionStorage.proposerAge = this.proposerAge;
+    // this.proposer.controls['age'].patchValue(this.proposerAge);
+    // this.proposer.controls['gender'].patchValue(this.enquiryFromDetials.gender == 'f' ? 'Female' : 'Male');
+    //
+    // this.proposer.controls['title'].patchValue(this.enquiryFromDetials.gender == 'm' ? 'Mr.' : 'Mrs./Ms.');
+
+    if (this.enquiryFromDetials.gender == 'm') {
+      this.proposer.controls['title'].patchValue('1');
+      if (this.enquiryFromDetials.gender == 'm') {
+        this.proposer.controls['gender'].patchValue('Male');
+      } else {
+        this.proposer.controls['gender'].patchValue('Female');
+      }
+    } else if (this.enquiryFromDetials.gender == 'f') {
+      this.proposer.controls['title'].patchValue('2');
+
+    }
+    this.proposer.controls['currPincode'].patchValue(this.enquiryFromDetials.pincode);
+    // this.getPostal(this.proposer.controls['pincode'].value, 'personal');
 
   }
 
