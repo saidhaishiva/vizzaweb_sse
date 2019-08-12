@@ -512,6 +512,7 @@ export class AegonTermLifeComponent implements OnInit {
     }
     //AddOn Funcion's
   deathBenefitSA(sumInsured){
+    sumInsured = parseInt(sumInsured);
     if(sumInsured!= '')
     {
       if(sumInsured >= 2500000){
@@ -537,7 +538,8 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   adbrSumAssured(sumInsured){
-    let adbsumInsured = this.personal.controls['deathBenefitSA'].value;
+    sumInsured = parseInt(sumInsured);
+    let adbsumInsured = parseInt(this.personal.controls['deathBenefitSA'].value);
     if(sumInsured!= '')
     {
       if(sumInsured >= 50000 && sumInsured <= adbsumInsured){
@@ -571,7 +573,8 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   enchancedCISA(sumInsured){
-    let adbsumInsured = this.personal.controls['deathBenefitSA'].value;
+    sumInsured = parseInt(sumInsured);
+    let adbsumInsured = parseInt(this.personal.controls['deathBenefitSA'].value);
     if(sumInsured!= '')
     {
       if(sumInsured >= 500000 && sumInsured <= 5000000){
@@ -603,7 +606,8 @@ export class AegonTermLifeComponent implements OnInit {
   }
 
   icirSumAssured(sumInsured){
-    let adbsumInsured = this.personal.controls['deathBenefitSA'].value;
+    sumInsured = parseInt(sumInsured);
+    let adbsumInsured = parseInt(this.personal.controls['deathBenefitSA'].value);
     if(sumInsured!= '')
     {
       if(sumInsured >= 500000 && sumInsured <= 5000000){
@@ -1446,6 +1450,7 @@ export class AegonTermLifeComponent implements OnInit {
                   this.dbsaAnnualMsg = '';
                   this.errorAnnaulMsg = '';
                   this.annaulIncomeMsg = '';
+                  this.qulMsg = '';
 
         }else
           {
@@ -1466,6 +1471,10 @@ export class AegonTermLifeComponent implements OnInit {
             else if(successData.type == 'annaulIncome')
             {
               this.annaulIncomeMsg = successData.ErrorObject;
+            }
+            else if(successData.type == 'qul')
+            {
+              this.qulMsg = successData.ErrorObject;
             }
             else
             {
