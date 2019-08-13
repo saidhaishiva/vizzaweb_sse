@@ -565,27 +565,27 @@ export class HdfcCarProposalComponent implements OnInit {
             this.addOns.controls['NomineeAge'].patchValue('');
             this.addOns.controls['appointeename'].patchValue('');
             this.addOns.controls['appointeerelation'].patchValue('');
-            // if (this.vechicle.valid) {
+            if (this.vechicle.valid) {
                 stepper.next();
                 this.topScroll();
-            // } else {
-            //     this.toastr.error('Please fill the Mandatory Fields')
+            } else {
+                this.toastr.error('Please fill the Mandatory Fields')
 
-            // }
+            }
         }
         if (type == 'stepper3') {
             sessionStorage.stepper3Details = '';
             sessionStorage.stepper3Details = JSON.stringify(value);
 
 
-            // if (this.addOns.valid) {
+            if (this.addOns.valid) {
                 stepper.next();
                 this.topScroll();
 
-            // }else{
-            //     this.toastr.error('Please fill the Mandatory Fields')
+            }else{
+                this.toastr.error('Please fill the Mandatory Fields')
 
-            // }
+            }
         }
         if(type == 'stepper4'){
             sessionStorage.stepper4Details='';
@@ -594,10 +594,10 @@ export class HdfcCarProposalComponent implements OnInit {
             // console.log(this.proposerFormData,'form');
             // console.log(this.proposerFormData.title,'titt');
             console.log('inn');
-            // if(this.BankDetails.valid){
+            if(this.BankDetails.valid){
                 this.createproposal(stepper);
                 this.topScroll();
-            // }
+            }
         }
 
 

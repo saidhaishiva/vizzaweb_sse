@@ -118,6 +118,9 @@ import { PathPopupComponent } from './pages/career-list/path-popup/path-popup.co
 import { MetaDetailsComponent } from './pages/meta-details/meta-details.component';
 import { AddMetaDetailComponent } from './pages/meta-details/add-meta-detail/add-meta-detail.component';
 import { EditMetaDetailComponent } from './pages/meta-details/edit-meta-detail/edit-meta-detail.component';
+import { ComponentComponent } from './pages/component/component.component';
+import { AddComponentComponent } from './pages/component/add-component/add-component.component';
+import { EditComponentComponent } from './pages/component/edit-component/edit-component.component';
 
 @NgModule({
     imports: [
@@ -219,6 +222,9 @@ import { EditMetaDetailComponent } from './pages/meta-details/edit-meta-detail/e
         MetaDetailsComponent,
         AddMetaDetailComponent,
         EditMetaDetailComponent,
+        ComponentComponent,
+        AddComponentComponent,
+        EditComponentComponent,
     ],
     providers: [
         AppSettings,

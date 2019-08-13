@@ -9,6 +9,12 @@ import {BranchService} from '../../../shared/services/branch.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {DatePipe} from '@angular/common';
 import {MatChipInputEvent} from '@angular/material';
+import {item} from '../add-meta-detail/add-meta-detail.component';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+
+export interface item {
+  name: string;
+}
 
 @Component({
   selector: 'app-edit-meta-detail',
@@ -19,6 +25,17 @@ export class EditMetaDetailComponent implements OnInit {
   public metaDetail : FormGroup;
   public metaid : any;
   public editcenter : any;
+  public editKey : any;
+  public nameArr : any;
+  public keyEdiItems : any;
+  public itemShow = [];
+  public keyItems: any;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = true;
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  items: item[] = [];
 
 
   constructor(public config: ConfigurationService, public common:CommonService, public auth: AuthService, public fb: FormBuilder, public branchservice: BranchService,public datepipe: DatePipe, private toastr: ToastrService,public router: Router,public route: ActivatedRoute) {
@@ -40,15 +57,44 @@ export class EditMetaDetailComponent implements OnInit {
     this.edit();
   }
 
+  addi(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
+
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.items.push({name: value.trim()});
+      console.log(this.items,'items');
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+  }
+
+  remove(item: item): void {
+    const index = this.items.indexOf(item);
+    if (index >= 0) {
+      this.items.splice(index, 1);
+    }
+  }
+
   update(row) {
-    console.log(row, 'kkk');
+    let itemShow = [];
+    for(let i=0; i < this.items.length; i++) {
+      this.itemShow.push(this.items[i].name);
+    }
+    console.log(this.itemShow,'itemshow');
+    this.keyItems = this.itemShow;
+    console.log(this.keyItems,'keyitems');
     const data ={
       'platform': 'web',
       'role_id': this.auth.getAdminRoleId(),
       'adminid': this.auth.getAdminId(),
       'component': this.metaDetail.controls['component'].value,
       'title': this.metaDetail.controls['title'].value,
-      'keyword': this.metaDetail.controls['keyword'].value,
+      'keyword': this.keyItems,
       'descrition': this.metaDetail.controls['description'].value,
       'id': this.metaid,
 
@@ -67,12 +113,8 @@ export class EditMetaDetailComponent implements OnInit {
     alert('innn')
     if (successData.IsSuccess) {
       this.toastr.success(successData.ResponseObject);
-      // this.dialogRef.close(true);
-      // this.editList = successData.ResponseObject;
       this.router.navigate(['/metaDetails']);
-
     }
-    // console.log(this.editList, 'this.editList');
   }
   public editCenterFailure(error) {
     console.log(error);
@@ -96,15 +138,19 @@ export class EditMetaDetailComponent implements OnInit {
     );
   }
   public updateSuccess(successData) {
-    alert('in')
     if (successData.IsSuccess) {
+      this.items =[];
       this.editcenter = successData.ResponseObject[0];
+      let names = this.editcenter.keyword;
+      this.nameArr = names.split(',');
+      // this.editKey = this.keyEdiItems;
       this.metaDetail.controls['component'].setValue(this.editcenter.component);
       this.metaDetail.controls['title'].setValue(this.editcenter.title);
-      this.metaDetail.controls['keyword'].setValue(this.editcenter.keyword);
       this.metaDetail.controls['description'].setValue(this.editcenter.descrition);
+      for(let i=0; i<= this.nameArr.length; i++) {
+        this.items.push({name:this.nameArr[i].trim()});
+      }
     }
-    // console.log( this.editcenter, ' this.editcenter');
   }
   public updateFailure(error) {
     console.log(error);
