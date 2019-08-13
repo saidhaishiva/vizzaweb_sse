@@ -3,7 +3,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {DatePipe} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute,Router} from '@angular/router';
 import {CommonService} from '../../shared/services/common.service';
 import {ValidationService} from '../../shared/services/validation.service';
 import {AppSettings} from '../../app.settings';
@@ -183,7 +183,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public otpGenList: any;
   public enquiryFromDetials:any;
 
-  constructor( public fb: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
+  constructor( public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -1317,16 +1317,14 @@ export class EdelweissTermLifeComponent implements OnInit {
     console.log(this.proposer, 'proposer');
     if (this.proposer.valid) {
       if (sessionStorage.proposerAge >= 18) {
-        console.log(sessionStorage.proposerAge,'66666')
-        console.log(sessionStorage.proposerSpouseAge,'66666')
-        // if (sessionStorage.proposerSpouseAge >= 18) {
+        if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
           stepper.next();
           this.sameAsInsure();
-        // }
-        // else {
-        //   this.toastr.error('Spouse Age should be 18 or above');
-        //
-        // }
+        }
+        else {
+          this.toastr.error('Spouse Age should be 18 or above');
+
+        }
       } else {
         this.toastr.error('Proposer Age should be 18 or above');
 
@@ -1343,14 +1341,14 @@ export class EdelweissTermLifeComponent implements OnInit {
     // let dateErrorMsg = [];
     if (this.insureArray.valid) {
       if (sessionStorage.proposerAge >= 18) {
-        // if (sessionStorage.proposerSpouseAge >= 18) {
+        if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined) {
       stepper.next();
       this.topScroll();
-        // }
-        // else {
-        //   this.toastr.error('Spouse Age should be 18 or above');
-        //
-        // }
+        }
+        else {
+          this.toastr.error('Spouse Age should be 18 or above');
+
+        }
       } else {
         this.toastr.error('Insurer Age should be 18 or above');
 
@@ -1372,9 +1370,16 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   //upload document valid
-  uploadvalid(stepper: MatStepper) {
+  uploadvalid() {
     if (this.documentDetail.valid) {
-      stepper.next();
+      console.log('11111111doc');
+      this.router.navigate['/this.requestedUrl']
+
+      console.log('22222');
+    } else {
+      console.log('3333333333else');
+      this.toastr.error('Please Upload the Document');
+      console.log('444444444else');
     }
   }
 
@@ -2072,7 +2077,6 @@ export class EdelweissTermLifeComponent implements OnInit {
          }
 
     console.log(data, 'dattattatata');
-    console.log(this.fileDetails[0].name, 'fileDetailsname');
     console.log(this.ageProofPath.concat(this.ageProposalPath,this.addressProofPath, this.addressProposalPath, this.idProofPath,this.idProposalPath,this.incomeProofProposalPath, this.kycProofPath,this.kycProposalPath, this.documentProofPath,this.documentProposalPath, this.proposalProofPath,this.proposalProPath, this.salesReqProofPath,this.salesReqProposalPath, this.incomeProofPath, this.PhotographPath, this.PhotographProPath), 'resultttttttt');
 
     this.termService.edelweissFileUpload(data).subscribe(
@@ -2175,7 +2179,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.proposer.controls['stitle'].setValidators([Validators.required]);
       this.proposer.controls['sfirstName'].setValidators([Validators.required]);
-      this.proposer.controls['smidName'].setValidators([Validators.required]);
+      this.proposer.controls['smidName'].setValidators(null);
       this.proposer.controls['slastName'].setValidators([Validators.required]);
       this.proposer.controls['sdob'].setValidators([Validators.required]);
       this.proposer.controls['semailId'].setValidators([Validators.required]);
@@ -2237,7 +2241,7 @@ export class EdelweissTermLifeComponent implements OnInit {
 
       this.insureArray.controls['stitle'].setValidators([Validators.required]);
       this.insureArray.controls['sfirstName'].setValidators([Validators.required]);
-      this.insureArray.controls['smidName'].setValidators([Validators.required]);
+      this.insureArray.controls['smidName'].setValidators(null);
       this.insureArray.controls['slastName'].setValidators([Validators.required]);
       this.insureArray.controls['sdob'].setValidators([Validators.required]);
       this.insureArray.controls['semailId'].setValidators([Validators.required]);
@@ -3362,7 +3366,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "addrProof":this.insureArray.controls['addrProof'].value,
         "travelOutsideIndiaInd":this.medicalDetail.controls['travelOutsideIndia'].value  == 'Yes' ? 'Y' : 'N',
         "pilotInd":this.medicalDetail.controls['pilot'].value  == 'Yes' ? 'Y' : 'N',
-        "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities'].value  == 'Yes' ? 'Y' : 'N',
+        "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities'].value  ,
         "adventurousActivitiesDetails":this.medicalDetail.controls['adventurousActivitiesDetails'].value,
         "corrAddrProof":"",
         "incomeProof":"",
@@ -3392,7 +3396,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         "questionnaires":{
           "travelOutsideIndiaInd":this.medicalDetail.controls['travelOutsideIndia'].value  == 'Yes' ? 'Y' : 'N',
           "pilotInd":this.medicalDetail.controls['pilot'].value  == 'Yes' ? 'Y' : 'N',
-          "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities'].value  == 'Yes' ? 'Y' : 'N',
+          "adventurousActivitiesInd":this.medicalDetail.controls['adventurousActivities'].value ,
           "adventurousActivitiesDetails":this.medicalDetail.controls['adventurousActivitiesDetails'].value,
           "healthInformation":"",
           "drugsInd":this.medicalDetail.controls['drugsInd'].value  == 'Yes' ? 'Y' : 'N',
@@ -5411,6 +5415,8 @@ console.log(this.proposalId,'proposalId');
   }
   isadventurousName() {
     this.medicalDetail.controls['adventurousActivitiesName'].patchValue(this.eAdActivity[this.medicalDetail.controls['adventurousActivities'].value]);
+    console.log(this.medicalDetail.controls['adventurousActivities'].value,'adventurousActivities1111111')
+    console.log(this.medicalDetail.controls['adventurousActivitiesName'].value,'adventurousActivitiesName1111111')
   }
     changeMarital() {
     this.proposer.controls['maritalStatusName'].patchValue(this.emaritalStatus[this.proposer.controls['maritalStatus'].value]);
