@@ -162,9 +162,10 @@ export class ComponentComponent implements OnInit {
     if (success.IsSuccess) {
       this.componentList();
       this.toastr.success(success.ResponseObject);
-    } else {
-      this.toastr.error(success.ErrorObject)
     }
+    // else {
+    //   this.toastr.error(success.ErrorObject)
+    // }
   }
   public approveFailure(error) {
     alert('out')
