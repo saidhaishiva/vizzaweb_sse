@@ -1320,6 +1320,7 @@ export class EdelweissTermLifeComponent implements OnInit {
         if (sessionStorage.proposerSpouseAge >= 18 || sessionStorage.proposerSpouseAge == undefined ) {
           stepper.next();
           this.sameAsInsure();
+
         }
         else {
           this.toastr.error('Spouse Age should be 18 or above');
@@ -1373,8 +1374,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   uploadvalid() {
     if (this.documentDetail.valid) {
       console.log('11111111doc');
-      this.router.navigate['/this.requestedUrl']
-
+      window.open(this.requestedUrl,'_top')
       console.log('22222');
     } else {
       console.log('3333333333else');
