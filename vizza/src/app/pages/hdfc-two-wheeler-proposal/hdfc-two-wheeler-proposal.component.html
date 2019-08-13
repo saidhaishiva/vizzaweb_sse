@@ -326,15 +326,15 @@
                         </mat-form-field>
                       </div>
                         <div class="col-md-12 mt-3">
-                            <mat-checkbox [(ngModel)]="Financetype" formControlName="Financetype" (change)="check($event)"><strong> If Vehicle is Finance? </strong></mat-checkbox>
+                            <mat-checkbox formControlName="Financetype" (change)="changeValidation($event)"><strong> If Vehicle is Finance? </strong></mat-checkbox>
                         </div>
                         <!--<div class="col-md-3 mt-1">-->
-                            <!--<mat-checkbox formControlName="Financetyp"  ><strong> If Vehicle is Finance? </strong></mat-checkbox>-->
+                            <!--<mat-checkbox formControlName="Financetyp"  >j</mat-checkbox>-->
                         <!--</div>-->
-                        <div class="col-md-3 mt-3" *ngIf="Financetype">
+                        <div class="col-md-3 mt-3" *ngIf="financeTypeTrue">
                             <mat-form-field class="w-100">
                                 <mat-placeholder>Agreement Type</mat-placeholder>
-                                <mat-select  formControlName="Agreement" [required]="Financetype" >
+                                <mat-select  formControlName="Agreement" [required]="financeTypeTrue" >
                                     <mat-option value="Hire Purchase">Hire Purchase</mat-option>
                                     <mat-option value="Hypothecation ">Hypothecation</mat-option>
                                     <mat-option value="Lease ">Lease</mat-option>
@@ -343,19 +343,19 @@
 
                             </mat-form-field>
                         </div>
-                        <div class="col-md-3 mt-3" *ngIf ="Financetype" >
+                        <div class="col-md-3 mt-3" *ngIf ="financeTypeTrue" >
                             <mat-form-field class="w-100" >
                                 <mat-placeholder>Financier Name</mat-placeholder>
-                                <mat-select  formControlName="financiercode" [required]="Financetype"  >
+                                <mat-select  formControlName="financiercode" [required]="financeTypeTrue"  >
                                     <mat-option *ngFor="let finance of financeList | keys" value="{{finance.key}}" > {{finance.value}} </mat-option>
                                 </mat-select>
                                 <mat-error *ngIf="vechicle.controls.financiercode.errors?.required">Finance code is required</mat-error>
                             </mat-form-field>
                         </div>
-                        <div class="col-md-3 mt-3" *ngIf="Financetype">
+                        <div class="col-md-3 mt-3" *ngIf="financeTypeTrue">
                             <mat-form-field class="w-100">
                                 <mat-placeholder>Branch Name</mat-placeholder>
-                                <input matInput  maxlength="20" formControlName="fibranchname" (keypress)="nameValidate($event)" [required]="Financetype" >
+                                <input matInput  maxlength="20" formControlName="fibranchname" (keypress)="nameValidate($event)" [required]="financeTypeTrue" >
                                 <mat-error *ngIf="vechicle.controls.fibranchname.errors?.required">Branch name is required</mat-error>
                             </mat-form-field>
                         </div>
