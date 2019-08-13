@@ -3,7 +3,7 @@ import {AuthService} from '../../shared/services/auth.service';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatStepper} from '@angular/material';
 import {DatePipe} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute,Router} from '@angular/router';
 import {CommonService} from '../../shared/services/common.service';
 import {ValidationService} from '../../shared/services/validation.service';
 import {AppSettings} from '../../app.settings';
@@ -183,7 +183,7 @@ export class EdelweissTermLifeComponent implements OnInit {
   public otpGenList: any;
   public enquiryFromDetials:any;
 
-  constructor( public fb: FormBuilder, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
+  constructor( public fb: FormBuilder,public router: Router, public dialog: MatDialog, public datepipe: DatePipe, public route: ActivatedRoute, public common: CommonService, public validation: ValidationService, public appSettings: AppSettings, private toastr: ToastrService, public config: ConfigurationService, public authservice: AuthService, public termService: TermLifeCommonService,  ) {
     this.requestedUrl = '';
     let stepperindex = 0;
     this.route.params.forEach((params) => {
@@ -1370,10 +1370,11 @@ export class EdelweissTermLifeComponent implements OnInit {
   }
 
   //upload document valid
-  uploadvalid(stepper: MatStepper) {
+  uploadvalid() {
     if (this.documentDetail.valid) {
       console.log('11111111doc');
-      stepper.next();
+      this.router.navigate['/this.requestedUrl']
+
       console.log('22222');
     } else {
       console.log('3333333333else');
