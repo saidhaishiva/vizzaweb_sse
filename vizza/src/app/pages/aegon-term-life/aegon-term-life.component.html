@@ -99,7 +99,7 @@
                         </div>
                         <div class="col-md-3">
                         <mat-form-field class="w-100">
-                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList(); getPremium('qul')" required>
+                          <mat-select placeholder="Qualification" formControlName="qualifiction"  (change)="changeQualificationList();getAnnual('qul'); getPremium('qul')" required>
                             <mat-option *ngFor="let list of qualificationList | keys" [value]= 'list.value'>
                               {{list.value}}
                             </mat-option>

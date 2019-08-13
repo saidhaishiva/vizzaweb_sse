@@ -85,6 +85,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public tommarrow: any;
     public gggg: any;
     public tod: any;
+    public Financetype: boolean;
 
 
     public financiercodevalue: any;
@@ -93,11 +94,14 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
 
     constructor(public fb: FormBuilder, public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe) {
+        this.Financetype= false;
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
                 stepperindex = 4;
                 if (sessionStorage.summaryDatabikeHdfc != '' && sessionStorage.summaryDatabikeHdfc != undefined) {
+                    alert('ttt');
+                    console.log('summary in n ');
                     this.summaryData = JSON.parse(sessionStorage.summaryDatabikeHdfc);
                     this.PaymentRedirect = this.summaryData.PaymentRedirect;
                     this.PaymentReturn = this.summaryData.PaymentReturn;
@@ -124,7 +128,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
         String ;this.tod = this.tod.substring(0, 10);
 
 
-console.log(this.gggg);
+        console.log(this.gggg);
         console.log(this.tod,'today');
         console.log(this.tommarrow,'tommarow');
 
@@ -184,6 +188,7 @@ console.log(this.gggg);
             Previouscompanyvalue: [''],
             financiercodevalue: [''],
             previouspolicyclaim:['', Validators.required],
+            // Financetyp:['']
 
         });
         this.addOns = this.fb.group({
@@ -237,12 +242,24 @@ console.log(this.gggg);
         stringToSplit=this.vehicledata.vehicle_no;
         let x=stringToSplit.slice(0,2);
         let y = stringToSplit.slice(2,4);
+        let oo= stringToSplit.slice(5,6);
+        let w='';
         let z= stringToSplit.slice(4,6);
-        let w=stringToSplit.slice(6);
-        this.vehicledata.vehicle_no=x.concat('-',y,'-',z,'-',w);
+        if(!isNaN(oo)){
+            let j= stringToSplit.slice(4,5);
+            w=stringToSplit.slice(5);
+            this.vehicledata.vehicle_no=x.concat('-',y,'-',j,'-',w);
+
+        }else{
+            w=stringToSplit.slice(6);
+            this.vehicledata.vehicle_no=x.concat('-',y,'-',z,'-',w);
+
+        }
         console.log(this.vehicledata, 'iie');
         this.vechicle.controls['engine'].patchValue(this.vehicledata.engine_no);
         this.vechicle.controls['chassis'].patchValue(this.vehicledata.chassis_no);
+        console.log(this.vehicledata.previous_claim_YN,'llll');
+        this.vechicle.controls['previouspolicyclaim'].patchValue(this.vehicledata.previous_claim_YN =='1'?'YES':'NO');
         // this.vehicledetails = JSON.parse(sessionStorage.bikeListDetails);
         this.vehicleidv=JSON.parse(sessionStorage.buyProductDetails);
         console.log(this.vehicleidv.Comprehensive_premium,'idv');
@@ -665,6 +682,7 @@ console.log('inn');
             this.vechicle.controls['Agreement'].setValidators(null);
             this.vechicle.controls['financiercode'].setValidators(null);
             this.vechicle.controls['fibranchname'].setValidators(null);
+
         }
         this.vechicle.controls['Agreement'].updateValueAndValidity();
         this.vechicle.controls['financiercode'].updateValueAndValidity();
@@ -812,125 +830,43 @@ console.log('inn');
         var pos = stringToSplit.search("-");
         console.log(pos,'pos');
         if(pos==-1) {
+            let x=stringToSplit.slice(0,2);
+            let y = stringToSplit.slice(2,4);
+            let oo= stringToSplit.slice(5,6);
+            let w='';
+            let z= stringToSplit.slice(4,6);
+            if(!isNaN(oo)){
+                let j= stringToSplit.slice(4,5);
+                w=stringToSplit.slice(5);
+                let regno=x.concat('-',y,'-',j,'-',w);
+                this.vechicle.controls['regno'].patchValue(regno);
+
+
+            }else{
+                w=stringToSplit.slice(6);
+                let regno=x.concat('-',y,'-',z,'-',w);
+                this.vechicle.controls['regno'].patchValue(regno);
+
+
+            }
             console.log('ioio');
             console.log(stringToSplit, 'original number of regno');
-            let x = stringToSplit.slice(0, 2);
-            let y = stringToSplit.slice(2, 4);
-            let z = stringToSplit.slice(4, 6);
-            let w = stringToSplit.slice(6);
-            let regno = x.concat('-', y, '-', z, '-', w);
-            this.vechicle.controls['regno'].patchValue(regno);
-            console.log(regno, 'reg');
-            console.log(this.addOns.controls['ElecticalAccessoryIDV'].value, 'check');
-        }
+            // let x = stringToSplit.slice(0, 2);
+            // let y = stringToSplit.slice(2, 4);
+            // let o=stringToSplit.slice(4,5);
+            // if(isNaN(o)){
+            //     console.log('ooooooo');
+            // }
+            // let z = stringToSplit.slice(4, 6);
+            // let w = stringToSplit.slice(6);
+            // let regno = x.concat('-', y, '-', z, '-', w);
+
+                    }
         console.log(this.tommarrow);
         console.log(this.tod);
         console.log(this.companyList[this.vechicle.controls['Previouscompany'].value]);
 
         const data = {
-
-            // "platform": "web",
-            // "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
-            // "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosUserId() : '0',
-            // "pos_status": this.authservice.getPosStatus() ? this.authservice.getPosStatus() : '0',
-            // "enquiry_id": this.bikeEnquiryId,
-            // "created_by": "",
-            // "proposal_id": "",
-            // "motorproposalObj": {
-            //     "Customer_Details": {
-            //         "Customer_FirstName": this.proposer.controls['firstName'].value,
-            //         "Customer_MiddleName": this.proposer.controls['middleName'].value,
-            //         "Customer_LastName": this.proposer.controls['lastName'].value,
-            //         // "Customer_DateofBirth": this.datepipe.transform(this.proposer.controls['proposerDob'].value, 'yMMdd'),
-            //         "Customer_Email": this.proposer.controls['email'].value,
-            //         "Customer_Mobile": this.proposer.controls['mobile'].value,
-            //         "Customer_Telephone": [],
-            //         "Customer_PanNo": this.proposer.controls['personalPan'].value,
-            //         "Customer_Salutation": this.proposer.controls['title'].value,
-            //         "Customer_Gender": this.proposer.controls['gender'].value,
-            //         "Customer_Perm_Address1": this.proposer.controls['address'].value,
-            //         "Customer_Perm_Address2": this.proposer.controls['address2'].value,
-            //         "Customer_Perm_Apartment": this.proposer.controls['address3'].value,
-            //         "Customer_Perm_Street": this.proposer.controls['firstName'].value,
-            //         "Customer_Perm_CityDistrictCode": [],
-            //         "Customer_Perm_CityDistrict": [],
-            //         "Customer_Perm_StateCode": [],
-            //         "Customer_Perm_State": [],
-            //         "Customer_Perm_PinCode": this.proposer.controls['pincode'].value,
-            //         "Customer_Perm_PinCodeLocality": [],
-            //         "Customer_Mailing_Address1": this.proposer.controls['address4'].value,
-            //         "Customer_Mailing_Address2": this.proposer.controls['address5'].value,
-            //         "Customer_Mailing_Apartment": this.proposer.controls['address6'].value,
-            //         "Customer_Mailing_Street": this.proposer.controls['firstName'].value,
-            //         "Customer_Mailing_CityDistrictCode": [],
-            //         "Customer_Mailing_CityDistrict": [],
-            //         "Customer_Mailing_StateCode": [],
-            //         "Customer_Mailing_State": [],
-            //         "Customer_Mailing_PinCode": this.proposer.controls['pincode1'].value,
-            //         "Customer_Mailing_PinCodeLocality": [],
-            //         "Customer_GSTIN_Number": this.proposer.controls['gstNumber'].value ,
-            //         "Customer_GSTIN_State": []
-            //     },
-            //     "Policy_Details": {
-            //         "PolicyStartDate": "31/07/2019",
-            //         "PreviousPolicyEndDate": [],
-            //         "ProposalDate": "31/07/2019",
-            //         "AgreementType": [],
-            //         "FinancierCode": [],
-            //         "BranchName": [],
-            //         "PreviousPolicy_CorporateCustomerId_Mandatary": this.vechicle.controls['Previouscompany'].value,
-            //         "PreviousPolicy_NCBPercentage": this.vechicle.controls['ncb'].value,
-            //         "PreviousPolicy_PolicyEndDate": this.datepipe.transform(this.vechicle.controls['previousenddate'].value, 'yMMdd'),
-            //         "PreviousPolicy_PolicyNo": this.vechicle.controls['previouspolicyno'].value,
-            //         // "PreviousPolicy_PolicyClaim": this.vechicle.controls['firstName'].value,
-            //         "BusinessType_Mandatary": "Roll Over",
-            //         // "VehicleModelCode": this.vechicle.controls['vehiclemodel'].value,
-            //         "DateofDeliveryOrRegistration": this.vechicle.controls['Vehicleregdate'].value,
-            //         "YearOfManufacture": this.vechicle.controls['manufactureyear'].value,
-            //         "Registration_No": this.vechicle.controls['regno'].value,
-            //         "EngineNumber": this.vechicle.controls['engine'].value,
-            //         "ChassisNumber": this.vechicle.controls['chassis'].value,
-            //         // "RTOLocationCode": this.vechicle.controls['firstName'].value,
-            //         "Vehicle_IDV": this.vechicle.controls['vechicleidv'].value
-            //     },
-            //     "Req_TW": {
-            //         "ExtensionCountryCode": "0",
-            //         "POLICY_TENURE": "1",
-            //         "ExtensionCountryName": [],
-            //         "Effectivedrivinglicense": "true",
-            //         "Paiddriver": "1",
-            //         "BiFuelType": "LPG",
-            //         "BiFuel_Kit_Value": "10000",
-            //         "Paiddriver_Si": "0",
-            //         "Owner_Driver_Nominee_Name": [],
-            //         "Owner_Driver_Nominee_Age": "0",
-            //         "Owner_Driver_Nominee_Relationship": [],
-            //         "Owner_Driver_Appointee_Name": [],
-            //         "Owner_Driver_Appointee_Relationship": [],
-            //         "IsZeroDept_Cover": "1",
-            //         "ElecticalAccessoryIDV": "0",
-            //         "NonElecticalAccessoryIDV": "0",
-            //         "IsLimitedtoOwnPremises": "0",
-            //         "OtherLoadDiscRate": "0",
-            //         "AntiTheftDiscFlag": "false",
-            //         "HandicapDiscFlag": "false",
-            //         "UnnamedPersonSI": "40000",
-            //         "NoofUnnamedPerson": "1"
-            //     },
-            //     "Payment_Details": {
-            //         "GC_PaymentID": [],
-            //         "BANK_NAME": this.BankDetails.controls['Bankname'].value,
-            //         "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
-            //         "PAYMENT_MODE_CD": this.BankDetails.controls['paymentmode'].value,
-            //         "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
-            //         "PAYMENT_AMOUNT": this.BankDetails.controls['refrenceno'].value,
-            //         "INSTRUMENT_NUMBER": this.BankDetails.controls['refrenceno'].value,
-            //         "PAYMENT_DATE":this.datepipe.transform(this.BankDetails.controls['Paymentdate'].value, 'yMMdd')
-            //
-            //     }
-            //
-            // }
-
             "platform": "web",
             "user_id": this.authservice.getPosUserId() ? this.authservice.getPosUserId() : '0',
             "role_id": this.authservice.getPosRoleId() ? this.authservice.getPosUserId() : '4',
@@ -1026,7 +962,7 @@ console.log('inn');
                     "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
                     "PAYMENT_MODE_CD": this.BankDetails.controls['paymentmode'].value,
                     "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
-                    "PAYMENT_AMOUNT": '1928',
+                    "PAYMENT_AMOUNT": this.vehicleidv.Comprehensive_premium,
                     // this.vehicleidv.Comprehensive_premium,
                     "INSTRUMENT_NUMBER": this.BankDetails.controls['refrenceno'].value,
                     "PAYMENT_DATE":this.datepipe.transform(this.BankDetails.controls['Paymentdate'].value,'dd/MM/y'),
@@ -1072,7 +1008,7 @@ console.log(successData,'succc');
             console.log(this.previousFormData, 'pre');
             this.bankFormData = this.BankDetails.value;
             console.log(this.bankFormData, 'bank');
-
+console.log(stepper,'111');
 
         }else {
             if (successData.ErrorDes) {

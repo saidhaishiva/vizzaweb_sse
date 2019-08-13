@@ -181,6 +181,7 @@ import {GolfersPolicyComponent} from './pages/golfers-policy/golfers-policy.comp
 import {FiedlityPolicyComponent} from './pages/fiedlity-policy/fiedlity-policy.component';
 import {ErectionRiskPolicyComponent} from './pages/erection-risk-policy/erection-risk-policy.component';
 import {HdfcTwoWheelerPaymentComponent} from './pages/hdfc-two-wheeler-payment/hdfc-two-wheeler-payment.component';
+import {HdfcCarPaymentSuccessComponent} from './pages/hdfc-car-payment-success/hdfc-car-payment-success.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -357,6 +358,7 @@ export const routes: Routes = [
             { path: 'hdfc-twoWheeler-proposal/:stepper', component: HdfcTwoWheelerProposalComponent, data: { breadcrumb: 'hdfc-twoWheeler-proposal'}},
             { path: 'hdfc-car-proposal/:stepper', component: HdfcCarProposalComponent, data: { breadcrumb: 'hdfc-car-proposal'}},
             { path: 'hdfc-two-wheeler-payment/:status/:proId', component: HdfcTwoWheelerPaymentComponent, data: { breadcrumb: 'hdfc-two-wheeler-payment'} },
+            { path: 'hdfc-car-payment-success/:status/:proId', component: HdfcCarPaymentSuccessComponent, data: { breadcrumb: 'hdfc-car-payment-success'} },
 
 
         ]
