@@ -180,7 +180,7 @@
                       </div>
                       <div class="col-md-4 " *ngIf="proposer['controls'].maritalStatus.value == 'M'">
                           <mat-form-field class="w-100">
-                              <mat-placeholder>Middle Name<span class="error" >*</span></mat-placeholder>
+                              <mat-placeholder>Middle Name</mat-placeholder>
                               <input matInput  formControlName="smidName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
                           </mat-form-field>
                       </div>
@@ -607,7 +607,7 @@
                                        </div>
                                        <div class="col-md-4 " [ngStyle]="{'pointer-events': this.insureArray.controls['investing'].value == 'SELF' ? 'none' : ''}" *ngIf="insureArray['controls'].maritalStatus.value == 'M'">
                                            <mat-form-field class="w-100">
-                                               <mat-placeholder>Middle Name<span class="error" >*</span></mat-placeholder>
+                                               <mat-placeholder>Middle Name</mat-placeholder>
                                                <input matInput  formControlName="smidName"    autocomplete="off"  (keypress)="nameValidate($event)" maxlength="15">
                                            </mat-form-field>
                                        </div>
@@ -1372,170 +1372,170 @@
                                            <input matInput  formControlName="heartDieaseDetails"    autocomplete="off"   maxlength="45">
                                        </mat-form-field>
                                    </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="respiratoryDieaseInd" (change)="isrespiratoryDieaseInd()" >
                                                <p>Any other respiratory or lung trouble  </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['respiratoryDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['respiratoryDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Respiratory Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="respiratoryDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="diabetesInd" (change)="isdiabetesInd()">
                                                <p>Diabetes ? </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['diabetesInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['diabetesInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Diabetes or sugar in the urine<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="diabetesDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="kidneyDieaseInd" (change)="iskidneyDieaseInd()">
                                                <p>Disease or disorder of kidneys, bladder, prostrate or reproductive organs </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['kidneyDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['kidneyDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Kidney Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="kidneyDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="digestiveDieaseInd" (change)="isdigestiveDieaseInd()">
                                                <p>Any disorder of the digestive system, gall bladder or liver </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['digestiveDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['digestiveDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Digestive Disease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="digestiveDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="cancerDieaseInd" (change)="iscancerDieaseInd()">
                                                <p>Cancer, enlarged gland, growth or tumor, chemotherapy or radiotherapy of any kind? </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['cancerDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8" *ngIf="medicalDetail.controls['cancerDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Cancer Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="cancerDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="tropicalDieaseInd" (change)="istropicalDieaseInd()">
                                                <p>Tropical Diease? </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['tropicalDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['tropicalDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Tropical Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="tropicalDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="thyroidDieaseInd" (change)="isthyroidDieaseInd()">
                                                <p>Thyroid Diease? </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['thyroidDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['thyroidDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Thyroid Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="thyroidDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="bloodDieaseInd" (change)="isbloodDieaseInd()">
                                                <p>Anemia, bleeding or any other disorder of the blood </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['bloodDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['bloodDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Blood Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="bloodDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="nervousDieaseInd" (change)="isnervousDieaseInd()">
                                                <p>Any nervous or neurological disorder </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['nervousDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['nervousDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Nervous Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="nervousDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="muscleDieaseInd" (change)="ismuscleDieaseInd()">
                                                <p>Disorder or disease of muscle, bones, joints, limbs, spine </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['muscleDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['muscleDieaseInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Muscle Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="muscleDieaseDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6">
+                                       <div class="col-md-12">
                                            <mat-radio-group formControlName="receivedTreatment2" (change)="isaidsInd()">
                                                <p>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C</p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['receivedTreatment2'].value == 'Yes'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['receivedTreatment2'].value == 'Yes'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>AIDS Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="aidsDetails"  autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="alcoholicInd" (change)="isalcoholicInd()">
                                                <p>Excessive alcohol consumption or to stop drinking or received alcohol abstinence treatment </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['alcoholicInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['alcoholicInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Alcoholic Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="alcoholicDetails"    autocomplete="off"   maxlength="45">
                                            </mat-form-field>
                                        </div>
-                                       <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                       <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                            <mat-radio-group formControlName="otherIllnessInd" (change)="isotherIllnessInd()">
                                                <p>Any other illness, disorder, operation, disability? </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
                                        </div>
-                                       <div class="col-md-6 " *ngIf="medicalDetail.controls['otherIllnessInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                       <div class="col-md-8 " *ngIf="medicalDetail.controls['otherIllnessInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                            <mat-form-field class="w-100">
                                                <mat-placeholder>Other Illness Diease Details<span class="error" >*</span></mat-placeholder>
                                                <input matInput  formControlName="otherIllnessDetails"    autocomplete="off"   maxlength="45">
@@ -1550,14 +1550,14 @@
 
                            <div class="row" >
                                <div class="col-md-12 mt-2">
-                                   <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112'">
+                                   <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
                                        <mat-radio-group formControlName="deformityInd" (change)="isdeformityInd()">
                                            <p>Any deformity or physical abnormality? </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
                                    </div>
-                                   <div class="col-md-6 " *ngIf="medicalDetail.controls['deformityInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                   <div class="col-md-12 " *ngIf="medicalDetail.controls['deformityInd'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Deformity Diease Details<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="deformityDetails"    autocomplete="off"   maxlength="45">
@@ -1592,27 +1592,27 @@
                                            <input matInput  formControlName="symptomsDetails"    autocomplete="off"   maxlength="45">
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-6" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">
+                                   <div class="col-md-12" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">
                                        <mat-radio-group formControlName="isHospitalized" (change)="isHospitalizedMed()" >
                                            <p>Have you ever been hospitalized for this condition?  </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
                                    </div>
-                                   <div class="col-md-6 " *ngIf="medicalDetail.controls['isHospitalized'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                   <div class="col-md-8 " *ngIf="medicalDetail.controls['isHospitalized'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Hospitalized Details<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="hospitalizedDate"    autocomplete="off"   maxlength="45">
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-6" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">
+                                   <div class="col-md-12" *ngIf="medicalDetail.controls['symptomsInd'].value == 'Yes' && lifePremiumList.product_id=='112'">
                                        <mat-radio-group formControlName="isRecovered" (change)="isRecoveredInd()">
                                            <p>Are you now fully recovered and off all medications? </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
                                    </div>
-                                   <div class="col-md-6 " *ngIf="medicalDetail.controls['isRecovered'].value == 'Yes' && lifePremiumList.product_id=='112'" >
+                                   <div class="col-md-8" *ngIf="medicalDetail.controls['isRecovered'].value == 'Yes' && lifePremiumList.product_id=='112'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Non Recovery Details<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="nonRecoveryDetails"    autocomplete="off"   maxlength="45">
@@ -1623,7 +1623,7 @@
 
 
                            <div class="row" *ngIf="lifePremiumList.product_id=='112'" >
-                               <div class="col-md-12 mt-2">
+                               <div class="col-md-12 ">
                                    <h6 class="color-blue p-3">For female lives</h6>
                                    <div class="col-md-6" *ngIf="proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112' ">
                                        <mat-radio-group formControlName="pregnantInd" (change)="ispregnantInd()" >
@@ -1632,20 +1632,20 @@
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
                                    </div>
-                                   <div class="col-md-6 " *ngIf="medicalDetail.controls['pregnantInd'].value == 'Yes' && proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112'" >
+                                   <div class="col-md-12 " *ngIf="medicalDetail.controls['pregnantInd'].value == 'Yes' && proposer['controls'].maritalStatus.value == 'M' && proposer['controls'].title.value == '2' && lifePremiumList.product_id=='112'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Pregnant weeks<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="pregnantweeks"  autocomplete="off" maxlength="45">
                                        </mat-form-field>
                                    </div>
-                                   <div class="col-md-6" *ngIf="lifePremiumList.product_id=='112' ">
+                                   <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112' ">
                                        <mat-radio-group formControlName="femaleDieaseInd" (change)="isfemaleDieaseInd()">
                                            <p>Do you or have you ever had, any disorder of the female organs (Breasts, ovaries, uterus) or any abnormality of pregnancy or confinement? </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
                                    </div>
-                                   <div class="col-md-6 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes'  && lifePremiumList.product_id=='112'" >
+                                   <div class="col-md-12 " *ngIf="medicalDetail.controls['femaleDieaseInd'].value == 'Yes'  && lifePremiumList.product_id=='112'" >
                                        <mat-form-field class="w-100">
                                            <mat-placeholder>Female Diease weeks<span class="error" >*</span></mat-placeholder>
                                            <input matInput  formControlName="femaleDieaseWeeks"  autocomplete="off" maxlength="45">
@@ -2327,7 +2327,7 @@
                                            <ul class="m-0 list-group">
                                                <li class="list-group-item" *ngIf="medicalFormData.travelOutsideIndia != '' && lifePremiumList.product_id=='112'"><strong>Travel Outside India :</strong> {{medicalFormData.travelOutsideIndia}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.pilot != '' && lifePremiumList.product_id=='112'"><strong>Pilot :</strong> {{medicalFormData.pilot}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.adventurousActivities != '' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivities}}</li>
+                                               <li class="list-group-item" *ngIf="medicalFormData.adventurousActivities != '' && lifePremiumList.product_id=='112'"><strong>Adventurous Activities :</strong> {{medicalFormData.adventurousActivitiesName}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.adventurousActivitiesDetails != ''  && lifePremiumList.product_id=='112'"><strong>Adventurous Activities Details :</strong> {{medicalFormData.adventurousActivitiesDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.medicalTreatment != ''"><strong>Are you currently taking any medication or medical treatment:</strong> {{medicalFormData.medicalTreatment}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.medicationDetails != ''"><strong>Medication Details:</strong> {{medicalFormData.medicationDetails}}</li>
@@ -2386,8 +2386,8 @@
                                                <li class="list-group-item" *ngIf="medicalFormData.bloodDieaseDetails != '' && lifePremiumList.product_id=='112'" ><strong>Blood Diease Details:</strong> {{medicalFormData.bloodDieaseDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.nervousDieaseInd != '' && lifePremiumList.product_id=='112'" ><strong>Nervous Diease:</strong> {{medicalFormData.nervousDieaseInd}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.nervousDieaseDetails != '' && lifePremiumList.product_id=='112'"><strong>Nervous Diease Details:</strong> {{medicalFormData.nervousDieaseDetails}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.ENTDieaseInd != '' && lifePremiumList.product_id=='112'"><strong>ENT Diease:</strong> {{medicalFormData.ENTDieaseInd}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.ENTDieaseDetails != '' && lifePremiumList.product_id=='112'"><strong>ENT Diease Details:</strong> {{medicalFormData.ENTDieaseDetails}}</li>
+                                               <!--<li class="list-group-item" *ngIf="medicalFormData.ENTDieaseInd != '' && lifePremiumList.product_id=='112'"><strong>ENT Diease:</strong> {{medicalFormData.ENTDieaseInd}}</li>-->
+                                               <!--<li class="list-group-item" *ngIf="medicalFormData.ENTDieaseDetails != '' && lifePremiumList.product_id=='112'"><strong>ENT Diease Details:</strong> {{medicalFormData.ENTDieaseDetails}}</li>-->
                                                <li class="list-group-item" *ngIf="medicalFormData.muscleDieaseInd != '' && lifePremiumList.product_id=='112'"><strong>Muscle Diease:</strong> {{medicalFormData.muscleDieaseInd}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.muscleDieaseDetails != '' && lifePremiumList.product_id=='112'" ><strong>Muscle Diease Details:</strong> {{medicalFormData.muscleDieaseDetails}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.alcoholicInd != '' && lifePremiumList.product_id=='112'" ><strong>Alcoholic:</strong> {{medicalFormData.alcoholicInd}}</li>
@@ -2402,7 +2402,7 @@
                                                <li class="list-group-item" *ngIf="medicalFormData.pregnantweeks != '' && lifePremiumList.product_id=='112'" ><strong>Pregnant weeks:</strong> {{medicalFormData.pregnantweeks}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseInd != '' && lifePremiumList.product_id=='112'" ><strong>Female Diease:</strong> {{medicalFormData.femaleDieaseInd}}</li>
                                                <li class="list-group-item" *ngIf="medicalFormData.femaleDieaseWeeks != '' && lifePremiumList.product_id=='112'"><strong>Female Diease Weeks:</strong> {{medicalFormData.femaleDieaseWeeks}}</li>
-                                               <li class="list-group-item" *ngIf="medicalFormData.healthInformation != '' && lifePremiumList.product_id=='112'"><strong>Health Information:</strong> {{medicalFormData.healthInformation}}</li>
+                                               <!--<li class="list-group-item" *ngIf="medicalFormData.healthInformation != '' && lifePremiumList.product_id=='112'"><strong>Health Information:</strong> {{medicalFormData.healthInformation}}</li>-->
 
                                            </ul>
                                        </div>
@@ -2751,7 +2751,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label"> Address Proof</label>
                                            </div>
                                        </div>
@@ -2772,7 +2772,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label"> Income Proof</label>
                                            </div>
                                        </div>
@@ -2793,7 +2793,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label"> Identity Proof</label>
                                            </div>
                                        </div>
@@ -2814,7 +2814,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label"> Age Proof</label>
                                            </div>
                                        </div>
@@ -2836,7 +2836,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_LifeAssured')"   aria-describedby="inputGroupFileAddon01"required >
                                                <label class="custom-file-label">Other Document</label>
                                            </div>
                                        </div>
@@ -2858,7 +2858,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">Proposal Form</label>
                                            </div>
                                        </div>
@@ -2880,7 +2880,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">Sales Requirement</label>
                                            </div>
                                        </div>
@@ -2901,7 +2901,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">KYC</label>
                                            </div>
                                        </div>
@@ -2914,7 +2914,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_LifeAssured')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_LifeAssured')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">Recent Photo</label>
                                            </div>
                                        </div>
@@ -2946,7 +2946,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'address_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label"> Address Proof</label>
                                            </div>
                                        </div>
@@ -2967,7 +2967,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'income_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label"> Income Proof</label>
                                            </div>
                                        </div>
@@ -3009,7 +3009,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'id_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label"> Identity Proof</label>
                                            </div>
                                        </div>
@@ -3030,7 +3030,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'age_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label"> Age Proof</label>
                                            </div>
                                        </div>
@@ -3052,7 +3052,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'document_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">Other Document</label>
                                            </div>
                                        </div>
@@ -3074,7 +3074,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'proposal_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">Proposal Form</label>
                                            </div>
                                        </div>
@@ -3096,7 +3096,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'salesReq_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">Sales Requirement</label>
                                            </div>
                                        </div>
@@ -3117,7 +3117,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'kyc_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">KYC</label>
                                            </div>
                                        </div>
@@ -3130,7 +3130,7 @@
                                    <div class="col-md-4">
                                        <div class="text-left w-100">
                                            <div class="custom-file">
-                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_Proposal')"   aria-describedby="inputGroupFileAddon01" >
+                                               <input type="file" class="custom-file-input" accept=".png, .jpg, .jpeg" (change)="uploadProof($event, 'photograph_Proposal')"   aria-describedby="inputGroupFileAddon01" required>
                                                <label class="custom-file-label">Recent Photo</label>
                                            </div>
                                        </div>
@@ -3161,7 +3161,7 @@
                                            <form action={{requestedUrl}}  method='POST' #form>
 
                                            <!--<form action={{proposalNextList.payment_link}}  method='post' #form>-->
-                                               <button mat-raised-button color="primaryBlue"  (click)="form.submit()">Pay Now</button>
+                                               <button mat-raised-button color="primaryBlue"  (click)="uploadvalid()">Pay Now</button>
                                            </form>
                                        </div>
                                    </div>

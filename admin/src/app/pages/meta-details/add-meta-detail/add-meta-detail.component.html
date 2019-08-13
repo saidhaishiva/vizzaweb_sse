@@ -18,25 +18,20 @@
                 </mat-form-field>
               </div>
               <div class="col-md-6">
-                <mat-form-field class="w-100">
-                  <input matInput placeholder="Keyword" formControlName="keyword"  >
-                  <mat-error *ngIf="metaDetail.controls.keyword.errors?.required">Keyword is required</mat-error>
+                 <mat-form-field class="example-chip-list w-100">
+                  <mat-chip-list #chipList aria-label="Fruit selection">
+                    <mat-chip *ngFor="let item of items" [selectable]="selectable"
+                              [removable]="removable" (removed)="remove(item)">
+                      {{item.name}}
+                      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                    </mat-chip>
+                    <input placeholder="Keyword"
+                           [matChipInputFor]="chipList"
+                           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                           [matChipInputAddOnBlur]="addOnBlur"
+                           (matChipInputTokenEnd)="addi($event)" formControlName="keyword">
+                  </mat-chip-list>
                 </mat-form-field>
-
-                <!--<mat-form-field class="example-chip-list">-->
-                  <!--<mat-chip-list #chipList aria-label="Fruit selection">-->
-                    <!--<mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"-->
-                              <!--[removable]="removable" (removed)="remove(fruit)">-->
-                      <!--{{row.keyword}}-->
-                      <!--<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>-->
-                    <!--</mat-chip>-->
-                    <!--<input placeholder="New fruit..."-->
-                           <!--[matChipInputFor]="chipList"-->
-                           <!--[matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
-                           <!--[matChipInputAddOnBlur]="addOnBlur"-->
-                           <!--(matChipInputTokenEnd)="add($event)" formControlName="keyword">-->
-                  <!--</mat-chip-list>-->
-                <!--</mat-form-field>-->
               </div>
               <div class="col-md-6">
                 <mat-form-field class="w-100">
@@ -44,9 +39,9 @@
                   <mat-error *ngIf="metaDetail.controls.description.errors?.required">Description is required</mat-error>
                 </mat-form-field>
               </div>
-              <div class="col-md-12">
-                <quill-editor  formControlName="content"></quill-editor>
-              </div>
+              <!--<div class="col-md-12">-->
+                <!--<quill-editor  formControlName="content"></quill-editor>-->
+              <!--</div>-->
             </div>
           </div>
         </div>
@@ -55,9 +50,9 @@
             <button mat-raised-button color="primary" (click)="add(metaDetail.value)" [disabled]="!metaDetail.valid">Submit</button>
           </div>
         </div>
-        <div>
-          <br>
-        </div>
+        <!--<div>-->
+          <!--&lt;!&ndash;<br>&ndash;&gt;-->
+        <!--</div>-->
 
       </div>
     </form>
