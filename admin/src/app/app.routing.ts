@@ -49,6 +49,9 @@ import {CareerListComponent} from './pages/career-list/career-list.component';
 import {MetaDetailsComponent} from './pages/meta-details/meta-details.component';
 import {AddMetaDetailComponent} from './pages/meta-details/add-meta-detail/add-meta-detail.component';
 import {EditMetaDetailComponent} from './pages/meta-details/edit-meta-detail/edit-meta-detail.component';
+import {ComponentComponent} from './pages/component/component.component';
+import {AddComponentComponent} from './pages/component/add-component/add-component.component';
+import {EditComponentComponent} from './pages/component/edit-component/edit-component.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -94,6 +97,9 @@ export const routes: Routes = [
             { path: 'metaDetails', component: MetaDetailsComponent, data: { breadcrumb: 'Meta Details'} },
             { path: 'addMetaDetails', component: AddMetaDetailComponent, data: { breadcrumb: 'Add Meta Details'} },
             { path: 'editMetaDetails/:id', component: EditMetaDetailComponent, data: { breadcrumb: 'Edit Meta Details'} },
+            { path: 'component', component: ComponentComponent, data: { breadcrumb: 'Component'} },
+            { path: 'addComponent', component: AddComponentComponent, data: { breadcrumb: 'Add Component'} },
+            { path: 'editComponent/:id', component: EditComponentComponent, data: { breadcrumb: 'Edit Component'} },
         ]
     },
     { path: 'login',  loadChildren: 'app/pages/login/login.module#LoginModule' },

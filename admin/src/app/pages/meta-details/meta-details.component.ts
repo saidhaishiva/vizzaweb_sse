@@ -48,7 +48,7 @@ export class MetaDetailsComponent implements OnInit {
     const data = {
       'platform': 'web',
       'role_id': this.auth.getAdminRoleId(),
-      'adminid': this.auth.getAdminId(),
+      'adminid': this.auth.getAdminId()
     };
     this.loadingIndicator = true;
 

@@ -11,6 +11,7 @@ export const verticalMenuItems = [
     new Menu (21, 'Media Center', '/mediacenter', null, 'supervisor_account', null, false, 0),
     new Menu (15, 'Renewal ', '/adminlist', null, 'supervisor_account', null, false, 0),
     new Menu (25, 'Meta Details ', '/metaDetails', null, 'supervisor_account', null, false, 0),
+    new Menu (26, 'Component ', '/component', null, 'supervisor_account', null, false, 0),
     new Menu (16, 'Logout', '/login', null, 'power_settings_new', null, false, 0 ),
 ]
 
