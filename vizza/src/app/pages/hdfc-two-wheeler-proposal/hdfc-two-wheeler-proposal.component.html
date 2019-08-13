@@ -388,22 +388,22 @@
                           <input matInput placeholder="Previous Policy No" formControlName="previouspolicyno" maxlength="20"  required>
                         </mat-form-field>
                       </div>
-                        <!--<div class="col-md-3 mt-3">-->
-                        <!--<mat-form-field class="w-100">-->
-                          <!--<input matInput placeholder="Previous Policy claim" formControlName="previouspolicyclim" maxlength="20"  required>-->
-                        <!--</mat-form-field>-->
-                      <!--</div>-->
                         <div class="col-md-3 mt-3">
-                            <mat-form-field class="w-100">
-                                <mat-placeholder>Previous policy claim<span class="error" >*</span></mat-placeholder>
-                                <mat-select  formControlName="previouspolicyclaim"  >
-                                    <mat-option value="YES">YES</mat-option>
-                                    <mat-option value="NO ">NO</mat-option>
-                                </mat-select>
-                                <mat-error *ngIf="vechicle.controls.previouspolicyclaim.errors?.required ">Previous policy claim is required</mat-error>
+                        <mat-form-field class="w-100">
+                          <input matInput placeholder="Previous Policy claim" formControlName="previouspolicyclaim" maxlength="20"  required>
+                        </mat-form-field>
+                      </div>
+                        <!--<div class="col-md-3 mt-3">-->
+                            <!--<mat-form-field class="w-100">-->
+                                <!--<mat-placeholder>Previous policy claim<span class="error" >*</span></mat-placeholder>-->
+                                <!--<mat-select  formControlName="previouspolicyclaim"  >-->
+                                    <!--<mat-option value="YES">YES</mat-option>-->
+                                    <!--<mat-option value="NO ">NO</mat-option>-->
+                                <!--</mat-select>-->
+                                <!--<mat-error *ngIf="vechicle.controls.previouspolicyclaim.errors?.required ">Previous policy claim is required</mat-error>-->
 
-                            </mat-form-field>
-                        </div>
+                            <!--</mat-form-field>-->
+                        <!--</div>-->
                       <div class="col-md-3 mt-3">
                         <mat-form-field class="w-100">
                           <input matInput placeholder="Vechicle Idv" formControlName="vechicleidv"  maxlength="10" (keypress)="numberValidate($event)" (input)="idvinput($event.target.value)"  required>
