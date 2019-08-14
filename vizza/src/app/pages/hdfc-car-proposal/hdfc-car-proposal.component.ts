@@ -6,6 +6,7 @@ import {ActivatedRoute} from '@angular/router';
 import {ValidationService} from '../../shared/services/validation.service';
 import {ToastrService} from 'ngx-toastr';
 import {BikeInsuranceService} from '../../shared/services/bike-insurance.service';
+import { FourWheelerService} from '../../shared/services/four-wheeler.service';
 import {AuthService} from '../../shared/services/auth.service';
 import {DatePipe} from '@angular/common';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatStepper} from '@angular/material';
@@ -75,7 +76,7 @@ export class HdfcCarProposalComponent implements OnInit {
     public carEquiryId: any;
     public vehicleidv: any;
 
-  constructor(public fb: FormBuilder,public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe) {
+  constructor(public fb: FormBuilder,public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe ,public Fourwheeler: FourWheelerService) {
       this.Setting = appsetting.settings;
       this.webhost = this.config.getimgUrl();
       this.Setting.HomeSidenavUserBlock = false;
@@ -865,7 +866,7 @@ export class HdfcCarProposalComponent implements OnInit {
 
         };
         this.Setting.loadingSpinner = true;
-        this.bikeInsurance.proposalHdfc(data).subscribe(
+        this.Fourwheeler.proposalHdfccar(data).subscribe(
             (successData) => {
                 this.proposalSuccess(successData, stepper);
                 console.log(successData,'succc');
