@@ -263,6 +263,8 @@ export class FourWheelerProductListComponent implements OnInit {
       this.router.navigate(['/reliance-fourwheeler-motor-proposal' + '/'+ false]);
     }else if(value.company_id == 13){
       this.router.navigate(['/car-tataaig-proposal'+ '/' + false]);
+    }else if(value.company_id == 5){
+      this.router.navigate(['/hdfc-car-proposal'+ '/' + false]);
     }
 
 
