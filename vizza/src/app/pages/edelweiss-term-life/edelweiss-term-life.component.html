@@ -1238,8 +1238,8 @@
                                </mat-form-field>
                            </div>
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                               <mat-radio-group formControlName="drugsInd" (change)="isdrugsInd()" required >
-                                   <p>Have you in the past used or do you use any habit forming drugs or narcotics or received any drug abstinence treatment?</p>
+                               <mat-radio-group formControlName="drugsInd" (change)="isdrugsInd()"  >
+                                   <p>Have you in the past used or do you use any habit forming drugs or narcotics or received any drug abstinence treatment?<span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
@@ -1252,8 +1252,8 @@
                                </mat-form-field>
                            </div>
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                               <mat-radio-group formControlName="alcoholInd" (change)="isalcoholInd()" required >
-                                   <p>Do you consume alcohol? If yes, details about consumption per week  </p>
+                               <mat-radio-group formControlName="alcoholInd" (change)="isalcoholInd()"  >
+                                   <p>Do you consume alcohol? If yes, details about consumption per week <span class="error" >*</span> </p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
@@ -1268,8 +1268,8 @@
                            </div>
 
                            <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                               <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" required>
-                                   <p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? *  </p>
+                               <mat-radio-group formControlName="tobaccoInd" (change)="istobaccoInd()" >
+                                   <p>Do you smoke or consume tobacco in any form e.g(paan,tobacco,gutka) or have done so in the past 12 months? <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
@@ -1300,8 +1300,8 @@
                                <div class="col-md-12 mt-2">
                                    <h6 class="color-blue p-3">Within the past five years, have you: </h6>
                                    <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                       <mat-radio-group formControlName="consultDoctorInd" (change)="isconsultDoctorInd()" required>
-                                           <p>Consulted any doctor or other health practitioner,except for common cold/influenza lasting less than four days  </p>
+                                       <mat-radio-group formControlName="consultDoctorInd" (change)="isconsultDoctorInd()" >
+                                           <p>Consulted any doctor or other health practitioner,except for common cold/influenza lasting less than four days  <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -1313,8 +1313,8 @@
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                       <mat-radio-group formControlName="ECGInd" (change)="isECGInd()" required>
-                                           <p>Had ECG, X-rays, blood test or any other tests done  </p>
+                                       <mat-radio-group formControlName="ECGInd" (change)="isECGInd()" >
+                                           <p>Had ECG, X-rays, blood test or any other tests done <span class="error" >*</span> </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -1327,8 +1327,8 @@
                                        </mat-form-field>
                                    </div>
                                    <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                       <mat-radio-group formControlName="admitInd" (change)="isadmitInd()" required>
-                                           <p>Been attended by or admitted/advised to be admitted to any hospital/medical facility or availed leave on medical grounds </p>
+                                       <mat-radio-group formControlName="admitInd" (change)="isadmitInd()" >
+                                           <p>Been attended by or admitted/advised to be admitted to any hospital/medical facility or availed leave on medical grounds<span class="error" >*</span> </p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -1343,8 +1343,8 @@
                            </div>
 
                            <div class="col-md-12" >
-                               <mat-radio-group formControlName="medicalTreatment" (change)="ismedicationInd()" required>
-                                   <p>Are you taking any medication at present or following a diet prescribed by a doctor? </p>
+                               <mat-radio-group formControlName="medicalTreatment" (change)="ismedicationInd()" >
+                                   <p>Are you taking any medication at present or following a diet prescribed by a doctor? <span class="error" >*</span></p>
                                    <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                    <mat-radio-button value="No">No</mat-radio-button>
                                </mat-radio-group>
@@ -1360,8 +1360,8 @@
                                <div class="col-md-12 mt-2">
                                    <h6 class="color-blue p-3">Have you ever sought an advice for the following?</h6>
                                    <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                       <mat-radio-group formControlName="heartDieaseInd" (change)="isheartDieaseInd()" required>
-                                           <p>Any disorder of the heart </p>
+                                       <mat-radio-group formControlName="heartDieaseInd" (change)="isheartDieaseInd()" >
+                                           <p>Any disorder of the heart <span class="error" >*</span></p>
                                            <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                            <mat-radio-button value="No">No</mat-radio-button>
                                        </mat-radio-group>
@@ -1373,8 +1373,8 @@
                                        </mat-form-field>
                                    </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="respiratoryDieaseInd" (change)="isrespiratoryDieaseInd()" required>
-                                               <p>Any other respiratory or lung trouble  </p>
+                                           <mat-radio-group formControlName="respiratoryDieaseInd" (change)="isrespiratoryDieaseInd()" >
+                                               <p>Any other respiratory or lung trouble <span class="error" >*</span> </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1386,8 +1386,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="diabetesInd" (change)="isdiabetesInd()" required>
-                                               <p>Diabetes or sugar in the urine ? </p>
+                                           <mat-radio-group formControlName="diabetesInd" (change)="isdiabetesInd()" >
+                                               <p>Diabetes or sugar in the urine ? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1399,8 +1399,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="kidneyDieaseInd" (change)="iskidneyDieaseInd()" required>
-                                               <p>Disease or disorder of kidneys, bladder, prostrate or reproductive organs </p>
+                                           <mat-radio-group formControlName="kidneyDieaseInd" (change)="iskidneyDieaseInd()" >
+                                               <p>Disease or disorder of kidneys, bladder, prostrate or reproductive organs <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1412,8 +1412,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="digestiveDieaseInd" (change)="isdigestiveDieaseInd()" required>
-                                               <p>Any disorder of the digestive system, gall bladder or liver </p>
+                                           <mat-radio-group formControlName="digestiveDieaseInd" (change)="isdigestiveDieaseInd()" >
+                                               <p>Any disorder of the digestive system, gall bladder or liver <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1425,8 +1425,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="cancerDieaseInd" (change)="iscancerDieaseInd()" required>
-                                               <p>Cancer, enlarged gland, growth or tumor, chemotherapy or radiotherapy of any kind? </p>
+                                           <mat-radio-group formControlName="cancerDieaseInd" (change)="iscancerDieaseInd()" >
+                                               <p>Cancer, enlarged gland, growth or tumor, chemotherapy or radiotherapy of any kind? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1438,8 +1438,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="tropicalDieaseInd" (change)="istropicalDieaseInd()" required>
-                                               <p>Tropical Diease? </p>
+                                           <mat-radio-group formControlName="tropicalDieaseInd" (change)="istropicalDieaseInd()" >
+                                               <p>Tropical Diease? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1451,8 +1451,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="thyroidDieaseInd" (change)="isthyroidDieaseInd()" required>
-                                               <p>Thyroid Diease? </p>
+                                           <mat-radio-group formControlName="thyroidDieaseInd" (change)="isthyroidDieaseInd()" >
+                                               <p>Thyroid Diease? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1464,8 +1464,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="bloodDieaseInd" (change)="isbloodDieaseInd()" required>
-                                               <p>Anemia, bleeding or any other disorder of the blood </p>
+                                           <mat-radio-group formControlName="bloodDieaseInd" (change)="isbloodDieaseInd()" >
+                                               <p>Anemia, bleeding or any other disorder of the blood <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1477,8 +1477,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="nervousDieaseInd" (change)="isnervousDieaseInd()" required>
-                                               <p>Any nervous or neurological disorder </p>
+                                           <mat-radio-group formControlName="nervousDieaseInd" (change)="isnervousDieaseInd()" >
+                                               <p>Any nervous or neurological disorder <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1490,8 +1490,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="muscleDieaseInd" (change)="ismuscleDieaseInd()" required>
-                                               <p>Disorder or disease of muscle, bones, joints, limbs, spine </p>
+                                           <mat-radio-group formControlName="muscleDieaseInd" (change)="ismuscleDieaseInd()" >
+                                               <p>Disorder or disease of muscle, bones, joints, limbs, spine <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1503,8 +1503,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12">
-                                           <mat-radio-group formControlName="receivedTreatment2" (change)="isaidsInd()" required>
-                                               <p>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C</p>
+                                           <mat-radio-group formControlName="receivedTreatment2" (change)="isaidsInd()" >
+                                               <p>A test indicating the presence of HIV/AIDS, Hepatitis B or Hepatitis C<span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1516,8 +1516,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="alcoholicInd" (change)="isalcoholicInd()" required>
-                                               <p>Excessive alcohol consumption or to stop drinking or received alcohol abstinence treatment </p>
+                                           <mat-radio-group formControlName="alcoholicInd" (change)="isalcoholicInd()" >
+                                               <p>Excessive alcohol consumption or to stop drinking or received alcohol abstinence treatment<span class="error" >*</span> </p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -1529,8 +1529,8 @@
                                            </mat-form-field>
                                        </div>
                                        <div class="col-md-12" *ngIf="lifePremiumList.product_id=='112'">
-                                           <mat-radio-group formControlName="otherIllnessInd" (change)="isotherIllnessInd()" required>
-                                               <p>Any other illness, disorder, operation, disability? </p>
+                                           <mat-radio-group formControlName="otherIllnessInd" (change)="isotherIllnessInd()" >
+                                               <p>Any other illness, disorder, operation, disability? <span class="error" >*</span></p>
                                                <mat-radio-button value="Yes" class="mr-2"> Yes</mat-radio-button>
                                                <mat-radio-button value="No">No</mat-radio-button>
                                            </mat-radio-group>
@@ -2676,7 +2676,7 @@
                                <div class="row mt-3">
                                    <div class="col-md-12 box-card pt-3 pb-3" >
 
-                                       <pdf-viewer src="{{proposalNextList.proposal_form}}"
+                                       <pdf-viewer src="{{proposalNextList.path}}"
                                                    [render-text]="true"
                                                    style="display: block;"
 

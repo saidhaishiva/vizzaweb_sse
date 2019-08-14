@@ -4859,9 +4859,10 @@ console.log(this.proposalId,'proposalId');
       this.topScroll();
       this.proposalGenStatus = false;
       this.proposalNextList = successData.ResponseObject;
-      this.proposalFormPdf = this.proposalNextList.proposal_form;
+      this.proposalFormPdf = this.proposalNextList.path;
+      console.log(this.proposalFormPdf,'this.proposalFormPdf');
       let dialogRef = this.dialog.open(EdelweissOpt, {
-        width: '1200px'
+        width: '400px'
       });
       dialogRef.disableClose = true;
       dialogRef.afterClosed().subscribe(result => {
@@ -5494,6 +5495,7 @@ console.log(this.proposalId,'proposalId');
             </div>
         </div>
         <div mat-dialog-actions style="justify-content: center">
+          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
           <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
         </div>
     `
