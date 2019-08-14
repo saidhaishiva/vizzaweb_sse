@@ -959,12 +959,12 @@ console.log('inn');
                     "NoofUnnamedPerson": this.addOns.controls['biofuelkit'].value
             },
             "Payment_Details": {
-                    "GC_PaymentID": "",
-                    "BANK_NAME":  this.BankDetails.controls['Bankname'].value,
-                    "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
-                    "PAYMENT_MODE_CD": this.BankDetails.controls['paymentmode'].value,
-                    "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
-                    "PAYMENT_AMOUNT": '2000',
+                    // "GC_PaymentID": "",
+                    // "BANK_NAME":  this.BankDetails.controls['Bankname'].value,
+                    // "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
+                    // "PAYMENT_MODE_CD": this.BankDetails.controls['paymentmode'].value,
+                    // "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
+                    "PAYMENT_AMOUNT": this.vehicleidv.Comprehensive_premium,
                     // this.vehicleidv.Comprehensive_premium,
                     // this.vehicleidv.Comprehensive_premium,
                     "INSTRUMENT_NUMBER": this.BankDetails.controls['refrenceno'].value,
