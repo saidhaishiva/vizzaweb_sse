@@ -4860,8 +4860,9 @@ console.log(this.proposalId,'proposalId');
       this.proposalGenStatus = false;
       this.proposalNextList = successData.ResponseObject;
       this.proposalFormPdf = this.proposalNextList.path;
+      console.log(this.proposalFormPdf,'this.proposalFormPdf');
       let dialogRef = this.dialog.open(EdelweissOpt, {
-        width: '1200px'
+        width: '400px'
       });
       dialogRef.disableClose = true;
       dialogRef.afterClosed().subscribe(result => {
@@ -5481,7 +5482,7 @@ console.log(this.proposalId,'proposalId');
     template: `
         <div class="container">
             <div class="row">
-                <div class="col-md-8 text-center w-50">
+                <div class="col-md-12 text-center w-100">
                     <mat-form-field class="w-50">
                         <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
                     </mat-form-field>
@@ -5494,6 +5495,7 @@ console.log(this.proposalId,'proposalId');
             </div>
         </div>
         <div mat-dialog-actions style="justify-content: center">
+          <button mat-button class="secondary-bg-color"  (click)="onNoClick()">Back</button>
           <button mat-button class="secondary-bg-color" (click)="otpEdVal()" >Ok</button>
         </div>
     `
