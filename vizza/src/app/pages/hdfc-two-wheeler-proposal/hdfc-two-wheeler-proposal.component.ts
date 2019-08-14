@@ -85,7 +85,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
     public tommarrow: any;
     public gggg: any;
     public tod: any;
-    public Financetype: boolean;
+    public financeTypeTrue: boolean;
 
 
     public financiercodevalue: any;
@@ -94,7 +94,7 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
 
 
     constructor(public fb: FormBuilder, public appsetting: AppSettings, public config: ConfigurationService, public route: ActivatedRoute, public validation: ValidationService, private toastr: ToastrService, public bikeInsurance: BikeInsuranceService, public authservice: AuthService, public datepipe: DatePipe) {
-        this.Financetype= false;
+        this.financeTypeTrue = false;
         let stepperindex = 0;
         this.route.params.forEach((params) => {
             if (params.stepper == true || params.stepper == 'true') {
@@ -181,14 +181,14 @@ export class HdfcTwoWheelerProposalComponent implements OnInit {
             previousenddate: ['', Validators.required],
             previouspolicyno: ['', Validators.required],
             vechicleidv: ['', Validators.required],
-            Financetype: [''],
+            Financetype: false,
             Agreement: [''],
             financiercode: [''],
             fibranchname: [''],
             Previouscompanyvalue: [''],
             financiercodevalue: [''],
             previouspolicyclaim:['', Validators.required],
-            // Financetyp:['']
+            Financetyp:['']
 
         });
         this.addOns = this.fb.group({
@@ -669,21 +669,23 @@ console.log('inn');
         //
         // }
 
-    check(event) {
+    changeValidation(event) {
         console.log(event);
         if (event.checked == true) {
+            this.financeTypeTrue = true;
             this.vechicle.controls['Agreement'].setValidators([Validators.required]);
             this.vechicle.controls['financiercode'].setValidators([Validators.required]);
             this.vechicle.controls['fibranchname'].setValidators([Validators.required]);
         } else if (event.checked != true) {
+            this.financeTypeTrue = false;
             this.vechicle.controls['Agreement'].patchValue('');
             this.vechicle.controls['financiercode'].patchValue('');
             this.vechicle.controls['fibranchname'].patchValue('');
-            this.vechicle.controls['Agreement'].setValidators(null);
-            this.vechicle.controls['financiercode'].setValidators(null);
-            this.vechicle.controls['fibranchname'].setValidators(null);
-
+            this.vechicle.controls['Agreement'].setValidators([]);
+            this.vechicle.controls['financiercode'].setValidators([]);
+            this.vechicle.controls['fibranchname'].setValidators([]);
         }
+
         this.vechicle.controls['Agreement'].updateValueAndValidity();
         this.vechicle.controls['financiercode'].updateValueAndValidity();
         this.vechicle.controls['fibranchname'].updateValueAndValidity();
@@ -962,7 +964,8 @@ console.log('inn');
                     "BANK_BRANCH_NAME": this.BankDetails.controls['Branch'].value,
                     "PAYMENT_MODE_CD": this.BankDetails.controls['paymentmode'].value,
                     "PAYER_TYPE": this.BankDetails.controls['Payertype'].value,
-                    "PAYMENT_AMOUNT": this.vehicleidv.Comprehensive_premium,
+                    "PAYMENT_AMOUNT": '2000',
+                    // this.vehicleidv.Comprehensive_premium,
                     // this.vehicleidv.Comprehensive_premium,
                     "INSTRUMENT_NUMBER": this.BankDetails.controls['refrenceno'].value,
                     "PAYMENT_DATE":this.datepipe.transform(this.BankDetails.controls['Paymentdate'].value,'dd/MM/y'),
