@@ -4859,7 +4859,7 @@ console.log(this.proposalId,'proposalId');
       this.topScroll();
       this.proposalGenStatus = false;
       this.proposalNextList = successData.ResponseObject;
-      this.proposalFormPdf = this.proposalNextList.proposal_form;
+      this.proposalFormPdf = this.proposalNextList.path;
       let dialogRef = this.dialog.open(EdelweissOpt, {
         width: '1200px'
       });
@@ -5481,7 +5481,7 @@ console.log(this.proposalId,'proposalId');
     template: `
         <div class="container">
             <div class="row">
-                <div class="col-md-12 text-center w-100">
+                <div class="col-md-8 text-center w-50">
                     <mat-form-field class="w-50">
                         <input matInput placeholder="OTP"  [(ngModel)]="otpCode" (keypress)="numberValidate($event)"  autocomplete="off" >
                     </mat-form-field>
