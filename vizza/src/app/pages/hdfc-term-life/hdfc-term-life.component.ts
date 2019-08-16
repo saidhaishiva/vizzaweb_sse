@@ -54,6 +54,8 @@ export class HdfcTermLifeComponent implements OnInit {
   public webhost: any;
   public today: any;
   public summaryData: any;
+  public getStepper1: any;
+  public getStepper3: any;
   public appTypeHdfcList: any;
   public addressHdfcList: any;
   public alcoholHdfcList: any;
@@ -2424,6 +2426,129 @@ getweightListHdfc() {
   //
   //   }
   // }
+
+
+  sessionData() {
+    if (sessionStorage.stepper1Details != '' && sessionStorage.stepper1Details != undefined) {
+      this.getStepper1 = JSON.parse(sessionStorage.stepper1Details);
+      this.personal = this.fb.group({
+
+        title: this.getStepper1.title,
+        firstnm: this.getStepper1.firstnm,
+        lastnm: this.getStepper1.lastnm,
+        gender: this.getStepper1.gender,
+        dob: this.getStepper1.dob,
+        fathernm: this.getStepper1.fathernm,
+        maritalstatus: this.getStepper1.maritalstatus,
+        eduqual: this.getStepper1.eduqual,
+        nationality: this.getStepper1.nationality,
+        residentstatus: this.getStepper1.residentstatus,
+        ishdfcempflg: this.getStepper1.ishdfcempflg,
+        exstngcustflg: this.getStepper1.exstngcustflg,
+        isdisabledflg: this.getStepper1.isdisabledflg,
+        dematflg: this.getStepper1.dematflg,
+        smokerstatusflg: this.getStepper1.smokerstatusflg,
+        historyofconviction: this.getStepper1.historyofconviction,
+        houseno: this.getStepper1.houseno,
+        street: this.getStepper1.street,
+        landmark: this.getStepper1.landmark,
+        city: this.getStepper1.city,
+        state: this.getStepper1.state,
+        pincode: this.getStepper1.pincode,
+        country: this.getStepper1.country,
+        chouseno: this.getStepper1.chouseno,
+        cstreet: this.getStepper1.cstreet,
+        clandmark: this.getStepper1.clandmark,
+        ccity: this.getStepper1.ccity,
+        cstate: this.getStepper1.cstate,
+        cpincode: this.getStepper1.cpincode,
+        ccountry: this.getStepper1.ccountry,
+        countrycode: this.getStepper1.countrycode,
+        mobilenum: this.getStepper1.mobilenum,
+        email: this.getStepper1.email,
+        expdurofstay: this.getStepper1.expdurofstay,
+        prfdcommaddr: this.getStepper1.prfdcommaddr,
+        prfdcommmode: this.getStepper1.prfdcommmode,
+        prfdcommlang: this.getStepper1.prfdcommlang,
+        occutype: this.getStepper1.occutype,
+        employernm: this.getStepper1.employernm,
+        annualincm: this.getStepper1.annualincm,
+        natureofoccu: this.getStepper1.natureofoccu,
+        addrline: this.getStepper1.addrline,
+        existulipflag: this.getStepper1.existulipflag,
+        sourcetype: this.getStepper1.sourcetype,
+        fundpcntg: this.getStepper1.fundpcntg,
+        fathernmtitle: this.getStepper1.fathernmtitle,
+        fatherfirstnm: this.getStepper1.fatherfirstnm,
+        fathermiddlenm: this.getStepper1.fathermiddlenm,
+        fatherlastnm: this.getStepper1.fatherlastnm,
+        mothernmtitle: this.getStepper1.mothernmtitle,
+        motherfirstnm: this.getStepper1.motherfirstnm,
+        mothermiddlenm: this.getStepper1.mothermiddlenm,
+        motherlastnm: this.getStepper1.motherlastnm,
+        mmaritalstatus: this.getStepper1.mmaritalstatus,
+        spousenmtitle: this.getStepper1.spousenmtitle,
+        spousefirstnm: this.getStepper1.spousefirstnm,
+        spousemiddlenm: this.getStepper1.spousemiddlenm,
+        spouselastnm: this.getStepper1.spouselastnm,
+        occutypesp: this.getStepper1.occutypesp,
+        catofoccupation: this.getStepper1.catofoccupation,
+        countryofbirth: this.getStepper1.countryofbirth,
+
+
+      });
+
+    }
+
+
+
+
+
+    if (sessionStorage.stepper3Details!= '' && sessionStorage.stepper3Details != undefined) {
+      let getStepper3 = JSON.parse(sessionStorage.stepper3Details);
+      if (getStepper3.itemsNominee.length > 1) {
+        this.addNominee(event);
+      }
+      console.log(getStepper3.itemsNominee[0].nomineeName, ' patchval ');
+      console.log(this.nomineeDetail['controls'].itemsNominee['controls'][0]['controls'].nomineeName, ' nnName ');
+      console.log(getStepper3,'333333');
+      console.log(getStepper3.itemsNominee.length,'length');
+      for (let i = 0; i < getStepper3.itemsNominee.length; i++) {
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ntitle.patchValue(getStepper3.itemsNominee[i].ntitle);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nfirstnm.patchValue(getStepper3.itemsNominee[i].nfirstnm);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nlastnm.patchValue(getStepper3.itemsNominee[i].nlastnm);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nDob.patchValue(this.datepipe.transform(getStepper3.itemsNominee[i].nDob, 'y-MM-dd'));
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ngender.patchValue(getStepper3.itemsNominee[i].ngender);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nmaritalstatus.patchValue(getStepper3.itemsNominee[i].nmaritalstatus);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].entitlepctg.patchValue(getStepper3.itemsNominee[i].entitlepctg);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nhouseno.patchValue(getStepper3.itemsNominee[i].nhouseno);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstreet.patchValue(getStepper3.itemsNominee[i].nstreet);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nlandmark.patchValue(getStepper3.itemsNominee[i].nlandmark);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ncity.patchValue(getStepper3.itemsNominee[i].ncity);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].nstate.patchValue(getStepper3.itemsNominee[i].nstate);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].npincode.patchValue(getStepper3.itemsNominee[i].npincode);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].showAppointee.patchValue(getStepper3.itemsNominee[i].showAppointee);
+
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].afirstnm.patchValue(getStepper3.itemsNominee[i].afirstnm);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alastnm.patchValue(getStepper3.itemsNominee[i].alastnm);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].aDob.patchValue(this.datepipe.transform(getStepper3.itemsNominee[i].aDob, 'y-MM-dd'));
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].agender.patchValue(getStepper3.itemsNominee[i].agender);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].ahouseno.patchValue(getStepper3.itemsNominee[i].ahouseno);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.itemsNominee[i].astreet);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].alandmark.patchValue(getStepper3.itemsNominee[i].alandmark);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acity.patchValue(getStepper3.itemsNominee[i].acity);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astate.patchValue(getStepper3.itemsNominee[i].astate);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].acountry.patchValue(getStepper3.itemsNominee[i].acountry);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].astreet.patchValue(getStepper3.itemsNominee[i].astreet);
+        this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].apincode.patchValue(getStepper3.itemsNominee[i].apincode);
+      }
+    }
+    console.log(this.nomineeDetail, ' stepper3 ');
+
+
+
+  }
+
 
 
 }

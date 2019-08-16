@@ -20,7 +20,7 @@ export const environment = {
     lifeInsurance: true,
     motorInsurance: true,
     paAccident: true
-
+    //
     // apiHost: 'https://vizzainsurance.com/vizza/api/index.php/v1/',
     // apiHostTravel: 'https://vizzainsurance.com/vizza/api/index.php/travel/',
     // apiHostPa: 'https://vizzainsurance.com/vizza/api/index.php/pa/',
@@ -32,6 +32,7 @@ export const environment = {
     // apiHostTerm: 'https://vizzainsurance.com/vizza/api/index.php/termlife/',
     // apiHostMotor: 'http://vizzainsurance.com/vizza/api/index.php/mtw/',
     // apiHostMotorFour: 'http://vizzainsurance.com/vizza/api/index.php/mtw/',
+    // apiHostmiscproduct: 'http://vizzainsurance.com/vizza/api/index.php/misc_product/',
     // webHost: 'https://vizzainsurance.com',
     // imgUrl: 'https://vizzainsurance.com/vizza',
     // travelInsurance: true,
