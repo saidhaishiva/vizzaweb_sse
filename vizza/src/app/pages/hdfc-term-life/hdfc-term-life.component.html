@@ -655,7 +655,7 @@
                                 <mat-datepicker #picker2></mat-datepicker>
                                 <!--<mat-error *ngIf="nomineeDetail.invalid">DOB is required</mat-error>-->
                               </mat-form-field>
-                              <p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].dateErrorNominee.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].dateErrorNominee.value}}</p>
+                              <!--<p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].dateErrorNominee.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].dateErrorNominee.value}}</p>-->
                             </div>
 
                             <div class="col-md-4">
@@ -775,13 +775,13 @@
 
                                     </mat-form-field>
                                   </div>
-                                  <div class="col-md-3">
-                                    <mat-form-field class="w-100" >
-                                      <mat-placeholder> First Name <span class="error" >*</span></mat-placeholder>
-                                      <input matInput formControlName="afirstnm"  (keypress)="nameValidate($event)" autocomplete="off">
+                                  <!--<div class="col-md-3">-->
+                                    <!--<mat-form-field class="w-100" >-->
+                                      <!--<mat-placeholder> First Name <span class="error" >*</span></mat-placeholder>-->
+                                      <!--<input matInput formControlName="afirstnm"  (keypress)="nameValidate($event)" autocomplete="off">-->
 
-                                    </mat-form-field>
-                                  </div>
+                                    <!--</mat-form-field>-->
+                                  <!--</div>-->
                                   <div class="col-md-3"  >
                                     <mat-form-field class="w-100">
                                       <mat-placeholder>Gender<span class="error" >*</span></mat-placeholder>
