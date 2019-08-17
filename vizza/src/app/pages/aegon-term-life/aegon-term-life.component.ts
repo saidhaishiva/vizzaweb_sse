@@ -111,6 +111,7 @@ export class AegonTermLifeComponent implements OnInit {
   public icicMsg : any;
   public ecsaMsg : any;
   public adbsaMsg : any;
+  public adbsaMsg1 : any;
   public dbsaMsg : any;
   public husMsg : any;
   public wifeMsg : any;
@@ -270,11 +271,7 @@ export class AegonTermLifeComponent implements OnInit {
 
     });
 
-    this.errorMsg1 = '';
-    this.errorMsg2 = '';
-    this.errorMsg3 = '';
-    this.errorMsg4 = '';
-    this.errorMsg = '';
+
   }
 
   ngOnInit() {
@@ -510,6 +507,20 @@ export class AegonTermLifeComponent implements OnInit {
     }
 
     }
+
+
+  validateaAmount(event){
+    console.log(this.personal.controls.adbrSumAssured.value,'value of adbrSumAssure');
+    if (this.personal.controls.adbrSumAssured.value > this.personal.controls.deathBenefitSA.value){
+      this.adbsaMsg1 = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA';
+      this.errorMsg = 'ADB SA should be min. 50000 and max. 3Cr. or equal to Base SA ';
+    }else{
+      this.adbsaMsg1='';
+      this.errorMsg='';
+    }
+  }
+
+
     //AddOn Funcion's
   deathBenefitSA(sumInsured){
     sumInsured = parseInt(sumInsured);
@@ -536,6 +547,7 @@ export class AegonTermLifeComponent implements OnInit {
       this.errorMsg = 'Sum Assured should not be Empty';
     }
   }
+
 
   adbrSumAssured(sumInsured){
     sumInsured = parseInt(sumInsured);
@@ -571,6 +583,7 @@ export class AegonTermLifeComponent implements OnInit {
       this.errorMsg = 'Rider should not be Empty';
     }
   }
+
 
   enchancedCISA(sumInsured){
     sumInsured = parseInt(sumInsured);
