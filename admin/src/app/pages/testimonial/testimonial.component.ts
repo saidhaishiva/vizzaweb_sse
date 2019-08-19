@@ -57,10 +57,10 @@ export class TestimonialComponent implements OnInit {
   constructor(public router: Router, public route: ActivatedRoute,
               public appSettings: AppSettings, private toastr: ToastrService,
               public dialog: MatDialog, public auth: AuthService,
-              public config: ConfigurationService, public common: CommonService, public doctorService: DoctorsService, public branchservice: BranchService) {
+              public config: ConfigurationService, public common: CommonService, public doctorService: DoctorsService,public branchservice: BranchService) {
     this.settings = this.appSettings.settings;
     // this.settings.loadingSpinner = true;
-    this.roleId = this.auth.getAdminRoleId();
+    this.roleId = this.auth.getAdminId();
     this.webhost = this.config.getimgUrl();
     this.filters = 'No';
     this.tabStatus = '0';
@@ -79,8 +79,7 @@ export class TestimonialComponent implements OnInit {
     this.holdPOSCount = 0;
     this.rejectedPOSCount = 0;
     this.POSStatus = '0';
-    this.filterStatus = false;
-  }
+    this.filterStatus = false;  }
 
   ngOnInit() {
     this.testimonialList('inactive');
@@ -104,7 +103,6 @@ export class TestimonialComponent implements OnInit {
         }
     );
   }
-
   testimonialSuccess(successData, value) {
     this.settings.loadingSpinner = false;
     this.loadingIndicator = false;
@@ -113,7 +111,7 @@ export class TestimonialComponent implements OnInit {
       this.allPosLists = successData.ResponseObject;
       if (value == 'inactive') {
         let POS = [];
-        for (let i = 0; i < successData.ResponseObject.length; i++) {
+        for (let i =0; i < successData.ResponseObject.length; i++) {
           if (successData.ResponseObject[i].status === '0') {
             this.posStatus = successData.ResponseObject[i].status;
             POS.push(successData.ResponseObject[i]);
@@ -124,7 +122,7 @@ export class TestimonialComponent implements OnInit {
         }
       } else if (value == 'active') {
         let POS = [];
-        for (let i = 0; i < successData.ResponseObject.length; i++) {
+        for (let i =0; i < successData.ResponseObject.length; i++) {
           if (successData.ResponseObject[i].status === '1') {
             this.posStatus = successData.ResponseObject[i].status;
             POS.push(successData.ResponseObject[i]);
@@ -136,7 +134,7 @@ export class TestimonialComponent implements OnInit {
         }
       } else if (value == 'rejected') {
         let POS = [];
-        for (let i = 0; i < successData.ResponseObject.length; i++) {
+        for (let i =0; i < successData.ResponseObject.length; i++) {
           if (successData.ResponseObject[i].status === '2') {
             this.posStatus = successData.ResponseObject[i].status;
             POS.push(successData.ResponseObject[i]);
@@ -146,15 +144,28 @@ export class TestimonialComponent implements OnInit {
 
           }
         }
+      } else if (value == 'onhold') {
+        let POS = [];
+        this.rows = [];
+        this.temp = [];
+        for (let i =0; i < successData.ResponseObject.length; i++) {
+          if (successData.ResponseObject[i].status === '3') {
+            this.posStatus = successData.ResponseObject[i].status ;
+            POS.push(successData.ResponseObject[i]);
+            this.temp = [...POS];
+            this.rows = POS;
+            this.totalPOS = POS.length;
+
+          }
+        }
       }
+
     }
   }
-
   testimonialFailure(error) {
     this.settings.loadingSpinner = false;
     console.log(error);
   }
-
   public tabChange(value) {
     console.log(value);
     this.tabValue = value;
@@ -163,7 +174,7 @@ export class TestimonialComponent implements OnInit {
     this.testimonialList(value);
   }
 
-  speical() {
+  speical () {
     const dialogRef = this.dialog.open(AddtestimonialComponent, {
       width: '800px'
     });
@@ -176,7 +187,7 @@ export class TestimonialComponent implements OnInit {
   }
 
   updateFilter(event) {
-    console.log(event, 'ed');
+    console.log(event,'ed');
     const val = event.target.value.toLowerCase();
     const temp = this.temp.filter(function (d) {
       return d.customer_name.toLowerCase().indexOf(val) !== -1 || !val;
@@ -199,7 +210,7 @@ export class TestimonialComponent implements OnInit {
     });
   }
 
-  updatestatus(row, event) {
+  updatestatus(row,event) {
     const data = {
       'platform': 'web',
       'role_id': this.auth.getAdminRoleId(),
@@ -224,34 +235,6 @@ export class TestimonialComponent implements OnInit {
   }
 
   UpdateFailure(error) {
-    console.log(error);
-  }
-
-  rejectlist(row) {
-    const data = {
-      'platform': 'web',
-      'role_id': this.auth.getAdminRoleId(),
-      'testemonial_id': row.id,
-      'testemonial_status': '2'
-    };
-    this.branchservice.statusupdate(data).subscribe(
-        (successData) => {
-          this.rejectSuccess(successData);
-        },
-        (error) => {
-          this.rejectFailure(error);
-        }
-    );
-  }
-
-  rejectSuccess(successData) {
-    if (successData.IsSuccess) {
-      this.toastr.success('Rejected Successfully!');
-      this.testimonialList(this.tabValue);
-    }
-  }
-
-  rejectFailure(error) {
     console.log(error);
   }
 }

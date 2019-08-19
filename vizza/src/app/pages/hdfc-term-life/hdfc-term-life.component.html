@@ -647,16 +647,16 @@
                                 <!--<mat-error *ngIf="personal.controls.gender.errors?.required">Title is required</mat-error>-->
                               </mat-form-field>
                             </div>
-                            <div class="col-md-4">
-                              <mat-form-field class="w-100">
-                                <input matInput [matDatepicker]="picker2" [max]="today"   placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEventNominee($event,i ,'nominee')" (dateChange)="addEventNominee($event,i, 'nominee')" (keypress)="appointeeAgeValid($event,i)"  required minlength="10" maxlength="10"
-                                       autocomplete="off"   required>
-                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                <mat-datepicker #picker2></mat-datepicker>
-                                <!--<mat-error *ngIf="nomineeDetail.invalid">DOB is required</mat-error>-->
-                              </mat-form-field>
-                              <!--<p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].dateErrorNominee.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].dateErrorNominee.value}}</p>-->
-                            </div>
+                            <!--<div class="col-md-4">-->
+                              <!--<mat-form-field class="w-100">-->
+                                <!--<input matInput [matDatepicker]="picker2" [max]="today"   placeholder="DOB (DD/MM/YYYY)"  (keypress)="dobValidate($event)"  formControlName="nDob" (dateInput)="addEventNominee($event,i ,'nominee')" (dateChange)="addEventNominee($event,i, 'nominee')" (keypress)="appointeeAgeValid($event,i)"  required minlength="10" maxlength="10"-->
+                                       <!--autocomplete="off"   required>-->
+                                <!--<mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>-->
+                                <!--<mat-datepicker #picker2></mat-datepicker>-->
+                                <!--&lt;!&ndash;<mat-error *ngIf="nomineeDetail.invalid">DOB is required</mat-error>&ndash;&gt;-->
+                              <!--</mat-form-field>-->
+                              <!--&lt;!&ndash;<p class="error mb-0" *ngIf="nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].dateErrorNominee.value != ''">{{nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].dateErrorNominee.value}}</p>&ndash;&gt;-->
+                            <!--</div>-->
 
                             <div class="col-md-4">
                               <mat-form-field class="w-100">
@@ -711,12 +711,12 @@
                                 </mat-select>
                                 <!--<mat-error *ngIf="personal.controls.state.errors?.required">State is required</mat-error>-->
                               </mat-form-field></div>
-                            <div class="col-md-4"><mat-form-field class="w-100">
-                              <input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" required formControlName="npincode" autocomplete="off"  >
-                              <!--<mat-error *ngIf="personal.controls.cPincode.hasError('minlength')">Pincode should be 6 digits</mat-error>-->
-                              <!--<mat-error *ngIf="personal.controls.cPincode.hasError('required')">Pincode is required</mat-error>-->
-                              <!--<mat-error *ngIf="personal.controls.cPincode.hasError('pattern')">Enter Valid  Pincode</mat-error>-->
-                            </mat-form-field></div>
+                            <!--<div class="col-md-4"><mat-form-field class="w-100">-->
+                              <!--<input matInput placeholder="PIN Code"  pattern="[1-9][0-9]{5}" (keypress)="numberValidate($event)" minlength="6"   maxlength="6" required formControlName="npincode" autocomplete="off"  >-->
+                              <!--&lt;!&ndash;<mat-error *ngIf="personal.controls.cPincode.hasError('minlength')">Pincode should be 6 digits</mat-error>&ndash;&gt;-->
+                              <!--&lt;!&ndash;<mat-error *ngIf="personal.controls.cPincode.hasError('required')">Pincode is required</mat-error>&ndash;&gt;-->
+                              <!--&lt;!&ndash;<mat-error *ngIf="personal.controls.cPincode.hasError('pattern')">Enter Valid  Pincode</mat-error>&ndash;&gt;-->
+                            <!--</mat-form-field></div>-->
                             <!--<div class="col-md-4">-->
                               <!--<mat-form-field class="w-100">-->
                                 <!--<mat-select placeholder="Country" formControlName="ncountry" autocomplete="off" required>-->
@@ -794,7 +794,7 @@
                                   <div class="col-md-3" >
                                     <mat-form-field class="w-100">
                                       <mat-placeholder >DOB (DD/MM/YYYY)<span class="error" >*</span></mat-placeholder>
-                                      <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="aDob" (dateInput)="addEventNominee($event,i ,'appointee')" (dateChange)="addEventNominee($event,i, 'appointee')" minlength="10" maxlength="10"
+                                      <input matInput [matDatepicker]="picker4" [max]="today" (keypress)="dobValidate($event)"  formControlName="aDob"   minlength="10" maxlength="10"
                                              autocomplete="off" >
                                       <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
                                       <mat-datepicker #picker4></mat-datepicker>
@@ -884,6 +884,10 @@
               </mat-expansion-panel>
             </mat-accordion>
           </mat-step>
+
+
+
+
 
 
             <mat-step [stepControl]="">

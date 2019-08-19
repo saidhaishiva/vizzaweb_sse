@@ -129,6 +129,7 @@ export class HdfcTermLifeComponent implements OnInit {
   public getEnquiryDetials: any;
   public enquiryFromDetials: any;
   public allProductLists: any;
+  public appointeeDobValidError: any;
 
   public proposerFormData: any;
   public nomineeFormData: any;
@@ -263,6 +264,7 @@ export class HdfcTermLifeComponent implements OnInit {
       astate: ['', Validators.required],
       acountry: ['', Validators.required],
       apincode: ['', Validators.required],
+      appointeeDobValidError:'',
       'itemsNominee' : this.fb.array([
         this.initItemRows()
       ])
@@ -579,49 +581,37 @@ export class HdfcTermLifeComponent implements OnInit {
 
       if (event.value != null) {
         let selectedDate = '';
-        let dob = '';
         let dob_days = '';
+        let dob = '';
         this.getAge = '';
         this.getDays;
-        dob = this.datepipe.transform(event.value, 'y-MM-dd');
-        // dob_days = this.datepipe.transform(event.value, 'dd-MM-y');
-
         if (typeof event.value._i == 'string') {
           const pattern = /^([0-9]{2})\/([0-9]{2})\/([0-9]{4})$/;
           if (pattern.test(event.value._i) && event.value._i.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
-
+            this.appointeeDobValidError = '';
           } else {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('Enter Valid DOB');
+            this.appointeeDobValidError = 'Enter Valid Date';
           }
-
           selectedDate = event.value._i;
-
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
           if (selectedDate.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
             this.getAge = this.ageCalculate(dob);
-            // this.getDays = this.ageCalculateInsurer(dob_days);
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDob.patchValue(dob);
+            console.log(this.getAge, ' this.nomineeAg');
 
           }
 
-        }
-        else if (typeof event.value._i == 'object') {
+        } else if (typeof event.value._i == 'object') {
+          dob = this.datepipe.transform(event.value, 'y-MM-dd');
           if (dob.length == 10) {
-            this.nomineeDetail['controls'].itemsNominee['controls'][i]['controls'].appointeeDobValidError.patchValue('');
             this.getAge = this.ageCalculate(dob);
-            // this.getDays = this.ageCalculateInsurer(dob_days);
-          }
-        }
-      }
-      if ( i == 0) {
-        sessionStorage.appointeeAge = this.getAge;
-      } else {
-        sessionStorage.appointeeAge2 = this.getAge;
-      }
+            console.log(this.getAge, 'age')
 
-      console.log(sessionStorage.appointeeAge,'appointeeAge1111');
-      console.log(sessionStorage.appointeeAge2,'appointeeAge2222');
+          }
+          this.dateError = '';
+        }
+        sessionStorage.appointeeAge = this.getAge;
+
+      }
 
 
 
@@ -781,21 +771,21 @@ export class HdfcTermLifeComponent implements OnInit {
   }
 
   public personalDetails(stepper: MatStepper, value) {
-    // this.personalData = value;
+    this.personalData = value;
     console.log(value, 'eeeeeeeeeee');
     sessionStorage.stepper1 = '';
     sessionStorage.stepper1 = JSON.stringify(value);
     // console.log(this.personal.valid, 'checked');
-    stepper.next();
-    this.topScroll();
+    if(this.personal.valid) {
+      if(sessionStorage.proposerAge >= 18){
+        stepper.next();
+        this.topScroll();
 
-    // if(this.personal.valid) {
-    //   if(sessionStorage.proposerAge >= 18){
-    //   } else {
-    //     this.toastr.error('Proposer age should be 18 or above');
-    //
-    //   }
-    // }
+      } else {
+        this.toastr.error('Proposer age should be 18 or above');
+
+      }
+    }
 
   }
 
@@ -822,12 +812,7 @@ export class HdfcTermLifeComponent implements OnInit {
       }
     }
 
-    let appointeeAge2 = false;
-    if (sessionStorage.appointeeAge2 != '' && sessionStorage.appointeeAge2 != undefined ) {
-      if ( sessionStorage.appointeeAge2 >=18 ) {
-        appointeeAge2 = true;
-      }
-    }
+
     console.log(sessionStorage.appointeeAge,'appointeeAge11222');
     console.log(sessionStorage.appointeeAge2,'appointeeAge2233');
 
@@ -856,16 +841,11 @@ export class HdfcTermLifeComponent implements OnInit {
 
         if (appointeeAge ) {
           // console.log(appointeeAge,'appointeeAgeentry')
-          if (appointeeAge2 || sessionStorage.appointeeAge2 == undefined ) {
-            // console.log(appointeeAge2,'aappointeeAge2eentry')
+
             stepper.next();
             this.topScroll();
             // console.log(appointeeAge2,'falseApp');
-          }
-          else {
-            this.toastr.error('Appointee2 Age should be greater than 18.');
-            // console.log('1111');
-          }
+
         } else {
           this.toastr.error('Appointee Age should be greater than 18.');
           // console.log('2222');
