@@ -256,6 +256,10 @@ export class CarTataaigProposalComponent implements OnInit {
     this.validation.space(event);
   }
 
+  onpaste(event: any) {
+    event.preventDefault();
+  }
+
   firstname(event) {
     this.proposer.controls['driveFirstname'].patchValue(event.target.value);
   }
@@ -661,6 +665,7 @@ export class CarTataaigProposalComponent implements OnInit {
   }
 
   proposerDetails(stepper: MatStepper, value) {
+    console.log(this.proposer.controls['proposerFirstname'],' form');
     sessionStorage.tatacarproposer = '';
     sessionStorage.tatacarproposer = JSON.stringify(value);
     if (this.proposer.valid) {
