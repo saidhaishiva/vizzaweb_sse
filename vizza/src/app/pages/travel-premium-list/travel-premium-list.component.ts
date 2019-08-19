@@ -566,7 +566,7 @@ export class TravelPremiumListComponent implements OnInit {
     }
     addCompare(value, index) {
         console.log(value, 'valuepp');
-        const data  = { index: index, plan_id: value.plan_id, product_id: value.product_id, plan_description: value.plan_description, plan_name: value.plan_name, premium_amount: value.total_premium, suminsured_amount: value.sum_insured_amount, suminsured_id: value.sum_insured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features, plan: value.plan};
+        const data  = { index: index, plan_id: value.plan_id, product_id: value.product_id, plan_description: value.plan_description, plan_name: value.plan_name, premium_amount: value.total_premium, suminsured_amount: value.sum_insured_amount, suminsured_id: value.sum_insured_id, company_logo: value.company_logo, company_name: value.company_name, key_features: value.key_features, plan: value.plan, travel_user_type: value.travel_user_type};
         this.equiryId = value.enquiry_id;
         this.allProductLists[index].compare = true;
         this.compareArray.push(data);
@@ -606,10 +606,12 @@ export class TravelPremiumListComponent implements OnInit {
         let plan;
         this.productLists = [];
         for (let i = 0; i < value.length; i++) {
-            this.productLists.push({plan_id: value[i].plan_id, product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id, sub_plan: value[i].plan ? value[i].plan : '' });
+            this.productLists.push({plan_id: value[i].plan_id, product_id: value[i].product_id, premium_amount: value[i].premium_amount, suminsured_amount: value[i].suminsured_amount, prod_suminsuredid: value[i].suminsured_id, sub_plan: value[i].plan ? value[i].plan : '', travel_user_type: value[i].travel_user_type });
             // if(value[i].product_id == '90'){
             //     plan = value[i].plan;
             }
+        console.log(this.compareArray,'this.compareArray');
+        console.log(this.productLists,'this.productLists');
 
         // for(let i = 0; i < this.setAllProductLists.length; i++){
         //     if(this.setAllProductLists[i].product_id == '90'){
