@@ -1316,6 +1316,11 @@ export class RelianceMotorProposalComponent implements OnInit {
               "PackageName": ""
             }
           },
+          "TPPDCover": {
+            "TPPDCover":{
+              "SumInsured": this.coverDetails.controls['TPPDCoverSi'].value
+            }
+          },
           "NonElectricItems": {
             "NonElectricalItems": {
               "NonElectricalItemsID": "",

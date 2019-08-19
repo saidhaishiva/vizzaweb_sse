@@ -1,0 +1,84 @@
+<div class="flex-p text-right">
+  <button mat-raised-button color="primary" type="button" class="button-right" (click)="addMetaDetails()"><i class="material-icons">
+    add
+  </i> Add</button>
+</div>
+<div>
+
+  <div [innerHtml]="testeditor">
+
+  </div>
+</div>
+
+<section>
+  <div class="flex-p">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="text-right h-100">
+          <mat-form-field class="w-25">
+            <input matInput placeholder="Search By Reference..." (keyup)="updateFilter($event)">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div fxLayout="column">
+        <div class="flex-p">
+
+          <ngx-datatable
+                  #table
+                  class="material"
+                  [headerHeight]="50"
+                  [limit]="10"
+                  [columnMode]="'force'"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [rows]="rows"
+                  [count]="total"
+                  [selected]="selected"
+                  [selectionType]="'checkbox'">
+
+            <ngx-datatable-column name="Title">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.title}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Component">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.component}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Keyword">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.keyword}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="description">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.descrition}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Action">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <i class="material-icons"  (click)="edit(row)" style="cursor: pointer" >
+                  edit
+                </i>
+                <i class="material-icons" (click)="delete(row)" style="cursor: pointer" >
+                  delete
+                </i>
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>

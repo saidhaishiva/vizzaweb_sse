@@ -110,7 +110,13 @@ export class JewelersblockComponent implements OnInit {
         }
     }
     fixAppointmentSuccess(successData) {
-    }
+        if (successData.IsSuccess) {
+            this.toastr.success(successData.ResponseObject);
+        } else {
+            this.toastr.error(successData.ErrorObject);
+
+        }
+  }
     fixAppointmentFailure(error) {
     }
     getPincodeDetails(pin, title) {

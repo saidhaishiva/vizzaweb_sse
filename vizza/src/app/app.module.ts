@@ -304,6 +304,7 @@ import { RelianceTwowheelerPaymentSuccessComponent } from './pages/reliance-twow
 import { CarTataaigDownloadPolicyComponent } from './pages/car-tataaig-download-policy/car-tataaig-download-policy.component';
 import { NewContactComponent } from './pages/new-contact/new-contact.component';
 import { EdelweissTermLifeComponent } from './pages/edelweiss-term-life/edelweiss-term-life.component';
+import { EdelweissOpt } from './pages/edelweiss-term-life/edelweiss-term-life.component';
 import { BajajGoldSurakshaComponent } from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
 import { BajajGoal} from './pages/bajaj-gold-suraksha/bajaj-gold-suraksha.component';
 import { SpecialContigencyPolicyComponent } from './pages/special-contigency-policy/special-contigency-policy.component';
@@ -324,6 +325,21 @@ import { ClearSessionTermlifeService} from './shared/services/clear-session-term
 import { HdfcTwoWheelerPaymentComponent } from './pages/hdfc-two-wheeler-payment/hdfc-two-wheeler-payment.component';
 import { HdfctwowheelerDownloadPolicyComponent } from './pages/hdfctwowheeler-download-policy/hdfctwowheeler-download-policy.component';
 import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.component';
+import { HdfcCarProposalComponent } from './pages/hdfc-car-proposal/hdfc-car-proposal.component';
+import { BajajTermPaymentSuccessComponent } from './pages/bajaj-term-payment-success/bajaj-term-payment-success.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { HdfcCarPaymentSuccessComponent } from './pages/hdfc-car-payment-success/hdfc-car-payment-success.component';
+import { ContractorMachineryPlantComponent } from './pages/contractor-machinery-plant/contractor-machinery-plant.component';
+import { ProfessionalLiabiltyPolicyComponent } from './pages/professional-liabilty-policy/professional-liabilty-policy.component';
+import { LiftPolicyComponent } from './pages/lift-policy/lift-policy.component';
+import { ProfessionalIndemnityPolicyComponent } from './pages/professional-indemnity-policy/professional-indemnity-policy.component';
+import { DirectorsLiabilityPolicyComponent } from './pages/directors-liability-policy/directors-liability-policy.component';
+import { EmployeeLiabilityComponent } from './pages/employee-liability/employee-liability.component';
+import { CareerLiabilityPolicyComponent } from './pages/career-liability-policy/career-liability-policy.component';
+import { LiabilityInsuranceActComponent } from './pages/liability-insurance-act/liability-insurance-act.component';
+import { GolfersPolicyComponent } from './pages/golfers-policy/golfers-policy.component';
+import { FiedlityPolicyComponent } from './pages/fiedlity-policy/fiedlity-policy.component';
+import { TermViewKeyfeaturesComponent} from './pages/term-life-premium-list/term-view-keyfeatures/term-view-keyfeatures.component';
 
 @NgModule({
     imports: [
@@ -354,6 +370,7 @@ import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.comp
         SelectDropDownModule,
         // NgxMatSelectSearchModule,
         // AmazingTimePickerModule,
+        MatDialogModule,
         routing
     ],
     declarations: [
@@ -495,6 +512,7 @@ import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.comp
         ViewProductDetailsComponent,
         TravelCompareComponent,
         TravelViewKeyFeaturesComponent,
+        TermViewKeyfeaturesComponent,
         AppollomunichpaComponent,
         BajajAlianzComponent,
         ApollomunichPaPaymentSuccessComponent,
@@ -557,6 +575,7 @@ import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.comp
         TravelBajajPaymentSuccessComponent,
         DownloadMessageTravelBajaj,
         BajajLifeOpt,
+        EdelweissOpt,
         ReliancePaPaymentSuccessComponent,
         ReliancePaDownloadPolicyComponent,
         DownloadReliancePersonalAccident,
@@ -603,8 +622,22 @@ import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.comp
         BajajGoal,
         HdfcTwoWheelerPaymentComponent,
         HdfctwowheelerDownloadPolicyComponent,
-        HdfcTermLifeComponent
+        HdfcTermLifeComponent,
+        HdfcCarProposalComponent,
+        BajajTermPaymentSuccessComponent,
+        HdfcCarPaymentSuccessComponent,
+        ContractorMachineryPlantComponent,
+        ProfessionalLiabiltyPolicyComponent,
+        LiftPolicyComponent,
+        ProfessionalIndemnityPolicyComponent,
+        DirectorsLiabilityPolicyComponent,
+        EmployeeLiabilityComponent,
+        CareerLiabilityPolicyComponent,
+        LiabilityInsuranceActComponent,
+        GolfersPolicyComponent,
+        FiedlityPolicyComponent,
     ],
+
     providers: [
         AppSettings,
         LoginService,
@@ -656,7 +689,7 @@ import { HdfcTermLifeComponent} from './pages/hdfc-term-life/hdfc-term-life.comp
         ComparelistComponent,CompareDetailsComponent, GrouppopupComponent, EnquiryPopupComponent,GroupmembersAlert, ProposalmessageComponent, ChangepasswordComponent, DownloadMessage, DownloadMessageReligare, DownloadtravelMessage, DownloadMessageRelianceTravel, PosstatusAlert, ViewdetailsComponent, TestimonialComponent, ResultpageComponent, ConfrimAlert, DocumentViewComponent, TrainingcompletedAlert,DmTrainingcompletedAlert, DmConfrimAlert, DmChangepasswordComponent, HealthInsurer, TravelCompareComponent, TravelViewKeyFeaturesComponent, DownloadMessageReligarePersonal,ViewProductDetailsComponent,
         DownloadAppolloPersonalAccident,PosstatusAlertTravel,PersonalInsurer,TravelInsurer,BurglaryInsurer,CarInsurer,BikeInsurer,TermLifeInsurer,HouseholdInsurer,ShopkepperInsurer,WorkmenInsurer, GroupHealthInsurer, GroupTermLifeInsurer, GroupPersonalAccidentInsurer, MarineCargoInsurer,ProfessionalInsurer,ContractorsInsurer,MoneyInsurer,PublicInsurer,ElectronicInsurer,MachineryInsurer,previousDisease,DownloadMessageHdfcHealth,DisclaimerDialog
         ,FireInsurer,RelainceAgeMin,RelainceAgeMax,AgeValidate,DownloadMessageBajaj,DownloadMessageHdfcPa,ClaimAssistanceDialog,DownloadMessageShriram,DownloadMessageHdfcTravel,DownloadMessageReligareTravel, PosInsurer,
-        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent,BajajGoal
+        DownloadMessageRelianceTravel,LifeCompareNowComponent,LifeCallBackComponent,LifeViewDetailsComponent,LifeDocuments,DownloadMessageTravelBajaj,BajajLifeOpt,EdelweissOpt,DownloadReliancePersonalAccident, DownloadMessageCholaHealth,PaymentModeValidate,idvvalidate,idvvalidatetwoWheeler,FourWheelerEnquirypopupComponent, ContactComponent, ViewmediaComponent, ViewKeyfeaturesComponent,BajajGoal,TermViewKeyfeaturesComponent
     ]
 })
 export class AppModule { }

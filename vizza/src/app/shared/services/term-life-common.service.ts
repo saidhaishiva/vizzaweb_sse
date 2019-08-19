@@ -496,6 +496,16 @@ export class TermLifeCommonService {
             .map(this.extractData)
             .catch(this.handleError);
     }
+    getDownloadPdf(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'bajaj/paymentReceipt';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
 
     //aegon term life
 
@@ -682,6 +692,26 @@ export class TermLifeCommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    alcoholDetailsEdelweiss(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/alcohol';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    tobaccoDetailEdelweiss(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/tobacco';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
     getePremiumTerm(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -762,6 +792,27 @@ export class TermLifeCommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    getepolicyStatus(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/policyStatus';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    geteacceptanceTerm(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/acceptanceTerm';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+
     geteState(data) {
         const json = JSON.stringify(data);
         const httpOptions = {
@@ -818,6 +869,16 @@ export class TermLifeCommonService {
             headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
         };
         const url = this.configurationService.getHostTerm() + 'edelweiss/heightInches';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    getepayoutMonthOption(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/payoutMonths';
         return this.http.post(url , json, httpOptions)
             .map(this.extractData )
             .catch(this.handleError);
@@ -1014,6 +1075,18 @@ export class TermLifeCommonService {
             .map(this.extractData )
             .catch(this.handleError);
     }
+    edelweissActivities(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/activities';
+        return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+
     fileUploadEdelweiss(data) {
         const json = JSON.stringify(data);
         const token = this.authService.getAccessToken();
@@ -1023,6 +1096,26 @@ export class TermLifeCommonService {
         const url = this.configurationService.getHostTerm() + 'edelweiss/contentType';
         return this.http.post(url, json, httpOptions)
             .map(this.extractData)
+            .catch(this.handleError);
+    }
+    edelweissDownloadPdf(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/DocDownload';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
+            .catch(this.handleError);
+    }
+    edelweissOtp(data) {
+        const json = JSON.stringify(data);
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'edelweiss/verify_otp';
+        return this.http.post(url , json, httpOptions)
+            .map(this.extractData )
             .catch(this.handleError);
     }
     // Hdfc term life
@@ -1717,6 +1810,17 @@ export class TermLifeCommonService {
         };
         const url = this.configurationService.getHostTerm() + 'hdfc/weight_list';
         return this.http.post(url, json, httpOptions)
+            .map(this.extractData)
+            .catch(this.handleError);
+    }
+    termviewKeyFeatureList(data) {
+        const json = JSON.stringify(data);
+        const token = this.authService.getAccessToken();
+        const httpOptions = {
+            headers: new HttpHeaders({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})
+        };
+        const url = this.configurationService.getHostTerm() + 'productlist/view_keyfeatures';
+        return this.http.post(url,json,httpOptions)
             .map(this.extractData)
             .catch(this.handleError);
     }

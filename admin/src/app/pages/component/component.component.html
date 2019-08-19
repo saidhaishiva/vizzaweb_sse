@@ -1,0 +1,85 @@
+<div class="flex-p text-right">
+  <button mat-raised-button color="primary" type="button" class="button-right" (click)="addMetaDetails()"><i class="material-icons">
+    add
+  </i> Add</button>
+</div>
+<div>
+
+  <div [innerHtml]="testeditor">
+
+  </div>
+</div>
+
+<section>
+  <div class="flex-p">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="text-left">
+          <mat-form-field class="w-50">
+            <mat-select placeholder="Filter By Status" [(ngModel)]="selectedStatus" (change)= "changeStatus()">
+              <mat-option *ngFor="let list of statusList" [value]="list.id">
+                {{list.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="text-right h-100">
+          <mat-form-field class="w-25">
+            <input matInput placeholder="Search By Reference..." (keyup)="updateFilter($event)">
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div fxLayout="column">
+        <div class="flex-p">
+
+          <ngx-datatable
+                  #table
+                  class="material"
+                  [headerHeight]="50"
+                  [limit]="10"
+                  [columnMode]="'force'"
+                  [footerHeight]="50"
+                  [rowHeight]="'auto'"
+                  [rows]="rows"
+                  [count]="total"
+                  [selected]="selected"
+                  [selectionType]="'checkbox'">
+
+            <ngx-datatable-column name="Component">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                {{row.component_name}}
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Active">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <mat-slide-toggle  [(ngModel)]="row.aprove" (change)="updateStatus(rowIndex, row)"></mat-slide-toggle>
+              </ng-template>
+            </ngx-datatable-column>
+            <ngx-datatable-column name="Action">
+              <ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-row="row" let-value="value">
+                <i class="material-icons"  (click)="edit(row)" style="cursor: pointer" >
+                  edit
+                </i>
+                <i class="material-icons" (click)="delete(row)" style="cursor: pointer" >
+                  delete
+                </i>
+              </ng-template>
+            </ngx-datatable-column>
+
+          </ngx-datatable>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>

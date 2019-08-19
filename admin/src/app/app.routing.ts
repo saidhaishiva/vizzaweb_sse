@@ -46,7 +46,12 @@ import {AddcenterComponent} from './pages/mediacenter/addcenter/addcenter.compon
 import {EditmediaComponent} from './pages/mediacenter/editmedia/editmedia.component';
 import { TestimonialComponent} from './pages/testimonial/testimonial.component';
 import {CareerListComponent} from './pages/career-list/career-list.component';
-import { TestimonialmanagerComponent } from './pages/testimonialmanager/testimonialmanager.component';
+import {MetaDetailsComponent} from './pages/meta-details/meta-details.component';
+import {AddMetaDetailComponent} from './pages/meta-details/add-meta-detail/add-meta-detail.component';
+import {EditMetaDetailComponent} from './pages/meta-details/edit-meta-detail/edit-meta-detail.component';
+import {ComponentComponent} from './pages/component/component.component';
+import {AddComponentComponent} from './pages/component/add-component/add-component.component';
+import {EditComponentComponent} from './pages/component/edit-component/edit-component.component';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -87,10 +92,14 @@ export const routes: Routes = [
             { path: 'dm-add', component: AddDmComponent, data: { breadcrumb: 'Add DM' } },
             { path: 'dm-edit/:id', component: EditDmComponent, data: { breadcrumb: 'Edit DM' } },
             { path: 'dm-profile/:id/:status', component: DmProfileComponent, data: { breadcrumb: 'DM Profile' } },
-            { path: 'testimonial', component: TestimonialComponent, data: { breadcrumb: 'Testimoinial'} },
+            { path: 'testimonial', component: TestimonialComponent, data: { breadcrumb: 'Testimonial'} },
             { path: 'careerList', component: CareerListComponent, data: { breadcrumb: 'Career'} },
-            { path: 'testimonialmanager', component: TestimonialmanagerComponent, data: { breadcrumb: 'Testimonialmanager'} }
-
+            { path: 'metaDetails', component: MetaDetailsComponent, data: { breadcrumb: 'Meta Details'} },
+            { path: 'addMetaDetails', component: AddMetaDetailComponent, data: { breadcrumb: 'Add Meta Details'} },
+            { path: 'editMetaDetails/:id', component: EditMetaDetailComponent, data: { breadcrumb: 'Edit Meta Details'} },
+            { path: 'component', component: ComponentComponent, data: { breadcrumb: 'Component'} },
+            { path: 'addComponent', component: AddComponentComponent, data: { breadcrumb: 'Add Component'} },
+            { path: 'editComponent/:id', component: EditComponentComponent, data: { breadcrumb: 'Edit Component'} },
         ]
     },
     { path: 'login',  loadChildren: 'app/pages/login/login.module#LoginModule' },

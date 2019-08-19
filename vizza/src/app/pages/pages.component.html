@@ -18,6 +18,7 @@
                              class="horizontal-menu flex-p-x">
                     <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
                         <app-horizontal-menu [menuParentId]="0"></app-horizontal-menu>
+                        <div style="color:green;"><span class="material-icons mt-2 pt-4 "><i>phone &nbsp;</i></span> 1800 425 3000</div>
                     </div>
                 </mat-toolbar>
 
@@ -50,7 +51,8 @@
                     <!--</ul>-->
 
                 <!--</nav>-->
-
+                <!--<div class="row">-->
+                <!--</div>-->
                 <div fxLayout="row" fxLayoutAlign="end center">
                     <!--<div fxLayout="row" fxLayoutAlign="start center" fxShow="false" fxShow.gt-xs class="search-bar">-->
                         <!--<form method="get">-->
@@ -61,6 +63,7 @@
                         <!--</form>-->
                     <!--</div>-->
                     <!--<app-flags-menu fxShow="false" fxShow.gt-sm></app-flags-menu>-->
+
                     <p class="login-name" *ngIf="settings.username != 'null null' && settings.username != ''">Hi, {{settings.username}}</p>
 
                     <!--<div class="social-icons">-->
@@ -72,7 +75,7 @@
                     <!--</div>-->
 
                     <div class="dropdown h-login" [hidden]="settings.userId != 0">
-                        <button type="button" class="btn btn-success dropdown-toggle btn-sm" data-toggle="dropdown">
+                        <button type="button" class="btn btn-success dropdown-toggle btn-sm mt-1" data-toggle="dropdown">
                             Login
                         </button>
                         <div class="dropdown-menu">
